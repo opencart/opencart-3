@@ -214,7 +214,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
     public function addRecurringPayment(array $item, string $vendor_tx_code): void {
         $this->load->language('extension/payment/sagepay_server');
 
-        // Subscription
+        // Subscriptions
         $this->load->model('checkout/subscription');
 
         // Trial information
@@ -257,7 +257,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
         $order_info = $this->model_checkout_order->getOrder($order_details['order_id']);
 
         if ($order_info) {
-            // Subscription
+            // Subscriptions
             $this->load->model('account/subscription');
 
             // Trial information
@@ -510,13 +510,13 @@ class ModelExtensionPaymentSagePayServer extends Model {
     }
 
     private function addRecurringTransaction($subscription_id, $response_data, $transaction, $type) {
-        // Subscription
+        // Subscriptions
         $this->load->model('account/subscription');
 
         $subscription_info = $this->model_account_subscription->getSubscription($subscription_id);
 
         if ($subscription_info) {
-            // Subscription
+            // Subscriptions
             $this->load->model('checkout/subscription');
 
             $this->model_checkout_subscription->editReference($subscription_id, $response_data['VendorTxCode']);
@@ -529,7 +529,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
     private function getProfiles() {
         $subscriptions = [];
 
-        // Subscription
+        // Subscriptions
         $this->load->model('account/subscription');
 
         $sql = "SELECT `s`.`subscription_id` FROM `" . DB_PREFIX . "subscription` `s` JOIN `" . DB_PREFIX . "order` `o` USING(`order_id`) WHERE `o`.`payment_code` = 'sagepay_server'";

@@ -380,7 +380,7 @@ class ControllerProductProduct extends Controller {
             $results = $this->model_catalog_product->getSubscriptions($product_id);
 
             foreach ($results as $result) {
-                // Subscription
+                // Subscriptions
                 $description = '';
 
                 $trial_price = $this->currency->format($this->tax->calculate($result['trial_price'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);

@@ -37,7 +37,7 @@ class ControllerMailSubscription extends Controller {
             $notify = '';
         }
 
-        // Subscription
+        // Subscriptions
         $this->load->model('sale/subscription');
 
         $filter_data = [
@@ -193,7 +193,7 @@ class ControllerMailSubscription extends Controller {
             $payment_code = '';
         }
 
-        // Subscription
+        // Subscriptions
         $this->load->model('sale/subscription');
 
         $filter_data = [

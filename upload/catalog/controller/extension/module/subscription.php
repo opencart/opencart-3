@@ -24,7 +24,7 @@ class ControllerExtensionModuleSubscription extends Controller {
                 'filter_date_next'              => date('Y-m-d H:i:s')
             ];
 
-            // Subscription
+            // Subscriptions
             $this->load->model('account/subscription');
 
             $results = $this->model_account_subscription->getSubscriptions($filter_data);
@@ -131,7 +131,7 @@ class ControllerExtensionModuleSubscription extends Controller {
             // Information
             $this->load->model('catalog/information');
 
-            // Subscription
+            // Subscriptions
             $this->load->model('account/subscription');
 
             $args['total_subscriptions'] = $this->model_account_subscription->getTotalSubscriptions();

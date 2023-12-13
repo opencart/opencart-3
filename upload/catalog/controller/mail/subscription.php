@@ -61,7 +61,7 @@ class ControllerMailSubscription extends Controller {
         $subscription['status']
         */
 
-        // Subscription
+        // Subscriptions
         $this->load->model('account/subscription');
 
         $filter_data = [
@@ -94,7 +94,7 @@ class ControllerMailSubscription extends Controller {
                     $payment_method = $this->model_account_payment_method->getPaymentMethod($result['customer_id'], $subscription['customer_payment_id']);
 
                     if ($payment_method) {
-                        // Subscription
+                        // Subscriptions
                         $this->load->model('checkout/subscription');
 
                         $subscription_order_product = $this->model_checkout_subscription->getSubscriptionByOrderProductId($result['order_product_id']);
@@ -223,7 +223,7 @@ class ControllerMailSubscription extends Controller {
 
                                             $data['customer_id'] = $order_info['customer_id'];
 
-                                            // Subscription
+                                            // Subscriptions
                                             if ($comment && $notify) {
                                                 $data['comment'] = nl2br($comment);
                                             } else {
@@ -480,7 +480,7 @@ class ControllerMailSubscription extends Controller {
         $subscription['status']
         */
 
-        // Subscription
+        // Subscriptions
         $this->load->model('account/subscription');
 
         $subscription_info = $this->model_account_subscription->getSubscription($subscription_id);

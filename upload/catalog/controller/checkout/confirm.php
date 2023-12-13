@@ -378,7 +378,7 @@ class ControllerCheckoutConfirm extends Controller {
                     ];
                 }
 
-                // Subscription
+                // Subscriptions
 				$description = '';
 
 				if ($product['subscription']) {

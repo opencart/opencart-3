@@ -50,7 +50,7 @@ class ControllerAccountSubscription extends Controller {
 
         $data['subscriptions'] = [];
 
-        // Subscription
+        // Subscriptions
         $this->load->model('account/subscription');
 
         $filter_data = [
@@ -129,7 +129,7 @@ class ControllerAccountSubscription extends Controller {
             $subscription_id = 0;
         }
 
-        // Subscription
+        // Subscriptions
         $this->load->model('account/subscription');
 
         $subscription_info = $this->model_account_subscription->getSubscription($subscription_id);

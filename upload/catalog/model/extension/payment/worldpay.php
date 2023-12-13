@@ -172,7 +172,7 @@ class ModelExtensionPaymentWorldpay extends Model {
 	 * @return void
 	 */
     public function recurringPayment(array $item, string $order_id_rand, string $token): void {
-        // Subscription
+        // Subscriptions
         $this->load->model('checkout/subscription');
 
         // Worldpay
@@ -405,7 +405,7 @@ class ModelExtensionPaymentWorldpay extends Model {
     }
 
     private function getProfile($subscription_id) {
-        // Subscription
+        // Subscriptions
         $this->load->model('account/subscription');
 
         $subscription_info = $this->model_account_subscription->getSubscription($subscription_id);

@@ -64,7 +64,7 @@ class ModelCatalogProduct extends Model {
             }
         }
 
-        // Subscription
+        // Subscriptions
         if (isset($data['product_subscription'])) {
             foreach ($data['product_subscription'] as $product_subscription) {
                 $query = $this->db->query("SELECT `product_id` FROM `" . DB_PREFIX . "product_subscription` WHERE `product_id` = '" . (int)$product_id . "' AND `customer_group_id` = '" . (int)$product_subscription['customer_group_id'] . "' AND `subscription_plan_id` = '" . (int)$product_subscription['subscription_plan_id'] . "'");
@@ -216,7 +216,7 @@ class ModelCatalogProduct extends Model {
             }
         }
 
-        // Subscription
+        // Subscriptions
         $this->db->query("DELETE FROM `" . DB_PREFIX . "product_subscription` WHERE `product_id` = '" . (int)$product_id . "'");
 
         if (isset($data['product_subscription'])) {

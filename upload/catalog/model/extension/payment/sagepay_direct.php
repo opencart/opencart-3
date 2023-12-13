@@ -215,7 +215,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	 * @return void
 	 */
     public function recurringPayment(array $item, int $vendor_tx_code): void {
-        // Subscription
+        // Subscriptions
         $this->load->model('checkout/subscription');
 
         // Sagepay Direct
@@ -494,13 +494,13 @@ class ModelExtensionPaymentSagePayDirect extends Model {
     }
 
     private function addRecurringTransaction(int $subscription_id, array $response_data, array $transaction, int $type): void {
-        // Subscription
+        // Subscriptions
         $this->load->model('account/subscription');
 
         $subscription_info = $this->model_account_subscription->getSubscription($subscription_id);
 
         if ($subscription_info) {
-            // Subscription
+            // Subscriptions
             $this->load->model('checkout/subscription');
 
             $this->model_checkout_subscription->editReference($subscription_id, $response_data['VendorTxCode']);
@@ -513,7 +513,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
     private function getProfiles(): array {
         $subscriptions = [];
 
-        // Subscription
+        // Subscriptions
         $this->load->model('account/subscription');
 
         $sql = "SELECT `s`.`subscription_id` FROM `" . DB_PREFIX . "subscription` `s` JOIN `" . DB_PREFIX . "order` `o` USING(`order_id`) WHERE `o`.`payment_code` = 'sagepay_direct'";

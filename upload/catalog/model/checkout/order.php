@@ -17,7 +17,7 @@ class ModelCheckoutOrder extends Model {
 
         $order_id = $this->db->getLastId();
 
-        // Subscription
+        // Subscriptions
         $this->load->model('checkout/subscription');
 
         // Products
@@ -531,7 +531,7 @@ class ModelCheckoutOrder extends Model {
 				$this->load->model('checkout/subscription');
 
                 foreach ($order_products as $order_product) {
-					// Subscription
+					// Subscriptions
 					$order_subscription_info = $this->getSubscription($order_id, $order_product['order_product_id']);
 
 					if ($order_subscription_info) {

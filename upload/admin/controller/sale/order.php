@@ -507,7 +507,7 @@ class ControllerSaleOrder extends Controller {
             // Customers
             $this->load->model('customer/customer');
 
-            // Subscription
+            // Subscriptions
             $this->load->model('sale/subscription');
 
             // Settings
@@ -543,7 +543,7 @@ class ControllerSaleOrder extends Controller {
             $data['shipping_method'] = $order_info['shipping_method'];
             $data['shipping_code'] = $order_info['shipping_code'];
 
-            // Subscription
+            // Subscriptions
             $filter_data = [
                 'filter_order_id' => $order_info['order_id']
             ];
@@ -564,7 +564,7 @@ class ControllerSaleOrder extends Controller {
             $products = $this->model_sale_order->getProducts($this->request->get['order_id']);
 
             foreach ($products as $product) {
-                // Subscription
+                // Subscriptions
                 $subscription_data = '';
 
                 foreach ($subscriptions as $subscription) {
@@ -914,7 +914,7 @@ class ControllerSaleOrder extends Controller {
                 $data['customer'] = '';
             }
 
-            // Subscription
+            // Subscriptions
             $this->load->model('sale/subscription');
 
             // Customer Groups
@@ -1006,7 +1006,7 @@ class ControllerSaleOrder extends Controller {
 
             $data['shipping_address'] = str_replace(["\r\n", "\r", "\n" ], '<br/>', preg_replace(["/\s\s+/", "/\r\r+/", "/\n\n+/"], '<br/>', trim(str_replace($find, $replace, $format))));
 
-            // Subscription
+            // Subscriptions
             $filter_data = [
                 'filter_order_id' => $this->request->get['order_id']
             ];
@@ -1054,7 +1054,7 @@ class ControllerSaleOrder extends Controller {
                     }
                 }
 
-                // Subscription
+                // Subscriptions
                 $subscription_data = '';
 
                 foreach ($subscriptions as $subscription) {
@@ -1662,7 +1662,7 @@ class ControllerSaleOrder extends Controller {
         // Settings
         $this->load->model('setting/setting');
 
-        // Subscription
+        // Subscriptions
         $this->load->model('sale/subscription');
 
         // Subscription Status
@@ -1785,7 +1785,7 @@ class ControllerSaleOrder extends Controller {
 
                 $shipping_address = str_replace(["\r\n", "\r", "\n"], '<br/>', preg_replace(["/\s\s+/", "/\r\r+/", "/\n\n+/"], '<br/>', trim(str_replace($find, $replace, $format))));
 
-                // Subscription
+                // Subscriptions
                 $filter_data = [
                     'filter_order_id' => $order_id
                 ];
@@ -1821,7 +1821,7 @@ class ControllerSaleOrder extends Controller {
                         ];
                     }
 
-                    // Subscription
+                    // Subscriptions
                     $subscription_data = '';
 
                     foreach ($subscriptions as $subscription) {
@@ -1926,7 +1926,7 @@ class ControllerSaleOrder extends Controller {
         // Settings
         $this->load->model('setting/setting');
 
-        // Subscription
+        // Subscriptions
         $this->load->model('sale/subscription');
 
         // Subscription Status
@@ -2010,7 +2010,7 @@ class ControllerSaleOrder extends Controller {
 
                 $product_data = [];
 
-                // Subscription
+                // Subscriptions
                 $filter_data = [
                     'filter_order_id' => $order_id
                 ];
@@ -2062,7 +2062,7 @@ class ControllerSaleOrder extends Controller {
                             }
                         }
 
-                        // Subscription
+                        // Subscriptions
                         $subscription_data = '';
 
                         foreach ($subscriptions as $subscription) {

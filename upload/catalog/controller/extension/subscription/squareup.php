@@ -36,9 +36,9 @@ class ControllerExtensionSubscriptionSquareup extends Controller {
             $order_recurring_info = $this->model_account_recurring->getRecurring($order_recurring_id);
         }
 
-        // Subscription
+        // Subscriptions
         if ($subscription_id) {
-			// Subscription
+			// Subscriptions
             $this->load->model('account/subscription');
 
             $order_recurring_info = $this->model_account_subscription->getSubscription($subscription_id);
@@ -106,9 +106,9 @@ class ControllerExtensionSubscriptionSquareup extends Controller {
             $order_recurring_info = $this->model_account_recurring->getRecurring($order_recurring_id);
         }
 
-        // Subscription
+        // Subscriptions
         if ($subscription_id) {
-			// Subscription
+			// Subscriptions
             $this->load->model('account/subscription');
 
             $order_recurring_info = $this->model_account_subscription->getSubscription($subscription_id);

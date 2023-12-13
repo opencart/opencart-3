@@ -117,7 +117,7 @@ class ControllerCheckoutCart extends Controller {
                     $total = false;
                 }
 
-				// Subscription
+				// Subscriptions
 				$description = '';
 
 				if ($product['subscription']) {

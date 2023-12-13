@@ -235,7 +235,7 @@ class ModelExtensionPaymentSquareup extends Model {
 	 * @return void
 	 */
     public function createRecurring(int $order_id, array $data): void {
-        // Subscription
+        // Subscriptions
         $this->load->model('checkout/subscription');
 
         $status = self::RECURRING_ACTIVE;
@@ -368,7 +368,7 @@ class ModelExtensionPaymentSquareup extends Model {
         $order_info = $this->model_checkout_order->getOrder($response_data['order_id']);
 
         if ($order_info) {
-            // Subscription
+            // Subscriptions
             $this->load->model('account/subscription');
             $this->load->model('checkout/subscription');
 
@@ -463,7 +463,7 @@ class ModelExtensionPaymentSquareup extends Model {
     }
 
     private function getSubscription($subscription_id) {
-        // Subscription
+        // Subscriptions
         $this->load->model('account/subscription');
 
         return $this->model_account_subscription->getSubscription($subscription_id);

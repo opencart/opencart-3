@@ -13,7 +13,7 @@ class ControllerCustomerCustomerApproval extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        // Subscription
+        // Subscriptions
         $this->load->model('customer/customer_approval');
 
         $this->getList();

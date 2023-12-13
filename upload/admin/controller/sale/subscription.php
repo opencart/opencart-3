@@ -15,7 +15,7 @@ class ControllerSaleSubscription extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        // Subscription
+        // Subscriptions
         $this->load->model('sale/subscription');
 
         $this->getList();
@@ -129,7 +129,7 @@ class ControllerSaleSubscription extends Controller {
             'limit'                         => $this->config->get('config_limit_admin')
         ];
 
-        // Subscription
+        // Subscriptions
         $this->load->model('sale/subscription');
 
         $subscription_total = $this->model_sale_subscription->getTotalSubscriptions($filter_data);
@@ -325,7 +325,7 @@ class ControllerSaleSubscription extends Controller {
 
         $data['back'] = $this->url->link('sale/subscription', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
-        // Subscription
+        // Subscriptions
         $this->load->model('sale/subscription');
 
         $subscription_info = $this->model_sale_subscription->getSubscription($subscription_id);
@@ -540,7 +540,7 @@ class ControllerSaleSubscription extends Controller {
             $json['error'] = $this->language->get('error_subscription_plan');
         }
 
-        // Subscription
+        // Subscriptions
         $this->load->model('sale/subscription');
 
         $subscription_info = $this->model_sale_subscription->getSubscription($subscription_id);
@@ -590,7 +590,7 @@ class ControllerSaleSubscription extends Controller {
 
         $data['histories'] = [];
 
-        // Subscription
+        // Subscriptions
         $this->load->model('sale/subscription');
 
         $results = $this->model_sale_subscription->getHistories($subscription_id, ($page - 1) * 10, 10);
@@ -639,7 +639,7 @@ class ControllerSaleSubscription extends Controller {
         } elseif ($this->request->post['subscription_status_id'] == '') {
             $json['error'] = $this->language->get('error_subscription_status');
         } else {
-            // Subscription
+            // Subscriptions
             $this->load->model('sale/subscription');
 
             $subscription_info = $this->model_sale_subscription->getSubscription($subscription_id);
@@ -681,7 +681,7 @@ class ControllerSaleSubscription extends Controller {
 
         $data['transactions'] = [];
 
-        // Subscription
+        // Subscriptions
         $this->load->model('sale/subscription');
 
         $results = $this->model_sale_subscription->getTransactions($subscription_id, ($page - 1) * 10, 10);
@@ -732,7 +732,7 @@ class ControllerSaleSubscription extends Controller {
             $json['error'] = $this->language->get('error_service_type');
         }
 
-        // Subscription
+        // Subscriptions
         $this->load->model('sale/subscription');
 
         $subscription_info = $this->model_sale_subscription->getSubscription($subscription_id);

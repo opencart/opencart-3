@@ -71,7 +71,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
         // Orders
         $this->load->model('checkout/order');
 
-        // Subscription
+        // Subscriptions
         $this->load->model('account/subscription');
 
         // Countries
