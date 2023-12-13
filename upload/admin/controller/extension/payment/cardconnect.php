@@ -382,6 +382,7 @@ class ControllerExtensionPaymentCardConnect extends Controller {
         if ($this->config->get('payment_cardconnect_status')) {
             if (isset($this->request->post['order_id']) && isset($this->request->post['amount'])) {
                 if ($this->request->post['amount'] > 0) {
+					// Cardconnect
                     $this->load->model('extension/payment/cardconnect');
 
                     $payment_cardconnect_order = $this->model_extension_payment_cardconnect->getOrder($this->request->post['order_id']);

@@ -48,6 +48,7 @@ class ControllerMailGdpr extends Controller {
 	public function export(array $gdpr_info): void {
 		$this->load->language('mail/gdpr_export');
 
+		// Stores
 		$this->load->model('setting/store');
 
 		$store_info = $this->model_setting_store->getStore($gdpr_info['store_id']);
@@ -72,6 +73,7 @@ class ControllerMailGdpr extends Controller {
 			$data['logo'] = '';
 		}
 
+		// Customers
 		$this->load->model('customer/customer');
 
 		$customer_info = $this->model_customer_customer->getCustomerByEmail($gdpr_info['email']);
@@ -214,6 +216,7 @@ class ControllerMailGdpr extends Controller {
 
 		$subject = sprintf($this->language->get('text_subject'), $store_name);
 
+		// Images
 		$this->load->model('tool/image');
 
 		if (is_file(DIR_IMAGE . $store_logo)) {
@@ -222,6 +225,7 @@ class ControllerMailGdpr extends Controller {
 			$data['logo'] = '';
 		}
 
+		// Customers
 		$this->load->model('customer/customer');
 
 		$customer_info = $this->model_customer_customer->getCustomerByEmail($gdpr_info['email']);
@@ -263,11 +267,13 @@ class ControllerMailGdpr extends Controller {
 	public function deny(array $gdpr_info): void {
 		$this->load->language('mail/gdpr_deny');
 
+		// Stores
 		$this->load->model('setting/store');
 
 		$store_info = $this->model_setting_store->getStore($gdpr_info['store_id']);
 
 		if ($store_info) {
+			// Settings
 			$this->load->model('setting/setting');
 
 			$store_logo = html_entity_decode($this->model_setting_setting->getSettingValue('config_logo', $store_info['store_id']), ENT_QUOTES, 'UTF-8');
@@ -281,6 +287,7 @@ class ControllerMailGdpr extends Controller {
 
 		$subject = sprintf($this->language->get('text_subject'), $store_name);
 
+		// Images
 		$this->load->model('tool/image');
 
 		if (is_file(DIR_IMAGE . $store_logo)) {
@@ -291,6 +298,7 @@ class ControllerMailGdpr extends Controller {
 
 		$data['text_request'] = $this->language->get('text_' . $gdpr_info['action']);
 
+		// Customers
 		$this->load->model('customer/customer');
 
 		$customer_info = $this->model_customer_customer->getCustomerByEmail($gdpr_info['email']);
@@ -331,6 +339,7 @@ class ControllerMailGdpr extends Controller {
 	public function remove(array $gdpr_info): void {
 		$this->load->language('mail/gdpr_delete');
 
+		// Stores
 		$this->load->model('setting/store');
 
 		$store_info = $this->model_setting_store->getStore($gdpr_info['store_id']);
@@ -349,6 +358,7 @@ class ControllerMailGdpr extends Controller {
 
 		$subject = sprintf($this->language->get('text_subject'), $store_name);
 
+		// Images
 		$this->load->model('tool/image');
 
 		if (is_file(DIR_IMAGE . $store_logo)) {
@@ -357,6 +367,7 @@ class ControllerMailGdpr extends Controller {
 			$data['logo'] = '';
 		}
 
+		// Customers
 		$this->load->model('customer/customer');
 
 		$customer_info = $this->model_customer_customer->getCustomerByEmail($gdpr_info['email']);

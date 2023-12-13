@@ -15,6 +15,7 @@ class ControllerSaleRecurring extends Controller {
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
+		// Recurring
 		$this->load->model('sale/recurring');
 
 		$this->getList();
@@ -393,6 +394,7 @@ class ControllerSaleRecurring extends Controller {
 				$data['recurring_status'] = '';
 			}
 
+			// Orders
 			$this->load->model('sale/order');
 
 			$order_info = $this->model_sale_order->getOrder($order_recurring_info['order_id']);

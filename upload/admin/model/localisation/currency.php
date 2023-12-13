@@ -203,6 +203,7 @@ class ModelLocalisationCurrency extends Model {
 			if ($currencies) {
                 $value = $currencies['EUR'];
 
+				// Currencies
 				$this->load->model('localisation/currency');
 
 				$results = $this->model_localisation_currency->getCurrencies();

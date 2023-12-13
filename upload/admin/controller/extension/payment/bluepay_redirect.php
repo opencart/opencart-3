@@ -265,6 +265,7 @@ class ControllerExtensionPaymentBluepayredirect extends Controller {
         $json = [];
 
         if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '' && isset($this->request->post['amount']) && $this->request->post['amount'] > 0) {
+			// Bluepay Redirect
             $this->load->model('extension/payment/bluepay_redirect');
 
             $bluepay_redirect_order = $this->model_extension_payment_bluepay_redirect->getOrder($this->request->post['order_id']);
@@ -326,6 +327,7 @@ class ControllerExtensionPaymentBluepayredirect extends Controller {
         $json = [];
 
         if (isset($this->request->post['order_id'])) {
+			// Bluepay Redirect
             $this->load->model('extension/payment/bluepay_redirect');
 
             $bluepay_redirect_order = $this->model_extension_payment_bluepay_redirect->getOrder($this->request->post['order_id']);

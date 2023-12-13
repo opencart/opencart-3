@@ -15,6 +15,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+		// Settings
         $this->load->model('setting/setting');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -156,6 +157,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 	 * @return void
 	 */
     public function install(): void {
+		// Sagepay Server
         $this->load->model('extension/payment/sagepay_server');
 
         $this->model_extension_payment_sagepay_server->install();
@@ -167,6 +169,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 	 * @return void
 	 */
     public function uninstall(): void {
+		// Sagepay Server
         $this->load->model('extension/payment/sagepay_server');
 
         $this->model_extension_payment_sagepay_server->uninstall();
@@ -179,6 +182,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 	 */
     public function order(): string {
         if ($this->config->get('payment_sagepay_server_status')) {
+			// Sagepay Server
             $this->load->model('extension/payment/sagepay_server');
 
             $sagepay_server_order = $this->model_extension_payment_sagepay_server->getOrder($this->request->get['order_id']);
@@ -215,6 +219,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
         $json = [];
 
         if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '') {
+			// Sagepay Server
             $this->load->model('extension/payment/sagepay_server');
 
             $sagepay_server_order = $this->model_extension_payment_sagepay_server->getOrder($this->request->post['order_id']);
@@ -260,6 +265,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
         $json = [];
 
         if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '' && isset($this->request->post['amount']) && $this->request->post['amount'] > 0) {
+			// Sagepay Server
             $this->load->model('extension/payment/sagepay_server');
 
             $sagepay_server_order = $this->model_extension_payment_sagepay_server->getOrder($this->request->post['order_id']);
@@ -319,6 +325,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
         $json = [];
 
         if (isset($this->request->post['order_id'])) {
+			// Sagepay Server
             $this->load->model('extension/payment/sagepay_server');
 
             $sagepay_server_order = $this->model_extension_payment_sagepay_server->getOrder($this->request->post['order_id']);

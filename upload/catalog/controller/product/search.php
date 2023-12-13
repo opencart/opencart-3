@@ -11,7 +11,7 @@ class ControllerProductSearch extends Controller {
     public function index(): void {
         $this->load->language('product/search');
 
-        // Image files
+        // Images
         $this->load->model('tool/image');
 
         // Products

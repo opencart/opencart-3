@@ -13,7 +13,7 @@ class ControllerExtensionModuleLatest extends Controller {
     public function index(array $setting): string {
         $this->load->language('extension/module/latest');
 
-        // Image files
+        // Images
         $this->load->model('tool/image');
 
         // Products

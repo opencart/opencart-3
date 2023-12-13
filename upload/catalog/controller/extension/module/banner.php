@@ -13,7 +13,7 @@ class ControllerExtensionModuleBanner extends Controller {
     public function index(array $setting): string {
         static $module = 0;
 
-        // Image files
+        // Images
         $this->load->model('tool/image');
 
         // Banners

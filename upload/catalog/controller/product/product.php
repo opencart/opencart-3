@@ -280,7 +280,7 @@ class ControllerProductProduct extends Controller {
                 $data['stock'] = $this->language->get('text_instock');
             }
 
-            // Image files
+            // Images
             $this->load->model('tool/image');
 
             if ($product_info['image']) {

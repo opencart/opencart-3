@@ -46,6 +46,7 @@ class Googleshopping extends Library {
 
         $this->store_id = $store_id;
 
+		// Settings
         $this->load->model('setting/setting');
 
         if ($this->store_id === 0) {
@@ -72,6 +73,7 @@ class Googleshopping extends Library {
     }
 
     public function getSupportedLanguageId($code) {
+		// Languages
         $this->load->model('localisation/language');
 
         foreach ($this->model_localisation_language->getLanguages() as $language) {
@@ -86,6 +88,7 @@ class Googleshopping extends Library {
     }
 
     public function getSupportedCurrencyId($code) {
+		// Currencies
         $this->load->model('localisation/currency');
 
         foreach ($this->model_localisation_currency->getCurrencies() as $currency) {
@@ -100,6 +103,7 @@ class Googleshopping extends Library {
     public function getCountryName($code) {
         $this->load->config('googleshopping/googleshopping');
 
+		// Countries
         $this->load->model('localisation/country');
 
         $countries = $this->config->get('advertise_google_countries');
@@ -223,6 +227,7 @@ class Googleshopping extends Library {
 
         $result = [];
 
+		// Languages
         $this->load->model('localisation/language');
 
         foreach ($this->db->query($sql)->rows as $row) {
@@ -562,6 +567,7 @@ class Googleshopping extends Library {
     public function getProductIds($data, $store_id) {
         $result = [];
 
+		// Languages
         $this->load->model('localisation/language');
 
         foreach ($this->getProducts($data, $store_id) as $row) {
@@ -1698,6 +1704,7 @@ class Googleshopping extends Library {
     }
 
     public function getLanguageName($language_id, $default) {
+		// Languages
         $this->load->model('localisation/language');
 
         $language_info = $this->model_localisation_language->getLanguage($language_id);
@@ -1731,6 +1738,7 @@ class Googleshopping extends Library {
     }
 
     public function getCurrencyName($currency_id, $default) {
+		// Google
         $this->load->model('extension/advertise/google');
 
         $currency_info = $this->getCurrency($currency_id);

@@ -11,7 +11,7 @@ class ControllerProductCompare extends Controller {
     public function index(): void {
         $this->load->language('product/compare');
 
-        // Image files
+        // Images
         $this->load->model('tool/image');
 
         // Products

@@ -353,7 +353,7 @@ class ControllerDesignBanner extends Controller {
 
         $data['languages'] = $this->model_localisation_language->getLanguages();
 
-        // Image files
+        // Images
         $this->load->model('tool/image');
 
         if (isset($this->request->post['banner_image'])) {

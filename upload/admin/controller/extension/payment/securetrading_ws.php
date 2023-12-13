@@ -508,6 +508,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
                         $json['msg'] = $this->language->get('text_release_ok_order');
 
+						// Orders
                         $this->load->model('sale/order');
 
                         $history = [];

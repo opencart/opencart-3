@@ -353,6 +353,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
                         'comment'         => '',
                     ];
 
+					// Orders
                     $this->load->model('sale/order');
 
                     $this->model_sale_order->addOrderHistory($this->request->post['order_id'], $this->data);
@@ -416,6 +417,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
                         $release_status = 1;
                         $json['msg'] = $this->language->get('text_release_ok_order');
 
+						// Orders
                         $this->load->model('sale/order');
 
                         $history = [];

@@ -11,7 +11,7 @@ class ControllerProductCategory extends Controller {
     public function index(): void {
         $this->load->language('product/category');
 
-        // Image files
+        // Images
         $this->load->model('tool/image');
 
         // Products

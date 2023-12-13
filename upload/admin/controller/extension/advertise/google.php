@@ -2028,7 +2028,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         // Google Shopping
         $this->load->config('googleshopping/googleshopping');
 
-        // Image files
+        // Images
         $this->load->model('tool/image');
 
         if (!empty($row['image']) && file_exists(DIR_IMAGE . $row['image'])) {

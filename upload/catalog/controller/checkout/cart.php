@@ -56,10 +56,10 @@ class ControllerCheckoutCart extends Controller {
                 $data['weight'] = '';
             }
 
-            // Image files
+            // Images
             $this->load->model('tool/image');
 
-            // Uploaded files
+            // Uploaded Files
             $this->load->model('tool/upload');
 
             $data['products'] = [];

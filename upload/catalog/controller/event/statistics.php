@@ -58,6 +58,7 @@ class ControllerEventStatistics extends Controller {
         $order_info = $this->model_checkout_order->getOrder($args[0]);
 
         if ($order_info) {
+			// Statistics
             $this->load->model('report/statistics');
 
             // If order status is in complete, or processing state, add value to sale total

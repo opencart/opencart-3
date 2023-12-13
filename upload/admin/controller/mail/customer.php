@@ -53,6 +53,7 @@ class ControllerMailCustomer extends Controller {
             $language->load($language_code);
             $language->load('mail/customer_approve');
 
+			// Images
             $this->load->model('tool/image');
 
             if (is_file(DIR_IMAGE . $store_logo)) {
@@ -135,7 +136,7 @@ class ControllerMailCustomer extends Controller {
             $language->load($language_code);
             $language->load('mail/customer_deny');
 
-            // Image files
+            // Images
             $this->load->model('tool/image');
 
             if (is_file(DIR_IMAGE . $store_logo)) {

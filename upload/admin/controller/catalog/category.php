@@ -472,7 +472,7 @@ class ControllerCatalogCategory extends Controller {
             $data['image'] = '';
         }
 
-        // Image files
+        // Images
         $this->load->model('tool/image');
 
         if (isset($this->request->post['image']) && is_file(DIR_IMAGE . $this->request->post['image'])) {

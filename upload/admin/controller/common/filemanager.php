@@ -42,7 +42,7 @@ class ControllerCommonFileManager extends Controller {
 
         $data['images'] = [];
 
-        // Image files
+        // Images
         $this->load->model('tool/image');
 
         if (substr(str_replace('\\', '/', realpath($directory) . '/' . $filter_name), 0, strlen(DIR_IMAGE . 'catalog')) == str_replace('\\', '/', DIR_IMAGE . 'catalog')) {

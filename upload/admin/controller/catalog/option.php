@@ -369,7 +369,7 @@ class ControllerCatalogOption extends Controller {
             $option_values = [];
         }
 
-        // Image files
+        // Images
         $this->load->model('tool/image');
 
         $data['option_values'] = [];
@@ -459,7 +459,7 @@ class ControllerCatalogOption extends Controller {
         if (isset($this->request->get['filter_name'])) {
             $this->load->language('catalog/option');
 
-            // Image files
+            // Images
             $this->load->model('tool/image');
 
             // Options

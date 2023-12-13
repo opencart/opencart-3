@@ -573,7 +573,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
         $this->load->language('checkout/cart');
         $this->load->language('extension/module/paypal_smart_button');
 
-        // Image files
+        // Images
         $this->load->model('tool/image');
 
         if (!isset($this->session->data['paypal_order_id'])) {
@@ -648,7 +648,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
             $data['next'] = '';
         }
 
-        // Uploaded files
+        // Uploaded Files
         $this->load->model('tool/upload');
 
         $products = $this->cart->getProducts();

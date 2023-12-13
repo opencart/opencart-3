@@ -69,7 +69,7 @@ class ControllerProductManufacturer extends Controller {
     public function info(): void {
         $this->load->language('product/manufacturer');
 
-        // Image files
+        // Images
         $this->load->model('tool/image');
 
         // Products

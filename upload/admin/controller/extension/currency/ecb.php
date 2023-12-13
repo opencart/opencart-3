@@ -15,6 +15,7 @@ class ControllerExtensionCurrencyEcb extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+		// Settings
         $this->load->model('setting/setting');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -176,7 +177,10 @@ class ControllerExtensionCurrencyEcb extends Controller {
                     }
 
                     if ($currencies) {
+						// Currencies
                         $this->load->model('localisation/currency');
+
+						// ECB
                         $this->load->model('extension/currency/ecb');
 
                         $default = $this->config->get('config_currency');

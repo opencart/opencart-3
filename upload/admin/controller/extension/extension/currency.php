@@ -13,6 +13,7 @@ class ControllerExtensionExtensionCurrency extends Controller {
     public function index(): void {
         $this->load->language('extension/extension/currency');
 
+		// Extensions
         $this->load->model('setting/extension');
 
         $this->getList();
@@ -26,6 +27,7 @@ class ControllerExtensionExtensionCurrency extends Controller {
     public function install(): void {
         $this->load->language('extension/extension/currency');
 
+		// Extensions
         $this->load->model('setting/extension');
 
         if ($this->validate()) {
@@ -53,6 +55,7 @@ class ControllerExtensionExtensionCurrency extends Controller {
     public function uninstall(): void {
         $this->load->language('extension/extension/currency');
 
+		// Extensions
         $this->load->model('setting/extension');
 
         if ($this->validate()) {

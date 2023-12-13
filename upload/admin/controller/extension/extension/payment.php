@@ -86,6 +86,7 @@ class ControllerExtensionExtensionPayment extends Controller {
             $data['success'] = '';
         }
 
+		// Extensions
         $this->load->model('setting/extension');
 
         $extensions = $this->model_setting_extension->getExtensionsByType('payment');

@@ -375,7 +375,7 @@ class ControllerCatalogManufacturer extends Controller {
             $data['image'] = '';
         }
 
-        // Image files
+        // Images
         $this->load->model('tool/image');
 
         if (isset($this->request->post['image']) && is_file(DIR_IMAGE . $this->request->post['image'])) {
@@ -456,6 +456,7 @@ class ControllerCatalogManufacturer extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
+		// Products
         $this->load->model('catalog/product');
 
         foreach ((array)$this->request->post['selected'] as $manufacturer_id) {

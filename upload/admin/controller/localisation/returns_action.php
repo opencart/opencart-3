@@ -357,6 +357,7 @@ class ControllerLocalisationReturnsAction extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
+		// Returns
         $this->load->model('sale/returns');
 
         foreach ((array)$this->request->post['selected'] as $return_action_id) {

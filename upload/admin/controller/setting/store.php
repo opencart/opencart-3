@@ -433,7 +433,7 @@ class ControllerSettingStore extends Controller {
             $data['config_image'] = '';
         }
 
-        // Image files
+        // Images
         $this->load->model('tool/image');
 
         if (isset($this->request->post['config_image']) && is_file(DIR_IMAGE . $this->request->post['config_image'])) {

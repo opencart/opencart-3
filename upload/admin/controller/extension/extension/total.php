@@ -33,6 +33,7 @@ class ControllerExtensionExtensionTotal extends Controller {
         if ($this->validate()) {
             $this->model_setting_extension->install('total', $this->request->get['extension']);
 
+			// User Groups
             $this->load->model('user/user_group');
 
             $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/total/' . $this->request->get['extension']);

@@ -15,7 +15,7 @@ class ControllerToolUpload extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        // Uploaded files
+        // Uploaded Files
         $this->load->model('tool/upload');
 
         $this->getList();
@@ -31,7 +31,7 @@ class ControllerToolUpload extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        // Uploaded files
+        // Uploaded Files
         $this->load->model('tool/upload');
 
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -274,7 +274,7 @@ class ControllerToolUpload extends Controller {
     public function download(): void {
         $this->load->language('tool/upload');
 
-        // Uploaded files
+        // Uploaded Files
         $this->load->model('tool/upload');
 
         if (isset($this->request->get['code'])) {

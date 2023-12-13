@@ -53,7 +53,7 @@ class ControllerCommonHeader extends Controller {
             // Users
             $this->load->model('user/user');
 
-            // Image files
+            // Images
             $this->load->model('tool/image');
 
             $user_info = $this->model_user_user->getUser($this->user->getId());

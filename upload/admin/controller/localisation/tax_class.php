@@ -352,6 +352,7 @@ class ControllerLocalisationTaxClass extends Controller {
             $data['tax_rules'] = [];
         }
 
+		// Tax Rates
         $this->load->model('localisation/tax_rate');
 
         $data['tax_rates'] = $this->model_localisation_tax_rate->getTaxRates();

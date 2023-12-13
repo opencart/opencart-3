@@ -774,6 +774,7 @@ class ControllerMarketingAffiliate extends Controller {
 
         // Custom field validation
         if ($customer_info) {
+			// Custom Fields
             $this->load->model('customer/custom_field');
 
             $custom_fields = $this->model_customer_custom_field->getCustomFields(['filter_customer_group_id' => $customer_info['customer_group_id']]);

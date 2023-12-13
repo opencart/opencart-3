@@ -777,6 +777,7 @@ class ControllerSaleOrder extends Controller {
         // API login
         $data['catalog'] = $this->request->server['HTTPS'] ? HTTPS_CATALOG : HTTP_CATALOG;
 
+		// API login
         $this->load->model('user/api');
 
         $api_info = $this->model_user_api->getApi($this->config->get('config_api_id'));
@@ -1012,7 +1013,7 @@ class ControllerSaleOrder extends Controller {
 
             $subscriptions = $this->model_sale_subscription->getSubscriptions($filter_data);
 
-            // Uploaded files
+            // Uploaded Files
             $this->load->model('tool/upload');
 
             $data['products'] = [];
@@ -1667,7 +1668,7 @@ class ControllerSaleOrder extends Controller {
         // Subscription Status
         $this->load->model('localisation/subscription_status');
 
-        // Uploaded files
+        // Uploaded Files
         $this->load->model('tool/upload');
 
         $data['orders'] = [];
@@ -2016,7 +2017,7 @@ class ControllerSaleOrder extends Controller {
 
                 $subscriptions = $this->model_sale_subscription->getSubscriptions($filter_data);
 
-                // Uploaded files
+                // Uploaded Files
                 $this->load->model('tool/upload');
 
                 // Products

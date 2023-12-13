@@ -9,6 +9,7 @@ class ControllerExtensionModuleKlarnaCheckoutModule extends Controller {
 	 * @return string
 	 */
 	public function index(): string {
+		// Klarna Checkout
 		$this->load->model('extension/payment/klarna_checkout');
 
 		// If Payment Method or Module is disabled
@@ -79,8 +80,13 @@ class ControllerExtensionModuleKlarnaCheckoutModule extends Controller {
 	}
 
 	private function setShipping(): void {
+		// Addresses
 		$this->load->model('account/address');
+
+		// Countries
 		$this->load->model('localisation/country');
+
+		// Zones
 		$this->load->model('localisation/zone');
 
 		if (!empty($this->session->data['shipping_address'])) {
@@ -117,6 +123,7 @@ class ControllerExtensionModuleKlarnaCheckoutModule extends Controller {
 			// Shipping Methods
 			$method_data = [];
 
+			// Extensions
 			$this->load->model('setting/extension');
 
 			$results = $this->model_setting_extension->getExtensions('shipping');

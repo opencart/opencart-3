@@ -689,6 +689,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         }
 
         if (!$this->error) {
+			// Amazon Login Pay
             $this->load->model('extension/payment/amazon_login_pay');
 
             $errors = $this->model_extension_payment_amazon_login_pay->validateDetails($this->request->post);

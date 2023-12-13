@@ -28,6 +28,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
         if (!empty($this->session->data['environment']) && !empty($this->session->data['authorization_code']) && !empty($this->session->data['shared_id']) && !empty($this->session->data['seller_nonce']) && !empty($this->request->get['merchantIdInPayPal'])) {
             $this->load->language('extension/payment/paypal');
 
+			// PayPal
             $this->load->model('extension/payment/paypal');
 
             $environment = $this->session->data['environment'];
@@ -120,6 +121,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
             $merchant_id = $this->request->get['merchantIdInPayPal'];
 
+			// Settings
             $this->load->model('setting/setting');
 
             $setting = $this->model_setting_setting->getSetting('payment_paypal');
@@ -177,6 +179,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
     public function auth(): void {
         $this->load->language('extension/payment/paypal');
 
+		// PayPal
         $this->load->model('extension/payment/paypal');
 
         $this->document->addStyle('view/stylesheet/paypal/paypal.css');
@@ -280,7 +283,10 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
         $this->load->language('extension/payment/paypal');
 
+		// PayPal
         $this->load->model('extension/payment/paypal');
+
+		// Settings
         $this->load->model('setting/setting');
 
         $this->document->addStyle('view/stylesheet/paypal/paypal.css');
@@ -410,6 +416,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
         $this->load->language('extension/payment/paypal');
 
+		// PayPal
         $this->load->model('extension/payment/paypal');
 
         $this->document->addStyle('view/stylesheet/paypal/paypal.css');
@@ -485,6 +492,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
         $data['geo_zone_id'] = $this->config->get('payment_paypal_geo_zone_id');
         $data['sort_order'] = $this->config->get('payment_paypal_sort_order');
 
+		// Geo Zones
         $this->load->model('localisation/geo_zone');
 
         $data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();
@@ -533,6 +541,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
         $this->load->language('extension/payment/paypal');
 
+		// PayPal
         $this->load->model('extension/payment/paypal');
 
         $this->document->addStyle('view/stylesheet/paypal/paypal.css');
@@ -689,6 +698,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
         $this->load->language('extension/payment/paypal');
 
+		// PayPal
         $this->load->model('extension/payment/paypal');
 
         $this->document->addStyle('view/stylesheet/paypal/paypal.css');
@@ -847,6 +857,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
         $this->load->language('extension/payment/paypal');
 
+		// PayPal
         $this->load->model('extension/payment/paypal');
 
         $this->document->addStyle('view/stylesheet/paypal/paypal.css');
@@ -1004,6 +1015,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
         $this->load->language('extension/payment/paypal');
 
+		// PayPal
         $this->load->model('extension/payment/paypal');
 
         $this->document->addStyle('view/stylesheet/paypal/paypal.css');
@@ -1166,6 +1178,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
         $this->load->language('extension/payment/paypal');
 
+		// PayPal
         $this->load->model('extension/payment/paypal');
 
         $this->document->addStyle('view/stylesheet/paypal/paypal.css');
@@ -1219,6 +1232,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
         $data['setting'] = array_replace_recursive((array)$data['setting'], (array)$this->config->get('payment_paypal_setting'));
 
+		// Order Statuses
         $this->load->model('localisation/order_status');
 
         $data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
@@ -1262,6 +1276,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
         $this->load->language('extension/payment/paypal');
 
+		// PayPal
         $this->load->model('extension/payment/paypal');
 
         $this->document->addStyle('view/stylesheet/paypal/paypal.css');
@@ -1356,6 +1371,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
     public function save(): void {
         $this->load->language('extension/payment/paypal');
 
+		// Settings
         $this->load->model('setting/setting');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -1426,6 +1442,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
         $data = [];
 
+		// PayPal
         $this->load->model('extension/payment/paypal');
 
         $data['xaxis'] = [];
@@ -1629,6 +1646,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
     public function sendContact(): void {
         $this->load->language('extension/payment/paypal');
 
+		// PayPal
         $this->load->model('extension/payment/paypal');
 
         if (isset($this->request->post['payment_paypal_setting']['contact'])) {
@@ -1651,6 +1669,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
     public function agree(): void {
         $this->load->language('extension/payment/paypal');
 
+		// PayPal
         $this->load->model('extension/payment/paypal');
 
         $this->model_extension_payment_paypal->setAgreeStatus();

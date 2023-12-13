@@ -368,10 +368,8 @@ class ModelExtensionPaymentSquareup extends Model {
         $order_info = $this->model_checkout_order->getOrder($response_data['order_id']);
 
         if ($order_info) {
-            // Account Subscription
+            // Subscription
             $this->load->model('account/subscription');
-
-            // Checkout Subscription
             $this->load->model('checkout/subscription');
 
             if ($status) {

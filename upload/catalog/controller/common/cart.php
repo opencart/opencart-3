@@ -57,10 +57,10 @@ class ControllerCommonCart extends Controller {
 
         $data['text_items'] = sprintf($this->language->get('text_items'), $this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0), $this->currency->format($total, $this->session->data['currency']));
 
-        // Image files
+        // Images
         $this->load->model('tool/image');
 
-        // Uploaded files
+        // Uploaded Files
         $this->load->model('tool/upload');
 
         $data['products'] = [];

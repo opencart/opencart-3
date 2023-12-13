@@ -790,7 +790,7 @@ class ControllerCustomerCustomer extends Controller {
             $data['addresses'] = [];
         }
 
-        // Uploaded files
+        // Uploaded Files
         $this->load->model('tool/upload');
 
         // Custom Fields
@@ -1172,6 +1172,7 @@ class ControllerCustomerCustomer extends Controller {
     public function transaction(): void {
         $this->load->language('customer/customer');
 
+		// Customers
         $this->load->model('customer/customer');
 
         if (isset($this->request->get['page'])) {
@@ -1243,6 +1244,7 @@ class ControllerCustomerCustomer extends Controller {
     public function reward(): void {
         $this->load->language('customer/customer');
 
+		// Customers
         $this->load->model('customer/customer');
 
         if (isset($this->request->get['page'])) {
@@ -1314,6 +1316,7 @@ class ControllerCustomerCustomer extends Controller {
     public function ip(): void {
         $this->load->language('customer/customer');
 
+		// Customers
         $this->load->model('customer/customer');
 
         if (isset($this->request->get['page'])) {

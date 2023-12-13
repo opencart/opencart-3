@@ -410,6 +410,7 @@ class ControllerSaleSubscription extends Controller {
 
         // Product data
         if (!empty($subscription_info)) {
+			// Orders
             $this->load->model('sale/order');
 
             $product_info = $this->model_sale_order->getProductByOrderProductId($subscription_info['order_id'], $subscription_info['order_product_id']);
@@ -764,7 +765,7 @@ class ControllerSaleSubscription extends Controller {
             if ($subscription_total || !$subscription_plan_total) {
                 $json['error'] = $this->language->get('error_transaction');
             } else {
-                // The canceled subscription status ID needs to match the store's canceled subscription status ID
+                // Settings
                 $this->load->model('setting/setting');
 
                 $store_info = $this->model_setting_setting->getSetting('config', $order_info['store_id']);

@@ -35,6 +35,7 @@ class ControllerReportStatistics extends Controller {
         $this->load->model('report/statistics');
 
         if ($this->validate()) {
+			// Orders
             $this->load->model('sale/order');
 
             $this->model_report_statistics->editValue('order_sale', $this->model_sale_order->getTotalSales(['filter_order_status' => implode(',', array_merge($this->config->get('config_complete_status'), $this->config->get('config_processing_status')))]));
@@ -125,6 +126,7 @@ class ControllerReportStatistics extends Controller {
                 }
             }
 
+			// Orders
             $this->load->model('sale/order');
 
             $this->model_report_statistics->editValue('order_other', $this->model_sale_order->getTotalOrders(['filter_order_status' => implode(',', $order_status_data)]));
@@ -177,6 +179,7 @@ class ControllerReportStatistics extends Controller {
         $this->load->model('report/statistics');
 
         if ($this->validate()) {
+			// Customers
             $this->load->model('customer/customer');
 
             $this->model_report_statistics->editValue('customer', $this->model_customer_customer->getTotalCustomers(['filter_approved' => 0]));
@@ -229,6 +232,7 @@ class ControllerReportStatistics extends Controller {
         $this->load->model('report/statistics');
 
         if ($this->validate()) {
+			// Products
             $this->load->model('catalog/product');
 
             $this->model_report_statistics->editValue('product', $this->model_catalog_product->getTotalProducts(['filter_quantity' => 0]));
@@ -255,6 +259,7 @@ class ControllerReportStatistics extends Controller {
         $this->load->model('report/statistics');
 
         if ($this->validate()) {
+			// Reviews
             $this->load->model('catalog/review');
 
             $this->model_report_statistics->editValue('review', $this->model_catalog_review->getTotalReviews(['filter_status' => 0]));

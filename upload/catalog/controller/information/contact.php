@@ -70,7 +70,7 @@ class ControllerInformationContact extends Controller {
             $data['error_enquiry'] = '';
         }
 
-        // Image files
+        // Images
         $this->load->model('tool/image');
 
         if ($this->config->get('config_image')) {

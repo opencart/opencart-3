@@ -17,7 +17,7 @@ class ControllerAccountWishList extends Controller {
 
         $this->load->language('account/wishlist');
 
-        // Image files
+        // Images
         $this->load->model('tool/image');
 
         // Products

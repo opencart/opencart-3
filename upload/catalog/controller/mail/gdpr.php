@@ -123,7 +123,7 @@ class ControllerMailGdpr extends Controller {
 
             $subject = sprintf($language->get('text_subject'), $store_name);
 
-            // Image files
+            // Images
             $this->load->model('tool/image');
 
             if ($this->config->get('config_logo')) {

@@ -17,7 +17,7 @@ class ControllerExtensionFeedGoogleBase extends Controller {
             $output .= '  <description>' . $this->config->get('config_meta_description') . '</description>';
             $output .= '  <link>' . $this->config->get('config_url') . '</link>';
 
-            // Image files
+            // Images
             $this->load->model('tool/image');
 
             // Products

@@ -287,7 +287,7 @@ class ControllerSettingSetting extends Controller {
             $data['config_image'] = $this->config->get('config_image');
         }
 
-        // Image files
+        // Images
         $this->load->model('tool/image');
 
         if (isset($this->request->post['config_image']) && is_file(DIR_IMAGE . $this->request->post['config_image'])) {
@@ -390,6 +390,7 @@ class ControllerSettingSetting extends Controller {
 
 		$data['currency_engines'] = [];
 
+		// Extensions
 		$this->load->model('setting/extension');
 
 		$extensions = $this->model_setting_extension->getExtensionsByType('currency');

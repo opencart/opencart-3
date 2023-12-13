@@ -250,7 +250,7 @@ class ControllerAccountOrder extends Controller {
 
             $data['shipping_method'] = $order_info['shipping_method'];
 
-            // Uploaded files
+            // Uploaded Files
             $this->load->model('tool/upload');
 
             // Products

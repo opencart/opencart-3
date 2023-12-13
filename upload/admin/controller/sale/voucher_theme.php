@@ -351,6 +351,7 @@ class ControllerSaleVoucherTheme extends Controller {
             $data['image'] = '';
         }
 
+		// Images
         $this->load->model('tool/image');
 
         if (isset($this->request->post['image']) && is_file(DIR_IMAGE . $this->request->post['image'])) {

@@ -101,6 +101,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
         // Categories
         $data['categories'] = [];
 
+		// Categories
         $this->load->model('catalog/category');
 
         foreach ($data['payment_laybuy_category'] as $category_id) {

@@ -423,7 +423,7 @@ class ControllerUserUser extends Controller {
             $data['image'] = '';
         }
 
-        // Image files
+        // Images
         $this->load->model('tool/image');
 
         if (isset($this->request->post['image']) && is_file(DIR_IMAGE . $this->request->post['image'])) {
@@ -473,6 +473,7 @@ class ControllerUserUser extends Controller {
 
         $data['logins'] = [];
 
+		// Users
         $this->load->model('user/user');
 
         $results = $this->model_user_user->getLogins($user_id, ($page - 1) * 10, 10);

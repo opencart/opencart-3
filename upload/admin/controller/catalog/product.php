@@ -369,7 +369,7 @@ class ControllerCatalogProduct extends Controller {
 
         $results = $this->model_catalog_product->getProducts($filter_data);
 
-        // Image files
+        // Images
         $this->load->model('tool/image');
 
         foreach ($results as $result) {
@@ -1097,7 +1097,7 @@ class ControllerCatalogProduct extends Controller {
             $data['image'] = '';
         }
 
-        // Image files
+        // Images
         $this->load->model('tool/image');
 
         if (isset($this->request->post['image']) && is_file(DIR_IMAGE . $this->request->post['image'])) {

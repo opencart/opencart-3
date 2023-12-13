@@ -207,7 +207,7 @@ class ControllerMailSubscription extends Controller {
                                             $language->load($order_info['language_code']);
                                             $language->load('mail/subscription');
 
-                                            // Image files
+                                            // Images
                                             $this->load->model('tool/image');
 
                                             if (is_file(DIR_IMAGE . $store_logo)) {

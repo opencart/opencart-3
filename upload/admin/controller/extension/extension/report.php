@@ -26,8 +26,8 @@ class ControllerExtensionExtensionReport extends Controller {
 	 */
     public function install(): void {
         $this->load->language('extension/extension/report');
-        // Extensions
 
+        // Extensions
         $this->load->model('setting/extension');
 
         if ($this->validate()) {

@@ -351,7 +351,7 @@ class ControllerCheckoutConfirm extends Controller {
                 }
             }
 
-            // Uploaded files
+            // Uploaded Files
             $this->load->model('tool/upload');
 
             $data['products'] = [];

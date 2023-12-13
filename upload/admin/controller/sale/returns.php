@@ -729,6 +729,7 @@ class ControllerSaleReturns extends Controller {
             $data['opened'] = '';
         }
 
+		// Return Reasons
         $this->load->model('localisation/returns_reason');
 
         $data['return_reasons'] = $this->model_localisation_returns_reason->getReturnReasons();
@@ -739,6 +740,7 @@ class ControllerSaleReturns extends Controller {
             $data['return_reason_id'] = 0;
         }
 
+		// Return Actions
         $this->load->model('localisation/returns_action');
 
         $data['return_actions'] = $this->model_localisation_returns_action->getReturnActions();
@@ -755,6 +757,7 @@ class ControllerSaleReturns extends Controller {
             $data['comment'] = '';
         }
 
+		// Return Statuses
         $this->load->model('localisation/returns_status');
 
         $data['return_statuses'] = $this->model_localisation_returns_status->getReturnStatuses();
