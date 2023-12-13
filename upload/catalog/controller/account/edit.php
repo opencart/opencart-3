@@ -140,7 +140,7 @@ class ControllerAccountEdit extends Controller {
             $data['account_custom_field'] = [];
         }
 
-        // Uploaded Files
+        // Upload
         $this->load->model('tool/upload');
 
         // Custom Fields

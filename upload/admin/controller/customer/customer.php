@@ -790,7 +790,7 @@ class ControllerCustomerCustomer extends Controller {
             $data['addresses'] = [];
         }
 
-        // Uploaded Files
+        // Upload
         $this->load->model('tool/upload');
 
         // Custom Fields

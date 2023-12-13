@@ -400,7 +400,7 @@ class ControllerAccountAddress extends Controller {
             $data['address_custom_field'] = [];
         }
 
-        // Uploaded Files
+        // Upload
         $this->load->model('tool/upload');
 
         // Countries

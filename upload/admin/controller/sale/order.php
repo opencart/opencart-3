@@ -1013,7 +1013,7 @@ class ControllerSaleOrder extends Controller {
 
             $subscriptions = $this->model_sale_subscription->getSubscriptions($filter_data);
 
-            // Uploaded Files
+            // Upload
             $this->load->model('tool/upload');
 
             $data['products'] = [];
@@ -1668,7 +1668,7 @@ class ControllerSaleOrder extends Controller {
         // Subscription Status
         $this->load->model('localisation/subscription_status');
 
-        // Uploaded Files
+        // Upload
         $this->load->model('tool/upload');
 
         $data['orders'] = [];
@@ -2017,7 +2017,7 @@ class ControllerSaleOrder extends Controller {
 
                 $subscriptions = $this->model_sale_subscription->getSubscriptions($filter_data);
 
-                // Uploaded Files
+                // Upload
                 $this->load->model('tool/upload');
 
                 // Products

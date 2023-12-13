@@ -648,7 +648,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
             $data['next'] = '';
         }
 
-        // Uploaded Files
+        // Upload
         $this->load->model('tool/upload');
 
         $products = $this->cart->getProducts();

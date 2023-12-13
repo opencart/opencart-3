@@ -213,7 +213,7 @@ class ControllerMailOrder extends Controller {
 
         $data['shipping_address'] = str_replace(["\r\n", "\r", "\n"], '<br/>', preg_replace(["/\s\s+/", "/\r\r+/", "/\n\n+/"], '<br/>', trim(str_replace($find, $replace, $format))));
 
-        // Uploaded Files
+        // Upload
         $this->load->model('tool/upload');
 
         // Products
@@ -437,7 +437,7 @@ class ControllerMailOrder extends Controller {
                 $data['order_status'] = '';
             }
 
-            // Uploaded Files
+            // Upload
             $this->load->model('tool/upload');
 
             $data['products'] = [];
