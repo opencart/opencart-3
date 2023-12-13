@@ -643,7 +643,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 			// Check credentials in request with ones stored in db
 			$valid_request = false;
 
-			foreach ($this->config->get('klarna_checkout_account') as $account) {
+			foreach ((array)$this->config->get('klarna_checkout_account') as $account) {
 				if (($account['merchant_id'] == $klarna_checkout_order_data['merchant_id']) && ($account['secret'] == $klarna_checkout_order_data['secret'])) {
 					$valid_request = true;
 					break;
@@ -1013,7 +1013,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 			// Check credentials in request with ones stored in db
 			$valid_request = false;
 
-			foreach ($this->config->get('klarna_checkout_account') as $account) {
+			foreach ((array)$this->config->get('klarna_checkout_account') as $account) {
 				if (($account['merchant_id'] == $klarna_checkout_order_data['merchant_id']) && ($account['secret'] == $klarna_checkout_order_data['secret'])) {
 					$valid_request = true;
 					break;
