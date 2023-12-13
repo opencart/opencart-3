@@ -18,11 +18,11 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 			  `transaction_id` VARCHAR(50),
 			  `date_added` DATETIME NOT NULL,
 			  `date_modified` DATETIME NOT NULL,
-			  `release_status` INT(1) DEFAULT 0,
-			  `void_status` INT(1) DEFAULT 0,
-			  `rebate_status` INT(1) DEFAULT 0,
-			  `currency_code` CHAR(3) NOT NULL,
-			  `total` DECIMAL( 10, 2 ) NOT NULL,
+			  `release_status` INT(1) DEFAULT '0',
+			  `void_status` INT(1) DEFAULT '0',
+			  `rebate_status` INT(1) DEFAULT '0',
+			  `currency_code` VARCHAR(3) NOT NULL,
+			  `total` DECIMAL(15, 4) NOT NULL,
 			  PRIMARY KEY (`bluepay_hosted_order_id`)
 			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
 
@@ -32,7 +32,7 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 			  `bluepay_hosted_order_id` INT(11) NOT NULL,
 			  `date_added` DATETIME NOT NULL,
 			  `type` ENUM('auth', 'payment', 'rebate', 'void') DEFAULT NULL,
-			  `amount` DECIMAL( 10, 2 ) NOT NULL,
+			  `amount` DECIMAL(15, 4) NOT NULL,
 			  PRIMARY KEY (`bluepay_hosted_order_transaction_id`)
 			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
 

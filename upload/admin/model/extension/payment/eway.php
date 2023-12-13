@@ -17,13 +17,13 @@ class ModelExtensionPaymentEway extends Model {
 			  `order_id` int(11) NOT NULL,
 			  `created` DATETIME NOT NULL,
 			  `modified` DATETIME NOT NULL,
-			  `amount` DECIMAL( 10, 2 ) NOT NULL,
-			  `currency_code` CHAR(3) NOT NULL,
+			  `amount` DECIMAL(15, 4) NOT NULL,
+			  `currency_code` VARCHAR(3) NOT NULL,
 			  `transaction_id` VARCHAR(24) NOT NULL,
 			  `debug_data` TEXT,
-			  `capture_status` INT(1) DEFAULT NULL,
-			  `void_status` INT(1) DEFAULT NULL,
-			  `refund_status` INT(1) DEFAULT NULL,
+			  `capture_status` INT(1) DEFAULT '0',
+			  `void_status` INT(1) DEFAULT '0',
+			  `refund_status` INT(1) DEFAULT '0',
 			  PRIMARY KEY (`eway_order_id`)
 			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
 
@@ -34,7 +34,7 @@ class ModelExtensionPaymentEway extends Model {
 			  `transaction_id` VARCHAR(24) NOT NULL,
 			  `created` DATETIME NOT NULL,
 			  `type` ENUM('auth', 'payment', 'refund', 'void') DEFAULT NULL,
-			  `amount` DECIMAL( 10, 2 ) NOT NULL,
+			  `amount` DECIMAL(15, 4) NOT NULL,
 			  PRIMARY KEY (`eway_order_transaction_id`)
 			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
 

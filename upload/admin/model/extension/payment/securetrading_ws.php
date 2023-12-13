@@ -19,12 +19,12 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 			  `transaction_reference` varchar(127) DEFAULT NULL,
 			  `created` DATETIME NOT NULL,
 			  `modified` DATETIME NOT NULL,
-			  `release_status` INT(1) DEFAULT NULL,
-			  `void_status` INT(1) DEFAULT NULL,
-			  `settle_type` INT(1) DEFAULT NULL,
-			  `rebate_status` INT(1) DEFAULT NULL,
-			  `currency_code` CHAR(3) NOT NULL,
-			  `total` DECIMAL( 10, 2 ) NOT NULL,
+			  `release_status` INT(1) DEFAULT '0',
+			  `void_status` INT(1) DEFAULT '0',
+			  `settle_type` INT(1) DEFAULT '0',
+			  `rebate_status` INT(1) DEFAULT '0',
+			  `currency_code` VARCHAR(3) NOT NULL,
+			  `total` DECIMAL(15, 4) NOT NULL,
 			  PRIMARY KEY (`securetrading_ws_order_id`)
 			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
 
@@ -34,7 +34,7 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 			  `securetrading_ws_order_id` INT(11) NOT NULL,
 			  `created` DATETIME NOT NULL,
 			  `type` ENUM('auth', 'payment', 'rebate', 'reversed') DEFAULT NULL,
-			  `amount` DECIMAL( 10, 2 ) NOT NULL,
+			  `amount` DECIMAL(15, 4) NOT NULL,
 			  PRIMARY KEY (`securetrading_ws_order_transaction_id`)
 			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
     }

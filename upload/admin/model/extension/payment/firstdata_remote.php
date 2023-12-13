@@ -19,12 +19,12 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 			  `date_added` DATETIME NOT NULL,
 			  `date_modified` DATETIME NOT NULL,
 			  `tdate` VARCHAR(30) NOT NULL,
-			  `capture_status` INT(1) DEFAULT NULL,
-			  `void_status` INT(1) DEFAULT NULL,
-			  `refund_status` INT(1) DEFAULT NULL,
-			  `currency_code` CHAR(3) NOT NULL,
+			  `capture_status` INT(1) DEFAULT '0',
+			  `void_status` INT(1) DEFAULT '0',
+			  `refund_status` INT(1) DEFAULT '0',
+			  `currency_code` VARCHAR(3) NOT NULL,
 			  `authcode` VARCHAR(30) NOT NULL,
-			  `total` DECIMAL( 10, 2 ) NOT NULL,
+			  `total` DECIMAL(15, 4) NOT NULL,
 			  PRIMARY KEY (`firstdata_remote_order_id`)
 			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
 
@@ -34,7 +34,7 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 			  `firstdata_remote_order_id` INT(11) NOT NULL,
 			  `date_added` DATETIME NOT NULL,
 			  `type` ENUM('auth', 'payment', 'refund', 'void') DEFAULT NULL,
-			  `amount` DECIMAL( 10, 2 ) NOT NULL,
+			  `amount` DECIMAL(15, 4) NOT NULL,
 			  PRIMARY KEY (`firstdata_remote_order_transaction_id`)
 			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
 

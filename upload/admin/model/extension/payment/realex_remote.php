@@ -21,14 +21,14 @@ class ModelExtensionPaymentRealexRemote extends Model {
 			  `pasref_previous` VARCHAR(50) NOT NULL,
 			  `date_added` DATETIME NOT NULL,
 			  `date_modified` DATETIME NOT NULL,
-			  `capture_status` INT(1) DEFAULT NULL,
-			  `void_status` INT(1) DEFAULT NULL,
-			  `settle_type` INT(1) DEFAULT NULL,
-			  `rebate_status` INT(1) DEFAULT NULL,
-			  `currency_code` CHAR(3) NOT NULL,
+			  `capture_status` INT(1) DEFAULT '0',
+			  `void_status` INT(1) DEFAULT '0',
+			  `settle_type` INT(1) DEFAULT '0',
+			  `rebate_status` INT(1) DEFAULT '0',
+			  `currency_code` VARCHAR(3) NOT NULL,
 			  `authcode` VARCHAR(30) NOT NULL,
 			  `account` VARCHAR(30) NOT NULL,
-			  `total` DECIMAL( 10, 2 ) NOT NULL,
+			  `total` DECIMAL(15, 4) NOT NULL,
 			  PRIMARY KEY (`realex_remote_order_id`)
 			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
 
@@ -38,7 +38,7 @@ class ModelExtensionPaymentRealexRemote extends Model {
 			  `realex_remote_order_id` INT(11) NOT NULL,
 			  `date_added` DATETIME NOT NULL,
 			  `type` ENUM('auth', 'payment', 'rebate', 'void') DEFAULT NULL,
-			  `amount` DECIMAL( 10, 2 ) NOT NULL,
+			  `amount` DECIMAL(15, 4) NOT NULL,
 			  PRIMARY KEY (`realex_remote_order_transaction_id`)
 			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
     }
