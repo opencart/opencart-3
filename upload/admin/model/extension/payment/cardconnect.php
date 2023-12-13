@@ -34,7 +34,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 			  `retref` VARCHAR(12) NOT NULL DEFAULT '',
 			  `authcode` VARCHAR(6) NOT NULL DEFAULT '',
 			  `currency_code` VARCHAR(3) NOT NULL DEFAULT '',
-			  `total` DECIMAL(10, 2) NOT NULL DEFAULT '0.00',
+			  `total` DECIMAL(15, 4) NOT NULL DEFAULT '0.0000',
 			  `date_added` DATETIME NOT NULL,
 			  PRIMARY KEY (`cardconnect_order_id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci");
@@ -45,7 +45,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 			  `cardconnect_order_id` INT(11) NOT NULL DEFAULT '0',
 			  `type` VARCHAR(50) NOT NULL DEFAULT '',
 			  `retref` VARCHAR(12) NOT NULL DEFAULT '',
-			  `amount` DECIMAL(10, 2) NOT NULL DEFAULT '0.00',
+			  `amount` DECIMAL(15, 4) NOT NULL DEFAULT '0.0000',
 			  `status` VARCHAR(255) NOT NULL DEFAULT '',
 			  `date_modified` DATETIME NOT NULL,
 			  `date_added` DATETIME NOT NULL,
