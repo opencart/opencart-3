@@ -556,7 +556,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
             `destination_status` ENUM('pending','approved','disapproved') NOT NULL DEFAULT 'pending',
             `impressions` INT(11) NOT NULL DEFAULT '0',
             `clicks` INT(11) NOT NULL DEFAULT '0',
-            `conversions` INT(11) NOT NULL DEFAULT '0.0000',
+            `conversions` INT(11) NOT NULL DEFAULT '0',
             `cost` decimal(15,4) NOT NULL DEFAULT '0.0000',
             `conversion_value` decimal(15,4) NOT NULL DEFAULT '0.0000',
             `google_product_category` VARCHAR(10),
