@@ -13,7 +13,7 @@ class ModelExtensionPaymentPayPal extends Model {
     public function getTotalSales(): int {
         $implode = [];
 
-        foreach ($this->config->get('config_complete_status') as $order_status_id) {
+        foreach ((array)$this->config->get('config_complete_status') as $order_status_id) {
             $implode[] = "'" . (int)$order_status_id . "'";
         }
 
@@ -25,7 +25,7 @@ class ModelExtensionPaymentPayPal extends Model {
     public function getTotalSalesByDay(): array {
         $implode = [];
 
-        foreach ($this->config->get('config_complete_status') as $order_status_id) {
+        foreach ((array)$this->config->get('config_complete_status') as $order_status_id) {
             $implode[] = "'" . (int)$order_status_id . "'";
         }
 
@@ -60,7 +60,7 @@ class ModelExtensionPaymentPayPal extends Model {
     public function getTotalSalesByWeek(): array {
         $implode = [];
 
-        foreach ($this->config->get('config_complete_status') as $order_status_id) {
+        foreach ((array)$this->config->get('config_complete_status') as $order_status_id) {
             $implode[] = "'" . (int)$order_status_id . "'";
         }
 
@@ -99,7 +99,7 @@ class ModelExtensionPaymentPayPal extends Model {
     public function getTotalSalesByMonth(): array {
         $implode = [];
 
-        foreach ($this->config->get('config_complete_status') as $order_status_id) {
+        foreach ((array)$this->config->get('config_complete_status') as $order_status_id) {
             $implode[] = "'" . (int)$order_status_id . "'";
         }
 
@@ -136,7 +136,7 @@ class ModelExtensionPaymentPayPal extends Model {
     public function getTotalSalesByYear(): array {
         $implode = [];
 
-        foreach ($this->config->get('config_complete_status') as $order_status_id) {
+        foreach ((array)$this->config->get('config_complete_status') as $order_status_id) {
             $implode[] = "'" . (int)$order_status_id . "'";
         }
 
