@@ -50,7 +50,7 @@ class ControllerMailSubscription extends Controller {
 
         if ($subscriptions) {
             foreach ($subscriptions as $subscription) {
-                // Subscription histories
+                // Subscription Histories
                 $history_total = $this->model_sale_subscription->getTotalHistoriesBySubscriptionStatusId($subscription_status_id);
 
                 // Requires an API to edit the subscription status from the catalog

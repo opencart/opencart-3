@@ -137,7 +137,7 @@ class ControllerMailSubscription extends Controller {
                                 // mutual agreement of the subscription in accordance
                                 // with the service providers
                                 if ($description && $description == $subscription['description']) {
-                                    // Subscription date
+                                    // Subscription Date
                                     $subscription_period = strtotime($result['date_next']);
 
                                     // Orders
@@ -504,7 +504,7 @@ class ControllerMailSubscription extends Controller {
                 $payment_method = $this->model_account_payment_method->getPaymentMethod($subscription_info['customer_id'], $subscription['customer_payment_id']);
 
                 if ($payment_method) {
-                    // Subscription date
+                    // Subscription Date
                     $subscription_period = strtotime($subscription_info['date_next']);
 
                     // We need to validate frequencies in compliance of the admin subscription plans
