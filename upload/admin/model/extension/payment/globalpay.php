@@ -28,7 +28,7 @@ class ModelExtensionPaymentGlobalpay extends Model {
 			  `currency_code` VARCHAR(3) NOT NULL,
 			  `authcode` VARCHAR(30) NOT NULL,
 			  `account` VARCHAR(30) NOT NULL,
-			  `total` DECIMAL(15, 4) NOT NULL,
+			  `total` DECIMAL(15,4) NOT NULL,
 			  PRIMARY KEY (`globalpay_order_id`)
 			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
 
@@ -38,7 +38,7 @@ class ModelExtensionPaymentGlobalpay extends Model {
 			  `globalpay_order_id` INT(11) NOT NULL,
 			  `date_added` DATETIME NOT NULL,
 			  `type` ENUM('auth', 'payment', 'rebate', 'void') DEFAULT NULL,
-			  `amount` DECIMAL(15, 4) NOT NULL,
+			  `amount` DECIMAL(15,4) NOT NULL,
 			  PRIMARY KEY (`globalpay_order_transaction_id`)
 			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
     }

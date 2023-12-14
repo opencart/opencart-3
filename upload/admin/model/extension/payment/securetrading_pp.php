@@ -23,7 +23,7 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 			  `settle_type` INT(1) DEFAULT '0',
 			  `rebate_status` INT(1) DEFAULT '0',
 			  `currency_code` VARCHAR(3) NOT NULL,
-			  `total` DECIMAL(15, 4) NOT NULL,
+			  `total` DECIMAL(15,4) NOT NULL,
 			  PRIMARY KEY (`securetrading_pp_order_id`)
 			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
 
@@ -33,7 +33,7 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 			  `securetrading_pp_order_id` INT(11) NOT NULL,
 			  `created` DATETIME NOT NULL,
 			  `type` ENUM('auth', 'payment', 'rebate', 'reversed') DEFAULT NULL,
-			  `amount` DECIMAL(15, 4) NOT NULL,
+			  `amount` DECIMAL(15,4) NOT NULL,
 			  PRIMARY KEY (`securetrading_pp_order_transaction_id`)
 			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
     }

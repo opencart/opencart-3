@@ -26,7 +26,7 @@ class ModelExtensionPaymentSagepayDirect extends Model {
 			  `settle_type` INT(1) DEFAULT '0',
 			  `rebate_status` INT(1) DEFAULT '0',
 			  `currency_code` VARCHAR(3) NOT NULL,
-			  `total` DECIMAL(15, 4) NOT NULL,
+			  `total` DECIMAL(15,4) NOT NULL,
 			  `card_id` INT(11),
 			  PRIMARY KEY (`sagepay_direct_order_id`)
 			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
@@ -37,7 +37,7 @@ class ModelExtensionPaymentSagepayDirect extends Model {
 			  `sagepay_direct_order_id` INT(11) NOT NULL,
 			  `date_added` DATETIME NOT NULL,
 			  `type` ENUM('auth', 'payment', 'rebate', 'void') DEFAULT NULL,
-			  `amount` DECIMAL(15, 4) NOT NULL,
+			  `amount` DECIMAL(15,4) NOT NULL,
 			  PRIMARY KEY (`sagepay_direct_order_transaction_id`)
 			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
 
@@ -56,7 +56,7 @@ class ModelExtensionPaymentSagepayDirect extends Model {
 			  `trial_end` datetime DEFAULT NULL,
 			  `subscription_end` datetime DEFAULT NULL,
 			  `currency_code` VARCHAR(3) NOT NULL,
-			  `total` DECIMAL(15, 4) NOT NULL,
+			  `total` DECIMAL(15,4) NOT NULL,
 			  PRIMARY KEY (`sagepay_direct_order_recurring_id`)
 			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
 

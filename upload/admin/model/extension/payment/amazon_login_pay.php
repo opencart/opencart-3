@@ -24,7 +24,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 				`cancel_status` INT(1) DEFAULT '0',
 				`refund_status` INT(1) DEFAULT '0',
 				`currency_code` VARCHAR(3) NOT NULL,
-				`total` DECIMAL(15, 4) NOT NULL,
+				`total` DECIMAL(15,4) NOT NULL,
 				KEY `amazon_order_reference_id` (`amazon_order_reference_id`),
 				PRIMARY KEY `amazon_login_pay_order_id` (`amazon_login_pay_order_id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -40,7 +40,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 			  `date_added` DATETIME NOT NULL,
 			  `type` ENUM('authorization', 'capture', 'refund', 'cancel') DEFAULT NULL,
 			  `status` ENUM('Open', 'Pending', 'Completed', 'Suspended', 'Declined', 'Closed', 'Canceled') DEFAULT NULL,
-			  `amount` DECIMAL(15, 4) NOT NULL,
+			  `amount` DECIMAL(15,4) NOT NULL,
 			  PRIMARY KEY (`amazon_login_pay_order_transaction_id`)
 			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;
 			");

@@ -1034,7 +1034,7 @@ CREATE TABLE `oc_customer_activity` (
 DROP TABLE IF EXISTS `oc_customer_affiliate`;
 CREATE TABLE `oc_customer_affiliate` (
   `customer_id` int(11) NOT NULL,
-  `company` varchar(40) NOT NULL,
+  `company` varchar(60) NOT NULL,
   `website` varchar(255) NOT NULL,
   `tracking` varchar(64) NOT NULL,
   `commission` decimal(4,2) NOT NULL DEFAULT '0.00',
@@ -1681,6 +1681,49 @@ CREATE TABLE `oc_filter_group_description` (
 -----------------------------------------------------------
 
 --
+-- Table structure for table `oc_gdpr`
+--
+
+DROP TABLE IF EXISTS `oc_gdpr`;
+CREATE TABLE `oc_gdpr` (
+  `gdpr_id` int(11) NOT NULL AUTO_INCREMENT,
+  `store_id` int(11) NOT NULL,
+  `language_id` int(11) NOT NULL,
+  `code` VARCHAR(40) NOT NULL,
+  `email` VARCHAR(96) NOT NULL,
+  `action` VARCHAR(6) NOT NULL,
+  `status` TINYINT(1) NOT NULL,
+  `date_added` DATETIME NOT NULL,
+  PRIMARY KEY (`gdpr_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-----------------------------------------------------------
+
+--
+-- Table structure for table `oc_geo_zone`
+--
+
+DROP TABLE IF EXISTS `oc_geo_zone`;
+CREATE TABLE `oc_geo_zone` (
+  `geo_zone_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `date_added` datetime NOT NULL,
+  `date_modified` datetime NOT NULL,
+  PRIMARY KEY (`geo_zone_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `oc_geo_zone`
+--
+
+INSERT INTO `oc_geo_zone` (`geo_zone_id`, `name`, `description`, `date_modified`, `date_added`) VALUES
+(3, 'UK VAT Zone', 'UK VAT', '2010-02-26 22:33:24', '2009-01-06 23:26:25'),
+(4, 'UK Shipping', 'UK Shipping Zones', '2010-12-15 15:18:13', '2009-06-23 01:14:53');
+
+-----------------------------------------------------------
+
+--
 -- Table structure for table `oc_googleshopping_category`
 --
 
@@ -1777,49 +1820,6 @@ CREATE TABLE `oc_googleshopping_target` (
   PRIMARY KEY (`advertise_google_target_id`),
   KEY `store_id` (`store_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
------------------------------------------------------------
-
---
--- Table structure for table `oc_gdpr`
---
-
-DROP TABLE IF EXISTS `oc_gdpr`;
-CREATE TABLE `oc_gdpr` (
-  `gdpr_id` int(11) NOT NULL AUTO_INCREMENT,
-  `store_id` int(11) NOT NULL,
-  `language_id` int(11) NOT NULL,
-  `code` VARCHAR(40) NOT NULL,
-  `email` VARCHAR(96) NOT NULL,
-  `action` VARCHAR(6) NOT NULL,
-  `status` TINYINT(1) NOT NULL,
-  `date_added` DATETIME NOT NULL,
-  PRIMARY KEY (`gdpr_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
------------------------------------------------------------
-
---
--- Table structure for table `oc_geo_zone`
---
-
-DROP TABLE IF EXISTS `oc_geo_zone`;
-CREATE TABLE `oc_geo_zone` (
-  `geo_zone_id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(32) NOT NULL,
-  `description` varchar(255) NOT NULL,
-  `date_added` datetime NOT NULL,
-  `date_modified` datetime NOT NULL,
-  PRIMARY KEY (`geo_zone_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `oc_geo_zone`
---
-
-INSERT INTO `oc_geo_zone` (`geo_zone_id`, `name`, `description`, `date_modified`, `date_added`) VALUES
-(3, 'UK VAT Zone', 'UK VAT', '2010-02-26 22:33:24', '2009-01-06 23:26:25'),
-(4, 'UK Shipping', 'UK Shipping Zones', '2010-12-15 15:18:13', '2009-06-23 01:14:53');
 
 -----------------------------------------------------------
 
