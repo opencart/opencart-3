@@ -4,6 +4,7 @@ $_['heading_title']                        = 'Recurring Orders';
 
 // Text
 $_['text_success']                         = 'Success: You have modified recurring profiles!';
+$_['text_edit']                            = 'Edit Recurring Module';
 $_['text_list']                            = 'Recurring Order List';
 $_['text_filter']                          = 'Filter';
 $_['text_recurring_detail']                = 'Recurring Details';
@@ -93,5 +94,6 @@ $_['entry_cancel_payment']                 = 'Cancel Payment';
 $_['button_report']                        = 'Download Report';
 
 // Error
+$_['error_warning']                        = 'Error: The order recurring table could not be found!';
 $_['error_not_cancelled']                  = 'Error: %s';
-$_['error_not_found']                      = 'Could not cancel recurring profile';
+$_['error_not_found']                      = 'Error: Could not cancel the recurring profile';

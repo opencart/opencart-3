@@ -2,9 +2,9 @@
 /**
  * Class Recurring
  *
- * @package Admin\Model\Sale
+ * @package Admin\Model\Extension\Module
  */
-class ModelSaleRecurring extends Model {
+class ModelExtensionModuleRecurring extends Model {
 	/**
 	 * getRecurring
 	 *

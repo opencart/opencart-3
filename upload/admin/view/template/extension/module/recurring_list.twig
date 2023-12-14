@@ -78,7 +78,7 @@
       <div class="col-md-9 col-md-pull-3 col-sm-12">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h3 class="panel-title"><i class="fa fa-list"></i> {{ text_list }}</h3>
+            <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3>
           </div>
           <div class="panel-body">
             <form action="" method="post" enctype="multipart/form-data" id="form-recurring">
@@ -128,7 +128,7 @@
   </div>
   <script type="text/javascript"><!--
   $('#button-filter').on('click', function() {
-      url = 'index.php?route=sale/recurring&user_token={{ user_token }}';
+      url = 'index.php?route=extension/module/recurring&user_token={{ user_token }}';
 
       var filter_order_recurring_id = $('input[name=\'filter_order_recurring_id\']').val();
 

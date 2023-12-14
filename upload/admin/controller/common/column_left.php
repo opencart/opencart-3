@@ -255,14 +255,6 @@ class ControllerCommonColumnLeft extends Controller {
                 ];
             }
 
-            if ($this->user->hasPermission('access', 'sale/recurring')) {
-                $sale[] = [
-                    'name'     => $this->language->get('text_order_recurring'),
-                    'href'     => $this->url->link('sale/recurring', 'user_token=' . $this->session->data['user_token'], true),
-                    'children' => []
-                ];
-            }
-
             if ($this->user->hasPermission('access', 'sale/subscription')) {
                 $sale[] = [
                     'name'     => $this->language->get('text_subscription'),
