@@ -576,6 +576,7 @@ class ControllerExtensionModuleRecurring extends Controller {
         if (!$query->num_rows) {
             $this->session->data['error'] = $this->language->get('error_warning');
         } else {
+			// Settings
             $this->load->model('setting/setting');
 
             $post_data = [
@@ -592,6 +593,7 @@ class ControllerExtensionModuleRecurring extends Controller {
      * @return void
      */
     public function uninstall(): void {
+		// Settings
         $this->load->model('setting/setting');
 
         $this->model_setting_setting->deleteSetting('module_recurring');
