@@ -15,9 +15,6 @@ class ControllerExtensionModuleRecurring extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        // Settings
-        $this->load->model('setting/setting');
-
         if (isset($this->error['warning'])) {
             $data['error_warning'] = $this->error['warning'];
         } else {
