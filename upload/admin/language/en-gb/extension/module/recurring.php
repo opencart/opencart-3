@@ -1,6 +1,7 @@
 <?php
 // Heading
 $_['heading_title']                        = 'Recurring Orders';
+$_['heading_info']                         = 'Info';
 
 // Text
 $_['text_success']                         = 'Success: You have modified recurring profiles!';
