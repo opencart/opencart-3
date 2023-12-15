@@ -2393,7 +2393,7 @@ CREATE TABLE `oc_order` (
   `payment_code` varchar(128) NOT NULL,
   `shipping_firstname` varchar(32) NOT NULL,
   `shipping_lastname` varchar(32) NOT NULL,
-  `shipping_company` varchar(40) NOT NULL,
+  `shipping_company` varchar(60) NOT NULL,
   `shipping_address_1` varchar(128) NOT NULL,
   `shipping_address_2` varchar(128) NOT NULL,
   `shipping_city` varchar(128) NOT NULL,
@@ -2558,9 +2558,9 @@ DROP TABLE IF EXISTS `oc_order_shipment`;
 CREATE TABLE `oc_order_shipment` (
   `order_shipment_id` int(11) NOT NULL AUTO_INCREMENT,
   `order_id` int(11) NOT NULL,
-  `date_added` datetime NOT NULL,
   `shipping_courier_id` varchar(255) NOT NULL DEFAULT '',
   `tracking_number` varchar(255) NOT NULL DEFAULT '',
+  `date_added` datetime NOT NULL,
   PRIMARY KEY (`order_shipment_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 

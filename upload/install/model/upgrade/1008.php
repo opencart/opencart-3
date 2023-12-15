@@ -17,10 +17,17 @@ class ModelUpgrade1008 extends Model {
             $this->db->query("ALTER TABLE `" . DB_PREFIX . "event` ADD `date_added` DATETIME NOT NULL AFTER `status`");
         }
 
+		$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "event' AND COLUMN_NAME = 'code' AND COLUMN_TYPE = 'varchar(64)'");
+
+		if ($query->num_rows) {
+			$this->db->query("ALTER TABLE `" . DB_PREFIX . "event` MODIFY `code` varchar(128) NOT NULL AFTER `event_id`");
+		}
+
+		// Extensions
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "extension` WHERE `type` = 'dashboard'");
 
         if (!$query->num_rows) {
-            // extension
+            // Extensions
             $this->db->query("INSERT INTO `" . DB_PREFIX . "extension` SET `type` = 'dashboard', `code` = 'activity'");
             $this->db->query("INSERT INTO `" . DB_PREFIX . "extension` SET `type` = 'dashboard', `code` = 'sale'");
             $this->db->query("INSERT INTO `" . DB_PREFIX . "extension` SET `type` = 'dashboard', `code` = 'recent'");
@@ -30,7 +37,13 @@ class ModelUpgrade1008 extends Model {
             $this->db->query("INSERT INTO `" . DB_PREFIX . "extension` SET `type` = 'dashboard', `code` = 'customer'");
             $this->db->query("INSERT INTO `" . DB_PREFIX . "extension` SET `type` = 'dashboard', `code` = 'chart'");
 
-            // setting
+			$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "extension' AND COLUMN_NAME = 'code' AND COLUMN_TYPE = 'varchar(32)'");
+
+			if ($query->num_rows) {
+				$this->db->query("ALTER TABLE `" . DB_PREFIX . "event` MODIFY `code` varchar(128) NOT NULL AFTER `extension_id`");
+			}
+
+            // Settings
             $this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'dashboard_activity', `key` = 'dashboard_activity_status', `value` = '1', `serialized` = '0'");
             $this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'dashboard_activity', `key` = 'dashboard_activity_sort_order', `value` = '7', `serialized` = '0'");
             $this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'dashboard_sale', `key` = 'dashboard_sale_status', `value` = '1', `serialized` = '0'");
@@ -172,18 +185,99 @@ class ModelUpgrade1008 extends Model {
 			$this->db->query("ALTER TABLE `" . DB_PREFIX . "subscription` ADD `accept_language` varchar(255) NOT NULL AFTER `user_agent`");
 		}
 
-		// Subscription plan description
-		$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "subscription_plan_description' AND COLUMN_NAME = 'description'");
-
-		if ($query->num_rows) {
-			$this->db->query("ALTER TABLE `" . DB_PREFIX . "subscription_plan_description` DROP COLUMN `description`");
-		}
-
-        // Add extension download for the admin extension store
+		// Add extension download for the admin extension store
         $query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "modification' AND COLUMN_NAME = 'extension_download_id'");
 
         if (!$query->num_rows) {
             $this->db->query("ALTER TABLE `" . DB_PREFIX . "modification` ADD `extension_download_id` INT(11) NOT NULL AFTER `modification_id`");
         }
+
+		// Modification - XML column
+		$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "modification' AND COLUMN_NAME = 'xml' AND COLUMN_TYPE = 'mediumtext'");
+
+		if ($query->num_rows) {
+			$this->db->query("ALTER TABLE `" . DB_PREFIX . "modification` MODIFY `xml` text NOT NULL AFTER `link`");
+		}
+
+		// Module
+		$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "module' AND COLUMN_NAME = 'code' AND COLUMN_TYPE = 'varchar(32)'");
+
+		if ($query->num_rows) {
+			$this->db->query("ALTER TABLE `" . DB_PREFIX . "module` MODIFY `code` varchar(64) NOT NULL AFTER `name`");
+		}
+
+		// Order
+		$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "order' AND COLUMN_NAME = 'shipping_company' AND COLUMN_TYPE = 'varchar(40)'");
+
+		if ($query->num_rows) {
+			$this->db->query("ALTER TABLE `" . DB_PREFIX . "order` MODIFY `shipping_company` varchar(60) NOT NULL AFTER `shipping_lastname`");
+		}
+
+		/*$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "order' AND COLUMN_NAME = 'payment_code'");
+
+		if ($query->num_rows) {
+			$query = $this->db->query("SELECT `order_id`, `payment_code`, `payment_method`, `shipping_method`, `shipping_code` FROM `" . DB_PREFIX . "order`");
+
+			foreach ($query->rows as $result) {
+				if (isset($result['payment_code'])) {
+					$payment_method = [
+						'name' => $result['payment_method'],
+						'code' => $result['payment_code']
+					];
+
+					$this->db->query("UPDATE `" . DB_PREFIX . "order` SET `payment_custom_field` = '" . $this->db->escape(json_encode($payment_method)) . "' WHERE `order_id` = '" . (int)$result['order_id'] . "'");
+				}
+
+				if (isset($result['shipping_code'])) {
+					$order_total_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_total` WHERE `order_id` = '" . (int)$result['order_id'] . "' AND `code` = 'shipping'");
+
+					if ($order_total_query->num_rows) {
+						$shipping_method = [
+							'name' => $result['shipping_method'],
+							'code' => $result['shipping_code'],
+							'cost' => $order_total_query->row['value'],
+							'text' => $result['shipping_method']
+						];
+
+						$this->db->query("UPDATE `" . DB_PREFIX . "order` SET `shipping_method` = '" . $this->db->escape(json_encode($shipping_method)) . "' WHERE `order_id` = '" . (int)$result['order_id'] . "'");
+					}
+				}
+			}
+		}*/
+
+		// Customer Affiliates
+		$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "customer_affiliate' AND COLUMN_NAME = 'company' AND COLUMN_TYPE = 'varchar(40)'");
+
+		if ($query->num_rows) {
+			$this->db->query("ALTER TABLE `" . DB_PREFIX . "customer_affiliate` MODIFY `company` VARCHAR(60) NOT NULL AFTER `customer_id`");
+		}
+
+		// Drop Fields
+		$remove = [];
+
+		$remove[] = [
+			'table' => 'order',
+			'field' => 'payment_code'
+		];
+
+		// custom_field
+		$remove[] = [
+			'table' => 'order',
+			'field' => 'shipping_code'
+		];
+
+		// subscription_plan_description
+		$remove[] = [
+			'table' => 'subscription_plan_description',
+			'field' => 'description'
+		];
+
+		foreach ($remove as $result) {
+			$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . $result['table'] . "' AND COLUMN_NAME = '" . $result['field'] . "'");
+
+			if ($query->num_rows) {
+				$this->db->query("ALTER TABLE `" . DB_PREFIX . $result['table'] . "` DROP `" . $result['field'] . "`");
+			}
+		}
     }
 }
