@@ -9,11 +9,24 @@ class ModelExtensionModuleDbSchema extends Model {
 	 * getTable
 	 *
 	 * @param string $name
+	 * @param array  $data
 	 *
 	 * @return array
 	 */
-	public function getTable(string $name): array {
-		$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . $name . "'");
+	public function getTable(string $name, array $data = []): array {
+		$implode = [];
+
+		foreach ($data as $result) {
+			$implode[] = "COLUMN_NAME = '" . $result . "'";
+		}
+
+		$sql = "SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . $name . "'";
+
+		if ($implode) {
+			$sql .= " AND " . implode(" AND ", $implode);
+		}
+
+		$query = $this->db->query($sql);
 
 		return $query->rows;
 	}
