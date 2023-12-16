@@ -155,11 +155,13 @@ class ControllerExtensionModuleDbSchema extends Controller {
 
 						if ($fields) {
 							foreach ($fields as $result) {
-								$data['tables'][$result['TABLE_NAME'] . '|parent'][] = [
-									'name'          => $result['Column_name'],
-									'previous_type' => $result['COLUMN_TYPE'],
-									'type'          => $field['type']
-								];
+								if ($result['Column_name'] == $field['name']) {
+									$data['tables'][$result['TABLE_NAME'] . '|parent'][] = [
+										'name'          => $result['Column_name'],
+										'previous_type' => $result['COLUMN_TYPE'],
+										'type'          => $field['type']
+									];
+								}
 							}
 						}
 
@@ -168,12 +170,14 @@ class ControllerExtensionModuleDbSchema extends Controller {
 								$fields = $this->model_extension_module_db_schema->getTable($foreign['table']);
 
 								if ($fields) {
-									foreach ($fields as $field) {
-										$data['tables'][$field['TABLE_NAME'] . '|child'][] = [
-											'name'          => $field['Column_name'],
-											'previous_type' => $field['COLUMN_TYPE'],
-											'type'          => $field['type']
-										];
+									foreach ($fields as $result) {
+										if ($result['Column_name'] == $field['name']) {
+											$data['tables'][$result['TABLE_NAME'] . '|child'][] = [
+												'name'          => $result['Column_name'],
+												'previous_type' => $result['COLUMN_TYPE'],
+												'type'          => $result['type']
+											];
+										}
 									}
 								}
 							}

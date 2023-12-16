@@ -3948,7 +3948,6 @@ function oc_db_schema() {
                 'field' => 'product_id'
             ]
         ],
-        'upgrade' => true,
         'engine'  => 'MyISAM',
         'charset' => 'utf8mb4',
         'collate' => 'utf8mb4_general_ci'
@@ -3989,7 +3988,6 @@ function oc_db_schema() {
                 'field' => 'order_recurring_id'
             ]
         ],
-        'upgrade' => true,
         'engine'  => 'MyISAM',
         'charset' => 'utf8mb4',
         'collate' => 'utf8mb4_general_ci'
@@ -4034,7 +4032,6 @@ function oc_db_schema() {
                 'field' => 'order_recurring_id'
             ]
         ],
-        'upgrade' => true,
         'engine'  => 'MyISAM',
         'charset' => 'utf8mb4',
         'collate' => 'utf8mb4_general_ci'
@@ -4075,7 +4072,6 @@ function oc_db_schema() {
                 'field' => 'order_id'
             ]
         ],
-        'upgrade' => true,
         'engine'  => 'MyISAM',
         'charset' => 'utf8mb4',
         'collate' => 'utf8mb4_general_ci'
@@ -4101,7 +4097,6 @@ function oc_db_schema() {
         'primary' => [
             'shipping_courier_id'
         ],
-        'upgrade' => true,
         'engine'  => 'MyISAM',
         'charset' => 'utf8mb4',
         'collate' => 'utf8mb4_general_ci'
