@@ -6,6 +6,7 @@ $_['heading_title']    = 'Database Schema (developers)';
 $_['text_extension']   = 'Extensions';
 $_['text_success']     = 'Success: You have modified Database Schema module!';
 $_['text_edit']        = 'Edit Database Schema Module';
+$_['text_report']      = 'Report';
 $_['text_parent']      = 'Parent Table';
 $_['text_child']       = 'Table Relationships';
 
