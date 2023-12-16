@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html dir="{{ direction }}" lang="{{ lang }}">
+<head>
+  <meta charset="UTF-8"/>
+  <title>{{ title }}</title>
+  <base href="{{ base }}"/>
+  <link href="view/javascript/bootstrap/css/bootstrap.css" rel="stylesheet" media="all"/>
+  <script type="text/javascript" src="view/javascript/jquery/jquery-3.7.1.min.js"></script>
+  <script type="text/javascript" src="view/javascript/bootstrap/js/bootstrap.min.js"></script>
+  <link href="view/javascript/font-awesome/css/font-awesome.min.css" type="text/css" rel="stylesheet"/>
+  <link type="text/css" href="view/stylesheet/stylesheet.css" rel="stylesheet" media="all"/>
+</head>
+<body>
+<div class="container">
+  {% for table_name, results in tables %}
+    {% set table_data = table_name|split('|') %}
+    <div style="page-break-after: always;">
+      <h1>{{ table_data[0] }}</h1>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <td colspan="3">
+              {% if table_data[0] == 'parent' %}
+                {{ text_parent }}
+              {% elseif table_data[1] == 'child' %}
+                {{ text_child }}
+              {% endif %}
+            </td>
+          </tr>
+        </thead>
+        <tbody>
+          {% for key, result in results %}
+            <tr>
+              <td style="width: 33%;">{{ result.name }}</td>
+              <td style="width: 33%;">{{ result.previous_type }}</td>
+              <td style="width: 33%;">{{ result.type }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% endfor %}
+</div>
+</body>
+</html>
