@@ -194,7 +194,6 @@ class ControllerExtensionModuleDbSchema extends Controller {
 							}
 						}
 
-						// Extension fields from core tables
 						if (!in_array($field['name'], $field_data)) {
 							foreach ($field_data as $result) {
 								if ($result != $field['name']) {
@@ -204,6 +203,7 @@ class ControllerExtensionModuleDbSchema extends Controller {
 						}
 					}
 
+					// Extension fields from core tables
 					if ($filter_data) {
 						$fields = $this->model_extension_module_db_schema->getTable($table['name'], $filter_data);
 
