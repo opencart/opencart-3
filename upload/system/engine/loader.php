@@ -23,14 +23,16 @@ class Loader {
     }
 
     /**
+	 * Controller
+	 *
      * @param string $route
      * @param array  $data
      *
-     * @return    mixed
+     * @return mixed
+	 *
+	 * Removing the mixed output as a temporary workaround since admin extension
+	 * installers don't seem to like that really much.
      */
-
-    // Removing the mixed output as a temporary workaround since admin extension
-    // installers don't seem to like that really much.
     public function controller(string $route, array $data = []) {
         // Sanitize the call
         $route = preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route);
@@ -66,7 +68,11 @@ class Loader {
     }
 
     /**
+	 * Model
+	 *
      * @param string $route
+	 *
+	 * @return void
      */
     public function model(string $route): void {
         // Sanitize the call
@@ -97,10 +103,13 @@ class Loader {
     }
 
     /**
+	 * View
+	 *
      * @param string $route
      * @param array  $data
+	 * @param string $code
      *
-     * @return    string
+     * @return string
      */
     public function view(string $route, array $data = [], string $code = ''): string {
         // Sanitize the call
@@ -139,9 +148,11 @@ class Loader {
     }
 
     /**
+	 * Library
+	 *
      * @param string $route
      */
-    public function library(string $route, array &...$args): object {
+    public function library(string $route, array &...$args) {
         // Sanitize the call
         $route = preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route);
 
@@ -158,7 +169,11 @@ class Loader {
     }
 
     /**
+	 * Helper
+	 *
      * @param string $route
+	 *
+	 * @return void
      */
     public function helper(string $route): void {
         $file = DIR_SYSTEM . 'helper/' . preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route) . '.php';
@@ -171,6 +186,8 @@ class Loader {
     }
 
     /**
+	 * Config
+	 *
      * @param string $route
      */
     public function config(string $route) {
@@ -182,12 +199,14 @@ class Loader {
     }
 
     /**
+	 * Language
+	 *
      * @param string $route
      * @param string $key
      *
-     * @return    array
+     * @return array
      */
-    public function language(string $route, string $key = '') {
+    public function language(string $route, string $key = ''): array {
         // Sanitize the call
         $route = preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route);
 
