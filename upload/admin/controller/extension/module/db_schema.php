@@ -156,11 +156,11 @@ class ControllerExtensionModuleDbSchema extends Controller {
 					foreach ($table['field'] as $field) {
 						$fields = $this->model_extension_module_db_schema->getTable($table['name']);
 
+						// Core
 						if ($fields) {
 							$extension_data = [];
 
 							foreach ($fields as $result) {
-								// Core
 								if ($result['Column_name'] == $field['name']) {
 									$data['tables'][$result['TABLE_NAME'] . '|parent'][] = [
 										'name'          => $result['Column_name'],
@@ -176,6 +176,7 @@ class ControllerExtensionModuleDbSchema extends Controller {
 							}
 						}
 
+						// Foreign
 						if (isset($table['foreign']) && $table['foreign']) {
 							foreach ($table['foreign'] as $foreign) {
 								$fields = $this->model_extension_module_db_schema->getTable($foreign['table']);
