@@ -151,12 +151,14 @@ class ControllerExtensionModuleDbSchema extends Controller {
 			foreach ($tables as $table) {
 				if (in_array($table['name'], $selected)) {
 					$field_data = [];
-					$extension_data = [];
+					$filter_data = [];
 
 					foreach ($table['field'] as $field) {
 						$fields = $this->model_extension_module_db_schema->getTable($table['name']);
 
 						if ($fields) {
+							$extension_data = [];
+
 							foreach ($fields as $result) {
 								// Core
 								if ($result['Column_name'] == $field['name']) {
@@ -166,12 +168,11 @@ class ControllerExtensionModuleDbSchema extends Controller {
 										'type'          => $field['type']
 									];
 								}
-								// Extensions
-								elseif ($result['Column_name'] != $field['name']) {
-									$field_data[] = $field['name'];
 
-									$extension_data[] = $result['Column_name'];
-								}
+								$extension_data[] = $result['Column_name'];
+
+								// Extensions
+								array_push($field_data, $extension_data);
 							}
 						}
 
@@ -185,30 +186,34 @@ class ControllerExtensionModuleDbSchema extends Controller {
 											$data['tables'][$result['TABLE_NAME'] . '|child'][] = [
 												'name'          => $result['Column_name'],
 												'previous_type' => $result['COLUMN_TYPE'],
-												'type'          => $result['type']
+												'type'          => $field['type']
 											];
 										}
 									}
 								}
 							}
 						}
+
+						// Extension fields from core tables
+						if (!in_array($field['name'], $field_data)) {
+							foreach ($field_data as $result) {
+								if ($result != $field['name']) {
+									$filter_data[] = $result;
+								}
+							}
+						}
 					}
 
-					// Extension fields from core tables
-					if ($field_data && $extension_data) {
-						$filter_data = array_diff($field_data, $extension_data);
+					if ($filter_data) {
+						$fields = $this->model_extension_module_db_schema->getTable($table['name'], $filter_data);
 
-						if ($filter_data) {
-							$fields = $this->model_extension_module_db_schema->getTable($table['name'], $filter_data);
-
-							if ($fields) {
-								foreach ($fields as $result) {
-									$data['tables'][$result['TABLE_NAME'] . '|extension'][] = [
-										'name'          => $result['Column_name'],
-										'previous_type' => $result['COLUMN_TYPE'],
-										'type'          => $result['type']
-									];
-								}
+						if ($fields) {
+							foreach ($fields as $result) {
+								$data['tables'][$result['TABLE_NAME'] . '|extension'][] = [
+									'name'          => $result['Column_name'],
+									'previous_type' => $result['COLUMN_TYPE'],
+									'type'          => $result['COLUMN_TYPE']
+								];
 							}
 						}
 					}
