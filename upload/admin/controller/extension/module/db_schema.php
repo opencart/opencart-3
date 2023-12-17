@@ -158,8 +158,6 @@ class ControllerExtensionModuleDbSchema extends Controller {
 
 						// Core
 						if ($fields) {
-							$extension_data = [];
-
 							foreach ($fields as $result) {
 								if ($result['Column_name'] == $field['name']) {
 									$data['tables'][$result['TABLE_NAME'] . '|parent'][] = [
@@ -169,10 +167,8 @@ class ControllerExtensionModuleDbSchema extends Controller {
 									];
 								}
 
-								$extension_data[] = $result['Column_name'];
-
 								// Extensions
-								array_push($field_data, $extension_data);
+								array_push($field_data, $result['Column_name']);
 							}
 						}
 
