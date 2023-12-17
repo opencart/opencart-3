@@ -202,6 +202,8 @@ class ControllerExtensionModuleDbSchema extends Controller {
 
 					// Extension fields from core tables
 					if ($filter_data) {
+						$filter_data = array_unique($filter_data);
+
 						$fields = $this->model_extension_module_db_schema->getTable($table['name'], $filter_data);
 
 						if ($fields) {
