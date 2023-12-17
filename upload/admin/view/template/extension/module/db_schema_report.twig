@@ -21,11 +21,11 @@
           <tr>
             <td colspan="3">
               {% if table_data[1] == 'parent' %}
-                {{ text_parent }}
+                <span class="label label-default">{{ text_parent }}</span>
               {% elseif table_data[1] == 'child' %}
-                {{ text_child }}
+                <span class="label label-default">{{ text_child }}</span>
               {% elseif table_data[1] == 'extension' %}
-                {{ text_extension }}
+                <span class="label label-warning">{{ text_extension }}</span>
               {% endif %}
             </td>
           </tr>
