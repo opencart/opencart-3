@@ -138,8 +138,6 @@ class ControllerExtensionModuleDbSchema extends Controller {
 		}
 
 		if ($this->user->hasPermission('modify', 'extension/module/db_schema')) {
-			$data['foreigns'] = [];
-
 			// DB Schema
 			$this->load->model('extension/module/db_schema');
 
