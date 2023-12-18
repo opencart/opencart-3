@@ -15,12 +15,6 @@ class ControllerExtensionModuleDbSchema extends Controller {
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
-		if (isset($this->error['warning'])) {
-			$data['error_warning'] = $this->error['warning'];
-		} else {
-			$data['error_warning'] = '';
-		}
-
 		if (isset($this->request->get['page'])) {
 			$page = (int)$this->request->get['page'];
 		} else {
@@ -82,12 +76,6 @@ class ControllerExtensionModuleDbSchema extends Controller {
 		}
 
 		$data['user_token'] = $this->session->data['user_token'];
-
-		if (isset($this->error['warning'])) {
-			$data['error_warning'] = $this->error['warning'];
-		} else {
-			$data['error_warning'] = '';
-		}
 
 		$url = '';
 
