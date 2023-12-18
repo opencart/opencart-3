@@ -54,9 +54,9 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array|null
+	 * @return array
 	 */
-    public function void(int $order_id): array|null {
+    public function void(int $order_id): array {
         $securetrading_ws_order = $this->getOrder($order_id);
 
         if ($securetrading_ws_order && $securetrading_ws_order['release_status'] == 0) {
@@ -75,7 +75,7 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 
             return $this->call($requestblock_xml->asXML());
         } else {
-            return null;
+            return [];
         }
     }
 
@@ -157,9 +157,9 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 	 * @param int   $order_id
 	 * @param float $refunded_amount
 	 *
-	 * @return array|null
+	 * @return array
 	 */
-    public function rebate(int $order_id, float $refunded_amount): array|null {
+    public function rebate(int $order_id, float $refunded_amount): array {
         $securetrading_ws_order = $this->getOrder($order_id);
 
         if ($securetrading_ws_order && $securetrading_ws_order['rebate_status'] != 1) {
@@ -184,7 +184,7 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 
             return $this->call($requestblock_xml->asXML());
         } else {
-            return null;
+            return [];
         }
     }
 
