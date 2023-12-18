@@ -636,9 +636,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	 *
 	 * @param string $amazon_capture_id
 	 *
-	 * @return bool
+	 * @return int
 	 */
-    public function findCapture($amazon_capture_id): bool {
+    public function findCapture($amazon_capture_id): int {
         $sql = "SELECT * FROM `" . DB_PREFIX . "amazon_login_pay_order_transaction` WHERE `amazon_capture_id` = '" . $this->db->escape($amazon_capture_id) . "'";
 
         return $this->db->query($sql)->num_rows;
@@ -675,9 +675,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	 *
 	 * @param int $order_id
 	 *
-	 * @return bool
+	 * @return int
 	 */
-    public function isShippingFree(int $order_id): bool {
+    public function isShippingFree(int $order_id): int {
         $sql = "SELECT * FROM `" . DB_PREFIX . "order_total` WHERE `order_id` = '" . (int)$order_id . "' AND `value` = '0.0000' AND `code` = 'shipping'";
 
         return $this->db->query($sql)->num_rows;
