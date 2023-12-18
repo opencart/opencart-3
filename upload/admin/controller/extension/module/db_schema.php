@@ -166,7 +166,7 @@ class ControllerExtensionModuleDbSchema extends Controller {
 								}
 
 								// Extensions
-								array_push($field_data, $result['Column_name']);
+								$field_data[] = $result['Column_name'];
 							}
 						}
 

@@ -59,6 +59,32 @@ class ModelExtensionModuleDbSchema extends Model {
 	}
 
 	/**
+	 * getIndexes
+	 *
+	 * @param string $name
+	 * @param array  $data
+	 *
+	 * @return array
+	 */
+	public function getIndexes(string $name, array $data): array {
+		$implode = [];
+
+		foreach ($data as $result) {
+			$implode[] = "COLUMN_NAME = '" . $result . "'";
+		}
+
+		$sql = "SELECT * FROM information_schema.STATISTICS WHERE 1 = 1 AND TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . $name . "'";
+
+		if ($implode) {
+			$sql .= " AND " . implode(" AND ", $implode);
+		}
+
+		$query = $this->db->query($sql);
+
+		return $query->rows;
+	}
+
+	/**
 	 * getTotalTables
 	 *
 	 * @return int
