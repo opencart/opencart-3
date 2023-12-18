@@ -693,12 +693,16 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 	/**
 	 * parseJson
+	 *
+	 * @return array
+	 *
+	 * https://stackoverflow.com/a/74006399 (PHP 8.3+ compatibility)
 	 */
-    public function parseJson($json) {
+    public function parseJson($json): array {
         $message = @json_decode($json, true);
         $json_error = json_last_error();
 
-        if ($json_error != 0) {
+        if (!json_validate($json)) {
             throw new \RuntimeException('Error with message - content is not in json format. Error: ' . $json_error);
         }
 
