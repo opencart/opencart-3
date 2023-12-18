@@ -122,7 +122,6 @@ class ModelExtensionPaymentWorldpay extends Model {
 
         if ($query->num_rows) {
             $order = $query->row;
-
             $order['transactions'] = $this->getTransactions($order['worldpay_order_id'], $query->row['currency_code']);
 
             return $order;
@@ -139,7 +138,6 @@ class ModelExtensionPaymentWorldpay extends Model {
         if ($query->num_rows) {
             foreach ($query->rows as $row) {
                 $row['amount'] = $this->currency->format($row['amount'], $currency_code, false);
-
                 $transactions[] = $row;
             }
 

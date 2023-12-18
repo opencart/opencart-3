@@ -112,7 +112,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 
         $result = $this->db->query($sql);
 
-        if ($result->num_rows > 0) {
+        if ($result->num_rows) {
             try {
                 $googleshopping = new Googleshopping($this->registry, (int)$result->row['store_id']);
 
@@ -130,7 +130,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 
         $result = $this->db->query($sql);
 
-        if ($result->num_rows > 0) {
+        if ($result->num_rows) {
             return (int)$result->row['product_id'];
         }
 
@@ -140,13 +140,13 @@ class ModelExtensionAdvertiseGoogle extends Model {
     public function isAnyProductCategoryModified($store_id) {
         $sql = "SELECT `pag`.`is_modified` FROM `" . DB_PREFIX . "googleshopping_product` `pag` WHERE `pag`.`google_product_category` IS NOT NULL AND `pag`.`store_id` = '" . (int)$store_id . "' LIMIT 0,1";
 
-        return $this->db->query($sql)->num_rows > 0;
+        return $this->db->query($sql)->num_rows;
     }
 
     public function getAdvertisedCount($store_id) {
         $result = $this->db->query("SELECT COUNT(`product_id`) AS `total` FROM `" . DB_PREFIX . "googleshopping_product_target` WHERE `store_id` = '" . (int)$store_id . "' GROUP BY `product_id`");
 
-        return $result->num_rows > 0 ? (int)$result->row['total'] : 0;
+        return $result->num_rows ? (int)$result->row['total'] : 0;
     }
 
     public function getMapping($store_id) {
@@ -166,7 +166,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 
         $result = $this->db->query($sql);
 
-        if ($result->num_rows > 0) {
+        if ($result->num_rows) {
             return $result->row;
         }
 
@@ -195,7 +195,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
     public function hasActiveTarget($store_id) {
         $sql = "SELECT `agt`.`advertise_google_target_id` FROM `" . DB_PREFIX . "googleshopping_target` `agt` WHERE `agt`.`store_id` = '" . (int)$store_id . "' AND `agt`.`status` = 'active' LIMIT 1";
 
-        return $this->db->query($sql)->num_rows > 0;
+        return $this->db->query($sql)->num_rows;
     }
 
     public function getRequiredFieldsByProductIds($product_ids, $store_id) {
@@ -526,7 +526,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
     }
 
     private function tableExists($table) {
-        return $this->db->query("SHOW TABLES LIKE '" . $table . "'")->num_rows > 0;
+        return $this->db->query("SHOW TABLES LIKE '" . $table . "'")->num_rows;
     }
 
     private function tableColumnsMatch($table, $columns) {
@@ -617,7 +617,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
     }
 
     public function fixColumns() {
-        $has_auto_increment = $this->db->query("SHOW COLUMNS FROM `" . DB_PREFIX . "googleshopping_product` WHERE Field = 'product_advertise_google_id' AND Extra LIKE '%auto_increment%'")->num_rows > 0;
+        $has_auto_increment = $this->db->query("SHOW COLUMNS FROM `" . DB_PREFIX . "googleshopping_product` WHERE Field = 'product_advertise_google_id' AND Extra LIKE '%auto_increment%'")->num_rows;
 
         if (!$has_auto_increment) {
             $this->db->query("ALTER TABLE `" . DB_PREFIX . "googleshopping_product` MODIFY COLUMN `product_advertise_google_id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT");
@@ -626,7 +626,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
         $has_unique_key = $this->db->query("SHOW INDEX FROM `" . DB_PREFIX . "googleshopping_product` WHERE Key_name = 'product_id_store_id' AND Non_unique = 0")->num_rows == 2;
 
         if (!$has_unique_key) {
-            $index_exists = $this->db->query("SHOW INDEX FROM `" . DB_PREFIX . "googleshopping_product` WHERE Key_name = 'product_id_store_id'")->num_rows > 0;
+            $index_exists = $this->db->query("SHOW INDEX FROM `" . DB_PREFIX . "googleshopping_product` WHERE Key_name = 'product_id_store_id'")->num_rows;
 
             if ($index_exists) {
                 $this->db->query("ALTER TABLE `" . DB_PREFIX . "googleshopping_product` DROP INDEX product_id_store_id;");
@@ -635,7 +635,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
             $this->db->query("CREATE UNIQUE INDEX product_id_store_id ON `" . DB_PREFIX . "googleshopping_product` (product_id, store_id)");
         }
 
-        $has_date_added_column = $this->db->query("SHOW COLUMNS FROM `" . DB_PREFIX . "googleshopping_target` WHERE Field = 'date_added'")->num_rows > 0;
+        $has_date_added_column = $this->db->query("SHOW COLUMNS FROM `" . DB_PREFIX . "googleshopping_target` WHERE Field = 'date_added'")->num_rows;
 
         if (!$has_date_added_column) {
             $this->db->query("ALTER TABLE `" . DB_PREFIX . "googleshopping_target` ADD COLUMN `date_added` DATE");
@@ -643,7 +643,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
             $this->db->query("UPDATE `" . DB_PREFIX . "googleshopping_target` SET `date_added` = NOW() WHERE `date_added` IS NULL");
         }
 
-        $has_roas_column = $this->db->query("SHOW COLUMNS FROM `" . DB_PREFIX . "googleshopping_target` WHERE Field = 'roas'")->num_rows > 0;
+        $has_roas_column = $this->db->query("SHOW COLUMNS FROM `" . DB_PREFIX . "googleshopping_target` WHERE Field = 'roas'")->num_rows;
 
         if (!$has_roas_column) {
             $this->db->query("ALTER TABLE `" . DB_PREFIX . "googleshopping_target` ADD COLUMN `roas` INT(11) NOT NULL DEFAULT '0'");

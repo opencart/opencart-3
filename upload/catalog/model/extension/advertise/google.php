@@ -18,7 +18,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 
         $google_category_result = $this->db->query("SELECT `google_product_category` FROM `" . DB_PREFIX . "googleshopping_product` `pag` WHERE `pag`.`product_id` = '" . (int)$product_id . "' AND `pag`.`store_id` = '" . (int)$store_id . "'");
 
-        if ($google_category_result->num_rows > 0) {
+        if ($google_category_result->num_rows) {
             $google_category_id = $google_category_result->row['google_product_category'];
             $google_categories = $this->config->get('advertise_google_google_product_categories');
 
@@ -29,7 +29,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 
         $oc_category_result = $this->db->query("SELECT `c`.`category_id` FROM `" . DB_PREFIX . "product_to_category` `p2c` LEFT JOIN `" . DB_PREFIX . "category` `c` ON (`c`.`category_id` = `p2c`.`category_id`) WHERE `p2c`.`product_id` = '" . (int)$product_id . "' LIMIT 0,1");
 
-        if ($oc_category_result->num_rows > 0) {
+        if ($oc_category_result->num_rows) {
             return $this->getHumanReadableOpenCartCategory((int)$oc_category_result->row['category_id']);
         }
 
@@ -48,7 +48,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 
         $result = $this->db->query($sql);
 
-        if ($result->num_rows > 0) {
+        if ($result->num_rows) {
             return $result->row['path'];
         }
 
@@ -92,7 +92,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 
         $result = $this->db->query($sql);
 
-        if ($result->num_rows > 0) {
+        if ($result->num_rows) {
             return $result->row['code'];
         } else {
 			return '';
@@ -181,7 +181,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 
         $result = $this->db->query($sql);
 
-        if ($result->num_rows > 0) {
+        if ($result->num_rows) {
             return (int)$result->row[$type];
         }
 

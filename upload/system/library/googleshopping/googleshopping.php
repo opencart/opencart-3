@@ -472,7 +472,7 @@ class Googleshopping extends Library {
 
         $result = $this->db->query($sql);
 
-        if ($result->num_rows > 0) {
+        if ($result->num_rows) {
             $return = [];
 
             foreach ($result->rows as $row) {

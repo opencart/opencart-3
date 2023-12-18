@@ -532,8 +532,12 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 	/**
 	 * findOrAddOrder
+	 *
+	 * @param object $order
+	 *
+	 * @return int
 	 */
-    public function findOrAddOrder($order) {
+    public function findOrAddOrder(object $order): int {
         $order_id = (int)$order->SellerOrderAttributes->SellerOrderId;
         $order_reference_id = (string)$order->AmazonOrderReferenceId;
 
@@ -541,7 +545,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
         $find_result = $this->db->query($find_sql);
 
-        if ($find_result->num_rows > 0) {
+        if ($find_result->num_rows) {
             return $find_result->row['amazon_login_pay_order_id'];
         }
 
@@ -569,17 +573,21 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 	/**
 	 * getOrderByOrderId
+	 *
+	 * @param int $order_id
+	 *
+	 * @return array
 	 */
-    public function getOrderByOrderId($order_id) {
+    public function getOrderByOrderId(int $order_id): array {
         $sql = "SELECT * FROM `" . DB_PREFIX . "amazon_login_pay_order` WHERE `order_id` = '" . (int)$order_id . "'";
 
         $result = $this->db->query($sql);
 
-        if ($result->num_rows > 0) {
+        if ($result->num_rows) {
             return $result->row;
-        }
-
-        return [];
+        } else {
+			return [];
+		}
     }
 
 	/**
@@ -613,24 +621,35 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 	/**
 	 * updateCapturedStatus
+	 *
+	 * @param string $amazon_login_pay_order_id
+	 * @param int    $status
+	 *
+	 * @return void
 	 */
-    public function updateCapturedStatus($amazon_login_pay_order_id, $status) {
+    public function updateCapturedStatus($amazon_login_pay_order_id, $status): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "amazon_login_pay_order` SET `capture_status` = '" . (int)$status . "' WHERE `amazon_login_pay_order_id` = '" . $this->db->escape($amazon_login_pay_order_id) . "'");
     }
 
 	/**
 	 * findCapture
+	 *
+	 * @param string $amazon_capture_id
+	 *
+	 * @return bool
 	 */
-    public function findCapture($amazon_capture_id) {
+    public function findCapture($amazon_capture_id): bool {
         $sql = "SELECT * FROM `" . DB_PREFIX . "amazon_login_pay_order_transaction` WHERE `amazon_capture_id` = '" . $this->db->escape($amazon_capture_id) . "'";
 
-        return $this->db->query($sql)->num_rows > 0;
+        return $this->db->query($sql)->num_rows;
     }
 
 	/**
 	 * addTransaction
+	 *
+	 * @return void
 	 */
-    public function addTransaction($data) {
+    public function addTransaction(array $data): void {
         $insert = [
             'amazon_login_pay_order_id' => "'" . (int)$data['amazon_login_pay_order_id'] . "'",
             'amazon_authorization_id'   => "'" . $this->db->escape($data['amazon_authorization_id']) . "'",
@@ -653,17 +672,23 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 	/**
 	 * isShippingFree
+	 *
+	 * @param int $order_id
+	 *
+	 * @return bool
 	 */
-    public function isShippingFree($order_id) {
+    public function isShippingFree(int $order_id): bool {
         $sql = "SELECT * FROM `" . DB_PREFIX . "order_total` WHERE `order_id` = '" . (int)$order_id . "' AND `value` = '0.0000' AND `code` = 'shipping'";
 
-        return $this->db->query($sql)->num_rows > 0;
+        return $this->db->query($sql)->num_rows;
     }
 
 	/**
 	 * getPlatformId
+	 *
+	 * @return string
 	 */
-    public function getPlatformId() {
+    public function getPlatformId(): string {
         if ($this->config->get('payment_amazon_login_pay_payment_region') == 'USD') {
             return 'A3GK1RS09H3A7D';
         } else {
@@ -711,41 +736,63 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 	/**
 	 * updateStatus
+	 *
+	 * @param string $amazon_id
+	 * @param string $type
+	 * @param string $status
+	 *
+	 * @return void
 	 */
-    public function updateStatus($amazon_id, $type, $status) {
+    public function updateStatus(string $amazon_id, string $type, string $status): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "amazon_login_pay_order_transaction` SET `status` = '" . $this->db->escape($status) . "' WHERE `amazon_" . $type . "_id` = '" . $this->db->escape($amazon_id) . "' AND `type` = '" . $this->db->escape($type) . "'");
     }
 
 	/**
 	 * findOCOrderId
+	 *
+	 * @param string $amazon_authorization_id
+	 *
+	 * @return int
 	 */
-    public function findOCOrderId($amazon_authorization_id) {
+    public function findOCOrderId(string $amazon_authorization_id): int {
         $sql = "SELECT * FROM `" . DB_PREFIX . "amazon_login_pay_order` WHERE `amazon_order_reference_id` = '" . $this->db->escape($amazon_authorization_id) . "'";
 
         $result = $this->db->query($sql);
 
-        if ($result->num_rows > 0) {
+        if ($result->num_rows) {
             return (int)$result->row['order_id'];
-        }
+        } else {
+			return 0;
+		}
     }
 
 	/**
 	 * findAOrderId
+	 *
+	 * @param string $amazon_authorization_id
+	 *
+	 * @return int
 	 */
-    public function findAOrderId($amazon_authorization_id) {
+    public function findAOrderId(string $amazon_authorization_id): int {
         $sql = "SELECT * FROM `" . DB_PREFIX . "amazon_login_pay_order` WHERE `amazon_order_reference_id` = '" . $this->db->escape($amazon_authorization_id) . "'";
 
         $result = $this->db->query($sql);
 
-        if ($result->num_rows > 0) {
+        if ($result->num_rows) {
             return (int)$result->row['amazon_login_pay_order_id'];
-        }
+        } else {
+			return 0;
+		}
     }
 
 	/**
 	 * getTotalCaptured
+	 *
+	 * @param string $amazon_login_pay_order_id
+	 *
+	 * @return float
 	 */
-    public function getTotalCaptured($amazon_login_pay_order_id) {
+    public function getTotalCaptured(string $amazon_login_pay_order_id): float {
         $query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "amazon_login_pay_order_transaction` WHERE `amazon_login_pay_order_id` = '" . (int)$amazon_login_pay_order_id . "' AND (`type` = 'capture' OR `type` = 'refund') AND (`status` = 'Completed' OR `status` = 'Closed')");
 
         return (float)$query->row['total'];
@@ -753,8 +800,12 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 	/**
 	 * authorizationIpn
+	 *
+	 * @param object $xml
+	 *
+	 * @return bool
 	 */
-    public function authorizationIpn($xml) {
+    public function authorizationIpn(object $xml): bool {
         $status = (string)$xml->AuthorizationDetails->AuthorizationStatus->State;
         $amazon_authorization_id = (string)$xml->AuthorizationDetails->AmazonAuthorizationId;
 
@@ -769,8 +820,12 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 	/**
 	 * captureIpn
+	 *
+	 * @param object $xml
+	 *
+	 * @return void
 	 */
-    public function captureIpn($xml) {
+    public function captureIpn(object $xml): void {
         $status = (string)$xml->CaptureDetails->CaptureStatus->State;
         $amazon_capture_id = (string)$xml->CaptureDetails->AmazonCaptureId;
 
@@ -783,8 +838,12 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 	/**
 	 * refundIpn
+	 *
+	 * @param object $xml
+	 *
+	 * @return void
 	 */
-    public function refundIpn($xml) {
+    public function refundIpn(object $xml): void {
         $status = (string)$xml->RefundDetails->RefundStatus->State;
         $amazon_refund_id = (string)$xml->RefundDetails->AmazonRefundId;
 
@@ -797,8 +856,13 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 	/**
 	 * updatePaymentAddress
+	 *
+	 * @param int   $order_id
+	 * @param array $amazon_address
+	 *
+	 * @return void
 	 */
-    public function updatePaymentAddress($order_id, $amazon_address) {
+    public function updatePaymentAddress(int $order_id, array $amazon_address): void {
         $address = $this->amazonAddressToOcAddress($amazon_address);
 
         $data = [
@@ -830,8 +894,13 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 	/**
 	 * amazonAddressToOcAddress
+	 *
+	 * @param object $amazon_address
+	 * @param string $default_telephone
+	 *
+	 * @return array
 	 */
-    public function amazonAddressToOcAddress($amazon_address, $default_telephone = '0000000') {
+    public function amazonAddressToOcAddress(object $amazon_address, string $default_telephone = '0000000'): array {
         $full_name = explode(' ', $amazon_address->Name);
         $amazon_address->FirstName = array_shift($full_name);
         $amazon_address->LastName = implode(' ', $full_name);
@@ -868,8 +937,12 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 	/**
 	 * getAddress
+	 *
+	 * @param string $order_reference_id
+	 *
+	 * @return array
 	 */
-    public function getAddress($order_reference_id) {
+    public function getAddress(string $order_reference_id): array {
         if (!isset($this->session->data['apalwa']['login']['access_token'])) {
             $this->debugLog('ERROR', $this->language->get('error_shipping_methods'));
 
@@ -890,13 +963,17 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 	/**
 	 * getCountryInfo
+	 *
+	 * @param object $amazon_address
+	 *
+	 * @return array
 	 */
-    public function getCountryInfo($amazon_address) {
+    public function getCountryInfo(object $amazon_address): array {
         $sql = "SELECT * FROM `" . DB_PREFIX . "country` WHERE LCASE(`iso_code_2`) = '" . $this->db->escape(oc_strtolower($amazon_address->CountryCode)) . "' AND `status` = '1' LIMIT 1";
 
         $result = $this->db->query($sql);
 
-        if ($result->num_rows > 0) {
+        if ($result->num_rows) {
             return [
                 'country_id'     => (int)$result->row['country_id'],
                 'country'        => $result->row['name'],
@@ -917,13 +994,19 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 	/**
 	 * getZoneInfo
+	 *
+	 * @param object $amazon_address
+	 * @param array  $country_info
+	 *
+	 * @return array
 	 */
-    public function getZoneInfo($amazon_address, $country_info) {
+    public function getZoneInfo(object $amazon_address, array $country_info): array {
         if (!empty($amazon_address->StateOrRegion)) {
             $sql = "SELECT `zone_id`, `code`, `name` FROM `" . DB_PREFIX . "zone` WHERE (LOWER(`name`) LIKE '" . $this->db->escape(oc_strtolower($amazon_address->StateOrRegion)) . "' OR LCASE(`code`) LIKE '" . $this->db->escape(strtolower($amazon_address->StateOrRegion)) . "') AND `country_id` = '" . (int)$country_info['country_id'] . "' LIMIT 1";
-            $result = $this->db->query($sql);
 
-            if ($result->num_rows > 0) {
+			$result = $this->db->query($sql);
+
+            if ($result->num_rows) {
                 return [
                     'zone_id' => (int)$result->row['zone_id'],
                     'name'    => $result->row['name'],
@@ -941,8 +1024,10 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 	/**
 	 * getCurlUrl
+	 *
+	 * @return string
 	 */
-    public function getCurlUrl() {
+    public function getCurlUrl(): string {
         if ($this->config->get('payment_amazon_login_pay_test') == 'sandbox') {
             if ($this->config->get('payment_amazon_login_pay_payment_region') == 'USD') {
                 return 'https://mws.amazonservices.com/OffAmazonPayments_Sandbox/2013-01-01/';
@@ -967,8 +1052,13 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 	/**
 	 * calculateStringToSignV2
+	 *
+	 * @param string $url
+	 * @param array  $params
+	 *
+	 * @return string
 	 */
-    public function calculateStringToSignV2($url, $params) {
+    public function calculateStringToSignV2(string $url, array $params): string {
         $data = 'POST';
         $data .= "\n";
 
@@ -997,8 +1087,13 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 	/**
 	 * makePost
+	 *
+	 * @param string $url
+	 * @param array $extra
+	 *
+	 * @return string
 	 */
-    public function makePost($url, $action, $extra = []) {
+    public function makePost(string $url, $action, array $extra = []): string {
         $params = [];
 
         $params['AWSAccessKeyId'] = $this->config->get('payment_amazon_login_pay_access_key');

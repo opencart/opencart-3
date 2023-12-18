@@ -54,9 +54,9 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 	 *
 	 * @param int $order_id
 	 *
-	 * @return object|null
+	 * @return array|null
 	 */
-    public function void(int $order_id): ?object {
+    public function void(int $order_id): array|null {
         $securetrading_ws_order = $this->getOrder($order_id);
 
         if ($securetrading_ws_order && $securetrading_ws_order['release_status'] == 0) {
@@ -157,9 +157,9 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 	 * @param int   $order_id
 	 * @param float $refunded_amount
 	 *
-	 * @return object|null
+	 * @return array|null
 	 */
-    public function rebate(int $order_id, float $refunded_amount): ?object {
+    public function rebate(int $order_id, float $refunded_amount): array|null {
         $securetrading_ws_order = $this->getOrder($order_id);
 
         if ($securetrading_ws_order && $securetrading_ws_order['rebate_status'] != 1) {
@@ -200,7 +200,6 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 
         if ($query->num_rows) {
             $order = $query->row;
-
             $order['transactions'] = $this->getTransactions($order['securetrading_ws_order_id']);
 
             return $order;

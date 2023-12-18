@@ -62,6 +62,8 @@ class ModelExtensionPaymentBluepayredirect extends Model {
 	/**
 	 * Void
 	 *
+	 * @param int $order_id
+	 *
 	 * @return array
 	 */
     public function void(int $order_id): array {

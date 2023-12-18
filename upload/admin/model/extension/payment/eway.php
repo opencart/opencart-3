@@ -169,9 +169,9 @@ class ModelExtensionPaymentEway extends Model {
 	 *
 	 * @param int $order_id
 	 *
-	 * @return string
+	 * @return object
 	 */
-    public function void(int $order_id): string {
+    public function void(int $order_id): ?object {
         $eway_order = $this->getOrder($order_id);
 
         if ($eway_order) {
@@ -188,7 +188,7 @@ class ModelExtensionPaymentEway extends Model {
 
             return json_decode($response);
         } else {
-            return '';
+            return new \stdclass();
         }
     }
 
