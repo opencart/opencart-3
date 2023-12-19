@@ -40,70 +40,58 @@
           <div class="form-group">
             <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_display_weight }}">{{ entry_display_weight }}</span></label>
             <div class="col-sm-10">
-              <label class="radio-inline">
-                {% if shipping_parcelforce_48_display_weight %}
+              <label class="radio-inline">{% if shipping_parcelforce_48_display_weight %}
                   <input type="radio" name="shipping_parcelforce_48_display_weight" value="1" checked="checked"/>
                   {{ text_yes }}
                 {% else %}
                   <input type="radio" name="shipping_parcelforce_48_display_weight" value="1"/>
                   {{ text_yes }}
-                {% endif %}
-              </label>
-              <label class="radio-inline">
-                {% if not shipping_parcelforce_48_display_weight %}
+                {% endif %}</label>
+              <label class="radio-inline">{% if not shipping_parcelforce_48_display_weight %}
                   <input type="radio" name="shipping_parcelforce_48_display_weight" value="0" checked="checked"/>
                   {{ text_no }}
                 {% else %}
                   <input type="radio" name="shipping_parcelforce_48_display_weight" value="0"/>
                   {{ text_no }}
-                {% endif %}
-              </label>
+                {% endif %}</label>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-display-insurance"><span data-toggle="tooltip" title="{{ help_display_insurance }}">{{ entry_display_insurance }}</span></label>
             <div class="col-sm-10">
-              <label class="radio-inline" id="input-display-insurance">
-                {% if shipping_parcelforce_48_display_insurance %}
+              <label class="radio-inline" id="input-display-insurance">{% if shipping_parcelforce_48_display_insurance %}
                   <input type="radio" name="shipping_parcelforce_48_display_insurance" value="1" checked="checked"/>
                   {{ text_yes }}
                 {% else %}
                   <input type="radio" name="shipping_parcelforce_48_display_insurance" value="1"/>
                   {{ text_yes }}
-                {% endif %}
-              </label>
-              <label class="radio-inline">
-                {% if not shipping_parcelforce_48_display_insurance %}
+                {% endif %}</label>
+              <label class="radio-inline">{% if not shipping_parcelforce_48_display_insurance %}
                   <input type="radio" name="shipping_parcelforce_48_display_insurance" value="0" checked="checked"/>
                   {{ text_no }}
                 {% else %}
                   <input type="radio" name="shipping_parcelforce_48_display_insurance" value="0"/>
                   {{ text_no }}
-                {% endif %}
-              </label>
+                {% endif %}</label>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_display_time }}">{{ entry_display_time }}</span></label>
             <div class="col-sm-10">
-              <label class="radio-inline">
-                {% if shipping_parcelforce_48_display_time %}
+              <label class="radio-inline">{% if shipping_parcelforce_48_display_time %}
                   <input type="radio" name="shipping_parcelforce_48_display_time" value="1" checked="checked"/>
                   {{ text_yes }}
                 {% else %}
                   <input type="radio" name="shipping_parcelforce_48_display_time" value="1"/>
                   {{ text_yes }}
-                {% endif %}
-              </label>
-              <label class="radio-inline">
-                {% if not shipping_parcelforce_48_display_time %}
+                {% endif %}</label>
+              <label class="radio-inline">{% if not shipping_parcelforce_48_display_time %}
                   <input type="radio" name="shipping_parcelforce_48_display_time" value="0" checked="checked"/>
                   {{ text_no }}
                 {% else %}
                   <input type="radio" name="shipping_parcelforce_48_display_time" value="0"/>
                   {{ text_no }}
-                {% endif %}
-              </label>
+                {% endif %}</label>
             </div>
           </div>
           <div class="form-group">

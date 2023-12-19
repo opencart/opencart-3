@@ -73,24 +73,20 @@
           <div class="form-group">
             <label class="col-sm-2 control-label">{{ entry_test }}</label>
             <div class="col-sm-10">
-              <label class="radio-inline">
-                {% if shipping_fedex_test %}
+              <label class="radio-inline">{% if shipping_fedex_test %}
                   <input type="radio" name="shipping_fedex_test" value="1" checked="checked"/>
                   {{ text_yes }}
                 {% else %}
                   <input type="radio" name="shipping_fedex_test" value="1"/>
                   {{ text_yes }}
-                {% endif %}
-              </label>
-              <label class="radio-inline">
-                {% if not shipping_fedex_test %}
+                {% endif %}</label>
+              <label class="radio-inline">{% if not shipping_fedex_test %}
                   <input type="radio" name="shipping_fedex_test" value="0" checked="checked"/>
                   {{ text_no }}
                 {% else %}
                   <input type="radio" name="shipping_fedex_test" value="0"/>
                   {{ text_no }}
-                {% endif %}
-              </label>
+                {% endif %}</label>
             </div>
           </div>
           <div class="form-group">
@@ -241,47 +237,39 @@
           <div class="form-group">
             <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_display_time }}">{{ entry_display_time }}</span></label>
             <div class="col-sm-10">
-              <label class="radio-inline">
-                {% if shipping_fedex_display_time %}
+              <label class="radio-inline">{% if shipping_fedex_display_time %}
                   <input type="radio" name="shipping_fedex_display_time" value="1" checked="checked"/>
                   {{ text_yes }}
                 {% else %}
                   <input type="radio" name="shipping_fedex_display_time" value="1"/>
                   {{ text_yes }}
-                {% endif %}
-              </label>
-              <label class="radio-inline">
-                {% if not shipping_fedex_display_time %}
+                {% endif %}</label>
+              <label class="radio-inline">{% if not shipping_fedex_display_time %}
                   <input type="radio" name="shipping_fedex_display_time" value="0" checked="checked"/>
                   {{ text_no }}
                 {% else %}
                   <input type="radio" name="shipping_fedex_display_time" value="0"/>
                   {{ text_no }}
-                {% endif %}
-              </label>
+                {% endif %}</label>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_display_weight }}">{{ entry_display_weight }}</span></label>
             <div class="col-sm-10">
-              <label class="radio-inline">
-                {% if shipping_fedex_display_weight %}
+              <label class="radio-inline">{% if shipping_fedex_display_weight %}
                   <input type="radio" name="shipping_fedex_display_weight" value="1" checked="checked"/>
                   {{ text_yes }}
                 {% else %}
                   <input type="radio" name="shipping_fedex_display_weight" value="1"/>
                   {{ text_yes }}
-                {% endif %}
-              </label>
-              <label class="radio-inline">
-                {% if not shipping_fedex_display_weight %}
+                {% endif %}</label>
+              <label class="radio-inline">{% if not shipping_fedex_display_weight %}
                   <input type="radio" name="shipping_fedex_display_weight" value="0" checked="checked"/>
                   {{ text_no }}
                 {% else %}
                   <input type="radio" name="shipping_fedex_display_weight" value="0"/>
                   {{ text_no }}
-                {% endif %}
-              </label>
+                {% endif %}</label>
             </div>
           </div>
           <div class="form-group">

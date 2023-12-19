@@ -495,15 +495,13 @@
                   <input type="radio" name="shipping_usps_display_weight" value="1"/>
                   {{ text_yes }}
                 {% endif %}</label>
-              <label class="radio-inline">
-                {% if not shipping_usps_display_weight %}
+              <label class="radio-inline">{% if not shipping_usps_display_weight %}
                   <input type="radio" name="shipping_usps_display_weight" value="0" checked="checked"/>
                   {{ text_no }}
                 {% else %}
                   <input type="radio" name="shipping_usps_display_weight" value="0"/>
                   {{ text_no }}
-                {% endif %}
-              </label>
+                {% endif %}</label>
             </div>
           </div>
           <div class="form-group">
