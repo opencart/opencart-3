@@ -22,24 +22,20 @@
                   {% if developer_theme %}
                     <label class="btn btn-success active" {% if not eval %}disabled="disabled"{% endif %}>
                       <input type="radio" name="developer_theme" value="1" autocomplete="off" {% if not eval %}disabled="disabled"{% endif %} checked/>
-                      {{ button_on }}
-                    </label>
+                      {{ button_on }}</label>
                   {% else %}
                     <label class="btn btn-success" {% if not eval %}disabled="disabled"{% endif %}>
                       <input type="radio" name="developer_theme" value="1" autocomplete="off" {% if not eval %}disabled="disabled"{% endif %}/>
-                      {{ button_on }}
-                    </label>
+                      {{ button_on }}</label>
                   {% endif %}
                   {% if not developer_theme %}
                     <label class="btn btn-danger active" {% if not eval %}disabled="disabled"{% endif %}>
                       <input type="radio" name="developer_theme" value="0" autocomplete="off" {% if not eval %}disabled="disabled"{% endif %} checked/>
-                      {{ button_off }}
-                    </label>
+                      {{ button_off }}</label>
                   {% else %}
                     <label class="btn btn-danger" {% if not eval %}disabled="disabled"{% endif %}>
                       <input type="radio" name="developer_theme" value="0" autocomplete="off" {% if not eval %}disabled="disabled"{% endif %}/>
-                      {{ button_off }}
-                    </label>
+                      {{ button_off }}</label>
                   {% endif %}
                 </div></td>
               <td class="text-right"><button type="button" value="theme" data-toggle="tooltip" title="{{ button_refresh }}" class="btn btn-warning"><i class="fa fa-refresh"></i></button></td>
@@ -51,24 +47,20 @@
                   {% if developer_sass %}
                     <label class="btn btn-success active">
                       <input type="radio" name="developer_sass" value="1" autocomplete="off" checked>
-                      {{ button_on }}
-                    </label>
+                      {{ button_on }}</label>
                   {% else %}
                     <label class="btn btn-success">
                       <input type="radio" name="developer_sass" value="1" autocomplete="off">
-                      {{ button_on }}
-                    </label>
+                      {{ button_on }}</label>
                   {% endif %}
                   {% if not developer_sass %}
                     <label class="btn btn-danger active">
                       <input type="radio" name="developer_sass" value="0" autocomplete="off" checked>
-                      {{ button_off }}
-                    </label>
+                      {{ button_off }}</label>
                   {% else %}
                     <label class="btn btn-danger">
                       <input type="radio" name="developer_sass" value="0" autocomplete="off">
-                      {{ button_off }}
-                    </label>
+                      {{ button_off }}</label>
                   {% endif %}
                 </div></td>
               <td class="text-right"><button type="button" value="sass" data-toggle="tooltip" title="{{ button_refresh }}" class="btn btn-warning"><i class="fa fa-refresh"></i></button></td>

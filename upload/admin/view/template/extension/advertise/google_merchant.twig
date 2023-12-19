@@ -37,26 +37,17 @@
           <div class="form-group">
             <p class="col-md-12">{{ text_merchant_intro }}</p>
             <div class="col-md-12">
-              <label class="control-label">
-                <input type="radio" name="advertise_google_gmc_account_type" value="api" {% if advertise_google_gmc_account_type == 'api' %} checked {% endif %}/>
-                {{ text_new_merchant }}
-              </label>
+              <label class="control-label"><input type="radio" name="advertise_google_gmc_account_type" value="api" {% if advertise_google_gmc_account_type == 'api' %} checked {% endif %}/>{{ text_new_merchant }}</label>
             </div>
             <div class="col-md-12">
-              <label class="control-label">
-                <input type="radio" name="advertise_google_gmc_account_type" value="existing" {% if advertise_google_gmc_account_type == 'existing' %} checked {% endif %}/>
-                {{ text_existing_merchant }}
-              </label>
+              <label class="control-label"><input type="radio" name="advertise_google_gmc_account_type" value="existing" {% if advertise_google_gmc_account_type == 'existing' %} checked {% endif %}/>{{ text_existing_merchant }}</label>
             </div>
           </div>
           <div class="alert alert-info text-left">
             {{ text_merchant_website_claim }}
             <hr>
             <div class="checkbox">
-              <label>
-                <input type="checkbox" class="acknowledge"/>
-                {{ text_acknowledge_merchant_tos }}
-              </label>
+              <label><input type="checkbox" class="acknowledge"/>{{ text_acknowledge_merchant_tos }}</label>
             </div>
           </div>
           <div class="pull-right">

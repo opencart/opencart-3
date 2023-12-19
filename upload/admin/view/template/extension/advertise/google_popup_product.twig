@@ -145,12 +145,8 @@
     <div class="form-group">
       <label class="col-xs-12 control-label control-label-left"><span data-toggle="tooltip" title="{{ help_is_bundle }}">{{ entry_is_bundle }}</span></label>
       <div class="col-xs-12">
-        <label class="radio-inline">
-          <input type="radio" name="is_bundle" value="1" {{ is_bundle ? "checked" }}/> {{ text_yes }}
-        </label>
-        <label class="radio-inline">
-          <input type="radio" name="is_bundle" value="0" {{ not is_bundle ? "checked" }}/> {{ text_no }}
-        </label>
+        <label class="radio-inline"><input type="radio" name="is_bundle" value="1" {{ is_bundle ? "checked" }}/> {{ text_yes }}</label>
+        <label class="radio-inline"><input type="radio" name="is_bundle" value="0" {{ not is_bundle ? "checked" }}/> {{ text_no }}</label>
         {% if error_is_bundle %}
           <div class="text-danger">{{ error_is_bundle }}</div>
         {% endif %}

@@ -68,9 +68,7 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label">
-                    <span data-toggle="tooltip" title="{{ text_payment_method_name_help }}">{{ text_payment_method_name_label }}</span>
-                  </label>
+                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ text_payment_method_name_help }}">{{ text_payment_method_name_label }}</span></label>
                   <div class="col-sm-10">
                     {% for language in languages %}
                       <div class="input-group"><span class="input-group-addon"><img src="{{ language.image }}" alt="{{ language.name }}"/></span>
@@ -80,17 +78,13 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input_payment_squareup_redirect_uri_static">
-                    <span data-toggle="tooltip" title="{{ text_redirect_uri_help }}">{{ text_redirect_uri_label }}</span>
-                  </label>
+                  <label class="col-sm-2 control-label" for="input_payment_squareup_redirect_uri_static"><span data-toggle="tooltip" title="{{ text_redirect_uri_help }}">{{ text_redirect_uri_label }}</span></label>
                   <div class="col-sm-10">
                     <input type="text" id="input_payment_squareup_redirect_uri_static" name="payment_squareup_redirect_uri_static" value="{{ payment_squareup_redirect_uri }}" class="form-control" disabled/>
                   </div>
                 </div>
                 <div class="form-group required">
-                  <label class="col-sm-2 control-label" for="input_payment_squareup_client_id">
-                    <span data-toggle="tooltip" title="{{ text_client_id_help }}">{{ text_client_id_label }}</span>
-                  </label>
+                  <label class="col-sm-2 control-label" for="input_payment_squareup_client_id"><span data-toggle="tooltip" title="{{ text_client_id_help }}">{{ text_client_id_label }}</span></label>
                   <div class="col-sm-10">
                     <input type="text" name="payment_squareup_client_id" value="{{ payment_squareup_client_id }}" placeholder="{{ text_client_id_placeholder }}" id="input_payment_squareup_client_id" class="form-control"/>
                     {% if error_client_id %}
@@ -99,9 +93,7 @@
                   </div>
                 </div>
                 <div class="form-group required">
-                  <label class="col-sm-2 control-label" for="input_payment_squareup_client_secret">
-                    <span data-toggle="tooltip" title="{{ text_client_secret_help }}">{{ text_client_secret_label }}</span>
-                  </label>
+                  <label class="col-sm-2 control-label" for="input_payment_squareup_client_secret"><span data-toggle="tooltip" title="{{ text_client_secret_help }}">{{ text_client_secret_label }}</span></label>
                   <div class="col-sm-10">
                     <input type="text" name="payment_squareup_client_secret" value="{{ payment_squareup_client_secret }}" placeholder="{{ text_client_secret_placeholder }}" id="input_payment_squareup_client_secret" class="form-control"/>
                     {% if error_client_secret %}
@@ -119,9 +111,7 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input_payment_squareup_total">
-                    <span data-toggle="tooltip" title="{{ help_total }}">{{ entry_total }}</span>
-                  </label>
+                  <label class="col-sm-2 control-label" for="input_payment_squareup_total"><span data-toggle="tooltip" title="{{ help_total }}">{{ entry_total }}</span></label>
                   <div class="col-sm-10">
                     <input type="text" name="payment_squareup_total" value="{{ payment_squareup_total }}" placeholder="{{ entry_total }}" id="payment_squareup_total" class="form-control"/>
                   </div>
@@ -165,9 +155,7 @@
               <fieldset id="sandbox_settings" {% if not payment_squareup_enable_sandbox %} style="display: none;" {% endif %}>
                 <legend>{{ text_sandbox_section_heading }}</legend>
                 <div class="form-group required">
-                  <label class="col-sm-2 control-label" for="input_payment_squareup_sandbox_client_id">
-                    <span data-toggle="tooltip" title="{{ text_sandbox_client_id_help }}">{{ text_sandbox_client_id_label }}</span>
-                  </label>
+                  <label class="col-sm-2 control-label" for="input_payment_squareup_sandbox_client_id"><span data-toggle="tooltip" title="{{ text_sandbox_client_id_help }}">{{ text_sandbox_client_id_label }}</span></label>
                   <div class="col-sm-10">
                     <input type="text" name="payment_squareup_sandbox_client_id" value="{{ payment_squareup_sandbox_client_id }}" placeholder="{{ text_sandbox_client_id_placeholder }}" id="input_payment_squareup_sandbox_client_id" class="form-control"/>
                     {% if error_sandbox_client_id %}
@@ -176,9 +164,7 @@
                   </div>
                 </div>
                 <div class="form-group required">
-                  <label class="col-sm-2 control-label" for="input_payment_squareup_sandbox_token">
-                    <span data-toggle="tooltip" title="{{ text_sandbox_access_token_help }}">{{ text_sandbox_access_token_label }}</span>
-                  </label>
+                  <label class="col-sm-2 control-label" for="input_payment_squareup_sandbox_token"><span data-toggle="tooltip" title="{{ text_sandbox_access_token_help }}">{{ text_sandbox_access_token_label }}</span></label>
                   <div class="col-sm-10">
                     <input type="text" name="payment_squareup_sandbox_token" value="{{ payment_squareup_sandbox_token }}" placeholder="{{ text_sandbox_access_token_placeholder }}" id="input_payment_squareup_sandbox_token" class="form-control"/>
                     {% if error_sandbox_token %}
