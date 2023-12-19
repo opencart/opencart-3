@@ -79,20 +79,16 @@
                                     {% endfor %}
                                   </ul>
                                 </td>
-                                <td class="text-center">
-                                  {% if target.roas_status %}
+                                <td class="text-center">{% if target.roas_status %}
                                     {{ target.roas }}&#37;
                                   {% else %}
                                     <span class="label label-default" data-toggle="tooltip" data-original-title="{{ target.roas_warning }}">{{ text_label_unavailable }}</span>
-                                  {% endif %}
-                                </td>
-                                <td class="text-center">
-                                  {% if target.status == 'paused' %}
+                                  {% endif %}</td>
+                                <td class="text-center">{% if target.status == 'paused' %}
                                     <span class="label label-warning">{{ text_label_paused }}</span>
                                   {% elseif target.status == 'active' %}
                                     <span class="label label-success">{{ text_label_active }}</span>
-                                  {% endif %}
-                                </td>
+                                  {% endif %}</td>
                                 <td class="text-right">
                                   <button class="btn btn-primary button-target-edit" data-toggle="tooltip" title="{{ button_edit }}" data-target-id="{{ target.target_id }}"><i class="fa fa-pencil"></i></button>
                                   <button class="btn btn-danger button-target-delete" data-toggle="tooltip" title="{{ button_delete }}" data-target-id="{{ target.target_id }}"><i class="fa fa-trash"></i></button>

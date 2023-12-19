@@ -271,8 +271,7 @@
                             {% if order_product.subscription %}
                               <br/>
                               <small> - {{ text_subscription }}: {{ order_product.subscription }}</small>
-                            {% endif %}
-                          </td>
+                            {% endif %}</td>
                           <td class="text-left">{{ order_product.model }}</td>
                           <td class="text-right">{{ order_product.quantity }}<input type="hidden" name="product[{{ product_row }}][quantity]" value="{{ order_product.quantity }}"/></td>
                           <td class="text-right"></td>
@@ -294,8 +293,7 @@
                             <input type="hidden" name="voucher[{{ voucher_row }}][to_email]" value="{{ order_voucher.to_email }}"/>
                             <input type="hidden" name="voucher[{{ voucher_row }}][voucher_theme_id]" value="{{ order_voucher.voucher_theme_id }}"/>
                             <input type="hidden" name="voucher[{{ voucher_row }}][message]" value="{{ order_voucher.message }}"/>
-                            <input type="hidden" name="voucher[{{ voucher_row }}][amount]" value="{{ order_voucher.amount }}"/>
-                          </td>
+                            <input type="hidden" name="voucher[{{ voucher_row }}][amount]" value="{{ order_voucher.amount }}"/></td>
                           <td class="text-left"></td>
                           <td class="text-right">1</td>
                           <td class="text-right"></td>

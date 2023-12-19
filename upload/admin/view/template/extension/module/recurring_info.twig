@@ -61,13 +61,11 @@
               </tr>
               <tr>
                 <td>{{ text_customer }}</td>
-                <td>
-                  {% if customer %}
+                <td>{% if customer %}
                     <a href="{{ customer }}">{{ firstname }} {{ lastname }}</a>
                   {% else %}
                     {{ firstname }} {{ lastname }}
-                  {% endif %}
-                </td>
+                  {% endif %}</td>
               </tr>
               <tr>
                 <td>{{ text_email }}</td>

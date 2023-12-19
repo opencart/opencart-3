@@ -35,27 +35,21 @@
               <thead>
                 <tr>
                   <td style="width: 1px;" class="text-center"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);"/></td>
-                  <td class="text-left">
-                    {% if sort == 'code' %}
+                  <td class="text-left">{% if sort == 'code' %}
                       <a href="{{ sort_code }}" class="{{ order|lower }}">{{ column_code }}</a>
                     {% else %}
                       <a href="{{ sort_code }}">{{ column_code }}</a>
-                    {% endif %}
-                  </td>
-                  <td class="text-left">
-                    {% if sort == 'status' %}
+                    {% endif %}</td>
+                  <td class="text-left">{% if sort == 'status' %}
                       <a href="{{ sort_status }}" class="{{ order|lower }}">{{ column_status }}</a>
                     {% else %}
                       <a href="{{ sort_status }}">{{ column_status }}</a>
-                    {% endif %}
-                  </td>
-                  <td class="text-right">
-                    {% if sort == 'sort_order' %}
+                    {% endif %}</td>
+                  <td class="text-right">{% if sort == 'sort_order' %}
                       <a href="{{ sort_sort_order }}" class="{{ order|lower }}">{{ column_sort_order }}</a>
                     {% else %}
                       <a href="{{ sort_sort_order }}">{{ column_sort_order }}</a>
-                    {% endif %}
-                  </td>
+                    {% endif %}</td>
                   <td class="text-right">{{ column_action }}</td>
                 </tr>
               </thead>
@@ -63,18 +57,15 @@
                 {% if events %}
                   {% for event in events %}
                     <tr>
-                      <td class="text-center">
-                        {% if event.event_id in selected %}
+                      <td class="text-center">{% if event.event_id in selected %}
                           <input type="checkbox" name="selected[]" value="{{ event.event_id }}" checked="checked"/>
                         {% else %}
                           <input type="checkbox" name="selected[]" value="{{ event.event_id }}"/>
-                        {% endif %}
-                      </td>
+                        {% endif %}</td>
                       <td class="text-left">{{ event.code }}</td>
                       <td class="text-left">{{ event.status }}</td>
                       <td class="text-right">{{ event.sort_order }}</td>
-                      <td class="text-right">
-                        <button type="button" data-toggle="modal" data-target="#modal-event{{ event.event_id }}" class="btn btn-info"><i class="fa fa-info-circle"></i></button>
+                      <td class="text-right"><button type="button" data-toggle="modal" data-target="#modal-event{{ event.event_id }}" class="btn btn-info"><i class="fa fa-info-circle"></i></button>
                         {% if not event.enabled %}
                           <a href="{{ event.enable }}" data-toggle="tooltip" title="{{ button_enable }}" class="btn btn-success"><i class="fa fa-plus-circle"></i></a>
                         {% else %}
@@ -95,8 +86,7 @@
                               </div>
                             </div>
                           </div>
-                        </div>
-                      </td>
+                        </div></td>
                     </tr>
                   {% endfor %}
                 {% else %}

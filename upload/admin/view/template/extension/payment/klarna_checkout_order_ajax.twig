@@ -1,12 +1,10 @@
 <table class="table table-bordered">
   <tr>
 	  <td>{{ column_order_id }}</td>
-	<td>
-		{{ transaction.order_id }}
-		{% if cancel_action %}
-		  <a class="btn btn-primary button-command" data-type="cancel">{{ button_cancel }}</a>
-		{% endif %}
-	</td>
+	  <td>{{ transaction.order_id }}
+		  {% if cancel_action %}
+		    <a class="btn btn-primary button-command" data-type="cancel">{{ button_cancel }}</a>
+		  {% endif %}</td>
   </tr>
   <tr>
     <td>{{ column_merchant_id }}</td>
@@ -26,16 +24,14 @@
   </tr>
   <tr>
     <td>{{ column_merchant_reference_1 }}</td>
-    <td>
-      {% if merchant_reference_action %}
+    <td>{% if merchant_reference_action %}
         <div class="col-sm-2">
           <input class="form-control" type="text" name="merchant_reference_1" value="{{ transaction.merchant_reference_1 }}" />
         </div>
         <a class="btn btn-primary button-command" data-type="merchant_reference">{{ button_update }}</a>
       {% else %}
         {{ transaction.merchant_reference_1 }}
-      {% endif %}
-    </td>
+      {% endif %}</td>
   </tr>
   <tr>
 	  <td>{{ column_customer_details }}</td>
@@ -47,15 +43,17 @@
 			      <td>{{ column_shipping_address }}</td>
 		      </tr>
 		    </thead>
-		    <tr>
-		      <td>{{ transaction.billing_address_formatted }}</td>
-		      <td>{{ transaction.shipping_address_formatted }}</td>
-		    </tr>
-		    {% if address_action %}
+        <tbody>
 		      <tr>
-		        <td><a class="btn btn-primary" data-toggle="modal" data-target="#billing_address">{{ button_edit }}</a></td>
-		        <td><a class="btn btn-primary" data-toggle="modal" data-target="#shipping_address">{{ button_edit }}</a></td>
+		        <td>{{ transaction.billing_address_formatted }}</td>
+		        <td>{{ transaction.shipping_address_formatted }}</td>
 		      </tr>
+		      {% if address_action %}
+		        <tr>
+		          <td><a class="btn btn-primary" data-toggle="modal" data-target="#billing_address">{{ button_edit }}</a></td>
+		          <td><a class="btn btn-primary" data-toggle="modal" data-target="#shipping_address">{{ button_edit }}</a></td>
+		        </tr>
+        </tbody>
 		    {% endif %}
 	    </table>
 	  </td>
@@ -103,22 +101,18 @@
   </tr>
   <tr>
     <td>{{ column_authorization_remaining }}</td>
-    <td>
-      {{ transaction.authorization_remaining }}
+    <td>{{ transaction.authorization_remaining }}
       {% if release_authorization_action %}
         <a class="btn btn-primary button-command" data-type="release_authorization">{{ button_release_authorization }}</a>
-      {% endif %}
-    </td>
+      {% endif %}</td>
   </tr>
   {% if transaction.authorization_expiry %}
   <tr>
     <td>{{ column_authorization_expiry }}</td>
-    <td>
-      {{ transaction.authorization_expiry }}
+    <td>{{ transaction.authorization_expiry }}
       {% if extend_authorization_action %}
         <a class="btn btn-primary button-command" data-type="extend_authorization">{{ button_extend_authorization }}</a>
-      {% endif %}
-    </td>
+      {% endif %}</td>
   </tr>
   {% endif %}
   <tr>

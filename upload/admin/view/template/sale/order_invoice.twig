@@ -43,8 +43,7 @@
               {% endif %}
               <b>{{ text_email }}</b> {{ order.store_email }}
               <br/>
-              <b>{{ text_website }}</b> <a href="{{ order.store_url }}">{{ order.store_url }}</a>
-            </td>
+              <b>{{ text_website }}</b> <a href="{{ order.store_url }}">{{ order.store_url }}</a></td>
             <td style="width: 50%;"><b>{{ text_date_added }}</b> {{ order.date_added }}
               <br/>
               {% if order.invoice_no %}
@@ -58,8 +57,7 @@
               {% if order.shipping_method %}
                 <b>{{ text_shipping_method }}</b> {{ order.shipping_method }}
                 <br/>
-              {% endif %}
-            </td>
+              {% endif %}</td>
           </tr>
         </tbody>
       </table>
@@ -102,8 +100,7 @@
                 {% if product.subscription %}
                   <br/>
                   <small> - {{ text_subscription }}: {{ product.subscription }}</small>
-                {% endif %}
-              </td>
+                {% endif %}</td>
               <td>{{ product.model }}</td>
               <td class="text-right">{{ product.quantity }}</td>
               <td class="text-right">{{ product.price }}</td>

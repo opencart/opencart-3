@@ -321,20 +321,15 @@
 				          {% set account_row = 0 %}
                   {% for key, account in klarna_checkout_account %}
 				            <tr id="account-row{{ account_row }}">
-					            <td class="text-left">
-					              <input type="text" name="payment_klarna_checkout_account[{{ account_row }}][merchant_id]" placeholder="{{ entry_merchant_id }}" class="form-control" value="{{ account.merchant_id }}" />
+					            <td class="text-left"><input type="text" name="payment_klarna_checkout_account[{{ account_row }}][merchant_id]" placeholder="{{ entry_merchant_id }}" class="form-control" value="{{ account.merchant_id }}" />
                         {% if error_account[key].merchant_id is defined %}
 					                <div class="text-danger">{{ error_account[key].merchant_id }}</div>
-					              {% endif %}
-					            </td>
-					            <td class="text-left">
-					              <input type="text" name="payment_klarna_checkout_account[{{ account_row }}][secret]" placeholder="{{ entry_merchant_id }}" class="form-control" value="{{ account.secret }}" />
+					              {% endif %}</td>
+					            <td class="text-left"><input type="text" name="payment_klarna_checkout_account[{{ account_row }}][secret]" placeholder="{{ entry_merchant_id }}" class="form-control" value="{{ account.secret }}" />
                         {% if error_account[key].secret is defined %}
 					                <div class="text-danger">{{ error_account[key].secret }}</div>
-					              {% endif %}
-					            </td>
-					            <td class="text-left">
-					              <select name="payment_klarna_checkout_account[{{ account_row }}][environment]" class="form-control">
+					              {% endif %}</td>
+					            <td class="text-left"><select name="payment_klarna_checkout_account[{{ account_row }}][environment]" class="form-control">
                           {% if account.environment == 'live' %}
                             <option value="test">{{ text_test }}</option>
                             <option value="live" selected="selected">{{ text_live }}</option>
@@ -342,10 +337,8 @@
                             <option value="test" selected="selected">{{ text_test }}</option>
                             <option value="live">{{ text_live }}</option>
                           {% endif %}
-					              </select>
-					            </td>
-					            <td class="text-left">
-					              <select name="payment_klarna_checkout_account[{{ account_row }}][country]" class="form-control">
+					              </select></td>
+					            <td class="text-left"><select name="payment_klarna_checkout_account[{{ account_row }}][country]" class="form-control">
 						              {% for country in countries %}
                             {% if country.country_id == account.country %}
 						                  <option value="{{ country.country_id }}" selected="selected">{{ country.name }}</option>
@@ -353,10 +346,8 @@
 						                  <option value="{{ country.country_id }}">{{ country.name }}</option>
 						                {% endif %}
 						              {% endfor %}
-					              </select>
-					            </td>
-					            <td class="text-left">
-					              <select name="payment_klarna_checkout_account[{{ account_row }}][shipping]" class="form-control">
+					              </select></td>
+					            <td class="text-left"><select name="payment_klarna_checkout_account[{{ account_row }}][shipping]" class="form-control">
 						              {% for geo_zone in geo_zones %}
                             {% if geo_zone.geo_zone_id == account.shipping %}
 						                  <option value="{{ geo_zone.geo_zone_id }}" selected="selected">{{ geo_zone.name }}</option>
@@ -364,10 +355,8 @@
 						                  <option value="{{ geo_zone.geo_zone_id }}">{{ geo_zone.name }}</option>
 						                {% endif %}
 						              {% endfor %}
-					              </select>
-					            </td>
-					            <td class="text-left">
-					              <select name="payment_klarna_checkout_account[{{ account_row }}][currency]" class="form-control">
+					              </select></td>
+					            <td class="text-left"><select name="payment_klarna_checkout_account[{{ account_row }}][currency]" class="form-control">
 						              {% for currency in currencies %}
                             {% if currency.code == account.currency %}
 						                  <option value="{{ currency.code }}" selected="selected">{{ currency.title }}</option>
@@ -375,16 +364,12 @@
 						                  <option value="{{ currency.code }}">{{ currency.title }}</option>
 						                {% endif %}
 						              {% endfor %}
-					              </select>
-					            </td>
-					            <td class="text-left">
-					              <input type="text" name="payment_klarna_checkout_account[{{ account_row }}][locale]" placeholder="{{ entry_locale }}" class="form-control" value="{{ account.locale }}" />
+					              </select></td>
+					            <td class="text-left"><input type="text" name="payment_klarna_checkout_account[{{ account_row }}][locale]" placeholder="{{ entry_locale }}" class="form-control" value="{{ account.locale }}" />
                         {% if error_account[key].locale is defined %}
 					                <div class="text-danger">{{ error_account[key].locale }}</div>
-					              {% endif %}
-					            </td>
-					            <td class="text-left">
-					              <select name="payment_klarna_checkout_account[{{ account_row }}][api]" class="form-control klarna-checkout-api">
+					              {% endif %}</td>
+					            <td class="text-left"><select name="payment_klarna_checkout_account[{{ account_row }}][api]" class="form-control klarna-checkout-api">
 						              {% for api_location in api_locations %}
                             {% if api_location.code == account.api %}
   						                <option value="{{ api_location.code }}" selected="selected">{{ api_location.name }}</option>
@@ -392,8 +377,7 @@
 						                  <option value="{{ api_location.code }}">{{ api_location.name }}</option>
 						                {% endif %}
 						              {% endfor %}
-					              </select>
-					            </td>
+					              </select></td>
 					            <td class="text-left"><button type="button" onclick="$('#account-row{{ account_row }}').remove();" data-toggle="tooltip" title="{{ button_account_remove }}" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>
 				            </tr>
 				            {% set account_row = account_row + 1 %}

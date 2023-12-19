@@ -42,8 +42,7 @@
           </thead>
           <tbody>
 						<tr>
-							<td>
-								{% if refund_action %}
+							<td>{% if refund_action %}
 									<label class="control-label">{{ text_amount }}:</label>
 									<input id="refund-amount" text="text" name="refund_amount" value="{{ max_refund_amount }}"/>
 
@@ -53,8 +52,7 @@
 									<a class="btn btn-primary button-command" data-type="refund">{{ button_refund }}</a>
 								{% else %}
 									{{ text_na }}
-								{% endif %}
-							</td>
+								{% endif %}</td>
 						</tr>
           </tbody>
         </table>

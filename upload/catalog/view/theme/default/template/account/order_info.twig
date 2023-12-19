@@ -41,15 +41,13 @@
               <br/>
               <b>{{ text_date_added }}</b> {{ date_added }}
             </td>
-            <td class="text-left" style="width: 50%;">
-              {% if payment_method %}
+            <td class="text-left" style="width: 50%;">{% if payment_method %}
                 <b>{{ text_payment_method }}</b> {{ payment_method }}
                 <br/>
               {% endif %}
               {% if shipping_method %}
                 <b>{{ text_shipping_method }}</b> {{ shipping_method }}
-              {% endif %}
-            </td>
+              {% endif %}</td>
           </tr>
         </tbody>
       </table>
@@ -92,18 +90,15 @@
                   {% for option in product.option %}
                     <br/>
                     &nbsp;<small> - {{ option.name }}: {{ option.value }}</small>
-                  {% endfor %}
-                </td>
+                  {% endfor %}</td>
                 <td class="text-left">{{ product.model }}</td>
                 <td class="text-right">{{ product.quantity }}</td>
                 <td class="text-right">{{ product.price }}</td>
                 <td class="text-right">{{ product.total }}</td>
-                <td class="text-right" style="white-space: nowrap;">
-                  {% if product.reorder %}
+                <td class="text-right" style="white-space: nowrap;">{% if product.reorder %}
                     <a href="{{ product.reorder }}" data-toggle="tooltip" title="{{ button_reorder }}" class="btn btn-primary"><i class="fa fa-shopping-cart"></i></a>
                   {% endif %}
-                  <a href="{{ product.return }}" data-toggle="tooltip" title="{{ button_return }}" class="btn btn-danger"><i class="fa fa-reply"></i></a>
-                </td>
+                  <a href="{{ product.return }}" data-toggle="tooltip" title="{{ button_return }}" class="btn btn-danger"><i class="fa fa-reply"></i></a></td>
               </tr>
             {% endfor %}
             {% for voucher in vouchers %}

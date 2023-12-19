@@ -38,8 +38,7 @@
                 <span class="label label-warning">{{ text_label_pending }}</span>
               {% endfor %}
             </td>
-            <td class="text-left">
-              {% for quality_issue in issue.data_quality_issues %}
+            <td class="text-left">{% for quality_issue in issue.data_quality_issues %}
                 {% if quality_issue.severity == 'critical' %}
                   {{ quality_issue.destination }}{{ quality_issue.destination ? ': ' : '' }}
                   <span class="label label-danger">{{ text_label_critical }}</span>
@@ -56,10 +55,8 @@
                 {% endif %}
               {% else %}
                 {{ text_na }}
-              {% endif %}
-            </td>
-            <td class="text-left">
-              {% for item_issue in issue.item_level_issues %}
+              {% endif %}</td>
+            <td class="text-left">{% for item_issue in issue.item_level_issues %}
                 <strong>{{ item_issue.servability }}</strong> {{ item_issue.detail }}
                 <a href="{{ item_issue.documentation }}" target="_blank">{{ text_learn_more }}<i class="fa fa-external-link"></i></a>
                 {% if not loop.last %}
@@ -67,8 +64,7 @@
                 {% else %}
                   {{ text_na }}
                 {% endif %}
-              {% endfor %}
-            </td>
+              {% endfor %}</td>
             <td class="text-left">{{ issue.google_expiration_date }}</td>
           </tr>
         {% endfor %}

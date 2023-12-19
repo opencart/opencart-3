@@ -19,15 +19,13 @@
       <table class="table table-bordered">
         <thead>
           <tr>
-            <td colspan="3">
-              {% if titles[1] == 'parent' %}
+            <td colspan="3">{% if titles[1] == 'parent' %}
                 <span class="label label-default">{{ text_parent }}</span>
               {% elseif titles[1] == 'child' %}
                 <span class="label label-default">{{ text_child }}</span>
               {% elseif titles[1] == 'extension' %}
                 <span class="label label-warning">{{ text_extension }}</span>
-              {% endif %}
-            </td>
+              {% endif %}</td>
           </tr>
         </thead>
         <tbody>
