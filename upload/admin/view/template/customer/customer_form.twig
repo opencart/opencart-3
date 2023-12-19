@@ -514,8 +514,7 @@
                               <div class="form-group custom-field custom-field{{ custom_field.custom_field_id }}" data-sort="{{ custom_field.sort_order + 1 }}">
                                 <label class="col-sm-2 control-label">{{ custom_field.name }}</label>
                                 <div class="col-sm-10">
-                                  <button type="button" id="button-address{{ address_row }}-custom-field{{ custom_field.custom_field_id }}" data-loading-text="{{ text_loading }}" class="btn btn-default">
-                                    <i class="fa fa-upload"></i> {{ button_upload }}</button>
+                                  <button type="button" id="button-address{{ address_row }}-custom-field{{ custom_field.custom_field_id }}" data-loading-text="{{ text_loading }}" class="btn btn-default"><i class="fa fa-upload"></i> {{ button_upload }}</button>
                                   <input type="hidden" name="address[{{ address_row }}][custom_field][{{ custom_field.custom_field_id }}]" value="{{ address.custom_field[custom_field.custom_field_id]['code'] ? address.custom_field[custom_field.custom_field_id]['code'] }}"/>
                                   <span>{{ address.custom_field[custom_field.custom_field_id]['name'] }}</span>
                                   {% if error_address[address_row]['custom_field'][custom_field.custom_field_id] %}

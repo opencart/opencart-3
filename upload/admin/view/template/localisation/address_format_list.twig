@@ -45,7 +45,8 @@
                 {% if address_formats %}
                   {% for address_format in address_formats %}
                     <tr>
-                      <td class="text-center">{% if address_format.address_format_id in selected %}
+                      <td class="text-center">
+                        {% if address_format.address_format_id in selected %}
                           <input type="checkbox" name="selected[]" value="{{ address_format.address_format_id }}" checked="checked"/>
                         {% else %}
                           <input type="checkbox" name="selected[]" value="{{ address_format.address_format_id }}"/>

@@ -16,7 +16,8 @@
       {% for campaign in advertise_google_report_campaigns %}
         <tr>
           <td class="text-left">{{ campaign.campaign_name }}</td>
-          <td class="text-center">{% if campaign.status == 'paused' %}
+          <td class="text-center">
+            {% if campaign.status == 'paused' %}
               <span class="label label-warning">{{ text_label_paused }}</span>
             {% elseif campaign.status == 'active' %}
               <span class="label label-success">{{ text_label_active }}</span>

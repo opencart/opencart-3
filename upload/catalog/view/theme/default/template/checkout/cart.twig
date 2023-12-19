@@ -50,7 +50,8 @@
             <tbody>
               {% for product in products %}
                 <tr>
-                  <td class="text-center">{% if product.thumb %}
+                  <td class="text-center">
+                    {% if product.thumb %}
                       <a href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" class="img-thumbnail"/></a>
                     {% endif %}</td>
                   <td class="text-left"><a href="{{ product.href }}">{{ product.name }}</a>

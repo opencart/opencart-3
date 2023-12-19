@@ -34,14 +34,15 @@
             <table class="table table-bordered table-hover">
               <thead>
                 <tr>
-                  <td style="width: 1px;" class="text-center">
-                    <input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);"/></td>
-                  <td class="text-left">{% if sort == 'name' %}
+                  <td style="width: 1px;" class="text-center"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);"/></td>
+                  <td class="text-left">
+                    {% if sort == 'name' %}
                       <a href="{{ sort_name }}" class="{{ order|lower }}">{{ column_name }}</a>
                     {% else %}
                       <a href="{{ sort_name }}">{{ column_name }}</a>
                     {% endif %}</td>
-                  <td class="text-left">{% if sort == 'address' %}
+                  <td class="text-left">
+                    {% if sort == 'address' %}
                       <a href="{{ sort_address }}" class="{{ order|lower }}">{{ column_address }}</a>
                     {% else %}
                       <a href="{{ sort_address }}">{{ column_address }}</a>
@@ -53,7 +54,8 @@
                 {% if locations %}
                   {% for location in locations %}
                     <tr>
-                      <td class="text-center">{% if location.location_id in selected %}
+                      <td class="text-center">
+                        {% if location.location_id in selected %}
                           <input type="checkbox" name="selected[]" value="{{ location.location_id }}" checked="checked"/>
                         {% else %}
                           <input type="checkbox" name="selected[]" value="{{ location.location_id }}"/>

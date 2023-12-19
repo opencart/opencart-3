@@ -15,7 +15,8 @@
   </tr>
   <tr>
     <td>{{ text_release_status }}</td>
-    <td id="release_status">{% if securetrading_pp_order.release_status == 1 %}
+    <td id="release_status">
+      {% if securetrading_pp_order.release_status == 1 %}
       	<span class="release_text">{{ text_yes }}</span>
       {% else %}
 				<span class="release_text">{{ text_no }}</span>&nbsp;&nbsp;
@@ -28,7 +29,8 @@
   </tr>
   <tr>
     <td>{{ text_void_status }}</td>
-    <td id="void_status">{% if securetrading_pp_order.void_status == 1 %}
+    <td id="void_status">
+      {% if securetrading_pp_order.void_status == 1 %}
       	<span class="void_text">{{ text_yes }}</span>
       {% elseif securetrading_pp_order.void_status == 0 and securetrading_pp_order.release_status != 1 and securetrading_pp_order.rebate_status != 1 %}
 				<span class="void_text">{{ text_no }}</span>&nbsp;&nbsp;
@@ -40,7 +42,8 @@
   </tr>
   <tr>
     <td>{{ text_rebate_status }}</td>
-    <td id="rebate_status">{% if securetrading_pp_order.rebate_status == 1 %}
+    <td id="rebate_status">
+      {% if securetrading_pp_order.rebate_status == 1 %}
       	<span class="rebate_text">{{ text_yes }}</span>
 			{% else %}
 				<span class="rebate_text">{{ text_no }}</span>&nbsp;&nbsp;

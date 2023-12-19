@@ -175,8 +175,7 @@
                     <div class="form-group custom-field custom-field{{ custom_field.custom_field_id }}" data-sort="{{ custom_field.sort_order + 3 }}">
                       <label class="col-sm-2 control-label">{{ custom_field.name }}</label>
                       <div class="col-sm-10">
-                        <button type="button" id="button-custom-field{{ custom_field.custom_field_id }}" class="btn btn-default">
-                          <i class="fa fa-upload"></i> {{ button_upload }}</button>
+                        <button type="button" id="button-custom-field{{ custom_field.custom_field_id }}" class="btn btn-default"><i class="fa fa-upload"></i> {{ button_upload }}</button>
                         <input type="hidden" name="custom_field[{{ custom_field.location }}][{{ custom_field.custom_field_id }}]" value="{{ account_custom_field[custom_field.custom_field_id]['code'] ? account_custom_field[custom_field.custom_field_id]['code'] }}" id="input-custom-field{{ custom_field.custom_field_id }}"/>
                         <span>{{ account_custom_field[custom_field.custom_field_id]['name'] }}</span>
                       </div>
@@ -384,12 +383,10 @@
               <br/>
               <div class="row">
                 <div class="col-sm-6 text-left">
-                  <button type="button" onclick="$('a[href=\'#tab-customer\']').tab('show');" class="btn btn-default">
-                    <i class="fa fa-arrow-left"></i> {{ button_back }}</button>
+                  <button type="button" onclick="$('a[href=\'#tab-customer\']').tab('show');" class="btn btn-default"><i class="fa fa-arrow-left"></i> {{ button_back }}</button>
                 </div>
                 <div class="col-sm-6 text-right">
-                  <button type="button" id="button-cart" class="btn btn-primary">
-                    <i class="fa fa-arrow-right"></i> {{ button_continue }}</button>
+                  <button type="button" id="button-cart" class="btn btn-primary"><i class="fa fa-arrow-right"></i> {{ button_continue }}</button>
                 </div>
               </div>
             </div>
@@ -796,8 +793,7 @@
                     <i class="fa fa-arrow-left"></i> {{ button_back }}</button>
                 </div>
                 <div class="col-sm-6 text-right">
-                  <button type="button" id="button-shipping-address" data-loading-text="{{ text_loading }}" class="btn btn-primary">
-                    <i class="fa fa-arrow-right"></i> {{ button_continue }}</button>
+                  <button type="button" id="button-shipping-address" data-loading-text="{{ text_loading }}" class="btn btn-primary"><i class="fa fa-arrow-right"></i> {{ button_continue }}</button>
                 </div>
               </div>
             </div>

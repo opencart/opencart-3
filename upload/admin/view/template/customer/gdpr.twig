@@ -123,13 +123,15 @@
                     {% for gdpr in gdpr %}
                       <tr>
                         <td style="width: 1px;" class="text-center"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);"/></td>
-                        <td class="text-center">{% if gdpr.edit %}
+                        <td class="text-center">
+                          {% if gdpr.edit %}
                             <a href="{{ gdpr.edit }}">{{ gdpr.email }}</a>
                           {% else %}
                             {{ gdpr.email }}
                           {% endif %}</td>
                         <td class="text-left">{{ gdpr.action }}</td>
-                        <td class="text-left">{% if gdpr.status == '-1' %}
+                        <td class="text-left">
+                          {% if gdpr.status == '-1' %}
                             {{ text_denied }}
                           {% elseif gdpr.status == '0' %}
                             {{ text_unverified }}

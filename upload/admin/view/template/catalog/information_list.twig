@@ -35,12 +35,14 @@
               <thead>
                 <tr>
                   <td style="width: 1px;" class="text-center"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);"/></td>
-                  <td class="text-left">{% if sort == 'id.title' %}
+                  <td class="text-left">
+                    {% if sort == 'id.title' %}
                       <a href="{{ sort_title }}" class="{{ order|lower }}">{{ column_title }}</a>
                     {% else %}
                       <a href="{{ sort_title }}">{{ column_title }}</a>
                     {% endif %}</td>
-                  <td class="text-right">{% if sort == 'i.sort_order' %}
+                  <td class="text-right">
+                    {% if sort == 'i.sort_order' %}
                       <a href="{{ sort_sort_order }}" class="{{ order|lower }}">{{ column_sort_order }}</a>
                     {% else %}
                       <a href="{{ sort_sort_order }}">{{ column_sort_order }}</a>
@@ -52,7 +54,8 @@
                 {% if informations %}
                   {% for information in informations %}
                     <tr>
-                      <td class="text-center">{% if information.information_id in selected %}
+                      <td class="text-center">
+                        {% if information.information_id in selected %}
                           <input type="checkbox" name="selected[]" value="{{ information.information_id }}" checked="checked"/>
                         {% else %}
                           <input type="checkbox" name="selected[]" value="{{ information.information_id }}"/>

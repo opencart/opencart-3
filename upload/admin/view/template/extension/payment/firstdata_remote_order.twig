@@ -15,7 +15,8 @@
   </tr>
   <tr>
     <td>{{ text_capture_status }}</td>
-    <td id="capture_status">{% if firstdata_order.capture_status == 1 %}
+    <td id="capture_status">
+      {% if firstdata_order.capture_status == 1 %}
         <span class="capture_text">{{ text_yes }}</span>
       {% else %}
         <span class="capture_text">{{ text_no }}</span>&nbsp;&nbsp;
@@ -26,7 +27,8 @@
   </tr>
   <tr>
     <td>{{ text_void_status }}</td>
-    <td id="void_status">{% if firstdata_order.void_status == 1 %}
+    <td id="void_status">
+      {% if firstdata_order.void_status == 1 %}
         <span class="void_text">{{ text_yes }}</span>
       {% else %}
         <span class="void_text">{{ text_no }}</span>&nbsp;&nbsp;
@@ -37,7 +39,8 @@
   </tr>
   <tr>
     <td>{{ text_refund_status }}</td>
-    <td id="refund_status">{% if firstdata_order.refund_status == 1 %}
+    <td id="refund_status">
+      {% if firstdata_order.refund_status == 1 %}
         <span class="refund_text">{{ text_yes }}</span>
       {% else %}
         <span class="refund_text">{{ text_no }}</span>&nbsp;&nbsp;

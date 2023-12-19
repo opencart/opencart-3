@@ -34,14 +34,15 @@
             <table class="table table-bordered table-hover">
               <thead>
                 <tr>
-                  <td style="width: 1px;" class="text-center">
-                    <input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);"/></td>
-                  <td class="text-left">{% if sort == 'fgd.name' %}
+                  <td style="width: 1px;" class="text-center"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);"/></td>
+                  <td class="text-left">
+                    {% if sort == 'fgd.name' %}
                       <a href="{{ sort_name }}" class="{{ order|lower }}">{{ column_group }}</a>
                     {% else %}
                       <a href="{{ sort_name }}">{{ column_group }}</a>
                     {% endif %}</td>
-                  <td class="text-right">{% if sort == 'fg.sort_order' %}
+                  <td class="text-right">
+                    {% if sort == 'fg.sort_order' %}
                       <a href="{{ sort_sort_order }}" class="{{ order|lower }}">{{ column_sort_order }}</a>
                     {% else %}
                       <a href="{{ sort_sort_order }}">{{ column_sort_order }}</a>
@@ -53,7 +54,8 @@
                 {% if filters %}
                   {% for filter in filters %}
                     <tr>
-                      <td class="text-center">{% if filter.filter_group_id in selected %}
+                      <td class="text-center">
+                        {% if filter.filter_group_id in selected %}
                           <input type="checkbox" name="selected[]" value="{{ filter.filter_group_id }}" checked="checked"/>
                         {% else %}
                           <input type="checkbox" name="selected[]" value="{{ filter.filter_group_id }}"/>

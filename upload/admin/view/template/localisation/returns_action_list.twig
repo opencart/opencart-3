@@ -48,7 +48,8 @@
                 {% if return_actions %}
                   {% for return_action in return_actions %}
                     <tr>
-                      <td class="text-center">{% if return_action.return_action_id in selected %}
+                      <td class="text-center">
+                        {% if return_action.return_action_id in selected %}
                           <input type="checkbox" name="selected[]" value="{{ return_action.return_action_id }}" checked="checked"/>
                         {% else %}
                           <input type="checkbox" name="selected[]" value="{{ return_action.return_action_id }}"/>

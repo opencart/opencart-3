@@ -61,7 +61,8 @@
               </tr>
               <tr>
                 <td>{{ text_customer }}</td>
-                <td>{% if customer %}
+                <td>
+                  {% if customer %}
                     <a href="{{ customer }}">{{ firstname }} {{ lastname }}</a>
                   {% else %}
                     {{ firstname }} {{ lastname }}

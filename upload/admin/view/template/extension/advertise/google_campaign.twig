@@ -78,12 +78,14 @@
                                       <li>{{ feed.text }}</li>
                                     {% endfor %}
                                   </ul></td>
-                                <td class="text-center">{% if target.roas_status %}
+                                <td class="text-center">
+                                  {% if target.roas_status %}
                                     {{ target.roas }}&#37;
                                   {% else %}
                                     <span class="label label-default" data-toggle="tooltip" data-original-title="{{ target.roas_warning }}">{{ text_label_unavailable }}</span>
                                   {% endif %}</td>
-                                <td class="text-center">{% if target.status == 'paused' %}
+                                <td class="text-center">
+                                  {% if target.status == 'paused' %}
                                     <span class="label label-warning">{{ text_label_paused }}</span>
                                   {% elseif target.status == 'active' %}
                                     <span class="label label-success">{{ text_label_active }}</span>

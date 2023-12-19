@@ -24,7 +24,8 @@
   </tr>
   <tr>
     <td>{{ column_merchant_reference_1 }}</td>
-    <td>{% if merchant_reference_action %}
+    <td>
+      {% if merchant_reference_action %}
         <div class="col-sm-2">
           <input class="form-control" type="text" name="merchant_reference_1" value="{{ transaction.merchant_reference_1 }}" />
         </div>

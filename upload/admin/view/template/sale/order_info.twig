@@ -54,7 +54,8 @@
           <table class="table">
             <tr>
               <td style="width: 1%;"><button data-toggle="tooltip" title="{{ text_customer }}" class="btn btn-info btn-xs"><i class="fa fa-user fa-fw"></i></button></td>
-              <td>{% if customer %}
+              <td>
+                {% if customer %}
                   <a href="{{ customer }}" target="_blank">{{ firstname }} {{ lastname }}</a>
                 {% else %}
                   {{ firstname }} {{ lastname }}
@@ -85,7 +86,8 @@
             <tr>
               <td>{{ text_invoice }}</td>
               <td id="invoice" class="text-right">{{ invoice_no }}</td>
-              <td style="width: 1%;" class="text-center">{% if not invoice_no %}
+              <td style="width: 1%;" class="text-center">
+                {% if not invoice_no %}
                   <button id="button-invoice" data-loading-text="{{ text_loading }}" data-toggle="tooltip" title="{{ button_generate }}" class="btn btn-success btn-xs"><i class="fa fa-cog"></i></button>
                 {% else %}
                   <button disabled="disabled" class="btn btn-success btn-xs"><i class="fa fa-refresh"></i></button>
@@ -94,7 +96,8 @@
             <tr>
               <td>{{ text_reward }}</td>
               <td class="text-right">{{ reward }}</td>
-              <td class="text-center">{% if customer and reward %}
+              <td class="text-center">
+                {% if customer and reward %}
                   {% if not reward_total %}
                     <button id="button-reward-add" data-loading-text="{{ text_loading }}" data-toggle="tooltip" title="{{ button_reward_add }}" class="btn btn-success btn-xs"><i class="fa fa-plus-circle"></i></button>
                   {% else %}
@@ -110,7 +113,8 @@
                   (<a href="{{ affiliate }}">{{ affiliate_firstname }} {{ affiliate_lastname }}</a>)
                 {% endif %}</td>
               <td class="text-right">{{ commission }}</td>
-              <td class="text-center">{% if affiliate %}
+              <td class="text-center">
+                {% if affiliate %}
                   {% if not commission_total %}
                     <button id="button-commission-add" data-loading-text="{{ text_loading }}" data-toggle="tooltip" title="{{ button_commission_add }}" class="btn btn-success btn-xs"><i class="fa fa-plus-circle"></i></button>
                   {% else %}
