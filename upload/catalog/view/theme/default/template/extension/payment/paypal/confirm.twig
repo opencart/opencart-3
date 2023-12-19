@@ -222,15 +222,13 @@
                   {% if not shipping_method['error'] %}
                     {% for quote in shipping_method['quote'] %}
                       <div class="radio">
-                        <label>
-                          {% if quote['code'] == code or not code %}
+                        <label>{% if quote['code'] == code or not code %}
                             {% set code = quote['code'] %}
                             <input type="radio" name="shipping_method" value="{{ quote['code'] }}" id="{{ quote['code'] }}" checked="checked" />
                           {% else %}
                             <input type="radio" name="shipping_method" value="{{ quote['code'] }}" id="{{ quote['code'] }}" />
                           {% endif %}
-                          {{ quote['title'] }} - {{ quote['text'] }}
-                        </label>
+                          {{ quote['title'] }} - {{ quote['text'] }}</label>
                       </div>
                     {% endfor %}
                   {% else %}

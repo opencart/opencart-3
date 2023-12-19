@@ -230,15 +230,13 @@
                 <div class="col-sm-10">
                   {% for card in cards %}
                     <div class="checkbox">
-                      <label>
-                        {% if card.value in payment_firstdata_remote_cards_accepted %}
+                      <label>{% if card.value in payment_firstdata_remote_cards_accepted %}
                           <input type="checkbox" name="payment_firstdata_remote_cards_accepted[]" value="{{ card.value }}" checked="checked"/>
                           {{ card.text }}
                         {% else %}
                           <input type="checkbox" name="payment_firstdata_remote_cards_accepted[]" value="{{ card.value }}"/>
                           {{ card.text }}
-                        {% endif %}
-                      </label>
+                        {% endif %}</label>
                     </div>
                   {% endfor %}
                 </div>

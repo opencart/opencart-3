@@ -99,15 +99,13 @@
               <div class="well well-sm" style="height: 150px; overflow: auto;">
                 {% for service in services %}
                   <div class="checkbox">
-                    <label>
-                      {% if service.value in shipping_fedex_service %}
+                    <label>{% if service.value in shipping_fedex_service %}
                         <input type="checkbox" name="shipping_fedex_service[]" value="{{ service.value }}" checked="checked"/>
                         {{ service.text }}
                       {% else %}
                         <input type="checkbox" name="shipping_fedex_service[]" value="{{ service.value }}"/>
                         {{ service.text }}
-                      {% endif %}
-                    </label>
+                      {% endif %}</label>
                   </div>
                 {% endfor %}
               </div>

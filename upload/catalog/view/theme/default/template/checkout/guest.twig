@@ -279,14 +279,12 @@
 </div>
 {% if shipping_required %}
 <div class="checkbox">
-  <label>
-    {% if shipping_address %}
+  <label>{% if shipping_address %}
       <input type="checkbox" name="shipping_address" value="1" checked="checked"/>
     {% else %}
       <input type="checkbox" name="shipping_address" value="1"/>
     {% endif %}
-    {{ entry_shipping }}
-  </label>
+    {{ entry_shipping }}</label>
 </div>
 {% endif %}
 <div class="buttons">

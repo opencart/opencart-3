@@ -240,34 +240,28 @@
                   <label class="col-sm-2 control-label">{{ entry_payment }}</label>
                   <div class="col-sm-10">
                     <div class="radio">
-                      <label>
-                        {% if payment == 'cheque' %}
+                      <label>{% if payment == 'cheque' %}
                           <input type="radio" name="payment" value="cheque" checked="checked"/>
                         {% else %}
                           <input type="radio" name="payment" value="cheque"/>
                         {% endif %}
-                        {{ text_cheque }}
-                      </label>
+                        {{ text_cheque }}</label>
                     </div>
                     <div class="radio">
-                      <label>
-                        {% if payment == 'paypal' %}
+                      <label>{% if payment == 'paypal' %}
                           <input type="radio" name="payment" value="paypal" checked="checked"/>
                         {% else %}
                           <input type="radio" name="payment" value="paypal"/>
                         {% endif %}
-                        {{ text_paypal }}
-                      </label>
+                        {{ text_paypal }}</label>
                     </div>
                     <div class="radio">
-                      <label>
-                        {% if payment == 'bank' %}
+                      <label>{% if payment == 'bank' %}
                           <input type="radio" name="payment" value="bank" checked="checked"/>
                         {% else %}
                           <input type="radio" name="payment" value="bank"/>
                         {% endif %}
-                        {{ text_bank }}
-                      </label>
+                        {{ text_bank }}</label>
                     </div>
                   </div>
                 </div>

@@ -175,15 +175,13 @@
                   <div class="col-sm-10">
                     {% for location in locations %}
                       <div class="checkbox">
-                        <label>
-                          {% if location.location_id in config_location %}
+                        <label>{% if location.location_id in config_location %}
                             <input type="checkbox" name="config_location[]" value="{{ location.location_id }}" checked="checked"/>
                             {{ location.name }}
                           {% else %}
                             <input type="checkbox" name="config_location[]" value="{{ location.location_id }}"/>
                             {{ location.name }}
-                          {% endif %}
-                        </label>
+                          {% endif %}</label>
                       </div>
                     {% endfor %}
                   </div>
@@ -624,16 +622,14 @@
                   <div class="col-sm-10">
                     {% for customer_group in customer_groups %}
                       <div class="checkbox">
-                        <label>
-                          {% if customer_group.customer_group_id in config_customer_group_display %}
+                        <label>{% if customer_group.customer_group_id in config_customer_group_display %}
                             <input type="checkbox" name="config_customer_group_display[]" value="{{ customer_group.customer_group_id }}" checked="checked"/>
                             {{ customer_group.name }}
                           {% else %}
                             <input type="checkbox" name="config_customer_group_display[]" value="{{ customer_group.customer_group_id }}"/>
                             {{ customer_group.name }}
                           {% endif %}
-                        </label>
-                      </div>
+                        </label></div>
                     {% endfor %}
                     {% if error_customer_group_display %}
                       <div class="text-danger">{{ error_customer_group_display }}</div>
@@ -643,38 +639,31 @@
                 <div class="form-group">
                   <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_customer_price }}">{{ entry_customer_price }}</span></label>
                   <div class="col-sm-10">
-                    <label class="radio-inline">
-                      {% if config_customer_price %}
+                    <label class="radio-inline">{% if config_customer_price %}
                         <input type="radio" name="config_customer_price" value="1" checked="checked"/>
                         {{ text_yes }}
                       {% else %}
                         <input type="radio" name="config_customer_price" value="1"/>
                         {{ text_yes }}
-                      {% endif %}
-                    </label>
-                    <label class="radio-inline">
-                      {% if not config_customer_price %}
+                      {% endif %}</label>
+                    <label class="radio-inline">{% if not config_customer_price %}
                         <input type="radio" name="config_customer_price" value="0" checked="checked"/>
                         {{ text_no }}
                       {% else %}
                         <input type="radio" name="config_customer_price" value="0"/>
                         {{ text_no }}
-                      {% endif %}
-                    </label>
+                      {% endif %}</label>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-2 control-label" for="input-telephone-display"><span data-toggle="tooltip" title="{{ help_telephone_display }}">{{ entry_telephone_display }}</span></label>
                   <div class="col-sm-10">
                     <div class="checkbox">
-                      <label>
-                        {% if config_telephone_display %}
+                      <label>{% if config_telephone_display %}
                           <input type="checkbox" name="config_telephone_display" value="1" checked="checked" id="input-telephone-display"/>
                         {% else %}
                           <input type="checkbox" name="config_telephone_display" value="1" id="input-telephone-display"/>
-                        {% endif %}
-                        &nbsp;
-                      </label>
+                        {% endif %}</label>
                     </div>
                   </div>
                 </div>
@@ -682,14 +671,11 @@
                   <label class="col-sm-2 control-label" for="input-telephone-required"><span data-toggle="tooltip" title="{{ help_telephone_required }}">{{ entry_telephone_required }}</span></label>
                   <div class="col-sm-10">
                     <div class="checkbox">
-                      <label>
-                        {% if config_telephone_required %}
+                      <label>{% if config_telephone_required %}
                           <input type="checkbox" name="config_telephone_required" value="1" checked="checked" id="input-telephone-required"/>
                         {% else %}
                           <input type="checkbox" name="config_telephone_required" value="1" id="input-telephone-required"/>
-                        {% endif %}
-                        &nbsp;
-                      </label>
+                        {% endif %}</label>
                     </div>
                   </div>
                 </div>
@@ -729,47 +715,39 @@
                 <div class="form-group">
                   <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_cart_weight }}">{{ entry_cart_weight }}</span></label>
                   <div class="col-sm-10">
-                    <label class="radio-inline">
-                      {% if config_cart_weight %}
+                    <label class="radio-inline">{% if config_cart_weight %}
                         <input type="radio" name="config_cart_weight" value="1" checked="checked"/>
                         {{ text_yes }}
                       {% else %}
                         <input type="radio" name="config_cart_weight" value="1"/>
                         {{ text_yes }}
-                      {% endif %}
-                    </label>
-                    <label class="radio-inline">
-                      {% if not config_cart_weight %}
+                      {% endif %}</label>
+                    <label class="radio-inline">{% if not config_cart_weight %}
                         <input type="radio" name="config_cart_weight" value="0" checked="checked"/>
                         {{ text_no }}
                       {% else %}
                         <input type="radio" name="config_cart_weight" value="0"/>
                         {{ text_no }}
-                      {% endif %}
-                    </label>
+                      {% endif %}</label>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_checkout_guest }}">{{ entry_checkout_guest }}</span></label>
                   <div class="col-sm-10">
-                    <label class="radio-inline">
-                      {% if config_checkout_guest %}
+                    <label class="radio-inline">{% if config_checkout_guest %}
                         <input type="radio" name="config_checkout_guest" value="1" checked="checked"/>
                         {{ text_yes }}
                       {% else %}
                         <input type="radio" name="config_checkout_guest" value="1"/>
                         {{ text_yes }}
-                      {% endif %}
-                    </label>
-                    <label class="radio-inline">
-                      {% if not config_checkout_guest %}
+                      {% endif %}</label>
+                    <label class="radio-inline">{% if not config_checkout_guest %}
                         <input type="radio" name="config_checkout_guest" value="0" checked="checked"/>
                         {{ text_no }}
                       {% else %}
                         <input type="radio" name="config_checkout_guest" value="0"/>
                         {{ text_no }}
-                      {% endif %}
-                    </label>
+                      {% endif %}</label>
                   </div>
                 </div>
                 <div class="form-group">
@@ -807,15 +785,13 @@
                     <div class="well well-sm" style="height: 150px; overflow: auto;">
                       {% for order_status in order_statuses %}
                         <div class="checkbox">
-                          <label>
-                            {% if order_status.order_status_id in config_processing_status %}
+                          <label>{% if order_status.order_status_id in config_processing_status %}
                               <input type="checkbox" name="config_processing_status[]" value="{{ order_status.order_status_id }}" checked="checked"/>
                               {{ order_status.name }}
                             {% else %}
                               <input type="checkbox" name="config_processing_status[]" value="{{ order_status.order_status_id }}"/>
                               {{ order_status.name }}
-                            {% endif %}
-                          </label>
+                            {% endif %}</label>
                         </div>
                       {% endfor %}
                     </div>
@@ -830,15 +806,13 @@
                     <div class="well well-sm" style="height: 150px; overflow: auto;">
                       {% for order_status in order_statuses %}
                         <div class="checkbox">
-                          <label>
-                            {% if order_status.order_status_id in config_complete_status %}
+                          <label>{% if order_status.order_status_id in config_complete_status %}
                               <input type="checkbox" name="config_complete_status[]" value="{{ order_status.order_status_id }}" checked="checked"/>
                               {{ order_status.name }}
                             {% else %}
                               <input type="checkbox" name="config_complete_status[]" value="{{ order_status.order_status_id }}"/>
                               {{ order_status.name }}
-                            {% endif %}
-                          </label>
+                            {% endif %}</label>
                         </div>
                       {% endfor %}
                     </div>
@@ -1219,15 +1193,13 @@
                     <div class="well well-sm" style="height: 150px; overflow: auto;">
                       {% for captcha_page in captcha_pages %}
                         <div class="checkbox">
-                          <label>
-                            {% if captcha_page.value in config_captcha_page %}
+                          <label>{% if captcha_page.value in config_captcha_page %}
                               <input type="checkbox" name="config_captcha_page[]" value="{{ captcha_page.value }}" checked="checked"/>
                               {{ captcha_page.text }}
                             {% else %}
                               <input type="checkbox" name="config_captcha_page[]" value="{{ captcha_page.value }}"/>
                               {{ captcha_page.text }}
-                            {% endif %}
-                          </label>
+                            {% endif %}</label>
                         </div>
                       {% endfor %}
                     </div>
@@ -1320,15 +1292,13 @@
                     <div class="well well-sm" style="height: 150px; overflow: auto;">
                       {% for mail_alert in mail_alerts %}
                         <div class="checkbox">
-                          <label>
-                            {% if mail_alert.value in config_mail_alert %}
+                          <label>{% if mail_alert.value in config_mail_alert %}
                               <input type="checkbox" name="config_mail_alert[]" value="{{ mail_alert.value }}" checked="checked"/>
                               {{ mail_alert.text }}
                             {% else %}
                               <input type="checkbox" name="config_mail_alert[]" value="{{ mail_alert.value }}"/>
                               {{ mail_alert.text }}
-                            {% endif %}
-                          </label>
+                            {% endif %}</label>
                         </div>
                       {% endfor %}
                     </div>

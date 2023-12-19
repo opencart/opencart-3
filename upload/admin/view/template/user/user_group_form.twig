@@ -40,15 +40,13 @@
               <div class="well well-sm" style="height: 150px; overflow: auto;">
                 {% for permission in permissions %}
                   <div class="checkbox">
-                    <label>
-                      {% if permission in access %}
+                    <label>{% if permission in access %}
                         <input type="checkbox" name="permission[access][]" value="{{ permission }}" checked="checked"/>
                         {{ permission }}
                       {% else %}
                         <input type="checkbox" name="permission[access][]" value="{{ permission }}"/>
                         {{ permission }}
-                      {% endif %}
-                    </label>
+                      {% endif %}</label>
                   </div>
                 {% endfor %}
               </div>
@@ -63,15 +61,13 @@
               <div class="well well-sm" style="height: 150px; overflow: auto;">
                 {% for permission in permissions %}
                   <div class="checkbox">
-                    <label>
-                      {% if permission in modify %}
+                    <label>{% if permission in modify %}
                         <input type="checkbox" name="permission[modify][]" value="{{ permission }}" checked="checked"/>
                         {{ permission }}
                       {% else %}
                         <input type="checkbox" name="permission[modify][]" value="{{ permission }}"/>
                         {{ permission }}
-                      {% endif %}
-                    </label>
+                      {% endif %}</label>
                   </div>
                 {% endfor %}
               </div>
