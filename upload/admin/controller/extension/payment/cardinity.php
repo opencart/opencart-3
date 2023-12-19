@@ -270,7 +270,7 @@ class ControllerExtensionPaymentCardinity extends Controller {
 
         $check_credentials = true;
 
-        if (version_compare(phpversion(), '8.2', '<')) {
+        if (version_compare(phpversion(), '8.3', '<')) {
             $this->error['warning'] = $this->language->get('error_php_version');
         }
 
