@@ -124,7 +124,6 @@ class ControllerCustomerCustomerPayment extends Controller {
                 'name'                => $result['name'],
                 'image'               => $image,
                 'type'                => $result['type'],
-                'status'              => $result['status'],
                 'date_expire'         => date($this->language->get('date_format_short'), strtotime($result['date_expire'])),
                 'delete'              => $this->url->link('customer/customer_payment/deletePayment', 'user_token=' . $this->session->data['user_token'] . '&customer_payment_id=' . $result['customer_payment_id'])
             ];
