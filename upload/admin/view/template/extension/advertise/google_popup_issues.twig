@@ -17,8 +17,7 @@
           <tr>
             <td class="text-left">{{ issue.color }}</td>
             <td class="text-left">{{ issue.size }}</td>
-            <td class="text-left">
-              {% for status in issue.destination_statuses %}
+            <td class="text-left">{% for status in issue.destination_statuses %}
                 {% if status.approvalPending %}
                   {{ status.destination }}{{ status.destination ? ': ' : '' }}
                   <span class="label label-warning">{{ text_label_pending }}</span>
@@ -36,8 +35,7 @@
                 {% endif %}
               {% else %}
                 <span class="label label-warning">{{ text_label_pending }}</span>
-              {% endfor %}
-            </td>
+              {% endfor %}</td>
             <td class="text-left">{% for quality_issue in issue.data_quality_issues %}
                 {% if quality_issue.severity == 'critical' %}
                   {{ quality_issue.destination }}{{ quality_issue.destination ? ': ' : '' }}

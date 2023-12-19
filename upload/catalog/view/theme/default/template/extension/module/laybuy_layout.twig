@@ -26,16 +26,14 @@
         <br/>
         <b>{{ text_payment_amounts }}</b> {{ transaction.payment_amounts }}
         <br/>
-        <b>{{ text_first_payment_due }}</b> {{ transaction.first_payment_due }}
-      </td>
+        <b>{{ text_first_payment_due }}</b> {{ transaction.first_payment_due }}</td>
       <td class="text-left"><b>{{ text_amount }}</b> {{ transaction.amount }}
         <br/>
         <b>{{ text_downpayment_amount }}</b> {{ transaction.downpayment_amount }}
         <br/>
         <b>{{ text_months }}</b> {{ transaction.months }}
         <br/>
-        <b>{{ text_last_payment_due }}</b> {{ transaction.last_payment_due }}
-      </td>
+        <b>{{ text_last_payment_due }}</b> {{ transaction.last_payment_due }}</td>
     </tr>
   </tbody>
 </table>
@@ -49,7 +47,7 @@
       <th>{{ column_status }}</th>
     </tr>
   </thead>
-  <tbody>  
+  <tbody>
     {% for report in transaction.report %}
       {% if report.instalment == '0' %}
         <tr>
@@ -69,5 +67,5 @@
         </tr>
       {% endif %}
     {% endfor %}
-  </tbody>  
+  </tbody>
 </table>

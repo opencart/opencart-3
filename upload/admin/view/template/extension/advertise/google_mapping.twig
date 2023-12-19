@@ -59,14 +59,10 @@
               <tbody>
                 {% for map in mapping %}
                   <tr>
-                    <td class="width_33">
-                      {{ map.google_product_category.name }}
-                    </td>
-                    <td class="width_66 category-select-container">
-                      <input type="text" name="category_autocomplete" value="{{ map.oc_category.name }}" class="form-control"/>
+                    <td class="width_33">{{ map.google_product_category.name }}</td>
+                    <td class="width_66 category-select-container"><input type="text" name="category_autocomplete" value="{{ map.oc_category.name }}" class="form-control"/>
                       <input type="hidden" name="advertise_google_mapping[{{ map.google_product_category.id }}]" data-google-category-id="{{ map.google_product_category.id }}" value="{{ map.oc_category.category_id }}">
-                      <button class="btn btn-danger button-remove"><i class="fa fa-close"></i></button>
-                    </td>
+                      <button class="btn btn-danger button-remove"><i class="fa fa-close"></i></button></td>
                   </tr>
                 {% endfor %}
               </tbody>

@@ -184,16 +184,14 @@
                     {% for store in stores %}
                       <tr>
                         <td class="text-left">{{ store.name }}</td>
-                        <td class="text-left">
-                          {% for language in languages %}
+                        <td class="text-left">{% for language in languages %}
                             <div class="input-group"><span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
                               <input type="text" name="category_seo_url[{{ store.store_id }}][{{ language.language_id }}]" value="{% if category_seo_url[store.store_id][language.language_id] %}{{ category_seo_url[store.store_id][language.language_id] }}{% endif %}" placeholder="{{ entry_keyword }}" class="form-control"/>
                             </div>
                             {% if error_keyword[store.store_id][language.language_id] %}
                               <div class="text-danger">{{ error_keyword[store.store_id][language.language_id] }}</div>
                             {% endif %}
-                          {% endfor %}
-                        </td>
+                          {% endfor %}</td>
                       </tr>
                     {% endfor %}
                   </tbody>
@@ -222,8 +220,7 @@
                                 <option value="{{ layout.layout_id }}">{{ layout.name }}</option>
                               {% endif %}
                             {% endfor %}
-                          </select>
-                        </td>
+                          </select></td>
                       </tr>
                     {% endfor %}
                   </tbody>

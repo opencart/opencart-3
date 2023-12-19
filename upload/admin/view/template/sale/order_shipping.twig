@@ -33,8 +33,7 @@
               <br/>
               <b>{{ text_email }}</b> {{ order.store_email }}
               <br/>
-              <b>{{ text_website }}</b> <a href="{{ order.store_url }}">{{ order.store_url }}</a>
-            </td>
+              <b>{{ text_website }}</b> <a href="{{ order.store_url }}">{{ order.store_url }}</a></td>
             <td style="width: 50%;"><b>{{ text_date_added }}</b> {{ order.date_added }}
               <br/>
               {% if order.invoice_no %}
@@ -62,8 +61,7 @@
             <td>{{ order.shipping_address }}</td>
             <td>{{ order.email }}
               <br/>
-              {{ order.telephone }}
-            </td>
+              {{ order.telephone }}</td>
           </tr>
         </tbody>
       </table>
