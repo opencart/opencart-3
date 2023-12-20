@@ -217,8 +217,7 @@
                 {% endif %}
               {% endfor %}
               <div class="text-right">
-                <button type="button" id="button-customer" data-loading-text="{{ text_loading }}" class="btn btn-primary">
-                  <i class="fa fa-arrow-right"></i> {{ button_continue }}</button>
+                <button type="button" id="button-customer" data-loading-text="{{ text_loading }}" class="btn btn-primary"><i class="fa fa-arrow-right"></i> {{ button_continue }}</button>
               </div>
             </div>
             <div id="tab-cart" class="tab-pane">
@@ -789,8 +788,7 @@
               {% endfor %}
               <div class="row">
                 <div class="col-sm-6 text-left">
-                  <button type="button" onclick="$('a[href=\'#tab-payment\']').tab('show');" class="btn btn-default">
-                    <i class="fa fa-arrow-left"></i> {{ button_back }}</button>
+                  <button type="button" onclick="$('a[href=\'#tab-payment\']').tab('show');" class="btn btn-default"><i class="fa fa-arrow-left"></i> {{ button_back }}</button>
                 </div>
                 <div class="col-sm-6 text-right">
                   <button type="button" id="button-shipping-address" data-loading-text="{{ text_loading }}" class="btn btn-primary"><i class="fa fa-arrow-right"></i> {{ button_continue }}</button>
@@ -901,8 +899,7 @@
               </fieldset>
               <div class="row">
                 <div class="col-sm-6 text-left">
-                  <button type="button" onclick="$('select[name=\'shipping_method\']').prop('disabled') ? $('a[href=\'#tab-payment\']').tab('show') : $('a[href=\'#tab-shipping\']').tab('show');" class="btn btn-default">
-                    <i class="fa fa-arrow-left"></i> {{ button_back }}</button>
+                  <button type="button" onclick="$('select[name=\'shipping_method\']').prop('disabled') ? $('a[href=\'#tab-payment\']').tab('show') : $('a[href=\'#tab-shipping\']').tab('show');" class="btn btn-default"><i class="fa fa-arrow-left"></i> {{ button_back }}</button>
                 </div>
                 <div class="col-sm-6 text-right">
                   <button type="button" id="button-refresh" data-toggle="tooltip" title="{{ button_refresh }}" data-loading-text="{{ text_loading }}" class="btn btn-warning"><i class="fa fa-refresh"></i></button>
