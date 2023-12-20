@@ -81,7 +81,8 @@
                         <button type="submit" data-toggle="tooltip" title="{{ button_update }}" class="btn btn-primary"><i class="fa fa-refresh"></i></button>
                         <button type="button" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger" onclick="cart.remove('{{ product.cart_id }}');"><i class="fa fa-times-circle"></i></button>
                       </span>
-                    </div></td>
+                    </div>
+                  </td>
                   <td class="text-right">{{ product.price }}</td>
                   <td class="text-right">{{ product.total }}</td>
                 </tr>
@@ -97,7 +98,8 @@
                       <span class="input-group-btn">
                         <button type="button" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger" onclick="voucher.remove('{{ voucher.key }}');"><i class="fa fa-times-circle"></i></button>
                       </span>
-                    </div></td>
+                    </div>
+                  </td>
                   <td class="text-right">{{ voucher.amount }}</td>
                   <td class="text-right">{{ voucher.amount }}</td>
                 </tr>
