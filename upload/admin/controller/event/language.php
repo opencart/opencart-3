@@ -7,14 +7,14 @@
 class ControllerEventLanguage extends Controller {
 	/**
 	 *
-	 * Dump all the language vars into the template.
-	 *
-	 * view/ * /before
-	 *
 	 * @param string $route
 	 * @param array  $args
 	 *
 	 * @return void
+	 *
+	 * Dump all the language vars into the template.
+	 *
+	 * view/ * /before
 	 */
     public function index(string &$route, array &$args): void {
         foreach ($this->language->all() as $key => $value) {
@@ -27,14 +27,14 @@ class ControllerEventLanguage extends Controller {
 	/**
 	 * Before
 	 *
-	 * 1. Before controller load store all current loaded language data.
-	 *
-	 * controller/ * /before
-	 *
 	 * @param string $route
 	 * @param array  $args
 	 *
 	 * @return void
+	 *
+	 * 1. Before controller load store all current loaded language data.
+	 *
+	 * controller/ * /before
 	 */
     public function before(string &$route, mixed &$args): void {
         $this->language->set('backup', $this->language->all());
@@ -43,15 +43,15 @@ class ControllerEventLanguage extends Controller {
 	/**
 	 * After
 	 *
-	 *  // 2. After controller load restore old language data.
-	 *
-	 * // controller/ * / * /after
-	 *
 	 * @param string $route
 	 * @param array  $args
 	 * @param mixed  $output
 	 *
 	 * @return void
+	 *
+	 * 2. After controller load restore old language data.
+	 *
+	 * controller/ * / * /after
 	 */
     public function after(string &$route, array &$args, mixed &$output): void {
         $data = $this->language->get('backup');
