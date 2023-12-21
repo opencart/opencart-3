@@ -1,10 +1,10 @@
 <?php
 /**
- * Class DbSchema
+ * Class DB Schema
  *
- * @package Admin\Model\Extension\Module
+ * @package Admin\Model\Extension\Report
  */
-class ModelExtensionModuleDbSchema extends Model {
+class ModelExtensionReportDbSchema extends Model {
 	/**
 	 * getTable
 	 *

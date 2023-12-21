@@ -1,17 +1,17 @@
 <?php
 /**
- * Class DbSchema
+ * Class DB Schema
  *
- * @package Admin\Controller\Extension\Module
+ * @package Admin\Controller\Extension\Report
  */
-class ControllerExtensionModuleDbSchema extends Controller {
+class ControllerExtensionReportDbSchema extends Controller {
 	private array $error = [];
 
 	/**
 	 * @return void
 	 */
 	public function index(): void {
-		$this->load->language('extension/module/db_schema');
+		$this->load->language('extension/report/db_schema');
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
@@ -36,16 +36,16 @@ class ControllerExtensionModuleDbSchema extends Controller {
 
 		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_extension'),
-			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module', true)
+			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=report', true)
 		];
 
 		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('heading_title'),
-			'href' => $this->url->link('extension/module/db_schema', 'user_token=' . $this->session->data['user_token'] . $url, true)
+			'href' => $this->url->link('extension/report/db_schema', 'user_token=' . $this->session->data['user_token'] . $url, true)
 		];
 
-		$data['action'] = $this->url->link('extension/module/db_schema/getReport', 'user_token=' . $this->session->data['user_token'] . $url, true);
-		$data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module', true);
+		$data['action'] = $this->url->link('extension/report/db_schema/getReport', 'user_token=' . $this->session->data['user_token'] . $url, true);
+		$data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=report', true);
 
 		$data['tables'] = [];
 
@@ -59,9 +59,9 @@ class ControllerExtensionModuleDbSchema extends Controller {
 			'limit' => $this->config->get('config_limit_admin')
 		];
 
-		$table_total = $this->model_extension_module_db_schema->getTotalTables();
+		$table_total = $this->model_extension_report_db_schema->getTotalTables();
 
-		$results = $this->model_extension_module_db_schema->getTables($filter_data);
+		$results = $this->model_extension_report_db_schema->getTables($filter_data);
 
 		foreach ($results as $result) {
 			foreach ($tables as $table) {
@@ -87,7 +87,7 @@ class ControllerExtensionModuleDbSchema extends Controller {
 		$pagination->total = $table_total;
 		$pagination->page = $page;
 		$pagination->limit = $this->config->get('config_limit_admin');
-		$pagination->url = $this->url->link('extension/module/db_schema', 'user_token=' . $this->session->data['user_token'] . '&page={page}' . $url, true);
+		$pagination->url = $this->url->link('extension/report/db_schema', 'user_token=' . $this->session->data['user_token'] . '&page={page}' . $url, true);
 
 		$data['pagination'] = $pagination->render();
 
@@ -97,7 +97,7 @@ class ControllerExtensionModuleDbSchema extends Controller {
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
 
-		$this->response->setOutput($this->load->view('extension/module/db_schema', $data));
+		$this->response->setOutput($this->load->view('extension/report/db_schema', $data));
 	}
 
 	/**
@@ -106,7 +106,7 @@ class ControllerExtensionModuleDbSchema extends Controller {
 	 * @return object\Action|null
 	 */
 	public function getReport(): ?object {
-		$this->load->language('extension/module/db_schema');
+		$this->load->language('extension/report/db_schema');
 
 		$data['title'] = $this->language->get('text_report');
 
@@ -125,9 +125,9 @@ class ControllerExtensionModuleDbSchema extends Controller {
 			$selected = [];
 		}
 
-		if ($this->user->hasPermission('modify', 'extension/module/db_schema')) {
+		if ($this->user->hasPermission('modify', 'extension/report/db_schema')) {
 			// DB Schema
-			$this->load->model('extension/module/db_schema');
+			$this->load->model('extension/report/db_schema');
 
 			// DB Schema
 			$this->load->helper('db_schema');
@@ -140,7 +140,7 @@ class ControllerExtensionModuleDbSchema extends Controller {
 					$filter_data = [];
 
 					foreach ($table['field'] as $field) {
-						$fields = $this->model_extension_module_db_schema->getTable($table['name']);
+						$fields = $this->model_extension_report_db_schema->getTable($table['name']);
 
 						// Core
 						if ($fields) {
@@ -161,7 +161,7 @@ class ControllerExtensionModuleDbSchema extends Controller {
 						// Foreign
 						if (isset($table['foreign']) && $table['foreign']) {
 							foreach ($table['foreign'] as $foreign) {
-								$fields = $this->model_extension_module_db_schema->getTable($foreign['table']);
+								$fields = $this->model_extension_report_db_schema->getTable($foreign['table']);
 
 								if ($fields) {
 									foreach ($fields as $result) {
@@ -190,7 +190,7 @@ class ControllerExtensionModuleDbSchema extends Controller {
 					if ($filter_data) {
 						$filter_data = array_unique($filter_data);
 
-						$fields = $this->model_extension_module_db_schema->getTable($table['name'], $filter_data);
+						$fields = $this->model_extension_report_db_schema->getTable($table['name'], $filter_data);
 
 						if ($fields) {
 							foreach ($fields as $result) {
@@ -205,7 +205,7 @@ class ControllerExtensionModuleDbSchema extends Controller {
 				}
 			}
 
-			$this->response->setOutput($this->load->view('extension/module/db_schema_report', $data));
+			$this->response->setOutput($this->load->view('extension/report/db_schema_report', $data));
 		} else {
 			return new \Action('error/permission');
 		}
@@ -223,10 +223,10 @@ class ControllerExtensionModuleDbSchema extends Controller {
 		$this->load->model('setting/setting');
 
 		$post_data = [
-			'module_db_schema_status' => 1
+			'report_db_schema_status' => 1
 		];
 
-		$this->model_setting_setting->editSetting('module_db_schema', $post_data);
+		$this->model_setting_setting->editSetting('report_db_schema', $post_data);
 	}
 
 	/**
@@ -238,6 +238,6 @@ class ControllerExtensionModuleDbSchema extends Controller {
 		// Settings
 		$this->load->model('setting/setting');
 
-		$this->model_setting_setting->deleteSetting('module_db_schema');
+		$this->model_setting_setting->deleteSetting('report_db_schema');
 	}
 }
