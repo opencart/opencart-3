@@ -9,9 +9,6 @@ on:
 env:
     SYMFONY_PHPUNIT_DISABLE_RESULT_CACHE: 1
 
-permissions:
-  contents: read
-
 jobs:
     tests:
         name: "PHP ${{ matrix.php-version }}"
@@ -28,23 +25,36 @@ jobs:
                     - '7.4'
                     - '8.0'
                     - '8.1'
+                composer-options: ['']
                 experimental: [false]
 
         steps:
             - name: "Checkout code"
-              uses: actions/checkout@v2
+              uses: actions/checkout@v2.3.3
 
             - name: "Install PHP with extensions"
-              uses: shivammathur/setup-php@v2
+              uses: shivammathur/setup-php@2.7.0
               with:
                   coverage: "none"
                   php-version: ${{ matrix.php-version }}
                   ini-values: memory_limit=-1
+                  tools: composer:v2
 
             - name: "Add PHPUnit matcher"
               run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
-            - run: composer install
+            - name: "Set composer cache directory"
+              id: composer-cache
+              run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+            - name: "Cache composer"
+              uses: actions/cache@v2.1.2
+              with:
+                  path: ${{ steps.composer-cache.outputs.dir }}
+                  key: ${{ runner.os }}-${{ matrix.php-version }}-composer-${{ hashFiles('composer.json') }}
+                  restore-keys: ${{ runner.os }}-${{ matrix.php-version }}-composer-
+
+            - run: composer install ${{ matrix.composer-options }}
 
             - name: "Install PHPUnit"
               run: vendor/bin/simple-phpunit install
@@ -82,21 +92,34 @@ jobs:
                     - 'extra/markdown-extra'
                     - 'extra/string-extra'
                     - 'extra/twig-extra-bundle'
+                composer-options: ['']
                 experimental: [false]
 
         steps:
             - name: "Checkout code"
-              uses: actions/checkout@v2
+              uses: actions/checkout@v2.3.3
 
             - name: "Install PHP with extensions"
-              uses: shivammathur/setup-php@v2
+              uses: shivammathur/setup-php@2.7.0
               with:
                   coverage: "none"
                   php-version: ${{ matrix.php-version }}
                   ini-values: memory_limit=-1
+                  tools: composer:v2
 
             - name: "Add PHPUnit matcher"
               run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
+
+            - name: "Set composer cache directory"
+              id: composer-cache
+              run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+            - name: "Cache composer"
+              uses: actions/cache@v2.1.2
+              with:
+                  path: ${{ steps.composer-cache.outputs.dir }}
+                  key: ${{ runner.os }}-${{ matrix.php-version }}-${{ matrix.extension }}-${{ hashFiles('composer.json') }}
+                  restore-keys: ${{ runner.os }}-${{ matrix.php-version }}-${{ matrix.extension }}-
 
             - run: composer install
 
@@ -106,6 +129,10 @@ jobs:
             - name: "PHPUnit version"
               run: vendor/bin/simple-phpunit --version
 
+            - if: matrix.extension == 'extra/markdown-extra' && matrix.php-version == '8.0'
+              working-directory: ${{ matrix.extension}}
+              run: composer config platform.php 7.4.99
+
             - name: "Composer install"
               working-directory: ${{ matrix.extension}}
               run: composer install
@@ -113,7 +140,6 @@ jobs:
             - name: "Run tests"
               working-directory: ${{ matrix.extension}}
               run: ../../vendor/bin/simple-phpunit
-
 #
 #    Drupal does not support Twig 3 now!
 #
@@ -134,10 +160,10 @@ jobs:
 #
 #        steps:
 #            - name: "Checkout code"
-#              uses: actions/checkout@v2
+#              uses: actions/checkout@v2.3.3
 #
 #            - name: "Install PHP with extensions"
-#              uses: shivammathur/setup-php@2
+#              uses: shivammathur/setup-php@2.7.0
 #              with:
 #                  coverage: "none"
 #                  extensions: "gd, pdo_sqlite"
