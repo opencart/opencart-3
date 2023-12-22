@@ -14,15 +14,15 @@ class ComposerStaticInit723df5bcd9366cc0d09a11e95c1b3994
     );
 
     public static $prefixLengthsPsr4 = array (
-        'W' =>
+        'W' => 
         array (
             'Wechat\\' => 7,
         ),
-        'T' =>
+        'T' => 
         array (
             'Twig\\' => 5,
         ),
-        'S' =>
+        'S' => 
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Polyfill\\Ctype\\' => 23,
@@ -30,15 +30,15 @@ class ComposerStaticInit723df5bcd9366cc0d09a11e95c1b3994
             'Symfony\\Component\\Translation\\' => 30,
             'ScssPhp\\ScssPhp\\' => 16,
         ),
-        'R' =>
+        'R' => 
         array (
             'React\\Promise\\' => 14,
         ),
-        'P' =>
+        'P' => 
         array (
             'Psr\\Log\\' => 8,
         ),
-        'G' =>
+        'G' => 
         array (
             'GuzzleHttp\\Subscriber\\Oauth\\' => 28,
             'GuzzleHttp\\Subscriber\\Log\\' => 26,
@@ -46,70 +46,70 @@ class ComposerStaticInit723df5bcd9366cc0d09a11e95c1b3994
             'GuzzleHttp\\Ring\\' => 16,
             'GuzzleHttp\\' => 11,
         ),
-        'C' =>
+        'C' => 
         array (
             'Cardinity\\' => 10,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Wechat\\' =>
+        'Wechat\\' => 
         array (
             0 => __DIR__ . '/..' . '/zoujingli/wechat-php-sdk/Wechat',
         ),
-        'Twig\\' =>
+        'Twig\\' => 
         array (
             0 => __DIR__ . '/..' . '/twig/twig/src',
         ),
-        'Symfony\\Polyfill\\Mbstring\\' =>
+        'Symfony\\Polyfill\\Mbstring\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
         ),
-        'Symfony\\Polyfill\\Ctype\\' =>
+        'Symfony\\Polyfill\\Ctype\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
         ),
-        'Symfony\\Component\\Validator\\' =>
+        'Symfony\\Component\\Validator\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/validator',
         ),
-        'Symfony\\Component\\Translation\\' =>
+        'Symfony\\Component\\Translation\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/translation',
         ),
-        'ScssPhp\\ScssPhp\\' =>
+        'ScssPhp\\ScssPhp\\' => 
         array (
             0 => __DIR__ . '/..' . '/scssphp/scssphp/src',
         ),
-        'React\\Promise\\' =>
+        'React\\Promise\\' => 
         array (
             0 => __DIR__ . '/..' . '/react/promise/src',
         ),
-        'Psr\\Log\\' =>
+        'Psr\\Log\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
         ),
-        'GuzzleHttp\\Subscriber\\Oauth\\' =>
+        'GuzzleHttp\\Subscriber\\Oauth\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/oauth-subscriber/src',
         ),
-        'GuzzleHttp\\Subscriber\\Log\\' =>
+        'GuzzleHttp\\Subscriber\\Log\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/log-subscriber/src',
         ),
-        'GuzzleHttp\\Stream\\' =>
+        'GuzzleHttp\\Stream\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/streams/src',
         ),
-        'GuzzleHttp\\Ring\\' =>
+        'GuzzleHttp\\Ring\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/ringphp/src',
         ),
-        'GuzzleHttp\\' =>
+        'GuzzleHttp\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
         ),
-        'Cardinity\\' =>
+        'Cardinity\\' => 
         array (
             0 => __DIR__ . '/..' . '/cardinity/cardinity-sdk-php/src',
         ),
@@ -120,16 +120,16 @@ class ComposerStaticInit723df5bcd9366cc0d09a11e95c1b3994
     );
 
     public static $prefixesPsr0 = array (
-        'D' =>
+        'D' => 
         array (
-            'Divido' =>
+            'Divido' => 
             array (
                 0 => __DIR__ . '/..' . '/divido/divido-php/lib',
             ),
         ),
-        'B' =>
+        'B' => 
         array (
-            'Braintree' =>
+            'Braintree' => 
             array (
                 0 => __DIR__ . '/..' . '/braintree/braintree_php/lib',
             ),
