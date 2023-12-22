@@ -19,7 +19,7 @@ jobs:
                 php: ['7.4', '8.0', '8.1', '8.2', '8.3']
         steps:
             - name: Checkout
-              uses: actions/checkout@v4
+              uses: actions/checkout@v2
 
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
@@ -40,19 +40,17 @@ jobs:
                     echo "No syntax errors were detected."
                   fi
 
-            - name: Get composer cache directory
-              id: composer-cache
-              run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
-
             - name: Cache dependencies
               uses: actions/cache@v3
               with:
-                  path: ${{ steps.composer-cache.outputs.dir }}
-                  key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-                  restore-keys: ${{ runner.os }}-composer-
+                  path: |
+                      ~/.cache/composer/files
+                      ./.cache
+                  key: ${{ matrix.php }}-${{ hashFiles('**/composer.lock') }}
+                  restore-keys: ${{ matrix.php }}-
 
             - name: Install dependencies
-              run: composer require phpstan/phpstan 1.10.50
+              run: composer require phpstan/phpstan 1.10.41
 
             - name: PHPStan
               run: ./system/storage/vendor/bin/phpstan analyze --no-progress
