@@ -8,6 +8,11 @@ $autoloader->register('Psr\Http\Message', DIR_STORAGE . 'vendor/psr/http-factory
 // psr/http-message
 $autoloader->register('Psr\Http\Message', DIR_STORAGE . 'vendor/psr/http-message/src/', true);
 
+// ralouphie/getallheaders
+if (is_file(DIR_STORAGE . 'vendor/ralouphie/getallheaders/src/getallheaders.php')) {
+	require_once(DIR_STORAGE . 'vendor/ralouphie/getallheaders/src/getallheaders.php');
+}
+
 // scssphp/scssphp
 $autoloader->register('ScssPhp\ScssPhp', DIR_STORAGE . 'vendor/scssphp/scssphp/src/', true);
 
