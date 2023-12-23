@@ -24,12 +24,19 @@ class Registry {
 
     /**
      * @param string $key
-     * @param string $value
+     * @param object $value
      */
     public function set(string $key, object $value): void {
         $this->data[$key] = $value;
     }
 
+	/**
+	 * Has
+	 *
+	 * @param $key
+	 *
+	 * @return bool
+	 */
     public function has($key) {
         return isset($this->data[$key]);
     }

@@ -12,10 +12,29 @@ class Twig {
     protected array $path = [];
     protected array $data = [];
 
+	/**
+	 * Set
+	 *
+	 * @param string $key
+	 * @param mixed  $value
+	 *
+	 * @return void
+	 */
     public function set(string $key, mixed $value): void {
         $this->data[$key] = $value;
     }
 
+	/**
+	 * Render
+	 *
+	 * @param string $filename
+	 * @param        $code
+	 *
+	 * @return string
+	 * @throws \Twig\Error\LoaderError
+	 * @throws \Twig\Error\RuntimeError
+	 * @throws \Twig\Error\SyntaxError
+	 */
     public function render(string $filename, $code = ''): string {
         if (!$code) {
             $file = DIR_TEMPLATE . $filename . '.twig';

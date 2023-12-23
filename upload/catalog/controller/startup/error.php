@@ -22,6 +22,16 @@ class ControllerStartupError extends Controller {
         ]);
     }
 
+	/**
+	 * Error
+	 *
+	 * @param string $code
+	 * @param string $message
+	 * @param string $file
+	 * @param string $line
+	 *
+	 * @return bool
+	 */
     public function error(string $code, string $message, string $file, string $line): bool {
         // error suppressed with @
         if (error_reporting() === 0) {
@@ -60,6 +70,13 @@ class ControllerStartupError extends Controller {
         return true;
     }
 
+	/**
+	 * Exception
+	 *
+	 * @param \Throwable $e
+	 *
+	 * @return void
+	 */
     public function exception(\Throwable $e): void {
         if ($this->config->get('config_error_log')) {
             $this->log->write(get_class($e) . ':  ' . $e->getMessage() . ' in ' . $e->getFile() . ' on line ' . $e->getLine());

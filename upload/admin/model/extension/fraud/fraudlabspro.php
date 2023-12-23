@@ -5,6 +5,11 @@
  * @package Admin\Model\Extension\Fraud
  */
 class ModelExtensionFraudFraudLabsPro extends Model {
+	/**
+	 * Install
+	 *
+	 * @return void
+	 */
     public function install(): void {
         $this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "fraudlabspro` (
@@ -81,6 +86,11 @@ class ModelExtensionFraudFraudLabsPro extends Model {
         $this->cache->delete('order_status.' . (int)$this->config->get('config_language_id'));
     }
 
+	/**
+	 * Uninstall
+	 *
+	 * @return void
+	 */
     public function uninstall(): void {
         //$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "fraudlabspro`");
 
@@ -93,6 +103,13 @@ class ModelExtensionFraudFraudLabsPro extends Model {
         $this->model_setting_event->deleteEventByCode('fraud_fraudlabspro_history');
     }
 
+	/**
+	 * getOrder
+	 *
+	 * @param int $order_id
+	 *
+	 * @return array
+	 */
     public function getOrder(int $order_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "fraudlabspro` WHERE `order_id` = '" . (int)$order_id . "'");
 

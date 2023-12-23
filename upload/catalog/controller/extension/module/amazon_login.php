@@ -96,6 +96,11 @@ class ControllerExtensionModuleAmazonLogin extends Controller {
         }
     }
 
+	/**
+	 * Login
+	 *
+	 * @return void
+	 */
     public function login(): void {
         $this->load->language('account/login');
         $this->load->language('extension/payment/amazon_login_pay');
@@ -162,6 +167,11 @@ class ControllerExtensionModuleAmazonLogin extends Controller {
         }
     }
 
+	/**
+	 * Error
+	 *
+	 * @return void
+	 */
     public function error(): void {
         $this->load->language('extension/payment/amazon_login_pay');
 
@@ -204,6 +214,11 @@ class ControllerExtensionModuleAmazonLogin extends Controller {
         }
     }
 
+	/**
+	 * Logout
+	 *
+	 * @return void
+	 */
     public function logout(): void {
         unset($this->session->data['apalwa']);
 

@@ -55,6 +55,11 @@ class ControllerCommonColumnLeft extends Controller {
         return $this->load->view('common/column_left', $data);
     }
 
+	/**
+	 * Language
+	 *
+	 * @return void
+	 */
     public function language() {
         if (isset($this->request->post['code']) && is_dir(DIR_LANGUAGE . basename($this->request->post['code']))) {
             $this->session->data['language'] = $this->request->post['code'];

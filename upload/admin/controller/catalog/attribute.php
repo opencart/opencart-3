@@ -409,6 +409,7 @@ class ControllerCatalogAttribute extends Controller {
 
         return !$this->error;
     }
+
 	/**
 	 * Autocomplete
 	 *

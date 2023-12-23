@@ -12,17 +12,38 @@
  */
 class Proxy {
 	protected array $data = [];
-    /**
-     * @param string $key
-     */
+
+	/**
+	 * Get
+	 *
+	 * @param $key
+	 *
+	 * @return mixed
+	 */
     public function __get($key) {
         return $this->data[$key];
     }
 
+	/**
+	 * Set
+	 *
+	 * @param $key
+	 * @param $value
+	 *
+	 * @return void
+	 */
     public function __set($key, $value) {
         $this->data[$key] = $value;
     }
 
+	/**
+	 * Call
+	 *
+	 * @param $key
+	 * @param $args
+	 *
+	 * @return mixed|void
+	 */
     public function __call($key, $args) {
         $arg_data = [];
 

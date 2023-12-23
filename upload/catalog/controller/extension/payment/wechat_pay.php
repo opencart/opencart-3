@@ -20,6 +20,11 @@ class ControllerExtensionPaymentWechatPay extends Controller {
         return $this->load->view('extension/payment/wechat_pay', $data);
     }
 
+	/**
+	 * Qrcode
+	 *
+	 * @return void
+	 */
     public function qrcode(): void {
         if (!isset($this->session->data['order_id'])) {
             return;

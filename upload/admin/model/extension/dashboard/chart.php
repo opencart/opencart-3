@@ -5,6 +5,11 @@
  * @package Admin\Model\Extension\Dashboard
  */
 class ModelExtensionDashboardChart extends Model {
+	/**
+	 * getTotalOrdersByDay
+	 *
+	 * @return array
+	 */
     public function getTotalOrdersByDay(): array {
         $implode = [];
 
@@ -33,6 +38,11 @@ class ModelExtensionDashboardChart extends Model {
         return $order_data;
     }
 
+	/**
+	 * getTotalOrdersByWeek
+	 *
+	 * @return array
+	 */
     public function getTotalOrdersByWeek(): array {
         $implode = [];
 
@@ -65,6 +75,11 @@ class ModelExtensionDashboardChart extends Model {
         return $order_data;
     }
 
+	/**
+	 * getTotalOrdersByMonth
+	 *
+	 * @return array
+	 */
     public function getTotalOrdersByMonth(): array {
         $implode = [];
 
@@ -95,6 +110,11 @@ class ModelExtensionDashboardChart extends Model {
         return $order_data;
     }
 
+	/**
+	 * getTotalOrdersByYear
+	 *
+	 * @return array
+	 */
     public function getTotalOrdersByYear(): array {
         $implode = [];
 
@@ -123,6 +143,11 @@ class ModelExtensionDashboardChart extends Model {
         return $order_data;
     }
 
+	/**
+	 * getTotalCustomersByDay
+	 *
+	 * @return array
+	 */
     public function getTotalCustomersByDay(): array {
         $customer_data = [];
 
@@ -145,6 +170,11 @@ class ModelExtensionDashboardChart extends Model {
         return $customer_data;
     }
 
+	/**
+	 * getTotalCustomersByWeek
+	 *
+	 * @return array
+	 */
     public function getTotalCustomersByWeek(): array {
         $customer_data = [];
 
@@ -171,6 +201,11 @@ class ModelExtensionDashboardChart extends Model {
         return $customer_data;
     }
 
+	/**
+	 * getTotalCustomersByMonth
+	 *
+	 * @return array
+	 */
     public function getTotalCustomersByMonth(): array {
         $customer_data = [];
 
@@ -195,6 +230,11 @@ class ModelExtensionDashboardChart extends Model {
         return $customer_data;
     }
 
+	/**
+	 * getTotalCustomersByYear
+	 *
+	 * @return array
+	 */
     public function getTotalCustomersByYear(): array {
         $customer_data = [];
 

@@ -31,14 +31,29 @@ class Exception extends \Exception {
         parent::__construct($message);
     }
 
+	/**
+	 * isCurlError
+	 *
+	 * @return bool
+	 */
     public function isCurlError(): bool {
         return $this->isCurlError;
     }
 
+	/**
+	 * isAccessTokenRevoked
+	 *
+	 * @return bool
+	 */
     public function isAccessTokenRevoked(): bool {
         return $this->errorCodeExists(self::ERR_CODE_ACCESS_TOKEN_REVOKED);
     }
 
+	/**
+	 * isAccessTokenExpired
+	 *
+	 * @return bool
+	 */
     public function isAccessTokenExpired(): bool {
         return $this->errorCodeExists(self::ERR_CODE_ACCESS_TOKEN_EXPIRED);
     }

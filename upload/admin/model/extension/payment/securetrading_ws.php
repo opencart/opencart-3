@@ -244,6 +244,13 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
         return (float)$query->row['total'];
     }
 
+	/**
+	 * getTotalRebated
+	 *
+	 * @param int $securetrading_ws_order_id
+	 *
+	 * @return float
+	 */
     public function getTotalRebated(int $securetrading_ws_order_id): float {
         $query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "securetrading_ws_order_transaction` WHERE `securetrading_ws_order_id` = '" . (int)$securetrading_ws_order_id . "' AND `type` = 'rebate'");
 

@@ -36,7 +36,15 @@ class Squareup {
         $this->registry = $registry;
     }
 
-    public function api($request_data) {
+	/**
+	 * Api
+	 *
+	 * @param $request_data
+	 *
+	 * @return mixed
+	 * @throws \Squareup\Exception
+	 */
+    public function api($request_data): mixed {
         $url = self::API_URL;
 
         if (empty($request_data['no_version'])) {
@@ -149,7 +157,15 @@ class Squareup {
         }
     }
 
-    public function verifyToken($access_token) {
+	/**
+	 * verifyToken
+	 *
+	 * @param $access_token
+	 *
+	 * @return object|\Squareup\Exception|null
+	 * @throws \Squareup\Exception
+	 */
+    public function verifyToken($access_token): ?object {
         try {
             $request_data = [
                 'method'    => 'GET',
@@ -161,17 +177,24 @@ class Squareup {
             $this->api($request_data);
         } catch (\Squareup\Exception $e) {
             if ($e->isAccessTokenRevoked() || $e->isAccessTokenExpired()) {
-                return false;
+                return null;
             }
 
             // In case some other error occurred
             throw $e;
         }
 
-        return true;
+        return null;
     }
 
-    public function authLink($client_id) {
+	/**
+	 * authLink
+	 *
+	 * @param $client_id
+	 *
+	 * @return string
+	 */
+    public function authLink($client_id): string {
         $state = $this->authState();
 
         $redirect_uri = str_replace('&amp;', '&', $this->url->link('extension/payment/squareup/oauth_callback', 'user_token=' . $this->session->data['user_token'], true));
@@ -191,7 +214,16 @@ class Squareup {
         return self::API_URL . '/' . self::ENDPOINT_AUTH . '?' . http_build_query($params);
     }
 
-    public function fetchLocations($access_token, &$first_location_id) {
+	/**
+	 * fetchLocations
+	 *
+	 * @param $access_token
+	 * @param $first_location_id
+	 *
+	 * @return array
+	 * @throws \Squareup\Exception
+	 */
+    public function fetchLocations($access_token, &$first_location_id): array {
         $request_data = [
             'method'    => 'GET',
             'endpoint'  => self::ENDPOINT_LOCATIONS,
@@ -216,7 +248,15 @@ class Squareup {
         return $locations;
     }
 
-    public function exchangeCodeForAccessToken($code) {
+	/**
+	 * exchangeCodeForAccessToken
+	 *
+	 * @param $code
+	 *
+	 * @return mixed
+	 * @throws \Squareup\Exception
+	 */
+    public function exchangeCodeForAccessToken($code): mixed {
         $request_data = [
             'method'     => 'POST',
             'endpoint'   => self::ENDPOINT_TOKEN,
@@ -232,13 +272,26 @@ class Squareup {
         return $this->api($request_data);
     }
 
+	/**
+	 * Debug
+	 *
+	 * @param $text
+	 *
+	 * @return void
+	 */
     public function debug($text) {
         if ($this->config->get('payment_squareup_debug')) {
             $this->log->write($text);
         }
     }
 
-    public function refreshToken() {
+	/**
+	 * refreshToken
+	 *
+	 * @return mixed
+	 * @throws \Squareup\Exception
+	 */
+    public function refreshToken(): mixed {
         $request_data = [
             'method'     => 'POST',
             'endpoint'   => sprintf(self::ENDPOINT_REFRESH_TOKEN, $this->config->get('payment_squareup_client_id')),
@@ -253,7 +306,16 @@ class Squareup {
         return $this->api($request_data);
     }
 
-    public function addCard($square_customer_id, $card_data) {
+	/**
+	 * addCard
+	 *
+	 * @param $square_customer_id
+	 * @param $card_data
+	 *
+	 * @return array
+	 * @throws \Squareup\Exception
+	 */
+    public function addCard($square_customer_id, $card_data): array {
         $request_data = [
             'method'     => 'POST',
             'endpoint'   => sprintf(self::ENDPOINT_ADD_CARD, $square_customer_id),
@@ -270,7 +332,16 @@ class Squareup {
         ];
     }
 
-    public function deleteCard($square_customer_id, $card) {
+	/**
+	 * deleteCard
+	 *
+	 * @param $square_customer_id
+	 * @param $card
+	 *
+	 * @return mixed
+	 * @throws \Squareup\Exception
+	 */
+    public function deleteCard($square_customer_id, $card): mixed {
         $request_data = [
             'method'    => 'DELETE',
             'endpoint'  => sprintf(self::ENDPOINT_DELETE_CARD, $square_customer_id, $card),
@@ -280,7 +351,13 @@ class Squareup {
         return $this->api($request_data);
     }
 
-    public function addLoggedInCustomer() {
+	/**
+	 * addLoggedInCustomer
+	 *
+	 * @return array
+	 * @throws \Squareup\Exception
+	 */
+    public function addLoggedInCustomer(): array {
         $request_data = [
             'method'     => 'POST',
             'endpoint'   => self::ENDPOINT_CUSTOMERS,
@@ -303,7 +380,15 @@ class Squareup {
         ];
     }
 
-    public function addTransaction($data) {
+	/**
+	 * addTransaction
+	 *
+	 * @param $data
+	 *
+	 * @return mixed
+	 * @throws \Squareup\Exception
+	 */
+    public function addTransaction($data): mixed {
         if ($this->config->get('payment_squareup_enable_sandbox')) {
             $location_id = $this->config->get('payment_squareup_sandbox_location_id');
         } else {
@@ -322,7 +407,16 @@ class Squareup {
         return $result['transaction'];
     }
 
-    public function getTransaction($location_id, $transaction_id) {
+	/**
+	 * getTransaction
+	 *
+	 * @param $location_id
+	 * @param $transaction_id
+	 *
+	 * @return array
+	 * @throws \Squareup\Exception
+	 */
+    public function getTransaction($location_id, $transaction_id): array {
         $request_data = [
             'method'    => 'GET',
             'endpoint'  => sprintf(self::ENDPOINT_GET_TRANSACTION, $location_id, $transaction_id),
@@ -334,7 +428,16 @@ class Squareup {
         return $result['transaction'];
     }
 
-    public function captureTransaction($location_id, $transaction_id) {
+	/**
+	 * captureTransaction
+	 *
+	 * @param $location_id
+	 * @param $transaction_id
+	 *
+	 * @return array
+	 * @throws \Squareup\Exception
+	 */
+    public function captureTransaction($location_id, $transaction_id): array {
         $request_data = [
             'method'    => 'POST',
             'endpoint'  => sprintf(self::ENDPOINT_CAPTURE_TRANSACTION, $location_id, $transaction_id),
@@ -346,7 +449,16 @@ class Squareup {
         return $this->getTransaction($location_id, $transaction_id);
     }
 
-    public function voidTransaction($location_id, $transaction_id) {
+	/**
+	 * voidTransaction
+	 *
+	 * @param $location_id
+	 * @param $transaction_id
+	 *
+	 * @return array
+	 * @throws \Squareup\Exception
+	 */
+    public function voidTransaction($location_id, $transaction_id): array {
         $request_data = [
             'method'    => 'POST',
             'endpoint'  => sprintf(self::ENDPOINT_VOID_TRANSACTION, $location_id, $transaction_id),
@@ -358,7 +470,20 @@ class Squareup {
         return $this->getTransaction($location_id, $transaction_id);
     }
 
-    public function refundTransaction($location_id, $transaction_id, $reason, $amount, $currency, $tender_id) {
+	/**
+	 * refundTransaction
+	 *
+	 * @param $location_id
+	 * @param $transaction_id
+	 * @param $reason
+	 * @param $amount
+	 * @param $currency
+	 * @param $tender_id
+	 *
+	 * @return array
+	 * @throws \Squareup\Exception
+	 */
+    public function refundTransaction($location_id, $transaction_id, $reason, $amount, $currency, $tender_id): array {
         $request_data = [
             'method'     => 'POST',
             'endpoint'   => sprintf(self::ENDPOINT_REFUND_TRANSACTION, $location_id, $transaction_id),
@@ -379,7 +504,15 @@ class Squareup {
         return $this->getTransaction($location_id, $transaction_id);
     }
 
-    public function lowestDenomination($value, $currency) {
+	/**
+	 * lowestDenomination
+	 *
+	 * @param $value
+	 * @param $currency
+	 *
+	 * @return int
+	 */
+    public function lowestDenomination($value, $currency): int {
         $power = $this->currency->getDecimalPlace($currency);
 
         $value = (float)$value;
@@ -387,7 +520,15 @@ class Squareup {
         return (int)($value * pow(10, $power));
     }
 
-    public function standardDenomination($value, $currency) {
+	/**
+	 * standardDenomination
+	 *
+	 * @param $value
+	 * @param $currency
+	 *
+	 * @return float
+	 */
+    public function standardDenomination($value, $currency): float {
         $power = $this->currency->getDecimalPlace($currency);
 
         $value = (int)$value;

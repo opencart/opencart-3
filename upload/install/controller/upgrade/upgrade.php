@@ -27,6 +27,11 @@ class ControllerUpgradeUpgrade extends Controller {
         $this->response->setOutput($this->load->view('upgrade/upgrade', $data));
     }
 
+	/**
+	 * Next
+	 *
+	 * @return void
+	 */
     public function next() {
         $this->load->language('upgrade/upgrade');
 

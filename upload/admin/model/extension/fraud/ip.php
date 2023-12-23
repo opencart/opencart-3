@@ -5,6 +5,11 @@
  * @package Admin\Model\Extension\Fraud
  */
 class ModelExtensionFraudIp extends Model {
+	/**
+	 * Install
+	 *
+	 * @return void
+	 */
     public function install(): void {
         $this->db->query("
 		CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "fraud_ip` (
@@ -15,18 +20,45 @@ class ModelExtensionFraudIp extends Model {
 		");
     }
 
+	/**
+	 * Uninstall
+	 *
+	 * @return void
+	 */
     public function uninstall(): void {
         $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "fraud_ip`");
     }
 
+	/**
+	 * addIp
+	 *
+	 * @param string $ip
+	 *
+	 * @return void
+	 */
     public function addIp(string $ip): void {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "fraud_ip` SET `ip` = '" . $this->db->escape($ip) . "', `date_added` = NOW()");
     }
 
+	/**
+	 * removeIp
+	 *
+	 * @param string $ip
+	 *
+	 * @return void
+	 */
     public function removeIp(string $ip): void {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "fraud_ip` WHERE `ip` = '" . $this->db->escape($ip) . "'");
     }
 
+	/**
+	 * getIps
+	 *
+	 * @param int $start
+	 * @param int $limit
+	 *
+	 * @return array
+	 */
     public function getIps(int $start = 0, int $limit = 10): array {
         if ($start < 0) {
             $start = 0;
@@ -41,12 +73,24 @@ class ModelExtensionFraudIp extends Model {
         return $query->rows;
     }
 
+	/**
+	 * getTotalIps
+	 *
+	 * @return int
+	 */
     public function getTotalIps(): int {
         $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "fraud_ip`");
 
         return (int)$query->row['total'];
     }
 
+	/**
+	 * getTotalIpsByIp
+	 *
+	 * @param string $ip
+	 *
+	 * @return int
+	 */
     public function getTotalIpsByIp(string $ip): int {
         $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "fraud_ip` WHERE `ip` = '" . $this->db->escape($ip) . "'");
 

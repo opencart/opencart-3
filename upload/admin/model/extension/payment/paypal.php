@@ -22,6 +22,11 @@ class ModelExtensionPaymentPayPal extends Model {
         return (int)$query->row['paypal_total'];
     }
 
+	/**
+	 * getTotalSalesByDay
+	 *
+	 * @return array
+	 */
     public function getTotalSalesByDay(): array {
         $implode = [];
 

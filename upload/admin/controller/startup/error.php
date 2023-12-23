@@ -22,6 +22,16 @@ class ControllerStartupError extends Controller {
         ]);
     }
 
+	/**
+	 * Error
+	 *
+	 * @param string $code
+	 * @param string $message
+	 * @param string $file
+	 * @param string $line
+	 *
+	 * @return bool
+	 */
     public function error(string $code, string $message, string $file, string $line): bool {
         // error suppressed with @
         if (error_reporting() === 0) {
