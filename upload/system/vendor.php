@@ -1,4 +1,17 @@
 <?php
+// guzzlehttp/guzzle
+$autoloader->register('GuzzleHttp', DIR_STORAGE . 'vendor/guzzlehttp/guzzle/src/', true);
+
+if (is_file(DIR_STORAGE . 'vendor/guzzlehttp/guzzle/src/functions_include.php')) {
+	require_once(DIR_STORAGE . 'vendor/guzzlehttp/guzzle/src/functions_include.php');
+}
+
+// guzzlehttp/promises
+$autoloader->register('GuzzleHttp\Promise', DIR_STORAGE . 'vendor/guzzlehttp/promises/src/', true);
+
+// guzzlehttp/psr7
+$autoloader->register('GuzzleHttp\Psr7', DIR_STORAGE . 'vendor/guzzlehttp/psr7/src/', true);
+
 // psr/http-client
 $autoloader->register('Psr\Http\Client', DIR_STORAGE . 'vendor/psr/http-client/src/', true);
 
