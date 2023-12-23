@@ -13,19 +13,25 @@ namespace Symfony\Component\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
+use Symfony\Component\Validator\Exception\UnexpectedValueException;
 
 /**
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
 class UrlValidator extends ConstraintValidator
 {
-    const PATTERN = '~^
+    public const PATTERN = '~^
             (%s)://                                 # protocol
-            (([\.\pL\pN-]+:)?([\.\pL\pN-]+)@)?      # basic auth
+            (((?:[\_\.\pL\pN-]|%%[0-9A-Fa-f]{2})+:)?((?:[\_\.\pL\pN-]|%%[0-9A-Fa-f]{2})+)@)?  # basic auth
             (
-                ([\pL\pN\pS\-\.])+(\.?([\pL\pN]|xn\-\-[\pL\pN-]+)+\.?) # a domain name
+                (?:
+                    (?:xn--[a-z0-9-]++\.)*+xn--[a-z0-9-]++            # a domain name using punycode
+                        |
+                    (?:[\pL\pN\pS\pM\-\_]++\.)+[\pL\pN\pM]++          # a multi-level domain name
+                        |
+                    [a-z0-9\-\_]++                                    # a single-level domain name
+                )\.?
                     |                                                 # or
                 \d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}                    # an IP address
                     |                                                 # or
@@ -34,9 +40,9 @@ class UrlValidator extends ConstraintValidator
                 \]  # an IPv6 address
             )
             (:[0-9]+)?                              # a port (optional)
-            (?:/ (?:[\pL\pN\-._\~!$&\'()*+,;=:@]|%%[0-9A-Fa-f]{2})* )*      # a path
-            (?:\? (?:[\pL\pN\-._\~!$&\'()*+,;=:@/?]|%%[0-9A-Fa-f]{2})* )?   # a query (optional)
-            (?:\# (?:[\pL\pN\-._\~!$&\'()*+,;=:@/?]|%%[0-9A-Fa-f]{2})* )?   # a fragment (optional)
+            (?:/ (?:[\pL\pN\-._\~!$&\'()*+,;=:@]|%%[0-9A-Fa-f]{2})* )*          # a path
+            (?:\? (?:[\pL\pN\-._\~!$&\'\[\]()*+,;=:@/?]|%%[0-9A-Fa-f]{2})* )?   # a query (optional)
+            (?:\# (?:[\pL\pN\-._\~!$&\'()*+,;=:@/?]|%%[0-9A-Fa-f]{2})* )?       # a fragment (optional)
         $~ixu';
 
     /**
@@ -45,15 +51,15 @@ class UrlValidator extends ConstraintValidator
     public function validate($value, Constraint $constraint)
     {
         if (!$constraint instanceof Url) {
-            throw new UnexpectedTypeException($constraint, __NAMESPACE__.'\Url');
+            throw new UnexpectedTypeException($constraint, Url::class);
         }
 
         if (null === $value || '' === $value) {
             return;
         }
 
-        if (!is_scalar($value) && !(\is_object($value) && method_exists($value, '__toString'))) {
-            throw new UnexpectedTypeException($value, 'string');
+        if (!\is_scalar($value) && !(\is_object($value) && method_exists($value, '__toString'))) {
+            throw new UnexpectedValueException($value, 'string');
         }
 
         $value = (string) $value;
@@ -61,40 +67,20 @@ class UrlValidator extends ConstraintValidator
             return;
         }
 
-        $pattern = sprintf(static::PATTERN, implode('|', $constraint->protocols));
-
-        if (!preg_match($pattern, $value)) {
-            if ($this->context instanceof ExecutionContextInterface) {
-                $this->context->buildViolation($constraint->message)
-                    ->setParameter('{{ value }}', $this->formatValue($value))
-                    ->setCode(Url::INVALID_URL_ERROR)
-                    ->addViolation();
-            } else {
-                $this->buildViolation($constraint->message)
-                    ->setParameter('{{ value }}', $this->formatValue($value))
-                    ->setCode(Url::INVALID_URL_ERROR)
-                    ->addViolation();
-            }
-
-            return;
+        if (null !== $constraint->normalizer) {
+            $value = ($constraint->normalizer)($value);
         }
 
-        if ($constraint->checkDNS) {
-            $host = parse_url($value, PHP_URL_HOST);
+        $pattern = $constraint->relativeProtocol ? str_replace('(%s):', '(?:(%s):)?', static::PATTERN) : static::PATTERN;
+        $pattern = sprintf($pattern, implode('|', $constraint->protocols));
 
-            if (!\is_string($host) || !checkdnsrr($host, 'ANY')) {
-                if ($this->context instanceof ExecutionContextInterface) {
-                    $this->context->buildViolation($constraint->dnsMessage)
-                        ->setParameter('{{ value }}', $this->formatValue($host))
-                        ->setCode(Url::INVALID_URL_ERROR)
-                        ->addViolation();
-                } else {
-                    $this->buildViolation($constraint->dnsMessage)
-                        ->setParameter('{{ value }}', $this->formatValue($host))
-                        ->setCode(Url::INVALID_URL_ERROR)
-                        ->addViolation();
-                }
-            }
+        if (!preg_match($pattern, $value)) {
+            $this->context->buildViolation($constraint->message)
+                ->setParameter('{{ value }}', $this->formatValue($value))
+                ->setCode(Url::INVALID_URL_ERROR)
+                ->addViolation();
+
+            return;
         }
     }
 }

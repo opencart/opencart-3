@@ -18,13 +18,14 @@ namespace Symfony\Component\Validator\Constraints;
  * @author Daniel Holmes <daniel@danielholmes.org>
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
+#[\Attribute(\Attribute::TARGET_PROPERTY | \Attribute::TARGET_METHOD | \Attribute::IS_REPEATABLE)]
 class IdenticalTo extends AbstractComparison
 {
-    const NOT_IDENTICAL_ERROR = '2a8cc50f-58a2-4536-875e-060a2ce69ed5';
+    public const NOT_IDENTICAL_ERROR = '2a8cc50f-58a2-4536-875e-060a2ce69ed5';
 
-    protected static $errorNames = array(
+    protected static $errorNames = [
         self::NOT_IDENTICAL_ERROR => 'NOT_IDENTICAL_ERROR',
-    );
+    ];
 
     public $message = 'This value should be identical to {{ compared_value_type }} {{ compared_value }}.';
 }

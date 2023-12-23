@@ -15,6 +15,9 @@ namespace Symfony\Component\Validator;
  * A list of constraint violations.
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
+ *
+ * @extends \ArrayAccess<int, ConstraintViolationInterface>
+ * @extends \Traversable<int, ConstraintViolationInterface>
  */
 interface ConstraintViolationListInterface extends \Traversable, \Countable, \ArrayAccess
 {
@@ -26,40 +29,39 @@ interface ConstraintViolationListInterface extends \Traversable, \Countable, \Ar
     /**
      * Merges an existing violation list into this list.
      */
-    public function addAll(ConstraintViolationListInterface $otherList);
+    public function addAll(self $otherList);
 
     /**
      * Returns the violation at a given offset.
      *
      * @param int $offset The offset of the violation
      *
-     * @return ConstraintViolationInterface The violation
+     * @return ConstraintViolationInterface
      *
      * @throws \OutOfBoundsException if the offset does not exist
      */
-    public function get($offset);
+    public function get(int $offset);
 
     /**
      * Returns whether the given offset exists.
      *
      * @param int $offset The violation offset
      *
-     * @return bool Whether the offset exists
+     * @return bool
      */
-    public function has($offset);
+    public function has(int $offset);
 
     /**
      * Sets a violation at a given offset.
      *
-     * @param int                          $offset    The violation offset
-     * @param ConstraintViolationInterface $violation The violation
+     * @param int $offset The violation offset
      */
-    public function set($offset, ConstraintViolationInterface $violation);
+    public function set(int $offset, ConstraintViolationInterface $violation);
 
     /**
      * Removes a violation at a given offset.
      *
      * @param int $offset The offset to remove
      */
-    public function remove($offset);
+    public function remove(int $offset);
 }

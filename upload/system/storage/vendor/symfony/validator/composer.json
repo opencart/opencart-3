@@ -1,7 +1,7 @@
 {
     "name": "symfony/validator",
     "type": "library",
-    "description": "Symfony Validator Component",
+    "description": "Provides tools to validate values",
     "keywords": [],
     "homepage": "https://symfony.com",
     "license": "MIT",
@@ -16,32 +16,58 @@
         }
     ],
     "require": {
-        "php": ">=5.3.9",
+        "php": ">=7.2.5",
+        "symfony/deprecation-contracts": "^2.1|^3",
         "symfony/polyfill-ctype": "~1.8",
         "symfony/polyfill-mbstring": "~1.0",
-        "symfony/translation": "~2.4|~3.0.0"
+        "symfony/polyfill-php73": "~1.0",
+        "symfony/polyfill-php80": "^1.16",
+        "symfony/polyfill-php81": "^1.22",
+        "symfony/translation-contracts": "^1.1|^2|^3"
     },
     "require-dev": {
-        "symfony/http-foundation": "~2.3|~3.0.0",
-        "symfony/intl": "~2.7.25|^2.8.18|~3.2.5",
-        "symfony/yaml": "^2.0.5|~3.0.0",
-        "symfony/config": "~2.2|~3.0.0",
-        "symfony/property-access": "~2.3|~3.0.0",
-        "symfony/expression-language": "~2.4|~3.0.0",
-        "doctrine/annotations": "~1.0",
-        "doctrine/cache": "~1.0",
-        "egulias/email-validator": "^1.2.1"
+        "symfony/console": "^4.4|^5.0|^6.0",
+        "symfony/finder": "^4.4|^5.0|^6.0",
+        "symfony/http-client": "^4.4|^5.0|^6.0",
+        "symfony/http-foundation": "^4.4|^5.0|^6.0",
+        "symfony/http-kernel": "^4.4|^5.0|^6.0",
+        "symfony/intl": "^4.4|^5.0|^6.0",
+        "symfony/yaml": "^4.4|^5.0|^6.0",
+        "symfony/config": "^4.4|^5.0|^6.0",
+        "symfony/dependency-injection": "^4.4|^5.0|^6.0",
+        "symfony/expression-language": "^5.1|^6.0",
+        "symfony/cache": "^4.4|^5.0|^6.0",
+        "symfony/mime": "^4.4|^5.0|^6.0",
+        "symfony/property-access": "^4.4|^5.0|^6.0",
+        "symfony/property-info": "^5.3|^6.0",
+        "symfony/translation": "^4.4|^5.0|^6.0",
+        "doctrine/annotations": "^1.13|^2",
+        "doctrine/cache": "^1.11|^2.0",
+        "egulias/email-validator": "^2.1.10|^3|^4"
+    },
+    "conflict": {
+        "doctrine/annotations": "<1.13",
+        "doctrine/cache": "<1.11",
+        "doctrine/lexer": "<1.1",
+        "symfony/dependency-injection": "<4.4",
+        "symfony/expression-language": "<5.1",
+        "symfony/http-kernel": "<4.4",
+        "symfony/intl": "<4.4",
+        "symfony/property-info": "<5.3",
+        "symfony/translation": "<4.4",
+        "symfony/yaml": "<4.4"
     },
     "suggest": {
-        "doctrine/annotations": "For using the annotation mapping. You will also need doctrine/cache.",
-        "doctrine/cache": "For using the default cached annotation reader and metadata cache.",
+        "psr/cache-implementation": "For using the mapping cache.",
         "symfony/http-foundation": "",
         "symfony/intl": "",
+        "symfony/translation": "For translating validation errors.",
         "symfony/yaml": "",
         "symfony/config": "",
         "egulias/email-validator": "Strict (RFC compliant) email validation",
-        "symfony/property-access": "For using the 2.4 Validator API",
-        "symfony/expression-language": "For using the 2.4 Expression validator"
+        "symfony/property-access": "For accessing properties within comparison constraints",
+        "symfony/property-info": "To automatically add NotNull and Type constraints",
+        "symfony/expression-language": "For using the Expression validator and the ExpressionLanguageSyntax constraints"
     },
     "autoload": {
         "psr-4": { "Symfony\\Component\\Validator\\": "" },
@@ -49,10 +75,5 @@
             "/Tests/"
         ]
     },
-    "minimum-stability": "dev",
-    "extra": {
-        "branch-alias": {
-            "dev-master": "2.8-dev"
-        }
-    }
+    "minimum-stability": "dev"
 }

@@ -8,9 +8,6 @@ $autoloader->register('Psr\Http\Message', DIR_STORAGE . 'vendor/psr/http-factory
 // psr/http-message
 $autoloader->register('Psr\Http\Message', DIR_STORAGE . 'vendor/psr/http-message/src/', true);
 
-// psr/log
-$autoloader->register('Psr\Log', DIR_STORAGE . 'vendor/psr/log/src/', true);
-
 // scssphp/scssphp
 $autoloader->register('ScssPhp\ScssPhp', DIR_STORAGE . 'vendor/scssphp/scssphp/src/', true);
 

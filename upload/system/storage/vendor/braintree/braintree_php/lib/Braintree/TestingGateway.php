@@ -1,4 +1,6 @@
 <?php
+
+// phpcs:disable PEAR.Commenting
 namespace Braintree;
 
 class TestingGateway
@@ -39,7 +41,7 @@ class TestingGateway
         self::_checkEnvironment();
         $path = $this->_config->merchantPath() . '/transactions/' . $transactionId . $testPath;
         $response = $this->_http->put($path);
-        return Transaction::factory($response['transaction']);
+        return $this->_verifyGatewayResponse($response);
     }
 
     private function _checkEnvironment()
@@ -48,5 +50,18 @@ class TestingGateway
             throw new Exception\TestOperationPerformedInProduction();
         }
     }
+
+    private function _verifyGatewayResponse($response)
+    {
+        if (isset($response['transaction'])) {
+            // NEXT_MAJOR_VERSION should return Result\Successful
+            return Transaction::factory($response['transaction']);
+        } elseif (isset($response['apiErrorResponse'])) {
+            return new Result\Error($response['apiErrorResponse']);
+        } else {
+            throw new Exception\Unexpected(
+                "Expected transaction or apiErrorResponse"
+            );
+        }
+    }
 }
-class_alias('Braintree\TestingGateway', 'Braintree_TestingGateway');

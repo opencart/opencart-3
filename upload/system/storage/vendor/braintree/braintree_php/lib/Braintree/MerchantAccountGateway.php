@@ -1,4 +1,5 @@
-<?php
+<?php //phpcs:disable
+
 namespace Braintree;
 
 class MerchantAccountGateway
@@ -7,6 +8,7 @@ class MerchantAccountGateway
     private $_config;
     private $_http;
 
+    // phpcs:ignore PEAR.Commenting.FunctionComment.Missing
     public function __construct($gateway)
     {
         $this->_gateway = $gateway;
@@ -17,7 +19,7 @@ class MerchantAccountGateway
 
     public function create($attribs)
     {
-        Util::verifyKeys(self::detectSignature($attribs), $attribs);
+        Util::verifyKeys(self::createSignature(), $attribs);
         return $this->_doCreate('/merchant_accounts/create_via_api', ['merchant_account' => $attribs]);
     }
 
@@ -35,17 +37,8 @@ class MerchantAccountGateway
     public function update($merchant_account_id, $attributes)
     {
         Util::verifyKeys(self::updateSignature(), $attributes);
-        return $this->_doUpdate('/merchant_accounts/' . $merchant_account_id . '/update_via_api', ['merchant_account' => $attributes]);
-    }
-
-    public static function detectSignature($attribs)
-    {
-        if (isset($attribs['applicantDetails'])) {
-            trigger_error("DEPRECATED: Passing applicantDetails to create is deprecated. Please use individual, business, and funding", E_USER_NOTICE);
-            return self::createDeprecatedSignature();
-        } else {
-            return self::createSignature();
-        }
+        $queryPath = '/merchant_accounts/' . $merchant_account_id . '/update_via_api';
+        return $this->_doUpdate($queryPath, ['merchant_account' => $attributes]);
     }
 
     public static function updateSignature()
@@ -57,7 +50,8 @@ class MerchantAccountGateway
 
     public function createForCurrency($attribs)
     {
-        $response = $this->_http->post($this->_config->merchantPath() . '/merchant_accounts/create_for_currency', ['merchant_account' => $attribs]);
+        $queryPath = $this->_config->merchantPath() . '/merchant_accounts/create_for_currency';
+        $response = $this->_http->post($queryPath, ['merchant_account' => $attribs]);
         return $this->_verifyGatewayResponse($response);
     }
 
@@ -119,31 +113,7 @@ class MerchantAccountGateway
         ];
     }
 
-    public static function createDeprecatedSignature()
-    {
-        $applicantDetailsAddressSignature = ['streetAddress', 'postalCode', 'locality', 'region'];
-        $applicantDetailsSignature = [
-            'companyName',
-            'firstName',
-            'lastName',
-            'email',
-            'phone',
-            'dateOfBirth',
-            'ssn',
-            'taxId',
-            'routingNumber',
-            'accountNumber',
-            ['address' => $applicantDetailsAddressSignature]
-        ];
-
-        return [
-            ['applicantDetails' =>  $applicantDetailsSignature],
-            'id',
-            'tosAccepted',
-            'masterMerchantAccountId'
-        ];
-    }
-
+    // phpcs:ignore PEAR.Commenting.FunctionComment.Missing
     public function _doCreate($subPath, $params)
     {
         $fullPath = $this->_config->merchantPath() . $subPath;
@@ -168,15 +138,14 @@ class MerchantAccountGateway
         if (isset($response['merchantAccount'])) {
             // return a populated instance of merchantAccount
             return new Result\Successful(
-                    MerchantAccount::factory($response['merchantAccount'])
+                MerchantAccount::factory($response['merchantAccount'])
             );
-        } else if (isset($response['apiErrorResponse'])) {
+        } elseif (isset($response['apiErrorResponse'])) {
             return new Result\Error($response['apiErrorResponse']);
         } else {
             throw new Exception\Unexpected(
-            "Expected merchant account or apiErrorResponse"
+                "Expected merchant account or apiErrorResponse"
             );
         }
     }
 }
-class_alias('Braintree\MerchantAccountGateway', 'Braintree_MerchantAccountGateway');

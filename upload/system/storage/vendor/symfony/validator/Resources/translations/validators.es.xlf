@@ -40,7 +40,7 @@
             </trans-unit>
             <trans-unit id="10">
                 <source>This field is missing.</source>
-                <target>Este campo está desaparecido.</target>
+                <target>Este campo falta.</target>
             </trans-unit>
             <trans-unit id="11">
                 <source>This value is not a valid date.</source>
@@ -48,7 +48,7 @@
             </trans-unit>
             <trans-unit id="12">
                 <source>This value is not a valid datetime.</source>
-                <target>Este valor no es una fecha y hora válidas.</target>
+                <target>Este valor no es una fecha y hora válida.</target>
             </trans-unit>
             <trans-unit id="13">
                 <source>This value is not a valid email address.</source>
@@ -184,15 +184,15 @@
             </trans-unit>
             <trans-unit id="49">
                 <source>The file was only partially uploaded.</source>
-                <target>El archivo fue sólo subido parcialmente.</target>
+                <target>El archivo se cargó solo parcialmente.</target>
             </trans-unit>
             <trans-unit id="50">
                 <source>No file was uploaded.</source>
-                <target>Ningún archivo fue subido.</target>
+                <target>No se subió ningún archivo.</target>
             </trans-unit>
             <trans-unit id="51">
                 <source>No temporary folder was configured in php.ini.</source>
-                <target>Ninguna carpeta temporal fue configurada en php.ini.</target>
+                <target>Ninguna carpeta temporal fue configurada en php.ini o la carpeta configurada no existe.</target>
             </trans-unit>
             <trans-unit id="52">
                 <source>Cannot write temporary file to disk.</source>
@@ -200,7 +200,7 @@
             </trans-unit>
             <trans-unit id="53">
                 <source>A PHP extension caused the upload to fail.</source>
-                <target>Una extensión de PHP hizo que la subida fallara.</target>
+                <target>Una extensión de PHP provocó que la carga fallara.</target>
             </trans-unit>
             <trans-unit id="54">
                 <source>This collection should contain {{ limit }} element or more.|This collection should contain {{ limit }} elements or more.</source>
@@ -300,7 +300,7 @@
             </trans-unit>
             <trans-unit id="78">
                 <source>An empty file is not allowed.</source>
-                <target>No está permitido un archivo vacío.</target>
+                <target>No se permite un archivo vacío.</target>
             </trans-unit>
             <trans-unit id="79">
                 <source>The host could not be resolved.</source>
@@ -321,6 +321,110 @@
             <trans-unit id="83">
                 <source>This is not a valid UUID.</source>
                 <target>Este valor no es un UUID válido.</target>
+            </trans-unit>
+            <trans-unit id="84">
+                <source>This value should be a multiple of {{ compared_value }}.</source>
+                <target>Este valor debería ser múltiplo de {{ compared_value }}.</target>
+            </trans-unit>
+            <trans-unit id="85">
+                <source>This Business Identifier Code (BIC) is not associated with IBAN {{ iban }}.</source>
+                <target>Este Código de Identificación Bancaria (BIC) no está asociado con el IBAN {{ iban }}.</target>
+            </trans-unit>
+            <trans-unit id="86">
+                <source>This value should be valid JSON.</source>
+                <target>Este valor debería ser un JSON válido.</target>
+            </trans-unit>
+            <trans-unit id="87">
+                <source>This collection should contain only unique elements.</source>
+                <target>Esta colección debería tener exclusivamente elementos únicos.</target>
+            </trans-unit>
+            <trans-unit id="88">
+                <source>This value should be positive.</source>
+                <target>Este valor debería ser positivo.</target>
+            </trans-unit>
+            <trans-unit id="89">
+                <source>This value should be either positive or zero.</source>
+                <target>Este valor debería ser positivo o igual a cero.</target>
+            </trans-unit>
+            <trans-unit id="90">
+                <source>This value should be negative.</source>
+                <target>Este valor debería ser negativo.</target>
+            </trans-unit>
+            <trans-unit id="91">
+                <source>This value should be either negative or zero.</source>
+                <target>Este valor debería ser negativo o igual a cero.</target>
+            </trans-unit>
+            <trans-unit id="92">
+                <source>This value is not a valid timezone.</source>
+                <target>Este valor no es una zona horaria válida.</target>
+            </trans-unit>
+            <trans-unit id="93">
+                <source>This password has been leaked in a data breach, it must not be used. Please use another password.</source>
+                <target>Esta contraseña no se puede utilizar porque está incluida en un listado de contraseñas públicas obtenido gracias a fallos de seguridad de otros sitios y aplicaciones. Por favor, utilice otra contraseña.</target>
+            </trans-unit>
+            <trans-unit id="94">
+                <source>This value should be between {{ min }} and {{ max }}.</source>
+                <target>Este valor debería estar entre {{ min }} y {{ max }}.</target>
+            </trans-unit>
+            <trans-unit id="95">
+                <source>This value is not a valid hostname.</source>
+                <target>Este valor no es un nombre de host válido.</target>
+            </trans-unit>
+            <trans-unit id="96">
+                <source>The number of elements in this collection should be a multiple of {{ compared_value }}.</source>
+                <target>El número de elementos en esta colección debería ser múltiplo de {{ compared_value }}.</target>
+            </trans-unit>
+            <trans-unit id="97">
+                <source>This value should satisfy at least one of the following constraints:</source>
+                <target>Este valor debería satisfacer al menos una de las siguientes restricciones:</target>
+            </trans-unit>
+            <trans-unit id="98">
+                <source>Each element of this collection should satisfy its own set of constraints.</source>
+                <target>Cada elemento de esta colección debería satisfacer su propio conjunto de restricciones.</target>
+            </trans-unit>
+            <trans-unit id="99">
+                <source>This value is not a valid International Securities Identification Number (ISIN).</source>
+                <target>Este valor no es un número de identificación internacional de valores (ISIN) válido.</target>
+            </trans-unit>
+            <trans-unit id="100">
+                <source>This value should be a valid expression.</source>
+                <target>Este valor debería ser una expresión válida.</target>
+            </trans-unit>
+            <trans-unit id="101">
+                <source>This value is not a valid CSS color.</source>
+                <target>Este valor no es un color CSS válido.</target>
+            </trans-unit>
+            <trans-unit id="102">
+                <source>This value is not a valid CIDR notation.</source>
+                <target>Este valor no es una notación CIDR válida.</target>
+            </trans-unit>
+            <trans-unit id="103">
+                <source>The value of the netmask should be between {{ min }} and {{ max }}.</source>
+                <target>El valor de la máscara de red debería estar entre {{ min }} y {{ max }}.</target>
+            </trans-unit>
+            <trans-unit id="104">
+                <source>The filename is too long. It should have {{ filename_max_length }} character or less.|The filename is too long. It should have {{ filename_max_length }} characters or less.</source>
+                <target>El nombre del archivo es demasido largo. Debe tener {{ filename_max_length }} carácter o menos.|El nombre del archivo es demasido largo. Debe tener {{ filename_max_length }} caracteres o menos.</target>
+            </trans-unit>
+            <trans-unit id="105">
+                <source>The password strength is too low. Please use a stronger password.</source>
+                <target>La seguridad de la contraseña es demasiado baja. Por favor, utilice una contraseña más segura.</target>
+            </trans-unit>
+            <trans-unit id="106">
+                <source>This value contains characters that are not allowed by the current restriction-level.</source>
+                <target>Este valor contiene caracteres que no están permitidos según el nivel de restricción actual.</target>
+            </trans-unit>
+            <trans-unit id="107">
+                <source>Using invisible characters is not allowed.</source>
+                <target>No se permite el uso de caracteres invisibles.</target>
+            </trans-unit>
+            <trans-unit id="108">
+                <source>Mixing numbers from different scripts is not allowed.</source>
+                <target>No está permitido mezclar números de diferentes scripts.</target>
+            </trans-unit>
+            <trans-unit id="109">
+                <source>Using hidden overlay characters is not allowed.</source>
+                <target>No está permitido el uso de caracteres superpuestos ocultos.</target>
             </trans-unit>
         </body>
     </file>

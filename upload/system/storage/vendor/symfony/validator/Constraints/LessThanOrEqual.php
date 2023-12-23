@@ -18,13 +18,14 @@ namespace Symfony\Component\Validator\Constraints;
  * @author Daniel Holmes <daniel@danielholmes.org>
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
+#[\Attribute(\Attribute::TARGET_PROPERTY | \Attribute::TARGET_METHOD | \Attribute::IS_REPEATABLE)]
 class LessThanOrEqual extends AbstractComparison
 {
-    const TOO_HIGH_ERROR = '079d7420-2d13-460c-8756-de810eeb37d2';
+    public const TOO_HIGH_ERROR = '30fbb013-d015-4232-8b3b-8f3be97a7e14';
 
-    protected static $errorNames = array(
+    protected static $errorNames = [
         self::TOO_HIGH_ERROR => 'TOO_HIGH_ERROR',
-    );
+    ];
 
     public $message = 'This value should be less than or equal to {{ compared_value }}.';
 }

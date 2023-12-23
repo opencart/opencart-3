@@ -6,6 +6,7 @@ use Cardinity\Exception;
 use Cardinity\Method\Payment\AuthorizationInformation;
 use Cardinity\Method\Payment\PaymentInstrumentCard;
 use Cardinity\Method\Payment\PaymentInstrumentRecurring;
+use Cardinity\Method\Payment\ThreeDS2AuthorizationInformation;
 
 abstract class ResultObject implements ResultObjectInterface
 {
@@ -34,7 +35,7 @@ abstract class ResultObject implements ResultObjectInterface
     /**
      * Serializes result object to json object
      * @param boolean $toJson encode result to json
-     * @return string
+     * @return array|object
      */
     public function serialize($toJson = true)
     {
@@ -81,15 +82,25 @@ abstract class ResultObject implements ResultObjectInterface
                     $object = new AuthorizationInformation();
                     $object->unserialize(json_encode($value));
                     $value = $object;
+                } elseif ($property == 'threeds2_data') {
+                    $object = new ThreeDS2AuthorizationInformation();
+                    $object->unserialize(json_encode($value));
+                    $value = $object;
                 } elseif ($property == 'payment_instrument') {
                     if (!isset($data->payment_method)) {
                         throw new Exception\Runtime('Property "payment_method" is missing');
                     }
 
-                    if ($data->payment_method == Payment\Create::CARD) {
-                        $object = new PaymentInstrumentCard();
-                    } elseif ($data->payment_method == Payment\Create::RECURRING) {
-                        $object = new PaymentInstrumentRecurring();
+                    switch ($data->payment_method) {
+                        case Payment\Create::CARD:
+                            $object = new PaymentInstrumentCard();
+                            break;
+                        case Payment\Create::RECURRING:
+                            $object = new PaymentInstrumentRecurring();
+                            break;
+                        default:
+                            $object = new PaymentInstrumentCard();
+                            break;
                     }
                     $object->unserialize(json_encode($value));
                     $value = $object;
@@ -100,8 +111,13 @@ abstract class ResultObject implements ResultObjectInterface
         }
     }
 
+
+    public function __serialize(): array {return[];}
+    public function __unserialize(array $data): void {}
+
     /**
      * @param string $class
+     * @return array
      */
     private function classGetters($class)
     {
@@ -121,13 +137,22 @@ abstract class ResultObject implements ResultObjectInterface
         });
     }
 
+    /**
+     * @param string $method
+     * @return string
+     */
     private function propertyName($method)
     {
         $method = lcfirst(substr($method, 3));
-        $method = strtolower(preg_replace('/([a-z])([A-Z])/', '$1_$2', $method));
+        $method = strtolower(preg_replace('/([a-z0-9])([A-Z])/', '$1_$2', $method));
+
         return $method;
     }
 
+    /**
+     * @param string $property
+     * @return string
+     */
     private function setterName($property)
     {
         $parts = explode('_', $property);
