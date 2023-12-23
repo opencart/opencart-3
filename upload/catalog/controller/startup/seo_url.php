@@ -5,10 +5,7 @@
  * @package Catalog\Controller\Startup
  */
 class ControllerStartupSeoUrl extends Controller {
-	/**
-	 * @return void
-	 */
-    public function index(): void {
+    public function index() {
         // Add rewrite to url class
         if ($this->config->get('config_seo_url')) {
             $this->url->addRewrite($this);
