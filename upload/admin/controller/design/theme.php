@@ -8,352 +8,352 @@ class ControllerDesignTheme extends Controller {
 	/**
 	 * @return void
 	 */
-    public function index(): void {
-        $this->load->language('design/theme');
+	public function index(): void {
+		$this->load->language('design/theme');
 
-        $this->document->setTitle($this->language->get('heading_title'));
+		$this->document->setTitle($this->language->get('heading_title'));
 
-        $data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = [
-            'text' => $this->language->get('text_home'),
-            'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        ];
+		$data['breadcrumbs'][] = [
+			'text' => $this->language->get('text_home'),
+			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
+		];
 
-        $data['breadcrumbs'][] = [
-            'text' => $this->language->get('heading_title'),
-            'href' => $this->url->link('design/theme', 'user_token=' . $this->session->data['user_token'], true)
-        ];
+		$data['breadcrumbs'][] = [
+			'text' => $this->language->get('heading_title'),
+			'href' => $this->url->link('design/theme', 'user_token=' . $this->session->data['user_token'], true)
+		];
 
-        $data['user_token'] = $this->session->data['user_token'];
+		$data['user_token'] = $this->session->data['user_token'];
 
-        $data['stores'] = [];
+		$data['stores'] = [];
 
-        // Stores
-        $this->load->model('setting/store');
+		// Stores
+		$this->load->model('setting/store');
 
-        $results = $this->model_setting_store->getStores();
+		$results = $this->model_setting_store->getStores();
 
-        foreach ($results as $result) {
-            $data['stores'][] = [
-                'store_id' => $result['store_id'],
-                'name'     => $result['name']
-            ];
-        }
+		foreach ($results as $result) {
+			$data['stores'][] = [
+				'store_id' => $result['store_id'],
+				'name'     => $result['name']
+			];
+		}
 
-        $data['header'] = $this->load->controller('common/header');
-        $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer'] = $this->load->controller('common/footer');
+		$data['header'] = $this->load->controller('common/header');
+		$data['column_left'] = $this->load->controller('common/column_left');
+		$data['footer'] = $this->load->controller('common/footer');
 
-        $this->response->setOutput($this->load->view('design/theme', $data));
-    }
+		$this->response->setOutput($this->load->view('design/theme', $data));
+	}
 
 	/**
 	 * History
 	 *
 	 * @return void
 	 */
-    public function history(): void {
-        $this->load->language('design/theme');
+	public function history(): void {
+		$this->load->language('design/theme');
 
-        if (isset($this->request->get['page'])) {
-            $page = (int)$this->request->get['page'];
-        } else {
-            $page = 1;
-        }
+		if (isset($this->request->get['page'])) {
+			$page = (int)$this->request->get['page'];
+		} else {
+			$page = 1;
+		}
 
-        $data['histories'] = [];
+		$data['histories'] = [];
 
-        // Themes
-        $this->load->model('design/theme');
+		// Themes
+		$this->load->model('design/theme');
 
-        // Stores
-        $this->load->model('setting/store');
+		// Stores
+		$this->load->model('setting/store');
 
-        $history_total = $this->model_design_theme->getTotalThemes();
+		$history_total = $this->model_design_theme->getTotalThemes();
 
-        $results = $this->model_design_theme->getThemes(($page - 1) * 10, 10);
+		$results = $this->model_design_theme->getThemes(($page - 1) * 10, 10);
 
-        foreach ($results as $result) {
-            $store_info = $this->model_setting_store->getStore($result['store_id']);
+		foreach ($results as $result) {
+			$store_info = $this->model_setting_store->getStore($result['store_id']);
 
-            if ($store_info) {
-                $store = $store_info['name'];
-            } else {
-                $store = '';
-            }
+			if ($store_info) {
+				$store = $store_info['name'];
+			} else {
+				$store = '';
+			}
 
-            $data['histories'][] = [
-                'store_id'   => $result['store_id'],
-                'store'      => $result['store_id'] ? $store : $this->language->get('text_default'),
-                'route'      => $result['route'],
-                'theme'      => $result['theme'],
-                'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
-                'edit'       => $this->url->link('design/theme/template', 'user_token=' . $this->session->data['user_token'], true),
-                'delete'     => $this->url->link('design/theme/delete', 'user_token=' . $this->session->data['user_token'] . '&theme_id=' . $result['theme_id'], true)
-            ];
-        }
+			$data['histories'][] = [
+				'store_id'   => $result['store_id'],
+				'store'      => $result['store_id'] ? $store : $this->language->get('text_default'),
+				'route'      => $result['route'],
+				'theme'      => $result['theme'],
+				'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
+				'edit'       => $this->url->link('design/theme/template', 'user_token=' . $this->session->data['user_token'], true),
+				'delete'     => $this->url->link('design/theme/delete', 'user_token=' . $this->session->data['user_token'] . '&theme_id=' . $result['theme_id'], true)
+			];
+		}
 
-        $pagination = new \Pagination();
-        $pagination->total = $history_total;
-        $pagination->page = $page;
-        $pagination->limit = 10;
-        $pagination->url = $this->url->link('design/theme/history', 'user_token=' . $this->session->data['user_token'] . '&page={page}', true);
+		$pagination = new \Pagination();
+		$pagination->total = $history_total;
+		$pagination->page = $page;
+		$pagination->limit = 10;
+		$pagination->url = $this->url->link('design/theme/history', 'user_token=' . $this->session->data['user_token'] . '&page={page}', true);
 
-        $data['pagination'] = $pagination->render();
-        $data['results'] = sprintf($this->language->get('text_pagination'), ($history_total) ? (($page - 1) * 10) + 1 : 0, ((($page - 1) * 10) > ($history_total - 10)) ? $history_total : ((($page - 1) * 10) + 10), $history_total, ceil($history_total / 10));
+		$data['pagination'] = $pagination->render();
+		$data['results'] = sprintf($this->language->get('text_pagination'), ($history_total) ? (($page - 1) * 10) + 1 : 0, ((($page - 1) * 10) > ($history_total - 10)) ? $history_total : ((($page - 1) * 10) + 10), $history_total, ceil($history_total / 10));
 
-        $this->response->setOutput($this->load->view('design/theme_history', $data));
-    }
+		$this->response->setOutput($this->load->view('design/theme_history', $data));
+	}
 
 	/**
 	 * Path
 	 *
 	 * @return void
 	 */
-    public function path(): void {
-        $this->load->language('design/theme');
+	public function path(): void {
+		$this->load->language('design/theme');
 
-        $json = [];
+		$json = [];
 
-        // Settings
-        $this->load->model('setting/setting');
+		// Settings
+		$this->load->model('setting/setting');
 
-        if (isset($this->request->get['store_id'])) {
-            $store_id = (int)$this->request->get['store_id'];
-        } else {
-            $store_id = 0;
-        }
+		if (isset($this->request->get['store_id'])) {
+			$store_id = (int)$this->request->get['store_id'];
+		} else {
+			$store_id = 0;
+		}
 
-        $theme = $this->model_setting_setting->getValue('config_theme', $store_id);
+		$theme = $this->model_setting_setting->getValue('config_theme', $store_id);
 
-        // This is only here for compatibility with old themes.
-        if ($theme == 'default') {
-            $theme = $this->model_setting_setting->getValue('theme_default_directory', $store_id);
-        }
+		// This is only here for compatibility with old themes.
+		if ($theme == 'default') {
+			$theme = $this->model_setting_setting->getValue('theme_default_directory', $store_id);
+		}
 
-        if (isset($this->request->get['path'])) {
-            $path = $this->request->get['path'];
-        } else {
-            $path = '';
-        }
+		if (isset($this->request->get['path'])) {
+			$path = $this->request->get['path'];
+		} else {
+			$path = '';
+		}
 
-        if (substr(str_replace('\\', '/', realpath(DIR_CATALOG . 'view/theme/default/template/' . $path)), 0, strlen(DIR_CATALOG . 'view')) == DIR_CATALOG . 'view') {
-            $path_data = [];
+		if (substr(str_replace('\\', '/', realpath(DIR_CATALOG . 'view/theme/default/template/' . $path)), 0, strlen(DIR_CATALOG . 'view')) == DIR_CATALOG . 'view') {
+			$path_data = [];
 
-            // We grab the files from the default theme directory first as the custom themes drops back to the default theme if selected theme files cannot be found.
-            $files = glob(rtrim(DIR_CATALOG . 'view/theme/{default,' . $theme . '}/template/' . $path, '/') . '/*', GLOB_BRACE);
+			// We grab the files from the default theme directory first as the custom themes drops back to the default theme if selected theme files cannot be found.
+			$files = glob(rtrim(DIR_CATALOG . 'view/theme/{default,' . $theme . '}/template/' . $path, '/') . '/*', GLOB_BRACE);
 
-            if ($files) {
-                foreach ($files as $file) {
-                    if (!in_array(basename($file), $path_data)) {
-                        if (is_dir($file)) {
-                            $json['directory'][] = [
-                                'name' => basename($file),
-                                'path' => trim($path . '/' . basename($file), '/')
-                            ];
-                        }
+			if ($files) {
+				foreach ($files as $file) {
+					if (!in_array(basename($file), $path_data)) {
+						if (is_dir($file)) {
+							$json['directory'][] = [
+								'name' => basename($file),
+								'path' => trim($path . '/' . basename($file), '/')
+							];
+						}
 
-                        if (is_file($file)) {
-                            $json['file'][] = [
-                                'name' => basename($file),
-                                'path' => trim($path . '/' . basename($file), '/')
-                            ];
-                        }
+						if (is_file($file)) {
+							$json['file'][] = [
+								'name' => basename($file),
+								'path' => trim($path . '/' . basename($file), '/')
+							];
+						}
 
-                        $path_data[] = basename($file);
-                    }
-                }
-            }
-        }
+						$path_data[] = basename($file);
+					}
+				}
+			}
+		}
 
-        if (!empty($this->request->get['path'])) {
-            $json['back'] = [
-                'name' => $this->language->get('button_back'),
-                'path' => urlencode(substr($path, 0, strrpos($path, '/'))),
-            ];
-        }
+		if (!empty($this->request->get['path'])) {
+			$json['back'] = [
+				'name' => $this->language->get('button_back'),
+				'path' => urlencode(substr($path, 0, strrpos($path, '/'))),
+			];
+		}
 
-        $this->response->addHeader('Content-Type: application/json');
-        $this->response->setOutput(json_encode($json));
-    }
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
+	}
 
 	/**
 	 * Template
 	 *
 	 * @return void
 	 */
-    public function template(): void {
-        $this->load->language('design/theme');
+	public function template(): void {
+		$this->load->language('design/theme');
 
-        $json = [];
+		$json = [];
 
-        if (isset($this->request->get['store_id'])) {
-            $store_id = (int)$this->request->get['store_id'];
-        } else {
-            $store_id = 0;
-        }
+		if (isset($this->request->get['store_id'])) {
+			$store_id = (int)$this->request->get['store_id'];
+		} else {
+			$store_id = 0;
+		}
 
-        // Settings
-        $this->load->model('setting/setting');
+		// Settings
+		$this->load->model('setting/setting');
 
-        $theme = $this->model_setting_setting->getValue('config_theme', $store_id);
+		$theme = $this->model_setting_setting->getValue('config_theme', $store_id);
 
-        // This is only here for compatibility with old themes.
-        if ($theme == 'default') {
-            $theme = $this->model_setting_setting->getValue('theme_default_directory', $store_id);
-        }
+		// This is only here for compatibility with old themes.
+		if ($theme == 'default') {
+			$theme = $this->model_setting_setting->getValue('theme_default_directory', $store_id);
+		}
 
-        if (isset($this->request->get['path'])) {
-            $path = $this->request->get['path'];
-        } else {
-            $path = '';
-        }
+		if (isset($this->request->get['path'])) {
+			$path = $this->request->get['path'];
+		} else {
+			$path = '';
+		}
 
-        // Themes
-        $this->load->model('design/theme');
+		// Themes
+		$this->load->model('design/theme');
 
-        $theme_info = $this->model_design_theme->getTheme($store_id, $theme, $path);
+		$theme_info = $this->model_design_theme->getTheme($store_id, $theme, $path);
 
-        if ($theme_info) {
-            $json['code'] = html_entity_decode($theme_info['code']);
-        } elseif (is_file(DIR_CATALOG . 'view/theme/' . $theme . '/template/' . $path) && (substr(str_replace('\\', '/', realpath(DIR_CATALOG . 'view/theme/' . $theme . '/template/' . $path)), 0, strlen(DIR_CATALOG . 'view')) == DIR_CATALOG . 'view')) {
-            $json['code'] = file_get_contents(DIR_CATALOG . 'view/theme/' . $theme . '/template/' . $path);
-        } elseif (is_file(DIR_CATALOG . 'view/theme/default/template/' . $path) && (substr(str_replace('\\', '/', realpath(DIR_CATALOG . 'view/theme/default/template/' . $path)), 0, strlen(DIR_CATALOG . 'view')) == DIR_CATALOG . 'view')) {
-            $json['code'] = file_get_contents(DIR_CATALOG . 'view/theme/default/template/' . $path);
-        }
+		if ($theme_info) {
+			$json['code'] = html_entity_decode($theme_info['code']);
+		} elseif (is_file(DIR_CATALOG . 'view/theme/' . $theme . '/template/' . $path) && (substr(str_replace('\\', '/', realpath(DIR_CATALOG . 'view/theme/' . $theme . '/template/' . $path)), 0, strlen(DIR_CATALOG . 'view')) == DIR_CATALOG . 'view')) {
+			$json['code'] = file_get_contents(DIR_CATALOG . 'view/theme/' . $theme . '/template/' . $path);
+		} elseif (is_file(DIR_CATALOG . 'view/theme/default/template/' . $path) && (substr(str_replace('\\', '/', realpath(DIR_CATALOG . 'view/theme/default/template/' . $path)), 0, strlen(DIR_CATALOG . 'view')) == DIR_CATALOG . 'view')) {
+			$json['code'] = file_get_contents(DIR_CATALOG . 'view/theme/default/template/' . $path);
+		}
 
-        $this->response->addHeader('Content-Type: application/json');
-        $this->response->setOutput(json_encode($json));
-    }
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
+	}
 
 	/**
 	 * Save
 	 *
 	 * @return void
 	 */
-    public function save(): void {
-        $this->load->language('design/theme');
+	public function save(): void {
+		$this->load->language('design/theme');
 
-        $json = [];
+		$json = [];
 
-        if (isset($this->request->get['store_id'])) {
-            $store_id = (int)$this->request->get['store_id'];
-        } else {
-            $store_id = 0;
-        }
+		if (isset($this->request->get['store_id'])) {
+			$store_id = (int)$this->request->get['store_id'];
+		} else {
+			$store_id = 0;
+		}
 
-        // Settings
-        $this->load->model('setting/setting');
+		// Settings
+		$this->load->model('setting/setting');
 
-        $theme = $this->model_setting_setting->getValue('config_theme', $store_id);
+		$theme = $this->model_setting_setting->getValue('config_theme', $store_id);
 
-        // This is only here for compatibility with old themes.
-        if ($theme == 'default') {
-            $theme = $this->model_setting_setting->getValue('theme_default_directory', $store_id);
-        }
+		// This is only here for compatibility with old themes.
+		if ($theme == 'default') {
+			$theme = $this->model_setting_setting->getValue('theme_default_directory', $store_id);
+		}
 
-        if (isset($this->request->get['path'])) {
-            $path = $this->request->get['path'];
-        } else {
-            $path = '';
-        }
+		if (isset($this->request->get['path'])) {
+			$path = $this->request->get['path'];
+		} else {
+			$path = '';
+		}
 
-        // Check user has permission
-        if (!$this->user->hasPermission('modify', 'design/theme')) {
-            $json['error'] = $this->language->get('error_permission');
-        }
+		// Check user has permission
+		if (!$this->user->hasPermission('modify', 'design/theme')) {
+			$json['error'] = $this->language->get('error_permission');
+		}
 
-        if (substr($path, -5) != '.twig') {
-            $json['error'] = $this->language->get('error_twig');
-        }
+		if (substr($path, -5) != '.twig') {
+			$json['error'] = $this->language->get('error_twig');
+		}
 
-        if (!$json) {
-            // Themes
-            $this->load->model('design/theme');
+		if (!$json) {
+			// Themes
+			$this->load->model('design/theme');
 
-            $pos = strpos($path, '.');
+			$pos = strpos($path, '.');
 
-            $this->model_design_theme->editTheme($store_id, $theme, ($pos !== false) ? substr($path, 0, $pos) : $path, $this->request->post['code']);
+			$this->model_design_theme->editTheme($store_id, $theme, ($pos !== false) ? substr($path, 0, $pos) : $path, $this->request->post['code']);
 
-            $json['success'] = $this->language->get('text_success');
-        }
+			$json['success'] = $this->language->get('text_success');
+		}
 
-        $this->response->addHeader('Content-Type: application/json');
-        $this->response->setOutput(json_encode($json));
-    }
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
+	}
 
 	/**
 	 * Reset
 	 *
 	 * @return void
 	 */
-    public function reset(): void {
-        $this->load->language('design/theme');
+	public function reset(): void {
+		$this->load->language('design/theme');
 
-        $json = [];
+		$json = [];
 
-        if (isset($this->request->get['store_id'])) {
-            $store_id = (int)$this->request->get['store_id'];
-        } else {
-            $store_id = 0;
-        }
+		if (isset($this->request->get['store_id'])) {
+			$store_id = (int)$this->request->get['store_id'];
+		} else {
+			$store_id = 0;
+		}
 
-        // Settings
-        $this->load->model('setting/setting');
+		// Settings
+		$this->load->model('setting/setting');
 
-        $theme = $this->model_setting_setting->getValue('config_theme', $store_id);
+		$theme = $this->model_setting_setting->getValue('config_theme', $store_id);
 
-        // This is only here for compatibility with old themes.
-        if ($theme == 'default') {
-            $theme = $this->model_setting_setting->getValue('theme_default_directory', $store_id);
-        }
+		// This is only here for compatibility with old themes.
+		if ($theme == 'default') {
+			$theme = $this->model_setting_setting->getValue('theme_default_directory', $store_id);
+		}
 
-        if (isset($this->request->get['path'])) {
-            $path = $this->request->get['path'];
-        } else {
-            $path = '';
-        }
+		if (isset($this->request->get['path'])) {
+			$path = $this->request->get['path'];
+		} else {
+			$path = '';
+		}
 
-        if (is_file(DIR_CATALOG . 'view/theme/' . $theme . '/template/' . $path) && (substr(str_replace('\\', '/', realpath(DIR_CATALOG . 'view/theme/' . $theme . '/template/' . $path)), 0, strlen(DIR_CATALOG . 'view')) == DIR_CATALOG . 'view')) {
-            $json['code'] = file_get_contents(DIR_CATALOG . 'view/theme/' . $theme . '/template/' . $path);
-        }
+		if (is_file(DIR_CATALOG . 'view/theme/' . $theme . '/template/' . $path) && (substr(str_replace('\\', '/', realpath(DIR_CATALOG . 'view/theme/' . $theme . '/template/' . $path)), 0, strlen(DIR_CATALOG . 'view')) == DIR_CATALOG . 'view')) {
+			$json['code'] = file_get_contents(DIR_CATALOG . 'view/theme/' . $theme . '/template/' . $path);
+		}
 
-        $this->response->addHeader('Content-Type: application/json');
-        $this->response->setOutput(json_encode($json));
-    }
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
+	}
 
 	/**
 	 * Delete
 	 *
 	 * @return void
 	 */
-    public function delete(): void {
-        $this->load->language('design/theme');
+	public function delete(): void {
+		$this->load->language('design/theme');
 
-        $json = [];
+		$json = [];
 
-        if (isset($this->request->get['theme_id'])) {
-            $theme_id = (int)$this->request->get['theme_id'];
-        } else {
-            $theme_id = 0;
-        }
+		if (isset($this->request->get['theme_id'])) {
+			$theme_id = (int)$this->request->get['theme_id'];
+		} else {
+			$theme_id = 0;
+		}
 
-        // Check user has permission
-        if (!$this->user->hasPermission('modify', 'design/theme')) {
-            $json['error'] = $this->language->get('error_permission');
-        }
+		// Check user has permission
+		if (!$this->user->hasPermission('modify', 'design/theme')) {
+			$json['error'] = $this->language->get('error_permission');
+		}
 
-        if (!$json) {
-            // Themes
-            $this->load->model('design/theme');
+		if (!$json) {
+			// Themes
+			$this->load->model('design/theme');
 
-            $this->model_design_theme->deleteTheme($theme_id);
+			$this->model_design_theme->deleteTheme($theme_id);
 
-            $json['success'] = $this->language->get('text_success');
-        }
+			$json['success'] = $this->language->get('text_success');
+		}
 
-        $this->response->addHeader('Content-Type: application/json');
-        $this->response->setOutput(json_encode($json));
-    }
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
+	}
 }

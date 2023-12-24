@@ -10,8 +10,8 @@ class ModelExtensionPaymentCardConnect extends Model {
 	 *
 	 * @return void
 	 */
-    public function install(): void {
-        $this->db->query("
+	public function install(): void {
+		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "cardconnect_card` (
 			  `cardconnect_card_id` INT(11) NOT NULL AUTO_INCREMENT,
 			  `cardconnect_order_id` INT(11) NOT NULL DEFAULT '0',
@@ -25,7 +25,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 			  PRIMARY KEY (`cardconnect_card_id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci");
 
-        $this->db->query("
+		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "cardconnect_order` (
 			  `cardconnect_order_id` INT(11) NOT NULL AUTO_INCREMENT,
 			  `order_id` INT(11) NOT NULL DEFAULT '0',
@@ -39,7 +39,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 			  PRIMARY KEY (`cardconnect_order_id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci");
 
-        $this->db->query("
+		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "cardconnect_order_transaction` (
 			  `cardconnect_order_transaction_id` INT(11) NOT NULL AUTO_INCREMENT,
 			  `cardconnect_order_id` INT(11) NOT NULL DEFAULT '0',
@@ -51,20 +51,20 @@ class ModelExtensionPaymentCardConnect extends Model {
 			  `date_added` DATETIME NOT NULL,
 			  PRIMARY KEY (`cardconnect_order_transaction_id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci");
-    }
+	}
 
 	/**
 	 * Uninstall
 	 *
 	 * @return void
 	 */
-    public function uninstall(): void {
-        $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "cardconnect_card`");
-        $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "cardconnect_order`");
-        $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "cardconnect_order_transaction`");
+	public function uninstall(): void {
+		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "cardconnect_card`");
+		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "cardconnect_order`");
+		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "cardconnect_order_transaction`");
 
-        $this->log('Module uninstalled');
-    }
+		$this->log('Module uninstalled');
+	}
 
 	/**
 	 * getOrder
@@ -73,29 +73,29 @@ class ModelExtensionPaymentCardConnect extends Model {
 	 *
 	 * @return array
 	 */
-    public function getOrder(int $order_id): array {
-        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "cardconnect_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
+	public function getOrder(int $order_id): array {
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "cardconnect_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
-        if ($query->num_rows) {
-            $order = $query->row;
+		if ($query->num_rows) {
+			$order = $query->row;
 
-            $order['transactions'] = $this->getTransactions($order['cardconnect_order_id']);
+			$order['transactions'] = $this->getTransactions($order['cardconnect_order_id']);
 
-            return $order;
-        } else {
-            return [];
-        }
-    }
+			return $order;
+		} else {
+			return [];
+		}
+	}
 
-    private function getTransactions(int $cardconnect_order_id): array {
-        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "cardconnect_order_transaction` WHERE `cardconnect_order_id` = '" . (int)$cardconnect_order_id . "'");
+	private function getTransactions(int $cardconnect_order_id): array {
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "cardconnect_order_transaction` WHERE `cardconnect_order_id` = '" . (int)$cardconnect_order_id . "'");
 
-        if ($query->num_rows) {
-            return $query->rows;
-        } else {
-            return [];
-        }
-    }
+		if ($query->num_rows) {
+			return $query->rows;
+		} else {
+			return [];
+		}
+	}
 
 	/**
 	 * getTotalCaptured
@@ -104,11 +104,11 @@ class ModelExtensionPaymentCardConnect extends Model {
 	 *
 	 * @return float
 	 */
-    public function getTotalCaptured(int $cardconnect_order_id): float {
-        $query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "cardconnect_order_transaction` WHERE `cardconnect_order_id` = '" . (int)$cardconnect_order_id . "' AND (`type` = 'payment' OR `type` = 'refund')");
+	public function getTotalCaptured(int $cardconnect_order_id): float {
+		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "cardconnect_order_transaction` WHERE `cardconnect_order_id` = '" . (int)$cardconnect_order_id . "' AND (`type` = 'payment' OR `type` = 'refund')");
 
-        return (float)$query->row['total'];
-    }
+		return (float)$query->row['total'];
+	}
 
 	/**
 	 * Inquire
@@ -118,43 +118,43 @@ class ModelExtensionPaymentCardConnect extends Model {
 	 *
 	 * @return array
 	 */
-    public function inquire(array $order_info, string $retref): array {
-        $this->log('Posting inquire to CardConnect');
-        $this->log('Order ID: ' . $order_info['order_id']);
+	public function inquire(array $order_info, string $retref): array {
+		$this->log('Posting inquire to CardConnect');
+		$this->log('Order ID: ' . $order_info['order_id']);
 
-        $url = 'https://' . $this->config->get('payment_cardconnect_site') . '.cardconnect.com:' . (($this->config->get('payment_cardconnect_environment') == 'live') ? 8443 : 6443) . '/cardconnect/rest/inquire/' . $retref . '/' . $this->config->get('payment_cardconnect_merchant_id');
+		$url = 'https://' . $this->config->get('payment_cardconnect_site') . '.cardconnect.com:' . (($this->config->get('payment_cardconnect_environment') == 'live') ? 8443 : 6443) . '/cardconnect/rest/inquire/' . $retref . '/' . $this->config->get('payment_cardconnect_merchant_id');
 
-        $header = [];
+		$header = [];
 
-        $header[] = 'Content-type: application/json';
-        $header[] = 'Authorization: Basic ' . base64_encode($this->config->get('payment_cardconnect_api_username') . ':' . $this->config->get('payment_cardconnect_api_password'));
+		$header[] = 'Content-type: application/json';
+		$header[] = 'Authorization: Basic ' . base64_encode($this->config->get('payment_cardconnect_api_username') . ':' . $this->config->get('payment_cardconnect_api_password'));
 
-        $this->model_extension_payment_cardconnect->log('Header: ' . print_r($header, true));
-        $this->model_extension_payment_cardconnect->log('URL: ' . $url);
+		$this->model_extension_payment_cardconnect->log('Header: ' . print_r($header, true));
+		$this->model_extension_payment_cardconnect->log('URL: ' . $url);
 
-        $ch = curl_init();
+		$ch = curl_init();
 
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
-        $response_data = curl_exec($ch);
+		$response_data = curl_exec($ch);
 
-        if (curl_errno($ch)) {
-            $this->model_extension_payment_cardconnect->log('cURL error: ' . curl_errno($ch));
-        }
+		if (curl_errno($ch)) {
+			$this->model_extension_payment_cardconnect->log('cURL error: ' . curl_errno($ch));
+		}
 
-        curl_close($ch);
+		curl_close($ch);
 
-        $response_data = json_decode($response_data, true);
+		$response_data = json_decode($response_data, true);
 
-        $this->log('Response: ' . print_r($response_data, true));
+		$this->log('Response: ' . print_r($response_data, true));
 
-        return $response_data;
-    }
+		return $response_data;
+	}
 
 	/**
 	 * Capture
@@ -164,99 +164,99 @@ class ModelExtensionPaymentCardConnect extends Model {
 	 *
 	 * @return array
 	 */
-    public function capture(array $order_info, float $amount): array {
-        // Orders
-        $this->load->model('sale/order');
+	public function capture(array $order_info, float $amount): array {
+		// Orders
+		$this->load->model('sale/order');
 
-        $this->log('Posting capture to CardConnect');
-        $this->log('Order ID: ' . $order_info['order_id']);
+		$this->log('Posting capture to CardConnect');
+		$this->log('Order ID: ' . $order_info['order_id']);
 
-        $order = $this->model_sale_order->getOrder($order_info['order_id']);
-        $totals = $this->model_sale_order->getOrderTotals($order_info['order_id']);
-        $products = $this->model_sale_order->getOrderProducts($order_info['order_id']);
-        $shipping_cost = '';
+		$order = $this->model_sale_order->getOrder($order_info['order_id']);
+		$totals = $this->model_sale_order->getOrderTotals($order_info['order_id']);
+		$products = $this->model_sale_order->getOrderProducts($order_info['order_id']);
+		$shipping_cost = '';
 
-        foreach ($totals as $total) {
-            if ($total['code'] == 'shipping') {
-                $shipping_cost = $total['value'];
-            }
-        }
+		foreach ($totals as $total) {
+			if ($total['code'] == 'shipping') {
+				$shipping_cost = $total['value'];
+			}
+		}
 
-        $items = [];
+		$items = [];
 
-        $i = 1;
+		$i = 1;
 
-        foreach ($products as $product) {
-            $items[] = [
-                'lineno'      => $i,
-                'material'    => '',
-                'description' => $product['name'],
-                'upc'         => '',
-                'quantity'    => $product['quantity'],
-                'uom'         => '',
-                'unitcost'    => $product['price'],
-                'netamnt'     => $product['total'],
-                'taxamnt'     => $product['tax'],
-                'discamnt'    => ''
-            ];
+		foreach ($products as $product) {
+			$items[] = [
+				'lineno'      => $i,
+				'material'    => '',
+				'description' => $product['name'],
+				'upc'         => '',
+				'quantity'    => $product['quantity'],
+				'uom'         => '',
+				'unitcost'    => $product['price'],
+				'netamnt'     => $product['total'],
+				'taxamnt'     => $product['tax'],
+				'discamnt'    => ''
+			];
 
-            $i++;
-        }
+			$i++;
+		}
 
-        $data = [
-            'merchid'       => $this->config->get('payment_cardconnect_merchant_id'),
-            'retref'        => $order_info['retref'],
-            'authcode'      => $order_info['authcode'],
-            'ponumber'      => $order_info['order_id'],
-            'amount'        => round(floatval($amount), 2, PHP_ROUND_HALF_DOWN),
-            'currency'      => $order_info['currency_code'],
-            'frtamnt'       => $shipping_cost,
-            'dutyamnt'      => '',
-            'orderdate'     => '',
-            'shiptozip'     => $order['shipping_postcode'],
-            'shipfromzip'   => '',
-            'shiptocountry' => $order['shipping_iso_code_2'],
-            'Items'         => $items
-        ];
+		$data = [
+			'merchid'       => $this->config->get('payment_cardconnect_merchant_id'),
+			'retref'        => $order_info['retref'],
+			'authcode'      => $order_info['authcode'],
+			'ponumber'      => $order_info['order_id'],
+			'amount'        => round(floatval($amount), 2, PHP_ROUND_HALF_DOWN),
+			'currency'      => $order_info['currency_code'],
+			'frtamnt'       => $shipping_cost,
+			'dutyamnt'      => '',
+			'orderdate'     => '',
+			'shiptozip'     => $order['shipping_postcode'],
+			'shipfromzip'   => '',
+			'shiptocountry' => $order['shipping_iso_code_2'],
+			'Items'         => $items
+		];
 
-        $data_json = json_encode($data);
+		$data_json = json_encode($data);
 
-        $url = 'https://' . $this->config->get('payment_cardconnect_site') . '.cardconnect.com:' . (($this->config->get('payment_cardconnect_environment') == 'live') ? 8443 : 6443) . '/cardconnect/rest/capture';
+		$url = 'https://' . $this->config->get('payment_cardconnect_site') . '.cardconnect.com:' . (($this->config->get('payment_cardconnect_environment') == 'live') ? 8443 : 6443) . '/cardconnect/rest/capture';
 
-        $header = [];
+		$header = [];
 
-        $header[] = 'Content-type: application/json';
-        $header[] = 'Content-length: ' . strlen($data_json);
-        $header[] = 'Authorization: Basic ' . base64_encode($this->config->get('payment_cardconnect_api_username') . ':' . $this->config->get('payment_cardconnect_api_password'));
+		$header[] = 'Content-type: application/json';
+		$header[] = 'Content-length: ' . strlen($data_json);
+		$header[] = 'Authorization: Basic ' . base64_encode($this->config->get('payment_cardconnect_api_username') . ':' . $this->config->get('payment_cardconnect_api_password'));
 
-        $this->model_extension_payment_cardconnect->log('Header: ' . print_r($header, true));
-        $this->model_extension_payment_cardconnect->log('Post Data: ' . print_r($data, true));
-        $this->model_extension_payment_cardconnect->log('URL: ' . $url);
+		$this->model_extension_payment_cardconnect->log('Header: ' . print_r($header, true));
+		$this->model_extension_payment_cardconnect->log('Post Data: ' . print_r($data, true));
+		$this->model_extension_payment_cardconnect->log('URL: ' . $url);
 
-        $ch = curl_init();
+		$ch = curl_init();
 
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data_json);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $data_json);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
-        $response_data = curl_exec($ch);
+		$response_data = curl_exec($ch);
 
-        if (curl_errno($ch)) {
-            $this->model_extension_payment_cardconnect->log('cURL error: ' . curl_errno($ch));
-        }
+		if (curl_errno($ch)) {
+			$this->model_extension_payment_cardconnect->log('cURL error: ' . curl_errno($ch));
+		}
 
-        curl_close($ch);
+		curl_close($ch);
 
-        $response_data = json_decode($response_data, true);
+		$response_data = json_decode($response_data, true);
 
-        $this->log('Response: ' . print_r($response_data, true));
+		$this->log('Response: ' . print_r($response_data, true));
 
-        return $response_data;
-    }
+		return $response_data;
+	}
 
 	/**
 	 * Refund
@@ -266,55 +266,55 @@ class ModelExtensionPaymentCardConnect extends Model {
 	 *
 	 * @return array
 	 */
-    public function refund(array $order_info, float $amount): array {
-        $this->log('Posting refund to CardConnect');
-        $this->log('Order ID: ' . $order_info['order_id']);
+	public function refund(array $order_info, float $amount): array {
+		$this->log('Posting refund to CardConnect');
+		$this->log('Order ID: ' . $order_info['order_id']);
 
-        $post_data = [
-            'merchid'  => $this->config->get('payment_cardconnect_merchant_id'),
-            'amount'   => round(floatval($amount), 2, PHP_ROUND_HALF_DOWN),
-            'currency' => $order_info['currency_code'],
-            'retref'   => $order_info['retref']
-        ];
+		$post_data = [
+			'merchid'  => $this->config->get('payment_cardconnect_merchant_id'),
+			'amount'   => round(floatval($amount), 2, PHP_ROUND_HALF_DOWN),
+			'currency' => $order_info['currency_code'],
+			'retref'   => $order_info['retref']
+		];
 
-        $data_json = json_encode($post_data);
+		$data_json = json_encode($post_data);
 
-        $url = 'https://' . $this->config->get('payment_cardconnect_site') . '.cardconnect.com:' . (($this->config->get('payment_cardconnect_environment') == 'live') ? 8443 : 6443) . '/cardconnect/rest/refund';
+		$url = 'https://' . $this->config->get('payment_cardconnect_site') . '.cardconnect.com:' . (($this->config->get('payment_cardconnect_environment') == 'live') ? 8443 : 6443) . '/cardconnect/rest/refund';
 
-        $header = [];
+		$header = [];
 
-        $header[] = 'Content-type: application/json';
-        $header[] = 'Content-length: ' . strlen($data_json);
-        $header[] = 'Authorization: Basic ' . base64_encode($this->config->get('payment_cardconnect_api_username') . ':' . $this->config->get('payment_cardconnect_api_password'));
+		$header[] = 'Content-type: application/json';
+		$header[] = 'Content-length: ' . strlen($data_json);
+		$header[] = 'Authorization: Basic ' . base64_encode($this->config->get('payment_cardconnect_api_username') . ':' . $this->config->get('payment_cardconnect_api_password'));
 
-        $this->model_extension_payment_cardconnect->log('Header: ' . print_r($header, true));
-        $this->model_extension_payment_cardconnect->log('Post Data: ' . print_r($data, true));
-        $this->model_extension_payment_cardconnect->log('URL: ' . $url);
+		$this->model_extension_payment_cardconnect->log('Header: ' . print_r($header, true));
+		$this->model_extension_payment_cardconnect->log('Post Data: ' . print_r($data, true));
+		$this->model_extension_payment_cardconnect->log('URL: ' . $url);
 
-        $ch = curl_init();
+		$ch = curl_init();
 
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data_json);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $data_json);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
-        $response_data = curl_exec($ch);
+		$response_data = curl_exec($ch);
 
-        if (curl_errno($ch)) {
-            $this->model_extension_payment_cardconnect->log('cURL error: ' . curl_errno($ch));
-        }
+		if (curl_errno($ch)) {
+			$this->model_extension_payment_cardconnect->log('cURL error: ' . curl_errno($ch));
+		}
 
-        curl_close($ch);
+		curl_close($ch);
 
-        $response_data = json_decode($response_data, true);
+		$response_data = json_decode($response_data, true);
 
-        $this->log('Response: ' . print_r($response_data, true));
+		$this->log('Response: ' . print_r($response_data, true));
 
-        return $response_data;
-    }
+		return $response_data;
+	}
 
 	/**
 	 * Void
@@ -324,55 +324,55 @@ class ModelExtensionPaymentCardConnect extends Model {
 	 *
 	 * @return array
 	 */
-    public function void(array $order_info, string $retref): array {
-        $this->log('Posting void to CardConnect');
-        $this->log('Order ID: ' . $order_info['order_id']);
+	public function void(array $order_info, string $retref): array {
+		$this->log('Posting void to CardConnect');
+		$this->log('Order ID: ' . $order_info['order_id']);
 
-        $post_data = [
-            'merchid'  => $this->config->get('payment_cardconnect_merchant_id'),
-            'amount'   => 0,
-            'currency' => $order_info['currency_code'],
-            'retref'   => $retref
-        ];
+		$post_data = [
+			'merchid'  => $this->config->get('payment_cardconnect_merchant_id'),
+			'amount'   => 0,
+			'currency' => $order_info['currency_code'],
+			'retref'   => $retref
+		];
 
-        $data_json = json_encode($post_data);
+		$data_json = json_encode($post_data);
 
-        $url = 'https://' . $this->config->get('payment_cardconnect_site') . '.cardconnect.com:' . (($this->config->get('payment_cardconnect_environment') == 'live') ? 8443 : 6443) . '/cardconnect/rest/void';
+		$url = 'https://' . $this->config->get('payment_cardconnect_site') . '.cardconnect.com:' . (($this->config->get('payment_cardconnect_environment') == 'live') ? 8443 : 6443) . '/cardconnect/rest/void';
 
-        $header = [];
+		$header = [];
 
-        $header[] = 'Content-type: application/json';
-        $header[] = 'Content-length: ' . strlen($data_json);
-        $header[] = 'Authorization: Basic ' . base64_encode($this->config->get('payment_cardconnect_api_username') . ':' . $this->config->get('payment_cardconnect_api_password'));
+		$header[] = 'Content-type: application/json';
+		$header[] = 'Content-length: ' . strlen($data_json);
+		$header[] = 'Authorization: Basic ' . base64_encode($this->config->get('payment_cardconnect_api_username') . ':' . $this->config->get('payment_cardconnect_api_password'));
 
-        $this->model_extension_payment_cardconnect->log('Header: ' . print_r($header, true));
-        $this->model_extension_payment_cardconnect->log('Post Data: ' . print_r($data, true));
-        $this->model_extension_payment_cardconnect->log('URL: ' . $url);
+		$this->model_extension_payment_cardconnect->log('Header: ' . print_r($header, true));
+		$this->model_extension_payment_cardconnect->log('Post Data: ' . print_r($data, true));
+		$this->model_extension_payment_cardconnect->log('URL: ' . $url);
 
-        $ch = curl_init();
+		$ch = curl_init();
 
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data_json);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $data_json);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
-        $response_data = curl_exec($ch);
+		$response_data = curl_exec($ch);
 
-        if (curl_errno($ch)) {
-            $this->model_extension_payment_cardconnect->log('cURL error: ' . curl_errno($ch));
-        }
+		if (curl_errno($ch)) {
+			$this->model_extension_payment_cardconnect->log('cURL error: ' . curl_errno($ch));
+		}
 
-        curl_close($ch);
+		curl_close($ch);
 
-        $response_data = json_decode($response_data, true);
+		$response_data = json_decode($response_data, true);
 
-        $this->log('Response: ' . print_r($response_data, true));
+		$this->log('Response: ' . print_r($response_data, true));
 
-        return $response_data;
-    }
+		return $response_data;
+	}
 
 	/**
 	 * updateTransactionStatusByRetref
@@ -382,9 +382,9 @@ class ModelExtensionPaymentCardConnect extends Model {
 	 *
 	 * @return void
 	 */
-    public function updateTransactionStatusByRetref(string $retref, string $status): void {
-        $this->db->query("UPDATE `" . DB_PREFIX . "cardconnect_order_transaction` SET `status` = '" . $this->db->escape($status) . "', `date_modified` = NOW() WHERE `retref` = '" . $this->db->escape($retref) . "'");
-    }
+	public function updateTransactionStatusByRetref(string $retref, string $status): void {
+		$this->db->query("UPDATE `" . DB_PREFIX . "cardconnect_order_transaction` SET `status` = '" . $this->db->escape($status) . "', `date_modified` = NOW() WHERE `retref` = '" . $this->db->escape($retref) . "'");
+	}
 
 	/**
 	 * addTransaction
@@ -397,9 +397,9 @@ class ModelExtensionPaymentCardConnect extends Model {
 	 *
 	 * @return void
 	 */
-    public function addTransaction(int $cardconnect_order_id, string $type, string $retref, float $amount, string $status): void {
-        $this->db->query("INSERT INTO `" . DB_PREFIX . "cardconnect_order_transaction` SET `cardconnect_order_id` = '" . (int)$cardconnect_order_id . "', `type` = '" . $this->db->escape($type) . "', `retref` = '" . $this->db->escape($retref) . "', `amount` = '" . (float)$amount . "', `status` = '" . $this->db->escape($status) . "', `date_modified` = NOW(), `date_added` = NOW()");
-    }
+	public function addTransaction(int $cardconnect_order_id, string $type, string $retref, float $amount, string $status): void {
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "cardconnect_order_transaction` SET `cardconnect_order_id` = '" . (int)$cardconnect_order_id . "', `type` = '" . $this->db->escape($type) . "', `retref` = '" . $this->db->escape($retref) . "', `amount` = '" . (float)$amount . "', `status` = '" . $this->db->escape($status) . "', `date_modified` = NOW(), `date_added` = NOW()");
+	}
 
 	/**
 	 * Log
@@ -408,10 +408,10 @@ class ModelExtensionPaymentCardConnect extends Model {
 	 *
 	 * @return void
 	 */
-    public function log(string $data): void {
-        if ($this->config->get('payment_cardconnect_logging')) {
-            $log = new \Log('cardconnect.log');
-            $log->write($data);
-        }
-    }
+	public function log(string $data): void {
+		if ($this->config->get('payment_cardconnect_logging')) {
+			$log = new \Log('cardconnect.log');
+			$log->write($data);
+		}
+	}
 }

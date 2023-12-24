@@ -11,9 +11,9 @@ class ControllerEventDebug extends Controller {
 	 *
 	 * @return void
 	 */
-    public function index(string &$route, array &$args): void {
-        //echo $route;
-    }
+	public function index(string &$route, array &$args): void {
+		//echo $route;
+	}
 
 	/**
 	 * Before
@@ -23,14 +23,14 @@ class ControllerEventDebug extends Controller {
 	 *
 	 * @return void
 	 */
-    public function before(string &$route, array &$args): void {
-        // add the route you want to test
-        /*
-        if ($route == 'common/home') {
-            $this->session->data['debug'][$route] = microtime(true);
-        }
-        */
-    }
+	public function before(string &$route, array &$args): void {
+		// add the route you want to test
+		/*
+		if ($route == 'common/home') {
+			$this->session->data['debug'][$route] = microtime(true);
+		}
+		*/
+	}
 
 	/**
 	 * After
@@ -41,19 +41,19 @@ class ControllerEventDebug extends Controller {
 	 *
 	 * @return void
 	 */
-    public function after(string $route, array &$args, mixed &$output): void {
-        // add the route you want to test
-        /*
-        if ($route == 'common/home') {
-            if (isset($this->session->data['debug'][$route])) {
-                $log_data = [
-                    'route' => $route,
-                    'time'  => microtime(true) - $this->session->data['debug'][$route]
-                ];
+	public function after(string $route, array &$args, mixed &$output): void {
+		// add the route you want to test
+		/*
+		if ($route == 'common/home') {
+			if (isset($this->session->data['debug'][$route])) {
+				$log_data = [
+					'route' => $route,
+					'time'  => microtime(true) - $this->session->data['debug'][$route]
+				];
 
-                $this->log->write($log_data);
-            }
-        }
-        */
-    }
+				$this->log->write($log_data);
+			}
+		}
+		*/
+	}
 }

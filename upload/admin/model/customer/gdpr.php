@@ -13,9 +13,9 @@ class ModelCustomerGdpr extends Model {
 	 *
 	 * @return void
 	 */
-    public function editStatus(int $gdpr_id, int $status): void {
-        $this->db->query("UPDATE `" . DB_PREFIX . "gdpr` SET `status` = '" . (int)$status . "' WHERE `gdpr_id` = '" . (int)$gdpr_id . "'");
-    }
+	public function editStatus(int $gdpr_id, int $status): void {
+		$this->db->query("UPDATE `" . DB_PREFIX . "gdpr` SET `status` = '" . (int)$status . "' WHERE `gdpr_id` = '" . (int)$gdpr_id . "'");
+	}
 
 	/**
 	 * deleteGdpr
@@ -24,9 +24,9 @@ class ModelCustomerGdpr extends Model {
 	 *
 	 * @return void
 	 */
-    public function deleteGdpr(int $gdpr_id): void {
-        $this->db->query("DELETE FROM `" . DB_PREFIX . "gdpr` WHERE `gdpr_id` = '" . (int)$gdpr_id . "'");
-    }
+	public function deleteGdpr(int $gdpr_id): void {
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "gdpr` WHERE `gdpr_id` = '" . (int)$gdpr_id . "'");
+	}
 
 	/**
 	 * getGdprs
@@ -35,49 +35,49 @@ class ModelCustomerGdpr extends Model {
 	 *
 	 * @return array
 	 */
-    public function getGdprs(array $data = []): array {
-        $sql = "SELECT * FROM `" . DB_PREFIX . "gdpr`";
+	public function getGdprs(array $data = []): array {
+		$sql = "SELECT * FROM `" . DB_PREFIX . "gdpr`";
 
-        $implode = [];
+		$implode = [];
 
-        if (!empty($data['filter_email'])) {
-            $implode[] = "`email` LIKE '" . $this->db->escape($data['filter_email']) . "'";
-        }
+		if (!empty($data['filter_email'])) {
+			$implode[] = "`email` LIKE '" . $this->db->escape($data['filter_email']) . "'";
+		}
 
-        if (!empty($data['filter_action'])) {
-            $implode[] = "`action` = '" . $this->db->escape($data['filter_action']) . "'";
-        }
+		if (!empty($data['filter_action'])) {
+			$implode[] = "`action` = '" . $this->db->escape($data['filter_action']) . "'";
+		}
 
-        if (isset($data['filter_status']) && $data['filter_status'] !== '') {
-            $implode[] = "`status` = '" . (int)$data['filter_status'] . "'";
-        }
+		if (isset($data['filter_status']) && $data['filter_status'] !== '') {
+			$implode[] = "`status` = '" . (int)$data['filter_status'] . "'";
+		}
 
-        if (!empty($data['filter_date_added'])) {
-            $implode[] = "DATE(`date_added`) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
-        }
+		if (!empty($data['filter_date_added'])) {
+			$implode[] = "DATE(`date_added`) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
+		}
 
-        if ($implode) {
-            $sql .= " WHERE " . implode(" AND ", $implode);
-        }
+		if ($implode) {
+			$sql .= " WHERE " . implode(" AND ", $implode);
+		}
 
-        $sql .= " ORDER BY `date_added` DESC";
+		$sql .= " ORDER BY `date_added` DESC";
 
-        if (isset($data['start']) || isset($data['limit'])) {
-            if ($data['start'] < 0) {
-                $data['start'] = 0;
-            }
+		if (isset($data['start']) || isset($data['limit'])) {
+			if ($data['start'] < 0) {
+				$data['start'] = 0;
+			}
 
-            if ($data['limit'] < 1) {
-                $data['limit'] = 20;
-            }
+			if ($data['limit'] < 1) {
+				$data['limit'] = 20;
+			}
 
-            $sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
-        }
+			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
+		}
 
-        $query = $this->db->query($sql);
+		$query = $this->db->query($sql);
 
-        return $query->rows;
-    }
+		return $query->rows;
+	}
 
 	/**
 	 * getGdpr
@@ -86,11 +86,11 @@ class ModelCustomerGdpr extends Model {
 	 *
 	 * @return array
 	 */
-    public function getGdpr(int $gdpr_id): array {
-        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "gdpr` WHERE `gdpr_id` = '" . (int)$gdpr_id . "'");
+	public function getGdpr(int $gdpr_id): array {
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "gdpr` WHERE `gdpr_id` = '" . (int)$gdpr_id . "'");
 
-        return $query->row;
-    }
+		return $query->row;
+	}
 
 	/**
 	 * getTotalGdprs
@@ -99,44 +99,44 @@ class ModelCustomerGdpr extends Model {
 	 *
 	 * @return int
 	 */
-    public function getTotalGdprs(array $data = []): int {
-        $sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "gdpr`";
+	public function getTotalGdprs(array $data = []): int {
+		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "gdpr`";
 
-        $implode = [];
+		$implode = [];
 
-        if (!empty($data['filter_email'])) {
-            $implode[] = "`email` LIKE '" . $this->db->escape($data['filter_email']) . "'";
-        }
+		if (!empty($data['filter_email'])) {
+			$implode[] = "`email` LIKE '" . $this->db->escape($data['filter_email']) . "'";
+		}
 
-        if (!empty($data['filter_action'])) {
-            $implode[] = "`action` = '" . $this->db->escape($data['filter_action']) . "'";
-        }
+		if (!empty($data['filter_action'])) {
+			$implode[] = "`action` = '" . $this->db->escape($data['filter_action']) . "'";
+		}
 
-        if (isset($data['filter_status']) && $data['filter_status'] !== '') {
-            $implode[] = "`status` = '" . (int)$data['filter_status'] . "'";
-        }
+		if (isset($data['filter_status']) && $data['filter_status'] !== '') {
+			$implode[] = "`status` = '" . (int)$data['filter_status'] . "'";
+		}
 
-        if (!empty($data['filter_date_added'])) {
-            $implode[] = "DATE(`date_added`) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
-        }
+		if (!empty($data['filter_date_added'])) {
+			$implode[] = "DATE(`date_added`) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
+		}
 
-        if ($implode) {
-            $sql .= " WHERE " . implode(" AND ", $implode);
-        }
+		if ($implode) {
+			$sql .= " WHERE " . implode(" AND ", $implode);
+		}
 
-        $query = $this->db->query($sql);
+		$query = $this->db->query($sql);
 
-        return (int)$query->row['total'];
-    }
+		return (int)$query->row['total'];
+	}
 
 	/**
 	 * getExpires
 	 *
 	 * @return array
 	 */
-    public function getExpires(): array {
-        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "gdpr` WHERE `status` = '2' AND DATE(`date_added`) <= DATE('" . $this->db->escape(date('Y-m-d', strtotime('+' . (int)$this->config->get('config_gdpr_limit') . ' days'))) . "') ORDER BY `date_added` DESC");
+	public function getExpires(): array {
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "gdpr` WHERE `status` = '2' AND DATE(`date_added`) <= DATE('" . $this->db->escape(date('Y-m-d', strtotime('+' . (int)$this->config->get('config_gdpr_limit') . ' days'))) . "') ORDER BY `date_added` DESC");
 
-        return $query->rows;
-    }
+		return $query->rows;
+	}
 }

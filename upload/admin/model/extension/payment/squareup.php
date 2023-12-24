@@ -5,12 +5,12 @@
  * @package Admin\Model\Extension\Payment
  */
 class ModelExtensionPaymentSquareup extends Model {
-    const RECURRING_ACTIVE = 1;
-    const RECURRING_INACTIVE = 2;
-    const RECURRING_CANCELLED = 3;
-    const RECURRING_SUSPENDED = 4;
-    const RECURRING_EXPIRED = 5;
-    const RECURRING_PENDING = 6;
+	public const RECURRING_ACTIVE = 1;
+	public const RECURRING_INACTIVE = 2;
+	public const RECURRING_CANCELLED = 3;
+	public const RECURRING_SUSPENDED = 4;
+	public const RECURRING_EXPIRED = 5;
+	public const RECURRING_PENDING = 6;
 	/**
 	 * getTransaction
 	 *
@@ -18,11 +18,11 @@ class ModelExtensionPaymentSquareup extends Model {
 	 *
 	 * @return array
 	 */
-    public function getTransaction(int $squareup_transaction_id): array {
-        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "squareup_transaction` WHERE `squareup_transaction_id` = '" . (int)$squareup_transaction_id . "'");
+	public function getTransaction(int $squareup_transaction_id): array {
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "squareup_transaction` WHERE `squareup_transaction_id` = '" . (int)$squareup_transaction_id . "'");
 
-        return $query->row;
-    }
+		return $query->row;
+	}
 
 	/**
 	 * getTransactions
@@ -31,23 +31,23 @@ class ModelExtensionPaymentSquareup extends Model {
 	 *
 	 * @return array
 	 */
-    public function getTransactions(array $data): array {
-        $sql = "SELECT * FROM `" . DB_PREFIX . "squareup_transaction`";
+	public function getTransactions(array $data): array {
+		$sql = "SELECT * FROM `" . DB_PREFIX . "squareup_transaction`";
 
-        if (isset($data['order_id'])) {
-            $sql .= " WHERE `order_id` = '" . (int)$data['order_id'] . "'";
-        }
+		if (isset($data['order_id'])) {
+			$sql .= " WHERE `order_id` = '" . (int)$data['order_id'] . "'";
+		}
 
-        $sql .= " ORDER BY `created_at` DESC";
+		$sql .= " ORDER BY `created_at` DESC";
 
-        if (isset($data['start']) && isset($data['limit'])) {
-            $sql .= " LIMIT " . $data['start'] . ',' . $data['limit'];
-        }
+		if (isset($data['start']) && isset($data['limit'])) {
+			$sql .= " LIMIT " . $data['start'] . ',' . $data['limit'];
+		}
 
-        $query = $this->db->query($sql);
+		$query = $this->db->query($sql);
 
-        return $query->rows;
-    }
+		return $query->rows;
+	}
 
 	/**
 	 * getTotalTransactions
@@ -56,15 +56,15 @@ class ModelExtensionPaymentSquareup extends Model {
 	 *
 	 * @return int
 	 */
-    public function getTotalTransactions(array $data): int {
-        $sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "squareup_transaction`";
+	public function getTotalTransactions(array $data): int {
+		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "squareup_transaction`";
 
-        if (isset($data['order_id'])) {
-            $sql .= " WHERE `order_id` = '" . (int)$data['order_id'] . "'";
-        }
+		if (isset($data['order_id'])) {
+			$sql .= " WHERE `order_id` = '" . (int)$data['order_id'] . "'";
+		}
 
-        return (int)$this->db->query($sql)->row['total'];
-    }
+		return (int)$this->db->query($sql)->row['total'];
+	}
 
 	/**
 	 * updateTransaction
@@ -75,9 +75,9 @@ class ModelExtensionPaymentSquareup extends Model {
 	 *
 	 * @return void
 	 */
-    public function updateTransaction(int $squareup_transaction_id, string $type, array $refunds = []): void {
-        $this->db->query("UPDATE `" . DB_PREFIX . "squareup_transaction` SET `transaction_type` = '" . $this->db->escape($type) . "', `is_refunded` = '" . (int)!empty($refunds) . "', `refunds` = '" . $this->db->escape(json_encode($refunds)) . "' WHERE `squareup_transaction_id` = '" . (int)$squareup_transaction_id . "'");
-    }
+	public function updateTransaction(int $squareup_transaction_id, string $type, array $refunds = []): void {
+		$this->db->query("UPDATE `" . DB_PREFIX . "squareup_transaction` SET `transaction_type` = '" . $this->db->escape($type) . "', `is_refunded` = '" . (int)!empty($refunds) . "', `refunds` = '" . $this->db->escape(json_encode($refunds)) . "' WHERE `squareup_transaction_id` = '" . (int)$squareup_transaction_id . "'");
+	}
 
 	/**
 	 * getOrderStatusId
@@ -87,18 +87,18 @@ class ModelExtensionPaymentSquareup extends Model {
 	 *
 	 * @return int
 	 */
-    public function getOrderStatusId(int $order_id, string $transaction_status = null): int {
-        if ($transaction_status) {
-            return (int)$this->config->get('payment_squareup_status_' . strtolower($transaction_status));
-        } else {
-            // Orders
-            $this->load->model('sale/order');
+	public function getOrderStatusId(int $order_id, string $transaction_status = null): int {
+		if ($transaction_status) {
+			return (int)$this->config->get('payment_squareup_status_' . strtolower($transaction_status));
+		} else {
+			// Orders
+			$this->load->model('sale/order');
 
-            $order_info = $this->model_sale_order->getOrder($order_id);
+			$order_info = $this->model_sale_order->getOrder($order_id);
 
-            return (int)$order_info['order_status_id'];
-        }
-    }
+			return (int)$order_info['order_status_id'];
+		}
+	}
 
 	/**
 	 * editOrderRecurringStatus
@@ -108,17 +108,17 @@ class ModelExtensionPaymentSquareup extends Model {
 	 *
 	 * @return void
 	 */
-    public function editOrderRecurringStatus(int $order_recurring_id, int $status): void {
-        $this->db->query("UPDATE `" . DB_PREFIX . "order_recurring` SET `status` = '" . (int)$status . "' WHERE `order_recurring_id` = '" . (int)$order_recurring_id . "'");
-    }
+	public function editOrderRecurringStatus(int $order_recurring_id, int $status): void {
+		$this->db->query("UPDATE `" . DB_PREFIX . "order_recurring` SET `status` = '" . (int)$status . "' WHERE `order_recurring_id` = '" . (int)$order_recurring_id . "'");
+	}
 
 	/**
 	 * createTables
 	 *
 	 * @return void
 	 */
-    public function createTables(): void {
-        $this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "squareup_transaction` (
+	public function createTables(): void {
+		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "squareup_transaction` (
           `squareup_transaction_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
           `transaction_id` char(40) NOT NULL,
           `merchant_id` char(32) NOT NULL,
@@ -146,7 +146,7 @@ class ModelExtensionPaymentSquareup extends Model {
           KEY `transaction_id` (`transaction_id`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 
-        $this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "squareup_token` (
+		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "squareup_token` (
          `squareup_token_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
          `customer_id` int(11) NOT NULL,
          `sandbox` tinyint(1) NOT NULL,
@@ -160,22 +160,22 @@ class ModelExtensionPaymentSquareup extends Model {
          KEY `cardExists` (`customer_id`, `brand`, `ends_in`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8");
 
-        $this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "squareup_customer` (
+		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "squareup_customer` (
          `customer_id` int(11) NOT NULL,
          `sandbox` tinyint(1) NOT NULL,
          `square_customer_id` varchar(32) NOT NULL,
          PRIMARY KEY (`customer_id`, `sandbox`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8");
-    }
+	}
 
 	/**
 	 * dropTables
 	 *
 	 * @return void
 	 */
-    public function dropTables(): void {
-        $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "squareup_transaction`");
-        $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "squareup_token`");
-        $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "squareup_customer`");
-    }
+	public function dropTables(): void {
+		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "squareup_transaction`");
+		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "squareup_token`");
+		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "squareup_customer`");
+	}
 }

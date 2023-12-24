@@ -7,6 +7,7 @@
 use Cardinity\Client;
 use Cardinity\Method\Payment;
 use Cardinity\Method\Refund;
+
 class ModelExtensionPaymentCardinity extends Model {
 	/**
 	 * getOrder
@@ -15,11 +16,11 @@ class ModelExtensionPaymentCardinity extends Model {
 	 *
 	 * @return array
 	 */
-    public function getOrder(int $order_id): array {
-        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "cardinity_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
+	public function getOrder(int $order_id): array {
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "cardinity_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
-        return $query->row;
-    }
+		return $query->row;
+	}
 
 	/**
 	 * getOrder
@@ -28,7 +29,7 @@ class ModelExtensionPaymentCardinity extends Model {
 	 *
 	 * @return object|null
 	 */
-    public function createClient(array $credentials): ?object {
+	public function createClient(array $credentials): ?object {
 		if ($credentials) {
 			return Client::create([
 				'consumerKey'    => $credentials['key'],
@@ -37,7 +38,7 @@ class ModelExtensionPaymentCardinity extends Model {
 		} else {
 			return null;
 		}
-    }
+	}
 
 	/**
 	 * verifyCredentials
@@ -46,19 +47,19 @@ class ModelExtensionPaymentCardinity extends Model {
 	 *
 	 * @return bool
 	 */
-    public function verifyCredentials(object $client): bool {
-        $method = new \Payment\GetAll(10);
+	public function verifyCredentials(object $client): bool {
+		$method = new \Payment\GetAll(10);
 
-        try {
-            $client->call($method);
+		try {
+			$client->call($method);
 
-            return true;
-        } catch (\Exception $e) {
-            $this->log($e->getMessage());
+			return true;
+		} catch (\Exception $e) {
+			$this->log($e->getMessage());
 
-            return false;
-        }
-    }
+			return false;
+		}
+	}
 
 	/**
 	 * getPayment
@@ -68,19 +69,19 @@ class ModelExtensionPaymentCardinity extends Model {
 	 *
 	 * @return object|null
 	 */
-    public function getPayment(object $client, string $payment_id): ?object {
-        $method = new \Payment\Get($payment_id);
+	public function getPayment(object $client, string $payment_id): ?object {
+		$method = new \Payment\Get($payment_id);
 
-        try {
-            $payment = $client->call($method);
+		try {
+			$payment = $client->call($method);
 
-            return $payment;
-        } catch (\Exception $e) {
-            $this->log($e->getMessage());
+			return $payment;
+		} catch (\Exception $e) {
+			$this->log($e->getMessage());
 
-            return null;
-        }
-    }
+			return null;
+		}
+	}
 
 	/**
 	 * getRefunds
@@ -90,19 +91,19 @@ class ModelExtensionPaymentCardinity extends Model {
 	 *
 	 * @return object|null
 	 */
-    public function getRefunds(object $client, string $payment_id): ?object {
-        $method = new \Refund\GetAll($payment_id);
+	public function getRefunds(object $client, string $payment_id): ?object {
+		$method = new \Refund\GetAll($payment_id);
 
-        try {
-            $refunds = $client->call($method);
+		try {
+			$refunds = $client->call($method);
 
-            return $refunds;
-        } catch (\Exception $e) {
-            $this->log($e->getMessage());
+			return $refunds;
+		} catch (\Exception $e) {
+			$this->log($e->getMessage());
 
-            return null;
-        }
-    }
+			return null;
+		}
+	}
 
 	/**
 	 * refundPayment
@@ -114,19 +115,19 @@ class ModelExtensionPaymentCardinity extends Model {
 	 *
 	 * @return object|null
 	 */
-    public function refundPayment(object $client, string $payment_id, float $amount, string $description): ?object {
-        $method = new \Refund\Create($payment_id, $amount, $description);
+	public function refundPayment(object $client, string $payment_id, float $amount, string $description): ?object {
+		$method = new \Refund\Create($payment_id, $amount, $description);
 
-        try {
-            $refund = $client->call($method);
+		try {
+			$refund = $client->call($method);
 
-            return $refund;
-        } catch (\Exception $e) {
-            $this->log($e->getMessage());
+			return $refund;
+		} catch (\Exception $e) {
+			$this->log($e->getMessage());
 
-            return null;
-        }
-    }
+			return null;
+		}
+	}
 
 	/**
 	 * Log
@@ -135,22 +136,22 @@ class ModelExtensionPaymentCardinity extends Model {
 	 *
 	 * @return void
 	 */
-    public function log(string $data): void {
-        if ($this->config->get('payment_cardinity_debug')) {
-            $backtrace = debug_backtrace();
+	public function log(string $data): void {
+		if ($this->config->get('payment_cardinity_debug')) {
+			$backtrace = debug_backtrace();
 
-            $log = new \Log('cardinity.log');
-            $log->write('(' . $backtrace[1]['class'] . '::' . $backtrace[1]['function'] . ') - ' . print_r($data, true));
-        }
-    }
+			$log = new \Log('cardinity.log');
+			$log->write('(' . $backtrace[1]['class'] . '::' . $backtrace[1]['function'] . ') - ' . print_r($data, true));
+		}
+	}
 
 	/**
 	 * Install
 	 *
 	 * @return void
 	 */
-    public function install(): void {
-        $this->db->query("
+	public function install(): void {
+		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "cardinity_order` (
 			  `cardinity_order_id` INT(11) NOT NULL AUTO_INCREMENT,
 			  `order_id` INT(11) NOT NULL,
@@ -158,14 +159,14 @@ class ModelExtensionPaymentCardinity extends Model {
 			  PRIMARY KEY (`cardinity_order_id`)
 			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;
 		");
-    }
+	}
 
 	/**
 	 * Uninstall
 	 *
 	 * @return void
 	 */
-    public function uninstall(): void {
-        $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "cardinity_order`;");
-    }
+	public function uninstall(): void {
+		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "cardinity_order`;");
+	}
 }

@@ -16,13 +16,13 @@ class ControllerEventLanguage extends Controller {
 	 *
 	 * view/ * /before
 	 */
-    public function index(string &$route, array &$args): void {
-        foreach ($this->language->all() as $key => $value) {
-            if (!isset($args[$key])) {
-                $args[$key] = $value;
-            }
-        }
-    }
+	public function index(string &$route, array &$args): void {
+		foreach ($this->language->all() as $key => $value) {
+			if (!isset($args[$key])) {
+				$args[$key] = $value;
+			}
+		}
+	}
 
 	/**
 	 * Before
@@ -36,9 +36,9 @@ class ControllerEventLanguage extends Controller {
 	 *
 	 * controller/ * /before
 	 */
-    public function before(string &$route, mixed &$args): void {
-        $this->language->set('backup', $this->language->all());
-    }
+	public function before(string &$route, mixed &$args): void {
+		$this->language->set('backup', $this->language->all());
+	}
 
 	/**
 	 * After
@@ -53,13 +53,13 @@ class ControllerEventLanguage extends Controller {
 	 *
 	 * controller/ * / * /after
 	 */
-    public function after(string &$route, array &$args, mixed &$output): void {
-        $data = $this->language->get('backup');
+	public function after(string &$route, array &$args, mixed &$output): void {
+		$data = $this->language->get('backup');
 
-        if (is_array($data)) {
-            foreach ($data as $key => $value) {
-                $this->language->set($key, $value);
-            }
-        }
-    }
+		if (is_array($data)) {
+			foreach ($data as $key => $value) {
+				$this->language->set($key, $value);
+			}
+		}
+	}
 }

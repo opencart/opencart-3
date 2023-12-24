@@ -10,8 +10,8 @@ class ModelExtensionFraudFraudLabsPro extends Model {
 	 *
 	 * @return void
 	 */
-    public function install(): void {
-        $this->db->query("
+	public function install(): void {
+		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "fraudlabspro` (
 				`order_id` VARCHAR(11) NOT NULL,
 				`is_country_match` CHAR(2) NOT NULL,
@@ -64,44 +64,44 @@ class ModelExtensionFraudFraudLabsPro extends Model {
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 		");
 
-        $this->db->query("INSERT INTO `" . DB_PREFIX . "order_status` SET `language_id` = '1', `name` = 'Fraud'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "order_status` SET `language_id` = '1', `name` = 'Fraud'");
 
-        $status_fraud_id = $this->db->getLastId();
+		$status_fraud_id = $this->db->getLastId();
 
-        $this->db->query("INSERT INTO `" . DB_PREFIX . "order_status` SET `language_id` = '1', `name` = 'Fraud Review'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "order_status` SET `language_id` = '1', `name` = 'Fraud Review'");
 
-        $status_fraud_review_id = $this->db->getLastId();
+		$status_fraud_review_id = $this->db->getLastId();
 
-        $this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `code` = 'fraudlabspro', `key` = 'fraud_fraudlabspro_score', `value` = '80', `serialized` = '0'");
-        $this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `code` = 'fraudlabspro', `key` = 'fraud_fraudlabspro_order_status_id', `value` = '" . (int)$status_fraud_id . "', `serialized` = '0'");
-        $this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `code` = 'fraudlabspro', `key` = 'fraud_fraudlabspro_review_status_id', `value` = '" . (int)$status_fraud_review_id . "', `serialized` = '0'");
-        $this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `code` = 'fraudlabspro', `key` = 'fraud_fraudlabspro_approve_status_id', `value` = '2', `serialized` = '0'");
-        $this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `code` = 'fraudlabspro', `key` = 'fraud_fraudlabspro_reject_status_id', `value` = '8', `serialized` = '0'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `code` = 'fraudlabspro', `key` = 'fraud_fraudlabspro_score', `value` = '80', `serialized` = '0'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `code` = 'fraudlabspro', `key` = 'fraud_fraudlabspro_order_status_id', `value` = '" . (int)$status_fraud_id . "', `serialized` = '0'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `code` = 'fraudlabspro', `key` = 'fraud_fraudlabspro_review_status_id', `value` = '" . (int)$status_fraud_review_id . "', `serialized` = '0'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `code` = 'fraudlabspro', `key` = 'fraud_fraudlabspro_approve_status_id', `value` = '2', `serialized` = '0'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `code` = 'fraudlabspro', `key` = 'fraud_fraudlabspro_reject_status_id', `value` = '8', `serialized` = '0'");
 
-        // Events
-        $this->load->model('setting/event');
+		// Events
+		$this->load->model('setting/event');
 
-        $this->model_setting_event->addEvent('fraud_fraudlabspro_history', 'catalog/model/checkout/order/addOrderHistory/after', 'extension/module/fraudlabspro/addOrderHistory');
+		$this->model_setting_event->addEvent('fraud_fraudlabspro_history', 'catalog/model/checkout/order/addOrderHistory/after', 'extension/module/fraudlabspro/addOrderHistory');
 
-        $this->cache->delete('order_status.' . (int)$this->config->get('config_language_id'));
-    }
+		$this->cache->delete('order_status.' . (int)$this->config->get('config_language_id'));
+	}
 
 	/**
 	 * Uninstall
 	 *
 	 * @return void
 	 */
-    public function uninstall(): void {
-        //$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "fraudlabspro`");
+	public function uninstall(): void {
+		//$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "fraudlabspro`");
 
-        $this->db->query("DELETE FROM `" . DB_PREFIX . "order_status` WHERE `name` = 'Fraud'");
-        $this->db->query("DELETE FROM `" . DB_PREFIX . "order_status` WHERE `name` = 'Fraud Review'");
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "order_status` WHERE `name` = 'Fraud'");
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "order_status` WHERE `name` = 'Fraud Review'");
 
-        // Events
-        $this->load->model('setting/event');
+		// Events
+		$this->load->model('setting/event');
 
-        $this->model_setting_event->deleteEventByCode('fraud_fraudlabspro_history');
-    }
+		$this->model_setting_event->deleteEventByCode('fraud_fraudlabspro_history');
+	}
 
 	/**
 	 * getOrder
@@ -110,9 +110,9 @@ class ModelExtensionFraudFraudLabsPro extends Model {
 	 *
 	 * @return array
 	 */
-    public function getOrder(int $order_id): array {
-        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "fraudlabspro` WHERE `order_id` = '" . (int)$order_id . "'");
+	public function getOrder(int $order_id): array {
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "fraudlabspro` WHERE `order_id` = '" . (int)$order_id . "'");
 
-        return $query->row;
-    }
+		return $query->row;
+	}
 }

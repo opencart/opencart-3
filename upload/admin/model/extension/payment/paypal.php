@@ -10,196 +10,196 @@ class ModelExtensionPaymentPayPal extends Model {
 	 *
 	 * @return int
 	 */
-    public function getTotalSales(): int {
-        $implode = [];
+	public function getTotalSales(): int {
+		$implode = [];
 
-        foreach ((array)$this->config->get('config_complete_status') as $order_status_id) {
-            $implode[] = "'" . (int)$order_status_id . "'";
-        }
+		foreach ((array)$this->config->get('config_complete_status') as $order_status_id) {
+			$implode[] = "'" . (int)$order_status_id . "'";
+		}
 
-        $query = $this->db->query("SELECT SUM(`total`) AS paypal_total FROM `" . DB_PREFIX . "order` WHERE `order_status_id` IN(" . implode(',', $implode) . ") AND `payment_code` = 'paypal'");
+		$query = $this->db->query("SELECT SUM(`total`) AS paypal_total FROM `" . DB_PREFIX . "order` WHERE `order_status_id` IN(" . implode(',', $implode) . ") AND `payment_code` = 'paypal'");
 
-        return (int)$query->row['paypal_total'];
-    }
+		return (int)$query->row['paypal_total'];
+	}
 
 	/**
 	 * getTotalSalesByDay
 	 *
 	 * @return array
 	 */
-    public function getTotalSalesByDay(): array {
-        $implode = [];
+	public function getTotalSalesByDay(): array {
+		$implode = [];
 
-        foreach ((array)$this->config->get('config_complete_status') as $order_status_id) {
-            $implode[] = "'" . (int)$order_status_id . "'";
-        }
+		foreach ((array)$this->config->get('config_complete_status') as $order_status_id) {
+			$implode[] = "'" . (int)$order_status_id . "'";
+		}
 
-        $sale_data = [];
+		$sale_data = [];
 
-        for ($i = 0; $i < 24; $i++) {
-            $sale_data[$i] = [
-                'hour'         => $i,
-                'total'        => 0,
-                'paypal_total' => 0
-            ];
-        }
+		for ($i = 0; $i < 24; $i++) {
+			$sale_data[$i] = [
+				'hour'         => $i,
+				'total'        => 0,
+				'paypal_total' => 0
+			];
+		}
 
-        $query = $this->db->query("SELECT SUM(`total`) AS `total`, SUM(IF (`payment_code` = 'paypal', total, 0)) AS paypal_total, HOUR(`date_added`) AS hour FROM `" . DB_PREFIX . "order` WHERE `order_status_id` IN(" . implode(',', $implode) . ") AND DATE(`date_added`) = DATE(NOW()) GROUP BY HOUR(`date_added`) ORDER BY `date_added` ASC");
+		$query = $this->db->query("SELECT SUM(`total`) AS `total`, SUM(IF (`payment_code` = 'paypal', total, 0)) AS paypal_total, HOUR(`date_added`) AS hour FROM `" . DB_PREFIX . "order` WHERE `order_status_id` IN(" . implode(',', $implode) . ") AND DATE(`date_added`) = DATE(NOW()) GROUP BY HOUR(`date_added`) ORDER BY `date_added` ASC");
 
-        foreach ($query->rows as $result) {
-            $sale_data[$result['hour']] = [
-                'hour'         => $result['hour'],
-                'total'        => $result['total'],
-                'paypal_total' => $result['paypal_total']
-            ];
-        }
+		foreach ($query->rows as $result) {
+			$sale_data[$result['hour']] = [
+				'hour'         => $result['hour'],
+				'total'        => $result['total'],
+				'paypal_total' => $result['paypal_total']
+			];
+		}
 
-        return $sale_data;
-    }
+		return $sale_data;
+	}
 
 	/**
 	 * getTotalSalesByWeek
 	 *
 	 * @return array
 	 */
-    public function getTotalSalesByWeek(): array {
-        $implode = [];
+	public function getTotalSalesByWeek(): array {
+		$implode = [];
 
-        foreach ((array)$this->config->get('config_complete_status') as $order_status_id) {
-            $implode[] = "'" . (int)$order_status_id . "'";
-        }
+		foreach ((array)$this->config->get('config_complete_status') as $order_status_id) {
+			$implode[] = "'" . (int)$order_status_id . "'";
+		}
 
-        $sale_data = [];
+		$sale_data = [];
 
-        $date_start = strtotime('-' . date('w') . ' days');
+		$date_start = strtotime('-' . date('w') . ' days');
 
-        for ($i = 0; $i < 7; $i++) {
-            $date = date('Y-m-d', $date_start + ($i * 86400));
+		for ($i = 0; $i < 7; $i++) {
+			$date = date('Y-m-d', $date_start + ($i * 86400));
 
-            $sale_data[date('w', strtotime($date))] = [
-                'day'          => date('D', strtotime($date)),
-                'total'        => 0,
-                'paypal_total' => 0
-            ];
-        }
+			$sale_data[date('w', strtotime($date))] = [
+				'day'          => date('D', strtotime($date)),
+				'total'        => 0,
+				'paypal_total' => 0
+			];
+		}
 
-        $query = $this->db->query("SELECT SUM(`total`) AS `total`, SUM(IF (`payment_code` = 'paypal', total, 0)) AS paypal_total, `date_added` FROM `" . DB_PREFIX . "order` WHERE `order_status_id` IN(" . implode(',', $implode) . ") AND DATE(`date_added`) >= DATE('" . $this->db->escape(date('Y-m-d', $date_start)) . "') GROUP BY DAYNAME(`date_added`)");
+		$query = $this->db->query("SELECT SUM(`total`) AS `total`, SUM(IF (`payment_code` = 'paypal', total, 0)) AS paypal_total, `date_added` FROM `" . DB_PREFIX . "order` WHERE `order_status_id` IN(" . implode(',', $implode) . ") AND DATE(`date_added`) >= DATE('" . $this->db->escape(date('Y-m-d', $date_start)) . "') GROUP BY DAYNAME(`date_added`)");
 
-        foreach ($query->rows as $result) {
-            $sale_data[date('w', strtotime($result['date_added']))] = [
-                'day'          => date('D', strtotime($result['date_added'])),
-                'total'        => $result['total'],
-                'paypal_total' => $result['paypal_total']
-            ];
-        }
+		foreach ($query->rows as $result) {
+			$sale_data[date('w', strtotime($result['date_added']))] = [
+				'day'          => date('D', strtotime($result['date_added'])),
+				'total'        => $result['total'],
+				'paypal_total' => $result['paypal_total']
+			];
+		}
 
-        return $sale_data;
-    }
+		return $sale_data;
+	}
 
 	/**
 	 * getTotalSalesByMonth
 	 *
 	 * @return array
 	 */
-    public function getTotalSalesByMonth(): array {
-        $implode = [];
+	public function getTotalSalesByMonth(): array {
+		$implode = [];
 
-        foreach ((array)$this->config->get('config_complete_status') as $order_status_id) {
-            $implode[] = "'" . (int)$order_status_id . "'";
-        }
+		foreach ((array)$this->config->get('config_complete_status') as $order_status_id) {
+			$implode[] = "'" . (int)$order_status_id . "'";
+		}
 
-        $sale_data = [];
+		$sale_data = [];
 
-        for ($i = 1; $i <= date('t'); $i++) {
-            $date = date('Y') . '-' . date('m') . '-' . $i;
+		for ($i = 1; $i <= date('t'); $i++) {
+			$date = date('Y') . '-' . date('m') . '-' . $i;
 
-            $sale_data[date('j', strtotime($date))] = [
-                'day'          => date('d', strtotime($date)),
-                'total'        => 0,
-                'paypal_total' => 0
-            ];
-        }
+			$sale_data[date('j', strtotime($date))] = [
+				'day'          => date('d', strtotime($date)),
+				'total'        => 0,
+				'paypal_total' => 0
+			];
+		}
 
-        $query = $this->db->query("SELECT SUM(`total`) AS `total`, SUM(IF (`payment_code` = 'paypal', total, 0)) AS paypal_total, `date_added` FROM `" . DB_PREFIX . "order` WHERE `order_status_id` IN(" . implode(',', $implode) . ") AND DATE(`date_added`) >= '" . $this->db->escape(date('Y') . '-' . date('m') . '-1') . "' GROUP BY DATE(`date_added`)");
+		$query = $this->db->query("SELECT SUM(`total`) AS `total`, SUM(IF (`payment_code` = 'paypal', total, 0)) AS paypal_total, `date_added` FROM `" . DB_PREFIX . "order` WHERE `order_status_id` IN(" . implode(',', $implode) . ") AND DATE(`date_added`) >= '" . $this->db->escape(date('Y') . '-' . date('m') . '-1') . "' GROUP BY DATE(`date_added`)");
 
-        foreach ($query->rows as $result) {
-            $sale_data[date('j', strtotime($result['date_added']))] = [
-                'day'          => date('d', strtotime($result['date_added'])),
-                'total'        => $result['total'],
-                'paypal_total' => $result['paypal_total']
-            ];
-        }
+		foreach ($query->rows as $result) {
+			$sale_data[date('j', strtotime($result['date_added']))] = [
+				'day'          => date('d', strtotime($result['date_added'])),
+				'total'        => $result['total'],
+				'paypal_total' => $result['paypal_total']
+			];
+		}
 
-        return $sale_data;
-    }
+		return $sale_data;
+	}
 
 	/**
 	 * getTotalSalesByYear
 	 *
 	 * @return array
 	 */
-    public function getTotalSalesByYear(): array {
-        $implode = [];
+	public function getTotalSalesByYear(): array {
+		$implode = [];
 
-        foreach ((array)$this->config->get('config_complete_status') as $order_status_id) {
-            $implode[] = "'" . (int)$order_status_id . "'";
-        }
+		foreach ((array)$this->config->get('config_complete_status') as $order_status_id) {
+			$implode[] = "'" . (int)$order_status_id . "'";
+		}
 
-        $sale_data = [];
+		$sale_data = [];
 
-        for ($i = 1; $i <= 12; $i++) {
-            $sale_data[$i] = [
-                'month'        => date('M', mktime(0, 0, 0, $i)),
-                'total'        => 0,
-                'paypal_total' => 0
-            ];
-        }
+		for ($i = 1; $i <= 12; $i++) {
+			$sale_data[$i] = [
+				'month'        => date('M', mktime(0, 0, 0, $i)),
+				'total'        => 0,
+				'paypal_total' => 0
+			];
+		}
 
-        $query = $this->db->query("SELECT SUM(`total`) AS `total`, SUM(IF (`payment_code` = 'paypal', total, 0)) AS paypal_total, `date_added` FROM `" . DB_PREFIX . "order` WHERE `order_status_id` IN(" . implode(',', $implode) . ") AND YEAR(`date_added`) = YEAR(NOW()) GROUP BY MONTH(`date_added`)");
+		$query = $this->db->query("SELECT SUM(`total`) AS `total`, SUM(IF (`payment_code` = 'paypal', total, 0)) AS paypal_total, `date_added` FROM `" . DB_PREFIX . "order` WHERE `order_status_id` IN(" . implode(',', $implode) . ") AND YEAR(`date_added`) = YEAR(NOW()) GROUP BY MONTH(`date_added`)");
 
-        foreach ($query->rows as $result) {
-            $sale_data[date('n', strtotime($result['date_added']))] = [
-                'month'        => date('M', strtotime($result['date_added'])),
-                'total'        => $result['total'],
-                'paypal_total' => $result['paypal_total']
-            ];
-        }
+		foreach ($query->rows as $result) {
+			$sale_data[date('n', strtotime($result['date_added']))] = [
+				'month'        => date('M', strtotime($result['date_added'])),
+				'total'        => $result['total'],
+				'paypal_total' => $result['paypal_total']
+			];
+		}
 
-        return $sale_data;
-    }
+		return $sale_data;
+	}
 
 	/**
 	 * setAgreeStatus
 	 *
 	 * @return void
 	 */
-    public function setAgreeStatus(): void {
-        $this->db->query("UPDATE `" . DB_PREFIX . "country` SET `status` = '0' WHERE (`iso_code_2` = 'CU' OR `iso_code_2` = 'IR' OR `iso_code_2` = 'SY' OR `iso_code_2` = 'KP')");
-        $this->db->query("UPDATE `" . DB_PREFIX . "zone` SET `status` = '0' WHERE `country_id` = '220' AND (`code` = '43' OR `code` = '14' OR `code` = '09')");
-    }
+	public function setAgreeStatus(): void {
+		$this->db->query("UPDATE `" . DB_PREFIX . "country` SET `status` = '0' WHERE (`iso_code_2` = 'CU' OR `iso_code_2` = 'IR' OR `iso_code_2` = 'SY' OR `iso_code_2` = 'KP')");
+		$this->db->query("UPDATE `" . DB_PREFIX . "zone` SET `status` = '0' WHERE `country_id` = '220' AND (`code` = '43' OR `code` = '14' OR `code` = '09')");
+	}
 
 	/**
 	 * getAgreeStatus
 	 *
 	 * @return bool
 	 */
-    public function getAgreeStatus(): bool {
-        $agree_status = true;
+	public function getAgreeStatus(): bool {
+		$agree_status = true;
 
-        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "country` WHERE `status` = '1' AND (`iso_code_2` = 'CU' OR `iso_code_2` = 'IR' OR `iso_code_2` = 'SY' OR `iso_code_2` = 'KP')");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "country` WHERE `status` = '1' AND (`iso_code_2` = 'CU' OR `iso_code_2` = 'IR' OR `iso_code_2` = 'SY' OR `iso_code_2` = 'KP')");
 
-        if ($query->rows) {
-            $agree_status = false;
-        }
+		if ($query->rows) {
+			$agree_status = false;
+		}
 
-        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone` WHERE `country_id` = '220' AND `status` = '1' AND (`code` = '43' OR `code` = '14' OR `code` = '09')");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone` WHERE `country_id` = '220' AND `status` = '1' AND (`code` = '43' OR `code` = '14' OR `code` = '09')");
 
-        if ($query->rows) {
-            $agree_status = false;
-        }
+		if ($query->rows) {
+			$agree_status = false;
+		}
 
-        return $agree_status;
-    }
+		return $agree_status;
+	}
 
 	/**
 	 * checkVersion
@@ -209,30 +209,30 @@ class ModelExtensionPaymentPayPal extends Model {
 	 *
 	 * @return array
 	 */
-    public function checkVersion(string $opencart_version, string $paypal_version): array {
-        $curl = curl_init();
+	public function checkVersion(string $opencart_version, string $paypal_version): array {
+		$curl = curl_init();
 
-        curl_setopt($curl, CURLOPT_URL, 'https://www.opencart.com/index.php?route=api/promotion/paypalCheckoutIntegration&opencart=' . $opencart_version . '&paypal=' . $paypal_version);
-        curl_setopt($curl, CURLOPT_HEADER, 0);
-        curl_setopt($curl, CURLOPT_HEADER, 0);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, false);
-        curl_setopt($curl, CURLOPT_FORBID_REUSE, 1);
-        curl_setopt($curl, CURLOPT_FRESH_CONNECT, 1);
+		curl_setopt($curl, CURLOPT_URL, 'https://www.opencart.com/index.php?route=api/promotion/paypalCheckoutIntegration&opencart=' . $opencart_version . '&paypal=' . $paypal_version);
+		curl_setopt($curl, CURLOPT_HEADER, 0);
+		curl_setopt($curl, CURLOPT_HEADER, 0);
+		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($curl, CURLOPT_FOLLOWLOCATION, false);
+		curl_setopt($curl, CURLOPT_FORBID_REUSE, 1);
+		curl_setopt($curl, CURLOPT_FRESH_CONNECT, 1);
 
-        $response = curl_exec($curl);
+		$response = curl_exec($curl);
 
-        curl_close($curl);
+		curl_close($curl);
 
-        $result = json_decode($response, true);
+		$result = json_decode($response, true);
 
-        if ($result) {
-            return $result;
-        } else {
-            return [];
-        }
-    }
+		if ($result) {
+			return $result;
+		} else {
+			return [];
+		}
+	}
 
 	/**
 	 * sendContact
@@ -241,23 +241,23 @@ class ModelExtensionPaymentPayPal extends Model {
 	 *
 	 * @return void
 	 */
-    public function sendContact(array $data): void {
-        $curl = curl_init();
+	public function sendContact(array $data): void {
+		$curl = curl_init();
 
-        curl_setopt($curl, CURLOPT_URL, 'https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8');
-        curl_setopt($curl, CURLOPT_HEADER, 0);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, false);
-        curl_setopt($curl, CURLOPT_FORBID_REUSE, 1);
-        curl_setopt($curl, CURLOPT_FRESH_CONNECT, 1);
-        curl_setopt($curl, CURLOPT_POST, 1);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($data));
+		curl_setopt($curl, CURLOPT_URL, 'https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8');
+		curl_setopt($curl, CURLOPT_HEADER, 0);
+		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($curl, CURLOPT_FOLLOWLOCATION, false);
+		curl_setopt($curl, CURLOPT_FORBID_REUSE, 1);
+		curl_setopt($curl, CURLOPT_FRESH_CONNECT, 1);
+		curl_setopt($curl, CURLOPT_POST, 1);
+		curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($data));
 
-        $response = curl_exec($curl);
+		$response = curl_exec($curl);
 
-        curl_close($curl);
-    }
+		curl_close($curl);
+	}
 
 	/**
 	 * Logger
@@ -267,18 +267,18 @@ class ModelExtensionPaymentPayPal extends Model {
 	 *
 	 * @return void
 	 */
-    public function log(array $data, string $title = null): void {
-        // Setting
-        $_config = new \Config();
-        $_config->load('paypal');
+	public function log(array $data, string $title = null): void {
+		// Setting
+		$_config = new \Config();
+		$_config->load('paypal');
 
-        $config_setting = $_config->get('paypal_setting');
+		$config_setting = $_config->get('paypal_setting');
 
-        $setting = array_replace_recursive((array)$config_setting, (array)$this->config->get('payment_paypal_setting'));
+		$setting = array_replace_recursive((array)$config_setting, (array)$this->config->get('payment_paypal_setting'));
 
-        if ($setting['general']['debug']) {
-            $log = new Log('paypal.log');
-            $log->write('PayPal debug (' . $title . '): ' . json_encode($data));
-        }
-    }
+		if ($setting['general']['debug']) {
+			$log = new Log('paypal.log');
+			$log->write('PayPal debug (' . $title . '): ' . json_encode($data));
+		}
+	}
 }

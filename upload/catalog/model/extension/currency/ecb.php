@@ -13,9 +13,9 @@ class ModelExtensionCurrencyEcb extends Model {
 	 *
 	 * @return void
 	 */
-    public function editValueByCode(string $code, float $value): void {
-        $this->db->query("UPDATE `" . DB_PREFIX . "currency` SET `value` = '" . (float)$value . "', `date_modified` = NOW() WHERE `code` = '" . $this->db->escape((string)$code) . "'");
+	public function editValueByCode(string $code, float $value): void {
+		$this->db->query("UPDATE `" . DB_PREFIX . "currency` SET `value` = '" . (float)$value . "', `date_modified` = NOW() WHERE `code` = '" . $this->db->escape((string)$code) . "'");
 
-        $this->cache->delete('currency');
-    }
+		$this->cache->delete('currency');
+	}
 }

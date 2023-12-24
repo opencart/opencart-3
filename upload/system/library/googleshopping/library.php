@@ -2,11 +2,11 @@
 namespace googleshopping;
 
 abstract class Library {
-    protected $registry;
+	protected $registry;
 
-    public function __construct($registry) {
-        $this->registry = $registry;
-    }
+	public function __construct($registry) {
+		$this->registry = $registry;
+	}
 
 	/**
 	 * Get
@@ -15,9 +15,9 @@ abstract class Library {
 	 *
 	 * @return mixed
 	 */
-    public function __get($key) {
-        return $this->registry->get($key);
-    }
+	public function __get($key) {
+		return $this->registry->get($key);
+	}
 
 	/**
 	 * Set
@@ -27,7 +27,7 @@ abstract class Library {
 	 *
 	 * @return void
 	 */
-    public function __set($key, $value) {
-        $this->registry->set($key, $value);
-    }
+	public function __set($key, $value): void {
+		$this->registry->set($key, $value);
+	}
 }

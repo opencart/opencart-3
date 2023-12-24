@@ -16,12 +16,12 @@ class ControllerEventStatistics extends Controller {
 	 *
 	 * catalog/model/catalog/review/addReview/after
 	 */
-    public function addReview(string &$route, array &$args, mixed &$output): void {
-        // Statistics
-        $this->load->model('report/statistics');
+	public function addReview(string &$route, array &$args, mixed &$output): void {
+		// Statistics
+		$this->load->model('report/statistics');
 
-        $this->model_report_statistics->addValue('review', 1);
-    }
+		$this->model_report_statistics->addValue('review', 1);
+	}
 
 	/**
 	 * addReturn
@@ -34,12 +34,12 @@ class ControllerEventStatistics extends Controller {
 	 *
 	 * catalog/model/account/returns/addReturn/after
 	 */
-    public function addReturn(string &$route, array &$args, mixed &$output): void {
-        // Statistics
-        $this->load->model('report/statistics');
+	public function addReturn(string &$route, array &$args, mixed &$output): void {
+		// Statistics
+		$this->load->model('report/statistics');
 
-        $this->model_report_statistics->addValue('returns', 1);
-    }
+		$this->model_report_statistics->addValue('returns', 1);
+	}
 
 	/**
 	 * addHistory
@@ -51,45 +51,45 @@ class ControllerEventStatistics extends Controller {
 	 *
 	 * catalog/model/checkout/order/addHistory/before
 	 */
-    public function addHistory(string &$route, array &$args, mixed &$output): void {
-        // Orders
-        $this->load->model('checkout/order');
+	public function addHistory(string &$route, array &$args, mixed &$output): void {
+		// Orders
+		$this->load->model('checkout/order');
 
-        $order_info = $this->model_checkout_order->getOrder($args[0]);
+		$order_info = $this->model_checkout_order->getOrder($args[0]);
 
-        if ($order_info) {
+		if ($order_info) {
 			// Statistics
-            $this->load->model('report/statistics');
+			$this->load->model('report/statistics');
 
-            // If order status is in complete, or processing state, add value to sale total
-            if (in_array($args[1], array_merge((array)$this->config->get('config_processing_status'), (array)$this->config->get('config_complete_status')))) {
-                $this->model_report_statistics->addValue('order_sale', $order_info['total']);
-            }
+			// If order status is in complete, or processing state, add value to sale total
+			if (in_array($args[1], array_merge((array)$this->config->get('config_processing_status'), (array)$this->config->get('config_complete_status')))) {
+				$this->model_report_statistics->addValue('order_sale', $order_info['total']);
+			}
 
-            // If order status is not in complete, or processing state, remove value to sale total
-            if (!in_array($args[1], array_merge((array)$this->config->get('config_processing_status'), (array)$this->config->get('config_complete_status')))) {
-                $this->model_report_statistics->removeValue('order_sale', $order_info['total']);
-            }
+			// If order status is not in complete, or processing state, remove value to sale total
+			if (!in_array($args[1], array_merge((array)$this->config->get('config_processing_status'), (array)$this->config->get('config_complete_status')))) {
+				$this->model_report_statistics->removeValue('order_sale', $order_info['total']);
+			}
 
-            // Remove from processing status if new status is not in the array
-            if (in_array($order_info['order_status_id'], (array)$this->config->get('config_processing_status')) && !in_array($args[1], (array)$this->config->get('config_processing_status'))) {
-                $this->model_report_statistics->removeValue('order_processing', 1);
-            }
+			// Remove from processing status if new status is not in the array
+			if (in_array($order_info['order_status_id'], (array)$this->config->get('config_processing_status')) && !in_array($args[1], (array)$this->config->get('config_processing_status'))) {
+				$this->model_report_statistics->removeValue('order_processing', 1);
+			}
 
-            // Add to processing status if new status is not in the array
-            if (!in_array($order_info['order_status_id'], (array)$this->config->get('config_processing_status')) && in_array($args[1], (array)$this->config->get('config_processing_status'))) {
-                $this->model_report_statistics->addValue('order_processing', 1);
-            }
+			// Add to processing status if new status is not in the array
+			if (!in_array($order_info['order_status_id'], (array)$this->config->get('config_processing_status')) && in_array($args[1], (array)$this->config->get('config_processing_status'))) {
+				$this->model_report_statistics->addValue('order_processing', 1);
+			}
 
-            // Remove from complete status if new status is not in the array
-            if (in_array($order_info['order_status_id'], (array)$this->config->get('config_complete_status')) && !in_array($args[1], (array)$this->config->get('config_complete_status'))) {
-                $this->model_report_statistics->removeValue('order_complete', 1);
-            }
+			// Remove from complete status if new status is not in the array
+			if (in_array($order_info['order_status_id'], (array)$this->config->get('config_complete_status')) && !in_array($args[1], (array)$this->config->get('config_complete_status'))) {
+				$this->model_report_statistics->removeValue('order_complete', 1);
+			}
 
-            // Add to complete status if new status is not the array
-            if (!in_array($order_info['order_status_id'], (array)$this->config->get('config_complete_status')) && in_array($args[1], (array)$this->config->get('config_complete_status'))) {
-                $this->model_report_statistics->addValue('order_complete', 1);
-            }
-        }
-    }
+			// Add to complete status if new status is not the array
+			if (!in_array($order_info['order_status_id'], (array)$this->config->get('config_complete_status')) && in_array($args[1], (array)$this->config->get('config_complete_status'))) {
+				$this->model_report_statistics->addValue('order_complete', 1);
+			}
+		}
+	}
 }

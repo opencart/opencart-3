@@ -8,28 +8,28 @@ class ControllerStartupMaintenance extends Controller {
 	/**
 	 * @return object|\Action|null
 	 */
-    public function index(): ?object {
-        if ($this->config->get('config_maintenance')) {
-            // Route
-            if (isset($this->request->get['route'])) {
-                $route = $this->request->get['route'];
-            } else {
-                $route = $this->config->get('action_default');
-            }
+	public function index(): ?object {
+		if ($this->config->get('config_maintenance')) {
+			// Route
+			if (isset($this->request->get['route'])) {
+				$route = $this->request->get['route'];
+			} else {
+				$route = $this->config->get('action_default');
+			}
 
-            $ignore = [
-                'common/language/language',
-                'common/currency/currency'
-            ];
+			$ignore = [
+				'common/language/language',
+				'common/currency/currency'
+			];
 
-            // Show site if logged in as admin
-            $user = new \Cart\User($this->registry);
+			// Show site if logged in as admin
+			$user = new \Cart\User($this->registry);
 
-            if (substr($route, 0, 3) != 'api' && !in_array($route, $ignore) && !$user->isLogged()) {
-                return new \Action('common/maintenance');
-            }
-        }
+			if (substr($route, 0, 3) != 'api' && !in_array($route, $ignore) && !$user->isLogged()) {
+				return new \Action('common/maintenance');
+			}
+		}
 
-        return null;
-    }
+		return null;
+	}
 }

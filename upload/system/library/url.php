@@ -11,60 +11,60 @@
  * URL class
  */
 class Url {
-    private string $url = '';
-    private string $ssl = '';
-    private array $rewrite = [];
+	private string $url = '';
+	private string $ssl = '';
+	private array $rewrite = [];
 
-    /**
-     * Constructor
-     *
-     * @param string $url
-     * @param string $ssl
-     */
-    public function __construct(string $url, string $ssl = '') {
-        $this->url = $url;
-        $this->ssl = $ssl;
-    }
+	/**
+	 * Constructor
+	 *
+	 * @param string $url
+	 * @param string $ssl
+	 */
+	public function __construct(string $url, string $ssl = '') {
+		$this->url = $url;
+		$this->ssl = $ssl;
+	}
 
-    /**
+	/**
 	 * addRewrite
 	 *
-     * @param string $rewrite
-     *
-     * @return void
-     */
-    public function addRewrite(string $rewrite): void {
-        $this->rewrite[] = $rewrite;
-    }
+	 * @param string $rewrite
+	 *
+	 * @return void
+	 */
+	public function addRewrite(string $rewrite): void {
+		$this->rewrite[] = $rewrite;
+	}
 
-    /**
+	/**
 	 * Link
 	 *
-     * @param string $route
-     * @param mixed  $args
-     * @param bool   $secure
-     *
-     * @return string
-     */
-    public function link(string $route, $args = '', bool $secure = false): string {
-        if ($this->ssl && $secure) {
-            $url = $this->ssl . 'index.php?route=' . $route;
-        } else {
-            $url = $this->url . 'index.php?route=' . $route;
-        }
+	 * @param string $route
+	 * @param mixed  $args
+	 * @param bool   $secure
+	 *
+	 * @return string
+	 */
+	public function link(string $route, $args = '', bool $secure = false): string {
+		if ($this->ssl && $secure) {
+			$url = $this->ssl . 'index.php?route=' . $route;
+		} else {
+			$url = $this->url . 'index.php?route=' . $route;
+		}
 
-        if ($args) {
-            if (is_array($args)) {
-                $url .= '&amp;' . http_build_query($args);
-            } else {
-                $url .= str_replace('&', '&amp;', '&' . ltrim($args, '&'));
-            }
-        }
+		if ($args) {
+			if (is_array($args)) {
+				$url .= '&amp;' . http_build_query($args);
+			} else {
+				$url .= str_replace('&', '&amp;', '&' . ltrim($args, '&'));
+			}
+		}
 
-        foreach ($this->rewrite as $rewrite) {
-            $url = $rewrite->rewrite($url);
-        }
+		foreach ($this->rewrite as $rewrite) {
+			$url = $rewrite->rewrite($url);
+		}
 
-        return $url;
-    }
+		return $url;
+	}
 }

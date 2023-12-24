@@ -8,46 +8,46 @@ class ControllerMarketplaceApi extends Controller {
 	/**
 	 * @return void
 	 */
-    public function index(): void {
-        $this->load->language('marketplace/api');
+	public function index(): void {
+		$this->load->language('marketplace/api');
 
-        $data['user_token'] = $this->session->data['user_token'];
+		$data['user_token'] = $this->session->data['user_token'];
 
-        $this->response->setOutput($this->load->view('marketplace/api', $data));
-    }
+		$this->response->setOutput($this->load->view('marketplace/api', $data));
+	}
 
 	/**
 	 * Save
 	 *
 	 * @return void
 	 */
-    public function save(): void {
-        $this->load->language('marketplace/api');
+	public function save(): void {
+		$this->load->language('marketplace/api');
 
-        $json = [];
+		$json = [];
 
-        if (!$this->user->hasPermission('modify', 'marketplace/api')) {
-            $json['error']['warning'] = $this->language->get('error_permission');
-        }
+		if (!$this->user->hasPermission('modify', 'marketplace/api')) {
+			$json['error']['warning'] = $this->language->get('error_permission');
+		}
 
-        if (!$this->request->post['opencart_username']) {
-            $json['error']['username'] = $this->language->get('error_username');
-        }
+		if (!$this->request->post['opencart_username']) {
+			$json['error']['username'] = $this->language->get('error_username');
+		}
 
-        if (!$this->request->post['opencart_secret']) {
-            $json['error']['secret'] = $this->language->get('error_secret');
-        }
+		if (!$this->request->post['opencart_secret']) {
+			$json['error']['secret'] = $this->language->get('error_secret');
+		}
 
-        if (!$json) {
-            // Settings
-            $this->load->model('setting/setting');
+		if (!$json) {
+			// Settings
+			$this->load->model('setting/setting');
 
-            $this->model_setting_setting->editSetting('opencart', $this->request->post);
+			$this->model_setting_setting->editSetting('opencart', $this->request->post);
 
-            $json['success'] = $this->language->get('text_success');
-        }
+			$json['success'] = $this->language->get('text_success');
+		}
 
-        $this->response->addHeader('Content-Type: application/json');
-        $this->response->setOutput(json_encode($json));
-    }
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
+	}
 }

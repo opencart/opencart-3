@@ -11,28 +11,28 @@
  * Language class
  */
 class Language {
-    private $default = 'en-gb';
-    private $directory;
-    public $data = [];
+	private $default = 'en-gb';
+	private $directory;
+	public $data = [];
 
-    /**
-     * Constructor
-     *
-     * @param string $file
-     */
-    public function __construct(string $directory = '') {
-        $this->directory = $directory;
-    }
+	/**
+	 * Constructor
+	 *
+	 * @param string $file
+	 */
+	public function __construct(string $directory = '') {
+		$this->directory = $directory;
+	}
 
-    /**
+	/**
 	 * Get
 	 *
-     * @param string $key
+	 * @param string $key
 	 *
-     */
-    public function get(string $key) {
-        return isset($this->data[$key]) ? $this->data[$key] : $key;
-    }
+	 */
+	public function get(string $key) {
+		return isset($this->data[$key]) ? $this->data[$key] : $key;
+	}
 
 	/**
 	 * Set
@@ -42,50 +42,50 @@ class Language {
 	 *
 	 * @return void
 	 */
-    public function set(string $key, string $value): void {
-        $this->data[$key] = $value;
-    }
+	public function set(string $key, string $value): void {
+		$this->data[$key] = $value;
+	}
 
-    /**
+	/**
 	 * All
 	 *
-     * @return array
-     */
-    public function all(): array {
-        return $this->data;
-    }
+	 * @return array
+	 */
+	public function all(): array {
+		return $this->data;
+	}
 
-    /**
+	/**
 	 * Load
 	 *
-     * @param string $filename
-     * @param string $key
-     *
-     * @return array
-     */
-    public function load(string $filename, string $key = ''): array {
-        if (!$key) {
-            $_ = [];
+	 * @param string $filename
+	 * @param string $key
+	 *
+	 * @return array
+	 */
+	public function load(string $filename, string $key = ''): array {
+		if (!$key) {
+			$_ = [];
 
-            $file = DIR_LANGUAGE . $this->default . '/' . $filename . '.php';
+			$file = DIR_LANGUAGE . $this->default . '/' . $filename . '.php';
 
-            if (is_file($file)) {
-                require($file);
-            }
+			if (is_file($file)) {
+				require($file);
+			}
 
-            $file = DIR_LANGUAGE . $this->directory . '/' . $filename . '.php';
+			$file = DIR_LANGUAGE . $this->directory . '/' . $filename . '.php';
 
-            if (is_file($file)) {
-                require($file);
-            }
+			if (is_file($file)) {
+				require($file);
+			}
 
-            $this->data = array_merge($this->data, $_);
-        } else {
-            // Put the language into a sub key
-            $this->data[$key] = new \Language($this->directory);
-            $this->data[$key]->load($filename);
-        }
+			$this->data = array_merge($this->data, $_);
+		} else {
+			// Put the language into a sub key
+			$this->data[$key] = new \Language($this->directory);
+			$this->data[$key]->load($filename);
+		}
 
-        return $this->data;
-    }
+		return $this->data;
+	}
 }

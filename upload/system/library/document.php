@@ -11,145 +11,145 @@
  * Document class
  */
 class Document {
-    private string $title = '';
-    private string $description = '';
-    private string $keywords = '';
-    private array $links = [];
-    private array $styles = [];
-    private array $scripts = [];
+	private string $title = '';
+	private string $description = '';
+	private string $keywords = '';
+	private array $links = [];
+	private array $styles = [];
+	private array $scripts = [];
 
-    /**
-     * @param string $title
+	/**
+	 * @param string $title
 	 *
 	 * @return void
-     */
-    public function setTitle(string $title): void {
-        $this->title = $title;
-    }
+	 */
+	public function setTitle(string $title): void {
+		$this->title = $title;
+	}
 
-    /**
+	/**
 	 * getTitle
 	 *
-     * @return string
-     */
-    public function getTitle(): string {
-        return $this->title;
-    }
+	 * @return string
+	 */
+	public function getTitle(): string {
+		return $this->title;
+	}
 
-    /**
+	/**
 	 * setDescription
 	 *
-     * @param string $description
+	 * @param string $description
 	 *
 	 * @param void
-     */
-    public function setDescription(string $description): void {
-        $this->description = $description;
-    }
+	 */
+	public function setDescription(string $description): void {
+		$this->description = $description;
+	}
 
-    /**
+	/**
 	 * getDescription
 	 *
-     * @return string
-     */
-    public function getDescription(): string {
-        return $this->description;
-    }
+	 * @return string
+	 */
+	public function getDescription(): string {
+		return $this->description;
+	}
 
-    /**
+	/**
 	 * setKeywords
 	 *
-     * @param string $keywords
+	 * @param string $keywords
 	 *
 	 * @return void
-     */
-    public function setKeywords(string $keywords): void {
-        $this->keywords = $keywords;
-    }
+	 */
+	public function setKeywords(string $keywords): void {
+		$this->keywords = $keywords;
+	}
 
-    /**
+	/**
 	 * getKeywords
 	 *
-     * @return string
-     */
-    public function getKeywords(): string {
-        return $this->keywords;
-    }
+	 * @return string
+	 */
+	public function getKeywords(): string {
+		return $this->keywords;
+	}
 
-    /**
+	/**
 	 * addLink
 	 *
-     * @param string $href
-     * @param string $rel
+	 * @param string $href
+	 * @param string $rel
 	 *
 	 * @return void
-     */
-    public function addLink(string $href, string $rel): void {
-        $this->links[$href] = [
-            'href' => $href,
-            'rel'  => $rel
-        ];
-    }
+	 */
+	public function addLink(string $href, string $rel): void {
+		$this->links[$href] = [
+			'href' => $href,
+			'rel'  => $rel
+		];
+	}
 
-    /**
+	/**
 	 * getLinks
 	 *
-     * @return array
-     */
-    public function getLinks(): array {
-        return $this->links;
-    }
+	 * @return array
+	 */
+	public function getLinks(): array {
+		return $this->links;
+	}
 
-    /**
+	/**
 	 * addStyle
 	 *
-     * @param string $href
-     * @param string $rel
-     * @param string $media
+	 * @param string $href
+	 * @param string $rel
+	 * @param string $media
 	 *
 	 * @return void
-     */
-    public function addStyle(string $href, string $rel = 'stylesheet', string $media = 'screen'): void {
-        $this->styles[$href] = [
-            'href'  => $href,
-            'rel'   => $rel,
-            'media' => $media
-        ];
-    }
+	 */
+	public function addStyle(string $href, string $rel = 'stylesheet', string $media = 'screen'): void {
+		$this->styles[$href] = [
+			'href'  => $href,
+			'rel'   => $rel,
+			'media' => $media
+		];
+	}
 
-    /**
+	/**
 	 * getStyles
 	 *
-     * @return array
-     */
-    public function getStyles(): array {
-        return $this->styles;
-    }
+	 * @return array
+	 */
+	public function getStyles(): array {
+		return $this->styles;
+	}
 
-    /**
+	/**
 	 * addScript
 	 *
-     * @param string $href
-     * @param string $position
+	 * @param string $href
+	 * @param string $position
 	 *
 	 * @return void
-     */
-    public function addScript(string $href, string $position = 'header'): void {
-        $this->scripts[$position][$href] = ['href' => $href];
-    }
+	 */
+	public function addScript(string $href, string $position = 'header'): void {
+		$this->scripts[$position][$href] = ['href' => $href];
+	}
 
-    /**
+	/**
 	 * getScripts
 	 *
-     * @param string $position
-     *
-     * @return array
-     */
-    public function getScripts(string $position = 'header'): array {
-        if (isset($this->scripts[$position])) {
-            return $this->scripts[$position];
-        } else {
-            return [];
-        }
-    }
+	 * @param string $position
+	 *
+	 * @return array
+	 */
+	public function getScripts(string $position = 'header'): array {
+		if (isset($this->scripts[$position])) {
+			return $this->scripts[$position];
+		} else {
+			return [];
+		}
+	}
 }

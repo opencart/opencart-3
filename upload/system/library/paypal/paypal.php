@@ -1,8 +1,8 @@
 <?php
 class PayPal {
 	private $server = [
-        'sandbox'    => 'https://api.sandbox.paypal.com',
-        'production' => 'https://api.paypal.com'
+		'sandbox'    => 'https://api.sandbox.paypal.com',
+		'production' => 'https://api.paypal.com'
 	];
 	private $environment = 'sandbox';
 	private $partner_id = '';
@@ -76,9 +76,9 @@ class PayPal {
 	public function getUserInfo() {
 		$command = '/v1/identity/oauth2/userinfo';
 
-		$params = array(
+		$params = [
 			'schema' => 'paypalv1.1'
-		);
+		];
 
 		$result = $this->execute('GET', $command, $params);
 
@@ -279,12 +279,12 @@ class PayPal {
 	}
 
 	// OUT: number of errors
-	public function hasErrors()	{
+	public function hasErrors() {
 		return count($this->errors);
 	}
 
 	// OUT: array of errors
-	public function getErrors()	{
+	public function getErrors() {
 		return $this->errors;
 	}
 
@@ -293,18 +293,18 @@ class PayPal {
 		return $this->last_response;
 	}
 
-	private function execute($method, $command, $params = array(), $json = false) {
+	private function execute($method, $command, $params = [], $json = false) {
 		$this->errors = [];
 
 		if ($method && $command) {
 			$curl_options = [
-                CURLOPT_URL            => $this->server[$this->environment] . $command,
-                CURLOPT_HEADER         => true,
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_INFILESIZE     => null,
-                CURLOPT_HTTPHEADER     => [],
-                CURLOPT_CONNECTTIMEOUT => 10,
-                CURLOPT_TIMEOUT        => 10
+				CURLOPT_URL            => $this->server[$this->environment] . $command,
+				CURLOPT_HEADER         => true,
+				CURLOPT_RETURNTRANSFER => true,
+				CURLOPT_INFILESIZE     => null,
+				CURLOPT_HTTPHEADER     => [],
+				CURLOPT_CONNECTTIMEOUT => 10,
+				CURLOPT_TIMEOUT        => 10
 			];
 
 			$curl_options[CURLOPT_HTTPHEADER][] = 'Accept-Charset: utf-8';
@@ -355,9 +355,9 @@ class PayPal {
 							$curl_options[CURLOPT_INFILESIZE] = strlen($params_string);
 						} else {
 							$this->errors[] = [
-                                'name'    => 'FAILED_OPEN_TEMP_FILE',
-                                'message' => 'Unable to open a temporary file'
-                            ];
+								'name'    => 'FAILED_OPEN_TEMP_FILE',
+								'message' => 'Unable to open a temporary file'
+							];
 						}
 					}
 					break;
@@ -381,9 +381,9 @@ class PayPal {
 				$curl_constant = preg_grep('/^CURLE_/', array_flip($constant['curl']));
 
 				$this->errors[] = [
-                    'name'    => $curl_constant[$curl_code],
-                    'message' => curl_strerror($curl_code)
-                ];
+					'name'    => $curl_constant[$curl_code],
+					'message' => curl_strerror($curl_code)
+				];
 			}
 
 			$head = '';
@@ -403,24 +403,24 @@ class PayPal {
 						$parts[1]
 					];
 				}
-            }
+			}
 
-            $response_headers = [];
+			$response_headers = [];
 
-            $header_lines = explode("\r\n", $head);
-            array_shift($header_lines);
+			$header_lines = explode("\r\n", $head);
+			array_shift($header_lines);
 
-            foreach ($header_lines as $line) {
-                [$key, $value] = explode(':', $line, 2);
+			foreach ($header_lines as $line) {
+				[$key, $value] = explode(':', $line, 2);
 
-                $response_headers[$key] = $value;
-            }
+				$response_headers[$key] = $value;
+			}
 
 			curl_close($ch);
 
 			if (isset($buffer) && is_resource($buffer)) {
-                fclose($buffer);
-            }
+				fclose($buffer);
+			}
 
 			$this->last_response = json_decode($body, true);
 
@@ -434,15 +434,15 @@ class PayPal {
 
 	private function buildQuery($params, $json) {
 		if (is_string($params)) {
-            return $params;
-        }
+			return $params;
+		}
 
 		if ($json) {
 			return json_encode($params);
 		} else {
 			return http_build_query($params);
 		}
-    }
+	}
 
 	private function token($length = 32) {
 		// Create random token

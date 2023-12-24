@@ -8,38 +8,38 @@ class ControllerStartupRouter extends Controller {
 	/**
 	 *
 	 */
-    public function index() {
-        // Route
-        if (isset($this->request->get['route']) && $this->request->get['route'] != 'startup/router') {
-            $route = $this->request->get['route'];
-        } else {
-            $route = $this->config->get('action_default');
-        }
+	public function index() {
+		// Route
+		if (isset($this->request->get['route']) && $this->request->get['route'] != 'startup/router') {
+			$route = $this->request->get['route'];
+		} else {
+			$route = $this->config->get('action_default');
+		}
 
-        $data = [];
+		$data = [];
 
-        // Sanitize the call
-        $route = preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route);
+		// Sanitize the call
+		$route = preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route);
 
-        // Trigger the pre events
-        $result = $this->event->trigger('controller/' . $route . '/before', [&$route, &$data]);
+		// Trigger the pre events
+		$result = $this->event->trigger('controller/' . $route . '/before', [&$route, &$data]);
 
-        if (!is_null($result)) {
-            return $result;
-        }
+		if (!is_null($result)) {
+			return $result;
+		}
 
-        $action = new \Action($route);
+		$action = new \Action($route);
 
-        // Any output needs to be another Action object.
-        $output = $action->execute($this->registry, $data);
+		// Any output needs to be another Action object.
+		$output = $action->execute($this->registry, $data);
 
-        // Trigger the post events
-        $result = $this->event->trigger('controller/' . $route . '/after', [&$route, &$output]);
+		// Trigger the post events
+		$result = $this->event->trigger('controller/' . $route . '/after', [&$route, &$output]);
 
-        if (!is_null($result)) {
-            return $result;
-        }
+		if (!is_null($result)) {
+			return $result;
+		}
 
-        return $output;
-    }
+		return $output;
+	}
 }
