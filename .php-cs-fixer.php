@@ -4,11 +4,13 @@
  * https://mlocati.github.io/php-cs-fixer-configurator/#version:3.41.1|configurator
  * you can change this configuration by importing this file.
  */
+
 $finder = Symfony\Component\Finder\Finder::create()->in([
 	__DIR__ . '/upload/'
 ])->name('*.php')->ignoreDotFiles(true)->exclude([
 	__DIR__ . '/upload/system/storage/vendor/'
 ]);
+
 $config = new PhpCsFixer\Config();
 
 return $config->setRiskyAllowed(true)->setIndent("\t")->setRules([
