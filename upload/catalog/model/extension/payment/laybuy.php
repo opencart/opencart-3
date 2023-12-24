@@ -13,7 +13,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 	 *
 	 * @return void
 	 */
-	public function addTransaction(array $data = [], int $status): void {
+	public function addTransaction($data, int $status): void {
 		$this->log('Report: ' . print_r($data, true), '1');
 		$this->log('Status: ' . $status, '1');
 
