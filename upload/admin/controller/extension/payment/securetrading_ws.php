@@ -254,6 +254,8 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
 		$data['user_token'] = $this->session->data['user_token'];
 
+		$data['current_date'] = date('Y-m-d');
+
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
