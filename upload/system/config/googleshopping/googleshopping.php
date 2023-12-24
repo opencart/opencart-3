@@ -668,24 +668,24 @@ $_['advertise_google_targets'] = [
 		'currencies' => ['ARS']
 	],
 	[
-		'country'    => 'AU',
-		'languages'  => [
+		'country'   => 'AU',
+		'languages' => [
 			'en',
 			'zh'
 		],
 		'currencies' => ['AUD']
 	],
 	[
-		'country'    => 'AT',
-		'languages'  => [
+		'country'   => 'AT',
+		'languages' => [
 			'de',
 			'en'
 		],
 		'currencies' => ['EUR']
 	],
 	[
-		'country'    => 'BE',
-		'languages'  => [
+		'country'   => 'BE',
+		'languages' => [
 			'fr',
 			'nl',
 			'en'
@@ -698,8 +698,8 @@ $_['advertise_google_targets'] = [
 		'currencies' => ['BRL']
 	],
 	[
-		'country'    => 'CA',
-		'languages'  => [
+		'country'   => 'CA',
+		'languages' => [
 			'en',
 			'fr',
 			'zh'
@@ -717,16 +717,16 @@ $_['advertise_google_targets'] = [
 		'currencies' => ['COP']
 	],
 	[
-		'country'    => 'CZ',
-		'languages'  => [
+		'country'   => 'CZ',
+		'languages' => [
 			'cs',
 			'en'
 		],
 		'currencies' => ['CZK']
 	],
 	[
-		'country'    => 'DK',
-		'languages'  => [
+		'country'   => 'DK',
+		'languages' => [
 			'da',
 			'en'
 		],
@@ -738,16 +738,16 @@ $_['advertise_google_targets'] = [
 		'currencies' => ['EUR']
 	],
 	[
-		'country'    => 'DE',
-		'languages'  => [
+		'country'   => 'DE',
+		'languages' => [
 			'de',
 			'en'
 		],
 		'currencies' => ['EUR']
 	],
 	[
-		'country'    => 'HK',
-		'languages'  => [
+		'country'   => 'HK',
+		'languages' => [
 			'zh',
 			'en'
 		],
@@ -759,8 +759,8 @@ $_['advertise_google_targets'] = [
 		'currencies' => ['INR']
 	],
 	[
-		'country'    => 'ID',
-		'languages'  => [
+		'country'   => 'ID',
+		'languages' => [
 			'id',
 			'en'
 		],
@@ -772,8 +772,8 @@ $_['advertise_google_targets'] = [
 		'currencies' => ['EUR']
 	],
 	[
-		'country'    => 'IL',
-		'languages'  => [
+		'country'   => 'IL',
+		'languages' => [
 			'he',
 			'en'
 		],
@@ -790,24 +790,24 @@ $_['advertise_google_targets'] = [
 		'currencies' => ['JPY']
 	],
 	[
-		'country'    => 'MY',
-		'languages'  => [
+		'country'   => 'MY',
+		'languages' => [
 			'en',
 			'zh'
 		],
 		'currencies' => ['MYR']
 	],
 	[
-		'country'    => 'MX',
-		'languages'  => [
+		'country'   => 'MX',
+		'languages' => [
 			'es',
 			'en'
 		],
 		'currencies' => ['MXN']
 	],
 	[
-		'country'    => 'NL',
-		'languages'  => [
+		'country'   => 'NL',
+		'languages' => [
 			'nl',
 			'en'
 		],
@@ -819,8 +819,8 @@ $_['advertise_google_targets'] = [
 		'currencies' => ['NZD']
 	],
 	[
-		'country'    => 'NO',
-		'languages'  => [
+		'country'   => 'NO',
+		'languages' => [
 			'no',
 			'en'
 		],
@@ -847,16 +847,16 @@ $_['advertise_google_targets'] = [
 		'currencies' => ['RUB']
 	],
 	[
-		'country'    => 'SA',
-		'languages'  => [
+		'country'   => 'SA',
+		'languages' => [
 			'ar',
 			'en'
 		],
 		'currencies' => ['SAR']
 	],
 	[
-		'country'    => 'SG',
-		'languages'  => [
+		'country'   => 'SG',
+		'languages' => [
 			'en',
 			'zh'
 		],
@@ -868,8 +868,8 @@ $_['advertise_google_targets'] = [
 		'currencies' => ['ZAR']
 	],
 	[
-		'country'    => 'KR',
-		'languages'  => [
+		'country'   => 'KR',
+		'languages' => [
 			'ko',
 			'en'
 		],
@@ -881,16 +881,16 @@ $_['advertise_google_targets'] = [
 		'currencies' => ['EUR']
 	],
 	[
-		'country'    => 'SE',
-		'languages'  => [
+		'country'   => 'SE',
+		'languages' => [
 			'sv',
 			'en'
 		],
 		'currencies' => ['SEK']
 	],
 	[
-		'country'    => 'CH',
-		'languages'  => [
+		'country'   => 'CH',
+		'languages' => [
 			'en',
 			'de',
 			'fr',
@@ -899,32 +899,32 @@ $_['advertise_google_targets'] = [
 		'currencies' => ['CHF']
 	],
 	[
-		'country'    => 'TW',
-		'languages'  => [
+		'country'   => 'TW',
+		'languages' => [
 			'zh',
 			'en'
 		],
 		'currencies' => ['TWD']
 	],
 	[
-		'country'    => 'TH',
-		'languages'  => [
+		'country'   => 'TH',
+		'languages' => [
 			'th',
 			'en'
 		],
 		'currencies' => ['THB']
 	],
 	[
-		'country'    => 'TR',
-		'languages'  => [
+		'country'   => 'TR',
+		'languages' => [
 			'tr',
 			'en'
 		],
 		'currencies' => ['TRY']
 	],
 	[
-		'country'    => 'UA',
-		'languages'  => [
+		'country'   => 'UA',
+		'languages' => [
 			'uk',
 			'ru'
 		],
@@ -941,8 +941,8 @@ $_['advertise_google_targets'] = [
 		'currencies' => ['GBP']
 	],
 	[
-		'country'    => 'US',
-		'languages'  => [
+		'country'   => 'US',
+		'languages' => [
 			'en',
 			'es',
 			'zh'
@@ -950,8 +950,8 @@ $_['advertise_google_targets'] = [
 		'currencies' => ['USD']
 	],
 	[
-		'country'    => 'VN',
-		'languages'  => [
+		'country'   => 'VN',
+		'languages' => [
 			'vi',
 			'en'
 		],

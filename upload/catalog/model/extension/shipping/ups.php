@@ -43,7 +43,7 @@ class ModelExtensionShippingUps extends Model {
 
 			$service_code = [
 				// US Origin
-				'US'    => [
+				'US' => [
 					'01' => $this->language->get('text_us_origin_01'),
 					'02' => $this->language->get('text_us_origin_02'),
 					'03' => $this->language->get('text_us_origin_03'),
@@ -58,7 +58,7 @@ class ModelExtensionShippingUps extends Model {
 					'65' => $this->language->get('text_us_origin_65')
 				],
 				// Canada Origin
-				'CA'    => [
+				'CA' => [
 					'01' => $this->language->get('text_ca_origin_01'),
 					'02' => $this->language->get('text_ca_origin_02'),
 					'07' => $this->language->get('text_ca_origin_07'),
@@ -71,7 +71,7 @@ class ModelExtensionShippingUps extends Model {
 					'65' => $this->language->get('text_ca_origin_65')
 				],
 				// European Union Origin
-				'EU'    => [
+				'EU' => [
 					'07' => $this->language->get('text_eu_origin_07'),
 					'08' => $this->language->get('text_eu_origin_08'),
 					'11' => $this->language->get('text_eu_origin_11'),
@@ -85,7 +85,7 @@ class ModelExtensionShippingUps extends Model {
 					'86' => $this->language->get('text_eu_origin_86')
 				],
 				// Puerto Rico Origin
-				'PR'    => [
+				'PR' => [
 					'01' => $this->language->get('text_pr_origin_01'),
 					'02' => $this->language->get('text_pr_origin_02'),
 					'03' => $this->language->get('text_pr_origin_03'),
@@ -96,7 +96,7 @@ class ModelExtensionShippingUps extends Model {
 					'65' => $this->language->get('text_pr_origin_65')
 				],
 				// Mexico Origin
-				'MX'    => [
+				'MX' => [
 					'07' => $this->language->get('text_mx_origin_07'),
 					'08' => $this->language->get('text_mx_origin_08'),
 					'54' => $this->language->get('text_mx_origin_54'),

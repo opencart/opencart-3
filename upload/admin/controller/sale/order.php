@@ -569,8 +569,8 @@ class ControllerSaleOrder extends Controller {
 
 				foreach ($subscriptions as $subscription) {
 					$filter_data = [
-						'filter_subscription_id'        => $subscription['subscription_id'],
-						'filter_order_product_id'       => $product['order_product_id']
+						'filter_subscription_id'  => $subscription['subscription_id'],
+						'filter_order_product_id' => $product['order_product_id']
 					];
 
 					$subscription_info = $this->model_sale_subscription->getSubscriptions($filter_data);
@@ -1059,8 +1059,8 @@ class ControllerSaleOrder extends Controller {
 
 				foreach ($subscriptions as $subscription) {
 					$filter_data = [
-						'filter_subscription_id'        => $subscription['subscription_id'],
-						'filter_order_product_id'       => $product['order_product_id']
+						'filter_subscription_id'  => $subscription['subscription_id'],
+						'filter_order_product_id' => $product['order_product_id']
 					];
 
 					$subscription_info = $this->model_sale_subscription->getSubscriptions($filter_data);
@@ -1826,8 +1826,8 @@ class ControllerSaleOrder extends Controller {
 
 					foreach ($subscriptions as $subscription) {
 						$filter_data = [
-							'filter_subscription_id'        => $subscription['subscription_id'],
-							'filter_order_product_id'       => $product['order_product_id']
+							'filter_subscription_id'  => $subscription['subscription_id'],
+							'filter_order_product_id' => $product['order_product_id']
 						];
 
 						$subscription_info = $this->model_sale_subscription->getSubscriptions($filter_data);
@@ -2067,8 +2067,8 @@ class ControllerSaleOrder extends Controller {
 
 						foreach ($subscriptions as $subscription) {
 							$filter_data = [
-								'filter_subscription_id'        => $subscription['subscription_id'],
-								'filter_order_product_id'       => $product['order_product_id']
+								'filter_subscription_id'  => $subscription['subscription_id'],
+								'filter_order_product_id' => $product['order_product_id']
 							];
 
 							$subscription_info = $this->model_sale_subscription->getSubscriptions($filter_data);

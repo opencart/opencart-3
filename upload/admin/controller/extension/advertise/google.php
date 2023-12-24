@@ -740,7 +740,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 					'id'   => $google_product_category_id,
 					'name' => $google_product_category_name
 				],
-				'oc_category'             => [
+				'oc_category' => [
 					'category_id' => $category_id,
 					'name'        => $name
 				]

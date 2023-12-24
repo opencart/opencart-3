@@ -194,9 +194,9 @@ class ControllerExtensionModuleAmazonLogin extends Controller {
 			];
 
 			$data['breadcrumbs'][] = [
-				'href' => null,
+				'href'    => null,
 				'current' => true,
-				'text' => $this->language->get('error_login')
+				'text'    => $this->language->get('error_login')
 			];
 
 			$data['content_main'] = $this->load->view('extension/module/amazon_login_error', $data);

@@ -54,8 +54,8 @@ class ControllerAccountSubscription extends Controller {
 		$this->load->model('account/subscription');
 
 		$filter_data = [
-			'start'	=> ($page - 1) * 10,
-			'limit'	=> 10
+			'start' => ($page - 1) * 10,
+			'limit' => 10
 		];
 
 		$subscription_total = $this->model_account_subscription->getTotalSubscriptions($filter_data);

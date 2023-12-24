@@ -12,40 +12,40 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	 * @param array $events
 	 */
 	private array $events = [
-		'admin/view/common/column_left/before'            => [
+		'admin/view/common/column_left/before' => [
 			'extension/advertise/google/admin_link',
 		],
-		'admin/model/catalog/product/addProduct/after'    => [
+		'admin/model/catalog/product/addProduct/after' => [
 			'extension/advertise/google/addProduct',
 		],
-		'admin/model/catalog/product/copyProduct/after'   => [
+		'admin/model/catalog/product/copyProduct/after' => [
 			'extension/advertise/google/copyProduct',
 		],
 		'admin/model/catalog/product/deleteProduct/after' => [
 			'extension/advertise/google/deleteProduct',
 		],
-		'catalog/controller/checkout/success/before'      => [
+		'catalog/controller/checkout/success/before' => [
 			'extension/advertise/google/before_checkout_success'
 		],
-		'catalog/view/common/header/after'                => [
+		'catalog/view/common/header/after' => [
 			'extension/advertise/google/google_global_site_tag'
 		],
-		'catalog/view/common/success/after'               => [
+		'catalog/view/common/success/after' => [
 			'extension/advertise/google/google_dynamic_remarketing_purchase'
 		],
-		'catalog/view/product/product/after'              => [
+		'catalog/view/product/product/after' => [
 			'extension/advertise/google/google_dynamic_remarketing_product'
 		],
-		'catalog/view/product/search/after'               => [
+		'catalog/view/product/search/after' => [
 			'extension/advertise/google/google_dynamic_remarketing_searchresults'
 		],
-		'catalog/view/product/category/after'             => [
+		'catalog/view/product/category/after' => [
 			'extension/advertise/google/google_dynamic_remarketing_category'
 		],
-		'catalog/view/common/home/after'                  => [
+		'catalog/view/common/home/after' => [
 			'extension/advertise/google/google_dynamic_remarketing_home'
 		],
-		'catalog/view/checkout/cart/after'                => [
+		'catalog/view/checkout/cart/after' => [
 			'extension/advertise/google/google_dynamic_remarketing_cart'
 		]
 	];
@@ -65,7 +65,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	 * @param array $table_columns
 	 */
 	private array $table_columns = [
-		'googleshopping_target'         => [
+		'googleshopping_target' => [
 			'advertise_google_target_id',
 			'store_id',
 			'campaign_name',
@@ -74,7 +74,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 			'feeds',
 			'status'
 		],
-		'googleshopping_category'       => [
+		'googleshopping_category' => [
 			'google_product_category',
 			'store_id',
 			'category_id'
@@ -93,7 +93,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 			'store_id',
 			'advertise_google_target_id'
 		],
-		'googleshopping_product'        => [
+		'googleshopping_product' => [
 			'product_advertise_google_id',
 			'product_id',
 			'store_id',
@@ -935,7 +935,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 
 		foreach ((array)$this->config->get('advertise_google_targets') as $target) {
 			$result[] = [
-				'country'    => [
+				'country' => [
 					'code' => $target['country'],
 					'name' => $this->googleshopping->getCountryName($target['country'])
 				],

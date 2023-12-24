@@ -230,11 +230,11 @@ class ControllerCommonFileManager extends Controller {
 			if (!empty($this->request->files['file']['name']) && is_array($this->request->files['file']['name'])) {
 				foreach (array_keys($this->request->files['file']['name']) as $key) {
 					$files[] = [
-						'name' => $this->request->files['file']['name'][$key],
-						'type' => $this->request->files['file']['type'][$key],
+						'name'     => $this->request->files['file']['name'][$key],
+						'type'     => $this->request->files['file']['type'][$key],
 						'tmp_name' => $this->request->files['file']['tmp_name'][$key],
-						'error' => $this->request->files['file']['error'][$key],
-						'size' => $this->request->files['file']['size'][$key]
+						'error'    => $this->request->files['file']['error'][$key],
+						'size'     => $this->request->files['file']['size'][$key]
 					];
 				}
 			}

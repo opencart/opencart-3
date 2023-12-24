@@ -1,6 +1,6 @@
 <?php
 $_['paypal_smart_button_setting'] = [
-	'page'               => [
+	'page' => [
 		'product' => [
 			'code'               => 'product',
 			'name'               => 'text_product_page',
@@ -63,7 +63,7 @@ $_['paypal_smart_button_setting'] = [
 		]
 	],
 	'button_align' => [
-		'left'   => [
+		'left' => [
 			'code' => 'left',
 			'name' => 'text_align_left'
 		],
@@ -95,7 +95,7 @@ $_['paypal_smart_button_setting'] = [
 		]
 	],
 	'button_color' => [
-		'gold'   => [
+		'gold' => [
 			'code' => 'gold',
 			'name' => 'text_gold'
 		],

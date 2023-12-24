@@ -168,8 +168,8 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
 			// Prepare Transaction
 			$transaction_data = [
-				'idempotency_key'     => uniqid(),
-				'amount_money'        => [
+				'idempotency_key' => uniqid(),
+				'amount_money'    => [
 					'amount'   => $this->squareup->lowestDenomination($order_info['total'], $order_info['currency_code']),
 					'currency' => $order_info['currency_code']
 				],

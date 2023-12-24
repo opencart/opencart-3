@@ -295,7 +295,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 						'currency_code' => $currency_code,
 						'value'         => $item_total
 					],
-					'tax_total'  => [
+					'tax_total' => [
 						'currency_code' => $currency_code,
 						'value'         => $tax_total
 					]
@@ -309,8 +309,8 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 			}
 
 			$order_info = [
-				'intent'              => strtoupper($transaction_method),
-				'purchase_units'      => [
+				'intent'         => strtoupper($transaction_method),
+				'purchase_units' => [
 					[
 						'reference_id' => 'default',
 						'items'        => $item_info,
@@ -1396,19 +1396,19 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 						'currency_code' => $currency_code,
 						'value'         => $item_total
 					],
-					'tax_total'  => [
+					'tax_total' => [
 						'currency_code' => $currency_code,
 						'value'         => $tax_total
 					],
-					'shipping'   => [
+					'shipping' => [
 						'currency_code' => $currency_code,
 						'value'         => $shipping_total
 					],
-					'handling'   => [
+					'handling' => [
 						'currency_code' => $currency_code,
 						'value'         => $handling_total
 					],
-					'discount'   => [
+					'discount' => [
 						'currency_code' => $currency_code,
 						'value'         => $discount_total
 					]

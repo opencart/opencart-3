@@ -622,7 +622,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 		[$protocol, $code, $text] = explode(' ', trim(array_shift($other)), 3);
 
 		return [
-			'status' => (int)$code,
+			'status'       => (int)$code,
 			'ResponseBody' => $responseBody
 		];
 	}

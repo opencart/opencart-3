@@ -243,7 +243,7 @@ class ModelExtensionShippingECShip extends Model {
 				'WA'     => 'AUA',
 				'OTHERS' => 'AUB',
 			],
-			'CHN'  => [
+			'CHN' => [
 				'BE'     => 'CNA',
 				'FU'     => 'CNB',
 				'GU'     => 'CNC',
@@ -254,12 +254,12 @@ class ModelExtensionShippingECShip extends Model {
 				'TI'     => 'CNH',
 				'FU'     => 'CNJ',
 			],
-			'MYS'  => [
+			'MYS' => [
 				'OTHERS' => 'MYA',
 				'MY-12'  => 'MYB',
 				'MY-13'  => 'MYC',
 			],
-			'USA'  => [
+			'USA' => [
 				'HI'     => 'USA',
 				'NY'     => 'USB',
 				'OTHERS' => 'USC',

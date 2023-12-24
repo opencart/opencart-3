@@ -32,8 +32,8 @@ class Event {
 	 */
 	public function register(string $trigger, object $action, int $priority = 0): void {
 		$this->data[] = [
-			'trigger' => $trigger,
-			'action' => $action,
+			'trigger'  => $trigger,
+			'action'   => $action,
 			'priority' => $priority
 		];
 

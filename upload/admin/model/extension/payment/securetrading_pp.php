@@ -290,7 +290,7 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 				'Content-Length: ' . strlen($data),
 				'Authorization: Basic ' . base64_encode($this->config->get('payment_securetrading_pp_webservice_username') . ':' . $this->config->get('payment_securetrading_pp_webservice_password'))
 			],
-			CURLOPT_POSTFIELDS     => $data
+			CURLOPT_POSTFIELDS => $data
 		];
 
 		curl_setopt_array($ch, $defaults);

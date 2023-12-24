@@ -72,7 +72,7 @@ class ModelExtensionModuleAmazonLogin extends Model {
 				'lastname'          => (string)$amazon_profile->last_name,
 				'email'             => (string)$amazon_profile->email,
 				'telephone'         => '0000000',
-				'password'          => uniqid(rand(), true)
+				'password'          => uniqid(mt_rand(), true)
 			];
 
 			$customer_id = $this->model_account_customer->addCustomer($data);

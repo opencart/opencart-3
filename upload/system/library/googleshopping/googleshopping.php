@@ -505,14 +505,14 @@ class Googleshopping extends Library {
 				'gtin'                    => $this->sanitizeText($gtin, 14),
 				'multipack'               => !empty($row['multipack']) && (int)$row['multipack'] >= 2 ? (int)$row['multipack'] : '',
 				// Cannot be 1!!!
-				'price'                   => [
+				'price' => [
 					'value'    => $price,
 					'currency' => $currency
 				],
-				'size'                    => '',
-				'size_system'             => !empty($row['size_system']) ? $row['size_system'] : '',
-				'size_type'               => !empty($row['size_type']) ? $row['size_type'] : '',
-				'title'                   => $this->sanitizeText($row['name'], 150)
+				'size'        => '',
+				'size_system' => !empty($row['size_system']) ? $row['size_system'] : '',
+				'size_type'   => !empty($row['size_type']) ? $row['size_type'] : '',
+				'title'       => $this->sanitizeText($row['name'], 150)
 			];
 
 			// Provide optional special price
@@ -2169,7 +2169,7 @@ class Googleshopping extends Library {
 				'code' => $target['country'],
 				'name' => $this->getCountryName($target['country'])
 			],
-			'budget'            => [
+			'budget' => [
 				'formatted' => sprintf($this->language->get('text_per_day'), number_format((float)$target['budget'], 2)),
 				'value'     => (float)$target['budget']
 			],
