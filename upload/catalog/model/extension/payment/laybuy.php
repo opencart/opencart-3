@@ -8,8 +8,8 @@ class ModelExtensionPaymentLaybuy extends Model {
 	/**
 	 * addTransaction
 	 *
-	 * @param array $data
-	 * @param int   $status
+	 * @param string|array $data
+	 * @param int          $status
 	 *
 	 * @return void
 	 */
