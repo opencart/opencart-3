@@ -18,7 +18,7 @@ class Registry {
 	 *
 	 * @return object|null
 	 */
-	public function get(string $key): object|null {
+	public function get(string $key): ?object {
 		return isset($this->data[$key]) ? $this->data[$key] : null;
 	}
 
