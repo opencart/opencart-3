@@ -142,9 +142,9 @@ class ControllerExtensionCurrencyEcb extends Controller {
 	/**
 	 * Currency
 	 *
-	 * @return bool|null
+	 * @return mixed
 	 */
-	public function currency(): bool|null {
+	public function currency() {
 		if ($this->config->get('currency_ecb_status')) {
 			if ($this->config->get('config_currency_engine') == 'ecb') {
 				$curl = curl_init();
