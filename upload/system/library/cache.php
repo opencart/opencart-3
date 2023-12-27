@@ -36,9 +36,9 @@ class Cache {
 	 *
 	 * @param string $key     The cache key name
 	 *
-	 * @return array|string|null
+	 * @return mixed
 	 */
-	public function get(string $key): array|string|null {
+	public function get(string $key) {
 		return $this->adaptor->get($key);
 	}
 
