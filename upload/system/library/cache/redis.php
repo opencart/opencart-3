@@ -24,7 +24,7 @@ class Redis {
 	 *
 	 * @return mixed
 	 */
-	public function get(string $key): array|string|null {
+	public function get(string $key) {
 		$data = $this->cache->get(CACHE_PREFIX . $key);
 
 		return json_decode($data, true);
