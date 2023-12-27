@@ -274,9 +274,9 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 	 *
 	 * @param array $data
 	 *
-	 * @return void
+	 * @return string
 	 */
-	public function getCsv(array $data): bool|array {
+	public function getCsv(array $data): string {
 		$ch = curl_init();
 
 		$post_data = [];
@@ -393,7 +393,7 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 		curl_close($ch);
 
 		if ((empty($response) || $response === 'No records found for search') || (preg_match('/401 Authorization Required/', $response))) {
-			return false;
+			return '';
 		} else {
 			return $response;
 		}
