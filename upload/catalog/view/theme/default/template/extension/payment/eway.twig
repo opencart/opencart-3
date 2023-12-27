@@ -1,7 +1,7 @@
 {% if error %}
   <div class="alert alert-danger alert-dismissible">{{ text_payment_error }}: {{ error }}</div>
 {% else %}
-  <form action="{{ action }}" method="POST" class="form-horizontal" id="eway-payment-form">
+  <form action="{{ action }}" method="post" class="form-horizontal" id="eway-payment-form">
     <fieldset id="payment">
       <legend>{{ text_credit_card }}</legend>
       <input type="hidden" name="EWAY_ACCESSCODE" value="{{ AccessCode }}"/>
