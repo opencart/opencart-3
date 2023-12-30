@@ -136,25 +136,37 @@ class ControllerExtensionReportDbSchema extends Controller {
 
 			foreach ($tables as $table) {
 				if (in_array($table['name'], $selected)) {
-					$field_data = [];
+					$field_type_data = [];
 					$filter_data = [];
 
-					foreach ($table['field'] as $field) {
-						$fields = $this->model_extension_report_db_schema->getTable($table['name']);
+					$fields = $this->model_extension_report_db_schema->getTable($table['name']);
 
-						// Core
-						if ($fields) {
-							foreach ($fields as $result) {
+					// Core
+					if ($fields) {
+						foreach ($fields as $result) {
+							foreach ($table['field'] as $field) {
 								if ($result['Column_name'] == $field['name']) {
 									$data['tables'][$result['TABLE_NAME'] . '|parent'][] = [
 										'name'          => $result['Column_name'],
 										'previous_type' => $result['COLUMN_TYPE'],
 										'type'          => $field['type']
 									];
-								}
 
-								// Extensions
-								$field_data[] = $result['Column_name'];
+									$encoded_data = [
+										'table' => $table['name'],
+										'field' => $field['name']
+									];
+
+									$field_type_data[json_encode($encoded_data)] = $field['type'];
+								} else {
+									// Extensions
+									$encoded_data = [
+										'table' => $table['name'],
+										'field' => $field['name']
+									];
+
+									$field_type_data[json_encode($encoded_data)] = $field['type'];
+								}
 							}
 						}
 
@@ -165,40 +177,61 @@ class ControllerExtensionReportDbSchema extends Controller {
 
 								if ($fields) {
 									foreach ($fields as $result) {
-										if ($result['Column_name'] == $field['name']) {
-											$data['tables'][$result['TABLE_NAME'] . '|child'][] = [
-												'name'          => $result['Column_name'],
-												'previous_type' => $result['COLUMN_TYPE'],
-												'type'          => $field['type']
-											];
+										foreach ($field_type_data as $key => $val) {
+											if (json_validate($key)) {
+												$key_data = json_decode($key, true);
+	
+												if ($key_data['table'] == $result['TABLE_NAME']) {
+													if ($key_data['field'] == $result['Column_name']) {
+														if ($val == $result['COLUMN_TYPE']) {
+															$type = $result['COLUMN_TYPE'];
+														} else {
+															$type = $val;
+														}
+
+														$data['tables'][$result['TABLE_NAME'] . '|child'][] = [
+															'name'          => $result['Column_name'],
+															'previous_type' => $result['COLUMN_TYPE'],
+															'type'          => $type
+														];
+													}
+												}
+											}
 										}
 									}
-								}
-							}
-						}
-
-						if (!in_array($field['name'], $field_data)) {
-							foreach ($field_data as $result) {
-								if ($result != $field['name']) {
-									$filter_data[] = $result;
 								}
 							}
 						}
 					}
 
 					// Extension fields from core tables
-					if ($filter_data) {
-						$filter_data = array_unique($filter_data);
-
-						$fields = $this->model_extension_report_db_schema->getTable($table['name'], $filter_data);
-
-						if ($fields) {
-							foreach ($fields as $result) {
-								$data['tables'][$result['TABLE_NAME'] . '|extension'][] = [
-									'name'          => $result['Column_name'],
-									'previous_type' => $result['COLUMN_TYPE'],
-									'type'          => $result['COLUMN_TYPE']
-								];
+					$fields = $this->model_extension_report_db_schema->getTable($table['name']);
+					
+					if ($fields) {
+						foreach ($fields as $result) {
+							foreach ($field_type_data as $key => $val) {
+								if (json_validate($key)) {
+									$key_data = json_decode($key, true);
+	
+									// Core Tables
+									if ($key_data['table'] == $result['TABLE_NAME']) {
+										if ($key_data['field'] != $result['Column_name']) {
+											$data['tables'][$result['TABLE_NAME'] . '|extension'][] = [
+												'name'          => $result['Column_name'],
+												'previous_type' => $result['COLUMN_TYPE'],
+												'type'          => $result['COLUMN_TYPE']
+											];
+										}
+									}
+									// Extensions
+									else {
+										$data['tables'][$result['TABLE_NAME'] . '|extension'][] = [
+											'name'          => $result['Column_name'],
+											'previous_type' => $result['COLUMN_TYPE'],
+											'type'          => $result['COLUMN_TYPE']
+										];
+									}
+								}
 							}
 						}
 					}
