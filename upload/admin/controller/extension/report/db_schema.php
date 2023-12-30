@@ -141,65 +141,101 @@ class ControllerExtensionReportDbSchema extends Controller {
 
 					$fields = $this->model_extension_report_db_schema->getTable($table['name']);
 
-					if ($fields) {
-						foreach ($fields as $result) {
-							foreach ($table['field'] as $field) {
-								// Core
-								if ($result['Column_name'] == $field['name']) {
-									$data['tables'][$result['TABLE_NAME'] . '|parent'][] = [
-										'name'          => $result['Column_name'],
-										'previous_type' => $result['COLUMN_TYPE'],
-										'type'          => $field['type']
-									];
+					foreach ($fields as $result) {
+						foreach ($table['field'] as $field) {
+							// Core
+							if ($result['Column_name'] == $field['name']) {
+								$data['tables'][$result['TABLE_NAME'] . '|parent'][] = [
+									'name'          => $result['Column_name'],
+									'previous_type' => $result['COLUMN_TYPE'],
+									'type'          => $field['type']
+								];
 
-									$encoded_data = [
-										'table' => $table['name'],
-										'field' => $field['name']
-									];
+								$encoded_data = [
+									'table' => $table['name'],
+									'field' => $field['name']
+								];
 
-									$field_type_data[json_encode($encoded_data)] = $field['type'];
-								}
-								// Extensions
-								else {									
-									$encoded_data = [
-										'table' => $table['name'],
-										'field' => $field['name']
-									];
+								$field_type_data[json_encode($encoded_data)] = $field['type'];
+							}
+							// Extensions
+							else {
+								$encoded_data = [
+									'table' => $table['name'],
+									'field' => $field['name']
+								];
 
-									$field_type_data[json_encode($encoded_data)] = $field['type'];
-								}
+								$field_type_data[json_encode($encoded_data)] = $field['type'];
 							}
 						}
+					}				
 
-						// Foreign
-						if (isset($table['foreign']) && $table['foreign']) {
-							foreach ($table['foreign'] as $foreign) {
-								$fields = $this->model_extension_report_db_schema->getTable($foreign['table']);
+					// Foreign
+					$foreign_extension_data = [];
+						
+					if (isset($table['foreign']) && $table['foreign']) {
+						foreach ($table['foreign'] as $foreign) {
+							$fields = $this->model_extension_report_db_schema->getTable($foreign['table']);
 
-								if ($fields) {
-									foreach ($fields as $result) {
-										foreach ($field_type_data as $key => $val) {
-											if (json_validate($key)) {
-												$key_data = json_decode($key, true);
-	
-												if ($key_data['table'] == $result['TABLE_NAME']) {
-													if ($key_data['field'] == $result['Column_name']) {
-														if ($val == $result['COLUMN_TYPE']) {
-															$type = $result['COLUMN_TYPE'];
-														} else {
-															$type = $val;
-														}
+							foreach ($fields as $result) {
+								foreach ($field_type_data as $key => $val) {
+									if (json_validate($key)) {
+										$key_data = json_decode($key, true);
 
-														$data['tables'][$result['TABLE_NAME'] . '|child'][] = [
-															'name'          => $result['Column_name'],
-															'previous_type' => $result['COLUMN_TYPE'],
-															'type'          => $type
-														];
-													}
+										// Core
+										if ($key_data['table'] == $result['TABLE_NAME']) {
+											if ($key_data['field'] == $result['Column_name']) {
+												if ($val == $result['COLUMN_TYPE']) {
+													$type = $result['COLUMN_TYPE'];
+												} else {
+													$type = $val;
 												}
+
+												$data['tables'][$result['TABLE_NAME'] . '|child'][] = [
+													'name'          => $result['Column_name'],
+													'previous_type' => $result['COLUMN_TYPE'],
+													'type'          => $type
+												];
+											}
+											// Extensions
+											else {
+												$encoded_data = [
+													'table' => $result['TABLE_NAME'],
+													'field' => $result['Column_name']
+												];
+
+												$foreign_extension_data[json_encode($encoded_data)] = $result['COLUMN_TYPE'];
 											}
 										}
+										// Extensions
+										else {
+											$encoded_data = [
+												'table' => $result['TABLE_NAME'],
+												'field' => $result['Column_name']
+											];
+
+											$foreign_extension_data[json_encode($encoded_data)] = $result['COLUMN_TYPE'];
+										}
 									}
+								}
+							}							
+						}
+					}
+
+					// Foreign extensions
+					foreach ($foreign_extension_data as $key => $val) {
+						if (json_validate($key)) {
+							$key_data = json_decode($key, true);
+
+							$fields = $this->model_extension_report_db_schema->getTable($key_data['table']);
+
+							foreach ($fields as $result) {
+								if ($result['Column_name'] == $key_data['field']) {
+									$data['tables'][$result['TABLE_NAME'] . '|extension'][] = [
+										'name'          => $result['Column_name'],
+										'previous_type' => $result['COLUMN_TYPE'],
+										'type'          => $result['COLUMN_TYPE']
+									];
 								}
 							}
 						}
@@ -208,46 +244,30 @@ class ControllerExtensionReportDbSchema extends Controller {
 					// Extension fields from core tables
 					$fields = $this->model_extension_report_db_schema->getTable($table['name']);
 					
-					if ($fields) {
-						$extension_data = [];
-						
-						foreach ($fields as $result) {
-							foreach ($field_type_data as $key => $val) {
-								if (json_validate($key)) {
-									$key_data = json_decode($key, true);
-	
-									// Core
-									if ($key_data['table'] == $result['TABLE_NAME']) {
-										if ($key_data['field'] != $result['Column_name']) {
-											$data['tables'][$result['TABLE_NAME'] . '|extension'][] = [
-												'name'          => $result['Column_name'],
-												'previous_type' => $result['COLUMN_TYPE'],
-												'type'          => $result['COLUMN_TYPE']
-											];
-										}
-									}
-									// Extensions
-									else {
-										$encoded_data = [
-											'table' => $key_data['table'],
-											'field' => $key_data['field']
+					foreach ($fields as $result) {
+						foreach ($field_type_data as $key => $val) {
+							if (json_validate($key)) {
+								$key_data = json_decode($key, true);
+
+								// Core
+								if ($key_data['table'] == $result['TABLE_NAME']) {
+									if ($key_data['field'] != $result['Column_name']) {
+										$data['tables'][$result['TABLE_NAME'] . '|extension'][] = [
+											'name'          => $result['Column_name'],
+											'previous_type' => $result['COLUMN_TYPE'],
+											'type'          => $result['COLUMN_TYPE']
 										];
-										
-										$extension_data[json_encode($encoded_data)] = $val;
 									}
 								}
+								// Extensions
+								else {
+									$data['tables'][$key_data['table'] . '|extension'][] = [
+										'name'          => $key_data['field'],
+										'previous_type' => $val,
+										'type'          => $val
+									];
+								}
 							}
-						}
-
-						// Extensions
-						foreach ($extension_data as $key => $val) {
-							$key_data = json_decode($key, true);
-
-							$data['tables'][$key_data['table'] . '|extension'][] = [
-								'name'          => $key_data['field'],
-								'previous_type' => $val,
-								'type'          => $val
-							];
 						}
 					}
 				}
