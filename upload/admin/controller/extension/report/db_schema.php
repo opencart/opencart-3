@@ -221,26 +221,7 @@ class ControllerExtensionReportDbSchema extends Controller {
 							}							
 						}
 					}
-
-					// Foreign extensions
-					foreach ($foreign_extension_data as $key => $val) {
-						if (json_validate($key)) {
-							$key_data = json_decode($key, true);
-
-							$fields = $this->model_extension_report_db_schema->getTable($key_data['table']);
-
-							foreach ($fields as $result) {
-								if ($result['Column_name'] == $key_data['field']) {
-									$data['tables'][$result['TABLE_NAME'] . '|extension'][] = [
-										'name'          => $result['Column_name'],
-										'previous_type' => $result['COLUMN_TYPE'],
-										'type'          => $result['COLUMN_TYPE']
-									];
-								}
-							}
-						}
-					}
-
+					
 					// Extension fields from core tables
 					$fields = $this->model_extension_report_db_schema->getTable($table['name']);
 					
@@ -268,6 +249,25 @@ class ControllerExtensionReportDbSchema extends Controller {
 									];
 								}
 							}
+						}
+					}
+				}
+			}
+
+			// Foreign extensions
+			foreach ($foreign_extension_data as $key => $val) {
+				if (json_validate($key)) {
+					$key_data = json_decode($key, true);
+
+					$fields = $this->model_extension_report_db_schema->getTable($key_data['table']);
+
+					foreach ($fields as $result) {
+						if ($result['Column_name'] == $key_data['field']) {
+							$data['tables'][$result['TABLE_NAME'] . '|extension'][] = [
+								'name'          => $result['Column_name'],
+								'previous_type' => $result['COLUMN_TYPE'],
+								'type'          => $result['COLUMN_TYPE']
+							];
 						}
 					}
 				}
