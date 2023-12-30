@@ -208,6 +208,8 @@ class ControllerExtensionReportDbSchema extends Controller {
 					$fields = $this->model_extension_report_db_schema->getTable($table['name']);
 					
 					if ($fields) {
+						$extension_data = [];
+						
 						foreach ($fields as $result) {
 							foreach ($field_type_data as $key => $val) {
 								if (json_validate($key)) {
@@ -222,17 +224,26 @@ class ControllerExtensionReportDbSchema extends Controller {
 												'type'          => $result['COLUMN_TYPE']
 											];
 										}
-									}
-									// Extensions
-									else {
-										$data['tables'][$result['TABLE_NAME'] . '|extension'][] = [
-											'name'          => $result['Column_name'],
-											'previous_type' => $result['COLUMN_TYPE'],
-											'type'          => $result['COLUMN_TYPE']
+									} else {
+										$encoded_data = [
+											'table' => $key_data['table'],
+											'field' => $key_data['field']
 										];
+										
+										$extension_data[json_encode($encoded_data)] = $val;
 									}
 								}
 							}
+						}
+
+						foreach ($extension_data as $key => $val) {
+							$key_data = json_decode($key, true);
+
+							$data['tables'][$key_data['table'] . '|extension'][] = [
+								'name'          => $key_data['field'],
+								'previous_type' => $val,
+								'type'          => $val
+							];
 						}
 					}
 				}
