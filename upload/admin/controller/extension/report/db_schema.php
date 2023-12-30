@@ -141,10 +141,10 @@ class ControllerExtensionReportDbSchema extends Controller {
 
 					$fields = $this->model_extension_report_db_schema->getTable($table['name']);
 
-					// Core
 					if ($fields) {
 						foreach ($fields as $result) {
 							foreach ($table['field'] as $field) {
+								// Core
 								if ($result['Column_name'] == $field['name']) {
 									$data['tables'][$result['TABLE_NAME'] . '|parent'][] = [
 										'name'          => $result['Column_name'],
@@ -158,8 +158,9 @@ class ControllerExtensionReportDbSchema extends Controller {
 									];
 
 									$field_type_data[json_encode($encoded_data)] = $field['type'];
-								} else {
-									// Extensions
+								}
+								// Extensions
+								else {									
 									$encoded_data = [
 										'table' => $table['name'],
 										'field' => $field['name']
@@ -215,7 +216,7 @@ class ControllerExtensionReportDbSchema extends Controller {
 								if (json_validate($key)) {
 									$key_data = json_decode($key, true);
 	
-									// Core Tables
+									// Core
 									if ($key_data['table'] == $result['TABLE_NAME']) {
 										if ($key_data['field'] != $result['Column_name']) {
 											$data['tables'][$result['TABLE_NAME'] . '|extension'][] = [
@@ -224,7 +225,9 @@ class ControllerExtensionReportDbSchema extends Controller {
 												'type'          => $result['COLUMN_TYPE']
 											];
 										}
-									} else {
+									}
+									// Extensions
+									else {
 										$encoded_data = [
 											'table' => $key_data['table'],
 											'field' => $key_data['field']
@@ -236,6 +239,7 @@ class ControllerExtensionReportDbSchema extends Controller {
 							}
 						}
 
+						// Extensions
 						foreach ($extension_data as $key => $val) {
 							$key_data = json_decode($key, true);
 
