@@ -30,7 +30,7 @@ class ControllerExtensionCaptchaGoogle extends Controller {
 	 *
 	 * @return string
 	 */
-	public function validate() {
+	public function validate(): string {
 		if (empty($this->session->data['gcaptcha'])) {
 			$this->load->language('extension/captcha/google');
 
@@ -42,7 +42,7 @@ class ControllerExtensionCaptchaGoogle extends Controller {
 			$recaptcha = json_decode($recaptcha, true);
 
 			if ($recaptcha['success']) {
-				$this->session->data['gcaptcha'] = true;
+				$this->session->data['gcaptcha'] = '';
 			} else {
 				return $this->language->get('error_captcha');
 			}
