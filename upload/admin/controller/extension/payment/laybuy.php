@@ -694,7 +694,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 	 *
 	 * @return void
 	 */
-	public function transaction(bool $order_page = false) {
+	public function transaction(bool $order_page = false): void {
 		$this->load->language('extension/payment/laybuy');
 
 		// Laybuy
@@ -821,6 +821,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 
 		$this->response->setOutput($this->load->view('extension/payment/laybuy_transaction', $data));
 	}
+	
 	/**
 	 * Cancel
 	 *
