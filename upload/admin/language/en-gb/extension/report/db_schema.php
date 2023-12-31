@@ -9,6 +9,7 @@ $_['text_edit']        = 'Edit Database Schema Module';
 $_['text_report']      = 'Report';
 $_['text_parent']      = 'Parent Table';
 $_['text_child']       = 'Table Relationships';
+$_['text_index']	   = 'Index';
 
 // Column
 $_['column_table']     = 'Table';
