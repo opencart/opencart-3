@@ -364,13 +364,13 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 		$data['languages'] = [];
 
 		if ($data['payment_amazon_login_pay_payment_region'] == 'USD') {
-			$data['registration_url'] = "https://payments.amazon.com/register?registration_source=SPPL&spId=" . $ld;
+			$data['registration_url'] = 'https://payments.amazon.com/register?registration_source=SPPL&spId=' . $ld;
 
 			$data['languages'] = [
 				'en-US' => $this->language->get('text_us')
 			];
 		} else {
-			$data['registration_url'] = "https://payments-eu.amazon.com/register?registration_source=SPPL&spId=" . $ld;
+			$data['registration_url'] = 'https://payments-eu.amazon.com/register?registration_source=SPPL&spId=' . $ld;
 
 			$data['languages'] = [
 				'de-DE' => $this->language->get('text_de'),
