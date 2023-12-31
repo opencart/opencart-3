@@ -31,9 +31,9 @@ $_['text_expiry']                                      = 'MM/YY';
 $_['text_default_squareup_name']                       = 'Credit / Debit Card';
 $_['text_token_issue_customer_error']                  = 'We are experiencing a technical outage in our payment system. Please try again later.';
 $_['text_token_revoked_subject']                       = 'Your Square access token has been revoked!';
-$_['text_token_revoked_message']                       = "The Square payment extension's access to your Square account has been revoked through the Square Dashboard. You need to verify your application credentials in the extension settings and connect again.";
+$_['text_token_revoked_message']                       = 'The Square payment extension\'s access to your Square account has been revoked through the Square Dashboard. You need to verify your application credentials in the extension settings and connect again.';
 $_['text_token_expired_subject']                       = 'Your Square access token has expired!';
-$_['text_token_expired_message']                       = "The Square payment extension's access token connecting it to your Square account has expired. You need to verify your application credentials and CRON job in the extension settings and connect again.";
+$_['text_token_expired_message']                       = 'The Square payment extension\'s access token connecting it to your Square account has expired. You need to verify your application credentials and CRON job in the extension settings and connect again.';
 
 // Warning
 $_['warning_test_mode']                                = 'Warning: Sandbox mode is enabled! Transactions will appear to go through, but no charges will be carried out.';
