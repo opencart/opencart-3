@@ -105,12 +105,12 @@ class ControllerExtensionPaymentAlipayCross extends Controller {
 
 			}
 
-			echo "success"; //Do not modified or deleted
+			echo 'success'; //Do not modified or deleted
 		} else {
 			$this->log->write('Alipay cross check failed');
 
 			// Check failed
-			echo "fail";
+			echo 'fail';
 		}
 	}
 }
