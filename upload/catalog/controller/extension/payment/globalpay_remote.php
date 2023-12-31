@@ -134,7 +134,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 						'cc_issue'  => $this->request->post['cc_issue']
 					];
 
-					$encryption = new \Encryption((int)$this->config->get('config_encryption'));
+					$encryption = new \Encryption();
 
 					$md = $encryption->encrypt((int)$this->config->get('config_encryption'), json_encode($enc_data));
 
@@ -236,7 +236,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 
 			$post = $this->request->post;
 
-			$encryption = new \Encryption((int)$this->config->get('config_encryption'));
+			$encryption = new \Encryption();
 
 			$md = json_decode($encryption->decrypt((int)$this->config->get('config_encryption'), $post['MD']), true);
 
