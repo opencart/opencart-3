@@ -47,6 +47,7 @@ class Cache {
 	 *
 	 * @param string $key      The cache key
 	 * @param string $value    The cache value
+  	 * @param int    $expire   The cache expiry
 	 *
 	 * @return mixed
 	 */
@@ -59,7 +60,7 @@ class Cache {
 	 *
 	 * @param string $key      The cache key
 	 */
-	public function delete(string $key) {
+	public function delete(string $key): void {
 		return $this->adaptor->delete($key);
 	}
 }
