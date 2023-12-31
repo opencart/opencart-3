@@ -135,7 +135,9 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 						'cc_issue'  => $this->request->post['cc_issue']
 					];
 
-					$md = $this->encryption->encrypt($this->config->get('config_encryption'), json_encode($enc_data));
+					$encryption = new \Encryption((int)$this->config->get('config_encryption'));
+
+					$md = $encryption->encrypt((int)$this->config->get('config_encryption'), json_encode($enc_data));
 
 					$json = [];
 
@@ -237,7 +239,9 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 
 			$post = $this->request->post;
 
-			$md = json_decode($this->encryption->decrypt($this->config->get('config_encryption'), $post['MD']), true);
+			$encryption = new \Encryption((int)$this->config->get('config_encryption'));
+
+			$md = json_decode($encryption->decrypt((int)$this->config->get('config_encryption'), $post['MD']), true);
 			$signature_result = $this->model_extension_payment_realex_remote->enrollmentSignature($md['account'], $md['amount'], $md['currency'], $md['order_ref'], $md['cc_number'], $md['cc_expire'], $md['cc_type'], $md['cc_name'], $post['PaRes']);
 
 			$this->model_extension_payment_realex_remote->logger('Signature result:\r\n' . print_r($signature_result, 1));
