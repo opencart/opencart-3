@@ -87,26 +87,26 @@ class ModelExtensionPaymentDivido extends Model {
 			$application_id = ($application_id) ? "'" . $application_id . "'" : 'NULL';
 			$deposit_amount = ($deposit_amount) ? $deposit_amount : 'NULL';
 
-			$query_upsert = "INSERT INTO `" . DB_PREFIX . "divido_lookup` SET `order_id` = '" . (int)$order_id . "', `salt` = '" . $this->db->escape($salt) . "', `proposal_id` = '" . $this->db->escape($proposal_id) . "', `application_id` = '" . $application_id . "', `deposit_amount` = '" . (float)$deposit_amount . "'";
+			$sql = "INSERT INTO `" . DB_PREFIX . "divido_lookup` SET `order_id` = '" . (int)$order_id . "', `salt` = '" . $this->db->escape($salt) . "', `proposal_id` = '" . $this->db->escape($proposal_id) . "', `application_id` = '" . $application_id . "', `deposit_amount` = '" . (float)$deposit_amount . "'";
 		} else {
-			$query_upsert = "UPDATE `" . DB_PREFIX . "divido_lookup` SET `salt` = '" . $salt . "'";
+			$sql = "UPDATE `" . DB_PREFIX . "divido_lookup` SET `salt` = '" . $salt . "'";
 
 			if ($proposal_id) {
-				$query_upsert .= ", `proposal_id` = '" . $proposal_id . "'";
+				$sql .= ", `proposal_id` = '" . $proposal_id . "'";
 			}
 
 			if ($application_id) {
-				$query_upsert .= ", `application_id` = '" . $application_id . "'";
+				$sql .= ", `application_id` = '" . $application_id . "'";
 			}
 
 			if ($deposit_amount) {
-				$query_upsert .= ", `deposit_amount` = '" . $deposit_amount . "'";
+				$sql .= ", `deposit_amount` = '" . $deposit_amount . "'";
 			}
 
-			$query_upsert .= " WHERE `order_id` = '" . $order_id . "'";
+			$sql .= " WHERE `order_id` = '" . $order_id . "'";
 		}
 
-		$this->db->query($query_upsert);
+		$this->db->query($sql);
 	}
 
 	/**
