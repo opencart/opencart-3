@@ -120,7 +120,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 		$order_id = $data->metadata->order_id;
 		$order_info = $this->model_checkout_order->getOrder($order_id);
 		$status_id = $order_info['order_status_id'];
-		$message = "Status: {$data->status}";
+		$message = 'Status: {$data->status}';
 
 		if (isset($this->history_messages[$data->status])) {
 			$message = $this->history_messages[$data->status];
