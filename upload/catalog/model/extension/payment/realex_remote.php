@@ -314,7 +314,7 @@ class ModelExtensionPaymentRealexRemote extends Model {
 
 		if ($this->config->get('payment_realex_remote_card_data_status') == 1) {
 			$message .= '<br/><strong>' . $this->language->get('entry_cc_type') . ':</strong> ' . (string)$type;
-			$message .= '<br/><strong>' . $this->language->get('text_last_digits') . ':</strong> ' . (string)substr($card_number, -4);
+			$message .= '<br/><strong>' . $this->language->get('text_last_digits') . ':</strong> ' . (string)substr($card_number, - 4);
 			$message .= '<br/><strong>' . $this->language->get('entry_cc_expire_date') . ':</strong> ' . (string)$expire;
 			$message .= '<br/><strong>' . $this->language->get('entry_cc_name') . ':</strong> ' . (string)$name;
 
