@@ -388,19 +388,19 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 			exit;
 		}
 
-		$comment = "Paid with Sagepay Server<br/><br/>";
-		$comment .= "<b>Transaction details</b><br/>";
-		$comment .= "Status: " . $str_status . "<br/>";
-		$comment .= "AVS and CV2 checks: " . $str_avs_cv2 . "<br/>";
-		$comment .= "3D Secure checks: " . $str_3d_secure_status . "<br/>";
-		$comment .= "Card type: " . $str_card_type . "<br/>";
+		$comment = 'Paid with Sagepay Server<br/><br/>';
+		$comment .= '<b>Transaction details</b><br/>';
+		$comment .= 'Status: ' . $str_status . '<br/>';
+		$comment .= 'AVS and CV2 checks: ' . $str_avs_cv2 . '<br/>';
+		$comment .= '3D Secure checks: ' . $str_3d_secure_status . '<br/>';
+		$comment .= 'Card type: ' . $str_card_type . '<br/>';
 
 		if ($str_card_type == 'PAYPAL') {
-			$comment .= "Paypal address status: " . $str_address_status . "<br/>";
-			$comment .= "Paypal payer status: " . $str_payer_status . "<br/>";
+			$comment .= 'Paypal address status: ' . $str_address_status . '<br/>';
+			$comment .= 'Paypal payer status: ' . $str_payer_status . '<br/>';
 		}
 
-		$comment .= "Last 4 digits: " . $str_last_4_digits . "<br/>";
+		$comment .= 'Last 4 digits: ' . $str_last_4_digits . '<br/>';
 
 		$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_sagepay_server_order_status_id'), $comment);
 
@@ -417,8 +417,8 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 			$this->model_extension_payment_sagepay_server->addCard($data);
 		}
 
-		echo "Status=OK" . $end_ln;
-		echo "RedirectURL=" . $success_page . $end_ln;
+		echo 'Status=OK' . $end_ln;
+		echo 'RedirectURL=' . $success_page . $end_ln;
 	}
 
 	/**
