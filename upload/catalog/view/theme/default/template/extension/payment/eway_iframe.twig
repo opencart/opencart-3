@@ -23,11 +23,11 @@
    */
   function resultCallback(result, transactionID, errors) {
       if (result == 'Complete') {
-          window.location.href = "{{ callback }}";
+          window.location.href = '{{ callback }}';
       } else if (result == 'Error') {
           $('#button-confirm').button('reset');
 
-          alert("{{ error_payment_text }}: " + result);
+          alert('{{ error_payment_text }}: ' + result);
       } else {
           $('#button-confirm').button('reset');
       }
@@ -35,6 +35,7 @@
 
   $('#button-confirm').bind('click', function() {
       $('#button-confirm').button('loading');
+
       eCrypt.showModalPayment(eWAYConfig, resultCallback);
   });
   //--></script>
