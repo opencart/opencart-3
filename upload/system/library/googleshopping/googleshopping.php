@@ -1140,7 +1140,7 @@ class Googleshopping extends Library {
 
 	protected function sendEmailReport($report): void {
 		if (!$this->setting->get('advertise_google_cron_email_status')) {
-			return; //Do nothing
+			return; // Do nothing
 		}
 
 		$this->load->language('extension/advertise/google');
