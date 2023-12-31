@@ -61,8 +61,5 @@ class ControllerStartupStartup extends Controller {
 		}
 
 		$this->tax->setStoreAddress($this->config->get('config_country_id'), $this->config->get('config_zone_id'));
-
-		// Encryption
-		$this->registry->set('encryption', new \Encryption($this->config->get('config_encryption')));
 	}
 }
