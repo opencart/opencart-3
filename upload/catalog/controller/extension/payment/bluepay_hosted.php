@@ -21,6 +21,8 @@ class ControllerExtensionPaymentBluepayHosted extends Controller {
 		// Bluepay Hosted
 		$this->load->model('extension/payment/bluepay_hosted');
 
+		$data['CARD_TYPES'] = '';
+
 		if ($this->config->get('payment_bluepay_hosted_discover') == 1) {
 			$data['CARD_TYPES'] .= '-di';
 		}
