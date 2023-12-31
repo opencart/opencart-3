@@ -30,9 +30,9 @@ class Config {
 	 * @param string $key
 	 * @param int    $value
 	 *
-	 * @return mixed
+	 * @return void
 	 */
-	public function set(string $key, int $value) {
+	public function set(string $key, int $value): void {
 		$this->data[$key] = $value;
 	}
 
@@ -51,8 +51,10 @@ class Config {
 	 * Load
 	 *
 	 * @param string $filename
+  	 *
+	 * @return string|bool
 	 */
-	public function load(string $filename): void {
+	public function load(string $filename): string|bool {
 		$file = DIR_CONFIG . $filename . '.php';
 
 		if (file_exists($file)) {
