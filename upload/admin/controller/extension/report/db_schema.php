@@ -147,7 +147,8 @@ class ControllerExtensionReportDbSchema extends Controller {
 								$data['tables'][$result['TABLE_NAME'] . '|parent'][] = [
 									'name'          => $result['Column_name'],
 									'previous_type' => $result['COLUMN_TYPE'],
-									'type'          => $field['type']
+									'type'          => $field['type'],
+									'key'			=> $result['COLUMN_KEY']
 								];
 
 								$encoded_data = [
@@ -193,7 +194,8 @@ class ControllerExtensionReportDbSchema extends Controller {
 												$data['tables'][$result['TABLE_NAME'] . '|child'][] = [
 													'name'          => $result['Column_name'],
 													'previous_type' => $result['COLUMN_TYPE'],
-													'type'          => $type
+													'type'          => $type,
+													'key'			=> $result['COLUMN_KEY']
 												];
 											}
 											// Extensions
@@ -234,6 +236,7 @@ class ControllerExtensionReportDbSchema extends Controller {
 								}
 
 								$filter_data = array_merge($filter_data, [$index['name']]);
+								$filter_data = array_unique($filter_data);
 
 								$fields = $this->model_extension_report_db_schema->getIndexes($table['name'], $filter_data);
 
@@ -244,7 +247,8 @@ class ControllerExtensionReportDbSchema extends Controller {
 											$data['tables'][$result['TABLE_NAME'] . '|index'][] = [
 												'name'          => $result['Column_name'],
 												'previous_type' => $result['COLUMN_TYPE'],
-												'type'          => $field['type']
+												'type'          => $field['type'],
+												'key'			=> $result['COLUMN_KEY']
 											];
 										} 
 										// Extensions
@@ -271,7 +275,8 @@ class ControllerExtensionReportDbSchema extends Controller {
 							$data['tables'][$key_data['table'] . '|extension'][] = [
 								'name'          => $key_data['field'],
 								'previous_type' => $key_data['previous_type'],
-								'type'          => $val
+								'type'          => $val,
+								'key'			=> $result['COLUMN_KEY']
 							];
 						}
 					}
@@ -290,7 +295,8 @@ class ControllerExtensionReportDbSchema extends Controller {
 										$data['tables'][$result['TABLE_NAME'] . '|extension'][] = [
 											'name'          => $result['Column_name'],
 											'previous_type' => $result['COLUMN_TYPE'],
-											'type'          => $result['COLUMN_TYPE']
+											'type'          => $result['COLUMN_TYPE'],
+											'key'			=> $result['COLUMN_KEY']
 										];
 									}
 								}
@@ -299,7 +305,8 @@ class ControllerExtensionReportDbSchema extends Controller {
 									$data['tables'][$result['TABLE_NAME'] . '|extension'][] = [
 										'name'          => $result['Column_name'],
 										'previous_type' => $result['COLUMN_TYPE'],
-										'type'          => $result['COLUMN_TYPE']
+										'type'          => $result['COLUMN_TYPE'],
+										'key'			=> $result['COLUMN_KEY']
 									];
 								}
 							}
@@ -320,7 +327,8 @@ class ControllerExtensionReportDbSchema extends Controller {
 							$data['tables'][$result['TABLE_NAME'] . '|extension'][] = [
 								'name'          => $result['Column_name'],
 								'previous_type' => $result['COLUMN_TYPE'],
-								'type'          => $result['COLUMN_TYPE']
+								'type'          => $result['COLUMN_TYPE'],
+								'key'			=> $result['COLUMN_KEY']
 							];
 						}
 					}
