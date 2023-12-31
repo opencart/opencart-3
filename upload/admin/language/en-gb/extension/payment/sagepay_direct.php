@@ -57,7 +57,7 @@ $_['help_cron_job_url']       = 'Set a cron job to call this URL';
 
 // Text
 $_['text_void']               = 'Void';
-$_['text_payment']            = "Payment";
+$_['text_payment']            = 'Payment';
 $_['text_rebate']             = 'Rebate';
 
 // Buttons
