@@ -10,6 +10,7 @@ $_['text_report']      = 'Report';
 $_['text_parent']      = 'Parent Table';
 $_['text_child']       = 'Table Relationships';
 $_['text_index']	   = 'Index';
+$_['text_unassigned']  = 'Extensions or Unassigned';
 
 // Column
 $_['column_table']     = 'Table';
