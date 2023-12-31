@@ -27,10 +27,8 @@ class ControllerExtensionCaptchaGoogle extends Controller {
 
 	/**
 	 * Validate
-	 *
-	 * @return string
 	 */
-	public function validate(): string {
+	public function validate() {
 		if (empty($this->session->data['gcaptcha'])) {
 			$this->load->language('extension/captcha/google');
 
@@ -44,7 +42,7 @@ class ControllerExtensionCaptchaGoogle extends Controller {
 			if ((!isset($recaptcha['success']) || !$recaptcha['success']) || (!isset($this->session->data['gcaptcha'])) || ($this->session->data['gcaptcha'] != $this->request->post['g-recaptcha-response'])) {
 				return $this->language->get('error_captcha');
 			} else {
-				return '';
+				$this->session->data['gcaptcha'] = '';
 			}
 		}
 	}
