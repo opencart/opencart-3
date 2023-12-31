@@ -217,7 +217,59 @@ class ControllerExtensionReportDbSchema extends Controller {
 										}
 									}
 								}
-							}							
+							}
+						}
+					}
+
+					// Indexes
+					$index_data = [];
+					
+					if (isset($table['index']) && $table['index']) {
+						foreach ($table['index'] as $index) {
+							if (!empty($index['key']) && is_array($index['key'])) {
+								$filter_data = [];
+
+								foreach ($index['key'] as $val) {
+									$filter_data[] = $val;
+								}
+
+								$filter_data = array_merge($filter_data, [$index['name']]);
+
+								$fields = $this->model_extension_report_db_schema->getIndexes($table['name'], $filter_data);
+
+								foreach ($fields as $result) {
+									foreach ($table['field'] as $field) {
+										if ($field['name'] == $result['Column_name']) {
+											$data['tables'][$result['TABLE_NAME'] . '|index'][] = [
+												'name'          => $result['Column_name'],
+												'previous_type' => $result['COLUMN_TYPE'],
+												'type'          => $field['type']
+											];
+										} else {
+											$encoded_data = [
+												'table' 		=> $result['TABLE_NAME'],
+												'field' 		=> $result['Column_name'],
+												'previous_type' => $result['COLUMN_TYPE']
+											];
+											
+											$index_data[json_encode($encoded_data)] = $field['type'];
+										}
+									}
+								}
+							}
+						}
+					}
+
+					// Index extension fields from core tables
+					foreach ($index_data as $key => $val) {
+						if (json_validate($key)) {
+							$key_data = json_decode($key, true);
+
+							$data['tables'][$key_data['table'] . '|extension'][] = [
+								'name'          => $key_data['field'],
+								'previous_type' => $key_data['previous_type'],
+								'type'          => $val
+							];
 						}
 					}
 					
