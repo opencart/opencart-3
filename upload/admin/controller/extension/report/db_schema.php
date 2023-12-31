@@ -137,7 +137,6 @@ class ControllerExtensionReportDbSchema extends Controller {
 			foreach ($tables as $table) {
 				if (in_array($table['name'], $selected)) {
 					$field_type_data = [];
-					$filter_data = [];
 
 					$fields = $this->model_extension_report_db_schema->getTable($table['name']);
 
@@ -242,10 +241,10 @@ class ControllerExtensionReportDbSchema extends Controller {
 								}
 								// Extensions
 								else {
-									$data['tables'][$key_data['table'] . '|extension'][] = [
-										'name'          => $key_data['field'],
-										'previous_type' => $val,
-										'type'          => $val
+									$data['tables'][$result['TABLE_NAME'] . '|extension'][] = [
+										'name'          => $result['Column_name'],
+										'previous_type' => $result['COLUMN_TYPE'],
+										'type'          => $result['COLUMN_TYPE']
 									];
 								}
 							}
