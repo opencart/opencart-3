@@ -344,9 +344,9 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 
 		// Check if order we have saved in database maches with callback sagepay does
 		if (!isset($transaction_info['order_id']) || $transaction_info['order_id'] != $order_id) {
-			echo "Status=INVALID" . $end_ln;
-			echo "StatusDetail= Order IDs could not be matched. Order might be tampered with." . $end_ln;
-			echo "RedirectURL=" . $error_page . $end_ln;
+			echo 'Status=INVALID' . $end_ln;
+			echo 'StatusDetail=Order IDs could not be matched. Order might be tampered with.' . $end_ln;
+			echo 'RedirectURL=' . $error_page . $end_ln;
 
 			$this->model_extension_payment_sagepay_server->logger('StatusDetail', 'Order IDs could not be matched. Order might be tampered with');
 			exit;
@@ -369,9 +369,9 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 		if ($str_my_signature != $str_vps_signature) {
 			$this->model_extension_payment_sagepay_server->deleteOrder($order_id);
 
-			echo "Status=INVALID" . $end_ln;
-			echo "StatusDetail= Cannot match the MD5 Hash. Order might be tampered with." . $end_ln;
-			echo "RedirectURL=" . $error_page . $end_ln;
+			echo 'Status=INVALID' . $end_ln;
+			echo 'StatusDetail=Cannot match the MD5 Hash. Order might be tampered with.' . $end_ln;
+			echo 'RedirectURL=' . $error_page . $end_ln;
 
 			$this->model_extension_payment_sagepay_server->logger('StatusDetail', 'Cannot match the MD5 Hash. Order might be tampered with');
 			exit;
@@ -408,13 +408,15 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 		$this->model_extension_payment_sagepay_server->addTransaction($transaction_info['sagepay_server_order_id'], $this->config->get('payment_sagepay_server_transaction'), $order_info);
 
 		if ($str_token) {
-			$data['customer_id'] = $order_info['customer_id'];
-			$data['ExpiryDate'] = substr($str_expiry_date, -4, 2) . '/' . substr($str_expiry_date, 2);
-			$data['Token'] = $str_token;
-			$data['CardType'] = $str_card_type;
-			$data['Last4Digits'] = $str_last_4_digits;
+			$post_data = [];
+			
+			$post_data['customer_id'] = $order_info['customer_id'];
+			$post_data['ExpiryDate'] = substr($str_expiry_date, -4, 2) . '/' . substr($str_expiry_date, 2);
+			$post_data['Token'] = $str_token;
+			$post_data['CardType'] = $str_card_type;
+			$post_data['Last4Digits'] = $str_last_4_digits;
 
-			$this->model_extension_payment_sagepay_server->addCard($data);
+			$this->model_extension_payment_sagepay_server->addCard($post_data);
 		}
 
 		echo 'Status=OK' . $end_ln;
