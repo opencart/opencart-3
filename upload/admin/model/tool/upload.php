@@ -128,7 +128,7 @@ class ModelToolUpload extends Model {
 	 *
 	 * @return int
 	 */
-	public function getTotalUploads(): int {
+	public function getTotalUploads($data): int {
 		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "upload`";
 
 		$implode = [];
