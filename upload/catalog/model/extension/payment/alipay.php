@@ -127,6 +127,8 @@ class ModelExtensionPaymentAlipay extends Model {
 	public function pageExecute($request, $httpmethod = 'POST') {
 		$iv = $this->api_version;
 
+		$sys_params = [];
+
 		$sys_params['app_id'] = $this->appid;
 		$sys_params['version'] = $iv;
 		$sys_params['format'] = $this->format;
@@ -232,6 +234,20 @@ class ModelExtensionPaymentAlipay extends Model {
 		unset($k, $v);
 
 		return $string_to_be_signed;
+	}
+
+	private function getSignContentUrlencode($total_params) {
+		$param_data = '';
+		
+		foreach ($total_params as $key => $val) {
+			$param_data .= $key .'=' . urlencode($val) . '&';
+		}
+
+		if ($param_data) {
+			$param_data = substr($param_data, 0, strlen($param_data) - 2);
+		}
+
+		return $param_data;
 	}
 
 	private function generateSign($params, $signType = "RSA") {
