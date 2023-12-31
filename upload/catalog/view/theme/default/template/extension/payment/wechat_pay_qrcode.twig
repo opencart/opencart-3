@@ -29,7 +29,7 @@
   </div>
 </div>
 <script>
-var url = "{{ code_url }}";
+var url = '{{ code_url }}';
 
 var qrcode = new QRCode('qrcode', {
     text: url,
@@ -49,7 +49,7 @@ function chekOrderStatus() {
         success: function (json) {
             if (json['result']) {
                 loop = false;
-                location.href = "{{ action_success }}";
+                location.href = '{{ action_success }}';
             }
 
             if (loop) {
