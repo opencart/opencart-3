@@ -55,6 +55,7 @@ class ControllerStartupSetting extends Controller {
 		}
 
 		// Encryption
-		$this->registry->set('encryption', new \Encryption($this->config->get('config_encryption')));
+		$encryption = new \Encryption($this->config->get('config_encryption'));
+		$this->registry->set('encryption', $encryption);
 	}
 }
