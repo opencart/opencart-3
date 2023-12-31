@@ -4,7 +4,7 @@
  *
  * @package Catalog\Controller\Extension\Payment
  */
-class ControllerExtensionPaymentBluePayHosted extends Controller {
+class ControllerExtensionPaymentBluepayHosted extends Controller {
 	/**
 	 * @return string
 	 */
