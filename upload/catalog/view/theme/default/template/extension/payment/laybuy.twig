@@ -57,8 +57,8 @@ $(document).ready(function () {
         calculate($('#input-down-payment').val(), $('#input-months').val());
     });
 
-    var symbol_left = "{{ currency_symbol_left }}";
-    var symbol_right = "{{ currency_symbol_right }}";
+    var symbol_left = '{{ currency_symbol_left }}';
+    var symbol_right = '{{ currency_symbol_right }}';
     var order = {{ order_info|json_encode() }};
     var total = parseFloat(parseFloat({{ total }}) * parseFloat(order.currency_value)).toFixed(4);
 
