@@ -355,6 +355,8 @@ class ModelExtensionPaymentSagepayServer extends Model {
 
 		$response_info = explode(chr(10), $response);
 
+		$i = 0;
+
 		foreach ($response_info as $string) {
 			if (strpos($string, '=') && isset($i)) {
 				$parts = explode('=', $string, 2);
@@ -365,6 +367,8 @@ class ModelExtensionPaymentSagepayServer extends Model {
 
 				$data[trim($parts[0])] = trim($parts[1]);
 			}
+
+			$i++;
 		}
 
 		return $data;
