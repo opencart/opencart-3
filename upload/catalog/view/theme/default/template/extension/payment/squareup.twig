@@ -195,7 +195,7 @@ $(document).ready(function () {
 
         $('head').append(script);
         script.onload = onScriptLoad;
-        script.src = "{{ squareup_js_api }}";
+        script.src = '{{ squareup_js_api }}';
         script.async = true;
 
         toggleAjaxSetup(init_ajax_setup);
