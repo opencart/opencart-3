@@ -43,6 +43,8 @@ class ControllerExtensionCaptchaGoogle extends Controller {
 
 			if ($recaptcha['success']) {
 				$this->session->data['gcaptcha'] = '';
+
+				return '';
 			} else {
 				return $this->language->get('error_captcha');
 			}
