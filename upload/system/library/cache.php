@@ -50,8 +50,8 @@ class Cache {
 	 *
 	 * @return mixed
 	 */
-	public function set(string $key, array|string|null $value, int $expire = 0): mixed {
-		return $this->adaptor->set($key, $value);
+	public function set(string $key, $value, int $expire = 0): void {
+		$this->adaptor->set($key, $value, $expire);
 	}
 
 	/**
