@@ -52,9 +52,9 @@ class Config {
 	 *
 	 * @param string $filename
   	 *
-	 * @return string|bool
+	 * @return array|bool
 	 */
-	public function load(string $filename): string|bool {
+	public function load(string $filename): array|bool {
 		$file = DIR_CONFIG . $filename . '.php';
 
 		if (file_exists($file)) {
