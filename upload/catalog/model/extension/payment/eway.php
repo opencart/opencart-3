@@ -281,7 +281,7 @@ class ModelExtensionPaymentEway extends Model {
 				$response = new \stdClass();
 
 				if ($info['http_code'] == 401 || $info['http_code'] == 404 || $info['http_code'] == 403) {
-					$response->Errors = "Please check the API Key and Password";
+					$response->Errors = 'Please check the API Key and Password';
 				} else {
 					$response->Errors = 'Error connecting to eWAY: ' . $info['http_code'];
 				}
