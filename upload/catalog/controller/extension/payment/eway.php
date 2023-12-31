@@ -86,7 +86,7 @@ class ControllerExtensionPaymentEway extends Controller {
 		$request->ShippingAddress->Country = strtolower($order_info['shipping_iso_code_2']);
 		$request->ShippingAddress->Email = $order_info['email'];
 		$request->ShippingAddress->Phone = (string)substr($order_info['telephone'], 0, 32);
-		$request->ShippingAddress->ShippingMethod = "Unknown";
+		$request->ShippingAddress->ShippingMethod = 'Unknown';
 
 		$invoice_desc = '';
 
