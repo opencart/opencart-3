@@ -390,6 +390,21 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 	}
 
 	/**
+	 * addHistory
+	 *
+	 * @param int    $order_id
+	 * @param int    $order_status_id
+	 * @param string $message
+	 *
+	 * @return void
+	 */
+	public function addHistory(int $order_id, int $order_status_id, $comment): void {
+		$this->load->model('checkout/order');
+
+		$this->model_checkout_order->addHistory($order_id, $order_status_id, $comment);
+	}
+
+	/**
 	 * addTransaction
 	 *
 	 * @param int    $globalpay_remote_order_id
