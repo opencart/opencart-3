@@ -93,15 +93,15 @@ class ControllerExtensionPaymentDivido extends Controller {
 		// Divido
 		$this->load->model('extension/payment/divido');
 
-		$data = json_decode(file_get_contents('php://input'));
+		$post_data = json_decode(file_get_contents('php://input'));
 
-		if (!isset($data->status)) {
+		if (!isset($post_data->status)) {
 			$this->response->setOutput('');
 
 			return false;
 		}
 
-		$lookup = $this->model_extension_payment_divido->getLookupByOrderId($data->metadata->order_id);
+		$lookup = $this->model_extension_payment_divido->getLookupByOrderId($post_data->metadata->order_id);
 
 		if ($lookup->num_rows != 1) {
 			$this->response->setOutput('');
@@ -109,24 +109,24 @@ class ControllerExtensionPaymentDivido extends Controller {
 			return false;
 		}
 
-		$hash = $this->model_extension_payment_divido->hashOrderId($data->metadata->order_id, $lookup->row['salt']);
+		$hash = $this->model_extension_payment_divido->hashOrderId($post_data->metadata->order_id, $lookup->row['salt']);
 
-		if ($hash !== $data->metadata->order_hash) {
+		if ($hash !== $post_data->metadata->order_hash) {
 			$this->response->setOutput('');
 
 			return false;
 		}
 
-		$order_id = $data->metadata->order_id;
+		$order_id = $post_data->metadata->order_id;
 		$order_info = $this->model_checkout_order->getOrder($order_id);
 		$status_id = $order_info['order_status_id'];
-		$message = 'Status: {$data->status}';
+		$message = 'Status: {$post_data->status}';
 
-		if (isset($this->history_messages[$data->status])) {
-			$message = $this->history_messages[$data->status];
+		if (isset($this->history_messages[$post_data->status])) {
+			$message = $this->history_messages[$post_data->status];
 		}
 
-		if ($data->status == self::STATUS_SIGNED) {
+		if ($post_data->status == self::STATUS_SIGNED) {
 			$status_override = $this->config->get('payment_divido_order_status_id');
 
 			if (!empty($status_override)) {
@@ -134,15 +134,15 @@ class ControllerExtensionPaymentDivido extends Controller {
 			}
 		}
 
-		if (isset($this->status_id[$data->status]) && $this->status_id[$data->status] > $status_id) {
-			$status_id = $this->status_id[$data->status];
+		if (isset($this->status_id[$post_data->status]) && $this->status_id[$post_data->status] > $status_id) {
+			$status_id = $this->status_id[$post_data->status];
 		}
 
-		if ($data->status == self::STATUS_DECLINED && $order_info['order_status_id'] == 0) {
+		if ($post_data->status == self::STATUS_DECLINED && $order_info['order_status_id'] == 0) {
 			$status_id = 0;
 		}
 
-		$this->model_extension_payment_divido->saveLookup($data->metadata->order_id, $lookup->row['salt'], null, $data->application);
+		$this->model_extension_payment_divido->saveLookup($post_data->metadata->order_id, $lookup->row['salt'], null, $post_data->application);
 
 		$this->model_checkout_order->addHistory($order_id, $status_id, $message, false);
 
