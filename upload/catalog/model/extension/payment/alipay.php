@@ -237,17 +237,7 @@ class ModelExtensionPaymentAlipay extends Model {
 	}
 
 	private function getSignContentUrlencode($total_params) {
-		$param_data = '';
-		
-		foreach ($total_params as $key => $val) {
-			$param_data .= $key .'=' . urlencode($val) . '&';
-		}
-
-		if ($param_data) {
-			$param_data = substr($param_data, 0, - 2);
-		}
-
-		return $param_data;
+		return http_build_query($total_params, '', '&');
 	}
 
 	private function generateSign($params, $signType = "RSA") {
