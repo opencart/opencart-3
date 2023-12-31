@@ -244,7 +244,7 @@ class ModelExtensionPaymentAlipay extends Model {
 		}
 
 		if ($param_data) {
-			$param_data = substr($param_data, 0, strlen($param_data) - 2);
+			$param_data = substr($param_data, 0, - 2);
 		}
 
 		return $param_data;
