@@ -288,7 +288,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 		$header[] = 'Authorization: Basic ' . base64_encode($this->config->get('payment_cardconnect_api_username') . ':' . $this->config->get('payment_cardconnect_api_password'));
 
 		$this->model_extension_payment_cardconnect->log('Header: ' . print_r($header, true));
-		$this->model_extension_payment_cardconnect->log('Post Data: ' . print_r($data, true));
+		$this->model_extension_payment_cardconnect->log('Post Data: ' . print_r($post_data, true));
 		$this->model_extension_payment_cardconnect->log('URL: ' . $url);
 
 		$ch = curl_init();
@@ -346,7 +346,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 		$header[] = 'Authorization: Basic ' . base64_encode($this->config->get('payment_cardconnect_api_username') . ':' . $this->config->get('payment_cardconnect_api_password'));
 
 		$this->model_extension_payment_cardconnect->log('Header: ' . print_r($header, true));
-		$this->model_extension_payment_cardconnect->log('Post Data: ' . print_r($data, true));
+		$this->model_extension_payment_cardconnect->log('Post Data: ' . print_r($post_data, true));
 		$this->model_extension_payment_cardconnect->log('URL: ' . $url);
 
 		$ch = curl_init();
