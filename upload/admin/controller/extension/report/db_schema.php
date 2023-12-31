@@ -239,13 +239,16 @@ class ControllerExtensionReportDbSchema extends Controller {
 
 								foreach ($fields as $result) {
 									foreach ($table['field'] as $field) {
+										// Core
 										if ($field['name'] == $result['Column_name']) {
 											$data['tables'][$result['TABLE_NAME'] . '|index'][] = [
 												'name'          => $result['Column_name'],
 												'previous_type' => $result['COLUMN_TYPE'],
 												'type'          => $field['type']
 											];
-										} else {
+										} 
+										// Extensions
+										else {
 											$encoded_data = [
 												'table' 		=> $result['TABLE_NAME'],
 												'field' 		=> $result['Column_name'],
