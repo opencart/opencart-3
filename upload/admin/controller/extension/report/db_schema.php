@@ -15,6 +15,80 @@ class ControllerExtensionReportDbSchema extends Controller {
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
+		// Settings
+		$this->load->model('setting/setting');
+
+		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
+			$this->model_setting_setting->editSetting('report_db_schema', $this->request->post);
+
+			$this->session->data['success'] = $this->language->get('text_success');
+
+			$this->response->redirect($this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=report', true));
+		}
+
+		if (isset($this->error['warning'])) {
+			$data['error_warning'] = $this->error['warning'];
+		} else {
+			$data['error_warning'] = '';
+		}
+
+		$data['breadcrumbs'] = [];
+
+		$data['breadcrumbs'][] = [
+			'text' => $this->language->get('text_home'),
+			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
+		];
+
+		$data['breadcrumbs'][] = [
+			'text' => $this->language->get('text_extension'),
+			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=report', true)
+		];
+
+		$data['breadcrumbs'][] = [
+			'text' => $this->language->get('heading_title'),
+			'href' => $this->url->link('extension/report/db_schema', 'user_token=' . $this->session->data['user_token'], true)
+		];
+
+		$data['action'] = $this->url->link('extension/report/db_schema', 'user_token=' . $this->session->data['user_token'], true);
+		$data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=report', true);
+
+		if (isset($this->request->post['report_db_schema_status'])) {
+			$data['report_db_schema_status'] = $this->request->post['report_db_schema_status'];
+		} else {
+			$data['report_db_schema_status'] = $this->config->get('report_db_schema_status');
+		}
+
+		if (isset($this->request->post['report_db_schema_sort_order'])) {
+			$data['report_db_schema_sort_order'] = $this->request->post['report_db_schema_sort_order'];
+		} else {
+			$data['report_db_schema_sort_order'] = $this->config->get('report_db_schema_sort_order');
+		}
+
+		$data['header'] = $this->load->controller('common/header');
+		$data['column_left'] = $this->load->controller('common/column_left');
+		$data['footer'] = $this->load->controller('common/footer');
+
+		$this->response->setOutput($this->load->view('extension/report/db_schema_form', $data));
+	}
+
+	protected function validate() {
+		if (!$this->user->hasPermission('modify', 'extension/report/db_schema')) {
+			$this->error['warning'] = $this->language->get('error_permission');
+		}
+
+		return !$this->error;
+	}
+
+	/**
+	 * Report
+	 *
+	 * @return string
+	 */
+	public function report(): string {
+		$this->load->language('extension/report/db_schema');
+
+		$this->document->setTitle($this->language->get('heading_title'));
+
 		if (isset($this->request->get['page'])) {
 			$page = (int)$this->request->get['page'];
 		} else {
@@ -341,33 +415,5 @@ class ControllerExtensionReportDbSchema extends Controller {
 		}
 
 		return null;
-	}
-
-	/**
-	 * Install
-	 *
-	 * @return void
-	 */
-	public function install(): void {
-		// Settings
-		$this->load->model('setting/setting');
-
-		$post_data = [
-			'report_db_schema_status' => 1
-		];
-
-		$this->model_setting_setting->editSetting('report_db_schema', $post_data);
-	}
-
-	/**
-	 * Uninstall
-	 *
-	 * @return void
-	 */
-	public function uninstall(): void {
-		// Settings
-		$this->load->model('setting/setting');
-
-		$this->model_setting_setting->deleteSetting('report_db_schema');
 	}
 }
