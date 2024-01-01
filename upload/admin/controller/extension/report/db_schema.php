@@ -171,7 +171,7 @@ class ControllerExtensionReportDbSchema extends Controller {
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
 
-		$this->response->setOutput($this->load->view('extension/report/db_schema_info', $data));
+		return $this->load->view('extension/report/db_schema_info', $data);
 	}
 
 	/**
