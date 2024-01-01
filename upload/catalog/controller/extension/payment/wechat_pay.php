@@ -73,7 +73,7 @@ class ControllerExtensionPaymentWechatPay extends Controller {
 
 		\Wechat\Loader::config($options);
 		$pay = new \Wechat\WechatPay();
-		$result = $pay->getPrepayId(null, $subject, $order_id, $total_amount * 100, $notify_url, $trade_type = "NATIVE", null, $currency);
+		$result = $pay->getPrepayId(null, $subject, $order_id, $total_amount * 100, $notify_url, $trade_type = 'NATIVE', null, $currency);
 
 		$data['error_warning'] = '';
 		$data['code_url'] = '';
