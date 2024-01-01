@@ -11,8 +11,8 @@ class ModelExtensionPaymentAlipay extends Model {
 	private string $api_version = '1.0';
 	private string $log_file_name = 'alipay.log';
 	private string $gateway_url = 'https://openapi.alipay.com/gateway.do';
-	private string $format = "json";
-	private string $signtype = "RSA2";
+	private string $format = 'json';
+	private string $signtype = 'RSA2';
 	private string $alipay_public_key;
 	private string $private_key;
 	private string $appid;
