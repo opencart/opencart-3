@@ -510,10 +510,10 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 		];
 
 		// Enable mfa only for UK and Europe regions
-		$data['psd_enabled'] = "false";
+		$data['psd_enabled'] = 'false';
 
 		if ($this->config->get('payment_amazon_login_pay_payment_region') != 'USD') {
-			$data['psd_enabled'] = "true";
+			$data['psd_enabled'] = 'true';
 		}
 
 		// Detect the buyer multi-currency
