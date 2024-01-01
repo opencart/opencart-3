@@ -213,7 +213,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 			$this->loadLibrary($this->store_id);
 		}
 
-		if (null === $this->googleshopping->getEventSnippetSendTo()) {
+		if ($this->googleshopping->getEventSnippetSendTo() === null) {
 			return '';
 		}
 
@@ -251,7 +251,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 			$this->loadLibrary($this->store_id);
 		}
 
-		if (null === $this->googleshopping->getEventSnippetSendTo()) {
+		if ($this->googleshopping->getEventSnippetSendTo() === null) {
 			return '';
 		}
 
@@ -290,7 +290,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 			$this->loadLibrary($this->store_id);
 		}
 
-		if (null === $this->googleshopping->getEventSnippetSendTo()) {
+		if ($this->googleshopping->getEventSnippetSendTo() === null) {
 			return '';
 		}
 
@@ -353,7 +353,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 			$this->loadLibrary($this->store_id);
 		}
 
-		if (null === $this->googleshopping->getEventSnippetSendTo()) {
+		if ($this->googleshopping->getEventSnippetSendTo() === null) {
 			return '';
 		}
 
@@ -403,7 +403,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 			$this->loadLibrary($this->store_id);
 		}
 
-		if (null === $this->googleshopping->getEventSnippetSendTo()) {
+		if ($this->googleshopping->getEventSnippetSendTo() === null) {
 			return '';
 		}
 
