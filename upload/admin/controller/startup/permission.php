@@ -33,6 +33,7 @@ class ControllerStartupPermission extends Controller {
 				'extension/feed',
 				'extension/fraud',
 				'extension/module',
+				'extension/other',
 				'extension/payment',
 				'extension/shipping',
 				'extension/theme',
