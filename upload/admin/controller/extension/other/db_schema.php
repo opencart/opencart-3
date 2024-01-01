@@ -2,16 +2,16 @@
 /**
  * Class DB Schema
  *
- * @package Admin\Controller\Extension\Report
+ * @package Admin\Controller\Extension\Other
  */
-class ControllerExtensionReportDbSchema extends Controller {
+class ControllerExtensionOtherDbSchema extends Controller {
 	private array $error = [];
 
 	/**
 	 * @return void
 	 */
 	public function index(): void {
-		$this->load->language('extension/report/db_schema');
+		$this->load->language('extension/other/db_schema');
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
@@ -19,11 +19,11 @@ class ControllerExtensionReportDbSchema extends Controller {
 		$this->load->model('setting/setting');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-			$this->model_setting_setting->editSetting('report_db_schema', $this->request->post);
+			$this->model_setting_setting->editSetting('other_db_schema', $this->request->post);
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
-			$this->response->redirect($this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=report', true));
+			$this->response->redirect($this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=other', true));
 		}
 
 		if (isset($this->error['warning'])) {
@@ -41,38 +41,38 @@ class ControllerExtensionReportDbSchema extends Controller {
 
 		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_extension'),
-			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=report', true)
+			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=other', true)
 		];
 
 		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('heading_title'),
-			'href' => $this->url->link('extension/report/db_schema', 'user_token=' . $this->session->data['user_token'], true)
+			'href' => $this->url->link('extension/other/db_schema', 'user_token=' . $this->session->data['user_token'], true)
 		];
 
-		$data['action'] = $this->url->link('extension/report/db_schema', 'user_token=' . $this->session->data['user_token'], true);
-		$data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=report', true);
+		$data['action'] = $this->url->link('extension/other/db_schema', 'user_token=' . $this->session->data['user_token'], true);
+		$data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=other', true);
 
-		if (isset($this->request->post['report_db_schema_status'])) {
-			$data['report_db_schema_status'] = $this->request->post['report_db_schema_status'];
+		if (isset($this->request->post['other_db_schema_status'])) {
+			$data['other_db_schema_status'] = $this->request->post['other_db_schema_status'];
 		} else {
-			$data['report_db_schema_status'] = $this->config->get('report_db_schema_status');
+			$data['other_db_schema_status'] = $this->config->get('other_db_schema_status');
 		}
 
-		if (isset($this->request->post['report_db_schema_sort_order'])) {
-			$data['report_db_schema_sort_order'] = $this->request->post['report_db_schema_sort_order'];
+		if (isset($this->request->post['other_db_schema_sort_order'])) {
+			$data['other_db_schema_sort_order'] = $this->request->post['other_db_schema_sort_order'];
 		} else {
-			$data['report_db_schema_sort_order'] = $this->config->get('report_db_schema_sort_order');
+			$data['other_db_schema_sort_order'] = $this->config->get('other_db_schema_sort_order');
 		}
 
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
 
-		$this->response->setOutput($this->load->view('extension/report/db_schema_form', $data));
+		$this->response->setOutput($this->load->view('extension/other/db_schema_form', $data));
 	}
 
 	protected function validate() {
-		if (!$this->user->hasPermission('modify', 'extension/report/db_schema')) {
+		if (!$this->user->hasPermission('modify', 'extension/other/db_schema')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
 
@@ -85,7 +85,7 @@ class ControllerExtensionReportDbSchema extends Controller {
 	 * @return string
 	 */
 	public function report(): string {
-		$this->load->language('extension/report/db_schema');
+		$this->load->language('extension/other/db_schema');
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
@@ -110,16 +110,16 @@ class ControllerExtensionReportDbSchema extends Controller {
 
 		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_extension'),
-			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=report', true)
+			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=other', true)
 		];
 
 		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('heading_title'),
-			'href' => $this->url->link('extension/report/db_schema', 'user_token=' . $this->session->data['user_token'] . $url, true)
+			'href' => $this->url->link('extension/other/db_schema', 'user_token=' . $this->session->data['user_token'] . $url, true)
 		];
 
-		$data['action'] = $this->url->link('extension/report/db_schema/getReport', 'user_token=' . $this->session->data['user_token'] . $url, true);
-		$data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=report', true);
+		$data['action'] = $this->url->link('extension/other/db_schema/getReport', 'user_token=' . $this->session->data['user_token'] . $url, true);
+		$data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=other', true);
 
 		$data['tables'] = [];
 
@@ -133,9 +133,9 @@ class ControllerExtensionReportDbSchema extends Controller {
 			'limit' => $this->config->get('config_limit_admin')
 		];
 
-		$table_total = $this->model_extension_report_db_schema->getTotalTables();
+		$table_total = $this->model_extension_other_db_schema->getTotalTables();
 
-		$results = $this->model_extension_report_db_schema->getTables($filter_data);
+		$results = $this->model_extension_other_db_schema->getTables($filter_data);
 
 		foreach ($results as $result) {
 			foreach ($tables as $table) {
@@ -161,7 +161,7 @@ class ControllerExtensionReportDbSchema extends Controller {
 		$pagination->total = $table_total;
 		$pagination->page = $page;
 		$pagination->limit = $this->config->get('config_limit_admin');
-		$pagination->url = $this->url->link('extension/report/db_schema', 'user_token=' . $this->session->data['user_token'] . '&page={page}' . $url, true);
+		$pagination->url = $this->url->link('extension/other/db_schema', 'user_token=' . $this->session->data['user_token'] . '&page={page}' . $url, true);
 
 		$data['pagination'] = $pagination->render();
 
@@ -171,7 +171,7 @@ class ControllerExtensionReportDbSchema extends Controller {
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
 
-		return $this->load->view('extension/report/db_schema_info', $data);
+		return $this->load->view('extension/other/db_schema_info', $data);
 	}
 
 	/**
@@ -180,7 +180,7 @@ class ControllerExtensionReportDbSchema extends Controller {
 	 * @return object\Action|null
 	 */
 	public function getReport(): ?object {
-		$this->load->language('extension/report/db_schema');
+		$this->load->language('extension/other/db_schema');
 
 		$data['title'] = $this->language->get('text_report');
 
@@ -199,9 +199,9 @@ class ControllerExtensionReportDbSchema extends Controller {
 			$selected = [];
 		}
 
-		if ($this->user->hasPermission('modify', 'extension/report/db_schema')) {
+		if ($this->user->hasPermission('modify', 'extension/other/db_schema')) {
 			// DB Schema
-			$this->load->model('extension/report/db_schema');
+			$this->load->model('extension/other/db_schema');
 
 			// DB Schema
 			$this->load->helper('db_schema');
@@ -212,7 +212,7 @@ class ControllerExtensionReportDbSchema extends Controller {
 				if (in_array($table['name'], $selected)) {
 					$field_type_data = [];
 
-					$fields = $this->model_extension_report_db_schema->getTable($table['name']);
+					$fields = $this->model_extension_other_db_schema->getTable($table['name']);
 
 					foreach ($fields as $result) {
 						foreach ($table['field'] as $field) {
@@ -249,7 +249,7 @@ class ControllerExtensionReportDbSchema extends Controller {
 						
 					if (isset($table['foreign']) && $table['foreign']) {
 						foreach ($table['foreign'] as $foreign) {
-							$fields = $this->model_extension_report_db_schema->getTable($foreign['table']);
+							$fields = $this->model_extension_other_db_schema->getTable($foreign['table']);
 
 							foreach ($fields as $result) {
 								foreach ($field_type_data as $key => $val) {
@@ -312,7 +312,7 @@ class ControllerExtensionReportDbSchema extends Controller {
 								$filter_data = array_merge($filter_data, [$index['name']]);
 								$filter_data = array_unique($filter_data);
 
-								$fields = $this->model_extension_report_db_schema->getIndexes($table['name'], $filter_data);
+								$fields = $this->model_extension_other_db_schema->getIndexes($table['name'], $filter_data);
 
 								foreach ($fields as $result) {
 									foreach ($table['field'] as $field) {
@@ -356,7 +356,7 @@ class ControllerExtensionReportDbSchema extends Controller {
 					}
 					
 					// Extension fields from core tables
-					$fields = $this->model_extension_report_db_schema->getTable($table['name']);
+					$fields = $this->model_extension_other_db_schema->getTable($table['name']);
 					
 					foreach ($fields as $result) {
 						foreach ($field_type_data as $key => $val) {
@@ -394,7 +394,7 @@ class ControllerExtensionReportDbSchema extends Controller {
 				if (json_validate($key)) {
 					$key_data = json_decode($key, true);
 
-					$fields = $this->model_extension_report_db_schema->getTable($key_data['table']);
+					$fields = $this->model_extension_other_db_schema->getTable($key_data['table']);
 
 					foreach ($fields as $result) {
 						if ($result['Column_name'] == $key_data['field']) {
@@ -409,7 +409,7 @@ class ControllerExtensionReportDbSchema extends Controller {
 				}
 			}
 
-			$this->response->setOutput($this->load->view('extension/report/db_schema_report', $data));
+			$this->response->setOutput($this->load->view('extension/other/db_schema_report', $data));
 		} else {
 			return new \Action('error/permission');
 		}

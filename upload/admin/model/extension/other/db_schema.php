@@ -2,9 +2,9 @@
 /**
  * Class DB Schema
  *
- * @package Admin\Model\Extension\Report
+ * @package Admin\Model\Extension\Other
  */
-class ModelExtensionReportDbSchema extends Model {
+class ModelExtensionOtherDbSchema extends Model {
 	/**
 	 * getTable
 	 *
