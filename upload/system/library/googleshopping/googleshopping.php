@@ -964,7 +964,7 @@ class Googleshopping extends Library {
 			$entry['cost'] = ((int)$report['cost']) / self::MICROAMOUNT;
 			$entry['conversion_value'] = (float)$report['conversion_value'];
 
-			$values[] = "(" . implode(",", $entry) . ")";
+			$values[] = '(' . implode(',', $entry) . ')';
 		}
 
 		$sql = "INSERT INTO `" . DB_PREFIX . "googleshopping_product` (`product_id`, `store_id`, `impressions`, `clicks`, `conversions`, `cost`, `conversion_value`) VALUES " . implode(',', $values) . " ON DUPLICATE KEY UPDATE `impressions`=`impressions` + VALUES(`impressions`), `clicks`=`clicks` + VALUES(`clicks`), `conversions`=`conversions` + VALUES(`conversions`), `cost`=`cost` + VALUES(`cost`), `conversion_value`=`conversion_value` + VALUES(`conversion_value`)";
@@ -1051,7 +1051,7 @@ class Googleshopping extends Library {
 		foreach ($product_level_entries as $entry) {
 			$entry['destination_status'] = "'" . $this->db->escape($entry['destination_status']) . "'";
 
-			$product_advertise_google[] = "(" . implode(",", $entry) . ")";
+			$product_advertise_google[] = '(' . implode(',', $entry) . ')';
 		}
 
 		$sql = "INSERT INTO `" . DB_PREFIX . "googleshopping_product` (`product_id`, `store_id`, `has_issues`, `destination_status`) VALUES " . implode(',', $product_advertise_google) . " ON DUPLICATE KEY UPDATE `has_issues`=VALUES(`has_issues`), `destination_status`=VALUES(`destination_status`)";
