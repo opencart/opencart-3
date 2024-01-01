@@ -275,14 +275,14 @@ class ModelExtensionPaymentEway extends Model {
 		if (curl_errno($ch) != CURLE_OK) {
 			$response = new \stdClass();
 
-			$response->Errors = "POST Error: " . curl_error($ch) . " URL: $url";
+			$response->Errors = 'POST Error: ' . curl_error($ch) . ' URL: ' . $url;
 			$response = json_encode($response);
 		} else {
 			$info = curl_getinfo($ch);
 
 			if ($info['http_code'] == 401 || $info['http_code'] == 404) {
 				$response = new \stdClass();
-				$response->Errors = "Please check the API Key and Password";
+				$response->Errors = 'Please check the API Key and Password';
 				$response = json_encode($response);
 			}
 		}
