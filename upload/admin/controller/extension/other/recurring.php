@@ -74,10 +74,10 @@ class ControllerExtensionOtherRecurring extends Controller {
     /**
 	 * Report
 	 *
-	 * @return string
+	 * @return void
 	 */
 
-     public function report(): string {
+     public function report(): void {
         $this->load->language('extension/other/recurring');
 
 		$this->document->setTitle($this->language->get('heading_title'));
