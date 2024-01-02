@@ -43,7 +43,7 @@
       $('#payment-method').load(this.href);
   });
 
-  $('#payment-method').load('index.php?route=customer/customer_payment/getPayment&user_token={{ user_token }}');
+  $('#payment-method').load('index.php?route=customer/customer_payment/getList&user_token={{ user_token }}');
 
   $('#payment-method').on('click', '.btn-success, .btn-danger', function (e) {
       e.preventDefault();
@@ -67,7 +67,7 @@
               }
 
               if (json['success']) {
-                  $('#payment-method').load('index.php?route=customer/customer_payment/getPayment&user_token={{ user_token }}');
+                  $('#payment-method').load('index.php?route=customer/customer_payment/getList&user_token={{ user_token }}');
 
                   $('#payment-method').before('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
               }

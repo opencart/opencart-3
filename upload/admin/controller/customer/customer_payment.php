@@ -86,11 +86,11 @@ class ControllerCustomerCustomerPayment extends Controller {
 	}
 
 	/**
-	 * getPayment
+	 * getList
 	 *
 	 * @return void
 	 */
-	public function getPayment(): void {
+	public function getList(): void {
 		if (isset($this->request->get['customer_id'])) {
 			$customer_id = (int)$this->request->get['customer_id'];
 		} else {
@@ -133,7 +133,7 @@ class ControllerCustomerCustomerPayment extends Controller {
 		$pagination->total = $payment_total;
 		$pagination->page = $page;
 		$pagination->limit = $this->config->get('config_limit_admin');
-		$pagination->url = $this->url->link('customer/customer_payment/getPayment', 'user_token=' . $this->session->data['user_token'] . '&page={page}', true);
+		$pagination->url = $this->url->link('customer/customer_payment/getList', 'user_token=' . $this->session->data['user_token'] . '&page={page}', true);
 
 		$data['pagination'] = $pagination->render();
 		$data['results'] = sprintf($this->language->get('text_pagination'), ($payment_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($payment_total - $this->config->get('config_limit_admin'))) ? $payment_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $payment_total, ceil($payment_total / $this->config->get('config_limit_admin')));
