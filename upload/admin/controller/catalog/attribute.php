@@ -15,10 +15,27 @@ class ControllerCatalogAttribute extends Controller {
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
-		// Attributes
-		$this->load->model('catalog/attribute');
+		$data['breadcrumbs'] = [];
 
-		$this->getList();
+		$data['breadcrumbs'][] = [
+			'text' => $this->language->get('text_home'),
+			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
+		];
+
+		$data['breadcrumbs'][] = [
+			'text' => $this->language->get('heading_title'),
+			'href' => $this->url->link('catalog/attribute', 'user_token=' . $this->session->data['user_token'] . $url, true)
+		];
+
+		$data['add'] = $this->url->link('catalog/attribute/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
+
+		$data['user_token'] = $this->session->data['user_token'];
+
+		$data['header'] = $this->load->controller('common/header');
+		$data['column_left'] = $this->load->controller('common/column_left');
+		$data['footer'] = $this->load->controller('common/footer');
+
+		$this->response->setOutput($this->load->view('catalog/attribute', $data));
 	}
 
 	/**
@@ -100,44 +117,53 @@ class ControllerCatalogAttribute extends Controller {
 	/**
 	 * Delete
 	 *
-	 * @return void
+	 * @return string
 	 */
-	public function delete(): void {
+	public function delete(): string {
 		$this->load->language('catalog/attribute');
 
-		$this->document->setTitle($this->language->get('heading_title'));
+		$json = [];
 
-		// Attributes
-		$this->load->model('catalog/attribute');
+		if (isset($this->request->post['selected'])) {
+			$selected = $this->request->post['selected'];
+		} else {
+			$selected = [];
+		}
 
-		if (isset($this->request->post['selected']) && $this->validateDelete()) {
-			foreach ((array)$this->request->post['selected'] as $attribute_id) {
+		if (!$this->user->hasPermission('modify', 'catalog/attribute')) {
+			$json['error'] = $this->language->get('error_permission');
+		}
+
+		$this->load->model('catalog/product');
+
+		foreach ($selected as $attribute_id) {
+			$product_total = $this->model_catalog_product->getTotalProductsByAttributeId($attribute_id);
+
+			if ($product_total) {
+				$json['error'] = sprintf($this->language->get('error_product'), $product_total);
+			}
+		}
+
+		if (!$json) {
+			$this->load->model('catalog/attribute');
+
+			foreach ($selected as $attribute_id) {
 				$this->model_catalog_attribute->deleteAttribute($attribute_id);
 			}
 
-			$this->session->data['success'] = $this->language->get('text_success');
-
-			$url = '';
-
-			if (isset($this->request->get['sort'])) {
-				$url .= '&sort=' . $this->request->get['sort'];
-			}
-
-			if (isset($this->request->get['order'])) {
-				$url .= '&order=' . $this->request->get['order'];
-			}
-
-			if (isset($this->request->get['page'])) {
-				$url .= '&page=' . $this->request->get['page'];
-			}
-
-			$this->response->redirect($this->url->link('catalog/attribute', 'user_token=' . $this->session->data['user_token'] . $url, true));
+			$json['success'] = $this->language->get('text_success');
 		}
 
-		$this->getList();
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
 	}
 
-	protected function getList(): void {
+	/**
+	 * getList
+	 *
+	 * @return string
+	 */
+	public function getList(): string {
 		if (isset($this->request->get['sort'])) {
 			$sort = $this->request->get['sort'];
 		} else {
@@ -170,21 +196,6 @@ class ControllerCatalogAttribute extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['breadcrumbs'] = [];
-
-		$data['breadcrumbs'][] = [
-			'text' => $this->language->get('text_home'),
-			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
-
-		$data['breadcrumbs'][] = [
-			'text' => $this->language->get('heading_title'),
-			'href' => $this->url->link('catalog/attribute', 'user_token=' . $this->session->data['user_token'] . $url, true)
-		];
-
-		$data['add'] = $this->url->link('catalog/attribute/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
-		$data['delete'] = $this->url->link('catalog/attribute/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
-
 		$data['attributes'] = [];
 
 		$filter_data = [
@@ -193,6 +204,9 @@ class ControllerCatalogAttribute extends Controller {
 			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
 			'limit' => $this->config->get('config_limit_admin')
 		];
+
+		// Attributes
+		$this->load->model('catalog/attribute');
 
 		$attribute_total = $this->model_catalog_attribute->getTotalAttributes();
 
@@ -204,26 +218,13 @@ class ControllerCatalogAttribute extends Controller {
 				'name'            => $result['name'],
 				'attribute_group' => $result['attribute_group'],
 				'sort_order'      => $result['sort_order'],
-				'edit'            => $this->url->link('catalog/attribute/edit', 'user_token=' . $this->session->data['user_token'] . '&attribute_id=' . $result['attribute_id'] . $url, true)
+				'edit'            => $this->url->link('catalog/attribute/edit', 'user_token=' . $this->session->data['user_token'] . '&attribute_id=' . $result['attribute_id'] . $url, true),
+				'delete'		  => $this->url->link('catalog/attribute/delete', 'user_token=' . $this->session->data['user_token'] . '&attribute_id=' . $result['attribute_id'] . $url, true)
 			];
 		}
 
-		if (isset($this->error['warning'])) {
-			$data['error_warning'] = $this->error['warning'];
-		} else {
-			$data['error_warning'] = '';
-		}
-
-		if (isset($this->session->data['success'])) {
-			$data['success'] = $this->session->data['success'];
-
-			unset($this->session->data['success']);
-		} else {
-			$data['success'] = '';
-		}
-
 		if (isset($this->request->post['selected'])) {
-			$data['selected'] = (array)$this->request->post['selected'];
+			$data['selected'] = $this->request->post['selected'];
 		} else {
 			$data['selected'] = [];
 		}
@@ -266,21 +267,11 @@ class ControllerCatalogAttribute extends Controller {
 		$data['sort'] = $sort;
 		$data['order'] = $order;
 
-		$data['header'] = $this->load->controller('common/header');
-		$data['column_left'] = $this->load->controller('common/column_left');
-		$data['footer'] = $this->load->controller('common/footer');
-
-		$this->response->setOutput($this->load->view('catalog/attribute_list', $data));
+		return $this->load->view('catalog/attribute_list', $data);
 	}
 
 	protected function getForm(): void {
 		$data['text_form'] = !isset($this->request->get['attribute_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
-
-		if (isset($this->error['warning'])) {
-			$data['error_warning'] = $this->error['warning'];
-		} else {
-			$data['error_warning'] = '';
-		}
 
 		if (isset($this->error['name'])) {
 			$data['error_name'] = $this->error['name'];
@@ -292,6 +283,14 @@ class ControllerCatalogAttribute extends Controller {
 			$data['error_attribute_group'] = $this->error['attribute_group'];
 		} else {
 			$data['error_attribute_group'] = '';
+		}
+
+		if (isset($this->session->data['success'])) {
+			$data['success'] = $this->session->data['success'];
+
+			unset($this->session->data['success']);
+		} else {
+			$data['success'] = '';
 		}
 
 		$url = '';
@@ -385,25 +384,6 @@ class ControllerCatalogAttribute extends Controller {
 		foreach ($this->request->post['attribute_description'] as $language_id => $value) {
 			if ((oc_strlen($value['name']) < 1) || (oc_strlen($value['name']) > 64)) {
 				$this->error['name'][$language_id] = $this->language->get('error_name');
-			}
-		}
-
-		return !$this->error;
-	}
-
-	protected function validateDelete() {
-		if (!$this->user->hasPermission('modify', 'catalog/attribute')) {
-			$this->error['warning'] = $this->language->get('error_permission');
-		}
-
-		// Products
-		$this->load->model('catalog/product');
-
-		foreach ((array)$this->request->post['selected'] as $attribute_id) {
-			$product_total = $this->model_catalog_product->getTotalProductsByAttributeId($attribute_id);
-
-			if ($product_total) {
-				$this->error['warning'] = sprintf($this->language->get('error_product'), $product_total);
 			}
 		}
 
