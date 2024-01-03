@@ -7,6 +7,8 @@ parameters:
 		- ./upload/admin/controller/extension/advertise/
 		- ./admin/model/extension/advertise/
 		- ./upload/admin/model/extension/advertise/
+		- ./system/library/googleshopping/
+		- ./upload/system/library/googleshopping/
 		- ./system/storage/vendor/
 		- ./upload/system/storage/vendor/
 	tmpDir: .cache
