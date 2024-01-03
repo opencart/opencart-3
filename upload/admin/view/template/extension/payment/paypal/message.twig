@@ -4,12 +4,11 @@
 		<div class="container-fluid">
 			<div class="pull-right">
 				<button data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary button-save"><i class="fa fa-save"></i></button>
-				<a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a>
-			</div>
+				<a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
 			<h1>{{ heading_title_main }}</h1>
 			<ul class="breadcrumb">
 				{% for breadcrumb in breadcrumbs %}
-				  <li><a href="{{ breadcrumb['href'] }}">{{ breadcrumb['text'] }}</a></li>
+				  <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
 				{% endfor %}
 			</ul>
 		</div>
@@ -40,17 +39,17 @@
 
 					<div class="section-content">
 						<ul class="nav nav-pills">
-							{% for message in setting['message'] %}
-							  <li class="nav-pill {% if loop.first %}active{% endif %}"><a href="#pill_{{ message['page_code'] }}" class="pill" data-toggle="tab">{{ attribute(_context, message['page_name']) }}</a></li>
+							{% for message in setting.message %}
+							  <li class="nav-pill {% if loop.first %}active{% endif %}"><a href="#pill_{{ message.page_code }}" class="pill" data-toggle="tab">{{ attribute(_context, message.page_name) }}</a></li>
 							{% endfor %}
 						</ul>
 						<hr class="hr" />
 						<div class="tab-content">
-							{% for message in setting['message'] %}
-                <div id="pill_{{ message['page_code'] }}" class="tab-pane {% if loop.first %}active{% endif %}">
+							{% for message in setting.message %}
+                <div id="pill_{{ message.page_code }}" class="tab-pane {% if loop.first %}active{% endif %}">
                   <div class="row">
                     <div class="col col-lg-6">
-                      {% if (message['page_code'] == 'checkout') %}
+                      {% if (message.page_code == 'checkout') %}
                         <div class="section-checkout">
                           <div class="section-title">{{ text_checkout }}</div>
                           <div class="section-panel">
@@ -76,7 +75,7 @@
                           </div>
                         </div>
                       {% endif %}
-                      {% if (message['page_code'] == 'home') %}
+                      {% if (message.page_code == 'home') %}
                         <div class="section-home">
                           <div class="section-title">{{ text_home }}</div>
                           <div class="table-menu">
@@ -94,7 +93,7 @@
                           </div>
                         </div>
                       {% endif %}
-                      {% if (message['page_code'] == 'product') %}
+                      {% if (message.page_code == 'product') %}
                         <div class="section-product">
                           <div class="row">
                             <div class="col col-sm-6">
@@ -114,7 +113,7 @@
                           </div>
                         </div>
                       {% endif %}
-                      {% if (message['page_code'] == 'cart') %}
+                      {% if (message.page_code == 'cart') %}
                         <div class="section-cart">
                           <div class="section-title">{{ text_cart }}</div>
                           <div class="table-cart">
@@ -174,9 +173,9 @@
                           </div>
                           <div class="col col-md-6">
                             <div class="form-group-status">
-                              <label class="control-label" for="input_message_{{ message['page_code'] }}_status"><span data-toggle="tooltip" title="{{ help_message_status }}">{{ entry_status }}</span></label>
-                              <input type="hidden" name="payment_paypal_setting[message][{{ message['page_code'] }}][status]" value="0" />
-                              <input type="checkbox" name="payment_paypal_setting[message][{{ message['page_code'] }}][status]" value="1" class="switch" {% if message['status'] %}checked="checked"{% endif %} />
+                              <label class="control-label" for="input_message_{{ message.page_code }}_status"><span data-toggle="tooltip" title="{{ help_message_status }}">{{ entry_status }}</span></label>
+                              <input type="hidden" name="payment_paypal_setting[message][{{ message.page_code }}][status]" value="0" />
+                              <input type="checkbox" name="payment_paypal_setting[message][{{ message.page_code }}][status]" value="1" class="switch" {% if message.status %}checked="checked"{% endif %} />
                             </div>
                           </div>
                         </div>
@@ -188,24 +187,24 @@
                             <p class="footnote">{{ text_message_footnote }}</p>
                           </div>
                         {% endif %}
-                        {% if (message['page_code'] != 'checkout') %}
+                        {% if (message.page_code != 'checkout') %}
                           <div class="row">
                             <div class="col col-md-6">
                               <div class="form-group">
-                                <label class="control-label" for="input_message_{{ message['page_code'] }}_insert_tag">{{ entry_message_insert_tag }}</label>
-                                <input type="text" name="payment_paypal_setting[message][{{ message['page_code'] }}][insert_tag]" value="{{ message['insert_tag'] }}" id="input_button_{{ message['page_code'] }}_insert_tag" class="form-control" />
+                                <label class="control-label" for="input_message_{{ message.page_code }}_insert_tag">{{ entry_message_insert_tag }}</label>
+                                <input type="text" name="payment_paypal_setting[message][{{ message.page_code }}][insert_tag]" value="{{ message.insert_tag }}" id="input_button_{{ message.page_code }}_insert_tag" class="form-control" />
                               </div>
                             </div>
                             <div class="col col-md-6">
                               <div class="form-group">
-                                <label class="control-label" for="input_message_{{ message['page_code'] }}_insert_type">{{ entry_message_insert_type }}</label>
-                                <select name="payment_paypal_setting[message][{{ message['page_code'] }}][insert_type]" id="input_message_{{ message['page_code'] }}_insert_type" class="form-control">
-                                  {% for message_insert_type in setting['message_insert_type'] %}
-                                  {% if (message_insert_type['code'] == message['insert_type']) %}
-                                  <option value="{{ message_insert_type['code'] }}" selected="selected">{{ attribute(_context, message_insert_type['name']) }}</option>
-                                  {% else %}
-                                  <option value="{{ message_insert_type['code'] }}">{{ attribute(_context, message_insert_type['name']) }}</option>
-                                  {% endif %}
+                                <label class="control-label" for="input_message_{{ message.page_code }}_insert_type">{{ entry_message_insert_type }}</label>
+                                <select name="payment_paypal_setting[message][{{ message.page_code }}][insert_type]" id="input_message_{{ message.page_code }}_insert_type" class="form-control">
+                                  {% for message_insert_type in setting.message_insert_type %}
+                                    {% if (message_insert_type.code == message.insert_type) %}
+                                      <option value="{{ message_insert_type.code }}" selected="selected">{{ attribute(_context, message_insert_type.name) }}</option>
+                                    {% else %}
+                                      <option value="{{ message_insert_type.code }}">{{ attribute(_context, message_insert_type.name) }}</option>
+                                    {% endif %}
                                   {% endfor %}
                                 </select>
                               </div>
@@ -215,60 +214,60 @@
                         <div class="row">
                           <div class="col col-md-6">
                             <div class="form-group">
-                              <label class="control-label" for="input_message_{{ message['page_code'] }}_align">{{ entry_message_align }}</label>
-                              <select name="payment_paypal_setting[message][{{ message['page_code'] }}][align]" id="input_message_{{ message['page_code'] }}_align" class="form-control control-paypal-message">
-                                {% for message_align in setting['message_align'] %}
-                                  {% if (message_align['code'] == message['align']) %}
-                                    <option value="{{ message_align['code'] }}" selected="selected">{{ attribute(_context, message_align['name']) }}</option>
+                              <label class="control-label" for="input_message_{{ message.page_code }}_align">{{ entry_message_align }}</label>
+                              <select name="payment_paypal_setting[message][{{ message.page_code }}][align]" id="input_message_{{ message.page_code }}_align" class="form-control control-paypal-message">
+                                {% for message_align in setting.message_align %}
+                                  {% if (message_align.code == message.align) %}
+                                    <option value="{{ message_align.code }}" selected="selected">{{ attribute(_context, message_align.name) }}</option>
                                   {% else %}
-                                    <option value="{{ message_align['code'] }}">{{ attribute(_context, message_align['name']) }}</option>
+                                    <option value="{{ message_align.code }}">{{ attribute(_context, message_align.name) }}</option>
                                   {% endif %}
                                 {% endfor %}
                               </select>
                             </div>
                             <div class="form-group">
-                              <label class="control-label" for="input_message_{{ message['page_code'] }}_size">{{ entry_message_size }}</label>
-                              <select name="payment_paypal_setting[message][{{ message['page_code'] }}][size]" id="input_message_{{ message['page_code'] }}_size" class="form-control control-paypal-message">
-                                {% for message_size in setting['message_size'] %}
-                                  {% if (message_size['code'] == message['size']) %}
-                                    <option value="{{ message_size['code'] }}" selected="selected">{{ attribute(_context, message_size['name']) }}</option>
+                              <label class="control-label" for="input_message_{{ message.page_code }}_size">{{ entry_message_size }}</label>
+                              <select name="payment_paypal_setting[message][{{ message.page_code }}][size]" id="input_message_{{ message.page_code }}_size" class="form-control control-paypal-message">
+                                {% for message_size in setting.message_size %}
+                                  {% if (message_size.code == message.size) %}
+                                    <option value="{{ message_size.code }}" selected="selected">{{ attribute(_context, message_size.name) }}</option>
                                   {% else %}
-                                    <option value="{{ message_size['code'] }}">{{ attribute(_context, message_size['name']) }}</option>
+                                    <option value="{{ message_size.code }}">{{ attribute(_context, message_size.name) }}</option>
                                   {% endif %}
                                 {% endfor %}
                               </select>
                             </div>
                             <div class="form-group">
-                              <label class="control-label" for="input_message_{{ message['page_code'] }}_layout">{{ entry_message_layout }}</label>
-                              <select name="payment_paypal_setting[message][{{ message['page_code'] }}][layout]" id="input_message_{{ message['page_code'] }}_layout" class="form-control input-message-layout control-paypal-message">
-                                {% for message_layout in setting['message_layout'] %}
-                                  {% if (message_layout['code'] == message['layout']) %}
-                                    <option value="{{ message_layout['code'] }}" selected="selected">{{ attribute(_context, message_layout['name']) }}</option>
+                              <label class="control-label" for="input_message_{{ message.page_code }}_layout">{{ entry_message_layout }}</label>
+                              <select name="payment_paypal_setting[message][{{ message.page_code }}][layout]" id="input_message_{{ message.page_code }}_layout" class="form-control input-message-layout control-paypal-message">
+                                {% for message_layout in setting.message_layout %}
+                                  {% if (message_layout.code == message.layout) %}
+                                    <option value="{{ message_layout.code }}" selected="selected">{{ attribute(_context, message_layout.name) }}</option>
                                   {% else %}
-                                    <option value="{{ message_layout['code'] }}">{{ attribute(_context, message_layout['name']) }}</option>
+                                    <option value="{{ message_layout.code }}">{{ attribute(_context, message_layout.name) }}</option>
                                   {% endif %}
                                 {% endfor %}
                               </select>
                             </div>
                           </div>
-                          <div class="col col-md-6">
-                            <div class="form-group {% if (setting['message'][message['page_code']]['layout'] == 'flex') %}hidden{% endif %}">
-                              <label class="control-label" for="input_message_{{ message['page_code'] }}_text_color">{{ entry_message_text_color }}</label>
-                              <select name="payment_paypal_setting[message][{{ message['page_code'] }}][text_color]" id="input_message_{{ message['page_code'] }}_text_color" class="form-control control-paypal-message">
-                                {% for message_text_color in setting['message_text_color'] %}
-                                  {% if (message_text_color['code'] == message['text_color']) %}
-                                    <option value="{{ message_text_color['code'] }}" selected="selected">{{ attribute(_context, message_text_color['name']) }}</option>
+                          <div class="col col-md-6">{% set setting_message = setting.message %}
+                            <div class="form-group {% if (setting_message[message.page_code].layout == 'flex') %}hidden{% endif %}">
+                              <label class="control-label" for="input_message_{{ message.page_code }}_text_color">{{ entry_message_text_color }}</label>
+                              <select name="payment_paypal_setting[message][{{ message.page_code }}][text_color]" id="input_message_{{ message.page_code }}_text_color" class="form-control control-paypal-message">
+                                {% for message_text_color in setting.message_text_color %}
+                                  {% if (message_text_color.code == message.text_color) %}
+                                    <option value="{{ message_text_color.code }}" selected="selected">{{ attribute(_context, message_text_color.name) }}</option>
                                   {% else %}
-                                    <option value="{{ message_text_color['code'] }}">{{ attribute(_context, message_text_color['name']) }}</option>
+                                    <option value="{{ message_text_color.code }}">{{ attribute(_context, message_text_color.name) }}</option>
                                   {% endif %}
                                 {% endfor %}
                               </select>
                             </div>
-                            <div class="form-group {% if (setting['message'][message['page_code']]['layout'] == 'flex') %}hidden{% endif %}">
-                              <label class="control-label" for="input_message_{{ message['page_code'] }}_text_size">{{ entry_message_text_size }}</label>
-                              <select name="payment_paypal_setting[message][{{ message['page_code'] }}][text_size]" id="input_message_{{ message['page_code'] }}_text_size" class="form-control control-paypal-message">
-                                {% for message_text_size in setting['message_text_size'] %}
-                                  {% if (message_text_size == message['text_size']) %}
+                            <div class="form-group {% if (setting_message[message.page_code].layout == 'flex') %}hidden{% endif %}">
+                              <label class="control-label" for="input_message_{{ message.page_code }}_text_size">{{ entry_message_text_size }}</label>
+                              <select name="payment_paypal_setting[message][{{ message.page_code }}][text_size]" id="input_message_{{ message.page_code }}_text_size" class="form-control control-paypal-message">
+                                {% for message_text_size in setting.message_text_size %}
+                                  {% if (message_text_size == message.text_size) %}
                                     <option value="{{ message_text_size }}" selected="selected">{{ message_text_size }}</option>
                                   {% else %}
                                     <option value="{{ message_text_size }}">{{ message_text_size }}</option>
@@ -276,23 +275,23 @@
                                 {% endfor %}
                               </select>
                             </div>
-                            <div class="form-group {% if (setting['message'][message['page_code']]['layout'] == 'text') %}hidden{% endif %}">
-                              <label class="control-label" for="input_message_{{ message['page_code'] }}_flex_color">{{ entry_message_flex_color }}</label>
-                              <select name="payment_paypal_setting[message][{{ message['page_code'] }}][flex_color]" id="input_message_{{ message['page_code'] }}_flex_color" class="form-control control-paypal-message">
-                                {% for message_flex_color in setting['message_flex_color'] %}
-                                  {% if (message_flex_color['code'] == message['flex_color']) %}
-                                    <option value="{{ message_flex_color['code'] }}" selected="selected">{{ attribute(_context, message_flex_color['name']) }}</option>
+                            <div class="form-group {% if (setting_message[message.page_code].layout == 'text') %}hidden{% endif %}">
+                              <label class="control-label" for="input_message_{{ message.page_code }}_flex_color">{{ entry_message_flex_color }}</label>
+                              <select name="payment_paypal_setting[message][{{ message.page_code }}][flex_color]" id="input_message_{{ message.page_code }}_flex_color" class="form-control control-paypal-message">
+                                {% for message_flex_color in setting.message_flex_color %}
+                                  {% if (message_flex_color.code == message.flex_color) %}
+                                    <option value="{{ message_flex_color.code }}" selected="selected">{{ attribute(_context, message_flex_color.name) }}</option>
                                   {% else %}
-                                    <option value="{{ message_flex_color['code'] }}">{{ attribute(_context, message_flex_color['name']) }}</option>
+                                    <option value="{{ message_flex_color.code }}">{{ attribute(_context, message_flex_color.name) }}</option>
                                   {% endif %}
                                 {% endfor %}
                               </select>
                             </div>
-                            <div class="form-group {% if (setting['message'][message['page_code']]['layout'] == 'text') %}hidden{% endif %}">
-                              <label class="control-label" for="input_message_{{ message['page_code'] }}_flex_ratio">{{ entry_message_flex_ratio }}</label>
-                              <select name="payment_paypal_setting[message][{{ message['page_code'] }}][flex_ratio]" id="input_message_{{ message['page_code'] }}_flex_ratio" class="form-control control-paypal-message">
-                                {% for message_flex_ratio in setting['message_flex_ratio'] %}
-                                  {% if (message_flex_ratio == message['flex_ratio']) %}
+                            <div class="form-group {% if (setting_message[message.page_code].layout == 'text') %}hidden{% endif %}">
+                              <label class="control-label" for="input_message_{{ message.page_code }}_flex_ratio">{{ entry_message_flex_ratio }}</label>
+                              <select name="payment_paypal_setting[message][{{ message.page_code }}][flex_ratio]" id="input_message_{{ message.page_code }}_flex_ratio" class="form-control control-paypal-message">
+                                {% for message_flex_ratio in setting.message_flex_ratio %}
+                                  {% if (message_flex_ratio == message.flex_ratio) %}
                                     <option value="{{ message_flex_ratio }}" selected="selected">{{ message_flex_ratio }}</option>
                                   {% else %}
                                     <option value="{{ message_flex_ratio }}">{{ message_flex_ratio }}</option>
