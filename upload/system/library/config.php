@@ -11,18 +11,18 @@
  * Config class
  */
 class Config {
-    private array $data = [];
+	private array $data = [];
 
-    /**
+	/**
 	 * Get
 	 *
-     * @param string $key
-     *
-     * @return mixed
-     */
-    public function get(string $key) {
-        return isset($this->data[$key]) ? $this->data[$key] : null;
-    }
+	 * @param string $key
+	 *
+	 * @return mixed
+	 */
+	public function get(string $key) {
+		return isset($this->data[$key]) ? $this->data[$key] : null;
+	}
 
 	/**
 	 * Set
@@ -30,40 +30,42 @@ class Config {
 	 * @param string $key
 	 * @param int    $value
 	 *
-	 * @return mixed
+	 * @return void
 	 */
-    public function set(string $key, int $value) {
-        $this->data[$key] = $value;
-    }
+	public function set(string $key, int $value): void {
+		$this->data[$key] = $value;
+	}
 
-    /**
+	/**
 	 * Has
 	 *
-     * @param string $key
-     *
-     * @return bool
-     */
-    public function has(string $key): bool {
-        return isset($this->data[$key]);
-    }
+	 * @param string $key
+	 *
+	 * @return bool
+	 */
+	public function has(string $key): bool {
+		return isset($this->data[$key]);
+	}
 
-    /**
+	/**
 	 * Load
 	 *
-     * @param string $filename
-     */
-    public function load(string $filename) {
-        $file = DIR_CONFIG . $filename . '.php';
+	 * @param string $filename
+  	 *
+	 * @return void
+	 */
+	public function load(string $filename): void {
+		$file = DIR_CONFIG . $filename . '.php';
 
-        if (file_exists($file)) {
-            $_ = [];
+		if (file_exists($file)) {
+			$_ = [];
 
-            require($file);
+			require($file);
 
-            $this->data = array_merge($this->data, $_);
-        } else {
-            trigger_error('Error: Could not load config ' . $filename . '!');
-            exit();
-        }
-    }
+			$this->data = array_merge($this->data, $_);
+		} else {
+			trigger_error('Error: Could not load config ' . $filename . '!');
+			exit();
+		}
+	}
 }

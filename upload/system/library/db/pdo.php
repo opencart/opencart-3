@@ -1,7 +1,7 @@
 <?php
 namespace DB;
 class PDO {
-	private object|null $connection;
+	private ?object 	$connection;
 	private array 		$data = [];
 	private int 		$affected;
 

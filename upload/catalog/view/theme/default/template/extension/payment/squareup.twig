@@ -6,7 +6,7 @@
 <div id="squareup-notification">
   <div class="text-center alert alert-info"><i class="fa fa-circle-o-notch fa-spin"></i>&nbsp;{{ text_loading }}</div>
 </div>
-<form class="form-horizontal" action="{{ action }}" method="POST" id="squareup_card_details_form" style="display: none;">
+<form class="form-horizontal" action="{{ action }}" method="post" id="squareup_card_details_form" style="display: none;">
   <fieldset>
     <legend>{{ text_card_details }}</legend>
     {% if cards %}
@@ -195,7 +195,7 @@ $(document).ready(function () {
 
         $('head').append(script);
         script.onload = onScriptLoad;
-        script.src = "{{ squareup_js_api }}";
+        script.src = '{{ squareup_js_api }}';
         script.async = true;
 
         toggleAjaxSetup(init_ajax_setup);

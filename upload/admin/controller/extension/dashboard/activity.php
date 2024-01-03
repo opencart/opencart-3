@@ -5,130 +5,130 @@
  * @package Admin\Controller\Extension\Dashboard
  */
 class ControllerExtensionDashboardActivity extends Controller {
-    private array $error = [];
-	
+	private array $error = [];
+
 	/**
 	 * @return void
 	 */
-    public function index(): void {
-        $this->load->language('extension/dashboard/activity');
+	public function index(): void {
+		$this->load->language('extension/dashboard/activity');
 
-        $this->document->setTitle($this->language->get('heading_title'));
+		$this->document->setTitle($this->language->get('heading_title'));
 
-        // Settings
-        $this->load->model('setting/setting');
+		// Settings
+		$this->load->model('setting/setting');
 
-        if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-            $this->model_setting_setting->editSetting('dashboard_activity', $this->request->post);
+		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
+			$this->model_setting_setting->editSetting('dashboard_activity', $this->request->post);
 
-            $this->session->data['success'] = $this->language->get('text_success');
+			$this->session->data['success'] = $this->language->get('text_success');
 
-            $this->response->redirect($this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=dashboard', true));
-        }
+			$this->response->redirect($this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=dashboard', true));
+		}
 
-        if (isset($this->error['warning'])) {
-            $data['error_warning'] = $this->error['warning'];
-        } else {
-            $data['error_warning'] = '';
-        }
+		if (isset($this->error['warning'])) {
+			$data['error_warning'] = $this->error['warning'];
+		} else {
+			$data['error_warning'] = '';
+		}
 
-        $data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = [
-            'text' => $this->language->get('text_home'),
-            'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        ];
+		$data['breadcrumbs'][] = [
+			'text' => $this->language->get('text_home'),
+			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
+		];
 
-        $data['breadcrumbs'][] = [
-            'text' => $this->language->get('text_extension'),
-            'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=dashboard', true)
-        ];
+		$data['breadcrumbs'][] = [
+			'text' => $this->language->get('text_extension'),
+			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=dashboard', true)
+		];
 
-        $data['breadcrumbs'][] = [
-            'text' => $this->language->get('heading_title'),
-            'href' => $this->url->link('extension/dashboard/activity', 'user_token=' . $this->session->data['user_token'], true)
-        ];
+		$data['breadcrumbs'][] = [
+			'text' => $this->language->get('heading_title'),
+			'href' => $this->url->link('extension/dashboard/activity', 'user_token=' . $this->session->data['user_token'], true)
+		];
 
-        $data['action'] = $this->url->link('extension/dashboard/activity', 'user_token=' . $this->session->data['user_token'], true);
-        $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=dashboard', true);
+		$data['action'] = $this->url->link('extension/dashboard/activity', 'user_token=' . $this->session->data['user_token'], true);
+		$data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=dashboard', true);
 
-        if (isset($this->request->post['dashboard_activity_width'])) {
-            $data['dashboard_activity_width'] = $this->request->post['dashboard_activity_width'];
-        } else {
-            $data['dashboard_activity_width'] = $this->config->get('dashboard_activity_width');
-        }
+		if (isset($this->request->post['dashboard_activity_width'])) {
+			$data['dashboard_activity_width'] = $this->request->post['dashboard_activity_width'];
+		} else {
+			$data['dashboard_activity_width'] = $this->config->get('dashboard_activity_width');
+		}
 
-        $data['columns'] = [];
+		$data['columns'] = [];
 
-        for ($i = 3; $i <= 12; $i++) {
-            $data['columns'][] = $i;
-        }
+		for ($i = 3; $i <= 12; $i++) {
+			$data['columns'][] = $i;
+		}
 
-        if (isset($this->request->post['dashboard_activity_status'])) {
-            $data['dashboard_activity_status'] = $this->request->post['dashboard_activity_status'];
-        } else {
-            $data['dashboard_activity_status'] = $this->config->get('dashboard_activity_status');
-        }
+		if (isset($this->request->post['dashboard_activity_status'])) {
+			$data['dashboard_activity_status'] = $this->request->post['dashboard_activity_status'];
+		} else {
+			$data['dashboard_activity_status'] = $this->config->get('dashboard_activity_status');
+		}
 
-        if (isset($this->request->post['dashboard_activity_sort_order'])) {
-            $data['dashboard_activity_sort_order'] = $this->request->post['dashboard_activity_sort_order'];
-        } else {
-            $data['dashboard_activity_sort_order'] = $this->config->get('dashboard_activity_sort_order');
-        }
+		if (isset($this->request->post['dashboard_activity_sort_order'])) {
+			$data['dashboard_activity_sort_order'] = $this->request->post['dashboard_activity_sort_order'];
+		} else {
+			$data['dashboard_activity_sort_order'] = $this->config->get('dashboard_activity_sort_order');
+		}
 
-        $data['header'] = $this->load->controller('common/header');
-        $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer'] = $this->load->controller('common/footer');
+		$data['header'] = $this->load->controller('common/header');
+		$data['column_left'] = $this->load->controller('common/column_left');
+		$data['footer'] = $this->load->controller('common/footer');
 
-        $this->response->setOutput($this->load->view('extension/dashboard/activity_form', $data));
-    }
+		$this->response->setOutput($this->load->view('extension/dashboard/activity_form', $data));
+	}
 
-    protected function validate() {
-        if (!$this->user->hasPermission('modify', 'extension/dashboard/activity')) {
-            $this->error['warning'] = $this->language->get('error_permission');
-        }
+	protected function validate() {
+		if (!$this->user->hasPermission('modify', 'extension/dashboard/activity')) {
+			$this->error['warning'] = $this->language->get('error_permission');
+		}
 
-        return !$this->error;
-    }
+		return !$this->error;
+	}
 
 	/**
 	 * Dashboard
 	 *
 	 * @return string
 	 */
-    public function dashboard(): string {
-        $this->load->language('extension/dashboard/activity');
+	public function dashboard(): string {
+		$this->load->language('extension/dashboard/activity');
 
-        $data['user_token'] = $this->session->data['user_token'];
+		$data['user_token'] = $this->session->data['user_token'];
 
-        $data['activities'] = [];
+		$data['activities'] = [];
 
-        // Activities
-        $this->load->model('extension/dashboard/activity');
+		// Activities
+		$this->load->model('extension/dashboard/activity');
 
-        $results = $this->model_extension_dashboard_activity->getActivities();
+		$results = $this->model_extension_dashboard_activity->getActivities();
 
-        foreach ($results as $result) {
-            $comment = vsprintf($this->language->get('text_activity_' . $result['key']), json_decode($result['data'], true));
+		foreach ($results as $result) {
+			$comment = vsprintf($this->language->get('text_activity_' . $result['key']), json_decode($result['data'], true));
 
-            $find = [
-                'customer_id=',
-                'order_id=',
-                'return_id='
-            ];
+			$find = [
+				'customer_id=',
+				'order_id=',
+				'return_id='
+			];
 
-            $replace = [
-                $this->url->link('customer/customer/edit', 'user_token=' . $this->session->data['user_token'] . '&customer_id=', true),
-                $this->url->link('sale/order/info', 'user_token=' . $this->session->data['user_token'] . '&order_id=', true),
-                $this->url->link('sale/returns/edit', 'user_token=' . $this->session->data['user_token'] . '&return_id=', true)
-            ];
+			$replace = [
+				$this->url->link('customer/customer/edit', 'user_token=' . $this->session->data['user_token'] . '&customer_id=', true),
+				$this->url->link('sale/order/info', 'user_token=' . $this->session->data['user_token'] . '&order_id=', true),
+				$this->url->link('sale/returns/edit', 'user_token=' . $this->session->data['user_token'] . '&return_id=', true)
+			];
 
-            $data['activities'][] = [
-                'comment'    => str_replace($find, $replace, $comment),
-                'date_added' => date($this->language->get('datetime_format'), strtotime($result['date_added']))
-            ];
-        }
+			$data['activities'][] = [
+				'comment'    => str_replace($find, $replace, $comment),
+				'date_added' => date($this->language->get('datetime_format'), strtotime($result['date_added']))
+			];
+		}
 
-        return $this->load->view('extension/dashboard/activity_info', $data);
-    }
+		return $this->load->view('extension/dashboard/activity_info', $data);
+	}
 }

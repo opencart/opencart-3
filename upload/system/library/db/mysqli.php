@@ -1,7 +1,7 @@
 <?php
 namespace DB;
 class MySQLi {
-	private object|null $connection;
+	private ?object $connection;
 
 	/**
 	 * Constructor

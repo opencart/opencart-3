@@ -12,21 +12,21 @@ class ModelLocalisationTaxClass extends Model {
 	 *
 	 * @return int
 	 */
-    public function addTaxClass(array $data): int {
-        $this->db->query("INSERT INTO `" . DB_PREFIX . "tax_class` SET `title` = '" . $this->db->escape($data['title']) . "', `description` = '" . $this->db->escape($data['description']) . "', `date_added` = NOW()");
+	public function addTaxClass(array $data): int {
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "tax_class` SET `title` = '" . $this->db->escape($data['title']) . "', `description` = '" . $this->db->escape($data['description']) . "', `date_added` = NOW()");
 
-        $tax_class_id = $this->db->getLastId();
+		$tax_class_id = $this->db->getLastId();
 
-        if (isset($data['tax_rule'])) {
-            foreach ($data['tax_rule'] as $tax_rule) {
-                $this->db->query("INSERT INTO `" . DB_PREFIX . "tax_rule` SET `tax_class_id` = '" . (int)$tax_class_id . "', `tax_rate_id` = '" . (int)$tax_rule['tax_rate_id'] . "', `based` = '" . $this->db->escape($tax_rule['based']) . "', `priority` = '" . (int)$tax_rule['priority'] . "'");
-            }
-        }
+		if (isset($data['tax_rule'])) {
+			foreach ($data['tax_rule'] as $tax_rule) {
+				$this->db->query("INSERT INTO `" . DB_PREFIX . "tax_rule` SET `tax_class_id` = '" . (int)$tax_class_id . "', `tax_rate_id` = '" . (int)$tax_rule['tax_rate_id'] . "', `based` = '" . $this->db->escape($tax_rule['based']) . "', `priority` = '" . (int)$tax_rule['priority'] . "'");
+			}
+		}
 
-        $this->cache->delete('tax_class');
+		$this->cache->delete('tax_class');
 
-        return $tax_class_id;
-    }
+		return $tax_class_id;
+	}
 
 	/**
 	 * editTaxClass
@@ -36,19 +36,19 @@ class ModelLocalisationTaxClass extends Model {
 	 *
 	 * @return void
 	 */
-    public function editTaxClass(int $tax_class_id, array $data): void {
-        $this->db->query("UPDATE `" . DB_PREFIX . "tax_class` SET `title` = '" . $this->db->escape($data['title']) . "', `description` = '" . $this->db->escape($data['description']) . "', `date_modified` = NOW() WHERE `tax_class_id` = '" . (int)$tax_class_id . "'");
+	public function editTaxClass(int $tax_class_id, array $data): void {
+		$this->db->query("UPDATE `" . DB_PREFIX . "tax_class` SET `title` = '" . $this->db->escape($data['title']) . "', `description` = '" . $this->db->escape($data['description']) . "', `date_modified` = NOW() WHERE `tax_class_id` = '" . (int)$tax_class_id . "'");
 
-        $this->db->query("DELETE FROM `" . DB_PREFIX . "tax_rule` WHERE `tax_class_id` = '" . (int)$tax_class_id . "'");
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "tax_rule` WHERE `tax_class_id` = '" . (int)$tax_class_id . "'");
 
-        if (isset($data['tax_rule'])) {
-            foreach ($data['tax_rule'] as $tax_rule) {
-                $this->db->query("INSERT INTO `" . DB_PREFIX . "tax_rule` SET `tax_class_id` = '" . (int)$tax_class_id . "', `tax_rate_id` = '" . (int)$tax_rule['tax_rate_id'] . "', `based` = '" . $this->db->escape($tax_rule['based']) . "', `priority` = '" . (int)$tax_rule['priority'] . "'");
-            }
-        }
+		if (isset($data['tax_rule'])) {
+			foreach ($data['tax_rule'] as $tax_rule) {
+				$this->db->query("INSERT INTO `" . DB_PREFIX . "tax_rule` SET `tax_class_id` = '" . (int)$tax_class_id . "', `tax_rate_id` = '" . (int)$tax_rule['tax_rate_id'] . "', `based` = '" . $this->db->escape($tax_rule['based']) . "', `priority` = '" . (int)$tax_rule['priority'] . "'");
+			}
+		}
 
-        $this->cache->delete('tax_class');
-    }
+		$this->cache->delete('tax_class');
+	}
 
 	/**
 	 * deleteTaxClass
@@ -57,12 +57,12 @@ class ModelLocalisationTaxClass extends Model {
 	 *
 	 * @return void
 	 */
-    public function deleteTaxClass(int $tax_class_id): void {
-        $this->db->query("DELETE FROM `" . DB_PREFIX . "tax_class` WHERE `tax_class_id` = '" . (int)$tax_class_id . "'");
-        $this->db->query("DELETE FROM `" . DB_PREFIX . "tax_rule` WHERE `tax_class_id` = '" . (int)$tax_class_id . "'");
+	public function deleteTaxClass(int $tax_class_id): void {
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "tax_class` WHERE `tax_class_id` = '" . (int)$tax_class_id . "'");
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "tax_rule` WHERE `tax_class_id` = '" . (int)$tax_class_id . "'");
 
-        $this->cache->delete('tax_class');
-    }
+		$this->cache->delete('tax_class');
+	}
 
 	/**
 	 * getTaxClass
@@ -71,11 +71,11 @@ class ModelLocalisationTaxClass extends Model {
 	 *
 	 * @return array
 	 */
-    public function getTaxClass(int $tax_class_id): array {
-        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "tax_class` WHERE `tax_class_id` = '" . (int)$tax_class_id . "'");
+	public function getTaxClass(int $tax_class_id): array {
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "tax_class` WHERE `tax_class_id` = '" . (int)$tax_class_id . "'");
 
-        return $query->row;
-    }
+		return $query->row;
+	}
 
 	/**
 	 * getTaxClasses
@@ -84,58 +84,58 @@ class ModelLocalisationTaxClass extends Model {
 	 *
 	 * @return array
 	 */
-    public function getTaxClasses(array $data = []): array {
-        if ($data) {
-            $sql = "SELECT * FROM `" . DB_PREFIX . "tax_class`";
+	public function getTaxClasses(array $data = []): array {
+		if ($data) {
+			$sql = "SELECT * FROM `" . DB_PREFIX . "tax_class`";
 
-            $sql .= " ORDER BY `title`";
+			$sql .= " ORDER BY `title`";
 
-            if (isset($data['order']) && ($data['order'] == 'DESC')) {
-                $sql .= " DESC";
-            } else {
-                $sql .= " ASC";
-            }
+			if (isset($data['order']) && ($data['order'] == 'DESC')) {
+				$sql .= " DESC";
+			} else {
+				$sql .= " ASC";
+			}
 
-            if (isset($data['start']) || isset($data['limit'])) {
-                if ($data['start'] < 0) {
-                    $data['start'] = 0;
-                }
+			if (isset($data['start']) || isset($data['limit'])) {
+				if ($data['start'] < 0) {
+					$data['start'] = 0;
+				}
 
-                if ($data['limit'] < 1) {
-                    $data['limit'] = 20;
-                }
+				if ($data['limit'] < 1) {
+					$data['limit'] = 20;
+				}
 
-                $sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
-            }
+				$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
+			}
 
-            $query = $this->db->query($sql);
+			$query = $this->db->query($sql);
 
-            return $query->rows;
-        } else {
-            $tax_class_data = $this->cache->get('tax_class');
+			return $query->rows;
+		} else {
+			$tax_class_data = $this->cache->get('tax_class');
 
-            if (!$tax_class_data) {
-                $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "tax_class`");
+			if (!$tax_class_data) {
+				$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "tax_class`");
 
-                $tax_class_data = $query->rows;
+				$tax_class_data = $query->rows;
 
-                $this->cache->set('tax_class', $tax_class_data);
-            }
+				$this->cache->set('tax_class', $tax_class_data);
+			}
 
-            return $tax_class_data;
-        }
-    }
+			return $tax_class_data;
+		}
+	}
 
 	/**
 	 * getTotalTaxClasses
 	 *
 	 * @return int
 	 */
-    public function getTotalTaxClasses(): int {
-        $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "tax_class`");
+	public function getTotalTaxClasses(): int {
+		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "tax_class`");
 
-        return (int)$query->row['total'];
-    }
+		return (int)$query->row['total'];
+	}
 
 	/**
 	 * getTaxRules
@@ -144,11 +144,11 @@ class ModelLocalisationTaxClass extends Model {
 	 *
 	 * @return array
 	 */
-    public function getTaxRules(int $tax_class_id): array {
-        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "tax_rule` WHERE `tax_class_id` = '" . (int)$tax_class_id . "' ORDER BY `priority` ASC");
+	public function getTaxRules(int $tax_class_id): array {
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "tax_rule` WHERE `tax_class_id` = '" . (int)$tax_class_id . "' ORDER BY `priority` ASC");
 
-        return $query->rows;
-    }
+		return $query->rows;
+	}
 
 	/**
 	 * getTotalTaxRulesByTaxRateId
@@ -157,9 +157,9 @@ class ModelLocalisationTaxClass extends Model {
 	 *
 	 * @return int
 	 */
-    public function getTotalTaxRulesByTaxRateId(int $tax_rate_id): int {
-        $query = $this->db->query("SELECT COUNT(DISTINCT `tax_class_id`) AS `total` FROM `" . DB_PREFIX . "tax_rule` WHERE `tax_rate_id` = '" . (int)$tax_rate_id . "'");
+	public function getTotalTaxRulesByTaxRateId(int $tax_rate_id): int {
+		$query = $this->db->query("SELECT COUNT(DISTINCT `tax_class_id`) AS `total` FROM `" . DB_PREFIX . "tax_rule` WHERE `tax_rate_id` = '" . (int)$tax_rate_id . "'");
 
-        return (int)$query->row['total'];
-    }
+		return (int)$query->row['total'];
+	}
 }

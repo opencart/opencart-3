@@ -11,95 +11,95 @@
  * Response class
  */
 class Response {
-    private array $headers = [];
-    private int $level = 0;
-    private string $output = '';
+	private array $headers = [];
+	private int $level = 0;
+	private string $output = '';
 
-    /**
-     * Constructor
-     *
-     * @param string $header
-     */
-    public function addHeader(string $header) {
-        $this->headers[] = $header;
-    }
+	/**
+	 * Constructor
+	 *
+	 * @param string $header
+	 */
+	public function addHeader(string $header): void {
+		$this->headers[] = $header;
+	}
 
-    /**
+	/**
 	 * Redirect
 	 *
-     * @param string $url
-     * @param int    $status
-     */
-    public function redirect(string $url, int $status = 302) {
-        header('Location: ' . str_replace(['&amp;', "\n", "\r"], ['&', '', ''], $url), true, $status);
-        exit();
-    }
+	 * @param string $url
+	 * @param int    $status
+	 */
+	public function redirect(string $url, int $status = 302): void {
+		header('Location: ' . str_replace(['&amp;', "\n", "\r"], ['&', '', ''], $url), true, $status);
+		exit();
+	}
 
-    /**
+	/**
 	 * setCompression
 	 *
-     * @param int $level
-     */
-    public function setCompression(int $level) {
-        $this->level = $level;
-    }
+	 * @param int $level
+	 */
+	public function setCompression(int $level): void {
+		$this->level = $level;
+	}
 	/**
 	 * getOutput
 	 *
 	 * @return string
 	 */
-    public function getOutput(): string {
-        return $this->output;
-    }
+	public function getOutput(): string {
+		return $this->output;
+	}
 
-    /**
+	/**
 	 * setOutput
 	 *
-     * @param string $output
+	 * @param string $output
 	 *
 	 * @return void
-     */
-    public function setOutput(string $output): void {
-        $this->output = $output;
-    }
+	 */
+	public function setOutput(string $output): void {
+		$this->output = $output;
+	}
 
-    /**
+	/**
 	 * Compress
 	 *
-     * @param mixed $data
-     * @param int   $level
-     *
-     * @return string
-     */
-    private function compress($data, int $level = 0): string {
-        if (isset($_SERVER['HTTP_ACCEPT_ENCODING']) && (strpos($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip') !== false)) {
-            $encoding = 'gzip';
-        }
+	 * @param mixed $data
+	 * @param int   $level
+	 *
+	 * @return string
+	 */
+	private function compress($data, int $level = 0): string {
+		if (isset($_SERVER['HTTP_ACCEPT_ENCODING']) && (strpos($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip') !== false)) {
+			$encoding = 'gzip';
+		}
 
-        if (isset($_SERVER['HTTP_ACCEPT_ENCODING']) && (strpos($_SERVER['HTTP_ACCEPT_ENCODING'], 'x-gzip') !== false)) {
-            $encoding = 'x-gzip';
-        }
+		if (isset($_SERVER['HTTP_ACCEPT_ENCODING']) && (strpos($_SERVER['HTTP_ACCEPT_ENCODING'], 'x-gzip') !== false)) {
+			$encoding = 'x-gzip';
+		}
 
-        if (!isset($encoding) || ($level < -1 || $level > 9)) {
-            return $data;
-        }
+		if (!isset($encoding) || ($level < -1 || $level > 9)) {
+			return $data;
+		}
 
-        if (!extension_loaded('zlib') || ini_get('zlib.output_compression')) {
-            return $data;
-        }
+		if (!extension_loaded('zlib') || ini_get('zlib.output_compression')) {
+			return $data;
+		}
 
-        if (headers_sent()) {
-            return $data;
-        }
+		if (headers_sent()) {
+			return $data;
+		}
 
-        if (connection_status()) {
-            return $data;
-        }
+		if (connection_status()) {
+			return $data;
+		}
 
-        $this->addHeader('Content-Encoding: ' . $encoding);
+		$this->addHeader('Content-Encoding: ' . $encoding);
 
-        return gzencode($data, (int)$level);
-    }
+		return gzencode($data, (int)$level);
+	}
 
 	/**
 	 * Output
@@ -108,17 +108,17 @@ class Response {
 	 *
 	 * @return void
 	 */
-    public function output(): void {
-        if ($this->output) {
-            $output = $this->level ? $this->compress($this->output, $this->level) : $this->output;
+	public function output(): void {
+		if ($this->output) {
+			$output = $this->level ? $this->compress($this->output, $this->level) : $this->output;
 
-            if (!headers_sent()) {
-                foreach ($this->headers as $header) {
-                    header($header, true);
-                }
-            }
+			if (!headers_sent()) {
+				foreach ($this->headers as $header) {
+					header($header, true);
+				}
+			}
 
-            echo $output;
-        }
-    }
+			echo $output;
+		}
+	}
 }

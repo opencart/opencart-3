@@ -40,7 +40,7 @@ $_['text_confirm_capture']           = 'Are you sure you want to capture the pay
 $_['text_confirm_refund']            = 'Are you sure you want to refund the payment?';
 $_['text_void']                      = 'Void';
 $_['text_payment']                   = 'Payment';
-$_['text_refund']                    = "Refund";
+$_['text_refund']                    = 'Refund';
 
 // Entry
 $_['entry_certificate_path']         = 'Certificate path';

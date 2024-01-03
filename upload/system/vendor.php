@@ -1,4 +1,17 @@
 <?php
+// guzzlehttp/guzzle
+$autoloader->register('GuzzleHttp', DIR_STORAGE . 'vendor/guzzlehttp/guzzle/src/', true);
+
+if (is_file(DIR_STORAGE . 'vendor/guzzlehttp/guzzle/src/functions_include.php')) {
+	require_once(DIR_STORAGE . 'vendor/guzzlehttp/guzzle/src/functions_include.php');
+}
+
+// guzzlehttp/promises
+$autoloader->register('GuzzleHttp\Promise', DIR_STORAGE . 'vendor/guzzlehttp/promises/src/', true);
+
+// guzzlehttp/psr7
+$autoloader->register('GuzzleHttp\Psr7', DIR_STORAGE . 'vendor/guzzlehttp/psr7/src/', true);
+
 // psr/http-client
 $autoloader->register('Psr\Http\Client', DIR_STORAGE . 'vendor/psr/http-client/src/', true);
 
@@ -8,8 +21,10 @@ $autoloader->register('Psr\Http\Message', DIR_STORAGE . 'vendor/psr/http-factory
 // psr/http-message
 $autoloader->register('Psr\Http\Message', DIR_STORAGE . 'vendor/psr/http-message/src/', true);
 
-// psr/log
-$autoloader->register('Psr\Log', DIR_STORAGE . 'vendor/psr/log/src/', true);
+// ralouphie/getallheaders
+if (is_file(DIR_STORAGE . 'vendor/ralouphie/getallheaders/src/getallheaders.php')) {
+	require_once(DIR_STORAGE . 'vendor/ralouphie/getallheaders/src/getallheaders.php');
+}
 
 // scssphp/scssphp
 $autoloader->register('ScssPhp\ScssPhp', DIR_STORAGE . 'vendor/scssphp/scssphp/src/', true);

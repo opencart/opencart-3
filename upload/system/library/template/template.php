@@ -6,7 +6,7 @@ namespace Template;
  * @package System\Library\Template
  */
 class Template {
-    private array $data = [];
+	private array $data = [];
 	/**
 	 * addPath
 	 *
@@ -15,9 +15,9 @@ class Template {
 	 *
 	 * @return	 void
 	 */
-    public function set(string $key, string $value): void {
-        $this->data[$key] = $value;
-    }
+	public function set(string $key, string $value): void {
+		$this->data[$key] = $value;
+	}
 
 	/**
 	 * Render
@@ -28,20 +28,20 @@ class Template {
 	 *
 	 * @return string
 	 */
-    public function render(string $template): string {
-        $file = DIR_TEMPLATE . $template . '.tpl';
+	public function render(string $template): string {
+		$file = DIR_TEMPLATE . $template . '.tpl';
 
-        if (is_file($file)) {
-            extract($this->data);
+		if (is_file($file)) {
+			extract($this->data);
 
-            ob_start();
+			ob_start();
 
-            require($file);
+			require($file);
 
-            return ob_get_clean();
-        }
+			return ob_get_clean();
+		}
 
-        throw new \Exception('Error: Could not load template ' . $file . '!');
-        exit();
-    }
+		throw new \Exception('Error: Could not load template ' . $file . '!');
+		exit();
+	}
 }

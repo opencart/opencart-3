@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html dir="{{ direction }}" lang="{{ lang }}">
+<head>
+  <meta charset="UTF-8"/>
+  <title>{{ title }}</title>
+  <base href="{{ base }}"/>
+  <link href="view/javascript/bootstrap/css/bootstrap.css" rel="stylesheet" media="all"/>
+  <script type="text/javascript" src="view/javascript/jquery/jquery-3.7.1.min.js"></script>
+  <script type="text/javascript" src="view/javascript/bootstrap/js/bootstrap.min.js"></script>
+  <link href="view/javascript/font-awesome/css/font-awesome.min.css" type="text/css" rel="stylesheet"/>
+  <link type="text/css" href="view/stylesheet/stylesheet.css" rel="stylesheet" media="all"/>
+</head>
+<body>
+<div class="container">
+  {% set i = 0 %}
+  {% for recurring in recurrings %}
+    {% set i = i + 1 %}
+    <div style="page-break-after: always;">
+      <h1>{{ text_report }}: {{ i }}</h1>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <td colspan="4">{{ text_recurring_detail }}</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="width: 25%;">{{ recurring.product_name }}</td>
+            <td style="width: 25%;">
+              <address>
+                <strong>{{ recurring.store_name }}</strong>
+              </address>
+            </td>
+            <td style="width: 25%;">{{ recurring.language_name }}</td>
+            <td style="width: 25%;">{{ recurring.recurring }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  {% endfor %}
+</div>
+</body>
+</html>

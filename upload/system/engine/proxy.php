@@ -12,36 +12,57 @@
  */
 class Proxy {
 	protected array $data = [];
-    /**
-     * @param string $key
-     */
-    public function __get($key) {
-        return $this->data[$key];
-    }
 
-    public function __set($key, $value) {
-        $this->data[$key] = $value;
-    }
+	/**
+	 * Get
+	 *
+	 * @param $key
+	 *
+	 * @return mixed
+	 */
+	public function __get($key) {
+		return $this->data[$key];
+	}
 
-    public function __call($key, $args) {
-        $arg_data = [];
+	/**
+	 * Set
+	 *
+	 * @param $key
+	 * @param $value
+	 *
+	 * @return void
+	 */
+	public function __set($key, $value): void {
+		$this->data[$key] = $value;
+	}
 
-        $args = func_get_args();
+	/**
+	 * Call
+	 *
+	 * @param $key
+	 * @param $args
+	 *
+	 * @return mixed|void
+	 */
+	public function __call($key, $args) {
+		$arg_data = [];
 
-        foreach ($args as $arg) {
-            if ($arg instanceof Ref) {
-                $arg_data[] =& $arg->getRef();
-            } else {
-                $arg_data[] =& $arg;
-            }
-        }
+		$args = func_get_args();
 
-        if (isset($this->data[$key])) {
-            return call_user_func_array($this->data[$key], $arg_data);
-        } else {
-            $trace = debug_backtrace();
+		foreach ($args as $arg) {
+			if ($arg instanceof Ref) {
+				$arg_data[] = &$arg->getRef();
+			} else {
+				$arg_data[] = &$arg;
+			}
+		}
 
-            exit('<b>Notice</b>:  Undefined property: Proxy::' . $key . ' in <b>' . $trace[1]['file'] . '</b> on line <b>' . $trace[1]['line'] . '</b>');
-        }
-    }
+		if (isset($this->data[$key])) {
+			return call_user_func_array($this->data[$key], $arg_data);
+		} else {
+			$trace = debug_backtrace();
+
+			exit('<b>Notice</b>:  Undefined property: Proxy::' . $key . ' in <b>' . $trace[1]['file'] . '</b> on line <b>' . $trace[1]['line'] . '</b>');
+		}
+	}
 }

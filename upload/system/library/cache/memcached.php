@@ -1,22 +1,22 @@
 <?php
 namespace Cache;
 class Memcached {
-    private int    $expire;
-    private object $memcached;
+	private int    $expire;
+	private object $memcached;
 
-    const CACHEDUMP_LIMIT = 9999;
+	public const CACHEDUMP_LIMIT = 9999;
 
 	/**
 	 * Constructor
 	 *
 	 * @param int $expire
 	 */
-    public function __construct(int $expire = 3600) {
-        $this->expire = $expire;
-        $this->memcached = new \Memcached();
+	public function __construct(int $expire = 3600) {
+		$this->expire = $expire;
+		$this->memcached = new \Memcached();
 
-        $this->memcached->addServer(CACHE_HOSTNAME, CACHE_PORT);
-    }
+		$this->memcached->addServer(CACHE_HOSTNAME, CACHE_PORT);
+	}
 
 	/**
 	 * Get
@@ -25,9 +25,9 @@ class Memcached {
 	 *
 	 * @return mixed
 	 */
-    public function get(string $key) {
-        return $this->memcached->get(CACHE_PREFIX . $key);
-    }
+	public function get(string $key) {
+		return $this->memcached->get(CACHE_PREFIX . $key);
+	}
 
 	/**
 	 * Set
@@ -36,9 +36,9 @@ class Memcached {
 	 *
 	 * @return mixed
 	 */
-    public function set(string $key, $value) {
-        return $this->memcached->set(CACHE_PREFIX . $key, $value, $this->expire);
-    }
+	public function set(string $key, $value) {
+		return $this->memcached->set(CACHE_PREFIX . $key, $value, $this->expire);
+	}
 
 	/**
 	 * Delete
@@ -47,7 +47,7 @@ class Memcached {
 	 *
 	 * @return mixed
 	 */
-    public function delete(string $key) {
-        $this->memcached->delete(CACHE_PREFIX . $key);
-    }
+	public function delete(string $key) {
+		$this->memcached->delete(CACHE_PREFIX . $key);
+	}
 }

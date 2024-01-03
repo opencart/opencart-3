@@ -12,9 +12,9 @@ class ModelDesignTranslation extends Model {
 	 *
 	 * @return array
 	 */
-    public function getTranslations(string $route): array {
-        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "translation` WHERE `store_id` = '" . (int)$this->config->get('config_store_id') . "' AND `language_id` = '" . (int)$this->config->get('config_language_id') . "' AND `route` = '" . $this->db->escape($route) . "'");
+	public function getTranslations(string $route): array {
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "translation` WHERE `store_id` = '" . (int)$this->config->get('config_store_id') . "' AND `language_id` = '" . (int)$this->config->get('config_language_id') . "' AND `route` = '" . $this->db->escape($route) . "'");
 
-        return $query->rows;
-    }
+		return $query->rows;
+	}
 }

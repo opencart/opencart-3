@@ -8,125 +8,125 @@ class ControllerCommonDeveloper extends Controller {
 	/**
 	 * @return void
 	 */
-    public function index(): void {
-        $this->load->language('common/developer');
+	public function index(): void {
+		$this->load->language('common/developer');
 
-        $data['user_token'] = $this->session->data['user_token'];
-        $data['developer_theme'] = $this->config->get('developer_theme');
-        $data['developer_sass'] = $this->config->get('developer_sass');
-        $eval = false;
-        $eval = '$eval = true;';
+		$data['user_token'] = $this->session->data['user_token'];
+		$data['developer_theme'] = $this->config->get('developer_theme');
+		$data['developer_sass'] = $this->config->get('developer_sass');
+		$eval = false;
+		$eval = '$eval = true;';
 
-        eval($eval);
+		eval($eval);
 
-        if ($eval === true) {
-            $data['eval'] = true;
-        } else {
-            // Settings
-            $this->load->model('setting/setting');
+		if ($eval === true) {
+			$data['eval'] = true;
+		} else {
+			// Settings
+			$this->load->model('setting/setting');
 
-            $this->model_setting_setting->editSetting('developer', ['developer_theme' => 1], 0);
+			$this->model_setting_setting->editSetting('developer', ['developer_theme' => 1], 0);
 
-            $data['eval'] = false;
-        }
+			$data['eval'] = false;
+		}
 
-        $this->response->setOutput($this->load->view('common/developer', $data));
-    }
+		$this->response->setOutput($this->load->view('common/developer', $data));
+	}
 	/**
 	 * Edit
 	 *
 	 * @return void
 	 */
-    public function edit(): void {
-        $this->load->language('common/developer');
+	public function edit(): void {
+		$this->load->language('common/developer');
 
-        $json = [];
+		$json = [];
 
-        if (!$this->user->hasPermission('modify', 'common/developer')) {
-            $json['error'] = $this->language->get('error_permission');
-        } else {
-            // Settings
-            $this->load->model('setting/setting');
+		if (!$this->user->hasPermission('modify', 'common/developer')) {
+			$json['error'] = $this->language->get('error_permission');
+		} else {
+			// Settings
+			$this->load->model('setting/setting');
 
-            $this->model_setting_setting->editSetting('developer', $this->request->post, 0);
+			$this->model_setting_setting->editSetting('developer', $this->request->post, 0);
 
-            $json['success'] = $this->language->get('text_success');
-        }
+			$json['success'] = $this->language->get('text_success');
+		}
 
-        $this->response->addHeader('Content-Type: application/json');
-        $this->response->setOutput(json_encode($json));
-    }
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
+	}
 	/**
 	 * Theme
 	 *
 	 * @return void
 	 */
-    public function theme(): void {
-        $this->load->language('common/developer');
+	public function theme(): void {
+		$this->load->language('common/developer');
 
-        $json = [];
+		$json = [];
 
-        if (!$this->user->hasPermission('modify', 'common/developer')) {
-            $json['error'] = $this->language->get('error_permission');
-        } else {
-            $directories = glob(DIR_CACHE . '/template/*', GLOB_ONLYDIR);
+		if (!$this->user->hasPermission('modify', 'common/developer')) {
+			$json['error'] = $this->language->get('error_permission');
+		} else {
+			$directories = glob(DIR_CACHE . '/template/*', GLOB_ONLYDIR);
 
-            if ($directories) {
-                foreach ($directories as $directory) {
-                    $files = glob($directory . '/*');
+			if ($directories) {
+				foreach ($directories as $directory) {
+					$files = glob($directory . '/*');
 
-                    foreach ($files as $file) {
-                        if (is_file($file)) {
-                            unlink($file);
-                        }
-                    }
+					foreach ($files as $file) {
+						if (is_file($file)) {
+							unlink($file);
+						}
+					}
 
-                    if (is_dir($directory)) {
-                        rmdir($directory);
-                    }
-                }
-            }
+					if (is_dir($directory)) {
+						rmdir($directory);
+					}
+				}
+			}
 
-            $json['success'] = sprintf($this->language->get('text_cache'), $this->language->get('text_theme'));
-        }
+			$json['success'] = sprintf($this->language->get('text_cache'), $this->language->get('text_theme'));
+		}
 
-        $this->response->addHeader('Content-Type: application/json');
-        $this->response->setOutput(json_encode($json));
-    }
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
+	}
 	/**
 	 * Sass
 	 *
 	 * @return void
 	 */
-    public function sass(): void {
-        $this->load->language('common/developer');
+	public function sass(): void {
+		$this->load->language('common/developer');
 
-        $json = [];
+		$json = [];
 
-        if (!$this->user->hasPermission('modify', 'common/developer')) {
-            $json['error'] = $this->language->get('error_permission');
-        } else {
-            // Before we delete we need to make sure there is a sass file to regenerate the css
-            $file = DIR_APPLICATION . 'view/stylesheet/bootstrap.css';
+		if (!$this->user->hasPermission('modify', 'common/developer')) {
+			$json['error'] = $this->language->get('error_permission');
+		} else {
+			// Before we delete we need to make sure there is a sass file to regenerate the css
+			$file = DIR_APPLICATION . 'view/stylesheet/bootstrap.css';
 
-            if (is_file($file) && is_file(DIR_APPLICATION . 'view/stylesheet/sass/_bootstrap.scss')) {
-                unlink($file);
-            }
+			if (is_file($file) && is_file(DIR_APPLICATION . 'view/stylesheet/sass/_bootstrap.scss')) {
+				unlink($file);
+			}
 
-            $files = glob(DIR_CATALOG . 'view/theme/*/stylesheet/sass/_bootstrap.scss');
+			$files = glob(DIR_CATALOG . 'view/theme/*/stylesheet/sass/_bootstrap.scss');
 
-            foreach ($files as $file) {
-                $file = substr($file, 0, -21) . '/bootstrap.css';
+			foreach ($files as $file) {
+				$file = substr($file, 0, -21) . '/bootstrap.css';
 
-                if (is_file($file)) {
-                    unlink($file);
-                }
-            }
+				if (is_file($file)) {
+					unlink($file);
+				}
+			}
 
-            $json['success'] = sprintf($this->language->get('text_cache'), $this->language->get('text_sass'));
-        }
+			$json['success'] = sprintf($this->language->get('text_cache'), $this->language->get('text_sass'));
+		}
 
-        $this->response->addHeader('Content-Type: application/json');
-        $this->response->setOutput(json_encode($json));
-    }
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
+	}
 }

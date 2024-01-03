@@ -1,87 +1,87 @@
 <?php
 namespace Cache;
 class File {
-    private int $expire;
+	private int $expire;
 
-    /**
-     * Constructor
-     *
-     * @param int $expire
-     */
-    public function __construct(int $expire = 3600) {
-        $this->expire = $expire;
-    }
+	/**
+	 * Constructor
+	 *
+	 * @param int $expire
+	 */
+	public function __construct(int $expire = 3600) {
+		$this->expire = $expire;
+	}
 
-    /**
-     * Get
-     *
-     * @param string $key
-     *
-     * @return array
-     */
-    public function get(string $key): array {
-        $files = glob(DIR_CACHE . 'cache.' . preg_replace('/[^A-Z0-9\._-]/i', '', $key) . '.*');
+	/**
+	 * Get
+	 *
+	 * @param string $key
+	 *
+	 * @return array
+	 */
+	public function get(string $key): array {
+		$files = glob(DIR_CACHE . 'cache.' . preg_replace('/[^A-Z0-9\._-]/i', '', $key) . '.*');
 
-        if ($files) {
-            return json_decode(file_get_contents($files[0]), true);
-        } else {
-            return [];
-        }
-    }
+		if ($files) {
+			return json_decode(file_get_contents($files[0]), true);
+		} else {
+			return [];
+		}
+	}
 
-    /**
-     * Set
-     *
-     * @param string $key
+	/**
+	 * Set
+	 *
+	 * @param string $key
 	 * @param int 	 $expire
-     *
-     * @return void
-     */
-    public function set(string $key, $value, int $expire = 0): void {
-        $this->delete($key);
+	 *
+	 * @return void
+	 */
+	public function set(string $key, $value, int $expire = 0): void {
+		$this->delete($key);
 
-        if (!$expire) {
-            $expire = $this->expire;
-        }
+		if (!$expire) {
+			$expire = $this->expire;
+		}
 
-        file_put_contents(DIR_CACHE . 'cache.' . preg_replace('/[^A-Z0-9\._-]/i', '', $key) . '.' . (time() + $expire), json_encode($value));
-    }
+		file_put_contents(DIR_CACHE . 'cache.' . preg_replace('/[^A-Z0-9\._-]/i', '', $key) . '.' . (time() + $expire), json_encode($value));
+	}
 
-    /**
-     * Delete
-     *
-     * @param string $key
-     *
-     * @return void
-     */
-    public function delete(string $key): void {
-        $files = glob(DIR_CACHE . 'cache.' . preg_replace('/[^A-Z0-9\._-]/i', '', $key) . '.*');
+	/**
+	 * Delete
+	 *
+	 * @param string $key
+	 *
+	 * @return void
+	 */
+	public function delete(string $key): void {
+		$files = glob(DIR_CACHE . 'cache.' . preg_replace('/[^A-Z0-9\._-]/i', '', $key) . '.*');
 
-        if ($files) {
-            foreach ($files as $file) {
-                if (!@unlink($file)) {
-                    clearstatcache(false, $file);
-                }
-            }
-        }
-    }
+		if ($files) {
+			foreach ($files as $file) {
+				if (!@unlink($file)) {
+					clearstatcache(false, $file);
+				}
+			}
+		}
+	}
 
-    /**
-     * Destructor
-     */
-    public function __destruct() {
-        $files = glob(DIR_CACHE . 'cache.*');
+	/**
+	 * Destructor
+	 */
+	public function __destruct() {
+		$files = glob(DIR_CACHE . 'cache.*');
 
-        if ($files && rand(1, 100) == 1) {
-            foreach ($files as $file) {
-                $time = substr(strrchr($file, '.'), 1);
+		if ($files && mt_rand(1, 100) == 1) {
+			foreach ($files as $file) {
+				$time = substr(strrchr($file, '.'), 1);
 
-                if ($time < time()) {
-                    if (!@unlink($file)) {
-                        clearstatcache(false, $file);
-                    }
-                }
-            }
-        }
-    }
+				if ($time < time()) {
+					if (!@unlink($file)) {
+						clearstatcache(false, $file);
+					}
+				}
+			}
+		}
+	}
 }

@@ -6,10 +6,10 @@ $_['heading_title']    = 'European Central Bank Currency Converter';
 $_['text_extension']   = 'Extensions';
 $_['text_success']     = 'Success: You have modified European Central Bank Currency Converter!';
 $_['text_edit']        = 'Edit European Central Bank Currency Converter';
-$_['text_edit']       .= '<br><br>';
-$_['text_edit']       .= 'This extension requires the EUR currency as an available currency.';
-$_['text_edit']       .= '<br><br>';
-$_['text_edit']       .= 'When enabled, it can be chosen as the currency rate engine at <b><a href="%2">System &gt; Settings</b></a> and you can refresh the currency rates via <b><a href="%1">System &gt; Localisation &gt; Currencies</a></b>.';
+$_['text_edit'] .= '<br><br>';
+$_['text_edit'] .= 'This extension requires the EUR currency as an available currency.';
+$_['text_edit'] .= '<br><br>';
+$_['text_edit'] .= 'When enabled, it can be chosen as the currency rate engine at <b><a href="%2">System &gt; Settings</b></a> and you can refresh the currency rates via <b><a href="%1">System &gt; Localisation &gt; Currencies</a></b>.';
 
 // Entry
 $_['entry_ip']         = 'Server IP-address';

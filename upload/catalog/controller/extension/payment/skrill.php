@@ -8,115 +8,115 @@ class ControllerExtensionPaymentSkrill extends Controller {
 	/**
 	 * @return string
 	 */
-    public function index(): string {
-        if (!isset($this->session->data['order_id'])) {
-            return '';
-        }
+	public function index(): string {
+		if (!isset($this->session->data['order_id'])) {
+			return '';
+		}
 
-        $this->load->language('extension/payment/skrill');
+		$this->load->language('extension/payment/skrill');
 
-        // Orders
-        $this->load->model('checkout/order');
+		// Orders
+		$this->load->model('checkout/order');
 
-        $data['button_confirm'] = $this->language->get('button_confirm');
-        $data['action'] = 'https://www.moneybookers.com/app/payment.pl?p=OpenCart';
-        $data['pay_to_email'] = $this->config->get('payment_skrill_email');
-        $data['platform'] = '31974336';
-        $data['description'] = $this->config->get('config_name');
-        $data['transaction_id'] = (int)$this->session->data['order_id'];
-        $data['return_url'] = $this->url->link('checkout/success');
-        $data['cancel_url'] = $this->url->link('checkout/checkout', '', true);
-        $data['status_url'] = $this->url->link('extension/payment/skrill/callback');
-        $data['language'] = $this->config->get('config_language');
-        $data['logo'] = $this->config->get('config_url') . 'image/' . $this->config->get('config_logo');
+		$data['button_confirm'] = $this->language->get('button_confirm');
+		$data['action'] = 'https://www.moneybookers.com/app/payment.pl?p=OpenCart';
+		$data['pay_to_email'] = $this->config->get('payment_skrill_email');
+		$data['platform'] = '31974336';
+		$data['description'] = $this->config->get('config_name');
+		$data['transaction_id'] = (int)$this->session->data['order_id'];
+		$data['return_url'] = $this->url->link('checkout/success');
+		$data['cancel_url'] = $this->url->link('checkout/checkout', '', true);
+		$data['status_url'] = $this->url->link('extension/payment/skrill/callback');
+		$data['language'] = $this->config->get('config_language');
+		$data['logo'] = $this->config->get('config_url') . 'image/' . $this->config->get('config_logo');
 
-        $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
+		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
-        $data['pay_from_email'] = $order_info['email'];
-        $data['firstname'] = $order_info['payment_firstname'];
-        $data['lastname'] = $order_info['payment_lastname'];
-        $data['address'] = $order_info['payment_address_1'];
-        $data['address2'] = $order_info['payment_address_2'];
-        $data['phone_number'] = $order_info['telephone'];
-        $data['postal_code'] = $order_info['payment_postcode'];
-        $data['city'] = $order_info['payment_city'];
-        $data['state'] = $order_info['payment_zone'];
-        $data['country'] = $order_info['payment_iso_code_3'];
-        $data['amount'] = $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false);
-        $data['currency'] = $order_info['currency_code'];
+		$data['pay_from_email'] = $order_info['email'];
+		$data['firstname'] = $order_info['payment_firstname'];
+		$data['lastname'] = $order_info['payment_lastname'];
+		$data['address'] = $order_info['payment_address_1'];
+		$data['address2'] = $order_info['payment_address_2'];
+		$data['phone_number'] = $order_info['telephone'];
+		$data['postal_code'] = $order_info['payment_postcode'];
+		$data['city'] = $order_info['payment_city'];
+		$data['state'] = $order_info['payment_zone'];
+		$data['country'] = $order_info['payment_iso_code_3'];
+		$data['amount'] = $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false);
+		$data['currency'] = $order_info['currency_code'];
 
-        $products = '';
+		$products = '';
 
-        foreach ($this->cart->getProducts() as $product) {
-            $products .= $product['quantity'] . ' x ' . $product['name'] . ', ';
-        }
+		foreach ($this->cart->getProducts() as $product) {
+			$products .= $product['quantity'] . ' x ' . $product['name'] . ', ';
+		}
 
-        $data['detail1_text'] = $products;
-        $data['order_id'] = (int)$this->session->data['order_id'];
+		$data['detail1_text'] = $products;
+		$data['order_id'] = (int)$this->session->data['order_id'];
 
-        return $this->load->view('extension/payment/skrill', $data);
-    }
+		return $this->load->view('extension/payment/skrill', $data);
+	}
 
 	/**
 	 * Callback
 	 *
 	 * @return void
 	 */
-    public function callback(): void {
-        if (isset($this->request->post['order_id'])) {
-            $order_id = (int)$this->request->post['order_id'];
-        } else {
-            $order_id = 0;
-        }
+	public function callback(): void {
+		if (isset($this->request->post['order_id'])) {
+			$order_id = (int)$this->request->post['order_id'];
+		} else {
+			$order_id = 0;
+		}
 
-        // Orders
-        $this->load->model('checkout/order');
+		// Orders
+		$this->load->model('checkout/order');
 
-        $order_info = $this->model_checkout_order->getOrder($order_id);
+		$order_info = $this->model_checkout_order->getOrder($order_id);
 
-        if ($order_info) {
-            $this->model_checkout_order->addHistory($order_id, $this->config->get('config_order_status_id'));
+		if ($order_info) {
+			$this->model_checkout_order->addHistory($order_id, $this->config->get('config_order_status_id'));
 
-            $verified = true;
+			$verified = true;
 
-            // md5sig validation
-            if ($this->config->get('payment_skrill_secret')) {
-                $hash = $this->request->post['merchant_id'];
-                $hash .= $this->request->post['transaction_id'];
-                $hash .= strtoupper(md5($this->config->get('payment_skrill_secret')));
-                $hash .= $this->request->post['mb_amount'];
-                $hash .= $this->request->post['mb_currency'];
-                $hash .= $this->request->post['status'];
+			// md5sig validation
+			if ($this->config->get('payment_skrill_secret')) {
+				$hash = $this->request->post['merchant_id'];
+				$hash .= $this->request->post['transaction_id'];
+				$hash .= strtoupper(md5($this->config->get('payment_skrill_secret')));
+				$hash .= $this->request->post['mb_amount'];
+				$hash .= $this->request->post['mb_currency'];
+				$hash .= $this->request->post['status'];
 
-                $md5hash = strtoupper(md5($hash));
-                $md5sig = $this->request->post['md5sig'];
+				$md5hash = strtoupper(md5($hash));
+				$md5sig = $this->request->post['md5sig'];
 
-                if (($md5hash != $md5sig) || (strtolower($this->request->post['pay_to_email']) != strtolower($this->config->get('config_moneybookers_email'))) || ((float)$this->request->post['amount'] != $this->currency->format((float)$order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false))) {
-                    $verified = false;
-                }
-            }
+				if (($md5hash != $md5sig) || (strtolower($this->request->post['pay_to_email']) != strtolower($this->config->get('config_moneybookers_email'))) || ((float)$this->request->post['amount'] != $this->currency->format((float)$order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false))) {
+					$verified = false;
+				}
+			}
 
-            if ($verified) {
-                switch ($this->request->post['status']) {
-                    case '2':
-                        $this->model_checkout_order->addHistory($order_id, $this->config->get('payment_skrill_order_status_id'), '', true);
-                        break;
-                    case '0':
-                        $this->model_checkout_order->addHistory($order_id, $this->config->get('payment_skrill_pending_status_id'), '', true);
-                        break;
-                    case '-1':
-                        $this->model_checkout_order->addHistory($order_id, $this->config->get('payment_skrill_canceled_status_id'), '', true);
-                        break;
-                    case '-2':
-                        $this->model_checkout_order->addHistory($order_id, $this->config->get('payment_skrill_failed_status_id'), '', true);
-                        break;
-                    case '-3':
-                        $this->model_checkout_order->addHistory($order_id, $this->config->get('payment_skrill_chargeback_status_id'), '', true);
-                        break;
-                }
-            } else {
-                $this->log->write('md5sig returned (' + $md5sig + ') does not match generated (' + $md5hash + '). Verify Manually. Current order state: ' . $this->config->get('config_order_status_id'));
-            }
-        }
-    }
+			if ($verified) {
+				switch ($this->request->post['status']) {
+					case '2':
+						$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_skrill_order_status_id'), '', true);
+						break;
+					case '0':
+						$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_skrill_pending_status_id'), '', true);
+						break;
+					case '-1':
+						$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_skrill_canceled_status_id'), '', true);
+						break;
+					case '-2':
+						$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_skrill_failed_status_id'), '', true);
+						break;
+					case '-3':
+						$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_skrill_chargeback_status_id'), '', true);
+						break;
+				}
+			} else {
+				$this->log->write('md5sig returned (' + $md5sig + ') does not match generated (' + $md5hash + '). Verify Manually. Current order state: ' . $this->config->get('config_order_status_id'));
+			}
+		}
+	}
 }

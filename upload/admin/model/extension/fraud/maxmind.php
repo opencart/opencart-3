@@ -5,8 +5,13 @@
  * @package Admin\Model\Extension\Fraud
  */
 class ModelExtensionFraudMaxMind extends Model {
-    public function install(): void {
-        $this->db->query("
+	/**
+	 * Install
+	 *
+	 * @return void
+	 */
+	public function install(): void {
+		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "maxmind` (
 			  `order_id` int(11) NOT NULL,
 			  `customer_id` int(11) NOT NULL,
@@ -64,15 +69,27 @@ class ModelExtensionFraudMaxMind extends Model {
 			  PRIMARY KEY (`order_id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 		");
-    }
+	}
 
-    public function uninstall(): void {
-        $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "maxmind`");
-    }
+	/**
+	 * Uninstall
+	 *
+	 * @return void
+	 */
+	public function uninstall(): void {
+		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "maxmind`");
+	}
 
-    public function getOrder(int $order_id): array {
-        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "maxmind` WHERE `order_id` = '" . (int)$order_id . "'");
+	/**
+	 * getOrder
+	 *
+	 * @param int $order_id
+	 *
+	 * @return array
+	 */
+	public function getOrder(int $order_id): array {
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "maxmind` WHERE `order_id` = '" . (int)$order_id . "'");
 
-        return $query->row;
-    }
+		return $query->row;
+	}
 }

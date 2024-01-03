@@ -8,7 +8,7 @@ class ControllerExtensionAnalyticsGoogle extends Controller {
 	/**
 	 * @return string
 	 */
-    public function index(): string {
-        return html_entity_decode($this->config->get('analytics_google_code'), ENT_QUOTES, 'UTF-8');
-    }
+	public function index(): string {
+		return html_entity_decode($this->config->get('analytics_google_code'), ENT_QUOTES, 'UTF-8');
+	}
 }

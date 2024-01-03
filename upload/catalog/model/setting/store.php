@@ -12,30 +12,30 @@ class ModelSettingStore extends Model {
 	 *
 	 * @return array
 	 */
-    public function getStore(int $store_id): array {
-        $query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "store` WHERE `store_id` = '" . (int)$store_id . "'");
+	public function getStore(int $store_id): array {
+		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "store` WHERE `store_id` = '" . (int)$store_id . "'");
 
-        return $query->row;
-    }
+		return $query->row;
+	}
 
 	/**
 	 * getStores
 	 *
 	 * @return array
 	 */
-    public function getStores(): array {
-        $store_data = $this->cache->get('store');
+	public function getStores(): array {
+		$store_data = $this->cache->get('store');
 
-        if (!$store_data) {
-            $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "store` ORDER BY `url`");
+		if (!$store_data) {
+			$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "store` ORDER BY `url`");
 
-            $store_data = $query->rows;
+			$store_data = $query->rows;
 
-            $this->cache->set('store', $store_data);
-        }
+			$this->cache->set('store', $store_data);
+		}
 
-        return $store_data;
-    }
+		return $store_data;
+	}
 
 	/**
 	 * getStoreByHostname
@@ -44,9 +44,9 @@ class ModelSettingStore extends Model {
 	 *
 	 * @return array
 	 */
-    public function getStoreByHostname(string $url): array {
-        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "store` WHERE REPLACE(`url`, 'www.', '') = '" . $this->db->escape($url) . "'");
+	public function getStoreByHostname(string $url): array {
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "store` WHERE REPLACE(`url`, 'www.', '') = '" . $this->db->escape($url) . "'");
 
-        return $query->row;
-    }
+		return $query->row;
+	}
 }

@@ -8,44 +8,44 @@ class ControllerExtensionModuleStore extends Controller {
 	/**
 	 * @return string
 	 */
-    public function index(): string {
-        $status = true;
+	public function index(): string {
+		$status = true;
 
-        if ($this->config->get('module_store_admin')) {
-            $this->user = new \Cart\User($this->registry);
+		if ($this->config->get('module_store_admin')) {
+			$this->user = new \Cart\User($this->registry);
 
-            $status = $this->user->isLogged();
-        }
+			$status = $this->user->isLogged();
+		}
 
-        if ($status) {
-            $this->load->language('extension/module/store');
+		if ($status) {
+			$this->load->language('extension/module/store');
 
-            $data['store_id'] = $this->config->get('config_store_id');
+			$data['store_id'] = $this->config->get('config_store_id');
 
-            $data['stores'] = [];
+			$data['stores'] = [];
 
-            $data['stores'][] = [
-                'store_id' => 0,
-                'name'     => $this->language->get('text_default'),
-                'url'      => HTTP_SERVER . 'index.php?route=common/home&session_id=' . $this->session->getId()
-            ];
+			$data['stores'][] = [
+				'store_id' => 0,
+				'name'     => $this->language->get('text_default'),
+				'url'      => HTTP_SERVER . 'index.php?route=common/home&session_id=' . $this->session->getId()
+			];
 
-            // Stores
-            $this->load->model('setting/store');
+			// Stores
+			$this->load->model('setting/store');
 
-            $results = $this->model_setting_store->getStores();
+			$results = $this->model_setting_store->getStores();
 
-            foreach ($results as $result) {
-                $data['stores'][] = [
-                    'store_id' => $result['store_id'],
-                    'name'     => $result['name'],
-                    'url'      => $result['url'] . 'index.php?route=common/home&session_id=' . $this->session->getId()
-                ];
-            }
+			foreach ($results as $result) {
+				$data['stores'][] = [
+					'store_id' => $result['store_id'],
+					'name'     => $result['name'],
+					'url'      => $result['url'] . 'index.php?route=common/home&session_id=' . $this->session->getId()
+				];
+			}
 
-            return $this->load->view('extension/module/store', $data);
-        } else {
-            return '';
-        }
-    }
+			return $this->load->view('extension/module/store', $data);
+		} else {
+			return '';
+		}
+	}
 }

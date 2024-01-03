@@ -11,15 +11,15 @@
  * Controller class
  */
 class Controller {
-    protected object $registry;
+	protected object $registry;
 	/**
 	 * Constructor
 	 *
 	 * @param object $route
 	 */
-    public function __construct(object $registry) {
-        $this->registry = $registry;
-    }
+	public function __construct(object $registry) {
+		$this->registry = $registry;
+	}
 
 	/**
 	 * __get
@@ -28,13 +28,13 @@ class Controller {
 	 *
 	 * @return object
 	 */
-    public function __get(string $key): object {
-        if ($this->registry->has($key)) {
-            return $this->registry->get($key);
-        } else {
-            throw new \Exception('Error: Could not call registry key ' . $key . '!');
-        }
-    }
+	public function __get(string $key): object {
+		if ($this->registry->has($key)) {
+			return $this->registry->get($key);
+		} else {
+			throw new \Exception('Error: Could not call registry key ' . $key . '!');
+		}
+	}
 
 	/**
 	 * __set
@@ -44,7 +44,7 @@ class Controller {
 	 *
 	 * @return void
 	 */
-    public function __set(string $key, object $value): void {
-        $this->registry->set($key, $value);
-    }
+	public function __set(string $key, object $value): void {
+		$this->registry->set($key, $value);
+	}
 }

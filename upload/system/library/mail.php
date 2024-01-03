@@ -11,142 +11,142 @@
  * Mail class
  */
 class Mail {
-    private object $adaptor;
-    private array $option = [];
+	private object $adaptor;
+	private array $option = [];
 
-    /**
-     * Constructor
-     *
-     * @param string $adaptor
-     * @param array  $option
-     *
-     */
-    public function __construct(string $adaptor = 'mail', array $option = []) {
-        $class = 'Mail\\' . $adaptor;
+	/**
+	 * Constructor
+	 *
+	 * @param string $adaptor
+	 * @param array  $option
+	 *
+	 */
+	public function __construct(string $adaptor = 'mail', array $option = []) {
+		$class = 'Mail\\' . $adaptor;
 
-        if (class_exists($class)) {
-            $this->adaptor = new $class($option);
+		if (class_exists($class)) {
+			$this->adaptor = new $class($option);
 
-            $this->option = &$option;
-        } else {
-            throw new \Exception('Error: Could not load mail adaptor ' . $adaptor . '!');
-        }
-    }
+			$this->option = &$option;
+		} else {
+			throw new \Exception('Error: Could not load mail adaptor ' . $adaptor . '!');
+		}
+	}
 
-    /**
-     * setTo
-     *
-     * @param string $to
-     *
-     * @return void
-     */
-    public function setTo($to): void {
-        $this->option['to'] = $to;
-    }
+	/**
+	 * setTo
+	 *
+	 * @param string $to
+	 *
+	 * @return void
+	 */
+	public function setTo($to): void {
+		$this->option['to'] = $to;
+	}
 
-    /**
-     * setFrom
-     *
-     * @param string $from
-     *
-     * @return void
-     */
-    public function setFrom(string $from): void {
-        $this->option['from'] = $from;
-    }
+	/**
+	 * setFrom
+	 *
+	 * @param string $from
+	 *
+	 * @return void
+	 */
+	public function setFrom(string $from): void {
+		$this->option['from'] = $from;
+	}
 
-    /**
-     * setSender
-     *
-     * @param string $sender
-     *
-     * @return void
-     */
-    public function setSender(string $sender): void {
-        $this->option['sender'] = $sender;
-    }
+	/**
+	 * setSender
+	 *
+	 * @param string $sender
+	 *
+	 * @return void
+	 */
+	public function setSender(string $sender): void {
+		$this->option['sender'] = $sender;
+	}
 
-    /**
-     * setReplyTo
-     *
-     * @param string $reply_to
-     *
-     * @return void
-     */
-    public function setReplyTo(string $reply_to): void {
-        $this->option['reply_to'] = $reply_to;
-    }
+	/**
+	 * setReplyTo
+	 *
+	 * @param string $reply_to
+	 *
+	 * @return void
+	 */
+	public function setReplyTo(string $reply_to): void {
+		$this->option['reply_to'] = $reply_to;
+	}
 
-    /**
-     * setSubject
-     *
-     * @param string $subject
-     *
-     * @return void
-     */
-    public function setSubject(string $subject): void {
-        $this->option['subject'] = $subject;
-    }
+	/**
+	 * setSubject
+	 *
+	 * @param string $subject
+	 *
+	 * @return void
+	 */
+	public function setSubject(string $subject): void {
+		$this->option['subject'] = $subject;
+	}
 
-    /**
-     * setText
-     *
-     * @param string $text
-     *
-     * @return void
-     */
-    public function setText(string $text): void {
-        $this->option['text'] = $text;
-    }
+	/**
+	 * setText
+	 *
+	 * @param string $text
+	 *
+	 * @return void
+	 */
+	public function setText(string $text): void {
+		$this->option['text'] = $text;
+	}
 
-    /**
-     * setHtml
-     *
-     * @param string $html
-     *
-     * @return void
-     */
-    public function setHtml(string $html): void {
-        $this->option['html'] = $html;
-    }
+	/**
+	 * setHtml
+	 *
+	 * @param string $html
+	 *
+	 * @return void
+	 */
+	public function setHtml(string $html): void {
+		$this->option['html'] = $html;
+	}
 
-    /**
-     * addAttachment
-     *
-     * @param string $filename
-     *
-     * @return void
-     */
-    public function addAttachment(string $filename): void {
-        $this->option['attachments'][] = $filename;
-    }
+	/**
+	 * addAttachment
+	 *
+	 * @param string $filename
+	 *
+	 * @return void
+	 */
+	public function addAttachment(string $filename): void {
+		$this->option['attachments'][] = $filename;
+	}
 
-    /**
-     * Send
-     *
-     * @return bool
-     */
-    public function send(): bool {
-        if (empty($this->option['to'])) {
-            throw new \Exception('Error: E-Mail to required!');
-        }
+	/**
+	 * Send
+	 *
+	 * @return bool
+	 */
+	public function send(): bool {
+		if (empty($this->option['to'])) {
+			throw new \Exception('Error: E-Mail to required!');
+		}
 
-        if (empty($this->option['from'])) {
-            throw new \Exception('Error: E-Mail from required!');
-        }
+		if (empty($this->option['from'])) {
+			throw new \Exception('Error: E-Mail from required!');
+		}
 
-        if (empty($this->option['sender'])) {
-            throw new \Exception('Error: E-Mail sender required!');
-        }
+		if (empty($this->option['sender'])) {
+			throw new \Exception('Error: E-Mail sender required!');
+		}
 
-        if (empty($this->option['subject'])) {
-            throw new \Exception('Error: E-Mail subject required!');
-        }
+		if (empty($this->option['subject'])) {
+			throw new \Exception('Error: E-Mail subject required!');
+		}
 
-        if (empty($this->option['text']) && empty($this->option['html'])) {
-            throw new \Exception('Error: E-Mail message required!');
-        }
+		if (empty($this->option['text']) && empty($this->option['html'])) {
+			throw new \Exception('Error: E-Mail message required!');
+		}
 
-        return $this->adaptor->send();
-    }
+		return $this->adaptor->send();
+	}
 }

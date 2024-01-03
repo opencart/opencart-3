@@ -8,24 +8,24 @@ class ControllerStartupEvent extends Controller {
 	/**
 	 * @return void
 	 */
-    public function index(): void {
-        // Add events from the DB
+	public function index(): void {
+		// Add events from the DB
 
-        // Events
-        $this->load->model('setting/event');
+		// Events
+		$this->load->model('setting/event');
 
-        $results = $this->model_setting_event->getEvents();
+		$results = $this->model_setting_event->getEvents();
 
-        foreach ($results as $result) {
-            if ($result['status']) {
-                $part = explode('/', $result['trigger']);
+		foreach ($results as $result) {
+			if ($result['status']) {
+				$part = explode('/', $result['trigger']);
 
-                if ($part[0] == 'admin') {
-                    array_shift($part);
+				if ($part[0] == 'admin') {
+					array_shift($part);
 
-                    $this->event->register(implode('/', $part), new \Action($result['action']), $result['sort_order']);
-                }
-            }
-        }
-    }
+					$this->event->register(implode('/', $part), new \Action($result['action']), $result['sort_order']);
+				}
+			}
+		}
+	}
 }

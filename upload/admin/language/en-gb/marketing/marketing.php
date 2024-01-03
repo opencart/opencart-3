@@ -8,7 +8,7 @@ $_['text_list']         = 'Marketing Tracking List';
 $_['text_add']          = 'Add Marketing Tracking';
 $_['text_edit']         = 'Edit Marketing Tracking';
 $_['text_filter']       = 'Filter';
-		
+
 // Column
 $_['column_name']       = 'Campaign Name';
 $_['column_code']       = 'Code';

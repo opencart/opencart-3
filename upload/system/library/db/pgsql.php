@@ -1,7 +1,7 @@
 <?php
 namespace DB;
 class PgSQL {
-	private object|null $connection;
+	private ?object $connection;
 
 	/**
 	 * Constructor
@@ -79,7 +79,7 @@ class PgSQL {
 	 *
 	 * @return string
 	 */
-	public function escape(string $value): string  {
+	public function escape(string $value): string {
 		return pg_escape_string($this->connection, $value);
 	}
 

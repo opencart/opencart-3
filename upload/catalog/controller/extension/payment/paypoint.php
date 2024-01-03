@@ -8,168 +8,168 @@ class ControllerExtensionPaymentPaypoint extends Controller {
 	/**
 	 * @return string
 	 */
-    public function index(): string {
-        if (!isset($this->session->data['order_id'])) {
-            return false;
-        }
+	public function index(): string {
+		if (!isset($this->session->data['order_id'])) {
+			return false;
+		}
 
-        // Orders
-        $this->load->model('checkout/order');
+		// Orders
+		$this->load->model('checkout/order');
 
-        $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
+		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
-        if ($this->config->get('payment_paypoint_password')) {
-            $data['digest'] = md5($this->session->data['order_id'] . $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false) . $this->config->get('payment_paypoint_password'));
-        } else {
-            $data['digest'] = '';
-        }
+		if ($this->config->get('payment_paypoint_password')) {
+			$data['digest'] = md5($this->session->data['order_id'] . $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false) . $this->config->get('payment_paypoint_password'));
+		} else {
+			$data['digest'] = '';
+		}
 
-        $data['button_confirm'] = $this->language->get('button_confirm');
-        $data['merchant'] = $this->config->get('payment_paypoint_merchant');
-        $data['trans_id'] = (int)$this->session->data['order_id'];
-        $data['amount'] = $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false);
-        $data['bill_name'] = $order_info['payment_firstname'] . ' ' . $order_info['payment_lastname'];
-        $data['bill_addr_1'] = $order_info['payment_address_1'];
-        $data['bill_addr_2'] = $order_info['payment_address_2'];
-        $data['bill_city'] = $order_info['payment_city'];
-        $data['bill_state'] = $order_info['payment_zone'];
-        $data['bill_post_code'] = $order_info['payment_postcode'];
-        $data['bill_country'] = $order_info['payment_country'];
-        $data['bill_tel'] = $order_info['telephone'];
-        $data['bill_email'] = $order_info['email'];
+		$data['button_confirm'] = $this->language->get('button_confirm');
+		$data['merchant'] = $this->config->get('payment_paypoint_merchant');
+		$data['trans_id'] = (int)$this->session->data['order_id'];
+		$data['amount'] = $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false);
+		$data['bill_name'] = $order_info['payment_firstname'] . ' ' . $order_info['payment_lastname'];
+		$data['bill_addr_1'] = $order_info['payment_address_1'];
+		$data['bill_addr_2'] = $order_info['payment_address_2'];
+		$data['bill_city'] = $order_info['payment_city'];
+		$data['bill_state'] = $order_info['payment_zone'];
+		$data['bill_post_code'] = $order_info['payment_postcode'];
+		$data['bill_country'] = $order_info['payment_country'];
+		$data['bill_tel'] = $order_info['telephone'];
+		$data['bill_email'] = $order_info['email'];
 
-        if ($this->cart->hasShipping()) {
-            $data['ship_name'] = $order_info['shipping_firstname'] . ' ' . $order_info['shipping_lastname'];
-            $data['ship_addr_1'] = $order_info['shipping_address_1'];
-            $data['ship_addr_2'] = $order_info['shipping_address_2'];
-            $data['ship_city'] = $order_info['shipping_city'];
-            $data['ship_state'] = $order_info['shipping_zone'];
-            $data['ship_post_code'] = $order_info['shipping_postcode'];
-            $data['ship_country'] = $order_info['shipping_country'];
-        } else {
-            $data['ship_name'] = '';
-            $data['ship_addr_1'] = '';
-            $data['ship_addr_2'] = '';
-            $data['ship_city'] = '';
-            $data['ship_state'] = '';
-            $data['ship_post_code'] = '';
-            $data['ship_country'] = '';
-        }
+		if ($this->cart->hasShipping()) {
+			$data['ship_name'] = $order_info['shipping_firstname'] . ' ' . $order_info['shipping_lastname'];
+			$data['ship_addr_1'] = $order_info['shipping_address_1'];
+			$data['ship_addr_2'] = $order_info['shipping_address_2'];
+			$data['ship_city'] = $order_info['shipping_city'];
+			$data['ship_state'] = $order_info['shipping_zone'];
+			$data['ship_post_code'] = $order_info['shipping_postcode'];
+			$data['ship_country'] = $order_info['shipping_country'];
+		} else {
+			$data['ship_name'] = '';
+			$data['ship_addr_1'] = '';
+			$data['ship_addr_2'] = '';
+			$data['ship_city'] = '';
+			$data['ship_state'] = '';
+			$data['ship_post_code'] = '';
+			$data['ship_country'] = '';
+		}
 
-        switch ($this->config->get('payment_paypoint_test')) {
-            case 'live':
-                $status = 'live';
-                break;
-            case 'successful':
-            default:
-                $status = 'true';
-                break;
-            case 'fail':
-                $status = 'false';
-                break;
-        }
+		switch ($this->config->get('payment_paypoint_test')) {
+			case 'live':
+				$status = 'live';
+				break;
+			case 'successful':
+			default:
+				$status = 'true';
+				break;
+			case 'fail':
+				$status = 'false';
+				break;
+		}
 
-        $data['options'] = 'test_status=' . $status . ',dups=false,cb_post=false';
-        $data['currency'] = $this->session->data['currency'];
-        $data['callback'] = $this->url->link('extension/payment/paypoint/callback', '', true);
+		$data['options'] = 'test_status=' . $status . ',dups=false,cb_post=false';
+		$data['currency'] = $this->session->data['currency'];
+		$data['callback'] = $this->url->link('extension/payment/paypoint/callback', '', true);
 
-        return $this->load->view('extension/payment/paypoint', $data);
-    }
+		return $this->load->view('extension/payment/paypoint', $data);
+	}
 
 	/**
 	 * Callback
 	 *
 	 * @return void
 	 */
-    public function callback(): void {
-        if (isset($this->request->get['trans_id'])) {
-            $order_id = (int)$this->request->get['trans_id'];
-        } else {
-            $order_id = 0;
-        }
+	public function callback(): void {
+		if (isset($this->request->get['trans_id'])) {
+			$order_id = (int)$this->request->get['trans_id'];
+		} else {
+			$order_id = 0;
+		}
 
-        // Orders
-        $this->load->model('checkout/order');
+		// Orders
+		$this->load->model('checkout/order');
 
-        $order_info = $this->model_checkout_order->getOrder($order_id);
+		$order_info = $this->model_checkout_order->getOrder($order_id);
 
-        // Validate the request is from PayPoint
-        if ($this->config->get('payment_paypoint_password')) {
-            if (!empty($this->request->get['hash'])) {
-                $status = ($this->request->get['hash'] == md5(str_replace('hash=' . $this->request->get['hash'], '', htmlspecialchars_decode($this->request->server['REQUEST_URI'], ENT_COMPAT)) . $this->config->get('payment_paypoint_password')));
-            } else {
-                $status = false;
-            }
-        } else {
-            $status = true;
-        }
+		// Validate the request is from PayPoint
+		if ($this->config->get('payment_paypoint_password')) {
+			if (!empty($this->request->get['hash'])) {
+				$status = ($this->request->get['hash'] == md5(str_replace('hash=' . $this->request->get['hash'], '', htmlspecialchars_decode($this->request->server['REQUEST_URI'], ENT_COMPAT)) . $this->config->get('payment_paypoint_password')));
+			} else {
+				$status = false;
+			}
+		} else {
+			$status = true;
+		}
 
-        if ($order_info) {
-            $this->load->language('extension/payment/paypoint');
+		if ($order_info) {
+			$this->load->language('extension/payment/paypoint');
 
-            $data['title'] = sprintf($this->language->get('heading_title'), $this->config->get('config_name'));
+			$data['title'] = sprintf($this->language->get('heading_title'), $this->config->get('config_name'));
 
-            if (!$this->request->server['HTTPS']) {
-                $data['base'] = HTTP_SERVER;
-            } else {
-                $data['base'] = HTTPS_SERVER;
-            }
+			if (!$this->request->server['HTTPS']) {
+				$data['base'] = HTTP_SERVER;
+			} else {
+				$data['base'] = HTTPS_SERVER;
+			}
 
-            if (isset($this->request->get['code']) && $this->request->get['code'] == 'A' && $status) {
-                $message = '';
+			if (isset($this->request->get['code']) && $this->request->get['code'] == 'A' && $status) {
+				$message = '';
 
-                if (isset($this->request->get['code'])) {
-                    $message .= 'code: ' . $this->request->get['code'] . "\n";
-                }
+				if (isset($this->request->get['code'])) {
+					$message .= 'code: ' . $this->request->get['code'] . "\n";
+				}
 
-                if (isset($this->request->get['auth_code'])) {
-                    $message .= 'auth_code: ' . $this->request->get['auth_code'] . "\n";
-                }
+				if (isset($this->request->get['auth_code'])) {
+					$message .= 'auth_code: ' . $this->request->get['auth_code'] . "\n";
+				}
 
-                if (isset($this->request->get['ip'])) {
-                    $message .= 'ip: ' . $this->request->get['ip'] . "\n";
-                }
+				if (isset($this->request->get['ip'])) {
+					$message .= 'ip: ' . $this->request->get['ip'] . "\n";
+				}
 
-                if (isset($this->request->get['cv2avs'])) {
-                    $message .= 'cv2avs: ' . $this->request->get['cv2avs'] . "\n";
-                }
+				if (isset($this->request->get['cv2avs'])) {
+					$message .= 'cv2avs: ' . $this->request->get['cv2avs'] . "\n";
+				}
 
-                if (isset($this->request->get['valid'])) {
-                    $message .= 'valid: ' . $this->request->get['valid'] . "\n";
-                }
+				if (isset($this->request->get['valid'])) {
+					$message .= 'valid: ' . $this->request->get['valid'] . "\n";
+				}
 
-                // Orders
-                $this->load->model('checkout/order');
+				// Orders
+				$this->load->model('checkout/order');
 
-                $this->model_checkout_order->addHistory($order_id, $this->config->get('payment_paypoint_order_status_id'), $message, false);
+				$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_paypoint_order_status_id'), $message, false);
 
-                $data['language'] = $this->language->get('code');
-                $data['direction'] = $this->language->get('direction');
-                $data['heading_title'] = sprintf($this->language->get('heading_title'), $this->config->get('config_name'));
-                $data['text_success_wait'] = sprintf($this->language->get('text_success_wait'), $this->url->link('checkout/success'));
-                $data['text_failure_wait'] = sprintf($this->language->get('text_failure_wait'), $this->url->link('checkout/cart'));
-                $data['continue'] = $this->url->link('checkout/success');
+				$data['language'] = $this->language->get('code');
+				$data['direction'] = $this->language->get('direction');
+				$data['heading_title'] = sprintf($this->language->get('heading_title'), $this->config->get('config_name'));
+				$data['text_success_wait'] = sprintf($this->language->get('text_success_wait'), $this->url->link('checkout/success'));
+				$data['text_failure_wait'] = sprintf($this->language->get('text_failure_wait'), $this->url->link('checkout/cart'));
+				$data['continue'] = $this->url->link('checkout/success');
 
-                $data['column_left'] = $this->load->controller('common/column_left');
-                $data['column_right'] = $this->load->controller('common/column_right');
-                $data['content_top'] = $this->load->controller('common/content_top');
-                $data['content_bottom'] = $this->load->controller('common/content_bottom');
-                $data['footer'] = $this->load->controller('common/footer');
-                $data['header'] = $this->load->controller('common/header');
+				$data['column_left'] = $this->load->controller('common/column_left');
+				$data['column_right'] = $this->load->controller('common/column_right');
+				$data['content_top'] = $this->load->controller('common/content_top');
+				$data['content_bottom'] = $this->load->controller('common/content_bottom');
+				$data['footer'] = $this->load->controller('common/footer');
+				$data['header'] = $this->load->controller('common/header');
 
-                $this->response->setOutput($this->load->view('extension/payment/paypoint_success', $data));
-            } else {
-                $data['continue'] = $this->url->link('checkout/cart');
+				$this->response->setOutput($this->load->view('extension/payment/paypoint_success', $data));
+			} else {
+				$data['continue'] = $this->url->link('checkout/cart');
 
-                $data['column_left'] = $this->load->controller('common/column_left');
-                $data['column_right'] = $this->load->controller('common/column_right');
-                $data['content_top'] = $this->load->controller('common/content_top');
-                $data['content_bottom'] = $this->load->controller('common/content_bottom');
-                $data['footer'] = $this->load->controller('common/footer');
-                $data['header'] = $this->load->controller('common/header');
+				$data['column_left'] = $this->load->controller('common/column_left');
+				$data['column_right'] = $this->load->controller('common/column_right');
+				$data['content_top'] = $this->load->controller('common/content_top');
+				$data['content_bottom'] = $this->load->controller('common/content_bottom');
+				$data['footer'] = $this->load->controller('common/footer');
+				$data['header'] = $this->load->controller('common/header');
 
-                $this->response->setOutput($this->load->view('extension/payment/paypoint_failure', $data));
-            }
-        }
-    }
+				$this->response->setOutput($this->load->view('extension/payment/paypoint_failure', $data));
+			}
+		}
+	}
 }

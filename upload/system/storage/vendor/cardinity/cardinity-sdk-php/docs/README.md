@@ -28,9 +28,9 @@ $method = new Payment\Create([
     'payment_method' => Payment\Create::CARD,
     'payment_instrument' => [
         'pan' => '4111111111111111',
-        'exp_year' => 2016,
+        'exp_year' => 2021,
         'exp_month' => 12,
-        'cvc' => 456,
+        'cvc' => '456',
         'holder' => 'Mike Dough'
     ],
 ]);
@@ -57,9 +57,9 @@ $method = new Payment\Create([
     'payment_method' => Payment\Create::RECURRING,
     'payment_instrument' => [
         'pan' => '4111111111111111',
-        'exp_year' => 2016,
+        'exp_year' => 2021,
         'exp_month' => 12,
-        'cvc' => 456,
+        'cvc' => '456',
         'holder' => 'Mike Dough'
     ],
 ]);
@@ -242,12 +242,12 @@ $settlement = $result[0];
 ## Voids [API](https://developers.cardinity.com/api/v1/#voids)
 ### Create new void
 ```php
-use Cardinity\Method\Void;
-$method = new Void\Create(
+use Cardinity\Method\VoidPayment;
+$method = new VoidPayment\Create(
     $payment->getId(),
     'my description'
 );
-/** @type Cardinity\Method\Void\Void */
+/** @type Cardinity\Method\VoidPayment\VoidPayment */
 $result = $client->call($method);
 ```
 
@@ -257,18 +257,18 @@ exception will be thrown.
 
 ```php
 use Cardinity\Exception;
-use Cardinity\Method\Void;
+use Cardinity\Method\VoidPayment;
 
-$method = new Void\Create(
+$method = new VoidPayment\Create(
     $payment->getId(),
     'fail'
 );
 
 try {
-    /** @type Cardinity\Method\Void\Void */
+    /** @type Cardinity\Method\VoidPayment\VoidPayment */
     $void = $client->call($method);
 } catch (Exception\Declined $exception) {
-    /** @type Cardinity\Method\Void\Void */
+    /** @type Cardinity\Method\VoidPayment\VoidPayment */
     $void = $exception->getResult();
     $status = $void->getStatus(); // value will be 'declined'
     $errors = $exception->getErrors(); // list of errors occured
@@ -277,24 +277,176 @@ try {
 
 ### Get existing void
 ```php
-use Cardinity\Method\Void;
-$method = new Void\Get(
+use Cardinity\Method\VoidPayment;
+$method = new VoidPayment\Get(
     $payment->getId(),
     $void->getId()
 );
-/** @type Cardinity\Method\Void\Void */
+/** @type Cardinity\Method\VoidPayment\VoidPayment */
 $void = $client->call($method);
 ```
 
 ### Get all voids
 ```php
-use Cardinity\Method\Void;
-$method = new Void\GetAll(
+use Cardinity\Method\VoidPayment;
+$method = new VoidPayment\GetAll(
     $payment->getId()
 );
 $result = $client->call($method);
-/** @type Cardinity\Method\Void\Void */
+/** @type Cardinity\Method\VoidPayment\VoidPayment */
 $void = $result[0];
+```
+
+### Create Payment Link
+To create a payment link you have to create a new payment link object. You can retrieve individual payment links and update payment link parameters. Payment links are identified by a UUID.
+
+```php
+use Cardinity\Method\PaymentLink;
+
+$client = Client::create([
+    'consumerKey' => 'YOUR_CONSUMER_KEY',
+    'consumerSecret' => 'YOUR_CONSUMER_SECRET',
+]);
+
+$method = new PaymentLink\Create([
+    'amount' => 50.00,
+    'currency' => "USD",
+    'description' => "Short description for the payment link",
+]);
+
+
+//with optional parameters
+$method = new PaymentLink\Create([
+    'amount' => 50.00,
+    'currency' => "USD",
+    'description' => "Short description for the payment link",
+
+    'country' => "LT", // ISO 3166-1 alpha-2 country code.
+    'expiration_date' => "2023-01-06T15:26:03.702Z", //ISO 8601 datetime in UTC 
+    'multiple_use' => true, //bool
+]);
+
+// again use same try ... catch block
+try {
+    $paymentLink = $client->call($method);
+}
+// same catch blocks ...
+// ...
+
+```
+
+### Get Payment Link
+```php
+use Cardinity\Method\PaymentLink;
+
+$client = Client::create([
+    'consumerKey' => 'YOUR_CONSUMER_KEY',
+    'consumerSecret' => 'YOUR_CONSUMER_SECRET',
+]);
+
+$method = new PaymentLink\Get($linkid);
+
+// again use same try ... catch block
+try {
+    $paymentLink = $client->call($method);
+}
+// same catch blocks ...
+// ...
+
+```
+
+### Update Payment Link
+You can update the expiration date, and status (enabled or disabled) of an existing payment link. You need to provide the unique UUID to update.
+
+```php
+use Cardinity\Method\PaymentLink;
+
+$client = Client::create([
+    'consumerKey' => 'YOUR_CONSUMER_KEY',
+    'consumerSecret' => 'YOUR_CONSUMER_SECRET',
+]);
+
+$method = new PaymentLink\Update(
+    $payment_link_id,
+    [
+        'expiration_date' => "2023-01-06T15:26:03.702Z", //ISO 8601 datetime in UTC 
+        'enabled' => true,  // true or false
+    ]
+);
+
+// again use same try ... catch block
+try {
+    $updatedPaymentLink = $client->call($method);
+}
+// same catch blocks ...
+// ...
+
+```
+
+### Get All Chargebacks
+Retreive all chargebacks.
+
+```php
+use Cardinity\Method\Chargeback;
+
+$client = Client::create([
+    'consumerKey' => 'YOUR_CONSUMER_KEY',
+    'consumerSecret' => 'YOUR_CONSUMER_SECRET',
+]);
+
+$method = new Chargeback\GetAll();
+
+// again use same try ... catch block
+try {
+    $results = $client->call($method);
+}
+// same catch blocks ...
+// ...
+
+```
+
+### Get All Chargebacks under PaymentID
+Retreive all chargebacks issued for a provided payment ID.
+
+```php
+use Cardinity\Method\Chargeback;
+
+$client = Client::create([
+    'consumerKey' => 'YOUR_CONSUMER_KEY',
+    'consumerSecret' => 'YOUR_CONSUMER_SECRET',
+]);
+
+$method = new Chargeback\GetAll(10, "existing_payment_id");
+
+// again use same try ... catch block
+try {
+    $results = $client->call($method);
+}
+// same catch blocks ...
+// ...
+
+```
+
+### Get Single Chargeback
+Retreive specific chargeback
+
+```php
+use Cardinity\Method\Chargeback;
+
+$client = Client::create([
+    'consumerKey' => 'YOUR_CONSUMER_KEY',
+    'consumerSecret' => 'YOUR_CONSUMER_SECRET',
+]);
+
+$method = new Chargeback\Get("Parent payment id", "Chargeback ID");
+
+// again use same try ... catch block
+try {
+    $results = $client->call($method);
+}
+// same catch blocks ...
+// ...
+
 ```
 
 ## Exceptions
@@ -303,8 +455,8 @@ $void = $result[0];
 #### Base class for API error response exceptions
 Class: `Cardinity\Exception\Request`  
 Methods:  
-- `getErrors()` returns list of errors occured
-- `getErrorsAsString()` returns list of errors occured in string form
+- `getErrors()` returns list of errors occurred
+- `getErrorsAsString()` returns list of errors occurred in string form
 - `getResult()` returns object, the instance of `ResultObjectInterface`.
 
 #### All classes
@@ -346,10 +498,6 @@ Class: `Cardinity\Exception\InvalidAttributeValue`
 Methods:  
 - `getViolations()` returns list of validation violations
 
-#### Response mapping to result object failure
-Class: `Cardinity\Exception\ResultObjectInterfacePropertyNotFound`  
-Got unexpected response? Response object changed?
-
 #### Unexpected error
 Class: `Cardinity\Exception\UnexpectedError`
 
@@ -362,13 +510,12 @@ Catching this exception ensures that you handle all cardinity failure use cases.
 
 ### Debug, log request/response
 `Client::create()` accepts second argument, which defines the logger. 
-Available values: `Client::LOG_NONE`, `Client::LOG_DEBUG` or PSR-3 `LoggerInterface`.
+Available values: `Client::LOG_NONE` or PSR-3 `LoggerInterface`.
 - `Client::LOG_NONE` - log disabled.
-- `Client::LOG_DEBUG` - logs request/response with direct output to the screen.
 - `LoggerInterface` - custom logger implementation, for eg. `Monolog`.
 
 ```php
-$client = Client::create($config, Client::LOG_DEBUG);
+$client = Client::create($config, Client::LOG_NONE);
 ```
 
 ### Use Monolog for logging

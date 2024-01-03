@@ -15,22 +15,22 @@ class Apcu {
 	}
 
 	/**
-     * Get
-     *
-     * @param string $key
-     */
+	 * Get
+	 *
+	 * @param string $key
+	 */
 	public function get(string $key) {
 		return $this->active ? apcu_fetch(CACHE_PREFIX . $key) : [];
 	}
 
 	/**
-     * Set
-     *
-     * @param string 			$key
+	 * Set
+	 *
+	 * @param string 			$key
 	 * @param int 				$expire
 	 *
 	 * @return	 void
-     */
+	 */
 	public function set(string $key, $value, int $expire = 0): void {
 		if (!$expire) {
 			$expire = $this->expire;
@@ -42,12 +42,12 @@ class Apcu {
 	}
 
 	/**
-     * Delete
-     *
-     * @param string $key
+	 * Delete
+	 *
+	 * @param string $key
 	 *
 	 * @return void
-     */
+	 */
 	public function delete(string $key): void {
 		if ($this->active) {
 			$cache_info = apcu_cache_info();
@@ -63,10 +63,10 @@ class Apcu {
 	}
 
 	/**
-     * Flush
-     *
-     * @return bool
-     */
+	 * Flush
+	 *
+	 * @return bool
+	 */
 	public function flush(): bool {
 		$status = false;
 
