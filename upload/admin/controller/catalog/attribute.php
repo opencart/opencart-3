@@ -411,7 +411,7 @@ class ControllerCatalogAttribute extends Controller {
 	/**
  	* Autocomplete
  	*
- 	* @return string
+ 	* @return void
  	*/
 	public function autocomplete(): void {
 		$json = [];
