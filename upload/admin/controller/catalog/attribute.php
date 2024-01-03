@@ -2,7 +2,7 @@
 /**
  * Class Attribute
  *
- * @package Opencart\Admin\Controller\Catalog
+ * @package Admin\Controller\Catalog
  */
 class ControllerCatalogAttribute extends Controller {
 	/**
