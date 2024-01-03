@@ -413,7 +413,7 @@ class ControllerCatalogAttribute extends Controller {
  	*
  	* @return string
  	*/
-	public function autocomplete(): string {
+	public function autocomplete(): void {
 		$json = [];
 
 		if (isset($this->request->get['filter_name'])) {
