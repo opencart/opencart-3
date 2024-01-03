@@ -50,7 +50,7 @@ class Proxy {
 		$args = func_get_args();
 
 		foreach ($args as $arg) {
-			if ($arg instanceof Ref) {
+			if ($arg instanceof \Ref) {
 				$arg_data[] = &$arg->getRef();
 			} else {
 				$arg_data[] = &$arg;
