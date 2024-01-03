@@ -47,7 +47,8 @@
           <button type="button" class="btn btn-default dropdown-toggle button-advertise" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ button_select_campaigns }} <span class="caret"></span></button>
           <ul class="dropdown-menu dropdown-menu-right campaign-dropdown">
             {% for campaign in campaigns %}
-              <li class="text-pre-line"><a><input type="checkbox" name="target_ids[]" value="{{ campaign.target_id }}"/>&nbsp;&nbsp;<span class="form-control-static">{{ campaign.campaign_name }}</span></a></li>
+              <li class="text-pre-line"><a><input type="checkbox" name="target_ids[]" value="{{ campaign.target_id }}"/>&nbsp;&nbsp;<span class="form-control-static">{{ campaign.campaign_name }}</span></a>
+              </li>
             {% endfor %}
             <li role="separator" class="divider"></li>
             <li class="text-center padding-lr-5">
@@ -96,7 +97,8 @@
           </button>
           <ul class="dropdown-menu dropdown-menu-right campaign-dropdown">
             {% for campaign in campaigns %}
-              <li class="text-pre-line"><a><input type="checkbox" name="target_ids[]" value="{{ campaign.target_id }}"/>&nbsp;&nbsp;<span class="form-control-static">{{ campaign.campaign_name }}</span></a></li>
+              <li class="text-pre-line"><a><input type="checkbox" name="target_ids[]" value="{{ campaign.target_id }}"/>&nbsp;&nbsp;<span class="form-control-static">{{ campaign.campaign_name }}</span></a>
+              </li>
             {% endfor %}
             <li role="separator" class="divider"></li>
             <li class="text-center padding-lr-5">

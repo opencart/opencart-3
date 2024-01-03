@@ -36,16 +36,8 @@
               <td class="text-left">{{ attribute.name }}</td>
               <td class="text-left">{{ attribute.attribute_group }}</td>
               <td class="text-right">{{ attribute.sort_order }}</td>
-              <td class="text-right">
-                <div style="min-width: 120px;">
-                  <div class="btn-group">
-                    <button type="button" data-toggle="dropdown" class="btn btn-primary dropdown-toggle"><span class="caret"></span></button>
-                    <ul class="dropdown-menu dropdown-menu-right">
-                      <li><a href="{{ attribute.edit }}" data-toggle="tooltip" title="{{ button_edit }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a></li>
-                      <li><a href="{{ attribute.delete }}" data-toggle="tooltip" title="{{ button_delete }}" class="btn btn-danger"><i class="fa fa-trash-o"></i></a></li>
-                    </ul>
-                  </div>
-                </div></td>
+              <td class="text-right"><a href="{{ attribute.edit }}" data-toggle="tooltip" title="{{ button_edit }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a></td>
+              <td class="text-right"><a href="{{ attribute.delete }}" data-toggle="tooltip" title="{{ button_delete }}" class="btn btn-danger"><i class="fa fa-trash-o"></i></a></td>
             </tr>
           {% endfor %}
         {% else %}

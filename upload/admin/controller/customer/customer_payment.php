@@ -125,7 +125,7 @@ class ControllerCustomerCustomerPayment extends Controller {
 				'image'               => $image,
 				'type'                => $result['type'],
 				'date_expire'         => date($this->language->get('date_format_short'), strtotime($result['date_expire'])),
-				'delete'              => $this->url->link('customer/customer_payment/delete', 'user_token=' . $this->session->data['user_token'] . '&customer_payment_id=' . $result['customer_payment_id'])
+				'delete'              => $this->url->link('customer/customer_payment/deletePayment', 'user_token=' . $this->session->data['user_token'] . '&customer_payment_id=' . $result['customer_payment_id'])
 			];
 		}
 
@@ -146,7 +146,7 @@ class ControllerCustomerCustomerPayment extends Controller {
 	 *
 	 * @return void
 	 */
-	public function delete(): void {
+	public function deletePayment(): void {
 		$this->load->language('customer/customer');
 
 		$json = [];
