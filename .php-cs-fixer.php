@@ -179,9 +179,6 @@ return $config
         ->in(__DIR__ . '/upload/')
          ->exclude([
              __DIR__ . '/upload/system/storage/vendor/',
-             __DIR__ . '/upload/admin/controller/extension/advertise/',
-             __DIR__ . '/upload/admin/model/extension/advertise/',
-             __DIR__ . '/upload/system/library/googleshopping/',
          ])
         // ->append([
         //     'file-to-include',
