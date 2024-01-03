@@ -3,6 +3,10 @@ parameters:
 	paths:
 		- ./upload/
 	excludePaths:
+		- ./admin/controller/extension/advertise/
+		- ./upload/admin/controller/extension/advertise/
+		- ./admin/model/extension/advertise/
+		- ./upload/admin/model/extension/advertise/
 		- ./system/storage/vendor/
 		- ./upload/system/storage/vendor/
 	tmpDir: .cache
