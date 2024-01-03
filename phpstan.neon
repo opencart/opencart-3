@@ -25,6 +25,7 @@ parameters:
 		- ./upload/catalog/model/extension/payment/wechat_pay.php
 		- ./system/library/googleshopping/
 		- ./upload/system/library/googleshopping/
+		- ./system/framework.php/
 		- ./system/storage/vendor/
 		- ./upload/system/storage/vendor/
 	tmpDir: .cache
