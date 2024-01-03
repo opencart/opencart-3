@@ -46,11 +46,17 @@ jobs:
           path: |
             ~/.cache/composer/files
             ./.cache
+            ./.php-cs-fixer.cache
           key: ${{ matrix.php }}-${{ hashFiles('**/composer.lock') }}
           restore-keys: OC3.2-PHP${{ matrix.php }}-
 
-      - name: Install dependencies
-        run: composer require phpstan/phpstan 1.10.50
-
       - name: PHPStan
-        run: ./upload/system/storage/vendor/bin/phpstan analyze --no-progress
+        run: |
+          composer require phpstan/phpstan 1.10.50
+          ./upload/system/storage/vendor/bin/phpstan analyze --no-progress
+
+      - name: Code style
+        run: |
+            composer require --dev friendsofphp/php-cs-fixer v3.41.1
+            ./upload/system/storage/vendor/bin/php-cs-fixer fix --dry-run --diff --ansi || true
+            ./upload/system/storage/vendor/bin/php-cs-fixer fix --dry-run --format=checkstyle | cs2pr
