@@ -382,7 +382,7 @@ class ControllerCatalogAttribute extends Controller {
 		}
 
 		foreach ($this->request->post['attribute_description'] as $language_id => $value) {
-			if ((utf8_strlen($value['name']) < 1) || (utf8_strlen($value['name']) > 64)) {
+			if ((oc_strlen($value['name']) < 1) || (oc_strlen($value['name']) > 64)) {
 				$this->error['name'][$language_id] = $this->language->get('error_name');
 			}
 		}
