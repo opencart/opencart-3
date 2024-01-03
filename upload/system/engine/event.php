@@ -1,4 +1,5 @@
 <?php
+namespace Opencart\System\Engine;
 /**
  * @package        OpenCart
  * @author         Daniel Kerr
