@@ -19,8 +19,8 @@ parameters:
 		- ./upload/catalog/model/extension/payment/cardinity.php
 		- ./catalog/model/extension/payment/divido.php
 		- ./upload/catalog/model/extension/payment/divido.php
-		- ./catalog/model/extension/payment/ec_ship.php
-		- ./upload/catalog/model/extension/payment/ec_ship.php
+		- ./catalog/model/extension/shipping/ec_ship.php
+		- ./upload/catalog/model/extension/shipping/ec_ship.php
 		- ./catalog/model/extension/payment/wechat_pay.php
 		- ./upload/catalog/model/extension/payment/wechat_pay.php
 		- ./system/library/googleshopping/
