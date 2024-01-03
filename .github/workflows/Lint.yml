@@ -26,7 +26,7 @@ jobs:
               with:
                   php-version: ${{ matrix.php }}
                   tools: composer:v2, cs2pr
-                  extensions: none, mbstring, bcmath, curl, hash, json, openssl, xml
+                  extensions: none, mbstring, bcmath, curl, hash, json, openssl, xml, dom
 
             - name: Lint
               run: |
