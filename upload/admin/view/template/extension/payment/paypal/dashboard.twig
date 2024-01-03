@@ -83,10 +83,8 @@
                 <div class="panel-heading">
                   <div class="pull-right">
                     <a href="#sale_analytics_range" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-calendar"></i> <i class="caret"></i></a>
-                    <div id="#sale_analytics_range" class="dropdown-menu dropdown-menu-right">
+                    <div id="#sale_analytics_range" class="dropdown-menu dropdown-menu-right">{% set setting_general = setting.general %}
                       {% for sale_analytics_range in setting.sale_analytics_range %}
-                        {% set setting_general = setting.general %}
-
                         {% if sale_analytics_range.code == setting_general.sale_analytics_range %}
                           <a href="{{ sale_analytics_range.code }}" class="dropdown-item active">{{ attribute(_context, sale_analytics_range.name) }}</a>
                         {% else %}
