@@ -13,6 +13,8 @@ parameters:
 		- ./upload/admin/model/extension/payment/divido.php
 		- ./catalog/controller/extension/advertise/
 		- ./upload/catalog/controller/extension/advertise/
+		- ./catalog/controller/extension/payment/wechat_pay.php
+		- ./upload/catalog/controller/extension/payment/wechat_pay.php
 		- ./catalog/model/extension/payment/cardinity.php
 		- ./upload/catalog/model/extension/payment/cardinity.php
 		- ./catalog/model/extension/payment/divido.php
