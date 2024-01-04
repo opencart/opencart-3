@@ -2,7 +2,7 @@
 class ModelExtensionPaymentPayPalPayLater extends Model {
 	
 	public function getMethod($address, $total) {
-		$method_data = [];;
+		$method_data = [];
 		
 		$this->load->model('extension/payment/paypal');
 		

@@ -2,7 +2,7 @@
 class ModelExtensionPaymentPayPal extends Model {
 		
 	public function getTotalSales(): int {
-		$implode = [];;
+		$implode = [];
 
 		foreach ($this->config->get('config_complete_status') as $order_status_id) {
 			$implode[] = "'" . (int)$order_status_id . "'";
@@ -14,13 +14,13 @@ class ModelExtensionPaymentPayPal extends Model {
 	}
 	
 	public function getTotalSalesByDay(): array {
-		$implode = [];;
+		$implode = [];
 
 		foreach ($this->config->get('config_complete_status') as $order_status_id) {
 			$implode[] = "'" . (int)$order_status_id . "'";
 		}
 
-		$sale_data = [];;
+		$sale_data = [];
 
 		for ($i = 0; $i < 24; $i++) {
 			$sale_data[$i] = [
@@ -44,13 +44,13 @@ class ModelExtensionPaymentPayPal extends Model {
 	}
 
 	public function getTotalSalesByWeek(): array {
-		$implode = [];;
+		$implode = [];
 
 		foreach ($this->config->get('config_complete_status') as $order_status_id) {
 			$implode[] = "'" . (int)$order_status_id . "'";
 		}
 
-		$sale_data = [];;
+		$sale_data = [];
 
 		$date_start = strtotime('-' . date('w') . ' days');
 
@@ -78,13 +78,13 @@ class ModelExtensionPaymentPayPal extends Model {
 	}
 
 	public function getTotalSalesByMonth(): array {
-		$implode = [];;
+		$implode = [];
 
 		foreach ($this->config->get('config_complete_status') as $order_status_id) {
 			$implode[] = "'" . (int)$order_status_id . "'";
 		}
 
-		$sale_data = [];;
+		$sale_data = [];
 
 		for ($i = 1; $i <= date('t'); $i++) {
 			$date = date('Y') . '-' . date('m') . '-' . $i;
@@ -110,13 +110,13 @@ class ModelExtensionPaymentPayPal extends Model {
 	}
 
 	public function getTotalSalesByYear(): array {
-		$implode = [];;
+		$implode = [];
 
 		foreach ($this->config->get('config_complete_status') as $order_status_id) {
 			$implode[] = "'" . (int)$order_status_id . "'";
 		}
 
-		$sale_data = [];;
+		$sale_data = [];
 
 		for ($i = 1; $i <= 12; $i++) {
 			$sale_data[$i] = [
@@ -148,7 +148,7 @@ class ModelExtensionPaymentPayPal extends Model {
 	public function editPayPalOrder(array $data): void {
 		$sql = "UPDATE `" . DB_PREFIX . "paypal_checkout_integration_order` SET";
 
-		$implode = [];;
+		$implode = [];
 		
 		if (!empty($data['transaction_id'])) {
 			$implode[] .= "`transaction_id` = '" . $this->db->escape($data['transaction_id']) . "'";

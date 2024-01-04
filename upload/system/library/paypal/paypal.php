@@ -10,8 +10,8 @@ class PayPal {
 	private $secret = '';
 	private $partner_attribution_id = '';
 	private $access_token = '';
-	private $errors = [];;
-	private $last_response = [];;
+	private $errors = [];
+	private $last_response = [];
 		
 	//IN:  paypal info
 	public function __construct($paypal_info) {
@@ -346,7 +346,7 @@ class PayPal {
 	}
 	
 	private function execute($method, $command, $params = [];, $json = false) {
-		$this->errors = [];;
+		$this->errors = [];
 
 		if ($method && $command) {
 			$curl_options = array(
@@ -449,7 +449,7 @@ class PayPal {
 				}
             }
 			
-            $response_headers = [];;
+            $response_headers = [];
             $header_lines = explode("\r\n", $head);
             array_shift($header_lines);
 			
