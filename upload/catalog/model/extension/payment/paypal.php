@@ -1,15 +1,15 @@
 <?php
 class ModelExtensionPaymentPayPal extends Model {
 	
-	public function getMethod($address, $total) {
-		$method_data = array();
+	public function getMethod(array $address, float $total): array {
+		$method_data = [];
 		
 		$agree_status = $this->getAgreeStatus();
 		
 		if ($this->config->get('payment_paypal_status') && $this->config->get('payment_paypal_client_id') && $this->config->get('payment_paypal_secret') && $agree_status) {
 			$this->load->language('extension/payment/paypal');
 
-			$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "zone_to_geo_zone WHERE geo_zone_id = '" . (int)$this->config->get('payment_paypal_geo_zone_id') . "' AND country_id = '" . (int)$address['country_id'] . "' AND (zone_id = '" . (int)$address['zone_id'] . "' OR zone_id = '0')");
+			$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `geo_zone_id` = '" . (int)$this->config->get('payment_paypal_geo_zone_id') . "' AND `country_id` = '" . (int)$address['country_id'] . "' AND (`zone_id` = '" . (int)$address['zone_id'] . "' OR `zone_id` = '0')");
 
 			if (($this->config->get('payment_paypal_total') > 0) && ($this->config->get('payment_paypal_total') > $total)) {
 				$status = false;
@@ -22,40 +22,40 @@ class ModelExtensionPaymentPayPal extends Model {
 			}
 
 			if ($status) {			
-				$method_data = array(
+				$method_data = [
 					'code'       => 'paypal',
 					'title'      => $this->language->get('text_paypal_title'),
 					'terms'      => '',
 					'sort_order' => $this->config->get('payment_paypal_sort_order')
-				);
+				];
 			}
 		}
 
 		return $method_data;
 	}
 	
-	public function hasProductInCart($product_id, $option = array(), $recurring_id = 0) {
-		$query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "cart WHERE api_id = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND customer_id = '" . (int)$this->customer->getId() . "' AND session_id = '" . $this->db->escape($this->session->getId()) . "' AND product_id = '" . (int)$product_id . "' AND recurring_id = '" . (int)$recurring_id . "' AND `option` = '" . $this->db->escape(json_encode($option)) . "'");
+	public function hasProductInCart(int $product_id, array $option = [], int $$subscription_plan_id = 0): int {
+		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "cart` WHERE `api_id` = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND `customer_id` = '" . (int)$this->customer->getId() . "' AND `session_id` = '" . $this->db->escape($this->session->getId()) . "' AND `product_id` = '" . (int)$product_id . "' AND `subscription_plan_id` = '" . (int)$subscription_plan_id . "' AND `option` = '" . $this->db->escape(json_encode($option)) . "'");
 				
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 	
-	public function getCountryByCode($code) {
-		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "country WHERE iso_code_2 = '" . $this->db->escape($code) . "' AND status = '1'");
+	public function getCountryByCode(string $code): array {
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "country` WHERE `iso_code_2` = '" . $this->db->escape($code) . "' AND `status` = '1'");
 				
 		return $query->row;
 	}
 	
-	public function getZoneByCode($country_id, $code) {
-		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "zone WHERE country_id = '" . (int)$country_id . "' AND (code = '" . $this->db->escape($code) . "' OR name = '" . $this->db->escape($code) . "') AND status = '1'");
+	public function getZoneByCode(int $country_id, string $code): array {
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone` WHERE `country_id` = '" . (int)$country_id . "' AND (`code` = '" . $this->db->escape($code) . "' OR `name` = '" . $this->db->escape($code) . "') AND `status` = '1'");
 		
 		return $query->row;
 	}
 	
-	public function addPayPalOrder($data) {
+	public function addPayPalOrder(array $data): void {
 		$sql = "INSERT INTO `" . DB_PREFIX . "paypal_checkout_integration_order` SET";
 
-		$implode = array();
+		$implode = [];
 			
 		if (!empty($data['order_id'])) {
 			$implode[] .= "`order_id` = '" . (int)$data['order_id'] . "'";
@@ -92,10 +92,10 @@ class ModelExtensionPaymentPayPal extends Model {
 		$this->db->query($sql);
 	}
 	
-	public function editPayPalOrder($data) {
+	public function editPayPalOrder(array $data): void {
 		$sql = "UPDATE `" . DB_PREFIX . "paypal_checkout_integration_order` SET";
 
-		$implode = array();
+		$implode = [];
 		
 		if (!empty($data['transaction_id'])) {
 			$implode[] .= "`transaction_id` = '" . $this->db->escape($data['transaction_id']) . "'";
@@ -130,62 +130,62 @@ class ModelExtensionPaymentPayPal extends Model {
 		$this->db->query($sql);
 	}
 		
-	public function deletePayPalOrder($order_id) {
+	public function deletePayPalOrder(int $order_id): void {
 		$query = $this->db->query("DELETE FROM `" . DB_PREFIX . "paypal_checkout_integration_order` WHERE `order_id` = '" . (int)$order_id . "'");
 	}
 	
-	public function getPayPalOrder($order_id) {
+	public function getPayPalOrder(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "paypal_checkout_integration_order` WHERE `order_id` = '" . (int)$order_id . "'");
 		
 		if ($query->num_rows) {
 			return $query->row;
 		} else {
-			return array();
+			return [];
 		}
 	}
 	
-	public function addPayPalOrderRecurring($data) {
+	public function addPayPalOrderRecurring(array $data): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "paypal_checkout_integration_order_recurring` SET `order_recurring_id` = '" . (int)$data['order_recurring_id'] . "', `order_id` = '" . (int)$data['order_id'] . "', `date_added` = NOW(), `date_modified` = NOW(), `next_payment` = NOW(), `trial_end` = '" . $data['trial_end'] . "', `subscription_end` = '" . $data['subscription_end'] . "', `currency_code` = '" . $this->db->escape($data['currency_code']) . "', `total` = '" . $this->currency->format($data['amount'], $data['currency_code'], false, false) . "'");
 	}
 
-	public function editPayPalOrderRecurringNextPayment($order_recurring_id, $next_payment) {
+	public function editPayPalOrderRecurringNextPayment(int $order_recurring_id, string $next_payment): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "paypal_checkout_integration_order_recurring` SET `next_payment` = '" . $next_payment . "', `date_modified` = NOW() WHERE `order_recurring_id` = '" . (int)$order_recurring_id . "'");
 	}
 	
-	public function deletePayPalOrderRecurring($order_id) {
+	public function deletePayPalOrderRecurring(int $order_id): void {
 		$query = $this->db->query("DELETE FROM `" . DB_PREFIX . "paypal_checkout_integration_order_recurring` WHERE `order_id` = '" . (int)$order_id . "'");
 	}
 
-	public function getPayPalOrderRecurring($order_recurring_id) {
+	public function getPayPalOrderRecurring(int $order_recurring_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "paypal_checkout_integration_order_recurring` WHERE `order_recurring_id` = '" . (int)$order_recurring_id . "'");
 		
 		return $query->row;
 	}
 	
-	public function addOrderRecurring($order_id, $description, $data, $reference) {
+	public function addOrderRecurring(int $order_id, string $description, array $data, string $reference): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "order_recurring` SET `order_id` = '" . (int)$order_id . "', `date_added` = NOW(), `status` = 6, `product_id` = '" . (int)$data['product_id'] . "', `product_name` = '" . $this->db->escape($data['name']) . "', `product_quantity` = '" . $this->db->escape($data['quantity']) . "', `recurring_id` = '" . (int)$data['recurring']['recurring_id'] . "', `recurring_name` = '" . $this->db->escape($data['name']) . "', `recurring_description` = '" . $this->db->escape($description) . "', `recurring_frequency` = '" . $this->db->escape($data['recurring']['frequency']) . "', `recurring_cycle` = '" . (int)$data['recurring']['cycle'] . "', `recurring_duration` = '" . (int)$data['recurring']['duration'] . "', `recurring_price` = '" . (float)$data['recurring']['price'] . "', `trial` = '" . (int)$data['recurring']['trial'] . "', `trial_frequency` = '" . $this->db->escape($data['recurring']['trial_frequency']) . "', `trial_cycle` = '" . (int)$data['recurring']['trial_cycle'] . "', `trial_duration` = '" . (int)$data['recurring']['trial_duration'] . "', `trial_price` = '" . (float)$data['recurring']['trial_price'] . "', `reference` = '" . $this->db->escape($reference) . "'");
 
 		return $this->db->getLastId();
 	}
 	
-	public function editOrderRecurringStatus($order_recurring_id, $status) {
-		$this->db->query("UPDATE `" . DB_PREFIX . "order_recurring` SET `status` = '" . (int)$status . "' WHERE `order_recurring_id` = '" . (int)$order_recurring_id . "'");
+	public function editOrderRecurringStatus(int $subscription_id, int $status): void {
+		$this->db->query("UPDATE `" . DB_PREFIX . "order_subscription` SET `status` = '" . (int)$status . "' WHERE `subscription_id` = '" . (int)$subscription_id . "'");
 	}
 	
-	public function deleteOrderRecurring($order_id) {
-		$query = $this->db->query("SELECT order_recurring_id FROM `" . DB_PREFIX . "order_recurring` WHERE order_id = '" . (int)$order_id . "'");
+	public function deleteOrderRecurring(int $order_id): void {
+		$query = $this->db->query("SELECT `subscription_id` FROM `" . DB_PREFIX . "order_subscription` WHERE `order_id` = '" . (int)$order_id . "'");
 
-		foreach ($query->rows as $order_recurring) {
-			$this->deleteOrderRecurringTransaction($order_recurring['order_recurring_id']);
+		foreach ($query->rows as $order_subscription) {
+			$this->deleteOrderRecurringTransaction($order_subscription['subscription_id']);
 		}
 		
-		$query = $this->db->query("DELETE FROM `" . DB_PREFIX . "order_recurring` WHERE `order_id` = '" . (int)$order_id . "'");
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "order_recurring` WHERE `order_id` = '" . (int)$order_id . "'");
 	}
 	
-	public function getOrderRecurrings() {
+	public function getOrderRecurrings(): array {
 		$query = $this->db->query("SELECT `or`.`order_recurring_id` FROM `" . DB_PREFIX . "order_recurring` `or` JOIN `" . DB_PREFIX . "order` `o` USING(`order_id`) WHERE `o`.`payment_code` = 'paypal' AND `or`.`status` = '1'");
 
-		$order_recurring_data = array();
+		$order_recurring_data = [];
 
 		foreach ($query->rows as $order_recurring) {
 			$order_recurring_data[] = $this->getOrderRecurring($order_recurring['order_recurring_id']);
@@ -194,21 +194,21 @@ class ModelExtensionPaymentPayPal extends Model {
 		return $order_recurring_data;
 	}
 
-	public function getOrderRecurring($order_recurring_id) {
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_recurring` WHERE `order_recurring_id` = '" . (int)$order_recurring_id . "'");
+	public function getOrderRecurring($subscription_id): array {
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_subscription` WHERE `subscription_id` = '" . (int)$subscription_id . "'");
 		
 		return $query->row;
 	}
 
-	public function addOrderRecurringTransaction($data) {
+	public function addOrderRecurringTransaction(array $data): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "order_recurring_transaction` SET `order_recurring_id` = '" . (int)$data['order_recurring_id'] . "', `reference` = '" . $this->db->escape($data['reference']) . "', `type` = '" . (int)$data['type'] . "', `amount` = '" . (float)$data['amount'] . "', `date_added` = NOW()");
 	}
 	
-	public function deleteOrderRecurringTransaction($order_recurring_id) {
+	public function deleteOrderRecurringTransaction(int $order_recurring_id): void {
 		$query = $this->db->query("DELETE FROM `" . DB_PREFIX . "order_recurring_transaction` WHERE `order_recurring_id` = '" . (int)$order_recurring_id . "'");
 	}
 		
-	public function recurringPayment($product_data, $order_data, $paypal_order_data) {
+	public function recurringPayment(array $product_data, array $order_data, array $paypal_order_data): void {
 		$_config = new Config();
 		$_config->load('paypal');
 			
@@ -289,42 +289,42 @@ class ModelExtensionPaymentPayPal extends Model {
 		if ($transaction_id && $transaction_status && $currency_code && $amount) {
 			$this->editOrderRecurringStatus($order_recurring_id, 1);
 			
-			$paypal_order_recurring_data = array(
+			$paypal_order_recurring_data = [
 				'order_recurring_id' => $order_recurring_id,
-				'order_id' => $order_data['order_id'],
-				'trial_end' => date_format($trial_end, 'Y-m-d H:i:s'),
-				'subscription_end' => date_format($subscription_end, 'Y-m-d H:i:s'),
-				'currency_code' => $currency_code,
-				'amount' => $amount
-			);
+				'order_id'           => $order_data['order_id'],
+				'trial_end'          => date_format($trial_end, 'Y-m-d H       : i: s'),
+				'subscription_end'   => date_format($subscription_end, 'Y-m-d H: i: s'),
+				'currency_code'      => $currency_code,
+				'amount'             => $amount
+			];
 		
 			$this->addPayPalOrderRecurring($paypal_order_recurring_data);
 			
 			if (($transaction_status == 'CREATED') || ($transaction_status == 'COMPLETED') || ($transaction_status == 'PENDING')) {
-				$order_recurring_transaction_data = array(
+				$order_recurring_transaction_data = [
 					'order_recurring_id' => $order_recurring_id,
-					'reference' => $transaction_id,
-					'type' => '1',
-					'amount' => $amount
-				);
+					'reference'          => $transaction_id,
+					'type'               => '1',
+					'amount'             => $amount
+				];
 			
 				$this->addOrderRecurringTransaction($order_recurring_transaction_data);
 								
 				$this->editPayPalOrderRecurringNextPayment($order_recurring_id, date_format($next_payment, 'Y-m-d H:i:s'));
 			} else {
-				$order_recurring_transaction_data = array(
+				$order_recurring_transaction_data = [
 					'order_recurring_id' => $order_recurring_id,
-					'reference' => $transaction_id,
-					'type' => '4',
-					'amount' => $amount
-				);
+					'reference'          => $transaction_id,
+					'type'               => '4',
+					'amount'             => $amount
+				];
 				
 				$this->addOrderRecurringTransaction($order_recurring_transaction_data);
 			}
 		}
 	}
 	
-	public function cronPayment() {
+	public function cronPayment(): void {
 		$this->load->model('checkout/order');
 		
 		$_config = new Config();
@@ -392,23 +392,23 @@ class ModelExtensionPaymentPayPal extends Model {
 			
 					if ($transaction_id && $transaction_status && $currency_code && $amount) {
 						if (($transaction_status == 'CREATED') || ($transaction_status == 'COMPLETED') || ($transaction_status == 'PENDING')) {
-							$order_recurring_transaction_data = array(
+							$order_recurring_transaction_data = [
 								'order_recurring_id' => $order_recurring['order_recurring_id'],
-								'reference' => $transaction_id,
-								'type' => '1',
-								'amount' => $amount
-							);
+								'reference'          => $transaction_id,
+								'type'               => '1',
+								'amount'             => $amount
+							];
 				
 							$this->addOrderRecurringTransaction($order_recurring_transaction_data);
 								
 							$this->editPayPalOrderRecurringNextPayment($order_recurring['order_recurring_id'], date_format($next_payment, 'Y-m-d H:i:s'));
 						} else {
-							$order_recurring_transaction_data = array(
+							$order_recurring_transaction_data = [
 								'order_recurring_id' => $order_recurring['order_recurring_id'],
-								'reference' => $transaction_id,
-								'type' => '4',
-								'amount' => $amount
-							);
+								'reference'          => $transaction_id,
+								'type'               => '4',
+								'amount'             => $amount
+							];
 				
 							$this->addOrderRecurringTransaction($order_recurring_transaction_data);
 						}
@@ -418,7 +418,7 @@ class ModelExtensionPaymentPayPal extends Model {
 		}
 	}
 	
-	public function createPayment($order_data, $paypal_order_data, $price, $order_recurring_id, $recurring_name) {
+	public function createPayment(array $order_data, array $paypal_order_data, float $price, int $order_recurring_id, string $recurring_name): array {
 		$this->load->language('extension/payment/paypal');
 						
 		$_config = new Config();
@@ -442,53 +442,53 @@ class ModelExtensionPaymentPayPal extends Model {
 				
 		require_once DIR_SYSTEM . 'library/paypal/paypal.php';
 		
-		$paypal_info = array(
-			'partner_id' => $partner_id,
-			'client_id' => $client_id,
-			'secret' => $secret,
-			'environment' => $environment,
+		$paypal_info = [
+			'partner_id'             => $partner_id,
+			'client_id'              => $client_id,
+			'secret'                 => $secret,
+			'environment'            => $environment,
 			'partner_attribution_id' => $partner_attribution_id
-		);
+		];
 		
 		$paypal = new PayPal($paypal_info);
 			
-		$token_info = array(
+		$token_info = [
 			'grant_type' => 'client_credentials'
-		);	
+		];
 				
 		$paypal->setAccessToken($token_info);
 										
-		$item_info = array();
+		$item_info = [];
 			
 		$item_total = 0;
 						
 		$product_price = number_format($price * $currency_value, $decimal_place, '.', '');
 				
-		$item_info[] = array(
-			'name' => $recurring_name,
+		$item_info[] = [
+			'name'     => $recurring_name,
 			'quantity' => 1,
-			'unit_amount' => array(
+			'unit_amount' => [
 				'currency_code' => $currency_code,
-				'value' => $product_price
-			)
-		);
+				'value'         => $product_price
+			]
+		];
 				
 		$item_total += $product_price;
 				
 		$item_total = number_format($item_total, $decimal_place, '.', '');
 		$order_total = number_format($item_total, $decimal_place, '.', '');
 				
-		$amount_info = array();
+		$amount_info = [];
 				
 		$amount_info['currency_code'] = $currency_code;
 		$amount_info['value'] = $order_total;
 								
-		$amount_info['breakdown']['item_total'] = array(
+		$amount_info['breakdown']['item_total'] = [
 			'currency_code' => $currency_code,
-			'value' => $item_total
-		);
+			'value'         => $item_total
+		];
 				
-		$paypal_order_info = array();
+		$paypal_order_info = [];
 				
 		$paypal_order_info['intent'] = strtoupper($transaction_method);
 		$paypal_order_info['purchase_units'][0]['reference_id'] = 'default';
@@ -505,7 +505,7 @@ class ModelExtensionPaymentPayPal extends Model {
 		
 		$result = $paypal->createOrder($paypal_order_info);
 								
-		$errors = array();
+		$errors = [];
 		
 		if ($paypal->hasErrors()) {
 			$errors = $paypal->getErrors();
@@ -525,10 +525,10 @@ class ModelExtensionPaymentPayPal extends Model {
 			return $result;
 		}
 		
-		return false;
+		return [];
 	}
 	
-	public function calculateSchedule($frequency, $next_payment, $cycle) {
+	public function calculateSchedule(string $frequency, string $next_payment, int $cycle): string {
 		if ($frequency == 'semi_month') {
 			$day = date_format($next_payment, 'd');
 			$value = 15 - $day;
@@ -568,7 +568,7 @@ class ModelExtensionPaymentPayPal extends Model {
 		return $next_payment;
 	}
 	
-	public function getAgreeStatus() {
+	public function getAgreeStatus(): bool {
 		$agree_status = true;
 		
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "country WHERE status = '1' AND (iso_code_2 = 'CU' OR iso_code_2 = 'IR' OR iso_code_2 = 'SY' OR iso_code_2 = 'KP')");
@@ -586,7 +586,7 @@ class ModelExtensionPaymentPayPal extends Model {
 		return $agree_status;
 	}
 	
-	public function log($data, $title = '') {
+	public function log(array $data, ?string $title = ''): void {
 		// Setting
 		$_config = new Config();
 		$_config->load('paypal');
@@ -596,12 +596,11 @@ class ModelExtensionPaymentPayPal extends Model {
 		$setting = array_replace_recursive((array)$config_setting, (array)$this->config->get('payment_paypal_setting'));
 			
 		if ($setting['general']['debug']) {
-			$log = new Log('paypal.log');
-			$log->write('PayPal debug (' . $title . '): ' . json_encode($data));
+			$log = new Log('paypal.log');$log->write('PayPal debug (' . $title . '): ' . json_encode($data));
 		}
 	}
 		
-	public function update() {
+	public function update(): void {
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "paypal_checkout_integration_order`");
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "paypal_checkout_integration_order_recurring`");
 		
@@ -629,7 +628,7 @@ class ModelExtensionPaymentPayPal extends Model {
 		$this->db->query("INSERT INTO " . DB_PREFIX . "setting SET store_id = '0', `code` = 'paypal_version', `key` = 'paypal_version', `value` = '" . $this->db->escape($config_setting['version']) . "'");
 	}
 	
-	public function recurringPayments() {
+	public function recurringPayments(): bool {
 		/*
 		 * Used by the checkout to state the module
 		 * supports recurring recurrings.
