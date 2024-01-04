@@ -79,11 +79,11 @@ class ControllerStartupError extends Controller {
 	 */
 	public function exception(\Throwable $e): void {
 		if ($this->config->get('config_error_log')) {
-			$this->log->write($e::class . ':  ' . $e->getMessage() . ' in ' . $e->getFile() . ' on line ' . $e->getLine());
+			$this->log->write(get_class($e) . ':  ' . $e->getMessage() . ' in ' . $e->getFile() . ' on line ' . $e->getLine());
 		}
 
 		if ($this->config->get('config_error_display')) {
-			echo '<b>' . $e::class . '</b>: ' . $e->getMessage() . ' in <b>' . $e->getFile() . '</b> on line <b>' . $e->getLine() . '</b>';
+			echo '<b>' . get_class($e) . '</b>: ' . $e->getMessage() . ' in <b>' . $e->getFile() . '</b> on line <b>' . $e->getLine() . '</b>';
 		} else {
 			header('Location: ' . $this->config->get('error_page'));
 			exit();

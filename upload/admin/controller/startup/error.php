@@ -83,7 +83,7 @@ class ControllerStartupError extends Controller {
 	 */
 	public function exception(\Throwable $e): void {
 		if ($this->config->get('config_error_log')) {
-			$sting = $e::class . ':  ' . $e->getMessage() . "\n";
+			$sting = get_class($e) . ':  ' . $e->getMessage() . "\n";
 			$sting .= 'File: ' . $e->getFile() . "\n";
 			$sting .= 'Line: ' . $e->getLine() . "\n";
 
@@ -91,7 +91,7 @@ class ControllerStartupError extends Controller {
 		}
 
 		if ($this->config->get('config_error_display')) {
-			echo '<b>' . $e::class . '</b>: ' . $e->getMessage() . ' in <b>' . $e->getFile() . '</b> on line <b>' . $e->getLine() . '</b>';
+			echo '<b>' . get_class($e) . '</b>: ' . $e->getMessage() . ' in <b>' . $e->getFile() . '</b> on line <b>' . $e->getLine() . '</b>';
 		} else {
 			header('Location: ' . $this->config->get('error_page'));
 			exit();
