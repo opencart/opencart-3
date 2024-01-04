@@ -2096,7 +2096,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 				foreach ($this->session->data['vouchers'] as $voucher) {
 					$order_data['vouchers'][] = [
 						'description'      => $voucher['description'],
-						'code'             => oc_token(10),
+						'code'             => $this->validateToken(10),
 						'to_name'          => $voucher['to_name'],
 						'to_email'         => $voucher['to_email'],
 						'from_name'        => $voucher['from_name'],
@@ -3344,19 +3344,27 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		return $data;
 	}
 
-	private function isStrlen($string) {
+	private function isStrlen($value) {
 		if (function_exists('oc_strlen')) {
-			return oc_strlen($string);
+			return oc_strlen($value);
 		} elseif (function_exists('utf8_strlen')) {
-			return utf8_strlen($string);
+			return utf8_strlen($value);
 		}
 	}
 
-	private function isSubstr($string, $offset, $length) {
+	private function isSubstr($value, $offset, $length) {
 		if (function_exists('oc_substr')) {
-			return oc_substr($string, $offset, $length);
+			return oc_substr($value, $offset, $length);
 		} elseif (function_exists('utf8_substr')) {
-			return utf8_substr($string, $offset, $length);
+			return utf8_substr($value, $offset, $length);
+		}
+	}
+
+	private function validateToken($value) {
+		if (function_exists('oc_token')) {
+			return oc_token($value);
+		} elseif (function_exists('token')) {
+			return token($value);
 		}
 	}
 }
