@@ -3347,15 +3347,15 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	private function isStrlen($string) {
 		if (function_exists('oc_strlen')) {
 			return oc_strlen($string);
-		} else {
+		} elseif (function_exists('utf8_strlen')) {
 			return utf8_strlen($string);
 		}
 	}
 
 	private function isSubstr($string) {
-		if (function_exists('oc_strlen')) {
+		if (function_exists('oc_substr')) {
 			return oc_substr($string);
-		} else {
+		} elseif (function_exists('utf8_substr')) {
 			return utf8_substr($string);
 		}
 	}
