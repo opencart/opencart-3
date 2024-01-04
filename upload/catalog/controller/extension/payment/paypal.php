@@ -2096,7 +2096,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 				foreach ($this->session->data['vouchers'] as $voucher) {
 					$order_data['vouchers'][] = [
 						'description'      => $voucher['description'],
-						'code'             => $this->token(10),
+						'code'             => oc_token(10),
 						'to_name'          => $voucher['to_name'],
 						'to_email'         => $voucher['to_email'],
 						'from_name'        => $voucher['from_name'],
@@ -3358,20 +3358,5 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		} elseif (function_exists('utf8_substr')) {
 			return utf8_substr($string, $offset, $length);
 		}
-	}
-
-	private function token($length = 32) {
-		// Create random token
-		$string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-	
-		$max = strlen($string) - 1;
-	
-		$token = '';
-	
-		for ($i = 0; $i < $length; $i++) {
-			$token .= $string[mt_rand(0, $max)];
-		}	
-	
-		return $token;
 	}
 }
