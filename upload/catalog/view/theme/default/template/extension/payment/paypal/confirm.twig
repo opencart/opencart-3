@@ -218,7 +218,7 @@
 </div>
 <script type="text/javascript">
 $('input[name=\'shipping_method\']').change(function() {
-	$('#shipping_form').submit();
+	$('#shipping-form').submit();
 });
 
 $(document).on('click', '.button-payment-address', function(event) {
@@ -241,63 +241,63 @@ $('input[name=\'next\']').bind('change', function() {
 	$('#' + this.value).show();
 });
 
-$('#paypal_confirm').bind('click', function() {
-    $('#paypal_confirm').prop('disabled', true).button('loading');
+$('#paypal-confirm').bind('click', function() {
+    $('#paypal-confirm').prop('disabled', true).button('loading');
 });
 
 function onLoadPaymentAddress() {
 	// Sort the custom fields
-	$('#payment_address #account .form-group[data-sort]').detach().each(function() {
-		if ($(this).attr('data-sort') >= 0 && $(this).attr('data-sort') <= $('#payment_address #account .form-group').length) {
-			$('#payment_address #account .form-group').eq($(this).attr('data-sort')).before(this);
+	$('#payment-address #account .form-group[data-sort]').detach().each(function() {
+		if ($(this).attr('data-sort') >= 0 && $(this).attr('data-sort') <= $('#payment-address #account .form-group').length) {
+			$('#payment-address #account .form-group').eq($(this).attr('data-sort')).before(this);
 		}
 
-		if ($(this).attr('data-sort') > $('#payment_address #account .form-group').length) {
-			$('#payment_address #account .form-group:last').after(this);
+		if ($(this).attr('data-sort') > $('#payment-address #account .form-group').length) {
+			$('#payment-address #account .form-group:last').after(this);
 		}
 
-		if ($(this).attr('data-sort') == $('#payment_address #account .form-group').length) {
-			$('#payment_address #account .form-group:last').after(this);
+		if ($(this).attr('data-sort') == $('#payment-address #account .form-group').length) {
+			$('#payment-address #account .form-group:last').after(this);
 		}
 
-		if ($(this).attr('data-sort') < -$('#payment_address #account .form-group').length) {
-			$('#payment_address #account .form-group:first').before(this);
-		}
-	});
-
-	$('#payment_address #address .form-group[data-sort]').detach().each(function() {
-		if ($(this).attr('data-sort') >= 0 && $(this).attr('data-sort') <= $('#payment_address #address .form-group').length) {
-			$('#payment_address #address .form-group').eq($(this).attr('data-sort')).before(this);
-		}
-
-		if ($(this).attr('data-sort') > $('#payment_address #address .form-group').length) {
-			$('#payment_address #address .form-group:last').after(this);
-		}
-
-		if ($(this).attr('data-sort') == $('#payment_address #address .form-group').length) {
-			$('#payment_address #address .form-group:last').after(this);
-		}
-
-		if ($(this).attr('data-sort') < -$('#payment_address #address .form-group').length) {
-			$('#payment_address #address .form-group:first').before(this);
+		if ($(this).attr('data-sort') < -$('#payment-address #account .form-group').length) {
+			$('#payment-address #account .form-group:first').before(this);
 		}
 	});
 
-	$('#payment_address select[name=\'country_id\']').on('change', function() {
+	$('#payment-address #address .form-group[data-sort]').detach().each(function() {
+		if ($(this).attr('data-sort') >= 0 && $(this).attr('data-sort') <= $('#payment-address #address .form-group').length) {
+			$('#payment-address #address .form-group').eq($(this).attr('data-sort')).before(this);
+		}
+
+		if ($(this).attr('data-sort') > $('#payment-address #address .form-group').length) {
+			$('#payment-address #address .form-group:last').after(this);
+		}
+
+		if ($(this).attr('data-sort') == $('#payment-address #address .form-group').length) {
+			$('#payment-address #address .form-group:last').after(this);
+		}
+
+		if ($(this).attr('data-sort') < -$('#payment-address #address .form-group').length) {
+			$('#payment-address #address .form-group:first').before(this);
+		}
+	});
+
+	$('#payment-address select[name=\'country_id\']').on('change', function() {
 		$.ajax({
 			url: 'index.php?route=checkout/checkout/country&country_id=' + this.value,
 			dataType: 'json',
 			beforeSend: function() {
-				$('#payment_address select[name=\'country_id\']').prop('disabled', true);
+				$('#payment-address select[name=\'country_id\']').prop('disabled', true);
 			},
 			complete: function() {
-				$('#payment_address select[name=\'country_id\']').prop('disabled', false);
+				$('#payment-address select[name=\'country_id\']').prop('disabled', false);
 			},
 			success: function(json) {
 				if (json['postcode_required'] == '1') {
-					$('#payment_address input[name=\'postcode\']').parent().parent().addClass('required');
+					$('#payment-address input[name=\'postcode\']').parent().parent().addClass('required');
 				} else {
-					$('#payment_address input[name=\'postcode\']').parent().parent().removeClass('required');
+					$('#payment-address input[name=\'postcode\']').parent().parent().removeClass('required');
 				}
 
 				html = '<option value="">{{ text_select }}</option>';
@@ -316,7 +316,7 @@ function onLoadPaymentAddress() {
 					html += '<option value="0" selected="selected">{{ text_none }}</option>';
 				}
 
-				$('#payment_address select[name=\'zone_id\']').html(html);
+				$('#payment-address select[name=\'zone_id\']').html(html);
 			},
 			error: function(xhr, ajaxOptions, thrownError) {
 				console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -324,7 +324,7 @@ function onLoadPaymentAddress() {
 		});
 	});
 
-	$('#payment_address select[name=\'country_id\']').trigger('change');
+	$('#payment-address select[name=\'country_id\']').trigger('change');
 	
 	$('.date').datetimepicker({
 		language: '{{ datepicker }}',
@@ -342,7 +342,7 @@ function onLoadPaymentAddress() {
 		pickTime: true
 	});
 	
-	$('#payment_address button[id^=\'button_payment_custom_field\']').on('click', function() {
+	$('#payment-address button[id^=\'button_payment_custom_field\']').on('click', function() {
 		var node = this;
 
 		$('#form-upload').remove();
@@ -356,14 +356,14 @@ function onLoadPaymentAddress() {
 		}
 
 		timer = setInterval(function() {
-			if ($('#form_upload input[name=\'file\']').val() != '') {
+			if ($('#form-upload input[name=\'file\']').val() != '') {
 				clearInterval(timer);
 
 				$.ajax({
 					url: 'index.php?route=tool/upload',
 					type: 'post',
 					dataType: 'json',
-					data: new FormData($('#form_upload')[0]),
+					data: new FormData($('#form-upload')[0]),
 					cache: false,
 					contentType: false,
 					processData: false,
@@ -394,15 +394,15 @@ function onLoadPaymentAddress() {
 		}, 500);
 	});
 	
-	$('#payment_address .button-confirm').on('click', function(event) {
+	$('#payment-address .button-confirm').on('click', function(event) {
 		$.ajax({
 			type: 'post',
 			url: 'index.php?route=extension/payment/paypal/confirmPaymentAddress',
-			data: $('#payment_address [name]'),
+			data: $('#payment-address [name]'),
 			dataType: 'json',
 			success: function(json) {
-				$('#payment_address .alert, #payment_address .text-danger').remove();
-				$('#payment_address .form-group').removeClass('has-error');
+				$('#payment-address .alert, #payment-address .text-danger').remove();
+				$('#payment-address .form-group').removeClass('has-error');
 			
 				if (json['error']) {
 					for (i in json['error']) {
@@ -431,39 +431,39 @@ function onLoadPaymentAddress() {
 
 function onLoadShippingAddress() {
 	// Sort the custom fields
-	$('#shipping_address .form-group[data-sort]').detach().each(function() {
-		if ($(this).attr('data-sort') >= 0 && $(this).attr('data-sort') <= $('#shipping_address .form-group').length-2) {
-			$('#shipping_address .form-group').eq(parseInt($(this).attr('data-sort'))+2).before(this);
+	$('#shipping-address .form-group[data-sort]').detach().each(function() {
+		if ($(this).attr('data-sort') >= 0 && $(this).attr('data-sort') <= $('#shipping-address .form-group').length-2) {
+			$('#shipping-address .form-group').eq(parseInt($(this).attr('data-sort'))+2).before(this);
 		}
 
-		if ($(this).attr('data-sort') > $('#shipping_address .form-group').length-2) {
-			$('#shipping_address .form-group:last').after(this);
+		if ($(this).attr('data-sort') > $('#shipping-address .form-group').length-2) {
+			$('#shipping-address .form-group:last').after(this);
 		}
 
 		if ($(this).attr('data-sort') == $('#collapse-shipping-address .form-group').length-2) {
 			$('#collapse-shipping-address .form-group:last').after(this);
 		}
 
-		if ($(this).attr('data-sort') < -$('#shipping_address .form-group').length-2) {
-			$('#shipping_address .form-group:first').before(this);
+		if ($(this).attr('data-sort') < -$('#shipping-address .form-group').length-2) {
+			$('#shipping-address .form-group:first').before(this);
 		}
 	});
 	
-	$('#shipping_address select[name=\'country_id\']').on('change', function() {
+	$('#shipping-address select[name=\'country_id\']').on('change', function() {
 		$.ajax({
 			url: 'index.php?route=checkout/checkout/country&country_id=' + this.value,
 			dataType: 'json',
 			beforeSend: function() {
-				$('#shipping_address select[name=\'country_id\']').prop('disabled', true);
+				$('#shipping-address select[name=\'country_id\']').prop('disabled', true);
 			},
 			complete: function() {
-				$('#shipping_address select[name=\'country_id\']').prop('disabled', false);
+				$('#shipping-address select[name=\'country_id\']').prop('disabled', false);
 			},
 			success: function(json) {
 				if (json['postcode_required'] == '1') {
-					$('#shipping_address input[name=\'postcode\']').parent().parent().addClass('required');
+					$('#shipping-address input[name=\'postcode\']').parent().parent().addClass('required');
 				} else {
-					$('#shipping_address input[name=\'postcode\']').parent().parent().removeClass('required');
+					$('#shipping-address input[name=\'postcode\']').parent().parent().removeClass('required');
 				}
 
 				html = '<option value="">{{ text_select }}</option>';
@@ -482,7 +482,7 @@ function onLoadShippingAddress() {
 					html += '<option value="0" selected="selected">{{ text_none }}</option>';
 				}
 
-				$('#shipping_address select[name=\'zone_id\']').html(html);
+				$('#shipping-address select[name=\'zone_id\']').html(html);
 			},
 			error: function(xhr, ajaxOptions, thrownError) {
 				console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -490,7 +490,7 @@ function onLoadShippingAddress() {
 		});
 	});
 
-	$('#shipping_address select[name=\'country_id\']').trigger('change');
+	$('#shipping-address select[name=\'country_id\']').trigger('change');
 	
 	$('.date').datetimepicker({
 		language: '{{ datepicker }}',
@@ -508,28 +508,28 @@ function onLoadShippingAddress() {
 		pickTime: true
 	});
 	
-	$('#shipping_address button[id^=\'button_shipping_custom_field\']').on('click', function() {
+	$('#shipping-address button[id^=\'button-shipping-custom-field\']').on('click', function() {
 		var node = this;
 
-		$('#form_upload').remove();
+		$('#form-upload').remove();
 
-		$('body').prepend('<form enctype="multipart/form-data" id="form_upload" style="display: none;"><input type="file" name="file" /></form>');
+		$('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="file" /></form>');
 
-		$('#form_upload input[name=\'file\']').trigger('click');
+		$('#form-upload input[name=\'file\']').trigger('click');
 
 		if (typeof timer != 'undefined') {
 			clearInterval(timer);
 		}
 
 		timer = setInterval(function() {
-			if ($('#form_upload input[name=\'file\']').val() != '') {
+			if ($('#form-upload input[name=\'file\']').val() != '') {
 				clearInterval(timer);
 
 				$.ajax({
 					url: 'index.php?route=tool/upload',
 					type: 'post',
 					dataType: 'json',
-					data: new FormData($('#form_upload')[0]),
+					data: new FormData($('#form-upload')[0]),
 					cache: false,
 					contentType: false,
 					processData: false,
@@ -560,15 +560,15 @@ function onLoadShippingAddress() {
 		}, 500);
 	});
 	
-	$('#shipping_address .button-confirm').on('click', function(event) {
+	$('#shipping-address .button-confirm').on('click', function(event) {
 		$.ajax({
 			type: 'post',
 			url: 'index.php?route=extension/payment/paypal/confirmShippingAddress',
-			data: $('#shipping_address [name]'),
+			data: $('#shipping-address [name]'),
 			dataType: 'json',
 			success: function(json) {
-				$('#shipping_address .alert, #shipping_address .text-danger').remove();
-				$('#shipping_address .form-group').removeClass('has-error');
+				$('#shipping-address .alert, #shipping_address .text-danger').remove();
+				$('#shipping-address .form-group').removeClass('has-error');
 			
 				if (json['error']) {
 					for (i in json['error']) {
