@@ -175,7 +175,7 @@ class ModelUpgrade1001 extends Model {
 				$lines = file($file);
 
 				foreach ($lines as $line) {
-					if (strpos($line, 'DIR_MODIFICATION') !== false) {
+					if (str_contains($line, 'DIR_MODIFICATION')) {
 						$upgrade = false;
 						break;
 					}
@@ -185,7 +185,7 @@ class ModelUpgrade1001 extends Model {
 					$output = '';
 
 					foreach ($lines as $line_id => $line) {
-						if (strpos($line, 'DIR_LOGS') !== false) {
+						if (str_contains($line, 'DIR_LOGS')) {
 							$new_line = "define('DIR_MODIFICATION', '" . str_replace("\\", "/", DIR_SYSTEM) . 'modification/' . "');";
 							$output .= $new_line . "\n";
 							$output .= $line;
@@ -209,7 +209,7 @@ class ModelUpgrade1001 extends Model {
 				$lines = file($file);
 
 				foreach ($lines as $line) {
-					if (strpos($line, 'DIR_UPLOAD') !== false) {
+					if (str_contains($line, 'DIR_UPLOAD')) {
 						$upgrade = false;
 						break;
 					}
@@ -219,7 +219,7 @@ class ModelUpgrade1001 extends Model {
 					$output = '';
 
 					foreach ($lines as $line_id => $line) {
-						if (strpos($line, 'DIR_LOGS') !== false) {
+						if (str_contains($line, 'DIR_LOGS')) {
 							$new_line = "define('DIR_UPLOAD', '" . str_replace("\\", "/", DIR_SYSTEM) . 'upload/' . "');";
 							$output .= $new_line . "\n";
 							$output .= $line;
@@ -243,7 +243,7 @@ class ModelUpgrade1001 extends Model {
 				$lines = file($file);
 
 				foreach ($lines as $line) {
-					if (strpos($line, "'mysql'") !== false) {
+					if (str_contains($line, "'mysql'")) {
 						$upgrade = true;
 						break;
 					}
@@ -253,7 +253,7 @@ class ModelUpgrade1001 extends Model {
 					$output = '';
 
 					foreach ($lines as $line_id => $line) {
-						if (strpos($line, "'mysql'") !== false) {
+						if (str_contains($line, "'mysql'")) {
 							$new_line = "define('DB_DRIVER', 'mysqli');";
 							$output .= $new_line . "\n";
 						} else {
