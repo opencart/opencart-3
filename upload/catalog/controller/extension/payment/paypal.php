@@ -2795,9 +2795,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	/**
 	 * Webhook
 	 * 
-	 * @return void
+	 * @return bool
 	 */
-	public function webhook(): void {
+	public function webhook(): bool {
 		if (!empty($this->request->get['webhook_token'])) {
 			$_config = new Config();
 			$_config->load('paypal');
