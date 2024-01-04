@@ -51,7 +51,7 @@ class ModelExtensionPaymentPayPal extends Model {
 	 *
 	 * @param int   $product_id
 	 * @param array $option
-	 * @param int   $subscription_id
+	 * @param int   $subscription_plan_id
 	 *
 	 * @return int
 	 */
