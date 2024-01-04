@@ -310,7 +310,7 @@ class ControllerExtensionModuleRecurring extends Controller {
 	/**
 	 * Info
 	 *
-	 * @return object|\Action|null
+	 * @return \Action|object|null
 	 */
 	public function info(): ?object {
 		$this->load->model('extension/module/recurring');

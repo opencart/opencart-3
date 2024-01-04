@@ -347,8 +347,8 @@ class ModelExtensionPaymentWorldpay extends Model {
 			$minus_even = $cycle / 2;
 
 			if ($day == 1) {
-				$odd = $odd - 1;
-				$plus_even = $plus_even - 1;
+				$odd--;
+				$plus_even--;
 				$day = 16;
 			}
 
@@ -408,9 +408,7 @@ class ModelExtensionPaymentWorldpay extends Model {
 		// Subscriptions
 		$this->load->model('account/subscription');
 
-		$subscription_info = $this->model_account_subscription->getSubscription($subscription_id);
-
-		return $subscription_info;
+		return $this->model_account_subscription->getSubscription($subscription_id);
 	}
 
 	/**
@@ -439,6 +437,9 @@ class ModelExtensionPaymentWorldpay extends Model {
 
 	/**
 	 * sendCurl
+	 *
+	 * @param mixed      $url
+	 * @param mixed|null $order
 	 */
 	public function sendCurl($url, $order = null) {
 		$curl = curl_init();

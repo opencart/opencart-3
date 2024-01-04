@@ -430,10 +430,10 @@ class ModelCheckoutOrder extends Model {
 	/**
 	 * addHistory
 	 *
-	 * @param int 	 $order_id
-	 * @param int 	 $order_status_id
+	 * @param int    $order_id
+	 * @param int    $order_status_id
 	 * @param string $comment
-	 * @param bool	 $notify
+	 * @param bool   $notify
 	 * @param bool   $override
 	 *
 	 * @return int

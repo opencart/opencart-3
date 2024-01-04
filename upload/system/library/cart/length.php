@@ -3,7 +3,8 @@ namespace Cart;
 class Length {
 	private object $db;
 	private object $config;
-	private array  $lengths = [];
+	private array $lengths = [];
+
 	/**
 	 * Constructor
 	 *

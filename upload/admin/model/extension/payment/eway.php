@@ -188,7 +188,7 @@ class ModelExtensionPaymentEway extends Model {
 
 			return json_decode($response);
 		} else {
-			return new \stdclass();
+			return new \stdClass();
 		}
 	}
 

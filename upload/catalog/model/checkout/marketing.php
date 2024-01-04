@@ -8,6 +8,8 @@ class ModelCheckoutMarketing extends Model {
 	/**
 	 * getMarketingByCode
 	 *
+	 * @param string $code
+	 *
 	 * @return array
 	 */
 	public function getMarketingByCode(string $code): array {
@@ -19,7 +21,7 @@ class ModelCheckoutMarketing extends Model {
 	/**
 	 * addReport
 	 *
-	 * @param int 	 $marketing_id
+	 * @param int    $marketing_id
 	 * @param string $ip
 	 * @param string $country
 	 *

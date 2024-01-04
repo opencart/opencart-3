@@ -8,7 +8,7 @@ class ControllerAccountReset extends Controller {
 	private array $error = [];
 
 	/**
-	 * @return object|\Action|null
+	 * @return \Action|object|null
 	 */
 	public function index(): ?object {
 		if ($this->customer->isLogged()) {

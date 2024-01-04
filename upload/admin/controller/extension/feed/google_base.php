@@ -209,6 +209,7 @@ class ControllerExtensionFeedGoogleBase extends Controller {
 
 		$this->response->setOutput($this->load->view('extension/feed/google_base_category', $data));
 	}
+
 	/**
 	 * @return void
 	 */

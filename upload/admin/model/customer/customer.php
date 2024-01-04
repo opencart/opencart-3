@@ -294,7 +294,8 @@ class ModelCustomerCustomer extends Model {
 	/**
 	 * getTotalCustomers
 	 *
-	 * @param int $customer_id
+	 * @param array $data
+	 * @param int   $customer_id
 	 *
 	 * @return int
 	 */
@@ -456,6 +457,7 @@ class ModelCustomerCustomer extends Model {
 
 	/**
 	 * deleteTransactionByOrderId
+	 *
 	 * @param int $order_id
 	 *
 	 * @return void
@@ -540,8 +542,8 @@ class ModelCustomerCustomer extends Model {
 	/**
 	 * editPaymentMethodStatus
 	 *
-	 * @param int    $customer_payment_id
-	 * @param bool   $status
+	 * @param int  $customer_payment_id
+	 * @param bool $status
 	 *
 	 * @return void
 	 */
@@ -617,9 +619,9 @@ class ModelCustomerCustomer extends Model {
 	/**
 	 * getRewards
 	 *
-	 * @param int    $customer_id
-	 * @param int    $start
-	 * @param int    $limit
+	 * @param int $customer_id
+	 * @param int $start
+	 * @param int $limit
 	 *
 	 * @return array
 	 */

@@ -83,6 +83,7 @@ class ControllerExtensionExtensionModule extends Controller {
 
 		$this->getList();
 	}
+
 	/**
 	 * @return void
 	 */
@@ -105,6 +106,7 @@ class ControllerExtensionExtensionModule extends Controller {
 
 		$this->getList();
 	}
+
 	/**
 	 * @return void
 	 */

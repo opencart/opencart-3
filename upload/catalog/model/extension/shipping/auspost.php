@@ -5,12 +5,15 @@
  * @package    Catalog\Model\Extension\Shipping
  *
  * @version    N/A, base on AUSPOST API update on 18 April 2016
- * @link       https://developers.auspost.com.au/docs/reference
+ *
+ * @see       https://developers.auspost.com.au/docs/reference
  * @since      2.3.0.2   Update on 21 March 2017
  */
 class ModelExtensionShippingAusPost extends Model {
 	/**
 	 * getQuote
+	 *
+	 * @param array $address
 	 */
 	public function getQuote(array $address): array {
 		$this->load->language('extension/shipping/auspost');

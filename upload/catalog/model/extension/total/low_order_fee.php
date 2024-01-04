@@ -7,6 +7,8 @@
 class ModelExtensionTotalLowOrderFee extends Model {
 	/**
 	 * getTotal
+	 *
+	 * @param array $total
 	 */
 	public function getTotal(array &$total): void {
 		if ($this->cart->getSubTotal() && ($this->cart->getSubTotal() < $this->config->get('total_low_order_fee_total'))) {

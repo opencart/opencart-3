@@ -542,6 +542,7 @@ class ControllerMarketingCoupon extends Controller {
 
 		return !$this->error;
 	}
+
 	/**
 	 * History
 	 *

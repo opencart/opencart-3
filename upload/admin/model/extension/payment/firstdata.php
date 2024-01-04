@@ -134,7 +134,7 @@ class ModelExtensionPaymentFirstdata extends Model {
 	 * Capture
 	 *
 	 * @param int   $order_id
-	 * @param float	$amount
+	 * @param float $amount
 	 *
 	 * @return object|null
 	 */

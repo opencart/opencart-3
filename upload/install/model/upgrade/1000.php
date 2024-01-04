@@ -300,7 +300,7 @@ class ModelUpgrade1000 extends Model {
 					}
 
 					if ($index_data) {
-						$this->db->query("ALTER TABLE `" . $table['name'] . "` ADD INDEX `$name` (" . implode(',', $index_data) . ")");
+						$this->db->query("ALTER TABLE `" . $table['name'] . "` ADD INDEX `{$name}` (" . implode(',', $index_data) . ")");
 					}
 				}
 

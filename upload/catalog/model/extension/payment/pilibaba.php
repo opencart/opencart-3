@@ -46,7 +46,7 @@ class ModelExtensionPaymentPilibaba extends Model {
 		$query = $this->db->query("SELECT SUM(`value`) AS `value` FROM `" . DB_PREFIX . "order_total` WHERE `order_id` = '" . (int)$order_id . "' AND `code` = 'tax'");
 
 		if ($query->num_rows) {
-			return intval(round($query->row['value'], 2) * 100);
+			return (int)(round($query->row['value'], 2) * 100);
 		} else {
 			return 0;
 		}
@@ -68,7 +68,7 @@ class ModelExtensionPaymentPilibaba extends Model {
 	 *
 	 * @param int $order_id
 	 *
-	 * @param array
+	 * @return array
 	 */
 	public function getConsumerInfo(int $order_id): array {
 		$sign_msg = strtoupper(md5($this->config->get('payment_pilibaba_merchant_number') . $order_id . 'MD5' . $this->config->get('payment_pilibaba_secret_key')));

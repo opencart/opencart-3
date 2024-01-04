@@ -1,9 +1,9 @@
 <?php
 namespace DB;
 class PDO {
-	private ?object 	$connection;
-	private array 		$data = [];
-	private int 		$affected;
+	private ?object $connection;
+	private array $data = [];
+	private int $affected;
 
 	/**
 	 * Constructor
@@ -39,7 +39,7 @@ class PDO {
 	/**
 	 * Query
 	 *
-	 * @param string  $sql
+	 * @param string $sql
 	 *
 	 * @return bool|object
 	 */
@@ -56,7 +56,7 @@ class PDO {
 					$data = $statement->fetchAll(\PDO::FETCH_ASSOC);
 
 					$result = new \stdClass();
-					$result->row = isset($data[0]) ? $data[0] : [];
+					$result->row = $data[0] ?? [];
 					$result->rows = $data;
 					$result->num_rows = count($data);
 					$this->affected = 0;
@@ -125,7 +125,6 @@ class PDO {
 	 * Destructor
 	 *
 	 * Closes the DB connection when this object is destroyed.
-	 *
 	 */
 	public function __destruct() {
 		$this->connection = null;

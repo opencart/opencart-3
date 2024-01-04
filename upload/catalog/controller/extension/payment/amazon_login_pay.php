@@ -650,7 +650,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 				// Up to this point, everything is fine in the session. Save the order and submit it to Amazon.
 				$order_id = $this->model_checkout_order->addOrder($this->session->data['apalwa']['pay']['order']);
 				$text_version = sprintf($this->language->get('text_created_by'), $this->version);
-				$currency_code = isset($this->session->data['apalwa']['pay']['buyer_currency']) ? $this->session->data['apalwa']['pay']['buyer_currency'] : $this->config->get('payment_amazon_login_pay_payment_region');
+				$currency_code = $this->session->data['apalwa']['pay']['buyer_currency'] ?? $this->config->get('payment_amazon_login_pay_payment_region');
 
 				$this->session->data['order_id'] = $order_id;
 
@@ -717,7 +717,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 			$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_amazon_login_pay_pending_status'), '', $this->config->get('payment_amazon_login_pay_mode') != 'payment');
 
 			// In case a payment has been completed, and the order is not closed, close it.
-			if (isset($authorization->CapturedAmount->Amount) && (float)$authorization->CapturedAmount->Amount && $this->model_extension_payment_amazon_login_pay->isOrderInState($order_reference_id, ['Open','Suspended'])) {
+			if (isset($authorization->CapturedAmount->Amount) && (float)$authorization->CapturedAmount->Amount && $this->model_extension_payment_amazon_login_pay->isOrderInState($order_reference_id, ['Open', 'Suspended'])) {
 				$this->model_extension_payment_amazon_login_pay->closeOrder($order_reference_id, "A capture has been performed. Closing the order.");
 			}
 

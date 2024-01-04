@@ -196,6 +196,7 @@ class ControllerCommonFileManager extends Controller {
 
 		$this->response->setOutput($this->load->view('common/filemanager', $data));
 	}
+
 	/**
 	 * Upload
 	 *
@@ -308,6 +309,7 @@ class ControllerCommonFileManager extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
 	/**
 	 * Folder
 	 *
@@ -361,6 +363,7 @@ class ControllerCommonFileManager extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
 	/**
 	 * Delete
 	 *

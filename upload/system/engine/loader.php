@@ -1,10 +1,12 @@
 <?php
 /**
  * @package        OpenCart
+ *
  * @author         Daniel Kerr
  * @copyright      Copyright (c) 2005 - 2022, OpenCart, Ltd. (https://www.opencart.com/)
  * @license        https://opensource.org/licenses/GPL-3.0
- * @link           https://www.opencart.com
+ *
+ * @see           https://www.opencart.com
  */
 
 /**
@@ -31,7 +33,7 @@ class Loader {
 	 * @return mixed
 	 *
 	 * Removing the mixed output as a temporary workaround since admin extension
-	 * installers don't seem to like that really much.
+	 * installers don't seem to like that really much
 	 */
 	public function controller(string $route, array $data = []) {
 		// Sanitize the call
@@ -150,7 +152,8 @@ class Loader {
 	/**
 	 * Library
 	 *
-	 * @param string $route
+	 * @param string  $route
+	 * @param array[] $args
 	 */
 	public function library(string $route, array &...$args): void {
 		// Sanitize the call
@@ -259,7 +262,7 @@ class Loader {
 				$callable = [$model[$key], $method];
 
 				if (is_callable($callable)) {
-					$output = call_user_func_array($callable, $args);
+					$output = $callable(...$args);
 				} else {
 					throw new \Exception('Error: Could not call model/' . $route . '!');
 				}

@@ -59,6 +59,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	 * getSizeAndColorOptionMap
 	 *
 	 * @param int $product_id
+	 * @param int $store_id
 	 * @param int $category_id
 	 *
 	 * @return array
@@ -71,13 +72,11 @@ class ModelExtensionAdvertiseGoogle extends Model {
 		$colors = $this->googleshopping->getProductOptionValueNames($product_id, $this->config->get('config_language_id'), $color_id);
 		$sizes = $this->googleshopping->getProductOptionValueNames($product_id, $this->config->get('config_language_id'), $size_id);
 
-		$map = [
+		return [
 			'groups' => $groups,
 			'colors' => count($colors) > 1 ? $colors : null,
 			'sizes'  => count($sizes) > 1 ? $sizes : null,
 		];
-
-		return $map;
 	}
 
 	/**

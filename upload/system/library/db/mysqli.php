@@ -18,7 +18,7 @@ class MySQLi {
 		}
 
 		try {
-			$mysqli = @new \MySQLi($hostname, $username, $password, $database, $port);
+			$mysqli = @new \mysqli($hostname, $username, $password, $database, $port);
 
 			$this->connection = $mysqli;
 			$this->connection->set_charset('utf8mb4');
@@ -53,7 +53,7 @@ class MySQLi {
 
 				$result = new \stdClass();
 				$result->num_rows = $query->num_rows;
-				$result->row = isset($data[0]) ? $data[0] : [];
+				$result->row = $data[0] ?? [];
 				$result->rows = $data;
 
 				$query->close();
@@ -65,7 +65,7 @@ class MySQLi {
 				return true;
 			}
 		} catch (\mysqli_sql_exception $e) {
-			throw new \Exception('Error: ' . $this->connection->error  . '<br/>Error No: ' . $this->connection->errno . '<br/>' . $sql);
+			throw new \Exception('Error: ' . $this->connection->error . '<br/>Error No: ' . $this->connection->errno . '<br/>' . $sql);
 		}
 	}
 
@@ -111,7 +111,6 @@ class MySQLi {
 	 * Destructor
 	 *
 	 * Closes the DB connection when this object is destroyed.
-	 *
 	 */
 	public function __destruct() {
 		if ($this->connection) {

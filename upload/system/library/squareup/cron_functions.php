@@ -1,7 +1,7 @@
 <?php
 function squareup_validate(): void {
-	if (php_sapi_name() != 'cli') {
-		die("Not in Command Line.");
+	if (PHP_SAPI != 'cli') {
+		exit("Not in Command Line.");
 	}
 }
 

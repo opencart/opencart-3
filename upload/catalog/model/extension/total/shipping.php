@@ -7,6 +7,8 @@
 class ModelExtensionTotalShipping extends Model {
 	/**
 	 * getTotal
+	 *
+	 * @param array $total
 	 */
 	public function getTotal(array $total): void {
 		if ($this->cart->hasShipping() && isset($this->session->data['shipping_method'])) {

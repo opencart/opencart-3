@@ -6,7 +6,6 @@
  */
 class ControllerEventLanguage extends Controller {
 	/**
-	 *
 	 * @param string $route
 	 * @param array  $args
 	 *

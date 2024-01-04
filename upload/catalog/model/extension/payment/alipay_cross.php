@@ -61,6 +61,9 @@ class ModelExtensionPaymentAlipayCross extends Model {
 
 	/**
 	 * buildRequestPara
+	 *
+	 * @param mixed $alipay_config
+	 * @param mixed $para_temp
 	 */
 	public function buildRequestPara($alipay_config, $para_temp) {
 		$this->alipay_config = $alipay_config;
@@ -79,6 +82,8 @@ class ModelExtensionPaymentAlipayCross extends Model {
 
 	/**
 	 * verifyNotify
+	 *
+	 * @param mixed $alipay_config
 	 */
 	public function verifyNotify($alipay_config) {
 		$this->alipay_config = $alipay_config;
@@ -127,9 +132,8 @@ class ModelExtensionPaymentAlipayCross extends Model {
 		$partner = trim($this->alipay_config['partner']);
 		$veryfy_url = $this->config->get('payment_alipay_cross_test') == 'sandbox' ? $this->https_verify_url_test : $this->https_verify_url;
 		$veryfy_url .= 'partner=' . $partner . '&notify_id=' . $notify_id;
-		$responseTxt = $this->getHttpResponseGET($veryfy_url, $this->alipay_config['cacert']);
 
-		return $responseTxt;
+		return $this->getHttpResponseGET($veryfy_url, $this->alipay_config['cacert']);
 	}
 
 	private function createLinkstring($para) {
@@ -140,9 +144,7 @@ class ModelExtensionPaymentAlipayCross extends Model {
 		}
 
 		// Remove the last char '&'
-		$arg = substr($arg, 0, count($arg) - 2);
-
-		return $arg;
+		return substr($arg, 0, count($arg) - 2);
 	}
 
 	private function paraFilter($para) {
@@ -188,13 +190,13 @@ class ModelExtensionPaymentAlipayCross extends Model {
 	}
 
 	private function md5Sign($prestr, $key) {
-		$prestr = $prestr . $key;
+		$prestr .= $key;
 
 		return md5($prestr);
 	}
 
 	private function md5Verify($prestr, $sign, $key) {
-		$prestr = $prestr . $key;
+		$prestr .= $key;
 		$mysgin = md5($prestr);
 
 		if ($mysgin == $sign) {

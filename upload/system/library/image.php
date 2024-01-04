@@ -2,10 +2,12 @@
 
 /**
  * @package        OpenCart
+ *
  * @author         Daniel Kerr
  * @copyright      Copyright (c) 2005 - 2022, OpenCart, Ltd. (https://www.opencart.com/)
  * @license        https://opensource.org/licenses/GPL-3.0
- * @link           https://www.opencart.com
+ *
+ * @see           https://www.opencart.com
  */
 
 /**
@@ -36,8 +38,8 @@ class Image {
 
 			$this->width  = $info[0];
 			$this->height = $info[1];
-			$this->bits   = isset($info['bits']) ? $info['bits'] : '';
-			$this->mime   = isset($info['mime']) ? $info['mime'] : '';
+			$this->bits   = $info['bits'] ?? '';
+			$this->mime   = $info['mime'] ?? '';
 
 			if ($this->mime == 'image/gif') {
 				$this->image = imagecreatefromgif($file);
@@ -299,7 +301,7 @@ class Image {
 	private function filter(): void {
 		$args = func_get_args();
 
-		call_user_func_array('imagefilter', $args);
+		imagefilter(...$args);
 	}
 
 	private function text(string $text, int $x = 0, int $y = 0, int $size = 5, string $color = '000000'): void {

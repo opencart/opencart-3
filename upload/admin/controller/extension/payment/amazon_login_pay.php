@@ -296,7 +296,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
 		foreach ($amazon_supported_currencies as $amazon_supported_currency) {
 			if (isset($oc_currencies[$amazon_supported_currency]) && $oc_currencies[$amazon_supported_currency]['status'] == '1') {
-				array_push($store_buyer_currencies, $amazon_supported_currency);
+				$store_buyer_currencies[] = $amazon_supported_currency;
 			}
 		}
 
@@ -401,6 +401,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
 		$this->response->setOutput($this->load->view('extension/payment/amazon_login_pay', $data));
 	}
+
 	/**
 	 * Install
 	 *
@@ -414,6 +415,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 		$this->model_extension_payment_amazon_login_pay->deleteEvents();
 		$this->model_extension_payment_amazon_login_pay->addEvents();
 	}
+
 	/**
 	 * Uninstall
 	 *
@@ -429,6 +431,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 		$this->model_extension_payment_amazon_login_pay->uninstall();
 		$this->model_extension_payment_amazon_login_pay->deleteEvents();
 	}
+
 	/**
 	 * Order
 	 *
@@ -462,6 +465,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 			return '';
 		}
 	}
+
 	/**
 	 * Cancel
 	 *
@@ -510,6 +514,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
 	/**
 	 * Capture
 	 *
@@ -539,7 +544,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 				if ($total_captured > 0) {
 					$order_reference_id = $amazon_login_pay_order['amazon_order_reference_id'];
 
-					if ($this->model_extension_payment_amazon_login_pay->isOrderInState($order_reference_id, ['Open','Suspended'])) {
+					if ($this->model_extension_payment_amazon_login_pay->isOrderInState($order_reference_id, ['Open', 'Suspended'])) {
 						$this->model_extension_payment_amazon_login_pay->closeOrderRef($order_reference_id);
 					}
 				}
@@ -582,6 +587,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
 	/**
 	 * Refund
 	 *

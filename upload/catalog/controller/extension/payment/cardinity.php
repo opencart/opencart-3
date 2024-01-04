@@ -254,7 +254,7 @@ class ControllerExtensionPaymentCardinity extends Controller {
 		$this->model_extension_payment_cardinity->log($payment);
 	}
 
-	private function failedOrder(string $log = null, string $alert = null): void {
+	private function failedOrder(?string $log = null, ?string $alert = null): void {
 		$this->load->language('extension/payment/cardinity');
 
 		$this->model_extension_payment_cardinity->log($this->language->get('text_payment_failed'));

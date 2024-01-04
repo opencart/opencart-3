@@ -6,7 +6,7 @@
  */
 class ControllerStartupPermission extends Controller {
 	/**
-	 * @return object|\Action|null
+	 * @return \Action|object|null
 	 */
 	public function index(): ?object {
 		if (isset($this->request->get['route'])) {

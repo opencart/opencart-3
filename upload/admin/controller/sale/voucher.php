@@ -96,6 +96,7 @@ class ControllerSaleVoucher extends Controller {
 
 		$this->getForm();
 	}
+
 	/**
 	 * Delete
 	 *

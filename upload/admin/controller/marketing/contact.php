@@ -90,7 +90,7 @@ class ControllerMarketingContact extends Controller {
 				$this->load->model('setting/setting');
 
 				$setting = $this->model_setting_setting->getSetting('config', $this->request->post['store_id']);
-				$store_email = isset($setting['config_email']) ? $setting['config_email'] : $this->config->get('config_email');
+				$store_email = $setting['config_email'] ?? $this->config->get('config_email');
 
 				// Customers
 				$this->load->model('customer/customer');
@@ -214,7 +214,7 @@ class ControllerMarketingContact extends Controller {
 					$start = ($page - 1) * 10;
 					$end = $start + 10;
 
-					$json['success'] = sprintf($this->language->get('text_sent'), $start ? $start : 1, $email_total);
+					$json['success'] = sprintf($this->language->get('text_sent'), $start ?: 1, $email_total);
 
 					if ($end < $email_total) {
 						$json['next'] = $this->url->link('marketing/contact/send', 'user_token=' . $this->session->data['user_token'] . '&page=' . ($page + 1), true);

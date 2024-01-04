@@ -4,7 +4,7 @@
  *
  * @package Admin\Controller\Extension\Other
  */
-class ControllerExtensionOtherRecurring extends Controller {	
+class ControllerExtensionOtherRecurring extends Controller {
 	/**
 	 * @return void
 	 */
@@ -63,7 +63,7 @@ class ControllerExtensionOtherRecurring extends Controller {
 		$this->response->setOutput($this->load->view('extension/other/recurring_form', $data));
 	}
 
-    protected function validate() {
+	protected function validate() {
 		if (!$this->user->hasPermission('modify', 'extension/other/recurring')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
@@ -71,23 +71,22 @@ class ControllerExtensionOtherRecurring extends Controller {
 		return !$this->error;
 	}
 
-    /**
+	/**
 	 * Report
 	 *
 	 * @return void
 	 */
-
-     public function report(): void {
-        $this->load->language('extension/other/recurring');
+	public function report(): void {
+		$this->load->language('extension/other/recurring');
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
 		$this->load->model('extension/other/recurring');
 
 		$this->getList();
-     }
+	}
 
-     protected function getList() {
+	protected function getList(): void {
 		if (isset($this->request->get['filter_order_recurring_id'])) {
 			$filter_order_recurring_id = $this->request->get['filter_order_recurring_id'];
 		} else {
@@ -185,12 +184,12 @@ class ControllerExtensionOtherRecurring extends Controller {
 		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        ];
+		];
 
 		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('extension/other/recurring', 'user_token=' . $this->session->data['user_token'] . $url, true)
-        ];
+		];
 
 		$data['recurrings'] = [];
 
@@ -205,7 +204,7 @@ class ControllerExtensionOtherRecurring extends Controller {
 			'sort'                      => $sort,
 			'start'                     => ($page - 1) * $this->config->get('config_limit_admin'),
 			'limit'                     => $this->config->get('config_limit_admin')
-        ];
+		];
 
 		$recurrings_total = $this->model_sale_recurring->getTotalRecurrings($filter_data);
 
@@ -217,7 +216,7 @@ class ControllerExtensionOtherRecurring extends Controller {
 			} else {
 				$status = '';
 			}
-			
+
 			$data['recurrings'][] = [
 				'order_recurring_id' => $result['order_recurring_id'],
 				'order_id'           => $result['order_id'],
@@ -227,7 +226,7 @@ class ControllerExtensionOtherRecurring extends Controller {
 				'date_added'         => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
 				'view'               => $this->url->link('extension/other/recurring/info', 'user_token=' . $this->session->data['user_token'] . '&order_recurring_id=' . $result['order_recurring_id'] . $url, true),
 				'order'              => $this->url->link('sale/order/info', 'user_token=' . $this->session->data['user_token'] . '&order_id=' . $result['order_id'], true)
-            ];
+			];
 		}
 
 		$data['user_token'] = $this->session->data['user_token'];
@@ -245,7 +244,7 @@ class ControllerExtensionOtherRecurring extends Controller {
 		} else {
 			$data['success'] = '';
 		}
-		
+
 		$url = '';
 
 		if (isset($this->request->get['filter_order_recurring_id'])) {
@@ -339,22 +338,22 @@ class ControllerExtensionOtherRecurring extends Controller {
 		$data['filter_customer'] = $filter_customer;
 		$data['filter_status'] = $filter_status;
 		$data['filter_date_added'] = $filter_date_added;
-		
+
 		$data['sort'] = $sort;
 		$data['order'] = $order;
-		
+
 		$data['recurring_statuses'] = [];
-		
+
 		$data['recurring_statuses'][0] = [
 			'text'  => '',
 			'value' => 0
-        ];
-			
+		];
+
 		for ($i = 1; $i <= 6; $i++) {
 			$data['recurring_statuses'][$i] = [
 				'text'  => $this->language->get('text_status_' . $i),
 				'value' => $i,
-            ];		
+			];
 		}
 
 		$data['report'] = $this->url->link('other/recurring/getReport', 'user_token=' . $this->session->data['user_token'], true);
@@ -369,7 +368,7 @@ class ControllerExtensionOtherRecurring extends Controller {
 	/**
 	 * Info
 	 *
-	 * @return object|\Action|null
+	 * @return \Action|object|null
 	 */
 	public function info(): ?object {
 		$this->load->model('extension/other/recurring');
@@ -629,10 +628,10 @@ class ControllerExtensionOtherRecurring extends Controller {
 										}
 
 										$data['recurrings'][] = [
-											'product_name' 	=> html_entity_decode($product['name'], ENT_QUOTES, 'UTF-8'),
+											'product_name'  => html_entity_decode($product['name'], ENT_QUOTES, 'UTF-8'),
 											'language_name' => html_entity_decode($language_info['name'], ENT_QUOTES, 'UTF-8'),
-											'store_name' 	=> $store_name,
-											'recurring'  	=> $recurring
+											'store_name'    => $store_name,
+											'recurring'     => $recurring
 										];
 									}
 								}
@@ -648,5 +647,5 @@ class ControllerExtensionOtherRecurring extends Controller {
 		}
 
 		return null;
-	}	
+	}
 }

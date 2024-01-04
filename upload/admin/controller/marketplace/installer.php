@@ -120,7 +120,7 @@ class ControllerMarketplaceInstaller extends Controller {
 					$next = array_shift($path);
 
 					// We have to use scandir function because glob will not pick up dot files.
-					foreach (array_diff(scandir($next), ['.','..']) as $file) {
+					foreach (array_diff(scandir($next), ['.', '..']) as $file) {
 						$file = $next . '/' . $file;
 
 						if (is_dir($file)) {

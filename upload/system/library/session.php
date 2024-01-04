@@ -1,10 +1,12 @@
 <?php
 /**
  * @package        OpenCart
+ *
  * @author         Daniel Kerr
  * @copyright      Copyright (c) 2005 - 2022, OpenCart, Ltd. (https://www.opencart.com/)
  * @license        https://opensource.org/licenses/GPL-3.0
- * @link           https://www.opencart.com
+ *
+ * @see           https://www.opencart.com
  */
 
 /**
@@ -13,7 +15,7 @@
 class Session {
 	protected object $adaptor;
 	protected string $session_id = '';
-	public array     $data = [];
+	public array $data = [];
 
 	/**
 	 * Constructor

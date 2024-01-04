@@ -10,10 +10,11 @@ class ControllerMailForgotten extends Controller {
 	 * @param array  $args
 	 * @param mixed  $output
 	 *
-	 * @return void
 	 * @throws \Exception
 	 *
 	 * catalog/model/account/customer/editCode/after
+	 *
+	 * @return void
 	 */
 	public function index(string &$route, array &$args, mixed &$output): void {
 		if ($args[0] && $args[1]) {

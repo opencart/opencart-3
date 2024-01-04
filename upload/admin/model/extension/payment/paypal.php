@@ -267,7 +267,7 @@ class ModelExtensionPaymentPayPal extends Model {
 	 *
 	 * @return void
 	 */
-	public function log(array $data, string $title = null): void {
+	public function log(array $data, ?string $title = null): void {
 		// Setting
 		$_config = new \Config();
 		$_config->load('paypal');

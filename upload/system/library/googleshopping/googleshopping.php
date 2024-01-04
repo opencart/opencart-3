@@ -1,8 +1,6 @@
 <?php
 namespace googleshopping;
 use googleshopping\traits\StoreLoader;
-use googleshopping\exception\Connection as ConnectionException;
-use googleshopping\exception\AccessForbidden as AccessForbiddenException;
 
 class Googleshopping extends Library {
 	use StoreLoader;
@@ -335,7 +333,7 @@ class Googleshopping extends Library {
 	 *
 	 * @return string
 	 *
-	 * A copy of the OpenCart SEO URL rewrite method.
+	 * A copy of the OpenCart SEO URL rewrite method
 	 */
 	public function rewrite($link): string {
 		$url_info = parse_url(str_replace('&amp;', '&', $link));
@@ -558,9 +556,9 @@ class Googleshopping extends Library {
 
 		foreach ($this->combineOptions($options) as $group) {
 			$key = $product_id . '-' . md5(json_encode([
-					'color' => $group['color'],
-					'size'  => $group['size']
-				]));
+				'color' => $group['color'],
+				'size'  => $group['size']
+			]));
 
 			$result[$key] = $group;
 		}
@@ -1242,7 +1240,7 @@ class Googleshopping extends Library {
 			}
 		}
 
-		$image_new = str_replace([' ', ','], ['%20','%2C'], $image_new);  // fix bug when attach image on email (gmail.com). it is automatic changing space " " to +
+		$image_new = str_replace([' ', ','], ['%20', '%2C'], $image_new);  // fix bug when attach image on email (gmail.com). it is automatic changing space " " to +
 
 		return $this->store_url . 'image/' . $image_new;
 	}
@@ -1288,9 +1286,7 @@ class Googleshopping extends Library {
 	protected function getFeedProductsQuery($page, $language_id) {
 		$this->load->config('googleshopping/googleshopping');
 
-		$sql = "SELECT `p`.`product_id`, `pd`.`name`, `pd`.`description`, `p`.`image`, `p`.`quantity`, `p`.`price`, `p`.`mpn`, `p`.`ean`, `p`.`jan`, `p`.`isbn`, `p`.`upc`, `p`.`model`, `p`.`tax_class_id`, IFNULL((SELECT `m`.`name` FROM `" . DB_PREFIX . "manufacturer` `m` WHERE `m`.`manufacturer_id` = `p`.`manufacturer_id`), '') AS `brand`, (SELECT GROUP_CONCAT(`agt`.`campaign_name` SEPARATOR '<[S]>') FROM `" . DB_PREFIX . "googleshopping_product_target` `pagt` LEFT JOIN `" . DB_PREFIX . "googleshopping_target` `agt` ON (`agt`.`advertise_google_target_id` = `pagt`.`advertise_google_target_id`) WHERE `pagt`.`product_id` = `p`.`product_id` AND `pagt`.`store_id` = `p2s`.`store_id` GROUP BY `pagt`.`product_id`) AS `campaign_names`, (SELECT CONCAT_WS('<[S]>', `ps`.`price`, `ps`.`date_start`, `ps`.`date_end`) FROM `" . DB_PREFIX . "product_special` `ps` WHERE `ps`.`product_id` = `p`.`product_id` AND `ps`.`customer_group_id` = '" . (int)$this->config->get('config_customer_group_id') . "' AND ((`ps`.`date_start` = '0000-00-00' OR `ps`.`date_start` < NOW()) AND (`ps`.`date_end` = '0000-00-00' OR `ps`.`date_end` > NOW())) ORDER BY `ps`.`priority` ASC, `ps`.`price` ASC LIMIT 1) AS `special_price`, `pag`.`google_product_category`, `pag`.`condition`, `pag`.`adult`, `pag`.`multipack`, `pag`.`is_bundle`, `pag`.`age_group`, `pag`.`color`, `pag`.`gender`, `pag`.`size_type`, `pag`.`size_system`, `pag`.`size` FROM `" . DB_PREFIX . "product` `p` LEFT JOIN `" . DB_PREFIX . "product_to_store` `p2s` ON (`p2s`.`product_id` = `p`.`product_id` AND `p2s`.`store_id` = '" . (int)$this->store_id . "') LEFT JOIN `" . DB_PREFIX . "product_description` `pd` ON (`pd`.`product_id` = `p`.`product_id`) LEFT JOIN `" . DB_PREFIX . "googleshopping_product` `pag` ON (`pag`.`product_id` = `p`.`product_id` AND `pag`.`store_id` = `p2s`.`store_id`) WHERE `p2s`.`store_id` IS NOT NULL AND `pd`.`language_id` = '" . (int)$language_id . "' AND `pd`.`name` != '' AND `pd`.`description` != '' AND `pd`.`name` IS NOT NULL AND `pd`.`description` IS NOT NULL AND `p`.`image` != '' AND `p`.`status` = '1' AND `p`.`date_available` <= NOW() AND `p`.`price` > '0' ORDER BY `p`.`product_id` ASC LIMIT " . (int)(($page - 1) * $this->config->get('advertise_google_push_limit')) . ',' . (int)$this->config->get('advertise_google_push_limit');
-
-		return $sql;
+		return "SELECT `p`.`product_id`, `pd`.`name`, `pd`.`description`, `p`.`image`, `p`.`quantity`, `p`.`price`, `p`.`mpn`, `p`.`ean`, `p`.`jan`, `p`.`isbn`, `p`.`upc`, `p`.`model`, `p`.`tax_class_id`, IFNULL((SELECT `m`.`name` FROM `" . DB_PREFIX . "manufacturer` `m` WHERE `m`.`manufacturer_id` = `p`.`manufacturer_id`), '') AS `brand`, (SELECT GROUP_CONCAT(`agt`.`campaign_name` SEPARATOR '<[S]>') FROM `" . DB_PREFIX . "googleshopping_product_target` `pagt` LEFT JOIN `" . DB_PREFIX . "googleshopping_target` `agt` ON (`agt`.`advertise_google_target_id` = `pagt`.`advertise_google_target_id`) WHERE `pagt`.`product_id` = `p`.`product_id` AND `pagt`.`store_id` = `p2s`.`store_id` GROUP BY `pagt`.`product_id`) AS `campaign_names`, (SELECT CONCAT_WS('<[S]>', `ps`.`price`, `ps`.`date_start`, `ps`.`date_end`) FROM `" . DB_PREFIX . "product_special` `ps` WHERE `ps`.`product_id` = `p`.`product_id` AND `ps`.`customer_group_id` = '" . (int)$this->config->get('config_customer_group_id') . "' AND ((`ps`.`date_start` = '0000-00-00' OR `ps`.`date_start` < NOW()) AND (`ps`.`date_end` = '0000-00-00' OR `ps`.`date_end` > NOW())) ORDER BY `ps`.`priority` ASC, `ps`.`price` ASC LIMIT 1) AS `special_price`, `pag`.`google_product_category`, `pag`.`condition`, `pag`.`adult`, `pag`.`multipack`, `pag`.`is_bundle`, `pag`.`age_group`, `pag`.`color`, `pag`.`gender`, `pag`.`size_type`, `pag`.`size_system`, `pag`.`size` FROM `" . DB_PREFIX . "product` `p` LEFT JOIN `" . DB_PREFIX . "product_to_store` `p2s` ON (`p2s`.`product_id` = `p`.`product_id` AND `p2s`.`store_id` = '" . (int)$this->store_id . "') LEFT JOIN `" . DB_PREFIX . "product_description` `pd` ON (`pd`.`product_id` = `p`.`product_id`) LEFT JOIN `" . DB_PREFIX . "googleshopping_product` `pag` ON (`pag`.`product_id` = `p`.`product_id` AND `pag`.`store_id` = `p2s`.`store_id`) WHERE `p2s`.`store_id` IS NOT NULL AND `pd`.`language_id` = '" . (int)$language_id . "' AND `pd`.`name` != '' AND `pd`.`description` != '' AND `pd`.`name` IS NOT NULL AND `pd`.`description` IS NOT NULL AND `p`.`image` != '' AND `p`.`status` = '1' AND `p`.`date_available` <= NOW() AND `p`.`price` > '0' ORDER BY `p`.`product_id` ASC LIMIT " . (int)(($page - 1) * $this->config->get('advertise_google_push_limit')) . ',' . (int)$this->config->get('advertise_google_push_limit');
 	}
 
 	/**
@@ -1391,7 +1387,7 @@ class Googleshopping extends Library {
 	/**
 	 * isConnected
 	 *
-	 * @return object|\ConnectionException|null
+	 * @return \ConnectionException|object|null
 	 */
 	public function isConnected(): ?object {
 		$settings_exist = $this->setting->has('advertise_google_access_token') && $this->setting->has('advertise_google_refresh_token') && $this->setting->has('advertise_google_app_id') && $this->setting->has('advertise_google_app_secret');
@@ -1442,8 +1438,9 @@ class Googleshopping extends Library {
 	/**
 	 * getCampaignReports
 	 *
-	 * @return void
 	 * @throws \Exception
+	 *
+	 * @return void
 	 */
 	public function getCampaignReports(): void {
 		$targets = [];
@@ -1530,7 +1527,7 @@ class Googleshopping extends Library {
 				}
 
 				// Fill campaign values
-				if (!is_null($l)) {
+				if ($l !== null) {
 					foreach ($line_items as $k => $line_item_value) {
 						if (!array_key_exists($k, $value_keys)) {
 							continue;
@@ -1574,8 +1571,9 @@ class Googleshopping extends Library {
 	 *
 	 * @param $product_ids
 	 *
-	 * @return array
 	 * @throws \Exception
+	 *
+	 * @return array
 	 */
 	public function getProductReports($product_ids): array {
 		$cache = new \Cache($this->config->get('cache_engine'), self::CACHE_PRODUCT_REPORT);
@@ -1730,7 +1728,7 @@ class Googleshopping extends Library {
 	/**
 	 * testAccessToken
 	 *
-	 * @return object|\AccessForbiddenException\null
+	 * @return \AccessForbiddenException\null|object
 	 */
 	public function testAccessToken(): ?object {
 		$request = [

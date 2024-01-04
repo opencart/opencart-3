@@ -111,7 +111,7 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 	/**
 	 * Capture
 	 *
-	 * @param int $order_id
+	 * @param int   $order_id
 	 * @param float $amount
 	 *
 	 * @return object|null

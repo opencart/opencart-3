@@ -7,6 +7,8 @@
 class ModelExtensionTotalKlarnaFee extends Model {
 	/**
 	 * getTotal
+	 *
+	 * @param array $total
 	 */
 	public function getTotal(array $total): void {
 		extract($total);

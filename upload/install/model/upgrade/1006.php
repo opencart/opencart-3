@@ -189,10 +189,10 @@ class ModelUpgrade1006 extends Model {
 		$i = new \DirectoryIterator($src);
 
 		foreach ($i as $f) {
-			if ($f->isFile() && !file_exists("$dest/" . $f->getFilename())) {
-				@rename($f->getRealPath(), "$dest/" . $f->getFilename());
+			if ($f->isFile() && !file_exists("{$dest}/" . $f->getFilename())) {
+				@rename($f->getRealPath(), "{$dest}/" . $f->getFilename());
 			} elseif (!$f->isDot() && $f->isDir()) {
-				$this->recursive_move($f->getRealPath(), "$dest/$f");
+				$this->recursive_move($f->getRealPath(), "{$dest}/{$f}");
 
 				@unlink($f->getRealPath());
 			}

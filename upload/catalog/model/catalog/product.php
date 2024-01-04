@@ -48,7 +48,7 @@ class ModelCatalogProduct extends Model {
 				'image'            => $query->row['image'],
 				'manufacturer_id'  => $query->row['manufacturer_id'],
 				'manufacturer'     => $query->row['manufacturer'],
-				'price'            => ($query->row['discount'] ? $query->row['discount'] : $query->row['price']),
+				'price'            => ($query->row['discount'] ?: $query->row['price']),
 				'special'          => $query->row['special'],
 				'reward'           => $query->row['reward'],
 				'points'           => $query->row['points'],
@@ -674,7 +674,7 @@ class ModelCatalogProduct extends Model {
 	/**
 	 * checkProductCategories
 	 *
-	 * @param int 	$product_id
+	 * @param int   $product_id
 	 * @param array $category_ids
 	 *
 	 * @return array

@@ -4,19 +4,21 @@
  *
  * @package Admin\Controller\Extension\Advertise
  */
-use googleshopping\exception\Connection as ConnectionException;
 use googleshopping\Googleshopping;
 use googleshopping\traits\LibraryLoader;
 use googleshopping\traits\StoreLoader;
 
 class ControllerExtensionAdvertiseGoogle extends Controller {
-	use StoreLoader;
 	use LibraryLoader;
+	use StoreLoader;
 
 	private array $error;
 	private int $store_id;
+
 	/**
 	 * Constructor
+	 *
+	 * @param object $registry
 	 */
 	public function __construct(object $registry) {
 		parent::__construct($registry);
@@ -27,6 +29,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
 		$this->loadLibrary($this->store_id);
 	}
+
 	/**
 	 * @return void
 	 */
@@ -1161,10 +1164,10 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	public function callback_merchant(): void {
 		$state_verified = !empty($this->session->data['advertise_google']['state']) && !empty($this->request->get['state']) && $this->request->get['state'] == $this->session->data['advertise_google']['state'];
 
-		$merchant_id = isset($this->request->get['merchant_id']) ? $this->request->get['merchant_id'] : null;
-		$error = isset($this->request->get['error']) ? $this->request->get['error'] : null;
+		$merchant_id = $this->request->get['merchant_id'] ?? null;
+		$error = $this->request->get['error'] ?? null;
 
-		if ($state_verified && is_null($error)) {
+		if ($state_verified && $error === null) {
 			$this->load->language('extension/advertise/google');
 
 			try {
@@ -1822,6 +1825,10 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	}
 
 	/**
+	 * @param mixed $route
+	 * @param mixed $data
+	 * @param mixed $template
+	 *
 	 * @return void
 	 */
 	public function admin_link(&$route, &$data, &$template): void {
@@ -1850,16 +1857,17 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 					];
 				}
 
-				array_push($menu['children'], [
+				$menu['children'][] = [
 					'name'     => 'Google Shopping',
 					'children' => $children,
 					'href'     => ''
-				]);
+				];
 
 				return;
 			}
 		}
 	}
+
 	/**
 	 * addProduct
 	 *

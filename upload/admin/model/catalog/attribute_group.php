@@ -27,7 +27,7 @@ class ModelCatalogAttributeGroup extends Model {
 	/**
 	 * editAttributeGroup
 	 *
-	 * @param int $attribute_group_id
+	 * @param int   $attribute_group_id
 	 * @param array $data
 	 *
 	 * @return void

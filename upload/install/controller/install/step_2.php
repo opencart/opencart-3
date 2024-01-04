@@ -121,7 +121,7 @@ class ControllerInstallStep2 extends Controller {
 			$data['error_modification'] = '';
 		}
 
-		$data['php_version'] = phpversion();
+		$data['php_version'] = PHP_VERSION;
 
 		$data['register_globals'] = ini_get('register_globals');
 		$data['magic_quotes_gpc'] = ini_get('magic_quotes_gpc');
@@ -169,7 +169,7 @@ class ControllerInstallStep2 extends Controller {
 	}
 
 	private function validate() {
-		if (phpversion() < '8.3') {
+		if (PHP_VERSION < '8.3') {
 			$this->error['warning'] = $this->language->get('error_version');
 		}
 
