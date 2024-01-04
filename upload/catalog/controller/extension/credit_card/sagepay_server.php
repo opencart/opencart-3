@@ -260,7 +260,7 @@ class ControllerExtensionCreditCardSagepayServer extends Controller {
 
 		$str_my_signature = strtoupper(md5($str_message));
 
-		/** We can now compare our MD5 Hash signature with that from Sage Pay Server * */
+		// We can now compare our MD5 Hash signature with that from Sage Pay Server
 		if ($str_my_signature != $str_vps_signature) {
 			echo 'Status=INVALID' . $end_ln;
 			echo 'StatusDetail=Cannot match the MD5 Hash. Order might be tampered with.' . $end_ln;

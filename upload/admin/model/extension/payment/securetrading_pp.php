@@ -271,6 +271,8 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 	/**
 	 * Call
 	 *
+	 * @param array $data
+	 *
 	 * @return array
 	 */
 	public function call(array $data): array {

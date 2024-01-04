@@ -11,6 +11,7 @@ class ModelExtensionPaymentSquareup extends Model {
 	public const RECURRING_SUSPENDED = 4;
 	public const RECURRING_EXPIRED = 5;
 	public const RECURRING_PENDING = 6;
+
 	/**
 	 * getTransaction
 	 *
@@ -87,7 +88,7 @@ class ModelExtensionPaymentSquareup extends Model {
 	 *
 	 * @return int
 	 */
-	public function getOrderStatusId(int $order_id, string $transaction_status = null): int {
+	public function getOrderStatusId(int $order_id, ?string $transaction_status = null): int {
 		if ($transaction_status) {
 			return (int)$this->config->get('payment_squareup_status_' . strtolower($transaction_status));
 		} else {

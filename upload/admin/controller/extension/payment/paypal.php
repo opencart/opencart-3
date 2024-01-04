@@ -173,6 +173,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			$this->dashboard();
 		}
 	}
+
 	/**
 	 * @return void
 	 */
@@ -845,6 +846,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 		$this->response->setOutput($this->load->view('extension/payment/paypal/applepay_button', $data));
 	}
+
 	/**
 	 * Card
 	 *

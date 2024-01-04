@@ -8,6 +8,10 @@ class ControllerMailSubscription extends Controller {
 	/**
 	 * History
 	 *
+	 * @param string $route
+	 * @param array  $args
+	 * @param mixed  $output
+	 *
 	 * @return void
 	 *
 	 * admin/controller/sale/subscription/addHistory/after
@@ -145,6 +149,10 @@ class ControllerMailSubscription extends Controller {
 
 	/**
 	 * Transaction
+	 *
+	 * @param string $route
+	 * @param array  $args
+	 * @param mixed  $output
 	 *
 	 * @return void
 	 *

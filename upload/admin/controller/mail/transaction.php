@@ -8,6 +8,10 @@ class ControllerMailTransaction extends Controller {
 	/**
 	 * Deny
 	 *
+	 * @param string $route
+	 * @param array  $args
+	 * @param mixed  $output
+	 *
 	 * @return void
 	 *
 	 * admin/model/customer/customer/addTransaction/after

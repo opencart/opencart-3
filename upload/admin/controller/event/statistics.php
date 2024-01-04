@@ -6,7 +6,6 @@
  */
 class ControllerEventStatistics extends Controller {
 	/**
-	 *
 	 * addReview
 	 *
 	 * @param string $route

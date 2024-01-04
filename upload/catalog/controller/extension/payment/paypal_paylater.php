@@ -40,7 +40,7 @@ class ControllerExtensionPaymentPayPalPayLater extends Controller {
 				$data['button_status'] = $setting['button']['checkout']['status'];
 			}
 
-			require_once DIR_SYSTEM .'library/paypal/paypal.php';
+			require_once DIR_SYSTEM . 'library/paypal/paypal.php';
 
 			$paypal_info = [
 				'partner_id'             => $data['partner_id'],
@@ -122,7 +122,7 @@ class ControllerExtensionPaymentPayPalPayLater extends Controller {
 			$data['button_status'] = $setting['button']['checkout']['status'];
 		}
 
-		require_once DIR_SYSTEM .'library/paypal/paypal.php';
+		require_once DIR_SYSTEM . 'library/paypal/paypal.php';
 
 		$paypal_info = [
 			'partner_id'             => $data['partner_id'],

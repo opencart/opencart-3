@@ -26,10 +26,11 @@ class Apcu {
 	/**
 	 * Set
 	 *
-	 * @param string 			$key
-	 * @param int 				$expire
+	 * @param string $key
+	 * @param mixed  $value
+	 * @param int    $expire
 	 *
-	 * @return	 void
+	 * @return void
 	 */
 	public function set(string $key, $value, int $expire = 0): void {
 		if (!$expire) {

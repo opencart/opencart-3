@@ -1,5 +1,5 @@
 <?php
-$squareup_dir = dirname(__FILE__);
+$squareup_dir = __DIR__;
 
 require_once $squareup_dir . DIRECTORY_SEPARATOR . 'cron_functions.php';
 

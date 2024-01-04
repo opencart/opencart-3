@@ -57,7 +57,7 @@ class PgSQL {
 				pg_free_result($resource);
 
 				$query = new \stdClass();
-				$query->row = isset($data[0]) ? $data[0] : [];
+				$query->row = $data[0] ?? [];
 				$query->rows = $data;
 				$query->num_rows = $i;
 
@@ -116,7 +116,6 @@ class PgSQL {
 	 * Destructor
 	 *
 	 * Closes the DB connection when this object is destroyed.
-	 *
 	 */
 	public function __destruct() {
 		if ($this->connection) {

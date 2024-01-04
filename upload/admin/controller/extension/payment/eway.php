@@ -204,6 +204,7 @@ class ControllerExtensionPaymentEway extends Controller {
 	public function action() {
 		return $this->order();
 	}
+
 	/**
 	 * Order
 	 *

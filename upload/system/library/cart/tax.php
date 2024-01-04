@@ -3,7 +3,8 @@ namespace Cart;
 class Tax {
 	private object $db;
 	private object $config;
-	private array  $tax_rates = [];
+	private array $tax_rates = [];
+
 	/**
 	 * Constructor
 	 *

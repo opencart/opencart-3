@@ -8,7 +8,12 @@ class ModelSettingEvent extends Model {
 	/**
 	 * addEvent
 	 *
-	 * @param array $data
+	 * @param string $code
+	 * @param string $trigger
+	 * @param string $action
+	 * @param int    $status
+	 * @param int    $sort_order
+	 * @param array  $data
 	 *
 	 * @return int
 	 */

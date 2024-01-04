@@ -27,7 +27,7 @@ class ControllerStartupRouter extends Controller {
 			&$args
 		]);
 
-		if (!is_null($result)) {
+		if (null !== $result) {
 			return $result;
 		}
 
@@ -44,7 +44,7 @@ class ControllerStartupRouter extends Controller {
 			&$output
 		]);
 
-		if (!is_null($result)) {
+		if (null !== $result) {
 			return $result;
 		}
 

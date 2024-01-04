@@ -1,10 +1,12 @@
 <?php
 /**
  * @package        OpenCart
+ *
  * @author         Daniel Kerr
  * @copyright      Copyright (c) 2005 - 2022, OpenCart, Ltd. (https://www.opencart.com/)
  * @license        https://opensource.org/licenses/GPL-3.0
- * @link           https://www.opencart.com
+ *
+ * @see           https://www.opencart.com
  */
 
 /**
@@ -21,7 +23,7 @@ class Config {
 	 * @return mixed
 	 */
 	public function get(string $key) {
-		return isset($this->data[$key]) ? $this->data[$key] : null;
+		return $this->data[$key] ?? null;
 	}
 
 	/**
@@ -51,7 +53,7 @@ class Config {
 	 * Load
 	 *
 	 * @param string $filename
-  	 *
+	 *
 	 * @return void
 	 */
 	public function load(string $filename): void {

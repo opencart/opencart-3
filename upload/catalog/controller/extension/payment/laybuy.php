@@ -60,12 +60,12 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 				$post_data['MEMBER'] = $this->config->get('payment_laybuys_membership_id');
 				$post_data['RETURNURL'] = $this->url->link('extension/payment/laybuy/callback', '', true);
 				$post_data['CANCELURL'] = $this->url->link('extension/payment/laybuy/cancel', '', true);
-				$post_data['AMOUNT'] = round(floatval($order_info['total']), 2, PHP_ROUND_HALF_DOWN);
+				$post_data['AMOUNT'] = round((float)($order_info['total']), 2, PHP_ROUND_HALF_DOWN);
 				$post_data['CURRENCY'] = $order_info['currency_code'];
 				$post_data['INIT'] = (int)$this->request->post['INIT'];
 				$post_data['MONTHS'] = (int)$this->request->post['MONTHS'];
-				$post_data['MIND'] = ((int)$this->config->get('payment_laybuy_min_deposit')) ? (int)$this->config->get('payment_laybuy_min_deposit') : 20;
-				$post_data['MAXD'] = ((int)$this->config->get('payment_laybuy_max_deposit')) ? (int)$this->config->get('payment_laybuy_max_deposit') : 50;
+				$post_data['MIND'] = ((int)$this->config->get('payment_laybuy_min_deposit')) ?: 20;
+				$post_data['MAXD'] = ((int)$this->config->get('payment_laybuy_max_deposit')) ?: 50;
 				$post_data['CUSTOM'] = $order_info['order_id'] . ':' . md5($this->config->get('payment_laybuy_token'));
 				$post_data['EMAIL'] = $order_info['email'];
 

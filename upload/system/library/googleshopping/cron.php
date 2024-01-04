@@ -1,5 +1,5 @@
 <?php
-$current_dir = dirname(__FILE__);
+$current_dir = __DIR__;
 
 require_once $current_dir . DIRECTORY_SEPARATOR . 'cron_functions.php';
 

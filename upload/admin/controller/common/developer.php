@@ -32,6 +32,7 @@ class ControllerCommonDeveloper extends Controller {
 
 		$this->response->setOutput($this->load->view('common/developer', $data));
 	}
+
 	/**
 	 * Edit
 	 *
@@ -56,6 +57,7 @@ class ControllerCommonDeveloper extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
 	/**
 	 * Theme
 	 *
@@ -93,6 +95,7 @@ class ControllerCommonDeveloper extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
 	/**
 	 * Sass
 	 *

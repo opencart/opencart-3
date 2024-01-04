@@ -33,6 +33,7 @@ class ControllerCommonSecurity extends Controller {
 
 		return $this->load->view('common/security', $data);
 	}
+
 	/**
 	 * Move
 	 *

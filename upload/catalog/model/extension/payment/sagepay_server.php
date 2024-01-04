@@ -129,7 +129,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
 	 *
 	 * @return array
 	 */
-	public function getOrder(int $order_id, string $vpstx_id = null): array {
+	public function getOrder(int $order_id, ?string $vpstx_id = null): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "sagepay_server_order` WHERE `order_id` = '" . (int)$order_id . "' OR `VPSTxId` = '" . $this->db->escape($vpstx_id) . "' LIMIT 1");
 
 		if ($query->num_rows) {
@@ -470,8 +470,8 @@ class ModelExtensionPaymentSagePayServer extends Model {
 			$minus_even = $cycle / 2;
 
 			if ($day == 1) {
-				$odd = $odd - 1;
-				$plus_even = $plus_even - 1;
+				$odd--;
+				$plus_even--;
 				$day = 16;
 			}
 
@@ -557,11 +557,11 @@ class ModelExtensionPaymentSagePayServer extends Model {
 	 *
 	 * @param string $url
 	 * @param array  $payment_data
-	 * @param int	 $i
+	 * @param int    $i
 	 *
 	 * @return array
 	 */
-	public function sendCurl(string $url, array $payment_data, int $i = null): array {
+	public function sendCurl(string $url, array $payment_data, ?int $i = null): array {
 		$curl = curl_init($url);
 
 		curl_setopt($curl, CURLOPT_PORT, 443);

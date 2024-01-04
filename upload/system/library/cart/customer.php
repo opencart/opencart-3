@@ -5,13 +5,14 @@ class Customer {
 	private object $config;
 	private object $request;
 	private object $session;
-	private int    $customer_id = 0;
-	private int    $customer_group_id = 0;
+	private int $customer_id = 0;
+	private int $customer_group_id = 0;
 	private string $firstname = '';
 	private string $lastname = '';
 	private string $email = '';
 	private string $telephone = '';
-	private bool   $newsletter = false;
+	private bool $newsletter = false;
+
 	/**
 	 * Constructor
 	 *
@@ -47,7 +48,7 @@ class Customer {
 	 *
 	 * @param string $email
 	 * @param string $password
-	 * @param bool 	 $override
+	 * @param bool   $override
 	 *
 	 * @return bool
 	 */

@@ -50,8 +50,8 @@ class ModelDesignTheme extends Model {
 	/**
 	 * getThemes
 	 *
-	 * @param int    $start
-	 * @param int 	 $limit
+	 * @param int $start
+	 * @param int $limit
 	 *
 	 * @return array
 	 */

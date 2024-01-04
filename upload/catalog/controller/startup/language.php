@@ -64,7 +64,7 @@ class ControllerStartupLanguage extends Controller {
 				}
 			}
 
-			$code = ($detect) ? $detect : '';
+			$code = ($detect) ?: '';
 		}
 
 		// Language not available then use default

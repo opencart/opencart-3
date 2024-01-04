@@ -222,7 +222,7 @@ class ControllerExtensionOtherDbSchema extends Controller {
 									'name'          => $result['Column_name'],
 									'previous_type' => $result['COLUMN_TYPE'],
 									'type'          => $field['type'],
-									'key'			=> $result['COLUMN_KEY']
+									'key'           => $result['COLUMN_KEY']
 								];
 
 								$encoded_data = [
@@ -242,11 +242,11 @@ class ControllerExtensionOtherDbSchema extends Controller {
 								$field_type_data[json_encode($encoded_data)] = $field['type'];
 							}
 						}
-					}				
+					}
 
 					// Foreign
 					$foreign_extension_data = [];
-						
+
 					if (isset($table['foreign']) && $table['foreign']) {
 						foreach ($table['foreign'] as $foreign) {
 							$fields = $this->model_extension_other_db_schema->getTable($foreign['table']);
@@ -269,7 +269,7 @@ class ControllerExtensionOtherDbSchema extends Controller {
 													'name'          => $result['Column_name'],
 													'previous_type' => $result['COLUMN_TYPE'],
 													'type'          => $type,
-													'key'			=> $result['COLUMN_KEY']
+													'key'           => $result['COLUMN_KEY']
 												];
 											}
 											// Extensions
@@ -299,7 +299,7 @@ class ControllerExtensionOtherDbSchema extends Controller {
 
 					// Indexes
 					$index_data = [];
-					
+
 					if (isset($table['index']) && $table['index']) {
 						foreach ($table['index'] as $index) {
 							if (!empty($index['key']) && is_array($index['key'])) {
@@ -322,17 +322,17 @@ class ControllerExtensionOtherDbSchema extends Controller {
 												'name'          => $result['Column_name'],
 												'previous_type' => $result['COLUMN_TYPE'],
 												'type'          => $field['type'],
-												'key'			=> $result['COLUMN_KEY']
+												'key'           => $result['COLUMN_KEY']
 											];
-										} 
+										}
 										// Extensions
 										else {
 											$encoded_data = [
-												'table' 		=> $result['TABLE_NAME'],
-												'field' 		=> $result['Column_name'],
+												'table'         => $result['TABLE_NAME'],
+												'field'         => $result['Column_name'],
 												'previous_type' => $result['COLUMN_TYPE']
 											];
-											
+
 											$index_data[json_encode($encoded_data)] = $field['type'];
 										}
 									}
@@ -350,14 +350,14 @@ class ControllerExtensionOtherDbSchema extends Controller {
 								'name'          => $key_data['field'],
 								'previous_type' => $key_data['previous_type'],
 								'type'          => $val,
-								'key'			=> $result['COLUMN_KEY']
+								'key'           => $result['COLUMN_KEY']
 							];
 						}
 					}
-					
+
 					// Extension fields from core tables
 					$fields = $this->model_extension_other_db_schema->getTable($table['name']);
-					
+
 					foreach ($fields as $result) {
 						foreach ($field_type_data as $key => $val) {
 							if (json_validate($key)) {
@@ -370,7 +370,7 @@ class ControllerExtensionOtherDbSchema extends Controller {
 											'name'          => $result['Column_name'],
 											'previous_type' => $result['COLUMN_TYPE'],
 											'type'          => $result['COLUMN_TYPE'],
-											'key'			=> $result['COLUMN_KEY']
+											'key'           => $result['COLUMN_KEY']
 										];
 									}
 								}
@@ -380,7 +380,7 @@ class ControllerExtensionOtherDbSchema extends Controller {
 										'name'          => $result['Column_name'],
 										'previous_type' => $result['COLUMN_TYPE'],
 										'type'          => $result['COLUMN_TYPE'],
-										'key'			=> $result['COLUMN_KEY']
+										'key'           => $result['COLUMN_KEY']
 									];
 								}
 							}
@@ -402,7 +402,7 @@ class ControllerExtensionOtherDbSchema extends Controller {
 								'name'          => $result['Column_name'],
 								'previous_type' => $result['COLUMN_TYPE'],
 								'type'          => $result['COLUMN_TYPE'],
-								'key'			=> $result['COLUMN_KEY']
+								'key'           => $result['COLUMN_KEY']
 							];
 						}
 					}

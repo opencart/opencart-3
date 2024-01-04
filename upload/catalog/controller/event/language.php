@@ -12,7 +12,7 @@ class ControllerEventLanguage extends Controller {
 	 *
 	 * @return void
 	 *
-	 * Dump all the language vars into the template.
+	 * Dump all the language vars into the template
 	 */
 	public function index(string &$route, array &$args): void {
 		foreach ($this->language->all() as $key => $value) {

@@ -12,7 +12,7 @@ if (extension_loaded('mbstring')) {
 		return mb_strrpos($string, $needle, $offset);
 	}
 
-	function oc_substr(string $string, string $offset, int $length = null): string {
+	function oc_substr(string $string, string $offset, ?int $length = null): string {
 		if ($length === null) {
 			return mb_substr($string, $offset, oc_strlen($string));
 		} else {
@@ -40,7 +40,7 @@ if (extension_loaded('mbstring')) {
 		return iconv_strrpos($string, $needle, 'UTF-8');
 	}
 
-	function oc_substr(string $string, string $offset, int $length = null): string {
+	function oc_substr(string $string, string $offset, ?int $length = null): string {
 		if ($length === null) {
 			return iconv_substr($string, $offset, oc_strlen($string), 'UTF-8');
 		} else {

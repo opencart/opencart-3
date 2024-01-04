@@ -229,7 +229,7 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 							}
 
 							$balance = $new_balance - $new_payment;
-							$months -= 1;
+							$months--;
 
 							$pay_data[] = $new_payment;
 						}

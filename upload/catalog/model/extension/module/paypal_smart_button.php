@@ -55,7 +55,7 @@ class ModelExtensionModulePayPalSmartButton extends Model {
 	 *
 	 * @return void
 	 */
-	public function log(array $data, string $title = null): void {
+	public function log(array $data, ?string $title = null): void {
 		if ($this->config->get('payment_paypal_debug')) {
 			// Log
 			$log = new \Log('paypal.log');

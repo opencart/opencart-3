@@ -316,7 +316,7 @@ class ControllerToolUpload extends Controller {
 				$this->response->addheader('Expires: 0');
 				$this->response->addheader('Content-Description: File Transfer');
 				$this->response->addheader('Content-Type: application/octet-stream');
-				$this->response->addheader('Content-Disposition: attachment; filename="' . ($mask ? $mask : basename($file)) . '"');
+				$this->response->addheader('Content-Disposition: attachment; filename="' . ($mask ?: basename($file)) . '"');
 				$this->response->addheader('Content-Transfer-Encoding: binary');
 
 				$this->response->setOutput(file_get_contents($file, FILE_USE_INCLUDE_PATH, null));

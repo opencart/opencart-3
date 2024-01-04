@@ -15,9 +15,7 @@ class ModelExtensionPaymentKlarnaAccount extends Model {
 	 * Requires $total
 	 */
 	public function getMethod(array $address): array {
-		$method = [];
-
-		return $method;
+		return [];
 	}
 
 	private function getLowestPaymentAccount($country) {

@@ -18,6 +18,7 @@ class ControllerCustomerGdpr extends Controller {
 
 		$this->getList();
 	}
+
 	/**
 	 * getList
 	 *
@@ -155,7 +156,7 @@ class ControllerCustomerGdpr extends Controller {
 		$this->response->setOutput($this->load->view('customer/gdpr', $data));
 	}
 
-	/*
+	/**
 	 * Approve
 	 *
 	 *  Action Statuses
@@ -180,7 +181,7 @@ class ControllerCustomerGdpr extends Controller {
 	 *	processing = 2
 	 *	denied     = -1
 	 *
-	 *  @return void
+	 * @return void
 	 */
 	public function approve(): void {
 		$this->load->language('customer/gdpr');
@@ -225,6 +226,7 @@ class ControllerCustomerGdpr extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
 	/**
 	 * Deny
 	 *
@@ -263,6 +265,7 @@ class ControllerCustomerGdpr extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
 	/**
 	 * Delete
 	 *

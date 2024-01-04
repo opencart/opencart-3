@@ -67,6 +67,8 @@ class ControllerMarketplaceModification extends Controller {
 	/**
 	 * Refresh
 	 *
+	 * @param array $data
+	 *
 	 * @return void
 	 */
 	public function refresh(array $data = []): void {

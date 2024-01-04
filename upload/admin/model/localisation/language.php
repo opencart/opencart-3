@@ -196,8 +196,6 @@ class ModelLocalisationLanguage extends Model {
 
 		$this->cache->delete('weight_class');
 
-
-
 		return $language_id;
 	}
 

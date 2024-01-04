@@ -396,7 +396,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 				$data['securetrading_ws_order'] = $securetrading_ws_order;
 				$data['auto_settle'] = $securetrading_ws_order['settle_type'];
 				$data['order_id'] = (int)$this->request->get['order_id'];
-				
+
 				$data['user_token'] = $this->session->data['user_token'];
 
 				return $this->load->view('extension/payment/securetrading_ws_order', $data);

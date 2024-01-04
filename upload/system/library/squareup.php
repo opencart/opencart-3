@@ -41,8 +41,9 @@ class Squareup {
 	 *
 	 * @param $request_data
 	 *
-	 * @return mixed
 	 * @throws \Squareup\Exception
+	 *
+	 * @return mixed
 	 */
 	public function api($request_data): mixed {
 		$url = self::API_URL;
@@ -162,8 +163,9 @@ class Squareup {
 	 *
 	 * @param $access_token
 	 *
-	 * @return object|\Squareup\Exception|null
 	 * @throws \Squareup\Exception
+	 *
+	 * @return object|\Squareup\Exception|null
 	 */
 	public function verifyToken($access_token): ?object {
 		try {
@@ -220,8 +222,9 @@ class Squareup {
 	 * @param $access_token
 	 * @param $first_location_id
 	 *
-	 * @return array
 	 * @throws \Squareup\Exception
+	 *
+	 * @return array
 	 */
 	public function fetchLocations($access_token, &$first_location_id): array {
 		$request_data = [
@@ -253,8 +256,9 @@ class Squareup {
 	 *
 	 * @param $code
 	 *
-	 * @return mixed
 	 * @throws \Squareup\Exception
+	 *
+	 * @return mixed
 	 */
 	public function exchangeCodeForAccessToken($code): mixed {
 		$request_data = [
@@ -288,8 +292,9 @@ class Squareup {
 	/**
 	 * refreshToken
 	 *
-	 * @return mixed
 	 * @throws \Squareup\Exception
+	 *
+	 * @return mixed
 	 */
 	public function refreshToken(): mixed {
 		$request_data = [
@@ -312,8 +317,9 @@ class Squareup {
 	 * @param $square_customer_id
 	 * @param $card_data
 	 *
-	 * @return array
 	 * @throws \Squareup\Exception
+	 *
+	 * @return array
 	 */
 	public function addCard($square_customer_id, $card_data): array {
 		$request_data = [
@@ -338,8 +344,9 @@ class Squareup {
 	 * @param $square_customer_id
 	 * @param $card
 	 *
-	 * @return mixed
 	 * @throws \Squareup\Exception
+	 *
+	 * @return mixed
 	 */
 	public function deleteCard($square_customer_id, $card): mixed {
 		$request_data = [
@@ -354,8 +361,9 @@ class Squareup {
 	/**
 	 * addLoggedInCustomer
 	 *
-	 * @return array
 	 * @throws \Squareup\Exception
+	 *
+	 * @return array
 	 */
 	public function addLoggedInCustomer(): array {
 		$request_data = [
@@ -385,8 +393,9 @@ class Squareup {
 	 *
 	 * @param $data
 	 *
-	 * @return mixed
 	 * @throws \Squareup\Exception
+	 *
+	 * @return mixed
 	 */
 	public function addTransaction($data): mixed {
 		if ($this->config->get('payment_squareup_enable_sandbox')) {
@@ -413,8 +422,9 @@ class Squareup {
 	 * @param $location_id
 	 * @param $transaction_id
 	 *
-	 * @return array
 	 * @throws \Squareup\Exception
+	 *
+	 * @return array
 	 */
 	public function getTransaction($location_id, $transaction_id): array {
 		$request_data = [
@@ -434,8 +444,9 @@ class Squareup {
 	 * @param $location_id
 	 * @param $transaction_id
 	 *
-	 * @return array
 	 * @throws \Squareup\Exception
+	 *
+	 * @return array
 	 */
 	public function captureTransaction($location_id, $transaction_id): array {
 		$request_data = [
@@ -455,8 +466,9 @@ class Squareup {
 	 * @param $location_id
 	 * @param $transaction_id
 	 *
-	 * @return array
 	 * @throws \Squareup\Exception
+	 *
+	 * @return array
 	 */
 	public function voidTransaction($location_id, $transaction_id): array {
 		$request_data = [
@@ -480,8 +492,9 @@ class Squareup {
 	 * @param $currency
 	 * @param $tender_id
 	 *
-	 * @return array
 	 * @throws \Squareup\Exception
+	 *
+	 * @return array
 	 */
 	public function refundTransaction($location_id, $transaction_id, $reason, $amount, $currency, $tender_id): array {
 		$request_data = [

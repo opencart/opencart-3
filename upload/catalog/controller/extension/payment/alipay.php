@@ -37,7 +37,7 @@ class ControllerExtensionPaymentAlipay extends Controller {
 
 		$total_amount = $this->currency->format($order_info['total'], 'CNY', '', false);
 
-		$body = '';//trim($_POST['WIDbody']);
+		$body = ''; //trim($_POST['WIDbody']);
 
 		$payRequestBuilder = [
 			'body'         => $body,

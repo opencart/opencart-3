@@ -86,6 +86,8 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	/**
 	 * getOrder
 	 *
+	 * @param int $order_id
+	 *
 	 * @return array
 	 */
 	public function getOrder(int $order_id): array {
@@ -103,6 +105,8 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 	/**
 	 * Cancel
+	 *
+	 * @param array $amazon_login_pay_order
 	 *
 	 * @return array
 	 */
@@ -136,6 +140,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	/**
 	 * updateCancelStatus
 	 *
+	 * @param int   $amazon_login_pay_order_id
+	 * @param mixed $status
+	 *
 	 * @return void
 	 */
 	public function updateCancelStatus(int $amazon_login_pay_order_id, $status): void {
@@ -144,6 +151,8 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 	/**
 	 * hasOpenAuthorization
+	 *
+	 * @param array $transactions
 	 *
 	 * @return bool
 	 */
@@ -159,6 +168,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 	/**
 	 * Capture
+	 *
+	 * @param array $amazon_login_pay_order
+	 * @param float $amount
 	 *
 	 * @return array
 	 */
@@ -214,6 +226,8 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 	/**
 	 * closeOrderRef
+	 *
+	 * @param mixed $amazon_order_reference_id
 	 *
 	 * @return void
 	 */
@@ -332,6 +346,8 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	/**
 	 * getCapturesRemaining
 	 *
+	 * @param mixed $amazon_login_pay_order_id
+	 *
 	 * @return array
 	 */
 	public function getCapturesRemaining($amazon_login_pay_order_id): array {
@@ -382,7 +398,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	 *
 	 * @return void
 	 */
-	public function addTransaction(int $amazon_login_pay_order_id, string $type, string $status, float $total, string $amazon_authorization_id = null, string $amazon_capture_id = null, string $amazon_refund_id = null): void {
+	public function addTransaction(int $amazon_login_pay_order_id, string $type, string $status, float $total, ?string $amazon_authorization_id = null, ?string $amazon_capture_id = null, ?string $amazon_refund_id = null): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "amazon_login_pay_order_transaction` SET `amazon_login_pay_order_id` = '" . (int)$amazon_login_pay_order_id . "',`amazon_authorization_id` = '" . $this->db->escape($amazon_authorization_id) . "', `amazon_capture_id` = '" . $this->db->escape($amazon_capture_id) . "', `amazon_refund_id` = '" . $this->db->escape($amazon_refund_id) . "', `date_added` = NOW(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . (float)$total . "', `status` = '" . $this->db->escape($status) . "'");
 	}
 
@@ -402,7 +418,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	 * isOrderInState
 	 *
 	 * @param string $order_reference_id
-	 * @param array $states
+	 * @param array  $states
 	 *
 	 * @return bool
 	 */
@@ -487,8 +503,8 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	 * offAmazon
 	 *
 	 * @param string $Action
-	 * @param array $parameter_data
-	 * @param array $post_data
+	 * @param array  $parameter_data
+	 * @param array  $post_data
 	 *
 	 * @return array
 	 */
@@ -578,11 +594,11 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 			$response['error_code'] = (string)$details_xml->Error->Code;
 			$response['status_detail'] = (string)$details_xml->Error->Code . ': ' . (string)$details_xml->Error->Message;
 		} elseif (!empty($error_set)) {
-			$response['status'] = (string)$details_xml->$result->$details->$status->State;
-			$response['status_detail'] = (string)$details_xml->$result->$details->$status->ReasonCode;
+			$response['status'] = (string)$details_xml->{$result}->{$details}->{$status}->State;
+			$response['status_detail'] = (string)$details_xml->{$result}->{$details}->{$status}->ReasonCode;
 		} else {
-			$response['status'] = (string)$details_xml->$result->$details->$status->State;
-			$response[$amazon_id] = (string)$details_xml->$result->$details->$amazon_id;
+			$response['status'] = (string)$details_xml->{$result}->{$details}->{$status}->State;
+			$response[$amazon_id] = (string)$details_xml->{$result}->{$details}->{$amazon_id};
 		}
 
 		return $response;
@@ -591,8 +607,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	/**
 	 * sendCurl
 	 *
+	 * @param string $url
+	 * @param array  $parameters
 	 * @param string $curl
-	 * @param array $parameters
 	 *
 	 * @return array
 	 */

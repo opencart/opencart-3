@@ -41,6 +41,8 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 
 	/**
 	 * Call
+	 *
+	 * @param mixed $data
 	 */
 	public function call($data) {
 		$ch = curl_init();
@@ -79,6 +81,11 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 
 	/**
 	 * Format
+	 *
+	 * @param mixed $number
+	 * @param mixed $currency
+	 * @param mixed $value
+	 * @param mixed $format
 	 */
 	public function format($number, $currency, $value = '', $format = false) {
 		$decimal_place = $this->currency->getDecimalPlace($currency);
@@ -216,6 +223,11 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 
 	/**
 	 * updateOrder
+	 *
+	 * @param mixed $order_id
+	 * @param mixed $order_status_id
+	 * @param mixed $comment
+	 * @param mixed $notify
 	 */
 	public function updateOrder($order_id, $order_status_id, $comment = '', $notify = false): void {
 		// Orders
@@ -228,6 +240,8 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 
 	/**
 	 * Logger
+	 *
+	 * @param mixed $message
 	 */
 	public function logger($message): void {
 		// Log

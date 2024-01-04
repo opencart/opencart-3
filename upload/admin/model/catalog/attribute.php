@@ -5,14 +5,14 @@
  * @package Admin\Model\Catalog
  */
 class ModelCatalogAttribute extends Model {
-	/*
+	/**
 	 *	Add Attribute
 	 *
 	 *	Create a new attribute record in the database.
 	 *
-	 *	@param	array	$data
+	 * @param array $data
 	 *
-	 *	@return	int		returns the primary key of the new attribute record.
+	 * @return int returns the primary key of the new attribute record
 	 */
 	/**
 	 * @param array $data
@@ -31,17 +31,17 @@ class ModelCatalogAttribute extends Model {
 		return $attribute_id;
 	}
 
-	/*
+	/**
 	 *	Edit Attribute
 	 *
 	 *	Edit attribute record in the database.
 	 *
-	 *	@param	int		$attribute_id	Primary key of the attribute record to edit.
-	 *	@param	array	$data  			Array of data [
-	 * 		'attribute_group_id'
-	 * ].
+	 * @param int   $attribute_id primary key of the attribute record to edit
+	 * @param array $data         array of data [
+	 *                            'attribute_group_id'
+	 *                            ]
 	 *
-	 *	@return	void
+	 * @return void
 	 */
 	/**
 	 * @param int   $attribute_id
@@ -59,15 +59,14 @@ class ModelCatalogAttribute extends Model {
 		}
 	}
 
-	/*
+	/**
 	 *	Delete Attribute
 	 *
 	 *	Delete attribute record in the database.
 	 *
-	 *	@param	int	$attribute_id primary key of the attribute record to be deleted
+	 * @param int $attribute_id primary key of the attribute record to be deleted
 	 *
-	 *	@return	void
-	 *
+	 * @return void
 	 */
 	/**
 	 * @param int $attribute_id
@@ -79,15 +78,14 @@ class ModelCatalogAttribute extends Model {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "attribute_description` WHERE `attribute_id` = '" . (int)$attribute_id . "'");
 	}
 
-	/*
+	/**
 	 *	Get Attribute
 	 *
 	 *	Get the record of the attribute record in the database.
 	 *
-	 *	@param	int		$attribute_id primary key of the attribute record to be fetched
+	 * @param int $attribute_id primary key of the attribute record to be fetched
 	 *
-	 *	@return	array
-	 *
+	 * @return array
 	 */
 	/**
 	 * @param int $attribute_id
@@ -100,15 +98,14 @@ class ModelCatalogAttribute extends Model {
 		return $query->row;
 	}
 
-	/*
+	/**
 	 *	Get Attributes
 	 *
 	 *	Get the record of the attribute record in the database.
 	 *
-	 *	@param	array	$data array of filters
+	 * @param array $data array of filters
 	 *
-	 *	@return	array
-	 *
+	 * @return array
 	 */
 	/**
 	 * @param array $data
@@ -161,15 +158,14 @@ class ModelCatalogAttribute extends Model {
 		return $query->rows;
 	}
 
-	/*
+	/**
 	 *	Get Descriptions
 	 *
 	 *	Get the record of the attribute record in the database.
 	 *
-	 *	@param	int		$attribute_id primary key of the attribute record to be fetched.
+	 * @param int $attribute_id primary key of the attribute record to be fetched
 	 *
-	 *	@return	array	returns array of descriptions sorted by language_id
-	 *
+	 * @return array returns array of descriptions sorted by language_id
 	 */
 	/**
 	 * @param int $attribute_id
@@ -188,12 +184,12 @@ class ModelCatalogAttribute extends Model {
 		return $attribute_data;
 	}
 
-	/*
+	/**
 	 *	Get Total Attributes
 	 *
 	 *	Get the total number of attribute records in the database.
 	 *
-	 *	@return	int	Total number of attribute records.
+	 * @return int total number of attribute records
 	 */
 	/**
 	 * @return int
@@ -204,14 +200,14 @@ class ModelCatalogAttribute extends Model {
 		return (int)$query->row['total'];
 	}
 
-	/*
+	/**
 	 *	Get Total Attributes By Attribute Group ID
 	 *
 	 *	Get the total number of attribute records with group ID in the database.
 	 *
-	 *	@param	int	$attribute_group_id foreign key of the attribute record to be fetched.
+	 * @param int $attribute_group_id foreign key of the attribute record to be fetched
 	 *
-	 *	@return	int	Total number of attribute records that have attribute group ID.
+	 * @return int total number of attribute records that have attribute group ID
 	 */
 	/**
 	 * @param int $attribute_group_id

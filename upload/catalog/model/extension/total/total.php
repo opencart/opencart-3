@@ -7,6 +7,8 @@
 class ModelExtensionTotalTotal extends Model {
 	/**
 	 * getTotal
+	 *
+	 * @param array $total
 	 */
 	public function getTotal(array $total): void {
 		$this->load->language('extension/total/total');

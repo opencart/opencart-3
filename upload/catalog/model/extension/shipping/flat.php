@@ -7,6 +7,8 @@
 class ModelExtensionShippingFlat extends Model {
 	/**
 	 * getQuote
+	 *
+	 * @param array $address
 	 */
 	public function getQuote(array $address): array {
 		$this->load->language('extension/shipping/flat');
