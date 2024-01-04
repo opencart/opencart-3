@@ -370,6 +370,9 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 		// PayPal Smart Button
 		$this->load->model('extension/module/paypal_smart_button');
 
+		// Countries
+		$this->load->model('localisation/country');
+
 		if (isset($this->request->post['order_id'])) {
 			$this->session->data['paypal_order_id'] = (int)$this->request->post['order_id'];
 		} else {
@@ -500,7 +503,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 				$this->session->data['payment_address']['custom_field'] = [];
 
 				if (isset($order_info['payer']['address']['country_code'])) {
-					$country_info = $this->model_extension_module_paypal_smart_button->getCountryByCode($order_info['payer']['address']['country_code']);
+					$country_info = $this->model_localisation_country->getCountryByIsoCode2($order_info['payer']['address']['country_code']);
 
 					if ($country_info) {
 						$this->session->data['payment_address']['country'] = $country_info['name'];
@@ -535,7 +538,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 					$this->session->data['shipping_address']['custom_field'] = [];
 
 					if (isset($order_info['purchase_units'][0]['shipping']['address']['country_code'])) {
-						$country_info = $this->model_extension_module_paypal_smart_button->getCountryByCode($order_info['purchase_units'][0]['shipping']['address']['country_code']);
+						$country_info = $this->model_localisation_country->getCountryByIsoCode2($order_info['purchase_units'][0]['shipping']['address']['country_code']);
 
 						if ($country_info) {
 							$this->session->data['shipping_address']['country_id'] = $country_info['country_id'];

@@ -62,19 +62,6 @@ class ModelExtensionPaymentPayPal extends Model {
 	}
 
 	/**
-	 * getCountryByCode
-	 *
-	 * @param string $code
-	 *
-	 * @return array
-	 */
-	public function getCountryByCode(string $code): array {
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "country` WHERE `iso_code_2` = '" . $this->db->escape($code) . "' AND `status` = '1'");
-
-		return $query->row;
-	}
-
-	/**
 	 * getZoneByCode
 	 *
 	 * @param int    $country_id
