@@ -345,7 +345,7 @@ class PayPal {
 		return $this->last_response;
 	}
 	
-	private function execute($method, $command, $params = [];, $json = false) {
+	private function execute($method, $command, $params = [], $json = false) {
 		$this->errors = [];
 
 		if ($method && $command) {
