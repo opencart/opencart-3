@@ -3348,7 +3348,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		if (function_exists('oc_strlen')) {
 			return oc_strlen($string);
 		} else {
-			return $this->isStrlen($string);
+			return utf8_strlen($string);
 		}
 	}
 
