@@ -38,7 +38,7 @@ class ControllerExtensionSubscriptionPayPal extends Controller {
 		$this->response->setOutput($this->index());
 	}
 	
-	public function enableRecurring(): string {
+	public function enableRecurring(): void {
 		if ($this->config->get('payment_paypal_status') && !empty($this->request->post['order_subscription_id'])) {
 			$this->load->language('extension/subscription/paypal');
 			
@@ -61,7 +61,7 @@ class ControllerExtensionSubscriptionPayPal extends Controller {
 		$this->response->setOutput(json_encode($data));
 	}
 	
-	public function disableRecurring(): string {
+	public function disableRecurring(): void {
 		if ($this->config->get('payment_paypal_status') && !empty($this->request->post['order_subscription_id'])) {
 			$this->load->language('extension/subscription/paypal');
 			
