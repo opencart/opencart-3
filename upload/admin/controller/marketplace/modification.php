@@ -123,7 +123,7 @@ class ControllerMarketplaceModification extends Controller {
 					// If file just delete
 					if (is_file($file)) {
 						unlink($file);
-					// If directory use the remove directory function
+						// If directory use the remove directory function
 					} elseif (is_dir($file)) {
 						rmdir($file);
 					}
@@ -391,12 +391,12 @@ class ControllerMarketplaceModification extends Controller {
 												// Log
 												$log[] = 'NOT FOUND - ABORTING!';
 												break 5;
-											// Skip current operation or break
+												// Skip current operation or break
 											} elseif ($error == 'skip') {
 												// Log
 												$log[] = 'NOT FOUND - OPERATION SKIPPED!';
 												continue;
-											// Break current operations
+												// Break current operations
 											} else {
 												// Log
 												$log[] = 'NOT FOUND - OPERATIONS ABORTED!';
@@ -511,7 +511,7 @@ class ControllerMarketplaceModification extends Controller {
 					// If file just delete
 					if (is_file($file)) {
 						unlink($file);
-					// If directory use the remove directory function
+						// If directory use the remove directory function
 					} elseif (is_dir($file)) {
 						rmdir($file);
 					}

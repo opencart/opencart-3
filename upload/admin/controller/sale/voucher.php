@@ -665,7 +665,7 @@ class ControllerSaleVoucher extends Controller {
 								$mail->setHtml($this->load->view('mail/voucher', $data));
 								$mail->send();
 							}
-						// If voucher does not belong to an order
+							// If voucher does not belong to an order
 						} else {
 							$this->language->load('mail/voucher');
 
