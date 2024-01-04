@@ -53,6 +53,7 @@ return $config
         'function_to_constant' => true,
         'general_phpdoc_annotation_remove' => true,
         'general_phpdoc_tag_rename' => true,
+        'get_class_to_class_keyword' => false,
         'heredoc_indentation' => true,
         'heredoc_to_nowdoc' => true,
         'implode_call' => true,
