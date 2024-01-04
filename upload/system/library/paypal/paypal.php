@@ -1,9 +1,10 @@
 <?php
 class PayPal {
-	private $server = array(
+	private $server = [
 		'sandbox' => 'https://api.sandbox.paypal.com',
 		'production' => 'https://api.paypal.com'
-	);
+	];
+
 	private $environment = 'sandbox';
 	private $partner_id = '';
 	private $client_id = '';
@@ -76,9 +77,9 @@ class PayPal {
 	public function getUserInfo() {
 		$command = '/v1/identity/oauth2/userinfo';
 		
-		$params = array(
+		$params = [
 			'schema' => 'paypalv1.1'
-		);
+		];
 										
 		$result = $this->execute('GET', $command, $params);
 		
@@ -349,17 +350,17 @@ class PayPal {
 		$this->errors = [];
 
 		if ($method && $command) {
-			$curl_options = array(
+			$curl_options = [
 				CURLOPT_URL => $this->server[$this->environment] . $command,
 				CURLOPT_HEADER => true,
 				CURLOPT_RETURNTRANSFER => true,
 				CURLOPT_INFILESIZE => Null,
-				CURLOPT_HTTPHEADER => array(),
+				CURLOPT_HTTPHEADER => [],
 				CURLOPT_CONNECTTIMEOUT => 10,
 				CURLOPT_TIMEOUT => 10,
 				CURLOPT_SSL_VERIFYHOST => 0,
 				CURLOPT_SSL_VERIFYPEER => 0
-			);
+			];
 			
 			$curl_options[CURLOPT_HTTPHEADER][] = 'Accept-Charset: utf-8';
 			$curl_options[CURLOPT_HTTPHEADER][] = 'Accept: application/json';
@@ -410,7 +411,7 @@ class PayPal {
 							$curl_options[CURLOPT_INFILE] = $buffer;
 							$curl_options[CURLOPT_INFILESIZE] = strlen($params_string);
 						} else {
-							$this->errors[] = array('name' => 'FAILED_OPEN_TEMP_FILE', 'message' => 'Unable to open a temporary file');
+							$this->errors[] = ['name' => 'FAILED_OPEN_TEMP_FILE', 'message' => 'Unable to open a temporary file'];
 						}
 					}
 					
@@ -433,7 +434,7 @@ class PayPal {
 				$constant = get_defined_constants(true);
 				$curl_constant = preg_grep('/^CURLE_/', array_flip($constant['curl']));
 				
-				$this->errors[] = array('name' => $curl_constant[$curl_code], 'message' => curl_strerror($curl_code));
+				$this->errors[] = ['name' => $curl_constant[$curl_code], 'message' => curl_strerror($curl_code)];
 			}
 				
 			$head = '';
@@ -443,9 +444,9 @@ class PayPal {
 			
 			if (isset($parts[0]) && isset($parts[1])) {
 				if (($parts[0] == 'HTTP/1.1 100 Continue') && isset($parts[2])) {
-					list($head, $body) = array($parts[1], $parts[2]);
+					[$head, $body] = [$parts[1], $parts[2]];
 				} else {
-					list($head, $body) = array($parts[0], $parts[1]);
+					[$head, $body] = [$parts[0], $parts[1]];
 				}
             }
 			
@@ -454,7 +455,7 @@ class PayPal {
             array_shift($header_lines);
 			
             foreach ($header_lines as $line) {
-                list($key, $value) = explode(':', $line, 2);
+                [$key, $value] = explode(':', $line, 2);
                 $response_headers[$key] = $value;
             }
 			
