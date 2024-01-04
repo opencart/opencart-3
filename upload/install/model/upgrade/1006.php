@@ -21,7 +21,7 @@ class ModelUpgrade1006 extends Model {
 				$lines = file($file);
 
 				foreach ($lines as $line) {
-					if (strpos(strtoupper($line), 'DB_PORT') !== false) {
+					if (str_contains(strtoupper($line), 'DB_PORT')) {
 						$upgrade = false;
 						break;
 					}
@@ -31,7 +31,7 @@ class ModelUpgrade1006 extends Model {
 					$output = '';
 
 					foreach ($lines as $line_id => $line) {
-						if (strpos($line, 'DB_PREFIX') !== false) {
+						if (str_contains($line, 'DB_PREFIX')) {
 							$output .= 'define(\'DB_PORT\', \'' . ini_get('mysqli.default_port') . '\');' . "\n";
 							$output .= $line;
 						} else {

@@ -409,7 +409,7 @@ class ModelUpgrade1009 extends Model {
 		$lines = file(DIR_OPENCART . 'admin/config.php');
 
 		foreach ($lines as $line) {
-			if (strpos(strtoupper($line), 'OPENCART_SERVER') !== false) {
+			if (str_contains(strtoupper($line), 'OPENCART_SERVER')) {
 				$upgrade = false;
 				break;
 			}
@@ -419,7 +419,7 @@ class ModelUpgrade1009 extends Model {
 			$output = '';
 
 			foreach ($lines as $line_id => $line) {
-				if (strpos($line, 'DB_PREFIX') !== false) {
+				if (str_contains($line, 'DB_PREFIX')) {
 					$output .= $line . "\n\n";
 					$output .= 'define(\'OPENCART_SERVER\', \'http://www.opencart.com/\');' . "\n";
 				} else {
@@ -439,35 +439,35 @@ class ModelUpgrade1009 extends Model {
 			$lines = file($file);
 
 			for ($i = 0; $i < count($lines); $i++) {
-				if ((strpos($lines[$i], 'DIR_IMAGE') !== false) && (strpos($lines[$i + 1], 'DIR_STORAGE') === false)) {
+				if ((str_contains($lines[$i], 'DIR_IMAGE')) && (!str_contains($lines[$i + 1], 'DIR_STORAGE'))) {
 					array_splice($lines, $i + 1, 0, ['define(\'DIR_STORAGE\', DIR_SYSTEM . \'storage/\');']);
 				}
 
-				if ((strpos($lines[$i], 'DIR_MODIFICATION') !== false) && (strpos($lines[$i + 1], 'DIR_SESSION') === false)) {
+				if ((str_contains($lines[$i], 'DIR_MODIFICATION')) && (!str_contains($lines[$i + 1], 'DIR_SESSION'))) {
 					array_splice($lines, $i + 1, 0, ['define(\'DIR_SESSION\', DIR_STORAGE . \'session/\');']);
 				}
 
-				if (strpos($lines[$i], 'DIR_CACHE') !== false) {
+				if (str_contains($lines[$i], 'DIR_CACHE')) {
 					$lines[$i] = 'define(\'DIR_CACHE\', DIR_STORAGE . \'cache/\');' . "\n";
 				}
 
-				if (strpos($lines[$i], 'DIR_DOWNLOAD') !== false) {
+				if (str_contains($lines[$i], 'DIR_DOWNLOAD')) {
 					$lines[$i] = 'define(\'DIR_DOWNLOAD\', DIR_STORAGE . \'download/\');' . "\n";
 				}
 
-				if (strpos($lines[$i], 'DIR_LOGS') !== false) {
+				if (str_contains($lines[$i], 'DIR_LOGS')) {
 					$lines[$i] = 'define(\'DIR_LOGS\', DIR_STORAGE . \'logs/\');' . "\n";
 				}
 
-				if (strpos($lines[$i], 'DIR_MODIFICATION') !== false) {
+				if (str_contains($lines[$i], 'DIR_MODIFICATION')) {
 					$lines[$i] = 'define(\'DIR_MODIFICATION\', DIR_STORAGE . \'modification/\');' . "\n";
 				}
 
-				if (strpos($lines[$i], 'DIR_SESSION') !== false) {
+				if (str_contains($lines[$i], 'DIR_SESSION')) {
 					$lines[$i] = 'define(\'DIR_SESSION\', DIR_STORAGE . \'session/\');' . "\n";
 				}
 
-				if (strpos($lines[$i], 'DIR_UPLOAD') !== false) {
+				if (str_contains($lines[$i], 'DIR_UPLOAD')) {
 					$lines[$i] = 'define(\'DIR_UPLOAD\', DIR_STORAGE . \'upload/\');' . "\n";
 				}
 			}

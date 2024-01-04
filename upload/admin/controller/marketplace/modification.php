@@ -238,7 +238,7 @@ class ControllerMarketplaceModification extends Controller {
 
 										if ($ignoreif) {
 											if ($ignoreif->getAttribute('regex') != 'true') {
-												if (strpos($modification[$key], $ignoreif->textContent) !== false) {
+												if (str_contains($modification[$key], $ignoreif->textContent)) {
 													continue;
 												}
 											} else {
@@ -430,7 +430,7 @@ class ControllerMarketplaceModification extends Controller {
 						$path = $path . '/' . $directory;
 
 						if (!is_dir(DIR_MODIFICATION . $path)) {
-							@mkdir(DIR_MODIFICATION . $path, 0777);
+							@mkdir(DIR_MODIFICATION . $path, 0o777);
 						}
 					}
 

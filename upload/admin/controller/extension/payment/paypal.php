@@ -1577,7 +1577,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 			$file_headers = @get_headers($file);
 
-			if (strpos($file_headers[0], '404') !== false) {
+			if (str_contains($file_headers[0], '404')) {
 				$file = 'https://www.paypalobjects.com/.well-known/apple-developer-merchantid-domain-association.txt';
 			}
 		} else {
@@ -1609,7 +1609,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 			$file_headers = @get_headers($file);
 
-			if (strpos($file_headers[0], '404') !== false) {
+			if (str_contains($file_headers[0], '404')) {
 				$file = 'https://www.paypalobjects.com/.well-known/apple-developer-merchantid-domain-association.txt';
 			}
 		} else {
@@ -1622,7 +1622,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			$dir = str_replace('admin/', '.well-known/', DIR_APPLICATION);
 
 			if (!file_exists($dir)) {
-				mkdir($dir, 0777, true);
+				mkdir($dir, 0o777, true);
 			}
 
 			if (file_exists($dir)) {

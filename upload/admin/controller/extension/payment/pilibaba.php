@@ -378,7 +378,7 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 			$this->error['pilibaba_secret_key'] = $this->language->get('error_secret_key');
 		}
 
-		if ($this->request->post['payment_pilibaba_shipping_fee'] != '' && strpos($this->request->post['payment_pilibaba_shipping_fee'], '.') === false) {
+		if ($this->request->post['payment_pilibaba_shipping_fee'] != '' && !str_contains($this->request->post['payment_pilibaba_shipping_fee'], '.')) {
 			$this->error['pilibaba_shipping_fee'] = $this->language->get('error_shipping_fee');
 		}
 

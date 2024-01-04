@@ -82,7 +82,7 @@ class ModelToolBackup extends Model {
 
 		foreach ($tables as $table) {
 			if (DB_PREFIX) {
-				if (strpos($table, DB_PREFIX) === false) {
+				if (!str_contains($table, DB_PREFIX)) {
 					$status = false;
 				} else {
 					$status = true;

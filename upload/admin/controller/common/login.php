@@ -20,7 +20,7 @@ class ControllerCommonLogin extends Controller {
 		}
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-			if (isset($this->request->post['redirect']) && (strpos($this->request->post['redirect'], HTTP_SERVER) === 0 || strpos($this->request->post['redirect'], HTTPS_SERVER) === 0)) {
+			if (isset($this->request->post['redirect']) && (str_starts_with($this->request->post['redirect'], HTTP_SERVER) || str_starts_with($this->request->post['redirect'], HTTPS_SERVER))) {
 				$this->response->redirect($this->request->post['redirect'] . '&user_token=' . $this->session->data['user_token']);
 			} else {
 				$this->response->redirect($this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true));
