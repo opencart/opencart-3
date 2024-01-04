@@ -1,9 +1,9 @@
 <div id="paypal-recurring" class="paypal-recurring">
-	{% if recurring_status == '2' or recurring_status == '3' %}
-	<button type="button" class="btn btn-primary button-enable-recurring">{{ button_enable_recurring }}</button>
-	{% else %}
-	<button type="button" class="btn btn-primary button-disable-recurring">{{ button_disable_recurring }}</button>
-	{% endif %}
+  {% if recurring_status == '2' or recurring_status == '3' %}
+    <button type="button" class="btn btn-primary button-enable-recurring">{{ button_enable_recurring }}</button>
+  {% else %}
+    <button type="button" class="btn btn-primary button-disable-recurring">{{ button_disable_recurring }}</button>
+  {% endif %}
 </div>
 <br />
 <script type="text/javascript">

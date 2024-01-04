@@ -33,10 +33,10 @@ class ControllerExtensionPaymentPayPalApplePay extends Controller {
 			require_once DIR_SYSTEM .'library/paypal/paypal.php';
 		
 			$paypal_info = [
-				'partner_id' => $data['partner_id'],
-				'client_id' => $data['client_id'],
-				'secret' => $data['secret'],
-				'environment' => $data['environment'],
+				'partner_id'             => $data['partner_id'],
+				'client_id'              => $data['client_id'],
+				'secret'                 => $data['secret'],
+				'environment'            => $data['environment'],
 				'partner_attribution_id' => $data['partner_attribution_id']
 			];
 		
@@ -109,10 +109,10 @@ class ControllerExtensionPaymentPayPalApplePay extends Controller {
 		require_once DIR_SYSTEM .'library/paypal/paypal.php';
 		
 		$paypal_info = [
-			'partner_id' => $data['partner_id'],
-			'client_id' => $data['client_id'],
-			'secret' => $data['secret'],
-			'environment' => $data['environment'],
+			'partner_id'             => $data['partner_id'],
+			'client_id'              => $data['client_id'],
+			'secret'                 => $data['secret'],
+			'environment'            => $data['environment'],
 			'partner_attribution_id' => $data['partner_attribution_id']
 		];
 		

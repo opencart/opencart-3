@@ -129,7 +129,7 @@ class ModelExtensionPaymentPayPal extends Model {
 		$setting = array_replace_recursive((array)$config_setting, (array)$this->config->get('payment_paypal_setting'));
 
 		if ($setting['general']['debug']) {
-			$log = new Log('paypal.log');
+			$log = new \Log('paypal.log');
 			$log->write('PayPal debug (' . $title . '): ' . json_encode($message));
 		}
 	}
