@@ -733,7 +733,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
 			$name = '';
 
-			if ($category !== null = $this->model_extension_advertise_google->getMappedCategory($google_product_category_id, $this->store_id)) {
+			if (null !== $category = $this->model_extension_advertise_google->getMappedCategory($google_product_category_id, $this->store_id)) {
 				$category_id = $category['category_id'];
 				$name = $category['name'];
 			}
