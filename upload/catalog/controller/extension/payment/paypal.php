@@ -2096,7 +2096,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 				foreach ($this->session->data['vouchers'] as $voucher) {
 					$order_data['vouchers'][] = [
 						'description'      => $voucher['description'],
-						'code'             => $this->validateToken(10),
+						'code'             => oc_token(10),
 						'to_name'          => $voucher['to_name'],
 						'to_email'         => $voucher['to_email'],
 						'from_name'        => $voucher['from_name'],
