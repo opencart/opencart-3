@@ -1,6 +1,5 @@
 <?php
-class ModelExtensionPaymentPayPal extends Model {
-		
+class ModelExtensionPaymentPayPal extends Model {		
 	public function getTotalSales(): int {
 		$implode = [];
 
@@ -151,27 +150,27 @@ class ModelExtensionPaymentPayPal extends Model {
 		$implode = [];
 		
 		if (!empty($data['transaction_id'])) {
-			$implode[] .= "`transaction_id` = '" . $this->db->escape($data['transaction_id']) . "'";
+			$implode[] = "`transaction_id` = '" . $this->db->escape($data['transaction_id']) . "'";
 		}
-					
+
 		if (!empty($data['transaction_status'])) {
-			$implode[] .= "`transaction_status` = '" . $this->db->escape($data['transaction_status']) . "'";
+			$implode[] = "`transaction_status` = '" . $this->db->escape($data['transaction_status']) . "'";
 		}
 		
 		if (!empty($data['payment_method'])) {
-			$implode[] .= "`payment_method` = '" . $this->db->escape($data['payment_method']) . "'";
+			$implode[] = "`payment_method` = '" . $this->db->escape($data['payment_method']) . "'";
 		}
 		
 		if (!empty($data['vault_id'])) {
-			$implode[] .= "`vault_id` = '" . $this->db->escape($data['vault_id']) . "'";
+			$implode[] = "`vault_id` = '" . $this->db->escape($data['vault_id']) . "'";
 		}
 		
 		if (!empty($data['vault_customer_id'])) {
-			$implode[] .= "`vault_customer_id` = '" . $this->db->escape($data['vault_customer_id']) . "'";
+			$implode[] = "`vault_customer_id` = '" . $this->db->escape($data['vault_customer_id']) . "'";
 		}
 		
 		if (!empty($data['environment'])) {
-			$implode[] .= "`environment` = '" . $this->db->escape($data['environment']) . "'";
+			$implode[] = "`environment` = '" . $this->db->escape($data['environment']) . "'";
 		}
 				
 		if ($implode) {
@@ -249,7 +248,7 @@ class ModelExtensionPaymentPayPal extends Model {
 		}
 	}
 		
-	public function sendContact(array $data): array {
+	public function sendContact(array $data): void {
 		$curl = curl_init();
 
 		curl_setopt($curl, CURLOPT_URL, 'https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8');
