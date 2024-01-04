@@ -1574,7 +1574,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 				$option_data[] = [
 					'name'  => $option['name'],
-					'value' => (isStrlen($value) > 20 ? isSubstr($value, 0, 20) . '..' : $value)
+					'value' => ($this->isStrlen($value) > 20 ? $this->isSubstr($value, 0, 20) . '..' : $value)
 				];
 			}
 
@@ -3135,27 +3135,27 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	}
 	
 	private function validatePaymentAddress() {
-		if ((isStrlen(trim($this->request->post['firstname'])) < 1) || (isStrlen(trim($this->request->post['firstname'])) > 32)) {
+		if (($this->isStrlen(trim($this->request->post['firstname'])) < 1) || ($this->isStrlen(trim($this->request->post['firstname'])) > 32)) {
 			$this->error['firstname'] = $this->language->get('error_firstname');
 		}
 
-		if ((isStrlen(trim($this->request->post['lastname'])) < 1) || (isStrlen(trim($this->request->post['lastname'])) > 32)) {
+		if (($this->isStrlen(trim($this->request->post['lastname'])) < 1) || ($this->isStrlen(trim($this->request->post['lastname'])) > 32)) {
 			$this->error['lastname'] = $this->language->get('error_lastname');
 		}
 
-		if ((isStrlen($this->request->post['email']) > 96) || !filter_var($this->request->post['email'], FILTER_VALIDATE_EMAIL)) {
+		if (($this->isStrlen($this->request->post['email']) > 96) || !filter_var($this->request->post['email'], FILTER_VALIDATE_EMAIL)) {
 			$this->error['email'] = $this->language->get('error_email');
 		}
 
-		if ((isStrlen($this->request->post['telephone']) < 3) || (isStrlen($this->request->post['telephone']) > 32)) {
+		if (($this->isStrlen($this->request->post['telephone']) < 3) || ($this->isStrlen($this->request->post['telephone']) > 32)) {
 			$this->error['telephone'] = $this->language->get('error_telephone');
 		}
 
-		if ((isStrlen(trim($this->request->post['address_1'])) < 3) || (isStrlen(trim($this->request->post['address_1'])) > 128)) {
+		if (($this->isStrlen(trim($this->request->post['address_1'])) < 3) || ($this->isStrlen(trim($this->request->post['address_1'])) > 128)) {
 			$this->error['address_1'] = $this->language->get('error_address_1');
 		}
 
-		if ((isStrlen(trim($this->request->post['city'])) < 2) || (isStrlen(trim($this->request->post['city'])) > 128)) {
+		if (($this->isStrlen(trim($this->request->post['city'])) < 2) || ($this->isStrlen(trim($this->request->post['city'])) > 128)) {
 			$this->error['city'] = $this->language->get('error_city');
 		}
 
@@ -3163,7 +3163,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 		$country_info = $this->model_localisation_country->getCountry($this->request->post['country_id']);
 
-		if ($country_info && $country_info['postcode_required'] && (isStrlen(trim($this->request->post['postcode'])) < 2 || isStrlen(trim($this->request->post['postcode'])) > 10)) {
+		if ($country_info && $country_info['postcode_required'] && ($this->isStrlen(trim($this->request->post['postcode'])) < 2 || $this->isStrlen(trim($this->request->post['postcode'])) > 10)) {
 			$this->error['postcode'] = $this->language->get('error_postcode');
 		}
 
@@ -3199,19 +3199,19 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	}
 	
 	private function validateShippingAddress() {
-		if ((isStrlen(trim($this->request->post['firstname'])) < 1) || (isStrlen(trim($this->request->post['firstname'])) > 32)) {
+		if (($this->isStrlen(trim($this->request->post['firstname'])) < 1) || ($this->isStrlen(trim($this->request->post['firstname'])) > 32)) {
 			$this->error['firstname'] = $this->language->get('error_firstname');
 		}
 
-		if ((isStrlen(trim($this->request->post['lastname'])) < 1) || (isStrlen(trim($this->request->post['lastname'])) > 32)) {
+		if (($this->isStrlen(trim($this->request->post['lastname'])) < 1) || ($this->isStrlen(trim($this->request->post['lastname'])) > 32)) {
 			$this->error['lastname'] = $this->language->get('error_lastname');
 		}
 
-		if ((isStrlen(trim($this->request->post['address_1'])) < 3) || (isStrlen(trim($this->request->post['address_1'])) > 128)) {
+		if (($this->isStrlen(trim($this->request->post['address_1'])) < 3) || ($this->isStrlen(trim($this->request->post['address_1'])) > 128)) {
 			$this->error['address_1'] = $this->language->get('error_address_1');
 		}
 
-		if ((isStrlen(trim($this->request->post['city'])) < 2) || (isStrlen(trim($this->request->post['city'])) > 128)) {
+		if (($this->isStrlen(trim($this->request->post['city'])) < 2) || ($this->isStrlen(trim($this->request->post['city'])) > 128)) {
 			$this->error['city'] = $this->language->get('error_city');
 		}
 
@@ -3219,7 +3219,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 		$country_info = $this->model_localisation_country->getCountry($this->request->post['country_id']);
 
-		if ($country_info && $country_info['postcode_required'] && (isStrlen(trim($this->request->post['postcode'])) < 2 || isStrlen(trim($this->request->post['postcode'])) > 10)) {
+		if ($country_info && $country_info['postcode_required'] && ($this->isStrlen(trim($this->request->post['postcode'])) < 2 || $this->isStrlen(trim($this->request->post['postcode'])) > 10)) {
 			$this->error['postcode'] = $this->language->get('error_postcode');
 		}
 
@@ -3348,7 +3348,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		if (function_exists('oc_strlen')) {
 			return oc_strlen($string);
 		} else {
-			return isStrlen($string);
+			return $this->isStrlen($string);
 		}
 	}
 
