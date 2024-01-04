@@ -383,5 +383,5 @@ switch ($subcommand) {
 		break;
 	case "usage":
 	default:
-		echo usage();
+		usage();
 }
