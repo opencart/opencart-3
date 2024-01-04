@@ -354,7 +354,7 @@ class PayPal {
 				CURLOPT_URL            => $this->server[$this->environment] . $command,
 				CURLOPT_HEADER         => true,
 				CURLOPT_RETURNTRANSFER => true,
-				CURLOPT_INFILESIZE     => Null,
+				CURLOPT_INFILESIZE     => null,
 				CURLOPT_HTTPHEADER     => [],
 				CURLOPT_CONNECTTIMEOUT => 10,
 				CURLOPT_TIMEOUT        => 10,
