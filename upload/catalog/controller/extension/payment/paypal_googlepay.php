@@ -1,7 +1,18 @@
 <?php
+/**
+ * Class PayPal GooglePay
+ *
+ * @package Catalog\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentPayPalGooglePay extends Controller {
-	private $error = [];
+	/**
+	 * @var array
+	 */
+	private array $error = [];
 
+	/**
+	 * @return string
+	 */
 	public function index(): string {
 		$this->load->model('extension/payment/paypal');
 
@@ -10,7 +21,7 @@ class ControllerExtensionPaymentPayPalGooglePay extends Controller {
 		if ($this->config->get('payment_paypal_status') && $this->config->get('payment_paypal_client_id') && $this->config->get('payment_paypal_secret') && $agree_status) {
 			$this->load->language('extension/payment/paypal');
 
-			$_config = new \Config();
+			$_config = new Config();
 			$_config->load('paypal');
 
 			$config_setting = $_config->get('paypal_setting');
@@ -40,7 +51,7 @@ class ControllerExtensionPaymentPayPalGooglePay extends Controller {
 				'partner_attribution_id' => $data['partner_attribution_id']
 			];
 
-			$paypal = new \PayPal($paypal_info);
+			$paypal = new PayPal($paypal_info);
 
 			$token_info = [
 				'grant_type' => 'client_credentials'
@@ -84,10 +95,15 @@ class ControllerExtensionPaymentPayPalGooglePay extends Controller {
 		return '';
 	}
 
+	/**
+	 * Modal
+	 * 
+	 * @return void
+	 */
 	public function modal(): void {
 		$this->load->language('extension/payment/paypal');
 
-		$_config = new \Config();
+		$_config = new Config();
 		$_config->load('paypal');
 
 		$config_setting = $_config->get('paypal_setting');

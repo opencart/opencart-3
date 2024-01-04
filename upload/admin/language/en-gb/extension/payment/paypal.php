@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']       					= '<span style="color:#1e91cf; font-weight:bold">PayPal Checkout Integration (Highly Recommended)</span>';
+$_['heading_title']       					= '<span style="color:#1e91cf; font-weight:bold">PayPal Checkout Integration (Highly Recommended)</span>'; 
 $_['heading_title_main']  					= 'PayPal Checkout Integration';
 
 // Text
@@ -14,7 +14,8 @@ $_['text_version']							= 'New PayPal Checkout Integration version available. Y
 $_['text_tab_dashboard']					= 'Back to the dashboard';
 $_['text_tab_general']				 		= 'General';
 $_['text_tab_button']						= 'Buttons';
-$_['text_tab_applepay_button']				= 'ApplePay';
+$_['text_tab_googlepay_button']				= 'Google Pay';
+$_['text_tab_applepay_button']				= 'Apple Pay';
 $_['text_tab_card']							= 'Advanced Cards';
 $_['text_tab_message']						= 'Pay Later messaging';
 $_['text_tab_order_status']					= 'Order Statuses';
@@ -26,7 +27,8 @@ $_['text_panel_sale_analytics']				= 'Sales Analytics';
 $_['text_statistic_title']					= 'The platform that grows with you';
 $_['text_statistic_description']			= 'The platform has 416 million customers';
 $_['text_button_settings']					= 'Button settings';
-$_['text_applepay_button_settings']			= 'ApplePay Button settings';
+$_['text_googlepay_button_settings']		= 'Google Pay Button settings';
+$_['text_applepay_button_settings']			= 'Apple Pay Button settings';
 $_['text_card_settings']					= 'Card settings';
 $_['text_message_settings']					= 'Message settings';
 $_['text_day']         						= 'Today';
@@ -35,10 +37,10 @@ $_['text_month']       						= 'Month';
 $_['text_year']        						= 'Year';
 $_['text_on']								= 'On';
 $_['text_off']								= 'Off';
-$_['text_home']								= 'Home';
-$_['text_product']							= 'Product';
-$_['text_cart']								= 'Cart';
 $_['text_checkout']							= 'Checkout';
+$_['text_cart']								= 'Cart';
+$_['text_product']							= 'Product';
+$_['text_home']								= 'Home';
 $_['text_production']			 	 		= 'Production';
 $_['text_sandbox']			 				= 'Sandbox';
 $_['text_multi_button']			 			= 'Multi Button';
@@ -51,7 +53,7 @@ $_['text_applepay_step_1']					= '<strong>Download and host live domain associat
 $_['text_applepay_step_2']					= '<strong>Register your live domain</strong><br />1. Go to the Payment Methods page on your PayPal account.<br />2. Register all high-level domains such as business.example.com, and subdomains such as checkout.business.example.com, that show the Apple Pay button.';
 $_['text_message_alert_uk']					= '<strong>Turn browsers into buyers with Pay in 3.¹</strong> Help increase sales while giving your customers flexible payments and more buying power. With Pay in 3, customers can pay over time in three interest-free payments while you get paid in full, up front on purchases — at no additional cost.';
 $_['text_message_footnote_uk']				= '¹Pay in 3 availability is subject to merchant status, sector and integration. Consumer eligibility is subject to status and approval. See <a href="https://www.paypal.com/uk/webapps/mpp/paypal-payin3/terms" target="_blank">product terms</a> for more details.';
-$_['text_message_alert_us']					= "<strong>Help increase your sales with our built-in Pay Later options.</strong>\u{a0}With PayPal Pay Later, your business can offer Pay in 4 and Pay Monthly¹ — two valuable ways for your customers to make a purchase and pay for it over time while you get paid in full, up front. Both are included at no additional cost to your business.";
+$_['text_message_alert_us']					= '<strong>Help increase your sales with our built-in Pay Later options.</strong> With PayPal Pay Later, your business can offer Pay in 4 and Pay Monthly¹ — two valuable ways for your customers to make a purchase and pay for it over time while you get paid in full, up front. Both are included at no additional cost to your business.';
 $_['text_message_footnote_us']				= '¹About Pay in 4: Loans to California residents are made or arranged pursuant to a California Financing Law License. PayPal, Inc. is a Georgia Installment Lender Licensee, NMLS #910457. Rhode Island Small Loan Lender Licensee.<br />Pay Monthly is subject to consumer credit approval. 9.99-29.99% APR based on the customer’s creditworthiness. PayPal, Inc.: RI Loan Broker Licensee. The lender for Pay Monthly is WebBank.';
 $_['text_currency_aud']						= 'Australian Dollar';
 $_['text_currency_brl']						= 'Brazilian Real';
@@ -188,6 +190,14 @@ $_['text_step_coupon']						= 'Use Coupon Code';
 $_['text_step_shipping']					= 'Estimate Shipping & Taxes';
 $_['text_step_payment_method']				= 'Step 5: Payment Method';
 $_['text_step_confirm_order']				= 'Step 6: Confirm Order';
+$_['text_transaction_id']   				= 'Transaction ID';
+$_['text_transaction_created']				= 'Payment authorization was created.';
+$_['text_transaction_voided']				= 'Payment authorization was voided.';
+$_['text_transaction_completed']			= 'Payment capture was completed.';
+$_['text_transaction_declined']				= 'Payment capture was declined.';
+$_['text_transaction_pending']				= 'The state of a payment capture was changed to pending.';
+$_['text_transaction_refunded']				= 'A merchant refunded the payment capture.';
+$_['text_transaction_reversed']				= 'PayPal reversed the payment capture.';
 
 // Entry
 $_['entry_connect']	 						= 'Connect';
@@ -205,6 +215,7 @@ $_['entry_currency_code']	 				= 'Currency';
 $_['entry_currency_value']	 				= 'Currency Value';
 $_['entry_card_currency_code']	 			= 'Card Currency';
 $_['entry_card_currency_value']	 			= 'Card Currency Value';
+$_['entry_cron_url']	  					= 'Cron URL';
 $_['entry_button_insert_tag']     			= 'Button Insert Tag';
 $_['entry_button_insert_type']     			= 'Button Insert Type';
 $_['entry_button_align']     				= 'Button Align';
@@ -213,6 +224,11 @@ $_['entry_button_color'] 					= 'Button Color';
 $_['entry_button_shape'] 					= 'Button Shape';
 $_['entry_button_label'] 					= 'Button Label';
 $_['entry_button_tagline'] 					= 'Button Tagline';
+$_['entry_googlepay_button_align']     		= 'Button Align';
+$_['entry_googlepay_button_size'] 			= 'Button Size';
+$_['entry_googlepay_button_color'] 			= 'Button Color';
+$_['entry_googlepay_button_shape'] 			= 'Button Shape';
+$_['entry_googlepay_button_type'] 			= 'Button Type';
 $_['entry_applepay_button_align']     		= 'Button Align';
 $_['entry_applepay_button_size'] 			= 'Button Size';
 $_['entry_applepay_button_color'] 			= 'Button Color';
@@ -251,35 +267,50 @@ $_['entry_contact_send'] 					= 'Submit Form';
 // Help
 $_['help_status']		 					= 'Enable/Disable extension.';
 $_['help_button_status']					= 'When activated PayPal will display personalized Smart Buttons avalible to your customers based on their location.';
+$_['help_googlepay_button_status']			= 'PayPal verifies if you are eligible for Google Pay payment and will display this option on the checkout step if available.';
 $_['help_applepay_button_status']			= 'PayPal verifies if you are eligible for Apple Pay payment and will display this option on the checkout step if available.';
 $_['help_card_status']						= 'PayPal verifies if you are eligible for advanced card payment and will display this option on the checkout step if available.';
 $_['help_message_status']					= 'Add pay later messaging to your site.';
-$_['help_checkout_mode']		 			= 'If your checkout is incompatible with this payment, then we advise you to set the "One Button" mode.';
+$_['help_checkout_mode']		 			= 'If your checkout is incompatible with this payment, then we advise you to set the \'One Button\' mode.';
 $_['help_total']		 					= 'The checkout total the order must reach before this payment method becomes active.';
 $_['help_country_code']		 				= 'Select the default country for PayPal.';
 $_['help_currency_code']		 			= 'Select the default currency for PayPal.';
 $_['help_currency_value']		 			= 'Set to 1.00000 if this is your default currency.';
 $_['help_card_currency_code']		 		= 'Select the default currency for PayPal Card.';
 $_['help_card_currency_value']		 		= 'Set to 1.00000 if this is your default currency.';
+$_['help_cron_url']		  					= 'Set a cron to call this URL.';
 $_['help_card_secure_status'] 				= '3D Secure enables you to authenticate card holders through card issuers. It reduces the likelihood of fraud when you use supported cards and improves transaction perfomance. A successful 3D Secure authentication can shift liability for chargebacks due to fraud from you -the merchant- to the card issuer.';
 $_['help_card_secure_scenario'] 			= '3D Secure authentication is perfomed only if the card is enrolled for the service. In scenarios where the 3D Secure authentication has not been successful, you have the option to complete the payment at your own risk, meaning that you -the merchant- will be liable in case of a chargeback.';
 
-// Buttons
+// Button
 $_['button_connect'] 						= 'Connect';
 $_['button_disconnect'] 					= 'Disconnect';
 $_['button_all_settings']					= 'All Settings';
+$_['button_copy_url']						= 'Copy URL to clipboard';
 $_['button_download']						= 'Download';
 $_['button_download_host']					= 'Download and host';
 $_['button_send']							= 'Submit';
 $_['button_cart']							= 'Add to cart';
 $_['button_checkout']						= 'Checkout';
 $_['button_pay']							= 'Pay with Card';
+$_['button_capture_payment']				= 'Capture';
+$_['button_reauthorize_payment']			= 'Reauthorize';
+$_['button_void_payment']					= 'Void';
+$_['button_refund_payment']					= 'Refund';
+$_['button_enable_recurring']				= 'Enable Recurring';
+$_['button_disable_recurring']				= 'Disable Recurring';
 
 // Success
 $_['success_save']		 					= 'Success: You have modified PayPal!';
 $_['success_send']		 					= 'Success: Your contact details have been successfully sent to paypal!';
 $_['success_download_host']					= 'Success: Association file has been successfully uploaded and hosted!';
 $_['success_agree']		 					= 'Success: Deactivation was successful!';
+$_['success_capture_payment']				= 'Success: Payment capture was completed.';
+$_['success_reauthorize_payment']			= 'Success: Payment authorization was reauthorized.';
+$_['success_void_payment']					= 'Success: Payment authorization was voided.';
+$_['success_refund_payment']				= 'Success: Payment capture was refunded.';
+$_['success_enable_recurring']				= 'Success: Recurring payment was enabled.';
+$_['success_disable_recurring']				= 'Success: Recurring payment was disabled.';
 
 // Error
 $_['error_permission']	 					= 'Warning: You do not have permission to modify payment PayPal!';

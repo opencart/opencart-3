@@ -1,12 +1,13 @@
 <?php
 class ModelExtensionPaymentPayPalGooglePay extends Model {
+	
 	public function getMethod($address, $total) {
-		$method_data = [];
-
+		$method_data = array();
+		
 		$this->load->model('extension/payment/paypal');
-
+		
 		$agree_status = $this->model_extension_payment_paypal->getAgreeStatus();
-
+		
 		if ($this->config->get('payment_paypal_status') && $this->config->get('payment_paypal_client_id') && $this->config->get('payment_paypal_secret') && $agree_status) {
 			$this->load->language('extension/payment/paypal');
 
@@ -23,12 +24,12 @@ class ModelExtensionPaymentPayPalGooglePay extends Model {
 			}
 
 			if ($status) {
-				$method_data = [
+				$method_data = array(
 					'code'       => 'paypal_googlepay',
 					'title'      => $this->language->get('text_paypal_googlepay_title'),
 					'terms'      => '',
 					'sort_order' => $this->config->get('payment_paypal_sort_order')
-				];
+				);
 			}
 		}
 
