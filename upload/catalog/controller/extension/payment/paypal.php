@@ -2978,8 +2978,10 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	
 	/**
 	 * Header Before
+	 * 
+	 * @return void
 	 */
-	public function header_before($route, &$data) {
+	public function header_before($route, &$data): void {
 		$this->load->model('extension/payment/paypal');
 		
 		$agree_status = $this->model_extension_payment_paypal->getAgreeStatus();
@@ -3099,8 +3101,10 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	
 	/**
 	 * Order Delete Order Before
+	 * 
+	 * @return void
 	 */
-	public function order_delete_order_before(&$route, &$data) {
+	public function order_delete_order_before(&$route, &$data): void {
 		$this->load->model('extension/payment/paypal');
 
 		$order_id = $data[0];
