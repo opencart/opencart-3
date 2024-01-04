@@ -58,7 +58,7 @@ class Event {
 			if (preg_match('/^' . str_replace(['\*', '\?'], ['.*', '.'], preg_quote($value['trigger'], '/')) . '/', $event)) {
 				$result = $value['action']->execute($this->registry, $args);
 
-				if (null !== $result && !($result instanceof Exception)) {
+				if ($result !== null && !($result instanceof Exception)) {
 					return $result;
 				}
 			}

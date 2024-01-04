@@ -44,7 +44,7 @@ class ControllerExtensionModuleFeatured extends Controller {
 						$price = false;
 					}
 
-					if (null !== $product_info['special'] && (float)$product_info['special'] >= 0) {
+					if ($product_info['special'] !== null && (float)$product_info['special'] >= 0) {
 						$special = $this->currency->format($this->tax->calculate($product_info['special'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
 						$tax_price = (float)$product_info['special'];
 					} else {

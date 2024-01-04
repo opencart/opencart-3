@@ -733,7 +733,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
 			$name = '';
 
-			if (null !== $category = $this->model_extension_advertise_google->getMappedCategory($google_product_category_id, $this->store_id)) {
+			if ($category !== null = $this->model_extension_advertise_google->getMappedCategory($google_product_category_id, $this->store_id)) {
 				$category_id = $category['category_id'];
 				$name = $category['name'];
 			}
@@ -1167,7 +1167,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 		$merchant_id = $this->request->get['merchant_id'] ?? null;
 		$error = $this->request->get['error'] ?? null;
 
-		if ($state_verified && null === $error) {
+		if ($state_verified && $error === null) {
 			$this->load->language('extension/advertise/google');
 
 			try {

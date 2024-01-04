@@ -1527,7 +1527,7 @@ class Googleshopping extends Library {
 				}
 
 				// Fill campaign values
-				if (null !== $l) {
+				if ($l !== null) {
 					foreach ($line_items as $k => $line_item_value) {
 						if (!array_key_exists($k, $value_keys)) {
 							continue;
