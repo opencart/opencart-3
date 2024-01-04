@@ -1,8 +1,8 @@
 <?php
 class ControllerExtensionPaymentPayPalGooglePay extends Controller {
-	private $error = array();
+	private $error = [];
 			
-	public function index() {
+	public function index(): string{
 		$this->load->model('extension/payment/paypal');
 		
 		$agree_status = $this->model_extension_payment_paypal->getAgreeStatus();
@@ -10,7 +10,7 @@ class ControllerExtensionPaymentPayPalGooglePay extends Controller {
 		if ($this->config->get('payment_paypal_status') && $this->config->get('payment_paypal_client_id') && $this->config->get('payment_paypal_secret') && $agree_status) {
 			$this->load->language('extension/payment/paypal');
 							
-			$_config = new Config();
+			$_config = new \Config();
 			$_config->load('paypal');
 			
 			$config_setting = $_config->get('paypal_setting');
@@ -32,26 +32,26 @@ class ControllerExtensionPaymentPayPalGooglePay extends Controller {
 											
 			require_once DIR_SYSTEM .'library/paypal/paypal.php';
 		
-			$paypal_info = array(
+			$paypal_info = [
 				'partner_id' => $data['partner_id'],
 				'client_id' => $data['client_id'],
 				'secret' => $data['secret'],
 				'environment' => $data['environment'],
 				'partner_attribution_id' => $data['partner_attribution_id']
-			);
+			];
 		
-			$paypal = new PayPal($paypal_info);
+			$paypal = new \PayPal($paypal_info);
 		
-			$token_info = array(
+			$token_info = [
 				'grant_type' => 'client_credentials'
-			);	
+			];	
 				
 			$paypal->setAccessToken($token_info);
 		
 			$data['client_token'] = $paypal->getClientToken();
 						
 			if ($paypal->hasErrors()) {
-				$error_messages = array();
+				$error_messages = [];
 				
 				$errors = $paypal->getErrors();
 								
@@ -84,10 +84,10 @@ class ControllerExtensionPaymentPayPalGooglePay extends Controller {
 		return '';
 	}
 	
-	public function modal() {
+	public function modal(): void {
 		$this->load->language('extension/payment/paypal');
 							
-		$_config = new Config();
+		$_config = new \Config();
 		$_config->load('paypal');
 			
 		$config_setting = $_config->get('paypal_setting');
@@ -108,26 +108,26 @@ class ControllerExtensionPaymentPayPalGooglePay extends Controller {
 				
 		require_once DIR_SYSTEM .'library/paypal/paypal.php';
 		
-		$paypal_info = array(
+		$paypal_info = [
 			'partner_id' => $data['partner_id'],
 			'client_id' => $data['client_id'],
 			'secret' => $data['secret'],
 			'environment' => $data['environment'],
 			'partner_attribution_id' => $data['partner_attribution_id']
-		);
+		];
 		
 		$paypal = new PayPal($paypal_info);
 		
-		$token_info = array(
+		$token_info = [
 			'grant_type' => 'client_credentials'
-		);	
+		];	
 				
 		$paypal->setAccessToken($token_info);
 		
 		$data['client_token'] = $paypal->getClientToken();
 						
 		if ($paypal->hasErrors()) {
-			$error_messages = array();
+			$error_messages = [];
 				
 			$errors = $paypal->getErrors();
 								
