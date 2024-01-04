@@ -3,13 +3,13 @@
  * Class Wechat Pay
  *
  * @package Admin\Controller\Extension\Payment
- *
-/**
  * @package        OpenCart
+ *
  * @author         Meng Wenbin
  * @copyright      Copyright (c) 2010 - 2022, Chengdu Guangda Network Technology Co. Ltd. (https://www.opencart.cn/)
  * @license        https://opensource.org/licenses/GPL-3.0
- * @link           https://www.opencart.cn
+ *
+ * @see           https://www.opencart.cn
  */
 class ControllerExtensionPaymentWechatPay extends Controller {
 	private array $error = [];

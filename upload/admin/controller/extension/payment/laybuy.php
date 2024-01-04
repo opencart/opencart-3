@@ -257,7 +257,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 
 		$data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();
 
-		/* Reports tab */
+		// Reports tab
 		if (isset($this->request->get['filter_order_id'])) {
 			$filter_order_id = $this->request->get['filter_order_id'];
 		} else {
@@ -466,7 +466,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 		$data['order'] = $order;
 
 		$data['transaction_statuses'] = $this->model_extension_payment_laybuy->getTransactionStatuses();
-		/* End of Reports Tab */
+		// End of Reports Tab
 
 		$data['user_token'] = $this->session->data['user_token'];
 
@@ -691,6 +691,8 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 
 	/**
 	 * Transaction
+	 *
+	 * @param bool $order_page
 	 */
 	public function transaction(bool $order_page = false) {
 		$this->load->language('extension/payment/laybuy');
@@ -819,7 +821,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 
 		$this->response->setOutput($this->load->view('extension/payment/laybuy_transaction', $data));
 	}
-	
+
 	/**
 	 * Cancel
 	 *

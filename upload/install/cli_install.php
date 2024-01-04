@@ -25,8 +25,8 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 // DIR
-define('DIR_APPLICATION', str_replace('\\', '/', realpath(dirname(__FILE__))) . '/');
-define('DIR_SYSTEM', str_replace('\\', '/', realpath(dirname(__FILE__) . '/../')) . '/system/');
+define('DIR_APPLICATION', str_replace('\\', '/', realpath(__DIR__)) . '/');
+define('DIR_SYSTEM', str_replace('\\', '/', realpath(__DIR__ . '/../')) . '/system/');
 define('DIR_OPENCART', str_replace('\\', '/', realpath(DIR_APPLICATION . '../')) . '/');
 define('DIR_STORAGE', DIR_SYSTEM . 'storage/');
 define('DIR_DATABASE', DIR_SYSTEM . 'database/');
@@ -56,7 +56,7 @@ function handleError($errno, $errstr, $errfile, $errline) {
 
 set_error_handler('handleError');
 
-function usage() {
+function usage(): void {
 	echo "Usage:\n";
 	echo "======\n";
 	echo "\n";
@@ -101,7 +101,7 @@ function get_options($argv) {
 
 	$total = count($argv);
 
-	for ($i = 0; $i < $total; $i = $i + 2) {
+	for ($i = 0; $i < $total; $i += 2) {
 		$is_flag = preg_match('/^--(.*)$/', $argv[$i], $match);
 
 		if (!$is_flag) {
@@ -137,7 +137,7 @@ function valid($options) {
 	}
 
 	if (!preg_match('#/$#', $options['http_server'])) {
-		$options['http_server'] = $options['http_server'] . '/';
+		$options['http_server'] .= '/';
 	}
 
 	$valid = count($missing) === 0;
@@ -148,7 +148,7 @@ function valid($options) {
 	];
 }
 
-function install($options) {
+function install($options): void {
 	$check = check_requirements();
 
 	if ($check[0]) {
@@ -164,7 +164,7 @@ function install($options) {
 function check_requirements() {
 	$error = null;
 
-	if (phpversion() < '8.3') {
+	if (PHP_VERSION < '8.3') {
 		$error = 'Warning: You need to use PHP8.3+ or above for OpenCart to work!';
 	}
 
@@ -199,7 +199,7 @@ function check_requirements() {
 	return [$error === null, $error];
 }
 
-function setup_db($data) {
+function setup_db($data): void {
 	$db = new \DB($data['db_driver'], htmlspecialchars_decode($data['db_hostname']), htmlspecialchars_decode($data['db_username']), htmlspecialchars_decode($data['db_password']), htmlspecialchars_decode($data['db_database']), $data['db_port']);
 
 	$file = DIR_APPLICATION . 'opencart.sql';
@@ -259,7 +259,7 @@ function setup_db($data) {
 	}
 }
 
-function write_config_files($options) {
+function write_config_files($options): void {
 	$output = '<?php' . "\n";
 	$output .= '// HTTP' . "\n";
 	$output .= 'define(\'HTTP_SERVER\', \'' . $options['http_server'] . '\');' . "\n";
@@ -339,7 +339,7 @@ function write_config_files($options) {
 	fclose($file);
 }
 
-function dir_permissions() {
+function dir_permissions(): void {
 	$dirs = [
 		DIR_OPENCART . 'image/',
 		DIR_OPENCART . 'system/storage/download/',

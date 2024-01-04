@@ -30,10 +30,11 @@ class Twig {
 	 * @param string $filename
 	 * @param        $code
 	 *
-	 * @return string
 	 * @throws \Twig\Error\LoaderError
 	 * @throws \Twig\Error\RuntimeError
 	 * @throws \Twig\Error\SyntaxError
+	 *
+	 * @return string
 	 */
 	public function render(string $filename, $code = ''): string {
 		if (!$code) {

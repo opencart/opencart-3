@@ -2,15 +2,17 @@
 namespace googleshopping;
 
 /**
-* Log class
-*/
+ * Log class
+ */
 class Log {
 	private $handle;
+
 	/**
 	 * Constructor
 	 *
 	 * @param string $filename
-	*/
+	 * @param mixed  $max_size
+	 */
 	public function __construct($filename, $max_size = 8388608) {
 		$file = DIR_LOGS . $filename;
 

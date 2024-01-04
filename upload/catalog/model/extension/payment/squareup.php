@@ -87,8 +87,9 @@ class ModelExtensionPaymentSquareup extends Model {
 	/**
 	 * tokenExpiredEmail
 	 *
-	 * @return void
 	 * @throws \Exception
+	 *
+	 * @return void
 	 */
 	public function tokenExpiredEmail(): void {
 		if (!$this->mailResendPeriodExpired('token_expired')) {
@@ -121,8 +122,9 @@ class ModelExtensionPaymentSquareup extends Model {
 	/**
 	 * tokenRevokedEmail
 	 *
-	 * @return void
 	 * @throws \Exception
+	 *
+	 * @return void
 	 */
 	public function tokenRevokedEmail(): void {
 		if (!$this->mailResendPeriodExpired('token_revoked')) {
@@ -258,11 +260,7 @@ class ModelExtensionPaymentSquareup extends Model {
 			return true;
 		}
 
-		if (defined('SQUAREUP_ROUTE')) {
-			return true;
-		}
-
-		return false;
+		return (bool)(defined('SQUAREUP_ROUTE'));
 	}
 
 	/**

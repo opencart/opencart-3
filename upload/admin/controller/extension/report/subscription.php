@@ -76,6 +76,7 @@ class ControllerExtensionReportSubscription extends Controller {
 
 		return !$this->error;
 	}
+
 	/**
 	 * Report
 	 *

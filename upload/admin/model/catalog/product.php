@@ -741,6 +741,7 @@ class ModelCatalogProduct extends Model {
 
 	/**
 	 * getSeoUrls
+	 *
 	 * @param int $product_id
 	 *
 	 * @return array
@@ -935,6 +936,7 @@ class ModelCatalogProduct extends Model {
 
 		return (int)$query->row['total'];
 	}
+
 	/**
 	 * getTotalProductsBySubscriptionPlanId
 	 *
@@ -947,6 +949,7 @@ class ModelCatalogProduct extends Model {
 
 		return (int)$query->row['total'];
 	}
+
 	/**
 	 * getTotalProductsByOptionId
 	 *
@@ -959,6 +962,7 @@ class ModelCatalogProduct extends Model {
 
 		return (int)$query->row['total'];
 	}
+
 	/**
 	 * getTotalProductsByLayoutId
 	 *

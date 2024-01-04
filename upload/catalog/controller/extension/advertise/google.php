@@ -4,12 +4,12 @@
  *
  * @package Catalog\Controller\Extension\Advertise
  */
-use googleshopping\traits\StoreLoader;
 use googleshopping\traits\LibraryLoader;
+use googleshopping\traits\StoreLoader;
 
 class ControllerExtensionAdvertiseGoogle extends Controller {
-	use StoreLoader;
 	use LibraryLoader;
+	use StoreLoader;
 
 	private int $store_id = 0;
 
@@ -435,11 +435,11 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	 * @param string $date_added
 	 * @param string $date_modified
 	 *
-	 * @return null|object
+	 * @return object|null
 	 *
 	 * catalog/view/checkout/cart/after
 	 */
-	public function cron(int $cron_id = null, string $code = null, int $cycle = null, string $date_added = null, string $date_modified = null): ?object {
+	public function cron(?int $cron_id = null, ?string $code = null, ?int $cycle = null, ?string $date_added = null, ?string $date_modified = null): ?object {
 		$this->loadLibrary($this->store_id);
 
 		if (!$this->validateCRON()) {
@@ -485,10 +485,6 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 			return true;
 		}
 
-		if (defined('ADVERTISE_GOOGLE_ROUTE')) {
-			return true;
-		}
-
-		return false;
+		return (bool)(defined('ADVERTISE_GOOGLE_ROUTE'));
 	}
 }

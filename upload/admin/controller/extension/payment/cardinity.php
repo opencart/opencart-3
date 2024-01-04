@@ -228,6 +228,7 @@ class ControllerExtensionPaymentCardinity extends Controller {
 
 		$this->response->setOutput($this->load->view('extension/payment/cardinity_order_ajax', $data));
 	}
+
 	/**
 	 * Refund
 	 *
@@ -270,7 +271,7 @@ class ControllerExtensionPaymentCardinity extends Controller {
 
 		$check_credentials = true;
 
-		if (version_compare(phpversion(), '8.3', '<')) {
+		if (version_compare(PHP_VERSION, '8.3', '<')) {
 			$this->error['warning'] = $this->language->get('error_php_version');
 		}
 

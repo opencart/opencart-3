@@ -224,6 +224,7 @@ class ControllerExtensionPaymentFirstdata extends Controller {
 
 		$this->model_extension_payment_firstdata->uninstall();
 	}
+
 	/**
 	 * Order
 	 *

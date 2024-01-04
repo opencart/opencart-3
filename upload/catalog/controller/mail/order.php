@@ -64,8 +64,9 @@ class ControllerMailOrder extends Controller {
 	 * @param string $comment
 	 * @param bool   $notify
 	 *
-	 * @return void
 	 * @throws \Exception
+	 *
+	 * @return void
 	 */
 	public function add(array $order_info, int $order_status_id, string $comment, bool $notify): void {
 		// Check for any downloadable products
@@ -176,7 +177,7 @@ class ControllerMailOrder extends Controller {
 			'country'   => $order_info['payment_country']
 		];
 
-		$data['payment_address'] = str_replace(["\r\n", "\r", "\n" ], '<br/>', preg_replace([ "/\s\s+/", "/\r\r+/", "/\n\n+/"], '<br/>', trim(str_replace($find, $replace, $format))));
+		$data['payment_address'] = str_replace(["\r\n", "\r", "\n"], '<br/>', preg_replace(["/\\s\\s+/", "/\r\r+/", "/\n\n+/"], '<br/>', trim(str_replace($find, $replace, $format))));
 
 		// Shipping Address
 		if ($order_info['shipping_address_format']) {
@@ -211,7 +212,7 @@ class ControllerMailOrder extends Controller {
 			'country'   => $order_info['shipping_country']
 		];
 
-		$data['shipping_address'] = str_replace(["\r\n", "\r", "\n"], '<br/>', preg_replace(["/\s\s+/", "/\r\r+/", "/\n\n+/"], '<br/>', trim(str_replace($find, $replace, $format))));
+		$data['shipping_address'] = str_replace(["\r\n", "\r", "\n"], '<br/>', preg_replace(["/\\s\\s+/", "/\r\r+/", "/\n\n+/"], '<br/>', trim(str_replace($find, $replace, $format))));
 
 		// Upload
 		$this->load->model('tool/upload');
@@ -313,8 +314,9 @@ class ControllerMailOrder extends Controller {
 	 * @param int    $order_status_id
 	 * @param string $comment
 	 *
-	 * @return void
 	 * @throws \Exception
+	 *
+	 * @return void
 	 */
 	public function edit(array $order_info, int $order_status_id, string $comment): void {
 		$language = new \Language($order_info['language_code']);
@@ -382,10 +384,11 @@ class ControllerMailOrder extends Controller {
 	 * @param string $route
 	 * @param array  $args
 	 *
-	 * @return void
 	 * @throws \Exception
 	 *
 	 * Event called catalog/model/checkout/order/addHistory/before
+	 *
+	 * @return void
 	 */
 	public function alert(string &$route, array &$args): void {
 		if (isset($args[0])) {

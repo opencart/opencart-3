@@ -7,7 +7,8 @@ class Cart {
 	private object $session;
 	private object $tax;
 	private object $weight;
-	private array  $data = [];
+	private array $data = [];
+
 	/**
 	 * Constructor
 	 *

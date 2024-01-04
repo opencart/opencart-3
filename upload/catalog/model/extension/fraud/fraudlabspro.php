@@ -72,7 +72,7 @@ class ModelExtensionFraudFraudLabsPro extends Model {
 		$request['currency'] = $data['currency_code'];
 		$request['payment_mode'] = $data['payment_code'];
 		$request['user_order_id'] = $data['order_id'];
-		$request['flp_checksum'] = isset($_COOKIE['flp_checksum']) ? $_COOKIE['flp_checksum'] : '';
+		$request['flp_checksum'] = $_COOKIE['flp_checksum'] ?? '';
 		$request['format'] = 'json';
 		$request['source'] = 'opencart';
 		$request['source_version'] = '2.1.0.2';
@@ -92,7 +92,7 @@ class ModelExtensionFraudFraudLabsPro extends Model {
 
 		$risk_score = 0;
 
-		if (is_null($json = json_decode($response)) === false) {
+		if ((null === ($json = json_decode($response))) === false) {
 			$this->db->query("REPLACE INTO `" . DB_PREFIX . "fraudlabspro` SET `order_id` = '" . (int)$data['order_id'] . "',
 				`is_country_match` = '" . $this->db->escape($json->is_country_match) . "',
 				`is_high_risk_country` = '" . $this->db->escape($json->is_high_risk_country) . "',

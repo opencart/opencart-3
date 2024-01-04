@@ -87,6 +87,9 @@ class ModelExtensionPaymentAlipay extends Model {
 
 	/**
 	 * pagePay
+	 *
+	 * @param mixed $builder
+	 * @param mixed $config
 	 */
 	public function pagePay($builder, $config) {
 		$this->setParams($config);
@@ -112,17 +115,21 @@ class ModelExtensionPaymentAlipay extends Model {
 
 	/**
 	 * check
+	 *
+	 * @param mixed $arr
+	 * @param mixed $config
 	 */
 	public function check($arr, $config) {
 		$this->setParams($config);
 
-		$result = $this->rsaCheckV1($arr, $this->signtype);
-
-		return $result;
+		return $this->rsaCheckV1($arr, $this->signtype);
 	}
 
 	/**
 	 * pageExecute
+	 *
+	 * @param mixed $request
+	 * @param mixed $httpmethod
 	 */
 	public function pageExecute($request, $httpmethod = 'POST') {
 		$iv = $this->api_version;
@@ -149,9 +156,8 @@ class ModelExtensionPaymentAlipay extends Model {
 
 		if (strtoupper($httpmethod) == 'GET') {
 			$pre_string = $this->getSignContentUrlencode($total_params);
-			$request_url = $this->gateway_url . '?' . $pre_string;
 
-			return $request_url;
+			return $this->gateway_url . '?' . $pre_string;
 		} else {
 			foreach ($total_params as $key => $value) {
 				if (false === $this->checkEmpty($value)) {
@@ -174,15 +180,15 @@ class ModelExtensionPaymentAlipay extends Model {
 		if ($value === null) {
 			return true;
 		}
-		if (trim($value) === '') {
-			return true;
-		}
 
-		return false;
+		return (bool)(trim($value) === '');
 	}
 
 	/**
 	 * rsaCheckV1
+	 *
+	 * @param mixed $params
+	 * @param mixed $signType
 	 */
 	public function rsaCheckV1($params, $signType = 'RSA') {
 		$sign = $params['sign'];
@@ -195,13 +201,17 @@ class ModelExtensionPaymentAlipay extends Model {
 
 	/**
 	 * Verify
+	 *
+	 * @param mixed $data
+	 * @param mixed $sign
+	 * @param mixed $signType
 	 */
 	private function verify($data, $sign, $signType = 'RSA') {
 		$pub_key = $this->alipay_public_key;
 
 		$res = "-----BEGIN PUBLIC KEY-----\n" . wordwrap($pub_key, 64, "\n", true) . "\n-----END PUBLIC KEY-----";
 
-		(trim($pub_key)) or die('Alipay public key error!');
+		(trim($pub_key)) || exit('Alipay public key error!');
 
 		if ($signType == 'RSA2') {
 			$result = (bool)openssl_verify($data, base64_decode($sign), $res, OPENSSL_ALGO_SHA256);
@@ -222,9 +232,9 @@ class ModelExtensionPaymentAlipay extends Model {
 		foreach ($params as $k => $v) {
 			if (false === $this->checkEmpty($v) && "@" != substr($v, 0, 1)) {
 				if ($i == 0) {
-					$string_to_be_signed .= "$k" . "=" . "$v";
+					$string_to_be_signed .= "{$k}" . "=" . "{$v}";
 				} else {
-					$string_to_be_signed .= "&" . "$k" . "=" . "$v";
+					$string_to_be_signed .= "&" . "{$k}" . "=" . "{$v}";
 				}
 
 				$i++;
@@ -255,9 +265,7 @@ class ModelExtensionPaymentAlipay extends Model {
 			openssl_sign($data, $sign, $res);
 		}
 
-		$sign = base64_encode($sign);
-
-		return $sign;
+		return base64_encode($sign);
 	}
 
 	/**

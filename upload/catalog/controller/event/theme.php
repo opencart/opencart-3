@@ -8,7 +8,7 @@ class ControllerEventTheme extends Controller {
 	/**
 	 * @param string $route
 	 * @param array  $args
-	 * @param mixed $code
+	 * @param mixed  $code
 	 *
 	 * @return void
 	 */

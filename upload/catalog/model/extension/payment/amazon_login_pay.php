@@ -115,6 +115,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 	/**
 	 * cartRedirect
+	 *
+	 * @param mixed|null $message
+	 * @param mixed      $return_value
 	 */
 	public function cartRedirect($message = null, $return_value = false) {
 		unset($this->session->data['apalwa']['pay']);
@@ -133,6 +136,8 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 	/**
 	 * getTotals
+	 *
+	 * @param mixed $total_data
 	 */
 	public function getTotals(&$total_data): void {
 		// Extensions
@@ -423,6 +428,11 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 	/**
 	 * submitOrderDetails
+	 *
+	 * @param mixed $order_reference_id
+	 * @param mixed $order_id
+	 * @param mixed $currency_code
+	 * @param mixed $text_version
 	 */
 	public function submitOrderDetails($order_reference_id, $order_id, $currency_code, $text_version) {
 		// Orders
@@ -447,6 +457,8 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 	/**
 	 * confirmOrder
+	 *
+	 * @param mixed $order_reference_id
 	 */
 	public function confirmOrder($order_reference_id): void {
 		$this->postCurl('ConfirmOrderReference', [
@@ -459,6 +471,8 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 	/**
 	 * authorizeOrder
+	 *
+	 * @param mixed $order
 	 */
 	public function authorizeOrder($order) {
 		$capture_now = $this->config->get('payment_amazon_login_pay_mode') == 'payment';
@@ -475,6 +489,8 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 	/**
 	 * fetchOrderId
+	 *
+	 * @param mixed $order_reference_id
 	 */
 	public function fetchOrderId($order_reference_id) {
 		return $this->postCurl('GetOrderReferenceDetails', [
@@ -484,6 +500,8 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 	/**
 	 * fetchOrder
+	 *
+	 * @param mixed $order_reference_id
 	 */
 	public function fetchOrder($order_reference_id) {
 		return $this->postCurl('GetOrderReferenceDetails', [
@@ -493,6 +511,10 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 	/**
 	 * captureOrder
+	 *
+	 * @param mixed $amazon_authorization_id
+	 * @param mixed $total
+	 * @param mixed $currency
 	 */
 	public function captureOrder($amazon_authorization_id, $total, $currency) {
 		return $this->postCurl('Capture', [
@@ -505,6 +527,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 	/**
 	 * cancelOrder
+	 *
+	 * @param mixed $order_reference_id
+	 * @param mixed $reason
 	 */
 	public function cancelOrder($order_reference_id, $reason): void {
 		$this->postCurl('CancelOrderReference', [
@@ -515,6 +540,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 	/**
 	 * closeOrder
+	 *
+	 * @param mixed $order_reference_id
+	 * @param mixed $reason
 	 */
 	public function closeOrder($order_reference_id, $reason): void {
 		$this->postCurl('CloseOrderReference', [
@@ -525,6 +553,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 	/**
 	 * isOrderInState
+	 *
+	 * @param mixed $order_reference_id
+	 * @param mixed $states
 	 */
 	public function isOrderInState($order_reference_id, $states = []) {
 		return in_array((string)$this->fetchOrder($order_reference_id)->OrderReferenceStatus->State, $states);
@@ -592,6 +623,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 	/**
 	 * addAuthorization
+	 *
+	 * @param mixed $amazon_login_pay_order_id
+	 * @param mixed $authorization
 	 */
 	public function addAuthorization($amazon_login_pay_order_id, $authorization): void {
 		$capture_id = (string)$authorization->IdList->member;
@@ -647,6 +681,8 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	/**
 	 * addTransaction
 	 *
+	 * @param array $data
+	 *
 	 * @return void
 	 */
 	public function addTransaction(array $data): void {
@@ -698,6 +734,8 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 	/**
 	 * parseIpnBody
+	 *
+	 * @param mixed $json
 	 */
 	public function parseIpnBody($json) {
 		$data = $this->parseJson($json);
@@ -718,6 +756,8 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 	/**
 	 * parseJson
+	 *
+	 * @param mixed $json
 	 *
 	 * @return array
 	 *
@@ -815,7 +855,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 			$this->debugLog("NOTICE", $status . ': ' . (string)$xml->AuthorizationDetails->AuthorizationStatus->ReasonCode);
 		}
 
-		return ($status == 'Closed' && $xml->AuthorizationDetails->AuthorizationStatus->ReasonCode == 'MaxCapturesProcessed');
+		return $status == 'Closed' && $xml->AuthorizationDetails->AuthorizationStatus->ReasonCode == 'MaxCapturesProcessed';
 	}
 
 	/**
@@ -1045,6 +1085,8 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 	/**
 	 * urlencode
+	 *
+	 * @param mixed $value
 	 */
 	public function urlencode($value) {
 		return str_replace('%7E', '~', rawurlencode($value));
@@ -1089,7 +1131,8 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	 * makePost
 	 *
 	 * @param string $url
-	 * @param array $extra
+	 * @param mixed  $action
+	 * @param array  $extra
 	 *
 	 * @return string
 	 */
@@ -1117,6 +1160,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 	/**
 	 * postCurl
+	 *
+	 * @param mixed $action
+	 * @param mixed $params
 	 */
 	public function postCurl($action, $params = []) {
 		$url = $this->getCurlUrl();
@@ -1179,6 +1225,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 	/**
 	 * loggedException
+	 *
+	 * @param mixed $log_message
+	 * @param mixed $error_message
 	 */
 	public function loggedException($log_message, $error_message) {
 		$id = uniqid();
@@ -1190,6 +1239,11 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 	/**
 	 * logHandler
+	 *
+	 * @param mixed $code
+	 * @param mixed $message
+	 * @param mixed $file
+	 * @param mixed $line
 	 */
 	public function logHandler($code, $message, $file, $line) {
 		if (!(error_reporting() & $code)) {
@@ -1223,6 +1277,10 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 	/**
 	 * debugLog
+	 *
+	 * @param mixed      $type
+	 * @param mixed      $data
+	 * @param mixed|null $id
 	 */
 	public function debugLog($type, $data, $id = null): void {
 		if (!$this->config->get('payment_amazon_login_pay_debug')) {

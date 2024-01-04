@@ -3,8 +3,9 @@ namespace Cache;
 class Redis {
 	private object $config;
 	private object $redis;
-	private int    $expire;
+	private int $expire;
 	private object $cache;
+
 	/**
 	 * Constructor
 	 *
@@ -34,6 +35,7 @@ class Redis {
 	 * Set
 	 *
 	 * @param string $key
+	 * @param mixed  $value
 	 */
 	public function set(string $key, $value) {
 		$status = $this->cache->set(CACHE_PREFIX . $key, json_encode($value));

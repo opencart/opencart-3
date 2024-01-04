@@ -46,6 +46,7 @@ class ControllerEventStatistics extends Controller {
 	 *
 	 * @param string $route
 	 * @param array  $args
+	 * @param mixed  $output
 	 *
 	 * @return void
 	 *

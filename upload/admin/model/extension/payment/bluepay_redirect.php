@@ -87,9 +87,7 @@ class ModelExtensionPaymentBluepayredirect extends Model {
 				$void_data['REMOTE_IP'] = $this->request->server['REMOTE_ADDR'];
 			}
 
-			$response_data = $this->sendCurl('https://secure.bluepay.com/interfaces/bp10emu', $void_data);
-
-			return $response_data;
+			return $this->sendCurl('https://secure.bluepay.com/interfaces/bp10emu', $void_data);
 		} else {
 			return [];
 		}
@@ -138,9 +136,7 @@ class ModelExtensionPaymentBluepayredirect extends Model {
 				$release_data['REMOTE_IP'] = $this->request->server['REMOTE_ADDR'];
 			}
 
-			$response_data = $this->sendCurl('https://secure.bluepay.com/interfaces/bp10emu', $release_data);
-
-			return $response_data;
+			return $this->sendCurl('https://secure.bluepay.com/interfaces/bp10emu', $release_data);
 		} else {
 			return [];
 		}
@@ -187,9 +183,7 @@ class ModelExtensionPaymentBluepayredirect extends Model {
 				$rebate_data['REMOTE_IP'] = $this->request->server['REMOTE_ADDR'];
 			}
 
-			$response_data = $this->sendCurl('https://secure.bluepay.com/interfaces/bp10emu', $rebate_data);
-
-			return $response_data;
+			return $this->sendCurl('https://secure.bluepay.com/interfaces/bp10emu', $rebate_data);
 		} else {
 			return [];
 		}
@@ -292,7 +286,7 @@ class ModelExtensionPaymentBluepayredirect extends Model {
 	 * sendCurl
 	 *
 	 * @param string $url
-	 * @param array $post_data
+	 * @param array  $post_data
 	 *
 	 * @return array
 	 */

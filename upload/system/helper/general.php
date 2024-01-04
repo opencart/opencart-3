@@ -14,7 +14,7 @@ function oc_token($length = 32) {
 	return $token;
 }
 
-/**
+/*
  * Backwards support for timing safe hash string comparisons
  * http://php.net/manual/en/function.hash-equals.php
  */

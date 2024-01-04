@@ -8,7 +8,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 	/**
 	 * addTransaction
 	 *
-	 * @param string|array $data
+	 * @param array|string $data
 	 * @param int          $status
 	 *
 	 * @return void
@@ -49,8 +49,8 @@ class ModelExtensionPaymentLaybuy extends Model {
 	 * @return array
 	 */
 	public function getInitialPayments(): array {
-		$minimum = $this->config->get('payment_laybuy_min_deposit') ? $this->config->get('payment_laybuy_min_deposit') : 20;
-		$maximum = $this->config->get('payment_laybuy_max_deposit') ? $this->config->get('payment_laybuy_max_deposit') : 50;
+		$minimum = $this->config->get('payment_laybuy_min_deposit') ?: 20;
+		$maximum = $this->config->get('payment_laybuy_max_deposit') ?: 50;
 
 		$initial_payments = [];
 
@@ -81,7 +81,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 			$status = false;
 		}
 
-		/* Condition for customer group */
+		// Condition for customer group
 		if ($status && $this->config->get('payment_laybuy_customer_group')) {
 			if (isset($this->session->data['guest']) && in_array(0, (array)$this->config->get('payment_laybuy_customer_group'))) {
 				$status = true;
@@ -103,7 +103,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 			}
 		}
 
-		/* Condition for categories and products */
+		// Condition for categories and products
 		if ($status && $this->config->get('payment_laybuy_category')) {
 			$allowed_categories = $this->config->get('payment_laybuy_category');
 

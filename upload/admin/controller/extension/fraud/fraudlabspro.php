@@ -337,8 +337,7 @@ class ControllerExtensionFraudFraudLabsPro extends Controller {
 
 	private function fix_case($s) {
 		$s = ucwords(strtolower($s));
-		$s = preg_replace_callback("/( [ a-zA-Z]{1}')([a-zA-Z0-9]{1})/s", fn ($matches) => $matches[1] . strtoupper($matches[2]), $s);
 
-		return $s;
+		return preg_replace_callback("/( [ a-zA-Z]{1}')([a-zA-Z0-9]{1})/s", fn ($matches) => $matches[1] . strtoupper($matches[2]), $s);
 	}
 }

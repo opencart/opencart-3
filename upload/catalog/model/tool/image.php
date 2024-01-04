@@ -13,8 +13,9 @@ class ModelToolImage extends Model {
 	 * @param int    $height
 	 * @param string $default
 	 *
-	 * @return string
 	 * @throws \Exception
+	 *
+	 * @return string
 	 */
 	public function resize(string $filename, int $width, int $height, string $default = ''): string {
 		if (!is_file(DIR_IMAGE . $filename) || substr(str_replace('\\', '/', realpath(DIR_IMAGE . $filename)), 0, strlen(DIR_IMAGE)) != str_replace('\\', '/', DIR_IMAGE)) {

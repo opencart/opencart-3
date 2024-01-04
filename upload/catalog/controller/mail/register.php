@@ -10,10 +10,11 @@ class ControllerMailRegister extends Controller {
 	 * @param array  $args
 	 * @param mixed  $output
 	 *
-	 * @return void
 	 * @throws \Exception
 	 *
 	 * catalog/model/account/customer/addCustomer/after
+	 *
+	 * @return void
 	 */
 	public function index(string &$route, array &$args, mixed &$output): void {
 		$this->load->language('mail/register');
@@ -70,10 +71,11 @@ class ControllerMailRegister extends Controller {
 	 * @param array  $args
 	 * @param mixed  $output
 	 *
-	 * @return void
 	 * @throws \Exception
 	 *
 	 * catalog/model/account/customer/addCustomer/after
+	 *
+	 * @return void
 	 */
 	public function alert(string &$route, array &$args, mixed &$output): void {
 		// Send to main admin email if new account email is enabled

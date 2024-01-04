@@ -10,6 +10,10 @@ class ControllerMailAffiliate extends Controller {
 	 *
 	 * admin/model/customer/customer_approval/approveAffiliate/after
 	 *
+	 * @param string $route
+	 * @param array  $args
+	 * @param mixed  $output
+	 *
 	 * @return void
 	 */
 	public function approve(string &$route, array &$args, mixed &$output): void {
@@ -74,10 +78,15 @@ class ControllerMailAffiliate extends Controller {
 			}
 		}
 	}
+
 	/**
 	 * Denu
 	 *
 	 * admin/model/customer/customer_approval/denyAffiliate/after
+	 *
+	 * @param string $route
+	 * @param array  $args
+	 * @param mixed  $output
 	 *
 	 * @return void
 	 */

@@ -8,7 +8,8 @@ namespace Session;
 class DB {
 	private object $db;
 	private object $config;
-	public int 	   $maxlifetime;
+	public int $maxlifetime;
+
 	/**
 	 * Constructor
 	 *

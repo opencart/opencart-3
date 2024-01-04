@@ -10,8 +10,9 @@ class ControllerMailAffiliate extends Controller {
 	 * @param array  $args
 	 * @param mixed  $output
 	 *
-	 * @return void
 	 * @throws \Exception
+	 *
+	 * @return void
 	 */
 	public function index(string &$route, array &$args, mixed &$output): void {
 		$this->load->language('mail/affiliate');
@@ -75,8 +76,9 @@ class ControllerMailAffiliate extends Controller {
 	 * @param array  $args
 	 * @param mixed  $output
 	 *
-	 * @return void
 	 * @throws \Exception
+	 *
+	 * @return void
 	 */
 	public function alert(string &$route, array &$args, mixed &$output): void {
 		// Send to main admin email if new affiliate email is enabled

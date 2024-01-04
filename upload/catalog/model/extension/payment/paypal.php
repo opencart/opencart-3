@@ -49,9 +49,9 @@ class ModelExtensionPaymentPayPal extends Model {
 	/**
 	 * hasProductInCart
 	 *
-	 * @param int 	$product_id
+	 * @param int   $product_id
 	 * @param array $option
-	 * @param int 	$recurring_id
+	 * @param int   $recurring_id
 	 *
 	 * @return int
 	 */
@@ -77,7 +77,7 @@ class ModelExtensionPaymentPayPal extends Model {
 	/**
 	 * getZoneByCode
 	 *
-	 * @param int 	 $country_id
+	 * @param int    $country_id
 	 * @param string $code
 	 *
 	 * @return array
@@ -119,7 +119,7 @@ class ModelExtensionPaymentPayPal extends Model {
 	 *
 	 * @return void
 	 */
-	public function log(string $message, string $title = null): void {
+	public function log(string $message, ?string $title = null): void {
 		// Setting
 		$_config = new \Config();
 		$_config->load('paypal');

@@ -7,6 +7,8 @@
 class ModelExtensionPaymentAuthorizeNetSim extends Model {
 	/**
 	 * getMethod
+	 *
+	 * @param array $address
 	 */
 	public function getMethod(array $address): array {
 		$this->load->language('extension/payment/authorizenet_sim');

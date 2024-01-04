@@ -365,7 +365,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 		$str_message = $str_vps_tx_id . $vendor_tx_code . $str_status . $str_tx_auth_no . $this->config->get('payment_sagepay_server_vendor') . urldecode($str_avs_cv2) . $str_security_key . $str_address_result . $str_postcode_result . $str_cv2_result . $str_gift_aid . $str_3d_secure_status . $str_cavv . $str_address_status . $str_payer_status . $str_card_type . $str_last_4_digits . $str_decline_code . $str_expiry_date . $str_bank_auth_code;
 		$str_my_signature = strtoupper(md5($str_message));
 
-		/** We can now compare our MD5 Hash signature with that from Sage Pay Server * */
+		// We can now compare our MD5 Hash signature with that from Sage Pay Server
 		if ($str_my_signature != $str_vps_signature) {
 			$this->model_extension_payment_sagepay_server->deleteOrder($order_id);
 
@@ -409,7 +409,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 
 		if ($str_token) {
 			$post_data = [];
-			
+
 			$post_data['customer_id'] = $order_info['customer_id'];
 			$post_data['ExpiryDate'] = substr($str_expiry_date, -4, 2) . '/' . substr($str_expiry_date, 2);
 			$post_data['Token'] = $str_token;

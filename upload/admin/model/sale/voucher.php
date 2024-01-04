@@ -8,8 +8,8 @@ class ModelSaleVoucher extends Model {
 	/**
 	 * addVoucher
 	 *
-	 * @param int   $subscription_id
 	 * @param array $data
+	 * @param int   $subscription_id
 	 *
 	 * @return void
 	 */
@@ -22,8 +22,10 @@ class ModelSaleVoucher extends Model {
 	/**
 	 * editVoucher
 	 *
-	 * @param int $subscription_id
-	 * @param int $customer_payment_id
+	 * @param int   $voucher_id
+	 * @param array $data
+	 * @param int   $subscription_id
+	 * @param int   $customer_payment_id
 	 *
 	 * @return void
 	 */

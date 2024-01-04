@@ -1,5 +1,4 @@
 <?php
 namespace googleshopping\Exception;
 
-class AccessForbidden extends \RuntimeException {
-}
+class AccessForbidden extends \RuntimeException {}

@@ -208,10 +208,10 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 		$string = $xml->xpath('//ipgapi:AVSResponse');
 		$response['avs'] = isset($string[0]) ? (string)$string[0] : '';
 
-		$response['card_number_ref'] = (string)substr($data['cc_number'], - 4);
+		$response['card_number_ref'] = (string)substr($data['cc_number'], -4);
 
 		if (strtoupper($response['transaction_result']) == 'APPROVED' && !empty($token)) {
-			$this->storeCard($token, $this->customer->getId(), $response['brand'], $data['cc_expire_date_month'], $data['cc_expire_date_year'], (string)substr($data['cc_number'], - 4));
+			$this->storeCard($token, $this->customer->getId(), $response['brand'], $data['cc_expire_date_month'], $data['cc_expire_date_year'], (string)substr($data['cc_number'], -4));
 		}
 
 		$this->logger(print_r($response, 1));

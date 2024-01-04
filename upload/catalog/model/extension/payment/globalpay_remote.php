@@ -41,6 +41,11 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 
 	/**
 	 * checkEnrollment
+	 *
+	 * @param mixed $account
+	 * @param mixed $amount
+	 * @param mixed $currency
+	 * @param mixed $order_ref
 	 */
 	public function checkEnrollment($account, $amount, $currency, $order_ref) {
 		$timestamp = date('YmdHis');
@@ -92,6 +97,16 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 
 	/**
 	 * enrollmentSignature
+	 *
+	 * @param mixed $account
+	 * @param mixed $amount
+	 * @param mixed $currency
+	 * @param mixed $order_ref
+	 * @param mixed $card_number
+	 * @param mixed $card_expire
+	 * @param mixed $card_type
+	 * @param mixed $card_name
+	 * @param mixed $pares
 	 */
 	public function enrollmentSignature($account, $amount, $currency, $order_ref, $card_number, $card_expire, $card_type, $card_name, $pares) {
 		// Orders
@@ -148,6 +163,22 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 
 	/**
 	 * capturePayment
+	 *
+	 * @param mixed $account
+	 * @param mixed $amount
+	 * @param mixed $currency
+	 * @param mixed $order_id
+	 * @param mixed $order_ref
+	 * @param mixed $card_number
+	 * @param mixed $expire
+	 * @param mixed $name
+	 * @param mixed $type
+	 * @param mixed $cvv
+	 * @param mixed $issue
+	 * @param mixed $eci_ref
+	 * @param mixed $eci
+	 * @param mixed $cavv
+	 * @param mixed $xid
 	 */
 	public function capturePayment($account, $amount, $currency, $order_id, $order_ref, $card_number, $expire, $name, $type, $cvv, $issue, $eci_ref, $eci = '', $cavv = '', $xid = '') {
 		$this->load->language('extension/payment/globalpay_remote');
@@ -310,7 +341,7 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 
 		if ($this->config->get('payment_globalpay_remote_card_data_status') == 1) {
 			$message .= '<br/><strong>' . $this->language->get('entry_cc_type') . ':</strong> ' . (string)$type;
-			$message .= '<br/><strong>' . $this->language->get('text_last_digits') . ':</strong> ' . (string)substr($card_number, - 4);
+			$message .= '<br/><strong>' . $this->language->get('text_last_digits') . ':</strong> ' . (string)substr($card_number, -4);
 			$message .= '<br/><strong>' . $this->language->get('entry_cc_expire_date') . ':</strong> ' . (string)$expire;
 			$message .= '<br/><strong>' . $this->language->get('entry_cc_name') . ':</strong> ' . (string)$name;
 
@@ -394,6 +425,7 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 	 *
 	 * @param int    $order_id
 	 * @param int    $order_status_id
+	 * @param mixed  $comment
 	 * @param string $message
 	 *
 	 * @return void

@@ -10,7 +10,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	public function __construct($registry) {
 		parent::__construct($registry);
 
-		if (version_compare(phpversion(), '8.3', '>=')) {
+		if (version_compare(PHP_VERSION, '8.3', '>=')) {
 			ini_set('precision', 14);
 			ini_set('serialize_precision', 14);
 		}

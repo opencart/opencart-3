@@ -7,6 +7,8 @@
 class ModelExtensionTotalHandling extends Model {
 	/**
 	 * getTotal
+	 *
+	 * @param array $total
 	 */
 	public function getTotal(array $total): void {
 		if (($this->cart->getSubTotal() > $this->config->get('total_handling_total')) && ($this->cart->getSubTotal() > 0) && ($this->cart->hasDownload() == false) && $this->cart->hasShipping() == true) {

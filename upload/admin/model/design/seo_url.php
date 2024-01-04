@@ -159,6 +159,7 @@ class ModelDesignSeoUrl extends Model {
 
 	/**
 	 * getSeoUrlsByKeyword
+	 *
 	 * @param string $keyword
 	 *
 	 * @return array
@@ -185,7 +186,7 @@ class ModelDesignSeoUrl extends Model {
 	/**
 	 * getSeoUrlsByQueryId
 	 *
-	 * @param int 	 $seo_url_id
+	 * @param int    $seo_url_id
 	 * @param string $query
 	 *
 	 * @return array
@@ -199,7 +200,7 @@ class ModelDesignSeoUrl extends Model {
 	/**
 	 * getSeoUrlsByKeywordId
 	 *
-	 * @param int 	 $seo_url_id
+	 * @param int    $seo_url_id
 	 * @param string $keyword
 	 *
 	 * @return array

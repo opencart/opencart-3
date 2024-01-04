@@ -7,6 +7,8 @@
 class ModelExtensionShippingECShip extends Model {
 	/**
 	 * getQuote
+	 *
+	 * @param array $address
 	 */
 	public function getQuote(array $address): array {
 		$this->load->language('extension/shipping/ec_ship');
@@ -493,7 +495,7 @@ class ModelExtensionShippingECShip extends Model {
 				$objResponse = json_decode(json_encode($objResponse), true);
 				$objResponse['getTotalPostageReturn']['serviceName'] = $value;
 
-				array_push($objResponseArray, $objResponse);
+				$objResponseArray[] = $objResponse;
 			}
 
 			if ($objResponseArray) {
@@ -537,6 +539,12 @@ class api01Req {
 
 	/**
 	 * Constructor
+	 *
+	 * @param mixed $ecshipUsername
+	 * @param mixed $integratorUsername
+	 * @param mixed $countryCode
+	 * @param mixed $shipCode
+	 * @param mixed $weight
 	 */
 	public function __construct($ecshipUsername, $integratorUsername, $countryCode, $shipCode, $weight) {
 		$this->ecshipUsername = $ecshipUsername;

@@ -7,6 +7,8 @@
 class ModelExtensionShippingPilibaba extends Model {
 	/**
 	 * getQuote
+	 *
+	 * @param array $address
 	 */
 	public function getQuote(array $address): array {
 		$this->load->language('extension/shipping/pilibaba');

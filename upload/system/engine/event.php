@@ -1,10 +1,12 @@
 <?php
 /**
  * @package        OpenCart
+ *
  * @author         Daniel Kerr
  * @copyright      Copyright (c) 2005 - 2022, OpenCart, Ltd. (https://www.opencart.com/)
  * @license        https://opensource.org/licenses/GPL-3.0
- * @link           https://www.opencart.com
+ *
+ * @see           https://www.opencart.com
  */
 
 /**
@@ -19,6 +21,7 @@ class Event {
 	/**
 	 * Constructor
 	 *
+	 * @param object $registry
 	 * @param object $route
 	 */
 	public function __construct(object $registry) {
@@ -55,7 +58,7 @@ class Event {
 			if (preg_match('/^' . str_replace(['\*', '\?'], ['.*', '.'], preg_quote($value['trigger'], '/')) . '/', $event)) {
 				$result = $value['action']->execute($this->registry, $args);
 
-				if (!is_null($result) && !($result instanceof Exception)) {
+				if (null !== $result && !($result instanceof Exception)) {
 					return $result;
 				}
 			}

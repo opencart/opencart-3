@@ -6,10 +6,10 @@
  */
 class ControllerStartupLogin extends Controller {
 	/**
-	 * @return object|\Action|null
+	 * @return \Action|object|null
 	 */
 	public function index(): ?object {
-		$route = isset($this->request->get['route']) ? $this->request->get['route'] : '';
+		$route = $this->request->get['route'] ?? '';
 
 		$ignore = [
 			'common/login',

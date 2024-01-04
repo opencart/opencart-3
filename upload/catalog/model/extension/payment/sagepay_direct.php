@@ -454,8 +454,8 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 			$minus_even = $cycle / 2;
 
 			if ($day == 1) {
-				$odd = $odd - 1;
-				$plus_even = $plus_even - 1;
+				$odd--;
+				$plus_even--;
 				$day = 16;
 			}
 
@@ -547,7 +547,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	 *
 	 * @return array
 	 */
-	public function sendCurl(string $url, array $payment_data, int $i = null): array {
+	public function sendCurl(string $url, array $payment_data, ?int $i = null): array {
 		$curl = curl_init($url);
 
 		curl_setopt($curl, CURLOPT_PORT, 443);

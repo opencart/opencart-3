@@ -8,6 +8,10 @@ class ControllerMailReturns extends Controller {
 	/**
 	 * Deny
 	 *
+	 * @param string $route
+	 * @param array  $args
+	 * @param mixed  $output
+	 *
 	 * @return void
 	 *
 	 * admin/model/sale/returns/addHistory/after

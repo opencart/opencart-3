@@ -6,7 +6,7 @@
  */
 class ControllerInformationGdpr extends Controller {
 	/**
-	 * @return object|\Action|null
+	 * @return \Action|object|null
 	 */
 	public function index(): ?object {
 		// Information
@@ -144,7 +144,7 @@ class ControllerInformationGdpr extends Controller {
 	/**
 	 * Success
 	 *
-	 * @return object|\Action|null
+	 * @return \Action|object|null
 	 */
 	public function success(): ?object {
 		if (isset($this->request->get['code'])) {

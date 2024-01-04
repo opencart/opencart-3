@@ -14,7 +14,7 @@ class Autoloader {
 	 *
 	 * @param string $namespace
 	 * @param string $directory
-	 * @param bool $psr4
+	 * @param bool   $psr4
 	 *
 	 * @return void
 	 *

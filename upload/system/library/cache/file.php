@@ -33,7 +33,8 @@ class File {
 	 * Set
 	 *
 	 * @param string $key
-	 * @param int 	 $expire
+	 * @param mixed  $value
+	 * @param int    $expire
 	 *
 	 * @return void
 	 */

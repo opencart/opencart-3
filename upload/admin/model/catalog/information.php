@@ -129,6 +129,7 @@ class ModelCatalogInformation extends Model {
 
 	/**
 	 * getInformations
+	 *
 	 * @param array $data
 	 *
 	 * @return array

@@ -66,5 +66,5 @@ $_['action_event'] = [
 	//],
 	//'controller/*/after'  => [
 	//	'event/debug/after'
-//	]
+	//	]
 ];

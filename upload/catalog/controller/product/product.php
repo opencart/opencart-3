@@ -312,7 +312,7 @@ class ControllerProductProduct extends Controller {
 				$data['price'] = false;
 			}
 
-			if (!is_null($product_info['special']) && (float)$product_info['special'] >= 0) {
+			if (null !== $product_info['special'] && (float)$product_info['special'] >= 0) {
 				$data['special'] = $this->currency->format($this->tax->calculate($product_info['special'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
 
 				$tax_price = (float)$product_info['special'];
@@ -460,7 +460,7 @@ class ControllerProductProduct extends Controller {
 					$price = false;
 				}
 
-				if (!is_null($result['special']) && (float)$result['special'] >= 0) {
+				if (null !== $result['special'] && (float)$result['special'] >= 0) {
 					$special = $this->currency->format($this->tax->calculate($result['special'], $result['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
 
 					$tax_price = (float)$result['special'];

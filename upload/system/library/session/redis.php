@@ -8,7 +8,7 @@ namespace Session;
 class Redis {
 	private object $config;
 	private object $redis;
-	public string  $prefix;
+	public string $prefix;
 
 	/**
 	 * Constructor

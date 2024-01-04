@@ -497,7 +497,7 @@ class ControllerLocalisationCurrency extends Controller {
 
 		if (!$config_currency_engine) {
 			$this->error['currency_engine'] = $this->language->get('error_currency_engine');
-		} elseif (!$this->config->get('currency_'.$config_currency_engine.'_status')) {
+		} elseif (!$this->config->get('currency_' . $config_currency_engine . '_status')) {
 			$this->error['currency_engine'] = $this->language->get('error_currency_engine');
 		}
 

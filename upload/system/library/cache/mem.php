@@ -1,7 +1,7 @@
 <?php
 namespace Cache;
 class Mem {
-	private int    $expire;
+	private int $expire;
 	private object $memcache;
 
 	public const CACHEDUMP_LIMIT = 9999;
@@ -26,6 +26,7 @@ class Mem {
 	 * Set
 	 *
 	 * @param string $key
+	 * @param mixed  $value
 	 */
 	public function set(string $key, $value) {
 		return $this->memcache->set(CACHE_PREFIX . $key, $value, MEMCACHE_COMPRESSED, $this->expire);

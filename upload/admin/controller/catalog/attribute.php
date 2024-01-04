@@ -6,15 +6,15 @@
  */
 class ControllerCatalogAttribute extends Controller {
 	/**
- 	* @var array $error
- 	*/
+	 * @var array
+	 */
 	private array $error = [];
 
 	/**
- 	* Index 
- 	*
- 	* @return void
- 	*/
+	 * Index
+	 *
+	 * @return void
+	 */
 	public function index(): void {
 		$this->load->language('catalog/attribute');
 
@@ -26,10 +26,10 @@ class ControllerCatalogAttribute extends Controller {
 	}
 
 	/**
- 	* Add
- 	*
- 	* @return void
- 	*/
+	 * Add
+	 *
+	 * @return void
+	 */
 	public function add(): void {
 		$this->load->language('catalog/attribute');
 
@@ -63,10 +63,10 @@ class ControllerCatalogAttribute extends Controller {
 	}
 
 	/**
- 	* Edit
- 	*
- 	* @return void
- 	*/
+	 * Edit
+	 *
+	 * @return void
+	 */
 	public function edit(): void {
 		$this->load->language('catalog/attribute');
 
@@ -100,10 +100,10 @@ class ControllerCatalogAttribute extends Controller {
 	}
 
 	/**
- 	* Delete
- 	*
- 	* @return void
- 	*/
+	 * Delete
+	 *
+	 * @return void
+	 */
 	public function delete(): void {
 		$this->load->language('catalog/attribute');
 
@@ -138,7 +138,7 @@ class ControllerCatalogAttribute extends Controller {
 		$this->getList();
 	}
 
-	protected function getList() {
+	protected function getList(): void {
 		if (isset($this->request->get['sort'])) {
 			$sort = $this->request->get['sort'];
 		} else {
@@ -274,7 +274,7 @@ class ControllerCatalogAttribute extends Controller {
 		$this->response->setOutput($this->load->view('catalog/attribute_list', $data));
 	}
 
-	protected function getForm() {
+	protected function getForm(): void {
 		$data['text_form'] = !isset($this->request->get['attribute_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 
 		if (isset($this->error['warning'])) {
@@ -409,10 +409,10 @@ class ControllerCatalogAttribute extends Controller {
 	}
 
 	/**
- 	* Autocomplete
- 	*
- 	* @return void
- 	*/
+	 * Autocomplete
+	 *
+	 * @return void
+	 */
 	public function autocomplete(): void {
 		$json = [];
 

@@ -10,10 +10,11 @@ class ControllerMailGdpr extends Controller {
 	 * @param array  $args
 	 * @param mixed  $output
 	 *
-	 * @return void
 	 * @throws \Exception
 	 *
 	 * catalog/model/account/gdpr/addGdpr
+	 *
+	 * @return void
 	 */
 	public function index(string &$route, array &$args, mixed &$output): void {
 		// $args[0] $code
@@ -64,10 +65,11 @@ class ControllerMailGdpr extends Controller {
 	 * @param array  $args
 	 * @param mixed  $output
 	 *
-	 * @return void
 	 * @throws \Exception
 	 *
 	 * catalog/model/account/gdpr/editStatus/after
+	 *
+	 * @return void
 	 */
 	public function remove(string &$route, array &$args, mixed &$output): void {
 		if (isset($args[0])) {

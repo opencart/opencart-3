@@ -1,7 +1,7 @@
 <?php
 namespace Cache;
 class Memcached {
-	private int    $expire;
+	private int $expire;
 	private object $memcached;
 
 	public const CACHEDUMP_LIMIT = 9999;
@@ -33,6 +33,7 @@ class Memcached {
 	 * Set
 	 *
 	 * @param string $key
+	 * @param mixed  $value
 	 *
 	 * @return mixed
 	 */

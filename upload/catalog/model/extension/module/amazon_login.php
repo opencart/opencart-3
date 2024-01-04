@@ -11,6 +11,8 @@ class ModelExtensionModuleAmazonLogin extends Model {
 
 	/**
 	 * fetchProfile
+	 *
+	 * @param mixed $access_token
 	 */
 	public function fetchProfile($access_token) {
 		$url = sprintf(self::URL_PROFILE, $this->getApiDomainName());
@@ -34,6 +36,8 @@ class ModelExtensionModuleAmazonLogin extends Model {
 
 	/**
 	 * verifyAccessToken
+	 *
+	 * @param mixed $access_token
 	 */
 	public function verifyAccessToken($access_token) {
 		$url = sprintf(self::URL_TOKENINFO, $this->getApiDomainName(), urlencode($access_token));
@@ -51,6 +55,8 @@ class ModelExtensionModuleAmazonLogin extends Model {
 
 	/**
 	 * loginProfile
+	 *
+	 * @param mixed $amazon_profile
 	 */
 	public function loginProfile($amazon_profile) {
 		// Addresses
@@ -113,6 +119,8 @@ class ModelExtensionModuleAmazonLogin extends Model {
 
 	/**
 	 * persistAddress
+	 *
+	 * @param mixed $address
 	 */
 	public function persistAddress($address): void {
 		if (!$this->customer->isLogged()) {
@@ -131,6 +139,9 @@ class ModelExtensionModuleAmazonLogin extends Model {
 
 	/**
 	 * addressMatches
+	 *
+	 * @param mixed $new
+	 * @param mixed $addresses
 	 */
 	public function addressMatches($new, $addresses) {
 		foreach ($addresses as $address) {
@@ -144,6 +155,10 @@ class ModelExtensionModuleAmazonLogin extends Model {
 
 	/**
 	 * addressMatch
+	 *
+	 * @param mixed $a1
+	 * @param mixed $a2
+	 * @param mixed $keys
 	 */
 	public function addressMatch($a1, $a2, $keys) {
 		// Skip comparison of custom_field. TODO introduce comparison for custom_field
@@ -156,6 +171,8 @@ class ModelExtensionModuleAmazonLogin extends Model {
 
 	/**
 	 * forceLoginCustomer
+	 *
+	 * @param mixed $customer_info
 	 */
 	public function forceLoginCustomer($customer_info): void {
 		if (!$this->customer->login($customer_info['email'], '', true)) {
@@ -214,6 +231,9 @@ class ModelExtensionModuleAmazonLogin extends Model {
 
 	/**
 	 * curlGet
+	 *
+	 * @param mixed $url
+	 * @param mixed $headers
 	 */
 	public function curlGet($url, $headers = []) {
 		$this->debugLog('URL', $url);
@@ -257,6 +277,9 @@ class ModelExtensionModuleAmazonLogin extends Model {
 
 	/**
 	 * debugLog
+	 *
+	 * @param mixed $type
+	 * @param mixed $data
 	 */
 	public function debugLog($type, $data): void {
 		if (!$this->config->get('payment_amazon_login_pay_debug')) {

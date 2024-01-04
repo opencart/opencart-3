@@ -111,7 +111,7 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 							'account'    => $account,
 							'expiry'     => $expiry,
 							'cvv2'       => $cvv2,
-							'amount'     => round(floatval($order_info['total']), 2, PHP_ROUND_HALF_DOWN),
+							'amount'     => round((float)($order_info['total']), 2, PHP_ROUND_HALF_DOWN),
 							'currency'   => $order_info['currency_code'],
 							'orderid'    => $order_info['order_id'],
 							'name'       => $order_info['payment_firstname'] . ' ' . $order_info['payment_lastname'],

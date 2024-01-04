@@ -5,7 +5,6 @@
  * @package Catalog\Model\Extension\Payment
  */
 use Cardinity\Client;
-use Cardinity\Method\Payment;
 use Cardinity\Exception as CardinityException;
 
 class ModelExtensionPaymentCardinity extends Model {
@@ -41,6 +40,7 @@ class ModelExtensionPaymentCardinity extends Model {
 	 * @param array  $payment_data
 	 *
 	 * @return ?object
+	 *
 	 * @Throws \Exception
 	 */
 	public function createPayment(string $key, string $secret, array $payment_data): ?object {
@@ -52,9 +52,7 @@ class ModelExtensionPaymentCardinity extends Model {
 		$method = new \Payment\Create($payment_data);
 
 		try {
-			$payment = $client->call($method);
-
-			return $payment;
+			return $client->call($method);
 		} catch (\Exception $exception) {
 			$this->exception($exception);
 
@@ -64,6 +62,11 @@ class ModelExtensionPaymentCardinity extends Model {
 
 	/**
 	 * finalizePayment
+	 *
+	 * @param mixed $key
+	 * @param mixed $secret
+	 * @param mixed $payment_id
+	 * @param mixed $pares
 	 */
 	public function finalizePayment($key, $secret, $payment_id, $pares) {
 		$client = Client::create([
@@ -74,9 +77,7 @@ class ModelExtensionPaymentCardinity extends Model {
 		$method = new \Payment\Finalize($payment_id, $pares);
 
 		try {
-			$payment = $client->call($method);
-
-			return $payment;
+			return $client->call($method);
 		} catch (\Exception $exception) {
 			$this->exception($exception);
 

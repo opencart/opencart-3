@@ -7,13 +7,16 @@ namespace Template;
  */
 class Template {
 	private array $data = [];
+
 	/**
 	 * addPath
 	 *
+	 * @param string $key
+	 * @param string $value
 	 * @param string $namespace
 	 * @param string $directory
 	 *
-	 * @return	 void
+	 * @return void
 	 */
 	public function set(string $key, string $value): void {
 		$this->data[$key] = $value;
@@ -22,8 +25,9 @@ class Template {
 	/**
 	 * Render
 	 *
+	 * @param string $template
 	 * @param string $filename
-	 * @param array	 $data
+	 * @param array  $data
 	 * @param string $code
 	 *
 	 * @return string

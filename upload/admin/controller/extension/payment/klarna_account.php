@@ -256,16 +256,16 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 						array_unshift($pclass, $klarna_account['merchant']);
 
 						$this->pclasses[$key][] = [
-							'eid'          => intval($pclass[0]),
-							'id'           => intval($pclass[1]),
+							'eid'          => (int)($pclass[0]),
+							'id'           => (int)($pclass[1]),
 							'description'  => $pclass[2],
-							'months'       => intval($pclass[3]),
-							'startfee'     => floatval($pclass[4]),
-							'invoicefee'   => floatval($pclass[5]),
-							'interestrate' => floatval($pclass[6]),
-							'minamount'    => floatval($pclass[7]),
-							'country'      => intval($pclass[8]),
-							'type'         => intval($pclass[9]),
+							'months'       => (int)($pclass[3]),
+							'startfee'     => (float)($pclass[4]),
+							'invoicefee'   => (float)($pclass[5]),
+							'interestrate' => (float)($pclass[6]),
+							'minamount'    => (float)($pclass[7]),
+							'country'      => (int)($pclass[8]),
+							'type'         => (int)($pclass[9]),
 						];
 					}
 				} else {

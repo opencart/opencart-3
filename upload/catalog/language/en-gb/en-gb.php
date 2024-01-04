@@ -70,7 +70,7 @@ $_['error_upload_8']        = 'Warning: File upload stopped by extension!';
 $_['error_upload_999']      = 'Warning: No error code available!';
 $_['error_curl']            = 'CURL: Error Code(%s): %s';
 
-/* When doing translations only include the matching language code */
+// When doing translations only include the matching language code
 
 // Datepicker
 //$_['datepicker']            = 'af';

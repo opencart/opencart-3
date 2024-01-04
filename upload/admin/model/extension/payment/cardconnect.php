@@ -208,7 +208,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 			'retref'        => $order_info['retref'],
 			'authcode'      => $order_info['authcode'],
 			'ponumber'      => $order_info['order_id'],
-			'amount'        => round(floatval($amount), 2, PHP_ROUND_HALF_DOWN),
+			'amount'        => round((float)$amount, 2, PHP_ROUND_HALF_DOWN),
 			'currency'      => $order_info['currency_code'],
 			'frtamnt'       => $shipping_cost,
 			'dutyamnt'      => '',
@@ -272,7 +272,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 
 		$post_data = [
 			'merchid'  => $this->config->get('payment_cardconnect_merchant_id'),
-			'amount'   => round(floatval($amount), 2, PHP_ROUND_HALF_DOWN),
+			'amount'   => round((float)$amount, 2, PHP_ROUND_HALF_DOWN),
 			'currency' => $order_info['currency_code'],
 			'retref'   => $order_info['retref']
 		];

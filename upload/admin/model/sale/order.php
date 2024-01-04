@@ -596,6 +596,7 @@ class ModelSaleOrder extends Model {
 
 	/**
 	 * getTotalOrderHistoriesByOrderStatusId
+	 *
 	 * @param int $order_status_id
 	 *
 	 * @return int

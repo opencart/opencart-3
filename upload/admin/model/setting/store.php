@@ -211,7 +211,7 @@ class ModelSettingStore extends Model {
 		$account_query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "setting` WHERE `key` = 'config_account_id' AND `value` = '" . (int)$information_id . "' AND `store_id` != '0'");
 		$checkout_query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "setting` WHERE `key` = 'config_checkout_id' AND `value` = '" . (int)$information_id . "' AND `store_id` != '0'");
 
-		return ((int)$account_query->row['total'] + (int)$checkout_query->row['total']);
+		return (int)$account_query->row['total'] + (int)$checkout_query->row['total'];
 	}
 
 	/**

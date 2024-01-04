@@ -7,6 +7,8 @@
 class ModelExtensionShippingUsps extends Model {
 	/**
 	 * getQuote
+	 *
+	 * @param array $address
 	 */
 	public function getQuote(array $address): array {
 		$this->load->language('extension/shipping/usps');
@@ -406,7 +408,7 @@ class ModelExtensionShippingUsps extends Model {
 
 											foreach ($firstclasses as $k => $firstclass) {
 												if ($firstclass == $mailservice) {
-													$classid = $classid . $k;
+													$classid .= $k;
 													break;
 												}
 											}

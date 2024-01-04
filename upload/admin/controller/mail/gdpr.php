@@ -8,6 +8,10 @@ class ControllerMailGdpr extends Controller {
 	/**
 	 * admin/model/customer/gdpr/editStatus
 	 *
+	 * @param mixed $route
+	 * @param mixed $args
+	 * @param mixed $output
+	 *
 	 * @return void
 	 */
 	public function index(&$route, &$args, &$output): void {
@@ -42,6 +46,8 @@ class ControllerMailGdpr extends Controller {
 
 	/**
 	 * Export
+	 *
+	 * @param array $gdpr_info
 	 *
 	 * @return void
 	 */
@@ -194,6 +200,8 @@ class ControllerMailGdpr extends Controller {
 	/**
 	 * Approve
 	 *
+	 * @param array $gdpr_info
+	 *
 	 * @return void
 	 */
 	public function approve(array $gdpr_info): void {
@@ -259,8 +267,11 @@ class ControllerMailGdpr extends Controller {
 		$mail->setHtml($this->load->view('mail/gdpr_approve', $data));
 		$mail->send();
 	}
+
 	/**
 	 * Deny
+	 *
+	 * @param array $gdpr_info
 	 *
 	 * @return void
 	 */
@@ -333,6 +344,8 @@ class ControllerMailGdpr extends Controller {
 
 	/**
 	 * Remove
+	 *
+	 * @param array $gdpr_info
 	 *
 	 * @return void
 	 */

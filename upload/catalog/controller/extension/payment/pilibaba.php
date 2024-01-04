@@ -29,7 +29,7 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 		$data['merchantNo'] = $this->config->get('payment_pilibaba_merchant_number');
 		$data['currencyType'] = $order_info['currency_code'];
 		$data['orderNo'] = $order_info['order_id'];
-		$data['orderAmount'] = intval(round($order_info['total'], 2) * 100);
+		$data['orderAmount'] = (int)(round($order_info['total'], 2) * 100);
 		$data['orderTime'] = date('Y-m-d H:i:s');
 		$data['pageUrl'] = $this->url->link('checkout/checkout', '', true);
 		$data['serverUrl'] = $this->url->link('extension/payment/pilibaba/callback', '', true);
@@ -45,15 +45,15 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 		foreach ($this->cart->getProducts() as $product) {
 			// kilograms
 			if ($product['weight_class_id'] == '1') {
-				$weight = intval(round($product['weight'], 2) * 1000);
+				$weight = (int)(round($product['weight'], 2) * 1000);
 			} else {
-				$weight = intval($product['weight']);
+				$weight = (int)($product['weight']);
 			}
 
 			$products[] = array_map('strval', [
 				'name'       => $product['name'],
 				'pictureUrl' => $this->config->get('config_url') . 'image/' . $product['image'],
-				'price'      => intval(round($this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax'), $this->session->data['currency']), 2) * 100),
+				'price'      => (int)(round($this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax'), $this->session->data['currency']), 2) * 100),
 				'productUrl' => str_replace('&amp;', '&', $this->url->link('product/product', 'product_id=' . $product['product_id'])),
 				'productId'  => $product['product_id'],
 				'quantity'   => $product['quantity'],
@@ -326,13 +326,13 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 				$data['merchantNo'] = $this->config->get('payment_pilibaba_merchant_number');
 				$data['currencyType'] = $order_info['currency_code'];
 				$data['orderNo'] = $order_info['order_id'];
-				$data['orderAmount'] = intval(round($order_info['total'], 2) * 100);
+				$data['orderAmount'] = (int)(round($order_info['total'], 2) * 100);
 				$data['orderTime'] = date('Y-m-d H:i:s');
 				$data['pageUrl'] = $this->url->link('checkout/checkout', '', true);
 				$data['serverUrl'] = $this->url->link('extension/payment/pilibaba/callback', '', true);
 				$data['redirectUrl'] = $this->url->link('checkout/success', '', true);
 				$data['notifyType'] = 'json';
-				$data['shipper'] = intval(round($this->config->get('payment_pilibaba_shipping_fee'), 2) * 100);
+				$data['shipper'] = (int)(round($this->config->get('payment_pilibaba_shipping_fee'), 2) * 100);
 				$data['tax'] = ($this->config->get('config_tax')) ? 0 : $this->model_extension_payment_pilibaba->getOrderTaxAmount($order_info['order_id']);
 				$data['signType'] = 'MD5';
 				$data['signMsg'] = strtoupper(md5($data['version'] . $data['merchantNo'] . $data['currencyType'] . $data['orderNo'] . $data['orderAmount'] . $data['orderTime'] . $data['pageUrl'] . $data['serverUrl'] . $data['redirectUrl'] . $data['notifyType'] . $data['shipper'] . $data['tax'] . $data['signType'] . $this->config->get('payment_pilibaba_secret_key')));
@@ -342,15 +342,15 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 				foreach ($this->cart->getProducts() as $product) {
 					// kilograms
 					if ($product['weight_class_id'] == '1') {
-						$weight = intval(round($product['weight'], 2) * 1000);
+						$weight = (int)(round($product['weight'], 2) * 1000);
 					} else {
-						$weight = intval($product['weight']);
+						$weight = (int)($product['weight']);
 					}
 
 					$products[] = array_map('strval', [
 						'name'       => $product['name'],
 						'pictureUrl' => $this->config->get('config_url') . 'image/' . $product['image'],
-						'price'      => intval(round($this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax'), $this->session->data['currency']), 2) * 100),
+						'price'      => (int)(round($this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax'), $this->session->data['currency']), 2) * 100),
 						'productUrl' => str_replace('&amp;', '&', $this->url->link('product/product', 'product_id=' . $product['product_id'])),
 						'productId'  => $product['product_id'],
 						'quantity'   => $product['quantity'],

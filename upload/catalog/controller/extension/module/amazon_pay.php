@@ -77,7 +77,7 @@ class ControllerExtensionModuleAmazonPay extends Controller {
 
 					$available_codes = $language_region_mapping[$merchant_location];
 
-					$data['language'] = ($this->config->get('payment_amazon_login_pay_language')) ? $this->config->get('payment_amazon_login_pay_language') : 'en-US';
+					$data['language'] = ($this->config->get('payment_amazon_login_pay_language')) ?: 'en-US';
 
 					foreach ($available_codes as $l_code) {
 						$l_code_short = current(explode('-', $l_code));
@@ -88,7 +88,7 @@ class ControllerExtensionModuleAmazonPay extends Controller {
 					}
 				}
 			} else {
-				$data['language'] = ($this->config->get('payment_amazon_login_pay_language')) ? $this->config->get('payment_amazon_login_pay_language') : 'en-US';
+				$data['language'] = ($this->config->get('payment_amazon_login_pay_language')) ?: 'en-US';
 			}
 
 			return $this->load->view('extension/module/amazon_login', $data);

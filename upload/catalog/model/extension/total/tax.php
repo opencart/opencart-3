@@ -7,6 +7,8 @@
 class ModelExtensionTotalTax extends Model {
 	/**
 	 * getTotal
+	 *
+	 * @param array $total
 	 */
 	public function getTotal(array $total): void {
 		foreach ($total['taxes'] as $key => $value) {

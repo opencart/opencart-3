@@ -1,10 +1,12 @@
 <?php
 /**
  * @package        OpenCart
+ *
  * @author         Daniel Kerr
  * @copyright      Copyright (c) 2005 - 2022, OpenCart, Ltd. (https://www.opencart.com/)
  * @license        https://opensource.org/licenses/GPL-3.0
- * @link           https://www.opencart.com
+ *
+ * @see           https://www.opencart.com
  */
 
 /**
@@ -18,6 +20,7 @@ class Language {
 	/**
 	 * Constructor
 	 *
+	 * @param string $directory
 	 * @param string $file
 	 */
 	public function __construct(string $directory = '') {
@@ -28,10 +31,9 @@ class Language {
 	 * Get
 	 *
 	 * @param string $key
-	 *
 	 */
 	public function get(string $key) {
-		return isset($this->data[$key]) ? $this->data[$key] : $key;
+		return $this->data[$key] ?? $key;
 	}
 
 	/**
@@ -82,7 +84,7 @@ class Language {
 			$this->data = array_merge($this->data, $_);
 		} else {
 			// Put the language into a sub key
-			$this->data[$key] = new \Language($this->directory);
+			$this->data[$key] = new self($this->directory);
 			$this->data[$key]->load($filename);
 		}
 

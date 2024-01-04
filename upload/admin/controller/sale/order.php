@@ -803,10 +803,11 @@ class ControllerSaleOrder extends Controller {
 
 		$this->response->setOutput($this->load->view('sale/order_form', $data));
 	}
+
 	/**
 	 * Info
 	 *
-	 * @return object|\Action|null
+	 * @return \Action|object|null
 	 */
 	public function info(): ?object {
 		// Orders
@@ -969,7 +970,7 @@ class ControllerSaleOrder extends Controller {
 				'country'   => $order_info['payment_country']
 			];
 
-			$data['payment_address'] = str_replace(["\r\n", "\r", "\n"], '<br/>', preg_replace(["/\s\s+/", "/\r\r+/", "/\n\n+/"], '<br/>', trim(str_replace($find, $replace, $format))));
+			$data['payment_address'] = str_replace(["\r\n", "\r", "\n"], '<br/>', preg_replace(["/\\s\\s+/", "/\r\r+/", "/\n\n+/"], '<br/>', trim(str_replace($find, $replace, $format))));
 
 			// Shipping Address
 			if ($order_info['shipping_address_format']) {
@@ -1004,7 +1005,7 @@ class ControllerSaleOrder extends Controller {
 				'country'   => $order_info['shipping_country']
 			];
 
-			$data['shipping_address'] = str_replace(["\r\n", "\r", "\n" ], '<br/>', preg_replace(["/\s\s+/", "/\r\r+/", "/\n\n+/"], '<br/>', trim(str_replace($find, $replace, $format))));
+			$data['shipping_address'] = str_replace(["\r\n", "\r", "\n"], '<br/>', preg_replace(["/\\s\\s+/", "/\r\r+/", "/\n\n+/"], '<br/>', trim(str_replace($find, $replace, $format))));
 
 			// Subscriptions
 			$filter_data = [
@@ -1398,6 +1399,7 @@ class ControllerSaleOrder extends Controller {
 
 		return !$this->error;
 	}
+
 	/**
 	 * createInvoiceNo
 	 *
@@ -1748,7 +1750,7 @@ class ControllerSaleOrder extends Controller {
 					'country'   => $order_info['payment_country']
 				];
 
-				$payment_address = str_replace(["\r\n", "\r", "\n"], '<br/>', preg_replace(["/\s\s+/", "/\r\r+/", "/\n\n+/"], '<br/>', trim(str_replace($find, $replace, $format))));
+				$payment_address = str_replace(["\r\n", "\r", "\n"], '<br/>', preg_replace(["/\\s\\s+/", "/\r\r+/", "/\n\n+/"], '<br/>', trim(str_replace($find, $replace, $format))));
 
 				// Shipping Address
 				if ($order_info['shipping_address_format']) {
@@ -1783,7 +1785,7 @@ class ControllerSaleOrder extends Controller {
 					'country'   => $order_info['shipping_country']
 				];
 
-				$shipping_address = str_replace(["\r\n", "\r", "\n"], '<br/>', preg_replace(["/\s\s+/", "/\r\r+/", "/\n\n+/"], '<br/>', trim(str_replace($find, $replace, $format))));
+				$shipping_address = str_replace(["\r\n", "\r", "\n"], '<br/>', preg_replace(["/\\s\\s+/", "/\r\r+/", "/\n\n+/"], '<br/>', trim(str_replace($find, $replace, $format))));
 
 				// Subscriptions
 				$filter_data = [
@@ -2006,7 +2008,7 @@ class ControllerSaleOrder extends Controller {
 					'country'   => $order_info['shipping_country']
 				];
 
-				$shipping_address = str_replace(["\r\n", "\r", "\n"], '<br/>', preg_replace(["/\s\s+/", "/\r\r+/", "/\n\n+/"], '<br/>', trim(str_replace($find, $replace, $format))));
+				$shipping_address = str_replace(["\r\n", "\r", "\n"], '<br/>', preg_replace(["/\\s\\s+/", "/\r\r+/", "/\n\n+/"], '<br/>', trim(str_replace($find, $replace, $format))));
 
 				$product_data = [];
 
