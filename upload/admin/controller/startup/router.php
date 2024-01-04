@@ -33,7 +33,7 @@ class ControllerStartupRouter extends Controller {
 		// Trigger the post events
 		$result = $this->event->trigger('controller/' . $route . '/after', [&$route, &$output]);
 
-		if ($result != null) {
+		if ($result !== null) {
 			return $result;
 		}
 
