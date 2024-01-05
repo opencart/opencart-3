@@ -380,6 +380,8 @@ function updatePayPalButton(button_page_code, paypal_callback = '') {
 								
 	var paypal_data = {};
 
+  {% set setting_general = setting.general %}
+
 	paypal_data['page_code'] = button_page_code;
 	paypal_data['client_id'] = '{{ client_id }}';
 	paypal_data['secret'] = '{{ secret }}';
@@ -391,7 +393,7 @@ function updatePayPalButton(button_page_code, paypal_callback = '') {
 	paypal_data['currency_value'] = '{{ currency_value }}';
 	paypal_data['decimal_place'] = '{{ decimal_place }}';
 	paypal_data['client_token'] = '{{ client_token }}';
-	paypal_data['transaction_method'] = '{{ setting['general']['transaction_method'] }}';
+	paypal_data['transaction_method'] = '{{ setting_general.transaction_method }}';
 	paypal_data['components'] = ['buttons'];
 	paypal_data['button_align'] = $('.payment-paypal #input-button-' + button_page_code + '-align').val();
 	paypal_data['button_size'] = $('.payment-paypal #input-button-' + button_page_code + '-size').val();

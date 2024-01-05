@@ -253,6 +253,8 @@ $('.payment-paypal').on('click', '.button-agree', function() {
 function updateApplePayButton() {								
 	var paypal_data = {};
 
+  {% set setting_general = setting.general %}
+
 	paypal_data['client_id'] = '{{ client_id }}';
 	paypal_data['secret'] = '{{ secret }}';
 	paypal_data['merchant_id'] = '{{ merchant_id }}';
@@ -263,7 +265,7 @@ function updateApplePayButton() {
 	paypal_data['currency_value'] = '{{ currency_value }}';
 	paypal_data['decimal_place'] = '{{ decimal_place }}';
 	paypal_data['client_token'] = '{{ client_token }}';
-	paypal_data['transaction_method'] = '{{ setting['general']['transaction_method'] }}';
+	paypal_data['transaction_method'] = '{{ setting_general.transaction_method }}';
 	paypal_data['components'] = ['applepay'];
 	paypal_data['applepay_button_align'] = $('.payment-paypal #input-applepay-button-align').val();
 	paypal_data['applepay_button_size'] = $('.payment-paypal #input-applepay-button-size').val();

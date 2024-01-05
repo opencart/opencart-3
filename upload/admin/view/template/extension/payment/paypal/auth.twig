@@ -57,13 +57,16 @@
 $('#input-environment').on('change', function() {
 	var environment = $(this).val();
 	
+	{% set configure_url_production = configure_url.production %}
+	{% set configure_url_sandbox = configure_url.sandbox %}
+	
 	if (environment == 'production') {
-		$('.button-connect-ppcp').attr('href', '{{ configure_url['production']['ppcp'] }}');
-		$('.button-connect-express-checkout').attr('href', '{{ configure_url['production']['express_checkout'] }}');
+		$('.button-connect-ppcp').attr('href', '{{ configure_url_production.ppcp }}');
+		$('.button-connect-express-checkout').attr('href', '{{ configure_url_production.express_checkout }}');
 	} else {
-		$('.button-connect-ppcp').attr('href', '{{ configure_url['sandbox']['ppcp'] }}');
-		$('.button-connect-express_checkout').attr('href', '{{ configure_url['sandbox']['express_checkout'] }}');
-	}	
+		$('.button-connect-ppcp').attr('href', '{{ configure_url_production.ppcp }}');
+		$('.button-connect-express_checkout').attr('href', '{{ configure_url_sandbox.express_checkout }}');
+	}
 });
 
 $('.payment-paypal').on('click', '.button-agree', function() {	
