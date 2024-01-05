@@ -215,7 +215,7 @@ $('.payment-paypal').on('click', '.button-agree', function() {
 function updateGooglePayButton() {								
 	var paypal_data = {};
 	
-	var setting_general = '{{ setting.general }}';
+	{% set setting_general = setting.general %}
 
 	paypal_data.client_id = '{{ client_id }}';
 	paypal_data.secret = '{{ secret }}';

@@ -401,7 +401,7 @@ $('.payment-paypal').on('click', '.button-agree', function() {
 function updatePayPalMessage(message_page_code, paypal_callback = '') {								
 	var paypal_data = {};
 	
-	var setting_general = '{{ setting.general }}';
+	{% set setting_general = setting.general %}
 
 	paypal_data.page_code = message_page_code;
 	paypal_data.client_id = '{{ client_id }}';
