@@ -28,7 +28,7 @@
 	  $('#paypal-modal').load('index.php?route=extension/payment/paypal_paylater/modal #paypal-modal >', function() {		
 		  $('.paypal-paylater-button-confirm').button('reset');
 		
-		  $('#paypal_modal').modal('show');
+		  $('#paypal-modal').modal('show');
 		
 		  if (typeof PayPalAPI !== 'undefined') {
 			  PayPalAPI.init();
