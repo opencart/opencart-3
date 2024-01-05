@@ -107,8 +107,8 @@
                         <td class="text-left">{{ customer_approval.customer_group }}</td>
                         <td class="text-left">{{ customer_approval.type }}</td>
                         <td class="text-left">{{ customer_approval.date_added }}</td>
-                        <td class="text-right"><button type="button" data-toggle="tooltip" onclick="customer_approval.approve('{{ customer_approval.customer_id }}', '{{  customer_approval.type }}');" title="{{ button_approve }}" class="btn btn-success"><i class="fa fa-thumbs-o-up"></i></button>
-                          <button type="button" data-toggle="tooltip" onclick="customer_approval.deny('{{ customer_approval.customer_id }}', '{{  customer_approval.type }}');" title="{{ button_deny }}" class="btn btn-danger"><i class="fa fa-thumbs-o-down"></i></button>
+                        <td class="text-right"><button type="button" data-toggle="tooltip" onclick="customer_approval.approve('{{ customer_approval.customer_id }}', '{{ customer_approval.type }}');" title="{{ button_approve }}" class="btn btn-success"><i class="fa fa-thumbs-o-up"></i></button>
+                          <button type="button" data-toggle="tooltip" onclick="customer_approval.deny('{{ customer_approval.customer_id }}', '{{ customer_approval.type }}');" title="{{ button_deny }}" class="btn btn-danger"><i class="fa fa-thumbs-o-down"></i></button>
                           <a href="{{ customer_approval.edit }}" data-toggle="tooltip" title="{{ button_edit }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a></td>
                       </tr>
                     {% endfor %}
@@ -130,7 +130,7 @@
     </div>
   </div>
   <script type="text/javascript"><!--
-  // Customer removal approve and deny functions
+  // Customer approval - approve and deny functions
   var customer_approval = {
       'approve': function (customer_id, type) {
           url = 'index.php?route=customer/customer_approval&user_token={{ user_token }}';
