@@ -176,7 +176,7 @@
                             <div class="col col-md-6">
                               <div class="form-group">
                                 <label class="control-label" for="input-button-{{ button.page_code }}-insert_type">{{ entry_button_insert_type }}</label>
-                                <select name="payment_paypal_setting[button][{{ button.page_code }}][insert_type]" id="input-button-{{ button.page_code }}-insert_type" class="form-control">
+                                <select name="payment_paypal_setting[button][{{ button.page_code }}][insert_type]" id="input-button-{{ button.page_code }}-insert-type" class="form-control">
                                   {% for button_insert_type in setting.button_insert_type %}
                                     {% if button_insert_type.code == button.insert_type %}
                                       <option value="{{ button_insert_type.code }}" selected="selected">{{ attribute(_context, button_insert_type.name) }}</option>
