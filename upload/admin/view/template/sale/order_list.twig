@@ -269,7 +269,7 @@
 
     // IE and Edge fix!
     $('#button-shipping, #button-invoice').on('click', function (e) {
-        $('#form-order').attr('action', this.getAttribute('formaction'));
+        $('#form-order').attr('action', this.getAttribute('formAction'));
     });
 
     $('#form-order li:last-child a').on('click', function (e) {
