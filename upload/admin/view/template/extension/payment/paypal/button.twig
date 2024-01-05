@@ -271,7 +271,7 @@
                         </div>
                         {% if button.page_code == 'checkout' %}
                           <hr class="hr" />
-                          <button type="button" href="#all_settings_{{ button.page_code }}" class="btn btn-default button-all-settings collapsed" data-toggle="collapse" role="button">{{ button_all_settings }}<i class="icon icon-all-settings"></i></button>
+                          <button type="button" href="#all-settings-{{ button.page_code }}" class="btn btn-default button-all-settings collapsed" data-toggle="collapse" role="button">{{ button_all_settings }}<i class="icon icon-all-settings"></i></button>
                           <div id="all-settings-{{ button.page_code }}" class="all-settings collapse">
                             <div class="row">
                               {% for column_button_funding in setting.button_funding|batch(setting.button_funding|length / 2|round(1, 'ceil')) %}
