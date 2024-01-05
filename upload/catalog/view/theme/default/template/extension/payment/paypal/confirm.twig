@@ -342,7 +342,7 @@ function onLoadPaymentAddress() {
 		pickTime: true
 	});
 	
-	$('#payment-address button[id^=\'button_payment_custom_field\']').on('click', function() {
+	$('#payment-address button[id^=\'button-payment-custom-field\']').on('click', function() {
 		var node = this;
 
 		$('#form-upload').remove();
@@ -406,7 +406,7 @@ function onLoadPaymentAddress() {
 			
 				if (json['error']) {
 					for (i in json['error']) {
-						var element = $('#payment-address #input-payment_' + i);
+						var element = $('#payment-address #input-payment-' + i);
 					
 						if (element.parent().hasClass('input-group')) {
 							$(element).parent().after('<div class="text-danger">' + json['error'][i] + '</div>');
@@ -567,7 +567,7 @@ function onLoadShippingAddress() {
 			data: $('#shipping-address [name]'),
 			dataType: 'json',
 			success: function(json) {
-				$('#shipping-address .alert, #shipping_address .text-danger').remove();
+				$('#shipping-address .alert, #shipping-address .text-danger').remove();
 				$('#shipping-address .form-group').removeClass('has-error');
 			
 				if (json['error']) {
