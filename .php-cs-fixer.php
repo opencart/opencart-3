@@ -1,7 +1,7 @@
 <?php
 /*
  * This document has been generated with
- * https://mlocati.github.io/php-cs-fixer-configurator/#version:3.41.1|configurator
+ * https://mlocati.github.io/php-cs-fixer-configurator/#version:3.46.0|configurator
  * you can change this configuration by importing this file.
  */
 $config = new PhpCsFixer\Config();
@@ -32,6 +32,7 @@ return $config
 		'cast_spaces'                                      => ['space' => 'none'],
 		'class_attributes_separation'                      => ['elements' => ['method' => 'one']],
 		'class_reference_name_casing'                      => true,
+		'get_class_to_class_keyword'                       => false,
 		'clean_namespace'                                  => true,
 		'combine_nested_dirname'                           => true,
 		'comment_to_phpdoc'                                => true,

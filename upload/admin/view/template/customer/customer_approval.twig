@@ -3,7 +3,9 @@
   <div class="page-header">
     <div class="container-fluid">
       <div class="pull-right">
-        <button type="button" data-toggle="tooltip" title="{{ button_filter }}" onclick="$('#filter-customer-approval').toggleClass('hidden-sm hidden-xs');" class="btn btn-default hidden-md hidden-lg"><i class="fa fa-filter"></i></button></div>
+        <button type="button" data-toggle="tooltip" title="{{ button_filter }}" onclick="$('#filter-customer').toggleClass('hidden-sm hidden-xs');" class="btn btn-default hidden-md hidden-lg"><i class="fa fa-filter"></i></button>
+        <button type="button" id="button-approve" formaction="{{ approve }}" data-toggle="tooltip" title="{{ text_approve }}" class="btn btn-success"><i class="fa fa-check"></i></button>
+        <button type="button" id="button-deny" formaction="{{ deny }}" data-toggle="tooltip" title="{{ text_deny }}" class="btn btn-warning"><i class="fa fa-times"></i></button></div>
       <h1>{{ heading_title }}</h1>
       <ul class="breadcrumb">
         {% for breadcrumb in breadcrumbs %}
@@ -24,7 +26,7 @@
       </div>
     {% endif %}
     <div class="row">
-      <div id="filter-customer-approval" class="col-md-3 col-md-push-9 col-sm-12 hidden-sm hidden-xs">
+      <div id="filter-customer" class="col-md-3 col-md-push-9 col-sm-12 hidden-sm hidden-xs">
         <div class="panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title"><i class="fa fa-filter"></i> {{ text_filter }}</h3>
@@ -32,11 +34,11 @@
           <div class="panel-body">
             <div class="form-group">
               <label class="control-label" for="input-name">{{ entry_name }}</label>
-              <input type="text" name="filter_name" value="{{ filter_name }}" placeholder="{{ entry_name }}" id="input-name" class="form-control"/>
+              <input type="text" name="filter_name" value="{{ filter_name }}" placeholder="{{ entry_name }}" id="input-name" class="form-control" />
             </div>
             <div class="form-group">
               <label class="control-label" for="input-email">{{ entry_email }}</label>
-              <input type="text" name="filter_email" value="{{ filter_email }}" placeholder="{{ entry_email }}" id="input-email" class="form-control"/>
+              <input type="text" name="filter_email" value="{{ filter_email }}" placeholder="{{ entry_email }}" id="input-email" class="form-control" />
             </div>
             <div class="form-group">
               <label class="control-label" for="input-customer-group">{{ entry_customer_group }}</label>
@@ -70,7 +72,7 @@
             <div class="form-group">
               <label class="control-label" for="input-date-added">{{ entry_date_added }}</label>
               <div class="input-group date">
-                <input type="text" name="filter_date_added" value="{{ filter_date_added }}" placeholder="{{ entry_date_added }}" data-date-format="YYYY-MM-DD" id="input-date-added" class="form-control"/>
+                <input type="text" name="filter_date_added" value="{{ filter_date_added }}" placeholder="{{ entry_date_added }}" data-date-format="YYYY-MM-DD" id="input-date-added" class="form-control" />
                 <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span>
               </div>
             </div>
@@ -86,234 +88,170 @@
             <h3 class="panel-title"><i class="fa fa-list"></i> {{ text_list }}</h3>
           </div>
           <div class="panel-body">
-            <div class="table-responsive">
-              <table class="table table-bordered table-hover">
-                <thead>
-                  <tr>
-                    <td class="text-left">{{ column_name }}</td>
-                    <td class="text-left">{{ column_email }}</td>
-                    <td class="text-left">{{ column_customer_group }}</td>
-                    <td class="text-left">{{ column_type }}</td>
-                    <td class="text-left">{{ column_date_added }}</td>
-                    <td class="text-right">{{ column_action }}</td>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% if customer_approvals %}
-                    {% for customer_approval in customer_approvals %}
-                      <tr>
-                        <td class="text-left">{{ customer_approval.name }}</td>
-                        <td class="text-left">{{ customer_approval.email }}</td>
-                        <td class="text-left">{{ customer_approval.customer_group }}</td>
-                        <td class="text-left">{{ customer_approval.type }}</td>
-                        <td class="text-left">{{ customer_approval.date_added }}</td>
-                        <td class="text-right"><button type="button" data-toggle="tooltip" onclick="customer_approval.approve('{{ customer_approval.customer_id }}', '{{ customer_approval.type }}');" title="{{ button_approve }}" class="btn btn-success"><i class="fa fa-thumbs-o-up"></i></button>
-                          <button type="button" data-toggle="tooltip" onclick="customer_approval.deny('{{ customer_approval.customer_id }}', '{{ customer_approval.type }}');" title="{{ button_deny }}" class="btn btn-danger"><i class="fa fa-thumbs-o-down"></i></button>
-                          <a href="{{ customer_approval.edit }}" data-toggle="tooltip" title="{{ button_edit }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a></td>
-                      </tr>
-                    {% endfor %}
-                  {% else %}
-                    <tr>
-                      <td class="text-center" colspan="6">{{ text_no_results }}</td>
-                    </tr>
-                  {% endif %}
-                </tbody>
-              </table>
-            </div>
-            <div class="row">
-              <div class="col-sm-6 text-left">{{ pagination }}</div>
-              <div class="col-sm-6 text-right">{{ results }}</div>
-            </div>
+            <div id="customer-approval"></div>
           </div>
         </div>
       </div>
     </div>
   </div>
   <script type="text/javascript"><!--
-  // Customer approval - approve and deny functions
-  var customer_approval = {
-      'approve': function (customer_id, type) {
-          url = 'index.php?route=customer/customer_approval&user_token={{ user_token }}';
+$('#customer-approval').on('click', '.pagination a', function(e) {
+    e.preventDefault();
 
-          var filter_name = $('input[name=\'filter_name\']').val();
+    $('#customer-approval').load(this.href);
+});
 
-          if (filter_name) {
-              url += '&filter_name=' + encodeURIComponent(filter_name);
-          }
+$('#customer-approval').load('index.php?route=customer/customer_approval/customer_approval&user_token={{ user_token }}');
 
-          var filter_email = $('input[name=\'filter_email\']').val();
+$('#button-approve, #button-deny').on('click', function(e) {
+    e.preventDefault();
 
-          if (filter_email) {
-              url += '&filter_email=' + encodeURIComponent(filter_email);
-          }
+    var element = this;
 
-          var filter_customer_group_id = $('select[name=\'filter_customer_group_id\']').val();
+    $.ajax({
+        url: $(element).attr('formaction'),
+        type: 'post',
+        dataType: 'json',
+        data: $('#customer-approval input[name=\'selected[]\']:checked'),
+        beforeSend: function() {
+            $(element).button('loading');
+        },
+        complete: function() {
+            $(element).button('reset');
+        },
+        success: function(json) {
+            $('.alert-dismissible').remove();
 
-          if (filter_customer_group_id !== '') {
-              url += '&filter_customer_group_id=' + encodeURIComponent(filter_customer_group_id);
-          }
+            if (json['error']) {
+                $('#customer-approval').before('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+            }
 
-          var filter_type = $('select[name=\'filter_type\']').val();
+            if (json['success']) {
+                $('#customer-approval').load('index.php?route=customer/customer_approval/customer_approval&user_token={{ user_token }}');
 
-          if (filter_type !== '') {
-              url += '&filter_type=' + filter_type;
-          }
+                $('#customer-approval').before('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+            }
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+        }
+    });
+});
 
-          var filter_date_added = $('input[name=\'filter_date_added\']').val();
+$('#customer-approval').on('click', '.btn-success, .btn-warning, .btn-danger', function(e) {
+    e.preventDefault();
 
-          if (filter_date_added) {
-              url += '&filter_date_added=' + encodeURIComponent(filter_date_added);
-          }
+    var element = this;
 
-          $.ajax({
-              url: url,
-              type: 'post',
-              dataType: 'json',
-              data: 'customer_id=' + customer_id + '&type=' + encodeURIComponent(type),
-              success: function (json) {
-                  if (json['redirect']) {
-                      location = json['redirect'];
-                  }
+    $.ajax({
+        url: $(element).attr('href'),
+        dataType: 'json',
+        beforeSend: function() {
+            $(element).button('loading');
+        },
+        complete: function() {
+            $(element).button('reset');
+        },
+        success: function(json) {
+            $('.alert-dismissible').remove();
 
-                  if (json['error']) {
-                      $('#content > .container-fluid').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-                  }
-              }
-          });
-      },
-      'deny': function (customer_id, type) {
-          url = 'index.php?route=customer/customer_approval&user_token={{ user_token }}';
+            if (json['error']) {
+                $('#customer-approval').before('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+            }
 
-          var filter_name = $('input[name=\'filter_name\']').val();
+            if (json['success']) {
+                $('#customer-approval').load('index.php?route=customer/customer_approval/customer_approval&user_token={{ user_token }}');
 
-          if (filter_name) {
-              url += '&filter_name=' + encodeURIComponent(filter_name);
-          }
+                $('#customer-approval').before('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+            }
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+        }
+    });
+});
 
-          var filter_email = $('input[name=\'filter_email\']').val();
+$('#button-filter').on('click', function() {
+    url = '';
 
-          if (filter_email) {
-              url += '&filter_email=' + encodeURIComponent(filter_email);
-          }
+    var filter_name = $('input[name=\'filter_name\']').val();
 
-          var filter_customer_group_id = $('select[name=\'filter_customer_group_id\']').val();
+    if (filter_name) {
+        url += '&filter_name=' + encodeURIComponent(filter_name);
+    }
 
-          if (filter_customer_group_id !== '') {
-              url += '&filter_customer_group_id=' + encodeURIComponent(filter_customer_group_id);
-          }
+    var filter_email = $('input[name=\'filter_email\']').val();
 
-          var filter_type = $('select[name=\'filter_type\']').val();
+    if (filter_email) {
+        url += '&filter_email=' + encodeURIComponent(filter_email);
+    }
 
-          if (filter_type !== '') {
-              url += '&filter_type=' + filter_type;
-          }
+    var filter_customer_group_id = $('select[name=\'filter_customer_group_id\']').val();
 
-          var filter_date_added = $('input[name=\'filter_date_added\']').val();
+    if (filter_customer_group_id !== '') {
+        url += '&filter_customer_group_id=' + encodeURIComponent(filter_customer_group_id);
+    }
 
-          if (filter_date_added) {
-              url += '&filter_date_added=' + encodeURIComponent(filter_date_added);
-          }
+    var filter_type = $('select[name=\'filter_type\']').val();
 
-          $.ajax({
-              url: url,
-              type: 'post',
-              dataType: 'json',
-              data: 'customer_id=' + customer_id + '&type=' + encodeURIComponent(type),
-              success: function (json) {
-                  if (json['redirect']) {
-                      location = json['redirect'];
-                  }
+    if (filter_type !== '') {
+        url += '&filter_type=' + filter_type;
+    }
 
-                  if (json['error']) {
-                      $('#content > .container-fluid').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-                  }
-              }
-          });
-      },
-  }
+    var filter_date_added = $('input[name=\'filter_date_added\']').val();
 
-  $('#button-filter').on('click', function () {
-      url = 'index.php?route=customer/customer_approval&user_token={{ user_token }}';
+    if (filter_date_added) {
+        url += '&filter_date_added=' + encodeURIComponent(filter_date_added);
+    }
 
-      var filter_name = $('input[name=\'filter_name\']').val();
+    $('#customer-approval').load('index.php?route=customer/customer_approval/customer_approval&user_token={{ user_token }}' + url);
+});
+//--></script> 
+<script type = "text/javascript"><!--
+$('input[name=\'filter_name\']').autocomplete({
+    'source': function(request, response) {
+        $.ajax({
+            url: 'index.php?route=customer/customer/autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
+            dataType: 'json',
+            success: function(json) {
+                response($.map(json, function(item) {
+                    return {
+                        label: item['name'],
+                        value: item['customer_id']
+                    }
+                }));
+            }
+        });
+    },
+    'select': function(item) {
+        $('input[name=\'filter_name\']').val(item['label']);
+    }
+});
 
-      if (filter_name) {
-          url += '&filter_name=' + encodeURIComponent(filter_name);
-      }
-
-      var filter_email = $('input[name=\'filter_email\']').val();
-
-      if (filter_email) {
-          url += '&filter_email=' + encodeURIComponent(filter_email);
-      }
-
-      var filter_customer_group_id = $('select[name=\'filter_customer_group_id\']').val();
-
-      if (filter_customer_group_id !== '') {
-          url += '&filter_customer_group_id=' + encodeURIComponent(filter_customer_group_id);
-      }
-
-      var filter_type = $('select[name=\'filter_type\']').val();
-
-      if (filter_type !== '') {
-          url += '&filter_type=' + filter_type;
-      }
-
-      var filter_date_added = $('input[name=\'filter_date_added\']').val();
-
-      if (filter_date_added) {
-          url += '&filter_date_added=' + encodeURIComponent(filter_date_added);
-      }
-
-      location = url;
-  });
-  //--></script>
+$('input[name=\'filter_email\']').autocomplete({
+    'source': function(request, response) {
+        $.ajax({
+            url: 'index.php?route=customer/customer/autocomplete&user_token={{ user_token }}&filter_email=' + encodeURIComponent(request),
+            dataType: 'json',
+            success: function(json) {
+                response($.map(json, function(item) {
+                    return {
+                        label: item['email'],
+                        value: item['customer_id']
+                    }
+                }));
+            }
+        });
+    },
+    'select': function(item) {
+        $('input[name=\'filter_email\']').val(item['label']);
+    }
+});
+//--></script> 
   <script type="text/javascript"><!--
-  $('input[name=\'filter_name\']').autocomplete({
-      'source': function (request, response) {
-          $.ajax({
-              url: 'index.php?route=customer/customer/autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
-              dataType: 'json',
-              success: function (json) {
-                  response($.map(json, function (item) {
-                      return {
-                          label: item['name'],
-                          value: item['customer_id']
-                      }
-                  }));
-              }
-          });
-      },
-      'select': function (item) {
-          $('input[name=\'filter_name\']').val(item['label']);
-      }
-  });
-
-  $('input[name=\'filter_email\']').autocomplete({
-      'source': function (request, response) {
-          $.ajax({
-              url: 'index.php?route=customer/customer/autocomplete&user_token={{ user_token }}&filter_email=' + encodeURIComponent(request),
-              dataType: 'json',
-              success: function (json) {
-                  response($.map(json, function (item) {
-                      return {
-                          label: item['email'],
-                          value: item['customer_id']
-                      }
-                  }));
-              }
-          });
-      },
-      'select': function (item) {
-          $('input[name=\'filter_email\']').val(item['label']);
-      }
-  });
-  //--></script>
-  <script type="text/javascript"><!--
-  $('.date').datetimepicker({
-      language: '{{ datepicker }}',
-      pickTime: false
-  });
-  //--></script>
-</div>
+$('.date').datetimepicker({
+    language: '{{ datepicker }}',
+    pickTime: false
+});
+//--></script></div>
 {{ footer }}
