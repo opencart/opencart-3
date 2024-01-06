@@ -4,7 +4,6 @@
  *
  * @package Admin\Controller\Extension\Advertise
  */
-use \googleshopping\Exception\Connection as ConnectionException;
 use googleshopping\Googleshopping;
 use googleshopping\traits\LibraryLoader;
 use googleshopping\traits\StoreLoader;
