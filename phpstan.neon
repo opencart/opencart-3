@@ -30,4 +30,3 @@ parameters:
 	tmpDir: .cache
 	ignoreErrors:
 		- '#Class Event constructor invoked with 1 parameter, 4-5 required\.#'
-		- '#get_class_to_class_keyword#'
