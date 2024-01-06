@@ -3,6 +3,8 @@ parameters:
 	paths:
 		- ./upload/
 	excludePaths:
+		- ./admin/controller/extension/advertise/
+		- ./upload/admin/controller/extension/advertise/
 		- ./admin/model/extension/advertise/
 		- ./upload/admin/model/extension/advertise/
 		- ./admin/model/extension/payment/cardinity.php
