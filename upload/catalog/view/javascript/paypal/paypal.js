@@ -3,10 +3,10 @@ var PayPalAPI = (function () {
 	var paypal_script = [];
 	var paypal_sdk = [];
 	var paypal_callback;
-	
+
 	var showPayPalAlert = function(data) {
 		$('.alert-dismissible').remove();
-		
+
 		if (data['error'] && data['error']['warning']) {
 			if ($('#paypal_form').length) {
 				$('#paypal_form').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + data['error']['warning'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
@@ -17,33 +17,33 @@ var PayPalAPI = (function () {
 			}
 		}
 	};
-	
+
 	var getQueryParams = function(url) {
 		const param_arr = url.slice(url.indexOf('?') + 1).split('&');
 		const params = {};
-    
+
 		param_arr.map(param => {
 			const [key, val] = param.split('=');
 			params[key] = decodeURIComponent(val);
 		})
-		
+
 		return params;
 	};
-	
+
 	var updatePayPalData = function() {
 		var params = [];
 		var script_file = document.getElementsByTagName('script');
-		
+
 		for (var i = 0; i < script_file.length; i++) {
 			if (script_file[i].hasAttribute('src') && (script_file[i].getAttribute('src').indexOf('paypal.js') !== -1)) {
 				params = getQueryParams(script_file[i].getAttribute('src'));
-			
+
 				break;
 			}
 		}
-		
+
 		paypal_data = params;
-		
+
 		$.ajax({
 			method: 'post',
 			url: 'index.php?route=extension/payment/paypal/getData',
@@ -52,7 +52,7 @@ var PayPalAPI = (function () {
 			async: false,
 			success: function(json) {						
 				paypal_data = json;
-				
+
 				showPayPalAlert(json);
 			},
 			error: function(xhr, ajaxOptions, thrownError) {
@@ -60,17 +60,17 @@ var PayPalAPI = (function () {
 			}
 		});
 	};
-	
+
 	var readyPayPalSDK = function() {
 		if (typeof PayPalSDK === 'undefined') {
 			setTimeout(readyPayPalSDK, 100);
 		} else {
 			paypal_sdk[paypal_script.length - 1] = PayPalSDK;
-			
+
 			initPayPalSDK();
 		}
 	};
-		
+
 	var loadPayPalSDK = function() {				
 		var html = '';
 		
@@ -95,17 +95,18 @@ var PayPalAPI = (function () {
 		}
 		
 		var src_data = {};
-						
+
 		src_data['components'] = paypal_data['components'].join(',');
 		src_data['client-id'] = paypal_data['client_id'];
 		src_data['merchant-id'] = paypal_data['merchant_id'];
 		src_data['currency'] = paypal_data['currency_code'];
 		src_data['intent'] = paypal_data['transaction_method'];
-				
+		src_data['locale'] = paypal_data['locale'];
+
 		if (paypal_data['button_enable_funding'] && paypal_data['button_enable_funding'].length) {
 			src_data['enable-funding'] = paypal_data['button_enable_funding'].join(',');
 		}
-		
+
 		if (paypal_data['button_disable_funding'] && paypal_data['button_disable_funding'].length) {
 			src_data['disable-funding'] = paypal_data['button_disable_funding'].join(',');
 		}
