@@ -61,7 +61,7 @@ class Twig {
 			$twig = new \Twig\Environment($loader, $config);
 
 			return $twig->render($filename . '.twig', $this->data);
-		} catch (\Twig\Error\SyntaxError $e) {
+		} catch (\Exception $e) {
 			trigger_error('Error: Could not load template ' . $filename . '!');
 			exit();
 		}
