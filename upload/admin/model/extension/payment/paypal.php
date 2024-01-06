@@ -3,19 +3,19 @@ class ModelExtensionPaymentPayPal extends Model {
 	public function getTotalSales(): int {
 		$implode = [];
 
-		foreach ($this->config->get('config_complete_status') as $order_status_id) {
+		foreach ((array)$this->config->get('config_complete_status') as $order_status_id) {
 			$implode[] = "'" . (int)$order_status_id . "'";
 		}
 
-		$query = $this->db->query("SELECT SUM(total) AS paypal_total FROM `" . DB_PREFIX . "order` WHERE order_status_id IN(" . implode(',', $implode) . ") AND payment_code = 'paypal'");
+		$query = $this->db->query("SELECT SUM(`total`) AS `total` FROM `" . DB_PREFIX . "order` WHERE `order_status_id` IN(" . implode(',', $implode) . ") AND `payment_code` = 'paypal'");
 
-		return (int)$query->row['paypal_total'];
+		return (int)$query->row['total'];
 	}
 
 	public function getTotalSalesByDay(): array {
 		$implode = [];
 
-		foreach ($this->config->get('config_complete_status') as $order_status_id) {
+		foreach ((array)$this->config->get('config_complete_status') as $order_status_id) {
 			$implode[] = "'" . (int)$order_status_id . "'";
 		}
 
@@ -29,7 +29,7 @@ class ModelExtensionPaymentPayPal extends Model {
 			];
 		}
 
-		$query = $this->db->query("SELECT SUM(total) AS total, SUM(IF (payment_code = 'paypal', total, 0)) AS paypal_total, HOUR(date_added) AS hour FROM `" . DB_PREFIX . "order` WHERE order_status_id IN(" . implode(',', $implode) . ") AND DATE(date_added) = DATE(NOW()) GROUP BY HOUR(date_added) ORDER BY date_added ASC");
+		$query = $this->db->query("SELECT SUM(`total`) AS `total`, SUM(IF (`payment_code` = 'paypal', `total`, 0)) AS `paypal_total`, HOUR(`date_added`) AS `hour` FROM `" . DB_PREFIX . "order` WHERE `order_status_id` IN(" . implode(',', $implode) . ") AND DATE(`date_added`) = DATE(NOW()) GROUP BY HOUR(`date_added`) ORDER BY `date_added` ASC");
 
 		foreach ($query->rows as $result) {
 			$sale_data[$result['hour']] = [
@@ -45,7 +45,7 @@ class ModelExtensionPaymentPayPal extends Model {
 	public function getTotalSalesByWeek(): array {
 		$implode = [];
 
-		foreach ($this->config->get('config_complete_status') as $order_status_id) {
+		foreach ((array)$this->config->get('config_complete_status') as $order_status_id) {
 			$implode[] = "'" . (int)$order_status_id . "'";
 		}
 
@@ -63,7 +63,7 @@ class ModelExtensionPaymentPayPal extends Model {
 			];
 		}
 
-		$query = $this->db->query("SELECT SUM(total) AS total, SUM(IF (payment_code = 'paypal', total, 0)) AS paypal_total, date_added FROM `" . DB_PREFIX . "order` WHERE order_status_id IN(" . implode(',', $implode) . ") AND DATE(date_added) >= DATE('" . $this->db->escape(date('Y-m-d', $date_start)) . "') GROUP BY DAYNAME(date_added)");
+		$query = $this->db->query("SELECT SUM(`total`) AS `total`, SUM(IF (`payment_code` = 'paypal', total, 0)) AS `paypal_total`, `date_added` FROM `" . DB_PREFIX . "order` WHERE `order_status_id` IN(" . implode(',', $implode) . ") AND DATE(`date_added`) >= DATE('" . $this->db->escape(date('Y-m-d', $date_start)) . "') GROUP BY DAYNAME(`date_added`)");
 
 		foreach ($query->rows as $result) {
 			$sale_data[date('w', strtotime($result['date_added']))] = [
@@ -79,7 +79,7 @@ class ModelExtensionPaymentPayPal extends Model {
 	public function getTotalSalesByMonth(): array {
 		$implode = [];
 
-		foreach ($this->config->get('config_complete_status') as $order_status_id) {
+		foreach ((array)$this->config->get('config_complete_status') as $order_status_id) {
 			$implode[] = "'" . (int)$order_status_id . "'";
 		}
 
@@ -95,7 +95,7 @@ class ModelExtensionPaymentPayPal extends Model {
 			];
 		}
 
-		$query = $this->db->query("SELECT SUM(total) AS total, SUM(IF (payment_code = 'paypal', total, 0)) AS paypal_total, date_added FROM `" . DB_PREFIX . "order` WHERE order_status_id IN(" . implode(',', $implode) . ") AND DATE(date_added) >= '" . $this->db->escape(date('Y') . '-' . date('m') . '-1') . "' GROUP BY DATE(date_added)");
+		$query = $this->db->query("SELECT SUM(`total`) AS `total`, SUM(IF (`payment_code` = 'paypal', total, 0)) AS `paypal_total`, `date_added` FROM `" . DB_PREFIX . "order` WHERE `order_status_id` IN(" . implode(',', $implode) . ") AND DATE(`date_added`) >= '" . $this->db->escape(date('Y') . '-' . date('m') . '-1') . "' GROUP BY DATE(`date_added`)");
 
 		foreach ($query->rows as $result) {
 			$sale_data[date('j', strtotime($result['date_added']))] = [
@@ -111,7 +111,7 @@ class ModelExtensionPaymentPayPal extends Model {
 	public function getTotalSalesByYear(): array {
 		$implode = [];
 
-		foreach ($this->config->get('config_complete_status') as $order_status_id) {
+		foreach ((array)$this->config->get('config_complete_status') as $order_status_id) {
 			$implode[] = "'" . (int)$order_status_id . "'";
 		}
 
@@ -125,7 +125,7 @@ class ModelExtensionPaymentPayPal extends Model {
 			];
 		}
 
-		$query = $this->db->query("SELECT SUM(total) AS total, SUM(IF (payment_code = 'paypal', total, 0)) AS paypal_total, date_added FROM `" . DB_PREFIX . "order` WHERE order_status_id IN(" . implode(',', $implode) . ") AND YEAR(date_added) = YEAR(NOW()) GROUP BY MONTH(date_added)");
+		$query = $this->db->query("SELECT SUM(`total`) AS `total`, SUM(IF (`payment_code` = 'paypal', `total`, 0)) AS `paypal_total`, `date_added` FROM `" . DB_PREFIX . "order` WHERE `order_status_id` IN(" . implode(',', $implode) . ") AND YEAR(`date_added`) = YEAR(NOW()) GROUP BY MONTH(`date_added`)");
 
 		foreach ($query->rows as $result) {
 			$sale_data[date('n', strtotime($result['date_added']))] = [
@@ -139,7 +139,7 @@ class ModelExtensionPaymentPayPal extends Model {
 	}
 
 	public function getCountryByCode(string $code): array {
-		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "country WHERE iso_code_2 = '" . $this->db->escape($code) . "'");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "country` WHERE `iso_code_2` = '" . $this->db->escape($code) . "'");
 
 		return $query->row;
 	}
@@ -201,20 +201,20 @@ class ModelExtensionPaymentPayPal extends Model {
 	}
 
 	public function setAgreeStatus(): void {
-		$this->db->query("UPDATE " . DB_PREFIX . "country SET status = '0' WHERE (iso_code_2 = 'CU' OR iso_code_2 = 'IR' OR iso_code_2 = 'SY' OR iso_code_2 = 'KP')");
-		$this->db->query("UPDATE " . DB_PREFIX . "zone SET status = '0' WHERE country_id = '220' AND (`code` = '43' OR `code` = '14' OR `code` = '09')");
+		$this->db->query("UPDATE `" . DB_PREFIX . "country` SET `status` = '0' WHERE (`iso_code_2` = 'CU' OR `iso_code_2` = 'IR' OR `iso_code_2` = 'SY' OR `iso_code_2` = 'KP')");
+		$this->db->query("UPDATE `" . DB_PREFIX . "zone` SET `status` = '0' WHERE `country_id` = '220' AND (`code` = '43' OR `code` = '14' OR `code` = '09')");
 	}
 
 	public function getAgreeStatus(): bool {
 		$agree_status = true;
 
-		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "country WHERE status = '1' AND (iso_code_2 = 'CU' OR iso_code_2 = 'IR' OR iso_code_2 = 'SY' OR iso_code_2 = 'KP')");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "country` WHERE `status` = '1' AND (`iso_code_2` = 'CU' OR `iso_code_2` = 'IR' OR `iso_code_2` = 'SY' OR `iso_code_2` = 'KP')");
 
 		if ($query->rows) {
 			$agree_status = false;
 		}
 
-		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "zone WHERE country_id = '220' AND status = '1' AND (`code` = '43' OR `code` = '14' OR `code` = '09')");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone` WHERE `country_id` = '220' AND `status` = '1' AND (`code` = '43' OR `code` = '14' OR `code` = '09')");
 
 		if ($query->rows) {
 			$agree_status = false;
