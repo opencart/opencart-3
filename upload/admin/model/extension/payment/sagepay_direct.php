@@ -347,9 +347,7 @@ class ModelExtensionPaymentSagepayDirect extends Model {
 
 		$response_info = explode(chr(10), $response);
 
-		$i = 0;
-
-		foreach ($response_info as $string) {
+		foreach ($response_info as $i => $string) {
 			if (strpos($string, '=') && isset($i)) {
 				$parts = explode('=', $string, 2);
 
@@ -359,8 +357,6 @@ class ModelExtensionPaymentSagepayDirect extends Model {
 
 				$data[trim($parts[0])] = trim($parts[1]);
 			}
-
-			$i++;
 		}
 
 		return $data;
