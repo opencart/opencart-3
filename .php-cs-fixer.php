@@ -32,6 +32,7 @@ return $config
 		'cast_spaces'                                      => ['space' => 'none'],
 		'class_attributes_separation'                      => ['elements' => ['method' => 'one']],
 		'class_reference_name_casing'                      => true,
+		'get_class_to_class_keyword'                       => false,
 		'clean_namespace'                                  => true,
 		'combine_nested_dirname'                           => true,
 		'comment_to_phpdoc'                                => true,
