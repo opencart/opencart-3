@@ -5,7 +5,7 @@ class ControllerStartupDatabase extends Controller {
 			$lines = file(DIR_OPENCART . 'config.php');
 
 			foreach ($lines as $line) {
-				if (strpos(strtoupper($line), 'DB_') !== false) {
+				if (str_contains(strtoupper($line), 'DB_')) {
 					eval($line);
 				}
 			}

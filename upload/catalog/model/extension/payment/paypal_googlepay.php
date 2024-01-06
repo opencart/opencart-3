@@ -2,7 +2,7 @@
 class ModelExtensionPaymentPayPalGooglePay extends Model {
 	
 	public function getMethod($address, $total) {
-		$method_data = array();
+		$method_data = [];
 		
 		$this->load->model('extension/payment/paypal');
 		

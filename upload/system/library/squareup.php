@@ -77,7 +77,7 @@ class Squareup {
 				$curl_options[CURLOPT_POST] = false;
 
 				if (is_string($params)) {
-					$curl_options[CURLOPT_URL] .= ((strpos($url, '?') === false) ? '?' : '&') . $params;
+					$curl_options[CURLOPT_URL] .= ((!str_contains($url, '?')) ? '?' : '&') . $params;
 				}
 				break;
 			case 'POST':

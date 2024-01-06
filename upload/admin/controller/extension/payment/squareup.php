@@ -756,9 +756,9 @@ class ControllerExtensionPaymentSquareup extends Controller {
 			if (!empty($this->request->post['amount'])) {
 				$amount = preg_replace('~[^0-9.,]~', '', $this->request->post['amount']);
 
-				if (strpos($amount, ',') !== false && strpos($amount, '.') !== false) {
+				if (str_contains($amount, ',') && str_contains($amount, '.')) {
 					$amount = (float)str_replace(',', '', $amount);
-				} elseif (strpos($amount, ',') !== false && strpos($amount, '.') === false) {
+				} elseif (str_contains($amount, ',') && !str_contains($amount, '.')) {
 					$amount = (float)str_replace(',', '.', $amount);
 				} else {
 					$amount = (float)$amount;

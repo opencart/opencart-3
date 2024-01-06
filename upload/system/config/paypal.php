@@ -1,6 +1,6 @@
-<?php
+<?php 
 $_['paypal_setting'] = [
-	'version' => '2.0.2',
+	'version' => '2.2.0',
 	'partner' => [
 		'production' => [
 			'partner_id'             => 'TY2Q25KP2PX9L',
@@ -22,7 +22,9 @@ $_['paypal_setting'] = [
 		'currency_code'        => 'USD',
 		'currency_value'       => '1',
 		'card_currency_code'   => 'USD',
-		'card_currency_value'  => '1'
+		'card_currency_value'  => '1',
+		'webhook_token'        => '',
+		'cron_token'           => ''
 	],
 	'button' => [
 		'checkout' => [
@@ -34,38 +36,9 @@ $_['paypal_setting'] = [
 			'color'     => 'gold',
 			'shape'     => 'rect',
 			'label'     => 'paypal',
-			'funding'   => [
+			'funding' => [
 				'paylater'    => 1,
 				'card'        => 0,
-				'bancontact'  => 0,
-				'blik'        => 0,
-				'eps'         => 0,
-				'giropay'     => 0,
-				'ideal'       => 0,
-				'mercadopago' => 0,
-				'mybank'      => 0,
-				'p24'         => 0,
-				'sepa'        => 0,
-				'sofort'      => 0,
-				'venmo'       => 0
-			]
-		],
-		'product' => [
-			'page_code'   => 'product',
-			'page_name'   => 'text_product',
-			'status'      => true,
-			'insert_tag'  => '#content #product #button-cart',
-			'insert_type' => 'after',
-			'align'       => 'center',
-			'size'        => 'responsive',
-			'color'       => 'gold',
-			'shape'       => 'rect',
-			'label'       => 'paypal',
-			'tagline'     => 'false',
-			'funding'     => [
-				'paylater'    => 0,
-				'card'        => 0,
-				'credit'      => 0,
 				'bancontact'  => 0,
 				'blik'        => 0,
 				'eps'         => 0,
@@ -90,26 +63,32 @@ $_['paypal_setting'] = [
 			'color'       => 'gold',
 			'shape'       => 'rect',
 			'label'       => 'paypal',
-			'tagline'     => 'false',
-			'funding'     => [
-				'paylater'    => 0,
-				'card'        => 0,
-				'bancontact'  => 0,
-				'blik'        => 0,
-				'eps'         => 0,
-				'giropay'     => 0,
-				'ideal'       => 0,
-				'mercadopago' => 0,
-				'mybank'      => 0,
-				'p24'         => 0,
-				'sepa'        => 0,
-				'sofort'      => 0,
-				'venmo'       => 0
-			],
+			'tagline'     => 'false'
+		],
+		'product' => [
+			'page_code'   => 'product',
+			'page_name'   => 'text_product',
+			'status'      => true,
+			'insert_tag'  => '#content #product #button-cart',
+			'insert_type' => 'after',
+			'align'       => 'center',
+			'size'        => 'responsive',
+			'color'       => 'gold',
+			'shape'       => 'rect',
+			'label'       => 'paypal',
+			'tagline'     => 'false'
 		]
 	],
+	'googlepay_button' => [
+		'status' => false,
+		'align'  => 'right',
+		'size'   => 'large',
+		'color'  => 'black',
+		'shape'  => 'rect',
+		'type'   => 'buy'
+	],
 	'applepay_button' => [
-		'status' => true,
+		'status' => false,
 		'align'  => 'right',
 		'size'   => 'large',
 		'color'  => 'black',
@@ -145,14 +124,14 @@ $_['paypal_setting'] = [
 			'flex_color' => 'blue',
 			'flex_ratio' => '8x1'
 		],
-		'home' => [
-			'page_code'   => 'home',
-			'page_name'   => 'text_home',
+		'cart' => [
+			'page_code'   => 'cart',
+			'page_name'   => 'text_cart',
 			'status'      => true,
-			'insert_tag'  => '#common-home',
-			'insert_type' => 'prepend',
-			'align'       => 'center',
-			'size'        => 'responsive',
+			'insert_tag'  => '#content',
+			'insert_type' => 'append',
+			'align'       => 'right',
+			'size'        => 'large',
 			'layout'      => 'text',
 			'text_color'  => 'black',
 			'text_size'   => '12',
@@ -173,14 +152,14 @@ $_['paypal_setting'] = [
 			'flex_color'  => 'blue',
 			'flex_ratio'  => '8x1'
 		],
-		'cart' => [
-			'page_code'   => 'cart',
-			'page_name'   => 'text_cart',
+		'home' => [
+			'page_code'   => 'home',
+			'page_name'   => 'text_home',
 			'status'      => true,
-			'insert_tag'  => '#content',
-			'insert_type' => 'append',
-			'align'       => 'right',
-			'size'        => 'large',
+			'insert_tag'  => '#common-home',
+			'insert_type' => 'prepend',
+			'align'       => 'center',
+			'size'        => 'responsive',
 			'layout'      => 'text',
 			'text_color'  => 'black',
 			'text_size'   => '12',
@@ -190,9 +169,9 @@ $_['paypal_setting'] = [
 	],
 	'order_status' => [
 		'completed' => [
-			'code' => 'completed',
-			'name' => 'text_completed_status',
-			'id'   => 5
+			'code'     => 'completed',
+			'name'     => 'text_completed_status',
+			'id'       => 5
 		],
 		'denied' => [
 			'code' => 'denied',
@@ -227,7 +206,7 @@ $_['paypal_setting'] = [
 	],
 	'contact' => [
 		'oid'                           => '00D300000000LaY',
-		'retURL'                        => 'https://www.opencart.com/',
+		'retURL'                        => 'https: //www.opencart.com/',
 		'Vendor_Partner_ID_VPID_MAM__c' => '0018000000LjXtY',
 		'Campaign_ID__c'                => '7012E000001XNG7',
 		'lead_source'                   => 'Partner',
@@ -485,20 +464,20 @@ $_['paypal_setting'] = [
 	],
 	'button_insert_type' => [
 		'into_begin' => [
-			'code' => 'prepend',
-			'name' => 'text_insert_prepend'
+			'code'	=> 'prepend',
+			'name'	=> 'text_insert_prepend'
 		],
 		'into_end' => [
-			'code' => 'append',
-			'name' => 'text_insert_append'
+			'code'	=> 'append',
+			'name'	=> 'text_insert_append'
 		],
 		'before' => [
-			'code' => 'before',
-			'name' => 'text_insert_before'
+			'code'	=> 'before',
+			'name'	=> 'text_insert_before'
 		],
 		'after' => [
-			'code' => 'after',
-			'name' => 'text_insert_after'
+			'code'	=> 'after',
+			'name'	=> 'text_insert_after'
 		]
 	],
 	'button_align' => [
@@ -656,6 +635,86 @@ $_['paypal_setting'] = [
 			'code' => 'venmo',
 			'name' => 'text_venmo'
 		]
+	],
+	'googlepay_button_align' => [
+		'left' => [
+			'code' => 'left',
+			'name' => 'text_align_left'
+		],
+		'center' => [
+			'code' => 'center',
+			'name' => 'text_align_center'
+		],
+		'right' => [
+			'code' => 'right',
+			'name' => 'text_align_right'
+		]
+	],
+	'googlepay_button_size' => [
+		'small' => [
+			'code' => 'small',
+			'name' => 'text_small'
+		],
+		'medium' => [
+			'code' => 'medium',
+			'name' => 'text_medium'
+		],
+		'large' => [
+			'code' => 'large',
+			'name' => 'text_large'
+		],
+		'responsive' => [
+			'code' => 'responsive',
+			'name' => 'text_responsive'
+		]
+	],
+	'googlepay_button_color' => [
+		'black' => [
+			'code' => 'black',
+			'name' => 'text_black'
+		],
+		'white' => [
+			'code' => 'white',
+			'name' => 'text_white'
+		]
+	],
+	'googlepay_button_shape' => [
+		'pill' => [
+			'code' => 'pill',
+			'name' => 'text_pill'
+		],
+		'rect' => [
+			'code' => 'rect',
+			'name' => 'text_rect'
+		]
+	],
+	'googlepay_button_type' => [
+		'buy' => [
+			'code' => 'buy',
+			'name' => 'text_buy'
+		],
+		'donate' => [
+			'code' => 'donate',
+			'name' => 'text_donate'
+		],
+		'plain' => [
+			'code' => 'plain',
+			'name' => 'text_plain'
+		],
+		'pay' => [
+			'code' => 'pay',
+			'name' => 'text_pay'
+		],
+		'checkout' => [
+			'code' => 'checkout',
+			'name' => 'text_checkout'
+		]
+	],
+	'googlepay_button_width' => [
+		'small'      => '200px',
+		'medium'     => '250px',
+		'large'      => '350px',
+		'responsive' => ''
 	],
 	'applepay_button_align' => [
 		'left' => [
@@ -822,20 +881,20 @@ $_['paypal_setting'] = [
 	],
 	'message_insert_type' => [
 		'into_begin' => [
-			'code' => 'prepend',
-			'name' => 'text_insert_prepend'
+			'code'	=> 'prepend',
+			'name'	=> 'text_insert_prepend'
 		],
 		'into_end' => [
-			'code' => 'append',
-			'name' => 'text_insert_append'
+			'code'	=> 'append',
+			'name'	=> 'text_insert_append'
 		],
 		'before' => [
-			'code' => 'before',
-			'name' => 'text_insert_before'
+			'code'	=> 'before',
+			'name'	=> 'text_insert_before'
 		],
 		'after' => [
-			'code' => 'after',
-			'name' => 'text_insert_after'
+			'code'	=> 'after',
+			'name'	=> 'text_insert_after'
 		]
 	],
 	'message_align' => [
@@ -896,15 +955,7 @@ $_['paypal_setting'] = [
 			'name' => 'text_white'
 		]
 	],
-	'message_text_size' => [
-		'10',
-		'11',
-		'12',
-		'13',
-		'14',
-		'15',
-		'16'
-	],
+	'message_text_size' => ['10', '11', '12', '13', '14', '15', '16'],
 	'message_flex_color' => [
 		'blue' => [
 			'code' => 'blue',
@@ -919,27 +970,15 @@ $_['paypal_setting'] = [
 			'name' => 'text_white'
 		]
 	],
-	'message_flex_ratio' => [
-		'1x1',
-		'1x4',
-		'8x1',
-		'20x1'
-	],
-	'contact_sales' => [
-		'100k - 250k',
-		'250k - 2m',
-		'2m - 10m',
-		'10m - 20m',
-		'20m - 50m',
-		'50m +'
-	],
+	'message_flex_ratio' => ['1x1', '1x4', '8x1', '20x1'],
+	'contact_sales' => ['100k - 250k', '250k - 2m', '2m - 10m', '10m - 20m', '20m - 50m', '50m +'],
 	'contact_product' => [
 		[
 			'code' => 'BT DCC',
 			'name' => 'text_bt_dcc'
 		],
 		[
-			'code' => 'Express Checkout (EC)',
+			'code' => 'Express Checkout (EC]',
 			'name' => 'text_express_checkout'
 		],
 		[
@@ -976,3 +1015,4 @@ $_['paypal_setting'] = [
 		],
 	]
 ];
+?>

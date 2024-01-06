@@ -353,8 +353,8 @@ class ControllerCommonFileManager extends Controller {
 		}
 
 		if (!$json) {
-			mkdir($directory . '/' . $folder, 0777);
-			chmod($directory . '/' . $folder, 0777);
+			mkdir($directory . '/' . $folder, 0o777);
+			chmod($directory . '/' . $folder, 0o777);
 			@touch($directory . '/' . $folder . '/' . 'index.html');
 
 			$json['success'] = $this->language->get('text_directory');
@@ -402,7 +402,7 @@ class ControllerCommonFileManager extends Controller {
 				// If path is just a file delete it
 				if (is_file($path)) {
 					unlink($path);
-				// If path is a directory beging deleting each file and sub folder
+					// If path is a directory beging deleting each file and sub folder
 				} elseif (is_dir($path)) {
 					$files = [];
 
@@ -433,7 +433,7 @@ class ControllerCommonFileManager extends Controller {
 						// If file just delete
 						if (is_file($file)) {
 							unlink($file);
-						// If directory use the remove directory function
+							// If directory use the remove directory function
 						} elseif (is_dir($file)) {
 							rmdir($file);
 						}
