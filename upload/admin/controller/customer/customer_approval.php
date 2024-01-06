@@ -26,7 +26,7 @@ class ControllerCustomerCustomerApproval extends Controller {
 		}
 
 		if (isset($this->request->get['filter_customer_group_id'])) {
-			$filter_customer_group_id = $this->request->get['filter_customer_group_id'];
+			$filter_customer_group_id = (int)$this->request->get['filter_customer_group_id'];
 		} else {
 			$filter_customer_group_id = '';
 		}
@@ -78,11 +78,11 @@ class ControllerCustomerCustomerApproval extends Controller {
 
 		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('heading_title'),
-			'href' => $this->url->link('customer/customer_approval', 'user_token=' . $this->session->data['user_token'], true)
+			'href' => $this->url->link('customer/customer_approval', 'user_token=' . $this->session->data['user_token'] . $url, true)
 		];
 
-		$data['approve'] = $this->url->link('customer/customer_approval/approve', 'user_token=' . $this->session->data['user_token'], true);
-		$data['deny'] = $this->url->link('customer/customer_approval/deny', 'user_token=' . $this->session->data['user_token'], true);
+		$data['approve'] = $this->url->link('customer/customer_approval/approve', 'user_token=' . $this->session->data['user_token'] . $url, true);
+		$data['deny'] = $this->url->link('customer/customer_approval/deny', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
 		$data['filter_name'] = $filter_name;
 		$data['filter_email'] = $filter_email;
@@ -125,7 +125,7 @@ class ControllerCustomerCustomerApproval extends Controller {
 		}
 
 		if (isset($this->request->get['filter_customer_group_id'])) {
-			$filter_customer_group_id = $this->request->get['filter_customer_group_id'];
+			$filter_customer_group_id = (int)$this->request->get['filter_customer_group_id'];
 		} else {
 			$filter_customer_group_id = '';
 		}
