@@ -97,7 +97,7 @@ class ControllerExtensionPaymentPayPalGooglePay extends Controller {
 
 	/**
 	 * Modal
-	 * 
+	 *
 	 * @return void
 	 */
 	public function modal(): void {

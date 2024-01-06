@@ -1,13 +1,12 @@
 <?php
 class ModelExtensionPaymentPayPalPayLater extends Model {
-	
 	public function getMethod($address, $total) {
 		$method_data = [];
-		
+
 		$this->load->model('extension/payment/paypal');
-		
+
 		$agree_status = $this->model_extension_payment_paypal->getAgreeStatus();
-		
+
 		if ($this->config->get('payment_paypal_status') && $this->config->get('payment_paypal_client_id') && $this->config->get('payment_paypal_secret') && $agree_status) {
 			$this->load->language('extension/payment/paypal');
 
@@ -27,23 +26,23 @@ class ModelExtensionPaymentPayPalPayLater extends Model {
 				// Setting
 				$_config = new Config();
 				$_config->load('paypal');
-			
+
 				$config_setting = $_config->get('paypal_setting');
-		
+
 				$setting = array_replace_recursive((array)$config_setting, (array)$this->config->get('payment_paypal_setting'));
-			
+
 				if ($setting['message']['checkout']['status'] && ($this->session->data['currency'] == $setting['general']['currency_code'])) {
 					$message = $this->load->view('extension/payment/paypal/message');
 				} else {
 					$message = '';
 				}
-			
-				$method_data = array(
+
+				$method_data = [
 					'code'       => 'paypal_paylater',
 					'title'      => $this->language->get('text_paypal_paylater_title') . $message,
 					'terms'      => '',
 					'sort_order' => $this->config->get('payment_paypal_sort_order')
-				);
+				];
 			}
 		}
 
