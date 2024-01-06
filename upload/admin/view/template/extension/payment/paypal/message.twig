@@ -40,7 +40,7 @@
           <div class="section-content">
             <ul class="nav nav-pills">
               {% for message in setting.message %}
-                <li class="nav-pill {% if loop.first %}active{% endif %}"><a href="#pill_{{ message.page_code }}" class="pill" data-toggle="tab">{{ attribute(_context, message.page_name) }}</a></li>
+                <li class="nav-pill {% if loop.first %}active{% endif %}"><a href="#pill-{{ message.page_code }}" class="pill" data-toggle="tab">{{ attribute(_context, message.page_name) }}</a></li>
               {% endfor %}
             </ul>
             <hr class="hr" />
