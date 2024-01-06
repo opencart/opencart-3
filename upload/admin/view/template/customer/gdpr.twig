@@ -3,7 +3,10 @@
   <div class="page-header">
     <div class="container-fluid">
       <div class="pull-right">
-        <button type="button" data-toggle="tooltip" title="{{ button_filter }}" onclick="$('#filter-gdpr').toggleClass('hidden-sm hidden-xs');" class="btn btn-default hidden-md hidden-lg"><i class="fa fa-filter"></i></button></div>
+        <button type="button" data-toggle="tooltip" title="{{ button_filter }}" onclick="$('#filter-gdpr').toggleClass('hidden-sm hidden-xs');" class="btn btn-default hidden-md hidden-lg"><i class="fa fa-filter"></i></button>
+        <button type="button" id="button-approve" formaction="{{ approve }}" data-toggle="tooltip" title="{{ text_approve }}" class="btn btn-success"><i class="fa fa-check"></i></button>
+        <button type="button" id="button-deny" formaction="{{ deny }}" data-toggle="tooltip" title="{{ text_deny }}" class="btn btn-warning"><i class="fa fa-times"></i></button>
+        <button type="button" id="button-delete" formaction="{{ delete }}" data-toggle="tooltip" title="{{ text_delete }}" class="btn btn-danger"><i class="fa fa-trash"></i></button></div>
       <h1>{{ heading_title }}</h1>
       <ul class="breadcrumb">
         {% for breadcrumb in breadcrumbs %}
@@ -23,6 +26,7 @@
         <button type="button" class="close" data-dismiss="alert">&times;</button>
       </div>
     {% endif %}
+    <div class="alert alert-warning"><i class="fa fa-info-circle"></i> {{ text_info }}</div>
     <div class="row">
       <div id="filter-gdpr" class="col-md-3 col-md-push-9 col-sm-12 hidden-sm hidden-xs">
         <div class="panel panel-default">
@@ -31,68 +35,35 @@
           </div>
           <div class="panel-body">
             <div class="form-group">
-              <label class="control-label" for="input-email">{{ entry_email }}</label>
-              <input type="text" name="filter_email" value="{{ filter_email }}" placeholder="{{ entry_email }}" id="input-email" class="form-control"/>
+              <label class="control-label">{{ entry_email }}</label>
+              <input type="text" name="filter_email" value="" placeholder="{{ entry_email }}" id="input-email" class="form-control"/>
             </div>
             <div class="form-group">
               <label class="control-label" for="input-action">{{ entry_action }}</label>
               <select name="filter_action" id="input-action" class="form-control">
                 <option value=""></option>
-                {% if filter_action == 'export' %}
-                  <option value="export" selected="selected">{{ text_export }}</option>
-                {% else %}
-                  <option value="export">{{ text_export }}</option>
-                {% endif %}
-                {% if filter_action == 'remove' %}
-                  <option value="remove" selected="selected">{{ text_remove }}</option>
-                {% else %}
-                  <option value="remove">{{ text_remove }}</option>
-                {% endif %}
+                <option value="export">{{ text_export }}</option>
+                <option value="remove">{{ text_remove }}</option>
               </select>
             </div>
             <div class="form-group">
               <label class="control-label" for="input-status">{{ entry_status }}</label>
               <select name="filter_status" id="input-status" class="form-control">
                 <option value=""></option>
-                {% if filter_status == '0' %}
-                  <option value="0" selected="selected">{{ text_unverified }}</option>
-                {% else %}
-                  <option value="0">{{ text_unverified }}</option>
-                {% endif %}
-                {% if filter_status == '1' %}
-                  <option value="1" selected="selected">{{ text_pending }}</option>
-                {% else %}
-                  <option value="1">{{ text_pending }}</option>
-                {% endif %}
-                {% if filter_status == '2' %}
-                  <option value="2" selected="selected">{{ text_processing }}</option>
-                {% else %}
-                  <option value="2">{{ text_processing }}</option>
-                {% endif %}
-                {% if filter_status == '3' %}
-                  <option value="3" selected="selected">{{ text_complete }}</option>
-                {% else %}
-                  <option value="3">{{ text_complete }}</option>
-                {% endif %}
-                {% if filter_status == '-1' %}
-                  <option value="-1" selected="selected">{{ text_denied }}</option>
-                {% else %}
-                  <option value="-1">{{ text_denied }}</option>
-                {% endif %}
+                <option value="0">{{ text_unverified }}</option>
+                <option value="1">{{ text_pending }}</option>
+                <option value="2">{{ text_processing }}</option>
+                <option value="3">{{ text_complete }}</option>
+                <option value="-1">{{ text_denied }}</option>
               </select>
             </div>
             <div class="form-group">
-              <label class="control-label" for="input-date-from">{{ entry_date_from }}</label>
+              <label class="control-label" for="input-date-added">{{ entry_date_added }}</label>
               <div class="input-group date">
-                <input type="text" name="filter_date_from" value="{{ filter_date_from }}" placeholder="{{ entry_date_from }}" data-date-format="YYYY-MM-DD" id="input-date-from" class="form-control"/>
-                <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="control-label" for="input-date-to">{{ entry_date_to }}</label>
-              <div class="input-group date">
-                <input type="text" name="filter_date_to" value="{{ filter_date_to }}" placeholder="{{ entry_date_to }}" data-date-format="YYYY-MM-DD" id="input-date-to" class="form-control"/>
-                <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span>
+                <input type="text" name="filter_date_added" value="" placeholder="{{ entry_date_added }}" data-date-format="YYYY-MM-DD" id="input-date-added" class="form-control" />
+                <span class="input-group-btn">
+                <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
+                </span>
               </div>
             </div>
             <div class="form-group text-right">
@@ -107,125 +78,147 @@
             <h3 class="panel-title"><i class="fa fa-list"></i> {{ text_list }}</h3>
           </div>
           <div class="panel-body">
-            <div class="table-responsive">
-              <table class="table table-bordered table-hover">
-                <thead>
-                <tr>
-                  <td class="text-center">{{ column_email }}</td>
-                  <td class="text-left">{{ column_request }}</td>
-                  <td class="text-left">{{ column_status }}</td>
-                  <td class="text-left">{{ column_date_added }}</td>
-                  <td class="text-right">{{ column_action }}</td>
-                </tr>
-                </thead>
-                <tbody>
-                  {% if gdprs %}
-                    {% for gdpr in gdpr %}
-                      <tr>
-                        <td style="width: 1px;" class="text-center"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);"/></td>
-                        <td class="text-center">
-                          {% if gdpr.edit %}
-                            <a href="{{ gdpr.edit }}">{{ gdpr.email }}</a>
-                          {% else %}
-                            {{ gdpr.email }}
-                          {% endif %}</td>
-                        <td class="text-left">{{ gdpr.action }}</td>
-                        <td class="text-left">
-                          {% if gdpr.status == '-1' %}
-                            {{ text_denied }}
-                          {% elseif gdpr.status == '0' %}
-                            {{ text_unverified }}
-                          {% elseif gdpr.status == '1' %}
-                            {{ text_pending }}
-                          {% elseif gdpr.status == '2' %}
-                            {{ text_processing }}
-                          {% elseif gdpr.status == '3' %}
-                            {{ text_complete }}
-                          {% endif %}</td>
-                        <td class="text-left">{{ customer.date_added }}</td>
-                        <td class="text-right">{{ column_action }}</td>
-                      </tr>
-                    {% endfor %}
-                  {% else %}
-                    <tr>
-                      <td class="text-center" colspan="5">{{ text_no_results }}</td>
-                    </tr>
-                  {% endif %}
-                </tbody>
-              </table>
-            </div>
-            <div class="row">
-              <div class="col-sm-6 text-left">{{ pagination }}</div>
-              <div class="col-sm-6 text-right">{{ results }}</div>
-            </div>
+            <div id="gdpr"></div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <script type="text/javascript"><!--
-  $('#button-filter').on('click', function () {
-      url = 'index.php?route=customer/gdpr&user_token={{ user_token }}';
-
-      var filter_email = $('input[name=\'filter_email\']').val();
-
-      if (filter_email) {
-          url += '&filter_email=' + encodeURIComponent(filter_email);
-      }
-
-      var filter_action = $('select[name=\'filter_action\']').val();
-
-      if (filter_action !== '') {
-          url += '&filter_action=' + encodeURIComponent(filter_action);
-      }
-
-      var filter_status = $('select[name=\'filter_status\']').val();
-
-      if (filter_status !== '') {
-          url += '&filter_status=' + encodeURIComponent(filter_status);
-      }
-
-      var filter_date_from = $('input[name=\'filter_date_from\']').val();
-
-      if (filter_date_from) {
-          url += '&filter_date_from=' + encodeURIComponent(filter_date_from);
-      }
-
-      var filter_date_to = $('input[name=\'filter_date_to\']').val();
-
-      if (filter_date_to) {
-          url += '&filter_date_to=' + encodeURIComponent(filter_date_to);
-      }
-
-      location = url;
-  });
-  //--></script>
-  <script type="text/javascript"><!--
-  $('input[name=\'filter_email\']').autocomplete({
-      'source': function (request, response) {
-          $.ajax({
-              url: 'index.php?route=customer/customer/autocomplete&user_token={{ user_token }}&filter_email=' + encodeURIComponent(request),
-              dataType: 'json',
-              success: function (json) {
-                  response($.map(json, function (item) {
-                      return {
-                          label: item['email'],
-                          value: item['customer_id']
-                      }
-                  }));
-              }
-          });
-      },
-      'select': function (item) {
-          $('input[name=\'filter_email\']').val(item['label']);
-      }
-  });
-  //--></script>
-  <script type="text/javascript"><!--
-  $('.date').datetimepicker({
-      language: '{{ datepicker }}',
-      pickTime: false
-  });
-  //--></script>
 </div>
+<script type="text/javascript"><!--
+$('#gdpr').on('click', '.pagination a', function(e) {
+    e.preventDefault();
+
+    $('#gdpr').load(this.href);
+});
+
+$('#gdpr').load('index.php?route=customer/gdpr/gdpr&user_token={{ user_token }}');
+
+$('#button-approve, #button-deny, #button-delete').on('click', function(e) {
+    e.preventDefault();
+
+    var element = this;
+
+    $.ajax({
+        url: $(element).attr('formaction'),
+        type: 'post',
+        dataType: 'json',
+        data: $('#gdpr input[name=\'selected[]\']:checked'),
+        beforeSend: function() {
+            $(element).button('loading');
+        },
+        complete: function() {
+            $(element).button('reset');
+        },
+        success: function(json) {
+            $('.alert-dismissible').remove();
+
+            if (json['error']) {
+                $('#gdpr').before('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+            }
+
+            if (json['success']) {
+                $('#gdpr').load('index.php?route=customer/gdpr/gdpr&user_token={{ user_token }}');
+
+                $('#gdpr').before('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+            }
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+        }
+    });
+});
+
+$('#gdpr').on('click', '.btn-success, .btn-warning, .btn-danger', function(e) {
+    e.preventDefault();
+
+    var element = this;
+
+    $.ajax({
+        url: $(element).attr('href'),
+        dataType: 'json',
+        beforeSend: function() {
+            $(element).button('loading');
+        },
+        complete: function() {
+            $(element).button('reset');
+        },
+        success: function(json) {
+            $('.alert-dismissible').remove();
+
+            if (json['error']) {
+                $('#gdpr').before('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+            }
+
+            if (json['success']) {
+                $('#gdpr').load('index.php?route=customer/gdpr/gdpr&user_token={{ user_token }}');
+
+                $('#gdpr').before('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+            }
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+        }
+    });
+});
+
+$('#button-filter').on('click', function() {
+    var url = '';
+
+    var filter_email = $('input[name=\'filter_email\']').val();
+
+    if (filter_email) {
+        url += '&filter_email=' + encodeURIComponent(filter_email);
+    }
+
+    var filter_action = $('select[name=\'filter_action\']').val();
+
+    if (filter_action !== '') {
+        url += '&filter_action=' + filter_action;
+    }
+
+    var filter_status = $('select[name=\'filter_status\']').val();
+
+    if (filter_status !== '') {
+        url += '&filter_status=' + filter_status;
+    }
+
+    var filter_date_added = $('input[name=\'filter_date_added\']').val();
+
+    if (filter_date_added) {
+        url += '&filter_date_added=' + encodeURIComponent(filter_date_added);
+    }
+
+    $('#gdpr').load('index.php?route=customer/gdpr/gdpr&user_token={{ user_token }}' + url);
+});
+//--></script>
+<
+script type = "text/javascript" > < !--
+$('input[name=\'filter_email\']').autocomplete({
+    'source': function(request, response) {
+        $.ajax({
+            url: 'index.php?route=customer/customer/autocomplete&user_token={{ user_token }}&filter_email=' + encodeURIComponent(request),
+            dataType: 'json',
+            success: function(json) {
+                response($.map(json, function(item) {
+                    return {
+                        label: item['email'],
+                        value: item['customer_id']
+                    }
+                }));
+            }
+        });
+    },
+    'select': function(item) {
+        $('input[name=\'filter_email\']').val(item['label']);
+    }
+});
+//--></script>
+<
+script type = "text/javascript" > < !--
+$('.date').datetimepicker({
+    language: '{{ datepicker }}',
+    pickTime: false
+});
+//--></script>
 {{ footer }}
