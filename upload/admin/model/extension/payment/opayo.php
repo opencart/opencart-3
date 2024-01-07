@@ -44,10 +44,10 @@ class ModelExtensionPaymentOpayo extends Model {
 			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
 
 		$this->db->query("
-			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "opayo_order_subscription` (
-			  `opayo_order_subscription_id` INT(11) NOT NULL AUTO_INCREMENT,
+			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "opayo_order_recurring` (
+			  `opayo_order_recurring_id` INT(11) NOT NULL AUTO_INCREMENT,
 			  `order_id` INT(11) NOT NULL,
-			  `subscription_id` INT(11) NOT NULL,
+			  `order_recurring_id` INT(11) NOT NULL,
 			  `VPSTxId` VARCHAR(50),
 			  `VendorTxCode` VARCHAR(50) NOT NULL,
 			  `SecurityKey` CHAR(50) NOT NULL,
@@ -59,7 +59,7 @@ class ModelExtensionPaymentOpayo extends Model {
 			  `subscription_end` DATETIME DEFAULT NULL,
 			  `currency_code` CHAR(3) NOT NULL,
 			  `total` DECIMAL( 10, 2 ) NOT NULL,
-			  PRIMARY KEY (`opayo_order_subscription_id`),
+			  PRIMARY KEY (`opayo_order_recurring_id`),
 			  KEY (`order_id`)
 			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
 
@@ -85,7 +85,7 @@ class ModelExtensionPaymentOpayo extends Model {
 	public function uninstall(): void {
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "opayo_order`;");
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "opayo_order_transaction`;");
-		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "opayo_order_subscription`;");
+		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "opayo_order_recurring`;");
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "opayo_card`;");
 	}
 
@@ -103,8 +103,7 @@ class ModelExtensionPaymentOpayo extends Model {
 			$void_data = [];
 
 			// Setting
-			$_config = new \Opencart\System\Engine\Config();
-			$_config->addPath(DIR_EXTENSION . 'opayo/system/config/');
+			$_config = new Config();
 			$_config->load('opayo');
 
 			$config_setting = $_config->get('opayo_setting');
@@ -161,8 +160,7 @@ class ModelExtensionPaymentOpayo extends Model {
 			$release_data = [];
 
 			// Setting
-			$_config = new \Opencart\System\Engine\Config();
-			$_config->addPath(DIR_EXTENSION . 'opayo/system/config/');
+			$_config = new Config();
 			$_config->load('opayo');
 
 			$config_setting = $_config->get('opayo_setting');
@@ -218,8 +216,7 @@ class ModelExtensionPaymentOpayo extends Model {
 			$refund_data = [];
 
 			// Setting
-			$_config = new \Opencart\System\Engine\Config();
-			$_config->addPath(DIR_EXTENSION . 'opayo/system/config/');
+			$_config = new Config();
 			$_config->load('opayo');
 
 			$config_setting = $_config->get('opayo_setting');
@@ -271,10 +268,10 @@ class ModelExtensionPaymentOpayo extends Model {
 	 * @return array|bool
 	 */
 	public function getOrder(int $order_id): array|bool {
-		$qry = $this->db->query("SELECT * FROM `" . DB_PREFIX . "opayo_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "opayo_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
-		if ($qry->num_rows) {
-			$order = $qry->row;
+		if ($query->num_rows) {
+			$order = $query->row;
 			$order['transactions'] = $this->getOrderTransactions($order['opayo_order_id']);
 
 			return $order;
@@ -284,10 +281,10 @@ class ModelExtensionPaymentOpayo extends Model {
 	}
 
 	private function getOrderTransactions(int $opayo_order_id): array|bool {
-		$qry = $this->db->query("SELECT * FROM `" . DB_PREFIX . "opayo_order_transaction` WHERE `opayo_order_id` = '" . (int)$opayo_order_id . "'");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "opayo_order_transaction` WHERE `opayo_order_id` = '" . (int)$opayo_order_id . "'");
 
-		if ($qry->num_rows) {
-			return $qry->rows;
+		if ($query->num_rows) {
+			return $query->rows;
 		} else {
 			return false;
 		}
@@ -379,8 +376,7 @@ class ModelExtensionPaymentOpayo extends Model {
 	 * @param array|string $data
 	 */
 	public function log(string $title, array|string $data): void {
-		$_config = new \Opencart\System\Engine\Config();
-		$_config->addPath(DIR_EXTENSION . 'opayo/system/config/');
+		$_config = new Config();
 		$_config->load('opayo');
 
 		$config_setting = $_config->get('opayo_setting');
@@ -388,7 +384,7 @@ class ModelExtensionPaymentOpayo extends Model {
 		$setting = array_replace_recursive((array)$config_setting, (array)$this->config->get('payment_opayo_setting'));
 
 		if ($setting['general']['debug']) {
-			$log = new \Opencart\System\Library\Log('opayo.log');
+			$log = new Log('opayo.log');
 
 			$log->write($title . ': ' . print_r($data, 1));
 		}
