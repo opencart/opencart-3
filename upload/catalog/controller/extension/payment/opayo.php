@@ -1,5 +1,13 @@
 <?php
+/**
+ * Class Opayo
+ *
+ * @package Catalog\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentOpayo extends Controller {
+	/**
+	 * @return string
+	 */
 	public function index() {
 		if ($this->config->get('payment_opayo_vendor')) {
 			$this->load->language('extension/payment/opayo');
@@ -49,10 +57,20 @@ class ControllerExtensionPaymentOpayo extends Controller {
 		}
 	}
 
+	/**
+	 * getForm
+	 *
+	 * @return void
+	 */
 	public function getForm(): void {
 		$this->response->setOutput($this->index());
 	}
 
+	/**
+	 * Confirm
+	 *
+	 * @return void
+	 */
 	public function confirm(): void {
 		$this->load->language('extension/payment/opayo');
 
@@ -334,6 +352,11 @@ class ControllerExtensionPaymentOpayo extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
+	/**
+	 * threeDSnotify
+	 *
+	 * @return void
+	 */
 	public function threeDSnotify(): void {
 		$this->load->language('extension/payment/opayo');
 
@@ -434,6 +457,11 @@ class ControllerExtensionPaymentOpayo extends Controller {
 		}
 	}
 
+	/**
+	 * deleteCard
+	 *
+	 * @return void
+	 */
 	public function deleteCard(): void {
 		$this->load->language('extension/payment/opayo');
 
@@ -481,6 +509,11 @@ class ControllerExtensionPaymentOpayo extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
+	/**
+	 * Cron
+	 *
+	 * @return void
+	 */
 	public function cron(): void {
 		// Setting
 		$_config = new Config();

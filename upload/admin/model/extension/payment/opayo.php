@@ -1,5 +1,15 @@
 <?php
+/**
+ * Class Opayo
+ *
+ * @package Admin\Model\Extension\Payment
+ */
 class ModelExtensionPaymentOpayo extends Model {
+	/**
+	 * Install
+	 *
+	 * @return void
+	 */
 	public function install(): void {
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "opayo_order` (
@@ -34,10 +44,10 @@ class ModelExtensionPaymentOpayo extends Model {
 			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
 
 		$this->db->query("
-			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "opayo_order_recurring` (
-			  `opayo_order_recurring_id` INT(11) NOT NULL AUTO_INCREMENT,
+			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "opayo_order_subscription` (
+			  `opayo_order_subscription_id` INT(11) NOT NULL AUTO_INCREMENT,
 			  `order_id` INT(11) NOT NULL,
-			  `order_recurring_id` INT(11) NOT NULL,
+			  `subscription_id` INT(11) NOT NULL,
 			  `VPSTxId` VARCHAR(50),
 			  `VendorTxCode` VARCHAR(50) NOT NULL,
 			  `SecurityKey` CHAR(50) NOT NULL,
@@ -49,7 +59,7 @@ class ModelExtensionPaymentOpayo extends Model {
 			  `subscription_end` DATETIME DEFAULT NULL,
 			  `currency_code` CHAR(3) NOT NULL,
 			  `total` DECIMAL( 10, 2 ) NOT NULL,
-			  PRIMARY KEY (`opayo_order_recurring_id`),
+			  PRIMARY KEY (`opayo_order_subscription_id`),
 			  KEY (`order_id`)
 			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
 
@@ -67,21 +77,34 @@ class ModelExtensionPaymentOpayo extends Model {
 			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
 	}
 
+	/**
+	 * Uninstall
+	 *
+	 * @return void
+	 */
 	public function uninstall(): void {
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "opayo_order`;");
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "opayo_order_transaction`;");
-		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "opayo_order_recurring`;");
+		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "opayo_order_subscription`;");
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "opayo_card`;");
 	}
 
-	public function void($order_id) {
+	/**
+	 * Void
+	 *
+	 * @param int $order_id
+	 *
+	 * @return array|bool
+	 */
+	public function void(int $order_id): array|bool {
 		$opayo_order = $this->getOrder($order_id);
 
-		if (!empty($opayo_order) && $opayo_order['release_status'] == 0) {
+		if (!empty($opayo_order) && ($opayo_order['release_status'] == 0)) {
 			$void_data = [];
 
 			// Setting
-			$_config = new Config();
+			$_config = new \Opencart\System\Engine\Config();
+			$_config->addPath(DIR_EXTENSION . 'opayo/system/config/');
 			$_config->load('opayo');
 
 			$config_setting = $_config->get('opayo_setting');
@@ -89,10 +112,10 @@ class ModelExtensionPaymentOpayo extends Model {
 			$setting = array_replace_recursive((array)$config_setting, (array)$this->config->get('payment_opayo_setting'));
 
 			if ($setting['general']['environment'] == 'live') {
-				$url = 'https://live.opayo.eu.elavon.com/gateway/service/void.vsp';
+				$url = 'https://live.sagepay.com/gateway/service/void.vsp';
 				$void_data['VPSProtocol'] = '4.00';
 			} elseif ($setting['general']['environment'] == 'test') {
-				$url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/void.vsp';
+				$url = 'https://test.sagepay.com/gateway/service/void.vsp';
 				$void_data['VPSProtocol'] = '4.00';
 			}
 
@@ -109,19 +132,37 @@ class ModelExtensionPaymentOpayo extends Model {
 		}
 	}
 
-	public function updateVoidStatus($opayo_order_id, $status): void {
+	/**
+	 * updateVoidStatus
+	 *
+	 * @param int $opayo_order_id
+	 * @param int $status
+	 *
+	 * @return void
+	 */
+	public function updateVoidStatus(int $opayo_order_id, int $status): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "opayo_order` SET `void_status` = '" . (int)$status . "' WHERE `opayo_order_id` = '" . (int)$opayo_order_id . "'");
 	}
 
-	public function release($order_id, $amount) {
+	/**
+	 * Release
+	 *
+	 * @param int   $order_id
+	 * @param float $amount
+	 *
+	 * @return array|bool
+	 */
+	public function release(int $order_id, float $amount): array|bool {
 		$opayo_order = $this->getOrder($order_id);
+
 		$total_released = $this->getTotalReleased($opayo_order['opayo_order_id']);
 
-		if (!empty($opayo_order) && $opayo_order['release_status'] == 0 && ($total_released + $amount <= $opayo_order['total'])) {
+		if (!empty($opayo_order) && ($opayo_order['release_status'] == 0) && ($total_released + $amount <= $opayo_order['total'])) {
 			$release_data = [];
 
 			// Setting
-			$_config = new Config();
+			$_config = new \Opencart\System\Engine\Config();
+			$_config->addPath(DIR_EXTENSION . 'opayo/system/config/');
 			$_config->load('opayo');
 
 			$config_setting = $_config->get('opayo_setting');
@@ -129,10 +170,10 @@ class ModelExtensionPaymentOpayo extends Model {
 			$setting = array_replace_recursive((array)$config_setting, (array)$this->config->get('payment_opayo_setting'));
 
 			if ($setting['general']['environment'] == 'live') {
-				$url = 'https://live.opayo.eu.elavon.com/gateway/service/release.vsp';
+				$url = 'https://live.sagepay.com/gateway/service/release.vsp';
 				$release_data['VPSProtocol'] = '4.00';
 			} elseif ($setting['general']['environment'] == 'test') {
-				$url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/release.vsp';
+				$url = 'https://test.sagepay.com/gateway/service/release.vsp';
 				$release_data['VPSProtocol'] = '4.00';
 			}
 
@@ -150,18 +191,35 @@ class ModelExtensionPaymentOpayo extends Model {
 		}
 	}
 
-	public function updateReleaseStatus($opayo_order_id, $status): void {
+	/**
+	 * updateReleaseStatus
+	 *
+	 * @param int $opayo_order_id
+	 * @param int $status
+	 *
+	 * @return void
+	 */
+	public function updateReleaseStatus(int $opayo_order_id, int $status): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "opayo_order` SET `release_status` = '" . (int)$status . "' WHERE `opayo_order_id` = '" . (int)$opayo_order_id . "'");
 	}
 
-	public function rebate($order_id, $amount) {
+	/**
+	 * Rebate
+	 *
+	 * @param int   $order_id
+	 * @param float $amount
+	 *
+	 * @return array|bool
+	 */
+	public function rebate(int $order_id, float $amount): array|bool {
 		$opayo_order = $this->getOrder($order_id);
 
-		if (!empty($opayo_order) && $opayo_order['rebate_status'] != 1) {
+		if (!empty($opayo_order) && ($opayo_order['rebate_status'] != 1)) {
 			$refund_data = [];
 
 			// Setting
-			$_config = new Config();
+			$_config = new \Opencart\System\Engine\Config();
+			$_config->addPath(DIR_EXTENSION . 'opayo/system/config/');
 			$_config->load('opayo');
 
 			$config_setting = $_config->get('opayo_setting');
@@ -169,10 +227,10 @@ class ModelExtensionPaymentOpayo extends Model {
 			$setting = array_replace_recursive((array)$config_setting, (array)$this->config->get('payment_opayo_setting'));
 
 			if ($setting['general']['environment'] == 'live') {
-				$url = 'https://live.opayo.eu.elavon.com/gateway/service/refund.vsp';
+				$url = 'https://live.sagepay.com/gateway/service/refund.vsp';
 				$refund_data['VPSProtocol'] = '4.00';
 			} elseif ($setting['general']['environment'] == 'test') {
-				$url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/refund.vsp';
+				$url = 'https://test.sagepay.com/gateway/service/refund.vsp';
 				$refund_data['VPSProtocol'] = '4.00';
 			}
 
@@ -193,15 +251,30 @@ class ModelExtensionPaymentOpayo extends Model {
 		}
 	}
 
-	public function updateRebateStatus($opayo_order_id, $status): void {
+	/**
+	 * updateRebateStatus
+	 *
+	 * @param int $opayo_order_id
+	 * @param int $status
+	 *
+	 * @return void
+	 */
+	public function updateRebateStatus(int $opayo_order_id, int $status): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "opayo_order` SET `rebate_status` = '" . (int)$status . "' WHERE `opayo_order_id` = '" . (int)$opayo_order_id . "'");
 	}
 
-	public function getOrder($order_id) {
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "opayo_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
+	/**
+	 * getOrder
+	 *
+	 * @param int $order_id
+	 *
+	 * @return array|bool
+	 */
+	public function getOrder(int $order_id): array|bool {
+		$qry = $this->db->query("SELECT * FROM `" . DB_PREFIX . "opayo_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
-		if ($query->num_rows) {
-			$order = $query->row;
+		if ($qry->num_rows) {
+			$order = $qry->row;
 			$order['transactions'] = $this->getOrderTransactions($order['opayo_order_id']);
 
 			return $order;
@@ -210,33 +283,64 @@ class ModelExtensionPaymentOpayo extends Model {
 		}
 	}
 
-	public function getOrderTransactions($opayo_order_id) {
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "opayo_order_transaction` WHERE `opayo_order_id` = '" . (int)$opayo_order_id . "'");
+	private function getOrderTransactions(int $opayo_order_id): array|bool {
+		$qry = $this->db->query("SELECT * FROM `" . DB_PREFIX . "opayo_order_transaction` WHERE `opayo_order_id` = '" . (int)$opayo_order_id . "'");
 
-		if ($query->num_rows) {
-			return $query->rows;
+		if ($qry->num_rows) {
+			return $qry->rows;
 		} else {
 			return false;
 		}
 	}
 
-	public function addOrderTransaction($opayo_order_id, $type, $total): void {
+	/**
+	 * addOrderTransaction
+	 *
+	 * @param int    $opayo_order_id
+	 * @param string $type
+	 * @param float  $total
+	 *
+	 * @return void
+	 */
+	public function addOrderTransaction(int $opayo_order_id, string $type, float $total): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "opayo_order_transaction` SET `opayo_order_id` = '" . (int)$opayo_order_id . "', `date_added` = now(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . (float)$total . "'");
 	}
 
-	public function getTotalReleased($opayo_order_id) {
+	/**
+	 * getTotalReleased
+	 *
+	 * @param int $opayo_order_id
+	 *
+	 * @return float
+	 */
+	public function getTotalReleased(int $opayo_order_id): float {
 		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "opayo_order_transaction` WHERE `opayo_order_id` = '" . (int)$opayo_order_id . "' AND (`type` = 'payment' OR `type` = 'rebate')");
 
 		return (float)$query->row['total'];
 	}
 
-	public function getTotalRebated($opayo_order_id) {
+	/**
+	 * getTotalRebated
+	 *
+	 * @param int $opayo_order_id
+	 *
+	 * @return float
+	 */
+	public function getTotalRebated(int $opayo_order_id): float {
 		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "opayo_order_transaction` WHERE `opayo_order_id` = '" . (int)$opayo_order_id . "' AND 'rebate'");
 
 		return (float)$query->row['total'];
 	}
 
-	public function sendCurl($url, $payment_data) {
+	/**
+	 * sendCurl
+	 *
+	 * @param string $url
+	 * @param array  $payment_data
+	 *
+	 * @return array
+	 */
+	public function sendCurl(string $url, array $payment_data): array {
 		$curl = curl_init($url);
 
 		curl_setopt($curl, CURLOPT_PORT, 443);
@@ -268,8 +372,15 @@ class ModelExtensionPaymentOpayo extends Model {
 		return $data;
 	}
 
-	public function log($title, $data): void {
-		$_config = new Config();
+	/**
+	 * Log
+	 *
+	 * @param string       $title
+	 * @param array|string $data
+	 */
+	public function log(string $title, array|string $data): void {
+		$_config = new \Opencart\System\Engine\Config();
+		$_config->addPath(DIR_EXTENSION . 'opayo/system/config/');
 		$_config->load('opayo');
 
 		$config_setting = $_config->get('opayo_setting');
@@ -277,7 +388,7 @@ class ModelExtensionPaymentOpayo extends Model {
 		$setting = array_replace_recursive((array)$config_setting, (array)$this->config->get('payment_opayo_setting'));
 
 		if ($setting['general']['debug']) {
-			$log = new Log('opayo.log');
+			$log = new \Opencart\System\Library\Log('opayo.log');
 
 			$log->write($title . ': ' . print_r($data, 1));
 		}
