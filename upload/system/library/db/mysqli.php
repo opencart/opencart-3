@@ -1,7 +1,7 @@
 <?php
 namespace DB;
 class MySQLi {
-	private ?object $connection;
+	private $connection;
 
 	/**
 	 * Constructor
@@ -38,9 +38,9 @@ class MySQLi {
 	 *
 	 * @param string $sql
 	 *
-	 * @return bool|object
+	 * @return mixed
 	 */
-	public function query(string $sql): bool|object {
+	public function query(string $sql) {
 		try {
 			$query = $this->connection->query($sql);
 
