@@ -542,7 +542,7 @@ class ModelExtensionPaymentOpayo extends Model {
 	 */
 	private function calculateSchedule(string $frequency, string $next_payment, string $cycle) {
 		if ($frequency == 'semi_month') {
-			$day = date_format($next_payment, 'd');
+			$day = $next_payment->format($next_payment, 'd');
 			$value = 15 - $day;
 			$is_even = false;
 
