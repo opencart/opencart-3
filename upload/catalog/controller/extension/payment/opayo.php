@@ -1,6 +1,14 @@
 <?php
+/**
+ * Class Opayo
+ *
+ * @package Catalog\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentOpayo extends Controller {
-	public function index() {
+	/**
+	 * @return string
+	 */
+	public function index(): string {
 		if ($this->config->get('payment_opayo_vendor')) {
 			$this->load->language('extension/payment/opayo');
 
@@ -46,13 +54,25 @@ class ControllerExtensionPaymentOpayo extends Controller {
 			}
 
 			return $this->load->view('extension/payment/opayo', $data);
+		} else {
+			return '';
 		}
 	}
 
+	/**
+	 * getForm
+	 *
+	 * @return void
+	 */
 	public function getForm(): void {
 		$this->response->setOutput($this->index());
 	}
 
+	/**
+	 * Confirm
+	 *
+	 * @return void
+	 */
 	public function confirm(): void {
 		$this->load->language('extension/payment/opayo');
 
@@ -71,10 +91,10 @@ class ControllerExtensionPaymentOpayo extends Controller {
 		$payment_data = [];
 
 		if ($setting['general']['environment'] == 'live') {
-			$url = 'https://live.opayo.eu.elavon.com/gateway/service/vspdirect-register.vsp';
+			$url = 'https://live.sagepay.com/gateway/service/vspdirect-register.vsp';
 			$payment_data['VPSProtocol'] = '4.00';
 		} elseif ($setting['general']['environment'] == 'test') {
-			$url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/vspdirect-register.vsp';
+			$url = 'https://test.sagepay.com/gateway/service/vspdirect-register.vsp';
 			$payment_data['VPSProtocol'] = '4.00';
 		}
 
@@ -334,6 +354,11 @@ class ControllerExtensionPaymentOpayo extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
+	/**
+	 * threeDSnotify
+	 *
+	 * @return void
+	 */
 	public function threeDSnotify(): void {
 		$this->load->language('extension/payment/opayo');
 
@@ -434,6 +459,11 @@ class ControllerExtensionPaymentOpayo extends Controller {
 		}
 	}
 
+	/**
+	 * deleteCard
+	 *
+	 * @return void
+	 */
 	public function deleteCard(): void {
 		$this->load->language('extension/payment/opayo');
 
@@ -450,6 +480,8 @@ class ControllerExtensionPaymentOpayo extends Controller {
 		$setting = array_replace_recursive((array)$config_setting, (array)$this->config->get('payment_opayo_setting'));
 
 		$card = $this->model_extension_payment_opayo->getCard(false, $this->request->post['opayo_card_token']);
+
+		$payment_data = [];
 
 		if (!empty($card['token'])) {
 			if ($setting['general']['environment'] == 'live') {
@@ -481,6 +513,11 @@ class ControllerExtensionPaymentOpayo extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
+	/**
+	 * Cron
+	 *
+	 * @return void
+	 */
 	public function cron(): void {
 		// Setting
 		$_config = new Config();

@@ -1,7 +1,15 @@
 <?php
+/**
+ * Class Opayo
+ *
+ * @package Admin\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentOpayo extends Controller {
-	private $error = [];
+	private array $error = [];
 
+	/**
+	 * @return void
+	 */
 	public function index(): void {
 		$this->load->language('extension/payment/opayo');
 
@@ -123,18 +131,33 @@ class ControllerExtensionPaymentOpayo extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/opayo/opayo', $data));
 	}
 
+	/**
+	 * Install
+	 *
+	 * @return void
+	 */
 	public function install(): void {
 		$this->load->model('extension/payment/opayo');
 
 		$this->model_extension_payment_opayo->install();
 	}
 
+	/**
+	 * Uninstall
+	 *
+	 * @return void
+	 */
 	public function uninstall(): void {
 		$this->load->model('extension/payment/opayo');
 
 		$this->model_extension_payment_opayo->uninstall();
 	}
 
+	/**
+	 * Order
+	 *
+	 * @return void
+	 */
 	public function order() {
 		if ($this->config->get('payment_opayo_status')) {
 			$this->load->model('extension/payment/opayo');
@@ -161,6 +184,11 @@ class ControllerExtensionPaymentOpayo extends Controller {
 		}
 	}
 
+	/**
+	 * Void
+	 *
+	 * @return void
+	 */
 	public function void(): void {
 		$this->load->language('extension/payment/opayo');
 
@@ -201,6 +229,11 @@ class ControllerExtensionPaymentOpayo extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
+	/**
+	 * Release
+	 *
+	 * @return void
+	 */
 	public function release(): void {
 		$this->load->language('extension/payment/opayo');
 
