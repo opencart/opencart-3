@@ -6,9 +6,9 @@
  */
 class ControllerExtensionPaymentOpayo extends Controller {
 	/**
-	 * @return string
+	 * @return ?object
 	 */
-	public function index() {
+	public function index(): ?object {
 		if ($this->config->get('payment_opayo_vendor')) {
 			$this->load->language('extension/payment/opayo');
 
@@ -54,6 +54,8 @@ class ControllerExtensionPaymentOpayo extends Controller {
 			}
 
 			return $this->load->view('extension/payment/opayo', $data);
+		} else {
+			return new \Action('error/not_found');
 		}
 	}
 
