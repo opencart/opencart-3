@@ -32,7 +32,6 @@ class ModelExtensionPaymentOpayo extends Model {
 			$method_data = [
 				'code'       => 'opayo',
 				'title'      => $this->language->get('text_title'),
-				'terms'      => '',
 				'sort_order' => $this->config->get('payment_opayo_sort_order')
 			];
 		}
