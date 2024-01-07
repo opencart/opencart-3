@@ -2,7 +2,7 @@
 namespace Opencart\Admin\Controller\Extension\Opayo\Payment;
 class Opayo extends \Opencart\System\Engine\Controller {
 	private array $error = [];
-	private array $separator = '';
+	private string $separator = '';
 
 	public function __construct($registry) {
 		parent::__construct($registry);
