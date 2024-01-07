@@ -1,6 +1,18 @@
 <?php
+/**
+ * Class Opayo
+ *
+ * @package Opencart\Catalog\Model\Extension\Opencart\Payment
+ */
 namespace Opencart\Catalog\Model\Extension\Opayo\Payment;
 class Opayo extends \Opencart\System\Engine\Model {
+	/**
+	 * Get Method
+	 *
+	 * @param array $address
+	 *
+	 * @return array
+	 */
 	public function getMethod(array $address): array {
 		$this->load->language('extension/opayo/payment/opayo');
 
@@ -27,6 +39,13 @@ class Opayo extends \Opencart\System\Engine\Model {
 		return $method_data;
 	}
 
+	/**
+	 * Get Methods
+	 *
+	 * @param array $address
+	 *
+	 * @return array
+	 */
 	public function getMethods(array $address = []): array {
 		$this->load->language('extension/opayo/payment/opayo');
 
@@ -61,6 +80,13 @@ class Opayo extends \Opencart\System\Engine\Model {
 		return $method_data;
 	}
 
+	/**
+	 * Get Cards
+	 *
+	 * @param int $customer_id
+	 *
+	 * @return array
+	 */
 	public function getCards(int $customer_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "opayo_card` WHERE `customer_id` = '" . (int)$customer_id . "' ORDER BY `card_id`");
 
@@ -80,6 +106,13 @@ class Opayo extends \Opencart\System\Engine\Model {
 		return $card_data;
 	}
 
+	/**
+	 * Add Card
+	 *
+	 * @param array $card_data
+	 *
+	 * @return int
+	 */
 	public function addCard(array $card_data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "opayo_card` SET `customer_id` = '" . $this->db->escape($card_data['customer_id']) . "', `digits` = '" . $this->db->escape($card_data['Last4Digits']) . "', `expiry` = '" . $this->db->escape($card_data['ExpiryDate']) . "', `type` = '" . $this->db->escape($card_data['CardType']) . "', `token` = '" . $this->db->escape($card_data['Token']) . "'");
 
@@ -90,27 +123,49 @@ class Opayo extends \Opencart\System\Engine\Model {
 		$this->db->query("UPDATE `" . DB_PREFIX . "opayo_card` SET `token` = '" . $this->db->escape($token) . "' WHERE `card_id` = '" . (int)$card_id . "'");
 	}
 
-	public function getCard(int $card_id, string $token): array|bool {
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "opayo_card` WHERE (`card_id` = '" . $this->db->escape($card_id) . "' OR `token` = '" . $this->db->escape($token) . "') AND `customer_id` = '" . (int)$this->customer->getId() . "'");
+	public function getCard(int $card_id, string $token): array {
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "opayo_card` WHERE (`card_id` = '" . (int)$card_id . "' OR `token` = '" . $this->db->escape($token) . "') AND `customer_id` = '" . (int)$this->customer->getId() . "'");
 
 		if ($query->num_rows) {
 			return $query->row;
 		} else {
-			return false;
+			return [];
 		}
 	}
 
+	/**
+	 * Delete Card
+	 *
+	 * @param int $card_id
+	 */
 	public function deleteCard(int $card_id): void {
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "opayo_card` WHERE `card_id` = '" . $this->db->escape($card_id) . "'");
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "opayo_card` WHERE `card_id` = '" . (int)$card_id . "'");
 	}
 
-	public function addOrder(int $order_id, array $response_data, array $payment_data, string $card_id): int {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "opayo_order` SET `order_id` = '" . (int)$order_id . "', `VPSTxId` = '" . $this->db->escape($response_data['VPSTxId']) . "', `VendorTxCode` = '" . $this->db->escape($payment_data['VendorTxCode']) . "', `SecurityKey` = '" . $this->db->escape($response_data['SecurityKey']) . "', `TxAuthNo` = '" . $this->db->escape($response_data['TxAuthNo']) . "', `date_added` = now(), `date_modified` = now(), `currency_code` = '" . $this->db->escape($payment_data['Currency']) . "', `total` = '" . $this->currency->format($payment_data['Amount'], $payment_data['Currency'], false, false) . "', `card_id` = '" . $this->db->escape($card_id) . "'");
+	/**
+	 * Add Order
+	 *
+	 * @param int   $order_id
+	 * @param array $response_data
+	 * @param array $payment_data
+	 * @param int   $card_id
+	 *
+	 * @return int
+	 */
+	public function addOrder(int $order_id, array $response_data, array $payment_data, int $card_id): int {
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "opayo_order` SET `order_id` = '" . (int)$order_id . "', `VPSTxId` = '" . $this->db->escape($response_data['VPSTxId']) . "', `VendorTxCode` = '" . $this->db->escape($payment_data['VendorTxCode']) . "', `SecurityKey` = '" . $this->db->escape($response_data['SecurityKey']) . "', `TxAuthNo` = '" . $this->db->escape($response_data['TxAuthNo']) . "', `date_added` = now(), `date_modified` = now(), `currency_code` = '" . $this->db->escape($payment_data['Currency']) . "', `total` = '" . $this->currency->format($payment_data['Amount'], $payment_data['Currency'], false, false) . "', `card_id` = '" . (int)$card_id . "'");
 
 		return $this->db->getLastId();
 	}
 
-	public function getOrder(int $order_id): array|bool {
+	/**
+	 * Get Order
+	 *
+	 * @param int $order_id
+	 *
+	 * @return array
+	 */
+	public function getOrder(int $order_id): array {
 		$qry = $this->db->query("SELECT * FROM `" . DB_PREFIX . "opayo_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
 		if ($qry->num_rows) {
@@ -119,34 +174,73 @@ class Opayo extends \Opencart\System\Engine\Model {
 
 			return $order;
 		} else {
-			return false;
+			return [];
 		}
 	}
 
+	/**
+	 * Update Order
+	 *
+	 * @param array $order_info
+	 * @param array $data
+	 *
+	 * @return int
+	 */
 	public function updateOrder(array $order_info, array $data): int {
 		$this->db->query("UPDATE `" . DB_PREFIX . "opayo_order` SET `SecurityKey` = '" . $this->db->escape($data['SecurityKey']) . "',  `VPSTxId` = '" . $this->db->escape($data['VPSTxId']) . "', `TxAuthNo` = '" . $this->db->escape($data['TxAuthNo']) . "' WHERE `order_id` = '" . (int)$order_info['order_id'] . "'");
 
 		return $this->db->getLastId();
 	}
 
+	/**
+	 * Delete Order
+	 *
+	 * @param int $vendor_tx_code
+	 *
+	 * @return void
+	 */
 	public function deleteOrder(int $vendor_tx_code): void {
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "opayo_order` WHERE order_id = '" . $vendor_tx_code . "'");
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "opayo_order` WHERE `order_id` = '" . (int)$vendor_tx_code . "'");
 	}
 
+	/**
+	 * Add Order Transaction
+	 *
+	 * @param int    $opayo_order_id
+	 * @param string $type
+	 * @param array  $order_info
+	 *
+	 * @return void
+	 */
 	public function addOrderTransaction(int $opayo_order_id, string $type, array $order_info): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "opayo_order_transaction` SET `opayo_order_id` = '" . (int)$opayo_order_id . "', `date_added` = now(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . $this->currency->format($order_info['total'], $order_info['currency_code'], false, false) . "'");
 	}
 
-	private function getOrderTransactions(int $opayo_order_id): array|bool {
+	/**
+	 * Get Order Transactions
+	 *
+	 * @param int $opayo_order_id
+	 *
+	 * @return array
+	 */
+	private function getOrderTransactions(int $opayo_order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "opayo_order_transaction` WHERE `opayo_order_id` = '" . (int)$opayo_order_id . "'");
 
 		if ($query->num_rows) {
 			return $query->rows;
 		} else {
-			return false;
+			return [];
 		}
 	}
 
+	/**
+	 * Subscription Payment
+	 *
+	 * @param array  $item
+	 * @param string $vendor_tx_code
+	 *
+	 * @return void
+	 */
 	public function subscriptionPayment(array $item, string $vendor_tx_code): void {
 		$this->load->model('checkout/subscription');
 		$this->load->model('extension/payment/opayo');
@@ -169,8 +263,8 @@ class Opayo extends \Opencart\System\Engine\Model {
 
 		$item['subscription']['description'] = $subscription_description;
 
-		//create new subscription and set to pending status as no payment has been made yet.
-		$subscription_id = $this->model_checkout_subscription->addSubscription($this->session->data['order_id'], $item);
+		// Create new subscription and set to pending status as no payment has been made yet.
+		$subscription_id = $this->model_checkout_subscription->addSubscription($this->session->data['order_id'], $item['subscription']);
 
 		$this->model_checkout_subscription->editReference($subscription_id, $vendor_tx_code);
 
@@ -224,6 +318,11 @@ class Opayo extends \Opencart\System\Engine\Model {
 		}
 	}
 
+	/**
+	 * Cron Payment
+	 *
+	 * @return array
+	 */
 	public function cronPayment(): array {
 		$this->load->model('account/order');
 
@@ -285,14 +384,31 @@ class Opayo extends \Opencart\System\Engine\Model {
 		return $cron_data;
 	}
 
+	/**
+	 * Set Payment Data
+	 *
+	 * @param array      $order_info
+	 * @param array      $opayo_order_info
+	 * @param float      $price
+	 * @param int        $subscription_id
+	 * @param string     $subscription_name
+	 * @param string     $recurring_expiry
+	 * @param int        $recurring_frequency
+	 * @param mixed|null $i
+	 *
+	 * @return array
+	 */
 	private function setPaymentData(array $order_info, array $opayo_order_info, float $price, int $subscription_id, string $subscription_name, string $recurring_expiry, int $recurring_frequency, $i = null): array {
 		// Setting
-		$_config = new Config();
+		$_config = new \Opencart\System\Engine\Config();
+		$_config->addPath(DIR_EXTENSION . 'opayo/system/config/');
 		$_config->load('opayo');
 
 		$config_setting = $_config->get('payze_opayo');
 
 		$setting = array_replace_recursive((array)$config_setting, (array)$this->config->get('payment_opayo_setting'));
+
+		$payment_data = [];
 
 		if ($setting['general']['environment'] == 'live') {
 			$url = 'https://live.sagepay.com/gateway/service/repeat.vsp';
@@ -366,6 +482,15 @@ class Opayo extends \Opencart\System\Engine\Model {
 		return $response_data;
 	}
 
+	/**
+	 * Calculate Schedule
+	 *
+	 * @param string $frequency
+	 * @param string $next_payment
+	 * @param string $cycle
+	 *
+	 * @return
+	 */
 	private function calculateSchedule(string $frequency, string $next_payment, string $cycle) {
 		if ($frequency == 'semi_month') {
 			$day = date_format($next_payment, 'd');
@@ -406,26 +531,67 @@ class Opayo extends \Opencart\System\Engine\Model {
 		return $next_payment;
 	}
 
+	/**
+	 * Add Subscription Order
+	 *
+	 * @param int    $order_id
+	 * @param array  $response_data
+	 * @param int    $subscription_id
+	 * @param string $trial_end
+	 * @param string $subscription_end
+	 *
+	 * @return void
+	 */
 	private function addSubscriptionOrder(int $order_id, array $response_data, int $subscription_id, string $trial_end, string $subscription_end): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "opayo_order_subscription` SET `order_id` = '" . (int)$order_id . "', `subscription_id` = '" . (int)$subscription_id . "', `VPSTxId` = '" . $this->db->escape($response_data['VPSTxId']) . "', `VendorTxCode` = '" . $this->db->escape($response_data['VendorTxCode']) . "', `SecurityKey` = '" . $this->db->escape($response_data['SecurityKey']) . "', `TxAuthNo` = '" . $this->db->escape($response_data['TxAuthNo']) . "', `date_added` = now(), `date_modified` = now(), `next_payment` = now(), `trial_end` = '" . $trial_end . "', `subscription_end` = '" . $subscription_end . "', `currency_code` = '" . $this->db->escape($response_data['Currency']) . "', `total` = '" . $this->currency->format($response_data['Amount'], $response_data['Currency'], false, false) . "'");
 	}
 
+	/**
+	 * Update Subscription Order
+	 *
+	 * @param int    $subscription_id
+	 * @param string $next_payment
+	 *
+	 * @return void
+	 */
 	private function updateSubscriptionOrder(int $subscription_id, string $next_payment): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "opayo_order_subscription` SET `next_payment` = '" . $next_payment . "', `date_modified` = now() WHERE `subscription_id` = '" . (int)$subscription_id . "'");
 	}
 
+	/**
+	 * Get Subscription Order
+	 *
+	 * @param int $subscription_id
+	 *
+	 * @return array
+	 */
 	private function getSubscriptionOrder(int $subscription_id): array {
-		$qry = $this->db->query("SELECT * FROM " . DB_PREFIX . "opayo_order_subscription WHERE subscription_id = '" . (int)$subscription_id . "'");
+		$qry = $this->db->query("SELECT * FROM `" . DB_PREFIX . "opayo_order_subscription` WHERE `subscription_id` = '" . (int)$subscription_id . "'");
 
 		return $qry->row;
 	}
 
+	/**
+	 * Add Subscription Transaction
+	 *
+	 * @param int   $subscription_id
+	 * @param int   $order_id
+	 * @param array $response_data
+	 * @param int   $type
+	 *
+	 * @return void
+	 */
 	private function addSubscriptionTransaction(int $subscription_id, int $order_id, array $response_data, int $type): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "subscription_transaction` SET `subscription_id` = '" . (int)$subscription_id . "', `order_id` = '" . (int)$order_id . "', `date_added` = NOW(), `amount` = '" . (float)$response_data['Amount'] . "', `type` = '" . (int)$type . "', `reference` = '" . $this->db->escape($response_data['VendorTxCode']) . "'");
 	}
 
+	/**
+	 * Get Profiles
+	 *
+	 * @return array
+	 */
 	private function getProfiles(): array {
-		$query = $this->db->query("SELECT `or`.order_recurring_id FROM `" . DB_PREFIX . "order_recurring` `or` JOIN `" . DB_PREFIX . "order` `o` USING(`order_id`) WHERE o.payment_code = 'opayo'");
+		$query = $this->db->query("SELECT `or`.`order_recurring_id` FROM `" . DB_PREFIX . "order_recurring` `or` JOIN `" . DB_PREFIX . "order` `o` USING(`order_id`) WHERE `o`.`payment_code` = 'opayo'");
 
 		$subscriptions = [];
 
@@ -436,17 +602,38 @@ class Opayo extends \Opencart\System\Engine\Model {
 		return $subscriptions;
 	}
 
+	/**
+	 * Get Profile
+	 *
+	 * @param int $subscription_id
+	 *
+	 * @return array
+	 */
 	private function getProfile(int $subscription_id): array {
-		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "subscription WHERE subscription_id = " . (int)$subscription_id);
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "subscription` WHERE `subscription_id` = " . (int)$subscription_id);
 
 		return $query->row;
 	}
 
+	/**
+	 * Update Cron Run Time
+	 *
+	 * @return void
+	 */
 	public function updateCronRunTime(): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "setting` WHERE `code` = 'opayo' AND `key` = 'payment_opayo_last_cron_run'");
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` (`store_id`, `code`, `key`, `value`, `serialized`) VALUES (0, 'opayo', 'payment_opayo_last_cron_run', NOW(), 0)");
 	}
 
+	/**
+	 * Send Curl
+	 *
+	 * @param string $url
+	 * @param array  $payment_data
+	 * @param ?null  $i
+	 *
+	 * @return array
+	 */
 	public function sendCurl(string $url, array $payment_data, $i = null): array {
 		$curl = curl_init($url);
 
@@ -481,7 +668,15 @@ class Opayo extends \Opencart\System\Engine\Model {
 		return $data;
 	}
 
-	public function log(string $title, array|string $data): void {
+	/**
+	 * Log
+	 *
+	 * @param string  $title
+	 * @param ?string $data
+	 *
+	 * @return void
+	 */
+	public function log(string $title, ?string $data): void {
 		$_config = new \Opencart\System\Engine\Config();
 		$_config->addPath(DIR_EXTENSION . 'opayo/system/config/');
 		$_config->load('opayo');
@@ -497,6 +692,11 @@ class Opayo extends \Opencart\System\Engine\Model {
 		}
 	}
 
+	/**
+	 * Subscription Payments
+	 *
+	 * @return bool
+	 */
 	public function subscriptionPayments(): bool {
 		/*
 		 * Used by the checkout to state the module

@@ -1,10 +1,24 @@
 <?php
+/**
+ * Class Opayo
+ *
+ * @package Opencart\Admin\Controller\Extension\Opencart\Payment
+ */
 namespace Opencart\Admin\Controller\Extension\Opayo\Payment;
 class Opayo extends \Opencart\System\Engine\Controller {
+	/**
+	 * @var array
+	 * @var string
+	 */
 	private array $error = [];
 	private string $separator = '';
 
-	public function __construct($registry) {
+	/**
+	 * Constructor
+	 *
+	 * @param \Opencart\System\Engine\Registry $registry
+	 */
+	public function __construct(\Opencart\System\Engine\Registry $registry) {
 		parent::__construct($registry);
 
 		if (VERSION >= '4.0.2.0') {
@@ -14,6 +28,11 @@ class Opayo extends \Opencart\System\Engine\Controller {
 		}
 	}
 
+	/**
+	 * Index
+	 *
+	 * @return void
+	 */
 	public function index(): void {
 		$this->load->language('extension/opayo/payment/opayo');
 
@@ -98,18 +117,33 @@ class Opayo extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput(json_encode($data));
 	}
 
+	/**
+	 * Install
+	 *
+	 * @return void
+	 */
 	public function install(): void {
 		$this->load->model('extension/opayo/payment/opayo');
 
 		$this->model_extension_opayo_payment_opayo->install();
 	}
 
+	/**
+	 * Uninstall
+	 *
+	 * @return void
+	 */
 	public function uninstall(): void {
 		$this->load->model('extension/opayo/payment/opayo');
 
 		$this->model_extension_opayo_payment_opayo->uninstall();
 	}
 
+	/**
+	 * Order
+	 *
+	 * @return string
+	 */
 	public function order(): string {
 		if ($this->config->get('payment_opayo_status')) {
 			$this->load->model('extension/opayo/payment/opayo');
@@ -138,6 +172,11 @@ class Opayo extends \Opencart\System\Engine\Controller {
 		}
 	}
 
+	/**
+	 * Void
+	 *
+	 * @return void
+	 */
 	public function void(): void {
 		$this->load->language('extension/opayo/payment/opayo');
 
@@ -174,6 +213,11 @@ class Opayo extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
+	/**
+	 * Release
+	 *
+	 * @return void
+	 */
 	public function release(): void {
 		$this->load->language('extension/opayo/payment/opayo');
 
@@ -225,6 +269,11 @@ class Opayo extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
+	/**
+	 * Rebate
+	 *
+	 * @return void
+	 */
 	public function rebate(): void {
 		$this->load->language('extension/opayo/payment/opayo');
 
@@ -278,6 +327,11 @@ class Opayo extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
+	/**
+	 * Validate
+	 *
+	 * @return bool
+	 */
 	private function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/opayo/payment/opayo')) {
 			$this->error['warning'] = $this->language->get('error_permission');

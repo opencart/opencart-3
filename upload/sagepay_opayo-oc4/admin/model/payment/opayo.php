@@ -1,6 +1,16 @@
 <?php
+/**
+ * Class Opayo
+ *
+ * @package Opencart\Admin\Model\Extension\Opencart\Payment
+ */
 namespace Opencart\Admin\Model\Extension\Opayo\Payment;
 class Opayo extends \Opencart\System\Engine\Model {
+	/**
+	 * Install
+	 *
+	 * @return void
+	 */
 	public function install(): void {
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "opayo_order` (
@@ -68,6 +78,11 @@ class Opayo extends \Opencart\System\Engine\Model {
 			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
 	}
 
+	/**
+	 * Uninstall
+	 *
+	 * @return void
+	 */
 	public function uninstall(): void {
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "opayo_order`;");
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "opayo_order_transaction`;");
@@ -75,6 +90,13 @@ class Opayo extends \Opencart\System\Engine\Model {
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "opayo_card`;");
 	}
 
+	/**
+	 * Void
+	 *
+	 * @param int $order_id
+	 *
+	 * @return array|bool
+	 */
 	public function void(int $order_id): array|bool {
 		$opayo_order = $this->getOrder($order_id);
 
@@ -111,10 +133,26 @@ class Opayo extends \Opencart\System\Engine\Model {
 		}
 	}
 
+	/**
+	 * Update Void Status
+	 *
+	 * @param int $opayo_order_id
+	 * @param int $status
+	 *
+	 * @return void
+	 */
 	public function updateVoidStatus(int $opayo_order_id, int $status): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "opayo_order` SET `void_status` = '" . (int)$status . "' WHERE `opayo_order_id` = '" . (int)$opayo_order_id . "'");
 	}
 
+	/**
+	 * Release
+	 *
+	 * @param int   $order_id
+	 * @param float $amount
+	 *
+	 * @return array|bool
+	 */
 	public function release(int $order_id, float $amount): array|bool {
 		$opayo_order = $this->getOrder($order_id);
 
@@ -154,10 +192,26 @@ class Opayo extends \Opencart\System\Engine\Model {
 		}
 	}
 
+	/**
+	 * Update Release Status
+	 *
+	 * @param int $opayo_order_id
+	 * @param int $status
+	 *
+	 * @return void
+	 */
 	public function updateReleaseStatus(int $opayo_order_id, int $status): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "opayo_order` SET `release_status` = '" . (int)$status . "' WHERE `opayo_order_id` = '" . (int)$opayo_order_id . "'");
 	}
 
+	/**
+	 * Rebate
+	 *
+	 * @param int   $order_id
+	 * @param float $amount
+	 *
+	 * @return array|bool
+	 */
 	public function rebate(int $order_id, float $amount): array|bool {
 		$opayo_order = $this->getOrder($order_id);
 
@@ -198,10 +252,25 @@ class Opayo extends \Opencart\System\Engine\Model {
 		}
 	}
 
+	/**
+	 * Update Rebate Status
+	 *
+	 * @param int $opayo_order_id
+	 * @param int $status
+	 *
+	 * @return void
+	 */
 	public function updateRebateStatus(int $opayo_order_id, int $status): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "opayo_order` SET `rebate_status` = '" . (int)$status . "' WHERE `opayo_order_id` = '" . (int)$opayo_order_id . "'");
 	}
 
+	/**
+	 * getOrder
+	 *
+	 * @param int $order_id
+	 *
+	 * @return array|bool
+	 */
 	public function getOrder(int $order_id): array|bool {
 		$qry = $this->db->query("SELECT * FROM `" . DB_PREFIX . "opayo_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
@@ -215,6 +284,13 @@ class Opayo extends \Opencart\System\Engine\Model {
 		}
 	}
 
+	/**
+	 * Get Order Transactions
+	 *
+	 * @param int $opayo_order_id
+	 *
+	 * @return array|bool
+	 */
 	private function getOrderTransactions(int $opayo_order_id): array|bool {
 		$qry = $this->db->query("SELECT * FROM `" . DB_PREFIX . "opayo_order_transaction` WHERE `opayo_order_id` = '" . (int)$opayo_order_id . "'");
 
@@ -225,22 +301,53 @@ class Opayo extends \Opencart\System\Engine\Model {
 		}
 	}
 
+	/**
+	 * Add Order Transaction
+	 *
+	 * @param int    $opayo_order_id
+	 * @param string $type
+	 * @param float  $total
+	 *
+	 * @return void
+	 */
 	public function addOrderTransaction(int $opayo_order_id, string $type, float $total): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "opayo_order_transaction` SET `opayo_order_id` = '" . (int)$opayo_order_id . "', `date_added` = now(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . (float)$total . "'");
 	}
 
+	/**
+	 * Get Total Released
+	 *
+	 * @param int $opayo_order_id
+	 *
+	 * @return float
+	 */
 	public function getTotalReleased(int $opayo_order_id): float {
 		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "opayo_order_transaction` WHERE `opayo_order_id` = '" . (int)$opayo_order_id . "' AND (`type` = 'payment' OR `type` = 'rebate')");
 
 		return (float)$query->row['total'];
 	}
 
+	/**
+	 * Get Total Rebated
+	 *
+	 * @param int $opayo_order_id
+	 *
+	 * @return float
+	 */
 	public function getTotalRebated(int $opayo_order_id): float {
 		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "opayo_order_transaction` WHERE `opayo_order_id` = '" . (int)$opayo_order_id . "' AND 'rebate'");
 
 		return (float)$query->row['total'];
 	}
 
+	/**
+	 * Send Curl
+	 *
+	 * @param string $url
+	 * @param array  $payment_data
+	 *
+	 * @return array
+	 */
 	public function sendCurl(string $url, array $payment_data): array {
 		$curl = curl_init($url);
 
@@ -260,7 +367,7 @@ class Opayo extends \Opencart\System\Engine\Model {
 
 		$response_info = explode(chr(10), $response);
 
-		foreach ($response_info as $string) {
+		foreach ($response_info as $i => $string) {
 			if (strpos($string, '=') && isset($i)) {
 				$parts = explode('=', $string, 2);
 				$data['RepeatResponseData_' . $i][trim($parts[0])] = trim($parts[1]);
@@ -273,6 +380,14 @@ class Opayo extends \Opencart\System\Engine\Model {
 		return $data;
 	}
 
+	/**
+	 * Log
+	 *
+	 * @param string       $title
+	 * @param array|string $data
+	 *
+	 * @return void
+	 */
 	public function log(string $title, array|string $data): void {
 		$_config = new \Opencart\System\Engine\Config();
 		$_config->addPath(DIR_EXTENSION . 'opayo/system/config/');
