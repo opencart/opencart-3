@@ -94,9 +94,9 @@ class ModelExtensionPaymentOpayo extends Model {
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array|bool
+	 * @return array<string, string>
 	 */
-	public function void(int $order_id): array|bool {
+	public function void(int $order_id): array {
 		$opayo_order = $this->getOrder($order_id);
 
 		if (!empty($opayo_order) && ($opayo_order['release_status'] == 0)) {
@@ -127,7 +127,7 @@ class ModelExtensionPaymentOpayo extends Model {
 
 			return $this->sendCurl($url, $void_data);
 		} else {
-			return false;
+			return [];
 		}
 	}
 
@@ -149,9 +149,9 @@ class ModelExtensionPaymentOpayo extends Model {
 	 * @param int   $order_id
 	 * @param float $amount
 	 *
-	 * @return array|bool
+	 * @return array<string, string>
 	 */
-	public function release(int $order_id, float $amount): array|bool {
+	public function release(int $order_id, float $amount): array {
 		$opayo_order = $this->getOrder($order_id);
 
 		$total_released = $this->getTotalReleased($opayo_order['opayo_order_id']);
@@ -185,7 +185,7 @@ class ModelExtensionPaymentOpayo extends Model {
 
 			return $this->sendCurl($url, $release_data);
 		} else {
-			return false;
+			return [];
 		}
 	}
 
@@ -207,9 +207,9 @@ class ModelExtensionPaymentOpayo extends Model {
 	 * @param int   $order_id
 	 * @param float $amount
 	 *
-	 * @return array|bool
+	 * @return array<string, string>
 	 */
-	public function rebate(int $order_id, float $amount): array|bool {
+	public function rebate(int $order_id, float $amount): array {
 		$opayo_order = $this->getOrder($order_id);
 
 		if (!empty($opayo_order) && ($opayo_order['rebate_status'] != 1)) {
@@ -244,7 +244,7 @@ class ModelExtensionPaymentOpayo extends Model {
 
 			return $this->sendCurl($url, $refund_data);
 		} else {
-			return false;
+			return [];
 		}
 	}
 
@@ -265,9 +265,9 @@ class ModelExtensionPaymentOpayo extends Model {
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array|bool
+	 * @return array<string, mixed>
 	 */
-	public function getOrder(int $order_id): array|bool {
+	public function getOrder(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "opayo_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
 		if ($query->num_rows) {
@@ -276,17 +276,24 @@ class ModelExtensionPaymentOpayo extends Model {
 
 			return $order;
 		} else {
-			return false;
+			return [];
 		}
 	}
 
-	private function getOrderTransactions(int $opayo_order_id): array|bool {
+	/**
+	 * Get Order Transactions
+	 *
+	 * @param int $opayo_order_id
+	 *
+	 * @return array<int, array<string, mixed>>
+	 */
+	private function getOrderTransactions(int $opayo_order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "opayo_order_transaction` WHERE `opayo_order_id` = '" . (int)$opayo_order_id . "'");
 
 		if ($query->num_rows) {
 			return $query->rows;
 		} else {
-			return false;
+			return [];
 		}
 	}
 
@@ -330,12 +337,12 @@ class ModelExtensionPaymentOpayo extends Model {
 	}
 
 	/**
-	 * sendCurl
+	 * Send Curl
 	 *
-	 * @param string $url
-	 * @param array  $payment_data
+	 * @param string       $url
+	 * @param array<mixed> $payment_data
 	 *
-	 * @return array
+	 * @return array<string, string>
 	 */
 	public function sendCurl(string $url, array $payment_data): array {
 		$curl = curl_init($url);
@@ -357,7 +364,7 @@ class ModelExtensionPaymentOpayo extends Model {
 		$response_info = explode(chr(10), $response);
 
 		foreach ($response_info as $i => $string) {
-			if (strpos($string, '=') && isset($i)) {
+			if (strpos($string, '=')) {
 				$parts = explode('=', $string, 2);
 				$data['RepeatResponseData_' . $i][trim($parts[0])] = trim($parts[1]);
 			} elseif (strpos($string, '=')) {
@@ -372,10 +379,12 @@ class ModelExtensionPaymentOpayo extends Model {
 	/**
 	 * Log
 	 *
-	 * @param string       $title
-	 * @param array|string $data
+	 * @param string  $title
+	 * @param ?string $data
+	 *
+	 * @return void
 	 */
-	public function log(string $title, array|string $data): void {
+	public function log(string $title, ?string $data): void {
 		$_config = new Config();
 		$_config->load('opayo');
 

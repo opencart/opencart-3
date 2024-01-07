@@ -5,9 +5,14 @@
  * @package Admin\Controller\Extension\Payment
  */
 class ControllerExtensionPaymentOpayo extends Controller {
-	private array $error = [];
+	/**
+	 * @var array<string, string>
+	 * @var string
+	 */
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -156,9 +161,9 @@ class ControllerExtensionPaymentOpayo extends Controller {
 	/**
 	 * Order
 	 *
-	 * @return void
+	 * @return string
 	 */
-	public function order() {
+	public function order(): string {
 		if ($this->config->get('payment_opayo_status')) {
 			$this->load->model('extension/payment/opayo');
 
@@ -182,6 +187,8 @@ class ControllerExtensionPaymentOpayo extends Controller {
 				return $this->load->view('extension/payment/opayo/order', $data);
 			}
 		}
+
+		return '';
 	}
 
 	/**
@@ -288,6 +295,11 @@ class ControllerExtensionPaymentOpayo extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
+	/**
+	 * Rebate
+	 *
+	 * @return void
+	 */
 	public function rebate(): void {
 		$this->load->language('extension/payment/opayo');
 
@@ -342,6 +354,11 @@ class ControllerExtensionPaymentOpayo extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
+	/**
+	 * Validate
+	 *
+	 * @return bool
+	 */
 	private function validate() {
 		if (!$this->user->hasPermission('modify', 'extension/payment/opayo')) {
 			$this->error['warning'] = $this->language->get('error_permission');
