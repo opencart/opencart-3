@@ -16,7 +16,7 @@ class ModelExtensionPaymentOpayo extends Model {
 
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `geo_zone_id` = '" . (int)$this->config->get('payment_opayo_geo_zone_id') . "' AND `country_id` = '" . (int)$address['country_id'] . "' AND (`zone_id` = '" . (int)$address['zone_id'] . "' OR `zone_id` = '0')");
 
-		if ($this->config->get('opayo_total') > 0 && $this->config->get('payment_opayo_total') > $total) {
+		if ($this->config->get('payment_opayo_total') > 0 && $this->config->get('payment_opayo_total') > $total) {
 			$status = false;
 		} elseif (!$this->config->get('payment_opayo_geo_zone_id')) {
 			$status = true;
@@ -172,7 +172,7 @@ class ModelExtensionPaymentOpayo extends Model {
 	 *
 	 * @param int $vendor_tx_code
 	 *
-	 * @ereturn void
+	 * @return void
 	 */
 	public function deleteOrder(int $vendor_tx_code): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "opayo_order` WHERE `order_id` = '" . $vendor_tx_code . "'");
@@ -217,7 +217,7 @@ class ModelExtensionPaymentOpayo extends Model {
 	 * @return void
 	 */
 	public function recurringPayment(array $item, string $vendor_tx_code): void {
-		$this->load->model('checkout/recurring');
+		$this->load->model('checkout/subsc');
 		$this->load->model('extension/payment/opayo');
 
 		if (VERSION >= '3.0.1.0') {
