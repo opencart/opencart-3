@@ -404,13 +404,22 @@ class Opayo extends \Opencart\System\Engine\Controller {
 
 				// Loop through any products that are subscription items
 				foreach ($subscriptions as $item) {
-					$item['subscription']['option'] = $item['option'];
-					$item['subscription']['product_id'] = $item['product_id'];
-					$item['subscription']['quantity'] = $item['quantity'];
+					$order_products = $this->model_checkout_order->getProducts($this->session->data['order_id']);
 
-					$item = array_merge($item, $order_data);
+					foreach ($order_products as $order_product) {
+						$order_subscription = $this->model_checkout_order->getSubscription($this->session->data['order_id'], $order_product['order_product_id']);
 
-					$this->model_extension_opayo_payment_opayo->subscriptionPayment($item, $payment_data['VendorTxCode']);
+						if ($order_subscription && $order_subscription['subscription_plan_id'] == $order_product['subscription_plan_id']) {
+							$item['subscription']['order_product_id'] = $item['order_product_id'];
+							$item['subscription']['product_id'] = $item['product_id'];
+							$item['subscription']['option'] = $item['option'];
+							$item['subscription']['quantity'] = $item['quantity'];
+
+							$item = array_merge($item, $order_data);
+
+							$this->model_extension_opayo_payment_opayo->subscriptionPayment($item, $payment_data['VendorTxCode']);
+						}
+					}
 				}
 			}
 
@@ -559,13 +568,22 @@ class Opayo extends \Opencart\System\Engine\Controller {
 
 					// Loop through any products that are subscription items
 					foreach ($subscriptions as $item) {
-						$item['subscription']['option'] = $item['option'];
-						$item['subscription']['product_id'] = $item['product_id'];
-						$item['subscription']['quantity'] = $item['quantity'];
+						$order_products = $this->model_checkout_order->getProducts($this->session->data['order_id']);
 
-						$item = array_merge($item, $order_data);
+						foreach ($order_products as $order_product) {
+							$order_subscription = $this->model_checkout_order->getSubscription($this->session->data['order_id'], $order_product['order_product_id']);
 
-						$this->model_extension_opayo_payment_opayo->subscriptionPayment($item, $payment_data['VendorTxCode']);
+							if ($order_subscription && $order_subscription['subscription_plan_id'] == $order_product['subscription_plan_id']) {
+								$item['subscription']['order_product_id'] = $item['order_product_id'];
+								$item['subscription']['product_id'] = $item['product_id'];
+								$item['subscription']['option'] = $item['option'];
+								$item['subscription']['quantity'] = $item['quantity'];
+
+								$item = array_merge($item, $order_data);
+
+								$this->model_extension_opayo_payment_opayo->subscriptionPayment($item, $payment_data['VendorTxCode']);
+							}
+						}
 					}
 				}
 
