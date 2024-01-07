@@ -169,6 +169,8 @@ class Opayo extends \Opencart\System\Engine\Controller {
 
 				return $this->load->view('extension/opayo/payment/order', $data);
 			}
+		} else {
+			return '';
 		}
 	}
 

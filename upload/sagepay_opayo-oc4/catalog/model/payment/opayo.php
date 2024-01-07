@@ -166,10 +166,10 @@ class Opayo extends \Opencart\System\Engine\Model {
 	 * @return array
 	 */
 	public function getOrder(int $order_id): array {
-		$qry = $this->db->query("SELECT * FROM `" . DB_PREFIX . "opayo_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "opayo_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
-		if ($qry->num_rows) {
-			$order = $qry->row;
+		if ($query->num_rows) {
+			$order = $query->row;
 			$order['transactions'] = $this->getOrderTransactions($order['opayo_order_id']);
 
 			return $order;
@@ -566,9 +566,9 @@ class Opayo extends \Opencart\System\Engine\Model {
 	 * @return array
 	 */
 	private function getSubscriptionOrder(int $subscription_id): array {
-		$qry = $this->db->query("SELECT * FROM `" . DB_PREFIX . "opayo_order_subscription` WHERE `subscription_id` = '" . (int)$subscription_id . "'");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "opayo_order_subscription` WHERE `subscription_id` = '" . (int)$subscription_id . "'");
 
-		return $qry->row;
+		return $query->row;
 	}
 
 	/**
@@ -595,7 +595,7 @@ class Opayo extends \Opencart\System\Engine\Model {
 
 		$subscriptions = [];
 
-		foreach ($qry->rows as $subscription) {
+		foreach ($query->rows as $subscription) {
 			$subscriptions[] = $this->getProfile($subscription['subscription_id']);
 		}
 

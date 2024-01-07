@@ -551,6 +551,10 @@ class Opayo extends \Opencart\System\Engine\Controller {
 					$order_data['subscription']['user_agent'] = $user_agent;
 					$order_data['subscription']['accept_language'] = $accept_language;
 
+					$payment_data = [];
+
+					$payment_data['VendorTxCode'] = $this->session->data['order_id'] . 'SD' . date('YmdHis') . mt_rand(1, 999);
+
 					$subscriptions = $this->cart->getSubscriptions();
 
 					// Loop through any products that are subscription items
