@@ -457,7 +457,10 @@ class ModelExtensionPaymentSagePayServer extends Model {
 
 	private function calculateSchedule($frequency, $next_payment, $cycle) {
 		if ($frequency == 'semi_month') {
-			$day = date_format($next_payment, 'd');
+			// https://stackoverflow.com/a/35473574
+			$day = date_create_from_format('j M, Y', $next_payment->date);
+			$day = date_create($day);
+			$day = date_format($day, 'd');
 			$value = 15 - $day;
 			$is_even = false;
 
