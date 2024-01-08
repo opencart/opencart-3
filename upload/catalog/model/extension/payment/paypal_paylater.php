@@ -1,5 +1,5 @@
 <?php
-class ModelExtensionPaymentPayPalPayLater extends Model {
+class ModelExtensionPaymentPaypalPaylater extends Model {
 	public function getMethod($address, $total) {
 		$method_data = [];
 
