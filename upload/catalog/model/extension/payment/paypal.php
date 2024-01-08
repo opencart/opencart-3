@@ -237,29 +237,29 @@ class ModelExtensionPaymentPayPal extends Model {
 
 		$order_recurring_id = $this->addOrderRecurring($order_data['order_id'], $recurring_description, $product_data, $paypal_order_data['transaction_id']);
 
-		$next_payment = new DateTime('now');
-		$trial_end = new DateTime('now');
-		$subscription_end = new DateTime('now');
+		$next_payment = new \DateTime('now');
+		$trial_end = new \DateTime('now');
+		$subscription_end = new \DateTime('now');
 
 		if (($product_data['recurring']['trial'] == 1) && ($product_data['recurring']['trial_duration'] != 0)) {
 			$next_payment = $this->calculateSchedule($product_data['recurring']['trial_frequency'], $next_payment, $product_data['recurring']['trial_cycle']);
 			$trial_end = $this->calculateSchedule($product_data['recurring']['trial_frequency'], $trial_end, $product_data['recurring']['trial_cycle'] * $product_data['recurring']['trial_duration']);
 		} elseif ($product_data['recurring']['trial'] == 1) {
 			$next_payment = $this->calculateSchedule($product_data['recurring']['trial_frequency'], $next_payment, $product_data['recurring']['trial_cycle']);
-			$trial_end = new DateTime('0000-00-00');
+			$trial_end = new \DateTime('0000-00-00');
 		}
 
 		if (date_format($trial_end, 'Y-m-d H:i:s') > date_format($subscription_end, 'Y-m-d H:i:s') && $product_data['recurring']['duration'] != 0) {
-			$subscription_end = new DateTime(date_format($trial_end, 'Y-m-d H:i:s'));
+			$subscription_end = new \DateTime(date_format($trial_end, 'Y-m-d H:i:s'));
 			$subscription_end = $this->calculateSchedule($product_data['recurring']['frequency'], $subscription_end, $product_data['recurring']['cycle'] * $product_data['recurring']['duration']);
 		} elseif (date_format($trial_end, 'Y-m-d H:i:s') == date_format($subscription_end, 'Y-m-d H:i:s') && $product_data['recurring']['duration'] != 0) {
 			$next_payment = $this->calculateSchedule($product_data['recurring']['frequency'], $next_payment, $product_data['recurring']['cycle']);
 			$subscription_end = $this->calculateSchedule($product_data['recurring']['frequency'], $subscription_end, $product_data['recurring']['cycle'] * $product_data['recurring']['duration']);
 		} elseif (date_format($trial_end, 'Y-m-d H:i:s') > date_format($subscription_end, 'Y-m-d H:i:s') && $product_data['recurring']['duration'] == 0) {
-			$subscription_end = new DateTime('0000-00-00');
+			$subscription_end = new \DateTime('0000-00-00');
 		} elseif (date_format($trial_end, 'Y-m-d H:i:s') == date_format($subscription_end, 'Y-m-d H:i:s') && $product_data['recurring']['duration'] == 0) {
 			$next_payment = $this->calculateSchedule($product_data['recurring']['frequency'], $next_payment, $product_data['recurring']['cycle']);
-			$subscription_end = new DateTime('0000-00-00');
+			$subscription_end = new \DateTime('0000-00-00');
 		}
 
 		$result = $this->createPayment($order_data, $paypal_order_data, $price, $order_recurring_id, $recurring_name);
@@ -342,11 +342,11 @@ class ModelExtensionPaymentPayPal extends Model {
 				$paypal_order_recurring = $this->getPayPalOrderRecurring($order_recurring['order_recurring_id']);
 
 				if ($paypal_order_recurring) {
-					$today = new DateTime('now');
-					$unlimited = new DateTime('0000-00-00');
-					$next_payment = new DateTime($paypal_order_recurring['next_payment']);
-					$trial_end = new DateTime($paypal_order_recurring['trial_end']);
-					$subscription_end = new DateTime($paypal_order_recurring['subscription_end']);
+					$today = new \DateTime('now');
+					$unlimited = new \DateTime('0000-00-00');
+					$next_payment = new \DateTime($paypal_order_recurring['next_payment']);
+					$trial_end = new \DateTime($paypal_order_recurring['trial_end']);
+					$subscription_end = new \DateTime($paypal_order_recurring['subscription_end']);
 
 					$order_info = $this->model_checkout_order->getOrder($order_recurring['order_id']);
 
