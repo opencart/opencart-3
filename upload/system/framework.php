@@ -19,7 +19,7 @@ $registry->set('log', $log);
 
 date_default_timezone_set($config->get('date_timezone'));
 
-set_error_handler(function($code, $message, $file, $line) use ($log, $config) {
+set_error_handler(function(int $code, string $message, string $file, int $line) use ($log, $config) {
 	// error suppressed with @
 	if (error_reporting() === 0) {
 		return false;
