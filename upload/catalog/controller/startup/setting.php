@@ -9,10 +9,10 @@ class ControllerStartupSetting extends Controller {
 	 * @return void
 	 */
 	public function index(): void {
+		$hostname = ($this->request->server['HTTPS'] ? 'https://' : 'http://') . str_replace('www.', '', $this->request->server['HTTP_HOST']) . rtrim(dirname($this->request->server['PHP_SELF']), '/.\\') . '/';
+
 		// Stores
 		$this->load->model('setting/store');
-
-		$hostname = ($this->request->server['HTTPS'] ? 'https://' : 'http://') . str_replace('www.', '', $this->request->server['HTTP_HOST']) . rtrim(dirname($this->request->server['PHP_SELF']), '/.\\') . '/';
 
 		$store_info = $this->model_setting_store->getStoreByHostname($hostname);
 
