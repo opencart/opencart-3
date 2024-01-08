@@ -13,19 +13,17 @@ class ModelExtensionFeedGoogleBase extends Model {
 	public function install(): void {
 		$this->db->query("
 			CREATE TABLE `" . DB_PREFIX . "google_base_category` (
-				`google_base_category_id` INT(11) NOT NULL AUTO_INCREMENT,
+				`google_base_category_id` int(11) NOT NULL AUTO_INCREMENT,
 				`name` varchar(255) NOT NULL,
 				PRIMARY KEY (`google_base_category_id`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-		");
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
 
 		$this->db->query("
 			CREATE TABLE `" . DB_PREFIX . "google_base_category_to_category` (
-				`google_base_category_id` INT(11) NOT NULL,
-				`category_id` INT(11) NOT NULL,
+				`google_base_category_id` int(11) NOT NULL,
+				`category_id` int(11) NOT NULL,
 				PRIMARY KEY (`google_base_category_id`, `category_id`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-		");
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
 	}
 
 	/**

@@ -775,68 +775,68 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	 */
 	public function createTables(): void {
 		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "googleshopping_product` (
-            `product_advertise_google_id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-            `product_id` INT(11),
-            `store_id` INT(11) NOT NULL DEFAULT '0',
-            `has_issues` TINYINT(1),
-            `destination_status` ENUM('pending','approved','disapproved') NOT NULL DEFAULT 'pending',
-            `impressions` INT(11) NOT NULL DEFAULT '0',
-            `clicks` INT(11) NOT NULL DEFAULT '0',
-            `conversions` INT(11) NOT NULL DEFAULT '0',
+            `product_advertise_google_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+            `product_id` int(11),
+            `store_id` int(11) NOT NULL DEFAULT '0',
+            `has_issues` tinyint(1),
+            `destination_status` enum('pending','approved','disapproved') NOT NULL DEFAULT 'pending',
+            `impressions` int(11) NOT NULL DEFAULT '0',
+            `clicks` int(11) NOT NULL DEFAULT '0',
+            `conversions` int(11) NOT NULL DEFAULT '0',
             `cost` decimal(15,4) NOT NULL DEFAULT '0.0000',
             `conversion_value` decimal(15,4) NOT NULL DEFAULT '0.0000',
             `google_product_category` VARCHAR(10),
-            `condition` ENUM('new','refurbished','used'),
-            `adult` TINYINT(1),
-            `multipack` INT(11),
-            `is_bundle` TINYINT(1),
-            `age_group` ENUM('newborn','infant','toddler','kids','adult'),
-            `color` INT(11),
-            `gender` ENUM('male','female','unisex'),
-            `size_type` ENUM('regular','petite','plus','big and tall','maternity'),
-            `size_system` ENUM('AU','BR','CN','DE','EU','FR','IT','JP','MEX','UK','US'),
-            `size` INT(11),
-            `is_modified` TINYINT(1) NOT NULL DEFAULT '0',
+            `condition` enum('new','refurbished','used'),
+            `adult` tinyint(1),
+            `multipack` int(11),
+            `is_bundle` tinyint(1),
+            `age_group` enum('newborn','infant','toddler','kids','adult'),
+            `color` int(11),
+            `gender` enum('male','female','unisex'),
+            `size_type` enum('regular','petite','plus','big and tall','maternity'),
+            `size_system` enum('AU','BR','CN','DE','EU','FR','IT','JP','MEX','UK','US'),
+            `size` int(11),
+            `is_modified` tinyint(1) NOT NULL DEFAULT '0',
             PRIMARY KEY (`product_advertise_google_id`),
             UNIQUE `product_id_store_id` (`product_id`, `store_id`)
         ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci");
 
 		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "googleshopping_product_status` (
-            `product_id` INT(11),
-            `store_id` INT(11) NOT NULL DEFAULT '0',
+            `product_id` int(11),
+            `store_id` int(11) NOT NULL DEFAULT '0',
             `product_variation_id` varchar(64),
-            `destination_statuses` TEXT NOT NULL,
-            `data_quality_issues` TEXT NOT NULL,
-            `item_level_issues` TEXT NOT NULL,
-            `google_expiration_date` INT(11) NOT NULL DEFAULT '0',
+            `destination_statuses` text NOT NULL,
+            `data_quality_issues` text NOT NULL,
+            `item_level_issues` text NOT NULL,
+            `google_expiration_date` int(11) NOT NULL DEFAULT '0',
             PRIMARY KEY (`product_id`, `store_id`, `product_variation_id`)
         ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci");
 
 		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "googleshopping_product_target` (
-            `product_id` INT(11) NOT NULL,
-            `store_id` INT(11) NOT NULL DEFAULT '0',
-            `advertise_google_target_id` INT(11) UNSIGNED NOT NULL,
+            `product_id` int(11) NOT NULL,
+            `store_id` int(11) NOT NULL DEFAULT '0',
+            `advertise_google_target_id` int(11) UNSIGNED NOT NULL,
             PRIMARY KEY (`product_id`, `advertise_google_target_id`)
         ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci");
 
 		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "googleshopping_category` (
-            `google_product_category` VARCHAR(10) NOT NULL,
-            `store_id` INT(11) NOT NULL DEFAULT '0',
-            `category_id` INT(11) NOT NULL,
+            `google_product_category` varchar(10) NOT NULL,
+            `store_id` int(11) NOT NULL DEFAULT '0',
+            `category_id` int(11) NOT NULL,
             INDEX `category_id_store_id` (`category_id`, `store_id`),
             PRIMARY KEY (`google_product_category`, `store_id`)
         ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci");
 
 		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "googleshopping_target` (
-            `advertise_google_target_id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-            `store_id` INT(11) NOT NULL DEFAULT '0',
+            `advertise_google_target_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+            `store_id` int(11) NOT NULL DEFAULT '0',
             `campaign_name` varchar(255) NOT NULL DEFAULT '',
             `country` varchar(2) NOT NULL DEFAULT '',
             `budget` decimal(15,4) NOT NULL DEFAULT '0.0000',
             `feeds` text NOT NULL,
-            `date_added` DATE,
-            `roas` INT(11) NOT NULL DEFAULT '0',
-            `status` ENUM('paused','active') NOT NULL DEFAULT 'paused',
+            `date_added` date,
+            `roas` int(11) NOT NULL DEFAULT '0',
+            `status` enum('paused','active') NOT NULL DEFAULT 'paused',
             INDEX `store_id` (`store_id`),
             PRIMARY KEY (`advertise_google_target_id`)
         ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci");
@@ -851,7 +851,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 		$has_auto_increment = $this->db->query("SHOW COLUMNS FROM `" . DB_PREFIX . "googleshopping_product` WHERE Field = 'product_advertise_google_id' AND Extra LIKE '%auto_increment%'")->num_rows;
 
 		if (!$has_auto_increment) {
-			$this->db->query("ALTER TABLE `" . DB_PREFIX . "googleshopping_product` MODIFY COLUMN `product_advertise_google_id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT");
+			$this->db->query("ALTER TABLE `" . DB_PREFIX . "googleshopping_product` MODIFY COLUMN `product_advertise_google_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT");
 		}
 
 		$has_unique_key = $this->db->query("SHOW INDEX FROM `" . DB_PREFIX . "googleshopping_product` WHERE Key_name = 'product_id_store_id' AND Non_unique = 0")->num_rows == 2;
@@ -877,7 +877,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 		$has_roas_column = $this->db->query("SHOW COLUMNS FROM `" . DB_PREFIX . "googleshopping_target` WHERE Field = 'roas'")->num_rows;
 
 		if (!$has_roas_column) {
-			$this->db->query("ALTER TABLE `" . DB_PREFIX . "googleshopping_target` ADD COLUMN `roas` INT(11) NOT NULL DEFAULT '0'");
+			$this->db->query("ALTER TABLE `" . DB_PREFIX . "googleshopping_target` ADD COLUMN `roas` int(11) NOT NULL DEFAULT '0'");
 		}
 	}
 
