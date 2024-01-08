@@ -77,21 +77,21 @@ class ModelExtensionPaymentDivido extends Model {
 	public function install(): void {
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "divido_product` (
-				`product_id` INT(11) NOT NULL,
-				`display` CHAR(7) NOT NULL,
+				`product_id` int(11) NOT NULL,
+				`display` varchar(7) NOT NULL,
 				`plans` text,
 				PRIMARY KEY (`product_id`)
-			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
 
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "divido_lookup` (
-				`order_id` INT(11) NOT NULL,
-				`salt` CHAR(64) NOT NULL,
-				`proposal_id` CHAR(40),
-				`application_id` CHAR(40),
-				`deposit_amount` NUMERIC(6,2),
+				`order_id` int(11) NOT NULL,
+				`salt` varchar(64) NOT NULL,
+				`proposal_id` varchar(40),
+				`application_id` varchar(40),
+				`deposit_amount` DECIMAL(15,4),
 			  PRIMARY KEY (`order_id`)
-			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
 	}
 
 	/**
@@ -100,7 +100,7 @@ class ModelExtensionPaymentDivido extends Model {
 	 * @return void
 	 */
 	public function uninstall(): void {
-		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "divido_product`;");
-		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "divido_lookup`;");
+		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "divido_product`");
+		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "divido_lookup`");
 	}
 }

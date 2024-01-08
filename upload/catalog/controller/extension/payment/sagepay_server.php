@@ -352,8 +352,8 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 			exit;
 		}
 
-		if (isset($transaction_info['SecurityKey'])) {
-			$str_security_key = $transaction_info['SecurityKey'];
+		if ($transaction_info && $transaction_info['security_key']) {
+			$str_security_key = $transaction_info['security_key'];
 		} else {
 			$str_security_key = '';
 		}
@@ -438,7 +438,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 		if (isset($this->session->data['order_id'])) {
 			$order_details = $this->model_extension_payment_sagepay_server->getOrder($this->session->data['order_id']);
 
-			if ($order_details && $order_details['VendorTxCode']) {
+			if ($order_details && $order_details['vendor_tx_code']) {
 				if ($this->config->get('payment_sagepay_server_transaction') == 'PAYMENT') {
 					$subscription_products = $this->model_extension_payment_sagepay_server->getRecurringOrders($this->session->data['order_id']);
 

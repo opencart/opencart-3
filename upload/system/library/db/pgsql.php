@@ -1,7 +1,15 @@
 <?php
 namespace DB;
+/**
+ * Class PgSQL
+ *
+ * @package System\Library\DB
+ */
 class PgSQL {
-	private ?object $connection;
+	/**
+	 * @var \PgSql\Connection|resource|null
+	 */
+	private $connection;
 
 	/**
 	 * Constructor
@@ -37,9 +45,9 @@ class PgSQL {
 	 *
 	 * @param string $sql
 	 *
-	 * @return bool|object
+	 * @return mixed
 	 */
-	public function query(string $sql): bool|object {
+	public function query(string $sql) {
 		$resource = pg_query($this->connection, $sql);
 
 		if ($resource) {

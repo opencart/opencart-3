@@ -13,68 +13,68 @@ class ModelExtensionPaymentOpayo extends Model {
 	public function install(): void {
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "opayo_order` (
-			  `opayo_order_id` INT(11) NOT NULL AUTO_INCREMENT,
-			  `order_id` INT(11) NOT NULL,
-			  `VPSTxId` VARCHAR(50),
-			  `VendorTxCode` VARCHAR(50) NOT NULL,
-			  `SecurityKey` CHAR(50) NOT NULL,
-			  `TxAuthNo` INT(50),
-			  `date_added` DATETIME NOT NULL,
-			  `date_modified` DATETIME NOT NULL,
-			  `release_status` INT(1) DEFAULT NULL,
-			  `void_status` INT(1) DEFAULT NULL,
-			  `settle_type` INT(1) DEFAULT NULL,
-			  `rebate_status` INT(1) DEFAULT NULL,
-			  `currency_code` CHAR(3) NOT NULL,
-			  `total` DECIMAL( 10, 2 ) NOT NULL,
-			  `card_id` INT(11),
+			  `opayo_order_id` int(11) NOT NULL AUTO_INCREMENT,
+			  `order_id` int(11) NOT NULL,
+			  `vps_tx_id` varchar(50),
+			  `vendor_tx_code` varchar(50) NOT NULL,
+			  `security_key` varchar(50) NOT NULL,
+			  `tx_auth_no` varchar(50),
+			  `date_added` datetime NOT NULL,
+			  `date_modified` datetime NOT NULL,
+			  `release_status` int(1) DEFAULT NULL,
+			  `void_status` int(1) DEFAULT NULL,
+			  `settle_type` int(1) DEFAULT NULL,
+			  `rebate_status` int(1) DEFAULT NULL,
+			  `currency_code` varchar(3) NOT NULL,
+			  `total` decimal(15,4) NOT NULL,
+			  `card_id` int(11),
 			  PRIMARY KEY (`opayo_order_id`),
 			  KEY (`order_id`)
-			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
 
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "opayo_order_transaction` (
-			  `opayo_order_transaction_id` INT(11) NOT NULL AUTO_INCREMENT,
-			  `opayo_order_id` INT(11) NOT NULL,
-			  `date_added` DATETIME NOT NULL,
-			  `type` ENUM('auth', 'payment', 'rebate', 'void') DEFAULT NULL,
-			  `amount` DECIMAL( 10, 2 ) NOT NULL,
+			  `opayo_order_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
+			  `opayo_order_id` int(11) NOT NULL,
+			  `date_added` datetime NOT NULL,
+			  `type` enum('auth', 'payment', 'rebate', 'void') DEFAULT NULL,
+			  `amount` decimal(15,4) NOT NULL,
 			  PRIMARY KEY (`opayo_order_transaction_id`),
 			  KEY (`opayo_order_id`)
-			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
 
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "opayo_order_recurring` (
-			  `opayo_order_recurring_id` INT(11) NOT NULL AUTO_INCREMENT,
-			  `order_id` INT(11) NOT NULL,
-			  `order_recurring_id` INT(11) NOT NULL,
-			  `VPSTxId` VARCHAR(50),
-			  `VendorTxCode` VARCHAR(50) NOT NULL,
-			  `SecurityKey` CHAR(50) NOT NULL,
-			  `TxAuthNo` INT(50),
-			  `date_added` DATETIME NOT NULL,
-			  `date_modified` DATETIME NOT NULL,
-			  `next_payment` DATETIME NOT NULL,
-			  `trial_end` DATETIME DEFAULT NULL,
-			  `subscription_end` DATETIME DEFAULT NULL,
-			  `currency_code` CHAR(3) NOT NULL,
-			  `total` DECIMAL( 10, 2 ) NOT NULL,
+			  `opayo_order_recurring_id` int(11) NOT NULL AUTO_INCREMENT,
+			  `order_id` int(11) NOT NULL,
+			  `order_recurring_id` int(11) NOT NULL,
+			  `vps_tx_id` varchar(50),
+			  `vendor_tx_code` varchar(50) NOT NULL,
+			  `security_key` varchar(50) NOT NULL,
+			  `tx_auth_no` varchar(50),
+			  `date_added` datetime NOT NULL,
+			  `date_modified` datetime NOT NULL,
+			  `next_payment` datetime NOT NULL,
+			  `trial_end` datetime DEFAULT NULL,
+			  `subscription_end` datetime DEFAULT NULL,
+			  `currency_code` varchar(3) NOT NULL,
+			  `total` decimal(15,4) NOT NULL,
 			  PRIMARY KEY (`opayo_order_recurring_id`),
 			  KEY (`order_id`)
-			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
 
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "opayo_card` (
-			  `card_id` INT(11) NOT NULL AUTO_INCREMENT,
-			  `customer_id` INT(11) NOT NULL,
-			  `token` VARCHAR(50) NOT NULL,
-			  `digits` VARCHAR(4) NOT NULL,
-			  `expiry` VARCHAR(5) NOT NULL,
-			  `type` VARCHAR(50) NOT NULL,
+			  `card_id` int(11) NOT NULL AUTO_INCREMENT,
+			  `customer_id` int(11) NOT NULL,
+			  `token` varchar(50) NOT NULL,
+			  `digits` varchar(4) NOT NULL,
+			  `expiry` varchar(5) NOT NULL,
+			  `type` varchar(50) NOT NULL,
 			  PRIMARY KEY (`card_id`),
 			  KEY (`customer_id`),
 			  KEY (`token`)
-			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
 	}
 
 	/**
@@ -83,10 +83,10 @@ class ModelExtensionPaymentOpayo extends Model {
 	 * @return void
 	 */
 	public function uninstall(): void {
-		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "opayo_order`;");
-		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "opayo_order_transaction`;");
-		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "opayo_order_recurring`;");
-		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "opayo_card`;");
+		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "opayo_order`");
+		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "opayo_order_transaction`");
+		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "opayo_order_recurring`");
+		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "opayo_card`");
 	}
 
 	/**
@@ -94,9 +94,9 @@ class ModelExtensionPaymentOpayo extends Model {
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array|bool
+	 * @return array<string, string>
 	 */
-	public function void(int $order_id): array|bool {
+	public function void(int $order_id): array {
 		$opayo_order = $this->getOrder($order_id);
 
 		if (!empty($opayo_order) && ($opayo_order['release_status'] == 0)) {
@@ -120,14 +120,14 @@ class ModelExtensionPaymentOpayo extends Model {
 
 			$void_data['TxType'] = 'VOID';
 			$void_data['Vendor'] = $this->config->get('payment_opayo_vendor');
-			$void_data['VendorTxCode'] = $opayo_order['VendorTxCode'];
-			$void_data['VPSTxId'] = $opayo_order['VPSTxId'];
-			$void_data['SecurityKey'] = $opayo_order['SecurityKey'];
-			$void_data['TxAuthNo'] = $opayo_order['TxAuthNo'];
+			$void_data['VendorTxCode'] = $opayo_order['vendor_tx_code'];
+			$void_data['VPSTxId'] = $opayo_order['vps_tx_id'];
+			$void_data['SecurityKey'] = $opayo_order['security_key'];
+			$void_data['TxAuthNo'] = $opayo_order['tx_auth_no'];
 
 			return $this->sendCurl($url, $void_data);
 		} else {
-			return false;
+			return [];
 		}
 	}
 
@@ -149,9 +149,9 @@ class ModelExtensionPaymentOpayo extends Model {
 	 * @param int   $order_id
 	 * @param float $amount
 	 *
-	 * @return array|bool
+	 * @return array<string, string>
 	 */
-	public function release(int $order_id, float $amount): array|bool {
+	public function release(int $order_id, float $amount): array {
 		$opayo_order = $this->getOrder($order_id);
 
 		$total_released = $this->getTotalReleased($opayo_order['opayo_order_id']);
@@ -177,15 +177,15 @@ class ModelExtensionPaymentOpayo extends Model {
 
 			$release_data['TxType'] = 'RELEASE';
 			$release_data['Vendor'] = $this->config->get('payment_opayo_vendor');
-			$release_data['VendorTxCode'] = $opayo_order['VendorTxCode'];
-			$release_data['VPSTxId'] = $opayo_order['VPSTxId'];
-			$release_data['SecurityKey'] = $opayo_order['SecurityKey'];
-			$release_data['TxAuthNo'] = $opayo_order['TxAuthNo'];
+			$release_data['VendorTxCode'] = $opayo_order['vendor_tx_code'];
+			$release_data['VPSTxId'] = $opayo_order['vps_tx_id'];
+			$release_data['SecurityKey'] = $opayo_order['security_key'];
+			$release_data['TxAuthNo'] = $opayo_order['tx_auth_no'];
 			$release_data['Amount'] = $amount;
 
 			return $this->sendCurl($url, $release_data);
 		} else {
-			return false;
+			return [];
 		}
 	}
 
@@ -207,9 +207,9 @@ class ModelExtensionPaymentOpayo extends Model {
 	 * @param int   $order_id
 	 * @param float $amount
 	 *
-	 * @return array|bool
+	 * @return array<string, string>
 	 */
-	public function rebate(int $order_id, float $amount): array|bool {
+	public function rebate(int $order_id, float $amount): array {
 		$opayo_order = $this->getOrder($order_id);
 
 		if (!empty($opayo_order) && ($opayo_order['rebate_status'] != 1)) {
@@ -237,14 +237,14 @@ class ModelExtensionPaymentOpayo extends Model {
 			$refund_data['Amount'] = $amount;
 			$refund_data['Currency'] = $opayo_order['currency_code'];
 			$refund_data['Description'] = substr($this->config->get('config_name'), 0, 100);
-			$refund_data['RelatedVPSTxId'] = $opayo_order['VPSTxId'];
-			$refund_data['RelatedVendorTxCode'] = $opayo_order['VendorTxCode'];
-			$refund_data['RelatedSecurityKey'] = $opayo_order['SecurityKey'];
-			$refund_data['RelatedTxAuthNo'] = $opayo_order['TxAuthNo'];
+			$refund_data['RelatedVPSTxId'] = $opayo_order['vps_tx_id'];
+			$refund_data['RelatedVendorTxCode'] = $opayo_order['vendor_tx_code'];
+			$refund_data['RelatedSecurityKey'] = $opayo_order['security_key'];
+			$refund_data['RelatedTxAuthNo'] = $opayo_order['tx_auth_no'];
 
 			return $this->sendCurl($url, $refund_data);
 		} else {
-			return false;
+			return [];
 		}
 	}
 
@@ -265,9 +265,9 @@ class ModelExtensionPaymentOpayo extends Model {
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array|bool
+	 * @return array<string, mixed>
 	 */
-	public function getOrder(int $order_id): array|bool {
+	public function getOrder(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "opayo_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
 		if ($query->num_rows) {
@@ -276,17 +276,24 @@ class ModelExtensionPaymentOpayo extends Model {
 
 			return $order;
 		} else {
-			return false;
+			return [];
 		}
 	}
 
-	private function getOrderTransactions(int $opayo_order_id): array|bool {
+	/**
+	 * Get Order Transactions
+	 *
+	 * @param int $opayo_order_id
+	 *
+	 * @return array<int, array<string, mixed>>
+	 */
+	private function getOrderTransactions(int $opayo_order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "opayo_order_transaction` WHERE `opayo_order_id` = '" . (int)$opayo_order_id . "'");
 
 		if ($query->num_rows) {
 			return $query->rows;
 		} else {
-			return false;
+			return [];
 		}
 	}
 
@@ -330,12 +337,12 @@ class ModelExtensionPaymentOpayo extends Model {
 	}
 
 	/**
-	 * sendCurl
+	 * Send Curl
 	 *
-	 * @param string $url
-	 * @param array  $payment_data
+	 * @param string       $url
+	 * @param array<mixed> $payment_data
 	 *
-	 * @return array
+	 * @return array<string, string>
 	 */
 	public function sendCurl(string $url, array $payment_data): array {
 		$curl = curl_init($url);
@@ -357,7 +364,7 @@ class ModelExtensionPaymentOpayo extends Model {
 		$response_info = explode(chr(10), $response);
 
 		foreach ($response_info as $i => $string) {
-			if (strpos($string, '=') && isset($i)) {
+			if (strpos($string, '=')) {
 				$parts = explode('=', $string, 2);
 				$data['RepeatResponseData_' . $i][trim($parts[0])] = trim($parts[1]);
 			} elseif (strpos($string, '=')) {
@@ -372,10 +379,12 @@ class ModelExtensionPaymentOpayo extends Model {
 	/**
 	 * Log
 	 *
-	 * @param string       $title
-	 * @param array|string $data
+	 * @param string  $title
+	 * @param ?string $data
+	 *
+	 * @return void
 	 */
-	public function log(string $title, array|string $data): void {
+	public function log(string $title, ?string $data): void {
 		$_config = new Config();
 		$_config->load('opayo');
 

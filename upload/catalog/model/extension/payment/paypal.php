@@ -237,29 +237,29 @@ class ModelExtensionPaymentPayPal extends Model {
 
 		$order_recurring_id = $this->addOrderRecurring($order_data['order_id'], $recurring_description, $product_data, $paypal_order_data['transaction_id']);
 
-		$next_payment = new DateTime('now');
-		$trial_end = new DateTime('now');
-		$subscription_end = new DateTime('now');
+		$next_payment = new \DateTime('now');
+		$trial_end = new \DateTime('now');
+		$subscription_end = new \DateTime('now');
 
 		if (($product_data['recurring']['trial'] == 1) && ($product_data['recurring']['trial_duration'] != 0)) {
 			$next_payment = $this->calculateSchedule($product_data['recurring']['trial_frequency'], $next_payment, $product_data['recurring']['trial_cycle']);
 			$trial_end = $this->calculateSchedule($product_data['recurring']['trial_frequency'], $trial_end, $product_data['recurring']['trial_cycle'] * $product_data['recurring']['trial_duration']);
 		} elseif ($product_data['recurring']['trial'] == 1) {
 			$next_payment = $this->calculateSchedule($product_data['recurring']['trial_frequency'], $next_payment, $product_data['recurring']['trial_cycle']);
-			$trial_end = new DateTime('0000-00-00');
+			$trial_end = new \DateTime('0000-00-00');
 		}
 
 		if (date_format($trial_end, 'Y-m-d H:i:s') > date_format($subscription_end, 'Y-m-d H:i:s') && $product_data['recurring']['duration'] != 0) {
-			$subscription_end = new DateTime(date_format($trial_end, 'Y-m-d H:i:s'));
+			$subscription_end = new \DateTime(date_format($trial_end, 'Y-m-d H:i:s'));
 			$subscription_end = $this->calculateSchedule($product_data['recurring']['frequency'], $subscription_end, $product_data['recurring']['cycle'] * $product_data['recurring']['duration']);
 		} elseif (date_format($trial_end, 'Y-m-d H:i:s') == date_format($subscription_end, 'Y-m-d H:i:s') && $product_data['recurring']['duration'] != 0) {
 			$next_payment = $this->calculateSchedule($product_data['recurring']['frequency'], $next_payment, $product_data['recurring']['cycle']);
 			$subscription_end = $this->calculateSchedule($product_data['recurring']['frequency'], $subscription_end, $product_data['recurring']['cycle'] * $product_data['recurring']['duration']);
 		} elseif (date_format($trial_end, 'Y-m-d H:i:s') > date_format($subscription_end, 'Y-m-d H:i:s') && $product_data['recurring']['duration'] == 0) {
-			$subscription_end = new DateTime('0000-00-00');
+			$subscription_end = new \DateTime('0000-00-00');
 		} elseif (date_format($trial_end, 'Y-m-d H:i:s') == date_format($subscription_end, 'Y-m-d H:i:s') && $product_data['recurring']['duration'] == 0) {
 			$next_payment = $this->calculateSchedule($product_data['recurring']['frequency'], $next_payment, $product_data['recurring']['cycle']);
-			$subscription_end = new DateTime('0000-00-00');
+			$subscription_end = new \DateTime('0000-00-00');
 		}
 
 		$result = $this->createPayment($order_data, $paypal_order_data, $price, $order_recurring_id, $recurring_name);
@@ -342,11 +342,11 @@ class ModelExtensionPaymentPayPal extends Model {
 				$paypal_order_recurring = $this->getPayPalOrderRecurring($order_recurring['order_recurring_id']);
 
 				if ($paypal_order_recurring) {
-					$today = new DateTime('now');
-					$unlimited = new DateTime('0000-00-00');
-					$next_payment = new DateTime($paypal_order_recurring['next_payment']);
-					$trial_end = new DateTime($paypal_order_recurring['trial_end']);
-					$subscription_end = new DateTime($paypal_order_recurring['subscription_end']);
+					$today = new \DateTime('now');
+					$unlimited = new \DateTime('0000-00-00');
+					$next_payment = new \DateTime($paypal_order_recurring['next_payment']);
+					$trial_end = new \DateTime($paypal_order_recurring['trial_end']);
+					$subscription_end = new \DateTime($paypal_order_recurring['subscription_end']);
 
 					$order_info = $this->model_checkout_order->getOrder($order_recurring['order_id']);
 
@@ -529,7 +529,10 @@ class ModelExtensionPaymentPayPal extends Model {
 
 	public function calculateSchedule(string $frequency, string $next_payment, int $cycle): string {
 		if ($frequency == 'semi_month') {
-			$day = date_format($next_payment, 'd');
+			// https://stackoverflow.com/a/35473574
+			$day = date_create_from_format('j M, Y', $next_payment->date);
+			$day = date_create($day);
+			$day = date_format($day, 'd');
 			$value = 15 - $day;
 			$is_even = false;
 
@@ -604,8 +607,8 @@ class ModelExtensionPaymentPayPal extends Model {
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "paypal_checkout_integration_order`");
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "paypal_checkout_integration_order_recurring`");
 
-		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "paypal_checkout_integration_order` (`order_id` INT(11) NOT NULL, `transaction_id` VARCHAR(20) NOT NULL, `transaction_status` VARCHAR(20) NULL, `payment_method` VARCHAR(20) NULL, `vault_id` VARCHAR(50) NULL, `vault_customer_id` VARCHAR(50) NULL, `environment` VARCHAR(20) NULL, PRIMARY KEY (`order_id`, `transaction_id`)) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci");
-		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "paypal_checkout_integration_order_recurring` (`paypal_order_recurring_id` INT(11) NOT NULL AUTO_INCREMENT, `order_id` INT(11) NOT NULL, `order_recurring_id` INT(11) NOT NULL, `date_added` DATETIME NOT NULL, `date_modified` DATETIME NOT NULL, `next_payment` DATETIME NOT NULL, `trial_end` DATETIME DEFAULT NULL, `subscription_end` DATETIME DEFAULT NULL, `currency_code` CHAR(3) NOT NULL, `total` DECIMAL(10, 2) NOT NULL, PRIMARY KEY (`paypal_order_recurring_id`), KEY (`order_id`), KEY (`order_recurring_id`)) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci");
+		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "paypal_checkout_integration_order` (`order_id` int(11) NOT NULL, `transaction_id` varchar(20) NOT NULL, `transaction_status` varchar(20) NULL, `payment_method` varchar(20) NULL, `vault_id` varchar(50) NULL, `vault_customer_id` varchar(50) NULL, `environment` varchar(20) NULL, PRIMARY KEY (`order_id`, `transaction_id`)) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci");
+		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "paypal_checkout_integration_order_recurring` (`paypal_order_recurring_id` int(11) NOT NULL AUTO_INCREMENT, `order_id` int(11) NOT NULL, `order_recurring_id` int(11) NOT NULL, `date_added` datetime NOT NULL, `date_modified` datetime NOT NULL, `next_payment` datetime NOT NULL, `trial_end` datetime DEFAULT NULL, `subscription_end` datetime DEFAULT NULL, `currency_code` varchar(3) NOT NULL, `total` decimal(10, 2) NOT NULL, PRIMARY KEY (`paypal_order_recurring_id`), KEY (`order_id`), KEY (`order_recurring_id`)) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci");
 
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "event` WHERE `code` = 'paypal_order_info'");
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "event` WHERE `code` = 'paypal_header'");

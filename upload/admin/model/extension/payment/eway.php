@@ -15,40 +15,40 @@ class ModelExtensionPaymentEway extends Model {
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "eway_order` (
 			  `eway_order_id` int(11) NOT NULL AUTO_INCREMENT,
 			  `order_id` int(11) NOT NULL,
-			  `created` DATETIME NOT NULL,
-			  `modified` DATETIME NOT NULL,
-			  `amount` DECIMAL(15,4) NOT NULL,
-			  `currency_code` VARCHAR(3) NOT NULL,
-			  `transaction_id` VARCHAR(24) NOT NULL,
-			  `debug_data` TEXT,
-			  `capture_status` INT(1) DEFAULT '0',
-			  `void_status` INT(1) DEFAULT '0',
-			  `refund_status` INT(1) DEFAULT '0',
+			  `created` datetime NOT NULL,
+			  `modified` datetime NOT NULL,
+			  `amount` decimal(15,4) NOT NULL,
+			  `currency_code` varchar(3) NOT NULL,
+			  `transaction_id` varchar(24) NOT NULL,
+			  `debug_data` text,
+			  `capture_status` int(1) NOT NULL DEFAULT '0',
+			  `void_status` int(1) NOT NULL DEFAULT '0',
+			  `refund_status` int(1) NOT NULL DEFAULT '0',
 			  PRIMARY KEY (`eway_order_id`)
-			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
 
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "eway_transactions` (
 			  `eway_order_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
 			  `eway_order_id` int(11) NOT NULL,
-			  `transaction_id` VARCHAR(24) NOT NULL,
-			  `created` DATETIME NOT NULL,
-			  `type` ENUM('auth', 'payment', 'refund', 'void') DEFAULT NULL,
-			  `amount` DECIMAL(15,4) NOT NULL,
+			  `transaction_id` varchar(24) NOT NULL,
+			  `created` datetime NOT NULL,
+			  `type` enum('auth', 'payment', 'refund', 'void') DEFAULT NULL,
+			  `amount` decimal(15,4) NOT NULL,
 			  PRIMARY KEY (`eway_order_transaction_id`)
-			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
 
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "eway_card` (
-			  `card_id` INT(11) NOT NULL AUTO_INCREMENT,
-			  `customer_id` INT(11) NOT NULL,
-			  `order_id` INT(11) NOT NULL,
-			  `token` VARCHAR(50) NOT NULL,
-			  `digits` VARCHAR(4) NOT NULL,
-			  `expiry` VARCHAR(5) NOT NULL,
-			  `type` VARCHAR(50) NOT NULL,
+			  `card_id` int(11) NOT NULL AUTO_INCREMENT,
+			  `customer_id` int(11) NOT NULL,
+			  `order_id` int(11) NOT NULL,
+			  `token` varchar(50) NOT NULL,
+			  `digits` varchar(4) NOT NULL,
+			  `expiry` varchar(5) NOT NULL,
+			  `type` varchar(50) NOT NULL,
 			  PRIMARY KEY (`card_id`)
-			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
 	}
 
 	/**
@@ -59,9 +59,9 @@ class ModelExtensionPaymentEway extends Model {
 	public function uninstall(): void {
 		//$this->model_setting_setting->deleteSetting($this->request->get['extension']);
 
-		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "eway_order`;");
-		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "eway_transactions`;");
-		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "eway_card`;");
+		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "eway_order`");
+		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "eway_transactions`");
+		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "eway_card`");
 	}
 
 	/**

@@ -4,7 +4,7 @@
  *
  * @package Catalog\Controller\Extension\Payment
  */
-class ControllerExtensionPaymentPayPalApplePay extends Controller {
+class ControllerExtensionPaymentPaypalApplepay extends Controller {
 	/**
 	 * @var array
 	 */

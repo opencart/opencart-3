@@ -4,7 +4,7 @@
  *
  * @package Catalog\Controller\Extension\Payment
  */
-class ControllerExtensionPaymentPayPalPayLater extends Controller {
+class ControllerExtensionPaymentPaypalPaylater extends Controller {
 	private array $error = [];
 
 	/**

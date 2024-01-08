@@ -13,29 +13,29 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 	public function install(): void {
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "securetrading_pp_order` (
-			  `securetrading_pp_order_id` INT(11) NOT NULL AUTO_INCREMENT,
-			  `order_id` INT(11) NOT NULL,
+			  `securetrading_pp_order_id` int(11) NOT NULL AUTO_INCREMENT,
+			  `order_id` int(11) NOT NULL,
 			  `transaction_reference` varchar(127) DEFAULT NULL,
-			  `created` DATETIME NOT NULL,
-			  `modified` DATETIME NOT NULL,
-			  `release_status` INT(1) DEFAULT '0',
-			  `void_status` INT(1) DEFAULT '0',
-			  `settle_type` INT(1) DEFAULT '0',
-			  `rebate_status` INT(1) DEFAULT '0',
-			  `currency_code` VARCHAR(3) NOT NULL,
-			  `total` DECIMAL(15,4) NOT NULL,
+			  `created` datetime NOT NULL,
+			  `modified` datetime NOT NULL,
+			  `release_status` int(1) NOT NULL DEFAULT '0',
+			  `void_status` int(1) NOT NULL DEFAULT '0',
+			  `settle_type` int(1) NOT NULL DEFAULT '0',
+			  `rebate_status` int(1) NOT NULL DEFAULT '0',
+			  `currency_code` varchar(3) NOT NULL,
+			  `total` decimal(15,4) NOT NULL,
 			  PRIMARY KEY (`securetrading_pp_order_id`)
-			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
 
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "securetrading_pp_order_transaction` (
-			  `securetrading_pp_order_transaction_id` INT(11) NOT NULL AUTO_INCREMENT,
-			  `securetrading_pp_order_id` INT(11) NOT NULL,
+			  `securetrading_pp_order_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
+			  `securetrading_pp_order_id` int(11) NOT NULL,
 			  `created` DATETIME NOT NULL,
-			  `type` ENUM('auth', 'payment', 'rebate', 'reversed') DEFAULT NULL,
-			  `amount` DECIMAL(15,4) NOT NULL,
+			  `type` enum('auth', 'payment', 'rebate', 'reversed') DEFAULT NULL,
+			  `amount` decimal(15,4) NOT NULL,
 			  PRIMARY KEY (`securetrading_pp_order_transaction_id`)
-			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
 	}
 
 	/**
@@ -45,7 +45,7 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 	 */
 	public function uninstall(): void {
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "securetrading_pp_order`");
-		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "securetrading_pp_order_transaction`;");
+		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "securetrading_pp_order_transaction`");
 	}
 
 	/**

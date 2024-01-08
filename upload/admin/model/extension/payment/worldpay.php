@@ -13,55 +13,55 @@ class ModelExtensionPaymentWorldpay extends Model {
 	public function install(): void {
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "worldpay_order` (
-			  `worldpay_order_id` INT(11) NOT NULL AUTO_INCREMENT,
-			  `order_id` INT(11) NOT NULL,
-			  `order_code` VARCHAR(50),
-			  `date_added` DATETIME NOT NULL,
-			  `date_modified` DATETIME NOT NULL,
-			  `refund_status` INT(1) DEFAULT '0',
-			  `currency_code` VARCHAR(3) NOT NULL,
-			  `total` DECIMAL(15,4) NOT NULL,
+			  `worldpay_order_id` int(11) NOT NULL AUTO_INCREMENT,
+			  `order_id` int(11) NOT NULL,
+			  `order_code` varchar(50),
+			  `date_added` datetime NOT NULL,
+			  `date_modified` datetime NOT NULL,
+			  `refund_status` int(1) NOT NULL DEFAULT '0',
+			  `currency_code` varchar(3) NOT NULL,
+			  `total` decimal(15,4) NOT NULL,
 			  PRIMARY KEY (`worldpay_order_id`)
-			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
 
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "worldpay_order_transaction` (
-			  `worldpay_order_transaction_id` INT(11) NOT NULL AUTO_INCREMENT,
-			  `worldpay_order_id` INT(11) NOT NULL,
-			  `date_added` DATETIME NOT NULL,
-			  `type` ENUM('payment', 'refund') DEFAULT NULL,
-			  `amount` DECIMAL(15,4) NOT NULL,
+			  `worldpay_order_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
+			  `worldpay_order_id` int(11) NOT NULL,
+			  `date_added` datetime NOT NULL,
+			  `type` enum('payment', 'refund') DEFAULT NULL,
+			  `amount` decimal(15,4) NOT NULL,
 			  PRIMARY KEY (`worldpay_order_transaction_id`)
-			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
 
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "worldpay_order_recurring` (
-			  `worldpay_order_recurring_id` INT(11) NOT NULL AUTO_INCREMENT,
-			  `order_id` INT(11) NOT NULL,
-			  `order_recurring_id` INT(11) NOT NULL,
-			  `order_code` VARCHAR(50),
-			  `token` VARCHAR(50),
-			  `date_added` DATETIME NOT NULL,
-			  `date_modified` DATETIME NOT NULL,
-			  `next_payment` DATETIME NOT NULL,
+			  `worldpay_order_recurring_id` int(11) NOT NULL AUTO_INCREMENT,
+			  `order_id` int(11) NOT NULL,
+			  `order_recurring_id` int(11) NOT NULL,
+			  `order_code` varchar(50),
+			  `token` varchar(50),
+			  `date_added` datetime NOT NULL,
+			  `date_modified` datetime NOT NULL,
+			  `next_payment` datetime NOT NULL,
 			  `trial_end` datetime DEFAULT NULL,
 			  `subscription_end` datetime DEFAULT NULL,
-			  `currency_code` VARCHAR(3) NOT NULL,
-			  `total` DECIMAL(15,4) NOT NULL,
+			  `currency_code` varchar(3) NOT NULL,
+			  `total` decimal(15,4) NOT NULL,
 			  PRIMARY KEY (`worldpay_order_recurring_id`)
-			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
 
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "worldpay_card` (
-			  `card_id` INT(11) NOT NULL AUTO_INCREMENT,
-			  `customer_id` INT(11) NOT NULL,
-			  `order_id` INT(11) NOT NULL,
-			  `token` VARCHAR(50) NOT NULL,
-			  `digits` VARCHAR(22) NOT NULL,
-			  `expiry` VARCHAR(5) NOT NULL,
-			  `type` VARCHAR(50) NOT NULL,
+			  `card_id` int(11) NOT NULL AUTO_INCREMENT,
+			  `customer_id` int(11) NOT NULL,
+			  `order_id` int(11) NOT NULL,
+			  `token` varchar(50) NOT NULL,
+			  `digits` varchar(22) NOT NULL,
+			  `expiry` varchar(5) NOT NULL,
+			  `type` varchar(50) NOT NULL,
 			  PRIMARY KEY (`card_id`)
-			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
 	}
 
 	/**
@@ -70,10 +70,10 @@ class ModelExtensionPaymentWorldpay extends Model {
 	 * @return void
 	 */
 	public function uninstall(): void {
-		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "worldpay_order`;");
-		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "worldpay_order_transaction`;");
-		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "worldpay_order_recurring`;");
-		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "worldpay_card`;");
+		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "worldpay_order`");
+		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "worldpay_order_transaction`");
+		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "worldpay_order_recurring`");
+		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "worldpay_card`");
 	}
 
 	/**

@@ -172,7 +172,7 @@ class ControllerExtensionCreditCardSagepayServer extends Controller {
 			$order_info['order_id'] = -1;
 			$order_info['VPSTxId'] = substr($response_data['VPSTxId'], 1, -1);
 			$order_info['SecurityKey'] = $response_data['SecurityKey'];
-			$order_info['VendorTxCode'] = $payment_data['VendorTxCode'];
+			$order_info['VendorTxCode'] = $payment_data['vendor_tx_code'];
 			$order_info['currency_code'] = $this->session->data['currency'];
 			$order_info['total'] = '';
 
@@ -242,8 +242,8 @@ class ControllerExtensionCreditCardSagepayServer extends Controller {
 
 		$transaction_info = $this->model_extension_payment_sagepay_server->getOrder('', $str_vps_tx_id);
 
-		if (isset($transaction_info['SecurityKey'])) {
-			$str_security_key = $transaction_info['SecurityKey'];
+		if ($transaction_info && $transaction_info['security_key']) {
+			$str_security_key = $transaction_info['security_key'];
 		} else {
 			$str_security_key = '';
 		}

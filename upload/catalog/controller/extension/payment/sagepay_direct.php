@@ -451,7 +451,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 					$subscription_products = $this->cart->getSubscriptions();
 
 					foreach ($subscription_products as $item) {
-						$this->model_extension_payment_sagepay_direct->recurringPayment($item['subscription'], $sagepay_order_info['VendorTxCode']);
+						$this->model_extension_payment_sagepay_direct->recurringPayment($item['subscription'], $sagepay_order_info['vendor_tx_code']);
 					}
 				}
 

@@ -15,7 +15,7 @@ class ModelUpgrade1003 extends Model {
 
 					$this->db->query("ALTER TABLE `" . DB_PREFIX . "affiliate_activity` DROP `activity_id`");
 				} else {
-					$this->db->query("ALTER TABLE `" . DB_PREFIX . "affiliate_activity` CHANGE `activity_id` `affiliate_activity_id` INT(11) NOT NULL AUTO_INCREMENT");
+					$this->db->query("ALTER TABLE `" . DB_PREFIX . "affiliate_activity` CHANGE `activity_id` `affiliate_activity_id` int(11) NOT NULL AUTO_INCREMENT");
 				}
 			}
 		}
@@ -31,7 +31,7 @@ class ModelUpgrade1003 extends Model {
 
 				$this->db->query("ALTER TABLE `" . DB_PREFIX . "customer_activity` DROP `activity_id`");
 			} else {
-				$this->db->query("ALTER TABLE `" . DB_PREFIX . "customer_activity` CHANGE `activity_id` `customer_activity_id` INT(11) NOT NULL AUTO_INCREMENT");
+				$this->db->query("ALTER TABLE `" . DB_PREFIX . "customer_activity` CHANGE `activity_id` `customer_activity_id` int(11) NOT NULL AUTO_INCREMENT");
 			}
 		}
 

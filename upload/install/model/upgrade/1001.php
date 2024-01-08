@@ -122,7 +122,7 @@ class ModelUpgrade1001 extends Model {
 		$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "banner_image' AND COLUMN_NAME = 'sort_order'");
 
 		if (!$query->num_rows) {
-			$this->db->query("ALTER TABLE `" . DB_PREFIX . "banner_image` ADD `sort_order` INT(3) NOT NULL AFTER `image`");
+			$this->db->query("ALTER TABLE `" . DB_PREFIX . "banner_image` ADD `sort_order` int(3) NOT NULL AFTER `image`");
 		}
 
 		// setting

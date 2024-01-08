@@ -13,18 +13,18 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	public function install(): void {
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "amazon_login_pay_order` (
-				`amazon_login_pay_order_id` INT(11) NOT NULL AUTO_INCREMENT,
+				`amazon_login_pay_order_id` int(11) NOT NULL AUTO_INCREMENT,
 				`order_id` int(11) NOT NULL,
 				`amazon_order_reference_id` varchar(255) NOT NULL,
 				`amazon_authorization_id` varchar(255) NOT NULL,
 				`free_shipping`  tinyint NOT NULL DEFAULT 0,
-				`date_added` DATETIME NOT NULL,
-				`modified` DATETIME NOT NULL,
-				`capture_status` INT(1) DEFAULT '0',
-				`cancel_status` INT(1) DEFAULT '0',
-				`refund_status` INT(1) DEFAULT '0',
-				`currency_code` VARCHAR(3) NOT NULL,
-				`total` DECIMAL(15,4) NOT NULL,
+				`date_added` datetime NOT NULL,
+				`modified` datetime NOT NULL,
+				`capture_status` int(1) NOT NULL DEFAULT '0',
+				`cancel_status` int(1) NOT NULL DEFAULT '0',
+				`refund_status` int(1) NOT NULL DEFAULT '0',
+				`currency_code` int(3) NOT NULL,
+				`total` decimal(15,4) NOT NULL,
 				KEY `amazon_order_reference_id` (`amazon_order_reference_id`),
 				PRIMARY KEY `amazon_login_pay_order_id` (`amazon_login_pay_order_id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -32,17 +32,17 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "amazon_login_pay_order_transaction` (
-			  `amazon_login_pay_order_transaction_id` INT(11) NOT NULL AUTO_INCREMENT,
-			  `amazon_login_pay_order_id` INT(11) NOT NULL,
+			  `amazon_login_pay_order_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
+			  `amazon_login_pay_order_id` decimal(11) NOT NULL,
 			  `amazon_authorization_id` varchar(255),
 			  `amazon_capture_id` varchar(255),
 			  `amazon_refund_id` varchar(255),
-			  `date_added` DATETIME NOT NULL,
-			  `type` ENUM('authorization', 'capture', 'refund', 'cancel') DEFAULT NULL,
-			  `status` ENUM('Open', 'Pending', 'Completed', 'Suspended', 'Declined', 'Closed', 'Canceled') DEFAULT NULL,
-			  `amount` DECIMAL(15,4) NOT NULL,
+			  `date_added` datetime NOT NULL,
+			  `type` enum('authorization', 'capture', 'refund', 'cancel') DEFAULT NULL,
+			  `status` enum('Open', 'Pending', 'Completed', 'Suspended', 'Declined', 'Closed', 'Canceled') DEFAULT NULL,
+			  `amount` decimal(15,4) NOT NULL,
 			  PRIMARY KEY (`amazon_login_pay_order_transaction_id`)
-			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 			");
 	}
 
@@ -52,9 +52,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	 * @return void
 	 */
 	public function uninstall(): void {
-		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "amazon_login_pay_order`;");
-		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "amazon_login_pay_order_total_tax`;");
-		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "amazon_login_pay_order_transaction`;");
+		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "amazon_login_pay_order`");
+		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "amazon_login_pay_order_total_tax`");
+		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "amazon_login_pay_order_transaction`");
 	}
 
 	/**

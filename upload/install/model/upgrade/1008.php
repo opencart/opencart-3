@@ -8,7 +8,7 @@ class ModelUpgrade1008 extends Model {
 		$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "event' AND COLUMN_NAME = 'status'");
 
 		if (!$query->num_rows) {
-			$this->db->query("ALTER TABLE `" . DB_PREFIX . "event` ADD `status` TINYINT(1) NOT NULL AFTER `action`");
+			$this->db->query("ALTER TABLE `" . DB_PREFIX . "event` ADD `status` tinyint(1) NOT NULL AFTER `action`");
 		}
 
 		$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "event' AND COLUMN_NAME = 'date_added'");
@@ -189,7 +189,7 @@ class ModelUpgrade1008 extends Model {
 		$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "modification' AND COLUMN_NAME = 'extension_download_id'");
 
 		if (!$query->num_rows) {
-			$this->db->query("ALTER TABLE `" . DB_PREFIX . "modification` ADD `extension_download_id` INT(11) NOT NULL AFTER `modification_id`");
+			$this->db->query("ALTER TABLE `" . DB_PREFIX . "modification` ADD `extension_download_id` int(11) NOT NULL AFTER `modification_id`");
 		}
 
 		// Modification - XML column
