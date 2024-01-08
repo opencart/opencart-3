@@ -393,7 +393,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 
 		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "laybuy_revise_request` (
 			`laybuy_revise_request_id` int(11) NOT NULL AUTO_INCREMENT,
-			`laybuy_transaction_id` int(11) DEFAULT '0',
+			`laybuy_transaction_id` NOT NULL int(11) NOT NULL DEFAULT '0',
 			`type` varchar(250) NOT NULL DEFAULT '',
 			`order_id` int(11) NOT NULL DEFAULT '0',
 			`firstname` varchar(32) NOT NULL DEFAULT '',

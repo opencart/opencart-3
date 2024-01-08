@@ -18,9 +18,9 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 			  `transaction_id` varchar(50),
 			  `date_added` datetime NOT NULL,
 			  `date_modified` datetime NOT NULL,
-			  `release_status` int(1) DEFAULT '0',
-			  `void_status` int(1) DEFAULT '0',
-			  `rebate_status` int(1) DEFAULT '0',
+			  `release_status` int(1) NOT NULL DEFAULT '0',
+			  `void_status` int(1) NOT NULL DEFAULT '0',
+			  `rebate_status` int(1) NOT NULL DEFAULT '0',
 			  `currency_code` varchar(3) NOT NULL,
 			  `total` decimal(15,4) NOT NULL,
 			  PRIMARY KEY (`bluepay_hosted_order_id`)

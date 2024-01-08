@@ -21,9 +21,9 @@ class ModelExtensionPaymentEway extends Model {
 			  `currency_code` varchar(3) NOT NULL,
 			  `transaction_id` varchar(24) NOT NULL,
 			  `debug_data` text,
-			  `capture_status` int(1) DEFAULT '0',
-			  `void_status` int(1) DEFAULT '0',
-			  `refund_status` int(1) DEFAULT '0',
+			  `capture_status` int(1) NOT NULL DEFAULT '0',
+			  `void_status` int(1) NOT NULL DEFAULT '0',
+			  `refund_status` int(1) NOT NULL DEFAULT '0',
 			  PRIMARY KEY (`eway_order_id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
 

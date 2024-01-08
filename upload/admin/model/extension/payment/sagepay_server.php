@@ -16,16 +16,16 @@ class ModelExtensionPaymentSagepayServer extends Model {
 			  `sagepay_server_order_id` int(11) NOT NULL AUTO_INCREMENT,
 			  `order_id` int(11) NOT NULL,
 			  `customer_id` int(11) NOT NULL,
-			  `VPSTxId` varchar(50),
-			  `VendorTxCode` varchar(50) NOT NULL,
-			  `SecurityKey` varchar(50) NOT NULL,
-			  `TxAuthNo` varchar(50),
+			  `vps_tx_id` varchar(50),
+			  `vendor_tx_code` varchar(50) NOT NULL,
+			  `security_key` varchar(50) NOT NULL,
+			  `tx_auth_no` varchar(50),
 			  `date_added` datetime NOT NULL,
 			  `date_modified` datetime NOT NULL,
-			  `release_status` int(1) DEFAULT '0',
-			  `void_status` int(1) DEFAULT '0',
-			  `settle_type` int(1) DEFAULT '0',
-			  `rebate_status` int(1) DEFAULT '0',
+			  `release_status` int(1) NOT NULL DEFAULT '0',
+			  `void_status` int(1) NOT NULL DEFAULT '0',
+			  `settle_type` int(1) NOT NULL DEFAULT '0',
+			  `rebate_status` int(1) NOT NULL DEFAULT '0',
 			  `currency_code` varchar(3) NOT NULL,
 			  `total` decimal(15,4) NOT NULL,
 			  PRIMARY KEY (`sagepay_server_order_id`)
@@ -46,10 +46,10 @@ class ModelExtensionPaymentSagepayServer extends Model {
 			  `sagepay_server_order_recurring_id` int(11) NOT NULL AUTO_INCREMENT,
 			  `order_id` int(11) NOT NULL,
 			  `order_recurring_id` int(11) NOT NULL,
-			  `VPSTxId` varchar(50),
-			  `VendorTxCode` varchar(50) NOT NULL,
-			  `SecurityKey` varchar(50) NOT NULL,
-			  `TxAuthNo` varchar(50),
+			  `vps_tx_id` varchar(50),
+			  `vendor_tx_code` varchar(50) NOT NULL,
+			  `security_key` varchar(50) NOT NULL,
+			  `tx_auth_no` varchar(50),
 			  `date_added` datetime NOT NULL,
 			  `date_modified` datetime NOT NULL,
 			  `next_payment` datetime NOT NULL,
@@ -114,10 +114,10 @@ class ModelExtensionPaymentSagepayServer extends Model {
 
 			$void_data['TxType'] = 'VOID';
 			$void_data['Vendor'] = $this->config->get('payment_sagepay_server_vendor');
-			$void_data['VendorTxCode'] = $sagepay_server_order['VendorTxCode'];
-			$void_data['VPSTxId'] = $sagepay_server_order['VPSTxId'];
-			$void_data['SecurityKey'] = $sagepay_server_order['SecurityKey'];
-			$void_data['TxAuthNo'] = $sagepay_server_order['TxAuthNo'];
+			$void_data['VendorTxCode'] = $sagepay_server_order['vendor_tx_code'];
+			$void_data['VPSTxId'] = $sagepay_server_order['vps_tx_id'];
+			$void_data['SecurityKey'] = $sagepay_server_order['security_key'];
+			$void_data['TxAuthNo'] = $sagepay_server_order['tx_auth_no'];
 
 			return $this->sendCurl($url, $void_data);
 		} else {
@@ -169,10 +169,10 @@ class ModelExtensionPaymentSagepayServer extends Model {
 
 			$release_data['TxType'] = 'RELEASE';
 			$release_data['Vendor'] = $this->config->get('payment_sagepay_server_vendor');
-			$release_data['VendorTxCode'] = $sagepay_server_order['VendorTxCode'];
-			$release_data['VPSTxId'] = $sagepay_server_order['VPSTxId'];
-			$release_data['SecurityKey'] = $sagepay_server_order['SecurityKey'];
-			$release_data['TxAuthNo'] = $sagepay_server_order['TxAuthNo'];
+			$release_data['VendorTxCode'] = $sagepay_server_order['vendor_tx_code'];
+			$release_data['VPSTxId'] = $sagepay_server_order['vps_tx_id'];
+			$release_data['SecurityKey'] = $sagepay_server_order['security_key'];
+			$release_data['TxAuthNo'] = $sagepay_server_order['tx_auth_no'];
 			$release_data['Amount'] = $amount;
 
 			return $this->sendCurl($url, $release_data);
@@ -239,10 +239,10 @@ class ModelExtensionPaymentSagepayServer extends Model {
 			$refund_data['Amount'] = $amount;
 			$refund_data['Currency'] = $sagepay_server_order['currency_code'];
 			$refund_data['Description'] = substr($this->config->get('config_name'), 0, 100);
-			$refund_data['RelatedVPSTxId'] = $sagepay_server_order['VPSTxId'];
-			$refund_data['RelatedVendorTxCode'] = $sagepay_server_order['VendorTxCode'];
-			$refund_data['RelatedSecurityKey'] = $sagepay_server_order['SecurityKey'];
-			$refund_data['RelatedTxAuthNo'] = $sagepay_server_order['TxAuthNo'];
+			$refund_data['RelatedVPSTxId'] = $sagepay_server_order['vps_tx_id'];
+			$refund_data['RelatedVendorTxCode'] = $sagepay_server_order['vendor_tx_code'];
+			$refund_data['RelatedSecurityKey'] = $sagepay_server_order['security_key'];
+			$refund_data['RelatedTxAuthNo'] = $sagepay_server_order['tx_auth_no'];
 
 			return $this->sendCurl($url, $refund_data);
 		} else {

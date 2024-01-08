@@ -444,7 +444,7 @@ class ControllerExtensionPaymentOpayo extends Controller {
 				$url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/direct3dcallback.vsp';
 			}
 
-			$this->request->post['VPSTxId'] = $opayo_order_info['VPSTxId'];
+			$this->request->post['VPSTxId'] = $opayo_order_info['vps_tx_id'];
 
 			$response_data = $this->model_extension_payment_opayo->sendCurl($url, $this->request->post);
 
@@ -506,7 +506,7 @@ class ControllerExtensionPaymentOpayo extends Controller {
 
 					//loop through any products that are recurring items
 					foreach ($recurring_products as $item) {
-						$this->model_extension_payment_opayo->recurringPayment($item, $opayo_order_info['VendorTxCode']);
+						$this->model_extension_payment_opayo->recurringPayment($item, $opayo_order_info['vendor_tx_code']);
 					}
 				}
 

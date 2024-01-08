@@ -18,7 +18,7 @@ class ModelExtensionPaymentWorldpay extends Model {
 			  `order_code` varchar(50),
 			  `date_added` datetime NOT NULL,
 			  `date_modified` datetime NOT NULL,
-			  `refund_status` int(1) DEFAULT '0',
+			  `refund_status` int(1) NOT NULL DEFAULT '0',
 			  `currency_code` varchar(3) NOT NULL,
 			  `total` decimal(15,4) NOT NULL,
 			  PRIMARY KEY (`worldpay_order_id`)

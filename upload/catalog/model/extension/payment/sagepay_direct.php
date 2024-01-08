@@ -133,7 +133,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	 * @return int
 	 */
 	public function addOrder(int $order_id, array $response_data, array $payment_data, int $card_id): int {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "sagepay_direct_order` SET `order_id` = '" . (int)$order_id . "', `VPSTxId` = '" . $this->db->escape($response_data['VPSTxId']) . "', `VendorTxCode` = '" . $this->db->escape($payment_data['VendorTxCode']) . "', `SecurityKey` = '" . $this->db->escape($response_data['SecurityKey']) . "', `TxAuthNo` = '" . $this->db->escape($response_data['TxAuthNo']) . "', `date_added` = NOW(), `date_modified` = NOW(), `currency_code` = '" . $this->db->escape($payment_data['Currency']) . "', `total` = '" . $this->currency->format($payment_data['Amount'], $payment_data['Currency'], false, false) . "', `card_id` = '" . $this->db->escape($card_id) . "'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "sagepay_direct_order` SET `order_id` = '" . (int)$order_id . "', `vps_tx_id` = '" . $this->db->escape($response_data['VPSTxId']) . "', `vendor_tx_code` = '" . $this->db->escape($payment_data['VendorTxCode']) . "', `security_key` = '" . $this->db->escape($response_data['SecurityKey']) . "', `tx_auth_no` = '" . $this->db->escape($response_data['TxAuthNo']) . "', `date_added` = NOW(), `date_modified` = NOW(), `currency_code` = '" . $this->db->escape($payment_data['Currency']) . "', `total` = '" . $this->currency->format($payment_data['Amount'], $payment_data['Currency'], false, false) . "', `card_id` = '" . $this->db->escape($card_id) . "'");
 
 		return $this->db->getLastId();
 	}
@@ -167,7 +167,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	 * @return int
 	 */
 	public function updateOrder(array $order_info, array $data): int {
-		$this->db->query("UPDATE `" . DB_PREFIX . "sagepay_direct_order` SET `SecurityKey` = '" . $this->db->escape($data['SecurityKey']) . "', `VPSTxId` = '" . $this->db->escape($data['VPSTxId']) . "', `TxAuthNo` = '" . $this->db->escape($data['TxAuthNo']) . "' WHERE `order_id` = '" . (int)$order_info['order_id'] . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "sagepay_direct_order` SET `security_key` = '" . $this->db->escape($data['SecurityKey']) . "', `vps_tx_id` = '" . $this->db->escape($data['VPSTxId']) . "', `tx_auth_no` = '" . $this->db->escape($data['TxAuthNo']) . "' WHERE `order_id` = '" . (int)$order_info['order_id'] . "'");
 
 		return $this->db->getLastId();
 	}
@@ -320,10 +320,10 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 		$payment_data['Amount'] = $this->currency->format($price, $this->session->data['currency'], false, false);
 		$payment_data['Currency'] = $this->session->data['currency'];
 		$payment_data['Description'] = substr($recurring_name, 0, 100);
-		$payment_data['RelatedVPSTxId'] = trim($sagepay_order_info['VPSTxId'], '{}');
-		$payment_data['RelatedVendorTxCode'] = $sagepay_order_info['VendorTxCode'];
-		$payment_data['RelatedSecurityKey'] = $sagepay_order_info['SecurityKey'];
-		$payment_data['RelatedTxAuthNo'] = $sagepay_order_info['TxAuthNo'];
+		$payment_data['RelatedVPSTxId'] = trim($sagepay_order_info['vps_tx_id'], '{}');
+		$payment_data['RelatedVendorTxCode'] = $sagepay_order_info['vendor_tx_code'];
+		$payment_data['RelatedSecurityKey'] = $sagepay_order_info['security_key'];
+		$payment_data['RelatedTxAuthNo'] = $sagepay_order_info['tx_auth_no'];
 
 		if ($order_info['shipping_lastname']) {
 			$payment_data['DeliverySurname'] = substr($order_info['shipping_lastname'], 0, 20);
@@ -483,7 +483,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	}
 
 	private function addRecurringOrder(int $order_id, array $response_data, int $order_recurring_id, string $trial_end, string $subscription_end): void {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "sagepay_direct_order_recurring` SET `order_id` = '" . (int)$order_id . "', `order_recurring_id` = '" . (int)$order_recurring_id . "', `VPSTxId` = '" . $this->db->escape($response_data['VPSTxId']) . "', `VendorTxCode` = '" . $this->db->escape($response_data['VendorTxCode']) . "', `SecurityKey` = '" . $this->db->escape($response_data['SecurityKey']) . "', `TxAuthNo` = '" . $this->db->escape($response_data['TxAuthNo']) . "', `date_added` = NOW(), `date_modified` = NOW(), `next_payment` = NOW(), `trial_end` = '" . $this->db->escape($trial_end) . "', `subscription_end` = '" . $this->db->escape($subscription_end) . "', `currency_code` = '" . $this->db->escape($response_data['Currency']) . "', `total` = '" . $this->currency->format($response_data['Amount'], $response_data['Currency'], false, false) . "'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "sagepay_direct_order_recurring` SET `order_id` = '" . (int)$order_id . "', `order_recurring_id` = '" . (int)$order_recurring_id . "', `vps_tx_id` = '" . $this->db->escape($response_data['VPSTxId']) . "', `vendor_tx_code` = '" . $this->db->escape($response_data['VendorTxCode']) . "', `security_key` = '" . $this->db->escape($response_data['SecurityKey']) . "', `tx_auth_no` = '" . $this->db->escape($response_data['TxAuthNo']) . "', `date_added` = NOW(), `date_modified` = NOW(), `next_payment` = NOW(), `trial_end` = '" . $this->db->escape($trial_end) . "', `subscription_end` = '" . $this->db->escape($subscription_end) . "', `currency_code` = '" . $this->db->escape($response_data['Currency']) . "', `total` = '" . $this->currency->format($response_data['Amount'], $response_data['Currency'], false, false) . "'");
 	}
 
 	private function updateRecurringOrder(int $order_recurring_id, string $next_payment): void {
