@@ -252,7 +252,6 @@ class ControllerCommonFileManager extends Controller {
 					}
 
 					// Allowed file extension types
-					// Allowed file extension types
 					$allowed = [
 						'ico',
 						'jpg',
