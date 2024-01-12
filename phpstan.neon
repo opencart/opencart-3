@@ -1,5 +1,10 @@
+services:
+	-
+		class: \Tools\PHPStan\RegistryPropertyReflectionExtension
+		tags:
+			- phpstan.broker.propertiesClassReflectionExtension
 parameters:
-	level: 0
+	level: 1
 	paths:
 		- ./upload/
 	excludePaths:
@@ -25,8 +30,8 @@ parameters:
 		- ./upload/catalog/model/extension/payment/wechat_pay.php
 		- ./system/library/googleshopping/
 		- ./upload/system/library/googleshopping/
-		- ./system/storage/vendor/
 		- ./upload/system/storage/vendor/
 	tmpDir: .cache
 	ignoreErrors:
 		- '#Class Event constructor invoked with 1 parameter, 4-5 required\.#'
+		- '#Constant [A-Z_]+ not found\.#'
