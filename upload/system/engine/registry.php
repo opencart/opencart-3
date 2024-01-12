@@ -12,6 +12,7 @@
 /**
  * Registry class
  *
+ * @property Autoloader                    $autoloader
  * @property Cache                         $cache
  * @property Cart\Cart                     $cart
  * @property Cart\Currency                 $currency
