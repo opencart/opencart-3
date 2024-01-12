@@ -5,7 +5,12 @@
  * @package Admin\Controller\Extension\Payment
  */
 class ControllerExtensionPaymentKlarnaInvoice extends Controller {
+	/**
+	 * @var array<string, string>
+	 * @var string
+	 */
 	private array $error = [];
+	private array $pclasses = [];
 
 	/**
 	 * @return void

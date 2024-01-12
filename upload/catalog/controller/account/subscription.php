@@ -84,7 +84,7 @@ class ControllerAccountSubscription extends Controller {
 				'product'         => $result['product'],
 				'status'          => $status,
 				'date_added'      => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
-				'is_subscription' => $date_next <= $period ? true : false,
+				'is_subscription' => isset($period) && $date_next <= $period ? true : false,
 				'view'            => $this->url->link('account/subscription/info', 'customer_token=' . $this->session->data['customer_token'] . '&subscription_id=' . $result['subscription_id'], true)
 			];
 		}
@@ -185,7 +185,7 @@ class ControllerAccountSubscription extends Controller {
 
 			$date_next = strtotime($subscription_info['date_next']);
 
-			$data['is_subscription'] = $date_next <= $period ? true : false;
+			$data['is_subscription'] = isset($period) && $date_next <= $period ? true : false;
 
 			// Orders
 			$this->load->model('account/order');

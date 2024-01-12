@@ -5,6 +5,10 @@
  * @package Admin\Controller\Catalog
  */
 class ControllerCatalogDownload extends Controller {
+	/**
+	 * @var array<string, string>
+	 * @var string
+	 */
 	private array $error = [];
 
 	/**
@@ -491,7 +495,7 @@ class ControllerCatalogDownload extends Controller {
 			}
 		}
 
-		if (!$json) {
+		if (!$json && isset($filename)) {
 			$file = $filename . '.' . oc_token(32);
 
 			move_uploaded_file($this->request->files['file']['tmp_name'], DIR_DOWNLOAD . $file);

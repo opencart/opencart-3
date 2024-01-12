@@ -593,12 +593,14 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 			$response['status'] = 'Error';
 			$response['error_code'] = (string)$details_xml->Error->Code;
 			$response['status_detail'] = (string)$details_xml->Error->Code . ': ' . (string)$details_xml->Error->Message;
-		} elseif (!empty($error_set)) {
-			$response['status'] = (string)$details_xml->{$result}->{$details}->{$status}->State;
-			$response['status_detail'] = (string)$details_xml->{$result}->{$details}->{$status}->ReasonCode;
-		} else {
-			$response['status'] = (string)$details_xml->{$result}->{$details}->{$status}->State;
-			$response[$amazon_id] = (string)$details_xml->{$result}->{$details}->{$amazon_id};
+		} elseif (isset($result) && isset($details) && isset($status) && isset($amazon_id)) {
+			if (!empty($error_set)) {
+				$response['status'] = (string)$details_xml->{$result}->{$details}->{$status}->State;
+				$response['status_detail'] = (string)$details_xml->{$result}->{$details}->{$status}->ReasonCode;
+			} else {
+				$response['status'] = (string)$details_xml->{$result}->{$details}->{$status}->State;
+				$response[$amazon_id] = (string)$details_xml->{$result}->{$details}->{$amazon_id};
+			}
 		}
 
 		return $response;

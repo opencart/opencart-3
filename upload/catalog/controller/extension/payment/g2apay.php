@@ -88,6 +88,7 @@ class ControllerExtensionPaymentG2APay extends Controller {
 
 		foreach ($ordered_products as $product) {
 			$item = new \stdClass();
+
 			$item->sku = $product['product_id'];
 			$item->name = $product['name'];
 			$item->amount = $product['price'] * $product['quantity'];
@@ -95,6 +96,7 @@ class ControllerExtensionPaymentG2APay extends Controller {
 			$item->id = $product['product_id'];
 			$item->price = $product['price'];
 			$item->url = $this->url->link('product/product', 'product_id=' . $product['product_id'], true);
+
 			$items[] = $item;
 		}
 
@@ -116,14 +118,17 @@ class ControllerExtensionPaymentG2APay extends Controller {
 			'email'       => $order_info['email'],
 			'url_failure' => $this->url->link('checkout/failure'),
 			'url_ok'      => $this->url->link('extension/payment/g2apay/success'),
-			'items'       => json_encode($items)
+			'items'       => isset($items) ? json_encode($items) : ''
 		];
 
 		$response_data = $this->model_extension_payment_g2apay->sendCurl($url, $fields);
 
 		$this->model_extension_payment_g2apay->logger($order_total);
-		$this->model_extension_payment_g2apay->logger($items);
 		$this->model_extension_payment_g2apay->logger($fields);
+
+		if (isset($items)) {
+			$this->model_extension_payment_g2apay->logger($items);
+		}
 
 		if ($response_data === false) {
 			$this->response->redirect($this->url->link('checkout/failure', '', true));
@@ -205,6 +210,8 @@ class ControllerExtensionPaymentG2APay extends Controller {
 
 					return;
 				}
+
+				$order_status_id = 0;
 
 				switch ($this->request->post['status']) {
 					case 'complete':

@@ -5,7 +5,10 @@
  * @package Admin\Controller\Extension\Other
  */
 class ControllerExtensionOtherDbSchema extends Controller {
-	private array $error = [];
+	/**
+	 * @var array<string, string>
+	 * @var string
+	 */
 
 	/**
 	 * @return void
@@ -208,6 +211,9 @@ class ControllerExtensionOtherDbSchema extends Controller {
 
 			$tables = oc_db_schema();
 
+			// Foreign
+			$foreign_extension_data = [];
+
 			foreach ($tables as $table) {
 				if (in_array($table['name'], $selected)) {
 					$field_type_data = [];
@@ -243,9 +249,6 @@ class ControllerExtensionOtherDbSchema extends Controller {
 							}
 						}
 					}
-
-					// Foreign
-					$foreign_extension_data = [];
 
 					if (isset($table['foreign']) && $table['foreign']) {
 						foreach ($table['foreign'] as $foreign) {
@@ -330,7 +333,8 @@ class ControllerExtensionOtherDbSchema extends Controller {
 											$encoded_data = [
 												'table'         => $result['TABLE_NAME'],
 												'field'         => $result['Column_name'],
-												'previous_type' => $result['COLUMN_TYPE']
+												'previous_type' => $result['COLUMN_TYPE'],
+												'key'           => $result['COLUMN_KEY']
 											];
 
 											$index_data[json_encode($encoded_data)] = $field['type'];
@@ -349,8 +353,8 @@ class ControllerExtensionOtherDbSchema extends Controller {
 							$data['tables'][$key_data['table'] . '|extension'][] = [
 								'name'          => $key_data['field'],
 								'previous_type' => $key_data['previous_type'],
-								'type'          => $val,
-								'key'           => $result['COLUMN_KEY']
+								'key'           => $key_data['key'],
+								'type'          => $val								
 							];
 						}
 					}

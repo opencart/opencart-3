@@ -6,7 +6,8 @@
  */
 class ControllerCommonFileManager extends Controller {
 	/**
-	 * @return void
+	 * @var array<string, string>
+	 * @var string
 	 */
 	public function index(): void {
 		$this->load->language('common/filemanager');
@@ -296,7 +297,7 @@ class ControllerCommonFileManager extends Controller {
 					$json['error'] = $this->language->get('error_upload');
 				}
 
-				if (!$json) {
+				if (!$json && isset($filename)) {
 					move_uploaded_file($file['tmp_name'], $directory . '/' . $filename);
 				}
 			}
@@ -352,7 +353,7 @@ class ControllerCommonFileManager extends Controller {
 			}
 		}
 
-		if (!$json) {
+		if (!$json && isset($folder)) {
 			mkdir($directory . '/' . $folder, 0o777);
 			chmod($directory . '/' . $folder, 0o777);
 			@touch($directory . '/' . $folder . '/' . 'index.html');

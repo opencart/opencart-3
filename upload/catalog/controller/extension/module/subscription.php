@@ -31,6 +31,8 @@ class ControllerExtensionModuleSubscription extends Controller {
 
 			if ($results) {
 				foreach ($results as $result) {
+					$amount = 0;
+
 					if ($result['trial_status'] && $result['trial_duration'] > 0) {
 						$amount = $result['trial_price'];
 					} elseif ($result['duration'] > 0) {
@@ -47,11 +49,13 @@ class ControllerExtensionModuleSubscription extends Controller {
 						if ($this->config->get('payment_' . $payment_info['code'] . '_status')) {
 							$this->load->model('extension/payment/' . $payment_info['code']);
 
-							if (isset($this->{'model_extension_payment_' . $payment_info['code']}->charge)) {
+							if (isset($this->{'model_extension_payment_' . $payment_info['code']}->charge) && $amount) {
 								$subscription_status_id = $this->{'model_extension_payment_' . $payment_info['code']}->charge($result['customer_id'], $result['customer_payment_id'], $amount);
 
 								// Transaction
 								if ($this->config->get('config_subscription_active_status_id') == $subscription_status_id) {
+									$date_next = '';
+
 									if ($result['trial_status'] && $result['trial_duration'] > 0) {
 										$date_next = date('Y-m-d', strtotime('+' . $result['trial_cycle'] . ' ' . $result['trial_frequency']));
 									} elseif ($result['duration'] > 0) {

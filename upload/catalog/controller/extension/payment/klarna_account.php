@@ -402,10 +402,12 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 					'house_extension' => $house_ext,
 					'zip'             => $order_info['payment_postcode'],
 					'city'            => $order_info['payment_city'],
-					'country'         => $country
+					'country'         => isset($country) ?? ''
 				];
 
 				$product_query = $this->db->query("SELECT `name`, `model`, `price`, `quantity`, `tax` / `price` * 100 AS 'tax_rate' FROM `" . DB_PREFIX . "order_product` WHERE `order_id` = '" . (int)$order_info['order_id'] . "' UNION ALL SELECT '', `code`, `amount`, '1', 0.00 FROM `" . DB_PREFIX . "order_voucher` WHERE `order_id` = '" . (int)$order_info['order_id'] . "'");
+
+				$goods_list = [];
 
 				foreach ($product_query->rows as $product) {
 					$goods_list[] = [
@@ -482,14 +484,14 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 					$address,
 					$order_info['ip'],
 					0,
-					$currency,
-					$country,
-					$language,
+					isset($currency) ?? [],
+					isset($country) ?? [],
+					isset($language) ?? [],
 					(int)$klarna_account[$order_info['payment_iso_code_3']]['merchant'],
 					$digest,
-					$encoding,
+					isset($encoding) ?? [],
 					$pclass,
-					$goods_list,
+					isset($goods_list) ?? [],
 					$order_info['comment'],
 					['delay_adjust' => 1],
 					[],

@@ -110,6 +110,8 @@ class ModelExtensionPaymentOpayo extends Model {
 
 			$setting = array_replace_recursive((array)$config_setting, (array)$this->config->get('payment_opayo_setting'));
 
+			$url = '';
+
 			if ($setting['general']['environment'] == 'live') {
 				$url = 'https://live.sagepay.com/gateway/service/void.vsp';
 				$void_data['VPSProtocol'] = '4.00';
@@ -167,6 +169,8 @@ class ModelExtensionPaymentOpayo extends Model {
 
 			$setting = array_replace_recursive((array)$config_setting, (array)$this->config->get('payment_opayo_setting'));
 
+			$url = '';
+
 			if ($setting['general']['environment'] == 'live') {
 				$url = 'https://live.sagepay.com/gateway/service/release.vsp';
 				$release_data['VPSProtocol'] = '4.00';
@@ -222,6 +226,8 @@ class ModelExtensionPaymentOpayo extends Model {
 			$config_setting = $_config->get('opayo_setting');
 
 			$setting = array_replace_recursive((array)$config_setting, (array)$this->config->get('payment_opayo_setting'));
+
+			$url = '';
 
 			if ($setting['general']['environment'] == 'live') {
 				$url = 'https://live.sagepay.com/gateway/service/refund.vsp';
@@ -363,17 +369,19 @@ class ModelExtensionPaymentOpayo extends Model {
 
 		$response_info = explode(chr(10), $response);
 
+		$post_data = [];
+
 		foreach ($response_info as $i => $string) {
 			if (strpos($string, '=')) {
 				$parts = explode('=', $string, 2);
-				$data['RepeatResponseData_' . $i][trim($parts[0])] = trim($parts[1]);
+				$post_data['RepeatResponseData_' . $i][trim($parts[0])] = trim($parts[1]);
 			} elseif (strpos($string, '=')) {
 				$parts = explode('=', $string, 2);
-				$data[trim($parts[0])] = trim($parts[1]);
+				$post_data[trim($parts[0])] = trim($parts[1]);
 			}
 		}
 
-		return $data;
+		return $post_data;
 	}
 
 	/**

@@ -845,14 +845,16 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 
 		$results = $this->model_setting_extension->getExtensionsByType('payment');
 
-		foreach ($results as $result) {
-			if ($this->config->get('payment_' . $result['code'] . '_status')) {
-				$this->load->model('extension/payment/' . $result['code']);
+		if (isset($total) && isset($seller_protection_status)) {
+			foreach ($results as $result) {
+				if ($this->config->get('payment_' . $result['code'] . '_status')) {
+					$this->load->model('extension/payment/' . $result['code']);
 
-				$method = $this->{'model_extension_payment_' . $result['code']}->getMethod($data['payment_address'], $total);
+					$method = $this->{'model_extension_payment_' . $result['code']}->getMethod($data['payment_address'], $total);
 
-				if ($method) {
-					$method_data[$result['code']] = $method;
+					if ($method) {
+						$method_data[$result['code']] = $method;
+					}
 				}
 			}
 		}

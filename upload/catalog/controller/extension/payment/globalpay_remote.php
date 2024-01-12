@@ -289,7 +289,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 					$cavv = '';
 				}
 
-				if ($this->config->get('payment_globalpay_remote_liability') != 1) {
+				if ($this->config->get('payment_globalpay_remote_liability') != 1 && isset($eci_ref) && isset($xid) && isset($cavv)) {
 					// This is the check for liability shift - if the merchant does not want to accept, we redirect to checkout with message
 					$this->load->language('extension/payment/globalpay_remote');
 

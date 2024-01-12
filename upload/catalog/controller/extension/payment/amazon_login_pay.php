@@ -546,7 +546,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 			}
 		}
 
-		if (!$data['buyer_currency']) {
+		if (!$data['buyer_currency'] && isset($order)) {
 			$location_currency = $this->config->get('payment_amazon_login_pay_payment_region');
 			$rate = round($this->currency->getValue($location_currency) / $this->currency->getValue($order['currency_code']), 8);
 			$amount = $this->currency->format($this->currency->convert($order['total'], $this->config->get('config_currency'), $location_currency), $location_currency, 1, true);

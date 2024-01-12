@@ -269,7 +269,7 @@ class ControllerCheckoutRegister extends Controller {
 			}
 		}
 
-		if (!$json) {
+		if (!$json && isset($customer_group_id)) {
 			$customer_id = $this->model_account_customer->addCustomer($this->request->post);
 
 			// Default Payment Address

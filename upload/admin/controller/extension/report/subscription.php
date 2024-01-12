@@ -6,6 +6,12 @@
  */
 class ControllerExtensionReportSubscription extends Controller {
 	/**
+	 * @var array<string, string>
+	 * @var string
+	 */
+	private array $error = [];
+
+	/**
 	 * @return void
 	 */
 	public function index(): void {
