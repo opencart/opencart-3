@@ -376,7 +376,11 @@ class ControllerSaleSubscription extends Controller {
 		// Customers
 		$this->load->model('customer/customer');
 
-		$data['payment_methods'] = $this->model_customer_customer->getPaymentMethods($order_info['customer_id']);
+		if (!empty($order_info)) {
+			$data['payment_methods'] = $this->model_customer_customer->getPaymentMethods($order_info['customer_id']);
+		} else {
+			$data['payment_methods'] = [];
+		}
 
 		if (!empty($subscription_info)) {
 			$data['customer_payment_id'] = $subscription_info['customer_payment_id'];
@@ -764,7 +768,9 @@ class ControllerSaleSubscription extends Controller {
 			// Subscription plans must be created from the store prior to migrate recurring orders.
 			if ($subscription_total || !$subscription_plan_total) {
 				$json['error'] = $this->language->get('error_transaction');
-			} else {
+			}
+
+			if (!$json && isset($order_info)) {
 				// Settings
 				$this->load->model('setting/setting');
 
@@ -792,7 +798,7 @@ class ControllerSaleSubscription extends Controller {
 			}
 		}
 
-		if (!$json) {
+		if (!$json && isset($order_info)) {
 			$this->model_sale_subscription->addTransaction($subscription_id, $subscription_info['order_id'], (string)$this->request->post['description'], (float)$this->request->post['amount'], $this->request->post['type'], $order_info['payment_method'], $order_info['payment_code']);
 
 			$json['success'] = $this->language->get('text_success');
