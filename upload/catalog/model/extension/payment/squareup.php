@@ -492,6 +492,8 @@ class ModelExtensionPaymentSquareup extends Model {
 			$previous_time = strtotime($this->getLastSuccessfulRecurringPaymentDate($subscription_id));
 		}
 
+		$time_interval = 0;
+
 		switch ($frequency) {
 			case 'day':
 				$time_interval = 24 * 3600;
