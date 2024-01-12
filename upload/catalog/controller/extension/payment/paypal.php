@@ -1344,7 +1344,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 									$this->model_extension_payment_paypal->addPayPalOrder($paypal_order_data);
 								}
 
-								if (($authorization_status == 'CREATED') || ($authorization_status == 'PENDING') && isset($paypal_order_data)) {
+								if (($authorization_status == 'CREATED') || ($authorization_status == 'PENDING')) {
 									$recurring_products = $this->cart->getRecurringProducts();
 
 									foreach ($recurring_products as $recurring_product) {
@@ -1368,6 +1368,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 								$payment_method = '';
 								$vault_id = '';
 								$vault_customer_id = '';
+								$paypal_order_data = [];
 
 								if (!$this->cart->hasShipping()) {
 									$seller_protection_status = 'NOT_ELIGIBLE';
@@ -2431,6 +2432,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 							$payment_method = '';
 							$vault_id = '';
 							$vault_customer_id = '';
+							$paypal_order_data = [];
 
 							if (!$this->cart->hasShipping()) {
 								$seller_protection_status = 'NOT_ELIGIBLE';
@@ -2515,6 +2517,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 							$payment_method = '';
 							$vault_id = '';
 							$vault_customer_id = '';
+							$paypal_order_data = [];
 
 							if (!$this->cart->hasShipping()) {
 								$seller_protection_status = 'NOT_ELIGIBLE';
