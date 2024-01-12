@@ -1,4 +1,10 @@
 <?php
+
+/**
+ * Loaded in an outside context
+ * @var Autoloader $autoloader
+ */
+
 // Registry
 $registry = new \Registry();
 $registry->set('autoloader', $autoloader);
