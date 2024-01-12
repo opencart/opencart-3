@@ -831,15 +831,16 @@ class ControllerExtensionPaymentPayPal extends Controller {
 				$paypal_order_info = [];
 
 				$paypal_order_info['intent'] = strtoupper($transaction_method);
+
 				$paypal_order_info['purchase_units'][0]['reference_id'] = 'default';
 				$paypal_order_info['purchase_units'][0]['items'] = $item_info;
 				$paypal_order_info['purchase_units'][0]['amount'] = $amount_info;
 
-				if ($page_code == 'checkout') {
+				if ($page_code == 'checkout' && isset($order_info)) {
 					$paypal_order_info['purchase_units'][0]['description'] = 'Your order ' . $order_info['order_id'];
 					$paypal_order_info['purchase_units'][0]['invoice_id'] = $order_info['order_id'] . '_' . date('Ymd_His');
 
-					if ($this->cart->hasShipping()) {
+					if ($this->cart->hasShipping() && isset($shipping_info)) {
 						$paypal_order_info['purchase_units'][0]['shipping'] = $shipping_info;
 					}
 				}
@@ -1282,6 +1283,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 								$payment_method = '';
 								$vault_id = '';
 								$vault_customer_id = '';
+								$paypal_order_data = [];
 
 								if (!$this->cart->hasShipping()) {
 									$seller_protection_status = 'NOT_ELIGIBLE';
@@ -1422,7 +1424,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 									$this->model_extension_payment_paypal->addPayPalOrder($paypal_order_data);
 								}
 
-								if (($capture_status == 'COMPLETED') || ($capture_status == 'PENDING')) {
+								if (($capture_status == 'COMPLETED') || ($capture_status == 'PENDING') && isset($paypal_order_data)) {
 									$recurring_products = $this->cart->getRecurringProducts();
 
 									foreach ($recurring_products as $recurring_product) {

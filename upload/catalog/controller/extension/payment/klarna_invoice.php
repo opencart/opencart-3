@@ -353,7 +353,7 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
 					$digest,
 					isset($encoding) && $encoding ? $encoding : 0,
 					$pclass,
-					isset($goods_list) && $goods_list ? $goods_list : [],
+					$goods_list,
 					$order_info['comment'],
 					['delay_adjust' => 1],
 					[],

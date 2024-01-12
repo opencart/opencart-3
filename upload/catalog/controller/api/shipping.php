@@ -249,7 +249,7 @@ class ControllerApiShipping extends Controller {
 			} else {
 				unset($this->session->data['shipping_address']);
 
-				if (isset($this->session->data['shippigng_method'])) {
+				if (isset($this->session->data['shipping_method'])) {
 					unset($this->session->data['shipping_method']);
 				}
 				
