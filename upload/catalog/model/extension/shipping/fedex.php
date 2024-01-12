@@ -234,10 +234,10 @@ class ModelExtensionShippingFedex extends Model {
 
 		$method_data = [];
 
-		if ($quote_data || $error && isset($weight)) {
+		if ($quote_data || $error) {
 			$title = $this->language->get('text_title');
 
-			if ($this->config->get('shipping_fedex_display_weight')) {
+			if ($this->config->get('shipping_fedex_display_weight') && isset($weight)) {
 				$title .= ' (' . $this->language->get('text_weight') . ' ' . $this->weight->format($weight, $this->config->get('shipping_fedex_weight_class_id'), $this->language->get('decimal_point'), $this->language->get('thousand_point')) . ')';
 			}
 
