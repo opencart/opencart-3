@@ -291,7 +291,7 @@ class ControllerExtensionPaymentCardinity extends Controller {
 			}
 		}
 
-		if (!$error && !in_array($order_info['currency_code'], $this->model_extension_payment_cardinity->getSupportedCurrencies())) {
+		if (isset($order_info) && !in_array($order_info['currency_code'], $this->model_extension_payment_cardinity->getSupportedCurrencies())) {
 			$error['warning'] = $this->language->get('error_invalid_currency');
 		}
 

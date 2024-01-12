@@ -98,6 +98,8 @@ class ModelExtensionPaymentSagepayServer extends Model {
 		if ($sagepay_server_order && $sagepay_server_order['release_status'] == 0) {
 			$void_data = [];
 
+			$url = '';
+
 			if ($this->config->get('payment_sagepay_server_test') == 'live') {
 				$url = 'https://live.sagepay.com/gateway/service/void.vsp';
 

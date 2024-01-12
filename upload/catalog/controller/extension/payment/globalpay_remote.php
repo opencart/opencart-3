@@ -313,16 +313,18 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 				}
 			}
 
-			$capture_result = $this->model_extension_payment_globalpay_remote->capturePayment($md['account'], $md['amount'], $md['currency'], $md['order_id'], $md['order_ref'], $md['cc_number'], $md['cc_expire'], $md['cc_name'], $md['cc_type'], $md['cc_cvv2'], $md['cc_issue'], $eci_ref, $eci, $cavv, $xid);
+			if (isset($cavv) && isset($eci_ref) && isset($xid)) {
+				$capture_result = $this->model_extension_payment_globalpay_remote->capturePayment($md['account'], $md['amount'], $md['currency'], $md['order_id'], $md['order_ref'], $md['cc_number'], $md['cc_expire'], $md['cc_name'], $md['cc_type'], $md['cc_cvv2'], $md['cc_issue'], $eci_ref, $eci, $cavv, $xid);
 
-			$this->model_extension_payment_globalpay_remote->logger('Capture result:\r\n' . print_r($capture_result, 1));
+				$this->model_extension_payment_globalpay_remote->logger('Capture result:\r\n' . print_r($capture_result, 1));
 
-			if ($capture_result->result != '00') {
-				$this->session->data['error'] = (string)$capture_result->message . ' (' . (int)$capture_result->result . ')';
+				if ($capture_result->result != '00') {
+					$this->session->data['error'] = (string)$capture_result->message . ' (' . (int)$capture_result->result . ')';
 
-				$this->response->redirect($this->url->link('checkout/checkout', '', true));
-			} else {
-				$this->response->redirect($this->url->link('checkout/success'));
+					$this->response->redirect($this->url->link('checkout/checkout', '', true));
+				} else {
+					$this->response->redirect($this->url->link('checkout/success'));
+				}
 			}
 		} else {
 			$this->response->redirect($this->url->link('account/login', '', true));

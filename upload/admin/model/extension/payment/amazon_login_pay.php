@@ -589,6 +589,8 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 		$error_set = $details_xml->xpath('//m:ReasonCode');
 
+		$response = [];
+
 		if (isset($details_xml->Error)) {
 			$response['status'] = 'Error';
 			$response['error_code'] = (string)$details_xml->Error->Code;

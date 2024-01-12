@@ -154,6 +154,8 @@ class ModelExtensionPaymentSagepayDirect extends Model {
 		if ($sagepay_direct_order && $sagepay_direct_order['release_status'] == 0 && ($total_released + $amount <= $sagepay_direct_order['total'])) {
 			$release_data = [];
 
+			$url = '';
+
 			if ($this->config->get('payment_sagepay_direct_test') == 'live') {
 				$url = 'https://live.sagepay.com/gateway/service/release.vsp';
 
