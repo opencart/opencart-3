@@ -1,7 +1,4 @@
 <?php
-// Autoloader
-$autoloader = new \Autoloader();
-
 require_once(DIR_SYSTEM . 'vendor.php');
 
 // Registry
