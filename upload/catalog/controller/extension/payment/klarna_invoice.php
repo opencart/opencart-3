@@ -347,7 +347,7 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
 					$order_info['ip'],
 					0,
 					isset($currency) && $currency ? $currency : 0,
-					isset($country) && $currency ? $currency : 0,
+					isset($country) && $country ? $country : 0,
 					isset($language) && $language ? $language : 0,
 					(int)$klarna_invoice[$order_info['payment_iso_code_3']]['merchant'],
 					$digest,

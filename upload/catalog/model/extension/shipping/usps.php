@@ -331,7 +331,7 @@ class ModelExtensionShippingUsps extends Model {
 				}
 			}
 
-			if ($status) {
+			if ($status && isset($request)) {
 				$curl = curl_init();
 
 				curl_setopt($curl, CURLOPT_URL, 'production.shippingapis.com/ShippingAPI.dll?' . $request);
@@ -351,7 +351,7 @@ class ModelExtensionShippingUsps extends Model {
 				$result = str_replace("\r\n", '', $result);
 				$result = str_replace('\"', '"', $result);
 
-				if ($result) {
+				if ($result && isset($request)) {
 					if ($this->config->get('shipping_usps_debug')) {
 						$this->log->write("USPS DATA SENT: " . urldecode($request));
 						$this->log->write("USPS DATA RECV: " . $result);

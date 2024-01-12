@@ -65,7 +65,7 @@ class ControllerToolUpload extends Controller {
 			$json['error'] = $this->language->get('error_upload');
 		}
 
-		if (!$json) {
+		if (!$json && isset($filename)) {
 			$file = $filename . '.' . oc_token(32);
 
 			move_uploaded_file($this->request->files['file']['tmp_name'], DIR_UPLOAD . $file);
@@ -74,6 +74,7 @@ class ControllerToolUpload extends Controller {
 			$this->load->model('tool/upload');
 
 			$json['code'] = $this->model_tool_upload->addUpload($filename, $file);
+			
 			$json['success'] = $this->language->get('text_upload');
 		}
 

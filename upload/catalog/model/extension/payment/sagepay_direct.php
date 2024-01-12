@@ -303,6 +303,8 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	}
 
 	private function setPaymentData(array $order_info, array $sagepay_order_info, float $price, int $subscription_id, string $recurring_name, $i = null): array {
+		$url = '';
+
 		if ($this->config->get('payment_sagepay_direct_test') == 'live') {
 			$url = 'https://live.sagepay.com/gateway/service/repeat.vsp';
 			$payment_data['VPSProtocol'] = '3.00';
@@ -365,6 +367,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 		}
 
 		$response_data = $this->sendCurl($url, $payment_data, $i);
+		
 		$response_data['VendorTxCode'] = $payment_data['VendorTxCode'];
 		$response_data['Amount'] = $payment_data['Amount'];
 		$response_data['Currency'] = $payment_data['Currency'];
@@ -551,6 +554,8 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	 * @return array
 	 */
 	public function sendCurl(string $url, array $payment_data, ?int $i = null): array {
+		$post_data = [];
+
 		$curl = curl_init($url);
 
 		curl_setopt($curl, CURLOPT_PORT, 443);
@@ -572,14 +577,14 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 		foreach ($response_info as $string) {
 			if (strpos($string, '=') && $i !== null) {
 				$parts = explode('=', $string, 2);
-				$data['RepeatResponseData_' . $i][trim($parts[0])] = trim($parts[1]);
+				$post_data['RepeatResponseData_' . $i][trim($parts[0])] = trim($parts[1]);
 			} elseif (strpos($string, '=')) {
 				$parts = explode('=', $string, 2);
-				$data[trim($parts[0])] = trim($parts[1]);
+				$post_data[trim($parts[0])] = trim($parts[1]);
 			}
 		}
 
-		return $data;
+		return $post_data;
 	}
 
 	/**

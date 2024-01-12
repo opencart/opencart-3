@@ -187,6 +187,8 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 
 				$this->model_extension_payment_worldpay->logger($order);
 
+				$order_status_id = 0;
+
 				switch ($message['paymentStatus']) {
 					case 'SUCCESS':
 						$order_status_id = $this->config->get('payment_worldpay_success_status_id');

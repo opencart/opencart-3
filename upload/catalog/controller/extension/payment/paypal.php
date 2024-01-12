@@ -775,7 +775,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 				$tax_total = number_format($tax_total * $currency_value, $decimal_place, '.', '');
 				$order_total = number_format($item_total + $tax_total, $decimal_place, '.', '');
 
-				if ($page_code == 'checkout') {
+				if ($page_code == 'checkout' && isset($order_info)) {
 					$discount_total = 0;
 					$handling_total = 0;
 					$shipping_total = 0;
@@ -811,7 +811,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 					'value'         => $tax_total
 				];
 
-				if ($page_code == 'checkout') {
+				if ($page_code == 'checkout' && isset($shipping_total) && isset($handling_total) && isset($discount_total) && isset($order_info) && isset($shipping_info)) {
 					$amount_info['breakdown']['shipping'] = [
 						'currency_code' => $currency_code,
 						'value'         => $shipping_total
@@ -1342,7 +1342,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 									$this->model_extension_payment_paypal->addPayPalOrder($paypal_order_data);
 								}
 
-								if (($authorization_status == 'CREATED') || ($authorization_status == 'PENDING')) {
+								if (($authorization_status == 'CREATED') || ($authorization_status == 'PENDING') && isset($paypal_order_data)) {
 									$recurring_products = $this->cart->getRecurringProducts();
 
 									foreach ($recurring_products as $recurring_product) {

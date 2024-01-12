@@ -6,6 +6,7 @@ require_once(DIR_SYSTEM . 'vendor.php');
 
 // Registry
 $registry = new \Registry();
+$registry->set('autoloader', $autoloader);
 
 // Config
 $config = new \Config();

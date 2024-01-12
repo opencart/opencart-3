@@ -38,6 +38,8 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 	public function send(): void {
 		$payment_data = [];
 
+		$url = '';
+
 		if ($this->config->get('payment_sagepay_server_test') == 'live') {
 			$url = 'https://live.sagepay.com/gateway/service/vspserver-register.vsp';
 

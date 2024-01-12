@@ -291,7 +291,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 					$cavv = '';
 				}
 
-				if ($this->config->get('payment_realex_remote_liability') != 1) {
+				if ($this->config->get('payment_realex_remote_liability') != 1 && isset($eci_ref) && isset($cavv) && isset($eci_ref) && isset($xid)) {
 					// this is the check for liability shift - if the merchant does not want to accept, redirect to checkout with message
 					$this->load->language('extension/payment/realex_remote');
 

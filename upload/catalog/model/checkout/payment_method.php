@@ -56,7 +56,7 @@ class ModelCheckoutPaymentMethod extends Model {
 		$payment_methods = $this->model_account_payment_method->getPaymentMethods($customer_id);
 
 		foreach ($payment_methods as $payment_method) {
-			$method_data[$result['code'] . '_' . $result['code']] = [
+			$method_data[$payment_method['code'] . '_' . $payment_method['code']] = [
 				'name' => $payment_method['name'],
 				'code' => $payment_method['code']
 			];

@@ -459,6 +459,8 @@ class ModelExtensionPaymentOpayo extends Model {
 
 		$payment_data = [];
 
+		$url = '';
+
 		if ($setting['general']['environment'] == 'live') {
 			$url = 'https://live.sagepay.com/gateway/service/repeat.vsp';
 			$payment_data['VPSProtocol'] = '4.00';
@@ -687,6 +689,8 @@ class ModelExtensionPaymentOpayo extends Model {
 	 * @return array<string, string>
 	 */
 	public function sendCurl(string $url, array $payment_data, $i = null): array {
+		$post_data = [];
+
 		$curl = curl_init($url);
 
 		curl_setopt($curl, CURLOPT_PORT, 443);
@@ -708,14 +712,14 @@ class ModelExtensionPaymentOpayo extends Model {
 		foreach ($response_info as $string) {
 			if (strpos($string, '=') && $i !== null) {
 				$parts = explode('=', $string, 2);
-				$data['RepeatResponseData_' . $i][trim($parts[0])] = trim($parts[1]);
+				$post_data['RepeatResponseData_' . $i][trim($parts[0])] = trim($parts[1]);
 			} elseif (strpos($string, '=')) {
 				$parts = explode('=', $string, 2);
-				$data[trim($parts[0])] = trim($parts[1]);
+				$post_data[trim($parts[0])] = trim($parts[1]);
 			}
 		}
 
-		return $data;
+		return $post_data;
 	}
 
 	/**

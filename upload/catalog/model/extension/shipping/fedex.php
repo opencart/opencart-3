@@ -215,16 +215,18 @@ class ModelExtensionShippingFedex extends Model {
 							}
 						}
 
-						$cost = $total_net_charge->getElementsByTagName('Amount')->item(0)->nodeValue;
-						$currency = $total_net_charge->getElementsByTagName('Currency')->item(0)->nodeValue;
+						if (isset($total_net_charge)) {
+							$cost = $total_net_charge->getElementsByTagName('Amount')->item(0)->nodeValue;
+							$currency = $total_net_charge->getElementsByTagName('Currency')->item(0)->nodeValue;
 
-						$quote_data[$code] = [
-							'code'         => 'fedex.' . $code,
-							'title'        => $title,
-							'cost'         => $this->currency->convert($cost, $currency, $this->config->get('config_currency')),
-							'tax_class_id' => $this->config->get('shipping_fedex_tax_class_id'),
-							'text'         => $this->currency->format($this->tax->calculate($this->currency->convert($cost, $currency, $this->session->data['currency']), $this->config->get('shipping_fedex_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'], 1.0000000)
-						];
+							$quote_data[$code] = [
+								'code'         => 'fedex.' . $code,
+								'title'        => $title,
+								'cost'         => $this->currency->convert($cost, $currency, $this->config->get('config_currency')),
+								'tax_class_id' => $this->config->get('shipping_fedex_tax_class_id'),
+								'text'         => $this->currency->format($this->tax->calculate($this->currency->convert($cost, $currency, $this->session->data['currency']), $this->config->get('shipping_fedex_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'], 1.0000000)
+							];
+						}
 					}
 				}
 			}
@@ -232,7 +234,7 @@ class ModelExtensionShippingFedex extends Model {
 
 		$method_data = [];
 
-		if ($quote_data || $error) {
+		if ($quote_data || $error && isset($weight)) {
 			$title = $this->language->get('text_title');
 
 			if ($this->config->get('shipping_fedex_display_weight')) {
