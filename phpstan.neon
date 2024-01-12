@@ -1,10 +1,37 @@
+services:
+	-
+		class: \Tools\PHPStan\RegistryPropertyReflectionExtension
+		tags:
+			- phpstan.broker.propertiesClassReflectionExtension
 parameters:
-	level: 0
+	level: 1
 	paths:
 		- ./upload/
 	excludePaths:
-		- ./system/storage/vendor/
+		- ./admin/controller/extension/advertise/
+		- ./upload/admin/controller/extension/advertise/
+		- ./admin/model/extension/advertise/
+		- ./upload/admin/model/extension/advertise/
+		- ./admin/model/extension/payment/cardinity.php
+		- ./upload/admin/model/extension/payment/cardinity.php
+		- ./admin/model/extension/payment/divido.php
+		- ./upload/admin/model/extension/payment/divido.php
+		- ./catalog/controller/extension/advertise/
+		- ./upload/catalog/controller/extension/advertise/
+		- ./catalog/controller/extension/payment/wechat_pay.php
+		- ./upload/catalog/controller/extension/payment/wechat_pay.php
+		- ./catalog/model/extension/payment/cardinity.php
+		- ./upload/catalog/model/extension/payment/cardinity.php
+		- ./catalog/model/extension/payment/divido.php
+		- ./upload/catalog/model/extension/payment/divido.php
+		- ./catalog/model/extension/shipping/ec_ship.php
+		- ./upload/catalog/model/extension/shipping/ec_ship.php
+		- ./catalog/model/extension/payment/wechat_pay.php
+		- ./upload/catalog/model/extension/payment/wechat_pay.php
+		- ./system/library/googleshopping/
+		- ./upload/system/library/googleshopping/
 		- ./upload/system/storage/vendor/
 	tmpDir: .cache
 	ignoreErrors:
 		- '#Class Event constructor invoked with 1 parameter, 4-5 required\.#'
+		- '#Constant [A-Z_]+ not found\.#'
