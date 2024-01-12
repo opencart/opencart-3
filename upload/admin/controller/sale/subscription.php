@@ -770,7 +770,7 @@ class ControllerSaleSubscription extends Controller {
 				$json['error'] = $this->language->get('error_transaction');
 			}
 
-			if (!$json && isset($order_info)) {
+			if (!$json) {
 				// Settings
 				$this->load->model('setting/setting');
 
