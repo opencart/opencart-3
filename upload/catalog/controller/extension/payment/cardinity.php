@@ -231,7 +231,7 @@ class ControllerExtensionPaymentCardinity extends Controller {
 			$error = $this->language->get('error_invalid_hash');
 		}
 
-		if ($success) {
+		if ($success && isset($payment)) {
 			$this->finalizeOrder($payment);
 
 			$this->response->redirect($this->url->link('checkout/success', '', true));
@@ -291,7 +291,7 @@ class ControllerExtensionPaymentCardinity extends Controller {
 			}
 		}
 
-		if (!in_array($order_info['currency_code'], $this->model_extension_payment_cardinity->getSupportedCurrencies())) {
+		if (isset($order_info) && !in_array($order_info['currency_code'], $this->model_extension_payment_cardinity->getSupportedCurrencies())) {
 			$error['warning'] = $this->language->get('error_invalid_currency');
 		}
 

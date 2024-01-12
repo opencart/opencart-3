@@ -5,6 +5,10 @@
  * @package Admin\Controller\Tool
  */
 class ControllerToolUpload extends Controller {
+	/**
+	 * @var array<string, string>
+	 * @var string
+	 */
 	private array $error = [];
 
 	/**
@@ -398,7 +402,7 @@ class ControllerToolUpload extends Controller {
 			}
 		}
 
-		if (!$json) {
+		if (isset($filename) && !$json) {
 			// Hide the uploaded file name so people cannot link to it directly.
 			$this->load->model('tool/upload');
 

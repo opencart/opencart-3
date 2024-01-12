@@ -845,14 +845,16 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 
 		$results = $this->model_setting_extension->getExtensionsByType('payment');
 
-		foreach ($results as $result) {
-			if ($this->config->get('payment_' . $result['code'] . '_status')) {
-				$this->load->model('extension/payment/' . $result['code']);
+		if (isset($total)) {
+			foreach ($results as $result) {
+				if ($this->config->get('payment_' . $result['code'] . '_status')) {
+					$this->load->model('extension/payment/' . $result['code']);
 
-				$method = $this->{'model_extension_payment_' . $result['code']}->getMethod($data['payment_address'], $total);
+					$method = $this->{'model_extension_payment_' . $result['code']}->getMethod($data['payment_address'], $total);
 
-				if ($method) {
-					$method_data[$result['code']] = $method;
+					if ($method) {
+						$method_data[$result['code']] = $method;
+					}
 				}
 			}
 		}
@@ -1468,7 +1470,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 
 			unset($this->session->data['paypal_order_id']);
 
-			if (!$this->error) {
+			if (!$this->error && isset($seller_protection_status)) {
 				$message = sprintf($this->language->get('text_order_message'), $seller_protection_status);
 
 				$this->model_checkout_order->addHistory($this->session->data['order_id'], $this->config->get('config_order_status_id'), $message);

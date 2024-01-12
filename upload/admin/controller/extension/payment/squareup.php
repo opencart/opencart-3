@@ -5,6 +5,9 @@
  * @package Admin\Controller\Extension\Payment
  */
 class ControllerExtensionPaymentSquareup extends Controller {
+	/**
+	 * @var array
+	 */
 	private array $error = [];
 
 	/**
@@ -30,8 +33,10 @@ class ControllerExtensionPaymentSquareup extends Controller {
 		$previous_setting = $this->model_setting_setting->getSetting('payment_squareup');
 
 		try {
+			$first_location_id = null;
+
 			if ($this->config->get('payment_squareup_access_token')) {
-				if (!$this->squareup->verifyToken($this->config->get('payment_squareup_access_token'))) {
+				if (!is_object($this->squareup) || !$this->squareup->verifyToken($this->config->get('payment_squareup_access_token'))) {
 					unset($previous_setting['payment_squareup_merchant_id']);
 					unset($previous_setting['payment_squareup_merchant_name']);
 					unset($previous_setting['payment_squareup_access_token']);
@@ -42,8 +47,6 @@ class ControllerExtensionPaymentSquareup extends Controller {
 					$this->config->set('payment_squareup_merchant_id', null);
 				} else {
 					if (!$this->config->get('payment_squareup_locations')) {
-						$first_location_id = null;
-
 						$previous_setting['payment_squareup_locations'] = $this->squareup->fetchLocations($this->config->get('payment_squareup_access_token'), $first_location_id);
 						$previous_setting['payment_squareup_location_id'] = $first_location_id;
 					}

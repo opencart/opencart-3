@@ -142,8 +142,13 @@ class ControllerApiPayment extends Controller {
 
 				$json['success'] = $this->language->get('text_address');
 
-				unset($this->session->data['payment_method']);
-				unset($this->session->data['payment_methods']);
+				if (isset($this->session->data['payment_method'])) {
+					unset($this->session->data['payment_method']);
+				}
+				
+				if (isset($this->session->data['payment_methods'])) {
+					unset($this->session->data['payment_methods']);
+				}
 			}
 		}
 

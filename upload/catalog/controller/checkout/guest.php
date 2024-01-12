@@ -247,7 +247,7 @@ class ControllerCheckoutGuest extends Controller {
 			}
 		}
 
-		if (!$json) {
+		if (!$json && isset($customer_group_id)) {
 			$this->session->data['account'] = 'guest';
 
 			$this->session->data['guest']['customer_group_id'] = $customer_group_id;

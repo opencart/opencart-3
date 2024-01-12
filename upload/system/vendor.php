@@ -1,4 +1,10 @@
 <?php
+
+/**
+ * Loaded in an outside context
+ * @var Autoloader $autoloader
+ */
+
 // guzzlehttp/guzzle
 $autoloader->register('GuzzleHttp', DIR_STORAGE . 'vendor/guzzlehttp/guzzle/src/', true);
 

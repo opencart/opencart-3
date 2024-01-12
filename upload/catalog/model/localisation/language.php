@@ -5,6 +5,8 @@
  * @package Catalog\Model\Localisation
  */
 class ModelLocalisationLanguage extends Model {
+	private array $data = [];
+
 	/**
 	 * getLanguage
 	 *

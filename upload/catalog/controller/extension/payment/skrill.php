@@ -114,7 +114,7 @@ class ControllerExtensionPaymentSkrill extends Controller {
 						$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_skrill_chargeback_status_id'), '', true);
 						break;
 				}
-			} else {
+			} elseif (isset($md5sig) && isset($md5hash)) {
 				$this->log->write('md5sig returned (' + $md5sig + ') does not match generated (' + $md5hash + '). Verify Manually. Current order state: ' . $this->config->get('config_order_status_id'));
 			}
 		}

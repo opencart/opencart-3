@@ -13,6 +13,8 @@ class ModelLocalisationReturnsAction extends Model {
 	 * @return int
 	 */
 	public function addReturnAction(array $data): int {
+		$return_action_id = null;
+		
 		foreach ($data['return_action'] as $language_id => $value) {
 			if (isset($return_action_id)) {
 				$this->db->query("INSERT INTO `" . DB_PREFIX . "return_action` SET `return_action_id` = '" . (int)$return_action_id . "', `language_id` = '" . (int)$language_id . "', `name` = '" . $this->db->escape($value['name']) . "'");

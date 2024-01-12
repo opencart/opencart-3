@@ -98,6 +98,8 @@ class ModelExtensionPaymentSagepayServer extends Model {
 		if ($sagepay_server_order && $sagepay_server_order['release_status'] == 0) {
 			$void_data = [];
 
+			$url = '';
+
 			if ($this->config->get('payment_sagepay_server_test') == 'live') {
 				$url = 'https://live.sagepay.com/gateway/service/void.vsp';
 
@@ -152,6 +154,8 @@ class ModelExtensionPaymentSagepayServer extends Model {
 
 		if ($sagepay_server_order && $sagepay_server_order['release_status'] == 0 && ($total_released + $amount <= $sagepay_server_order['total'])) {
 			$release_data = [];
+
+			$url = '';
 
 			if ($this->config->get('payment_sagepay_server_test') == 'live') {
 				$url = 'https://live.sagepay.com/gateway/service/release.vsp';
@@ -218,6 +222,8 @@ class ModelExtensionPaymentSagepayServer extends Model {
 
 		if ($sagepay_server_order && $sagepay_server_order['rebate_status'] != 1) {
 			$refund_data = [];
+
+			$url = '';
 
 			if ($this->config->get('payment_sagepay_server_test') == 'live') {
 				$url = 'https://live.sagepay.com/gateway/service/refund.vsp';
@@ -350,7 +356,7 @@ class ModelExtensionPaymentSagepayServer extends Model {
 		$response_info = explode(chr(10), $response);
 
 		foreach ($response_info as $i => $string) {
-			if (strpos($string, '=') && isset($i)) {
+			if (strpos($string, '=') && $i !== null) {
 				$parts = explode('=', $string, 2);
 
 				$data['RepeatResponseData_' . $i][trim($parts[0])] = trim($parts[1]);

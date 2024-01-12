@@ -146,8 +146,6 @@ class ControllerExtensionSubscriptionSquareup extends Controller {
 
 				$success = $transaction_status == 'captured';
 
-				$this->model_extension_payment_squareup->addRecurringTransaction($payment['subscription_id'], $response_data, $transaction, $success);
-
 				$trial_expired = false;
 				$recurring_expired = false;
 				$profile_suspended = false;
@@ -164,34 +162,38 @@ class ControllerExtensionSubscriptionSquareup extends Controller {
 					$result['transaction_fail'][$payment['subscription_id']] = $this->currency->format($amount, $target_currency);
 				}
 
-				$order_status_id = $this->config->get('payment_squareup_status_' . $transaction_status);
+				if (isset($transaction)) {
+					$this->model_extension_payment_squareup->addRecurringTransaction($payment['subscription_id'], $response_data, $transaction, $success);
 
-				if ($order_status_id) {
-					if (!$payment['is_free']) {
-						$order_status_comment = $this->language->get('squareup_status_comment_' . $transaction_status);
-					} else {
-						$order_status_comment = '';
+					$order_status_id = $this->config->get('payment_squareup_status_' . $transaction_status);
+
+					if ($order_status_id) {
+						if (!$payment['is_free']) {
+							$order_status_comment = $this->language->get('squareup_status_comment_' . $transaction_status);
+						} else {
+							$order_status_comment = '';
+						}
+
+						if ($profile_suspended) {
+							$order_status_comment .= $this->language->get('text_squareup_profile_suspended');
+						}
+
+						if ($trial_expired) {
+							$order_status_comment .= $this->language->get('text_squareup_trial_expired');
+						}
+
+						if ($recurring_expired) {
+							$order_status_comment .= $this->language->get('text_squareup_subscription_expired');
+						}
+
+						if ($success) {
+							$notify = (bool)$this->config->get('payment_squareup_notify_recurring_success');
+						} else {
+							$notify = (bool)$this->config->get('payment_squareup_notify_recurring_fail');
+						}
+
+						$this->model_checkout_order->addHistory($payment['order_id'], $order_status_id, trim($order_status_comment), $notify);
 					}
-
-					if ($profile_suspended) {
-						$order_status_comment .= $this->language->get('text_squareup_profile_suspended');
-					}
-
-					if ($trial_expired) {
-						$order_status_comment .= $this->language->get('text_squareup_trial_expired');
-					}
-
-					if ($recurring_expired) {
-						$order_status_comment .= $this->language->get('text_squareup_subscription_expired');
-					}
-
-					if ($success) {
-						$notify = (bool)$this->config->get('payment_squareup_notify_recurring_success');
-					} else {
-						$notify = (bool)$this->config->get('payment_squareup_notify_recurring_fail');
-					}
-
-					$this->model_checkout_order->addHistory($payment['order_id'], $order_status_id, trim($order_status_comment), $notify);
 				}
 			} catch (\Squareup\Exception $e) {
 				$result['transaction_error'][] = '[ID: ' . $payment['subscription_id'] . '] - ' . $e->getMessage();

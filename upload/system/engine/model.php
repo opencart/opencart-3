@@ -11,6 +11,8 @@
 
 /**
  * Model class
+ *
+ * @mixin Registry
  */
 abstract class Model {
 	protected object $registry;

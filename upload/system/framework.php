@@ -1,11 +1,15 @@
 <?php
-// Autoloader
-$autoloader = new \Autoloader();
 
-require_once(DIR_SYSTEM . 'vendor.php');
+/**
+ * Loaded in an outside context
+ * @var Autoloader $autoloader
+ */
 
 // Registry
 $registry = new \Registry();
+$registry->set('autoloader', $autoloader);
+
+require_once(DIR_SYSTEM . 'vendor.php');
 
 // Config
 $config = new \Config();

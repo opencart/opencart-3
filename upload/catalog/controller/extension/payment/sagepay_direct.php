@@ -132,6 +132,8 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 
 		$payment_data = [];
 
+		$url = '';
+
 		if ($this->config->get('payment_sagepay_direct_test') == 'live') {
 			$url = 'https://live.sagepay.com/gateway/service/vspdirect-register.vsp';
 			$payment_data['VPSProtocol'] = '3.00';
@@ -385,6 +387,8 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 		$this->load->model('extension/payment/sagepay_direct');
 
 		if (isset($this->session->data['order_id'])) {
+			$url = '';
+			
 			if ($this->config->get('payment_sagepay_direct_test') == 'live') {
 				$url = 'https://live.sagepay.com/gateway/service/direct3dcallback.vsp';
 			} elseif ($this->config->get('payment_sagepay_direct_test') == 'test') {

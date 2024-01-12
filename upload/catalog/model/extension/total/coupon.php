@@ -83,7 +83,7 @@ class ModelExtensionTotalCoupon extends Model {
 			$status = false;
 		}
 
-		if ($status) {
+		if ($status && isset($product_data)) {
 			return [
 				'coupon_id'     => $coupon_query->row['coupon_id'],
 				'code'          => $coupon_query->row['code'],

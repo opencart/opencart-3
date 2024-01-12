@@ -11,6 +11,10 @@
 
 /**
  * Proxy class
+ *
+ * @template TWraps of Model
+ *
+ * @mixin TWraps
  */
 class Proxy {
 	protected array $data = [];

@@ -143,8 +143,13 @@ class ControllerApiShipping extends Controller {
 
 					$json['success'] = $this->language->get('text_address');
 
-					unset($this->session->data['shipping_method']);
-					unset($this->session->data['shipping_methods']);
+					if (isset($this->session->data['shipping_method'])) {
+						unset($this->session->data['shipping_method']);
+					}
+					
+					if (isset($this->session->data['shipping_methods'])) {
+						unset($this->session->data['shipping_methods']);
+					}
 				}
 			}
 		}
@@ -236,14 +241,18 @@ class ControllerApiShipping extends Controller {
 					}
 				}
 
-				if (!$json) {
+				if (!$json && isset($shipping)) {
 					$this->session->data['shipping_method'] = $this->session->data['shipping_methods'][$shipping[0]]['quote'][$shipping[1]];
 
 					$json['success'] = $this->language->get('text_method');
 				}
 			} else {
 				unset($this->session->data['shipping_address']);
-				unset($this->session->data['shipping_method']);
+
+				if (isset($this->session->data['shipping_method'])) {
+					unset($this->session->data['shipping_method']);
+				}
+				
 				unset($this->session->data['shipping_methods']);
 			}
 		}

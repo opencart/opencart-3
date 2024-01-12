@@ -186,6 +186,11 @@ class ControllerExtensionPaymentDivido extends Controller {
 		$currency = strtoupper($this->session->data['currency']);
 		$order_id = (int)$this->session->data['order_id'];
 
+		$firstname = '';
+		$lastname = '';
+		$email = '';
+		$telephone = '';
+
 		if ($this->customer->isLogged()) {
 			// Customers
 			$this->load->model('account/customer');

@@ -60,7 +60,7 @@ class ControllerAccountPaymentMethod extends Controller {
 			}
 		}
 
-		if (!$json) {
+		if (!$json && isset($payment_method_info)) {
 			// Dynamic Payment Methods
 			$this->load->model('extension/' . $payment_method_info['extension'] . '/payment/' . $payment_method_info['code']);
 

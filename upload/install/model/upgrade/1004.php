@@ -119,7 +119,7 @@ class ModelUpgrade1004 extends Model {
 		// setting
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `key` = 'config_meta_title'");
 
-		if (!$query->num_rows) {
+		if (!$query->num_rows && isset($settings)) {
 			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `key` = 'config_meta_title', `value` = '" . $this->db->escape($settings['config_name']) . "', `code` = 'config', `serialized` = '0', `store_id` = '0'");
 		}
 

@@ -331,7 +331,7 @@ class ModelExtensionShippingUsps extends Model {
 				}
 			}
 
-			if ($status) {
+			if ($status && isset($request)) {
 				$curl = curl_init();
 
 				curl_setopt($curl, CURLOPT_URL, 'production.shippingapis.com/ShippingAPI.dll?' . $request);
