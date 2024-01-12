@@ -553,15 +553,12 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 				if ($results) {
 					foreach ($results as $laybuy_ref_id => $reports) {
 						$status = $reports['status'];
-
 						$report = $reports['report'];
 
 						$transaction = $this->model_extension_payment_laybuy->getTransactionByLayBuyRefId($laybuy_ref_id);
 
 						$order_id = $transaction['order_id'];
-
 						$paypal_profile_id = $transaction['paypal_profile_id'];
-
 						$months = $transaction['months'];
 
 						$pending_flag = false;

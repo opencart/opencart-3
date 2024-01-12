@@ -471,48 +471,48 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 
 								$next_payment_status = $payment['paymentStatus'];
 							}
-						}
 
-						if ($pending_flag) {
-							$start_index = $month + 1;
-						} else {
-							$start_index = $month + 2;
-						}
-
-						if ($month < $months) {
-							for ($month = 1; $month <= $months; $month++) {
-								$next_payment_date = date('Y-m-d h:i:s', strtotime($next_payment_date . ' +1 month'));
-								$date = date($this->language->get('date_format_short'), strtotime($next_payment_date));
-
-								$report_content[] = [
-									'instalment'  => $month,
-									'amount'      => $this->currency->format($transaction['payment_amounts'], $transaction['currency']),
-									'date'        => $date,
-									'pp_trans_id' => '',
-									'status'      => $next_payment_status
-								];
+							if ($pending_flag) {
+								$start_index = $month + 1;
+							} else {
+								$start_index = $month + 2;
 							}
-						}
-
-						$report_content = json_encode($report_content);
-
-						switch ($status) {
-							case -1: // Cancel
-								$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_laybuy_order_status_id_canceled'), $this->language->get('text_comment'), false, false);
-
-								$this->model_extension_payment_laybuy->updateTransaction($transaction['laybuy_transaction_id'], '7', $report_content, $start_index);
-								$this->model_extension_payment_laybuy->log('Transaction #' . $transaction['laybuy_transaction_id'] . ' canceled');
-								break;
-							case 0: // Pending
-								$this->model_extension_payment_laybuy->updateTransaction($transaction['laybuy_transaction_id'], $transaction['status'], $report_content, $start_index);
-								$this->model_extension_payment_laybuy->log('Transaction #' . $transaction['laybuy_transaction_id'] . ' still pending');
-								break;
-							case 1: // Paid
-								$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_laybuy_order_status_id_processing'), $this->language->get('text_comment'), false, false);
-
-								$this->model_extension_payment_laybuy->updateTransaction($transaction['laybuy_transaction_id'], '5', $report_content, $start_index);
-								$this->model_extension_payment_laybuy->log('Transaction #' . $transaction['laybuy_transaction_id'] . ' paid');
-								break;
+	
+							if ($month < $months) {
+								for ($month = 1; $month <= $months; $month++) {
+									$next_payment_date = date('Y-m-d h:i:s', strtotime($next_payment_date . ' +1 month'));
+									$date = date($this->language->get('date_format_short'), strtotime($next_payment_date));
+	
+									$report_content[] = [
+										'instalment'  => $month,
+										'amount'      => $this->currency->format($transaction['payment_amounts'], $transaction['currency']),
+										'date'        => $date,
+										'pp_trans_id' => '',
+										'status'      => $next_payment_status
+									];
+								}
+							}
+	
+							$report_content = json_encode($report_content);
+	
+							switch ($status) {
+								case -1: // Cancel
+									$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_laybuy_order_status_id_canceled'), $this->language->get('text_comment'), false, false);
+	
+									$this->model_extension_payment_laybuy->updateTransaction($transaction['laybuy_transaction_id'], '7', $report_content, $start_index);
+									$this->model_extension_payment_laybuy->log('Transaction #' . $transaction['laybuy_transaction_id'] . ' canceled');
+									break;
+								case 0: // Pending
+									$this->model_extension_payment_laybuy->updateTransaction($transaction['laybuy_transaction_id'], $transaction['status'], $report_content, $start_index);
+									$this->model_extension_payment_laybuy->log('Transaction #' . $transaction['laybuy_transaction_id'] . ' still pending');
+									break;
+								case 1: // Paid
+									$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_laybuy_order_status_id_processing'), $this->language->get('text_comment'), false, false);
+	
+									$this->model_extension_payment_laybuy->updateTransaction($transaction['laybuy_transaction_id'], '5', $report_content, $start_index);
+									$this->model_extension_payment_laybuy->log('Transaction #' . $transaction['laybuy_transaction_id'] . ' paid');
+									break;
+							}
 						}
 					}
 				}
