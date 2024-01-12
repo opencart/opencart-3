@@ -1,9 +1,9 @@
 <?php
-require_once(DIR_SYSTEM . 'vendor.php');
-
 // Registry
 $registry = new \Registry();
 $registry->set('autoloader', $autoloader);
+
+require_once(DIR_SYSTEM . 'vendor.php');
 
 // Config
 $config = new \Config();

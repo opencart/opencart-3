@@ -1,7 +1,4 @@
 <?php
-// Autoloader
-$autoloader = new \Autoloader();
-
 // guzzlehttp/guzzle
 $autoloader->register('GuzzleHttp', DIR_STORAGE . 'vendor/guzzlehttp/guzzle/src/', true);
 
