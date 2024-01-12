@@ -1425,7 +1425,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 									$this->model_extension_payment_paypal->addPayPalOrder($paypal_order_data);
 								}
 
-								if (($capture_status == 'COMPLETED') || ($capture_status == 'PENDING') && isset($paypal_order_data)) {
+								if (($capture_status == 'COMPLETED') || ($capture_status == 'PENDING')) {
 									$recurring_products = $this->cart->getRecurringProducts();
 
 									foreach ($recurring_products as $recurring_product) {
