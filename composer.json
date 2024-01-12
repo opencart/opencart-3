@@ -19,5 +19,10 @@
 		"cardinity/cardinity-sdk-php": "^3.2",
 		"scssphp/scssphp": "^1.12",
 		"zoujingli/wechat-developer": "^1.2"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tools\\PHPStan\\": "tools/phpstan/"
+        }
     }
 }

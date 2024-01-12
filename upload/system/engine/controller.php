@@ -11,6 +11,8 @@
 
 /**
  * Controller class
+ *
+ * @mixin Registry
  */
 class Controller {
 	protected object $registry;
