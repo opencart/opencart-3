@@ -7,7 +7,6 @@
 class ControllerExtensionPaymentLaybuy extends Controller {
 	/**
 	 * @var array<string, string>
-	 * @var string
 	 */
 	private array $error = [];
 
