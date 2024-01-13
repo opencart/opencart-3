@@ -5,7 +5,7 @@
  */
 
 /**
- * Injected from start()
+ * Used as a parameter from start()
  * @var string $application_config
  */
 
