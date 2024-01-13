@@ -6,8 +6,9 @@
  */
 class ControllerCommonFileManager extends Controller {
 	/**
-	 * @var array<string, string>
-	 * @var string
+	 * Index
+	 * 
+	 * @return void
 	 */
 	public function index(): void {
 		$this->load->language('common/filemanager');
