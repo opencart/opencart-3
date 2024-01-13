@@ -4,6 +4,11 @@
  * @var Autoloader $autoloader
  */
 
+/**
+ * Injected from start()
+ * @var string $application_config
+ */
+
 // Registry
 $registry = new \Registry();
 $registry->set('autoloader', $autoloader);
