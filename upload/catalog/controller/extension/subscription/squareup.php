@@ -163,7 +163,7 @@ class ControllerExtensionSubscriptionSquareup extends Controller {
 				}
 
 				if (isset($transaction)) {
-					$this->model_extension_payment_squareup->addRecurringTransaction($payment['subscription_id'], $response_data, $transaction, $success);
+					$this->model_extension_payment_squareup->addTransaction($payment['subscription_id'], $response_data, $transaction, $success);
 
 					$order_status_id = $this->config->get('payment_squareup_status_' . $transaction_status);
 

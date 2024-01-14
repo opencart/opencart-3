@@ -280,7 +280,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 								$subscription_id = $this->model_extension_payment_squareup->createRecurring($this->session->data['order_id'], $subscription_data);
 
 								if ($subscription_id) {
-									$this->model_extension_payment_squareup->addRecurringTransaction($subscription_id, $subscription_data, $transaction, $transaction_status);
+									$this->model_extension_payment_squareup->addTransaction($subscription_id, $subscription_data, $transaction, $transaction_status);
 								}
 							}
 						}

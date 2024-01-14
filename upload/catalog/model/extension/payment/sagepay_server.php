@@ -310,9 +310,9 @@ class ModelExtensionPaymentSagePayServer extends Model {
 				if ($response_data['Status'] == 'OK') {
 					$this->updateRecurringOrder($subscription_info['subscription_id'], date_format($next_payment, 'Y-m-d H:i:s'));
 
-					$this->addRecurringTransaction($subscription_info['subscription_id'], $response_data, $transaction, 1);
+					$this->addTransaction($subscription_info['subscription_id'], $response_data, $transaction, 1);
 				} else {
-					$this->addRecurringTransaction($subscription_info['subscription_id'], $response_data, $transaction, 4);
+					$this->addTransaction($subscription_info['subscription_id'], $response_data, $transaction, 4);
 				}
 			}
 		}
@@ -440,14 +440,14 @@ class ModelExtensionPaymentSagePayServer extends Model {
 			];
 
 			if ($response_data['RepeatResponseData_' . $i++]['Status'] == 'OK') {
-				$this->addRecurringTransaction($subscription['subscription_id'], $response_data, $transaction, 1);
+				$this->addTransaction($subscription['subscription_id'], $response_data, $transaction, 1);
 
 				$next_payment = $this->calculateSchedule($frequency, $next_payment, $cycle);
 				$next_payment = date_format($next_payment, 'Y-m-d H:i:s');
 
 				$this->updateRecurringOrder($subscription['subscription_id'], $next_payment);
 			} else {
-				$this->addRecurringTransaction($subscription['subscription_id'], $response_data, $transaction, 4);
+				$this->addTransaction($subscription['subscription_id'], $response_data, $transaction, 4);
 			}
 		}
 
@@ -515,7 +515,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
 		return $query->row;
 	}
 
-	private function addRecurringTransaction($subscription_id, $response_data, $transaction, $type): void {
+	private function addTransaction($subscription_id, $response_data, $transaction, $type): void {
 		// Subscriptions
 		$this->load->model('account/subscription');
 

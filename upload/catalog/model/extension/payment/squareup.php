@@ -350,7 +350,7 @@ class ModelExtensionPaymentSquareup extends Model {
 	}
 
 	/**
-	 * addRecurringTransaction
+	 * addTransaction
 	 *
 	 * @param int    $subscription_id
 	 * @param array  $response_data
@@ -359,7 +359,7 @@ class ModelExtensionPaymentSquareup extends Model {
 	 *
 	 * @return void
 	 */
-	public function addRecurringTransaction(int $subscription_id, array $response_data, array $transaction, string $status): void {
+	public function addTransaction(int $subscription_id, array $response_data, array $transaction, string $status): void {
 		// Orders
 		$this->load->model('checkout/order');
 

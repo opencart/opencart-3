@@ -289,9 +289,9 @@ class ModelExtensionPaymentOpayo extends Model {
 			if ($response_data['Status'] == 'OK') {
 				$this->updateRecurringOrder($order_recurring_id, date_format($next_payment, 'Y-m-d H:i:s'));
 
-				$this->addRecurringTransaction($order_recurring_id, $response_data, 1);
+				$this->addTransaction($order_recurring_id, $response_data, 1);
 			} else {
-				$this->addRecurringTransaction($order_recurring_id, $response_data, 4);
+				$this->addTransaction($order_recurring_id, $response_data, 4);
 			}
 		} else {
 			if ($item['recurring_trial'] == 1) {
@@ -358,9 +358,9 @@ class ModelExtensionPaymentOpayo extends Model {
 			if ($response_data['Status'] == 'OK') {
 				$this->updateRecurringOrder($order_recurring_id, date_format($next_payment, 'Y-m-d H:i:s'));
 
-				$this->addRecurringTransaction($order_recurring_id, $response_data, 1);
+				$this->addTransaction($order_recurring_id, $response_data, 1);
 			} else {
-				$this->addRecurringTransaction($order_recurring_id, $response_data, 4);
+				$this->addTransaction($order_recurring_id, $response_data, 4);
 			}
 		}
 	}
@@ -417,11 +417,11 @@ class ModelExtensionPaymentOpayo extends Model {
 			$cron_data[] = $response_data;
 
 			if ($response_data['RepeatResponseData_' . $i++]['Status'] == 'OK') {
-				$this->addRecurringTransaction($recurring['order_recurring_id'], $response_data, 1);
+				$this->addTransaction($recurring['order_recurring_id'], $response_data, 1);
 
 				$this->updateRecurringOrder($recurring['order_recurring_id'], date_format($next_payment, 'Y-m-d H:i:s'));
 			} else {
-				$this->addRecurringTransaction($recurring['order_recurring_id'], $response_data, 4);
+				$this->addTransaction($recurring['order_recurring_id'], $response_data, 4);
 			}
 		}
 
@@ -634,7 +634,7 @@ class ModelExtensionPaymentOpayo extends Model {
 	 *
 	 * @return void
 	 */
-	private function addRecurringTransaction(int $order_recurring_id, array $response_data, int $type): void {
+	private function addTransaction(int $order_recurring_id, array $response_data, int $type): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "order_recurring_transaction` SET `order_recurring_id` = '" . (int)$order_recurring_id . "', `date_added` = NOW(), `amount` = '" . (float)$response_data['Amount'] . "', `type` = '" . (int)$type . "', `reference` = '" . $this->db->escape($response_data['VendorTxCode']) . "'");
 	}
 
