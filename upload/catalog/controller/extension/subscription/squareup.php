@@ -121,14 +121,14 @@ class ControllerExtensionSubscriptionSquareup extends Controller {
 		foreach ($this->model_extension_payment_squareup->nextPayments() as $payment) {
 			try {
 				if (!$payment['is_free']) {
-					$transaction = $this->squareup->addRecurringTransaction($payment['transaction']);
+					$transaction = $this->squareup->addTransaction($payment['transaction']);
 
 					$transaction_status = !empty($transaction['tenders'][0]['card_details']['status']) ? strtolower($transaction['tenders'][0]['card_details']['status']) : '';
 					$target_currency = $transaction['tenders'][0]['amount_money']['currency'];
 
 					$amount = $this->squareup->standardDenomination($transaction['tenders'][0]['amount_money']['amount'], $target_currency);
 
-					$this->model_extension_payment_squareup->addTransaction($transaction, $this->config->get('payment_squareup_merchant_id'), $payment['billing_address'], $payment['order_id'], 'CRON JOB', '127.0.0.1');
+					$this->model_extension_payment_squareup->addRecurringTransaction($transaction, $this->config->get('payment_squareup_merchant_id'), $payment['billing_address'], $payment['order_id'], 'CRON JOB', '127.0.0.1');
 
 					$reference = $transaction['id'];
 				} else {
@@ -163,7 +163,7 @@ class ControllerExtensionSubscriptionSquareup extends Controller {
 				}
 
 				if (isset($transaction)) {
-					$this->model_extension_payment_squareup->addTransaction($payment['subscription_id'], $response_data, $transaction, $success);
+					$this->model_extension_payment_squareup->addRecurringTransaction($payment['subscription_id'], $response_data, $transaction, $success);
 
 					$order_status_id = $this->config->get('payment_squareup_status_' . $transaction_status);
 

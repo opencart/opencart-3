@@ -310,9 +310,9 @@ class ModelExtensionPaymentSagePayServer extends Model {
 				if ($response_data['Status'] == 'OK') {
 					$this->updateRecurringOrder($subscription_info['subscription_id'], date_format($next_payment, 'Y-m-d H:i:s'));
 
-					$this->addTransaction($subscription_info['subscription_id'], $response_data, $transaction, 1);
+					$this->addRecurringTransaction($subscription_info['subscription_id'], $response_data, $transaction, 1);
 				} else {
-					$this->addTransaction($subscription_info['subscription_id'], $response_data, $transaction, 4);
+					$this->addRecurringTransaction($subscription_info['subscription_id'], $response_data, $transaction, 4);
 				}
 			}
 		}
@@ -515,7 +515,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
 		return $query->row;
 	}
 
-	private function addTransaction($subscription_id, $response_data, $transaction, $type): void {
+	private function addRecurringTransaction($subscription_id, $response_data, $transaction, $type): void {
 		// Subscriptions
 		$this->load->model('account/subscription');
 
