@@ -153,7 +153,7 @@ class Googleshopping extends Library {
 		$result = $countries[$code];
 
 		// Override with store value, if present
-		foreach ($this->model_localisation_country->getCountries() as $store_country) {
+		foreach ($this->registry->get('load')->model_localisation_country->getCountries() as $store_country) {
 			if ($this->compareTrimmedLowercase($store_country['iso_code_2'], $code) === 0) {
 				$result = $store_country['name'];
 				break;
@@ -1875,9 +1875,9 @@ class Googleshopping extends Library {
 	/**
 	 * getAccessToken
 	 *
-	 * @return void
+	 * @return mixed
 	 */
-	public function getAccessToken(): void {
+	public function getAccessToken() {
 		$request = [
 			'type'             => 'POST',
 			'endpoint'         => self::ENDPOINT_ACCESS_TOKEN,
