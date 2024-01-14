@@ -8,14 +8,12 @@ class ModelExtensionPaymentDivido extends Model {
 	public const CACHE_KEY_PLANS = 'divido_plans';
 
 	/**
-	 * setMerchant
+	 * setMerchant (Deprecated)
 	 *
 	 * @param mixed $api_key
 	 */
 	public function setMerchant($api_key): void {
-		if ($api_key) {
-			Divido::setMerchant($api_key);
-		}
+		
 	}
 
 	/**
@@ -170,8 +168,6 @@ class ModelExtensionPaymentDivido extends Model {
 		if (!$api_key) {
 			throw new \Exception('No Divido api-key defined');
 		}
-
-		Divido::setMerchant($api_key);
 
 		$response = Divido_Finances::all();
 
