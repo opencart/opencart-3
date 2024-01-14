@@ -146,7 +146,7 @@ class ControllerApiShipping extends Controller {
 					if (isset($this->session->data['shipping_method'])) {
 						unset($this->session->data['shipping_method']);
 					}
-					
+
 					if (isset($this->session->data['shipping_methods'])) {
 						unset($this->session->data['shipping_methods']);
 					}
@@ -252,7 +252,7 @@ class ControllerApiShipping extends Controller {
 				if (isset($this->session->data['shipping_method'])) {
 					unset($this->session->data['shipping_method']);
 				}
-				
+
 				unset($this->session->data['shipping_methods']);
 			}
 		}

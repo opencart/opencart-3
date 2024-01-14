@@ -397,9 +397,9 @@ class ControllerCheckoutConfirm extends Controller {
 					$duration = $product['subscription']['duration'];
 
 					if ($duration) {
-						$description .= sprintf($this->language->get('text_subscription_duration'), $price ? $price : '', $cycle, $frequency, $duration);
+						$description .= sprintf($this->language->get('text_subscription_duration'), $price ?: '', $cycle, $frequency, $duration);
 					} else {
-						$description .= sprintf($this->language->get('text_subscription_cancel'), $price ? $price : '', $cycle, $frequency);
+						$description .= sprintf($this->language->get('text_subscription_cancel'), $price ?: '', $cycle, $frequency);
 					}
 				}
 

@@ -151,7 +151,7 @@ class ModelExtensionPaymentAlipay extends Model {
 		$api_params = $this->api_params;
 
 		$total_params = [];
-		
+
 		$total_params = array_merge($api_params, $sys_params);
 		$total_params['sign'] = $this->generateSign($total_params, $this->signtype);
 

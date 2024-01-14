@@ -10,7 +10,7 @@ class ModelExtensionTotalVoucher extends Model {
 	 *
 	 * @param int   $order_id
 	 * @param array $data
-	 * 
+	 *
 	 * @return int
 	 */
 	public function addVoucher(int $order_id, array $data): int {
@@ -23,7 +23,7 @@ class ModelExtensionTotalVoucher extends Model {
 	 * disableVoucher
 	 *
 	 * @param int $order_id
-	 * 
+	 *
 	 * @return void
 	 */
 	public function disableVoucher(int $order_id): void {
@@ -34,7 +34,7 @@ class ModelExtensionTotalVoucher extends Model {
 	 * getVoucher
 	 *
 	 * @param string $code
-	 * 
+	 *
 	 * @return array
 	 */
 	public function getVoucher(string $code): array {
@@ -103,7 +103,7 @@ class ModelExtensionTotalVoucher extends Model {
 	 * getTotal
 	 *
 	 * @param array $total
-	 * 
+	 *
 	 * @return void
 	 */
 	public function getTotal(array $total): void {
@@ -138,7 +138,7 @@ class ModelExtensionTotalVoucher extends Model {
 	 *
 	 * @param array $order_info
 	 * @param array $order_total
-	 * 
+	 *
 	 * @return int
 	 */
 	public function confirm(array $order_info, array $order_total): int {
@@ -168,7 +168,7 @@ class ModelExtensionTotalVoucher extends Model {
 	 * Unconfirm
 	 *
 	 * @param int $order_id
-	 * 
+	 *
 	 * @return void
 	 */
 	public function unconfirm(int $order_id): void {

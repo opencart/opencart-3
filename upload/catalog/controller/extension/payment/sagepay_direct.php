@@ -388,7 +388,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 
 		if (isset($this->session->data['order_id'])) {
 			$url = '';
-			
+
 			if ($this->config->get('payment_sagepay_direct_test') == 'live') {
 				$url = 'https://live.sagepay.com/gateway/service/direct3dcallback.vsp';
 			} elseif ($this->config->get('payment_sagepay_direct_test') == 'test') {

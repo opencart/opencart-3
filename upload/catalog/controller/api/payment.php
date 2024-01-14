@@ -145,7 +145,7 @@ class ControllerApiPayment extends Controller {
 				if (isset($this->session->data['payment_method'])) {
 					unset($this->session->data['payment_method']);
 				}
-				
+
 				if (isset($this->session->data['payment_methods'])) {
 					unset($this->session->data['payment_methods']);
 				}

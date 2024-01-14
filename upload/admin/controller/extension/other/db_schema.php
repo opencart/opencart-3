@@ -354,7 +354,7 @@ class ControllerExtensionOtherDbSchema extends Controller {
 								'name'          => $key_data['field'],
 								'previous_type' => $key_data['previous_type'],
 								'key'           => $key_data['key'],
-								'type'          => $val								
+								'type'          => $val
 							];
 						}
 					}

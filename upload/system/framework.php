@@ -1,11 +1,13 @@
 <?php
 /**
  * Loaded in an outside context
+ *
  * @var Autoloader $autoloader
  */
 
 /**
  * Used as a parameter from start()
+ *
  * @var string $application_config
  */
 

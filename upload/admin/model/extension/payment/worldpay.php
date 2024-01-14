@@ -133,10 +133,10 @@ class ModelExtensionPaymentWorldpay extends Model {
 
 	/**
 	 * getTransactions
-	 * 
+	 *
 	 * @param int    $worldpay_order_id
 	 * @param string $currency_code
-	 * 
+	 *
 	 * @return array
 	 */
 	private function getTransactions(int $worldpay_order_id, string $currency_code): array {

@@ -551,7 +551,7 @@ class ControllerExtensionPaymentOpayo extends Controller {
 
 		if (!empty($card['token'])) {
 			$url = '';
-			
+
 			if ($setting['general']['environment'] == 'live') {
 				$url = 'https://live.opayo.eu.elavon.com/gateway/service/removetoken.vsp';
 			} elseif ($setting['general']['environment'] == 'test') {

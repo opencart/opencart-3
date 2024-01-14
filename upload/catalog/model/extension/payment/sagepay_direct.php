@@ -367,7 +367,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 		}
 
 		$response_data = $this->sendCurl($url, $payment_data, $i);
-		
+
 		$response_data['VendorTxCode'] = $payment_data['VendorTxCode'];
 		$response_data['Amount'] = $payment_data['Amount'];
 		$response_data['Currency'] = $payment_data['Currency'];

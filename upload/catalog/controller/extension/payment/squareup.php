@@ -274,7 +274,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 									'duration'             => $item['subscription']['duration'],
 									'remaining'            => $item['subscription']['duration'],
 									'status'               => $item['subscription']['status'],
-									'date_next'            => isset($date_next) ? $date_next : ''
+									'date_next'            => $date_next ?? ''
 								];
 
 								$subscription_id = $this->model_extension_payment_squareup->createRecurring($this->session->data['order_id'], $subscription_data);
