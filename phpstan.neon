@@ -9,13 +9,11 @@ parameters:
 		- ./upload/
 	excludePaths:		
 		- ./admin/model/extension/payment/cardinity.php
-		- ./upload/admin/model/extension/payment/cardinity.php		
-		- ./catalog/controller/extension/advertise/
-		- ./upload/catalog/controller/extension/advertise/
+		- ./upload/admin/model/extension/payment/cardinity.php
 		- ./catalog/controller/extension/payment/wechat_pay.php
 		- ./upload/catalog/controller/extension/payment/wechat_pay.php
 		- ./catalog/model/extension/payment/cardinity.php
-		- ./upload/catalog/model/extension/payment/cardinity.php		
+		- ./upload/catalog/model/extension/payment/cardinity.php
 		- ./upload/system/storage/vendor/
 	tmpDir: .cache
 	ignoreErrors:
