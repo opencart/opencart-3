@@ -57,11 +57,11 @@ class Googleshopping extends Library {
 		$this->store_id = $store_id;
 
 		// Settings
-		$this->load->model('setting/setting');
+		$this->registry->get('load')->model('setting/setting');
 
 		if ($this->store_id === 0) {
 			$this->store_url = basename(DIR_TEMPLATE) == 'template' ? HTTPS_CATALOG : HTTPS_SERVER;
-			$this->store_name = $this->config->get('config_name');
+			$this->store_name = $this->registry->get('config')->get('config_name');
 		} else {
 			$this->store_url = $this->model_setting_setting->getSettingValue('config_ssl', $store_id);
 			$this->store_name = $this->model_setting_setting->getSettingValue('config_name', $store_id);
@@ -72,17 +72,6 @@ class Googleshopping extends Library {
 		$this->loadStore($this->store_id);
 
 		$this->debug_log = new \Log(sprintf(self::DEBUG_LOG_FILENAME, $this->store_id));
-	}
-
-	/**
-	 * __get
-	 * 
-	 * @property Registry $registry
-	 * 
-	 * @return object
-	 */
-	public function __get($name): object {
-		return $this->registry->get($name);
 	}
 
 	/**
@@ -112,7 +101,7 @@ class Googleshopping extends Library {
 	 */
 	public function getSupportedLanguageId(string $code): int {
 		// Languages
-		$this->load->model('localisation/language');
+		$this->registry->get('load')->model('localisation/language');
 
 		foreach ($this->model_localisation_language->getLanguages() as $language) {
 			$language_code = current(explode("-", $language['code']));
@@ -134,7 +123,7 @@ class Googleshopping extends Library {
 	 */
 	public function getSupportedCurrencyId(string $code): int {
 		// Currencies
-		$this->load->model('localisation/currency');
+		$this->registry->get('load')->model('localisation/currency');
 
 		foreach ($this->model_localisation_currency->getCurrencies() as $currency) {
 			if ($this->compareTrimmedLowercase($code, $currency['code']) === 0) {
@@ -153,12 +142,12 @@ class Googleshopping extends Library {
 	 * @return string
 	 */
 	public function getCountryName(string $code): string {
-		$this->load->config('googleshopping/googleshopping');
+		$this->registry->get('load')->config('googleshopping/googleshopping');
 
 		// Countries
-		$this->load->model('localisation/country');
+		$this->registry->get('load')->model('localisation/country');
 
-		$countries = $this->config->get('advertise_google_countries');
+		$countries = $this->registry->get('config')->get('advertise_google_countries');
 
 		// Default value
 		$result = $countries[$code];
@@ -196,7 +185,7 @@ class Googleshopping extends Library {
 	public function getTargets(int $store_id): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "googleshopping_target` WHERE `store_id` = '" . $store_id . "'";
 
-		return array_map([$this, 'target'], $this->db->query($sql)->rows);
+		return array_map([$this, 'target'], $this->registry->get('db')->query($sql)->rows);
 	}
 
 	/**
@@ -209,7 +198,7 @@ class Googleshopping extends Library {
 	public function getTarget($advertise_google_target_id): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "googleshopping_target` WHERE `advertise_google_target_id` = '" . (int)$advertise_google_target_id . "'";
 
-		return $this->target($this->db->query($sql)->row);
+		return $this->target($this->registry->get('db')->query($sql)->row);
 	}
 
 	/**
@@ -221,9 +210,7 @@ class Googleshopping extends Library {
 	 * @return mixed
 	 */
 	public function editTarget($target_id, array $target): array {
-		$sql = "UPDATE `" . DB_PREFIX . "googleshopping_target` SET `campaign_name` = '" . $this->db->escape($target['campaign_name']) . "', `country` = '" . $this->db->escape($target['country']) . "', `budget` = '" . (float)$target['budget'] . "', `feeds` = '" . $this->db->escape(json_encode($target['feeds'])) . "', `roas` = '" . (int)$target['roas'] . "', `status` = '" . $this->db->escape($target['status']) . "' WHERE `advertise_google_target_id` = '" . (int)$target_id . "'";
-
-		$this->db->query($sql);
+		$this->registry->get('db')->query("UPDATE `" . DB_PREFIX . "googleshopping_target` SET `campaign_name` = '" . $this->registry->get('db')->escape($target['campaign_name']) . "', `country` = '" . $this->registry->get('db')->escape($target['country']) . "', `budget` = '" . (float)$target['budget'] . "', `feeds` = '" . $this->registry->get('db')->escape(json_encode($target['feeds'])) . "', `roas` = '" . (int)$target['roas'] . "', `status` = '" . $this->registry->get('db')->escape($target['status']) . "' WHERE `advertise_google_target_id` = '" . (int)$target_id . "'");
 
 		return $target;
 	}
@@ -236,13 +223,8 @@ class Googleshopping extends Library {
 	 * @return void
 	 */
 	public function deleteTarget(int $target_id): void {
-		$sql = "DELETE FROM `" . DB_PREFIX . "googleshopping_target` WHERE `advertise_google_target_id` = '" . (int)$target_id . "'";
-
-		$this->db->query($sql);
-
-		$sql = "DELETE FROM `" . DB_PREFIX . "googleshopping_product_target` WHERE `advertise_google_target_id` = '" . (int)$target_id . "'";
-
-		$this->db->query($sql);
+		$this->registry->get('db')->query("DELETE FROM `" . DB_PREFIX . "googleshopping_target` WHERE `advertise_google_target_id` = '" . (int)$target_id . "'");
+		$this->registry->get('db')->query("DELETE FROM `" . DB_PREFIX . "googleshopping_product_target` WHERE `advertise_google_target_id` = '" . (int)$target_id . "'");
 	}
 
 	/**
@@ -322,16 +304,16 @@ class Googleshopping extends Library {
 	 * @return array
 	 */
 	public function getProductVariationIds(int $page): array {
-		$this->load->config('googleshopping/googleshopping');
+		$this->registry->get('load')->config('googleshopping/googleshopping');
 
 		$sql = "SELECT DISTINCT `pag`.`product_id`, `pag`.`color`, `pag`.`size` FROM `" . DB_PREFIX . "googleshopping_product` `pag` LEFT JOIN `" . DB_PREFIX . "product` `p` ON (`p`.`product_id` = `pag`.`product_id`) LEFT JOIN `" . DB_PREFIX . "product_to_store` `p2s` ON (`p2s`.`product_id` = `p`.`product_id` AND `p2s`.`store_id` = '" . (int)$this->store_id . "') WHERE `p2s`.`store_id` IS NOT NULL AND `p`.`status` = '1' AND `p`.`date_available` <= NOW() AND `p`.`price` > '0' ORDER BY `p`.`product_id` ASC LIMIT " . (int)(($page - 1) * $this->config->get('advertise_google_report_limit')) . ',' . (int)$this->config->get('advertise_google_report_limit');
 
 		$result = [];
 
 		// Languages
-		$this->load->model('localisation/language');
+		$this->registry->get('load')->model('localisation/language');
 
-		foreach ($this->db->query($sql)->rows as $row) {
+		foreach ($this->registry->get('db')->query($sql)->rows as $row) {
 			foreach ($this->model_localisation_language->getLanguages() as $language) {
 				$groups = $this->getGroups($row['product_id'], $language['language_id'], $row['color'], $row['size']);
 
@@ -367,7 +349,7 @@ class Googleshopping extends Library {
 		foreach ($data as $key => $value) {
 			if (isset($data['route'])) {
 				if (($data['route'] == 'product/product' && $key == 'product_id') || (($data['route'] == 'product/manufacturer/info' || $data['route'] == 'product/product') && $key == 'manufacturer_id') || ($data['route'] == 'information/information' && $key == 'information_id')) {
-					$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "seo_url` WHERE `query` = '" . $this->db->escape($key . '=' . (int)$value) . "' AND `store_id` = '" . (int)$this->config->get('config_store_id') . "' AND `language_id` = '" . (int)$this->config->get('config_language_id') . "'");
+					$query = $this->registry->get('db')->query("SELECT * FROM `" . DB_PREFIX . "seo_url` WHERE `query` = '" . $this->registry->get('db')->escape($key . '=' . (int)$value) . "' AND `store_id` = '" . (int)$this->registry->get('config')->get('config_store_id') . "' AND `language_id` = '" . (int)$this->registry->get('config')->get('config_language_id') . "'");
 
 					if ($query->num_rows && $query->row['keyword']) {
 						$url .= '/' . $query->row['keyword'];
@@ -378,7 +360,7 @@ class Googleshopping extends Library {
 					$categories = explode('_', $value);
 
 					foreach ($categories as $category) {
-						$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "seo_url` WHERE `query` = 'category_id=" . (int)$category . "' AND `store_id` = '" . (int)$this->config->get('config_store_id') . "' AND `language_id` = '" . (int)$this->config->get('config_language_id') . "'");
+						$query = $this->registry->get('db')->query("SELECT * FROM `" . DB_PREFIX . "seo_url` WHERE `query` = 'category_id=" . (int)$category . "' AND `store_id` = '" . (int)$this->config->get('config_store_id') . "' AND `language_id` = '" . (int)$this->config->get('config_language_id') . "'");
 
 						if ($query->num_rows && $query->row['keyword']) {
 							$url .= '/' . $query->row['keyword'];
@@ -424,7 +406,7 @@ class Googleshopping extends Library {
 	 * @return float
 	 */
 	protected function convertedTaxedPrice(?float $value, int $tax_class_id, string $currency): float {
-		return number_format($this->currency->convert($this->tax->calculate($value, $tax_class_id, $this->config->get('config_tax')), $this->config->get('config_currency'), $currency), 2, '.', '');
+		return number_format($this->registry->get('currency')->convert($this->tax->calculate($value, $tax_class_id, $this->registry->get('config')->get('config_tax')), $this->registry->get('config')->get('config_currency'), $currency), 2, '.', '');
 	}
 
 	/**
@@ -433,6 +415,8 @@ class Googleshopping extends Library {
 	 * @param int    $page
 	 * @param int    $language_id
 	 * @param string $currency
+	 * 
+	 * @Throws \RuntimeException|object
 	 * 
 	 * @return array
 	 */
@@ -443,7 +427,7 @@ class Googleshopping extends Library {
 
 		$this->setRuntimeExceptionErrorHandler();
 
-		foreach ($this->db->query($sql)->rows as $row) {
+		foreach ($this->registry->get('db')->query($sql)->rows as $row) {
 			try {
 				if (!empty($row['image']) && is_file(DIR_IMAGE . $row['image']) && is_readable(DIR_IMAGE . $row['image'])) {
 					$image = $this->resize($row['image'], 250, 250);
@@ -519,7 +503,7 @@ class Googleshopping extends Library {
 			$base_row = [
 				'adult'                   => !empty($row['adult']) ? 'yes' : 'no',
 				'age_group'               => !empty($row['age_group']) ? $row['age_group'] : '',
-				'availability'            => (int)$row['quantity'] > 0 && !$this->config->get('config_maintenance') ? 'in stock' : 'out of stock',
+				'availability'            => (int)$row['quantity'] > 0 && !$this->registry->get('config')->get('config_maintenance') ? 'in stock' : 'out of stock',
 				'brand'                   => $this->sanitizeText($row['brand'], 70),
 				'color'                   => '',
 				'condition'               => !empty($row['condition']) ? $row['condition'] : '',
@@ -642,11 +626,11 @@ class Googleshopping extends Library {
 	 */
 	public function applyFilter(&$sql, &$data): void {
 		if (!empty($data['filter_product_name'])) {
-			$sql .= " AND `pd`.`name` LIKE '" . $this->db->escape($data['filter_product_name']) . "%'";
+			$sql .= " AND `pd`.`name` LIKE '" . $this->registry->get('db')->escape($data['filter_product_name']) . "%'";
 		}
 
 		if (!empty($data['filter_product_model'])) {
-			$sql .= " AND `p`.`model` LIKE '" . $this->db->escape($data['filter_product_model']) . "%'";
+			$sql .= " AND `p`.`model` LIKE '" . $this->registry->get('db')->escape($data['filter_product_model']) . "%'";
 		}
 
 		if (!empty($data['filter_category_id'])) {
@@ -671,7 +655,7 @@ class Googleshopping extends Library {
 	 * @return array
 	 */
 	public function getProducts(array $data, int $store_id): array {
-		$sql = "SELECT `pag`.*, `p`.`product_id`, `p`.`image`, `pd`.`name`, `p`.`model` FROM `" . DB_PREFIX . "product` `p` LEFT JOIN `" . DB_PREFIX . "product_description` `pd` ON (`p`.`product_id` = `pd`.`product_id`) LEFT JOIN `" . DB_PREFIX . "googleshopping_product` `pag` ON (`pag`.`product_id` = `p`.`product_id` AND `pag`.`store_id` = '" . (int)$store_id . "') WHERE `pag`.`store_id` IS NOT NULL AND `pd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
+		$sql = "SELECT `pag`.*, `p`.`product_id`, `p`.`image`, `pd`.`name`, `p`.`model` FROM `" . DB_PREFIX . "product` `p` LEFT JOIN `" . DB_PREFIX . "product_description` `pd` ON (`p`.`product_id` = `pd`.`product_id`) LEFT JOIN `" . DB_PREFIX . "googleshopping_product` `pag` ON (`pag`.`product_id` = `p`.`product_id` AND `pag`.`store_id` = '" . (int)$store_id . "') WHERE `pag`.`store_id` IS NOT NULL AND `pd`.`language_id` = '" . (int)$this->registry->get('config')->get('config_language_id') . "'";
 
 		$this->applyFilter($sql, $data);
 
@@ -713,7 +697,7 @@ class Googleshopping extends Library {
 			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
 		}
 
-		$query = $this->db->query($sql);
+		$query = $this->registry->get('db')->query($sql);
 
 		return $query->rows;
 	}
@@ -731,7 +715,7 @@ class Googleshopping extends Library {
 
 		$this->applyFilter($sql, $data);
 
-		$query = $this->db->query($sql);
+		$query = $this->registry->get('db')->query($sql);
 
 		return (int)$query->row['total'];
 	}
@@ -748,7 +732,7 @@ class Googleshopping extends Library {
 		$result = [];
 
 		// Languages
-		$this->load->model('localisation/language');
+		$this->registry->get('load')->model('localisation/language');
 
 		foreach ($this->getProducts($data, $store_id) as $row) {
 			$product_id = (int)$row['product_id'];
@@ -770,8 +754,8 @@ class Googleshopping extends Library {
 	 * @return void
 	 */
 	public function clearProductStatuses(array $product_ids, int $store_id): void {
-		$this->db->query("UPDATE `" . DB_PREFIX . "googleshopping_product_status` SET `destination_statuses` = '', `data_quality_issues` = '', `item_level_issues` = '', `google_expiration_date` = '0' WHERE `product_id` IN (" . $this->productIdsToIntegerExpression($product_ids) . ") AND `store_id` = '" . (int)$store_id . "'");
-		$this->db->query("UPDATE `" . DB_PREFIX . "googleshopping_product` SET `has_issues` = '0', `destination_status` = 'pending' WHERE `product_id` IN (" . $this->productIdsToIntegerExpression($product_ids) . ") AND `store_id` = '" . (int)$store_id . "'");
+		$this->registry->get('db')->query("UPDATE `" . DB_PREFIX . "googleshopping_product_status` SET `destination_statuses` = '', `data_quality_issues` = '', `item_level_issues` = '', `google_expiration_date` = '0' WHERE `product_id` IN (" . $this->productIdsToIntegerExpression($product_ids) . ") AND `store_id` = '" . (int)$store_id . "'");
+		$this->registry->get('db')->query("UPDATE `" . DB_PREFIX . "googleshopping_product` SET `has_issues` = '0', `destination_status` = 'pending' WHERE `product_id` IN (" . $this->productIdsToIntegerExpression($product_ids) . ") AND `store_id` = '" . (int)$store_id . "'");
 	}
 
 	/**
@@ -803,14 +787,14 @@ class Googleshopping extends Library {
 	/**
 	 * Cron
 	 *
-	 * @throws \Exception
+	 * @throws \RuntimeException $e
 	 * 
 	 * @return void
 	 */
 	public function cron(): void {
 		$this->enableErrorReporting();
 
-		$this->load->config('googleshopping/googleshopping');
+		$this->registry->get('load')->config('googleshopping/googleshopping');
 
 		$report = [];
 
@@ -824,10 +808,10 @@ class Googleshopping extends Library {
 			$report[] = $this->output($e->getMessage());
 		}
 
-		$default_config_tax = $this->config->get('config_tax');
-		$default_config_store_id = $this->config->get('config_store_id');
-		$default_config_language_id = $this->config->get('config_language_id');
-		$default_config_seo_url = $this->config->get('config_seo_url');
+		$default_config_tax = $this->registry->get('config')->get('config_tax');
+		$default_config_store_id = $this->registry->get('config')->get('config_store_id');
+		$default_config_language_id = $this->registry->get('config')->get('config_language_id');
+		$default_config_seo_url = $this->registry->get('config')->get('config_seo_url');
 
 		// Do product feed uploads
 		foreach ($this->getJobs() as $job) {
@@ -837,22 +821,22 @@ class Googleshopping extends Library {
 				// Set the tax context for the job
 				if (in_array('US', $job['countries'])) {
 					// In case the feed is for the US, disable taxes because they are already configured on the merchant level by the extension
-					$this->config->set('config_tax', 0);
+					$this->registry->get('config')->set('config_tax', 0);
 				}
 
 				// Set the store and language context for the job
-				$this->config->set('config_store_id', $this->store_id);
-				$this->config->set('config_language_id', $job['language_id']);
-				$this->config->set('config_seo_url', $this->model_setting_setting->getSettingValue('config_seo_url', $this->store_id));
+				$this->registry->get('config')->set('config_store_id', $this->store_id);
+				$this->registry->get('config')->set('config_language_id', $job['language_id']);
+				$this->registry->get('config')->set('config_seo_url', $this->model_setting_setting->getSettingValue('config_seo_url', $this->store_id));
 
 				// Do the CRON job
 				$count = $this->doJob($job);
 
 				// Reset the taxes, store, and language to their original state
-				$this->config->set('config_tax', $default_config_tax);
-				$this->config->set('config_store_id', $default_config_store_id);
-				$this->config->set('config_language_id', $default_config_language_id);
-				$this->config->set('config_seo_url', $default_config_seo_url);
+				$this->registry->get('config')->set('config_tax', $default_config_tax);
+				$this->registry->get('config')->set('config_store_id', $default_config_store_id);
+				$this->registry->get('config')->set('config_language_id', $default_config_language_id);
+				$this->registry->get('config')->set('config_seo_url', $default_config_seo_url);
 
 				$report[] = $this->output("Uploaded count: " . $count);
 			} catch (\RuntimeException $e) {
@@ -861,10 +845,10 @@ class Googleshopping extends Library {
 		}
 
 		// Reset the taxes, store, and language to their original state
-		$this->config->set('config_tax', $default_config_tax);
-		$this->config->set('config_store_id', $default_config_store_id);
-		$this->config->set('config_language_id', $default_config_language_id);
-		$this->config->set('config_seo_url', $default_config_seo_url);
+		$this->registry->get('config')->set('config_tax', $default_config_tax);
+		$this->registry->get('config')->set('config_store_id', $default_config_store_id);
+		$this->registry->get('config')->set('config_language_id', $default_config_language_id);
+		$this->registry->get('config')->set('config_seo_url', $default_config_seo_url);
 
 		// Pull product reports
 		$report[] = $this->output("Fetching product reports.");
@@ -877,7 +861,7 @@ class Googleshopping extends Library {
 			$this->clearReports();
 
 			while (null !== $product_variation_ids = $this->getProductVariationIds(++$page)) {
-				foreach (array_chunk($product_variation_ids, (int)$this->config->get('advertise_google_report_limit')) as $chunk) {
+				foreach (array_chunk($product_variation_ids, (int)$this->registry->get('config')->get('advertise_google_report_limit')) as $chunk) {
 					$product_reports = $this->getProductReports($chunk);
 
 					if (!empty($product_reports)) {
@@ -900,8 +884,8 @@ class Googleshopping extends Library {
 
 		do {
 			$filter_data = [
-				'start' => ($page - 1) * $this->config->get('advertise_google_product_status_limit'),
-				'limit' => $this->config->get('advertise_google_product_status_limit')
+				'start' => ($page - 1) * $this->registry->get('config')->get('advertise_google_product_status_limit'),
+				'limit' => $this->registry->get('config')->get('advertise_google_product_status_limit')
 			];
 
 			$page++;
@@ -915,7 +899,7 @@ class Googleshopping extends Library {
 
 					$this->clearProductStatuses($product_ids, $this->store_id);
 
-					foreach (array_chunk($product_variation_target_specific_ids, (int)$this->config->get('advertise_google_product_status_limit')) as $chunk) {
+					foreach (array_chunk($product_variation_target_specific_ids, (int)$this->registry->get('config')->get('advertise_google_product_status_limit')) as $chunk) {
 						$product_statuses = $this->getProductStatuses($chunk);
 
 						if (!empty($product_statuses)) {
@@ -930,7 +914,6 @@ class Googleshopping extends Library {
 		} while (!empty($product_variation_target_specific_ids));
 
 		$report[] = $this->output("Fetched status count: " . $status_count);
-
 		$report[] = $this->output("CRON finished!");
 
 		$this->applyNewSetting('advertise_google_cron_last_executed', time());
@@ -1004,7 +987,7 @@ class Googleshopping extends Library {
 			$values[] = '(' . implode(',', $entry) . ')';
 		}
 
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "googleshopping_product` (`product_id`, `store_id`, `impressions`, `clicks`, `conversions`, `cost`, `conversion_value`) VALUES " . implode(',', $values) . " ON DUPLICATE KEY UPDATE `impressions` = `impressions` + VALUES(`impressions`), `clicks` = `clicks` + VALUES(`clicks`), `conversions` = `conversions` + VALUES(`conversions`), `cost` = `cost` + VALUES(`cost`), `conversion_value` = `conversion_value` + VALUES(`conversion_value`)");
+		$this->registry->get('db')->query("INSERT INTO `" . DB_PREFIX . "googleshopping_product` (`product_id`, `store_id`, `impressions`, `clicks`, `conversions`, `cost`, `conversion_value`) VALUES " . implode(',', $values) . " ON DUPLICATE KEY UPDATE `impressions` = `impressions` + VALUES(`impressions`), `clicks` = `clicks` + VALUES(`clicks`), `conversions` = `conversions` + VALUES(`conversions`), `cost` = `cost` + VALUES(`cost`), `conversion_value` = `conversion_value` + VALUES(`conversion_value`)");
 	}
 
 	/**
@@ -1059,7 +1042,7 @@ class Googleshopping extends Library {
 
 				$entry_statuses[$product_variation_id]['product_id'] = (int)$product_id;
 				$entry_statuses[$product_variation_id]['store_id'] = (int)$this->store_id;
-				$entry_statuses[$product_variation_id]['product_variation_id'] = "'" . $this->db->escape($product_variation_id) . "'";
+				$entry_statuses[$product_variation_id]['product_variation_id'] = "'" . $this->registry->get('db')->escape($product_variation_id) . "'";
 				$entry_statuses[$product_variation_id]['destination_statuses'] = [];
 				$entry_statuses[$product_variation_id]['data_quality_issues'] = [];
 				$entry_statuses[$product_variation_id]['item_level_issues'] = [];
@@ -1072,17 +1055,17 @@ class Googleshopping extends Library {
 		}
 
 		foreach ($entry_statuses as &$entry_status) {
-			$entry_status['destination_statuses'] = "'" . $this->db->escape(json_encode($entry_status['destination_statuses'])) . "'";
-			$entry_status['data_quality_issues'] = "'" . $this->db->escape(json_encode($entry_status['data_quality_issues'])) . "'";
-			$entry_status['item_level_issues'] = "'" . $this->db->escape(json_encode($entry_status['item_level_issues'])) . "'";
+			$entry_status['destination_statuses'] = "'" . $this->registry->get('db')->escape(json_encode($entry_status['destination_statuses'])) . "'";
+			$entry_status['data_quality_issues'] = "'" . $this->registry->get('db')->escape(json_encode($entry_status['data_quality_issues'])) . "'";
+			$entry_status['item_level_issues'] = "'" . $this->registry->get('db')->escape(json_encode($entry_status['item_level_issues'])) . "'";
 
 			$product_advertise_google_status[] = "(" . implode(",", $entry_status) . ")";
 		}
 
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "googleshopping_product_status` (`product_id`, `store_id`, `product_variation_id`, `destination_statuses`, `data_quality_issues`, `item_level_issues`, `google_expiration_date`) VALUES " . implode(',', $product_advertise_google_status) . " ON DUPLICATE KEY UPDATE `destination_statuses`=VALUES(`destination_statuses`), `data_quality_issues`=VALUES(`data_quality_issues`), `item_level_issues`=VALUES(`item_level_issues`), `google_expiration_date`=VALUES(`google_expiration_date`)");
+		$this->registry->get('db')->query("INSERT INTO `" . DB_PREFIX . "googleshopping_product_status` (`product_id`, `store_id`, `product_variation_id`, `destination_statuses`, `data_quality_issues`, `item_level_issues`, `google_expiration_date`) VALUES " . implode(',', $product_advertise_google_status) . " ON DUPLICATE KEY UPDATE `destination_statuses`=VALUES(`destination_statuses`), `data_quality_issues`=VALUES(`data_quality_issues`), `item_level_issues`=VALUES(`item_level_issues`), `google_expiration_date`=VALUES(`google_expiration_date`)");
 
 		foreach ($product_level_entries as $entry) {
-			$entry['destination_status'] = "'" . $this->db->escape($entry['destination_status']) . "'";
+			$entry['destination_status'] = "'" . $this->registry->get('db')->escape($entry['destination_status']) . "'";
 
 			$product_advertise_google[] = '(' . implode(',', $entry) . ')';
 		}
@@ -1162,7 +1145,7 @@ class Googleshopping extends Library {
 	 * @return void
 	 */
 	protected function clearReports(): void {
-		$this->db->query("UPDATE `" . DB_PREFIX . "googleshopping_product` SET `impressions` = '0', `clicks` = '0', `conversions` = '0', `cost` = '0.0000', `conversion_value` = '0.0000' WHERE `store_id` = '" . (int)$this->store_id . "'");
+		$this->registry->get('db')->query("UPDATE `" . DB_PREFIX . "googleshopping_product` SET `impressions` = '0', `clicks` = '0', `conversions` = '0', `cost` = '0.0000', `conversion_value` = '0.0000' WHERE `store_id` = '" . (int)$this->store_id . "'");
 	}
 
 	/**
@@ -1174,7 +1157,7 @@ class Googleshopping extends Library {
 		$jobs = [];
 
 		if ($this->setting->has('advertise_google_work') && is_array($this->setting->get('advertise_google_work'))) {
-			$this->load->model('extension/advertise/google');
+			$this->registry->get('load')->model('extension/advertise/google');
 
 			foreach ($this->setting->get('advertise_google_work') as $work) {
 				$supported_language_id = $this->getSupportedLanguageId($work['language']);
@@ -1229,26 +1212,26 @@ class Googleshopping extends Library {
 			return; // Do nothing
 		}
 
-		$this->load->language('extension/advertise/google');
+		$this->registry->get('load')->language('extension/advertise/google');
 
-		if ($this->config->get('config_mail_engine')) {
-			$subject = $this->language->get('text_cron_email_subject');
-			$message = sprintf($this->language->get('text_cron_email_message'), implode('<br/>', $report));
+		if ($this->registry->get('config')->get('config_mail_engine')) {
+			$subject = $this->registry->get('language')->get('text_cron_email_subject');
+			$message = sprintf($this->registry->get('language')->get('text_cron_email_message'), implode('<br/>', $report));
 
-			$mail = new \Mail($this->config->get('config_mail_engine'));
+			$mail = new \Mail($this->registry->get('config')->get('config_mail_engine'));
 
-			$mail->protocol = $this->config->get('config_mail_protocol');
-			$mail->parameter = $this->config->get('config_mail_parameter');
+			$mail->protocol = $this->registry->get('config')->get('config_mail_protocol');
+			$mail->parameter = $this->registry->get('config')->get('config_mail_parameter');
 
-			$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
-			$mail->smtp_username = $this->config->get('config_mail_smtp_username');
-			$mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, "UTF-8");
-			$mail->smtp_port = $this->config->get('config_mail_smtp_port');
-			$mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+			$mail->smtp_hostname = $this->registry->get('config')->get('config_mail_smtp_hostname');
+			$mail->smtp_username = $this->registry->get('config')->get('config_mail_smtp_username');
+			$mail->smtp_password = html_entity_decode($this->registry->get('config')->get('config_mail_smtp_password'), ENT_QUOTES, "UTF-8");
+			$mail->smtp_port = $this->registry->get('config')->get('config_mail_smtp_port');
+			$mail->smtp_timeout = $this->registry->get('config')->get('config_mail_smtp_timeout');
 
 			$mail->setTo($this->setting->get('advertise_google_cron_email'));
-			$mail->setFrom($this->config->get('config_email'));
-			$mail->setSender($this->config->get('config_name'));
+			$mail->setFrom($this->registry->get('config')->get('config_email'));
+			$mail->setSender($this->registry->get('config')->get('config_name'));
 			$mail->setSubject(html_entity_decode($subject, ENT_QUOTES, "UTF-8"));
 			$mail->setText(strip_tags($message));
 			$mail->setHtml($message);
@@ -1423,9 +1406,9 @@ class Googleshopping extends Library {
 	 * @return string
 	 */
 	protected function getFeedProductsQuery(int $page, int $language_id): string {
-		$this->load->config('googleshopping/googleshopping');
+		$this->registry->get('load')->config('googleshopping/googleshopping');
 
-		return "SELECT `p`.`product_id`, `pd`.`name`, `pd`.`description`, `p`.`image`, `p`.`quantity`, `p`.`price`, `p`.`mpn`, `p`.`ean`, `p`.`jan`, `p`.`isbn`, `p`.`upc`, `p`.`model`, `p`.`tax_class_id`, IFNULL((SELECT `m`.`name` FROM `" . DB_PREFIX . "manufacturer` `m` WHERE `m`.`manufacturer_id` = `p`.`manufacturer_id`), '') AS `brand`, (SELECT GROUP_CONCAT(`agt`.`campaign_name` SEPARATOR '<[S]>') FROM `" . DB_PREFIX . "googleshopping_product_target` `pagt` LEFT JOIN `" . DB_PREFIX . "googleshopping_target` `agt` ON (`agt`.`advertise_google_target_id` = `pagt`.`advertise_google_target_id`) WHERE `pagt`.`product_id` = `p`.`product_id` AND `pagt`.`store_id` = `p2s`.`store_id` GROUP BY `pagt`.`product_id`) AS `campaign_names`, (SELECT CONCAT_WS('<[S]>', `ps`.`price`, `ps`.`date_start`, `ps`.`date_end`) FROM `" . DB_PREFIX . "product_special` `ps` WHERE `ps`.`product_id` = `p`.`product_id` AND `ps`.`customer_group_id` = '" . (int)$this->config->get('config_customer_group_id') . "' AND ((`ps`.`date_start` = '0000-00-00' OR `ps`.`date_start` < NOW()) AND (`ps`.`date_end` = '0000-00-00' OR `ps`.`date_end` > NOW())) ORDER BY `ps`.`priority` ASC, `ps`.`price` ASC LIMIT 1) AS `special_price`, `pag`.`google_product_category`, `pag`.`condition`, `pag`.`adult`, `pag`.`multipack`, `pag`.`is_bundle`, `pag`.`age_group`, `pag`.`color`, `pag`.`gender`, `pag`.`size_type`, `pag`.`size_system`, `pag`.`size` FROM `" . DB_PREFIX . "product` `p` LEFT JOIN `" . DB_PREFIX . "product_to_store` `p2s` ON (`p2s`.`product_id` = `p`.`product_id` AND `p2s`.`store_id` = '" . (int)$this->store_id . "') LEFT JOIN `" . DB_PREFIX . "product_description` `pd` ON (`pd`.`product_id` = `p`.`product_id`) LEFT JOIN `" . DB_PREFIX . "googleshopping_product` `pag` ON (`pag`.`product_id` = `p`.`product_id` AND `pag`.`store_id` = `p2s`.`store_id`) WHERE `p2s`.`store_id` IS NOT NULL AND `pd`.`language_id` = '" . (int)$language_id . "' AND `pd`.`name` != '' AND `pd`.`description` != '' AND `pd`.`name` IS NOT NULL AND `pd`.`description` IS NOT NULL AND `p`.`image` != '' AND `p`.`status` = '1' AND `p`.`date_available` <= NOW() AND `p`.`price` > '0' ORDER BY `p`.`product_id` ASC LIMIT " . (int)(($page - 1) * $this->config->get('advertise_google_push_limit')) . ',' . (int)$this->config->get('advertise_google_push_limit');
+		return "SELECT `p`.`product_id`, `pd`.`name`, `pd`.`description`, `p`.`image`, `p`.`quantity`, `p`.`price`, `p`.`mpn`, `p`.`ean`, `p`.`jan`, `p`.`isbn`, `p`.`upc`, `p`.`model`, `p`.`tax_class_id`, IFNULL((SELECT `m`.`name` FROM `" . DB_PREFIX . "manufacturer` `m` WHERE `m`.`manufacturer_id` = `p`.`manufacturer_id`), '') AS `brand`, (SELECT GROUP_CONCAT(`agt`.`campaign_name` SEPARATOR '<[S]>') FROM `" . DB_PREFIX . "googleshopping_product_target` `pagt` LEFT JOIN `" . DB_PREFIX . "googleshopping_target` `agt` ON (`agt`.`advertise_google_target_id` = `pagt`.`advertise_google_target_id`) WHERE `pagt`.`product_id` = `p`.`product_id` AND `pagt`.`store_id` = `p2s`.`store_id` GROUP BY `pagt`.`product_id`) AS `campaign_names`, (SELECT CONCAT_WS('<[S]>', `ps`.`price`, `ps`.`date_start`, `ps`.`date_end`) FROM `" . DB_PREFIX . "product_special` `ps` WHERE `ps`.`product_id` = `p`.`product_id` AND `ps`.`customer_group_id` = '" . (int)$this->registry->get('config')->get('config_customer_group_id') . "' AND ((`ps`.`date_start` = '0000-00-00' OR `ps`.`date_start` < NOW()) AND (`ps`.`date_end` = '0000-00-00' OR `ps`.`date_end` > NOW())) ORDER BY `ps`.`priority` ASC, `ps`.`price` ASC LIMIT 1) AS `special_price`, `pag`.`google_product_category`, `pag`.`condition`, `pag`.`adult`, `pag`.`multipack`, `pag`.`is_bundle`, `pag`.`age_group`, `pag`.`color`, `pag`.`gender`, `pag`.`size_type`, `pag`.`size_system`, `pag`.`size` FROM `" . DB_PREFIX . "product` `p` LEFT JOIN `" . DB_PREFIX . "product_to_store` `p2s` ON (`p2s`.`product_id` = `p`.`product_id` AND `p2s`.`store_id` = '" . (int)$this->store_id . "') LEFT JOIN `" . DB_PREFIX . "product_description` `pd` ON (`pd`.`product_id` = `p`.`product_id`) LEFT JOIN `" . DB_PREFIX . "googleshopping_product` `pag` ON (`pag`.`product_id` = `p`.`product_id` AND `pag`.`store_id` = `p2s`.`store_id`) WHERE `p2s`.`store_id` IS NOT NULL AND `pd`.`language_id` = '" . (int)$language_id . "' AND `pd`.`name` != '' AND `pd`.`description` != '' AND `pd`.`name` IS NOT NULL AND `pd`.`description` IS NOT NULL AND `p`.`image` != '' AND `p`.`status` = '1' AND `p`.`date_available` <= NOW() AND `p`.`price` > '0' ORDER BY `p`.`product_id` ASC LIMIT " . (int)(($page - 1) * $this->registry->get('config')->get('advertise_google_push_limit')) . ',' . (int)$this->registry->get('config')->get('advertise_google_push_limit');
 	}
 
 	/**
@@ -1497,7 +1480,7 @@ class Googleshopping extends Library {
 	 */
 	public function convertAndFormat(?float $price, string $currency): float {
 		$currency_converter = new \Cart\Currency($this->registry);
-		$converted_price = $currency_converter->convert((float)$price, $this->config->get('config_currency'), $currency);
+		$converted_price = $currency_converter->convert((float)$price, $this->registry->get('config')->get('config_currency'), $currency);
 
 		return (float)number_format($converted_price, 2, '.', '');
 	}
@@ -1593,7 +1576,7 @@ class Googleshopping extends Library {
 
 		$targets[] = 'Total';
 
-		$cache = new \Cache($this->config->get('cache_engine'), self::CACHE_CAMPAIGN_REPORT);
+		$cache = new \Cache($this->registry->get('config')->get('cache_engine'), self::CACHE_CAMPAIGN_REPORT);
 
 		$cache_key = 'advertise_google.' . $this->store_id . '.campaign_reports.' . md5(json_encode(array_keys($statuses)) . $this->setting->get('advertise_google_reporting_interval'));
 
@@ -1716,7 +1699,7 @@ class Googleshopping extends Library {
 	 * @return array
 	 */
 	public function getProductReports(array $product_ids): array {
-		$cache = new \Cache($this->config->get('cache_engine'), self::CACHE_PRODUCT_REPORT);
+		$cache = new \Cache($this->registry->get('config')->get('cache_engine'), self::CACHE_PRODUCT_REPORT);
 		$cache_key = 'advertise_google.' . $this->store_id . '.product_reports.' . md5(json_encode($product_ids) . $this->setting->get('advertise_google_reporting_interval'));
 
 		$cache_result = $cache->get($cache_key);
@@ -2175,7 +2158,7 @@ class Googleshopping extends Library {
 
 		$this->load->config('googleshopping/googleshopping');
 
-		foreach ((array)$this->config->get('advertise_google_languages') as $code => $name) {
+		foreach ((array)$this->registry->get('config')->get('advertise_google_languages') as $code => $name) {
 			if (in_array($code, (array)$language_codes)) {
 				$supported_language_id = $this->getSupportedLanguageId($code);
 
@@ -2201,7 +2184,7 @@ class Googleshopping extends Library {
 	 */
 	public function getLanguageName(int $language_id, string $default): string {
 		// Languages
-		$this->load->model('localisation/language');
+		$this->registry->get('load')->model('localisation/language');
 
 		$language_info = $this->model_localisation_language->getLanguage($language_id);
 
@@ -2223,9 +2206,9 @@ class Googleshopping extends Library {
 	public function getCurrencies(array $currency_codes): array {
 		$result = [];
 
-		$this->load->config('googleshopping/googleshopping');
+		$this->registry->get('load')->config('googleshopping/googleshopping');
 
-		foreach ((array)$this->config->get('advertise_google_currencies') as $code => $name) {
+		foreach ((array)$this->registry->get('config')->get('advertise_google_currencies') as $code => $name) {
 			if (in_array($code, (array)$currency_codes)) {
 				$supported_currency_id = $this->getSupportedCurrencyId($code);
 
@@ -2250,7 +2233,7 @@ class Googleshopping extends Library {
 	 */
 	public function getCurrencyName(int $currency_id, string $default): string {
 		// Google
-		$this->load->model('extension/advertise/google');
+		$this->registry->get('load')->model('extension/advertise/google');
 
 		$currency_info = $this->getCurrency($currency_id);
 
@@ -2270,7 +2253,7 @@ class Googleshopping extends Library {
 	 * @return array
 	 */
 	public function getCurrency(int $currency_id): array {
-		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "currency` WHERE `currency_id` = '" . (int)$currency_id . "'");
+		$query = $this->registry->get('db')->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "currency` WHERE `currency_id` = '" . (int)$currency_id . "'");
 
 		return $query->row;
 	}
@@ -2318,7 +2301,7 @@ class Googleshopping extends Library {
 				'name' => $this->getCountryName($target['country'])
 			],
 			'budget' => [
-				'formatted' => sprintf($this->language->get('text_per_day'), number_format((float)$target['budget'], 2)),
+				'formatted' => sprintf($this->registry->get('language')->get('text_per_day'), number_format((float)$target['budget'], 2)),
 				'value'     => (float)$target['budget']
 			],
 			'feeds'             => $feeds,
@@ -2404,7 +2387,7 @@ class Googleshopping extends Library {
 	 * @return void
 	 */
 	private function applyNewSetting(string $key, array $value): void {
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `code` = 'advertise_google' AND `key` = '" . $this->db->escape($key) . "'");
+		$query = $this->registry->get('db')->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `code` = 'advertise_google' AND `key` = '" . $this->registry->get('db')->escape($key) . "'");
 
 		if (is_array($value)) {
 			$encoded = json_encode($value);
@@ -2415,11 +2398,11 @@ class Googleshopping extends Library {
 		}
 
 		if (!$query->num_rows) {
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `value` = '" . $this->db->escape($encoded) . "', `code` = 'advertise_google', `key` = '" . $this->db->escape($key) . "', `serialized` = '" . $serialized . "', `store_id` = '0'");
+			$this->registry->get('db')->query("INSERT INTO `" . DB_PREFIX . "setting` SET `value` = '" . $this->registry->get('db')->escape($encoded) . "', `code` = 'advertise_google', `key` = '" . $this->registry->get('db')->escape($key) . "', `serialized` = '" . $serialized . "', `store_id` = '0'");
 
 			$this->setting->set($key, $value);
 		} else {
-			$this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `value` = '" . $this->db->escape($encoded) . "', `serialized` = '" . $serialized . "' WHERE `code` = 'advertise_google' AND `key` = '" . $this->db->escape($key) . "'");
+			$this->registry->get('db')->query("UPDATE `" . DB_PREFIX . "setting` SET `value` = '" . $this->registry->get('db')->escape($encoded) . "', `serialized` = '" . $serialized . "' WHERE `code` = 'advertise_google' AND `key` = '" . $this->registry->get('db')->escape($key) . "'");
 
 			$this->setting->set($key, $value);
 		}
