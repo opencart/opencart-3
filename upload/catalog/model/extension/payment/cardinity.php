@@ -4,8 +4,9 @@
  *
  * @package Catalog\Model\Extension\Payment
  */
-use Cardinity\Exception as CardinityException;
-use Cardinity\Client;
+use \Cardinity\Exception as CardinityException;
+use \Cardinity\Client;
+use \Cardinity\Method\Payment;
 
 class ModelExtensionPaymentCardinity extends Model {
 	/**
