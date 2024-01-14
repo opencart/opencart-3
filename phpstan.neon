@@ -9,9 +9,7 @@ parameters:
 		- ./upload/
 	excludePaths:		
 		- ./catalog/controller/extension/payment/wechat_pay.php
-		- ./upload/catalog/controller/extension/payment/wechat_pay.php
-		- ./catalog/model/extension/payment/cardinity.php
-		- ./upload/catalog/model/extension/payment/cardinity.php
+		- ./upload/catalog/controller/extension/payment/wechat_pay.php		
 		- ./upload/system/storage/vendor/
 	tmpDir: .cache
 	ignoreErrors:
