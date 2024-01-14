@@ -160,10 +160,12 @@ class ControllerExtensionPaymentWechatPay extends Controller {
 					}
 				}
 
-				return xml([
-					'return_code' => 'SUCCESS',
-					'return_msg'  => 'DEAL WITH SUCCESS'
-				]);
+				$this->response->addHeader('Content-Type: application/xml');
+				$this->response->setOutput('<?xml version="1.0" encoding="UTF-8"?>
+<xml>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+  <return_msg><![CDATA[DEAL WITH SUCCESS]]></return_msg>
+</xml>');
 			}
 		}
 

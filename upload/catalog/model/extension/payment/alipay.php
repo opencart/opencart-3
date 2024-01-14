@@ -155,7 +155,7 @@ class ModelExtensionPaymentAlipay extends Model {
 		$total_params['sign'] = $this->generateSign($total_params, $this->signtype);
 
 		if (strtoupper($httpmethod) == 'GET') {
-			$pre_string = $this->getSignContentUrlencode($total_params);
+			$preString = $this->getSignContent(urlencode($totalParams));
 
 			return $this->gateway_url . '?' . $pre_string;
 		} else {
@@ -244,10 +244,6 @@ class ModelExtensionPaymentAlipay extends Model {
 		unset($k, $v);
 
 		return $string_to_be_signed;
-	}
-
-	private function getSignContentUrlencode($total_params) {
-		return http_build_query($total_params, '', '&');
 	}
 
 	private function generateSign($params, $signType = "RSA") {
