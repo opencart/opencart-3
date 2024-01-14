@@ -203,7 +203,7 @@ class ModelExtensionShippingECShip extends Model {
 			'ESP'  => 'ESA',
 			'LKA'  => 'LKA',
 			'KNA'  => 'KNA',
-			'SHN'  => array('SHA','TAA'),
+			'SHN'  => ['SHA', 'TAA'],
 			'LCA'  => 'LCA',
 			'SPM'  => 'PMA',
 			'VCT'  => 'VCA',
@@ -246,7 +246,7 @@ class ModelExtensionShippingECShip extends Model {
 			],
 			'CHN' => [
 				'BE'     => 'CNA',
-				'FU'     => array('CNB', 'CNJ'),
+				'FU'     => ['CNB', 'CNJ'],
 				'GU'     => 'CNC',
 				'ZH'     => 'CND',
 				'YU'     => 'CNE',
@@ -499,7 +499,7 @@ class ModelExtensionShippingECShip extends Model {
 			$quote_data = [];
 
 			if ($objResponseArray) {
-				$code = 'ec_ship';				
+				$code = 'ec_ship';
 
 				foreach ($objResponseArray as $key => $value) {
 					if ($value['getTotalPostageReturn']['status'] == 0) {

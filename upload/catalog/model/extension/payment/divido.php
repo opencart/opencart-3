@@ -12,9 +12,7 @@ class ModelExtensionPaymentDivido extends Model {
 	 *
 	 * @param mixed $api_key
 	 */
-	public function setMerchant($api_key): void {
-		
-	}
+	public function setMerchant($api_key): void {}
 
 	/**
 	 * findOCOrderId
