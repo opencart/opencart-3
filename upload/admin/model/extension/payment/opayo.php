@@ -352,7 +352,7 @@ class ModelExtensionPaymentOpayo extends Model {
 	 */
 	public function sendCurl($url, $payment_data) {
 		$data = [];
-		
+
 		$curl = curl_init($url);
 
 		curl_setopt($curl, CURLOPT_PORT, 443);
@@ -372,7 +372,7 @@ class ModelExtensionPaymentOpayo extends Model {
 		$response_info = explode(chr(10), $response);
 
 		foreach ($response_info as $i => $string) {
-			if (strpos($string, '=') === false) {
+			if (!str_contains($string, '=')) {
 				continue;
 			}
 
