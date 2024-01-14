@@ -306,7 +306,7 @@ class Googleshopping extends Library {
 	public function getProductVariationIds(int $page): array {
 		$this->registry->get('load')->config('googleshopping/googleshopping');
 
-		$sql = "SELECT DISTINCT `pag`.`product_id`, `pag`.`color`, `pag`.`size` FROM `" . DB_PREFIX . "googleshopping_product` `pag` LEFT JOIN `" . DB_PREFIX . "product` `p` ON (`p`.`product_id` = `pag`.`product_id`) LEFT JOIN `" . DB_PREFIX . "product_to_store` `p2s` ON (`p2s`.`product_id` = `p`.`product_id` AND `p2s`.`store_id` = '" . (int)$this->store_id . "') WHERE `p2s`.`store_id` IS NOT NULL AND `p`.`status` = '1' AND `p`.`date_available` <= NOW() AND `p`.`price` > '0' ORDER BY `p`.`product_id` ASC LIMIT " . (int)(($page - 1) * $this->config->get('advertise_google_report_limit')) . ',' . (int)$this->config->get('advertise_google_report_limit');
+		$sql = "SELECT DISTINCT `pag`.`product_id`, `pag`.`color`, `pag`.`size` FROM `" . DB_PREFIX . "googleshopping_product` `pag` LEFT JOIN `" . DB_PREFIX . "product` `p` ON (`p`.`product_id` = `pag`.`product_id`) LEFT JOIN `" . DB_PREFIX . "product_to_store` `p2s` ON (`p2s`.`product_id` = `p`.`product_id` AND `p2s`.`store_id` = '" . (int)$this->store_id . "') WHERE `p2s`.`store_id` IS NOT NULL AND `p`.`status` = '1' AND `p`.`date_available` <= NOW() AND `p`.`price` > '0' ORDER BY `p`.`product_id` ASC LIMIT " . (int)(($page - 1) * $this->registry->get('config')->get('advertise_google_report_limit')) . ',' . (int)$this->registry->get('config')->get('advertise_google_report_limit');
 
 		$result = [];
 
@@ -360,7 +360,7 @@ class Googleshopping extends Library {
 					$categories = explode('_', $value);
 
 					foreach ($categories as $category) {
-						$query = $this->registry->get('db')->query("SELECT * FROM `" . DB_PREFIX . "seo_url` WHERE `query` = 'category_id=" . (int)$category . "' AND `store_id` = '" . (int)$this->config->get('config_store_id') . "' AND `language_id` = '" . (int)$this->config->get('config_language_id') . "'");
+						$query = $this->registry->get('db')->query("SELECT * FROM `" . DB_PREFIX . "seo_url` WHERE `query` = 'category_id=" . (int)$category . "' AND `store_id` = '" . (int)$this->registry->get('config')->get('config_store_id') . "' AND `language_id` = '" . (int)$this->registry->get('config')->get('config_language_id') . "'");
 
 						if ($query->num_rows && $query->row['keyword']) {
 							$url .= '/' . $query->row['keyword'];
@@ -442,7 +442,7 @@ class Googleshopping extends Library {
 
 			$url = new \Url($this->store_url, $this->store_url);
 
-			if ($this->config->get('config_seo_url')) {
+			if ($this->registry->get('config')->get('config_seo_url')) {
 				$url->addRewrite($this);
 			}
 
@@ -602,7 +602,7 @@ class Googleshopping extends Library {
 
 		$sql = "SELECT DISTINCT `pov`.`product_option_value_id`, `ovd`.`name` FROM `" . DB_PREFIX . "product_option_value` `pov` LEFT JOIN `" . DB_PREFIX . "option_value_description` `ovd` ON (`ovd`.`option_value_id` = `pov`.`option_value_id`) WHERE `pov`.`product_id` = '" . (int)$product_id . "' AND `pov`.`option_id` = '" . (int)$option_id . "' AND `ovd`.`language_id` = '" . (int)$language_id . "'";
 
-		$result = $this->db->query($sql);
+		$result = $this->registry->get('db')->query($sql);
 
 		if ($result->num_rows) {
 			foreach ($result->rows as $row) {
@@ -711,7 +711,7 @@ class Googleshopping extends Library {
 	 * @return int
 	 */
 	public function getTotalProducts(array $data, int $store_id): int {
-		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "product` `p` LEFT JOIN `" . DB_PREFIX . "product_description` `pd` ON (`p`.`product_id` = `pd`.`product_id`) LEFT JOIN `" . DB_PREFIX . "googleshopping_product` `pag` ON (`pag`.`product_id` = `p`.`product_id` AND `pag`.`store_id` = '" . (int)$store_id . "') WHERE `pag`.`store_id` IS NOT NULL AND `pd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
+		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "product` `p` LEFT JOIN `" . DB_PREFIX . "product_description` `pd` ON (`p`.`product_id` = `pd`.`product_id`) LEFT JOIN `" . DB_PREFIX . "googleshopping_product` `pag` ON (`pag`.`product_id` = `p`.`product_id` AND `pag`.`store_id` = '" . (int)$store_id . "') WHERE `pag`.`store_id` IS NOT NULL AND `pd`.`language_id` = '" . (int)$this->registry->get('config')->get('config_language_id') . "'";
 
 		$this->applyFilter($sql, $data);
 
@@ -1070,7 +1070,7 @@ class Googleshopping extends Library {
 			$product_advertise_google[] = '(' . implode(',', $entry) . ')';
 		}
 
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "googleshopping_product` (`product_id`, `store_id`, `has_issues`, `destination_status`) VALUES " . implode(',', $product_advertise_google) . " ON DUPLICATE KEY UPDATE `has_issues`=VALUES(`has_issues`), `destination_status`=VALUES(`destination_status`)");
+		$this->registry->get('db')->query("INSERT INTO `" . DB_PREFIX . "googleshopping_product` (`product_id`, `store_id`, `has_issues`, `destination_status`) VALUES " . implode(',', $product_advertise_google) . " ON DUPLICATE KEY UPDATE `has_issues`=VALUES(`has_issues`), `destination_status`=VALUES(`destination_status`)");
 	}
 
 	/**
@@ -2156,7 +2156,7 @@ class Googleshopping extends Library {
 	public function getLanguages($language_codes): array {
 		$result = [];
 
-		$this->load->config('googleshopping/googleshopping');
+		$this->registry->get('load')->config('googleshopping/googleshopping');
 
 		foreach ((array)$this->registry->get('config')->get('advertise_google_languages') as $code => $name) {
 			if (in_array($code, (array)$language_codes)) {
