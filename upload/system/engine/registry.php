@@ -33,6 +33,7 @@
  * @property Request                       $request
  * @property Response                      $response
  * @property Session                       $session
+ * @property ?Squareup                     $squareup
  * @property Url                           $url
  */
 class Registry {
