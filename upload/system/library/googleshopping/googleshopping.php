@@ -2,7 +2,7 @@
 namespace googleshopping;
 use \googleshopping\Exception\Connection as ConnectionException;
 use \googleshopping\Exception\AccessForbidden as AccessForbiddenException;
-use googleshopping\traits\StoreLoader;
+use \googleshopping\traits\StoreLoader;
 
 class Googleshopping extends Library {
 	use StoreLoader;
