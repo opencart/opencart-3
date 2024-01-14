@@ -63,8 +63,8 @@ class Googleshopping extends Library {
 			$this->store_url = basename(DIR_TEMPLATE) == 'template' ? HTTPS_CATALOG : HTTPS_SERVER;
 			$this->store_name = $this->registry->get('config')->get('config_name');
 		} else {
-			$this->store_url = $this->model_setting_setting->getSettingValue('config_ssl', $store_id);
-			$this->store_name = $this->model_setting_setting->getSettingValue('config_name', $store_id);
+			$this->store_url = $this->registry->get('load')->model_setting_setting->getSettingValue('config_ssl', $store_id);
+			$this->store_name = $this->registry->get('load')->model_setting_setting->getSettingValue('config_name', $store_id);
 		}
 
 		$this->endpoint_url = self::API_URL . 'index.php?route=%s';
@@ -828,7 +828,7 @@ class Googleshopping extends Library {
 				// Set the store and language context for the job
 				$this->registry->get('config')->set('config_store_id', $this->store_id);
 				$this->registry->get('config')->set('config_language_id', $job['language_id']);
-				$this->registry->get('config')->set('config_seo_url', $this->model_setting_setting->getSettingValue('config_seo_url', $this->store_id));
+				$this->registry->get('config')->set('config_seo_url', $this->registry->get('load')->model_setting_setting->getSettingValue('config_seo_url', $this->store_id));
 
 				// Do the CRON job
 				$count = $this->doJob($job);
