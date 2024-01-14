@@ -440,14 +440,14 @@ class ModelExtensionPaymentSagePayServer extends Model {
 			];
 
 			if ($response_data['RepeatResponseData_' . $i++]['Status'] == 'OK') {
-				$this->addTransaction($subscription['subscription_id'], $response_data, $transaction, 1);
+				$this->addRecurringTransaction($subscription['subscription_id'], $response_data, $transaction, 1);
 
 				$next_payment = $this->calculateSchedule($frequency, $next_payment, $cycle);
 				$next_payment = date_format($next_payment, 'Y-m-d H:i:s');
 
 				$this->updateRecurringOrder($subscription['subscription_id'], $next_payment);
 			} else {
-				$this->addTransaction($subscription['subscription_id'], $response_data, $transaction, 4);
+				$this->addRecurringTransaction($subscription['subscription_id'], $response_data, $transaction, 4);
 			}
 		}
 

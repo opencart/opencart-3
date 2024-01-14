@@ -412,7 +412,9 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 			}
 
 			$sagepay_order_info = $this->getOrder($subscription['order_id']);
+
 			$response_data = $this->setPaymentData($order_info, $sagepay_order_info, $price, $subscription['subscription_id'], $subscription['name'], $i);
+			
 			$cron_data[] = $response_data;
 
 			$transaction = [
@@ -431,7 +433,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 
 				$this->updateRecurringOrder($subscription['subscription_id'], $next_payment);
 			} else {
-				$this->addRecurringTransaction($subscription_id, $response_data, $transaction, 4);
+				$this->addRecurringTransaction($subscription['subscription_id'], $response_data, $transaction, 4);
 			}
 		}
 
