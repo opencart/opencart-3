@@ -4,7 +4,6 @@
  *
  * @package Admin\Model\Extension\Payment
  */
-use \Cardinity\Exception as CardinityException;
 use \Cardinity\Client;
 use \Cardinity\Method\Payment;
 use \Cardinity\Method\Refund;
@@ -52,11 +51,11 @@ class ModelExtensionPaymentCardinity extends Model {
 		$method = new Payment\GetAll(10);
 
 		try {
-			return $client->call($method);
-		} catch (\Exception $exception) {
-			$this->exception($exception);
+			$client->call($method);
 
-			throw new $exception();
+			return true;
+		} catch (\Exception $e) {
+			$this->log($e->getMessage());
 		}
 
 		return null;
@@ -75,10 +74,8 @@ class ModelExtensionPaymentCardinity extends Model {
 
 		try {
 			return $client->call($method);
-		} catch (\Exception $exception) {
-			$this->exception($exception);
-
-			throw new $exception();
+		} catch (\Exception $e) {
+			$this->log($e->getMessage());
 		}
 
 		return null;
@@ -97,10 +94,8 @@ class ModelExtensionPaymentCardinity extends Model {
 
 		try {
 			return $client->call($method);
-		} catch (\Exception $exception) {
-			$this->exception($exception);
-
-			throw new $exception();
+		} catch (\Exception $e) {
+			$this->log($e->getMessage());
 		}
 
 		return null;
@@ -121,10 +116,8 @@ class ModelExtensionPaymentCardinity extends Model {
 
 		try {
 			return $client->call($method);
-		} catch (\Exception $exception) {
-			$this->exception($exception);
-
-			throw new $exception();
+		} catch (\Exception $e) {
+			$this->log($e->getMessage());
 		}
 
 		return null;
@@ -169,22 +162,5 @@ class ModelExtensionPaymentCardinity extends Model {
 	 */
 	public function uninstall(): void {
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "cardinity_order`");
-	}
-
-	private function exception(Exception $exception): void {
-		$this->log($exception->getMessage(), 1, 2);
-
-		switch (true) {
-			case $exception instanceof CardinityException\Request:
-				if ($exception->getErrorsAsString()) {
-					$this->log($exception->getErrorsAsString(), 1, 2);
-				}
-				break;
-			case $exception instanceof CardinityException\InvalidAttributeValue:
-				foreach ($exception->getViolations() as $violation) {
-					$this->log($violation->getMessage(), 1, 2);
-				}
-				break;
-		}
 	}
 }
