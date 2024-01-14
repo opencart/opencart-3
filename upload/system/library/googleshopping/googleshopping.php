@@ -1865,7 +1865,7 @@ class Googleshopping extends Library {
 			return $result['status'] === true;
 		} catch (AccessForbiddenException $e) {
 			throw $e;
-		} catch (RuntimeException $e) {
+		} catch (\RuntimeException $e) {
 			// Do nothing
 		}
 
