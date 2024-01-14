@@ -18,7 +18,7 @@ class ModelExtensionPaymentAlipay extends Model {
 	private string $appid;
 	private string $notify_url;
 	private string $return_url;
-	private array $api_paras = [];
+	private array $api_params = [];
 
 	/**
 	 * getMethod
@@ -104,7 +104,7 @@ class ModelExtensionPaymentAlipay extends Model {
 		$log = new \Log($this->log_file_name);
 		$log->write($biz_content);
 
-		$this->api_paras['biz_content'] = $biz_content;
+		$this->api_params['biz_content'] = $biz_content;
 
 		$response = $this->pageExecute($this, 'post');
 
@@ -148,7 +148,7 @@ class ModelExtensionPaymentAlipay extends Model {
 		$sys_params['charset'] = $this->post_charset;
 		$sys_params['gateway_url'] = $this->gateway_url;
 
-		$api_params = $this->api_paras;
+		$api_params = $this->api_params;
 
 		$total_params = [];
 		
