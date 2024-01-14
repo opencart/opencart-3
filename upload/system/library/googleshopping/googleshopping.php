@@ -1,8 +1,8 @@
 <?php
 namespace googleshopping;
-use \googleshopping\Exception\Connection as ConnectionException;
-use \googleshopping\Exception\AccessForbidden as AccessForbiddenException;
-use \googleshopping\traits\StoreLoader;
+use googleshopping\Exception\AccessForbidden as AccessForbiddenException;
+use googleshopping\Exception\Connection as ConnectionException;
+use googleshopping\traits\StoreLoader;
 
 class Googleshopping extends Library {
 	use StoreLoader;
@@ -45,10 +45,12 @@ class Googleshopping extends Library {
 
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @property Registry $registry
-	 * @param    int      $store_id
-	 * 
+	 *
+	 * @param mixed $registry
+	 * @param int   $store_id
+	 *
 	 * @return mixed
 	 */
 	public function __construct($registry, $store_id) {
@@ -190,7 +192,7 @@ class Googleshopping extends Library {
 
 	/**
 	 * getTarget
-	 * 
+	 *
 	 * @param int $advertise_google_target_id
 	 *
 	 * @return array
@@ -204,7 +206,7 @@ class Googleshopping extends Library {
 	/**
 	 * editTarget
 	 *
-	 * @param int $target_id
+	 * @param int   $target_id
 	 * @param array $target
 	 *
 	 * @return mixed
@@ -398,11 +400,11 @@ class Googleshopping extends Library {
 
 	/**
 	 * convertedTaxedPrice
-	 * 
-	 * @param ?float  $value
-	 * @param int     $tax_class_id
-	 * @param string  $currency
-	 * 
+	 *
+	 * @param ?float $value
+	 * @param int    $tax_class_id
+	 * @param string $currency
+	 *
 	 * @return float
 	 */
 	protected function convertedTaxedPrice(?float $value, int $tax_class_id, string $currency): float {
@@ -411,13 +413,13 @@ class Googleshopping extends Library {
 
 	/**
 	 * getFeedProducts
-	 * 
+	 *
 	 * @param int    $page
 	 * @param int    $language_id
 	 * @param string $currency
-	 * 
+	 *
 	 * @Throws \RuntimeException|object
-	 * 
+	 *
 	 * @return array
 	 */
 	protected function getFeedProducts(int $page, int $language_id, string $currency): array {
@@ -562,8 +564,8 @@ class Googleshopping extends Library {
 	 *
 	 * @param int $product_id
 	 * @param int $language_id
-	 * @param $color_id
-	 * @param $size_id
+	 * @param     $color_id
+	 * @param     $size_id
 	 *
 	 * @return array
 	 */
@@ -750,7 +752,7 @@ class Googleshopping extends Library {
 	 * clearProductStatuses
 	 *
 	 * @param array $product_ids
-	 * @param int $store_id
+	 * @param int   $store_id
 	 *
 	 * @return void
 	 */
@@ -789,7 +791,7 @@ class Googleshopping extends Library {
 	 * Cron
 	 *
 	 * @throws \RuntimeException $e
-	 * 
+	 *
 	 * @return void
 	 */
 	public function cron(): void {
@@ -1076,7 +1078,7 @@ class Googleshopping extends Library {
 
 	/**
 	 * memoryLimitInBytes
-	 * 
+	 *
 	 * @return int
 	 */
 	protected function memoryLimitInBytes(): int {
@@ -1097,7 +1099,7 @@ class Googleshopping extends Library {
 
 	/**
 	 * enableErrorReporting
-	 * 
+	 *
 	 * @return void
 	 */
 	protected function enableErrorReporting(): void {
@@ -1109,9 +1111,9 @@ class Googleshopping extends Library {
 
 	/**
 	 * getProductIdFromTargetSpecificId
-	 * 
+	 *
 	 * @param ?string $target_specific_id
-	 * 
+	 *
 	 * @return int
 	 */
 	protected function getProductIdFromTargetSpecificId(?string $target_specific_id): int {
@@ -1120,9 +1122,9 @@ class Googleshopping extends Library {
 
 	/**
 	 * getProductVariationIdFromTargetSpecificId
-	 * 
+	 *
 	 * @param ?string $target_specific_id
-	 * 
+	 *
 	 * @return string
 	 */
 	protected function getProductVariationIdFromTargetSpecificId(?string $target_specific_id): string {
@@ -1131,9 +1133,9 @@ class Googleshopping extends Library {
 
 	/**
 	 * getProductIdFromOfferId
-	 * 
+	 *
 	 * @param ?string $offer_id
-	 * 
+	 *
 	 * @return int
 	 */
 	protected function getProductIdFromOfferId($offer_id): int {
@@ -1142,7 +1144,7 @@ class Googleshopping extends Library {
 
 	/**
 	 * clearReports
-	 * 
+	 *
 	 * @return void
 	 */
 	protected function clearReports(): void {
@@ -1151,7 +1153,7 @@ class Googleshopping extends Library {
 
 	/**
 	 * getJobs
-	 * 
+	 *
 	 * @return array
 	 */
 	protected function getJobs(): array {
@@ -1182,9 +1184,9 @@ class Googleshopping extends Library {
 
 	/**
 	 * Output
-	 * 
+	 *
 	 * @param string $message
-	 * 
+	 *
 	 * @return string
 	 */
 	protected function output(string $message): string {
@@ -1201,11 +1203,11 @@ class Googleshopping extends Library {
 
 	/**
 	 * sendEmailReport
-	 * 
+	 *
 	 * @param array $report
-	 * 
+	 *
 	 * @throws \Exception
-	 * 
+	 *
 	 * @return void
 	 */
 	protected function sendEmailReport(array $report): void {
@@ -1243,9 +1245,9 @@ class Googleshopping extends Library {
 
 	/**
 	 * getOptionValueName
-	 * 
+	 *
 	 * @param array $row
-	 * 
+	 *
 	 * @return string
 	 */
 	protected function getOptionValueName(array $row): string {
@@ -1256,9 +1258,9 @@ class Googleshopping extends Library {
 
 	/**
 	 * combineOptions
-	 * 
+	 *
 	 * @param array $arrays
-	 * 
+	 *
 	 * @return array
 	 */
 	protected function combineOptions(array $arrays): array {
@@ -1282,11 +1284,11 @@ class Googleshopping extends Library {
 
 	/**
 	 * Resize
-	 * 
+	 *
 	 * @param string $filename
 	 * @param int    $width
 	 * @param int    $height
-	 * 
+	 *
 	 * @return string
 	 */
 	protected function resize(string $filename, int $width, int $height): string {
@@ -1342,10 +1344,10 @@ class Googleshopping extends Library {
 
 	/**
 	 * sanitizeText
-	 * 
+	 *
 	 * @param string $text
 	 * @param linit  $limit
-	 * 
+	 *
 	 * @return string
 	 */
 	protected function sanitizeText($text, $limit): string {
@@ -1391,7 +1393,7 @@ class Googleshopping extends Library {
 
 	/**
 	 * restoreErrorHandler
-	 * 
+	 *
 	 * @return void
 	 */
 	protected function restoreErrorHandler(): void {
@@ -1400,10 +1402,10 @@ class Googleshopping extends Library {
 
 	/**
 	 * getFeedProductsQuery
-	 * 
+	 *
 	 * @param int $page
 	 * @param int $language_id
-	 * 
+	 *
 	 * @return string
 	 */
 	protected function getFeedProductsQuery(int $page, int $language_id): string {
@@ -1945,9 +1947,8 @@ class Googleshopping extends Library {
 
 	/**
 	 * verifySite
-	 * 
-	 * @return \RuntimeException $e|null|object
 	 *
+	 * @return \RuntimeException $e|null|object
 	 * @return ?object
 	 */
 	public function verifySite(): ?object {
@@ -2227,7 +2228,7 @@ class Googleshopping extends Library {
 	/**
 	 * getCurrencyName
 	 *
-	 * @param int $currency_id
+	 * @param int    $currency_id
 	 * @param string $default
 	 *
 	 * @return string
@@ -2274,9 +2275,9 @@ class Googleshopping extends Library {
 
 	/**
 	 * Target
-	 * 
+	 *
 	 * @param array $target
-	 * 
+	 *
 	 * @return array
 	 */
 	protected function target(array $target): array {
@@ -2316,14 +2317,14 @@ class Googleshopping extends Library {
 
 	/**
 	 * curlPostQuery
-	 * 
+	 *
 	 * @param array  $arrays
 	 * @param array  $new
 	 * @param string $prefix
-	 * 
+	 *
 	 * @return void
 	 */
-	private function curlPostQuery(array $arrays, array &$new = [], string $prefix = null): void {
+	private function curlPostQuery(array $arrays, array &$new = [], ?string $prefix = null): void {
 		foreach ($arrays as $key => $value) {
 			$k = isset($prefix) ? $prefix . '[' . $key . ']' : $key;
 
@@ -2337,9 +2338,9 @@ class Googleshopping extends Library {
 
 	/**
 	 * createVerificationToken
-	 * 
+	 *
 	 * @param string $token
-	 * 
+	 *
 	 * @return void
 	 */
 	private function createVerificationToken(string $token): void {
@@ -2356,11 +2357,11 @@ class Googleshopping extends Library {
 
 	/**
 	 * deleteVerificationToken
-	 * 
+	 *
 	 * @param string $token
-	 * 
+	 *
 	 * @Throws \RuntimeException|null|object
-	 * 
+	 *
 	 * @return ?object
 	 */
 	private function deleteVerificationToken(string $token): ?object {
@@ -2381,10 +2382,10 @@ class Googleshopping extends Library {
 
 	/**
 	 * applyNewSetting
-	 * 
+	 *
 	 * @param string $key
 	 * @param array  $value
-	 * 
+	 *
 	 * @return void
 	 */
 	private function applyNewSetting(string $key, array $value): void {
@@ -2411,11 +2412,11 @@ class Googleshopping extends Library {
 
 	/**
 	 * Api
-	 * 
+	 *
 	 * @param array $request
-	 * 
+	 *
 	 * @Throws \RuntimeException|\ConnectionException|AccessForbiddenException|null|object
-	 * 
+	 *
 	 * @return ?object
 	 */
 	private function api($request): ?object {
