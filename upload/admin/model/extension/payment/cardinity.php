@@ -4,9 +4,9 @@
  *
  * @package Admin\Model\Extension\Payment
  */
-use \Cardinity\Client;
-use \Cardinity\Method\Payment;
-use \Cardinity\Method\Refund;
+use Cardinity\Client;
+use Cardinity\Method\Payment;
+use Cardinity\Method\Refund;
 
 class ModelExtensionPaymentCardinity extends Model {
 	/**
