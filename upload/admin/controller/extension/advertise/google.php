@@ -4,11 +4,10 @@
  *
  * @package Admin\Controller\Extension\Advertise
  */
-use \googleshopping\Exception\AccessForbidden as AccessForbiddenException;
-use \googleshopping\Exception\Connection as ConnectionException;
-use \googleshopping\Googleshopping;
-use \googleshopping\traits\LibraryLoader;
-use \googleshopping\traits\StoreLoader;
+use googleshopping\Exception\Connection as ConnectionException;
+use googleshopping\Googleshopping;
+use googleshopping\traits\LibraryLoader;
+use googleshopping\traits\StoreLoader;
 
 class ControllerExtensionAdvertiseGoogle extends Controller {
 	use LibraryLoader;
