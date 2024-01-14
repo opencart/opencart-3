@@ -40,14 +40,14 @@ class Googleshopping extends Library {
 	private string $store_name;
 	private string $endpoint_url;
 	private int $store_id = 0;
-	private object $debug_log;
-	protected object $registry;
+	private $debug_log;
+	protected $registry;
 
 	/**
 	 * Constructor
 	 * 
-	 * @param object $registry
-	 * @param int    $store_id
+	 * @property Registry $registry
+	 * @param    int      $store_id
 	 * 
 	 * @return mixed
 	 */
