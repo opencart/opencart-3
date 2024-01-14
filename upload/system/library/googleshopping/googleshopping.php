@@ -51,7 +51,7 @@ class Googleshopping extends Library {
 	 * 
 	 * @return mixed
 	 */
-	public function __construct(object $registry, int $store_id) {
+	public function __construct($registry, $store_id) {
 		$this->registry = $registry;
 
 		$this->store_id = $store_id;
@@ -77,11 +77,11 @@ class Googleshopping extends Library {
 	/**
 	 * __get
 	 * 
-	 * @param object $registry
+	 * @property Registry $registry
 	 * 
-	 * @return ?object
+	 * @return object
 	 */
-	public function __get($name): ?object {
+	public function __get($name): object {
 		return $this->registry->get($name);
 	}
 
