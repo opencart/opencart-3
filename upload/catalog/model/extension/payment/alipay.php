@@ -150,12 +150,13 @@ class ModelExtensionPaymentAlipay extends Model {
 
 		$api_params = $this->api_paras;
 
+		$total_params = [];
+		
 		$total_params = array_merge($api_params, $sys_params);
-
 		$total_params['sign'] = $this->generateSign($total_params, $this->signtype);
 
 		if (strtoupper($httpmethod) == 'GET') {
-			$preString = $this->getSignContent(urlencode($totalParams));
+			$pre_string = $this->getSignContent(urlencode($totalParams));
 
 			return $this->gateway_url . '?' . $pre_string;
 		} else {
