@@ -4,11 +4,10 @@
  *
  * @package Admin\Model\Extension\Payment
  */
-use Cardinity\Exception;
-use Cardinity\Client;
-use Cardinity\Method\Payment;
-use Cardinity\Method\Refund;
-use Cardinity\Method\ResultObject;
+use \Cardinity\Exception as Exception;
+use \Cardinity\Client as Client;
+use \Cardinity\Method\Payment as Payment;
+use \Cardinity\Method\Refund as Refund;
 
 class ModelExtensionPaymentCardinity extends Model {
 	/**
@@ -25,7 +24,7 @@ class ModelExtensionPaymentCardinity extends Model {
 	}
 
 	/**
-	 * getOrder
+	 * createClient
 	 *
 	 * @param array $credentials
 	 *
@@ -47,9 +46,9 @@ class ModelExtensionPaymentCardinity extends Model {
 	 *
 	 * @param object $client
 	 *
-	 * @return bool
+	 * @return object|null
 	 */
-	public function verifyCredentials(object $client): bool {
+	public function verifyCredentials(object $client): ?object {
 		$method = new \Payment\GetAll(10);
 
 		try {
@@ -58,9 +57,9 @@ class ModelExtensionPaymentCardinity extends Model {
 			return true;
 		} catch (\Exception $e) {
 			$this->log($e->getMessage());
-
-			return false;
 		}
+
+		return null;
 	}
 
 	/**
@@ -78,9 +77,9 @@ class ModelExtensionPaymentCardinity extends Model {
 			return $client->call($method);
 		} catch (\Exception $e) {
 			$this->log($e->getMessage());
-
-			return null;
 		}
+
+		return null;
 	}
 
 	/**
@@ -98,9 +97,9 @@ class ModelExtensionPaymentCardinity extends Model {
 			return $client->call($method);
 		} catch (\Exception $e) {
 			$this->log($e->getMessage());
-
-			return null;
 		}
+
+		return null;
 	}
 
 	/**
@@ -120,19 +119,19 @@ class ModelExtensionPaymentCardinity extends Model {
 			return $client->call($method);
 		} catch (\Exception $e) {
 			$this->log($e->getMessage());
-
-			return null;
 		}
+
+		return null;
 	}
 
 	/**
 	 * Log
 	 *
-	 * @param string $data
+	 * @param ?string $data
 	 *
 	 * @return void
 	 */
-	public function log(string $data): void {
+	public function log(?string $data): void {
 		if ($this->config->get('payment_cardinity_debug')) {
 			$backtrace = debug_backtrace();
 
