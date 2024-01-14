@@ -644,7 +644,7 @@ class ModelExtensionPaymentOpayo extends Model {
 	 * @return array<int, array<string, mixed>>
 	 */
 	private function getProfiles(): array {
-		$query = $this->db->query("SELECT `or`.order_recurring_id FROM `" . DB_PREFIX . "order_recurring` `or` JOIN `" . DB_PREFIX . "order` `o` USING(`order_id`) WHERE o.payment_code = 'opayo'");
+		$query = $this->db->query("SELECT `or`.`order_recurring_id` FROM `" . DB_PREFIX . "order_recurring` `or` JOIN `" . DB_PREFIX . "order` `o` USING(`order_id`) WHERE `o`.`payment_code` = 'opayo'");
 
 		$order_recurring = [];
 
