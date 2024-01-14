@@ -4,11 +4,9 @@
  *
  * @package Admin\Model\Extension\Payment
  */
-use \Cardinity\Exception;
-use \Cardinity\Client;
-use \Cardinity\Method\Chargeback;
-use \Cardinity\Method\Payment;
-use \Cardinity\Method\ResultObject;
+use Cardinity\Client;
+use Cardinity\Method\Payment;
+use Cardinity\Method\Refund;
 
 class ModelExtensionPaymentCardinity extends Model {
 	/**
