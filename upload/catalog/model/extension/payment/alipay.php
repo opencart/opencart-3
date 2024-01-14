@@ -161,7 +161,7 @@ class ModelExtensionPaymentAlipay extends Model {
 			return $this->gateway_url . '?' . $pre_string;
 		} else {
 			foreach ($total_params as $key => $value) {
-				if (false === $this->checkEmpty($value)) {
+				if ($this->checkEmpty($value) === false) {
 					$value = str_replace("\"", "&quot;", $value);
 
 					$total_params[$key] = $value;
