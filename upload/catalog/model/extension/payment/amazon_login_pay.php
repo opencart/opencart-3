@@ -764,7 +764,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	 * https://stackoverflow.com/a/74006399 (PHP 8.3+ compatibility)
 	 */
 	public function parseJson($json): array {
-		$message = @json_decode($json, true);
+		$message = json_decode($json, true);
 		$json_error = json_last_error();
 
 		if (!json_validate($json)) {

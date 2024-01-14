@@ -384,7 +384,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 		$data['has_refunds'] = (bool)$transaction_info['is_refunded'];
 
 		if ($data['has_refunds']) {
-			$refunds = @json_decode($transaction_info['refunds'], true);
+			$refunds = json_decode($transaction_info['refunds'], true);
 
 			$data['refunds'] = [];
 
@@ -511,7 +511,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 				'insert_amount'           => sprintf($this->language->get('text_insert_amount'), $amount, $transaction['transaction_currency']),
 				'order_id'                => $transaction['order_id'],
 				'type'                    => $transaction['transaction_type'],
-				'num_refunds'             => count(@json_decode($transaction['refunds'], true)),
+				'num_refunds'             => count(json_decode($transaction['refunds'], true)),
 				'amount'                  => $amount,
 				'customer'                => $order_info['firstname'] . ' ' . $order_info['lastname'],
 				'ip'                      => $transaction['device_ip'],
@@ -771,7 +771,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 			}
 
 			$currency = $transaction_info['transaction_currency'];
-			$tenders = @json_decode($transaction_info['tenders'], true);
+			$tenders = json_decode($transaction_info['tenders'], true);
 
 			$updated_transaction = $this->squareup->refundTransaction($transaction_info['location_id'], $transaction_info['transaction_id'], $reason, $amount, $currency, $tenders[0]['id']);
 

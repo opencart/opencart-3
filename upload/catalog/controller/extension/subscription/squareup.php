@@ -121,7 +121,7 @@ class ControllerExtensionSubscriptionSquareup extends Controller {
 		foreach ($this->model_extension_payment_squareup->nextPayments() as $payment) {
 			try {
 				if (!$payment['is_free']) {
-					$transaction = $this->squareup->addTransaction($payment['transaction']);
+					$transaction = $this->squareup->addRecurringTransaction($payment['transaction']);
 
 					$transaction_status = !empty($transaction['tenders'][0]['card_details']['status']) ? strtolower($transaction['tenders'][0]['card_details']['status']) : '';
 					$target_currency = $transaction['tenders'][0]['amount_money']['currency'];
