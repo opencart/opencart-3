@@ -136,7 +136,7 @@ class ModelExtensionPaymentWorldpay extends Model {
 			return [];
 		}
 	}
-	
+
 	/**
 	 * addTransaction
 	 *
