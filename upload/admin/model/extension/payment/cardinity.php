@@ -49,7 +49,7 @@ class ModelExtensionPaymentCardinity extends Model {
 	 * @return object|null
 	 */
 	public function verifyCredentials(object $client): ?object {
-		$method = new \Payment\GetAll(10);
+		$method = new Payment\GetAll(10);
 
 		try {
 			$client->call($method);
@@ -71,7 +71,7 @@ class ModelExtensionPaymentCardinity extends Model {
 	 * @return object|null
 	 */
 	public function getPayment(object $client, string $payment_id): ?object {
-		$method = new \Payment\Get($payment_id);
+		$method = new Payment\Get($payment_id);
 
 		try {
 			return $client->call($method);
@@ -91,7 +91,7 @@ class ModelExtensionPaymentCardinity extends Model {
 	 * @return object|null
 	 */
 	public function getRefunds(object $client, string $payment_id): ?object {
-		$method = new \Refund\GetAll($payment_id);
+		$method = new Refund\GetAll($payment_id);
 
 		try {
 			return $client->call($method);
@@ -113,7 +113,7 @@ class ModelExtensionPaymentCardinity extends Model {
 	 * @return object|null
 	 */
 	public function refundPayment(object $client, string $payment_id, float $amount, string $description): ?object {
-		$method = new \Refund\Create($payment_id, $amount, $description);
+		$method = new Refund\Create($payment_id, $amount, $description);
 
 		try {
 			return $client->call($method);
