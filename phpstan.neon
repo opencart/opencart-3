@@ -8,8 +8,6 @@ parameters:
 	paths:
 		- ./upload/
 	excludePaths:		
-		- ./admin/model/extension/payment/cardinity.php
-		- ./upload/admin/model/extension/payment/cardinity.php
 		- ./catalog/controller/extension/payment/wechat_pay.php
 		- ./upload/catalog/controller/extension/payment/wechat_pay.php
 		- ./catalog/model/extension/payment/cardinity.php
