@@ -350,7 +350,9 @@ class ModelExtensionPaymentOpayo extends Model {
 	 *
 	 * @return array<string, string>
 	 */
-	public function sendCurl(string $url, array $payment_data): array {
+	public function sendCurl($url, $payment_data) {
+		$data = [];
+		
 		$curl = curl_init($url);
 
 		curl_setopt($curl, CURLOPT_PORT, 443);
@@ -369,19 +371,21 @@ class ModelExtensionPaymentOpayo extends Model {
 
 		$response_info = explode(chr(10), $response);
 
-		$post_data = [];
-
 		foreach ($response_info as $i => $string) {
-			if (strpos($string, '=')) {
-				$parts = explode('=', $string, 2);
-				$post_data['RepeatResponseData_' . $i][trim($parts[0])] = trim($parts[1]);
-			} elseif (strpos($string, '=')) {
-				$parts = explode('=', $string, 2);
-				$post_data[trim($parts[0])] = trim($parts[1]);
+			if (strpos($string, '=') === false) {
+				continue;
+			}
+
+			$parts = explode('=', $string, 2);
+
+			if (count($response_info) > 1) {
+				$data['RepeatResponseData_' . $i][trim($parts[0])] = trim($parts[1]);
+			} else {
+				$data[trim($parts[0])] = trim($parts[1]);
 			}
 		}
 
-		return $post_data;
+		return $data;
 	}
 
 	/**
