@@ -1510,14 +1510,14 @@ class Googleshopping extends Library {
 	/**
 	 * isConnected
 	 *
-	 * @return \ConnectionException|object|null
+	 * @return ConnectionException|object|null
 	 */
 	public function isConnected(): ?object {
 		$settings_exist = $this->registry->get('setting')->has('advertise_google_access_token') && $this->registry->get('setting')->has('advertise_google_refresh_token') && $this->registry->get('setting')->has('advertise_google_app_id') && $this->registry->get('setting')->has('advertise_google_app_secret');
 
 		if (!$settings_exist) {
 			if (!$this->testAccessToken() || !$this->getAccessToken()) {
-				throw new \ConnectionException("Access unavailable. Please re-connect.");
+				throw new ConnectionException("Access unavailable. Please re-connect.");
 			}
 		}
 
@@ -1863,9 +1863,9 @@ class Googleshopping extends Library {
 			$result = $this->api($request);
 
 			return $result['status'] === true;
-		} catch (\AccessForbiddenException $e) {
+		} catch (AccessForbiddenException $e) {
 			throw $e;
-		} catch (\RuntimeException $e) {
+		} catch (RuntimeException $e) {
 			// Do nothing
 		}
 
@@ -2476,15 +2476,15 @@ class Googleshopping extends Library {
 			if ($info['http_code'] != 401 && $return['error']) {
 				throw new \RuntimeException($return['message']);
 			} else {
-				throw new \ConnectionException("Access unavailable. Please re-connect.");
+				throw new ConnectionException("Access unavailable. Please re-connect.");
 			}
 		} elseif ($info['http_code'] == 402) {
 			$return = json_decode($result, true);
 
 			if ($return['error']) {
-				throw new \AccessForbiddenException($return['message']);
+				throw new AccessForbiddenException($return['message']);
 			} else {
-				throw new \ConnectionException("Access unavailable. Please re-connect.");
+				throw new ConnectionException("Access unavailable. Please re-connect.");
 			}
 		} else {
 			$this->debugLog('CURL ERROR! CURL INFO: ' . print_r($info, true));
