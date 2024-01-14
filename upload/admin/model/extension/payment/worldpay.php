@@ -123,35 +123,20 @@ class ModelExtensionPaymentWorldpay extends Model {
 			$order = [];
 
 			$order = $query->row;
-			$order['transactions'] = $this->getTransactions($query->row['worldpay_order_id'], $query->row['currency_code']);
+
+			$transactions = $this->db->query("SELECT * FROM `" . DB_PREFIX . "worldpay_order_transaction` WHERE `worldpay_order_id` = '" . (int)$query->row['worldpay_order_id'] . "'");
+
+			foreach ($transactions->rows as $transaction) {
+				$transaction['amount'] = $this->currency->format($transaction['amount'], $query->row['currency_code'], false);
+				$order['transactions'][] = $transaction;
+			}
 
 			return $order;
 		} else {
 			return [];
 		}
 	}
-
-	/**
-	 * getTransactions
-	 *
-	 * @param int    $worldpay_order_id
-	 * @param string $currency_code
-	 *
-	 * @return array
-	 */
-	private function getTransactions(int $worldpay_order_id, string $currency_code): array {
-		$transactions = [];
-
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "worldpay_order_transaction` WHERE `worldpay_order_id` = '" . (int)$worldpay_order_id . "'");
-
-		foreach ($query->rows as $row) {
-			$row['amount'] = $this->currency->format($row['amount'], $currency_code, false);
-			$transactions[] = $row;
-		}
-
-		return $transactions;
-	}
-
+	
 	/**
 	 * addTransaction
 	 *
