@@ -103,7 +103,7 @@ class Googleshopping extends Library {
 		// Languages
 		$this->registry->get('load')->model('localisation/language');
 
-		foreach ($this->model_localisation_language->getLanguages() as $language) {
+		foreach ($this->registry->get('load')->model_localisation_language->getLanguages() as $language) {
 			$language_code = current(explode("-", $language['code']));
 
 			if ($this->compareTrimmedLowercase($code, $language_code) === 0) {
@@ -125,7 +125,7 @@ class Googleshopping extends Library {
 		// Currencies
 		$this->registry->get('load')->model('localisation/currency');
 
-		foreach ($this->model_localisation_currency->getCurrencies() as $currency) {
+		foreach ($this->registry->get('load')->model_localisation_currency->getCurrencies() as $currency) {
 			if ($this->compareTrimmedLowercase($code, $currency['code']) === 0) {
 				return (int)$currency['currency_id'];
 			}
@@ -314,7 +314,7 @@ class Googleshopping extends Library {
 		$this->registry->get('load')->model('localisation/language');
 
 		foreach ($this->registry->get('db')->query($sql)->rows as $row) {
-			foreach ($this->model_localisation_language->getLanguages() as $language) {
+			foreach ($this->registry->get('load')->model_localisation_language->getLanguages() as $language) {
 				$groups = $this->getGroups($row['product_id'], $language['language_id'], $row['color'], $row['size']);
 
 				foreach (array_keys($groups) as $id) {
@@ -406,7 +406,7 @@ class Googleshopping extends Library {
 	 * @return float
 	 */
 	protected function convertedTaxedPrice(?float $value, int $tax_class_id, string $currency): float {
-		return number_format($this->registry->get('currency')->convert($this->tax->calculate($value, $tax_class_id, $this->registry->get('config')->get('config_tax')), $this->registry->get('config')->get('config_currency'), $currency), 2, '.', '');
+		return number_format($this->registry->get('currency')->convert($this->registry->get('tax')->calculate($value, $tax_class_id, $this->registry->get('config')->get('config_tax')), $this->registry->get('config')->get('config_currency'), $currency), 2, '.', '');
 	}
 
 	/**
@@ -1157,10 +1157,10 @@ class Googleshopping extends Library {
 	protected function getJobs(): array {
 		$jobs = [];
 
-		if ($this->setting->has('advertise_google_work') && is_array($this->setting->get('advertise_google_work'))) {
+		if ($this->registry->get('setting')->has('advertise_google_work') && is_array($this->registry->get('setting')->get('advertise_google_work'))) {
 			$this->registry->get('load')->model('extension/advertise/google');
 
-			foreach ($this->setting->get('advertise_google_work') as $work) {
+			foreach ($this->registry->get('setting')->get('advertise_google_work') as $work) {
 				$supported_language_id = $this->getSupportedLanguageId($work['language']);
 				$supported_currency_id = $this->getSupportedCurrencyId($work['currency']);
 
@@ -1209,7 +1209,7 @@ class Googleshopping extends Library {
 	 * @return void
 	 */
 	protected function sendEmailReport(array $report): void {
-		if (!$this->setting->get('advertise_google_cron_email_status')) {
+		if (!$this->registry->get('setting')->get('advertise_google_cron_email_status')) {
 			return; // Do nothing
 		}
 
@@ -1230,7 +1230,7 @@ class Googleshopping extends Library {
 			$mail->smtp_port = $this->registry->get('config')->get('config_mail_smtp_port');
 			$mail->smtp_timeout = $this->registry->get('config')->get('config_mail_smtp_timeout');
 
-			$mail->setTo($this->setting->get('advertise_google_cron_email'));
+			$mail->setTo($this->registry->get('setting')->get('advertise_google_cron_email'));
 			$mail->setFrom($this->registry->get('config')->get('config_email'));
 			$mail->setSender($this->registry->get('config')->get('config_name'));
 			$mail->setSubject(html_entity_decode($subject, ENT_QUOTES, "UTF-8"));
@@ -1438,7 +1438,7 @@ class Googleshopping extends Library {
 	 * @return mixed|null
 	 */
 	public function getEventSnippetSendTo() {
-		$tracker = $this->setting->get('advertise_google_conversion_tracker');
+		$tracker = $this->registry->get('setting')->get('advertise_google_conversion_tracker');
 
 		if (!empty($tracker['google_event_snippet'])) {
 			$matches = [];
@@ -1513,7 +1513,7 @@ class Googleshopping extends Library {
 	 * @return \ConnectionException|object|null
 	 */
 	public function isConnected(): ?object {
-		$settings_exist = $this->setting->has('advertise_google_access_token') && $this->setting->has('advertise_google_refresh_token') && $this->setting->has('advertise_google_app_id') && $this->setting->has('advertise_google_app_secret');
+		$settings_exist = $this->registry->get('setting')->has('advertise_google_access_token') && $this->registry->get('setting')->has('advertise_google_refresh_token') && $this->registry->get('setting')->has('advertise_google_app_id') && $this->registry->get('setting')->has('advertise_google_app_secret');
 
 		if (!$settings_exist) {
 			if (!$this->testAccessToken() || !$this->getAccessToken()) {
@@ -1579,13 +1579,13 @@ class Googleshopping extends Library {
 
 		$cache = new \Cache($this->registry->get('config')->get('cache_engine'), self::CACHE_CAMPAIGN_REPORT);
 
-		$cache_key = 'advertise_google.' . $this->store_id . '.campaign_reports.' . md5(json_encode(array_keys($statuses)) . $this->setting->get('advertise_google_reporting_interval'));
+		$cache_key = 'advertise_google.' . $this->store_id . '.campaign_reports.' . md5(json_encode(array_keys($statuses)) . $this->registry->get('setting')->get('advertise_google_reporting_interval'));
 
 		$cache_result = $cache->get($cache_key);
 
 		if (empty($cache_result['result']) || (isset($cache_result['timestamp']) && $cache_result['timestamp'] >= time() + self::CACHE_CAMPAIGN_REPORT)) {
 			$request = [
-				'endpoint'         => sprintf(self::ENDPOINT_REPORT_CAMPAIGN, $this->setting->get('advertise_google_reporting_interval')),
+				'endpoint'         => sprintf(self::ENDPOINT_REPORT_CAMPAIGN, $this->registry->get('setting')->get('advertise_google_reporting_interval')),
 				'use_access_token' => true
 			];
 
@@ -1701,7 +1701,7 @@ class Googleshopping extends Library {
 	 */
 	public function getProductReports(array $product_ids): array {
 		$cache = new \Cache($this->registry->get('config')->get('cache_engine'), self::CACHE_PRODUCT_REPORT);
-		$cache_key = 'advertise_google.' . $this->store_id . '.product_reports.' . md5(json_encode($product_ids) . $this->setting->get('advertise_google_reporting_interval'));
+		$cache_key = 'advertise_google.' . $this->store_id . '.product_reports.' . md5(json_encode($product_ids) . $this->registry->get('setting')->get('advertise_google_reporting_interval'));
 
 		$cache_result = $cache->get($cache_key);
 
@@ -1719,7 +1719,7 @@ class Googleshopping extends Library {
 
 		$request = [
 			'type'             => 'POST',
-			'endpoint'         => sprintf(self::ENDPOINT_REPORT_AD, $this->setting->get('advertise_google_reporting_interval')),
+			'endpoint'         => sprintf(self::ENDPOINT_REPORT_AD, $this->registry->get('setting')->get('advertise_google_reporting_interval')),
 			'use_access_token' => true,
 			'content_type'     => 'multipart/form-data',
 			'data'             => $post
@@ -1885,9 +1885,9 @@ class Googleshopping extends Library {
 			'content_type'     => 'multipart/form-data',
 			'data'             => [
 				'grant_type'    => 'refresh_token',
-				'refresh_token' => $this->setting->get('advertise_google_refresh_token'),
-				'client_id'     => $this->setting->get('advertise_google_app_id'),
-				'client_secret' => $this->setting->get('advertise_google_app_secret'),
+				'refresh_token' => $this->registry->get('setting')->get('advertise_google_refresh_token'),
+				'client_id'     => $this->registry->get('setting')->get('advertise_google_app_id'),
+				'client_secret' => $this->registry->get('setting')->get('advertise_google_app_secret'),
 				'scope'         => self::SCOPES
 			]
 		];
@@ -2033,7 +2033,7 @@ class Googleshopping extends Library {
 			$targets[] = [
 				'campaign_name' => $target['campaign_name_raw'],
 				'country'       => $target['country']['code'],
-				'status'        => $this->setting->get('advertise_google_status') ? $target['status'] : 'paused',
+				'status'        => $this->registry->get('setting')->get('advertise_google_status') ? $target['status'] : 'paused',
 				'budget'        => (float)$target['budget']['value'],
 				'roas'          => ((int)$target['roas']) / 100,
 				'feeds'         => $target['feeds_raw']
@@ -2067,7 +2067,7 @@ class Googleshopping extends Library {
 	public function pushShippingAndTaxes(): void {
 		$post = [];
 
-		$data = $this->setting->get('advertise_google_shipping_taxes');
+		$data = $this->registry->get('setting')->get('advertise_google_shipping_taxes');
 
 		$this->curlPostQuery($data, $post);
 
@@ -2109,7 +2109,7 @@ class Googleshopping extends Library {
 		foreach ($this->getTargets($this->store_id) as $target) {
 			$targets[] = [
 				'campaign_name' => $target['campaign_name_raw'],
-				'status'        => $this->setting->get('advertise_google_status') ? $target['status'] : 'paused'
+				'status'        => $this->registry->get('setting')->get('advertise_google_status') ? $target['status'] : 'paused'
 			];
 		}
 
@@ -2187,7 +2187,7 @@ class Googleshopping extends Library {
 		// Languages
 		$this->registry->get('load')->model('localisation/language');
 
-		$language_info = $this->model_localisation_language->getLanguage($language_id);
+		$language_info = $this->registry->get('load')->model_localisation_language->getLanguage($language_id);
 
 		if (isset($language_info['name']) && trim($language_info['name']) != '') {
 			return $language_info['name'];
@@ -2267,7 +2267,7 @@ class Googleshopping extends Library {
 	 * @return void
 	 */
 	public function debugLog(?string $text): void {
-		if ($this->setting->get('advertise_google_debug_log')) {
+		if ($this->registry->get('setting')->get('advertise_google_debug_log')) {
 			$this->debug_log->write($text);
 		}
 	}
@@ -2401,11 +2401,11 @@ class Googleshopping extends Library {
 		if (!$query->num_rows) {
 			$this->registry->get('db')->query("INSERT INTO `" . DB_PREFIX . "setting` SET `value` = '" . $this->registry->get('db')->escape($encoded) . "', `code` = 'advertise_google', `key` = '" . $this->registry->get('db')->escape($key) . "', `serialized` = '" . $serialized . "', `store_id` = '0'");
 
-			$this->setting->set($key, $value);
+			$this->registry->get('setting')->set($key, $value);
 		} else {
 			$this->registry->get('db')->query("UPDATE `" . DB_PREFIX . "setting` SET `value` = '" . $this->registry->get('db')->escape($encoded) . "', `serialized` = '" . $serialized . "' WHERE `code` = 'advertise_google' AND `key` = '" . $this->registry->get('db')->escape($key) . "'");
 
-			$this->setting->set($key, $value);
+			$this->registry->get('setting')->set($key, $value);
 		}
 	}
 
@@ -2432,7 +2432,7 @@ class Googleshopping extends Library {
 		}
 
 		if (!empty($request['use_access_token'])) {
-			$headers[] = 'Authorization: Bearer ' . $this->setting->get('advertise_google_access_token');
+			$headers[] = 'Authorization: Bearer ' . $this->registry->get('setting')->get('advertise_google_access_token');
 		}
 
 		$curl_options = [];
