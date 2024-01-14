@@ -36,7 +36,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 			$first_location_id = null;
 
 			if ($this->config->get('payment_squareup_access_token')) {
-				if (!is_object($this->squareup) || !$this->squareup->verifyToken($this->config->get('payment_squareup_access_token'))) {
+				if (!$this->squareup->verifyToken($this->config->get('payment_squareup_access_token'))) {
 					unset($previous_setting['payment_squareup_merchant_id']);
 					unset($previous_setting['payment_squareup_merchant_name']);
 					unset($previous_setting['payment_squareup_access_token']);
