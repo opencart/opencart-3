@@ -425,7 +425,7 @@ class ModelExtensionPaymentOpayo extends Model {
 			}
 		}
 
-		$log = new Log('opayo_recurring_orders.log');
+		$log = new \Log('opayo_recurring_orders.log');
 
 		$log->write(print_r($cron_data, 1));
 
@@ -739,7 +739,7 @@ class ModelExtensionPaymentOpayo extends Model {
 		$setting = array_replace_recursive((array)$config_setting, (array)$this->config->get('payment_opayo_setting'));
 
 		if ($setting['general']['debug']) {
-			$log = new Log('opayo.log');
+			$log = new \Log('opayo.log');
 
 			$log->write($title . ': ' . print_r($data, 1));
 		}

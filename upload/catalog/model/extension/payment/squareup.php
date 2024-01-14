@@ -286,21 +286,23 @@ class ModelExtensionPaymentSquareup extends Model {
 	}
 
 	/**
-	 * nextRecurringPayments
+	 * nextPayments
 	 *
 	 * @return array
 	 */
-	public function nextRecurringPayments(): array {
+	public function nextPayments(): array {
 		$payments = [];
 
 		$this->load->library('squareup');
 
-		$subscription_sql = "SELECT * FROM `" . DB_PREFIX . "subscription` `s` INNER JOIN `" . DB_PREFIX . "squareup_transaction` `st` ON (`st`.`transaction_id` = `s`.`reference`) WHERE `s`.`status` = '" . self::RECURRING_ACTIVE . "'";
+		$sql = "SELECT * FROM `" . DB_PREFIX . "subscription` `s` INNER JOIN `" . DB_PREFIX . "squareup_transaction` `st` ON (`st`.`transaction_id` = `s`.`reference`) WHERE `s`.`status` = '" . self::RECURRING_ACTIVE . "'";
+
+		$query = $this->db->query($sql);
 
 		// Orders
 		$this->load->model('checkout/order');
 
-		foreach ($this->db->query($subscription_sql)->rows as $subscription) {
+		foreach ($query->rows as $subscription) {
 			if (!$this->paymentIsDue($subscription['subscription_id'])) {
 				continue;
 			}
@@ -319,7 +321,7 @@ class ModelExtensionPaymentSquareup extends Model {
 				'organization'   => $subscription['billing_address_company']
 			];
 
-			$transaction_tenders = @json_decode($subscription['tenders'], true);
+			$transaction_tenders = json_decode($subscription['tenders'], true);
 
 			$price = (int)($subscription['trial_status'] ? $subscription['trial_price'] : $subscription['price']);
 

@@ -118,7 +118,7 @@ class ControllerExtensionSubscriptionSquareup extends Controller {
 		// Orders
 		$this->load->model('checkout/order');
 
-		foreach ($this->model_extension_payment_squareup->nextRecurringPayments() as $payment) {
+		foreach ($this->model_extension_payment_squareup->nextPayments() as $payment) {
 			try {
 				if (!$payment['is_free']) {
 					$transaction = $this->squareup->addTransaction($payment['transaction']);
