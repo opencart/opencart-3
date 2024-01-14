@@ -4,9 +4,11 @@
  *
  * @package Admin\Model\Extension\Payment
  */
+use Cardinity\Exception;
 use Cardinity\Client;
 use Cardinity\Method\Payment;
 use Cardinity\Method\Refund;
+use Cardinity\Method\ResultObject;
 
 class ModelExtensionPaymentCardinity extends Model {
 	/**
