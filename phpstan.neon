@@ -7,11 +7,7 @@ parameters:
 	level: 1
 	paths:
 		- ./upload/
-	excludePaths:
-		- ./admin/controller/extension/advertise/
-		- ./upload/admin/controller/extension/advertise/
-		- ./admin/model/extension/advertise/
-		- ./upload/admin/model/extension/advertise/
+	excludePaths:		
 		- ./admin/model/extension/payment/cardinity.php
 		- ./upload/admin/model/extension/payment/cardinity.php		
 		- ./catalog/controller/extension/advertise/
