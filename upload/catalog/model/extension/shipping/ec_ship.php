@@ -496,9 +496,10 @@ class ModelExtensionShippingECShip extends Model {
 				$objResponseArray[] = $objResponse;
 			}
 
+			$quote_data = [];
+
 			if ($objResponseArray) {
-				$code = 'ec_ship';
-				$quote_data = [];
+				$code = 'ec_ship';				
 
 				foreach ($objResponseArray as $key => $value) {
 					if ($value['getTotalPostageReturn']['status'] == 0) {
