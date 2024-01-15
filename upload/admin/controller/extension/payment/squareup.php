@@ -657,10 +657,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
 			$previous_setting['payment_squareup_locations'] = $this->squareup->fetchLocations($token['access_token'], $first_location_id);
 
-			if (!isset($previous_setting['payment_squareup_location_id']) || (isset($previous_setting['payment_squareup_location_id']) && !in_array(
-				$previous_setting['payment_squareup_location_id'],
-				array_map(fn ($location) => $location['id'], $previous_setting['payment_squareup_locations'])
-			))) {
+			if (!isset($previous_setting['payment_squareup_location_id']) || (isset($previous_setting['payment_squareup_location_id']) && !in_array($previous_setting['payment_squareup_location_id'], array_map(fn ($location) => $location['id'], $previous_setting['payment_squareup_locations'])))) {
 				$previous_setting['payment_squareup_location_id'] = $first_location_id;
 			}
 
