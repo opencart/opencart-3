@@ -14,7 +14,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	use StoreLoader;
 
 	private array $error;
-	private int $store_id;
+	private int   $store_id;
 
 	/**
 	 * Constructor
@@ -1887,7 +1887,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 		// Google
 		$this->load->model('extension/advertise/google');
 
-		foreach ($this->model_catalog_product->getProductStores($output) as $store_id) {
+		foreach ($this->model_catalog_product->getStores($output) as $store_id) {
 			$this->model_extension_advertise_google->insertNewProducts([$output], $store_id);
 		}
 	}
@@ -1913,7 +1913,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 		$final_product_id = $this->model_extension_advertise_google->getFinalProductId();
 
 		if (!empty($final_product_id)) {
-			foreach ($this->model_catalog_product->getProductStores($final_product_id) as $store_id) {
+			foreach ($this->model_catalog_product->getStores($final_product_id) as $store_id) {
 				$this->model_extension_advertise_google->insertNewProducts([$final_product_id], $store_id);
 			}
 		}
