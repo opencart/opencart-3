@@ -82,10 +82,12 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 			'countryCode' => $country_info['iso_code_2'],
 		];
 
+		$price = round($this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false));
+
 		$order = [
 			'token'             => $this->request->post['token'],
 			'orderType'         => $order_type,
-			'amount'            => round($this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false) * 100),
+			'amount'            => (float)$amount * 100,
 			'currencyCode'      => $order_info['currency_code'],
 			'name'              => $order_info['firstname'] . ' ' . $order_info['lastname'],
 			'orderDescription'  => $order_info['store_name'] . ' - ' . date('Y-m-d H:i:s'),
@@ -107,20 +109,20 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 			$this->model_extension_payment_worldpay->addTransaction($worldpay_order_id, 'payment', $order_info);
 
 			if (isset($this->request->post['save-card'])) {
-				$response = $this->model_extension_payment_worldpay->sendCurl('tokens/' . $this->request->post['token']);
+				$response = $this->model_extension_payment_worldpay->sendCurl('tokens/' . $this->request->post['token'], []);
 
 				$this->model_extension_payment_worldpay->logger($response);
 
-				$expiry_date = mktime(0, 0, 0, 0, (string)$response->paymentMethod->expiryMonth, (string)$response->paymentMethod->expiryYear);
+				$expiry_date = mktime(0, 0, 0, 0, (string)$response['paymentMethod']['expiryMonth'], (string)$response['paymentMethod']['expiryYear']);
 
-				if (isset($response->paymentMethod)) {
+				if (isset($response['paymentMethod'])) {
 					$card_data = [];
 
 					$card_data['customer_id'] = $this->customer->getId();
-					$card_data['Token'] = $response->token;
-					$card_data['Last4Digits'] = (string)$response->paymentMethod->maskedCardNumber;
+					$card_data['Token'] = $response['token'];
+					$card_data['Last4Digits'] = (string)$response['paymentMethod']['maskedCardNumber'];
 					$card_data['ExpiryDate'] = date('m/y', $expiry_date);
-					$card_data['CardType'] = (string)$response->paymentMethod->cardType;
+					$card_data['CardType'] = (string)$response['paymentMethod']['cardType'];
 
 					$this->model_extension_payment_worldpay->addCard($this->session->data['order_id'], $card_data);
 				}
@@ -128,7 +130,7 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 
 			// Loop through any products that are subscription items
 			foreach ($subscription_products as $item) {
-				$this->model_extension_payment_worldpay->recurringPayment($item, $this->session->data['order_id'] . mt_rand(), $this->request->post['token']);
+				$this->model_extension_payment_worldpay->subscriptionPayment($item, $this->session->data['order_id'] . mt_rand(), $this->request->post['token']);
 			}
 
 			$this->response->redirect($this->url->link('checkout/success', '', true));

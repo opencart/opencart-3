@@ -207,14 +207,14 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	}
 
 	/**
-	 * recurringPayment
+	 * subscriptionPayment
 	 *
 	 * @param array $item
 	 * @param int   $vendor_tx_code
 	 *
 	 * @return void
 	 */
-	public function recurringPayment(array $item, int $vendor_tx_code): void {
+	public function subscriptionPayment(array $item, int $vendor_tx_code): void {
 		// Subscriptions
 		$this->load->model('checkout/subscription');
 

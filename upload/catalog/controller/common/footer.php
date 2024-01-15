@@ -80,7 +80,7 @@ class ControllerCommonFooter extends Controller {
 		$data['wishlist'] = $this->url->link('account/wishlist', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''), true);
 		$data['newsletter'] = $this->url->link('account/newsletter', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''), true);
 		$data['scripts'] = $this->document->getScripts('footer');
-		$data['styles'] = $this->document->getStyles('footer');
+		$data['styles'] = $this->document->getStyles();
 
 		$data['cookie'] = $this->load->controller('common/cookie');
 

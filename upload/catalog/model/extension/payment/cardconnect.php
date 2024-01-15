@@ -165,12 +165,17 @@ class ModelExtensionPaymentCardConnect extends Model {
 	/**
 	 * addOrder
 	 *
-	 * @param array  $order_info
-	 * @param string $payment_method
+	 * @param int       $order_id
+	 * @param int       $customer_id	 
+	 * @param string    $retref
+	 * @param string    $auth_code
+	 * @param string    $currency_code
+	 * @param float     $total
+	 * @param string    $payment_method
 	 *
 	 * @return int
 	 */
-	public function addOrder(array $order_info, string $payment_method): int {
+	public function addOrder(int $order_id, int $customer_id, string $retref, string $auth_code, float $total, string $currency_code, string $payment_method): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "cardconnect_order` SET `order_id` = '" . (int)$order_info['order_id'] . "', `customer_id` = '" . (int)$this->customer->getId() . "', `payment_method` = '" . $this->db->escape($payment_method) . "', `retref` = '" . $this->db->escape($order_info['retref']) . "', `authcode` = '" . $this->db->escape($order_info['authcode']) . "', `currency_code` = '" . $this->db->escape($order_info['currency_code']) . "', `total` = '" . $this->currency->format($order_info['total'], $order_info['currency_code'], false, false) . "', `date_added` = NOW()");
 
 		return $this->db->getLastId();

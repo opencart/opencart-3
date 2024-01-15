@@ -202,7 +202,7 @@ class ControllerExtensionPaymentFirstdata extends Controller {
 
 								$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_firstdata_order_status_success_settled_id'), $message, false);
 							} else {
-								$this->model_extension_payment_firstdata->addTransaction($fd_order_id, 'auth');
+								$this->model_extension_payment_firstdata->addTransaction($fd_order_id, 'auth', []);
 
 								$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_firstdata_order_status_success_unsettled_id'), $message, false);
 							}

@@ -312,7 +312,7 @@ class ControllerExtensionPaymentOpayo extends Controller {
 
 			$card_id = '';
 
-			if (!empty($payment_data['CreateToken']) && !empty($response_data['Token']) && $this->customer->isLogged()) {
+			if (isset($payment_data['CreateToken']) && isset($response_data['Token']) && $this->customer->isLogged()) {
 				$card_data = [];
 
 				$card_data['customer_id'] = $this->customer->getId();
@@ -499,18 +499,18 @@ class ControllerExtensionPaymentOpayo extends Controller {
 
 				$this->model_checkout_order->addOrderHistory($this->request->get['order_id'], $setting['general']['order_status_id'], $message, false);
 
-				if (!empty($response_data['Token']) && $this->customer->isLogged()) {
+				if (isset($response_data['Token']) && $this->customer->isLogged()) {
 					$this->model_extension_payment_opayo->updateCard($opayo_order_info['card_id'], $response_data['Token']);
 				} else {
 					$this->model_extension_payment_opayo->deleteCard($opayo_order_info['card_id']);
 				}
 
 				if ($setting['general']['transaction_method'] == 'PAYMENT') {
-					$recurring_products = $this->cart->getRecurringProducts();
+					$subscription_products = $this->cart->getSubscriptions();
 
 					//loop through any products that are recurring items
-					foreach ($recurring_products as $item) {
-						$this->model_extension_payment_opayo->recurringPayment($item, $opayo_order_info['vendor_tx_code']);
+					foreach ($subscription_products as $item) {
+						$this->model_extension_payment_opayo->subscriptionPayment($item, $opayo_order_info['vendor_tx_code']);
 					}
 				}
 

@@ -94,8 +94,8 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 	/**
 	 * Release
 	 *
-	 * @param int $order_id
-	 * @param int $amount
+	 * @param int   $order_id
+	 * @param float $amount
 	 *
 	 * @return object|null
 	 */

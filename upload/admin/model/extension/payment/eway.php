@@ -254,9 +254,9 @@ class ModelExtensionPaymentEway extends Model {
 	 * @param string $url
 	 * @param array  $data
 	 *
-	 * @return void
+	 * @return object
 	 */
-	public function sendCurl(string $url, array $data): string {
+	public function sendCurl(string $url, array $data): object {
 		$ch = curl_init($url);
 
 		$eway_username = html_entity_decode($this->config->get('payment_eway_username'), ENT_QUOTES, 'UTF-8');

@@ -172,7 +172,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 				$this->response->redirect($this->url->link('checkout/failure', '', true));
 			}
 		} elseif ($this->request->server['REQUEST_METHOD'] == 'POST' && isset($this->request->post['RESULT']) && $this->request->post['RESULT'] == 'FAILURE') {
-			$this->model_extension_payment_laybuy->log('Failure Response: ' . $this->request->post);
+			$this->model_extension_payment_laybuy->log('Failure Response: ' . (array)$this->request->post);
 			$this->model_extension_payment_laybuy->log('Redirecting to checkout/failure.');
 
 			$this->response->redirect($this->url->link('checkout/failure', '', true));

@@ -330,7 +330,10 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 					$json['msg'] = $this->language->get('text_capture_ok');
 				}
 
-				$this->model_extension_payment_realex_remote->updateForRebate($realex_order['realex_remote_order_id'], $capture_response->pasref, $capture_response->orderid);
+				$pasref = (string)$capture_response->pasref;
+				$orderid = (string)$capture_response->orderid;
+
+				$this->model_extension_payment_realex_remote->updateForRebate($realex_order['realex_remote_order_id'], $pasref, $orderid);
 
 				$json['data'] = [];
 
@@ -342,7 +345,10 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 				$json['error'] = false;
 			} else {
 				$json['error'] = true;
-				$json['msg'] = !empty($capture_response->message) ? sprintf($this->language->get('error_status'), (string)$capture_response->message) : $this->language->get('error_capture');
+
+				$message = (string)$capture_response->message;
+				
+				$json['msg'] = isset($capture_response->message) ? sprintf($this->language->get('error_status'), $message) : $this->language->get('error_capture');
 			}
 		} else {
 			$json['error'] = true;

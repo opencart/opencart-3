@@ -142,7 +142,7 @@ class ModelExtensionPaymentSagepayDirect extends Model {
 	 * Release
 	 *
 	 * @param int   $order_id
-	 * @param array $amount
+	 * @param float $amount
 	 *
 	 * @return array
 	 */

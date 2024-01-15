@@ -95,7 +95,8 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 
 		$order_info = $this->model_checkout_order->getOrder($order_id);
 
-		$amount = round($this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false) * 100);
+		$amount = round($this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false));
+		$amount = (float)$amount * 100;
 
 		$currency = $order_info['currency_code'];
 
@@ -138,9 +139,9 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 
 					$md = $encryption->encrypt((int)$this->config->get('config_encryption'), json_encode($enc_data));
 
-					$json['ACSURL'] = (string)$verify_3ds->url;
+					$json['ACSURL'] = (string)$verify_3ds->url ?? null;
 					$json['MD'] = $md;
-					$json['PaReq'] = (string)$verify_3ds->pareq;
+					$json['PaReq'] = (string)$verify_3ds->pareq ?? null;
 					$json['TermUrl'] = $this->url->link('extension/payment/globalpay_remote/acsReturn', '', true);
 
 					$this->response->addHeader('Content-Type: application/json');
@@ -189,7 +190,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 					if ($this->config->get('payment_globalpay_remote_liability') != 1) {
 						$this->load->language('extension/payment/globalpay_remote');
 
-						$json['error'] = (string)$verify_3ds->message;
+						$json['error'] = (string)$verify_3ds->message ?? null;
 
 						$this->response->addHeader('Content-Type: application/json');
 						$this->response->setOutput(json_encode($json));

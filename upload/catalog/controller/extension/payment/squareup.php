@@ -214,7 +214,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
 			$order_status_id = $this->config->get('payment_squareup_status_' . $transaction_status);
 
-			$order_products = $this->model_checkout_order->getOrderProducts($this->session->data['order_id']);
+			$order_products = $this->model_checkout_order->getProducts($this->session->data['order_id']);
 
 			if ($order_status_id) {
 				if ($this->cart->hasProducts() && $transaction_status == 'captured') {

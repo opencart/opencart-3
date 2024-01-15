@@ -139,11 +139,9 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 
 					$md = $encryption->encrypt((int)$this->config->get('config_encryption'), json_encode($enc_data));
 
-					$json = [];
-
-					$json['ACSURL'] = (string)$verify_3ds->url;
+					$json['ACSURL'] = (string)$verify_3ds->url ?? null;
 					$json['MD'] = $md;
-					$json['PaReq'] = (string)$verify_3ds->pareq;
+					$json['PaReq'] = (string)$verify_3ds->pareq ?? null;
 					$json['TermUrl'] = $this->url->link('extension/payment/realex_remote/acsReturn', '', true);
 
 					$this->response->addHeader('Content-Type: application/json');
@@ -187,12 +185,14 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 					}
 				}
 
+				$result = $verify_3ds->result;
+
 				// Invalid response from Enrollment Server. No shift in liability. ECI = 7
-				if (isset($verify_3ds->result) && $verify_3ds->result >= 500 && $verify_3ds->result < 600) {
+				if ($result && $result >= 500 && $result < 600) {
 					if ($this->config->get('payment_realex_remote_liability') != 1) {
 						$this->load->language('extension/payment/realex_remote');
 
-						$json['error'] = (string)$verify_3ds->message;
+						$json['error'] = (string)$verify_3ds->message ?? null;
 
 						$this->response->addHeader('Content-Type: application/json');
 						$this->response->setOutput(json_encode($json));

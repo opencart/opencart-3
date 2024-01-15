@@ -613,7 +613,6 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	 *
 	 * @param string $url
 	 * @param array  $parameters
-	 * @param string $curl
 	 *
 	 * @return array
 	 */

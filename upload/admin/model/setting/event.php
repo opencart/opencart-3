@@ -13,7 +13,6 @@ class ModelSettingEvent extends Model {
 	 * @param string $action
 	 * @param int    $status
 	 * @param int    $sort_order
-	 * @param array  $data
 	 *
 	 * @return int
 	 */

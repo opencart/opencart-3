@@ -220,7 +220,7 @@ class ModelExtensionPaymentOpayo extends Model {
 	 *
 	 * @return void
 	 */
-	public function recurringPayment(array $item, string $vendor_tx_code): void {
+	public function subscriptionPayment(array $item, string $vendor_tx_code): void {
 		$this->load->model('checkout/recurring');
 		$this->load->model('extension/payment/opayo');
 
