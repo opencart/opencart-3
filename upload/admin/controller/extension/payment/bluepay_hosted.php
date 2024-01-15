@@ -91,7 +91,7 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
 					$this->model_extension_payment_bluepay_hosted->addTransaction($bluepay_hosted_order_id, 'auth', $order_info);
 				}
 
-				$this->model_sale_order->addHistory($this->session->data['order_id'], $this->config->get('payment_bluepay_hosted_order_status_id'));
+				$this->model_extension_payment_bluepay_hosted->addHistory($this->session->data['order_id'], $this->config->get('payment_bluepay_hosted_order_status_id'));
 
 				$this->session->data['success'] = $response_data['Result'] . ': ' . $response_data['MESSAGE'];
 
