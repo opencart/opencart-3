@@ -452,7 +452,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 					// Orders
 					$this->load->model('sale/order');
 
-					$this->model_sale_order->addOrderHistory($this->request->post['order_id'], $post_data);
+					$this->model_extension_payment_securetrading_ws->addHistory($this->request->post['order_id'], $post_data);
 
 					$json['msg'] = $this->language->get('text_authorisation_reversed');
 					$json['data']['created'] = date('Y-m-d H:i:s');
@@ -523,7 +523,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 						$history['comment'] = '';
 						$history['notify'] = '';
 
-						$this->model_sale_order->addOrderHistory($this->request->post['order_id'], $history);
+						$this->model_extension_payment_securetrading_ws->addHistory($this->request->post['order_id'], $history);
 					} else {
 						$release_status = 0;
 

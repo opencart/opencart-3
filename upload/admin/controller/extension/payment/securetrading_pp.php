@@ -488,7 +488,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 				$error_code = (string)$response_xml->response->error->code;
 
 				if ($error_code == '0') {
-					$this->model_extension_payment_securetrading_pp->addTransaction($securetrading_pp_order['securetrading_pp_order_id'], 'rebate', floatval($amount) * -1);
+					$this->model_extension_payment_securetrading_pp->addTransaction($securetrading_pp_order['securetrading_pp_order_id'], 'rebate', $amount -1);
 
 					$total_rebated = $this->model_extension_payment_securetrading_pp->getTotalRebated($securetrading_pp_order['securetrading_pp_order_id']);
 					$total_released = $this->model_extension_payment_securetrading_pp->getTotalReleased($securetrading_pp_order['securetrading_pp_order_id']);
