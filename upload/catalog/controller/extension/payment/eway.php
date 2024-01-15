@@ -335,7 +335,7 @@ class ControllerExtensionPaymentEway extends Controller {
 
 				$transaction_id = (string)$result->TransactionID;
 
-				$this->model_extension_payment_eway->addTransaction($eway_order_id, $this->config->get('payment_eway_transaction_method'), $transaction_id, $order_info);
+				$this->model_extension_payment_eway->addTransaction($eway_order_id, $this->config->get('payment_eway_transaction_method'), $transaction_id, $order_info['total'], $order_info['currency_code']);
 
 				if ($fraud) {
 					$message = 'Suspected fraud order: ' . $log_error . "\n";

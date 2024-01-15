@@ -78,13 +78,15 @@ class ModelExtensionPaymentFirstdata extends Model {
 	 *
 	 * @param int    $fd_order_id
 	 * @param string $type
-	 * @param array  $order_info
+	 * @param float  $total
+	 * @param string $currency_code
+	 * @param string $currency_value
 	 *
 	 * @return void
 	 */
-	public function addTransaction(int $fd_order_id, string $type, array $order_info = []): void {
+	public function addTransaction(int $fd_order_id, string $type, float $total, string $currency_code, string $currency_value): void {
 		if (!empty($order_info)) {
-			$amount = $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false);
+			$amount = $this->currency->format($total, $currency_code, $currency_value, false);
 		} else {
 			$amount = 0.00;
 		}

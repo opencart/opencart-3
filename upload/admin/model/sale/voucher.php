@@ -10,7 +10,7 @@ class ModelSaleVoucher extends Model {
 	 *
 	 * @param array $data
 	 *
-	 * @return void
+	 * @return int
 	 */
 	public function addVoucher(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "voucher` SET `code` = '" . $this->db->escape($data['code']) . "', `from_name` = '" . $this->db->escape($data['from_name']) . "', `from_email` = '" . $this->db->escape($data['from_email']) . "', `to_name` = '" . $this->db->escape($data['to_name']) . "', `to_email` = '" . $this->db->escape($data['to_email']) . "', `voucher_theme_id` = '" . (int)$data['voucher_theme_id'] . "', `message` = '" . $this->db->escape($data['message']) . "', `amount` = '" . (float)$data['amount'] . "', `status` = '" . (int)$data['status'] . "', `date_added` = NOW()");

@@ -185,7 +185,7 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 
 							$cardconnect_order_id = $this->model_extension_payment_cardconnect->addOrder($order_info['order_id'], $order_info['retref'], $order_info['auth_code'], $order_info['total'], $order_info['currency_code'], $payment_method);
 
-							$this->model_extension_payment_cardconnect->addTransaction($cardconnect_order_id, $type, $status, $order_info);
+							$this->model_extension_payment_cardconnect->addTransaction($cardconnect_order_id, $type, $status, $order_info['retref'], $order_info['total'], $order_info['currency_code']);
 
 							if (isset($response_data['profileid']) && $this->config->get('payment_cardconnect_store_cards') && $this->customer->isLogged()) {
 								$this->model_extension_payment_cardconnect->log('Saving card');

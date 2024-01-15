@@ -996,21 +996,10 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 							$order_id = $this->model_extension_payment_amazon_login_pay->findOCOrderId($amazon_order_reference_id);
 							$amazon_login_pay_order_id = $this->model_extension_payment_amazon_login_pay->findAOrderId($amazon_order_reference_id);
 
-							$transaction = [
-								'amazon_login_pay_order_id' => $amazon_login_pay_order_id,
-								'amazon_authorization_id'   => $amazon_authorization_id,
-								'amazon_capture_id'         => $amazon_capture_id,
-								'amazon_refund_id'          => '',
-								'date_added'                => date('Y-m-d H:i:s', strtotime((string)$xml->AuthorizationDetails->CreationTimestamp)),
-								'type'                      => 'capture',
-								'status'                    => 'Completed',
-								'amount'                    => $amazon_captured_amount
-							];
-
 							$transaction_exists = !empty($amazon_capture_id) ? $this->model_extension_payment_amazon_login_pay->findCapture($amazon_capture_id) : null;
 
 							if ($transaction_exists !== null) {
-								$this->model_extension_payment_amazon_login_pay->addTransaction($transaction['amazon_login_pay_order_id'], $transaction['amazon_authorization_id'], $transaction['amazon_capture_id'], $transaction['amazon_refund_id'], $transaction['date_added'], $transaction['type'], $transaction['status'], $transaction['amount']);
+								$this->model_extension_payment_amazon_login_pay->addTransaction($amazon_login_pay_order_id, $amazon_authorization_id, $amazon_capture_id, '', date('Y-m-d H:i:s', strtotime((string)$xml->AuthorizationDetails->CreationTimestamp)), 'capture', 'Completed', $amazon_captured_amount);
 							}
 
 							$order_reference_details = $this->model_extension_payment_amazon_login_pay->fetchOrder($amazon_order_reference_id);

@@ -93,15 +93,15 @@ class ControllerExtensionPaymentDivido extends Controller {
 		// Divido
 		$this->load->model('extension/payment/divido');
 
-		$post_data = json_decode(file_get_contents('php://input'));
+		$post_data = json_decode(file_get_contents('php://input'), true);
 
-		if (!isset($post_data->status)) {
+		if (!isset($post_data['status'])) {
 			$this->response->setOutput('');
 
 			return false;
 		}
 
-		$order_id = (int)$post_data->metadata->order_id;
+		$order_id = (int)$post_data['metadata']['order_id'];
 
 		$lookup = $this->model_extension_payment_divido->getLookupByOrderId($order_id);
 
@@ -113,7 +113,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 
 		$hash = $this->model_extension_payment_divido->hashOrderId($order_id, $lookup['salt']);
 
-		$order_hash = (string)$post_data->metadata->order_hash;
+		$order_hash = (string)$post_data['metadata']['order_hash'];
 
 		if ($hash !== $order_hash) {
 			$this->response->setOutput('');
@@ -124,7 +124,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 		$order_info = $this->model_checkout_order->getOrder($order_id);
 		$order_status_id = $order_info['order_status_id'];
 
-		$status = (string)$post_data->status;
+		$status = (string)$post_data['status'];
 
 		$message = 'Status: {$status}';
 
@@ -148,7 +148,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 			$order_status_id = 0;
 		}
 
-		$application = (string)$post_data->application;
+		$application = (string)$post_data['application'];
 
 		$this->model_extension_payment_divido->saveLookup($order_id, $lookup['salt'], null, $application);
 
@@ -290,10 +290,11 @@ class ControllerExtensionPaymentDivido extends Controller {
 		];
 
 		$response = Divido_CreditRequest::create($request_data);
+		$response = (array)$response;
 
-		$status = (string)$response->status;
-		$proposal_id = (string)$response->id;
-		$response_url = $response->url;
+		$status = (string)$response['status'];
+		$proposal_id = (string)$response['id'];
+		$response_url = $response['url'];
 
 		if ($status == 'ok') {
 			$this->model_extension_payment_divido->saveLookup($order_id, $salt, $proposal_id, null, $deposit_amount);
@@ -303,7 +304,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 				'url'    => $response_url,
 			];
 		} else {
-			$error = (string)$response->error;
+			$error = (string)$response['error'];
 			
 			$data = [
 				'status'  => 'error',
@@ -334,7 +335,6 @@ class ControllerExtensionPaymentDivido extends Controller {
 		$this->model_extension_payment_divido->setMerchant($this->config->get('payment_divido_api_key'));
 
 		$product_selection = $this->config->get('payment_divido_productselection');
-
 		$price_threshold = $this->config->get('payment_divido_price_threshold');
 
 		$product_id = $args['product_id'];
@@ -352,7 +352,6 @@ class ControllerExtensionPaymentDivido extends Controller {
 		}
 
 		$plans_ids = array_map(fn ($plan) => $plan->id, $plans);
-
 		$plan_list = implode(',', $plans_ids);
 
 		$data = [
