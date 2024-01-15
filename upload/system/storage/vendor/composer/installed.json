@@ -1606,17 +1606,17 @@
         },
         {
             "name": "zoujingli/wechat-developer",
-            "version": "v1.2.51",
-            "version_normalized": "1.2.51.0",
+            "version": "v1.2.53",
+            "version_normalized": "1.2.53.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zoujingli/WeChatDeveloper.git",
-                "reference": "b799247cd27ce5a49b6f7ae22cfe10ab7768cb4e"
+                "reference": "cd5ff0228e8bc31e76c2ef753b1313008d8c520f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zoujingli/WeChatDeveloper/zipball/b799247cd27ce5a49b6f7ae22cfe10ab7768cb4e",
-                "reference": "b799247cd27ce5a49b6f7ae22cfe10ab7768cb4e",
+                "url": "https://api.github.com/repos/zoujingli/WeChatDeveloper/zipball/cd5ff0228e8bc31e76c2ef753b1313008d8c520f",
+                "reference": "cd5ff0228e8bc31e76c2ef753b1313008d8c520f",
                 "shasum": ""
             },
             "require": {
@@ -1630,7 +1630,7 @@
                 "ext-xml": "*",
                 "php": ">=5.4"
             },
-            "time": "2023-12-18T06:24:51+00:00",
+            "time": "2024-01-02T09:59:49+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -1667,7 +1667,7 @@
             ],
             "support": {
                 "issues": "https://github.com/zoujingli/WeChatDeveloper/issues",
-                "source": "https://github.com/zoujingli/WeChatDeveloper/tree/v1.2.51"
+                "source": "https://github.com/zoujingli/WeChatDeveloper/tree/v1.2.53"
             },
             "install-path": "../zoujingli/wechat-developer"
         }
