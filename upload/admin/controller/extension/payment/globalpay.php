@@ -297,7 +297,7 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
 
 			$this->model_extension_payment_globalpay->logger('Void result:\r\n' . print_r($void_response, 1));
 
-			if (isset($void_response->result) && $void_response->result == '00') {
+			if (isset($void_response['result']) && $void_response['result'] == '00') {
 				$this->model_extension_payment_globalpay->addTransaction($globalpay_order['globalpay_order_id'], 'void', 0.00);
 				$this->model_extension_payment_globalpay->updateVoidStatus($globalpay_order['globalpay_order_id'], 1);
 
@@ -309,7 +309,7 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
 
 				$json['error'] = false;
 			} else {
-				$json['msg'] = !empty($void_response->message) ? sprintf($this->language->get('error_status'), (string)$void_response->message) : $this->language->get('error_void');
+				$json['msg'] = !empty($void_response['message']) ? sprintf($this->language->get('error_status'), (string)$void_response['message']) : $this->language->get('error_void');
 
 				$json['error'] = true;
 			}
@@ -343,7 +343,7 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
 
 			$this->model_extension_payment_globalpay->logger('Settle result:\r\n' . print_r($capture_response, 1));
 
-			if (isset($capture_response->result) && $capture_response->result == '00') {
+			if (isset($capture_response['result']) && $capture_response['result'] == '00') {
 				$this->model_extension_payment_globalpay->addTransaction($globalpay_order['globalpay_order_id'], 'payment', $this->request->post['amount']);
 
 				$total_captured = $this->model_extension_payment_globalpay->getTotalCaptured($globalpay_order['globalpay_order_id']);
@@ -360,7 +360,7 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
 					$json['msg'] = $this->language->get('text_capture_ok');
 				}
 
-				$this->model_extension_payment_globalpay->updateForRebate($globalpay_order['globalpay_order_id'], $capture_response['pasref'], (string)$capture_response['orderid']);
+				$this->model_extension_payment_globalpay->updateForRebate($globalpay_order['globalpay_order_id'], (string)$capture_response['pasref'], (string)$capture_response['orderid']);
 
 				$json['data'] = [];
 
@@ -371,9 +371,7 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
 
 				$json['error'] = false;
 			} else {
-				$message = (string)$capture_response->message;
-				
-				$json['msg'] = isset($capture_response->message) ? sprintf($this->language->get('error_status'), $message) : $this->language->get('error_capture');
+				$json['msg'] = isset($capture_response['message']) ? sprintf($this->language->get('error_status'), (string)$message) : $this->language->get('error_capture');
 
 				$json['error'] = true;
 			}
@@ -407,7 +405,7 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
 
 			$this->model_extension_payment_globalpay->logger('Rebate result:\r\n' . print_r($rebate_response, 1));
 
-			if (isset($rebate_response->result) && $rebate_response->result == '00') {
+			if (isset($rebate_response['result']) && $rebate_response['result'] == '00') {
 				$this->model_extension_payment_globalpay->addTransaction($globalpay_order['globalpay_order_id'], 'rebate', $this->request->post['amount'] * -1);
 
 				$total_rebated = $this->model_extension_payment_globalpay->getTotalRebated($globalpay_order['globalpay_order_id']);
@@ -435,7 +433,7 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
 
 				$json['error'] = false;
 			} else {
-				$json['msg'] = !empty($rebate_response->message) ? sprintf($this->language->get('error_status'), (string)$rebate_response->message) : $this->language->get('error_rebate');
+				$json['msg'] = !empty($rebate_response['message']) ? sprintf($this->language->get('error_status'), (string)$rebate_response['message']) : $this->language->get('error_rebate');
 
 				$json['error'] = true;
 			}
