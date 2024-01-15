@@ -20,8 +20,8 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 			  `modified` datetime NOT NULL,
 			  `release_status` int(1) NOT NULL DEFAULT '0',
 			  `void_status` int(1) NOT NULL DEFAULT '0',
-			  `settle_type` int(1) NOT NULL DEFAULT '0',
 			  `rebate_status` int(1) NOT NULL DEFAULT '0',
+			  `settle_type` int(1) NOT NULL DEFAULT '0',
 			  `currency_code` varchar(3) NOT NULL,
 			  `total` decimal(15,4) NOT NULL,
 			  PRIMARY KEY (`securetrading_pp_order_id`)
@@ -227,7 +227,7 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 	 * 
 	 * @return void
 	 */
-	public function addHistory(int $order_id, int $order_status_id, string $comment, bool $notify = false): void {
+	public function addHistory(int $order_id, int $order_status_id, string $comment = '', bool $notify = false): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "order_history` SET `order_id` = '" . (int)$order_id . "', `order_status_id` = '" . (int)$order_status_id . "', `comment` = '" . $this->db->escape($comment) . "', `notify` = '" . (bool)$notify . "', `date_added` = NOW()");
 	}
 
