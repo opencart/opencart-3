@@ -99,7 +99,7 @@ class ModelExtensionPaymentOpayo extends Model {
 	public function void(int $order_id): array {
 		$opayo_order = $this->getOrder($order_id);
 
-		if (!empty($opayo_order) && ($opayo_order['release_status'] == 0)) {
+		if ($opayo_order && $opayo_order['release_status'] == 0) {
 			$void_data = [];
 
 			// Setting
@@ -158,7 +158,7 @@ class ModelExtensionPaymentOpayo extends Model {
 
 		$total_released = $this->getTotalReleased($opayo_order['opayo_order_id']);
 
-		if (!empty($opayo_order) && ($opayo_order['release_status'] == 0) && ($total_released + $amount <= $opayo_order['total'])) {
+		if ($opayo_order && $opayo_order['release_status'] == 0 && $total_released + $amount <= $opayo_order['total']) {
 			$release_data = [];
 
 			// Setting
@@ -216,7 +216,7 @@ class ModelExtensionPaymentOpayo extends Model {
 	public function rebate(int $order_id, float $amount): array {
 		$opayo_order = $this->getOrder($order_id);
 
-		if (!empty($opayo_order) && ($opayo_order['rebate_status'] != 1)) {
+		if ($opayo_order && $opayo_order['rebate_status'] != 1) {
 			$refund_data = [];
 
 			// Setting

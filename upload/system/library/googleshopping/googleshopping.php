@@ -1,8 +1,8 @@
 <?php
 namespace googleshopping;
-use \googleshopping\Exception\AccessForbidden as AccessForbiddenException;
-use \googleshopping\Exception\Connection as ConnectionException;
-use \googleshopping\traits\StoreLoader;
+use googleshopping\Exception\AccessForbidden as AccessForbiddenException;
+use googleshopping\Exception\Connection as ConnectionException;
+use googleshopping\traits\StoreLoader;
 
 class Googleshopping extends Library {
 	use StoreLoader;

@@ -733,6 +733,7 @@ class ModelExtensionPaymentOpayo extends Model {
 	public function log(string $title, ?string $data): void {
 		$_config = new Config();
 		$_config->load('opayo');
+		
 		$config_setting = $_config->get('opayo_setting');
 
 		$setting = array_replace_recursive((array)$config_setting, (array)$this->config->get('payment_opayo_setting'));
