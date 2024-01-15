@@ -246,7 +246,7 @@ class ControllerExtensionPaymentOpayo extends Controller {
 
 		$json = [];
 
-		if (!empty($this->request->post['order_id']) && !empty($this->request->post['amount']) && $this->request->post['amount'] > 0) {
+		if (isset($this->request->post['order_id']) && isset($this->request->post['amount']) && $this->request->post['amount'] > 0) {
 			$this->load->model('extension/payment/opayo');
 
 			$opayo_order = $this->model_extension_payment_opayo->getOrder($this->request->post['order_id']);
@@ -255,7 +255,7 @@ class ControllerExtensionPaymentOpayo extends Controller {
 
 			$this->model_extension_payment_opayo->log('Release result', $release_response);
 
-			if (!empty($release_response) && $release_response['Status'] == 'OK') {
+			if ($opayo_order && !empty($release_response) && $release_response['Status'] == 'OK') {
 				$this->model_extension_payment_opayo->addOrderTransaction($opayo_order['opayo_order_id'], 'payment', $this->request->post['amount']);
 
 				$total_released = $this->model_extension_payment_opayo->getTotalReleased($opayo_order['opayo_order_id']);
@@ -305,7 +305,7 @@ class ControllerExtensionPaymentOpayo extends Controller {
 
 		$json = [];
 
-		if (!empty($this->request->post['order_id'])) {
+		if (isset($this->request->post['order_id'])) {
 			$this->load->model('extension/payment/opayo');
 
 			$opayo_order = $this->model_extension_payment_opayo->getOrder($this->request->post['order_id']);
@@ -314,7 +314,7 @@ class ControllerExtensionPaymentOpayo extends Controller {
 
 			$this->model_extension_payment_opayo->log('Rebate result', $rebate_response);
 
-			if (!empty($rebate_response) && $rebate_response['Status'] == 'OK') {
+			if ($opayo_order && !empty($rebate_response) && $rebate_response['Status'] == 'OK') {
 				$this->model_extension_payment_opayo->addOrderTransaction($opayo_order['opayo_order_id'], 'rebate', $this->request->post['amount'] * -1);
 
 				$total_rebated = $this->model_extension_payment_opayo->getTotalRebated($opayo_order['opayo_order_id']);

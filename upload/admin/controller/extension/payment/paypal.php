@@ -41,7 +41,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 		$config_setting = $_config->get('paypal_setting');
 
-		if (!empty($this->session->data['environment']) && !empty($this->session->data['authorization_code']) && !empty($this->session->data['shared_id']) && !empty($this->session->data['seller_nonce']) && !empty($this->request->get['merchantIdInPayPal'])) {
+		if (isset($this->session->data['environment']) && isset($this->session->data['authorization_code']) && isset($this->session->data['shared_id']) && isset($this->session->data['seller_nonce']) && isset($this->request->get['merchantIdInPayPal'])) {
 			$this->load->language('extension/payment/paypal');
 
 			$this->load->model('extension/payment/paypal');
