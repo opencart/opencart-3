@@ -90,7 +90,11 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 
 			curl_close($ch);
 
-			return simplexml_load_string($response);
+			$xml = simplexml_load_string($response);
+			$encode = json_encode($xml);
+			$xml_array = json_decode($encode, true);
+
+			return $xml_array;
 		} else {
 			return null;
 		}
@@ -171,7 +175,11 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 
 			curl_close($ch);
 
-			return simplexml_load_string($response);
+			$xml = simplexml_load_string($response);
+			$encode = json_encode($xml);
+			$xml_array = json_decode($encode, true);
+
+			return $xml_array;
 		} else {
 			return null;
 		}
@@ -266,7 +274,11 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 
 			curl_close($ch);
 
-			return simplexml_load_string($response);
+			$xml = simplexml_load_string($response);
+			$encode = json_encode($xml);
+			$xml_array = json_decode($encode, true);
+
+			return $xml_array;
 		} else {
 			return null;
 		}
