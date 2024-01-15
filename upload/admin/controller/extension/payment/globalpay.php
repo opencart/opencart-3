@@ -371,7 +371,7 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
 
 				$json['error'] = false;
 			} else {
-				$json['msg'] = isset($capture_response['message']) ? sprintf($this->language->get('error_status'), (string)$message) : $this->language->get('error_capture');
+				$json['msg'] = isset($capture_response['message']) ? sprintf($this->language->get('error_status'), (string)$capture_response['message']) : $this->language->get('error_capture');
 
 				$json['error'] = true;
 			}
