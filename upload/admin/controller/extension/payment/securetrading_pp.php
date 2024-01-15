@@ -488,7 +488,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 				$error_code = (string)$response_xml->response->error->code;
 
 				if ($error_code == '0') {
-					$this->model_extension_payment_securetrading_pp->addTransaction($securetrading_pp_order['securetrading_pp_order_id'], 'rebate', $amount -1);
+					$this->model_extension_payment_securetrading_pp->addTransaction($securetrading_pp_order['securetrading_pp_order_id'], 'rebate', (float)$amount * -1);
 
 					$total_rebated = $this->model_extension_payment_securetrading_pp->getTotalRebated($securetrading_pp_order['securetrading_pp_order_id']);
 					$total_released = $this->model_extension_payment_securetrading_pp->getTotalReleased($securetrading_pp_order['securetrading_pp_order_id']);
@@ -522,7 +522,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 					$json['data'] = [];
 
 					$json['data']['created'] = date('Y-m-d H:i:s');
-					$json['data']['amount'] = $amount * -1;
+					$json['data']['amount'] = (float)$amount * -1;
 					$json['data']['total_released'] = (float)$total_released;
 					$json['data']['total_rebated'] = (float)$total_rebated;
 					$json['data']['rebate_status'] = $rebate_status;
