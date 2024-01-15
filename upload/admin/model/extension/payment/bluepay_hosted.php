@@ -251,6 +251,13 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 		}
 	}
 
+	/**
+	 * getTransactions
+	 * 
+	 * @param int $bluepay_hosted_order_id
+	 * 
+	 * @return array
+	 */
 	private function getTransactions(int $bluepay_hosted_order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "bluepay_hosted_order_transaction` WHERE `bluepay_hosted_order_id` = '" . (int)$bluepay_hosted_order_id . "'");
 
@@ -261,7 +268,17 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 		}
 	}
 
-	public function addHistory($order_id, $order_status_id, $comment, $notify = false) {
+	/**
+	 * addHistory
+	 * 
+	 * @param int    $order_id
+	 * @param int    $order_status_id
+	 * @param string $comment
+	 * @param bool   $notify
+	 * 
+	 * @return void
+	 */
+	public function addHistory(int $order_id, int $order_status_id, string $comment, bool $notify = false): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "order_history` SET `order_id` = '" . (int)$order_id . "', `order_status_id` = '" . (int)$order_status_id . "', `comment` = '" . $this->db->escape($comment) . "', `notify` = '" . (bool)$notify . "', `date_added` = NOW()");
 	}
 
