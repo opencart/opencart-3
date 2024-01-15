@@ -360,10 +360,7 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
 					$json['msg'] = $this->language->get('text_capture_ok');
 				}
 
-				$pasref = (string)$capture_response->pasref;
-				$orderid = (string)$capture_response->orderid;
-
-				$this->model_extension_payment_globalpay->updateForRebate($globalpay_order['globalpay_order_id'], $pasref, $orderid);
+				$this->model_extension_payment_globalpay->updateForRebate($globalpay_order['globalpay_order_id'], $capture_response['pasref'], (string)$capture_response['orderid']);
 
 				$json['data'] = [];
 
