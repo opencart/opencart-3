@@ -273,7 +273,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 
 			$this->model_extension_payment_globalpay_remote->logger('Void result:\r\n' . print_r($void_response, 1));
 
-			if (isset($void_response['result']) && $void_responsep['result'] == '00') {
+			if (isset($void_response['result']) && $void_response['result'] == '00') {
 				$this->model_extension_payment_globalpay_remote->addTransaction($globalpay_order['globalpay_remote_order_id'], 'void', 0.00);
 				$this->model_extension_payment_globalpay_remote->updateVoidStatus($globalpay_order['globalpay_remote_order_id'], 1);
 
@@ -337,7 +337,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 					$json['msg'] = $this->language->get('text_capture_ok');
 				}
 
-				$this->model_extension_payment_globalpay_remote->updateForRebate($globalpay_order['globalpay_remote_order_id'], $capture_response['pasref'], $capture_response['orderid']);
+				$this->model_extension_payment_globalpay_remote->updateForRebate($globalpay_order['globalpay_remote_order_id'], (string)$capture_response['pasref'], (string)$capture_response['orderid']);
 
 				$json['data'] = [];
 
@@ -351,7 +351,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 			} else {
 				$json['error'] = true;
 
-				$json['msg'] = isset($capture_response['message']) ? sprintf($this->language->get('error_status'), $capture_response['message']) : $this->language->get('error_capture');
+				$json['msg'] = isset($capture_response['message']) ? sprintf($this->language->get('error_status'), (string)$capture_response['message']) : $this->language->get('error_capture');
 			}
 		} else {
 			$json['error'] = true;
