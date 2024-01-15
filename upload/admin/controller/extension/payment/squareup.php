@@ -884,9 +884,9 @@ class ControllerExtensionPaymentSquareup extends Controller {
 		}
 
 		// Recurring
-		$this->load->model('sale/recurring');
+		$this->load->model('extension/other/recurring');
 
-		$order_recurring_info = $this->model_sale_recurring->getRecurring($order_recurring_id);
+		$order_recurring_info = $this->model_extension_other_recurring->getRecurring($order_recurring_id);
 
 		$data['button_text'] = $this->language->get('button_cancel_recurring');
 
@@ -946,19 +946,19 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
 		$json = [];
 
-		if (!$this->user->hasPermission('modify', 'sale/recurring')) {
+		if (!$this->user->hasPermission('modify', 'extension/other/recurring')) {
 			$json['error'] = $this->language->get('error_permission_recurring');
 		} else {
-			// Recurring
-			$this->load->model('sale/recurring');
-
 			if (isset($this->request->get['order_recurring_id'])) {
 				$order_recurring_id = (int)$this->request->get['order_recurring_id'];
 			} else {
 				$order_recurring_id = 0;
 			}
 
-			$recurring_order_info = $this->model_sale_recurring->getRecurring($order_recurring_id);
+			// Recurring
+			$this->load->model('extension/other/recurring');
+
+			$recurring_order_info = $this->model_extension_other_recurring->getRecurring($order_recurring_id);
 
 			if ($recurring_order_info) {
 				// Squareup
