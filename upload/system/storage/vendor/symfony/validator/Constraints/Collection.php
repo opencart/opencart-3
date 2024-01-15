@@ -11,7 +11,6 @@
 
 namespace Symfony\Component\Validator\Constraints;
 
-use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Exception\ConstraintDefinitionException;
 
 /**
@@ -42,10 +41,9 @@ class Collection extends Composite
      */
     public function __construct($fields = null, array $groups = null, $payload = null, bool $allowExtraFields = null, bool $allowMissingFields = null, string $extraFieldsMessage = null, string $missingFieldsMessage = null)
     {
+        // no known options set? $fields is the fields array
         if (\is_array($fields)
-            && (($firstField = reset($fields)) instanceof Constraint
-                || ($firstField[0] ?? null) instanceof Constraint
-            )) {
+            && !array_intersect(array_keys($fields), ['groups', 'fields', 'allowExtraFields', 'allowMissingFields', 'extraFieldsMessage', 'missingFieldsMessage'])) {
             $fields = ['fields' => $fields];
         }
 
