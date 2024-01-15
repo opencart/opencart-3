@@ -5,6 +5,9 @@
  * @package Admin\Controller\Extension\Module
  */
 class ControllerExtensionModuleCarousel extends Controller {
+	/**
+	 * @var array<string, string>
+	 */
 	private array $error = [];
 
 	/**

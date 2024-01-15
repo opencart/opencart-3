@@ -5,6 +5,9 @@
  * @package Admin\Controller\Marketing
  */
 class ControllerMarketingAffiliate extends Controller {
+	/**
+	 * @var array<string, string>
+	 */
 	private array $error = [];
 
 	/**

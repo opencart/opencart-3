@@ -5,6 +5,9 @@
  * @package Admin\Controller\Setting
  */
 class ControllerSettingStore extends Controller {
+	/**
+	 * @var array<string, string>
+	 */
 	private array $error = [];
 
 	/**

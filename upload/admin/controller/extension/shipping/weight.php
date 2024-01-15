@@ -5,6 +5,9 @@
  * @package Admin\Controller\Extension\Shipping
  */
 class ControllerExtensionShippingWeight extends Controller {
+	/**
+	 * @var array<string, string>
+	 */
 	private array $error = [];
 
 	/**

@@ -8,6 +8,9 @@
  * https://github.com/opencart/opencart/wiki/Modification-System
  */
 class ControllerMarketplaceModification extends Controller {
+	/**
+	 * @var array<string, string>
+	 */
 	private array $error = [];
 
 	/**

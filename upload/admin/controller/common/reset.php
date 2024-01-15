@@ -5,6 +5,9 @@
  * @package Admin\Controller\Common
  */
 class ControllerCommonReset extends Controller {
+	/**
+	 * @var array<string, string>
+	 */
 	private array $error = [];
 
 	/**

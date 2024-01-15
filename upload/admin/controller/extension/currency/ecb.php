@@ -5,6 +5,9 @@
  * @package Admin\Controller\Extension\Currency
  */
 class ControllerExtensionCurrencyEcb extends Controller {
+	/**
+	 * @var array<string, string>
+	 */
 	private array $error = [];
 
 	/**

@@ -5,6 +5,9 @@
  * @package Admin\Controller\Report
  */
 class ControllerReportStatistics extends Controller {
+	/**
+	 * @var array<string, string>
+	 */
 	private array $error = [];
 
 	/**

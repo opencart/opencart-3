@@ -5,6 +5,9 @@
  * @package Admin\Controller\Extension\Extension
  */
 class ControllerExtensionExtensionAdvertise extends Controller {
+	/**
+	 * @var array<string, string>
+	 */
 	private array $error = [];
 
 	/**

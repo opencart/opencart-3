@@ -5,6 +5,9 @@
  * @package Admin\Controller\Sale
  */
 class ControllerSaleOrder extends Controller {
+	/**
+	 * @var array<string, string>
+	 */
 	private array $error = [];
 
 	/**

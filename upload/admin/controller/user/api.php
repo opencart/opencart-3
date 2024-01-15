@@ -5,6 +5,9 @@
  * @package Admin\Controller\User
  */
 class ControllerUserApi extends Controller {
+	/**
+	 * @var array<string, string>
+	 */
 	private array $error = [];
 
 	/**
