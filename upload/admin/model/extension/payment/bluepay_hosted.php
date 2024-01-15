@@ -261,6 +261,10 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 		}
 	}
 
+	public function addHistory($order_id, $order_status_id, $comment, $notify = false) {
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "order_history` SET `order_id` = '" . (int)$order_id . "', `order_status_id` = '" . (int)$order_status_id . "', `comment` = '" . $this->db->escape($comment) . "', `notify` = '" . (bool)$notify . "', `date_added` = NOW()");
+	}
+
 	/**
 	 * addTransaction
 	 *
