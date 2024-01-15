@@ -24,8 +24,8 @@ class ModelExtensionPaymentSagepayServer extends Model {
 			  `date_modified` datetime NOT NULL,
 			  `release_status` int(1) NOT NULL DEFAULT '0',
 			  `void_status` int(1) NOT NULL DEFAULT '0',
-			  `settle_type` int(1) NOT NULL DEFAULT '0',
 			  `rebate_status` int(1) NOT NULL DEFAULT '0',
+			  `settle_type` int(1) NOT NULL DEFAULT '0',
 			  `currency_code` varchar(3) NOT NULL,
 			  `total` decimal(15,4) NOT NULL,
 			  PRIMARY KEY (`sagepay_server_order_id`)
@@ -140,6 +140,30 @@ class ModelExtensionPaymentSagepayServer extends Model {
 	}
 
 	/**
+	 * updateReleaseStatus
+	 *
+	 * @param int $sagepay_server_order_id
+	 * @param int $status
+	 *
+	 * @return void
+	 */
+	public function updateReleaseStatus(int $sagepay_server_order_id, int $status): void {
+		$this->db->query("UPDATE `" . DB_PREFIX . "sagepay_server_order` SET `release_status` = '" . (int)$status . "' WHERE `sagepay_server_order_id` = '" . (int)$sagepay_server_order_id . "'");
+	}
+
+	/**
+	 * updateRebateStatus
+	 *
+	 * @param int $sagepay_server_order_id
+	 * @param int $status
+	 *
+	 * @return void
+	 */
+	public function updateRebateStatus(int $sagepay_server_order_id, int $status): void {
+		$this->db->query("UPDATE `" . DB_PREFIX . "sagepay_server_order` SET `rebate_status` = '" . (int)$status . "' WHERE `sagepay_server_order_id` = '" . (int)$sagepay_server_order_id . "'");
+	}
+
+	/**
 	 * Release
 	 *
 	 * @param int   $order_id
@@ -183,18 +207,6 @@ class ModelExtensionPaymentSagepayServer extends Model {
 		} else {
 			return [];
 		}
-	}
-
-	/**
-	 * updateReleaseStatus
-	 *
-	 * @param int $sagepay_server_order_id
-	 * @param int $status
-	 *
-	 * @return void
-	 */
-	public function updateReleaseStatus(int $sagepay_server_order_id, int $status): void {
-		$this->db->query("UPDATE `" . DB_PREFIX . "sagepay_server_order` SET `release_status` = '" . (int)$status . "' WHERE `sagepay_server_order_id` = '" . (int)$sagepay_server_order_id . "'");
 	}
 
 	/**
