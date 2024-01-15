@@ -726,7 +726,7 @@ class ModelExtensionPaymentOpayo extends Model {
 	 * Log
 	 *
 	 * @param string  $title
-	 * @param ?string $data
+	 * @param mixed   $data
 	 *
 	 * @return void
 	 */

@@ -356,7 +356,7 @@ class ControllerMarketplaceModification extends Controller {
 											$modification[$key] = implode("\n", $lines);
 										} else {
 											$search = trim($operation->getElementsByTagName('search')->item(0)->textContent);
-											$limit = $operation->getElementsByTagName('search')->item(0)->getAttribute('limit');
+											$limit = (int)$operation->getElementsByTagName('search')->item(0)->getAttribute('limit');
 											$replace = trim($operation->getElementsByTagName('add')->item(0)->textContent);
 
 											// Limit
