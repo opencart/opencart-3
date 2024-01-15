@@ -247,7 +247,7 @@ class ControllerExtensionPaymentG2APay extends Controller {
 
 			$this->model_extension_payment_g2apay->logger($refund_response);
 
-			if ($refund_response == 'ok') {
+			if ($refund_response && $refund_response['status']) {
 				$this->model_extension_payment_g2apay->addTransaction($payment_g2apay_order['g2apay_order_id'], 'refund', $this->request->post['amount'] * -1);
 
 				$total_refunded = $this->model_extension_payment_g2apay->getTotalRefunded($payment_g2apay_order['g2apay_order_id']);
@@ -277,7 +277,7 @@ class ControllerExtensionPaymentG2APay extends Controller {
 			} else {
 				$json['error'] = true;
 
-				$json['msg'] = 'Unable to refund: ' . $refund_response;
+				$json['msg'] = 'Unable to refund: ' . $refund_response['status'];
 			}
 		} else {
 			$json['error'] = true;
