@@ -20,7 +20,7 @@ class ModelExtensionPaymentEway extends Model {
 			  `amount` decimal(15,4) NOT NULL,
 			  `currency_code` varchar(3) NOT NULL,
 			  `transaction_id` varchar(24) NOT NULL,
-			  `debug_data` text,
+			  `debug_data` text NOT NULL,
 			  `capture_status` int(1) NOT NULL DEFAULT '0',
 			  `void_status` int(1) NOT NULL DEFAULT '0',
 			  `refund_status` int(1) NOT NULL DEFAULT '0',
@@ -110,13 +110,13 @@ class ModelExtensionPaymentEway extends Model {
 	/**
 	 * Capture
 	 *
-	 * @param int   $order_id
-	 * @param float $capture_amount
-	 * @param array $currency
+	 * @param int    $order_id
+	 * @param float  $capture_amount
+	 * @param string $currency
 	 *
-	 * @return object|null
+	 * @return array
 	 */
-	public function capture(int $order_id, float $capture_amount, array $currency): ?object {
+	public function capture(int $order_id, float $capture_amount, string $currency): array {
 		$eway_order = $this->getOrder($order_id);
 
 		if ($eway_order && $capture_amount > 0) {
@@ -134,9 +134,9 @@ class ModelExtensionPaymentEway extends Model {
 
 			$response = $this->sendCurl($url, $capture_data);
 
-			return json_decode($response);
+			return json_decode($response, true);
 		} else {
-			return null;
+			return [];
 		}
 	}
 
@@ -210,9 +210,9 @@ class ModelExtensionPaymentEway extends Model {
 	 * @param int   $order_id
 	 * @param float $refund_amount
 	 *
-	 * @return string
+	 * @return array
 	 */
-	public function refund(int $order_id, float $refund_amount): string {
+	public function refund(int $order_id, float $refund_amount): array {
 		$eway_order = $this->getOrder($order_id);
 
 		if ($eway_order && $refund_amount > 0) {
@@ -230,9 +230,9 @@ class ModelExtensionPaymentEway extends Model {
 
 			$response = $this->sendCurl($url, $refund_data);
 
-			return json_decode($response);
+			return json_decode($response, true);
 		} else {
-			return '';
+			return [];
 		}
 	}
 

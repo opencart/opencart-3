@@ -180,7 +180,7 @@ class ControllerExtensionOtherDbSchema extends Controller {
 	/**
 	 * getReport
 	 *
-	 * @return ?object|null
+	 * @return ?object
 	 */
 	public function getReport(): ?object {
 		$this->load->language('extension/other/db_schema');

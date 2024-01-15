@@ -210,11 +210,10 @@ class ControllerExtensionPaymentDivido extends Controller {
 		$application_id = null;
 		$deposit_amount = null;
 
-		if ($lookup->num_rows == 1) {
-			$lookup_data = $lookup->row;
-			$proposal_id = $lookup_data['proposal_id'];
-			$application_id = $lookup_data['application_id'];
-			$deposit_amount = $lookup_data['deposit_amount'];
+		if ($lookup) {
+			$proposal_id = $lookup['proposal_id'];
+			$application_id = $lookup['application_id'];
+			$deposit_amount = $lookup['deposit_amount'];
 		}
 
 		$data['proposal_id'] = $proposal_id;

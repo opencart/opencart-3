@@ -176,7 +176,7 @@ class ControllerExtensionPaymentBluepayredirect extends Controller {
 	/**
 	 * Order
 	 *
-	 * @return void
+	 * @return string
 	 */
 	public function order(): string {
 		if ($this->config->get('payment_bluepay_redirect_status')) {

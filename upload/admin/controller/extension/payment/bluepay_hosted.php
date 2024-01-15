@@ -6,7 +6,7 @@
  */
 class ControllerExtensionPaymentBluePayHosted extends Controller {
 	/**
-	 * @return void
+	 * @return string
 	 */
 	public function index(): string {
 		$this->load->language('extension/payment/bluepay_hosted');
@@ -82,7 +82,7 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
 		if (isset($this->session->data['order_id'])) {
 			$order_info = $this->model_sale_order->getOrder($this->session->data['order_id']);
 
-			if ($response_data['Result'] == 'APPROVED') {
+			if ($order_info && $response_data['Result'] == 'APPROVED') {
 				$bluepay_hosted_order_id = $this->model_extension_payment_bluepay_hosted->addOrder($order_info, $response_data);
 
 				if ($this->config->get('payment_bluepay_hosted_transaction') == 'SALE') {
@@ -91,16 +91,18 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
 					$this->model_extension_payment_bluepay_hosted->addTransaction($bluepay_hosted_order_id, 'auth', $order_info);
 				}
 
-				$this->model_sale_order->addOrderHistory($this->session->data['order_id'], $this->config->get('payment_bluepay_hosted_order_status_id'));
+				$this->model_sale_order->addHistory($this->session->data['order_id'], $this->config->get('payment_bluepay_hosted_order_status_id'));
 
-				$this->response->redirect($this->url->link('sale/success', '', true));
+				$this->session->data['success'] = $response_data['Result'] . ': ' . $response_data['MESSAGE'];
+
+				$this->response->redirect($this->url->link('sale/order', 'user_token=' . $this->session->data['user_token'] . '&filter_order_id=' . $order_info['order_id'], true));
 			} else {
-				$this->session->data['error'] = $response_data['Result'] . ' : ' . $response_data['MESSAGE'];
+				$this->session->data['error'] = $response_data['Result'] . ': ' . $response_data['MESSAGE'];
 
-				$this->response->redirect($this->url->link('checkout/checkout', '', true));
+				$this->response->redirect($this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true));
 			}
 		} else {
-			$this->response->redirect($this->url->link('account/login', '', true));
+			$this->response->redirect($this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true));
 		}
 	}
 
