@@ -139,6 +139,18 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 	}
 
 	/**
+	 * updateRebateStatus
+	 *
+	 * @param int $securetrading_pp_order_id
+	 * @param int $status
+	 *
+	 * @return void
+	 */
+	public function updateRebateStatus(int $securetrading_pp_order_id, int $status): void {
+		$this->db->query("UPDATE `" . DB_PREFIX . "securetrading_pp_order` SET `rebate_status` = '" . (int)$status . "' WHERE `securetrading_pp_order_id` = '" . (int)$securetrading_pp_order_id . "'");
+	}
+
+	/**
 	 * updateForRebate
 	 *
 	 * @param int    $securetrading_pp_order_id

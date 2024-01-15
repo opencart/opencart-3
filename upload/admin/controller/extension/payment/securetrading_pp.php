@@ -512,7 +512,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 						$history['comment'] = '';
 						$history['notify'] = '';
 
-						$this->model_sale_order->addOrderHistory($this->request->post['order_id'], $history);
+						$this->model_extension_payment_securetrading_pp->addHistory($this->request->post['order_id'], $history);
 					} else {
 						$rebate_status = 0;
 

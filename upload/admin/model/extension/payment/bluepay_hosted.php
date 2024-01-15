@@ -208,7 +208,7 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 	}
 
 	/**
-	 * updateRebaseStatus
+	 * updateRebateStatus
 	 *
 	 * @param int $bluepay_hosted_order_id
 	 * @param int $status
