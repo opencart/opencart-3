@@ -2325,11 +2325,11 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		if ($this->config->get('payment_paypal_status') && !empty($this->request->get['order_recurring_id'])) {
 			$this->load->language('extension/payment/paypal');
 
-			$this->load->model('other/recurring');
+			$this->load->model('extension/other/recurring');
 
 			$data['order_recurring_id'] = $this->request->get['order_recurring_id'];
 
-			$order_recurring_info = $this->model_other_recurring->getRecurring($data['order_recurring_id']);
+			$order_recurring_info = $this->model_extension_other_recurring->getRecurring($data['order_recurring_id']);
 
 			if ($order_recurring_info) {
 				$data['recurring_status'] = $order_recurring_info['status'];
