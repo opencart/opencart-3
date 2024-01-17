@@ -853,7 +853,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 				$paypal_order_info['application_context']['shipping_preference'] = $shipping_preference;
 
-				if ($this->cart->hasRecurringProducts()) {
+				if ($this->cart->hasSubscription()) {
 					$payment_method = '';
 
 					if ($payment_type == 'button') {
@@ -969,7 +969,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 				}
 
 				// if user not logged in check that the guest checkout is allowed
-				if (!$this->customer->isLogged() && (!$this->config->get('config_checkout_guest') || $this->config->get('config_customer_price') || $this->cart->hasDownload() || $this->cart->hasRecurringProducts())) {
+				if (!$this->customer->isLogged() && (!$this->config->get('config_checkout_guest') || $this->config->get('config_customer_price') || $this->cart->hasDownload() || $this->cart->hasSubscription())) {
 					$json['url'] = $this->url->link('checkout/cart', '', true);
 
 					$this->response->addHeader('Content-Type: application/json');
@@ -1345,10 +1345,10 @@ class ControllerExtensionPaymentPayPal extends Controller {
 								}
 
 								if (($authorization_status == 'CREATED') || ($authorization_status == 'PENDING')) {
-									$recurring_products = $this->cart->getRecurringProducts();
+									$subscription_products = $this->cart->getSubscriptions();
 
-									foreach ($recurring_products as $recurring_product) {
-										$this->model_extension_payment_paypal->recurringPayment($recurring_product, $order_info, $paypal_order_data);
+									foreach ($subscription_products as $item) {
+										$this->model_extension_payment_paypal->subscriptionPayment($item, $order_info, $paypal_order_data);
 									}
 								}
 
@@ -1426,10 +1426,10 @@ class ControllerExtensionPaymentPayPal extends Controller {
 								}
 
 								if (($capture_status == 'COMPLETED') || ($capture_status == 'PENDING')) {
-									$recurring_products = $this->cart->getRecurringProducts();
+									$subscription_products = $this->cart->getSubscriptions();
 
-									foreach ($recurring_products as $recurring_product) {
-										$this->model_extension_payment_paypal->recurringPayment($recurring_product, $order_info, $paypal_order_data);
+									foreach ($subscription_products as $item) {
+										$this->model_extension_payment_paypal->subscriptionPayment($item, $order_info, $paypal_order_data);
 									}
 								}
 
@@ -2494,10 +2494,10 @@ class ControllerExtensionPaymentPayPal extends Controller {
 							}
 
 							if (($authorization_status == 'CREATED') || ($authorization_status == 'PENDING')) {
-								$recurring_products = $this->cart->getRecurringProducts();
+								$subscription_products = $this->cart->getSubscriptions();
 
-								foreach ($recurring_products as $recurring_product) {
-									$this->model_extension_payment_paypal->recurringPayment($recurring_product, $order_data, $paypal_order_data);
+								foreach ($subscription_products as $item) {
+									$this->model_extension_payment_paypal->subscriptionPayment($item, $order_data, $paypal_order_data);
 								}
 							}
 
@@ -2575,10 +2575,10 @@ class ControllerExtensionPaymentPayPal extends Controller {
 							}
 
 							if (($capture_status == 'COMPLETED') || ($capture_status == 'PENDING')) {
-								$recurring_products = $this->cart->getRecurringProducts();
+								$subscription_products = $this->cart->getSubscriptions();
 
-								foreach ($recurring_products as $recurring_product) {
-									$this->model_extension_payment_paypal->recurringPayment($recurring_product, $order_data, $paypal_order_data);
+								foreach ($subscription_products as $item) {
+									$this->model_extension_payment_paypal->subscriptionPayment($item, $order_data, $paypal_order_data);
 								}
 							}
 
@@ -2947,7 +2947,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	/**
 	 * Cron
 	 *
-	 * @return void
+	 * @return bool
 	 */
 	public function cron(): bool {
 		if (!empty($this->request->get['cron_token'])) {

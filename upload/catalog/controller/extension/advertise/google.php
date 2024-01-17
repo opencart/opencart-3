@@ -66,7 +66,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	 *
 	 * catalog/controller/checkout/success/before
 	 */
-	public function before_checkout_success(string &$route, &$data): void {
+	public function before_checkout_success(string &$route, array &$data): void {
 		// In case the extension is disabled, do nothing
 		if (!$this->setting->get('advertise_google_status')) {
 			return;
@@ -93,7 +93,9 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 		$this->load->model('extension/advertise/google');
 
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
+
 		$tracker = $this->setting->get('advertise_google_conversion_tracker');
+
 		$currency = $order_info['currency_code'];
 		$total = $this->googleshopping->convertAndFormat($order_info['total'], $currency);
 
@@ -115,7 +117,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
 		$coupon = $this->model_extension_advertise_google->getCoupon($order_info['order_id']);
 
-		foreach ($this->model_checkout_order->getOrderTotals($order_info['order_id']) as $order_total) {
+		foreach ($this->model_checkout_order->getTotals($order_info['order_id']) as $order_total) {
 			if ($order_total['code'] == 'shipping') {
 				$shipping += $this->googleshopping->convertAndFormat($order_total['value'], $currency);
 			}
@@ -125,10 +127,10 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 			}
 		}
 
-		$order_products = $this->model_checkout_order->getOrderProducts($order_info['order_id']);
+		$order_products = $this->model_checkout_order->getProducts($order_info['order_id']);
 
 		foreach ($order_products as &$order_product) {
-			$order_product['option'] = $this->model_checkout_order->getOrderOptions($order_info['order_id'], $order_product['order_product_id']);
+			$order_product['option'] = $this->model_checkout_order->getOptions($order_info['order_id'], $order_product['order_product_id']);
 		}
 
 		$purchase_data = [

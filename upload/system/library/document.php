@@ -122,7 +122,7 @@ class Document {
 	/**
 	 * getStyles
 	 *
-	 * @return array
+	 * @return array<string, array<string, string>>
 	 */
 	public function getStyles(): array {
 		return $this->styles;

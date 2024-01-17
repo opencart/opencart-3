@@ -5,6 +5,9 @@
  * @package Admin\Controller\Extension\Shipping
  */
 class ControllerExtensionShippingUPS extends Controller {
+	/**
+	 * @var array<string, string>
+	 */
 	private array $error = [];
 
 	/**

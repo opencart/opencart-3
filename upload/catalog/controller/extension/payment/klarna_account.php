@@ -217,7 +217,7 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 							$interest = $balance * $pclass['interestrate'] / (100.0 * 12);
 							$new_balance = $balance + $interest + $monthly_fee;
 
-							if ($minimum_payment >= $new_balance || $payment >= $new_balance) {
+							if (((float)$minimum_payment >= (float)$new_balance) || ((float)$payment >= (float)$new_balance)) {
 								$pay_data[] = $new_balance;
 								break;
 							}

@@ -1,6 +1,7 @@
 <?php
 /**
  * Loaded in an outside context
+ *
  * @var Autoloader $autoloader
  */
 

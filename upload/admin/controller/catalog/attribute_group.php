@@ -5,6 +5,9 @@
  * @package Admin\Controller\Catalog
  */
 class ControllerCatalogAttributeGroup extends Controller {
+	/**
+	 * @var array<string, string>
+	 */
 	private array $error = [];
 
 	/**

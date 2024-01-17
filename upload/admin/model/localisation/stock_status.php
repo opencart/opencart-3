@@ -14,7 +14,7 @@ class ModelLocalisationStockStatus extends Model {
 	 */
 	public function addStockStatus(array $data): int {
 		$stock_status_id = null;
-		
+
 		foreach ($data['stock_status'] as $language_id => $value) {
 			if (isset($stock_status_id)) {
 				$this->db->query("INSERT INTO `" . DB_PREFIX . "stock_status` SET `stock_status_id` = '" . (int)$stock_status_id . "', `language_id` = '" . (int)$language_id . "', `name` = '" . $this->db->escape($value['name']) . "'");
@@ -68,7 +68,7 @@ class ModelLocalisationStockStatus extends Model {
 	 *
 	 * @return array
 	 */
-	public function getStockStatus(array $stock_status_id): array {
+	public function getStockStatus(int $stock_status_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "stock_status` WHERE `stock_status_id` = '" . (int)$stock_status_id . "' AND `language_id` = '" . (int)$this->config->get('config_language_id') . "'");
 
 		return $query->row;

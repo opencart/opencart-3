@@ -36,7 +36,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 			$first_location_id = null;
 
 			if ($this->config->get('payment_squareup_access_token')) {
-				if (!is_object($this->squareup) || !$this->squareup->verifyToken($this->config->get('payment_squareup_access_token'))) {
+				if (!$this->squareup->verifyToken($this->config->get('payment_squareup_access_token'))) {
 					unset($previous_setting['payment_squareup_merchant_id']);
 					unset($previous_setting['payment_squareup_merchant_name']);
 					unset($previous_setting['payment_squareup_access_token']);
@@ -293,8 +293,8 @@ class ControllerExtensionPaymentSquareup extends Controller {
 			$session = new \Session($this->config->get('session_engine'), $this->registry);
 			$session->start();
 
-			$this->model_user_api->deleteApiSessionBySessionId($session->getId());
-			$this->model_user_api->addApiSession($api_info['api_id'], $session->getId(), $this->request->server['REMOTE_ADDR']);
+			$this->model_user_api->deleteSessionBySessionId($session->getId());
+			$this->model_user_api->addSession($api_info['api_id'], $session->getId(), $this->request->server['REMOTE_ADDR']);
 
 			$session->data['api_id'] = $api_info['api_id'];
 
@@ -384,7 +384,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 		$data['has_refunds'] = (bool)$transaction_info['is_refunded'];
 
 		if ($data['has_refunds']) {
-			$refunds = @json_decode($transaction_info['refunds'], true);
+			$refunds = json_decode($transaction_info['refunds'], true);
 
 			$data['refunds'] = [];
 
@@ -439,8 +439,8 @@ class ControllerExtensionPaymentSquareup extends Controller {
 			$session = new \Session($this->config->get('session_engine'), $this->registry);
 			$session->start();
 
-			$this->model_user_api->deleteApiSessionBySessionId($session->getId());
-			$this->model_user_api->addApiSession($api_info['api_id'], $session->getId(), $this->request->server['REMOTE_ADDR']);
+			$this->model_user_api->deleteSessionBySessionId($session->getId());
+			$this->model_user_api->addSession($api_info['api_id'], $session->getId(), $this->request->server['REMOTE_ADDR']);
 
 			$session->data['api_id'] = $api_info['api_id'];
 
@@ -511,7 +511,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 				'insert_amount'           => sprintf($this->language->get('text_insert_amount'), $amount, $transaction['transaction_currency']),
 				'order_id'                => $transaction['order_id'],
 				'type'                    => $transaction['transaction_type'],
-				'num_refunds'             => count(@json_decode($transaction['refunds'], true)),
+				'num_refunds'             => count(json_decode($transaction['refunds'], true)),
 				'amount'                  => $amount,
 				'customer'                => $order_info['firstname'] . ' ' . $order_info['lastname'],
 				'ip'                      => $transaction['device_ip'],
@@ -657,10 +657,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
 			$previous_setting['payment_squareup_locations'] = $this->squareup->fetchLocations($token['access_token'], $first_location_id);
 
-			if (!isset($previous_setting['payment_squareup_location_id']) || (isset($previous_setting['payment_squareup_location_id']) && !in_array(
-				$previous_setting['payment_squareup_location_id'],
-				array_map(fn ($location) => $location['id'], $previous_setting['payment_squareup_locations'])
-			))) {
+			if (!isset($previous_setting['payment_squareup_location_id']) || (isset($previous_setting['payment_squareup_location_id']) && !in_array($previous_setting['payment_squareup_location_id'], array_map(fn ($location) => $location['id'], $previous_setting['payment_squareup_locations'])))) {
 				$previous_setting['payment_squareup_location_id'] = $first_location_id;
 			}
 
@@ -771,7 +768,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 			}
 
 			$currency = $transaction_info['transaction_currency'];
-			$tenders = @json_decode($transaction_info['tenders'], true);
+			$tenders = json_decode($transaction_info['tenders'], true);
 
 			$updated_transaction = $this->squareup->refundTransaction($transaction_info['location_id'], $transaction_info['transaction_id'], $reason, $amount, $currency, $tenders[0]['id']);
 
@@ -832,8 +829,8 @@ class ControllerExtensionPaymentSquareup extends Controller {
 			$session = new \Session($this->config->get('session_engine'), $this->registry);
 			$session->start();
 
-			$this->model_user_api->deleteApiSessionBySessionId($session->getId());
-			$this->model_user_api->addApiSession($api_info['api_id'], $session->getId(), $this->request->server['REMOTE_ADDR']);
+			$this->model_user_api->deleteSessionBySessionId($session->getId());
+			$this->model_user_api->addSession($api_info['api_id'], $session->getId(), $this->request->server['REMOTE_ADDR']);
 
 			$session->data['api_id'] = $api_info['api_id'];
 
@@ -887,9 +884,9 @@ class ControllerExtensionPaymentSquareup extends Controller {
 		}
 
 		// Recurring
-		$this->load->model('sale/recurring');
+		$this->load->model('extension/other/recurring');
 
-		$order_recurring_info = $this->model_sale_recurring->getRecurring($order_recurring_id);
+		$order_recurring_info = $this->model_extension_other_recurring->getRecurring($order_recurring_id);
 
 		$data['button_text'] = $this->language->get('button_cancel_recurring');
 
@@ -922,8 +919,8 @@ class ControllerExtensionPaymentSquareup extends Controller {
 			$session = new \Session($this->config->get('session_engine'), $this->registry);
 			$session->start();
 
-			$this->model_user_api->deleteApiSessionBySessionId($session->getId());
-			$this->model_user_api->addApiSession($api_info['api_id'], $session->getId(), $this->request->server['REMOTE_ADDR']);
+			$this->model_user_api->deleteSessionBySessionId($session->getId());
+			$this->model_user_api->addSession($api_info['api_id'], $session->getId(), $this->request->server['REMOTE_ADDR']);
 
 			$session->data['api_id'] = $api_info['api_id'];
 
@@ -949,19 +946,19 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
 		$json = [];
 
-		if (!$this->user->hasPermission('modify', 'sale/recurring')) {
+		if (!$this->user->hasPermission('modify', 'extension/other/recurring')) {
 			$json['error'] = $this->language->get('error_permission_recurring');
 		} else {
-			// Recurring
-			$this->load->model('sale/recurring');
-
 			if (isset($this->request->get['order_recurring_id'])) {
 				$order_recurring_id = (int)$this->request->get['order_recurring_id'];
 			} else {
 				$order_recurring_id = 0;
 			}
 
-			$recurring_order_info = $this->model_sale_recurring->getRecurring($order_recurring_id);
+			// Recurring
+			$this->load->model('extension/other/recurring');
+
+			$recurring_order_info = $this->model_extension_other_recurring->getRecurring($order_recurring_id);
 
 			if ($recurring_order_info) {
 				// Squareup

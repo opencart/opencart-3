@@ -996,21 +996,10 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 							$order_id = $this->model_extension_payment_amazon_login_pay->findOCOrderId($amazon_order_reference_id);
 							$amazon_login_pay_order_id = $this->model_extension_payment_amazon_login_pay->findAOrderId($amazon_order_reference_id);
 
-							$transaction = [
-								'amazon_login_pay_order_id' => $amazon_login_pay_order_id,
-								'amazon_authorization_id'   => $amazon_authorization_id,
-								'amazon_capture_id'         => $amazon_capture_id,
-								'amazon_refund_id'          => '',
-								'date_added'                => date('Y-m-d H:i:s', strtotime((string)$xml->AuthorizationDetails->CreationTimestamp)),
-								'type'                      => 'capture',
-								'status'                    => 'Completed',
-								'amount'                    => $amazon_captured_amount
-							];
+							$transaction_exists = !empty($amazon_capture_id) ? $this->model_extension_payment_amazon_login_pay->findCapture($amazon_capture_id) : null;
 
-							$transaction_exists = !empty($amazon_capture_id) ? $this->model_extension_payment_amazon_login_pay->findCapture($amazon_capture_id) : false;
-
-							if (!isset($transaction_exists) || !$transaction_exists) {
-								$this->model_extension_payment_amazon_login_pay->addTransaction($transaction);
+							if ($transaction_exists !== null) {
+								$this->model_extension_payment_amazon_login_pay->addTransaction($amazon_login_pay_order_id, $amazon_authorization_id, $amazon_capture_id, '', date('Y-m-d H:i:s', strtotime((string)$xml->AuthorizationDetails->CreationTimestamp)), 'capture', 'Completed', $amazon_captured_amount);
 							}
 
 							$order_reference_details = $this->model_extension_payment_amazon_login_pay->fetchOrder($amazon_order_reference_id);
@@ -1078,21 +1067,27 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 						'Open',
 						'Suspended'
 					])) {
-						$this->model_extension_payment_amazon_login_pay->closeOrder($order_reference_id, "Captured amount: " . (string)$capture_response->CaptureAmount->Amount . " " . (string)$capture_response->CaptureAmount->CurrencyCode);
+						$this->model_extension_payment_amazon_login_pay->closeOrder($order_reference_id, "Captured amount: " . (string)$capture_response->CaptureAmount->Amount ?? null. " " . (string)$capture_response->CaptureAmount->CurrencyCode ?? null);
 					}
+
+					$amazon_capture_id = (string)$capture_response->AmazonCaptureId;
+					$creation_timestamp = date('Y-m-d H:i:s', strtotime((string)$capture_response->CreationTimestamp));
+					$status = (string)$capture_response->CaptureStatus->State;
+					$amount = (float)$capture_response->CaptureAmount->Amount;
 
 					$transaction = [
 						'amazon_login_pay_order_id' => $amazon_login_pay_order['amazon_login_pay_order_id'],
 						'amazon_authorization_id'   => $amazon_login_pay_order['amazon_authorization_id'],
-						'amazon_capture_id'         => $capture_response->AmazonCaptureId,
+						'amazon_capture_id'         => $amazon_capture_id,
 						'amazon_refund_id'          => '',
-						'date_added'                => date('Y-m-d H:i:s', strtotime((string)$capture_response->CreationTimestamp)),
+						'date_added'                => $creation_timestamp,
 						'type'                      => 'capture',
-						'status'                    => (string)$capture_response->CaptureStatus->State,
-						'amount'                    => (float)$capture_response->CaptureAmount->Amount
+						'status'                    => $status,
+						'amount'                    => $amount
 					];
 
-					$this->model_extension_payment_amazon_login_pay->addTransaction($transaction);
+					$this->model_extension_payment_amazon_login_pay->addTransaction($transaction['amazon_login_pay_order_id'], $transaction['amazon_authorization_id'], $transaction['amazon_capture_id'], $transaction['amazon_refund_id'], $transaction['date_added'], $transaction['type'], $transaction['status'], $transaction['amount']);
+
 					$this->model_extension_payment_amazon_login_pay->updateStatus($amazon_login_pay_order['amazon_authorization_id'], 'authorization', 'Closed');
 					$this->model_extension_payment_amazon_login_pay->updateCapturedStatus($amazon_login_pay_order['amazon_login_pay_order_id'], 1);
 				}

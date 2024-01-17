@@ -5,6 +5,9 @@
  * @package Admin\Controller\Extension\Extension
  */
 class ControllerExtensionExtensionModule extends Controller {
+	/**
+	 * @var array<string, string>
+	 */
 	private array $error = [];
 
 	/**

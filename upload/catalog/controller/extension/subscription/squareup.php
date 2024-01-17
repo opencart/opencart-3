@@ -118,7 +118,7 @@ class ControllerExtensionSubscriptionSquareup extends Controller {
 		// Orders
 		$this->load->model('checkout/order');
 
-		foreach ($this->model_extension_payment_squareup->nextRecurringPayments() as $payment) {
+		foreach ($this->model_extension_payment_squareup->nextPayments() as $payment) {
 			try {
 				if (!$payment['is_free']) {
 					$transaction = $this->squareup->addTransaction($payment['transaction']);
@@ -128,7 +128,7 @@ class ControllerExtensionSubscriptionSquareup extends Controller {
 
 					$amount = $this->squareup->standardDenomination($transaction['tenders'][0]['amount_money']['amount'], $target_currency);
 
-					$this->model_extension_payment_squareup->addTransaction($transaction, $this->config->get('payment_squareup_merchant_id'), $payment['billing_address'], $payment['order_id'], 'CRON JOB', '127.0.0.1');
+					$this->model_extension_payment_squareup->addRecurringTransaction($transaction, $this->config->get('payment_squareup_merchant_id'), $payment['billing_address'], $payment['order_id'], 'CRON JOB', '127.0.0.1');
 
 					$reference = $transaction['id'];
 				} else {

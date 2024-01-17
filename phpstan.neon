@@ -4,32 +4,12 @@ services:
 		tags:
 			- phpstan.broker.propertiesClassReflectionExtension
 parameters:
-	level: 1
+	level: 2
 	paths:
 		- ./upload/
-	excludePaths:
-		- ./admin/controller/extension/advertise/
-		- ./upload/admin/controller/extension/advertise/
-		- ./admin/model/extension/advertise/
-		- ./upload/admin/model/extension/advertise/
-		- ./admin/model/extension/payment/cardinity.php
-		- ./upload/admin/model/extension/payment/cardinity.php
-		- ./admin/model/extension/payment/divido.php
-		- ./upload/admin/model/extension/payment/divido.php
-		- ./catalog/controller/extension/advertise/
-		- ./upload/catalog/controller/extension/advertise/
+	excludePaths:		
 		- ./catalog/controller/extension/payment/wechat_pay.php
-		- ./upload/catalog/controller/extension/payment/wechat_pay.php
-		- ./catalog/model/extension/payment/cardinity.php
-		- ./upload/catalog/model/extension/payment/cardinity.php
-		- ./catalog/model/extension/payment/divido.php
-		- ./upload/catalog/model/extension/payment/divido.php
-		- ./catalog/model/extension/shipping/ec_ship.php
-		- ./upload/catalog/model/extension/shipping/ec_ship.php
-		- ./catalog/model/extension/payment/wechat_pay.php
-		- ./upload/catalog/model/extension/payment/wechat_pay.php
-		- ./system/library/googleshopping/
-		- ./upload/system/library/googleshopping/
+		- ./upload/catalog/controller/extension/payment/wechat_pay.php		
 		- ./upload/system/storage/vendor/
 	tmpDir: .cache
 	ignoreErrors:

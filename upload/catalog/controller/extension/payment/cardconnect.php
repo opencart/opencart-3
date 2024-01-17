@@ -132,6 +132,7 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 						];
 
 						$data_json = json_encode($post_data);
+
 						$url = 'https://' . $this->config->get('payment_cardconnect_site') . '.cardconnect.com:' . (($this->config->get('payment_cardconnect_environment') == 'live') ? 8443 : 6443) . '/cardconnect/rest/auth';
 
 						$header = [];
@@ -181,12 +182,14 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 							$this->model_checkout_order->addHistory($order_info['order_id'], $order_status_id);
 
 							$order_info = array_merge($order_info, $response_data);
-							$cardconnect_order_id = $this->model_extension_payment_cardconnect->addOrder($order_info, $payment_method);
 
-							$this->model_extension_payment_cardconnect->addTransaction($cardconnect_order_id, $type, $status, $order_info);
+							$cardconnect_order_id = $this->model_extension_payment_cardconnect->addOrder($order_info['order_id'], $order_info['retref'], $order_info['auth_code'], $order_info['total'], $order_info['currency_code'], $payment_method);
+
+							$this->model_extension_payment_cardconnect->addTransaction($cardconnect_order_id, $type, $status, $order_info['retref'], $order_info['total'], $order_info['currency_code']);
 
 							if (isset($response_data['profileid']) && $this->config->get('payment_cardconnect_store_cards') && $this->customer->isLogged()) {
 								$this->model_extension_payment_cardconnect->log('Saving card');
+
 								$this->model_extension_payment_cardconnect->addCard($cardconnect_order_id, $this->customer->getId(), $response_data['profileid'], $response_data['token'], $this->request->post['card_type'], $response_data['account'], $this->request->post['card_expiry_month'] . $this->request->post['card_expiry_year']);
 							}
 

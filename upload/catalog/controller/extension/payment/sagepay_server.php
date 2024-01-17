@@ -176,7 +176,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 
 			if ($this->config->get('payment_sagepay_server_transaction') == 'PAYMENT') {
 				// Loop through any products that are subscription items
-				$subscription_products = $this->cart->getSubscription();
+				$subscription_products = $this->cart->getSubscriptions();
 
 				foreach ($subscription_products as $item) {
 					$this->model_extension_payment_sagepay_server->addRecurringPayment($item['subscription'], $payment_data['VendorTxCode']);

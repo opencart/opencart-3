@@ -14,7 +14,7 @@ class ModelLocalisationSubscriptionStatus extends Model {
 	 */
 	public function addSubscriptionStatus(array $data): int {
 		$subscription_status_id = null;
-		
+
 		foreach ($data['subscription_status'] as $language_id => $value) {
 			if (isset($subscription_status_id)) {
 				$this->db->query("INSERT INTO `" . DB_PREFIX . "subscription_status` SET `subscription_status_id` = '" . (int)$subscription_status_id . "', `language_id` = '" . (int)$language_id . "', `name` = '" . $this->db->escape($value['name']) . "'");

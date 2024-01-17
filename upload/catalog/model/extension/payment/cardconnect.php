@@ -165,12 +165,17 @@ class ModelExtensionPaymentCardConnect extends Model {
 	/**
 	 * addOrder
 	 *
-	 * @param array  $order_info
-	 * @param string $payment_method
+	 * @param int       $order_id
+	 * @param int       $customer_id	 
+	 * @param string    $retref
+	 * @param string    $auth_code
+	 * @param string    $currency_code
+	 * @param float     $total
+	 * @param string    $payment_method
 	 *
 	 * @return int
 	 */
-	public function addOrder(array $order_info, string $payment_method): int {
+	public function addOrder(int $order_id, int $customer_id, string $retref, string $auth_code, float $total, string $currency_code, string $payment_method): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "cardconnect_order` SET `order_id` = '" . (int)$order_info['order_id'] . "', `customer_id` = '" . (int)$this->customer->getId() . "', `payment_method` = '" . $this->db->escape($payment_method) . "', `retref` = '" . $this->db->escape($order_info['retref']) . "', `authcode` = '" . $this->db->escape($order_info['authcode']) . "', `currency_code` = '" . $this->db->escape($order_info['currency_code']) . "', `total` = '" . $this->currency->format($order_info['total'], $order_info['currency_code'], false, false) . "', `date_added` = NOW()");
 
 		return $this->db->getLastId();
@@ -182,12 +187,14 @@ class ModelExtensionPaymentCardConnect extends Model {
 	 * @param int    $cardconnect_order_id
 	 * @param string $type
 	 * @param string $status
-	 * @param array  $order_info
+	 * @param string $retref
+	 * @param float  $total
+	 * @param string $currency_code
 	 *
 	 * @return void
 	 */
-	public function addTransaction(int $cardconnect_order_id, string $type, string $status, array $order_info): void {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "cardconnect_order_transaction` SET `cardconnect_order_id` = '" . (int)$cardconnect_order_id . "', `type` = '" . $this->db->escape($type) . "', `retref` = '" . $this->db->escape($order_info['retref']) . "', `amount` = '" . (float)$this->currency->format($order_info['total'], $order_info['currency_code'], false, false) . "', `status` = '" . $this->db->escape($status) . "', `date_modified` = NOW(), `date_added` = NOW()");
+	public function addTransaction(int $cardconnect_order_id, string $type, string $status, string $retref, float $total, string $currency_code): void {
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "cardconnect_order_transaction` SET `cardconnect_order_id` = '" . (int)$cardconnect_order_id . "', `type` = '" . $this->db->escape($type) . "', `retref` = '" . $this->db->escape($retref) . "', `amount` = '" . (float)$this->currency->format($total, $currency_code, false, false) . "', `status` = '" . $this->db->escape($status) . "', `date_modified` = NOW(), `date_added` = NOW()");
 	}
 
 	/**

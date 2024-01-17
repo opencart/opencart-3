@@ -5,6 +5,10 @@
  * @package Admin\Controller\Extension\Payment
  */
 class ControllerExtensionPaymentAlipayCross extends Controller {
+	/**
+	 * @var array<string, string>
+	 * @var array<string, string>
+	 */
 	private array $error = [];
 
 	private array $currencies = [

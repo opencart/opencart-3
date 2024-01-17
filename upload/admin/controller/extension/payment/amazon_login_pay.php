@@ -5,6 +5,10 @@
  * @package Admin\Controller\Extension\Payment
  */
 class ControllerExtensionPaymentAmazonLoginPay extends Controller {
+	/**
+	 * @var string
+	 * @var array<string, string>
+	 */
 	private string $version = '3.2.1';
 	private array $error = [];
 

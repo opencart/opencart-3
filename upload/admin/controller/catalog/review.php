@@ -5,6 +5,9 @@
  * @package Admin\Controller\Catalog
  */
 class ControllerCatalogReview extends Controller {
+	/**
+	 * @var array<string, string>
+	 */
 	private array $error = [];
 
 	/**

@@ -5,6 +5,9 @@
  * @package Admin\Controller\Localisation
  */
 class ControllerLocalisationReturnsStatus extends Controller {
+	/**
+	 * @var array<string, string>
+	 */
 	private array $error = [];
 
 	/**

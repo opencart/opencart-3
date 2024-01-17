@@ -99,7 +99,7 @@ class ModelExtensionPaymentOpayo extends Model {
 	public function void(int $order_id): array {
 		$opayo_order = $this->getOrder($order_id);
 
-		if (!empty($opayo_order) && ($opayo_order['release_status'] == 0)) {
+		if ($opayo_order && $opayo_order['release_status'] == 0) {
 			$void_data = [];
 
 			// Setting
@@ -158,7 +158,7 @@ class ModelExtensionPaymentOpayo extends Model {
 
 		$total_released = $this->getTotalReleased($opayo_order['opayo_order_id']);
 
-		if (!empty($opayo_order) && ($opayo_order['release_status'] == 0) && ($total_released + $amount <= $opayo_order['total'])) {
+		if ($opayo_order && $opayo_order['release_status'] == 0 && $total_released + $amount <= $opayo_order['total']) {
 			$release_data = [];
 
 			// Setting
@@ -216,7 +216,7 @@ class ModelExtensionPaymentOpayo extends Model {
 	public function rebate(int $order_id, float $amount): array {
 		$opayo_order = $this->getOrder($order_id);
 
-		if (!empty($opayo_order) && ($opayo_order['rebate_status'] != 1)) {
+		if ($opayo_order && $opayo_order['rebate_status'] != 1) {
 			$refund_data = [];
 
 			// Setting
@@ -350,7 +350,9 @@ class ModelExtensionPaymentOpayo extends Model {
 	 *
 	 * @return array<string, string>
 	 */
-	public function sendCurl(string $url, array $payment_data): array {
+	public function sendCurl($url, $payment_data) {
+		$data = [];
+
 		$curl = curl_init($url);
 
 		curl_setopt($curl, CURLOPT_PORT, 443);
@@ -369,39 +371,40 @@ class ModelExtensionPaymentOpayo extends Model {
 
 		$response_info = explode(chr(10), $response);
 
-		$post_data = [];
-
 		foreach ($response_info as $i => $string) {
-			if (strpos($string, '=')) {
-				$parts = explode('=', $string, 2);
-				$post_data['RepeatResponseData_' . $i][trim($parts[0])] = trim($parts[1]);
-			} elseif (strpos($string, '=')) {
-				$parts = explode('=', $string, 2);
-				$post_data[trim($parts[0])] = trim($parts[1]);
+			if (!str_contains($string, '=')) {
+				continue;
+			}
+
+			$parts = explode('=', $string, 2);
+
+			if (count($response_info) > 1) {
+				$data['RepeatResponseData_' . $i][trim($parts[0])] = trim($parts[1]);
+			} else {
+				$data[trim($parts[0])] = trim($parts[1]);
 			}
 		}
 
-		return $post_data;
+		return $data;
 	}
 
 	/**
 	 * Log
 	 *
 	 * @param string  $title
-	 * @param ?string $data
+	 * @param mixed   $data
 	 *
 	 * @return void
 	 */
-	public function log(string $title, ?string $data): void {
+	public function log(string $title, mixed $data): void {
 		$_config = new Config();
 		$_config->load('opayo');
-
 		$config_setting = $_config->get('opayo_setting');
 
 		$setting = array_replace_recursive((array)$config_setting, (array)$this->config->get('payment_opayo_setting'));
 
 		if ($setting['general']['debug']) {
-			$log = new Log('opayo.log');
+			$log = new \Log('opayo.log');
 
 			$log->write($title . ': ' . print_r($data, 1));
 		}

@@ -5,6 +5,9 @@
  * @package Admin\Controller\Extension\Fraud
  */
 class ControllerExtensionFraudFraudLabsPro extends Controller {
+	/**
+	 * @var array<string, string>
+	 */
 	private array $error = [];
 
 	/**

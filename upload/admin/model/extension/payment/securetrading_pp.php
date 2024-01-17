@@ -20,8 +20,8 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 			  `modified` datetime NOT NULL,
 			  `release_status` int(1) NOT NULL DEFAULT '0',
 			  `void_status` int(1) NOT NULL DEFAULT '0',
-			  `settle_type` int(1) NOT NULL DEFAULT '0',
 			  `rebate_status` int(1) NOT NULL DEFAULT '0',
+			  `settle_type` int(1) NOT NULL DEFAULT '0',
 			  `currency_code` varchar(3) NOT NULL,
 			  `total` decimal(15,4) NOT NULL,
 			  PRIMARY KEY (`securetrading_pp_order_id`)
@@ -139,6 +139,18 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 	}
 
 	/**
+	 * updateRebateStatus
+	 *
+	 * @param int $securetrading_pp_order_id
+	 * @param int $status
+	 *
+	 * @return void
+	 */
+	public function updateRebateStatus(int $securetrading_pp_order_id, int $status): void {
+		$this->db->query("UPDATE `" . DB_PREFIX . "securetrading_pp_order` SET `rebate_status` = '" . (int)$status . "' WHERE `securetrading_pp_order_id` = '" . (int)$securetrading_pp_order_id . "'");
+	}
+
+	/**
 	 * updateForRebate
 	 *
 	 * @param int    $securetrading_pp_order_id
@@ -215,6 +227,20 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 		} else {
 			return [];
 		}
+	}
+
+	/**
+	 * addHistory
+	 * 
+	 * @param int    $order_id
+	 * @param int    $order_status_id
+	 * @param string $comment
+	 * @param bool   $notify
+	 * 
+	 * @return void
+	 */
+	public function addHistory(int $order_id, int $order_status_id, string $comment = '', bool $notify = false): void {
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "order_history` SET `order_id` = '" . (int)$order_id . "', `order_status_id` = '" . (int)$order_status_id . "', `comment` = '" . $this->db->escape($comment) . "', `notify` = '" . (bool)$notify . "', `date_added` = NOW()");
 	}
 
 	/**

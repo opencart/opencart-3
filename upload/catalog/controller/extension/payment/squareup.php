@@ -214,7 +214,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
 			$order_status_id = $this->config->get('payment_squareup_status_' . $transaction_status);
 
-			$order_products = $this->model_checkout_order->getOrderProducts($this->session->data['order_id']);
+			$order_products = $this->model_checkout_order->getProducts($this->session->data['order_id']);
 
 			if ($order_status_id) {
 				if ($this->cart->hasProducts() && $transaction_status == 'captured') {
@@ -274,13 +274,13 @@ class ControllerExtensionPaymentSquareup extends Controller {
 									'duration'             => $item['subscription']['duration'],
 									'remaining'            => $item['subscription']['duration'],
 									'status'               => $item['subscription']['status'],
-									'date_next'            => isset($date_next) ? $date_next : ''
+									'date_next'            => $date_next ?? ''
 								];
 
 								$subscription_id = $this->model_extension_payment_squareup->createRecurring($this->session->data['order_id'], $subscription_data);
 
 								if ($subscription_id) {
-									$this->model_extension_payment_squareup->addRecurringTransaction($subscription_id, $subscription_data, $transaction, $transaction_status);
+									$this->model_extension_payment_squareup->addTransaction($subscription_id, $subscription_data, $transaction, $transaction_status);
 								}
 							}
 						}

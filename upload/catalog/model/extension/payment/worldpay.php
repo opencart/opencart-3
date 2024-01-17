@@ -439,10 +439,12 @@ class ModelExtensionPaymentWorldpay extends Model {
 	/**
 	 * sendCurl
 	 *
-	 * @param mixed      $url
-	 * @param mixed|null $order
+	 * @param string      $url
+	 * @param array 	  $order
+	 * 
+	 * @return array
 	 */
-	public function sendCurl($url, $order = null) {
+	public function sendCurl(string $url, $order = []): array {
 		$curl = curl_init();
 
 		curl_setopt($curl, CURLOPT_URL, 'https://api.worldpay.com/v1/' . $url);
@@ -468,7 +470,7 @@ class ModelExtensionPaymentWorldpay extends Model {
 			"Content-Length: " . $content_length
 		]);
 
-		$result = json_decode(curl_exec($curl));
+		$result = json_decode(curl_exec($curl), true);
 
 		curl_close($curl);
 

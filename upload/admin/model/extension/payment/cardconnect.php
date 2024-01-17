@@ -172,8 +172,8 @@ class ModelExtensionPaymentCardConnect extends Model {
 		$this->log('Order ID: ' . $order_info['order_id']);
 
 		$order = $this->model_sale_order->getOrder($order_info['order_id']);
-		$totals = $this->model_sale_order->getOrderTotals($order_info['order_id']);
-		$products = $this->model_sale_order->getOrderProducts($order_info['order_id']);
+		$totals = $this->model_sale_order->getTotals($order_info['order_id']);
+		$products = $this->model_sale_order->getProducts($order_info['order_id']);
 		$shipping_cost = '';
 
 		foreach ($totals as $total) {

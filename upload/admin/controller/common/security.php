@@ -37,7 +37,7 @@ class ControllerCommonSecurity extends Controller {
 	/**
 	 * Move
 	 *
-	 * @return string
+	 * @return void
 	 */
 	public function move(): void {
 		$this->load->language('common/security');

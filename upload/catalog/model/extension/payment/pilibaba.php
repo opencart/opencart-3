@@ -46,7 +46,9 @@ class ModelExtensionPaymentPilibaba extends Model {
 		$query = $this->db->query("SELECT SUM(`value`) AS `value` FROM `" . DB_PREFIX . "order_total` WHERE `order_id` = '" . (int)$order_id . "' AND `code` = 'tax'");
 
 		if ($query->num_rows) {
-			return (int)(round($query->row['value'], 2) * 100);
+			$value = $query->row['value'];
+
+			return (int)round($value, 2) * 100;
 		} else {
 			return 0;
 		}

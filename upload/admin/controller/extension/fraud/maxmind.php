@@ -5,6 +5,9 @@
  * @package Admin\Controller\Extension\Fraud
  */
 class ControllerExtensionFraudMaxMind extends Controller {
+	/**
+	 * @var array<string, string>
+	 */
 	private array $error = [];
 
 	/**

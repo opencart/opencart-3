@@ -5,6 +5,9 @@
  * @package Admin\Controller\Marketing
  */
 class ControllerMarketingMarketing extends Controller {
+	/**
+	 * @var array<string, string>
+	 */
 	private array $error = [];
 
 	/**

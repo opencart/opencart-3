@@ -5,6 +5,9 @@
  * @package Admin\Controller\Marketplace
  */
 class ControllerMarketplaceEvent extends Controller {
+	/**
+	 * @var array<string, string>
+	 */
 	private array $error = [];
 
 	/**

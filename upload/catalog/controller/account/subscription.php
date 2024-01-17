@@ -58,7 +58,7 @@ class ControllerAccountSubscription extends Controller {
 			'limit' => 10
 		];
 
-		$subscription_total = $this->model_account_subscription->getTotalSubscriptions($filter_data);
+		$subscription_total = $this->model_account_subscription->getTotalSubscriptions();
 
 		$results = $this->model_account_subscription->getSubscriptions($filter_data);
 

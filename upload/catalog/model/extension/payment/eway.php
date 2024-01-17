@@ -68,12 +68,13 @@ class ModelExtensionPaymentEway extends Model {
 	 * @param int    $eway_order_id
 	 * @param string $type
 	 * @param string $transactionid
-	 * @param array  $order_info
-	 *
+	 * @param float  $total
+	 * @param string $currency_code
+	 * 
 	 * @return int
 	 */
-	public function addTransaction(int $eway_order_id, string $type, string $transactionid, array $order_info): int {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "eway_transactions` SET `eway_order_id` = '" . (int)$eway_order_id . "', `created` = NOW(), `transaction_id` = '" . $this->db->escape($transactionid) . "', `type` = '" . $this->db->escape($type) . "', `amount` = '" . $this->currency->format($order_info['total'], $order_info['currency_code'], false, false) . "'");
+	public function addTransaction(int $eway_order_id, string $type, string $transactionid, float $total, string $currency_code): int {
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "eway_transactions` SET `eway_order_id` = '" . (int)$eway_order_id . "', `created` = NOW(), `transaction_id` = '" . $this->db->escape($transactionid) . "', `type` = '" . $this->db->escape($type) . "', `amount` = '" . $this->currency->format($total, $currency_code, false, false) . "'");
 
 		return $this->db->getLastId();
 	}

@@ -333,7 +333,9 @@ class ControllerExtensionPaymentEway extends Controller {
 
 				$eway_order_id = $this->model_extension_payment_eway->addOrder($eway_order_data);
 
-				$this->model_extension_payment_eway->addTransaction($eway_order_id, $this->config->get('payment_eway_transaction_method'), $result->TransactionID, $order_info);
+				$transaction_id = (string)$result->TransactionID;
+
+				$this->model_extension_payment_eway->addTransaction($eway_order_id, $this->config->get('payment_eway_transaction_method'), $transaction_id, $order_info['total'], $order_info['currency_code']);
 
 				if ($fraud) {
 					$message = 'Suspected fraud order: ' . $log_error . "\n";
@@ -341,9 +343,12 @@ class ControllerExtensionPaymentEway extends Controller {
 					$message = "eWAY Payment accepted\n";
 				}
 
-				$message .= 'Transaction ID: ' . $result->TransactionID . "\n";
-				$message .= 'Authorisation Code: ' . $result->AuthorisationCode . "\n";
-				$message .= 'Card Response Code: ' . $result->ResponseCode . "\n";
+				$authorisation_code = (string)$result->AuthorisationCode;
+				$response_code = (string)$result->ResponseCode;
+
+				$message .= 'Transaction ID: ' . $transaction_id . "\n";
+				$message .= 'Authorisation Code: ' . $authorisation_code . "\n";
+				$message .= 'Card Response Code: ' . $response_code . "\n";
 
 				if ($fraud) {
 					$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_eway_order_status_fraud_id'), $message);
@@ -353,13 +358,19 @@ class ControllerExtensionPaymentEway extends Controller {
 					$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_eway_order_status_auth_id'), $message);
 				}
 
-				if (!empty($result->Customer->TokenCustomerID) && $this->customer->isLogged() && isset($this->session->data['customer_token']) && !$this->model_extension_payment_eway->checkToken($result->Customer->TokenCustomerID)) {
+				$token_customer_id = (string)$result->Customer->TokenCustomerID;
+
+				if (!empty($token_customer_id) && $this->customer->isLogged() && isset($this->session->data['customer_token']) && !$this->model_extension_payment_eway->checkToken($token_customer_id)) {
 					$card_data = [];
 
+					$number = (int)$result->Customer->CardDetails->Number;
+					$expiry_month = (int)$result->Customer->CardDetails->ExpiryMonth;
+					$expiry_year = (int)$result->Customer->CardDetails->ExpiryYear;
+
 					$card_data['customer_id'] = $this->customer->getId();
-					$card_data['Token'] = $result->Customer->TokenCustomerID;
-					$card_data['Last4Digits'] = substr(str_replace(' ', '', $result->Customer->CardDetails->Number), -4, 4);
-					$card_data['ExpiryDate'] = $result->Customer->CardDetails->ExpiryMonth . '/' . $result->Customer->CardDetails->ExpiryYear;
+					$card_data['Token'] = $token_customer_id;
+					$card_data['Last4Digits'] = substr(str_replace(' ', '', $number), -4, 4);
+					$card_data['ExpiryDate'] = $expiry_month . '/' . $expiry_year;
 					$card_data['CardType'] = '';
 
 					$this->model_extension_payment_eway->addFullCard($this->session->data['order_id'], $card_data);

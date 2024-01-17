@@ -359,7 +359,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 					// Orders
 					$this->load->model('sale/order');
 
-					$this->model_sale_order->addOrderHistory($this->request->post['order_id'], $post_data);
+					$this->model_extension_payment_securetrading_pp->addHistory($this->request->post['order_id'], $post_data);
 
 					$json['msg'] = $this->language->get('text_authorisation_reversed');
 					$json['data']['created'] = date('Y-m-d H:i:s');
@@ -429,7 +429,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 						$history['comment'] = '';
 						$history['notify'] = '';
 
-						$this->model_sale_order->addOrderHistory($this->request->post['order_id'], $history);
+						$this->model_extension_payment_securetrading_pp->addHistory($this->request->post['order_id'], $history);
 					} else {
 						$release_status = 0;
 
@@ -488,7 +488,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 				$error_code = (string)$response_xml->response->error->code;
 
 				if ($error_code == '0') {
-					$this->model_extension_payment_securetrading_pp->addTransaction($securetrading_pp_order['securetrading_pp_order_id'], 'rebate', $amount * -1);
+					$this->model_extension_payment_securetrading_pp->addTransaction($securetrading_pp_order['securetrading_pp_order_id'], 'rebate', (float)$amount * -1);
 
 					$total_rebated = $this->model_extension_payment_securetrading_pp->getTotalRebated($securetrading_pp_order['securetrading_pp_order_id']);
 					$total_released = $this->model_extension_payment_securetrading_pp->getTotalReleased($securetrading_pp_order['securetrading_pp_order_id']);
@@ -512,7 +512,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 						$history['comment'] = '';
 						$history['notify'] = '';
 
-						$this->model_sale_order->addOrderHistory($this->request->post['order_id'], $history);
+						$this->model_extension_payment_securetrading_pp->addHistory($this->request->post['order_id'], $history);
 					} else {
 						$rebate_status = 0;
 
@@ -522,7 +522,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 					$json['data'] = [];
 
 					$json['data']['created'] = date('Y-m-d H:i:s');
-					$json['data']['amount'] = $amount * -1;
+					$json['data']['amount'] = (float)$amount * -1;
 					$json['data']['total_released'] = (float)$total_released;
 					$json['data']['total_rebated'] = (float)$total_rebated;
 					$json['data']['rebate_status'] = $rebate_status;

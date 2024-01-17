@@ -12,6 +12,9 @@
  * @see           https://www.opencart.cn
  */
 class ControllerExtensionPaymentWechatPay extends Controller {
+	/**
+	 * @var array<string, string>
+	 */
 	private array $error = [];
 
 	/**

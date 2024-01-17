@@ -172,7 +172,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 				$this->response->redirect($this->url->link('checkout/failure', '', true));
 			}
 		} elseif ($this->request->server['REQUEST_METHOD'] == 'POST' && isset($this->request->post['RESULT']) && $this->request->post['RESULT'] == 'FAILURE') {
-			$this->model_extension_payment_laybuy->log('Failure Response: ' . $this->request->post);
+			$this->model_extension_payment_laybuy->log('Failure Response: ' . json_encode($this->request->post));
 			$this->model_extension_payment_laybuy->log('Redirecting to checkout/failure.');
 
 			$this->response->redirect($this->url->link('checkout/failure', '', true));
@@ -477,12 +477,12 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 							} else {
 								$start_index = $month + 2;
 							}
-	
+
 							if ($month < $months) {
 								for ($month = 1; $month <= $months; $month++) {
 									$next_payment_date = date('Y-m-d h:i:s', strtotime($next_payment_date . ' +1 month'));
 									$date = date($this->language->get('date_format_short'), strtotime($next_payment_date));
-	
+
 									$report_content[] = [
 										'instalment'  => $month,
 										'amount'      => $this->currency->format($transaction['payment_amounts'], $transaction['currency']),
@@ -492,13 +492,13 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 									];
 								}
 							}
-	
+
 							$report_content = json_encode($report_content);
-	
+
 							switch ($status) {
 								case -1: // Cancel
 									$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_laybuy_order_status_id_canceled'), $this->language->get('text_comment'), false, false);
-	
+
 									$this->model_extension_payment_laybuy->updateTransaction($transaction['laybuy_transaction_id'], '7', $report_content, $start_index);
 									$this->model_extension_payment_laybuy->log('Transaction #' . $transaction['laybuy_transaction_id'] . ' canceled');
 									break;
@@ -508,7 +508,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 									break;
 								case 1: // Paid
 									$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_laybuy_order_status_id_processing'), $this->language->get('text_comment'), false, false);
-	
+
 									$this->model_extension_payment_laybuy->updateTransaction($transaction['laybuy_transaction_id'], '5', $report_content, $start_index);
 									$this->model_extension_payment_laybuy->log('Transaction #' . $transaction['laybuy_transaction_id'] . ' paid');
 									break;

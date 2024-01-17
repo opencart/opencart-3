@@ -5,6 +5,9 @@
  * @package Admin\Controller\Extension\Feed
  */
 class ControllerExtensionFeedGoogleSitemap extends Controller {
+	/**
+	 * @var array<string, string>
+	 */
 	private array $error = [];
 
 	/**

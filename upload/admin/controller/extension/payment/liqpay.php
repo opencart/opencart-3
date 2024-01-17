@@ -5,6 +5,9 @@
  * @package Admin\Controller\Extension\Payment
  */
 class ControllerExtensionPaymentLiqPay extends Controller {
+	/**
+	 * @var array<string, string>
+	 */
 	private array $error = [];
 
 	/**

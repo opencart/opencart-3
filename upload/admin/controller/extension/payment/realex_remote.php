@@ -5,6 +5,9 @@
  * @package Admin\Controller\Extension\Payment
  */
 class ControllerExtensionPaymentRealexRemote extends Controller {
+	/**
+	 * @var array<string, string>
+	 */
 	private array $error = [];
 
 	/**
@@ -265,7 +268,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 
 			$this->model_extension_payment_realex_remote->logger('Void result:\r\n' . print_r($void_response, 1));
 
-			if (isset($void_response->result) && $void_response->result == '00') {
+			if (isset($void_response['result']) && $void_response['result'] == '00') {
 				$this->model_extension_payment_realex_remote->addTransaction($realex_order['realex_remote_order_id'], 'void', 0.00);
 				$this->model_extension_payment_realex_remote->updateVoidStatus($realex_order['realex_remote_order_id'], 1);
 
@@ -279,7 +282,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 			} else {
 				$json['error'] = true;
 
-				$json['msg'] = !empty($void_response->message) ? sprintf($this->language->get('error_status'), (string)$void_response->message) : $this->language->get('error_void');
+				$json['msg'] = !empty($void_response['message']) ? sprintf($this->language->get('error_status'), (string)$void_response['message']) : $this->language->get('error_void');
 			}
 		} else {
 			$json['error'] = true;
@@ -310,7 +313,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 
 			$this->model_extension_payment_realex_remote->logger('Settle result:\r\n' . print_r($capture_response, 1));
 
-			if (isset($capture_response->result) && $capture_response->result == '00') {
+			if (isset($capture_response['result']) && $capture_response['result'] == '00') {
 				$this->model_extension_payment_realex_remote->addTransaction($realex_order['realex_remote_order_id'], 'payment', $this->request->post['amount']);
 
 				$total_captured = $this->model_extension_payment_realex_remote->getTotalCaptured($realex_order['realex_remote_order_id']);
@@ -327,7 +330,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 					$json['msg'] = $this->language->get('text_capture_ok');
 				}
 
-				$this->model_extension_payment_realex_remote->updateForRebate($realex_order['realex_remote_order_id'], $capture_response->pasref, $capture_response->orderid);
+				$this->model_extension_payment_realex_remote->updateForRebate($realex_order['realex_remote_order_id'], (string)$capture_response['pasref'], (string)$capture_response['orderid']);
 
 				$json['data'] = [];
 
@@ -339,7 +342,8 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 				$json['error'] = false;
 			} else {
 				$json['error'] = true;
-				$json['msg'] = !empty($capture_response->message) ? sprintf($this->language->get('error_status'), (string)$capture_response->message) : $this->language->get('error_capture');
+
+				$json['msg'] = isset($capture_response['message']) ? sprintf($this->language->get('error_status'), (string)$capture_response['message']) : $this->language->get('error_capture');
 			}
 		} else {
 			$json['error'] = true;
@@ -370,7 +374,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 
 			$this->model_extension_payment_realex_remote->logger('Rebate result:\r\n' . print_r($rebate_response, 1));
 
-			if (isset($rebate_response->result) && $rebate_response->result == '00') {
+			if (isset($rebate_response['result']) && $rebate_response['result'] == '00') {
 				$this->model_extension_payment_realex_remote->addTransaction($realex_order['realex_remote_order_id'], 'rebate', $this->request->post['amount'] * -1);
 
 				$total_rebated = $this->model_extension_payment_realex_remote->getTotalRebated($realex_order['realex_remote_order_id']);
@@ -400,7 +404,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 			} else {
 				$json['error'] = true;
 
-				$json['msg'] = !empty($rebate_response->message) ? sprintf($this->language->get('error_status'), (string)$rebate_response->message) : $this->language->get('error_rebate');
+				$json['msg'] = !empty($rebate_response['message']) ? sprintf($this->language->get('error_status'), (string)$rebate_response['message']) : $this->language->get('error_rebate');
 			}
 		} else {
 			$json['error'] = true;

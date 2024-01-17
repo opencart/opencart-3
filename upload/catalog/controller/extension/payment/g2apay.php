@@ -50,36 +50,31 @@ class ControllerExtensionPaymentG2APay extends Controller {
 			'total'  => &$total
 		];
 
-		$i = 0;
-
 		// Extensions
-		$this->load->model('setting/extension');
+		${$this}->load->model('setting/extension');
 
 		$results = $this->model_setting_extension->getExtensionsByType('total');
 
 		foreach ($results as $result) {
 			if ($this->config->get('total_' . $result['code'] . '_status')) {
-				$this->load->model('extension/total/' . $result['code']);
+				$callable = [$this->{'model_extension_total_' . $result['code']}->getTotal($total_data)];
 
-				// We have to put the totals in an array so that they pass by reference.
-				$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
+				if (is_callable($callable)) {
+					$total_info = $this->{'model_extension_total_' . $result['code']}->getTotal();
 
-				if (isset($order_data['totals'][$i])) {
-					if (strstr(strtolower($order_data['totals'][$i]['code']), 'total') === false) {
+					if ($total_info) {
 						$item = new \stdClass();
 
-						$item->sku = $order_data['totals'][$i]['code'];
-						$item->name = $order_data['totals'][$i]['title'];
-						$item->amount = number_format($order_data['totals'][$i]['value'], 2);
+						$item->sku = $total_info['totals']['code'];
+						$item->name = $total_info['totals']['title'];
+						$item->amount = number_format($total_info['totals']['value'], 2);
 						$item->qty = 1;
-						$item->id = $order_data['totals'][$i]['code'];
-						$item->price = $order_data['totals'][$i]['value'];
+						$item->id = $total_info['totals']['code'];
+						$item->price = $total_info['totals']['value'];
 						$item->url = $this->url->link('common/home', '', true);
 
 						$items[] = $item;
 					}
-
-					$i++;
 				}
 			}
 		}
@@ -134,16 +129,20 @@ class ControllerExtensionPaymentG2APay extends Controller {
 			$this->response->redirect($this->url->link('checkout/failure', '', true));
 		}
 
-		if (strtolower($response_data->status) != 'ok') {
+		$status = (string)$response_data->status;
+
+		if (strtolower($status) != 'ok') {
 			$this->response->redirect($this->url->link('checkout/failure', '', true));
 		}
 
 		$this->model_extension_payment_g2apay->addG2aOrder($order_info);
 
+		$response_token = (string)$response_data->token;
+
 		if ($this->config->get('payment_g2apay_environment') == 1) {
-			$this->response->redirect('https://checkout.pay.g2a.com/index/gateway?token=' . $response_data->token);
+			$this->response->redirect('https://checkout.pay.g2a.com/index/gateway?token=' . $response_token);
 		} else {
-			$this->response->redirect('https://checkout.test.pay.g2a.com/index/gateway?token=' . $response_data->token);
+			$this->response->redirect('https://checkout.test.pay.g2a.com/index/gateway?token=' . $response_token);
 		}
 	}
 

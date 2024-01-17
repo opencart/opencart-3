@@ -5,6 +5,9 @@
  * @package Admin\Controller\Extension\Shipping
  */
 class ControllerExtensionShippingParcelforce48 extends Controller {
+	/**
+	 * @var array<string, string>
+	 */
 	private array $error = [];
 
 	/**

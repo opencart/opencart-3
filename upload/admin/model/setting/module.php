@@ -11,7 +11,7 @@ class ModelSettingModule extends Model {
 	 * @param string $code
 	 * @param array  $data
 	 *
-	 * @return int
+	 * @return void
 	 */
 	public function addModule(string $code, array $data): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "module` SET `name` = '" . $this->db->escape($data['name']) . "', `code` = '" . $this->db->escape($code) . "', `setting` = '" . $this->db->escape(json_encode($data)) . "'");

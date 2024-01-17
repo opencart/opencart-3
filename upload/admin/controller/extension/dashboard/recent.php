@@ -5,6 +5,9 @@
  * @package Admin\Controller\Extension\Dashboard
  */
 class ControllerExtensionDashboardRecent extends Controller {
+	/**
+	 * @var array<string, string>
+	 */
 	private array $error = [];
 
 	/**

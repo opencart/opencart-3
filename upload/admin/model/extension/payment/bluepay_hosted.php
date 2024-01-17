@@ -15,24 +15,24 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "bluepay_hosted_order` (
 			  `bluepay_hosted_order_id` int(11) NOT NULL AUTO_INCREMENT,
 			  `order_id` int(11) NOT NULL,
-			  `transaction_id` varchar(50),
-			  `date_added` datetime NOT NULL,
-			  `date_modified` datetime NOT NULL,
+			  `transaction_id` varchar(50) NOT NULL,			  
 			  `release_status` int(1) NOT NULL DEFAULT '0',
 			  `void_status` int(1) NOT NULL DEFAULT '0',
 			  `rebate_status` int(1) NOT NULL DEFAULT '0',
 			  `currency_code` varchar(3) NOT NULL,
 			  `total` decimal(15,4) NOT NULL,
+			  `date_added` datetime NOT NULL,
+			  `date_modified` datetime NOT NULL,
 			  PRIMARY KEY (`bluepay_hosted_order_id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
 
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "bluepay_hosted_order_transaction` (
 			  `bluepay_hosted_order_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
-			  `bluepay_hosted_order_id` int(11) NOT NULL,
-			  `date_added` datetime NOT NULL,
+			  `bluepay_hosted_order_id` int(11) NOT NULL,			  
 			  `type` enum('auth', 'payment', 'rebate', 'void') DEFAULT NULL,
 			  `amount` decimal(15,4) NOT NULL,
+			  `date_added` datetime NOT NULL,
 			  PRIMARY KEY (`bluepay_hosted_order_transaction_id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
 
@@ -57,6 +57,20 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "bluepay_hosted_order`");
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "bluepay_hosted_order_transaction`");
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "bluepay_hosted_card`");
+	}
+
+	/**
+	 * addOrder
+	 * 
+	 * @param array $order_info
+	 * @param array $response_data
+	 * 
+	 * @return int
+	 */
+	public function addOrder($order_info, $response_data): int {
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "bluepay_hoster_order` SET `order_id` = '" . (int)$order_info['order_id'] . "', `transaction_id` = '" . $this->db->escape($response_data['TRANSACTION_ID']) . "', `release_status` = '0', `void_status` = '0', `rebate_status` = '0', `currency_code` = '" . $this->db->escape($order_info['currency_code']) . "', `total` = '" . (float)$order_info['total'] . "', `date_added` = NOW(), `date_modified` = NOW()");
+
+		return $this->db->getLastId();
 	}
 
 	/**
@@ -194,7 +208,7 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 	}
 
 	/**
-	 * updateRebaseStatus
+	 * updateRebateStatus
 	 *
 	 * @param int $bluepay_hosted_order_id
 	 * @param int $status
@@ -237,6 +251,13 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 		}
 	}
 
+	/**
+	 * getTransactions
+	 * 
+	 * @param int $bluepay_hosted_order_id
+	 * 
+	 * @return array
+	 */
 	private function getTransactions(int $bluepay_hosted_order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "bluepay_hosted_order_transaction` WHERE `bluepay_hosted_order_id` = '" . (int)$bluepay_hosted_order_id . "'");
 
@@ -245,6 +266,20 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 		} else {
 			return [];
 		}
+	}
+
+	/**
+	 * addHistory
+	 * 
+	 * @param int    $order_id
+	 * @param int    $order_status_id
+	 * @param string $comment
+	 * @param bool   $notify
+	 * 
+	 * @return void
+	 */
+	public function addHistory(int $order_id, int $order_status_id, string $comment = '', bool $notify = false): void {
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "order_history` SET `order_id` = '" . (int)$order_id . "', `order_status_id` = '" . (int)$order_status_id . "', `comment` = '" . $this->db->escape($comment) . "', `notify` = '" . (bool)$notify . "', `date_added` = NOW()");
 	}
 
 	/**

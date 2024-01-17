@@ -5,6 +5,9 @@
  * @package Admin\Controller\Setting
  */
 class ControllerSettingStore extends Controller {
+	/**
+	 * @var array<string, string>
+	 */
 	private array $error = [];
 
 	/**
@@ -739,7 +742,7 @@ class ControllerSettingStore extends Controller {
 			$this->error['telephone'] = $this->language->get('error_telephone');
 		}
 
-		if (!empty($this->request->post['config_customer_group_display']) && !in_array($this->request->post['config_customer_group_id'], $this->request->post['config_customer_group_display'])) {
+		if (!empty($this->request->post['config_customer_group_display']) && !in_array($this->request->post['config_customer_group_id'], (array)$this->request->post['config_customer_group_display'])) {
 			$this->error['customer_group_display'] = $this->language->get('error_customer_group_display');
 		}
 

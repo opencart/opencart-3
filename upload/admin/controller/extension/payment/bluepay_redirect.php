@@ -5,6 +5,9 @@
  * @package Admin\Controller\Extension\Payment
  */
 class ControllerExtensionPaymentBluepayredirect extends Controller {
+	/**
+	 * @var array<string, string>
+	 */
 	private array $error = [];
 
 	/**
@@ -176,7 +179,7 @@ class ControllerExtensionPaymentBluepayredirect extends Controller {
 	/**
 	 * Order
 	 *
-	 * @return void
+	 * @return string
 	 */
 	public function order(): string {
 		if ($this->config->get('payment_bluepay_redirect_status')) {

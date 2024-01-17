@@ -1,10 +1,13 @@
 <?php
 /**
- * Class Pp Braintree Button
+ * Class Pp Braintree Button (Deprecated)
  *
  * @package Catalog\Controller\Extension\Module
  */
 class ControllerExtensionModulePPBraintreeButton extends Controller {
+	/**
+	 * @var string
+	 */
 	private string $gateway = '';
 
 	/**

@@ -108,7 +108,7 @@ class ControllerAccountPaymentMethod extends Controller {
 
 		$data['payment_methods'] = [];
 
-		$results = $this->model_account_payment_method->getPaymentMethods();
+		$results = $this->model_account_payment_method->getPaymentMethods($this->customer->getId());
 
 		foreach ($results as $result) {
 			$data['payment_methods'][] = [

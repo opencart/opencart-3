@@ -5,6 +5,9 @@
  * @package Admin\Controller\Tool
  */
 class ControllerToolLog extends Controller {
+	/**
+	 * @var array<string, string>
+	 */
 	private array $error = [];
 
 	/**

@@ -5,6 +5,9 @@
  * @package Admin\Controller\Design
  */
 class ControllerDesignSeoUrl extends Controller {
+	/**
+	 * @var array<string, string>
+	 */
 	private array $error = [];
 
 	/**

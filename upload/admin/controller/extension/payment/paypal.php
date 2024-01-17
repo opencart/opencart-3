@@ -6,23 +6,9 @@
  */
 class ControllerExtensionPaymentPayPal extends Controller {
 	/**
-	 * @param var
+	 * @var array<string, string>
 	 */
-	private $error = [];
-
-	/**
-	 * Constructor
-	 *
-	 * @param object $registry
-	 */
-	public function __construct($registry) {
-		parent::__construct($registry);
-
-		if (empty($this->config->get('paypal_version')) || (!empty($this->config->get('paypal_version')) && ($this->config->get('paypal_version') < '2.2.0'))) {
-			$this->uninstall();
-			$this->install();
-		}
-	}
+	private array $error = [];
 
 	/**
 	 * @return void
@@ -41,7 +27,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 		$config_setting = $_config->get('paypal_setting');
 
-		if (!empty($this->session->data['environment']) && !empty($this->session->data['authorization_code']) && !empty($this->session->data['shared_id']) && !empty($this->session->data['seller_nonce']) && !empty($this->request->get['merchantIdInPayPal'])) {
+		if (isset($this->session->data['environment']) && isset($this->session->data['authorization_code']) && isset($this->session->data['shared_id']) && isset($this->session->data['seller_nonce']) && isset($this->request->get['merchantIdInPayPal'])) {
 			$this->load->language('extension/payment/paypal');
 
 			$this->load->model('extension/payment/paypal');
@@ -1877,9 +1863,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	 * @param mixed $route
 	 * @param mixed $data
 	 *
-	 * @return
+	 * @return void
 	 */
-	public function order_info_before($route, &$data) {
+	public function order_info_before(&$route, &$data): void {
 		if ($this->config->get('payment_paypal_status') && !empty($this->request->get['order_id'])) {
 			$this->load->language('extension/payment/paypal');
 
@@ -2339,11 +2325,11 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		if ($this->config->get('payment_paypal_status') && !empty($this->request->get['order_recurring_id'])) {
 			$this->load->language('extension/payment/paypal');
 
-			$this->load->model('sale/recurring');
+			$this->load->model('extension/other/recurring');
 
 			$data['order_recurring_id'] = $this->request->get['order_recurring_id'];
 
-			$order_recurring_info = $this->model_sale_recurring->getRecurring($data['order_recurring_id']);
+			$order_recurring_info = $this->model_extension_other_recurring->getRecurring($data['order_recurring_id']);
 
 			if ($order_recurring_info) {
 				$data['recurring_status'] = $order_recurring_info['status'];

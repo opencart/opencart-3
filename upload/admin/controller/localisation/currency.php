@@ -5,6 +5,9 @@
  * @package Admin\Controller\Localisation
  */
 class ControllerLocalisationCurrency extends Controller {
+	/**
+	 * @var array<string, string>
+	 */
 	private array $error = [];
 
 	/**
@@ -151,7 +154,7 @@ class ControllerLocalisationCurrency extends Controller {
 		$this->load->model('localisation/currency');
 
 		if ($this->validateRefresh()) {
-			$this->model_localisation_currency->refresh(true);
+			$this->model_localisation_currency->refresh();
 
 			$this->session->data['success'] = $this->language->get('text_success');
 

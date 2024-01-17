@@ -624,10 +624,12 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	/**
 	 * addAuthorization
 	 *
-	 * @param mixed $amazon_login_pay_order_id
-	 * @param mixed $authorization
+	 * @param string $amazon_login_pay_order_id
+	 * @param object $authorization
+	 * 
+	 * @return void
 	 */
-	public function addAuthorization($amazon_login_pay_order_id, $authorization): void {
+	public function addAuthorization(string $amazon_login_pay_order_id, object $authorization): void {
 		$capture_id = (string)$authorization->IdList->member;
 		$type = (string)$authorization->CaptureNow == 'true' ? 'capture' : 'authorization';
 		$amount = $type == 'capture' ? (float)$authorization->CapturedAmount->Amount : (float)$authorization->AuthorizationAmount->Amount;
@@ -661,7 +663,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	 *
 	 * @return void
 	 */
-	public function updateCapturedStatus($amazon_login_pay_order_id, $status): void {
+	public function updateCapturedStatus(string $amazon_login_pay_order_id, int $status): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "amazon_login_pay_order` SET `capture_status` = '" . (int)$status . "' WHERE `amazon_login_pay_order_id` = '" . $this->db->escape($amazon_login_pay_order_id) . "'");
 	}
 
@@ -672,7 +674,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	 *
 	 * @return int
 	 */
-	public function findCapture($amazon_capture_id): int {
+	public function findCapture(string $amazon_capture_id): int {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "amazon_login_pay_order_transaction` WHERE `amazon_capture_id` = '" . $this->db->escape($amazon_capture_id) . "'";
 
 		return $this->db->query($sql)->num_rows;
@@ -681,29 +683,19 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	/**
 	 * addTransaction
 	 *
-	 * @param array $data
+	 * @param int    $amazon_login_pay_order_id
+	 * @param string $amazon_authorization_id
+	 * @param string $amazon_capture_id
+	 * @param string $amazon_refund_id
+	 * @param string $date_added
+	 * @param string $type
+	 * @param string $status
+	 * @param float  $amount
 	 *
 	 * @return void
 	 */
-	public function addTransaction(array $data): void {
-		$insert = [
-			'amazon_login_pay_order_id' => "'" . (int)$data['amazon_login_pay_order_id'] . "'",
-			'amazon_authorization_id'   => "'" . $this->db->escape($data['amazon_authorization_id']) . "'",
-			'amazon_capture_id'         => "'" . $this->db->escape($data['amazon_capture_id']) . "'",
-			'amazon_refund_id'          => "'" . $this->db->escape($data['amazon_refund_id']) . "'",
-			'date_added'                => "'" . $this->db->escape($data['date_added']) . "'",
-			'type'                      => "'" . $this->db->escape($data['type']) . "'",
-			'status'                    => "'" . $this->db->escape($data['status']) . "'",
-			'amount'                    => "'" . (float)$data['amount'] . "'"
-		];
-
-		$row = [];
-
-		foreach ($insert as $key => $value) {
-			$row[] = "`" . $key . "` = " . $value;
-		}
-
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "amazon_login_pay_order_transaction` SET " . implode(',', $row));
+	public function addTransaction(int $amazon_login_pay_order_id, string $amazon_authorization_id, string $amazon_capture_id, string $amazon_refund_id, string $date_added, string $type, string $status, float $amount): void {
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "amazon_login_pay_order_transaction` SET `amazon_login_pay_order_id` = '" . (int)$amazon_login_pay_order_id . "', `amazon_authorization_id` = '" . $this->db->escape($amazon_authorization_id) . "', `amazon_capture_id` = '" . $this->db->escape($amazon_capture_id) . "', `amazon_refund_id` = '" . $this->db->escape($amazon_refund_id) . "', `date_added` = '" . $this->db->escape($date_added) . "', `type` = '" . $this->db->escape($type) . "', `status` = '" . $this->db->escape($status) . "', `amount` = '" . (float)$amount . "'");
 	}
 
 	/**
@@ -764,7 +756,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	 * https://stackoverflow.com/a/74006399 (PHP 8.3+ compatibility)
 	 */
 	public function parseJson($json): array {
-		$message = @json_decode($json, true);
+		$message = json_decode($json, true);
 		$json_error = json_last_error();
 
 		if (!json_validate($json)) {

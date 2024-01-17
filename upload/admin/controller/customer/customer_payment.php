@@ -110,7 +110,7 @@ class ControllerCustomerCustomerPayment extends Controller {
 
 		$payment_total = $this->model_customer_customer->getTotalPaymentMethods($customer_id);
 
-		$results = $this->model_customer_customer->getPaymentMethods($customer_id, ($page - 1) * 10, 10);
+		$results = $this->model_customer_customer->getPaymentMethods($customer_id);
 
 		foreach ($results as $result) {
 			if (isset($result['image'])) {

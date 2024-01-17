@@ -90,7 +90,11 @@ class ModelExtensionPaymentGlobalpay extends Model {
 
 			curl_close($ch);
 
-			return simplexml_load_string($response);
+			$xml = simplexml_load_string($response);
+			$encode = json_encode($xml);
+			$xml_array = json_decode($encode, true);
+
+			return $xml_array;
 		} else {
 			return null;
 		}
@@ -114,9 +118,9 @@ class ModelExtensionPaymentGlobalpay extends Model {
 	 * @param int   $order_id
 	 * @param float $amount
 	 *
-	 * @return object|null
+	 * @return array
 	 */
-	public function capture(int $order_id, float $amount): ?object {
+	public function capture(int $order_id, float $amount): array {
 		$globalpay_order = $this->getOrder($order_id);
 
 		if ($globalpay_order && $globalpay_order['capture_status'] == 0) {
@@ -173,9 +177,13 @@ class ModelExtensionPaymentGlobalpay extends Model {
 
 			curl_close($ch);
 
-			return simplexml_load_string($response);
+			$xml = simplexml_load_string($response);
+			$encode = json_encode($xml);
+			$xml_array = json_decode($encode, true);
+
+			return $xml_array;
 		} else {
-			return null;
+			return [];
 		}
 	}
 
@@ -268,7 +276,11 @@ class ModelExtensionPaymentGlobalpay extends Model {
 
 			curl_close($ch);
 
-			return simplexml_load_string($response);
+			$xml = simplexml_load_string($response);
+			$encode = json_encode($xml);
+			$xml_array = json_decode($encode, true);
+
+			return $xml_array;
 		} else {
 			return null;
 		}

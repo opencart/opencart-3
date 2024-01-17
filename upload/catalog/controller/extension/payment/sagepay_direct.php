@@ -357,7 +357,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 				$subscription_products = $this->cart->getSubscriptions();
 
 				foreach ($subscription_products as $item) {
-					$this->model_extension_payment_sagepay_direct->recurringPayment($item['subscription'], $payment_data['VendorTxCode']);
+					$this->model_extension_payment_sagepay_direct->subscriptionPayment($item['subscription'], $payment_data['VendorTxCode']);
 				}
 			}
 
@@ -388,7 +388,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 
 		if (isset($this->session->data['order_id'])) {
 			$url = '';
-			
+
 			if ($this->config->get('payment_sagepay_direct_test') == 'live') {
 				$url = 'https://live.sagepay.com/gateway/service/direct3dcallback.vsp';
 			} elseif ($this->config->get('payment_sagepay_direct_test') == 'test') {
@@ -455,7 +455,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 					$subscription_products = $this->cart->getSubscriptions();
 
 					foreach ($subscription_products as $item) {
-						$this->model_extension_payment_sagepay_direct->recurringPayment($item['subscription'], $sagepay_order_info['vendor_tx_code']);
+						$this->model_extension_payment_sagepay_direct->subscriptionPayment($item['subscription'], $sagepay_order_info['vendor_tx_code']);
 					}
 				}
 

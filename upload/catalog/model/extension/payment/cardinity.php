@@ -6,6 +6,7 @@
  */
 use Cardinity\Client;
 use Cardinity\Exception as CardinityException;
+use Cardinity\Method\Payment;
 
 class ModelExtensionPaymentCardinity extends Model {
 	/**
@@ -49,7 +50,7 @@ class ModelExtensionPaymentCardinity extends Model {
 			'consumerSecret' => $secret,
 		]);
 
-		$method = new \Payment\Create($payment_data);
+		$method = new Payment\Create($payment_data);
 
 		try {
 			return $client->call($method);
@@ -74,7 +75,7 @@ class ModelExtensionPaymentCardinity extends Model {
 			'consumerSecret' => $secret,
 		]);
 
-		$method = new \Payment\Finalize($payment_id, $pares);
+		$method = new Payment\Finalize($payment_id, $pares);
 
 		try {
 			return $client->call($method);

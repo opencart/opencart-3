@@ -5,6 +5,8 @@
  * @package Admin\Model\Extension\Payment
  */
 use Cardinity\Client;
+use Cardinity\Method\Payment;
+use Cardinity\Method\Refund;
 
 class ModelExtensionPaymentCardinity extends Model {
 	/**
@@ -21,11 +23,11 @@ class ModelExtensionPaymentCardinity extends Model {
 	}
 
 	/**
-	 * getOrder
+	 * createClient
 	 *
 	 * @param array $credentials
 	 *
-	 * @return object|null
+	 * @return ?object
 	 */
 	public function createClient(array $credentials): ?object {
 		if ($credentials) {
@@ -43,10 +45,10 @@ class ModelExtensionPaymentCardinity extends Model {
 	 *
 	 * @param object $client
 	 *
-	 * @return bool
+	 * @return object|null
 	 */
-	public function verifyCredentials(object $client): bool {
-		$method = new \Payment\GetAll(10);
+	public function verifyCredentials(object $client): ?object {
+		$method = new Payment\GetAll(10);
 
 		try {
 			$client->call($method);
@@ -54,9 +56,9 @@ class ModelExtensionPaymentCardinity extends Model {
 			return true;
 		} catch (\Exception $e) {
 			$this->log($e->getMessage());
-
-			return false;
 		}
+
+		return null;
 	}
 
 	/**
@@ -68,15 +70,15 @@ class ModelExtensionPaymentCardinity extends Model {
 	 * @return object|null
 	 */
 	public function getPayment(object $client, string $payment_id): ?object {
-		$method = new \Payment\Get($payment_id);
+		$method = new Payment\Get($payment_id);
 
 		try {
 			return $client->call($method);
 		} catch (\Exception $e) {
 			$this->log($e->getMessage());
-
-			return null;
 		}
+
+		return null;
 	}
 
 	/**
@@ -88,15 +90,15 @@ class ModelExtensionPaymentCardinity extends Model {
 	 * @return object|null
 	 */
 	public function getRefunds(object $client, string $payment_id): ?object {
-		$method = new \Refund\GetAll($payment_id);
+		$method = new Refund\GetAll($payment_id);
 
 		try {
 			return $client->call($method);
 		} catch (\Exception $e) {
 			$this->log($e->getMessage());
-
-			return null;
 		}
+
+		return null;
 	}
 
 	/**
@@ -110,25 +112,25 @@ class ModelExtensionPaymentCardinity extends Model {
 	 * @return object|null
 	 */
 	public function refundPayment(object $client, string $payment_id, float $amount, string $description): ?object {
-		$method = new \Refund\Create($payment_id, $amount, $description);
+		$method = new Refund\Create($payment_id, $amount, $description);
 
 		try {
 			return $client->call($method);
 		} catch (\Exception $e) {
 			$this->log($e->getMessage());
-
-			return null;
 		}
+
+		return null;
 	}
 
 	/**
 	 * Log
 	 *
-	 * @param string $data
+	 * @param ?string $data
 	 *
 	 * @return void
 	 */
-	public function log(string $data): void {
+	public function log(?string $data): void {
 		if ($this->config->get('payment_cardinity_debug')) {
 			$backtrace = debug_backtrace();
 

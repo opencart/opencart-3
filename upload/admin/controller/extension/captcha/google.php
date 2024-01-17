@@ -5,6 +5,9 @@
  * @package Admin\Controller\Extension\Captcha
  */
 class ControllerExtensionCaptchaGoogle extends Controller {
+	/**
+	 * @var array<string, string>
+	 */
 	private array $error = [];
 
 	/**

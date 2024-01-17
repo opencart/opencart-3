@@ -8,6 +8,13 @@ class ModelExtensionPaymentDivido extends Model {
 	public const CACHE_KEY_PLANS = 'divido_plans';
 
 	/**
+	 * setMerchant (Deprecated)
+	 *
+	 * @param mixed $api_key
+	 */
+	public function setMerchant($api_key): void {}
+
+	/**
 	 * getAllPlans
 	 *
 	 * @return array
@@ -25,15 +32,14 @@ class ModelExtensionPaymentDivido extends Model {
 			throw new \Exception('No Divido api-key defined');
 		}
 
-		Divido::setMerchant($api_key);
-
 		$response = Divido_Finances::all();
+		$response = (array)$response;
 
-		if ($response->status != 'ok') {
+		if ($response['status'] != 'ok') {
 			throw new \Exception('Can\'t get list of finance plans from Divido!');
 		}
 
-		$plans = $response->finances;
+		$plans = $response['finances'];
 
 		// OpenCart 2.1 switched to json for their file storage cache, so
 		// we need to convert to a simple object.

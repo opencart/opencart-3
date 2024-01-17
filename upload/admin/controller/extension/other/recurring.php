@@ -211,9 +211,9 @@ class ControllerExtensionOtherRecurring extends Controller {
 			'limit'                     => $this->config->get('config_limit_admin')
 		];
 
-		$recurrings_total = $this->model_sale_recurring->getTotalRecurrings($filter_data);
+		$recurrings_total = $this->model_extension_other_recurring->getTotalRecurrings($filter_data);
 
-		$results = $this->model_sale_recurring->getRecurrings($filter_data);
+		$results = $this->model_extension_other_recurring->getRecurrings($filter_data);
 
 		foreach ($results as $result) {
 			if ($result['status']) {
@@ -524,7 +524,7 @@ class ControllerExtensionOtherRecurring extends Controller {
 	/**
 	 * getReport
 	 *
-	 * @return object\Action|null
+	 * @return ?object
 	 */
 	public function getReport(): ?object {
 		$this->load->language('extension/other/recurring');

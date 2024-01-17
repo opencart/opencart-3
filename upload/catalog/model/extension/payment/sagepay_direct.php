@@ -207,14 +207,14 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	}
 
 	/**
-	 * recurringPayment
+	 * subscriptionPayment
 	 *
 	 * @param array $item
 	 * @param int   $vendor_tx_code
 	 *
 	 * @return void
 	 */
-	public function recurringPayment(array $item, int $vendor_tx_code): void {
+	public function subscriptionPayment(array $item, int $vendor_tx_code): void {
 		// Subscriptions
 		$this->load->model('checkout/subscription');
 
@@ -367,7 +367,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 		}
 
 		$response_data = $this->sendCurl($url, $payment_data, $i);
-		
+
 		$response_data['VendorTxCode'] = $payment_data['VendorTxCode'];
 		$response_data['Amount'] = $payment_data['Amount'];
 		$response_data['Currency'] = $payment_data['Currency'];
@@ -412,7 +412,9 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 			}
 
 			$sagepay_order_info = $this->getOrder($subscription['order_id']);
+
 			$response_data = $this->setPaymentData($order_info, $sagepay_order_info, $price, $subscription['subscription_id'], $subscription['name'], $i);
+
 			$cron_data[] = $response_data;
 
 			$transaction = [

@@ -52,6 +52,7 @@ class ControllerExtensionCreditCardSagepayDirect extends Controller {
 
 		if ($this->config->get('payment_sagepay_direct_card')) {
 			$data['cards'] = $this->model_extension_payment_sagepay_direct->getCards($this->customer->getId());
+			
 			$data['delete'] = $this->url->link('extension/credit_card/sagepay_direct/delete', 'card_id=', true);
 
 			if (isset($this->request->get['page'])) {
