@@ -139,9 +139,9 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 
 					$md = $encryption->encrypt((int)$this->config->get('config_encryption'), json_encode($enc_data));
 
-					$json['ACSURL'] = (string)$verify_3ds->url ?? null;
+					$json['ACSURL'] = isset($verify_3ds->url) ? (string)$verify_3ds->url : null;
 					$json['MD'] = $md;
-					$json['PaReq'] = (string)$verify_3ds->pareq ?? null;
+					$json['PaReq'] = isset($verify_3ds->pareq) ? (string)$verify_3ds->pareq : null;
 					$json['TermUrl'] = $this->url->link('extension/payment/realex_remote/acsReturn', '', true);
 
 					$this->response->addHeader('Content-Type: application/json');
