@@ -204,6 +204,19 @@ class ModelExtensionPaymentSagePayServer extends Model {
 	}
 
 	/**
+	 * getReference
+	 * 
+	 * @param string $vendor_tx_code
+	 * 
+	 * @param array
+	 */
+	public function getReference(string $vendor_tx_code): array {
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "sagepay_server_order_recurring` WHERE `vendor_tx_code` = '" . $this->db->escape($vendor_tx_code) . "'");
+
+		return $query->row;
+	}
+
+	/**
 	 * addRecurringPayment
 	 *
 	 * @param array  $item
@@ -246,19 +259,19 @@ class ModelExtensionPaymentSagePayServer extends Model {
 	 * updateRecurringPayment
 	 *
 	 * @param array $item
-	 * @param array $order_details
+	 * @param array $data
 	 *
 	 * @return void
 	 */
-	public function updateRecurringPayment(array $item, array $order_details): void {
+	public function updateRecurringPayment(array $item, array $data): void {
 		// Orders
 		$this->load->model('checkout/order');
 
-		$order_info = $this->model_checkout_order->getOrder($order_details['order_id']);
+		$order_info = $this->model_checkout_order->getOrder($data['order_id']);
 
 		if ($order_info) {
 			// Subscriptions
-			$this->load->model('account/subscription');
+			$this->load->model('extension/payment/sagepay_server');
 
 			// Trial information
 			if ($item['trial_status'] == 1) {
@@ -267,10 +280,10 @@ class ModelExtensionPaymentSagePayServer extends Model {
 				$price = $this->currency->format($item['price'], $this->session->data['currency'], false, false);
 			}
 
-			$subscription_info = $this->model_account_subscription->getSubscriptionByReference($order_details['vendor_tx_code']);
+			$subscription_info = $this->getReference($data['vendor_tx_code']);
 
 			if ($subscription_info) {
-				$response_data = $this->setPaymentData($order_info, $order_details, $price, $subscription_info['subscription_id'], $item['name']);
+				$response_data = $this->setPaymentData($order_info, $data, $price, $subscription_info['subscription_id'], $item['name']);
 
 				$next_payment = new \DateTime('now');
 				$trial_end = new \DateTime('now');
@@ -297,7 +310,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
 					$subscription_end = new \DateTime('0000-00-00');
 				}
 
-				$this->addRecurringOrder($order_details['order_id'], $response_data, $subscription_info['subscription_id'], date_format($trial_end, 'Y-m-d H:i:s'), date_format($subscription_end, 'Y-m-d H:i:s'));
+				$this->addRecurringOrder($data['order_id'], $response_data, $subscription_info['subscription_id'], date_format($trial_end, 'Y-m-d H:i:s'), date_format($subscription_end, 'Y-m-d H:i:s'));
 
 				$transaction = [
 					'order_id'       => $subscription_info['order_id'],

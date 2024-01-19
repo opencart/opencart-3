@@ -45,7 +45,7 @@ class ModelExtensionPaymentSagepayServer extends Model {
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "sagepay_server_order_recurring` (
 			  `sagepay_server_order_recurring_id` int(11) NOT NULL AUTO_INCREMENT,
 			  `order_id` int(11) NOT NULL,
-			  `order_recurring_id` int(11) NOT NULL,
+			  `subscription_id` int(11) NOT NULL,
 			  `vps_tx_id` varchar(50),
 			  `vendor_tx_code` varchar(50) NOT NULL,
 			  `security_key` varchar(50) NOT NULL,
