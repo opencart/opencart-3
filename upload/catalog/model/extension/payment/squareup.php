@@ -246,7 +246,7 @@ class ModelExtensionPaymentSquareup extends Model {
 		$status = self::RECURRING_ACTIVE;
 		$data = array_merge($data, ['status', $status]);
 
-		$this->model_checkout_subscription->addSubscription($order_id, $data);
+		$this->model_checkout_subscription->addSubscription($data);
 	}
 
 	/**

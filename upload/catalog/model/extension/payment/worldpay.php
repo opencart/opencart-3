@@ -198,7 +198,7 @@ class ModelExtensionPaymentWorldpay extends Model {
 
 		$item['subscription']['description'] = $subscription_description;
 
-		$subscription_id = $this->model_checkout_subscription->addSubscription($this->session->data['order_id'], $item['subscription']);
+		$subscription_id = $this->model_checkout_subscription->addSubscription($item['subscription']);
 
 		//$this->model_checkout_subscription->editReference($subscription_id, $order_id_rand);
 
@@ -245,7 +245,9 @@ class ModelExtensionPaymentWorldpay extends Model {
 			$subscription_end = new \DateTime('0000-00-00');
 		}
 
-		if (isset($response_data->paymentStatus) && $response_data->paymentStatus == 'SUCCESS') {
+		$callable = [$response_data, 'paymentStatus'];
+
+		if (is_callable($callable) && $response_data->paymentStatus == 'SUCCESS') {
 			$this->addRecurringOrder($order_info, $response_data->orderCode, $token, $price, $subscription_id, date_format($trial_end, 'Y-m-d H:i:s'), date_format($subscription_end, 'Y-m-d H:i:s'));
 			$this->updateRecurringOrder($subscription_id, date_format($next_payment, 'Y-m-d H:i:s'));
 			$this->addProfileTransaction($subscription_id, $response_data->orderCode, $price, 1);

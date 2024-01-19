@@ -35,7 +35,7 @@ class ModelSettingApi extends Model {
 	/**
 	 * updateSession
 	 *
-	 * @param string $api_session_id
+	 * @param int $api_session_id
 	 *
 	 * @return void
 	 */

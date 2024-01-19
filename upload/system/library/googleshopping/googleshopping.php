@@ -209,9 +209,9 @@ class Googleshopping extends Library {
 	 * @param int   $target_id
 	 * @param array $target
 	 *
-	 * @return mixed
+	 * @return array
 	 */
-	public function editTarget($target_id, array $target): array {
+	public function editTarget(int $target_id, array $target): array {
 		$this->registry->get('db')->query("UPDATE `" . DB_PREFIX . "googleshopping_target` SET `campaign_name` = '" . $this->registry->get('db')->escape($target['campaign_name']) . "', `country` = '" . $this->registry->get('db')->escape($target['country']) . "', `budget` = '" . (float)$target['budget'] . "', `feeds` = '" . $this->registry->get('db')->escape(json_encode($target['feeds'])) . "', `roas` = '" . (int)$target['roas'] . "', `status` = '" . $this->registry->get('db')->escape($target['status']) . "' WHERE `advertise_google_target_id` = '" . (int)$target_id . "'");
 
 		return $target;
@@ -1222,12 +1222,12 @@ class Googleshopping extends Library {
 			$message = sprintf($this->registry->get('language')->get('text_cron_email_message'), implode('<br/>', $report));
 
 			$mail_option = [
-				'parameter'     => $this->config->get('config_mail_parameter'),
-				'smtp_hostname' => $this->config->get('config_mail_smtp_hostname'),
-				'smtp_username' => $this->config->get('config_mail_smtp_username'),
-				'smtp_password' => html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8'),
-				'smtp_port'     => $this->config->get('config_mail_smtp_port'),
-				'smtp_timeout'  => $this->config->get('config_mail_smtp_timeout')
+				'parameter'     => $this->registry->get('config')->get('config_mail_parameter'),
+				'smtp_hostname' => $this->registry->get('config')->get('config_mail_smtp_hostname'),
+				'smtp_username' => $this->registry->get('config')->get('config_mail_smtp_username'),
+				'smtp_password' => html_entity_decode($this->registry->get('config')->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8'),
+				'smtp_port'     => $this->registry->get('config')->get('config_mail_smtp_port'),
+				'smtp_timeout'  => $this->registry->get('config')->get('config_mail_smtp_timeout')
 			];
 
 			$mail = new \Mail($this->registry->get('config')->get('config_mail_engine'));
@@ -1852,7 +1852,7 @@ class Googleshopping extends Library {
 	/**
 	 * testAccessToken
 	 *
-	 * @return \AccessForbiddenException|\RuntimeException $e|null|object
+	 * @return AccessForbiddenException|\RuntimeException $e|null|object
 	 */
 	public function testAccessToken(): ?object {
 		$request = [

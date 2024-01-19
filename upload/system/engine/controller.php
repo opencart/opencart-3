@@ -21,7 +21,6 @@ class Controller {
 	 * Constructor
 	 *
 	 * @param object $registry
-	 * @param object $route
 	 */
 	public function __construct(object $registry) {
 		$this->registry = $registry;

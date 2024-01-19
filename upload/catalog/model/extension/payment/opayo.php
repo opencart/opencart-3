@@ -253,10 +253,10 @@ class ModelExtensionPaymentOpayo extends Model {
 			$trial_end = new \DateTime('now');
 			$subscription_end = new \DateTime('now');
 
-			if (($item['subscription']['trial'] == 1) && ($item['subscription']['trial_duration'] != 0)) {
+			if ($item['subscription']['trial_duration'] != 0) {
 				$next_payment = $this->calculateSchedule($item['subscription']['trial_frequency'], $next_payment, $item['subscription']['trial_cycle']);
 				$trial_end = $this->calculateSchedule($item['subscription']['trial_frequency'], $trial_end, $item['subscription']['trial_cycle'] * $item['subscription']['trial_duration']);
-			} elseif ($item['subscription']['trial'] == 1) {
+			} elseif ($item['subscription']['duration'] != 0) {
 				$next_payment = $this->calculateSchedule($item['subscription']['trial_frequency'], $next_payment, $item['subscription']['trial_cycle']);
 				$trial_end = new \DateTime('0000-00-00');
 			}
