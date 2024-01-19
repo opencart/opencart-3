@@ -218,39 +218,41 @@ class ModelExtensionPaymentWorldpay extends Model {
 
 		$response_data = $this->model_extension_payment_worldpay->sendCurl('orders', $order);
 
-		$this->model_extension_payment_worldpay->logger($response_data);
+		if ($response_data) {
+			$this->model_extension_payment_worldpay->logger($response_data);
 
-		$next_payment = new \DateTime('now');
-		$trial_end = new \DateTime('now');
-		$subscription_end = new \DateTime('now');
+			$next_payment = new \DateTime('now');
+			$trial_end = new \DateTime('now');
+			$subscription_end = new \DateTime('now');
 
-		if ($item['subscription']['trial_status'] == 1 && $item['subscription']['trial_duration'] != 0) {
-			$next_payment = $this->calculateSchedule($item['subscription']['trial_frequency'], $next_payment, $item['subscription']['trial_cycle']);
-			$trial_end = $this->calculateSchedule($item['subscription']['trial_frequency'], $trial_end, $item['subscription']['trial_cycle'] * $item['subscription']['trial_duration']);
-		} elseif ($item['subscription']['trial_status'] == 1) {
-			$next_payment = $this->calculateSchedule($item['subscription']['trial_frequency'], $next_payment, $item['subscription']['trial_cycle']);
-			$trial_end = new \DateTime('0000-00-00');
-		}
+			if ($item['subscription']['trial_status'] == 1 && $item['subscription']['trial_duration'] != 0) {
+				$next_payment = $this->calculateSchedule($item['subscription']['trial_frequency'], $next_payment, $item['subscription']['trial_cycle']);
+				$trial_end = $this->calculateSchedule($item['subscription']['trial_frequency'], $trial_end, $item['subscription']['trial_cycle'] * $item['subscription']['trial_duration']);
+			} elseif ($item['subscription']['trial_status'] == 1) {
+				$next_payment = $this->calculateSchedule($item['subscription']['trial_frequency'], $next_payment, $item['subscription']['trial_cycle']);
+				$trial_end = new \DateTime('0000-00-00');
+			}
 
-		if ($trial_end > $subscription_end && $item['subscription']['duration'] != 0) {
-			$subscription_end = new \DateTime(date_format($trial_end, 'Y-m-d H:i:s'));
-			$subscription_end = $this->calculateSchedule($item['subscription']['frequency'], $subscription_end, $item['subscription']['cycle'] * $item['subscription']['duration']);
-		} elseif ($trial_end == $subscription_end && $item['subscription']['duration'] != 0) {
-			$next_payment = $this->calculateSchedule($item['subscription']['frequency'], $next_payment, $item['subscription']['cycle']);
-			$subscription_end = $this->calculateSchedule($item['subscription']['frequency'], $subscription_end, $item['subscription']['cycle'] * $item['subscription']['duration']);
-		} elseif ($trial_end > $subscription_end && $item['subscription']['duration'] == 0) {
-			$subscription_end = new \DateTime('0000-00-00');
-		} elseif ($trial_end == $subscription_end && $item['subscription']['duration'] == 0) {
-			$next_payment = $this->calculateSchedule($item['subscription']['frequency'], $next_payment, $item['subscription']['cycle']);
-			$subscription_end = new \DateTime('0000-00-00');
-		}
+			if ($trial_end > $subscription_end && $item['subscription']['duration'] != 0) {
+				$subscription_end = new \DateTime(date_format($trial_end, 'Y-m-d H:i:s'));
+				$subscription_end = $this->calculateSchedule($item['subscription']['frequency'], $subscription_end, $item['subscription']['cycle'] * $item['subscription']['duration']);
+			} elseif ($trial_end == $subscription_end && $item['subscription']['duration'] != 0) {
+				$next_payment = $this->calculateSchedule($item['subscription']['frequency'], $next_payment, $item['subscription']['cycle']);
+				$subscription_end = $this->calculateSchedule($item['subscription']['frequency'], $subscription_end, $item['subscription']['cycle'] * $item['subscription']['duration']);
+			} elseif ($trial_end > $subscription_end && $item['subscription']['duration'] == 0) {
+				$subscription_end = new \DateTime('0000-00-00');
+			} elseif ($trial_end == $subscription_end && $item['subscription']['duration'] == 0) {
+				$next_payment = $this->calculateSchedule($item['subscription']['frequency'], $next_payment, $item['subscription']['cycle']);
+				$subscription_end = new \DateTime('0000-00-00');
+			}
 
-		if (property_exists('paymentStatus', $response_data) && $response_data->paymentStatus == 'SUCCESS') {
-			$this->addRecurringOrder($order_info, $response_data->orderCode, $token, $price, $subscription_id, date_format($trial_end, 'Y-m-d H:i:s'), date_format($subscription_end, 'Y-m-d H:i:s'));
-			$this->updateRecurringOrder($subscription_id, date_format($next_payment, 'Y-m-d H:i:s'));
-			$this->addProfileTransaction($subscription_id, $response_data->orderCode, $price, 1);
-		} else {
-			$this->addProfileTransaction($subscription_id, '', $price, 4);
+			if ($response_data->paymentStatus == 'SUCCESS') {
+				$this->addRecurringOrder($order_info, $response_data->orderCode, $token, $price, $subscription_id, date_format($trial_end, 'Y-m-d H:i:s'), date_format($subscription_end, 'Y-m-d H:i:s'));
+				$this->updateRecurringOrder($subscription_id, date_format($next_payment, 'Y-m-d H:i:s'));
+				$this->addProfileTransaction($subscription_id, $response_data->orderCode, $price, 1);
+			} else {
+				$this->addProfileTransaction($subscription_id, '', $price, 4);
+			}
 		}
 	}
 
