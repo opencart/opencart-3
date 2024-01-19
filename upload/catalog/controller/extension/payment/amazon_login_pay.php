@@ -1060,7 +1060,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 				$amazon_login_pay_order = $this->model_extension_payment_amazon_login_pay->getOrderByOrderId($order_id);
 				$capture_response = $this->model_extension_payment_amazon_login_pay->captureOrder($amazon_login_pay_order['amazon_authorization_id'], $amazon_login_pay_order['total'], $amazon_login_pay_order['currency_code']);
 
-				if (isset($capture_response->CaptureStatus->State) && in_array($capture_response->CaptureStatus->State, ['Completed', 'Pending'])) {
+				if (isset($capture_response->AmazonCaptureId) && isset($capture_response->CreationTimestamp) && isset($capture_response->CaptureStatus->State) && in_array($capture_response->CaptureStatus->State, ['Completed', 'Pending']) && isset($capture_response->CaptureAmount->Amount)) {
 					$order_reference_id = $amazon_login_pay_order['amazon_order_reference_id'];
 
 					if ($this->model_extension_payment_amazon_login_pay->isOrderInState($order_reference_id, [
