@@ -260,8 +260,8 @@ class ControllerMailSubscription extends Controller {
 										'smtp_port'     => $this->config->get('config_mail_smtp_port'),
 										'smtp_timeout'  => $this->config->get('config_mail_smtp_timeout')
 									];
-									$mail = new \Mail($this->config->get('config_mail_engine'), $mail_option);
 
+									$mail = new \Mail($this->config->get('config_mail_engine'), $mail_option);
 									$mail->setTo($from);
 									$mail->setFrom($from);
 									$mail->setSender(html_entity_decode($store_name, ENT_QUOTES, 'UTF-8'));

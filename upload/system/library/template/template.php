@@ -12,9 +12,7 @@ class Template {
 	 * addPath
 	 *
 	 * @param string $key
-	 * @param string $value
-	 * @param string $namespace
-	 * @param string $directory
+	 * @param string $value	 
 	 *
 	 * @return void
 	 */
@@ -25,10 +23,7 @@ class Template {
 	/**
 	 * Render
 	 *
-	 * @param string $template
-	 * @param string $filename
-	 * @param array  $data
-	 * @param string $code
+	 * @param string $template	 
 	 *
 	 * @return string
 	 */

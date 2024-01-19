@@ -243,7 +243,7 @@ class ModelExtensionPaymentOpayo extends Model {
 
 			$order_recurring_id = $this->model_checkout_recurring->addRecurring($this->session->data['order_id'], $recurring_description, $item);
 
-			$this->model_checkout_recurring->editReference($order_recurring_id, $vendor_tx_code);
+			//$this->model_checkout_recurring->editReference($order_recurring_id, $vendor_tx_code);
 
 			$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
@@ -542,12 +542,11 @@ class ModelExtensionPaymentOpayo extends Model {
 	 *
 	 * @return \Datetime
 	 */
-	private function calculateSchedule(string $frequency, string $next_payment, string $cycle) {
+	private function calculateSchedule(string $frequency, \Datetime $next_payment, string $cycle) {
+		$next_payment = clone $next_payment;
+
 		if ($frequency == 'semi_month') {
-			// https://stackoverflow.com/a/35473574
-			$day = date_create_from_format('j M, Y', $next_payment->date);
-			$day = date_create($day);
-			$day = date_format($day, 'd');
+			$day = $next_payment->format('d');
 			$value = 15 - $day;
 			$is_even = false;
 

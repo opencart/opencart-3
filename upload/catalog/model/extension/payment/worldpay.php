@@ -200,7 +200,7 @@ class ModelExtensionPaymentWorldpay extends Model {
 
 		$subscription_id = $this->model_checkout_subscription->addSubscription($this->session->data['order_id'], $item['subscription']);
 
-		$this->model_checkout_subscription->editReference($subscription_id, $order_id_rand);
+		//$this->model_checkout_subscription->editReference($subscription_id, $order_id_rand);
 
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
@@ -330,12 +330,20 @@ class ModelExtensionPaymentWorldpay extends Model {
 		return $cron_data;
 	}
 
-	private function calculateSchedule($frequency, $next_payment, $cycle) {
+	/**
+	 * Calculate Schedule
+	 *
+	 * @param string    $frequency
+	 * @param \Datetime $next_payment
+	 * @param string    $cycle
+	 *
+	 * @return \Datetime
+	 */
+	private function calculateSchedule(string $frequency, \Datetime $next_payment, string $cycle) {
+		$next_payment = clone $next_payment;
+
 		if ($frequency == 'semi_month') {
-			// https://stackoverflow.com/a/35473574
-			$day = date_create_from_format('j M, Y', $next_payment->date);
-			$day = date_create($day);
-			$day = date_format($day, 'd');
+			$day = $next_payment->format('d');
 			$value = 15 - $day;
 			$isEven = false;
 

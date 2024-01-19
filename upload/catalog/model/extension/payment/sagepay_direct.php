@@ -248,7 +248,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 		// Create new subscription and set to pending status as no payment has been made yet.
 		$subscription_id = $this->model_checkout_subscription->addSubscription($this->session->data['order_id'], $item);
 
-		$this->model_checkout_subscription->editReference($subscription_id, $vendor_tx_code);
+		//$this->model_checkout_subscription->editReference($subscription_id, $vendor_tx_code);
 
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
@@ -444,12 +444,20 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 		return $cron_data;
 	}
 
-	private function calculateSchedule(string $frequency, string $next_payment, int $cycle): string {
+	/**
+	 * Calculate Schedule
+	 *
+	 * @param string    $frequency
+	 * @param \Datetime $next_payment
+	 * @param string    $cycle
+	 *
+	 * @return \Datetime
+	 */
+	private function calculateSchedule(string $frequency, \Datetime $next_payment, string $cycle) {
+		$next_payment = clone $next_payment;
+
 		if ($frequency == 'semi_month') {
-			// https://stackoverflow.com/a/35473574
-			$day = date_create_from_format('j M, Y', $next_payment->date);
-			$day = date_create($day);
-			$day = date_format($day, 'd');
+			$day = $next_payment->format('d');
 			$value = 15 - $day;
 			$is_even = false;
 
@@ -511,9 +519,9 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 			// Subscriptions
 			$this->load->model('checkout/subscription');
 
-			$this->model_checkout_subscription->editReference($subscription_id, $response_data['VendorTxCode']);
+			//$this->model_checkout_subscription->editReference($subscription_id, $response_data['VendorTxCode']);
 
-			$this->model_account_subscription->editStatus($subscription_id, $type);			
+			//$this->model_account_subscription->editStatus($subscription_id, $type);			
 		}
 	}
 

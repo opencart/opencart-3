@@ -239,7 +239,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
 		// Create new subscription and set to pending status as no payment has been made yet.
 		$subscription_id = $this->model_checkout_subscription->addSubscription($this->session->data['order_id'], $item);
 
-		$this->model_checkout_subscription->editReference($subscription_id, $vendor_tx_code);
+		//$this->model_checkout_subscription->editReference($subscription_id, $vendor_tx_code);
 	}
 
 	/**
@@ -527,9 +527,9 @@ class ModelExtensionPaymentSagePayServer extends Model {
 			// Subscriptions
 			$this->load->model('checkout/subscription');
 
-			$this->model_checkout_subscription->editReference($subscription_id, $response_data['VendorTxCode']);
+			//$this->model_checkout_subscription->editReference($subscription_id, $response_data['VendorTxCode']);
 
-			$this->model_account_subscription->editStatus($subscription_id, $type);
+			//$this->model_account_subscription->editStatus($subscription_id, $type);
 		}
 	}
 

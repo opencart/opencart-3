@@ -536,12 +536,20 @@ class ModelExtensionPaymentPayPal extends Model {
 		return [];
 	}
 
-	public function calculateSchedule(string $frequency, string $next_payment, int $cycle): string {
+	/**
+	 * Calculate Schedule
+	 *
+	 * @param string    $frequency
+	 * @param \Datetime $next_payment
+	 * @param string    $cycle
+	 *
+	 * @return \Datetime
+	 */
+	private function calculateSchedule(string $frequency, \Datetime $next_payment, string $cycle) {
+		$next_payment = clone $next_payment;
+
 		if ($frequency == 'semi_month') {
-			// https://stackoverflow.com/a/35473574
-			$day = date_create_from_format('j M, Y', $next_payment->date);
-			$day = date_create($day);
-			$day = date_format($day, 'd');
+			$day = $next_payment->format('d');
 			$value = 15 - $day;
 			$is_even = false;
 
