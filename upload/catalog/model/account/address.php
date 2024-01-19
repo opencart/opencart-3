@@ -62,7 +62,6 @@ class ModelAccountAddress extends Model {
 	 * getAddress
 	 *
 	 * @param int $address_id
-	 * @param int $customer_id
 	 *
 	 * @return array
 	 */
@@ -156,8 +155,6 @@ class ModelAccountAddress extends Model {
 	/**
 	 * getAddresses
 	 *
-	 * @param int $customer_id
-	 *
 	 * @return array
 	 */
 	public function getAddresses(): array {
@@ -178,8 +175,6 @@ class ModelAccountAddress extends Model {
 
 	/**
 	 * getTotalAddresses
-	 *
-	 * @param int $customer_id
 	 *
 	 * @return int
 	 */

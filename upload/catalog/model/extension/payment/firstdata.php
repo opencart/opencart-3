@@ -84,8 +84,8 @@ class ModelExtensionPaymentFirstdata extends Model {
 	 *
 	 * @return void
 	 */
-	public function addTransaction(int $fd_order_id, string $type, float $total, string $currency_code, string $currency_value): void {
-		if (!empty($order_info)) {
+	public function addTransaction(int $fd_order_id, string $type, float $total = 0, string $currency_code = '', string $currency_value = ''): void {
+		if ($total && $currency_code && $currency_value) {
 			$amount = $this->currency->format($total, $currency_code, $currency_value, false);
 		} else {
 			$amount = 0.00;

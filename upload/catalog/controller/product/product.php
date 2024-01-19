@@ -692,7 +692,7 @@ class ControllerProductProduct extends Controller {
 			// Reviews
 			$this->load->model('catalog/review');
 
-			$this->model_catalog_review->addReview($product_id, $this->request->post);
+			$this->model_catalog_review->addReview($product_id, $this->request->post['name'], $this->request->post['text'], $this->request->post['rating']);
 
 			$json['success'] = $this->language->get('text_success');
 		}

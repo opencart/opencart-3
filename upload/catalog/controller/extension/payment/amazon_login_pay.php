@@ -13,10 +13,12 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 	public function session_expired(): void {
 		$this->load->language('extension/payment/amazon_login_pay');
 
-		// Amazon Login Pay
-		$this->load->model('extension/payment/amazon_login_pay');
+		unset($this->session->data['apalwa']['pay']);
+		unset($this->session->data['order_id']);
 
-		$this->model_extension_payment_amazon_login_pay->cartRedirect($this->language->get('error_session_expired'));
+		$this->session->data['error'] = $this->language->get('error_session_expired');
+
+		$this->response->redirect($this->url->link('checkout/cart', '', true));
 	}
 
 	/**
@@ -442,7 +444,12 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
 			$data['order_reference_id'] = $this->session->data['apalwa']['pay']['order_reference_id'];
 		} catch (\RuntimeException $e) {
-			$this->model_extension_payment_amazon_login_pay->cartRedirect($e->getMessage());
+			unset($this->session->data['apalwa']['pay']);
+			unset($this->session->data['order_id']);
+
+			$this->session->data['error'] = $e->getMessage();
+
+			$this->response->redirect($this->url->link('checkout/cart', '', true));
 		}
 
 		$data['success'] = '';
@@ -589,7 +596,12 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 		if (isset($this->request->get['AuthenticationStatus']) && $this->request->get['AuthenticationStatus'] == 'Success') {
 			$this->authorize();
 		} else {
-			$this->model_extension_payment_amazon_login_pay->cartRedirect($this->language->get('error_invaild_request'));
+			unset($this->session->data['apalwa']['pay']);
+			unset($this->session->data['order_id']);
+
+			$this->session->data['error'] = $this->language->get('error_invaild_request');
+
+			$this->response->redirect($this->url->link('checkout/cart', '', true));
 		}
 	}
 
@@ -600,25 +612,28 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 	public function mfa_failure(): void {
 		$this->load->language('extension/payment/amazon_login_pay');
 
-		// Amazon Login Pay
-		$this->load->model('extension/payment/amazon_login_pay');
-
 		if (isset($this->request->get['AuthenticationStatus'])) {
 			$mfa_authorization_status = $this->request->get['AuthenticationStatus'];
 
 			if ($mfa_authorization_status == 'Failure') {
-				$text_failed_mfa = $this->language->get('error_failure_mfa');
+				unset($this->session->data['apalwa']['pay']);
+				unset($this->session->data['order_id']);
 
-				$this->model_extension_payment_amazon_login_pay->cartRedirect($text_failed_mfa);
+				$this->session->data['error'] = $this->language->get('error_failure_mfa');
+
+				$this->response->redirect($this->url->link('checkout/cart', '', true));
 			} elseif ($mfa_authorization_status == 'Abandoned') {
 				$this->session->data['apalwa']['error'] = $this->language->get('error_abandoned_mfa');
 
 				$this->response->redirect($this->url->link('extension/payment/amazon_login_pay/payment', '', true));
 			}
 		} else {
-			$text_invaild_request = $this->language->get('error_invaild_request');
+			unset($this->session->data['apalwa']['pay']);
+			unset($this->session->data['order_id']);
 
-			$this->model_extension_payment_amazon_login_pay->cartRedirect($text_invaild_request);
+			$this->session->data['error'] = $this->language->get('error_invaild_request');
+
+			$this->response->redirect($this->url->link('checkout/cart', '', true));
 		}
 	}
 
@@ -723,7 +738,12 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
 			$this->response->redirect($this->url->link('checkout/success', '', true));
 		} catch (\RuntimeException $e) {
-			$this->model_extension_payment_amazon_login_pay->cartRedirect($e->getMessage());
+			unset($this->session->data['apalwa']['pay']);
+			unset($this->session->data['order_id']);
+
+			$this->session->data['error'] = $e->getMessage();
+
+			$this->response->redirect($this->url->link('checkout/cart', '', true));
 		}
 	}
 
@@ -862,7 +882,12 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
 			$this->response->redirect($this->url->link('checkout/success', '', true));
 		} catch (\RuntimeException $e) {
-			$this->model_extension_payment_amazon_login_pay->cartRedirect($e->getMessage());
+			unset($this->session->data['apalwa']['pay']);
+			unset($this->session->data['order_id']);
+
+			$this->session->data['error'] = $e->getMessage();
+
+			$this->response->redirect($this->url->link('checkout/cart', '', true));
 		}
 	}
 
@@ -936,7 +961,12 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 				$this->model_extension_payment_amazon_login_pay->confirmOrder($order_reference_id);
 			}
 		} catch (\RuntimeException $e) {
-			$json['redirect'] = $this->model_extension_payment_amazon_login_pay->cartRedirect($e->getMessage(), true);
+			unset($this->session->data['apalwa']['pay']);
+			unset($this->session->data['order_id']);
+
+			$this->session->data['error'] = $e->getMessage();
+
+			$json['redirect'] = str_replace('&amp;', '', $this->url->link('checkout/cart', '', true));
 		}
 
 		$this->response->addHeader('Content-Type: application/json');

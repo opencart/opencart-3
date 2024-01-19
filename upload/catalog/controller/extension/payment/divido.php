@@ -154,7 +154,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 
 		$this->model_checkout_order->addHistory($order_id, $order_status_id, $message, false);
 
-		return $this->response->setOutput('ok');
+		echo 'OK';
 	}
 
 	/**

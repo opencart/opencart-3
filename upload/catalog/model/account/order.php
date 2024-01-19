@@ -229,7 +229,6 @@ class ModelAccountOrder extends Model {
 	 * getTotalOrderProductsByOrderId
 	 *
 	 * @param int $order_id
-	 * @param int $product_id
 	 *
 	 * @return int
 	 */

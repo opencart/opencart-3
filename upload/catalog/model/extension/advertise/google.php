@@ -60,7 +60,6 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	 *
 	 * @param int $product_id
 	 * @param int $store_id
-	 * @param int $category_id
 	 *
 	 * @return array
 	 */
