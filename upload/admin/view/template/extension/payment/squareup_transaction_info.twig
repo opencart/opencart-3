@@ -206,7 +206,7 @@ $(document).ready(function () {
         $('#transaction-alert').html('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert" aria-label="X"><span aria-hidden="true">&times;</span></button><i class="fa fa-exclamation-circle"></i>&nbsp;' + message + '</div>');
     }
 
-    var addOrderHistory = function (data, success_callback) {
+    var addHistory = function (data, success_callback) {
         $.ajax({
             url: '{{ catalog }}index.php?route=api/order/history&api_token={{ api_token }}&order_id=' + data.order_id,
             type: 'post',
@@ -241,7 +241,7 @@ $(document).ready(function () {
                 }
 
                 if (json.success && json.order_history_data) {
-                    addOrderHistory(json.order_history_data, function () {
+                    addHistory(json.order_history_data, function () {
                         refreshPage();
                     });
                 }

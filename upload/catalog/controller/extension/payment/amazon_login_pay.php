@@ -874,7 +874,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 				$this->model_extension_payment_amazon_login_pay->closeOrder($order_reference_id, "A capture has been performed. Closing the order.");
 			}
 
-			// Log any errors triggered by addOrderHistory, but without displaying them
+			// Log any errors triggered by addHistory, but without displaying them
 			set_error_handler([
 				$this->model_extension_payment_amazon_login_pay,
 				'logHandler'

@@ -7,7 +7,7 @@
 </div>
 <script type="text/javascript"><!--
 $(document).ready(function() {
-    var addOrderHistory = function(success_callback) {
+    var addHistory = function(success_callback) {
         $.ajax({
             url: '{{ catalog }}index.php?route=api/order/history&api_token={{ api_token }}&order_id={{ order_id }}',
             type: 'post',
@@ -43,7 +43,7 @@ $(document).ready(function() {
                 $('.alert').remove();
 
                 if (json['success']) {
-                    addOrderHistory(function() {
+                    addHistory(function() {
                         $('#squareup-buttons').before('<div class="alert alert-success">' + json['success'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
 
                         $('#button-cancel').hide();

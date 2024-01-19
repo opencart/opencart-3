@@ -336,7 +336,7 @@ class ControllerExtensionPaymentOpayo extends Controller {
 
 			$this->model_extension_payment_opayo->addOrderTransaction($opayo_order_id, $setting['general']['transaction_method'], $order_info);
 
-			$this->model_checkout_order->addOrderHistory($this->session->data['order_id'], $setting['general']['order_status_id'], $message, false);
+			$this->model_checkout_order->addHistory($this->session->data['order_id'], $setting['general']['order_status_id'], $message, false);
 
 			if ($setting['general']['transaction_method'] == 'PAYMENT') {
 				// Subscription
@@ -497,7 +497,7 @@ class ControllerExtensionPaymentOpayo extends Controller {
 				$this->model_extension_payment_opayo->updateOrder($order_info, $response_data);
 				$this->model_extension_payment_opayo->addOrderTransaction($opayo_order_info['opayo_order_id'], $setting['general']['transaction_method'], $order_info);
 
-				$this->model_checkout_order->addOrderHistory($this->request->get['order_id'], $setting['general']['order_status_id'], $message, false);
+				$this->model_checkout_order->addHistory($this->request->get['order_id'], $setting['general']['order_status_id'], $message, false);
 
 				if (isset($response_data['Token']) && $this->customer->isLogged()) {
 					$this->model_extension_payment_opayo->updateCard($opayo_order_info['card_id'], $response_data['Token']);
