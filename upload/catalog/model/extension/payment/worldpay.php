@@ -245,7 +245,7 @@ class ModelExtensionPaymentWorldpay extends Model {
 			$subscription_end = new \DateTime('0000-00-00');
 		}
 
-		if (property_exists($response_data, 'paymentStatus') && $response_data->paymentStatus == 'SUCCESS') {
+		if (array_key_exists('paymentStatus', get_object_vars($response_data)) && $response_data->paymentStatus == 'SUCCESS') {
 			$this->addRecurringOrder($order_info, $response_data->orderCode, $token, $price, $subscription_id, date_format($trial_end, 'Y-m-d H:i:s'), date_format($subscription_end, 'Y-m-d H:i:s'));
 			$this->updateRecurringOrder($subscription_id, date_format($next_payment, 'Y-m-d H:i:s'));
 			$this->addProfileTransaction($subscription_id, $response_data->orderCode, $price, 1);
