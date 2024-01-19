@@ -80,7 +80,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	}
 
 	/**
-	 * getCoupon
+	 * Get Coupon
 	 *
 	 * @param int $order_id
 	 *
