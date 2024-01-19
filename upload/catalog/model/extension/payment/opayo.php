@@ -222,6 +222,7 @@ class ModelExtensionPaymentOpayo extends Model {
 	 */
 	public function subscriptionPayment(array $item, string $vendor_tx_code): void {
 		$this->load->model('checkout/subscription');
+		$this->load->model('checkout/order');
 		$this->load->model('extension/payment/opayo');
 
 		if (VERSION >= '3.0.1.0') {
@@ -253,10 +254,10 @@ class ModelExtensionPaymentOpayo extends Model {
 			$trial_end = new \DateTime('now');
 			$subscription_end = new \DateTime('now');
 
-			if ($item['subscription']['trial_duration'] != 0) {
+			if ($item['subscription']['trial_status'] && $item['subscription']['trial_duration'] != 0) {
 				$next_payment = $this->calculateSchedule($item['subscription']['trial_frequency'], $next_payment, $item['subscription']['trial_cycle']);
 				$trial_end = $this->calculateSchedule($item['subscription']['trial_frequency'], $trial_end, $item['subscription']['trial_cycle'] * $item['subscription']['trial_duration']);
-			} elseif ($item['subscription']['duration'] != 0) {
+			} elseif ($item['subscription']['trial_status']) {
 				$next_payment = $this->calculateSchedule($item['subscription']['trial_frequency'], $next_payment, $item['subscription']['trial_cycle']);
 				$trial_end = new \DateTime('0000-00-00');
 			}
@@ -282,7 +283,9 @@ class ModelExtensionPaymentOpayo extends Model {
 
 			$recurring_frequency = date_diff(new \DateTime('now'), new \DateTime(date_format($next_payment, 'Y-m-d H:i:s')))->days;
 
-			$response_data = $this->setPaymentData($order_info, $opayo_order_info, $price, $order_recurring_id, $item['subscription']['name'], $recurring_expiry, $recurring_frequency);
+			$order_product = $this->model_checkout_order->getProducts($this->session->data['order_id'], $item['subscription']['order_product_id']);
+
+			$response_data = $this->setPaymentData($order_info, $opayo_order_info, $price, $order_recurring_id, $order_product['name'], $recurring_expiry, $recurring_frequency);
 
 			$this->addRecurringOrder($this->session->data['order_id'], $response_data, $order_recurring_id, date_format($trial_end, 'Y-m-d H:i:s'), date_format($subscription_end, 'Y-m-d H:i:s'));
 
