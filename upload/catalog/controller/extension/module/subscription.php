@@ -49,7 +49,9 @@ class ControllerExtensionModuleSubscription extends Controller {
 						if ($this->config->get('payment_' . $payment_info['code'] . '_status')) {
 							$this->load->model('extension/payment/' . $payment_info['code']);
 
-							if (isset($this->{'model_extension_payment_' . $payment_info['code']}->charge) && $amount) {
+							$callable = [$this->{'model_extension_payment_' . $payment_info['code']}, 'charge'];
+
+							if (is_callable($callable) && $amount) {
 								$subscription_status_id = $this->{'model_extension_payment_' . $payment_info['code']}->charge($result['customer_id'], $result['customer_payment_id'], $amount);
 
 								// Transaction
