@@ -3,7 +3,7 @@
 // +----------------------------------------------------------------------
 // | WeChatDeveloper
 // +----------------------------------------------------------------------
-// | 版权所有 2014~2024 ThinkAdmin [ thinkadmin.top ]
+// | 版权所有 2014~2023 ThinkAdmin [ thinkadmin.top ]
 // +----------------------------------------------------------------------
 // | 官方网站: https://thinkadmin.top
 // +----------------------------------------------------------------------
@@ -126,28 +126,28 @@ abstract class BasicAliPay
 
     /**
      * 查询支付宝订单状态
-     * @param string $outTradeNo
+     * @param string $out_trade_no
      * @return array|boolean
      * @throws \WeChat\Exceptions\InvalidResponseException
      * @throws \WeChat\Exceptions\LocalCacheException
      */
-    public function query($outTradeNo = '')
+    public function query($out_trade_no = '')
     {
         $this->options->set('method', 'alipay.trade.query');
-        return $this->getResult(['out_trade_no' => $outTradeNo]);
+        return $this->getResult(['out_trade_no' => $out_trade_no]);
     }
 
     /**
      * 支付宝订单退款操作
      * @param array|string $options 退款参数或退款商户订单号
-     * @param null $refundAmount 退款金额
+     * @param null $refund_amount 退款金额
      * @return array|boolean
      * @throws \WeChat\Exceptions\InvalidResponseException
      * @throws \WeChat\Exceptions\LocalCacheException
      */
-    public function refund($options, $refundAmount = null)
+    public function refund($options, $refund_amount = null)
     {
-        if (!is_array($options)) $options = ['out_trade_no' => $options, 'refund_amount' => $refundAmount];
+        if (!is_array($options)) $options = ['out_trade_no' => $options, 'refund_amount' => $refund_amount];
         $this->options->set('method', 'alipay.trade.refund');
         return $this->getResult($options);
     }

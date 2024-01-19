@@ -27,6 +27,5 @@ return array(
     'GuzzleHttp\\Promise\\' => array($vendorDir . '/guzzlehttp/promises/src'),
     'GuzzleHttp\\' => array($vendorDir . '/guzzlehttp/guzzle/src'),
     'Cardinity\\' => array($vendorDir . '/cardinity/cardinity-sdk-php/src'),
-    'Braintree\\' => array($vendorDir . '/braintree/braintree_php/lib/Braintree'),
     'AliPay\\' => array($vendorDir . '/zoujingli/wechat-developer/AliPay'),
 );

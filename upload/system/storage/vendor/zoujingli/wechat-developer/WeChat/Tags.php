@@ -3,7 +3,7 @@
 // +----------------------------------------------------------------------
 // | WeChatDeveloper
 // +----------------------------------------------------------------------
-// | 版权所有 2014~2024 ThinkAdmin [ thinkadmin.top ]
+// | 版权所有 2014~2023 ThinkAdmin [ thinkadmin.top ]
 // +----------------------------------------------------------------------
 // | 官方网站: https://thinkadmin.top
 // +----------------------------------------------------------------------
@@ -33,7 +33,8 @@ class Tags extends BasicWeChat
     public function getTags()
     {
         $url = "https://api.weixin.qq.com/cgi-bin/tags/get?access_token=ACCESS_TOKEN";
-        return $this->callGetApi($url);
+        $this->registerApi($url, __FUNCTION__, func_get_args());
+        return $this->httpGetForJson($url);
     }
 
     /**
@@ -46,7 +47,8 @@ class Tags extends BasicWeChat
     public function createTags($name)
     {
         $url = "https://api.weixin.qq.com/cgi-bin/tags/create?access_token=ACCESS_TOKEN";
-        return $this->callPostApi($url, ['tag' => ['name' => $name]]);
+        $this->registerApi($url, __FUNCTION__, func_get_args());
+        return $this->httpPostForJson($url, ['tag' => ['name' => $name]]);
     }
 
     /**
@@ -60,7 +62,8 @@ class Tags extends BasicWeChat
     public function updateTags($id, $name)
     {
         $url = "https://api.weixin.qq.com/cgi-bin/tags/update?access_token=ACCESS_TOKEN";
-        return $this->callPostApi($url, ['tag' => ['name' => $name, 'id' => $id]]);
+        $this->registerApi($url, __FUNCTION__, func_get_args());
+        return $this->httpPostForJson($url, ['tag' => ['name' => $name, 'id' => $id]]);
     }
 
     /**
@@ -73,7 +76,8 @@ class Tags extends BasicWeChat
     public function deleteTags($tagId)
     {
         $url = 'https://api.weixin.qq.com/cgi-bin/tags/delete?access_token=ACCESS_TOKEN';
-        return $this->callPostApi($url, ['tag' => ['id' => $tagId]]);
+        $this->registerApi($url, __FUNCTION__, func_get_args());
+        return $this->httpPostForJson($url, ['tag' => ['id' => $tagId]]);
     }
 
     /**
@@ -87,7 +91,8 @@ class Tags extends BasicWeChat
     public function batchTagging(array $openids, $tagId)
     {
         $url = 'https://api.weixin.qq.com/cgi-bin/tags/members/batchtagging?access_token=ACCESS_TOKEN';
-        return $this->callPostApi($url, ['openid_list' => $openids, 'tagid' => $tagId]);
+        $this->registerApi($url, __FUNCTION__, func_get_args());
+        return $this->httpPostForJson($url, ['openid_list' => $openids, 'tagid' => $tagId]);
     }
 
     /**
@@ -101,7 +106,8 @@ class Tags extends BasicWeChat
     public function batchUntagging(array $openids, $tagId)
     {
         $url = 'https://api.weixin.qq.com/cgi-bin/tags/members/batchuntagging?access_token=ACCESS_TOKEN';
-        return $this->callPostApi($url, ['openid_list' => $openids, 'tagid' => $tagId]);
+        $this->registerApi($url, __FUNCTION__, func_get_args());
+        return $this->httpPostForJson($url, ['openid_list' => $openids, 'tagid' => $tagId]);
     }
 
     /**
@@ -114,6 +120,7 @@ class Tags extends BasicWeChat
     public function getUserTagId($openid)
     {
         $url = 'https://api.weixin.qq.com/cgi-bin/tags/getidlist?access_token=ACCESS_TOKEN';
-        return $this->callPostApi($url, ['openid' => $openid]);
+        $this->registerApi($url, __FUNCTION__, func_get_args());
+        return $this->httpPostForJson($url, ['openid' => $openid]);
     }
 }

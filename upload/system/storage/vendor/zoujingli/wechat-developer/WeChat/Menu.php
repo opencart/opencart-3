@@ -3,7 +3,7 @@
 // +----------------------------------------------------------------------
 // | WeChatDeveloper
 // +----------------------------------------------------------------------
-// | 版权所有 2014~2024 ThinkAdmin [ thinkadmin.top ]
+// | 版权所有 2014~2023 ThinkAdmin [ thinkadmin.top ]
 // +----------------------------------------------------------------------
 // | 官方网站: https://thinkadmin.top
 // +----------------------------------------------------------------------
@@ -35,7 +35,8 @@ class Menu extends BasicWeChat
     public function get()
     {
         $url = "https://api.weixin.qq.com/cgi-bin/menu/get?access_token=ACCESS_TOKEN";
-        return $this->callGetApi($url);
+        $this->registerApi($url, __FUNCTION__, func_get_args());
+        return $this->httpGetForJson($url);
     }
 
     /**
@@ -47,7 +48,8 @@ class Menu extends BasicWeChat
     public function delete()
     {
         $url = "https://api.weixin.qq.com/cgi-bin/menu/delete?access_token=ACCESS_TOKEN";
-        return $this->callGetApi($url);
+        $this->registerApi($url, __FUNCTION__, func_get_args());
+        return $this->httpGetForJson($url);
     }
 
     /**
@@ -60,7 +62,8 @@ class Menu extends BasicWeChat
     public function create(array $data)
     {
         $url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN";
-        return $this->callPostApi($url, $data);
+        $this->registerApi($url, __FUNCTION__, func_get_args());
+        return $this->httpPostForJson($url, $data);
     }
 
     /**
@@ -73,7 +76,8 @@ class Menu extends BasicWeChat
     public function addConditional(array $data)
     {
         $url = "https://api.weixin.qq.com/cgi-bin/menu/addconditional?access_token=ACCESS_TOKEN";
-        return $this->callPostApi($url, $data);
+        $this->registerApi($url, __FUNCTION__, func_get_args());
+        return $this->httpPostForJson($url, $data);
     }
 
     /**
@@ -86,7 +90,8 @@ class Menu extends BasicWeChat
     public function delConditional($menuid)
     {
         $url = "https://api.weixin.qq.com/cgi-bin/menu/delconditional?access_token=ACCESS_TOKEN";
-        return $this->callPostApi($url, ['menuid' => $menuid]);
+        $this->registerApi($url, __FUNCTION__, func_get_args());
+        return $this->httpPostForJson($url, ['menuid' => $menuid]);
     }
 
     /**
@@ -99,6 +104,7 @@ class Menu extends BasicWeChat
     public function tryConditional($openid)
     {
         $url = "https://api.weixin.qq.com/cgi-bin/menu/trymatch?access_token=ACCESS_TOKEN";
-        return $this->callPostApi($url, ['user_id' => $openid]);
+        $this->registerApi($url, __FUNCTION__, func_get_args());
+        return $this->httpPostForJson($url, ['user_id' => $openid]);
     }
 }

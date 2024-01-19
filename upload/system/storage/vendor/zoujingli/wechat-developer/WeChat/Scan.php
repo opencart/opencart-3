@@ -3,7 +3,7 @@
 // +----------------------------------------------------------------------
 // | WeChatDeveloper
 // +----------------------------------------------------------------------
-// | 版权所有 2014~2024 ThinkAdmin [ thinkadmin.top ]
+// | 版权所有 2014~2023 ThinkAdmin [ thinkadmin.top ]
 // +----------------------------------------------------------------------
 // | 官方网站: https://thinkadmin.top
 // +----------------------------------------------------------------------
@@ -34,7 +34,8 @@ class Scan extends BasicWeChat
     public function getMerchantInfo()
     {
         $url = "https://api.weixin.qq.com/scan/merchantinfo/get?access_token=ACCESS_TOKEN";
-        return $this->callGetApi($url);
+        $this->registerApi($url, __FUNCTION__, func_get_args());
+        return $this->httpGetForJson($url);
     }
 
     /**
@@ -47,7 +48,8 @@ class Scan extends BasicWeChat
     public function addProduct(array $data)
     {
         $url = "https://api.weixin.qq.com/scan/product/create?access_token=ACCESS_TOKEN";
-        return $this->callPostApi($url, $data);
+        $this->registerApi($url, __FUNCTION__, func_get_args());
+        return $this->httpPostForJson($url, $data);
     }
 
     /**
@@ -61,9 +63,10 @@ class Scan extends BasicWeChat
      */
     public function modProduct($keystandard, $keystr, $status = 'on')
     {
-        $url = "https://api.weixin.qq.com/scan/product/modstatus?access_token=ACCESS_TOKEN";
         $data = ['keystandard' => $keystandard, 'keystr' => $keystr, 'status' => $status];
-        return $this->callPostApi($url, $data);
+        $url = "https://api.weixin.qq.com/scan/product/modstatus?access_token=ACCESS_TOKEN";
+        $this->registerApi($url, __FUNCTION__, func_get_args());
+        return $this->httpPostForJson($url, $data);
     }
 
     /**
@@ -76,8 +79,10 @@ class Scan extends BasicWeChat
      */
     public function setTestWhiteList($openids = [], $usernames = [])
     {
+        $data = ['openid' => $openids, 'username' => $usernames];
         $url = "https://api.weixin.qq.com/scan/product/modstatus?access_token=ACCESS_TOKEN";
-        return $this->callPostApi($url, ['openid' => $openids, 'username' => $usernames]);
+        $this->registerApi($url, __FUNCTION__, func_get_args());
+        return $this->httpPostForJson($url, $data);
     }
 
     /**
@@ -92,10 +97,11 @@ class Scan extends BasicWeChat
      */
     public function getQrc($keystandard, $keystr, $extinfo = null, $qrcode_size = 64)
     {
-        $url = "https://api.weixin.qq.com/scan/product/getqrcode?access_token=ACCESS_TOKEN";
         $data = ['keystandard' => $keystandard, 'keystr' => $keystr, 'qrcode_size' => $qrcode_size];
         is_null($extinfo) || $data['extinfo'] = $extinfo;
-        return $this->callPostApi($url, $data);
+        $url = "https://api.weixin.qq.com/scan/product/getqrcode?access_token=ACCESS_TOKEN";
+        $this->registerApi($url, __FUNCTION__, func_get_args());
+        return $this->httpPostForJson($url, $data);
     }
 
     /**
@@ -109,7 +115,8 @@ class Scan extends BasicWeChat
     public function getProductInfo($keystandard, $keystr)
     {
         $url = "https://api.weixin.qq.com/scan/product/get?access_token=ACCESS_TOKEN";
-        return $this->callPostApi($url, ['keystandard' => $keystandard, 'keystr' => $keystr]);
+        $this->registerApi($url, __FUNCTION__, func_get_args());
+        return $this->httpPostForJson($url, ['keystandard' => $keystandard, 'keystr' => $keystr]);
     }
 
     /**
@@ -124,11 +131,12 @@ class Scan extends BasicWeChat
      */
     public function getProductList($offset = 1, $limit = 10, $status = null, $keystr = null)
     {
-        $url = "https://api.weixin.qq.com/scan/product/getlist?access_token=ACCESS_TOKEN";
         $data = ['offset' => $offset, 'limit' => $limit];
         is_null($status) || $data['status'] = $status;
         is_null($keystr) || $data['keystr'] = $keystr;
-        return $this->callPostApi($url, $data);
+        $url = "https://api.weixin.qq.com/scan/product/getlist?access_token=ACCESS_TOKEN";
+        $this->registerApi($url, __FUNCTION__, func_get_args());
+        return $this->httpPostForJson($url, $data);
     }
 
     /**
@@ -141,7 +149,8 @@ class Scan extends BasicWeChat
     public function updateProduct(array $data)
     {
         $url = "https://api.weixin.qq.com/scan/product/update?access_token=ACCESS_TOKEN";
-        return $this->callPostApi($url, $data);
+        $this->registerApi($url, __FUNCTION__, func_get_args());
+        return $this->httpPostForJson($url, $data);
     }
 
     /**
@@ -155,7 +164,8 @@ class Scan extends BasicWeChat
     public function clearProduct($keystandard, $keystr)
     {
         $url = "https://api.weixin.qq.com/scan/product/clear?access_token=ACCESS_TOKEN";
-        return $this->callPostApi($url, ['keystandard' => $keystandard, 'keystr' => $keystr]);
+        $this->registerApi($url, __FUNCTION__, func_get_args());
+        return $this->httpPostForJson($url, ['keystandard' => $keystandard, 'keystr' => $keystr]);
     }
 
     /**
@@ -168,7 +178,8 @@ class Scan extends BasicWeChat
     public function checkTicket($ticket)
     {
         $url = "https://api.weixin.qq.com/scan/scanticket/check?access_token=ACCESS_TOKEN";
-        return $this->callPostApi($url, ['ticket' => $ticket]);
+        $this->registerApi($url, __FUNCTION__, func_get_args());
+        return $this->httpPostForJson($url, ['ticket' => $ticket]);
     }
 
     /**
@@ -183,6 +194,8 @@ class Scan extends BasicWeChat
     public function clearScanTicket($keystandard, $keystr, $extinfo)
     {
         $url = "https://api.weixin.qq.com/scan/scanticket/check?access_token=ACCESS_TOKEN";
-        return $this->callPostApi($url, ['keystandard' => $keystandard, 'keystr' => $keystr, 'extinfo' => $extinfo]);
+        $this->registerApi($url, __FUNCTION__, func_get_args());
+        return $this->httpPostForJson($url, ['keystandard' => $keystandard, 'keystr' => $keystr, 'extinfo' => $extinfo]);
     }
+
 }
