@@ -180,20 +180,26 @@ class ModelExtensionReportSale extends Model {
 	 * @return array
 	 */
 	public function getOrders(array $data = []): array {
+		$implode = [];
+
 		$sql = "SELECT MIN(`o`.`date_added`) AS `date_start`, MAX(`o`.`date_added`) AS `date_end`, COUNT(*) AS `orders`, SUM((SELECT SUM(`op`.`quantity`) FROM `" . DB_PREFIX . "order_product` `op` WHERE `op`.`order_id` = `o`.`order_id` GROUP BY `op`.`order_id`)) AS `products`, SUM((SELECT SUM(`ot`.`value`) FROM `" . DB_PREFIX . "order_total` `ot` WHERE `ot`.`order_id` = `o`.`order_id` AND `ot`.`code` = 'tax' GROUP BY `ot`.`order_id`)) AS `tax`, SUM(`o`.`total`) AS `total` FROM `" . DB_PREFIX . "order` `o`";
 
 		if (!empty($data['filter_order_status_id'])) {
-			$sql .= " WHERE `o`.`order_status_id` = '" . (int)$data['filter_order_status_id'] . "'";
+			$implode[] = " WHERE `o`.`order_status_id` = '" . (int)$data['filter_order_status_id'] . "'";
 		} else {
-			$sql .= " WHERE `o`.`order_status_id` > '0'";
+			$implode[] = " WHERE `o`.`order_status_id` > '0'";
 		}
 
 		if (!empty($data['filter_date_start'])) {
-			$sql .= " AND DATE(`o`.`date_added`) >= DATE('" . $this->db->escape($data['filter_date_start']) . "')";
+			$implode[] = " AND DATE(`o`.`date_added`) >= DATE('" . $this->db->escape($data['filter_date_start']) . "')";
 		}
 
 		if (!empty($data['filter_date_end'])) {
-			$sql .= " AND DATE(`o`.`date_added`) <= DATE('" . $this->db->escape($data['filter_date_end']) . "')";
+			$implode[] = " AND DATE(`o`.`date_added`) <= DATE('" . $this->db->escape($data['filter_date_end']) . "')";
+		}
+
+		if ($implode) {
+			$sql .= " WHERE " . implode(" AND ", $implode);
 		}
 
 		if (!empty($data['filter_group'])) {
@@ -245,6 +251,8 @@ class ModelExtensionReportSale extends Model {
 	 * @return int
 	 */
 	public function getTotalOrders(array $data = []): int {
+		$implode = [];
+
 		if (!empty($data['filter_group'])) {
 			$group = $data['filter_group'];
 		} else {
@@ -268,17 +276,21 @@ class ModelExtensionReportSale extends Model {
 		}
 
 		if (!empty($data['filter_order_status_id'])) {
-			$sql .= " WHERE `order_status_id` = '" . (int)$data['filter_order_status_id'] . "'";
+			$implode[] = "`order_status_id` = '" . (int)$data['filter_order_status_id'] . "'";
 		} else {
-			$sql .= " WHERE `order_status_id` > '0'";
+			$implode[] = "`order_status_id` > '0'";
 		}
 
 		if (!empty($data['filter_date_start'])) {
-			$sql .= " AND DATE(`date_added`) >= DATE('" . $this->db->escape($data['filter_date_start']) . "')";
+			$implode[] = "DATE(`date_added`) >= DATE('" . $this->db->escape($data['filter_date_start']) . "')";
 		}
 
 		if (!empty($data['filter_date_end'])) {
-			$sql .= " AND DATE(`date_added`) <= DATE('" . $this->db->escape($data['filter_date_end']) . "')";
+			$implode[] = "DATE(`date_added`) <= DATE('" . $this->db->escape($data['filter_date_end']) . "')";
+		}
+
+		if ($implode) {
+			$sql .= " WHERE " . implode(" AND ", $implode);
 		}
 
 		$query = $this->db->query($sql);
@@ -294,20 +306,28 @@ class ModelExtensionReportSale extends Model {
 	 * @return array
 	 */
 	public function getTaxes(array $data = []): array {
-		$sql = "SELECT MIN(`o`.`date_added`) AS `date_start`, MAX(`o`.`date_added`) AS `date_end`, `ot`.`title`, SUM(`ot`.`value`) AS `total`, COUNT(`o`.`order_id`) AS `orders` FROM `" . DB_PREFIX . "order` `o` LEFT JOIN `" . DB_PREFIX . "order_total` `ot` ON (`ot`.`order_id` = `o`.`order_id`) WHERE `ot`.`code` = 'tax'";
+		$implode = [];
+
+		$sql = "SELECT MIN(`o`.`date_added`) AS `date_start`, MAX(`o`.`date_added`) AS `date_end`, `ot`.`title`, SUM(`ot`.`value`) AS `total`, COUNT(`o`.`order_id`) AS `orders` FROM `" . DB_PREFIX . "order` `o` LEFT JOIN `" . DB_PREFIX . "order_total` `ot` ON (`ot`.`order_id` = `o`.`order_id`)";
+
+		$implode[] = "`ot`.`code` = 'tax'";
 
 		if (!empty($data['filter_order_status_id'])) {
-			$sql .= " AND `o`.`order_status_id` = '" . (int)$data['filter_order_status_id'] . "'";
+			$implode[] = "`o`.`order_status_id` = '" . (int)$data['filter_order_status_id'] . "'";
 		} else {
-			$sql .= " AND `o`.`order_status_id` > '0'";
+			$implode[] = "`o`.`order_status_id` > '0'";
 		}
 
 		if (!empty($data['filter_date_start'])) {
-			$sql .= " AND DATE(`o`.`date_added`) >= DATE('" . $this->db->escape($data['filter_date_start']) . "')";
+			$implode[] = "DATE(`o`.`date_added`) >= DATE('" . $this->db->escape($data['filter_date_start']) . "')";
 		}
 
 		if (!empty($data['filter_date_end'])) {
-			$sql .= " AND DATE(`o`.`date_added`) <= DATE('" . $this->db->escape($data['filter_date_end']) . "')";
+			$implode[] = "DATE(`o`.`date_added`) <= DATE('" . $this->db->escape($data['filter_date_end']) . "')";
+		}
+
+		if ($implode) {
+			$sql .= " WHERE " . implode(" AND ", $implode);
 		}
 
 		if (!empty($data['filter_group'])) {
@@ -379,20 +399,28 @@ class ModelExtensionReportSale extends Model {
 				break;
 		}
 
-		$sql .= " LEFT JOIN `" . DB_PREFIX . "order_total` `ot` ON (`o`.`order_id` = `ot`.`order_id`) WHERE `ot`.`code` = 'tax'";
+		$implode = [];
+
+		$sql .= " LEFT JOIN `" . DB_PREFIX . "order_total` `ot` ON (`o`.`order_id` = `ot`.`order_id`)";
+
+		$implode[] = "`ot`.`code` = 'tax'";
 
 		if (!empty($data['filter_order_status_id'])) {
-			$sql .= " AND `o`.`order_status_id` = '" . (int)$data['filter_order_status_id'] . "'";
+			$implode[] = "`o`.`order_status_id` = '" . (int)$data['filter_order_status_id'] . "'";
 		} else {
-			$sql .= " AND `o`.`order_status_id` > '0'";
+			$implode[] = "`o`.`order_status_id` > '0'";
 		}
 
 		if (!empty($data['filter_date_start'])) {
-			$sql .= " AND DATE(`o`.`date_added`) >= DATE('" . $this->db->escape($data['filter_date_start']) . "')";
+			$implode[] = "DATE(`o`.`date_added`) >= DATE('" . $this->db->escape($data['filter_date_start']) . "')";
 		}
 
 		if (!empty($data['filter_date_end'])) {
-			$sql .= " AND DATE(`o`.`date_added`) <= DATE('" . $this->db->escape($data['filter_date_end']) . "')";
+			$implode[] = "DATE(`o`.`date_added`) <= DATE('" . $this->db->escape($data['filter_date_end']) . "')";
+		}
+
+		if ($implode) {
+			$sql .= " WHERE " . implode(" AND ", $implode);
 		}
 
 		$query = $this->db->query($sql);
@@ -408,20 +436,28 @@ class ModelExtensionReportSale extends Model {
 	 * @return array
 	 */
 	public function getShipping(array $data = []): array {
-		$sql = "SELECT MIN(`o`.`date_added`) AS `date_start`, MAX(`o`.`date_added`) AS `date_end`, `ot`.`title`, SUM(`ot`.`value`) AS `total`, COUNT(`o`.`order_id`) AS `orders` FROM `" . DB_PREFIX . "order` `o` LEFT JOIN `" . DB_PREFIX . "order_total` `ot` ON (`o`.`order_id` = `ot`.`order_id`) WHERE `ot`.`code` = 'shipping'";
+		$implode = [];
+
+		$sql = "SELECT MIN(`o`.`date_added`) AS `date_start`, MAX(`o`.`date_added`) AS `date_end`, `ot`.`title`, SUM(`ot`.`value`) AS `total`, COUNT(`o`.`order_id`) AS `orders` FROM `" . DB_PREFIX . "order` `o` LEFT JOIN `" . DB_PREFIX . "order_total` `ot` ON (`o`.`order_id` = `ot`.`order_id`)";
+
+		$implode[] = "`ot`.`code` = 'shipping'";
 
 		if (!empty($data['filter_order_status_id'])) {
-			$sql .= " AND `o`.`order_status_id` = '" . (int)$data['filter_order_status_id'] . "'";
+			$implode[] = "`o`.`order_status_id` = '" . (int)$data['filter_order_status_id'] . "'";
 		} else {
-			$sql .= " AND `o`.`order_status_id` > '0'";
+			$implode[] = "`o`.`order_status_id` > '0'";
 		}
 
 		if (!empty($data['filter_date_start'])) {
-			$sql .= " AND DATE(`o`.`date_added`) >= DATE('" . $this->db->escape($data['filter_date_start']) . "')";
+			$implode[] = "DATE(`o`.`date_added`) >= DATE('" . $this->db->escape($data['filter_date_start']) . "')";
 		}
 
 		if (!empty($data['filter_date_end'])) {
-			$sql .= " AND DATE(`o`.`date_added`) <= DATE('" . $this->db->escape($data['filter_date_end']) . "')";
+			$implode[] = "DATE(`o`.`date_added`) <= DATE('" . $this->db->escape($data['filter_date_end']) . "')";
+		}
+
+		if ($implode) {
+			$sql .= " WHERE " . implode(" AND ", $implode);
 		}
 
 		if (!empty($data['filter_group'])) {

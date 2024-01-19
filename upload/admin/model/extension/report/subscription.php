@@ -13,20 +13,26 @@ class ModelExtensionReportSubscription extends Model {
 	 * @return array
 	 */
 	public function getSubscriptions(array $data = []): array {
+		$implode = [];
+
 		$sql = "SELECT MIN(`s`.`date_added`) AS date_start, MAX(`s`.`date_added`) AS date_end, COUNT(*) AS `subscriptions`, SUM((SELECT SUM(`ot`.`value`) FROM `" . DB_PREFIX . "order_total` ot WHERE ot.`order_id` = `s`.`order_id` AND ot.`code` = 'tax' GROUP BY ot.`order_id`)) AS tax, SUM(`s`.`quantity`) AS `products`, SUM(`s`.`price`) AS `total` FROM `" . DB_PREFIX . "subscription` `s`";
 
-		if (!empty($data['filter_subscription_status_id'])) {
-			$sql .= " WHERE `s`.`subscription_status_id` = '" . (int)$data['filter_subscription_status_id'] . "'";
+		if (isset($data['filter_subscription_status_id']) && $data['filter_subscription_status_id'] != '') {
+			$implode[] = "`s`.`subscription_status_id` = '" . (int)$data['filter_subscription_status_id'] . "'";
 		} else {
-			$sql .= " WHERE `s`.`subscription_status_id` > '0'";
+			$implode[] = "`s`.`subscription_status_id` > '0'";
 		}
 
 		if (!empty($data['filter_date_start'])) {
-			$sql .= " AND DATE(`s`.`date_added`) >= DATE('" . $this->db->escape((string)$data['filter_date_start']) . "')";
+			$implode[] = "DATE(`s`.`date_added`) >= DATE('" . $this->db->escape((string)$data['filter_date_start']) . "')";
 		}
 
 		if (!empty($data['filter_date_end'])) {
-			$sql .= " AND DATE(`s`.`date_added`) <= DATE('" . $this->db->escape((string)$data['filter_date_end']) . "')";
+			$implode[] = "DATE(`s`.`date_added`) <= DATE('" . $this->db->escape((string)$data['filter_date_end']) . "')";
+		}
+
+		if ($implode) {
+			$sql .= " WHERE " . implode(" AND ", $implode);
 		}
 
 		if (!empty($data['filter_group'])) {
@@ -78,6 +84,8 @@ class ModelExtensionReportSubscription extends Model {
 	 * @return int
 	 */
 	public function getTotalSubscriptions(array $data = []): int {
+		$implode = [];
+
 		if (!empty($data['filter_group'])) {
 			$group = $data['filter_group'];
 		} else {
@@ -101,17 +109,21 @@ class ModelExtensionReportSubscription extends Model {
 		}
 
 		if (!empty($data['filter_subscription_status_id'])) {
-			$sql .= " WHERE `subscription_status_id` = '" . (int)$data['filter_subscription_status_id'] . "'";
+			$implode[] = "`subscription_status_id` = '" . (int)$data['filter_subscription_status_id'] . "'";
 		} else {
-			$sql .= " WHERE `subscription_status_id` > '0'";
+			$implode[] = "`subscription_status_id` > '0'";
 		}
 
 		if (!empty($data['filter_date_start'])) {
-			$sql .= " AND DATE(`date_added`) >= DATE('" . $this->db->escape((string)$data['filter_date_start']) . "')";
+			$implode[] = "DATE(`date_added`) >= DATE('" . $this->db->escape((string)$data['filter_date_start']) . "')";
 		}
 
 		if (!empty($data['filter_date_end'])) {
-			$sql .= " AND DATE(`date_added`) <= DATE('" . $this->db->escape((string)$data['filter_date_end']) . "')";
+			$implode[] = "DATE(`date_added`) <= DATE('" . $this->db->escape((string)$data['filter_date_end']) . "')";
+		}
+
+		if ($implode) {
+			$sql .= " WHERE " . implode(" AND ", $implode);
 		}
 
 		$query = $this->db->query($sql);

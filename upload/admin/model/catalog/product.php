@@ -817,28 +817,34 @@ class ModelCatalogProduct extends Model {
 	 * @return int
 	 */
 	public function getTotalProducts(array $data = []): int {
+		$implode = [];
+		
 		$sql = "SELECT COUNT(DISTINCT `p`.`product_id`) AS `total` FROM `" . DB_PREFIX . "product` `p` LEFT JOIN `" . DB_PREFIX . "product_description` `pd` ON (`p`.`product_id` = `pd`.`product_id`)";
 
-		$sql .= " WHERE `pd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
+		$implode[] = "`pd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
 
 		if (!empty($data['filter_name'])) {
-			$sql .= " AND `pd`.`name` LIKE '" . $this->db->escape($data['filter_name']) . "%'";
+			$implode[] = "`pd`.`name` LIKE '" . $this->db->escape($data['filter_name']) . "%'";
 		}
 
 		if (!empty($data['filter_model'])) {
-			$sql .= " AND `p`.`model` LIKE '" . $this->db->escape($data['filter_model']) . "%'";
+			$implode[] = "`p`.`model` LIKE '" . $this->db->escape($data['filter_model']) . "%'";
 		}
 
 		if (isset($data['filter_price']) && $data['filter_price'] != '') {
-			$sql .= " AND `p`.`price` LIKE '" . $this->db->escape($data['filter_price']) . "%'";
+			$implode[] = "`p`.`price` LIKE '" . $this->db->escape($data['filter_price']) . "%'";
 		}
 
 		if (isset($data['filter_quantity']) && $data['filter_quantity'] !== '') {
-			$sql .= " AND `p`.`quantity` = '" . (int)$data['filter_quantity'] . "'";
+			$implode[] = "`p`.`quantity` = '" . (int)$data['filter_quantity'] . "'";
 		}
 
 		if (isset($data['filter_status']) && $data['filter_status'] !== '') {
-			$sql .= " AND `p`.`status` = '" . (int)$data['filter_status'] . "'";
+			$implode[] = "`p`.`status` = '" . (int)$data['filter_status'] . "'";
+		}
+
+		if ($implode) {
+			$sql .= " WHERE " . implode(" AND ", $implode);
 		}
 
 		$query = $this->db->query($sql);

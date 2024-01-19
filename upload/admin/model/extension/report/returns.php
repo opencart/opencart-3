@@ -13,20 +13,26 @@ class ModelExtensionReportReturns extends Model {
 	 * @return array
 	 */
 	public function getReturns(array $data = []): array {
+		$implode = [];
+		
 		$sql = "SELECT MIN(`r`.`date_added`) AS `date_start`, MAX(`r`.`date_added`) AS `date_end`, COUNT(`r`.`return_id`) AS `returns` FROM `" . DB_PREFIX . "return` `r`";
 
 		if (!empty($data['filter_return_status_id'])) {
-			$sql .= " WHERE `r`.`return_status_id` = '" . (int)$data['filter_return_status_id'] . "'";
+			$implode[] = "`r`.`return_status_id` = '" . (int)$data['filter_return_status_id'] . "'";
 		} else {
-			$sql .= " WHERE `r`.`return_status_id` > '0'";
+			$implode[] = "`r`.`return_status_id` > '0'";
 		}
 
 		if (!empty($data['filter_date_start'])) {
-			$sql .= " AND DATE(`r`.`date_added`) >= DATE('" . $this->db->escape($data['filter_date_start']) . "')";
+			$implode[] = "DATE(`r`.`date_added`) >= DATE('" . $this->db->escape($data['filter_date_start']) . "')";
 		}
 
 		if (!empty($data['filter_date_end'])) {
-			$sql .= " AND DATE(`r`.`date_added`) <= DATE('" . $this->db->escape($data['filter_date_end']) . "')";
+			$implode[] = "DATE(`r`.`date_added`) <= DATE('" . $this->db->escape($data['filter_date_end']) . "')";
+		}
+
+		if ($implode) {
+			$sql .= " WHERE " . implode(" AND ", $implode);
 		}
 
 		if (isset($data['filter_group'])) {
@@ -76,6 +82,8 @@ class ModelExtensionReportReturns extends Model {
 	 * @return int
 	 */
 	public function getTotalReturns(array $data = []): int {
+		$implode = [];
+		
 		if (!empty($data['filter_group'])) {
 			$group = $data['filter_group'];
 		} else {
@@ -99,17 +107,21 @@ class ModelExtensionReportReturns extends Model {
 		}
 
 		if (!empty($data['filter_return_status_id'])) {
-			$sql .= " WHERE `return_status_id` = '" . (int)$data['filter_return_status_id'] . "'";
+			$implode[] = "`return_status_id` = '" . (int)$data['filter_return_status_id'] . "'";
 		} else {
-			$sql .= " WHERE `return_status_id` > '0'";
+			$implode[] = "`return_status_id` > '0'";
 		}
 
 		if (!empty($data['filter_date_start'])) {
-			$sql .= " AND DATE(`date_added`) >= DATE('" . $this->db->escape($data['filter_date_start']) . "')";
+			$implode[] = "DATE(`date_added`) >= DATE('" . $this->db->escape($data['filter_date_start']) . "')";
 		}
 
 		if (!empty($data['filter_date_end'])) {
-			$sql .= " AND DATE(`date_added`) <= DATE('" . $this->db->escape($data['filter_date_end']) . "')";
+			$implode[] = "DATE(`date_added`) <= DATE('" . $this->db->escape($data['filter_date_end']) . "')";
+		}
+
+		if ($implode) {
+			$sql .= " WHERE " . implode(" AND ", $implode);
 		}
 
 		$query = $this->db->query($sql);

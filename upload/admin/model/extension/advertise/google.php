@@ -150,15 +150,13 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	 * @return int
 	 */
 	public function getFinalProductId(): int {
-		$sql = "SELECT `product_id` FROM `" . DB_PREFIX . "product` ORDER BY `product_id` DESC LIMIT 1";
+		$query = $this->db->query("SELECT `product_id` FROM `" . DB_PREFIX . "product` ORDER BY `product_id` DESC LIMIT 1");
 
-		$result = $this->db->query($sql);
-
-		if ($result->num_rows) {
-			return (int)$result->row['product_id'];
+		if ($query->num_rows) {
+			return (int)$query->row['product_id'];
+		} else {
+			return 0;
 		}
-
-		return 0;
 	}
 
 	/**
@@ -169,9 +167,9 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	 * @return int
 	 */
 	public function isAnyProductCategoryModified(int $store_id): int {
-		$sql = "SELECT `pag`.`is_modified` FROM `" . DB_PREFIX . "googleshopping_product` `pag` WHERE `pag`.`google_product_category` IS NOT NULL AND `pag`.`store_id` = '" . (int)$store_id . "' LIMIT 0,1";
+		$query = $this->db->query("SELECT `pag`.`is_modified` FROM `" . DB_PREFIX . "googleshopping_product` `pag` WHERE `pag`.`google_product_category` IS NOT NULL AND `pag`.`store_id` = '" . (int)$store_id . "' LIMIT 0,1");
 
-		return $this->db->query($sql)->num_rows;
+		return $query->num_rows;
 	}
 
 	/**
@@ -182,9 +180,9 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	 * @return int
 	 */
 	public function getAdvertisedCount(int $store_id): int {
-		$result = $this->db->query("SELECT COUNT(`product_id`) AS `total` FROM `" . DB_PREFIX . "googleshopping_product_target` WHERE `store_id` = '" . (int)$store_id . "' GROUP BY `product_id`");
+		$query = $this->db->query("SELECT COUNT(`product_id`) AS `total` FROM `" . DB_PREFIX . "googleshopping_product_target` WHERE `store_id` = '" . (int)$store_id . "' GROUP BY `product_id`");
 
-		return $result->num_rows ? (int)$result->row['total'] : 0;
+		return (int)$query->row['total'];
 	}
 
 	/**
@@ -440,9 +438,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 					}
 				}
 
-				$sql = "INSERT INTO `" . DB_PREFIX . "googleshopping_product_target` (`product_id`, `store_id`, `advertise_google_target_id`) VALUES " . implode(',', $values);
-
-				$this->db->query($sql);
+				$this->db->query("INSERT INTO `" . DB_PREFIX . "googleshopping_product_target` (`product_id`, `store_id`, `advertise_google_target_id`) VALUES " . implode(',', $values));
 			}
 		}
 	}
@@ -471,9 +467,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 			$this->googleshopping->applyFilter($insert_sql, $data);
 
 			foreach ($target_ids as $target_id) {
-				$sql = "INSERT INTO `" . DB_PREFIX . "googleshopping_product_target` (`product_id`, `store_id`, `advertise_google_target_id`) " . str_replace('{TARGET_ID}', (string)$target_id, $insert_sql);
-
-				$this->db->query($sql);
+				$this->db->query("INSERT INTO `" . DB_PREFIX . "googleshopping_product_target` (`product_id`, `store_id`, `advertise_google_target_id`) " . str_replace('{TARGET_ID}', (string)$target_id, $insert_sql));
 			}
 		}
 	}
@@ -523,9 +517,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 
 		$values[] = "(" . implode(",", $entry) . ")";
 
-		$sql = "INSERT INTO `" . DB_PREFIX . "googleshopping_product` (`product_id`, `store_id`, `google_product_category`, `condition`, `adult`, `multipack`, `is_bundle`, `age_group`, `color`, `gender`, `size_type`, `size_system`, `size`, `is_modified`) VALUES " . implode(',', $values) . " ON DUPLICATE KEY UPDATE " . $this->makeOnDuplicateKeyData();
-
-		$this->db->query($sql);
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "googleshopping_product` (`product_id`, `store_id`, `google_product_category`, `condition`, `adult`, `multipack`, `is_bundle`, `age_group`, `color`, `gender`, `size_type`, `size_system`, `size`, `is_modified`) VALUES " . implode(',', $values) . " ON DUPLICATE KEY UPDATE " . $this->makeOnDuplicateKeyData());
 	}
 
 	/**
@@ -550,9 +542,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 			$keys[] = "`" . $key . "`";
 		}
 
-		$sql = "INSERT INTO `" . DB_PREFIX . "googleshopping_product` (" . implode(", ", $keys) . ") " . str_replace('{INSERT_DATA}', implode(", ", $insert_data), $insert_sql) . " ON DUPLICATE KEY UPDATE " . $this->makeOnDuplicateKeyData();
-
-		$this->db->query($sql);
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "googleshopping_product` (" . implode(", ", $keys) . ") " . str_replace('{INSERT_DATA}', implode(", ", $insert_data), $insert_sql) . " ON DUPLICATE KEY UPDATE " . $this->makeOnDuplicateKeyData());
 	}
 
 	protected function makeInsertData($data) {
