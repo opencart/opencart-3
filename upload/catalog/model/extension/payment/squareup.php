@@ -381,8 +381,6 @@ class ModelExtensionPaymentSquareup extends Model {
 			$this->model_checkout_subscription->editReference($subscription_id, $transaction['id']);
 
 			$amount = $this->squareup->standardDenomination($transaction['tenders'][0]['amount_money']['amount'], $transaction['tenders'][0]['amount_money']['currency']);
-
-			$this->model_account_subscription->addTransaction($subscription_id, $order_info['order_id'], $response_data['description'], $amount, $type, $order_info['payment_method'], $order_info['payment_code']);
 		}
 	}
 

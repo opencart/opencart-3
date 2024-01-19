@@ -72,18 +72,7 @@ class ControllerExtensionModuleSubscription extends Controller {
 									$subscriptions = $this->model_account_subscription->getSubscriptions($filter_data);
 
 									if ($subscriptions) {
-										// Only match the latest order ID of the same customer ID
-										// since new subscriptions cannot be re-added with the same
-										// order ID; only as a new order ID added by an extension
-										foreach ($subscriptions as $subscription) {
-											if ($subscription['customer_id'] == $result['customer_id'] && ($subscription['subscription_id'] != $result['subscription_id']) && ($subscription['order_id'] != $result['order_id']) && ($subscription['order_product_id'] != $result['order_product_id'])) {
-												$subscription_info = $this->model_account_subscription->getSubscription($subscription['subscription_id']);
-
-												if ($subscription_info) {
-													$this->model_account_subscription->addTransaction($subscription['subscription_id'], $subscription['order_id'], $this->language->get('text_success'), $amount, $subscription_info['type'], $subscription_info['payment_method'], $subscription_info['payment_code']);
-												}
-											}
-										}
+										
 									}
 								}
 							} else {

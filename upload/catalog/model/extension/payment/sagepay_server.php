@@ -530,7 +530,6 @@ class ModelExtensionPaymentSagePayServer extends Model {
 			$this->model_checkout_subscription->editReference($subscription_id, $response_data['VendorTxCode']);
 
 			$this->model_account_subscription->editStatus($subscription_id, $type);
-			$this->model_account_subscription->addTransaction($subscription_id, $transaction['order_id'], $transaction['description'], $transaction['amount'], $type, $transaction['payment_method'], $transaction['payment_code']);
 		}
 	}
 
