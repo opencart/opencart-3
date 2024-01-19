@@ -311,8 +311,8 @@ class ModelExtensionPaymentWorldpay extends Model {
 
 			$cron_data[] = $response_data;
 
-			if (isset($response_data->paymentStatus) && $response_data->paymentStatus == 'SUCCESS') {
-				$this->addProfileTransaction($profile['subscription_id'], $response_data->orderCode, $price, 1);
+			if (isset($response_data['paymentStatus']) && $response_data['paymentStatus'] == 'SUCCESS') {
+				$this->addProfileTransaction($profile['subscription_id'], $response_data['orderCode'], $price, 1);
 
 				$next_payment = $this->calculateSchedule($frequency, $next_payment, $cycle);
 				$next_payment = date_format($next_payment, 'Y-m-d H:i:s');
