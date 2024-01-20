@@ -5,56 +5,7 @@
         "This file is @generated automatically"
     ],
     "content-hash": "d58a377f3529a106c9b6d4c9a4e8b11a",
-    "packages": [
-        {
-            "name": "braintree/braintree_php",
-            "version": "6.15.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/braintree/braintree_php.git",
-                "reference": "16efb08e19cb6c579deba11e119ef6409d28eae3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/braintree/braintree_php/zipball/16efb08e19cb6c579deba11e119ef6409d28eae3",
-                "reference": "16efb08e19cb6c579deba11e119ef6409d28eae3",
-                "shasum": ""
-            },
-            "require": {
-                "ext-curl": "*",
-                "ext-dom": "*",
-                "ext-hash": "*",
-                "ext-openssl": "*",
-                "ext-xmlwriter": "*",
-                "php": ">=7.3.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^9.0",
-                "squizlabs/php_codesniffer": "^3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Braintree\\": "lib/Braintree"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Braintree",
-                    "homepage": "https://www.braintreepayments.com"
-                }
-            ],
-            "description": "Braintree PHP Client Library",
-            "support": {
-                "issues": "https://github.com/braintree/braintree_php/issues",
-                "source": "https://github.com/braintree/braintree_php/tree/6.15.0"
-            },
-            "time": "2023-11-08T00:15:11+00:00"
-        },
+    "packages": [        
         {
             "name": "cardinity/cardinity-sdk-php",
             "version": "v3.2.1",
