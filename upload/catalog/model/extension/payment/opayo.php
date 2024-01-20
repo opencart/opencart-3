@@ -221,9 +221,10 @@ class ModelExtensionPaymentOpayo extends Model {
 	 * @return void
 	 */
 	public function subscriptionPayment(array $item, string $vendor_tx_code): void {
-		$this->load->model('checkout/subscription');
-		$this->load->model('checkout/order');
+		$this->load->model('checkout/subscription');		
 		$this->load->model('extension/payment/opayo');
+		$this->load->model('checkout/order');
+		$this->load->model('account/order');
 
 		if (VERSION >= '3.0.1.0') {
 			if ($item['subscription']['trial'] == 1) {
@@ -283,7 +284,7 @@ class ModelExtensionPaymentOpayo extends Model {
 
 			$recurring_frequency = date_diff(new \DateTime('now'), new \DateTime(date_format($next_payment, 'Y-m-d H:i:s')))->days;
 
-			$order_product = $this->model_checkout_order->getProducts($this->session->data['order_id'], $item['subscription']['order_product_id']);
+			$order_product = $this->model_account_order->getProduct($this->session->data['order_id'], $item['subscription']['order_product_id']);
 
 			$response_data = $this->setPaymentData($order_info, $opayo_order_info, $price, $order_recurring_id, $order_product['name'], $recurring_expiry, $recurring_frequency);
 

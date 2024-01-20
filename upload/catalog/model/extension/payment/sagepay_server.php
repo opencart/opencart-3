@@ -208,7 +208,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
 	 * 
 	 * @param string $vendor_tx_code
 	 * 
-	 * @param array
+	 * @return array
 	 */
 	public function getReference(string $vendor_tx_code): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "sagepay_server_order_recurring` WHERE `vendor_tx_code` = '" . $this->db->escape($vendor_tx_code) . "'");
@@ -269,10 +269,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
 
 		$order_info = $this->model_checkout_order->getOrder($data['order_id']);
 
-		if ($order_info) {
-			// Subscriptions
-			$this->load->model('extension/payment/sagepay_server');
-
+		if ($order_info) {			
 			// Trial information
 			if ($item['trial_status'] == 1) {
 				$price = $this->currency->format($item['trial_price'], $this->session->data['currency'], false, false);
