@@ -129,8 +129,8 @@ class ControllerExtensionPaymentG2APay extends Controller {
 			$this->response->redirect($this->url->link('checkout/failure', '', true));
 		}
 
-		if (isset($response_data->status)) {
-			$status = (string)$response_data->status;
+		if (isset($response_data['status'])) {
+			$status = (string)$response_data['status'];
 
 			if (strtolower($status) != 'ok') {
 				$this->response->redirect($this->url->link('checkout/failure', '', true));
@@ -139,8 +139,8 @@ class ControllerExtensionPaymentG2APay extends Controller {
 
 		$this->model_extension_payment_g2apay->addG2aOrder($order_info);
 
-		if (isset($response_data->token)) {
-			$response_token = (string)$response_data->token;
+		if (isset($response_data['token'])) {
+			$response_token = (string)$response_data['token'];
 
 			if ($this->config->get('payment_g2apay_environment') == 1) {
 				$this->response->redirect('https://checkout.pay.g2a.com/index/gateway?token=' . $response_token);

@@ -98,7 +98,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 		if (!isset($post_data['status'])) {
 			$this->response->setOutput('');
 
-			return false;
+			return '';
 		}
 
 		$order_id = (int)$post_data['metadata']['order_id'];
@@ -108,7 +108,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 		if (!$lookup) {
 			$this->response->setOutput('');
 
-			return false;
+			return '';
 		}
 
 		$hash = $this->model_extension_payment_divido->hashOrderId($order_id, $lookup['salt']);
@@ -118,7 +118,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 		if ($hash !== $order_hash) {
 			$this->response->setOutput('');
 
-			return false;
+			return '';
 		}
 
 		$order_info = $this->model_checkout_order->getOrder($order_id);
