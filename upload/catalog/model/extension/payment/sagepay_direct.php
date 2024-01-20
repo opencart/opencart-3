@@ -449,11 +449,11 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	 *
 	 * @param string    $frequency
 	 * @param \Datetime $next_payment
-	 * @param string    $cycle
+	 * @param int       $cycle
 	 *
 	 * @return \Datetime
 	 */
-	private function calculateSchedule(string $frequency, \Datetime $next_payment, string $cycle) {
+	private function calculateSchedule(string $frequency, \DateTime $next_payment, int $cycle) {
 		$next_payment = clone $next_payment;
 
 		if ($frequency == 'semi_month') {
@@ -521,7 +521,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 
 			//$this->model_checkout_subscription->editReference($subscription_id, $response_data['VendorTxCode']);
 
-			//$this->model_account_subscription->editStatus($subscription_id, $type);			
+			//$this->model_account_subscription->editStatus($subscription_id, $type);
 		}
 	}
 

@@ -352,7 +352,7 @@ class ModelExtensionPaymentOpayo extends Model {
 				$this->updateSubscriptionOrder($subscription_order['subscription_id'], date_format($next_payment, 'Y-m-d H:i:s'));
 			} else {
 				$this->addOrderTransaction($subscription_order['subscription_id'], $response_data, 4);
-			}			
+			}
 		}
 
 		$log = new \Log('opayo_subscription_orders.log');
@@ -466,11 +466,11 @@ class ModelExtensionPaymentOpayo extends Model {
 	 *
 	 * @param string    $frequency
 	 * @param \Datetime $next_payment
-	 * @param string    $cycle
+	 * @param int       $cycle
 	 *
 	 * @return \Datetime
 	 */
-	private function calculateSchedule(string $frequency, \DateTime $next_payment, string $cycle) {
+	private function calculateSchedule(string $frequency, \DateTime $next_payment, int $cycle) {
 		$next_payment = clone $next_payment;
 
 		if ($frequency == 'semi_month') {

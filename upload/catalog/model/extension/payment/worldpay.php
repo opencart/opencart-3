@@ -335,11 +335,11 @@ class ModelExtensionPaymentWorldpay extends Model {
 	 *
 	 * @param string    $frequency
 	 * @param \Datetime $next_payment
-	 * @param string    $cycle
+	 * @param int       $cycle
 	 *
 	 * @return \Datetime
 	 */
-	private function calculateSchedule(string $frequency, \Datetime $next_payment, string $cycle) {
+	private function calculateSchedule(string $frequency, \DateTime $next_payment, int $cycle) {
 		$next_payment = clone $next_payment;
 
 		if ($frequency == 'semi_month') {
@@ -447,9 +447,9 @@ class ModelExtensionPaymentWorldpay extends Model {
 	/**
 	 * sendCurl
 	 *
-	 * @param string      $url
-	 * @param array 	  $order
-	 * 
+	 * @param string $url
+	 * @param array  $order
+	 *
 	 * @return array
 	 */
 	public function sendCurl(string $url, $order = []): array {

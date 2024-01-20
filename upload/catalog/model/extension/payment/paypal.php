@@ -209,11 +209,11 @@ class ModelExtensionPaymentPayPal extends Model {
 
 	/**
 	 * subscriptionPayment
-	 * 
+	 *
 	 * @param array $product_data
 	 * @param array $order_data
 	 * @param array $paypal_order_data
-	 * 
+	 *
 	 * @return void
 	 */
 	public function subscriptionPayment(array $product_data, array $order_data, array $paypal_order_data): void {
@@ -541,11 +541,11 @@ class ModelExtensionPaymentPayPal extends Model {
 	 *
 	 * @param string    $frequency
 	 * @param \Datetime $next_payment
-	 * @param string    $cycle
+	 * @param int       $cycle
 	 *
 	 * @return \Datetime
 	 */
-	private function calculateSchedule(string $frequency, \Datetime $next_payment, string $cycle) {
+	private function calculateSchedule(string $frequency, \DateTime $next_payment, int $cycle) {
 		$next_payment = clone $next_payment;
 
 		if ($frequency == 'semi_month') {
