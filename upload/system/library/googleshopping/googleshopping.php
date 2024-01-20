@@ -58,9 +58,6 @@ class Googleshopping extends Library {
 
 		$this->store_id = $store_id;
 
-		// Settings
-		$this->registry->get('load')->model('setting/setting');
-
 		if ($this->store_id === 0) {
 			$this->store_url = basename(DIR_TEMPLATE) == 'template' ? HTTPS_CATALOG : HTTPS_SERVER;
 			$this->store_name = $this->registry->get('config')->get('config_name');
@@ -102,9 +99,6 @@ class Googleshopping extends Library {
 	 * @return int
 	 */
 	public function getSupportedLanguageId(string $code): int {
-		// Languages
-		$this->registry->get('load')->model('localisation/language');
-
 		foreach ($this->registry->get('load')->model('localisation/language')->model_localisation_language->getLanguages() as $language) {
 			$language_code = current(explode("-", $language['code']));
 
@@ -124,9 +118,6 @@ class Googleshopping extends Library {
 	 * @return int
 	 */
 	public function getSupportedCurrencyId(string $code): int {
-		// Currencies
-		$this->registry->get('load')->model('localisation/currency');
-
 		foreach ($this->registry->get('load')->model('localisation/currency')->model_localisation_currency->getCurrencies() as $currency) {
 			if ($this->compareTrimmedLowercase($code, $currency['code']) === 0) {
 				return (int)$currency['currency_id'];
@@ -145,9 +136,6 @@ class Googleshopping extends Library {
 	 */
 	public function getCountryName(string $code): string {
 		$this->registry->get('load')->config('googleshopping/googleshopping');
-
-		// Countries
-		$this->registry->get('load')->model('localisation/country');
 
 		$countries = $this->registry->get('config')->get('advertise_google_countries');
 
@@ -311,9 +299,6 @@ class Googleshopping extends Library {
 		$sql = "SELECT DISTINCT `pag`.`product_id`, `pag`.`color`, `pag`.`size` FROM `" . DB_PREFIX . "googleshopping_product` `pag` LEFT JOIN `" . DB_PREFIX . "product` `p` ON (`p`.`product_id` = `pag`.`product_id`) LEFT JOIN `" . DB_PREFIX . "product_to_store` `p2s` ON (`p2s`.`product_id` = `p`.`product_id` AND `p2s`.`store_id` = '" . (int)$this->store_id . "') WHERE `p2s`.`store_id` IS NOT NULL AND `p`.`status` = '1' AND `p`.`date_available` <= NOW() AND `p`.`price` > '0' ORDER BY `p`.`product_id` ASC LIMIT " . (int)(($page - 1) * $this->registry->get('config')->get('advertise_google_report_limit')) . ',' . (int)$this->registry->get('config')->get('advertise_google_report_limit');
 
 		$result = [];
-
-		// Languages
-		$this->registry->get('load')->model('localisation/language');
 
 		foreach ($this->registry->get('db')->query($sql)->rows as $row) {
 			foreach ($this->registry->get('load')->model('localisation/language')->model_localisation_language->getLanguages() as $language) {
@@ -1215,6 +1200,7 @@ class Googleshopping extends Library {
 			return; // Do nothing
 		}
 
+		// Languages
 		$this->registry->get('load')->language('extension/advertise/google');
 
 		if ($this->registry->get('config')->get('config_mail_engine')) {
@@ -1345,7 +1331,7 @@ class Googleshopping extends Library {
 	 * sanitizeText
 	 *
 	 * @param string $text
-	 * @param int  $limit
+	 * @param int    $limit
 	 *
 	 * @return string
 	 */
@@ -2184,10 +2170,7 @@ class Googleshopping extends Library {
 	 * @return string
 	 */
 	public function getLanguageName(int $language_id, string $default): string {
-		// Languages
-		$this->registry->get('load')->model('localisation/language');
-
-		$language_info = $this->registry->get('load')->model_localisation_language->getLanguage($language_id);
+		$language_info = $this->registry->get('load')->model('localisation/language')->model_localisation_language->getLanguage($language_id);
 
 		if (isset($language_info['name']) && trim($language_info['name']) != '') {
 			return $language_info['name'];
