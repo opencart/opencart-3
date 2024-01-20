@@ -266,7 +266,7 @@ class ModelExtensionPaymentSquareup extends Model {
 		$item['subscription']['description'] = $subscription_description;
 
 		if (!$item['subscription']['trial_status']) {
-			// We need to override this value for the proper calculation in updateRecurringExpired
+			// We need to override this value for the proper calculation in updateSubscriptionExpired
 			$item['subscription']['trial_duration'] = 0;
 		}
 
