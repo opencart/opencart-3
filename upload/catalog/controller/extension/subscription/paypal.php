@@ -72,7 +72,7 @@ class ControllerExtensionSubscriptionPayPal extends Controller {
 				$subscription_id = 0;
 			}
 
-			$this->model_extension_payment_paypal->editOrderRecurringStatus($subscription_id, 1);
+			$this->model_extension_payment_paypal->editOrderSubscriptionStatus($subscription_id, 1);
 
 			$json['success'] = $this->language->get('text_success_enable_subscription');
 		}
@@ -102,7 +102,7 @@ class ControllerExtensionSubscriptionPayPal extends Controller {
 				$subscription_id = 0;
 			}
 
-			$this->model_extension_payment_paypal->editOrderRecurringStatus($subscription_id, 2);
+			$this->model_extension_payment_paypal->editOrderSubscriptionStatus($subscription_id, 2);
 
 			$json['success'] = $this->language->get('text_success_disable_subscription');
 		}

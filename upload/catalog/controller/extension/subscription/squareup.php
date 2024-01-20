@@ -92,16 +92,16 @@ class ControllerExtensionSubscriptionSquareup extends Controller {
 	/**
 	 * Subscription
 	 *
-	 * @return void
+	 * @return ?object
 	 */
-	public function subscription(): void {
+	public function subscription(): ?object {
 		$this->load->language('extension/payment/squareup');
 
 		// Squareup
 		$this->load->model('extension/payment/squareup');
 
 		if (!$this->model_extension_payment_squareup->validateCRON()) {
-			return;
+			return '';
 		}
 
 		$this->load->library('squareup');

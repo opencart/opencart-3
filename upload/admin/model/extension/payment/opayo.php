@@ -44,8 +44,8 @@ class ModelExtensionPaymentOpayo extends Model {
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
 
 		$this->db->query("
-			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "opayo_order_recurring` (
-			  `opayo_order_recurring_id` int(11) NOT NULL AUTO_INCREMENT,
+			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "opayo_order_subscription` (
+			  `opayo_order_subscription_id` int(11) NOT NULL AUTO_INCREMENT,
 			  `order_id` int(11) NOT NULL,
 			  `subscription_id` int(11) NOT NULL,
 			  `vps_tx_id` varchar(50),
@@ -59,7 +59,7 @@ class ModelExtensionPaymentOpayo extends Model {
 			  `total` decimal(15,4) NOT NULL,
 			  `date_added` datetime NOT NULL,
 			  `date_modified` datetime NOT NULL,
-			  PRIMARY KEY (`opayo_order_recurring_id`),
+			  PRIMARY KEY (`opayo_order_subscription_id`),
 			  KEY (`order_id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
 
@@ -85,7 +85,7 @@ class ModelExtensionPaymentOpayo extends Model {
 	public function uninstall(): void {
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "opayo_order`");
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "opayo_order_transaction`");
-		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "opayo_order_recurring`");
+		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "opayo_order_subscription`");
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "opayo_card`");
 	}
 

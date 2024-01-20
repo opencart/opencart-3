@@ -167,7 +167,7 @@ class ModelExtensionPaymentPayPal extends Model {
 		return $this->db->getLastId();
 	}
 
-	public function editOrderRecurringStatus(int $subscription_id, int $status): void {
+	public function editOrderSubscriptionStatus(int $subscription_id, int $status): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "order_subscription` SET `status` = '" . (int)$status . "' WHERE `subscription_id` = '" . (int)$subscription_id . "'");
 	}
 
