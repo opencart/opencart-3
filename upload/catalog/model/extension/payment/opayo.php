@@ -671,9 +671,9 @@ class ModelExtensionPaymentOpayo extends Model {
 	 * @param string  $title
 	 * @param ?string $data
 	 *
-	 * @return void
+	 * @return ?object
 	 */
-	public function log(string $title, ?string $data): void {
+	public function log(string $title, ?string $data): ?object {
 		$_config = new \Config();
 		$_config->load('opayo');
 
@@ -686,6 +686,8 @@ class ModelExtensionPaymentOpayo extends Model {
 
 			$log->write($title . ': ' . print_r($data, 1));
 		}
+
+		return null;
 	}
 
 	/**

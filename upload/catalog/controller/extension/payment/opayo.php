@@ -438,6 +438,8 @@ class ControllerExtensionPaymentOpayo extends Controller {
 
 			$opayo_order_info = $this->model_extension_opayo_payment_opayo->getOrder($this->request->get['order_id']);
 
+			$url = '';
+
 			if ($setting['general']['environment'] == 'live') {
 				$url = 'https://live.sagepay.com/gateway/service/direct3dcallback.vsp';
 			} elseif ($setting['general']['environment'] == 'test') {
