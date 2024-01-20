@@ -129,8 +129,65 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 			}
 
 			// Loop through any products that are subscription items
+			$order_products = $this->model_checkout_order->getProducts($this->session->data['order_id']);
+
+			if (isset($this->request->server['HTTP_X_REAL_IP'])) {
+				$ip = $this->request->server['HTTP_X_REAL_IP'];
+			} elseif (isset($this->request->server['REMOTE_ADDR'])) {
+				$ip = $this->request->server['REMOTE_ADDR'];
+			} else {
+				$ip = '';
+			}
+
+			if (!empty($this->request->server['HTTP_X_FORWARDED_FOR'])) {
+				$forwarded_ip = $this->request->server['HTTP_X_FORWARDED_FOR'];
+			} elseif (!empty($this->request->server['HTTP_CLIENT_IP'])) {
+				$forwarded_ip = $this->request->server['HTTP_CLIENT_IP'];
+			} else {
+				$forwarded_ip = '';
+			}
+
+			if (isset($this->request->server['HTTP_USER_AGENT'])) {
+				$user_agent = $this->request->server['HTTP_USER_AGENT'];
+			} else {
+				$user_agent = '';
+			}
+
+			if (isset($this->request->server['HTTP_ACCEPT_LANGUAGE'])) {
+				$accept_language = $this->request->server['HTTP_ACCEPT_LANGUAGE'];
+			} else {
+				$accept_language = '';
+			}
+
 			foreach ($subscription_products as $item) {
-				$this->model_extension_payment_worldpay->subscriptionPayment($item, $this->session->data['order_id'] . mt_rand(), $this->request->post['token']);
+				foreach ($order_products as $order_product) {
+					$order_subscription = $this->model_checkout_order->getSubscription($this->session->data['order_id'], $order_product['order_product_id']);
+
+					if ($order_subscription && $order_product['product_id'] == $item['product_id'] && $item['product_id'] == $order_subscription['product_id']) {
+						$item['subscription']['order_id'] = $this->session->data['order_id'];
+						$item['subscription']['order_product_id'] = $order_product['order_product_id'];
+						$item['subscription']['product_id'] = $order_product['product_id'];
+						$item['subscription']['store_id'] = $this->config->get('config_store_id');
+						$item['subscription']['customer_id'] = $this->customer->getId();
+						$item['subscription']['payment_address_id'] = $order_info['payment_address_id'];
+						$item['subscription']['payment_method'] = $order_info['payment_method'];
+						$item['subscription']['shipping_address_id'] = $order_info['shipping_address_id'];
+						$item['subscription']['shipping_method'] = $order_info['shipping_method'];
+						$item['subscription']['quantity'] = $order_product['quantity'];
+						$item['subscription']['comment'] = $order_info['comment'];
+						$item['subscription']['affiliate_id'] = $order_info['affiliate_id'];
+						$item['subscription']['marketing_id'] = $order_info['marketing_id'];
+						$item['subscription']['tracking'] = $order_info['tracking'];
+						$item['subscription']['language_id'] = $order_info['language_id'];
+						$item['subscription']['currency_id'] = $order_info['currency_id'];
+						$item['subscription']['ip'] = $ip;
+						$item['subscription']['forwarded_ip'] = $forwarded_ip;
+						$item['subscription']['user_agent'] = $user_agent;
+						$item['subscription']['accept_language'] = $accept_language;
+
+						$this->model_extension_payment_worldpay->subscriptionPayment($item, $this->session->data['order_id'] . mt_rand(), $this->request->post['token']);
+					}
+				}
 			}
 
 			$this->response->redirect($this->url->link('checkout/success', '', true));

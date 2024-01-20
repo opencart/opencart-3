@@ -449,7 +449,7 @@ class ModelExtensionPaymentPayPal extends Model {
 		}
 	}
 
-	public function createPayment(array $order_data, array $paypal_order_data, float $price, int $order_recurring_id, string $recurring_name): array {
+	public function createPayment(array $order_data, array $paypal_order_data, float $price, int $subscription_id, string $name): array {
 		$this->load->language('extension/payment/paypal');
 
 		$_config = new Config();
@@ -496,7 +496,7 @@ class ModelExtensionPaymentPayPal extends Model {
 		$product_price = number_format($price * $currency_value, $decimal_place, '.', '');
 
 		$item_info[] = [
-			'name'        => $recurring_name,
+			'name'        => $name,
 			'quantity'    => 1,
 			'unit_amount' => [
 				'currency_code' => $currency_code,
@@ -551,7 +551,7 @@ class ModelExtensionPaymentPayPal extends Model {
 		}
 
 		if (isset($result['id']) && isset($result['status']) && !$errors) {
-			$this->log($result, 'Create Recurring Payment');
+			$this->log($result, 'Create Subscription Payment');
 
 			return $result;
 		}
@@ -713,7 +713,7 @@ class ModelExtensionPaymentPayPal extends Model {
 	public function charge(): bool {
 		/*
 		 * Used by the checkout to state the module
-		 * supports recurring recurrings.
+		 * supports recurring subscriptions.
 		 */
 		return true;
 	}

@@ -365,8 +365,6 @@ class ModelExtensionPaymentOpayo extends Model {
 					$this->addOrderTransaction($subscription_id, $response_data, 1);
 
 					$this->updateSubscriptionOrder($subscription_id, date_format($next_payment, 'Y-m-d H:i:s'));
-
-					$opayo_order_info = $this->getOrder($subscription_info['order_id']);
 				} else {
 					$this->addOrderTransaction($subscription_id, $response_data, 4);
 				}
@@ -589,15 +587,15 @@ class ModelExtensionPaymentOpayo extends Model {
 	 * @return array<int, array<string, mixed>>
 	 */
 	private function getProfiles(): array {
-		$order_recurring = [];
+		$order_recurring_data = [];
 
 		$query = $this->db->query("SELECT `or`.`order_recurring_id` FROM `" . DB_PREFIX . "order_recurring` `or` JOIN `" . DB_PREFIX . "order` `o` USING(`order_id`) WHERE `o`.`payment_code` = 'opayo'");
 
 		foreach ($query->rows as $recurring) {
-			$order_recurring[] = $this->getProfile($recurring['order_recurring_id']);
+			$order_recurring_data[] = $this->getProfile($recurring['order_recurring_id']);
 		}
 
-		return $order_recurring;
+		return $order_recurring_data;
 	}
 
 	/**
@@ -698,7 +696,7 @@ class ModelExtensionPaymentOpayo extends Model {
 	public function charge(): bool {
 		/*
 		 * Used by the checkout to state the module
-		 * supports recurring recurrings.
+		 * supports recurring subscriptions.
 		 */
 		return true;
 	}

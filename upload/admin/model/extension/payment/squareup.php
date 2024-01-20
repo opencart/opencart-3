@@ -112,15 +112,15 @@ class ModelExtensionPaymentSquareup extends Model {
 	}
 
 	/**
-	 * editOrderRecurringStatus
+	 * editOrderSubscriptionStatus
 	 *
-	 * @param int $order_recurring_id
+	 * @param int $subscription_id
 	 * @param int $status
 	 *
 	 * @return void
 	 */
-	public function editOrderRecurringStatus(int $order_recurring_id, int $status): void {
-		$this->db->query("UPDATE `" . DB_PREFIX . "order_recurring` SET `status` = '" . (int)$status . "' WHERE `order_recurring_id` = '" . (int)$order_recurring_id . "'");
+	public function editOrderSubscriptionStatus(int $subscription_id, int $status): void {
+		$this->db->query("UPDATE `" . DB_PREFIX . "subscription` SET `status` = '" . (int)$status . "' WHERE `subscription_id` = '" . (int)$subscription_id . "'");
 	}
 
 	/**

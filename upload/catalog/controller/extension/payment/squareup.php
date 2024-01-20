@@ -221,66 +221,71 @@ class ControllerExtensionPaymentSquareup extends Controller {
 					foreach ($this->cart->getProducts() as $item) {
 						foreach ($order_products as $order_product) {
 							if ($item['subscription'] && $order_product['product_id'] == $item['product_id']) {
-								if ($item['subscription']['trial_status']) {
-									$trial_price = $this->tax->calculate($item['subscription']['trial_price'] * $item['quantity'], $item['tax_class_id']);
-									$trial_amt = $this->currency->format($trial_price, $this->session->data['currency']);
-									$trial_text = sprintf($this->language->get('text_trial'), $trial_amt, $item['subscription']['trial_cycle'], $item['subscription']['trial_frequency'], $item['subscription']['trial_duration']);
+								$subscription_products = $this->cart->getSubscriptions();
 
-									$item['subscription']['trial_price'] = $trial_price;
+								$order_products = $this->model_checkout_order->getProducts($this->session->data['order_id']);
+
+								if (isset($this->request->server['HTTP_X_REAL_IP'])) {
+									$ip = $this->request->server['HTTP_X_REAL_IP'];
+								} elseif (isset($this->request->server['REMOTE_ADDR'])) {
+									$ip = $this->request->server['REMOTE_ADDR'];
 								} else {
-									$trial_text = '';
+									$ip = '';
 								}
 
-								$subscription_price = $this->tax->calculate($item['subscription']['price'] * $item['quantity'], $item['tax_class_id']);
-								$subscription_amt = $this->currency->format($subscription_price, $this->session->data['currency']);
-								$subscription_description = $trial_text . sprintf($this->language->get('text_subscription'), $subscription_amt, $item['subscription']['cycle'], $item['subscription']['frequency']);
-
-								$item['subscription']['price'] = $subscription_price;
-
-								if ($item['subscription']['duration'] > 0) {
-									$subscription_description .= sprintf($this->language->get('text_length'), $item['subscription']['duration']);
+								if (!empty($this->request->server['HTTP_X_FORWARDED_FOR'])) {
+									$forwarded_ip = $this->request->server['HTTP_X_FORWARDED_FOR'];
+								} elseif (!empty($this->request->server['HTTP_CLIENT_IP'])) {
+									$forwarded_ip = $this->request->server['HTTP_CLIENT_IP'];
+								} else {
+									$forwarded_ip = '';
 								}
 
-								$item['subscription']['description'] = $subscription_description;
-
-								if (!$item['subscription']['trial_status']) {
-									// We need to override this value for the proper calculation in updateRecurringExpired
-									$item['subscription']['trial_duration'] = 0;
+								if (isset($this->request->server['HTTP_USER_AGENT'])) {
+									$user_agent = $this->request->server['HTTP_USER_AGENT'];
+								} else {
+									$user_agent = '';
 								}
 
-								// Trial
-								if ($item['subscription']['trial_status'] && (!$item['subscription']['trial_duration'] || $item['subscription']['trial_remaining'])) {
-									$date_next = date('Y-m-d', strtotime('+' . $item['subscription']['trial_cycle'] . ' ' . $item['subscription']['trial_frequency']));
-								} elseif (!$item['subscription']['duration'] || $item['subscription']['remaining']) {
-									$date_next = date('Y-m-d', strtotime('+' . $item['subscription']['cycle'] . ' ' . $item['subscription']['frequency']));
+								if (isset($this->request->server['HTTP_ACCEPT_LANGUAGE'])) {
+									$accept_language = $this->request->server['HTTP_ACCEPT_LANGUAGE'];
+								} else {
+									$accept_language = '';
 								}
 
-								$subscription_data = [
-									'order_product_id'     => $order_product['order_product_id'],
-									'customer_id'          => $order_info['customer_id'],
-									'order_id'             => $this->session->data['order_id'],
-									'subscription_plan_id' => $item['subscription']['subscription_plan_id'],
-									'name'                 => $item['subscription']['name'],
-									'description'          => $item['subscription']['description'],
-									'trial_price'          => $item['subscription']['trial_price'],
-									'trial_frequency'      => $item['subscription']['trial_frequency'],
-									'trial_cycle'          => $item['subscription']['trial_cycle'],
-									'trial_duration'       => $item['subscription']['trial_duration'],
-									'trial_remaining'      => $item['subscription']['trial_remaining'],
-									'trial_status'         => $item['subscription']['trial_status'],
-									'price'                => $item['subscription']['price'],
-									'frequency'            => $item['subscription']['frequency'],
-									'cycle'                => $item['subscription']['cycle'],
-									'duration'             => $item['subscription']['duration'],
-									'remaining'            => $item['subscription']['duration'],
-									'status'               => $item['subscription']['status'],
-									'date_next'            => $date_next ?? ''
-								];
+								foreach ($subscription_products as $item) {
+									foreach ($order_products as $order_product) {
+										$order_subscription = $this->model_checkout_order->getSubscription($this->session->data['order_id'], $order_product['order_product_id']);
 
-								$subscription_id = $this->model_extension_payment_squareup->createRecurring($this->session->data['order_id'], $subscription_data);
+										if ($order_subscription && $order_product['product_id'] == $item['product_id'] && $item['product_id'] == $order_subscription['product_id']) {
+											$item['subscription']['order_id'] = $this->session->data['order_id'];
+											$item['subscription']['order_product_id'] = $order_product['order_product_id'];
+											$item['subscription']['product_id'] = $order_product['product_id'];
+											$item['subscription']['store_id'] = $this->config->get('config_store_id');
+											$item['subscription']['customer_id'] = $this->customer->getId();
+											$item['subscription']['payment_address_id'] = $order_info['payment_address_id'];
+											$item['subscription']['payment_method'] = $order_info['payment_method'];
+											$item['subscription']['shipping_address_id'] = $order_info['shipping_address_id'];
+											$item['subscription']['shipping_method'] = $order_info['shipping_method'];
+											$item['subscription']['quantity'] = $order_product['quantity'];
+											$item['subscription']['comment'] = $order_info['comment'];
+											$item['subscription']['affiliate_id'] = $order_info['affiliate_id'];
+											$item['subscription']['marketing_id'] = $order_info['marketing_id'];
+											$item['subscription']['tracking'] = $order_info['tracking'];
+											$item['subscription']['language_id'] = $order_info['language_id'];
+											$item['subscription']['currency_id'] = $order_info['currency_id'];
+											$item['subscription']['ip'] = $ip;
+											$item['subscription']['forwarded_ip'] = $forwarded_ip;
+											$item['subscription']['user_agent'] = $user_agent;
+											$item['subscription']['accept_language'] = $accept_language;
 
-								if ($subscription_id) {
-									$this->model_extension_payment_squareup->addTransaction($subscription_id, $subscription_data, $transaction, $transaction_status);
+											$subscription_id = $this->model_extension_payment_squareup->subscriptionPayment($item, $data);
+
+											if ($subscription_id) {
+												$this->model_extension_payment_squareup->addTransaction($subscription_id, $subscription_data, $transaction, $transaction_status);
+											}
+										}
+									}
 								}
 							}
 						}
