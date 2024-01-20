@@ -9,17 +9,15 @@ class ModelCatalogReview extends Model {
 	 * addReview
 	 *
 	 * @param int    $product_id
-	 * @param string $name
-	 * @param string $text
-	 * @param int    $rating
+	 * @param array  $data
 	 *
 	 * @return void
 	 * 
 	 * @throws \Exception
 	 */
-	public function addReview(int $product_id, string $name, string $text, int $rating): void {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "review` SET `author` = '" . $this->db->escape($name) . "', `customer_id` = '" . (int)$this->customer->getId() . "', `product_id` = '" . (int)$product_id . "', `text` = '" . $this->db->escape($text) . "', `rating` = '" . (int)$rating . "', `date_added` = NOW()");
-
+	public function addReview(int $product_id, array $data): void {
+		$this->db->query("INSERT INTO " . DB_PREFIX . "review SET author = '" . $this->db->escape($data['name']) . "', customer_id = '" . (int)$this->customer->getId() . "', product_id = '" . (int)$product_id . "', text = '" . $this->db->escape($data['text']) . "', rating = '" . (int)$data['rating'] . "', date_added = NOW(), `date_modified` = NOW()");
+		
 		$review_id = $this->db->getLastId();
 
 		if (in_array('review', (array)$this->config->get('config_mail_alert'))) {
