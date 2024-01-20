@@ -616,29 +616,35 @@ class ControllerExtensionPaymentPayPal extends Controller {
 						}
 					}
 
-					if (isset($product['recurring_id'])) {
-						$recurring_id = $product['recurring_id'];
+					if (isset($product['subscription_plan_id'])) {
+						$subscription_plan_id = $product['subscription_plan_id'];
 					} else {
-						$recurring_id = 0;
+						$subscription_plan_id = 0;
 					}
 
-					$recurrings = $this->model_catalog_product->getProfiles($product_info['product_id']);
+					$this->load->model('catalog/subscription_plan');
 
-					if ($recurrings) {
-						$recurring_ids = [];
+					$filter_data = [
+						'filter_name' => $product_info['name']
+					];
 
-						foreach ($recurrings as $recurring) {
-							$recurring_ids[] = $recurring['recurring_id'];
+					$subscription_plans = $this->model_catalog_subscription_plan->getSubscriptionPlans($filter_data);
+
+					if ($subscription_plans) {
+						$subscription_plan_ids = [];
+
+						foreach ($subscription_plans as $subscription_plan) {
+							$subscription_plan_ids[] = $subscription_plan['subscription_plan_id'];
 						}
 
-						if (!in_array($recurring_id, $recurring_ids)) {
-							$errors[] = $this->language->get('error_recurring_required');
+						if (!in_array($subscription_plan_id, $subscription_plan_ids)) {
+							$errors[] = $this->language->get('error_subscription_required');
 						}
 					}
 
 					if (!$errors) {
-						if (!$this->model_extension_payment_paypal->hasProductInCart($product_id, $option, $recurring_id)) {
-							$this->cart->add($product_id, $quantity, $option, $recurring_id);
+						if (!$this->model_extension_payment_paypal->hasProductInCart($product_id, $option, $subscription_plan_id)) {
+							$this->cart->add($product_id, $quantity, $option, $subscription_plan_id);
 						}
 
 						// Unset all shipping and payment methods
@@ -1346,17 +1352,62 @@ class ControllerExtensionPaymentPayPal extends Controller {
 								}
 
 								if (($authorization_status == 'CREATED') || ($authorization_status == 'PENDING')) {
-									$subscriptions = $this->cart->getSubscriptions();
+									$subscription_products = $this->cart->getSubscriptions();
 
 									$order_products = $this->model_checkout_order->getProducts($this->session->data['order_id']);
 
-									// Loop through any products that are subscription items
-									foreach ($subscriptions as $item) {
+									if (isset($this->request->server['HTTP_X_REAL_IP'])) {
+										$ip = $this->request->server['HTTP_X_REAL_IP'];
+									} elseif (isset($this->request->server['REMOTE_ADDR'])) {
+										$ip = $this->request->server['REMOTE_ADDR'];
+									} else {
+										$ip = '';
+									}
+
+									if (!empty($this->request->server['HTTP_X_FORWARDED_FOR'])) {
+										$forwarded_ip = $this->request->server['HTTP_X_FORWARDED_FOR'];
+									} elseif (!empty($this->request->server['HTTP_CLIENT_IP'])) {
+										$forwarded_ip = $this->request->server['HTTP_CLIENT_IP'];
+									} else {
+										$forwarded_ip = '';
+									}
+
+									if (isset($this->request->server['HTTP_USER_AGENT'])) {
+										$user_agent = $this->request->server['HTTP_USER_AGENT'];
+									} else {
+										$user_agent = '';
+									}
+
+									if (isset($this->request->server['HTTP_ACCEPT_LANGUAGE'])) {
+										$accept_language = $this->request->server['HTTP_ACCEPT_LANGUAGE'];
+									} else {
+										$accept_language = '';
+									}
+
+									foreach ($subscription_products as $item) {
 										foreach ($order_products as $order_product) {
 											$order_subscription = $this->model_checkout_order->getSubscription($this->session->data['order_id'], $order_product['order_product_id']);
 
-											if ($order_subscription && $item['product_id'] == $order_subscription['product_id'] && $order_subscription['product_id'] == $order_product['product_id']) {
-												$item['subscription']['name'] = $order_product['name'];
+											if ($order_subscription && $order_product['product_id'] == $item['product_id'] && $item['product_id'] == $order_subscription['product_id']) {
+												$item['subscription']['order_product_id'] = $order_product['order_product_id'];
+												$item['subscription']['product_id'] = $order_product['product_id'];
+												$item['subscription']['store_id'] = $this->config->get('config_store_id');
+												$item['subscription']['customer_id'] = $this->customer->getId();
+												$item['subscription']['payment_address_id'] = $order_info['payment_address_id'];
+												$item['subscription']['payment_method'] = $order_info['payment_method'];
+												$item['subscription']['shipping_address_id'] = $order_info['shipping_address_id'];
+												$item['subscription']['shipping_method'] = $order_info['shipping_method'];
+												$item['subscription']['quantity'] = $order_product['quantity'];
+												$item['subscription']['comment'] = $order_info['comment'];
+												$item['subscription']['affiliate_id'] = $order_info['affiliate_id'];
+												$item['subscription']['marketing_id'] = $order_info['marketing_id'];
+												$item['subscription']['tracking'] = $order_info['tracking'];
+												$item['subscription']['language_id'] = $order_info['language_id'];
+												$item['subscription']['currency_id'] = $order_info['currency_id'];
+												$item['subscription']['ip'] = $ip;
+												$item['subscription']['forwarded_ip'] = $forwarded_ip;
+												$item['subscription']['user_agent'] = $user_agent;
+												$item['subscription']['accept_language'] = $accept_language;
 
 												$this->model_extension_payment_paypal->subscriptionPayment($item, $order_info, $paypal_order_data);
 											}
@@ -1438,17 +1489,62 @@ class ControllerExtensionPaymentPayPal extends Controller {
 								}
 
 								if (($capture_status == 'COMPLETED') || ($capture_status == 'PENDING')) {
-									$subscriptions = $this->cart->getSubscriptions();
+									$subscription_products = $this->cart->getSubscriptions();
 
 									$order_products = $this->model_checkout_order->getProducts($this->session->data['order_id']);
 
-									// Loop through any products that are subscription items
-									foreach ($subscriptions as $item) {
+									if (isset($this->request->server['HTTP_X_REAL_IP'])) {
+										$ip = $this->request->server['HTTP_X_REAL_IP'];
+									} elseif (isset($this->request->server['REMOTE_ADDR'])) {
+										$ip = $this->request->server['REMOTE_ADDR'];
+									} else {
+										$ip = '';
+									}
+
+									if (!empty($this->request->server['HTTP_X_FORWARDED_FOR'])) {
+										$forwarded_ip = $this->request->server['HTTP_X_FORWARDED_FOR'];
+									} elseif (!empty($this->request->server['HTTP_CLIENT_IP'])) {
+										$forwarded_ip = $this->request->server['HTTP_CLIENT_IP'];
+									} else {
+										$forwarded_ip = '';
+									}
+
+									if (isset($this->request->server['HTTP_USER_AGENT'])) {
+										$user_agent = $this->request->server['HTTP_USER_AGENT'];
+									} else {
+										$user_agent = '';
+									}
+
+									if (isset($this->request->server['HTTP_ACCEPT_LANGUAGE'])) {
+										$accept_language = $this->request->server['HTTP_ACCEPT_LANGUAGE'];
+									} else {
+										$accept_language = '';
+									}
+
+									foreach ($subscription_products as $item) {
 										foreach ($order_products as $order_product) {
 											$order_subscription = $this->model_checkout_order->getSubscription($this->session->data['order_id'], $order_product['order_product_id']);
 
-											if ($order_subscription && $item['product_id'] == $order_subscription['product_id'] && $order_subscription['product_id'] == $order_product['product_id']) {
-												$item['subscription']['name'] = $order_product['name'];
+											if ($order_subscription && $order_product['product_id'] == $item['product_id'] && $item['product_id'] == $order_subscription['product_id']) {
+												$item['subscription']['order_product_id'] = $order_product['order_product_id'];
+												$item['subscription']['product_id'] = $order_product['product_id'];
+												$item['subscription']['store_id'] = $this->config->get('config_store_id');
+												$item['subscription']['customer_id'] = $this->customer->getId();
+												$item['subscription']['payment_address_id'] = $order_info['payment_address_id'];
+												$item['subscription']['payment_method'] = $order_info['payment_method'];
+												$item['subscription']['shipping_address_id'] = $order_info['shipping_address_id'];
+												$item['subscription']['shipping_method'] = $order_info['shipping_method'];
+												$item['subscription']['quantity'] = $order_product['quantity'];
+												$item['subscription']['comment'] = $order_info['comment'];
+												$item['subscription']['affiliate_id'] = $order_info['affiliate_id'];
+												$item['subscription']['marketing_id'] = $order_info['marketing_id'];
+												$item['subscription']['tracking'] = $order_info['tracking'];
+												$item['subscription']['language_id'] = $order_info['language_id'];
+												$item['subscription']['currency_id'] = $order_info['currency_id'];
+												$item['subscription']['ip'] = $ip;
+												$item['subscription']['forwarded_ip'] = $forwarded_ip;
+												$item['subscription']['user_agent'] = $user_agent;
+												$item['subscription']['accept_language'] = $accept_language;
 
 												$this->model_extension_payment_paypal->subscriptionPayment($item, $order_info, $paypal_order_data);
 											}
@@ -2517,17 +2613,62 @@ class ControllerExtensionPaymentPayPal extends Controller {
 							}
 
 							if (($authorization_status == 'CREATED') || ($authorization_status == 'PENDING')) {
-								$subscriptions = $this->cart->getSubscriptions();
+								$subscription_products = $this->cart->getSubscriptions();
 
 								$order_products = $this->model_checkout_order->getProducts($this->session->data['order_id']);
 
-								// Loop through any products that are subscription items
-								foreach ($subscriptions as $item) {
+								if (isset($this->request->server['HTTP_X_REAL_IP'])) {
+									$ip = $this->request->server['HTTP_X_REAL_IP'];
+								} elseif (isset($this->request->server['REMOTE_ADDR'])) {
+									$ip = $this->request->server['REMOTE_ADDR'];
+								} else {
+									$ip = '';
+								}
+
+								if (!empty($this->request->server['HTTP_X_FORWARDED_FOR'])) {
+									$forwarded_ip = $this->request->server['HTTP_X_FORWARDED_FOR'];
+								} elseif (!empty($this->request->server['HTTP_CLIENT_IP'])) {
+									$forwarded_ip = $this->request->server['HTTP_CLIENT_IP'];
+								} else {
+									$forwarded_ip = '';
+								}
+
+								if (isset($this->request->server['HTTP_USER_AGENT'])) {
+									$user_agent = $this->request->server['HTTP_USER_AGENT'];
+								} else {
+									$user_agent = '';
+								}
+
+								if (isset($this->request->server['HTTP_ACCEPT_LANGUAGE'])) {
+									$accept_language = $this->request->server['HTTP_ACCEPT_LANGUAGE'];
+								} else {
+									$accept_language = '';
+								}
+
+								foreach ($subscription_products as $item) {
 									foreach ($order_products as $order_product) {
 										$order_subscription = $this->model_checkout_order->getSubscription($this->session->data['order_id'], $order_product['order_product_id']);
 
-										if ($order_subscription && $item['product_id'] == $order_subscription['product_id'] && $order_subscription['product_id'] == $order_product['product_id']) {
-											$item['subscription']['name'] = $order_product['name'];
+										if ($order_subscription && $order_product['product_id'] == $item['product_id'] && $item['product_id'] == $order_subscription['product_id']) {
+											$item['subscription']['order_product_id'] = $order_product['order_product_id'];
+											$item['subscription']['product_id'] = $order_product['product_id'];
+											$item['subscription']['store_id'] = $this->config->get('config_store_id');
+											$item['subscription']['customer_id'] = $this->customer->getId();
+											$item['subscription']['payment_address_id'] = $order_info['payment_address_id'];
+											$item['subscription']['payment_method'] = $order_info['payment_method'];
+											$item['subscription']['shipping_address_id'] = $order_info['shipping_address_id'];
+											$item['subscription']['shipping_method'] = $order_info['shipping_method'];
+											$item['subscription']['quantity'] = $order_product['quantity'];
+											$item['subscription']['comment'] = $order_info['comment'];
+											$item['subscription']['affiliate_id'] = $order_info['affiliate_id'];
+											$item['subscription']['marketing_id'] = $order_info['marketing_id'];
+											$item['subscription']['tracking'] = $order_info['tracking'];
+											$item['subscription']['language_id'] = $order_info['language_id'];
+											$item['subscription']['currency_id'] = $order_info['currency_id'];
+											$item['subscription']['ip'] = $ip;
+											$item['subscription']['forwarded_ip'] = $forwarded_ip;
+											$item['subscription']['user_agent'] = $user_agent;
+											$item['subscription']['accept_language'] = $accept_language;
 
 											$this->model_extension_payment_paypal->subscriptionPayment($item, $order_info, $paypal_order_data);
 										}
@@ -2609,18 +2750,63 @@ class ControllerExtensionPaymentPayPal extends Controller {
 							}
 
 							if (($capture_status == 'COMPLETED') || ($capture_status == 'PENDING')) {
-								$subscriptions = $this->cart->getSubscriptions();
-					
+								$subscription_products = $this->cart->getSubscriptions();
+
 								$order_products = $this->model_checkout_order->getProducts($this->session->data['order_id']);
-					
-								// Loop through any products that are subscription items
-								foreach ($subscriptions as $item) {
+
+								if (isset($this->request->server['HTTP_X_REAL_IP'])) {
+									$ip = $this->request->server['HTTP_X_REAL_IP'];
+								} elseif (isset($this->request->server['REMOTE_ADDR'])) {
+									$ip = $this->request->server['REMOTE_ADDR'];
+								} else {
+									$ip = '';
+								}
+
+								if (!empty($this->request->server['HTTP_X_FORWARDED_FOR'])) {
+									$forwarded_ip = $this->request->server['HTTP_X_FORWARDED_FOR'];
+								} elseif (!empty($this->request->server['HTTP_CLIENT_IP'])) {
+									$forwarded_ip = $this->request->server['HTTP_CLIENT_IP'];
+								} else {
+									$forwarded_ip = '';
+								}
+
+								if (isset($this->request->server['HTTP_USER_AGENT'])) {
+									$user_agent = $this->request->server['HTTP_USER_AGENT'];
+								} else {
+									$user_agent = '';
+								}
+
+								if (isset($this->request->server['HTTP_ACCEPT_LANGUAGE'])) {
+									$accept_language = $this->request->server['HTTP_ACCEPT_LANGUAGE'];
+								} else {
+									$accept_language = '';
+								}
+
+								foreach ($subscription_products as $item) {
 									foreach ($order_products as $order_product) {
 										$order_subscription = $this->model_checkout_order->getSubscription($this->session->data['order_id'], $order_product['order_product_id']);
-					
-										if ($order_subscription && $item['product_id'] == $order_subscription['product_id'] && $order_subscription['product_id'] == $order_product['product_id']) {
-											$item['subscription']['name'] = $order_product['name'];
-					
+
+										if ($order_subscription && $order_product['product_id'] == $item['product_id'] && $item['product_id'] == $order_subscription['product_id']) {
+											$item['subscription']['order_product_id'] = $order_product['order_product_id'];
+											$item['subscription']['product_id'] = $order_product['product_id'];
+											$item['subscription']['store_id'] = $this->config->get('config_store_id');
+											$item['subscription']['customer_id'] = $this->customer->getId();
+											$item['subscription']['payment_address_id'] = $order_info['payment_address_id'];
+											$item['subscription']['payment_method'] = $order_info['payment_method'];
+											$item['subscription']['shipping_address_id'] = $order_info['shipping_address_id'];
+											$item['subscription']['shipping_method'] = $order_info['shipping_method'];
+											$item['subscription']['quantity'] = $order_product['quantity'];
+											$item['subscription']['comment'] = $order_info['comment'];
+											$item['subscription']['affiliate_id'] = $order_info['affiliate_id'];
+											$item['subscription']['marketing_id'] = $order_info['marketing_id'];
+											$item['subscription']['tracking'] = $order_info['tracking'];
+											$item['subscription']['language_id'] = $order_info['language_id'];
+											$item['subscription']['currency_id'] = $order_info['currency_id'];
+											$item['subscription']['ip'] = $ip;
+											$item['subscription']['forwarded_ip'] = $forwarded_ip;
+											$item['subscription']['user_agent'] = $user_agent;
+											$item['subscription']['accept_language'] = $accept_language;
+
 											$this->model_extension_payment_paypal->subscriptionPayment($item, $order_info, $paypal_order_data);
 										}
 									}

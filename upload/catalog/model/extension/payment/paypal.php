@@ -162,13 +162,13 @@ class ModelExtensionPaymentPayPal extends Model {
 	}
 
 	public function addOrderSubscription(int $order_id, string $description, array $data, string $reference): int {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "order_subscription` SET `order_id` = '" . (int)$order_id . "', `product_id` = '" . (int)$data['product_id'] . "', `order_product_id` = '" . (int)$data['order_product_id'] . "', `subscription_plan_id` = '" . (int)$data['subscription']['subscription_plan_id'] . "', `frequency` = '" . $this->db->escape($data['subscription']['frequency']) . "', `cycle` = '" . (int)$data['subscription']['cycle'] . "', `duration` = '" . (int)$data['subscription']['duration'] . "', `price` = '" . (float)$data['subscription']['price'] . "', `tax` = '" . (float)$data['subscription']['tax'] . "', `trial_frequency` = '" . $this->db->escape($data['subscription']['trial_frequency']) . "', `trial_cycle` = '" . (int)$data['subscription']['trial_cycle'] . "', `trial_duration` = '" . (int)$data['subscription']['trial_duration'] . "', `trial_price` = '" . (float)$data['subscription']['trial_price'] . "'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "order_subscription` SET `order_id` = '" . (int)$order_id . "', `product_id` = '" . (int)$data['subscription']['product_id'] . "', `order_product_id` = '" . (int)$data['subscription']['order_product_id'] . "', `subscription_plan_id` = '" . (int)$data['subscription']['subscription_plan_id'] . "', `frequency` = '" . $this->db->escape($data['subscription']['frequency']) . "', `cycle` = '" . (int)$data['subscription']['cycle'] . "', `duration` = '" . (int)$data['subscription']['duration'] . "', `price` = '" . (float)$data['subscription']['price'] . "', `tax` = '" . (float)$data['subscription']['tax'] . "', `trial_frequency` = '" . $this->db->escape($data['subscription']['trial_frequency']) . "', `trial_cycle` = '" . (int)$data['subscription']['trial_cycle'] . "', `trial_duration` = '" . (int)$data['subscription']['trial_duration'] . "', `trial_price` = '" . (float)$data['subscription']['trial_price'] . "'");
 
 		return $this->db->getLastId();
 	}
 
 	public function editOrderSubscriptionStatus(int $order_id, int $status): void {
-		$this->db->query("UPDATE `" . DB_PREFIX . "paypal_checkout_integration_order` SET `status` = '" . (int)$status . "' WHERE `order_id` = '" . (int)$order_id . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "paypal_checkout_integration_order_subscription` SET `status` = '" . (int)$status . "' WHERE `order_id` = '" . (int)$order_id . "'");
 	}
 
 	public function deleteOrderSubscription(int $order_id): void {
@@ -205,12 +205,14 @@ class ModelExtensionPaymentPayPal extends Model {
 	 * subscriptionPayment
 	 *
 	 * @param array $item
-	 * @param array $order_data
+	 * @param array $order_info
 	 * @param array $paypal_order_data
 	 *
 	 * @return void
 	 */
-	public function subscriptionPayment(array $item, array $order_data, array $paypal_order_data): void {
+	public function subscriptionPayment(array $item, array $order_info, array $paypal_order_data): void {
+		$this->load->model('checkout/subscription');
+
 		$_config = new Config();
 		$_config->load('paypal');
 
@@ -219,8 +221,6 @@ class ModelExtensionPaymentPayPal extends Model {
 		$setting = array_replace_recursive((array)$config_setting, (array)$this->config->get('payment_paypal_setting'));
 
 		$transaction_method = $setting['general']['transaction_method'];
-
-		$recurring_name = $item['subscription']['name'];
 
 		if ($item['subscription']['trial_status'] == 1) {
 			$price = $item['subscription']['trial_price'];
@@ -257,8 +257,6 @@ class ModelExtensionPaymentPayPal extends Model {
 			}
 		}
 
-		$order_subscription_id = $this->addOrderSubscription($order_data['order_id'], $description, $item, $paypal_order_data['transaction_id']);
-
 		$next_payment = new \DateTime('now');
 		$trial_end = new \DateTime('now');
 		$subscription_end = new \DateTime('now');
@@ -284,7 +282,9 @@ class ModelExtensionPaymentPayPal extends Model {
 			$subscription_end = new \DateTime('0000-00-00');
 		}
 
-		$result = $this->createPayment($order_data, $paypal_order_data, $price, $order_subscription_id, $recurring_name);
+		$order_subscription_id = $this->addOrderSubscription($order_info['order_id'], $description, $item, $paypal_order_data['transaction_id']);
+
+		$result = $this->createPayment($order_info, $paypal_order_data, $price, $order_subscription_id, $item['subscription']['name']);
 
 		$transaction_status = '';
 		$transaction_id = '';
@@ -308,11 +308,11 @@ class ModelExtensionPaymentPayPal extends Model {
 		}
 
 		if ($transaction_id && $transaction_status && $currency_code && $amount) {
-			$this->editOrderRecurringStatus($order_subscription_id, 1);
+			$this->editOrderSubscriptionStatus($order_info['order_id'], 1);
 
 			$paypal_order_subscription_data = [
 				'order_subscription_id' => $order_subscription_id,
-				'order_id'              => $order_data['order_id'],
+				'order_id'              => $order_info['order_id'],
 				'trial_end'             => date_format($trial_end, 'Y-m-d H       : i: s'),
 				'subscription_end'      => date_format($subscription_end, 'Y-m-d H: i: s'),
 				'currency_code'         => $currency_code,
@@ -329,9 +329,11 @@ class ModelExtensionPaymentPayPal extends Model {
 					'amount'                => $amount
 				];
 
-				$this->addOrderRecurringTransaction($order_subscription_transaction_data);
+				$this->addOrderSubscriptionTransaction($order_subscription_transaction_data);
 
 				$this->editPayPalOrderSubscriptionNextPayment($order_subscription_id, date_format($next_payment, 'Y-m-d H:i:s'));
+
+				$this->model_checkout_subscription->addSubscription($item['subscription']);
 			} else {
 				$order_subscription_transaction_data = [
 					'order_subscription_id' => $order_subscription_id,
@@ -340,7 +342,7 @@ class ModelExtensionPaymentPayPal extends Model {
 					'amount'                => $amount
 				];
 
-				$this->addOrderRecurringTransaction($order_subscription_transaction_data);
+				$this->addOrderSubscriptionTransaction($order_subscription_transaction_data);
 			}
 		}
 	}
@@ -428,7 +430,7 @@ class ModelExtensionPaymentPayPal extends Model {
 								'amount'                => $amount
 							];
 
-							$this->addOrderRecurringTransaction($order_subscription_transaction_data);
+							$this->addOrderSubscriptionTransaction($order_subscription_transaction_data);
 
 							$this->editPayPalOrderSubscriptionNextPayment($order_subscription['order_id'], date_format($next_payment, 'Y-m-d H:i:s'));
 						} else {
@@ -439,7 +441,7 @@ class ModelExtensionPaymentPayPal extends Model {
 								'amount'                => $amount
 							];
 
-							$this->addOrderRecurringTransaction($order_subscription_transaction_data);
+							$this->addOrderSubscriptionTransaction($order_subscription_transaction_data);
 						}
 					}
 				}
@@ -611,13 +613,13 @@ class ModelExtensionPaymentPayPal extends Model {
 	public function getAgreeStatus(): bool {
 		$agree_status = true;
 
-		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "country WHERE status = '1' AND (iso_code_2 = 'CU' OR iso_code_2 = 'IR' OR iso_code_2 = 'SY' OR iso_code_2 = 'KP')");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "country` WHERE `status` = '1' AND (`iso_code_2` = 'CU' OR `iso_code_2` = 'IR' OR `iso_code_2` = 'SY' OR `iso_code_2` = 'KP')");
 
 		if ($query->rows) {
 			$agree_status = false;
 		}
 
-		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "zone WHERE country_id = '220' AND status = '1' AND (`code` = '43' OR `code` = '14' OR `code` = '09')");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone` WHERE `country_id` = '220' AND `status` = '1' AND (`code` = '43' OR `code` = '14' OR `code` = '09')");
 
 		if ($query->rows) {
 			$agree_status = false;
@@ -660,18 +662,16 @@ class ModelExtensionPaymentPayPal extends Model {
 		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "paypal_checkout_integration_order_subscription` (
 			`paypal_subscription_id` int(11) NOT NULL AUTO_INCREMENT,
 			`order_id` int(11) NOT NULL,
-			`order_id` int(11) NOT NULL,
 			`next_payment` datetime NOT NULL,
 			`trial_end` datetime DEFAULT NULL,
 			`subscription_end` datetime DEFAULT NULL,
 			`currency_code` varchar(3) NOT NULL,
-			`total` decimal(10, 2) NOT NULL,			
+			`total` decimal(10, 2) NOT NULL,
 			`date_added` datetime NOT NULL,
 			`date_modified` datetime NOT NULL,
 			PRIMARY KEY (`paypal_subscription_id`),
-			KEY (`order_id`),
-			KEY (`subscription_id`))
-			ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci");
+			KEY (`order_id`)
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci");
 
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "order_subscription_transaction` (
@@ -700,9 +700,9 @@ class ModelExtensionPaymentPayPal extends Model {
 
 		$config_setting = $_config->get('paypal_setting');
 
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "setting` WHERE store_id = '0' AND `code` = 'paypal_version'");
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "setting` WHERE `store_id` = '0' AND `code` = 'paypal_version'");
 
-		$this->db->query("INSERT INTO " . DB_PREFIX . "setting SET store_id = '0', `code` = 'paypal_version', `key` = 'paypal_version', `value` = '" . $this->db->escape($config_setting['version']) . "'");
+		$this->db->query("INSERT INTO " . DB_PREFIX . "setting SET `store_id` = '0', `code` = 'paypal_version', `key` = 'paypal_version', `value` = '" . $this->db->escape($config_setting['version']) . "'");
 	}
 
 	/**

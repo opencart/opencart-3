@@ -299,11 +299,13 @@ class ModelExtensionPaymentPayPal extends Model {
 			`vault_id` varchar(50) NULL,
 			`vault_customer_id` varchar(50) NULL,
 			`environment` varchar(20) NULL,
+			`status` tinyint(1) NOT NULL,
 			PRIMARY KEY (`order_id`, `transaction_id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci");
 
 		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "paypal_checkout_integration_order_subscription` (
 			`paypal_subscription_id` int(11) NOT NULL AUTO_INCREMENT,
+			`order_subscription_id` int(11) NOT NULL,
 			`order_id` int(11) NOT NULL,
 			`date_added` datetime NOT NULL,
 			`date_modified` datetime NOT NULL,
@@ -311,8 +313,7 @@ class ModelExtensionPaymentPayPal extends Model {
 			`trial_end` datetime DEFAULT NULL,
 			`subscription_end` datetime DEFAULT NULL,
 			`currency_code` varchar(3) NOT NULL,
-			`total` decimal(10, 2) NOT NULL,
-			`status` tinyin(1) NOT NULL,
+			`total` decimal(10, 2) NOT NULL,			
 			PRIMARY KEY (`paypal_subscription_id`),
 			KEY (`order_id`),
 			KEY (`subscription_id`)
@@ -321,7 +322,7 @@ class ModelExtensionPaymentPayPal extends Model {
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "order_subscription_transaction` (
 			  `order_subscription_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
-			  `order_id` int(11) NOT NULL,
+			  `order_subscription_id` int(11) NOT NULL,
 			  `reference` varchar(255) NOT NULL,
 			  `type` tinyint(1) NOT NULL,
 			  `amount` decimal(15,4) NOT NULL,

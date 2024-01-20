@@ -2305,20 +2305,20 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 			$this->load->model('extension/payment/paypal');
 
-			if (!empty($this->request->get['order_id'])) {
-				$order_id = (int)$this->request->get['order_id'];
+			if (!empty($this->request->get['order_subscription_id'])) {
+				$order_subscription_id = (int)$this->request->get['order_subscription_id'];
 			} else {
-				$order_id = 0;
+				$order_subscription_id = 0;
 			}
 
-			$data['order_id'] = $order_id;
+			$data['order_subscription_id'] = $order_subscription_id;
 
-			$order_subscription_info = $this->model_extension_payment_paypal->getPayPalOrderSubscription($order_id);
+			$order_subscription_info = $this->model_extension_payment_paypal->getPayPalOrderSubscription($order_subscription_id);
 
 			if ($order_subscription_info) {
 				$data['subscription_status'] = $order_subscription_info['status'];
 
-				$data['info_url'] = str_replace('&amp;', '&', $this->url->link('extension/payment/paypal/getRecurringInfo', 'user_token=' . $this->session->data['user_token'] . '&order_id=' . $order_id, true));
+				$data['info_url'] = str_replace('&amp;', '&', $this->url->link('extension/payment/paypal/getSubscriptionInfo', 'user_token=' . $this->session->data['user_token'] . '&order_subscription_id=' . $order_subscription_id, true));
 				$data['enable_url'] = str_replace('&amp;', '&', $this->url->link('extension/payment/paypal/enableSubscription', 'user_token=' . $this->session->data['user_token'], true));
 				$data['disable_url'] = str_replace('&amp;', '&', $this->url->link('extension/payment/paypal/disableSubscription', 'user_token=' . $this->session->data['user_token'], true));
 
@@ -2351,13 +2351,13 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 			$this->load->model('extension/payment/paypal');
 
-			if (!empty($this->request->get['order_id'])) {
-				$order_id = (int)$this->request->get['order_id'];
+			if (!empty($this->request->get['order_subscription_id'])) {
+				$order_subscription_id = (int)$this->request->get['order_subscription_id'];
 			} else {
-				$order_id = 0;
+				$order_subscription_id = 0;
 			}
 
-			$this->model_extension_payment_paypal->editOrderSubscriptionStatus($order_id, 1);
+			$this->model_extension_payment_paypal->editOrderSubscriptionStatus($order_subscription_id, 1);
 
 			$json['success'] = $this->language->get('success_enable_subscription');
 		}
@@ -2381,13 +2381,13 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 			$this->load->model('extension/payment/paypal');
 
-			if (!empty($this->request->get['order_id'])) {
-				$order_id = (int)$this->request->get['order_id'];
+			if (!empty($this->request->get['order_subscription_id'])) {
+				$order_subscription_id = (int)$this->request->get['order_subscription_id'];
 			} else {
-				$order_id = 0;
+				$order_subscription_id = 0;
 			}
 
-			$this->model_extension_payment_paypal->editOrderSubscriptionStatus($order_id, 2);
+			$this->model_extension_payment_paypal->editOrderSubscriptionStatus($order_subscription_id, 2);
 
 			$json['success'] = $this->language->get('success_disable_subscription');
 		}

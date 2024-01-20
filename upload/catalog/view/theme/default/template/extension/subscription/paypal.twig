@@ -12,7 +12,7 @@ $('#paypal-subscription').on('click', '.button-enable-subscription', function() 
 	$.ajax({
 		type: 'post',
 		url: '{{ enable_url }}',
-		data: { 'subscription_id' : '{{ subscription_id }}' },
+		data: { 'order_subscription_id' : '{{ order_subscription_id }}' },
 		dataType: 'json',
 		beforeSend: function() {
 			$('#paypal-subscription .btn').prop('disabled', true);

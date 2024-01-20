@@ -118,7 +118,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
 	public function addOrder(array $order_info): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "sagepay_server_order` WHERE `order_id` = '" . (int)$order_info['order_id'] . "'");
 
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "sagepay_server_order` SET `order_id` = '" . (int)$order_info['order_id'] . "', `customer_id` = '" . (int)$this->customer->getId() . "', `vps_tx_id` = '" . $this->db->escape($order_info['VPSTxId']) . "', `vendor_tx_code` = '" . $this->db->escape($order_info['VendorTxCode']) . "', `security_key` = '" . $this->db->escape($order_info['SecurityKey']) . "', `date_added` = NOW(), `date_modified` = NOW(), `currency_code` = '" . $this->db->escape($order_info['currency_code']) . "', `total` = '" . $this->currency->format($order_info['total'], $order_info['currency_code'], false, false) . "'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "sagepay_server_order` SET `order_id` = '" . (int)$order_info['order_id'] . "', `customer_id` = '" . (int)$this->customer->getId() . "', `vps_tx_id` = '" . $this->db->escape($order_info['VPSTxId']) . "', `vendor_tx_code` = '" . $this->db->escape($order_info['VendorTxCode']) . "', `security_key` = '" . $this->db->escape($order_info['SecurityKey']) . "', `currency_code` = '" . $this->db->escape($order_info['currency_code']) . "', `total` = '" . $this->currency->format($order_info['total'], $order_info['currency_code'], false, false) . "', `date_added` = NOW(), `date_modified` = NOW()");
 	}
 
 	/**
@@ -224,33 +224,14 @@ class ModelExtensionPaymentSagePayServer extends Model {
 	 *
 	 * @return void
 	 */
-	public function addRecurringPayment(array $item, string $vendor_tx_code): void {
+	public function subscriptionPayment(array $item, string $vendor_tx_code): void {
 		$this->load->language('extension/payment/sagepay_server');
 
 		// Subscriptions
 		$this->load->model('checkout/subscription');
 
-		// Trial information
-		if ($item['subscription']['trial_status'] == 1) {
-			$trial_amt = $this->currency->format($this->tax->calculate($item['subscription']['trial_price'], $item['subscription']['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['subscription']['quantity'] . ' ' . $this->session->data['currency'];
-			$trial_text = sprintf($this->language->get('text_trial'), $trial_amt, $item['subscription']['trial_cycle'], $item['subscription']['trial_frequency'], $item['subscription']['trial_duration']);
-		} else {
-			$trial_text = '';
-		}
-
-		$subscription_amt = $this->currency->format($this->tax->calculate($item['subscription']['price'], $item['subscription']['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['subscription']['quantity'] . ' ' . $this->session->data['currency'];
-		$subscription_description = $trial_text . sprintf($this->language->get('text_subscription'), $subscription_amt, $item['subscription']['cycle'], $item['subscription']['frequency']);
-
-		$item['subscription']['description'] = [];
-
-		if ($item['subscription']['duration'] > 0) {
-			$subscription_description .= sprintf($this->language->get('text_length'), $item['subscription']['duration']);
-		}
-
-		$item['subscription']['description'] = $subscription_description;
-
 		// Create new subscription and set to pending status as no payment has been made yet.
-		$subscription_id = $this->model_checkout_subscription->addSubscription($item['subscription']['subscription']);
+		$subscription_id = $this->model_checkout_subscription->addSubscription($item['subscription']);
 
 		//$this->model_checkout_subscription->editReference($subscription_id, $vendor_tx_code);
 	}
