@@ -15,7 +15,7 @@ class ControllerExtensionPaymentOpayo extends Controller {
 			$this->load->language('extension/payment/opayo');
 
 			// Setting
-			$_config = new Config();
+			$_config = new \Config();
 			$_config->load('opayo');
 
 			$config_setting = $_config->get('opayo_setting');
@@ -78,12 +78,12 @@ class ControllerExtensionPaymentOpayo extends Controller {
 	public function confirm(): void {
 		$this->load->language('extension/payment/opayo');
 
-		$this->load->model('checkout/order');
 		$this->load->model('extension/payment/opayo');
-		$this->load->model('account/order');
 
+		$this->load->model('checkout/order');
+		
 		// Setting
-		$_config = new Config();
+		$_config = new \Config();
 		$_config->load('opayo');
 
 		$config_setting = $_config->get('opayo_setting');
@@ -188,11 +188,13 @@ class ControllerExtensionPaymentOpayo extends Controller {
 			$payment_data['DeliveryPhone'] = $order_info['telephone'];
 		}
 
-		$order_products = $this->model_account_order->getOrderProducts($this->session->data['order_id']);
+		$this->load->model('account/order');
+
+		$order_products = $this->model_account_order->getProducts($this->session->data['order_id']);
 
 		$cart_rows = 0;
 
-		$str_basket = "";
+		$str_basket = '';
 
 		foreach ($order_products as $product) {
 			$str_basket
@@ -205,7 +207,7 @@ class ControllerExtensionPaymentOpayo extends Controller {
 			$cart_rows++;
 		}
 
-		$order_totals = $this->model_account_order->getOrderTotals($this->session->data['order_id']);
+		$order_totals = $this->model_account_order->getTotals($this->session->data['order_id']);
 
 		foreach ($order_totals as $total) {
 			$str_basket .= ":" . str_replace(":", " ", $total['title']) . ":::::" . $this->currency->format($total['value'], $order_info['currency_code'], false, false);
@@ -334,72 +336,24 @@ class ControllerExtensionPaymentOpayo extends Controller {
 			$this->model_extension_payment_opayo->log('Payment Data', $payment_data);
 			$this->model_extension_payment_opayo->log('Order Id', $this->session->data['order_id']);
 
-			$this->model_extension_payment_opayo->addOrderTransaction($opayo_order_id, $setting['general']['transaction_method'], $order_info);
+			$this->model_extension_payment_opayo->addTransaction($opayo_order_id, $setting['general']['transaction_method'], $order_info);
 
 			$this->model_checkout_order->addHistory($this->session->data['order_id'], $setting['general']['order_status_id'], $message, false);
 
 			if ($setting['general']['transaction_method'] == 'PAYMENT') {
-				// Subscription
-				$order_data = [];
-
-				$order_data['subscription']['store_id'] = $order_info['store_id'];
-				$order_data['subscription']['customer_id'] = $order_info['customer_id'];
-				$order_data['subscription']['payment_address_id'] = $order_info['payment_address_id'];
-				$order_data['subscription']['payment_method'] = $order_info['payment_method'];
-				$order_data['subscription']['shipping_address_id'] = $order_info['shipping_address_id'];
-				$order_data['subscription']['shipping_method'] = $order_info['shipping_method'];
-				$order_data['subscription']['comment'] = $order_info['comment'];
-				$order_data['subscription']['affiliate_id'] = $order_info['affiliate_id'];
-				$order_data['subscription']['marketing_id'] = $order_info['marketing_id'];
-				$order_data['subscription']['tracking'] = $order_info['tracking'];
-				$order_data['subscription']['language_id'] = $order_info['language_id'];
-				$order_data['subscription']['currency_id'] = $order_info['currency_id'];
-				$order_data['subscription']['ip'] = $this->request->server['REMOTE_ADDR'];
-
-				if (!empty($this->request->server['HTTP_X_FORWARDED_FOR'])) {
-					$forwarded_ip = $this->request->server['HTTP_X_FORWARDED_FOR'];
-				} elseif (!empty($this->request->server['HTTP_CLIENT_IP'])) {
-					$forwarded_ip = $this->request->server['HTTP_CLIENT_IP'];
-				} else {
-					$forwarded_ip = '';
-				}
-
-				if (isset($this->request->server['HTTP_USER_AGENT'])) {
-					$user_agent = $this->request->server['HTTP_USER_AGENT'];
-				} else {
-					$user_agent = '';
-				}
-
-				if (isset($this->request->server['HTTP_ACCEPT_LANGUAGE'])) {
-					$accept_language = $this->request->server['HTTP_ACCEPT_LANGUAGE'];
-				} else {
-					$accept_language = '';
-				}
-
-				$order_data['subscription']['forwarded_ip'] = $forwarded_ip;
-				$order_data['subscription']['user_agent'] = $user_agent;
-				$order_data['subscription']['accept_language'] = $accept_language;
-
-				$payment_data = [];
-
-				$payment_data['VendorTxCode'] = $this->session->data['order_id'] . 'SD' . date('YmdHis') . mt_rand(1, 999);
-
 				$subscriptions = $this->cart->getSubscriptions();
 
 				$order_products = $this->model_checkout_order->getProducts($this->session->data['order_id']);
+
+				$opayo_order_info = $this->model_extension_payment_opayo->getOrder($this->session->data['order_id']);
 
 				// Loop through any products that are subscription items
 				foreach ($subscriptions as $item) {
 					foreach ($order_products as $order_product) {
 						$order_subscription = $this->model_checkout_order->getSubscription($this->session->data['order_id'], $order_product['order_product_id']);
 
-						if ($order_subscription && $order_subscription['subscription_plan_id'] == $order_product['subscription_plan_id']) {
-							$item['subscription']['order_product_id'] = $item['order_product_id'];
-							$item['subscription']['product_id'] = $item['product_id'];
-							$item['subscription']['option'] = $item['option'];
-							$item['subscription']['quantity'] = $item['quantity'];
-
-							$item = array_merge($item, $order_data);
+						if ($order_subscription && $item['product_id'] == $order_subscription['product_id'] && $order_subscription['product_id'] == $order_product['product_id']) {
+							$item['subscription']['name'] = $order_product['name'];
 
 							$this->model_extension_payment_opayo->subscriptionPayment($item, $payment_data['VendorTxCode']);
 						}
@@ -419,40 +373,38 @@ class ControllerExtensionPaymentOpayo extends Controller {
 	}
 
 	/**
-	 * Three DSnotify
+	 * threeDSnotify
 	 *
 	 * @return void
 	 */
 	public function threeDSnotify(): void {
-		$this->load->language('extension/payment/opayo');
-
-		$this->load->model('extension/payment/opayo');
-		$this->load->model('checkout/order');
-
-		// Setting
-		$_config = new Config();
-		$_config->load('opayo');
-
-		$config_setting = $_config->get('opayo_setting');
-
-		$setting = array_replace_recursive((array)$config_setting, (array)$this->config->get('payment_opayo_setting'));
-
 		if (isset($this->request->get['order_id'])) {
-			$opayo_order_info = $this->model_extension_payment_opayo->getOrder($this->request->get['order_id']);
+			$this->load->language('extension/opayo/payment/opayo');
 
-			$url = '';
+			$this->load->model('extension/opayo/payment/opayo');
+			$this->load->model('checkout/order');
+
+			// Setting
+			$_config = new \Config();			
+			$_config->load('opayo');
+
+			$config_setting = $_config->get('opayo_setting');
+
+			$setting = array_replace_recursive((array)$config_setting, (array)$this->config->get('payment_opayo_setting'));
+
+			$opayo_order_info = $this->model_extension_opayo_payment_opayo->getOrder($this->request->get['order_id']);
 
 			if ($setting['general']['environment'] == 'live') {
-				$url = 'https://live.opayo.eu.elavon.com/gateway/service/direct3dcallback.vsp';
+				$url = 'https://live.sagepay.com/gateway/service/direct3dcallback.vsp';
 			} elseif ($setting['general']['environment'] == 'test') {
-				$url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/direct3dcallback.vsp';
+				$url = 'https://test.sagepay.com/gateway/service/direct3dcallback.vsp';
 			}
 
 			$this->request->post['VPSTxId'] = $opayo_order_info['vps_tx_id'];
 
-			$response_data = $this->model_extension_payment_opayo->sendCurl($url, $this->request->post);
+			$response_data = $this->model_extension_opayo_payment_opayo->sendCurl($url, $this->request->post);
 
-			$this->model_extension_payment_opayo->log('Response Data', $response_data);
+			$this->model_extension_opayo_payment_opayo->log('Response Data', $response_data);
 
 			if ($response_data['Status'] == 'OK' || $response_data['Status'] == 'AUTHENTICATED' || $response_data['Status'] == 'REGISTERED') {
 				$message = '';
@@ -489,28 +441,43 @@ class ControllerExtensionPaymentOpayo extends Controller {
 
 				$order_info = $this->model_checkout_order->getOrder($this->request->get['order_id']);
 
-				$opayo_order_info = $this->model_extension_payment_opayo->getOrder($this->request->get['order_id']);
+				$this->model_extension_opayo_payment_opayo->log('Order Info', $order_info);
+				$this->model_extension_opayo_payment_opayo->log('Opayo Order Info', $opayo_order_info);
 
-				$this->model_extension_payment_opayo->log('Order Info', $order_info);
-				$this->model_extension_payment_opayo->log('Opayo Order Info', $opayo_order_info);
+				$this->model_extension_opayo_payment_opayo->updateOrder($order_info, $response_data);
 
-				$this->model_extension_payment_opayo->updateOrder($order_info, $response_data);
-				$this->model_extension_payment_opayo->addOrderTransaction($opayo_order_info['opayo_order_id'], $setting['general']['transaction_method'], $order_info);
+				$this->model_extension_opayo_payment_opayo->addOrderTransaction($opayo_order_info['opayo_order_id'], $this->config->get('payment_opayo_transaction'), $order_info);
 
 				$this->model_checkout_order->addHistory($this->request->get['order_id'], $setting['general']['order_status_id'], $message, false);
 
-				if (isset($response_data['Token']) && $this->customer->isLogged()) {
-					$this->model_extension_payment_opayo->updateCard($opayo_order_info['card_id'], $response_data['Token']);
+				if (!empty($response_data['Token']) && $this->customer->isLogged()) {
+					$this->model_extension_opayo_payment_opayo->updateCard($opayo_order_info['card_id'], $response_data['Token']);
 				} else {
-					$this->model_extension_payment_opayo->deleteCard($opayo_order_info['card_id']);
+					$this->model_extension_opayo_payment_opayo->deleteCard($opayo_order_info['card_id']);
 				}
 
 				if ($setting['general']['transaction_method'] == 'PAYMENT') {
-					$subscription_products = $this->cart->getSubscriptions();
-
-					//loop through any products that are recurring items
-					foreach ($subscription_products as $item) {
-						$this->model_extension_payment_opayo->subscriptionPayment($item, $opayo_order_info['vendor_tx_code']);
+					$payment_data = [];
+	
+					$payment_data['VendorTxCode'] = $this->session->data['order_id'] . 'SD' . date('YmdHis') . mt_rand(1, 999);
+	
+					$subscriptions = $this->cart->getSubscriptions();
+	
+					$order_products = $this->model_checkout_order->getProducts($this->session->data['order_id']);
+	
+					$opayo_order_info = $this->model_extension_payment_opayo->getOrder($this->session->data['order_id']);
+	
+					// Loop through any products that are subscription items
+					foreach ($subscriptions as $item) {
+						foreach ($order_products as $order_product) {
+							$order_subscription = $this->model_checkout_order->getSubscription($this->session->data['order_id'], $order_product['order_product_id']);
+	
+							if ($order_subscription && $item['product_id'] == $order_subscription['product_id'] && $order_subscription['product_id'] == $order_product['product_id']) {
+								$item['subscription']['name'] = $order_product['name'];
+	
+								$this->model_extension_payment_opayo->subscriptionPayment($item, $payment_data['VendorTxCode']);
+							}
+						}
 					}
 				}
 
@@ -538,7 +505,7 @@ class ControllerExtensionPaymentOpayo extends Controller {
 		$this->load->model('extension/payment/opayo');
 
 		// Setting
-		$_config = new Config();
+		$_config = new \Config();
 		$_config->load('opayo');
 
 		$config_setting = $_config->get('opayo_setting');
