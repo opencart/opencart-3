@@ -213,7 +213,9 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 						$order_subscription = $this->model_checkout_order->getSubscription($this->session->data['order_id'], $order_product['order_product_id']);
 
 						if ($order_subscription && $order_product['product_id'] == $item['product_id'] && $item['product_id'] == $order_subscription['product_id']) {
+							$item['subscription']['order_id'] = $this->session->data['order_id'];
 							$item['subscription']['order_product_id'] = $order_product['order_product_id'];
+							$item['subscription']['name'] = $order_product['name'];
 							$item['subscription']['product_id'] = $order_product['product_id'];
 							$item['subscription']['store_id'] = $this->config->get('config_store_id');
 							$item['subscription']['customer_id'] = $this->customer->getId();
@@ -539,6 +541,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 							$order_subscription = $this->model_checkout_order->getSubscription($this->session->data['order_id'], $order_product['order_product_id']);
 
 							if ($order_subscription && $order_product['product_id'] == $item['product_id'] && $item['product_id'] == $order_subscription['product_id']) {
+								$item['subscription']['order_id'] = $this->session->data['order_id'];
 								$item['subscription']['order_product_id'] = $order_product['order_product_id'];
 								$item['subscription']['product_id'] = $order_product['product_id'];
 								$item['subscription']['store_id'] = $this->config->get('config_store_id');

@@ -205,9 +205,9 @@ class ModelExtensionPaymentSagePayServer extends Model {
 
 	/**
 	 * getReference
-	 * 
+	 *
 	 * @param string $vendor_tx_code
-	 * 
+	 *
 	 * @return array
 	 */
 	public function getReference(string $vendor_tx_code): array {
@@ -225,32 +225,13 @@ class ModelExtensionPaymentSagePayServer extends Model {
 	 * @return void
 	 */
 	public function subscriptionPayment(array $item, string $vendor_tx_code): void {
-		$this->load->language('extension/payment/sagepay_server');
-
-		// Subscriptions
-		$this->load->model('checkout/subscription');
-
-		// Create new subscription and set to pending status as no payment has been made yet.
-		$subscription_id = $this->model_checkout_subscription->addSubscription($item['subscription']);
-
-		//$this->model_checkout_subscription->editReference($subscription_id, $vendor_tx_code);
-	}
-
-	/**
-	 * updateRecurringPayment
-	 *
-	 * @param array $item['subscription']
-	 * @param array $data
-	 *
-	 * @return void
-	 */
-	public function updateRecurringPayment(array $item, array $data): void {
 		// Orders
+		$this->load->model('checkout/subscription');
 		$this->load->model('checkout/order');
 
 		$order_info = $this->model_checkout_order->getOrder($data['order_id']);
 
-		if ($order_info) {			
+		if ($order_info) {
 			// Trial information
 			if ($item['subscription']['trial_status'] == 1) {
 				$price = $this->currency->format($item['subscription']['trial_price'], $this->session->data['currency'], false, false);
@@ -288,7 +269,9 @@ class ModelExtensionPaymentSagePayServer extends Model {
 					$subscription_end = new \DateTime('0000-00-00');
 				}
 
-				$this->addRecurringOrder($data['order_id'], $response_data, $subscription_info['subscription_id'], date_format($trial_end, 'Y-m-d H:i:s'), date_format($subscription_end, 'Y-m-d H:i:s'));
+				$subscription_id = $this->model_checkout_subscription->addSubscription($item['subscription']);
+
+				$this->addRecurringOrder($data['order_id'], $response_data, $subscription_id, date_format($trial_end, 'Y-m-d H:i:s'), date_format($subscription_end, 'Y-m-d H:i:s'));
 
 				$transaction = [
 					'order_id'       => $subscription_info['order_id'],
@@ -299,11 +282,91 @@ class ModelExtensionPaymentSagePayServer extends Model {
 				];
 
 				if ($response_data['Status'] == 'OK') {
-					$this->updateRecurringOrder($subscription_info['subscription_id'], date_format($next_payment, 'Y-m-d H:i:s'));
+					$this->updateRecurringOrder($subscription_id, date_format($next_payment, 'Y-m-d H:i:s'));
 
-					$this->addRecurringTransaction($subscription_info['subscription_id'], $response_data, $transaction, 1);
+					$this->addRecurringTransaction($subscription_id, $response_data, $transaction, 1);
+
+					$this->model_checkout_subscription->editSubscription($subscription_id, $item['subscription']);
 				} else {
 					$this->addRecurringTransaction($subscription_info['subscription_id'], $response_data, $transaction, 4);
+				}
+			}
+		}
+	}
+
+	/**
+	 * updateRecurringPayment
+	 *
+	 * @param array $item['subscription']
+	 * @param array $data
+	 *
+	 * @return void
+	 */
+	public function updateRecurringPayment(array $item, array $data): void {
+		// Orders
+		$this->load->model('checkout/subscription');
+		$this->load->model('checkout/order');
+
+		$order_info = $this->model_checkout_order->getOrder($data['order_id']);
+
+		if ($order_info) {
+			// Trial information
+			if ($item['subscription']['trial_status'] == 1) {
+				$price = $this->currency->format($item['subscription']['trial_price'], $this->session->data['currency'], false, false);
+			} else {
+				$price = $this->currency->format($item['subscription']['price'], $this->session->data['currency'], false, false);
+			}
+
+			$subscription_info = $this->getReference($data['vendor_tx_code']);
+
+			if ($subscription_info) {
+				$response_data = $this->setPaymentData($order_info, $data, $price, $subscription_info['subscription_id'], $item['subscription']['name']);
+
+				$next_payment = new \DateTime('now');
+				$trial_end = new \DateTime('now');
+				$subscription_end = new \DateTime('now');
+
+				if ($item['subscription']['trial_status'] == 1 && $item['subscription']['trial_duration'] != 0) {
+					$next_payment = $this->calculateSchedule($item['subscription']['trial_frequency'], $next_payment, $item['subscription']['trial_cycle']);
+					$trial_end = $this->calculateSchedule($item['subscription']['trial_frequency'], $trial_end, $item['subscription']['trial_cycle'] * $item['subscription']['trial_duration']);
+				} elseif ($item['subscription']['trial_status'] == 1) {
+					$next_payment = $this->calculateSchedule($item['subscription']['trial_frequency'], $next_payment, $item['subscription']['trial_cycle']);
+					$trial_end = new \DateTime('0000-00-00');
+				}
+
+				if ($trial_end > $subscription_end && $item['subscription']['duration'] != 0) {
+					$subscription_end = new \DateTime(date_format($trial_end, 'Y-m-d H:i:s'));
+					$subscription_end = $this->calculateSchedule($item['subscription']['frequency'], $subscription_end, $item['subscription']['cycle'] * $item['subscription']['duration']);
+				} elseif ($trial_end == $subscription_end && $item['subscription']['duration'] != 0) {
+					$next_payment = $this->calculateSchedule($item['subscription']['frequency'], $next_payment, $item['subscription']['cycle']);
+					$subscription_end = $this->calculateSchedule($item['subscription']['frequency'], $subscription_end, $item['subscription']['cycle'] * $item['subscription']['duration']);
+				} elseif ($trial_end > $subscription_end && $item['subscription']['duration'] == 0) {
+					$subscription_end = new \DateTime('0000-00-00');
+				} elseif ($trial_end == $subscription_end && $item['subscription']['duration'] == 0) {
+					$next_payment = $this->calculateSchedule($item['subscription']['frequency'], $next_payment, $item['subscription']['cycle']);
+					$subscription_end = new \DateTime('0000-00-00');
+				}
+
+				$subscription_id = $this->model_checkout_subscription->addSubscription($item['subscription']);
+
+				$this->addRecurringOrder($data['order_id'], $response_data, $subscription_id, date_format($trial_end, 'Y-m-d H:i:s'), date_format($subscription_end, 'Y-m-d H:i:s'));
+
+				$transaction = [
+					'order_id'       => $subscription_info['order_id'],
+					'description'    => $response_data['Status'],
+					'amount'         => $price,
+					'payment_method' => $order_info['payment_method'],
+					'payment_code'   => $order_info['payment_code']
+				];
+
+				if ($response_data['Status'] == 'OK') {
+					$this->updateRecurringOrder($subscription_id, date_format($next_payment, 'Y-m-d H:i:s'));
+
+					$this->addRecurringTransaction($subscription_id, $response_data, $transaction, 1);
+
+					$this->model_checkout_subscription->editSubscription($subscription_id, $item['subscription']);
+				} else {
+					$this->addRecurringTransaction($subscription_id, $response_data, $transaction, 4);
 				}
 			}
 		}

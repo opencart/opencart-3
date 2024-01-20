@@ -313,7 +313,7 @@ class ModelExtensionPaymentPayPal extends Model {
 			`trial_end` datetime DEFAULT NULL,
 			`subscription_end` datetime DEFAULT NULL,
 			`currency_code` varchar(3) NOT NULL,
-			`total` decimal(10, 2) NOT NULL,			
+			`total` decimal(10, 2) NOT NULL,
 			PRIMARY KEY (`paypal_subscription_id`),
 			KEY (`order_id`),
 			KEY (`subscription_id`)

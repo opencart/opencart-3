@@ -81,7 +81,7 @@ class ControllerExtensionPaymentOpayo extends Controller {
 		$this->load->model('extension/payment/opayo');
 
 		$this->load->model('checkout/order');
-		
+
 		// Setting
 		$_config = new \Config();
 		$_config->load('opayo');
@@ -378,6 +378,7 @@ class ControllerExtensionPaymentOpayo extends Controller {
 						$order_subscription = $this->model_checkout_order->getSubscription($this->session->data['order_id'], $order_product['order_product_id']);
 
 						if ($order_subscription && $order_product['product_id'] == $item['product_id'] && $item['product_id'] == $order_subscription['product_id']) {
+							$item['subscription']['order_id'] = $this->session->data['order_id'];
 							$item['subscription']['order_product_id'] = $order_product['order_product_id'];
 							$item['subscription']['product_id'] = $order_product['product_id'];
 							$item['subscription']['store_id'] = $this->config->get('config_store_id');
@@ -428,7 +429,7 @@ class ControllerExtensionPaymentOpayo extends Controller {
 			$this->load->model('checkout/order');
 
 			// Setting
-			$_config = new \Config();			
+			$_config = new \Config();
 			$_config->load('opayo');
 
 			$config_setting = $_config->get('opayo_setting');
@@ -501,9 +502,9 @@ class ControllerExtensionPaymentOpayo extends Controller {
 
 				if ($setting['general']['transaction_method'] == 'PAYMENT') {
 					$payment_data = [];
-	
+
 					$payment_data['VendorTxCode'] = $this->session->data['order_id'] . 'SD' . date('YmdHis') . mt_rand(1, 999);
-	
+
 					$subscription_products = $this->cart->getSubscriptions();
 
 					$order_products = $this->model_checkout_order->getProducts($this->session->data['order_id']);
@@ -541,6 +542,7 @@ class ControllerExtensionPaymentOpayo extends Controller {
 							$order_subscription = $this->model_checkout_order->getSubscription($this->session->data['order_id'], $order_product['order_product_id']);
 
 							if ($order_subscription && $order_product['product_id'] == $item['product_id'] && $item['product_id'] == $order_subscription['product_id']) {
+								$item['subscription']['order_id'] = $this->session->data['order_id'];
 								$item['subscription']['order_product_id'] = $order_product['order_product_id'];
 								$item['subscription']['product_id'] = $order_product['product_id'];
 								$item['subscription']['store_id'] = $this->config->get('config_store_id');
@@ -560,7 +562,7 @@ class ControllerExtensionPaymentOpayo extends Controller {
 								$item['subscription']['forwarded_ip'] = $forwarded_ip;
 								$item['subscription']['user_agent'] = $user_agent;
 								$item['subscription']['accept_language'] = $accept_language;
-		
+
 								$this->model_extension_payment_opayo->subscriptionPayment($item, $payment_data['VendorTxCode']);
 							}
 						}
