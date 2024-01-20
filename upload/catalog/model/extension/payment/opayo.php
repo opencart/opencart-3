@@ -565,7 +565,11 @@ class ModelExtensionPaymentOpayo extends Model {
 	private function getSubscriptionOrder(int $subscription_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "opayo_order_subscription` WHERE `subscription_id` = '" . (int)$subscription_id . "'");
 
-		return $query->row;
+		if ($query->num_rows) {
+			return $query->row;
+		} else {
+			return [];
+		}		
 	}
 
 	/**
