@@ -274,7 +274,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
 				$this->addSubscriptionOrder($item['subscription']['order_id'], $response_data, $subscription_id, date_format($trial_end, 'Y-m-d H:i:s'), date_format($subscription_end, 'Y-m-d H:i:s'));
 
 				$transaction = [
-					'order_id'       => $subscription_info['order_id'],
+					'order_id'       => $item['subscription']['order_id'],
 					'description'    => $response_data['Status'],
 					'amount'         => $price,
 					'payment_method' => $order_info['payment_method'],
@@ -288,7 +288,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
 
 					$this->model_checkout_subscription->editSubscription($subscription_id, $item['subscription']);
 				} else {
-					$this->addSubscriptionTransaction($subscription_info['subscription_id'], $response_data, $transaction, 4);
+					$this->addSubscriptionTransaction($subscription_id, $response_data, $transaction, 4);
 				}
 			}
 		}

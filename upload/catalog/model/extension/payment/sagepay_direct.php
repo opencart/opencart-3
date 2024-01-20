@@ -385,17 +385,19 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 		$this->load->model('account/order');
 
 		$i = 0;
-		$subscriptions = $this->getProfiles();
+
 		$cron_data = [];
+
+		$subscriptions = $this->getProfiles();
 
 		foreach ($subscriptions as $subscription) {
 			$order_subscription = $this->getSubscriptionOrder($subscription['subscription_id']);
 
 			$today = new \DateTime('now');
 			$unlimited = new \DateTime('0000-00-00');
-			$next_payment = new \DateTime($subscription_order['next_payment']);
-			$trial_end = new \DateTime($subscription_order['trial_end']);
-			$subscription_end = new \DateTime($subscription_order['subscription_end']);
+			$next_payment = new \DateTime($order_subscription['next_payment']);
+			$trial_end = new \DateTime($order_subscription['trial_end']);
+			$subscription_end = new \DateTime($order_subscription['subscription_end']);
 
 			$order_info = $this->model_account_order->getOrder($subscription['order_id']);
 
