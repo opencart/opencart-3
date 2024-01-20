@@ -36,8 +36,8 @@ class Router {
 	}
 
 	/**
-	 * @param object $action
-	 * @param object $error
+	 * @param Action $action
+	 * @param Action $error
 	 */
 	public function dispatch(Action $action, Action $error): void {
 		$this->error = $error;

@@ -270,7 +270,7 @@ class ModelExtensionPaymentEway extends Model {
 			$this->log->write([
 				'error' => curl_error($ch),
 				'errno' => curl_errno($ch)
-			], 'cURL failed');
+			]);
 
 			$response = json_encode($response);
 		} else {

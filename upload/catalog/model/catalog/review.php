@@ -8,14 +8,16 @@ class ModelCatalogReview extends Model {
 	/**
 	 * addReview
 	 *
-	 * @param int   $product_id
-	 * @param array $data
+	 * @param int    $product_id
+	 * @param array  $data
 	 *
-	 * @return int
+	 * @return void
+	 * 
+	 * @throws \Exception
 	 */
 	public function addReview(int $product_id, array $data): void {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "review` SET `author` = '" . $this->db->escape($data['name']) . "', `customer_id` = '" . (int)$this->customer->getId() . "', `product_id` = '" . (int)$product_id . "', `text` = '" . $this->db->escape($data['text']) . "', `rating` = '" . (int)$data['rating'] . "', `date_added` = NOW()");
-
+		$this->db->query("INSERT INTO " . DB_PREFIX . "review SET author = '" . $this->db->escape($data['name']) . "', customer_id = '" . (int)$this->customer->getId() . "', product_id = '" . (int)$product_id . "', text = '" . $this->db->escape($data['text']) . "', rating = '" . (int)$data['rating'] . "', date_added = NOW(), `date_modified` = NOW()");
+		
 		$review_id = $this->db->getLastId();
 
 		if (in_array('review', (array)$this->config->get('config_mail_alert'))) {
@@ -30,20 +32,22 @@ class ModelCatalogReview extends Model {
 
 			$message = $this->language->get('text_waiting') . "\n";
 			$message .= sprintf($this->language->get('text_product'), html_entity_decode($product_info['name'], ENT_QUOTES, 'UTF-8')) . "\n";
-			$message .= sprintf($this->language->get('text_reviewer'), html_entity_decode($data['name'], ENT_QUOTES, 'UTF-8')) . "\n";
-			$message .= sprintf($this->language->get('text_rating'), $data['rating']) . "\n";
+			$message .= sprintf($this->language->get('text_reviewer'), html_entity_decode($name, ENT_QUOTES, 'UTF-8')) . "\n";
+			$message .= sprintf($this->language->get('text_rating'), $rating) . "\n";
 			$message .= $this->language->get('text_review') . "\n";
-			$message .= html_entity_decode($data['text'], ENT_QUOTES, 'UTF-8') . "\n\n";
+			$message .= html_entity_decode($text, ENT_QUOTES, 'UTF-8') . "\n\n";
 
 			if ($this->config->get('config_mail_engine')) {
-				$mail = new \Mail($this->config->get('config_mail_engine'));
-				$mail->parameter = $this->config->get('config_mail_parameter');
-				$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
-				$mail->smtp_username = $this->config->get('config_mail_smtp_username');
-				$mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-				$mail->smtp_port = $this->config->get('config_mail_smtp_port');
-				$mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+				$mail_option = [
+					'parameter'     => $this->config->get('config_mail_parameter'),
+					'smtp_hostname' => $this->config->get('config_mail_smtp_hostname'),
+					'smtp_username' => $this->config->get('config_mail_smtp_username'),
+					'smtp_password' => html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8'),
+					'smtp_port'     => $this->config->get('config_mail_smtp_port'),
+					'smtp_timeout'  => $this->config->get('config_mail_smtp_timeout')
+				];
 
+				$mail = new \Mail($this->config->get('config_mail_engine'), $mail_option);
 				$mail->setTo($this->config->get('config_email'));
 				$mail->setFrom($this->config->get('config_email'));
 				$mail->setSender(html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));

@@ -26,8 +26,7 @@
       <div class="panel-body">
         <ul class="nav nav-tabs">
           <li class="active"><a href="#tab-general" data-toggle="tab">{{ tab_general }}</a></li>
-          <li><a href="#tab-history" data-toggle="tab">{{ tab_history }}</a></li>
-          <li><a href="#tab-transaction" data-toggle="tab">{{ tab_transaction }}</a></li>
+          <li><a href="#tab-history" data-toggle="tab">{{ tab_history }}</a></li>          
         </ul>
         <div class="tab-content">
           <div class="tab-pane active" id="tab-general">
@@ -165,34 +164,7 @@
                 <button id="button-history" data-loading-text="{{ text_loading }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> {{ button_history_add }}</button>
               </div>
             </form>
-          </div>
-          <div id="tab-transaction" class="tab-pane">
-            <form id="form-transaction" class="form-horizontal">
-              <fieldset>
-                <legend>{{ text_transaction }}</legend>
-                <div id="transaction"></div>
-              </fieldset>
-              <br/>
-              <fieldset>
-                <legend>{{ text_transaction_add }}</legend>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-transaction-description">{{ entry_description }}</label>
-                  <div class="col-sm-10">
-                    <input type="text" name="description" value="" placeholder="{{ entry_description }}" id="input-transaction-description" class="form-control"/>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-amount">{{ entry_amount }}</label>
-                  <div class="col-sm-10">
-                    <input type="text" name="amount" value="" placeholder="{{ entry_amount }}" id="input-amount" class="form-control"/>
-                  </div>
-                </div>
-              </fieldset>
-              <div class="text-right">
-                <button type="button" id="button-transaction" data-loading-text="{{ text_loading }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> {{ button_transaction_add }}</button>
-              </div>
-            </form>
-          </div>
+          </div>          
         </div>
       </div>
     </div>
@@ -264,48 +236,6 @@
                   $('#history').load('index.php?route=sale/subscription/history&user_token={{ user_token }}&subscription_id=' + $('#input-subscription-id').val());
 
                   $('#tab-history textarea[name=\'comment\']').val('');
-              }
-          },
-          error: function (xhr, ajaxOptions, thrownError) {
-              console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-          }
-      });
-  });
-
-  $('#transaction').on('click', '.pagination a', function (e) {
-      e.preventDefault();
-
-      $('#transaction').load(this.href);
-  });
-
-  $('#button-transaction').on('click', function (e) {
-      e.preventDefault();
-
-      $.ajax({
-          url: 'index.php?route=sale/subscription/addTransaction&user_token={{ user_token }}&subscription_id=' + $('#input-subscription-id').val(),
-          type: 'post',
-          dataType: 'json',
-          data: $('#form-transaction').serialize(),
-          beforeSend: function () {
-              $('#button-transaction').button('loading');
-          },
-          complete: function () {
-              $('#button-transaction').button('reset');
-          },
-          success: function (json) {
-              $('.alert-dismissible').remove();
-
-              if (json['error']) {
-                  $('#tab-transaction').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-              }
-
-              if (json['success']) {
-                  $('#tab-transaction').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-
-                  $('#transaction').load('index.php?route=sale/subscription/transaction&user_token={{ user_token }}&subscription_id=' + $('#input-subscription-id').val());
-
-                  $('#tab-transaction input[name=\'amount\']').val('');
-                  $('#tab-transaction input[name=\'description\']').val('');
               }
           },
           error: function (xhr, ajaxOptions, thrownError) {

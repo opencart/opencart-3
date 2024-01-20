@@ -3,7 +3,7 @@
 // +----------------------------------------------------------------------
 // | WeChatDeveloper
 // +----------------------------------------------------------------------
-// | 版权所有 2014~2024 ThinkAdmin [ thinkadmin.top ]
+// | 版权所有 2014~2023 ThinkAdmin [ thinkadmin.top ]
 // +----------------------------------------------------------------------
 // | 官方网站: https://thinkadmin.top
 // +----------------------------------------------------------------------
@@ -27,30 +27,30 @@ class Total extends BasicWeChat
 {
     /**
      * 数据分析接口
-     * @param string $beginDate 开始日期
-     * @param string $endDate 结束日期，限定查询1天数据，end_date允许设置的最大值为昨日
+     * @param string $begin_date 开始日期
+     * @param string $end_date 结束日期，限定查询1天数据，end_date允许设置的最大值为昨日
      * @return array
      * @throws \WeChat\Exceptions\InvalidResponseException
      * @throws \WeChat\Exceptions\LocalCacheException
      */
-    public function getWeanalysisAppidDailySummarytrend($beginDate, $endDate)
+    public function getWeanalysisAppidDailySummarytrend($begin_date, $end_date)
     {
         $url = 'https://api.weixin.qq.com/datacube/getweanalysisappiddailysummarytrend?access_token=ACCESS_TOKEN';
-        return $this->callPostApi($url, ['begin_date' => $beginDate, 'end_date' => $endDate], true);
+        return $this->callPostApi($url, ['begin_date' => $begin_date, 'end_date' => $end_date], true);
     }
 
     /**
      * 访问分析
-     * @param string $beginDate 开始日期
-     * @param string $endDate 结束日期，限定查询1天数据，end_date允许设置的最大值为昨日
+     * @param string $begin_date 开始日期
+     * @param string $end_date 结束日期，限定查询1天数据，end_date允许设置的最大值为昨日
      * @return array
      * @throws \WeChat\Exceptions\InvalidResponseException
      * @throws \WeChat\Exceptions\LocalCacheException
      */
-    public function getWeanalysisAppidDailyVisittrend($beginDate, $endDate)
+    public function getWeanalysisAppidDailyVisittrend($begin_date, $end_date)
     {
         $url = 'https://api.weixin.qq.com/datacube/getweanalysisappiddailyvisittrend?access_token=ACCESS_TOKEN';
-        return $this->callPostApi($url, ['begin_date' => $beginDate, 'end_date' => $endDate], true);
+        return $this->callPostApi($url, ['begin_date' => $begin_date, 'end_date' => $end_date], true);
     }
 
     /**

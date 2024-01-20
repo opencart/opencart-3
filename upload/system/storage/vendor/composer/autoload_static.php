@@ -57,10 +57,6 @@ class ComposerStaticInit723df5bcd9366cc0d09a11e95c1b3994
         array (
             'Cardinity\\' => 10,
         ),
-        'B' => 
-        array (
-            'Braintree\\' => 10,
-        ),
         'A' => 
         array (
             'AliPay\\' => 7,
@@ -152,10 +148,6 @@ class ComposerStaticInit723df5bcd9366cc0d09a11e95c1b3994
         'Cardinity\\' => 
         array (
             0 => __DIR__ . '/..' . '/cardinity/cardinity-sdk-php/src',
-        ),
-        'Braintree\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/braintree/braintree_php/lib/Braintree',
         ),
         'AliPay\\' => 
         array (

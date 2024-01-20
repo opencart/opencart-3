@@ -55,7 +55,7 @@ class File {
 	 * Write
 	 *
 	 * @param string $session_id
-	 * @param string $data
+	 * @param array  $data
 	 *
 	 * @return bool
 	 */

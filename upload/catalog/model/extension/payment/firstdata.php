@@ -84,8 +84,8 @@ class ModelExtensionPaymentFirstdata extends Model {
 	 *
 	 * @return void
 	 */
-	public function addTransaction(int $fd_order_id, string $type, float $total, string $currency_code, string $currency_value): void {
-		if (!empty($order_info)) {
+	public function addTransaction(int $fd_order_id, string $type, float $total = 0, string $currency_code = '', string $currency_value = ''): void {
+		if ($total && $currency_code && $currency_value) {
 			$amount = $this->currency->format($total, $currency_code, $currency_value, false);
 		} else {
 			$amount = 0.00;
@@ -169,12 +169,12 @@ class ModelExtensionPaymentFirstdata extends Model {
 	/**
 	 * responseHash
 	 *
-	 * @param float     $total
-	 * @param string    $currency
-	 * @param \Datetime $txn_date
-	 * @param string    $approval_code
+	 * @param float  $total
+	 * @param string $currency
+	 * @param string $txn_date
+	 * @param string $approval_code
 	 */
-	public function responseHash(float $total, string $currency, \Datetime $txn_date, $approval_code) {
+	public function responseHash(float $total, string $currency, string $txn_date, string $approval_code) {
 		$tmp = $total . $this->config->get('payment_firstdata_secret') . $currency . $txn_date . $this->config->get('payment_firstdata_merchant_id') . $approval_code;
 		$ascii = bin2hex($tmp);
 

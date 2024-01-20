@@ -240,7 +240,7 @@ class ControllerExtensionCreditCardSagepayServer extends Controller {
 			$str_token = '';
 		}
 
-		$transaction_info = $this->model_extension_payment_sagepay_server->getOrder('', $str_vps_tx_id);
+		$transaction_info = $this->model_extension_payment_sagepay_server->getOrder($str_vps_tx_id);
 
 		if ($transaction_info && $transaction_info['security_key']) {
 			$str_security_key = $transaction_info['security_key'];

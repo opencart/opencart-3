@@ -3,7 +3,7 @@
 // +----------------------------------------------------------------------
 // | WeChatDeveloper
 // +----------------------------------------------------------------------
-// | 版权所有 2014~2024 ThinkAdmin [ thinkadmin.top ]
+// | 版权所有 2014~2023 ThinkAdmin [ thinkadmin.top ]
 // +----------------------------------------------------------------------
 // | 官方网站: https://thinkadmin.top
 // +----------------------------------------------------------------------
@@ -36,34 +36,38 @@ class Draft extends BasicWeChat
     public function add($articles)
     {
         $url = "https://api.weixin.qq.com/cgi-bin/draft/add?access_token=ACCESS_TOKEN";
-        return $this->callPostApi($url, ['articles' => $articles]);
+        $this->registerApi($url, __FUNCTION__, func_get_args());
+        return $this->httpPostForJson($url, ['articles' => $articles]);
     }
 
     /**
      * 获取草稿
-     * @param string $mediaId
+     * @param string $media_id
      * @param string $outType 返回处理函数
      * @return array
      * @throws \WeChat\Exceptions\InvalidResponseException
      * @throws \WeChat\Exceptions\LocalCacheException
      */
-    public function get($mediaId, $outType = null)
+    public function get($media_id, $outType = null)
     {
         $url = "https://api.weixin.qq.com/cgi-bin/draft/get?access_token=ACCESS_TOKEN";
-        return $this->callPostApi($url, ['media_id' => $mediaId]);
+        $this->registerApi($url, __FUNCTION__, func_get_args());
+        return $this->httpPostForJson($url, ['media_id' => $media_id]);
     }
+
 
     /**
      * 删除草稿
-     * @param string $mediaId
+     * @param string $media_id
      * @return array
      * @throws \WeChat\Exceptions\InvalidResponseException
      * @throws \WeChat\Exceptions\LocalCacheException
      */
-    public function delete($mediaId)
+    public function delete($media_id)
     {
         $url = "https://api.weixin.qq.com/cgi-bin/draft/delete?access_token=ACCESS_TOKEN";
-        return $this->callPostApi($url, ['media_id' => $mediaId]);
+        $this->registerApi($url, __FUNCTION__, func_get_args());
+        return $this->httpPostForJson($url, ['media_id' => $media_id]);
     }
 
     /**
@@ -76,7 +80,8 @@ class Draft extends BasicWeChat
     public function addNews($data)
     {
         $url = "https://api.weixin.qq.com/cgi-bin/material/add_news?access_token=ACCESS_TOKEN";
-        return $this->callPostApi($url, $data);
+        $this->registerApi($url, __FUNCTION__, func_get_args());
+        return $this->httpPostForJson($url, $data);
     }
 
     /**
@@ -90,9 +95,10 @@ class Draft extends BasicWeChat
      */
     public function update($media_id, $index, $articles)
     {
-        $url = "https://api.weixin.qq.com/cgi-bin/draft/update?access_token=ACCESS_TOKEN";
         $data = ['media_id' => $media_id, 'index' => $index, 'articles' => $articles];
-        return $this->callPostApi($url, $data);
+        $url = "https://api.weixin.qq.com/cgi-bin/draft/update?access_token=ACCESS_TOKEN";
+        $this->registerApi($url, __FUNCTION__, func_get_args());
+        return $this->httpPostForJson($url, $data);
     }
 
     /**
@@ -104,21 +110,24 @@ class Draft extends BasicWeChat
     public function getCount()
     {
         $url = "https://api.weixin.qq.com/cgi-bin/draft/count?access_token=ACCESS_TOKEN";
-        return $this->callGetApi($url);
+        $this->registerApi($url, __FUNCTION__, func_get_args());
+        return $this->httpGetForJson($url);
     }
 
     /**
      * 获取草稿列表
      * @param int $offset 从全部素材的该偏移位置开始返回，0表示从第一个素材返回
      * @param int $count 返回素材的数量，取值在1到20之间
-     * @param int $noContent 1 表示不返回 content 字段，0 表示正常返回，默认为 0
+     * @param int $no_content 1 表示不返回 content 字段，0 表示正常返回，默认为 0
      * @return array
      * @throws \WeChat\Exceptions\InvalidResponseException
      * @throws \WeChat\Exceptions\LocalCacheException
      */
-    public function batchGet($offset = 0, $count = 20, $noContent = 0)
+    public function batchGet($offset = 0, $count = 20, $no_content = 0)
     {
         $url = "https://api.weixin.qq.com/cgi-bin/draft/batchget?access_token=ACCESS_TOKEN";
-        return $this->callPostApi($url, ['no_content' => $noContent, 'offset' => $offset, 'count' => $count]);
+        $this->registerApi($url, __FUNCTION__, func_get_args());
+        return $this->httpPostForJson($url, ['no_content' => $no_content, 'offset' => $offset, 'count' => $count]);
     }
+
 }

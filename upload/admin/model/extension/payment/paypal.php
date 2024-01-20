@@ -9,7 +9,11 @@ class ModelExtensionPaymentPayPal extends Model {
 
 		$query = $this->db->query("SELECT SUM(`total`) AS `total` FROM `" . DB_PREFIX . "order` WHERE `order_status_id` IN(" . implode(',', $implode) . ") AND `payment_code` = 'paypal'");
 
-		return (int)$query->row['total'];
+		if ($query->num_rows) {
+			return (int)$query->row['total'];
+		} else {
+			return 0;
+		}
 	}
 
 	public function getTotalSalesByDay(): array {

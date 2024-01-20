@@ -209,9 +209,9 @@ class Googleshopping extends Library {
 	 * @param int   $target_id
 	 * @param array $target
 	 *
-	 * @return mixed
+	 * @return array
 	 */
-	public function editTarget($target_id, array $target): array {
+	public function editTarget(int $target_id, array $target): array {
 		$this->registry->get('db')->query("UPDATE `" . DB_PREFIX . "googleshopping_target` SET `campaign_name` = '" . $this->registry->get('db')->escape($target['campaign_name']) . "', `country` = '" . $this->registry->get('db')->escape($target['country']) . "', `budget` = '" . (float)$target['budget'] . "', `feeds` = '" . $this->registry->get('db')->escape(json_encode($target['feeds'])) . "', `roas` = '" . (int)$target['roas'] . "', `status` = '" . $this->registry->get('db')->escape($target['status']) . "' WHERE `advertise_google_target_id` = '" . (int)$target_id . "'");
 
 		return $target;
@@ -1221,17 +1221,16 @@ class Googleshopping extends Library {
 			$subject = $this->registry->get('language')->get('text_cron_email_subject');
 			$message = sprintf($this->registry->get('language')->get('text_cron_email_message'), implode('<br/>', $report));
 
+			$mail_option = [
+				'parameter'     => $this->registry->get('config')->get('config_mail_parameter'),
+				'smtp_hostname' => $this->registry->get('config')->get('config_mail_smtp_hostname'),
+				'smtp_username' => $this->registry->get('config')->get('config_mail_smtp_username'),
+				'smtp_password' => html_entity_decode($this->registry->get('config')->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8'),
+				'smtp_port'     => $this->registry->get('config')->get('config_mail_smtp_port'),
+				'smtp_timeout'  => $this->registry->get('config')->get('config_mail_smtp_timeout')
+			];
+
 			$mail = new \Mail($this->registry->get('config')->get('config_mail_engine'));
-
-			$mail->protocol = $this->registry->get('config')->get('config_mail_protocol');
-			$mail->parameter = $this->registry->get('config')->get('config_mail_parameter');
-
-			$mail->smtp_hostname = $this->registry->get('config')->get('config_mail_smtp_hostname');
-			$mail->smtp_username = $this->registry->get('config')->get('config_mail_smtp_username');
-			$mail->smtp_password = html_entity_decode($this->registry->get('config')->get('config_mail_smtp_password'), ENT_QUOTES, "UTF-8");
-			$mail->smtp_port = $this->registry->get('config')->get('config_mail_smtp_port');
-			$mail->smtp_timeout = $this->registry->get('config')->get('config_mail_smtp_timeout');
-
 			$mail->setTo($this->registry->get('setting')->get('advertise_google_cron_email'));
 			$mail->setFrom($this->registry->get('config')->get('config_email'));
 			$mail->setSender($this->registry->get('config')->get('config_name'));
@@ -1346,11 +1345,11 @@ class Googleshopping extends Library {
 	 * sanitizeText
 	 *
 	 * @param string $text
-	 * @param linit  $limit
+	 * @param int  $limit
 	 *
 	 * @return string
 	 */
-	protected function sanitizeText($text, $limit): string {
+	protected function sanitizeText(string $text, int $limit): string {
 		return oc_substr(trim(preg_replace('~\s+~', ' ', strip_tags(html_entity_decode(htmlspecialchars_decode($text, ENT_QUOTES), ENT_QUOTES, 'UTF-8')))), 0, $limit);
 	}
 
@@ -1853,7 +1852,7 @@ class Googleshopping extends Library {
 	/**
 	 * testAccessToken
 	 *
-	 * @return \AccessForbiddenException|\RuntimeException $e|null|object
+	 * @return AccessForbiddenException|\RuntimeException $e|null|object
 	 */
 	public function testAccessToken(): ?object {
 		$request = [

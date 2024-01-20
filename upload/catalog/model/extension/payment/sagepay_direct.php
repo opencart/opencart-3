@@ -209,7 +209,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	/**
 	 * subscriptionPayment
 	 *
-	 * @param array $item
+	 * @param array $item['subscription']
 	 * @param int   $vendor_tx_code
 	 *
 	 * @return void
@@ -222,64 +222,64 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 		$this->load->model('extension/payment/sagepay_direct');
 
 		// Trial information
-		if ($item['trial_status'] == 1) {
-			$price = $item['trial_price'];
+		if ($item['subscription']['trial_status'] == 1) {
+			$price = $item['subscription']['trial_price'];
 
-			$trial_amt = $this->currency->format($this->tax->calculate($item['trial_price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity'] . ' ' . $this->session->data['currency'];
-			$trial_text = sprintf($this->language->get('text_trial'), $trial_amt, $item['trial_cycle'], $item['trial_frequency'], $item['trial_duration']);
+			$trial_amt = $this->currency->format($this->tax->calculate($item['subscription']['trial_price'], $item['subscription']['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['subscription']['quantity'] . ' ' . $this->session->data['currency'];
+			$trial_text = sprintf($this->language->get('text_trial'), $trial_amt, $item['subscription']['trial_cycle'], $item['subscription']['trial_frequency'], $item['subscription']['trial_duration']);
 		} else {
-			$price = $item['price'];
+			$price = $item['subscription']['price'];
 
 			$trial_text = '';
 		}
 
-		$subscription_amt = $this->currency->format($this->tax->calculate($item['price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity'] . ' ' . $this->session->data['currency'];
+		$subscription_amt = $this->currency->format($this->tax->calculate($item['subscription']['price'], $item['subscription']['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['subscription']['quantity'] . ' ' . $this->session->data['currency'];
 
-		$item['description'] = [];
+		$item['subscription']['description'] = [];
 
-		$subscription_description = $trial_text . sprintf($this->language->get('text_subscription'), $subscription_amt, $item['cycle'], $item['frequency']);
+		$subscription_description = $trial_text . sprintf($this->language->get('text_subscription'), $subscription_amt, $item['subscription']['cycle'], $item['subscription']['frequency']);
 
-		if ($item['duration'] > 0) {
-			$subscription_description .= sprintf($this->language->get('text_length'), $item['duration']);
+		if ($item['subscription']['duration'] > 0) {
+			$subscription_description .= sprintf($this->language->get('text_length'), $item['subscription']['duration']);
 		}
 
-		$item['description'] = $subscription_description;
+		$item['subscription']['description'] = $subscription_description;
 
 		// Create new subscription and set to pending status as no payment has been made yet.
-		$subscription_id = $this->model_checkout_subscription->addSubscription($this->session->data['order_id'], $item);
+		$subscription_id = $this->model_checkout_subscription->addSubscription($item['subscription']);
 
-		$this->model_checkout_subscription->editReference($subscription_id, $vendor_tx_code);
+		//$this->model_checkout_subscription->editReference($subscription_id, $vendor_tx_code);
 
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
 		$sagepay_order_info = $this->getOrder($this->session->data['order_id']);
 
-		$response_data = $this->setPaymentData($order_info, $sagepay_order_info, $price, $subscription_id, $item['name']);
+		$response_data = $this->setPaymentData($order_info, $sagepay_order_info, $price, $subscription_id, $item['subscription']['name']);
 
 		$next_payment = new \DateTime('now');
 		$trial_end = new \DateTime('now');
 		$subscription_end = new \DateTime('now');
 
-		if ($item['trial_status'] == 1 && $item['trial_duration'] != 0) {
-			$next_payment = $this->calculateSchedule($item['trial_frequency'], $next_payment, $item['trial_cycle']);
-			$trial_end = $this->calculateSchedule($item['trial_frequency'], $trial_end, $item['trial_cycle'] * $item['trial_duration']);
-		} elseif ($item['trial_status'] == 1) {
-			$next_payment = $this->calculateSchedule($item['trial_frequency'], $next_payment, $item['trial_cycle']);
+		if ($item['subscription']['trial_status'] == 1 && $item['subscription']['trial_duration'] != 0) {
+			$next_payment = $this->calculateSchedule($item['subscription']['trial_frequency'], $next_payment, $item['subscription']['trial_cycle']);
+			$trial_end = $this->calculateSchedule($item['subscription']['trial_frequency'], $trial_end, $item['subscription']['trial_cycle'] * $item['subscription']['trial_duration']);
+		} elseif ($item['subscription']['trial_status'] == 1) {
+			$next_payment = $this->calculateSchedule($item['subscription']['trial_frequency'], $next_payment, $item['subscription']['trial_cycle']);
 
 			$trial_end = new \DateTime('0000-00-00');
 		}
 
-		if ($trial_end > $subscription_end && $item['duration'] != 0) {
+		if ($trial_end > $subscription_end && $item['subscription']['duration'] != 0) {
 			$subscription_end = new \DateTime(date_format($trial_end, 'Y-m-d H:i:s'));
 
-			$subscription_end = $this->calculateSchedule($item['frequency'], $subscription_end, $item['cycle'] * $item['duration']);
-		} elseif ($trial_end == $subscription_end && $item['duration'] != 0) {
-			$next_payment = $this->calculateSchedule($item['frequency'], $next_payment, $item['cycle']);
-			$subscription_end = $this->calculateSchedule($item['frequency'], $subscription_end, $item['cycle'] * $item['duration']);
-		} elseif ($trial_end > $subscription_end && $item['duration'] == 0) {
+			$subscription_end = $this->calculateSchedule($item['subscription']['frequency'], $subscription_end, $item['subscription']['cycle'] * $item['subscription']['duration']);
+		} elseif ($trial_end == $subscription_end && $item['subscription']['duration'] != 0) {
+			$next_payment = $this->calculateSchedule($item['subscription']['frequency'], $next_payment, $item['subscription']['cycle']);
+			$subscription_end = $this->calculateSchedule($item['subscription']['frequency'], $subscription_end, $item['subscription']['cycle'] * $item['subscription']['duration']);
+		} elseif ($trial_end > $subscription_end && $item['subscription']['duration'] == 0) {
 			$subscription_end = new \DateTime('0000-00-00');
-		} elseif ($trial_end == $subscription_end && $item['duration'] == 0) {
-			$next_payment = $this->calculateSchedule($item['frequency'], $next_payment, $item['cycle']);
+		} elseif ($trial_end == $subscription_end && $item['subscription']['duration'] == 0) {
+			$next_payment = $this->calculateSchedule($item['subscription']['frequency'], $next_payment, $item['subscription']['cycle']);
 			$subscription_end = new \DateTime('0000-00-00');
 		}
 
@@ -444,12 +444,20 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 		return $cron_data;
 	}
 
-	private function calculateSchedule(string $frequency, string $next_payment, int $cycle): string {
+	/**
+	 * Calculate Schedule
+	 *
+	 * @param string    $frequency
+	 * @param \Datetime $next_payment
+	 * @param int       $cycle
+	 *
+	 * @return \Datetime
+	 */
+	private function calculateSchedule(string $frequency, \DateTime $next_payment, int $cycle) {
+		$next_payment = clone $next_payment;
+
 		if ($frequency == 'semi_month') {
-			// https://stackoverflow.com/a/35473574
-			$day = date_create_from_format('j M, Y', $next_payment->date);
-			$day = date_create($day);
-			$day = date_format($day, 'd');
+			$day = $next_payment->format('d');
 			$value = 15 - $day;
 			$is_even = false;
 
@@ -511,10 +519,9 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 			// Subscriptions
 			$this->load->model('checkout/subscription');
 
-			$this->model_checkout_subscription->editReference($subscription_id, $response_data['VendorTxCode']);
+			//$this->model_checkout_subscription->editReference($subscription_id, $response_data['VendorTxCode']);
 
-			$this->model_account_subscription->editStatus($subscription_id, $type);
-			$this->model_account_subscription->addTransaction($subscription_id, $transaction['order_id'], $transaction['description'], $transaction['amount'], $type, $transaction['payment_method'], $transaction['payment_code']);
+			//$this->model_account_subscription->editStatus($subscription_id, $type);
 		}
 	}
 

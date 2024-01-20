@@ -35,14 +35,22 @@ class ModelExtensionPaymentSquareup extends Model {
 	public function getTransactions(array $data): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "squareup_transaction`";
 
-		if (isset($data['order_id'])) {
+		if (isset($data['order_id']) && $data['order_id'] != '') {
 			$sql .= " WHERE `order_id` = '" . (int)$data['order_id'] . "'";
 		}
 
 		$sql .= " ORDER BY `created_at` DESC";
 
-		if (isset($data['start']) && isset($data['limit'])) {
-			$sql .= " LIMIT " . $data['start'] . ',' . $data['limit'];
+		if (isset($data['start']) || isset($data['limit'])) {
+			if ($data['start'] < 0) {
+				$data['start'] = 0;
+			}
+
+			if ($data['limit'] < 1) {
+				$data['limit'] = 20;
+			}
+
+			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
 		}
 
 		$query = $this->db->query($sql);
@@ -60,11 +68,13 @@ class ModelExtensionPaymentSquareup extends Model {
 	public function getTotalTransactions(array $data): int {
 		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "squareup_transaction`";
 
-		if (isset($data['order_id'])) {
+		if (isset($data['order_id']) && $data['order_id'] != '') {
 			$sql .= " WHERE `order_id` = '" . (int)$data['order_id'] . "'";
 		}
 
-		return (int)$this->db->query($sql)->row['total'];
+		$query = $this->db->query($sql);
+
+		return (int)$query->row['total'];
 	}
 
 	/**

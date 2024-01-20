@@ -76,7 +76,7 @@ class ModelExtensionPaymentOpayo extends Model {
 	 * @return int
 	 */
 	public function addCard(array $card_data): int {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "opayo_card` SET `customer_id` = '" . $this->db->escape($card_data['customer_id']) . "', `digits` = '" . $this->db->escape($card_data['Last4Digits']) . "', `expiry` = '" . $this->db->escape($card_data['ExpiryDate']) . "', `type` = '" . $this->db->escape($card_data['CardType']) . "', `token` = '" . $this->db->escape($card_data['Token']) . "'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "opayo_card` SET `customer_id` = '" . (int)$card_data['customer_id'] . "', `digits` = '" . $this->db->escape($card_data['Last4Digits']) . "', `expiry` = '" . $this->db->escape($card_data['ExpiryDate']) . "', `type` = '" . $this->db->escape($card_data['CardType']) . "', `token` = '" . $this->db->escape($card_data['Token']) . "'");
 
 		return $this->db->getLastId();
 	}
@@ -126,7 +126,7 @@ class ModelExtensionPaymentOpayo extends Model {
 	 * @param int                  $order_id
 	 * @param array<string, mixed> $response_data
 	 * @param array<string, mixed> $payment_data
-	 * @param int                  $card_id
+	 * @param string               $card_id
 	 *
 	 * @return int
 	 */
@@ -183,7 +183,7 @@ class ModelExtensionPaymentOpayo extends Model {
 	}
 
 	/**
-	 * Add Order Transaction
+	 * Add Transaction
 	 *
 	 * @param int                  $opayo_order_id
 	 * @param string               $type
@@ -191,7 +191,7 @@ class ModelExtensionPaymentOpayo extends Model {
 	 *
 	 * @return void
 	 */
-	public function addOrderTransaction(int $opayo_order_id, string $type, array $order_info): void {
+	public function addTransaction(int $opayo_order_id, string $type, array $order_info): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "opayo_order_transaction` SET `opayo_order_id` = '" . (int)$opayo_order_id . "', `date_added` = now(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . $this->currency->format($order_info['total'], $order_info['currency_code'], false, false) . "'");
 	}
 
@@ -213,7 +213,7 @@ class ModelExtensionPaymentOpayo extends Model {
 	}
 
 	/**
-	 * Recurring Payment
+	 * subscriptionPayment
 	 *
 	 * @param array<string, mixed> $item
 	 * @param string               $vendor_tx_code
@@ -221,147 +221,69 @@ class ModelExtensionPaymentOpayo extends Model {
 	 * @return void
 	 */
 	public function subscriptionPayment(array $item, string $vendor_tx_code): void {
-		$this->load->model('checkout/recurring');
-		$this->load->model('extension/payment/opayo');
+		$this->load->model('checkout/subscription');
+		$this->load->model('checkout/order');
 
-		if (VERSION >= '3.0.1.0') {
-			if ($item['recurring']['trial'] == 1) {
-				$price = $item['recurring']['trial_price'];
-				$trial_amt = $this->currency->format($this->tax->calculate($item['recurring']['trial_price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity'] . ' ' . $this->session->data['currency'];
-				$trial_text = sprintf($this->language->get('text_trial'), $trial_amt, $item['recurring']['trial_cycle'], $item['recurring']['trial_frequency'], $item['recurring']['trial_duration']);
-			} else {
-				$price = $item['recurring']['price'];
-				$trial_text = '';
-			}
+		if ($item['subscription']['trial_status'] == 1) {
+			$price = $item['subscription']['trial_price'];
 
-			$recurring_amt = $this->currency->format($this->tax->calculate($item['recurring']['price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity'] . ' ' . $this->session->data['currency'];
-			$recurring_description = $trial_text . sprintf($this->language->get('text_recurring'), $recurring_amt, $item['recurring']['cycle'], $item['recurring']['frequency']);
-
-			if ($item['recurring']['duration'] > 0) {
-				$recurring_description .= sprintf($this->language->get('text_length'), $item['recurring']['duration']);
-			}
-
-			$order_recurring_id = $this->model_checkout_recurring->addRecurring($this->session->data['order_id'], $recurring_description, $item);
-
-			$this->model_checkout_recurring->editReference($order_recurring_id, $vendor_tx_code);
-
-			$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
-
-			$opayo_order_info = $this->getOrder($this->session->data['order_id']);
-
-			$next_payment = new \DateTime('now');
-			$trial_end = new \DateTime('now');
-			$subscription_end = new \DateTime('now');
-
-			if (($item['recurring']['trial'] == 1) && ($item['recurring']['trial_duration'] != 0)) {
-				$next_payment = $this->calculateSchedule($item['recurring']['trial_frequency'], $next_payment, $item['recurring']['trial_cycle']);
-				$trial_end = $this->calculateSchedule($item['recurring']['trial_frequency'], $trial_end, $item['recurring']['trial_cycle'] * $item['recurring']['trial_duration']);
-			} elseif ($item['recurring']['trial'] == 1) {
-				$next_payment = $this->calculateSchedule($item['recurring']['trial_frequency'], $next_payment, $item['recurring']['trial_cycle']);
-				$trial_end = new \DateTime('0000-00-00');
-			}
-
-			if (date_format($trial_end, 'Y-m-d H:i:s') > date_format($subscription_end, 'Y-m-d H:i:s') && $item['recurring']['duration'] != 0) {
-				$subscription_end = new \DateTime(date_format($trial_end, 'Y-m-d H:i:s'));
-				$subscription_end = $this->calculateSchedule($item['recurring']['frequency'], $subscription_end, $item['recurring']['cycle'] * $item['recurring']['duration']);
-			} elseif (date_format($trial_end, 'Y-m-d H:i:s') == date_format($subscription_end, 'Y-m-d H:i:s') && $item['recurring']['duration'] != 0) {
-				$next_payment = $this->calculateSchedule($item['recurring']['frequency'], $next_payment, $item['recurring']['cycle']);
-				$subscription_end = $this->calculateSchedule($item['recurring']['frequency'], $subscription_end, $item['recurring']['cycle'] * $item['recurring']['duration']);
-			} elseif (date_format($trial_end, 'Y-m-d H:i:s') > date_format($subscription_end, 'Y-m-d H:i:s') && $item['recurring']['duration'] == 0) {
-				$subscription_end = new \DateTime('0000-00-00');
-			} elseif (date_format($trial_end, 'Y-m-d H:i:s') == date_format($subscription_end, 'Y-m-d H:i:s') && $item['recurring']['duration'] == 0) {
-				$next_payment = $this->calculateSchedule($item['recurring']['frequency'], $next_payment, $item['recurring']['cycle']);
-				$subscription_end = new \DateTime('0000-00-00');
-			}
-
-			if (date_format($trial_end, 'Y-m-d H:i:s') >= date_format($subscription_end, 'Y-m-d H:i:s')) {
-				$recurring_expiry = date_format($trial_end, 'Y-m-d');
-			} else {
-				$recurring_expiry = date_format($subscription_end, 'Y-m-d');
-			}
-
-			$recurring_frequency = date_diff(new \DateTime('now'), new \DateTime(date_format($next_payment, 'Y-m-d H:i:s')))->days;
-
-			$response_data = $this->setPaymentData($order_info, $opayo_order_info, $price, $order_recurring_id, $item['recurring']['name'], $recurring_expiry, $recurring_frequency);
-
-			$this->addRecurringOrder($this->session->data['order_id'], $response_data, $order_recurring_id, date_format($trial_end, 'Y-m-d H:i:s'), date_format($subscription_end, 'Y-m-d H:i:s'));
-
-			if ($response_data['Status'] == 'OK') {
-				$this->updateRecurringOrder($order_recurring_id, date_format($next_payment, 'Y-m-d H:i:s'));
-
-				$this->addTransaction($order_recurring_id, $response_data, 1);
-			} else {
-				$this->addTransaction($order_recurring_id, $response_data, 4);
-			}
+			$trial_amt = $this->currency->format($this->tax->calculate($item['subscription']['trial_price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity'] . ' ' . $this->session->data['currency'];
+			$trial_text = sprintf($this->language->get('text_trial'), $trial_amt, $item['subscription']['trial_cycle'], $item['subscription']['trial_frequency'], $item['subscription']['trial_duration']);
 		} else {
-			if ($item['recurring_trial'] == 1) {
-				$price = $item['recurring_trial_price'];
-				$trial_amt = $this->currency->format($this->tax->calculate($item['recurring_trial_price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity'] . ' ' . $this->session->data['currency'];
-				$trial_text = sprintf($this->language->get('text_trial'), $trial_amt, $item['recurring_trial_cycle'], $item['recurring_trial_frequency'], $item['recurring_trial_duration']);
-			} else {
-				$price = $item['recurring_price'];
-				$trial_text = '';
-			}
+			$price = $item['subscription']['price'];
 
-			$recurring_amt = $this->currency->format($this->tax->calculate($item['recurring_price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity'] . ' ' . $this->session->data['currency'];
-			$recurring_description = $trial_text . sprintf($this->language->get('text_recurring'), $recurring_amt, $item['recurring_cycle'], $item['recurring_frequency']);
+			$trial_text = '';
+		}
 
-			if ($item['recurring_duration'] > 0) {
-				$recurring_description .= sprintf($this->language->get('text_length'), $item['recurring_duration']);
-			}
+		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
-			$order_recurring_id = $this->model_checkout_recurring->create($item, $this->session->data['order_id'], $recurring_description);
+		$opayo_order_info = $this->getOrder($this->session->data['order_id']);
 
-			$this->model_checkout_recurring->addReference($order_recurring_id, $vendor_tx_code);
+		$next_payment = new \DateTime('now');
+		$trial_end = new \DateTime('now');
+		$subscription_end = new \DateTime('now');
 
-			$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
+		if ($item['subscription']['trial_status'] == 1 && $item['subscription']['trial_duration'] != 0) {
+			$next_payment = $this->calculateSchedule($item['subscription']['trial_frequency'], $next_payment, $item['subscription']['trial_cycle']);
+			$trial_end = $this->calculateSchedule($item['subscription']['trial_frequency'], $trial_end, $item['subscription']['trial_cycle'] * $item['subscription']['trial_duration']);
+		} elseif ($item['subscription']['trial_status'] == 1) {
+			$next_payment = $this->calculateSchedule($item['subscription']['trial_frequency'], $next_payment, $item['subscription']['trial_cycle']);
+			$trial_end = new \DateTime('0000-00-00');
+		}
 
-			$opayo_order_info = $this->getOrder($this->session->data['order_id']);
+		if (date_format($trial_end, 'Y-m-d H:i:s') > date_format($subscription_end, 'Y-m-d H:i:s') && $item['subscription']['duration'] != 0) {
+			$subscription_end = new \DateTime(date_format($trial_end, 'Y-m-d H:i:s'));
+			$subscription_end = $this->calculateSchedule($item['subscription']['frequency'], $subscription_end, $item['subscription']['cycle'] * $item['subscription']['duration']);
+		} elseif (date_format($trial_end, 'Y-m-d H:i:s') == date_format($subscription_end, 'Y-m-d H:i:s') && $item['subscription']['duration'] != 0) {
+			$next_payment = $this->calculateSchedule($item['subscription']['frequency'], $next_payment, $item['subscription']['cycle']);
+			$subscription_end = $this->calculateSchedule($item['subscription']['frequency'], $subscription_end, $item['subscription']['cycle'] * $item['subscription']['duration']);
+		} elseif (date_format($trial_end, 'Y-m-d H:i:s') > date_format($subscription_end, 'Y-m-d H:i:s') && $item['subscription']['duration'] == 0) {
+			$subscription_end = new \DateTime('0000-00-00');
+		} elseif (date_format($trial_end, 'Y-m-d H:i:s') == date_format($subscription_end, 'Y-m-d H:i:s') && $item['subscription']['duration'] == 0) {
+			$next_payment = $this->calculateSchedule($item['subscription']['frequency'], $next_payment, $item['subscription']['cycle']);
+			$subscription_end = new \DateTime('0000-00-00');
+		}
 
-			$next_payment = new \DateTime('now');
-			$trial_end = new \DateTime('now');
-			$subscription_end = new \DateTime('now');
+		if (date_format($trial_end, 'Y-m-d H:i:s') >= date_format($subscription_end, 'Y-m-d H:i:s')) {
+			$subscription_expiry = date_format($trial_end, 'Y-m-d');
+		} else {
+			$subscription_expiry = date_format($subscription_end, 'Y-m-d');
+		}
 
-			if ($item['recurring_trial'] == 1 && $item['recurring_trial_duration'] != 0) {
-				$next_payment = $this->calculateSchedule($item['recurring_trial_frequency'], $next_payment, $item['recurring_trial_cycle']);
-				$trial_end = $this->calculateSchedule($item['recurring_trial_frequency'], $trial_end, $item['recurring_trial_cycle'] * $item['recurring_trial_duration']);
-			} elseif ($item['recurring_trial'] == 1) {
-				$next_payment = $this->calculateSchedule($item['recurring_trial_frequency'], $next_payment, $item['recurring_trial_cycle']);
-				$trial_end = new \DateTime('0000-00-00');
-			}
+		$subscription_id = $this->model_checkout_subscription->addSubscription($item['subscription']);
 
-			if (date_format($trial_end, 'Y-m-d H:i:s') > date_format($subscription_end, 'Y-m-d H:i:s') && $item['recurring_duration'] != 0) {
-				$subscription_end = new \DateTime(date_format($trial_end, 'Y-m-d H:i:s'));
-				$subscription_end = $this->calculateSchedule($item['recurring_frequency'], $subscription_end, $item['recurring_cycle'] * $item['recurring_duration']);
-			} elseif (date_format($trial_end, 'Y-m-d H:i:s') == date_format($subscription_end, 'Y-m-d H:i:s') && $item['recurring_duration'] != 0) {
-				$next_payment = $this->calculateSchedule($item['recurring_frequency'], $next_payment, $item['recurring_cycle']);
-				$subscription_end = $this->calculateSchedule($item['recurring_frequency'], $subscription_end, $item['recurring_cycle'] * $item['recurring_duration']);
-			} elseif (date_format($trial_end, 'Y-m-d H:i:s') > date_format($subscription_end, 'Y-m-d H:i:s') && $item['recurring_duration'] == 0) {
-				$subscription_end = new \DateTime('0000-00-00');
-			} elseif (date_format($trial_end, 'Y-m-d H:i:s') == date_format($subscription_end, 'Y-m-d H:i:s') && $item['recurring_duration'] == 0) {
-				$next_payment = $this->calculateSchedule($item['recurring_frequency'], $next_payment, $item['recurring_cycle']);
-				$subscription_end = new \DateTime('0000-00-00');
-			}
+		$subscription_frequency = date_diff(new \DateTime('now'), new \DateTime(date_format($next_payment, 'Y-m-d H:i:s')))->days;
 
-			if (date_format($trial_end, 'Y-m-d H:i:s') >= date_format($subscription_end, 'Y-m-d H:i:s')) {
-				$recurring_expiry = date_format($trial_end, 'Y-m-d');
-			} else {
-				$recurring_expiry = date_format($subscription_end, 'Y-m-d');
-			}
+		$response_data = $this->setPaymentData($order_info, $opayo_order_info, $price, $subscription_id, $item['subscription']['name'], $subscription_expiry, $subscription_frequency);
 
-			$recurring_frequency = date_diff(new \DateTime('now'), new \DateTime(date_format($next_payment, 'Y-m-d H:i:s')))->days;
+		$this->addSubscriptionOrder($this->session->data['order_id'], $response_data, $subscription_id, date_format($trial_end, 'Y-m-d H:i:s'), date_format($subscription_end, 'Y-m-d H:i:s'));
 
-			$response_data = $this->setPaymentData($order_info, $opayo_order_info, $price, $order_recurring_id, $item['recurring_name'], $recurring_expiry, $recurring_frequency);
+		if ($response_data['Status'] == 'OK') {
+			$this->updateSubscriptionOrder($subscription_id, date_format($next_payment, 'Y-m-d H:i:s'));
 
-			$this->addRecurringOrder($this->session->data['order_id'], $response_data, $order_recurring_id, date_format($trial_end, 'Y-m-d H:i:s'), date_format($subscription_end, 'Y-m-d H:i:s'));
-
-			if ($response_data['Status'] == 'OK') {
-				$this->updateRecurringOrder($order_recurring_id, date_format($next_payment, 'Y-m-d H:i:s'));
-
-				$this->addTransaction($order_recurring_id, $response_data, 1);
-			} else {
-				$this->addTransaction($order_recurring_id, $response_data, 4);
-			}
+			$this->addOrderTransaction($subscription_id, $response_data, 1);
+		} else {
+			$this->addOrderTransaction($subscription_id, $response_data, 4);
 		}
 	}
 
@@ -371,63 +293,71 @@ class ModelExtensionPaymentOpayo extends Model {
 	 * @return array<int, array<string, mixed>>
 	 */
 	public function cronPayment(): array {
+		$this->load->model('account/subscription');
 		$this->load->model('checkout/order');
+		$this->load->model('account/order');
 
-		$recurrings = $this->getProfiles();
+		$limit = $this->config->get('config_pagination');
+
+		$subscriptions = $this->model_account_subscription->getSubscriptions(0, $limit);
+
 		$cron_data = [];
+
 		$i = 0;
 
-		foreach ($recurrings as $recurring) {
-			$recurring_order = $this->getRecurringOrder($recurring['order_recurring_id']);
+		foreach ($subscriptions as $subscription) {
+			$subscription_order = $this->model_account_subscription->getSubscriptionByOrderProductId($subscription['order_id'], $subscription['order_product_id']);
+
+			$opayo_order_info = $this->getOrder($subscription_order['order_id']);
 
 			$today = new \DateTime('now');
 			$unlimited = new \DateTime('0000-00-00');
-			$next_payment = new \DateTime($recurring_order['next_payment']);
-			$trial_end = new \DateTime($recurring_order['trial_end']);
-			$subscription_end = new \DateTime($recurring_order['subscription_end']);
+			$next_payment = new \DateTime($subscription_order['next_payment']);
+			$trial_end = new \DateTime($subscription_order['trial_end']);
+			$subscription_end = new \DateTime($subscription_order['subscription_end']);
 
-			$order_info = $this->model_checkout_order->getOrder($recurring['order_id']);
+			$order_info = $this->model_checkout_order->getOrder($subscription_order['order_id']);
+
+			$order_product = $this->model_account_order->getProduct($subscription_order['order_id'], $subscription_order['order_product_id']);
 
 			if ((date_format($today, 'Y-m-d H:i:s') > date_format($next_payment, 'Y-m-d H:i:s')) && (date_format($trial_end, 'Y-m-d H:i:s') > date_format($today, 'Y-m-d H:i:s') || date_format($trial_end, 'Y-m-d H:i:s') == date_format($unlimited, 'Y-m-d H:i:s'))) {
-				$price = $this->currency->format($recurring['trial_price'], $order_info['currency_code'], false, false);
-				$frequency = $recurring['trial_frequency'];
-				$cycle = $recurring['trial_cycle'];
+				$price = $this->currency->format($subscription_order['trial_price'], $order_info['currency_code'], false, false);
+				$frequency = $subscription_order['trial_frequency'];
+				$cycle = $subscription_order['trial_cycle'];
 				$next_payment = $this->calculateSchedule($frequency, $next_payment, $cycle);
 			} elseif ((date_format($today, 'Y-m-d H:i:s') > date_format($next_payment, 'Y-m-d H:i:s')) && (date_format($subscription_end, 'Y-m-d H:i:s') > date_format($today, 'Y-m-d H:i:s') || date_format($subscription_end, 'Y-m-d H:i:s') == date_format($unlimited, 'Y-m-d H:i:s'))) {
-				$price = $this->currency->format($recurring['recurring_price'], $order_info['currency_code'], false, false);
-				$frequency = $recurring['recurring_frequency'];
-				$cycle = $recurring['recurring_cycle'];
+				$price = $this->currency->format($subscription_order['price'], $order_info['currency_code'], false, false);
+				$frequency = $subscription_order['frequency'];
+				$cycle = $subscription_order['cycle'];
 				$next_payment = $this->calculateSchedule($frequency, $next_payment, $cycle);
 			} else {
 				continue;
 			}
 
-			$opayo_order_info = $this->getOrder($recurring['order_id']);
-
 			if (date_format($trial_end, 'Y-m-d H:i:s') >= date_format($subscription_end, 'Y-m-d H:i:s')) {
-				$recurring_expiry = date_format($trial_end, 'Y-m-d');
+				$subscription_expiry = date_format($trial_end, 'Y-m-d');
 			} else {
-				$recurring_expiry = date_format($subscription_end, 'Y-m-d');
+				$subscription_expiry = date_format($subscription_end, 'Y-m-d');
 			}
 
-			$recurring_frequency = date_diff(new \DateTime('now'), new \DateTime(date_format($next_payment, 'Y-m-d H:i:s')))->days;
+			$subscription_frequency = date_diff(new \DateTime('now'), new \DateTime(date_format($next_payment, 'Y-m-d H:i:s')))->days;
 
-			$response_data = $this->setPaymentData($order_info, $opayo_order_info, $price, $recurring['order_recurring_id'], $recurring['recurring_name'], $recurring_expiry, $recurring_frequency, $i);
+			$response_data = $this->setPaymentData($order_info, $opayo_order_info, $price, $subscription_order['subscription_id'], $order_product['name'], $subscription_expiry, $subscription_frequency, $i);
 
 			$cron_data[] = $response_data;
 
 			if ($response_data['RepeatResponseData_' . $i++]['Status'] == 'OK') {
-				$this->addTransaction($recurring['order_recurring_id'], $response_data, 1);
+				$this->addOrderTransaction($subscription_order['subscription_id'], $response_data, 1);
 
-				$this->updateRecurringOrder($recurring['order_recurring_id'], date_format($next_payment, 'Y-m-d H:i:s'));
+				$this->updateSubscriptionOrder($subscription_order['subscription_id'], date_format($next_payment, 'Y-m-d H:i:s'));
 			} else {
-				$this->addTransaction($recurring['order_recurring_id'], $response_data, 4);
+				$this->addOrderTransaction($subscription_order['subscription_id'], $response_data, 4);
 			}
 		}
 
-		$log = new \Log('opayo_recurring_orders.log');
+		$log = new \Log('opayo_subscription_orders.log');
 
-		$log->write(print_r($cron_data, 1));
+		$log->write(print_r($cron_data, true));
 
 		return $cron_data;
 	}
@@ -438,19 +368,17 @@ class ModelExtensionPaymentOpayo extends Model {
 	 * @param array<string, mixed> $order_info
 	 * @param array<string, mixed> $opayo_order_info
 	 * @param float                $price
-	 * @param int                  $order_recurring_id
-	 * @param string               $recurring_name
-	 * @param string               $recurring_expiry
-	 * @param int                  $recurring_frequency
-	 * @param mixed|null           $i
 	 * @param int                  $subscription_id
 	 * @param string               $subscription_name
+	 * @param string               $subscription_expiry
+	 * @param int                  $subscription_frequency
+	 * @param mixed|null           $i
 	 *
 	 * @return array<string, mixed>
 	 */
-	private function setPaymentData(array $order_info, array $opayo_order_info, float $price, int $order_recurring_id, string $recurring_name, string $recurring_expiry, int $recurring_frequency, $i = null): array {
+	private function setPaymentData(array $order_info, array $opayo_order_info, float $price, int $subscription_id, string $subscription_name, string $subscription_expiry, int $subscription_frequency, $i = null): array {
 		// Setting
-		$_config = new Config();
+		$_config = new \Config();
 		$_config->load('opayo');
 
 		$config_setting = $_config->get('payze_opayo');
@@ -471,10 +399,10 @@ class ModelExtensionPaymentOpayo extends Model {
 
 		$payment_data['TxType'] = 'REPEAT';
 		$payment_data['Vendor'] = $this->config->get('payment_opayo_vendor');
-		$payment_data['VendorTxCode'] = $order_recurring_id . 'RSD' . strftime("%Y%m%d%H%M%S") . mt_rand(1, 999);
+		$payment_data['VendorTxCode'] = $subscription_id . 'RSD' . strftime("%Y%m%d%H%M%S") . mt_rand(1, 999);
 		$payment_data['Amount'] = $this->currency->format($price, $this->session->data['currency'], false, false);
 		$payment_data['Currency'] = $this->session->data['currency'];
-		$payment_data['Description'] = substr($recurring_name, 0, 100);
+		$payment_data['Description'] = substr($subscription_name, 0, 100);
 		$payment_data['RelatedVPSTxId'] = trim($opayo_order_info['vps_tx_id'], '{}');
 		$payment_data['RelatedVendorTxCode'] = $opayo_order_info['vendor_tx_code'];
 		$payment_data['RelatedSecurityKey'] = $opayo_order_info['security_key'];
@@ -482,8 +410,8 @@ class ModelExtensionPaymentOpayo extends Model {
 		$payment_data['COFUsage'] = 'SUBSEQUENT';
 		$payment_data['InitiatedType'] = 'MIT';
 		$payment_data['MITType'] = 'RECURRING';
-		$payment_data['RecurringExpiry'] = $recurring_expiry;
-		$payment_data['RecurringFrequency'] = $recurring_frequency;
+		$payment_data['RecurringExpiry'] = $subscription_expiry;
+		$payment_data['RecurringFrequency'] = $subscription_frequency;
 
 		if (!empty($order_info['shipping_lastname'])) {
 			$payment_data['DeliverySurname'] = substr($order_info['shipping_lastname'], 0, 20);
@@ -538,16 +466,15 @@ class ModelExtensionPaymentOpayo extends Model {
 	 *
 	 * @param string    $frequency
 	 * @param \Datetime $next_payment
-	 * @param string    $cycle
+	 * @param int       $cycle
 	 *
 	 * @return \Datetime
 	 */
-	private function calculateSchedule(string $frequency, string $next_payment, string $cycle) {
+	private function calculateSchedule(string $frequency, \DateTime $next_payment, int $cycle) {
+		$next_payment = clone $next_payment;
+
 		if ($frequency == 'semi_month') {
-			// https://stackoverflow.com/a/35473574
-			$day = date_create_from_format('j M, Y', $next_payment->date);
-			$day = date_create($day);
-			$day = date_format($day, 'd');
+			$day = $next_payment->format('d');
 			$value = 15 - $day;
 			$is_even = false;
 
@@ -586,56 +513,56 @@ class ModelExtensionPaymentOpayo extends Model {
 	}
 
 	/**
-	 * Add Recurring Order
+	 * Add Subscription Order
 	 *
 	 * @param int                  $order_id
 	 * @param array<string, mixed> $response_data
-	 * @param int                  $order_recurring_id
+	 * @param int                  $subscription_id
 	 * @param string               $trial_end
 	 * @param string               $subscription_end
 	 *
 	 * @return void
 	 */
-	private function addRecurringOrder(int $order_id, array $response_data, int $order_recurring_id, string $trial_end, string $subscription_end): void {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "opayo_order_recurring` SET `order_id` = '" . (int)$order_id . "', `order_recurring_id` = '" . (int)$order_recurring_id . "', `vps_tx_id` = '" . $this->db->escape($response_data['VPSTxId']) . "', `vendor_tx_code` = '" . $this->db->escape($response_data['VendorTxCode']) . "', `security_key` = '" . $this->db->escape($response_data['SecurityKey']) . "', `tx_auth_no` = '" . $this->db->escape($response_data['TxAuthNo']) . "', `date_added` = now(), `date_modified` = now(), `next_payment` = now(), `trial_end` = '" . $trial_end . "', `subscription_end` = '" . $subscription_end . "', `currency_code` = '" . $this->db->escape($response_data['Currency']) . "', `total` = '" . $this->currency->format($response_data['Amount'], $response_data['Currency'], false, false) . "'");
+	private function addSubscriptionOrder(int $order_id, array $response_data, int $subscription_id, string $trial_end, string $subscription_end): void {
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "opayo_order_subscription` SET `order_id` = '" . (int)$order_id . "', `subscription_id` = '" . (int)$subscription_id . "', `vps_tx_id` = '" . $this->db->escape($response_data['VPSTxId']) . "', `vendor_tx_code` = '" . $this->db->escape($response_data['VendorTxCode']) . "', `security_key` = '" . $this->db->escape($response_data['SecurityKey']) . "', `tx_auth_no` = '" . $this->db->escape($response_data['TxAuthNo']) . "', `date_added` = now(), `date_modified` = now(), `next_payment` = now(), `trial_end` = '" . $trial_end . "', `subscription_end` = '" . $subscription_end . "', `currency_code` = '" . $this->db->escape($response_data['Currency']) . "', `total` = '" . $this->currency->format($response_data['Amount'], $response_data['Currency'], false, false) . "'");
 	}
 
 	/**
-	 * Update Recurring Order
+	 * Update Subscription Order
 	 *
-	 * @param int    $order_recurring_id
+	 * @param int    $subscription_id
 	 * @param string $next_payment
 	 *
 	 * @return void
 	 */
-	private function updateRecurringOrder(int $order_recurring_id, string $next_payment): void {
-		$this->db->query("UPDATE `" . DB_PREFIX . "opayo_order_recurring` SET `next_payment` = '" . $next_payment . "', `date_modified` = now() WHERE `order_recurring_id` = '" . (int)$order_recurring_id . "'");
+	private function updateSubscriptionOrder(int $subscription_id, string $next_payment): void {
+		$this->db->query("UPDATE `" . DB_PREFIX . "opayo_order_subscription` SET `next_payment` = '" . $this->db->escape($next_payment) . "', `date_modified` = NOW() WHERE `subscription_id` = '" . (int)$subscription_id . "'");
 	}
 
 	/**
-	 * Get Recurring Order
+	 * Get Subscription Order
 	 *
-	 * @param int $order_recurring_id
+	 * @param int $subscription_id
 	 *
 	 * @return array
 	 */
-	private function getRecurringOrder(int $order_recurring_id): array {
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "opayo_order_recurring` WHERE `order_recurring_id` = '" . (int)$order_recurring_id . "'");
+	private function getSubscriptionOrder(int $subscription_id): array {
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "opayo_order_subscription` WHERE `subscription_id` = '" . (int)$subscription_id . "'");
 
 		return $query->row;
 	}
 
 	/**
-	 * Add Recurring Transaction
+	 * Add Order Transaction
 	 *
-	 * @param int                  $order_recurring_id
+	 * @param int                  $subscription_id
 	 * @param array<string, mixed> $response_data
 	 * @param int                  $type
 	 *
 	 * @return void
 	 */
-	private function addTransaction(int $order_recurring_id, array $response_data, int $type): void {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "order_recurring_transaction` SET `order_recurring_id` = '" . (int)$order_recurring_id . "', `date_added` = NOW(), `amount` = '" . (float)$response_data['Amount'] . "', `type` = '" . (int)$type . "', `reference` = '" . $this->db->escape($response_data['VendorTxCode']) . "'");
+	private function addOrderTransaction(int $subscription_id, array $response_data, int $type): void {
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "order_subscription_transaction` SET `subscription_id` = '" . (int)$subscription_id . "', `date_added` = NOW(), `amount` = '" . (float)$response_data['Amount'] . "', `type` = '" . (int)$type . "', `reference` = '" . $this->db->escape($response_data['VendorTxCode']) . "'");
 	}
 
 	/**
@@ -644,9 +571,9 @@ class ModelExtensionPaymentOpayo extends Model {
 	 * @return array<int, array<string, mixed>>
 	 */
 	private function getProfiles(): array {
-		$query = $this->db->query("SELECT `or`.`order_recurring_id` FROM `" . DB_PREFIX . "order_recurring` `or` JOIN `" . DB_PREFIX . "order` `o` USING(`order_id`) WHERE `o`.`payment_code` = 'opayo'");
-
 		$order_recurring = [];
+
+		$query = $this->db->query("SELECT `or`.`order_recurring_id` FROM `" . DB_PREFIX . "order_recurring` `or` JOIN `" . DB_PREFIX . "order` `o` USING(`order_id`) WHERE `o`.`payment_code` = 'opayo'");
 
 		foreach ($query->rows as $recurring) {
 			$order_recurring[] = $this->getProfile($recurring['order_recurring_id']);
@@ -658,13 +585,12 @@ class ModelExtensionPaymentOpayo extends Model {
 	/**
 	 * Get Profile
 	 *
-	 * @param int $order_recurring_id
 	 * @param int $subscription_id
 	 *
 	 * @return array<string, mixed>
 	 */
-	private function getProfile(int $order_recurring_id): array {
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_recurring` WHERE `order_recurring_id` = '" . (int)$order_recurring_id . "'");
+	private function getProfile(int $subscription_id): array {
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_recurring` WHERE `subscription_id` = '" . (int)$subscription_id . "'");
 
 		return $query->row;
 	}
@@ -676,7 +602,8 @@ class ModelExtensionPaymentOpayo extends Model {
 	 */
 	public function updateCronRunTime(): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "setting` WHERE `code` = 'opayo' AND `key` = 'payment_opayo_last_cron_run'");
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` (`store_id`, `code`, `key`, `value`, `serialized`) VALUES (0, 'opayo', 'payment_opayo_last_cron_run', NOW(), 0)");
+
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'opayo', `key` = 'payment_opayo_last_cron_run', `value` = NOW(), `serialized` = '0'");
 	}
 
 	/**
@@ -726,12 +653,12 @@ class ModelExtensionPaymentOpayo extends Model {
 	 * Log
 	 *
 	 * @param string  $title
-	 * @param mixed   $data
+	 * @param ?string $data
 	 *
 	 * @return void
 	 */
 	public function log(string $title, ?string $data): void {
-		$_config = new Config();
+		$_config = new \Config();
 		$_config->load('opayo');
 
 		$config_setting = $_config->get('opayo_setting');
@@ -746,11 +673,11 @@ class ModelExtensionPaymentOpayo extends Model {
 	}
 
 	/**
-	 * Recurring Payments
+	 * Charge
 	 *
 	 * @return bool
 	 */
-	public function recurringPayments(): bool {
+	public function charge(): bool {
 		/*
 		 * Used by the checkout to state the module
 		 * supports recurring recurrings.

@@ -80,7 +80,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 		$this->load->model('setting/event');
 
 		$this->model_setting_event->addEvent('amazon_edit_capture', 'catalog/model/checkout/order/editOrder/after', 'extension/payment/amazon_login_pay/capture');
-		$this->model_setting_event->addEvent('amazon_history_capture', 'catalog/model/checkout/order/addOrderHistory/after', 'extension/payment/amazon_login_pay/capture');
+		$this->model_setting_event->addEvent('amazon_history_capture', 'catalog/model/checkout/order/addHistory/after', 'extension/payment/amazon_login_pay/capture');
 	}
 
 	/**

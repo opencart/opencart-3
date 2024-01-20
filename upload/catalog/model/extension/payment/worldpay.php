@@ -163,7 +163,7 @@ class ModelExtensionPaymentWorldpay extends Model {
 	}
 
 	/**
-	 * recurringPayment
+	 * subscriptionPayment
 	 *
 	 * @param array  $item
 	 * @param string $order_id_rand
@@ -171,7 +171,7 @@ class ModelExtensionPaymentWorldpay extends Model {
 	 *
 	 * @return void
 	 */
-	public function recurringPayment(array $item, string $order_id_rand, string $token): void {
+	public function subscriptionPayment(array $item, string $order_id_rand, string $token): void {
 		// Subscriptions
 		$this->load->model('checkout/subscription');
 
@@ -198,9 +198,9 @@ class ModelExtensionPaymentWorldpay extends Model {
 
 		$item['subscription']['description'] = $subscription_description;
 
-		$subscription_id = $this->model_checkout_subscription->addSubscription($this->session->data['order_id'], $item['subscription']);
+		$subscription_id = $this->model_checkout_subscription->addSubscription($item['subscription']);
 
-		$this->model_checkout_subscription->editReference($subscription_id, $order_id_rand);
+		//$this->model_checkout_subscription->editReference($subscription_id, $order_id_rand);
 
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
@@ -245,10 +245,10 @@ class ModelExtensionPaymentWorldpay extends Model {
 			$subscription_end = new \DateTime('0000-00-00');
 		}
 
-		if (isset($response_data->paymentStatus) && $response_data->paymentStatus == 'SUCCESS') {
-			$this->addRecurringOrder($order_info, $response_data->orderCode, $token, $price, $subscription_id, date_format($trial_end, 'Y-m-d H:i:s'), date_format($subscription_end, 'Y-m-d H:i:s'));
+		if (isset($response_data['paymentStatus']) && $response_data['paymentStatus'] == 'SUCCESS') {
+			$this->addRecurringOrder($order_info, $response_data['orderCode'], $token, $price, $subscription_id, date_format($trial_end, 'Y-m-d H:i:s'), date_format($subscription_end, 'Y-m-d H:i:s'));
 			$this->updateRecurringOrder($subscription_id, date_format($next_payment, 'Y-m-d H:i:s'));
-			$this->addProfileTransaction($subscription_id, $response_data->orderCode, $price, 1);
+			$this->addProfileTransaction($subscription_id, $response_data['orderCode'], $price, 1);
 		} else {
 			$this->addProfileTransaction($subscription_id, '', $price, 4);
 		}
@@ -311,8 +311,8 @@ class ModelExtensionPaymentWorldpay extends Model {
 
 			$cron_data[] = $response_data;
 
-			if (isset($response_data->paymentStatus) && $response_data->paymentStatus == 'SUCCESS') {
-				$this->addProfileTransaction($profile['subscription_id'], $response_data->orderCode, $price, 1);
+			if (isset($response_data['paymentStatus']) && $response_data['paymentStatus'] == 'SUCCESS') {
+				$this->addProfileTransaction($profile['subscription_id'], $response_data['orderCode'], $price, 1);
 
 				$next_payment = $this->calculateSchedule($frequency, $next_payment, $cycle);
 				$next_payment = date_format($next_payment, 'Y-m-d H:i:s');
@@ -330,12 +330,20 @@ class ModelExtensionPaymentWorldpay extends Model {
 		return $cron_data;
 	}
 
-	private function calculateSchedule($frequency, $next_payment, $cycle) {
+	/**
+	 * Calculate Schedule
+	 *
+	 * @param string    $frequency
+	 * @param \Datetime $next_payment
+	 * @param int       $cycle
+	 *
+	 * @return \Datetime
+	 */
+	private function calculateSchedule(string $frequency, \DateTime $next_payment, int $cycle) {
+		$next_payment = clone $next_payment;
+
 		if ($frequency == 'semi_month') {
-			// https://stackoverflow.com/a/35473574
-			$day = date_create_from_format('j M, Y', $next_payment->date);
-			$day = date_create($day);
-			$day = date_format($day, 'd');
+			$day = $next_payment->format('d');
 			$value = 15 - $day;
 			$isEven = false;
 
@@ -439,9 +447,9 @@ class ModelExtensionPaymentWorldpay extends Model {
 	/**
 	 * sendCurl
 	 *
-	 * @param string      $url
-	 * @param array 	  $order
-	 * 
+	 * @param string $url
+	 * @param array  $order
+	 *
 	 * @return array
 	 */
 	public function sendCurl(string $url, $order = []): array {

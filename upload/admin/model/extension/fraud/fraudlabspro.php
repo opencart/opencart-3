@@ -81,7 +81,7 @@ class ModelExtensionFraudFraudLabsPro extends Model {
 		// Events
 		$this->load->model('setting/event');
 
-		$this->model_setting_event->addEvent('fraud_fraudlabspro_history', 'catalog/model/checkout/order/addOrderHistory/after', 'extension/module/fraudlabspro/addOrderHistory');
+		$this->model_setting_event->addEvent('fraud_fraudlabspro_history', 'catalog/model/checkout/order/addHistory/after', 'extension/module/fraudlabspro/addHistory');
 
 		$this->cache->delete('order_status.' . (int)$this->config->get('config_language_id'));
 	}

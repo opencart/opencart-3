@@ -100,15 +100,16 @@ class ModelExtensionPaymentSquareup extends Model {
 			$subject = $this->language->get('text_token_expired_subject');
 			$message = $this->language->get('text_token_expired_message');
 
-			$mail = new \Mail($this->config->get('config_mail_engine'));
-			$mail->protocol = $this->config->get('config_mail_protocol');
-			$mail->parameter = $this->config->get('config_mail_parameter');
-			$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
-			$mail->smtp_username = $this->config->get('config_mail_smtp_username');
-			$mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-			$mail->smtp_port = $this->config->get('config_mail_smtp_port');
-			$mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+			$mail_option = [
+				'parameter'     => $this->config->get('config_mail_parameter'),
+				'smtp_hostname' => $this->config->get('config_mail_smtp_hostname'),
+				'smtp_username' => $this->config->get('config_mail_smtp_username'),
+				'smtp_password' => html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8'),
+				'smtp_port'     => $this->config->get('config_mail_smtp_port'),
+				'smtp_timeout'  => $this->config->get('config_mail_smtp_timeout')
+			];
 
+			$mail = new \Mail($this->config->get('config_mail_engine'), $mail_option);
 			$mail->setTo($this->config->get('config_email'));
 			$mail->setFrom($this->config->get('config_email'));
 			$mail->setSender($this->config->get('config_name'));
@@ -135,15 +136,16 @@ class ModelExtensionPaymentSquareup extends Model {
 			$subject = $this->language->get('text_token_revoked_subject');
 			$message = $this->language->get('text_token_revoked_message');
 
-			$mail = new \Mail($this->config->get('config_mail_engine'));
-			$mail->protocol = $this->config->get('config_mail_protocol');
-			$mail->parameter = $this->config->get('config_mail_parameter');
-			$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
-			$mail->smtp_username = $this->config->get('config_mail_smtp_username');
-			$mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-			$mail->smtp_port = $this->config->get('config_mail_smtp_port');
-			$mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+			$mail_option = [
+				'parameter'     => $this->config->get('config_mail_parameter'),
+				'smtp_hostname' => $this->config->get('config_mail_smtp_hostname'),
+				'smtp_username' => $this->config->get('config_mail_smtp_username'),
+				'smtp_password' => html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8'),
+				'smtp_port'     => $this->config->get('config_mail_smtp_port'),
+				'smtp_timeout'  => $this->config->get('config_mail_smtp_timeout')
+			];
 
+			$mail = new \Mail($this->config->get('config_mail_engine'), $mail_option);
 			$mail->setTo($this->config->get('config_email'));
 			$mail->setFrom($this->config->get('config_email'));
 			$mail->setSender($this->config->get('config_name'));
@@ -163,15 +165,6 @@ class ModelExtensionPaymentSquareup extends Model {
 	 */
 	public function cronEmail(array $result): void {
 		if ($this->config->get('config_mail_engine')) {
-			$mail = new \Mail($this->config->get('config_mail_engine'));
-			$mail->protocol = $this->config->get('config_mail_protocol');
-			$mail->parameter = $this->config->get('config_mail_parameter');
-			$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
-			$mail->smtp_username = $this->config->get('config_mail_smtp_username');
-			$mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-			$mail->smtp_port = $this->config->get('config_mail_smtp_port');
-			$mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
-
 			$br = '<br/>';
 			$subject = $this->language->get('text_cron_subject');
 			$message = $this->language->get('text_cron_message') . $br . $br;
@@ -205,6 +198,16 @@ class ModelExtensionPaymentSquareup extends Model {
 				}
 			}
 
+			$mail_option = [
+				'parameter'     => $this->config->get('config_mail_parameter'),
+				'smtp_hostname' => $this->config->get('config_mail_smtp_hostname'),
+				'smtp_username' => $this->config->get('config_mail_smtp_username'),
+				'smtp_password' => html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8'),
+				'smtp_port'     => $this->config->get('config_mail_smtp_port'),
+				'smtp_timeout'  => $this->config->get('config_mail_smtp_timeout')
+			];
+
+			$mail = new \Mail($this->config->get('config_mail_engine'), $mail_option);
 			$mail->setTo($this->config->get('payment_squareup_cron_email'));
 			$mail->setFrom($this->config->get('config_email'));
 			$mail->setSender($this->config->get('config_name'));
@@ -243,7 +246,7 @@ class ModelExtensionPaymentSquareup extends Model {
 		$status = self::RECURRING_ACTIVE;
 		$data = array_merge($data, ['status', $status]);
 
-		$this->model_checkout_subscription->addSubscription($order_id, $data);
+		$this->model_checkout_subscription->addSubscription($data);
 	}
 
 	/**
@@ -378,11 +381,9 @@ class ModelExtensionPaymentSquareup extends Model {
 				$type = self::TRANSACTION_FAILED;
 			}
 
-			$this->model_checkout_subscription->editReference($subscription_id, $transaction['id']);
+			//$this->model_checkout_subscription->editReference($subscription_id, $transaction['id']);
 
 			$amount = $this->squareup->standardDenomination($transaction['tenders'][0]['amount_money']['amount'], $transaction['tenders'][0]['amount_money']['currency']);
-
-			$this->model_account_subscription->addTransaction($subscription_id, $order_info['order_id'], $response_data['description'], $amount, $type, $order_info['payment_method'], $order_info['payment_code']);
 		}
 	}
 

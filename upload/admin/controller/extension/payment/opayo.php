@@ -72,7 +72,7 @@ class ControllerExtensionPaymentOpayo extends Controller {
 		}
 
 		// Setting
-		$_config = new Config();
+		$_config = new \Config();
 		$_config->load('opayo');
 
 		$data['setting'] = $_config->get('opayo_setting');

@@ -116,7 +116,7 @@ class ModelExtensionPaymentG2APay extends Model {
 
 		curl_close($curl);
 
-		return json_decode($response);
+		return json_decode($response, true);
 	}
 
 	/**

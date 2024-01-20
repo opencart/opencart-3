@@ -90,6 +90,8 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	 */
 	public function verifyReference(): void {
 		if (empty($this->session->data['apalwa']['pay']['order_reference_id'])) {
+			$this->language->get('extension/payment/amazon_login_pay');
+
 			$this->cartRedirect($this->language->get('error_process_order'));
 		}
 	}

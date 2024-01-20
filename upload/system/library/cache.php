@@ -51,7 +51,7 @@ class Cache {
 	 * @param string $value  The cache value
 	 * @param int    $expire The cache expiry
 	 *
-	 * @return mixed
+	 * @return void
 	 */
 	public function set(string $key, $value, int $expire = 0): void {
 		$this->adaptor->set($key, $value, $expire);

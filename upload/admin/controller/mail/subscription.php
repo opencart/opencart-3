@@ -150,15 +150,15 @@ class ControllerMailSubscription extends Controller {
 	/**
 	 * Transaction
 	 *
-	 * @param string $route
-	 * @param array  $args
-	 * @param mixed  $output
+	 * @param string            $route
+	 * @param array<int, mixed> $args
+	 * @param mixed             $output
+	 *
+	 * @throws \Exception
 	 *
 	 * @return void
-	 *
-	 * admin/controller/sale/subscription/addTransaction/after
 	 */
-	public function transaction(string &$route, array &$args, mixed &$output): void {
+	public function transaction(string &$route, array &$args, &$output): void {
 		if (isset($args[0])) {
 			$subscription_id = $args[0];
 		} else {
@@ -201,7 +201,7 @@ class ControllerMailSubscription extends Controller {
 			$payment_code = '';
 		}
 
-		// Subscriptions
+		// Subscription
 		$this->load->model('sale/subscription');
 
 		$filter_data = [
@@ -213,8 +213,10 @@ class ControllerMailSubscription extends Controller {
 		$subscriptions = $this->model_checkout_subscription->getSubscriptions($filter_data);
 
 		if ($subscriptions) {
+			$this->load->model('customer/customer');
+
 			foreach ($subscriptions as $subscription) {
-				$transaction_total = $this->model_sale_subscription->getTotalTransactions($subscription_id);
+				$transaction_total = $this->model_customer_customer->getTotalTransactionsByOrderId($subscription['order_id']);
 
 				if ($transaction_total) {
 					// Orders

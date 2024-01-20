@@ -167,7 +167,7 @@ class ModelExtensionPaymentPayPal extends Model {
 		return $this->db->getLastId();
 	}
 
-	public function editOrderRecurringStatus(int $subscription_id, int $status): void {
+	public function editOrderSubscriptionStatus(int $subscription_id, int $status): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "order_subscription` SET `status` = '" . (int)$status . "' WHERE `subscription_id` = '" . (int)$subscription_id . "'");
 	}
 
@@ -207,6 +207,15 @@ class ModelExtensionPaymentPayPal extends Model {
 		$query = $this->db->query("DELETE FROM `" . DB_PREFIX . "order_recurring_transaction` WHERE `order_recurring_id` = '" . (int)$order_recurring_id . "'");
 	}
 
+	/**
+	 * subscriptionPayment
+	 *
+	 * @param array $product_data
+	 * @param array $order_data
+	 * @param array $paypal_order_data
+	 *
+	 * @return void
+	 */
 	public function subscriptionPayment(array $product_data, array $order_data, array $paypal_order_data): void {
 		$_config = new Config();
 		$_config->load('paypal');
@@ -527,12 +536,20 @@ class ModelExtensionPaymentPayPal extends Model {
 		return [];
 	}
 
-	public function calculateSchedule(string $frequency, string $next_payment, int $cycle): string {
+	/**
+	 * Calculate Schedule
+	 *
+	 * @param string    $frequency
+	 * @param \Datetime $next_payment
+	 * @param int       $cycle
+	 *
+	 * @return \Datetime
+	 */
+	private function calculateSchedule(string $frequency, \DateTime $next_payment, int $cycle) {
+		$next_payment = clone $next_payment;
+
 		if ($frequency == 'semi_month') {
-			// https://stackoverflow.com/a/35473574
-			$day = date_create_from_format('j M, Y', $next_payment->date);
-			$day = date_create($day);
-			$day = date_format($day, 'd');
+			$day = $next_payment->format('d');
 			$value = 15 - $day;
 			$is_even = false;
 

@@ -21,7 +21,6 @@ class Language {
 	 * Constructor
 	 *
 	 * @param string $directory
-	 * @param string $file
 	 */
 	public function __construct(string $directory = '') {
 		$this->directory = $directory;

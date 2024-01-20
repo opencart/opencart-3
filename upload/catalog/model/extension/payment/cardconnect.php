@@ -176,7 +176,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 	 * @return int
 	 */
 	public function addOrder(int $order_id, int $customer_id, string $retref, string $auth_code, float $total, string $currency_code, string $payment_method): int {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "cardconnect_order` SET `order_id` = '" . (int)$order_info['order_id'] . "', `customer_id` = '" . (int)$this->customer->getId() . "', `payment_method` = '" . $this->db->escape($payment_method) . "', `retref` = '" . $this->db->escape($order_info['retref']) . "', `authcode` = '" . $this->db->escape($order_info['authcode']) . "', `currency_code` = '" . $this->db->escape($order_info['currency_code']) . "', `total` = '" . $this->currency->format($order_info['total'], $order_info['currency_code'], false, false) . "', `date_added` = NOW()");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "cardconnect_order` SET `order_id` = '" . (int)$order_id . "', `customer_id` = '" . (int)$this->customer->getId() . "', `payment_method` = '" . $this->db->escape($payment_method) . "', `retref` = '" . $this->db->escape($retref) . "', `authcode` = '" . $this->db->escape($auth_code) . "', `currency_code` = '" . $this->db->escape($currency_code) . "', `total` = '" . $this->currency->format($total, $currency_code, false, false) . "', `date_added` = NOW()");
 
 		return $this->db->getLastId();
 	}

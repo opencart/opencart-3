@@ -199,19 +199,6 @@ class ControllerAccountSubscription extends Controller {
 			$data['product_quantity'] = $order_product['quantity'];
 			$data['description'] = $subscription_info['description'];
 
-			// Transactions
-			$data['transactions'] = [];
-
-			$results = $this->model_account_subscription->getTransactions($this->request->get['subscription_id']);
-
-			foreach ($results as $result) {
-				$data['transactions'][] = [
-					'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
-					'type'       => $result['type'],
-					'amount'     => $this->currency->format($result['amount'], $subscription_info['currency_code'])
-				];
-			}
-
 			$data['order'] = $this->url->link('account/order/info', 'customer_token=' . $this->session->data['customer_token'] . '&order_id=' . $subscription_info['order_id'], true);
 			$data['product'] = $this->url->link('product/product', 'customer_token=' . $this->session->data['customer_token'] . '&product_id=' . $subscription_info['product_id']);
 

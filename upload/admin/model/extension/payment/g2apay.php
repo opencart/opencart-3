@@ -188,7 +188,7 @@ class ModelExtensionPaymentG2aPay extends Model {
 
 		curl_close($curl);
 
-		if (is_object($response)) {
+		if (is_object($response) && isset($response->status)) {
 			return (string)$response->status;
 		} else {
 			return str_replace('"', "", $response);
