@@ -99,6 +99,8 @@ class ControllerCustomerGdpr extends Controller {
 			'href' => $this->url->link('customer/gdpr', 'user_token=' . $this->session->data['user_token'], true)
 		];
 
+		$data['text_info'] = sprintf($this->language->get('text_info'), $this->config->get('config_gdpr_limit'));
+
 		// GDPR
 		$data['gdprs'] = [];
 
