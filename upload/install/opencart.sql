@@ -1589,7 +1589,7 @@ INSERT INTO `oc_extension` (`extension_id`, `type`, `code`) VALUES
 (40, 'report', 'customer_order'),
 (41, 'report', 'customer_reward'),
 (42, 'advertise', 'google'),
-(43, 'currency', 'ecb');
+(43, 'currency', 'ecb'),
 (44, 'report', 'subscription');
 
 -----------------------------------------------------------
