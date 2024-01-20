@@ -1836,28 +1836,6 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	}
 
 	/**
-	 * Uninstall
-	 *
-	 * @return void
-	 */
-	public function uninstall(): void {
-		$this->load->model('extension/payment/paypal');
-
-		$this->model_extension_payment_paypal->uninstall();
-
-		$this->load->model('setting/event');
-
-		$this->model_setting_event->deleteEventByCode('paypal_order_info');
-		$this->model_setting_event->deleteEventByCode('paypal_header');
-		$this->model_setting_event->deleteEventByCode('paypal_extension_get_extensions');
-		$this->model_setting_event->deleteEventByCode('paypal_order_delete_order');
-
-		$this->load->model('setting/setting');
-
-		$this->model_setting_setting->deleteSetting('paypal_version');
-	}
-
-	/**
 	 * Order Info Before
 	 *
 	 * @param mixed $route
@@ -2409,7 +2387,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 				$order_id = 0;
 			}
 
-			$this->model_extension_payment_paypal->editOrderRecurringStatus($order_id, 2);
+			$this->model_extension_payment_paypal->editOrderSubscriptionStatus($order_id, 2);
 
 			$json['success'] = $this->language->get('success_disable_subscription');
 		}
