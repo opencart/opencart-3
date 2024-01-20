@@ -169,7 +169,7 @@ class ModelExtensionPaymentDivido extends Model {
 
 		$response = Divido_Finances::all();
 
-		if (isset($response->status) && strtolower($response->status) != 'ok') {
+		if (is_callable([$response] ['status']) && strtolower($response->status) != 'ok') {
 			throw new \Exception('Can\'t get list of finance plans from Divido!');
 		}
 
@@ -177,8 +177,8 @@ class ModelExtensionPaymentDivido extends Model {
 		// we need to convert to a simple object.
 		$plans_plain = [];
 
-		if (isset($response->plans)) {
-			$plans = $response->finances;
+		if (is_callable([$response], ['plans'])) {
+			$plans = is_callable([$response], ['finances']) ? $response->finances : null;
 
 			foreach ($plans as $plan) {
 				$plan_copy = new \stdClass();
