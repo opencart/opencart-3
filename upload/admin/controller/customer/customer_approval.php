@@ -1,9 +1,4 @@
 <?php
-/**
- * Class Customer Approval
- *
- * @package Admin\Controller\Customer
- */
 class ControllerCustomerCustomerApproval extends Controller {
 	/**
 	 * @return void
@@ -26,7 +21,7 @@ class ControllerCustomerCustomerApproval extends Controller {
 		}
 
 		if (isset($this->request->get['filter_customer_group_id'])) {
-			$filter_customer_group_id = (int)$this->request->get['filter_customer_group_id'];
+			$filter_customer_group_id = $this->request->get['filter_customer_group_id'];
 		} else {
 			$filter_customer_group_id = '';
 		}
@@ -78,11 +73,8 @@ class ControllerCustomerCustomerApproval extends Controller {
 
 		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('heading_title'),
-			'href' => $this->url->link('customer/customer_approval', 'user_token=' . $this->session->data['user_token'] . $url, true)
+			'href' => $this->url->link('customer/customer_approval', 'user_token=' . $this->session->data['user_token'], true)
 		];
-
-		$data['approve'] = $this->url->link('customer/customer_approval/approve', 'user_token=' . $this->session->data['user_token'] . $url, true);
-		$data['deny'] = $this->url->link('customer/customer_approval/deny', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
 		$data['filter_name'] = $filter_name;
 		$data['filter_email'] = $filter_email;
@@ -92,7 +84,6 @@ class ControllerCustomerCustomerApproval extends Controller {
 
 		$data['user_token'] = $this->session->data['user_token'];
 
-		// Customer Groups
 		$this->load->model('customer/customer_group');
 
 		$data['customer_groups'] = $this->model_customer_customer_group->getCustomerGroups();
@@ -125,7 +116,7 @@ class ControllerCustomerCustomerApproval extends Controller {
 		}
 
 		if (isset($this->request->get['filter_customer_group_id'])) {
-			$filter_customer_group_id = (int)$this->request->get['filter_customer_group_id'];
+			$filter_customer_group_id = $this->request->get['filter_customer_group_id'];
 		} else {
 			$filter_customer_group_id = '';
 		}
@@ -160,7 +151,6 @@ class ControllerCustomerCustomerApproval extends Controller {
 			'limit'                    => $this->config->get('config_limit_admin')
 		];
 
-		// Customer Approval
 		$this->load->model('customer/customer_approval');
 
 		$customer_approval_total = $this->model_customer_customer_approval->getTotalCustomerApprovals($filter_data);
@@ -229,7 +219,6 @@ class ControllerCustomerCustomerApproval extends Controller {
 		if (!$this->user->hasPermission('modify', 'customer/customer_approval')) {
 			$json['error'] = $this->language->get('error_permission');
 		} else {
-			// Customer Approval
 			$this->load->model('customer/customer_approval');
 
 			if ($this->request->get['type'] == 'customer') {
@@ -258,7 +247,6 @@ class ControllerCustomerCustomerApproval extends Controller {
 		if (!$this->user->hasPermission('modify', 'customer/customer_approval')) {
 			$json['error'] = $this->language->get('error_permission');
 		} else {
-			// Customer Approval
 			$this->load->model('customer/customer_approval');
 
 			if ($this->request->get['type'] == 'customer') {

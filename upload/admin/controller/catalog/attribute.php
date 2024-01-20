@@ -1,14 +1,9 @@
 <?php
-/**
- * Class Attribute
- *
- * @package Admin\Controller\Catalog
- */
 class ControllerCatalogAttribute extends Controller {
 	/**
 	 * @var array<string, string>
 	 */
-	private array $error = [];
+	private $error = [];
 
 	/**
 	 * Index
@@ -138,6 +133,11 @@ class ControllerCatalogAttribute extends Controller {
 		$this->getList();
 	}
 
+	/**
+	 * Get List
+	 * 
+	 * @return void
+	 */
 	protected function getList(): void {
 		if (isset($this->request->get['sort'])) {
 			$sort = $this->request->get['sort'];
@@ -255,13 +255,14 @@ class ControllerCatalogAttribute extends Controller {
 			$url .= '&order=' . $this->request->get['order'];
 		}
 
-		$pagination = new \Pagination();
+		$pagination = new Pagination();
 		$pagination->total = $attribute_total;
 		$pagination->page = $page;
 		$pagination->limit = $this->config->get('config_limit_admin');
 		$pagination->url = $this->url->link('catalog/attribute', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
 
 		$data['pagination'] = $pagination->render();
+
 		$data['results'] = sprintf($this->language->get('text_pagination'), ($attribute_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($attribute_total - $this->config->get('config_limit_admin'))) ? $attribute_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $attribute_total, ceil($attribute_total / $this->config->get('config_limit_admin')));
 
 		$data['sort'] = $sort;
@@ -274,6 +275,11 @@ class ControllerCatalogAttribute extends Controller {
 		$this->response->setOutput($this->load->view('catalog/attribute_list', $data));
 	}
 
+	/**
+	 * Get Form
+	 * 
+	 * @return void
+	 */
 	protected function getForm(): void {
 		$data['text_form'] = !isset($this->request->get['attribute_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 
@@ -340,7 +346,7 @@ class ControllerCatalogAttribute extends Controller {
 		if (isset($this->request->post['attribute_description'])) {
 			$data['attribute_description'] = $this->request->post['attribute_description'];
 		} elseif (isset($this->request->get['attribute_id'])) {
-			$data['attribute_description'] = $this->model_catalog_attribute->getDescriptions($this->request->get['attribute_id']);
+			$data['attribute_description'] = $this->model_catalog_attribute->getAttributeDescriptions($this->request->get['attribute_id']);
 		} else {
 			$data['attribute_description'] = [];
 		}
@@ -372,6 +378,9 @@ class ControllerCatalogAttribute extends Controller {
 		$this->response->setOutput($this->load->view('catalog/attribute_form', $data));
 	}
 
+	/**
+	 * Validate Form
+	 */
 	protected function validateForm() {
 		if (!$this->user->hasPermission('modify', 'catalog/attribute')) {
 			$this->error['warning'] = $this->language->get('error_permission');
@@ -382,7 +391,7 @@ class ControllerCatalogAttribute extends Controller {
 		}
 
 		foreach ($this->request->post['attribute_description'] as $language_id => $value) {
-			if ((oc_strlen($value['name']) < 1) || (oc_strlen($value['name']) > 64)) {
+			if ((utf8_strlen($value['name']) < 1) || (utf8_strlen($value['name']) > 64)) {
 				$this->error['name'][$language_id] = $this->language->get('error_name');
 			}
 		}
@@ -390,6 +399,9 @@ class ControllerCatalogAttribute extends Controller {
 		return !$this->error;
 	}
 
+	/**
+	 * Validate Delete
+	 */
 	protected function validateDelete() {
 		if (!$this->user->hasPermission('modify', 'catalog/attribute')) {
 			$this->error['warning'] = $this->language->get('error_permission');
