@@ -1,9 +1,14 @@
 <?php
+/**
+ * Class Attribute
+ *
+ * @package Admin\Controller\Catalog
+ */
 class ControllerCatalogAttribute extends Controller {
 	/**
 	 * @var array<string, string>
 	 */
-	private $error = [];
+	private array $error = [];
 
 	/**
 	 * Index
@@ -135,7 +140,7 @@ class ControllerCatalogAttribute extends Controller {
 
 	/**
 	 * Get List
-	 * 
+	 *
 	 * @return void
 	 */
 	protected function getList(): void {
@@ -277,7 +282,7 @@ class ControllerCatalogAttribute extends Controller {
 
 	/**
 	 * Get Form
-	 * 
+	 *
 	 * @return void
 	 */
 	protected function getForm(): void {

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Customer Approval
+ *
+ * @package Admin\Controller\Customer
+ */
 class ControllerCustomerCustomerApproval extends Controller {
 	/**
 	 * @return void
