@@ -239,6 +239,8 @@ class ModelExtensionPaymentSagePayServer extends Model {
 				$price = $this->currency->format($item['subscription']['price'], $this->session->data['currency'], false, false);
 			}
 
+			$subscription_id = $this->model_checkout_subscription->addSubscription($item['subscription']);
+
 			$subscription_info = $this->getReference($data['vendor_tx_code']);
 
 			if ($subscription_info) {
@@ -268,8 +270,6 @@ class ModelExtensionPaymentSagePayServer extends Model {
 					$next_payment = $this->calculateSchedule($item['subscription']['frequency'], $next_payment, $item['subscription']['cycle']);
 					$subscription_end = new \DateTime('0000-00-00');
 				}
-
-				$subscription_id = $this->model_checkout_subscription->addSubscription($item['subscription']);
 
 				$this->addRecurringOrder($data['order_id'], $response_data, $subscription_id, date_format($trial_end, 'Y-m-d H:i:s'), date_format($subscription_end, 'Y-m-d H:i:s'));
 

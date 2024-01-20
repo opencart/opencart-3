@@ -355,6 +355,8 @@ class ModelExtensionPaymentOpayo extends Model {
 
 				$subscription_frequency = date_diff(new \DateTime('now'), new \DateTime(date_format($next_payment, 'Y-m-d H:i:s')))->days;
 
+				$subscription_id = $this->model_checkout_subscription->addSubscription($subscription_info);
+
 				$response_data = $this->setPaymentData($order_info, $opayo_order_info, $price, $subscription_id, $order_product['name'], $subscription_expiry, $subscription_frequency, $i);
 
 				$cron_data[] = $response_data;
@@ -365,8 +367,6 @@ class ModelExtensionPaymentOpayo extends Model {
 					$this->updateSubscriptionOrder($subscription_id, date_format($next_payment, 'Y-m-d H:i:s'));
 
 					$opayo_order_info = $this->getOrder($subscription_info['order_id']);
-
-					$subscription_id = $this->model_checkout_subscription->addSubscription($subscription_info);
 				} else {
 					$this->addOrderTransaction($subscription_id, $response_data, 4);
 				}
