@@ -120,8 +120,10 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	 *
 	 * @param mixed|null $message
 	 * @param mixed      $return_value
+	 * 
+	 * @return ?object
 	 */
-	public function cartRedirect($message = null, $return_value = false) {
+	public function cartRedirect($message = null, $return_value = false): ?object {
 		unset($this->session->data['apalwa']['pay']);
 		unset($this->session->data['order_id']);
 
@@ -134,6 +136,8 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 		} else {
 			return $this->response->redirect($this->url->link('checkout/cart', '', true));
 		}
+
+		return null;
 	}
 
 	/**
