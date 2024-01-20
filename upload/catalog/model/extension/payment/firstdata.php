@@ -169,12 +169,12 @@ class ModelExtensionPaymentFirstdata extends Model {
 	/**
 	 * responseHash
 	 *
-	 * @param float     $total
-	 * @param string    $currency
-	 * @param \Datetime $txn_date
-	 * @param string    $approval_code
+	 * @param float  $total
+	 * @param string $currency
+	 * @param string $txn_date
+	 * @param string $approval_code
 	 */
-	public function responseHash(float $total, string $currency, \Datetime $txn_date, $approval_code) {
+	public function responseHash(float $total, string $currency, string $txn_date, string $approval_code) {
 		$tmp = $total . $this->config->get('payment_firstdata_secret') . $currency . $txn_date . $this->config->get('payment_firstdata_merchant_id') . $approval_code;
 		$ascii = bin2hex($tmp);
 

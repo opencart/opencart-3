@@ -447,8 +447,6 @@ class ModelExtensionPaymentOpayo extends Model {
 	 * @param string               $recurring_expiry
 	 * @param int                  $recurring_frequency
 	 * @param mixed|null           $i
-	 * @param int                  $subscription_id
-	 * @param string               $subscription_name
 	 *
 	 * @return array<string, mixed>
 	 */
@@ -662,7 +660,6 @@ class ModelExtensionPaymentOpayo extends Model {
 	 * Get Profile
 	 *
 	 * @param int $order_recurring_id
-	 * @param int $subscription_id
 	 *
 	 * @return array<string, mixed>
 	 */
@@ -729,7 +726,7 @@ class ModelExtensionPaymentOpayo extends Model {
 	 * Log
 	 *
 	 * @param string  $title
-	 * @param mixed   $data
+	 * @param ?string $data
 	 *
 	 * @return void
 	 */
