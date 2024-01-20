@@ -603,7 +603,7 @@ class ModelExtensionPaymentOpayo extends Model {
 	public function updateCronRunTime(): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "setting` WHERE `code` = 'opayo' AND `key` = 'payment_opayo_last_cron_run'");
 
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` (`store_id`, `code`, `key`, `value`, `serialized`) VALUES (0, 'opayo', 'payment_opayo_last_cron_run', NOW(), `serialized` = '0')");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'opayo', `key` = 'payment_opayo_last_cron_run', `value` = NOW(), `serialized` = '0'");
 	}
 
 	/**
