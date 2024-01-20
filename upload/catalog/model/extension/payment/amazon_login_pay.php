@@ -639,18 +639,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 		$amount = $type == 'capture' ? (float)$authorization->CapturedAmount->Amount : (float)$authorization->AuthorizationAmount->Amount;
 		$authorization_id = (string)$authorization->AmazonAuthorizationId;
 
-		$transaction = [
-			'amazon_login_pay_order_id' => $amazon_login_pay_order_id,
-			'amazon_authorization_id'   => $authorization_id,
-			'amazon_capture_id'         => $capture_id,
-			'amazon_refund_id'          => '',
-			'date_added'                => date('Y-m-d H:i:s', strtotime((string)$authorization->CreationTimestamp)),
-			'status'                    => (string)$authorization->AuthorizationStatus->State,
-			'amount'                    => $amount,
-			'type'                      => $type
-		];
-
-		$this->addTransaction($transaction);
+		$this->addTransaction($amazon_login_pay_order_id, $authorization_id, $capture_id, '', date('Y-m-d H:i:s', strtotime((string)$authorization->CreationTimestamp)), (string)$authorization->AuthorizationStatus->State, $amount, $type);
 
 		$capture_status = $type == 'capture';
 
