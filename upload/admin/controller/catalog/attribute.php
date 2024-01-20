@@ -351,7 +351,7 @@ class ControllerCatalogAttribute extends Controller {
 		if (isset($this->request->post['attribute_description'])) {
 			$data['attribute_description'] = $this->request->post['attribute_description'];
 		} elseif (isset($this->request->get['attribute_id'])) {
-			$data['attribute_description'] = $this->model_catalog_attribute->getAttributeDescriptions($this->request->get['attribute_id']);
+			$data['attribute_description'] = $this->model_catalog_attribute->getDescriptions($this->request->get['attribute_id']);
 		} else {
 			$data['attribute_description'] = [];
 		}
@@ -396,7 +396,7 @@ class ControllerCatalogAttribute extends Controller {
 		}
 
 		foreach ($this->request->post['attribute_description'] as $language_id => $value) {
-			if ((utf8_strlen($value['name']) < 1) || (utf8_strlen($value['name']) > 64)) {
+			if ((oc_strlen($value['name']) < 1) || (oc_strlen($value['name']) > 64)) {
 				$this->error['name'][$language_id] = $this->language->get('error_name');
 			}
 		}
