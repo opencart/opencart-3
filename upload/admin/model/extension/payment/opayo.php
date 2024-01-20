@@ -18,9 +18,7 @@ class ModelExtensionPaymentOpayo extends Model {
 			  `vps_tx_id` varchar(50),
 			  `vendor_tx_code` varchar(50) NOT NULL,
 			  `security_key` varchar(50) NOT NULL,
-			  `tx_auth_no` varchar(50),
-			  `date_added` datetime NOT NULL,
-			  `date_modified` datetime NOT NULL,
+			  `tx_auth_no` varchar(50),			  
 			  `release_status` int(1) DEFAULT NULL,
 			  `void_status` int(1) DEFAULT NULL,
 			  `settle_type` int(1) DEFAULT NULL,
@@ -28,6 +26,8 @@ class ModelExtensionPaymentOpayo extends Model {
 			  `currency_code` varchar(3) NOT NULL,
 			  `total` decimal(15,4) NOT NULL,
 			  `card_id` int(11),
+			  `date_added` datetime NOT NULL,
+			  `date_modified` datetime NOT NULL,
 			  PRIMARY KEY (`opayo_order_id`),
 			  KEY (`order_id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
@@ -35,10 +35,10 @@ class ModelExtensionPaymentOpayo extends Model {
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "opayo_order_transaction` (
 			  `opayo_order_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
-			  `opayo_order_id` int(11) NOT NULL,
-			  `date_added` datetime NOT NULL,
+			  `opayo_order_id` int(11) NOT NULL,			  
 			  `type` enum('auth', 'payment', 'rebate', 'void') DEFAULT NULL,
 			  `amount` decimal(15,4) NOT NULL,
+			  `date_added` datetime NOT NULL,
 			  PRIMARY KEY (`opayo_order_transaction_id`),
 			  KEY (`opayo_order_id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
@@ -47,18 +47,18 @@ class ModelExtensionPaymentOpayo extends Model {
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "opayo_order_recurring` (
 			  `opayo_order_recurring_id` int(11) NOT NULL AUTO_INCREMENT,
 			  `order_id` int(11) NOT NULL,
-			  `order_recurring_id` int(11) NOT NULL,
+			  `subscription_id` int(11) NOT NULL,
 			  `vps_tx_id` varchar(50),
 			  `vendor_tx_code` varchar(50) NOT NULL,
 			  `security_key` varchar(50) NOT NULL,
-			  `tx_auth_no` varchar(50),
-			  `date_added` datetime NOT NULL,
-			  `date_modified` datetime NOT NULL,
+			  `tx_auth_no` varchar(50),			  
 			  `next_payment` datetime NOT NULL,
 			  `trial_end` datetime DEFAULT NULL,
 			  `subscription_end` datetime DEFAULT NULL,
 			  `currency_code` varchar(3) NOT NULL,
 			  `total` decimal(15,4) NOT NULL,
+			  `date_added` datetime NOT NULL,
+			  `date_modified` datetime NOT NULL,
 			  PRIMARY KEY (`opayo_order_recurring_id`),
 			  KEY (`order_id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");

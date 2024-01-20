@@ -179,7 +179,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 				$subscription_products = $this->cart->getSubscriptions();
 
 				foreach ($subscription_products as $item) {
-					$this->model_extension_payment_sagepay_server->addRecurringPayment($item['subscription'], $payment_data['VendorTxCode']);
+					$this->model_extension_payment_sagepay_server->addRecurringPayment($item, $payment_data['VendorTxCode']);
 				}
 			}
 		} else {

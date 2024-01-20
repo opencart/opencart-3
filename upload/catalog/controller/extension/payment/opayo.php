@@ -401,7 +401,7 @@ class ControllerExtensionPaymentOpayo extends Controller {
 
 							$item = array_merge($item, $order_data);
 
-							$this->model_extension_opayo_payment_opayo->subscriptionPayment($item, $payment_data['VendorTxCode']);
+							$this->model_extension_payment_opayo->subscriptionPayment($item, $payment_data['VendorTxCode']);
 						}
 					}
 				}
