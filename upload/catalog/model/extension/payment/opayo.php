@@ -358,7 +358,7 @@ class ModelExtensionPaymentOpayo extends Model {
 
 			$recurring_frequency = date_diff(new \DateTime('now'), new \DateTime(date_format($next_payment, 'Y-m-d H:i:s')))->days;
 
-			$response_data = $this->setPaymentData($order_info, $opayo_order_info, $price, $subscription_id, $item['subscription']['name'], $recurring_expiry, $recurring_frequency);
+			$response_data = $this->setPaymentData($order_info, $opayo_order_info, $price, $subscription_id, $order_product['name'], $recurring_expiry, $recurring_frequency);
 
 			$this->addRecurringOrder($this->session->data['order_id'], $response_data, $subscription_id, date_format($trial_end, 'Y-m-d H:i:s'), date_format($subscription_end, 'Y-m-d H:i:s'));
 
