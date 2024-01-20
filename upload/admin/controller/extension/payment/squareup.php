@@ -886,7 +886,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 		// Subscription
 		$this->load->model('sale/subscription');
 
-		$subscription_info = $this->model_extension_sale_subscription->getSubscription($subscription_id);
+		$subscription_info = $this->model_sale_subscription->getSubscription($subscription_id);
 
 		$data['button_text'] = $this->language->get('button_cancel_subscription');
 
@@ -958,7 +958,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 			// Subscription
 			$this->load->model('sale/subscription');
 
-			$subscription_order_info = $this->model_extension_sale_subscription->getSubscription($subscription_id);
+			$subscription_order_info = $this->model_sale_subscription->getSubscription($subscription_id);
 
 			if ($subscription_order_info) {
 				// Squareup
