@@ -219,7 +219,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
 	/**
 	 * addRecurringPayment
 	 *
-	 * @param array  $item['subscription']
+	 * @param array  $item
 	 * @param string $vendor_tx_code
 	 *
 	 * @return void

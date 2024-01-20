@@ -265,10 +265,10 @@ class ModelExtensionPaymentOpayo extends Model {
 			$trial_end = new \DateTime('now');
 			$subscription_end = new \DateTime('now');
 
-			if ($item['subscription']['trial_status'] && $item['subscription']['trial_duration'] != 0) {
+			if ($item['subscription']['trial_status'] == 1 && $item['subscription']['trial_duration'] != 0) {
 				$next_payment = $this->calculateSchedule($item['subscription']['trial_frequency'], $next_payment, $item['subscription']['trial_cycle']);
 				$trial_end = $this->calculateSchedule($item['subscription']['trial_frequency'], $trial_end, $item['subscription']['trial_cycle'] * $item['subscription']['trial_duration']);
-			} elseif ($item['subscription']['trial_status']) {
+			} elseif ($item['subscription']['trial_status'] == 1) {
 				$next_payment = $this->calculateSchedule($item['subscription']['trial_frequency'], $next_payment, $item['subscription']['trial_cycle']);
 				$trial_end = new \DateTime('0000-00-00');
 			}
@@ -308,12 +308,12 @@ class ModelExtensionPaymentOpayo extends Model {
 				$this->addTransaction($order_recurring_id, $response_data, 4);
 			}
 		} else {
-			if ($item['recurring_trial'] == 1) {
-				$price = $item['recurring_trial_price'];
-				$trial_amt = $this->currency->format($this->tax->calculate($item['recurring_trial_price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity'] . ' ' . $this->session->data['currency'];
-				$trial_text = sprintf($this->language->get('text_trial'), $trial_amt, $item['recurring_trial_cycle'], $item['recurring_trial_frequency'], $item['recurring_trial_duration']);
+			if ($item['subscription']['trial'] == 1) {
+				$price = $item['subscription']['trial_price'];
+				$trial_amt = $this->currency->format($this->tax->calculate($item['subscription']['trial_price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity'] . ' ' . $this->session->data['currency'];
+				$trial_text = sprintf($this->language->get('text_trial'), $trial_amt, $item['subscription']['trial_cycle'], $item['subscription']['trial_frequency'], $item['subscription']['trial_duration']);
 			} else {
-				$price = $item['recurring_price'];
+				$price = $item['subscription']['price'];
 				$trial_text = '';
 			}
 
@@ -325,24 +325,24 @@ class ModelExtensionPaymentOpayo extends Model {
 			$trial_end = new \DateTime('now');
 			$subscription_end = new \DateTime('now');
 
-			if ($item['recurring_trial'] == 1 && $item['recurring_trial_duration'] != 0) {
-				$next_payment = $this->calculateSchedule($item['recurring_trial_frequency'], $next_payment, $item['recurring_trial_cycle']);
-				$trial_end = $this->calculateSchedule($item['recurring_trial_frequency'], $trial_end, $item['recurring_trial_cycle'] * $item['recurring_trial_duration']);
-			} elseif ($item['recurring_trial'] == 1) {
-				$next_payment = $this->calculateSchedule($item['recurring_trial_frequency'], $next_payment, $item['recurring_trial_cycle']);
+			if ($item['subscription']['trial'] == 1 && $item['subscription']['trial_duration'] != 0) {
+				$next_payment = $this->calculateSchedule($item['subscription']['trial_frequency'], $next_payment, $item['subscription']['trial_cycle']);
+				$trial_end = $this->calculateSchedule($item['subscription']['trial_frequency'], $trial_end, $item['subscription']['trial_cycle'] * $item['subscription']['trial_duration']);
+			} elseif ($item['subscription']['trial'] == 1) {
+				$next_payment = $this->calculateSchedule($item['subscription']['trial_frequency'], $next_payment, $item['subscription']['trial_cycle']);
 				$trial_end = new \DateTime('0000-00-00');
 			}
 
-			if (date_format($trial_end, 'Y-m-d H:i:s') > date_format($subscription_end, 'Y-m-d H:i:s') && $item['recurring_duration'] != 0) {
+			if (date_format($trial_end, 'Y-m-d H:i:s') > date_format($subscription_end, 'Y-m-d H:i:s') && $item['subscription']['duration'] != 0) {
 				$subscription_end = new \DateTime(date_format($trial_end, 'Y-m-d H:i:s'));
-				$subscription_end = $this->calculateSchedule($item['recurring_frequency'], $subscription_end, $item['recurring_cycle'] * $item['recurring_duration']);
-			} elseif (date_format($trial_end, 'Y-m-d H:i:s') == date_format($subscription_end, 'Y-m-d H:i:s') && $item['recurring_duration'] != 0) {
-				$next_payment = $this->calculateSchedule($item['recurring_frequency'], $next_payment, $item['recurring_cycle']);
-				$subscription_end = $this->calculateSchedule($item['recurring_frequency'], $subscription_end, $item['recurring_cycle'] * $item['recurring_duration']);
-			} elseif (date_format($trial_end, 'Y-m-d H:i:s') > date_format($subscription_end, 'Y-m-d H:i:s') && $item['recurring_duration'] == 0) {
+				$subscription_end = $this->calculateSchedule($item['subscription']['frequency'], $subscription_end, $item['subscription']['cycle'] * $item['subscription']['duration']);
+			} elseif (date_format($trial_end, 'Y-m-d H:i:s') == date_format($subscription_end, 'Y-m-d H:i:s') && $item['subscription']['duration'] != 0) {
+				$next_payment = $this->calculateSchedule($item['subscription']['frequency'], $next_payment, $item['subscription']['cycle']);
+				$subscription_end = $this->calculateSchedule($item['subscription']['frequency'], $subscription_end, $item['subscription']['cycle'] * $item['subscription']['duration']);
+			} elseif (date_format($trial_end, 'Y-m-d H:i:s') > date_format($subscription_end, 'Y-m-d H:i:s') && $item['subscription']['duration'] == 0) {
 				$subscription_end = new \DateTime('0000-00-00');
-			} elseif (date_format($trial_end, 'Y-m-d H:i:s') == date_format($subscription_end, 'Y-m-d H:i:s') && $item['recurring_duration'] == 0) {
-				$next_payment = $this->calculateSchedule($item['recurring_frequency'], $next_payment, $item['recurring_cycle']);
+			} elseif (date_format($trial_end, 'Y-m-d H:i:s') == date_format($subscription_end, 'Y-m-d H:i:s') && $item['subscription']['duration'] == 0) {
+				$next_payment = $this->calculateSchedule($item['subscription']['frequency'], $next_payment, $item['subscription']['cycle']);
 				$subscription_end = new \DateTime('0000-00-00');
 			}
 
@@ -358,7 +358,7 @@ class ModelExtensionPaymentOpayo extends Model {
 
 			$recurring_frequency = date_diff(new \DateTime('now'), new \DateTime(date_format($next_payment, 'Y-m-d H:i:s')))->days;
 
-			$response_data = $this->setPaymentData($order_info, $opayo_order_info, $price, $subscription_id, $item['recurring_name'], $recurring_expiry, $recurring_frequency);
+			$response_data = $this->setPaymentData($order_info, $opayo_order_info, $price, $subscription_id, $item['subscription']['name'], $recurring_expiry, $recurring_frequency);
 
 			$this->addRecurringOrder($this->session->data['order_id'], $response_data, $subscription_id, date_format($trial_end, 'Y-m-d H:i:s'), date_format($subscription_end, 'Y-m-d H:i:s'));
 
