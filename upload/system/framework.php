@@ -13,6 +13,7 @@
 
 // Registry
 $registry = new \Registry();
+$autoloader = new \Autoloader();
 $registry->set('autoloader', $autoloader);
 
 require_once(DIR_SYSTEM . 'vendor.php');

@@ -297,8 +297,8 @@ $_['button_capture_payment']				= 'Capture';
 $_['button_reauthorize_payment']			= 'Reauthorize';
 $_['button_void_payment']					= 'Void';
 $_['button_refund_payment']					= 'Refund';
-$_['button_enable_recurring']				= 'Enable Recurring';
-$_['button_disable_recurring']				= 'Disable Recurring';
+$_['button_enable_subscription']			= 'Enable Subscription';
+$_['button_disable_subscription']			= 'Disable Subscription';
 
 // Success
 $_['success_save']		 					= 'Success: You have modified PayPal!';
@@ -309,8 +309,8 @@ $_['success_capture_payment']				= 'Success: Payment capture was completed.';
 $_['success_reauthorize_payment']			= 'Success: Payment authorization was reauthorized.';
 $_['success_void_payment']					= 'Success: Payment authorization was voided.';
 $_['success_refund_payment']				= 'Success: Payment capture was refunded.';
-$_['success_enable_recurring']				= 'Success: Recurring payment was enabled.';
-$_['success_disable_recurring']				= 'Success: Recurring payment was disabled.';
+$_['success_enable_subscription']			= 'Success: Subscription payment was enabled.';
+$_['success_disable_subscription']			= 'Success: Subscription payment was disabled.';
 
 // Error
 $_['error_permission']	 					= 'Warning: You do not have permission to modify payment PayPal!';

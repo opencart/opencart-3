@@ -155,7 +155,7 @@ class ModelExtensionPaymentSquareup extends Model {
           PRIMARY KEY (`squareup_transaction_id`),
           KEY `order_id` (`order_id`),
           KEY `transaction_id` (`transaction_id`)
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+		  ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
 
 		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "squareup_token` (
          `squareup_token_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -169,14 +169,14 @@ class ModelExtensionPaymentSquareup extends Model {
          KEY `getCards` (`customer_id`, `sandbox`),
          KEY `verifyCardCustomer` (`squareup_token_id`, `customer_id`),
          KEY `cardExists` (`customer_id`, `brand`, `ends_in`)
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8");
+		 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
 
 		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "squareup_customer` (
          `customer_id` int(11) NOT NULL,
          `sandbox` tinyint(1) NOT NULL,
          `square_customer_id` varchar(32) NOT NULL,
          PRIMARY KEY (`customer_id`, `sandbox`)
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8");
+		 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
 	}
 
 	/**

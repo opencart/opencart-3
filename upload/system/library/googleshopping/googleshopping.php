@@ -65,8 +65,8 @@ class Googleshopping extends Library {
 			$this->store_url = basename(DIR_TEMPLATE) == 'template' ? HTTPS_CATALOG : HTTPS_SERVER;
 			$this->store_name = $this->registry->get('config')->get('config_name');
 		} else {
-			$this->store_url = $this->registry->get('load')->model_setting_setting->getSettingValue('config_ssl', $store_id);
-			$this->store_name = $this->registry->get('load')->model_setting_setting->getSettingValue('config_name', $store_id);
+			$this->store_url = $this->registry->get('load')->model('setting/setting')->model_setting_setting->getSettingValue('config_ssl', $store_id);
+			$this->store_name = $this->registry->get('load')->model('setting/setting')->model_setting_setting->getSettingValue('config_name', $store_id);
 		}
 
 		$this->endpoint_url = self::API_URL . 'index.php?route=%s';
@@ -105,7 +105,7 @@ class Googleshopping extends Library {
 		// Languages
 		$this->registry->get('load')->model('localisation/language');
 
-		foreach ($this->registry->get('load')->model_localisation_language->getLanguages() as $language) {
+		foreach ($this->registry->get('load')->model('localisation/language')->model_localisation_language->getLanguages() as $language) {
 			$language_code = current(explode("-", $language['code']));
 
 			if ($this->compareTrimmedLowercase($code, $language_code) === 0) {
@@ -127,7 +127,7 @@ class Googleshopping extends Library {
 		// Currencies
 		$this->registry->get('load')->model('localisation/currency');
 
-		foreach ($this->registry->get('load')->model_localisation_currency->getCurrencies() as $currency) {
+		foreach ($this->registry->get('load')->model('localisation/currency')->model_localisation_currency->getCurrencies() as $currency) {
 			if ($this->compareTrimmedLowercase($code, $currency['code']) === 0) {
 				return (int)$currency['currency_id'];
 			}
@@ -155,7 +155,7 @@ class Googleshopping extends Library {
 		$result = $countries[$code];
 
 		// Override with store value, if present
-		foreach ($this->registry->get('load')->model_localisation_country->getCountries() as $store_country) {
+		foreach ($this->registry->get('load')->model('localisation/country')->model_localisation_country->getCountries() as $store_country) {
 			if ($this->compareTrimmedLowercase($store_country['iso_code_2'], $code) === 0) {
 				$result = $store_country['name'];
 				break;
@@ -316,7 +316,7 @@ class Googleshopping extends Library {
 		$this->registry->get('load')->model('localisation/language');
 
 		foreach ($this->registry->get('db')->query($sql)->rows as $row) {
-			foreach ($this->registry->get('load')->model_localisation_language->getLanguages() as $language) {
+			foreach ($this->registry->get('load')->model('localisation/language')->model_localisation_language->getLanguages() as $language) {
 				$groups = $this->getGroups($row['product_id'], $language['language_id'], $row['color'], $row['size']);
 
 				foreach (array_keys($groups) as $id) {
@@ -830,7 +830,7 @@ class Googleshopping extends Library {
 				// Set the store and language context for the job
 				$this->registry->get('config')->set('config_store_id', $this->store_id);
 				$this->registry->get('config')->set('config_language_id', $job['language_id']);
-				$this->registry->get('config')->set('config_seo_url', $this->registry->get('load')->model_setting_setting->getSettingValue('config_seo_url', $this->store_id));
+				$this->registry->get('config')->set('config_seo_url', $this->registry->get('load')->model('setting/setting')->model_setting_setting->getSettingValue('config_seo_url', $this->store_id));
 
 				// Do the CRON job
 				$count = $this->doJob($job);

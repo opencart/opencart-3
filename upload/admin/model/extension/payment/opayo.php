@@ -11,14 +11,13 @@ class ModelExtensionPaymentOpayo extends Model {
 	 * @return void
 	 */
 	public function install(): void {
-		$this->db->query("
-			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "opayo_order` (
+		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "opayo_order` (
 			  `opayo_order_id` int(11) NOT NULL AUTO_INCREMENT,
 			  `order_id` int(11) NOT NULL,
 			  `vps_tx_id` varchar(50),
 			  `vendor_tx_code` varchar(50) NOT NULL,
 			  `security_key` varchar(50) NOT NULL,
-			  `tx_auth_no` varchar(50),			  
+			  `tx_auth_no` varchar(50),
 			  `release_status` int(1) DEFAULT NULL,
 			  `void_status` int(1) DEFAULT NULL,
 			  `settle_type` int(1) DEFAULT NULL,
@@ -32,10 +31,9 @@ class ModelExtensionPaymentOpayo extends Model {
 			  KEY (`order_id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
 
-		$this->db->query("
-			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "opayo_order_transaction` (
+		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "opayo_order_transaction` (
 			  `opayo_order_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
-			  `opayo_order_id` int(11) NOT NULL,			  
+			  `opayo_order_id` int(11) NOT NULL,
 			  `type` enum('auth', 'payment', 'rebate', 'void') DEFAULT NULL,
 			  `amount` decimal(15,4) NOT NULL,
 			  `date_added` datetime NOT NULL,
@@ -43,24 +41,25 @@ class ModelExtensionPaymentOpayo extends Model {
 			  KEY (`opayo_order_id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
 
-		$this->db->query("
-			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "opayo_order_subscription` (
-			  `opayo_order_subscription_id` int(11) NOT NULL AUTO_INCREMENT,
+		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "opayo_order_subscription` (
+			  `opayo_subscription_id` int(11) NOT NULL AUTO_INCREMENT,
 			  `order_id` int(11) NOT NULL,
 			  `subscription_id` int(11) NOT NULL,
 			  `vps_tx_id` varchar(50),
 			  `vendor_tx_code` varchar(50) NOT NULL,
 			  `security_key` varchar(50) NOT NULL,
-			  `tx_auth_no` varchar(50),			  
+			  `tx_auth_no` varchar(50),
 			  `next_payment` datetime NOT NULL,
 			  `trial_end` datetime DEFAULT NULL,
 			  `subscription_end` datetime DEFAULT NULL,
 			  `currency_code` varchar(3) NOT NULL,
 			  `total` decimal(15,4) NOT NULL,
+			  `status` tinyint(1) NOT NULL,
 			  `date_added` datetime NOT NULL,
 			  `date_modified` datetime NOT NULL,
-			  PRIMARY KEY (`opayo_order_subscription_id`),
-			  KEY (`order_id`)
+			  PRIMARY KEY (`opayo_subscription_id`),
+			  KEY (`order_id`),
+			  KEY (`subscription_id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
 
 		$this->db->query("
@@ -391,8 +390,8 @@ class ModelExtensionPaymentOpayo extends Model {
 	/**
 	 * Log
 	 *
-	 * @param string  $title
-	 * @param mixed   $data
+	 * @param string $title
+	 * @param mixed  $data
 	 *
 	 * @return void
 	 */

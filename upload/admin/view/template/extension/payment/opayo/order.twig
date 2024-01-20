@@ -117,9 +117,9 @@ $('#button-void').click(function() {
                 if (data.error == false) {
                     html = '';
                     html += '<tr>';
-                    html += '<td class="text-left">' + data.data.date_added + '</td>';
-                    html += '<td class="text-left">void</td>';
-                    html += '<td class="text-left">0.00</td>';
+                    html += '  <td class="text-left">' + data.data.date_added + '</td>';
+                    html += '  <td class="text-left">void</td>';
+                    html += '  <td class="text-left">0.00</td>';
                     html += '</tr>';
 
                     $('.void-text').text('{{ text_yes }}');

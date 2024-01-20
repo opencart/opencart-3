@@ -1,4 +1,4 @@
-<div id="paypal-subscription" class="paypal-subscription">
+<div id="opayo-subscription" class="opayo-subscription">
   {% if subscription_status == '2' or subscription_status == '3' %}
     <button type="button" class="btn btn-primary button-enable-subscription">{{ button_enable_subscription }}</button>
   {% else %}
@@ -8,17 +8,17 @@
 <br />
 <script type="text/javascript">
 
-$('#paypal-subscription').on('click', '.button-enable-subscription', function() {
+$('#opayo-subscription').on('click', '.button-enable-subscription', function() {
 	$.ajax({
 		type: 'post',
 		url: '{{ enable_url }}',
 		data: { 'subscription_id' : '{{ subscription_id }}' },
 		dataType: 'json',
 		beforeSend: function() {
-			$('#paypal-subscription .btn').prop('disabled', true);
+			$('#opayo-subscription .btn').prop('disabled', true);
 		},
 		complete: function() {
-			$('#paypal-subscription .btn').prop('disabled', false);
+			$('#opayo-subscription .btn').prop('disabled', false);
 		},
 		success: function(json) {
 			$('.alert-dismissible').remove();
@@ -34,7 +34,7 @@ $('#paypal-subscription').on('click', '.button-enable-subscription', function() 
 				
 				$('html, body').animate({scrollTop: 0}, 'slow');
 				
-				$('#paypal-subscription').load('{{ info_url }} #paypal-subscription >');
+				$('#opayo-subscription').load('{{ info_url }} #opayo-subscription >');
 			}
 		},
 		error: function(xhr, ajaxOptions, thrownError) {
@@ -43,17 +43,17 @@ $('#paypal-subscription').on('click', '.button-enable-subscription', function() 
 	});
 });
 
-$('#paypal-subscription').on('click', '.button-disable-subscription', function() {
+$('#opayo-subscription').on('click', '.button-disable-subscription', function() {
 	$.ajax({
 		type: 'post',
 		url: '{{ disable_url }}',
 		data: {'subscription_id' : '{{ subscription_id }}'},
 		dataType: 'json',
 		beforeSend: function() {
-			$('#paypal-subscription .btn').prop('disabled', true);
+			$('#opayo-subscription .btn').prop('disabled', true);
 		},
 		complete: function() {
-			$('#paypal-subscription .btn').prop('disabled', false);
+			$('#opayo-subscription .btn').prop('disabled', false);
 		},
 		success: function(json) {
 			$('.alert-dismissible').remove();
@@ -69,7 +69,7 @@ $('#paypal-subscription').on('click', '.button-disable-subscription', function()
 				
 				$('html, body').animate({scrollTop: 0}, 'slow');
 				
-				$('#paypal-subscription').load('{{ info_url }} #paypal-subscription >');
+				$('#opayo-subscription').load('{{ info_url }} #opayo-subscription >');
 			}
 		},
 		error: function(xhr, ajaxOptions, thrownError) {

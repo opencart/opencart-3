@@ -2235,7 +2235,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 			$this->load->model('extension/payment/paypal');
 
-			$order_id = $this->request->post['order_id'];
+			$order_id = (int)$this->request->post['order_id'];
 			$transaction_id = $this->request->post['transaction_id'];
 
 			$_config = new Config();
@@ -2315,30 +2315,36 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	}
 
 	/**
-	 * Recurring Buttons
+	 * Subscription Buttons
 	 *
 	 * @return string
 	 */
-	public function recurringButtons(): string {
+	public function subscriptionButtons(): string {
 		$content = '';
 
-		if ($this->config->get('payment_paypal_status') && !empty($this->request->get['order_recurring_id'])) {
+		if ($this->config->get('payment_paypal_status')) {
 			$this->load->language('extension/payment/paypal');
 
-			$this->load->model('extension/other/recurring');
+			$this->load->model('extension/payment/paypal');
 
-			$data['order_recurring_id'] = $this->request->get['order_recurring_id'];
+			if (!empty($this->request->get['order_id'])) {
+				$order_id = (int)$this->request->get['order_id'];
+			} else {
+				$order_id = 0;
+			}
 
-			$order_recurring_info = $this->model_extension_other_recurring->getRecurring($data['order_recurring_id']);
+			$data['order_id'] = $order_id;
 
-			if ($order_recurring_info) {
-				$data['recurring_status'] = $order_recurring_info['status'];
+			$order_subscription_info = $this->model_extension_payment_paypal->getPayPalOrderSubscription($order_id);
 
-				$data['info_url'] = str_replace('&amp;', '&', $this->url->link('extension/payment/paypal/getRecurringInfo', 'user_token=' . $this->session->data['user_token'] . '&order_recurring_id=' . $data['order_recurring_id'], true));
-				$data['enable_url'] = str_replace('&amp;', '&', $this->url->link('extension/payment/paypal/enableRecurring', 'user_token=' . $this->session->data['user_token'], true));
-				$data['disable_url'] = str_replace('&amp;', '&', $this->url->link('extension/payment/paypal/disableRecurring', 'user_token=' . $this->session->data['user_token'], true));
+			if ($order_subscription_info) {
+				$data['subscription_status'] = $order_subscription_info['status'];
 
-				$content = $this->load->view('extension/payment/paypal/recurring', $data);
+				$data['info_url'] = str_replace('&amp;', '&', $this->url->link('extension/payment/paypal/getRecurringInfo', 'user_token=' . $this->session->data['user_token'] . '&order_id=' . $order_id, true));
+				$data['enable_url'] = str_replace('&amp;', '&', $this->url->link('extension/payment/paypal/enableSubscription', 'user_token=' . $this->session->data['user_token'], true));
+				$data['disable_url'] = str_replace('&amp;', '&', $this->url->link('extension/payment/paypal/disableSubscription', 'user_token=' . $this->session->data['user_token'], true));
+
+				$content = $this->load->view('extension/payment/paypal/subscription', $data);
 			}
 		}
 
@@ -2346,32 +2352,36 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	}
 
 	/**
-	 * Get Recurring Info
+	 * Get Subscription Info
 	 *
 	 * @return void
 	 */
-	public function getRecurringInfo(): void {
-		$this->response->setOutput($this->recurringButtons());
+	public function getSubscriptionInfo(): void {
+		$this->response->setOutput($this->subscriptionButtons());
 	}
 
 	/**
-	 * Enable Recurring
+	 * Enable Subscription
 	 *
 	 * @return void
 	 */
-	public function enableRecurring(): void {
+	public function enableSubscription(): void {
 		$json = [];
 
-		if ($this->config->get('payment_paypal_status') && !empty($this->request->post['order_recurring_id'])) {
+		if ($this->config->get('payment_paypal_status')) {
 			$this->load->language('extension/payment/paypal');
 
 			$this->load->model('extension/payment/paypal');
 
-			$order_recurring_id = $this->request->post['order_recurring_id'];
+			if (!empty($this->request->get['order_id'])) {
+				$order_id = (int)$this->request->get['order_id'];
+			} else {
+				$order_id = 0;
+			}
 
-			$this->model_extension_payment_paypal->editOrderRecurringStatus($order_recurring_id, 1);
+			$this->model_extension_payment_paypal->editOrderSubscriptionStatus($order_id, 1);
 
-			$json['success'] = $this->language->get('success_enable_recurring');
+			$json['success'] = $this->language->get('success_enable_subscription');
 		}
 
 		$json['error'] = $this->error;
@@ -2381,23 +2391,27 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	}
 
 	/**
-	 * Disable Recurring
+	 * Disable Subscription
 	 *
 	 * @return void
 	 */
-	public function disableRecurring(): void {
+	public function disableSubscription(): void {
 		$json = [];
 
-		if ($this->config->get('payment_paypal_status') && !empty($this->request->post['order_recurring_id'])) {
+		if ($this->config->get('payment_paypal_status')) {
 			$this->load->language('extension/payment/paypal');
 
 			$this->load->model('extension/payment/paypal');
 
-			$order_recurring_id = $this->request->post['order_recurring_id'];
+			if (!empty($this->request->get['order_id'])) {
+				$order_id = (int)$this->request->get['order_id'];
+			} else {
+				$order_id = 0;
+			}
 
-			$this->model_extension_payment_paypal->editOrderRecurringStatus($order_recurring_id, 2);
+			$this->model_extension_payment_paypal->editOrderRecurringStatus($order_id, 2);
 
-			$json['success'] = $this->language->get('success_disable_recurring');
+			$json['success'] = $this->language->get('success_disable_subscription');
 		}
 
 		$json['error'] = $this->error;

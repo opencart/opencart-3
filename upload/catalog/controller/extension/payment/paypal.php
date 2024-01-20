@@ -588,6 +588,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 			if (($page_code == 'product') && (!empty($this->request->post['product']['product_id']))) {
 				$product = $this->request->post['product'];
+
 				$product_id = (int)$product['product_id'];
 
 				$this->load->model('catalog/product');
@@ -1345,10 +1346,21 @@ class ControllerExtensionPaymentPayPal extends Controller {
 								}
 
 								if (($authorization_status == 'CREATED') || ($authorization_status == 'PENDING')) {
-									$subscription_products = $this->cart->getSubscriptions();
+									$subscriptions = $this->cart->getSubscriptions();
 
-									foreach ($subscription_products as $item) {
-										$this->model_extension_payment_paypal->subscriptionPayment($item, $order_info, $paypal_order_data);
+									$order_products = $this->model_checkout_order->getProducts($this->session->data['order_id']);
+
+									// Loop through any products that are subscription items
+									foreach ($subscriptions as $item) {
+										foreach ($order_products as $order_product) {
+											$order_subscription = $this->model_checkout_order->getSubscription($this->session->data['order_id'], $order_product['order_product_id']);
+
+											if ($order_subscription && $item['product_id'] == $order_subscription['product_id'] && $order_subscription['product_id'] == $order_product['product_id']) {
+												$item['subscription']['name'] = $order_product['name'];
+
+												$this->model_extension_payment_paypal->subscriptionPayment($item, $order_info, $paypal_order_data);
+											}
+										}
 									}
 								}
 
@@ -1426,10 +1438,21 @@ class ControllerExtensionPaymentPayPal extends Controller {
 								}
 
 								if (($capture_status == 'COMPLETED') || ($capture_status == 'PENDING')) {
-									$subscription_products = $this->cart->getSubscriptions();
+									$subscriptions = $this->cart->getSubscriptions();
 
-									foreach ($subscription_products as $item) {
-										$this->model_extension_payment_paypal->subscriptionPayment($item, $order_info, $paypal_order_data);
+									$order_products = $this->model_checkout_order->getProducts($this->session->data['order_id']);
+
+									// Loop through any products that are subscription items
+									foreach ($subscriptions as $item) {
+										foreach ($order_products as $order_product) {
+											$order_subscription = $this->model_checkout_order->getSubscription($this->session->data['order_id'], $order_product['order_product_id']);
+
+											if ($order_subscription && $item['product_id'] == $order_subscription['product_id'] && $order_subscription['product_id'] == $order_product['product_id']) {
+												$item['subscription']['name'] = $order_product['name'];
+
+												$this->model_extension_payment_paypal->subscriptionPayment($item, $order_info, $paypal_order_data);
+											}
+										}
 									}
 								}
 
@@ -2494,10 +2517,21 @@ class ControllerExtensionPaymentPayPal extends Controller {
 							}
 
 							if (($authorization_status == 'CREATED') || ($authorization_status == 'PENDING')) {
-								$subscription_products = $this->cart->getSubscriptions();
+								$subscriptions = $this->cart->getSubscriptions();
 
-								foreach ($subscription_products as $item) {
-									$this->model_extension_payment_paypal->subscriptionPayment($item, $order_data, $paypal_order_data);
+								$order_products = $this->model_checkout_order->getProducts($this->session->data['order_id']);
+
+								// Loop through any products that are subscription items
+								foreach ($subscriptions as $item) {
+									foreach ($order_products as $order_product) {
+										$order_subscription = $this->model_checkout_order->getSubscription($this->session->data['order_id'], $order_product['order_product_id']);
+
+										if ($order_subscription && $item['product_id'] == $order_subscription['product_id'] && $order_subscription['product_id'] == $order_product['product_id']) {
+											$item['subscription']['name'] = $order_product['name'];
+
+											$this->model_extension_payment_paypal->subscriptionPayment($item, $order_info, $paypal_order_data);
+										}
+									}
 								}
 							}
 
@@ -2575,10 +2609,21 @@ class ControllerExtensionPaymentPayPal extends Controller {
 							}
 
 							if (($capture_status == 'COMPLETED') || ($capture_status == 'PENDING')) {
-								$subscription_products = $this->cart->getSubscriptions();
-
-								foreach ($subscription_products as $item) {
-									$this->model_extension_payment_paypal->subscriptionPayment($item, $order_data, $paypal_order_data);
+								$subscriptions = $this->cart->getSubscriptions();
+					
+								$order_products = $this->model_checkout_order->getProducts($this->session->data['order_id']);
+					
+								// Loop through any products that are subscription items
+								foreach ($subscriptions as $item) {
+									foreach ($order_products as $order_product) {
+										$order_subscription = $this->model_checkout_order->getSubscription($this->session->data['order_id'], $order_product['order_product_id']);
+					
+										if ($order_subscription && $item['product_id'] == $order_subscription['product_id'] && $order_subscription['product_id'] == $order_product['product_id']) {
+											$item['subscription']['name'] = $order_product['name'];
+					
+											$this->model_extension_payment_paypal->subscriptionPayment($item, $order_info, $paypal_order_data);
+										}
+									}
 								}
 							}
 
@@ -3124,9 +3169,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 		$order_id = $data[0];
 
-		$this->model_extension_payment_paypal->deleteOrderRecurring($order_id);
+		$this->model_extension_payment_paypal->deleteOrderSubscription($order_id);
 		$this->model_extension_payment_paypal->deletePayPalOrder($order_id);
-		$this->model_extension_payment_paypal->deletePayPalOrderRecurring($order_id);
+		$this->model_extension_payment_paypal->deletePayPalOrderSubscription($order_id);
 	}
 
 	private function validateShipping($code) {
