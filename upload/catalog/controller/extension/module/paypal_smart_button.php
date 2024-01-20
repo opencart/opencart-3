@@ -784,19 +784,17 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 					if ($this->config->get('shipping_' . $result['code'] . '_status')) {
 						$this->load->model('extension/shipping/' . $result['code']);
 
-						$quote = [];
-
 						if (is_callable([$this->{'model_extension_shipping_' . $result['code']}, 'getQuote'])) {
 							$quote = $this->{'model_extension_shipping_' . $result['code']}->getQuote($data['shipping_address']);
-						}
 
-						if ($quote) {
-							$quote_data[$result['code']] = [
-								'title'      => $quote['title'],
-								'quote'      => $quote['quote'],
-								'sort_order' => $quote['sort_order'],
-								'error'      => $quote['error']
-							];
+							if ($quote) {
+								$quote_data[$result['code']] = [
+									'title'      => $quote['title'],
+									'quote'      => $quote['quote'],
+									'sort_order' => $quote['sort_order'],
+									'error'      => $quote['error']
+								];
+							}
 						}
 					}
 				}
@@ -854,14 +852,12 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 				if ($this->config->get('payment_' . $result['code'] . '_status')) {
 					$this->load->model('extension/payment/' . $result['code']);
 
-					$method = [];
-
 					if (is_callable([$this->{'model_extension_payment_' . $result['code']}, 'getMethod'])) {
 						$method = $this->{'model_extension_payment_' . $result['code']}->getMethod($data['payment_address'], $total);
-					}
 
-					if ($method) {
-						$method_data[$result['code']] = $method;
+						if ($method) {
+							$method_data[$result['code']] = $method;
+						}
 					}
 				}
 			}
