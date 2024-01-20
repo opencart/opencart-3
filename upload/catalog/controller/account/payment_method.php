@@ -64,8 +64,8 @@ class ControllerAccountPaymentMethod extends Controller {
 			// Dynamic Payment Methods
 			$this->load->model('extension/' . $payment_method_info['extension'] . '/payment/' . $payment_method_info['code']);
 
-			if ($this->{'model_extension_' . $payment_method_info['extension'] . '_payment_' . $payment_method_info['code']}->delete($customer_payment_id)) {
-
+			if (is_callable([$this->{'model_extension_' . $payment_method_info['extension'] . '_payment_' . $payment_method_info['code']}, 'delete'])) {
+				$this->{'model_extension_' . $payment_method_info['extension'] . '_payment_' . $payment_method_info['code']}->delete($customer_payment_id);
 			}
 
 			// Delete payment method from database.

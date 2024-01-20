@@ -784,7 +784,11 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 					if ($this->config->get('shipping_' . $result['code'] . '_status')) {
 						$this->load->model('extension/shipping/' . $result['code']);
 
-						$quote = $this->{'model_extension_shipping_' . $result['code']}->getQuote($data['shipping_address']);
+						$quote = [];
+
+						if (is_callable([$this->{'model_extension_shipping_' . $result['code']}, 'getQuote'])) {
+							$quote = $this->{'model_extension_shipping_' . $result['code']}->getQuote($data['shipping_address']);
+						}
 
 						if ($quote) {
 							$quote_data[$result['code']] = [
@@ -850,7 +854,11 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 				if ($this->config->get('payment_' . $result['code'] . '_status')) {
 					$this->load->model('extension/payment/' . $result['code']);
 
-					$method = $this->{'model_extension_payment_' . $result['code']}->getMethod($data['payment_address'], $total);
+					$method = [];
+
+					if (is_callable([$this->{'model_extension_payment_' . $result['code']}, 'getMethod'])) {
+						$method = $this->{'model_extension_payment_' . $result['code']}->getMethod($data['payment_address'], $total);
+					}
 
 					if ($method) {
 						$method_data[$result['code']] = $method;
@@ -914,7 +922,9 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 					$this->load->model('extension/total/' . $result['code']);
 
 					// We have to put the totals in an array so that they pass by reference.
-					$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
+					if (is_callable([$this->{'model_extension_total_' . $result['code']}, 'getTotal'])) {
+						$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
+					}
 				}
 			}
 
@@ -1046,7 +1056,9 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 					$this->load->model('extension/total/' . $result['code']);
 
 					// We have to put the totals in an array so that they pass by reference.
-					$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
+					if (is_callable([$this->{'model_extension_total_' . $result['code']}, 'getTotal'])) {
+						$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
+					}
 				}
 			}
 

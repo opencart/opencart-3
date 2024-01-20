@@ -57,7 +57,7 @@ class ControllerExtensionPaymentG2APay extends Controller {
 
 		foreach ($results as $result) {
 			if ($this->config->get('total_' . $result['code'] . '_status')) {
-				$callable = [$this->{'model_extension_total_' . $result['code']}->getTotal($total_data)];
+				$callable = [$this->{'model_extension_total_' . $result['code']}, 'getTotal'];
 
 				if (is_callable($callable)) {
 					$total_info = $this->{'model_extension_total_' . $result['code']}->getTotal();

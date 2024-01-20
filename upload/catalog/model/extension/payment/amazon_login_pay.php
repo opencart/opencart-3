@@ -160,7 +160,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 				$this->load->model('extension/total/' . $result['code']);
 
 				// We have to put the totals in an array so that they pass by reference.
-				$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
+				if (is_callable([$this->{'model_extension_total_' . $result['code']}, 'getTotal'])) {
+					$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
+				}
 			}
 		}
 
@@ -628,7 +630,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	 *
 	 * @param string $amazon_login_pay_order_id
 	 * @param object $authorization
-	 * 
+	 *
 	 * @return void
 	 */
 	public function addAuthorization(string $amazon_login_pay_order_id, object $authorization): void {
