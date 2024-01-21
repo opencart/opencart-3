@@ -161,7 +161,7 @@ class ModelExtensionPaymentPayPal extends Model {
 		return $query->row;
 	}
 
-	public function addOrderSubscription(int $order_id, string $description, array $data, string $reference): int {
+	public function addOrderSubscription(int $order_id, string $description, array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "order_subscription` SET `order_id` = '" . (int)$order_id . "', `product_id` = '" . (int)$data['subscription']['product_id'] . "', `order_product_id` = '" . (int)$data['subscription']['order_product_id'] . "', `subscription_plan_id` = '" . (int)$data['subscription']['subscription_plan_id'] . "', `frequency` = '" . $this->db->escape($data['subscription']['frequency']) . "', `cycle` = '" . (int)$data['subscription']['cycle'] . "', `duration` = '" . (int)$data['subscription']['duration'] . "', `price` = '" . (float)$data['subscription']['price'] . "', `tax` = '" . (float)$data['subscription']['tax'] . "', `trial_frequency` = '" . $this->db->escape($data['subscription']['trial_frequency']) . "', `trial_cycle` = '" . (int)$data['subscription']['trial_cycle'] . "', `trial_duration` = '" . (int)$data['subscription']['trial_duration'] . "', `trial_price` = '" . (float)$data['subscription']['trial_price'] . "'");
 
 		return $this->db->getLastId();
@@ -282,9 +282,9 @@ class ModelExtensionPaymentPayPal extends Model {
 			$subscription_end = new \DateTime('0000-00-00');
 		}
 
-		$order_subscription_id = $this->addOrderSubscription($order_info['order_id'], $description, $item, $paypal_order_data['transaction_id']);
+		$this->addOrderSubscription($order_info['order_id'], $description, $item);
 
-		$result = $this->createPayment($order_info, $paypal_order_data, $price, $order_subscription_id, $item['subscription']['name']);
+		$result = $this->createPayment($order_info, $paypal_order_data, $price, $item['subscription']['name']);
 
 		$transaction_status = '';
 		$transaction_id = '';
@@ -332,8 +332,6 @@ class ModelExtensionPaymentPayPal extends Model {
 				$this->addOrderSubscriptionTransaction($order_subscription_transaction_data);
 
 				$this->editPayPalOrderSubscriptionNextPayment($order_subscription_id, date_format($next_payment, 'Y-m-d H:i:s'));
-
-				$this->model_checkout_subscription->addSubscription($item['subscription']);
 			} else {
 				$order_subscription_transaction_data = [
 					'order_subscription_id' => $order_subscription_id,
@@ -398,7 +396,7 @@ class ModelExtensionPaymentPayPal extends Model {
 						continue;
 					}
 
-					$result = $this->createPayment($order_info, $paypal_order_info, $price, $order_subscription['order_subscription_id'], $order_product['name']);
+					$result = $this->createPayment($order_info, $paypal_order_info, $price, $order_product['name']);
 
 					$transaction_status = '';
 					$transaction_id = '';
@@ -449,7 +447,7 @@ class ModelExtensionPaymentPayPal extends Model {
 		}
 	}
 
-	public function createPayment(array $order_data, array $paypal_order_data, float $price, int $subscription_id, string $name): array {
+	public function createPayment(array $order_data, array $paypal_order_data, float $price, string $name): array {
 		$this->load->language('extension/payment/paypal');
 
 		$_config = new Config();

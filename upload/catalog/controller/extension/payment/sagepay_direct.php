@@ -353,6 +353,8 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 			$this->model_checkout_order->addHistory($this->session->data['order_id'], $this->config->get('payment_sagepay_direct_order_status_id'), $message, false);
 
 			if ($this->config->get('payment_sagepay_direct_transaction') == 'PAYMENT') {
+				$this->load->model('checkout/subscription');
+
 				// Loop through any products that are subscription items
 				$subscription_products = $this->cart->getSubscriptions();
 
@@ -388,9 +390,10 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 
 				foreach ($subscription_products as $item) {
 					foreach ($order_products as $order_product) {
-						$order_subscription = $this->model_checkout_order->getSubscription($this->session->data['order_id'], $order_product['order_product_id']);
+						$subscription_info = $this->model_checkout_subscription->getSubscriptionByOrderProductId($this->session->data['order_id'], $order_product['order_product_id']);
 
-						if ($order_subscription && $order_product['product_id'] == $item['product_id'] && $item['product_id'] == $order_subscription['product_id']) {
+						if ($subscription_info && $order_product['product_id'] == $item['product_id'] && $item['product_id'] == $subscription_info['product_id']) {
+							$item['subscription']['subscription_id'] = $subscription_info['subscription_id'];
 							$item['subscription']['order_id'] = $this->session->data['order_id'];
 							$item['subscription']['order_product_id'] = $order_product['order_product_id'];
 							$item['subscription']['product_id'] = $order_product['product_id'];
@@ -508,6 +511,8 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 				}
 
 				if ($this->config->get('payment_sagepay_direct_transaction') == 'PAYMENT') {
+					$this->load->model('checkout/subscription');
+					
 					// Loop through any products that are subscription items
 					$subscription_products = $this->cart->getSubscriptions();
 
@@ -543,9 +548,10 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 
 					foreach ($subscription_products as $item) {
 						foreach ($order_products as $order_product) {
-							$order_subscription = $this->model_checkout_order->getSubscription($this->session->data['order_id'], $order_product['order_product_id']);
+							$subscription_info = $this->model_checkout_subscription->getSubscriptionByOrderProductId($this->session->data['order_id'], $order_product['order_product_id']);
 
-							if ($order_subscription && $order_product['product_id'] == $item['product_id'] && $item['product_id'] == $order_subscription['product_id']) {
+							if ($subscription_info && $order_product['product_id'] == $item['product_id'] && $item['product_id'] == $subscription_info['product_id']) {
+								$item['subscription']['subscription_id'] = $subscription_info['subscription_id'];
 								$item['subscription']['order_id'] = $this->session->data['order_id'];
 								$item['subscription']['order_product_id'] = $order_product['order_product_id'];
 								$item['subscription']['product_id'] = $order_product['product_id'];

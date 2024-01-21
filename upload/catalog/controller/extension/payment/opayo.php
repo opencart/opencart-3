@@ -341,6 +341,8 @@ class ControllerExtensionPaymentOpayo extends Controller {
 			$this->model_checkout_order->addHistory($this->session->data['order_id'], $setting['general']['order_status_id'], $message, false);
 
 			if ($setting['general']['transaction_method'] == 'PAYMENT') {
+				$this->load->model('checkout/subscription');
+
 				$subscription_products = $this->cart->getSubscriptions();
 
 				$order_products = $this->model_checkout_order->getProducts($this->session->data['order_id']);
@@ -375,9 +377,10 @@ class ControllerExtensionPaymentOpayo extends Controller {
 
 				foreach ($subscription_products as $item) {
 					foreach ($order_products as $order_product) {
-						$order_subscription = $this->model_checkout_order->getSubscription($this->session->data['order_id'], $order_product['order_product_id']);
+						$subscription_info = $this->model_checkout_subscription->getSubscriptionByOrderProductId($this->session->data['order_id'], $order_product['order_product_id']);
 
-						if ($order_subscription && $order_product['product_id'] == $item['product_id'] && $item['product_id'] == $order_subscription['product_id']) {
+						if ($subscription_info && $order_product['product_id'] == $item['product_id'] && $item['product_id'] == $subscription_info['product_id']) {
+							$item['subscription']['subscription_id'] = $subscription_info['subscription_id'];
 							$item['subscription']['order_id'] = $this->session->data['order_id'];
 							$item['subscription']['order_product_id'] = $order_product['order_product_id'];
 							$item['subscription']['product_id'] = $order_product['product_id'];
@@ -503,6 +506,8 @@ class ControllerExtensionPaymentOpayo extends Controller {
 				}
 
 				if ($setting['general']['transaction_method'] == 'PAYMENT') {
+					$this->load->model('checkout/subscription');
+
 					$payment_data = [];
 
 					$payment_data['VendorTxCode'] = $this->session->data['order_id'] . 'SD' . date('YmdHis') . mt_rand(1, 999);
@@ -541,9 +546,10 @@ class ControllerExtensionPaymentOpayo extends Controller {
 
 					foreach ($subscription_products as $item) {
 						foreach ($order_products as $order_product) {
-							$order_subscription = $this->model_checkout_order->getSubscription($this->session->data['order_id'], $order_product['order_product_id']);
+							$subscription_info = $this->model_checkout_subscription->getSubscriptionByOrderProductId($this->session->data['order_id'], $order_product['order_product_id']);
 
-							if ($order_subscription && $order_product['product_id'] == $item['product_id'] && $item['product_id'] == $order_subscription['product_id']) {
+							if ($subscription_info && $order_product['product_id'] == $item['product_id'] && $item['product_id'] == $subscription_info['product_id']) {
+								$item['subscription']['subscription_id'] = $subscription_info['subscription_id'];
 								$item['subscription']['order_id'] = $this->session->data['order_id'];
 								$item['subscription']['order_product_id'] = $order_product['order_product_id'];
 								$item['subscription']['product_id'] = $order_product['product_id'];

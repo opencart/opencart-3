@@ -245,9 +245,6 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 
 		$item['subscription']['description'] = $subscription_description;
 
-		// Create new subscription and set to pending status as no payment has been made yet.
-		$subscription_id = $this->model_checkout_subscription->addSubscription($item['subscription']);
-
 		//$this->model_checkout_subscription->editReference($subscription_id, $vendor_tx_code);
 
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
@@ -283,7 +280,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 			$subscription_end = new \DateTime('0000-00-00');
 		}
 
-		$this->addSubscriptionOrder($this->session->data['order_id'], $response_data, $subscription_id, date_format($trial_end, 'Y-m-d H:i:s'), date_format($subscription_end, 'Y-m-d H:i:s'));
+		$this->addSubscriptionOrder($this->session->data['order_id'], $response_data, $item['subscription']['subscription_id'], date_format($trial_end, 'Y-m-d H:i:s'), date_format($subscription_end, 'Y-m-d H:i:s'));
 
 		$transaction = [
 			'order_id'       => $this->session->data['order_id'],
@@ -294,11 +291,11 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 		];
 
 		if ($response_data['Status'] == 'OK') {
-			$this->updateSubscriptionOrder($subscription_id, date_format($next_payment, 'Y-m-d H:i:s'));
+			$this->updateSubscriptionOrder($item['subscription']['subscription_id'], date_format($next_payment, 'Y-m-d H:i:s'));
 
-			$this->addSubscriptionTransaction($subscription_id, $response_data, $transaction, 1);
+			$this->addSubscriptionTransaction($item['subscription']['subscription_id'], $response_data, $transaction, 1);
 		} else {
-			$this->addSubscriptionTransaction($subscription_id, $response_data, $transaction, 4);
+			$this->addSubscriptionTransaction($item['subscription']['subscription_id'], $response_data, $transaction, 4);
 		}
 	}
 

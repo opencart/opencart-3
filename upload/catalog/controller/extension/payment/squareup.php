@@ -212,6 +212,8 @@ class ControllerExtensionPaymentSquareup extends Controller {
 				$transaction_status = '';
 			}
 
+			$this->load->model('checkout/subscription');
+
 			$order_status_id = $this->config->get('payment_squareup_status_' . $transaction_status);
 
 			$order_products = $this->model_checkout_order->getProducts($this->session->data['order_id']);
@@ -220,7 +222,9 @@ class ControllerExtensionPaymentSquareup extends Controller {
 				if ($this->cart->hasProducts() && $transaction_status == 'captured') {
 					foreach ($this->cart->getProducts() as $item) {
 						foreach ($order_products as $order_product) {
-							if ($item['subscription'] && $order_product['product_id'] == $item['product_id']) {
+							$subscription_info = $this->model_checkout_subscription->getSubscriptionByOrderProductId($this->session->data['order_id'], $order_product['order_product_id']);
+
+							if ($subscription_info && $order_product['product_id'] == $item['product_id'] && $item['product_id'] == $subscription_info['product_id']) {
 								$subscription_products = $this->cart->getSubscriptions();
 
 								$order_products = $this->model_checkout_order->getProducts($this->session->data['order_id']);
@@ -255,9 +259,10 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
 								foreach ($subscription_products as $item) {
 									foreach ($order_products as $order_product) {
-										$order_subscription = $this->model_checkout_order->getSubscription($this->session->data['order_id'], $order_product['order_product_id']);
+										$subscription_info = $this->model_checkout_subscription->getSubscriptionByOrderProductId($this->session->data['order_id'], $order_product['order_product_id']);
 
-										if ($order_subscription && $order_product['product_id'] == $item['product_id'] && $item['product_id'] == $order_subscription['product_id']) {
+										if ($subscription_info && $order_product['product_id'] == $item['product_id'] && $item['product_id'] == $subscription_info['product_id']) {
+											$item['subscription']['subscription_id'] = $subscription_info['subscription_id'];
 											$item['subscription']['order_id'] = $this->session->data['order_id'];
 											$item['subscription']['order_product_id'] = $order_product['order_product_id'];
 											$item['subscription']['product_id'] = $order_product['product_id'];

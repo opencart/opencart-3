@@ -242,9 +242,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
 			$sagepay_order_info = $this->getReference($vendor_tx_code);
 
 			if ($sagepay_order_info) {
-				$subscription_id = $this->model_checkout_subscription->addSubscription($item['subscription']);
-
-				$response_data = $this->setPaymentData($order_info, $sagepay_order_info, $price, $subscription_id, $item['subscription']['name']);
+				$response_data = $this->setPaymentData($order_info, $sagepay_order_info, $price, $item['subscription']['subscription_id'], $item['subscription']['name']);
 
 				$next_payment = new \DateTime('now');
 				$trial_end = new \DateTime('now');
@@ -271,7 +269,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
 					$subscription_end = new \DateTime('0000-00-00');
 				}
 
-				$this->addSubscriptionOrder($item['subscription']['order_id'], $response_data, $subscription_id, date_format($trial_end, 'Y-m-d H:i:s'), date_format($subscription_end, 'Y-m-d H:i:s'));
+				$this->addSubscriptionOrder($item['subscription']['order_id'], $response_data, $item['subscription']['subscription_id'], date_format($trial_end, 'Y-m-d H:i:s'), date_format($subscription_end, 'Y-m-d H:i:s'));
 
 				$transaction = [
 					'order_id'       => $item['subscription']['order_id'],
@@ -282,13 +280,13 @@ class ModelExtensionPaymentSagePayServer extends Model {
 				];
 
 				if ($response_data['Status'] == 'OK') {
-					$this->updateSubscriptionOrder($subscription_id, date_format($next_payment, 'Y-m-d H:i:s'));
+					$this->updateSubscriptionOrder($item['subscription']['subscription_id'], date_format($next_payment, 'Y-m-d H:i:s'));
 
-					$this->addSubscriptionTransaction($subscription_id, $response_data, $transaction, 1);
+					$this->addSubscriptionTransaction($item['subscription']['subscription_id'], $response_data, $transaction, 1);
 
-					$this->model_checkout_subscription->editSubscription($subscription_id, $item['subscription']);
+					$this->model_checkout_subscription->editSubscription($item['subscription']['subscription_id'], $item['subscription']);
 				} else {
-					$this->addSubscriptionTransaction($subscription_id, $response_data, $transaction, 4);
+					$this->addSubscriptionTransaction($item['subscription']['subscription_id'], $response_data, $transaction, 4);
 				}
 			}
 		}
@@ -347,9 +345,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
 					$subscription_end = new \DateTime('0000-00-00');
 				}
 
-				$subscription_id = $this->model_checkout_subscription->addSubscription($item['subscription']);
-
-				$this->addSubscriptionOrder($data['order_id'], $response_data, $subscription_id, date_format($trial_end, 'Y-m-d H:i:s'), date_format($subscription_end, 'Y-m-d H:i:s'));
+				$this->addSubscriptionOrder($data['order_id'], $response_data, $item['subscription']['subscription_id'], date_format($trial_end, 'Y-m-d H:i:s'), date_format($subscription_end, 'Y-m-d H:i:s'));
 
 				$transaction = [
 					'order_id'       => $subscription_info['order_id'],
@@ -360,13 +356,13 @@ class ModelExtensionPaymentSagePayServer extends Model {
 				];
 
 				if ($response_data['Status'] == 'OK') {
-					$this->updateSubscriptionOrder($subscription_id, date_format($next_payment, 'Y-m-d H:i:s'));
+					$this->updateSubscriptionOrder($item['subscription']['subscription_id'], date_format($next_payment, 'Y-m-d H:i:s'));
 
-					$this->addSubscriptionTransaction($subscription_id, $response_data, $transaction, 1);
+					$this->addSubscriptionTransaction($item['subscription']['subscription_id'], $response_data, $transaction, 1);
 
-					$this->model_checkout_subscription->editSubscription($subscription_id, $item['subscription']);
+					$this->model_checkout_subscription->editSubscription($item['subscription']['subscription_id'], $item['subscription']);
 				} else {
-					$this->addSubscriptionTransaction($subscription_id, $response_data, $transaction, 4);
+					$this->addSubscriptionTransaction($item['subscription']['subscription_id'], $response_data, $transaction, 4);
 				}
 			}
 		}

@@ -175,6 +175,8 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 			$this->model_extension_payment_sagepay_server->addOrder($order_info);
 
 			if ($this->config->get('payment_sagepay_server_transaction') == 'PAYMENT') {
+				$this->load->model('checkout/subscription');
+
 				// Loop through any products that are subscription items
 				$subscription_products = $this->cart->getSubscriptions();
 
@@ -210,9 +212,10 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 
 				foreach ($subscription_products as $item) {
 					foreach ($order_products as $order_product) {
-						$order_subscription = $this->model_checkout_order->getSubscription($this->session->data['order_id'], $order_product['order_product_id']);
+						$subscription_info = $this->model_checkout_subscription->getSubscriptionByOrderProductId($this->session->data['order_id'], $order_product['order_product_id']);
 
-						if ($order_subscription && $order_product['product_id'] == $item['product_id'] && $item['product_id'] == $order_subscription['product_id']) {
+						if ($subscription_info && $order_product['product_id'] == $item['product_id'] && $item['product_id'] == $subscription_info['product_id']) {
+							$item['subscription']['subscription_id'] = $subscription_info['subscription_id'];
 							$item['subscription']['order_id'] = $this->session->data['order_id'];
 							$item['subscription']['order_product_id'] = $order_product['order_product_id'];
 							$item['subscription']['name'] = $order_product['name'];
@@ -500,6 +503,8 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 
 			if ($order_details && $order_details['vendor_tx_code']) {
 				if ($this->config->get('payment_sagepay_server_transaction') == 'PAYMENT') {
+					$this->load->model('checkout/subscription');
+					
 					$subscription_products = $this->cart->getSubscriptions();
 
 					$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
@@ -540,9 +545,10 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 
 					foreach ($subscription_products as $item) {
 						foreach ($order_products as $order_product) {
-							$order_subscription = $this->model_checkout_order->getSubscription($this->session->data['order_id'], $order_product['order_product_id']);
+							$subscription_info = $this->model_checkout_subscription->getSubscriptionByOrderProductId($this->session->data['order_id'], $order_product['order_product_id']);
 
-							if ($order_subscription && $order_product['product_id'] == $item['product_id'] && $item['product_id'] == $order_subscription['product_id']) {
+							if ($subscription_info && $order_product['product_id'] == $item['product_id'] && $item['product_id'] == $subscription_info['product_id']) {
+								$item['subscription']['subscription_id'] = $subscription_info['subscription_id'];
 								$item['subscription']['order_id'] = $this->session->data['order_id'];
 								$item['subscription']['order_product_id'] = $order_product['order_product_id'];
 								$item['subscription']['product_id'] = $order_product['product_id'];
