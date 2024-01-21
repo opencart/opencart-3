@@ -103,7 +103,7 @@ class ModelExtensionPaymentOpayo extends Model {
 			$void_data = [];
 
 			// Setting
-			$_config = new Config();
+			$_config = new \Config();
 			$_config->load('opayo');
 
 			$config_setting = $_config->get('opayo_setting');
@@ -162,7 +162,7 @@ class ModelExtensionPaymentOpayo extends Model {
 			$release_data = [];
 
 			// Setting
-			$_config = new Config();
+			$_config = new \Config();
 			$_config->load('opayo');
 
 			$config_setting = $_config->get('opayo_setting');
@@ -220,7 +220,7 @@ class ModelExtensionPaymentOpayo extends Model {
 			$refund_data = [];
 
 			// Setting
-			$_config = new Config();
+			$_config = new \Config();
 			$_config->load('opayo');
 
 			$config_setting = $_config->get('opayo_setting');
@@ -397,7 +397,7 @@ class ModelExtensionPaymentOpayo extends Model {
 	 * @return void
 	 */
 	public function log(string $title, mixed $data): void {
-		$_config = new Config();
+		$_config = new \Config();
 		$_config->load('opayo');
 		$config_setting = $_config->get('opayo_setting');
 

@@ -652,7 +652,7 @@ class ControllerExtensionPaymentOpayo extends Controller {
 	 */
 	public function cron(): void {
 		// Setting
-		$_config = new Config();
+		$_config = new \Config();
 		$_config->load('opayo');
 
 		$config_setting = $_config->get('opayo_setting');

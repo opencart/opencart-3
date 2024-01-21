@@ -21,7 +21,7 @@ class ControllerExtensionPaymentPaypalGooglepay extends Controller {
 		if ($this->config->get('payment_paypal_status') && $this->config->get('payment_paypal_client_id') && $this->config->get('payment_paypal_secret') && $agree_status) {
 			$this->load->language('extension/payment/paypal');
 
-			$_config = new Config();
+			$_config = new \Config();
 			$_config->load('paypal');
 
 			$config_setting = $_config->get('paypal_setting');
@@ -103,7 +103,7 @@ class ControllerExtensionPaymentPaypalGooglepay extends Controller {
 	public function modal(): void {
 		$this->load->language('extension/payment/paypal');
 
-		$_config = new Config();
+		$_config = new \Config();
 		$_config->load('paypal');
 
 		$config_setting = $_config->get('paypal_setting');

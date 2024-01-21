@@ -20,7 +20,7 @@ class ControllerExtensionPaymentPaypalPaylater extends Controller {
 			$this->load->language('extension/payment/paypal');
 
 			// Setting
-			$_config = new Config();
+			$_config = new \Config();
 			$_config->load('paypal');
 
 			$config_setting = $_config->get('paypal_setting');
@@ -103,7 +103,7 @@ class ControllerExtensionPaymentPaypalPaylater extends Controller {
 		$this->load->language('extension/payment/paypal');
 
 		// Setting
-		$_config = new Config();
+		$_config = new \Config();
 		$_config->load('paypal');
 
 		$config_setting = $_config->get('paypal_setting');

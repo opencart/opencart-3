@@ -21,7 +21,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		if ($this->config->get('payment_paypal_status') && $this->config->get('payment_paypal_client_id') && $this->config->get('payment_paypal_secret') && !$this->webhook() && !$this->cron() && $agree_status) {
 			$this->load->language('extension/payment/paypal');
 
-			$_config = new Config();
+			$_config = new \Config();
 			$_config->load('paypal');
 
 			$config_setting = $_config->get('paypal_setting');
@@ -102,7 +102,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	public function modal(): void {
 		$this->load->language('extension/payment/paypal');
 
-		$_config = new Config();
+		$_config = new \Config();
 		$_config->load('paypal');
 
 		$config_setting = $_config->get('paypal_setting');
@@ -191,7 +191,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			$this->load->model('localisation/country');
 			$this->load->model('checkout/order');
 
-			$_config = new Config();
+			$_config = new \Config();
 			$_config->load('paypal');
 
 			$config_setting = $_config->get('paypal_setting');
@@ -667,7 +667,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			}
 
 			if (!$errors) {
-				$_config = new Config();
+				$_config = new \Config();
 				$_config->load('paypal');
 
 				$config_setting = $_config->get('paypal_setting');
@@ -2302,7 +2302,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 			$order_data['order_id'] = $this->session->data['order_id'];
 
-			$_config = new Config();
+			$_config = new \Config();
 			$_config->load('paypal');
 
 			$config_setting = $_config->get('paypal_setting');
@@ -3052,7 +3052,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	 */
 	public function webhook(): bool {
 		if (!empty($this->request->get['webhook_token'])) {
-			$_config = new Config();
+			$_config = new \Config();
 			$_config->load('paypal');
 
 			$config_setting = $_config->get('paypal_setting');
@@ -3199,7 +3199,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	 */
 	public function cron(): bool {
 		if (!empty($this->request->get['cron_token'])) {
-			$_config = new Config();
+			$_config = new \Config();
 			$_config->load('paypal');
 
 			$config_setting = $_config->get('paypal_setting');
@@ -3232,7 +3232,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		$agree_status = $this->model_extension_payment_paypal->getAgreeStatus();
 
 		if ($this->config->get('payment_paypal_status') && $this->config->get('payment_paypal_client_id') && $this->config->get('payment_paypal_secret') && $agree_status) {
-			$_config = new Config();
+			$_config = new \Config();
 			$_config->load('paypal');
 
 			$config_setting = $_config->get('paypal_setting');
@@ -3308,7 +3308,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			$type = $data[0];
 
 			if ($type == 'payment') {
-				$_config = new Config();
+				$_config = new \Config();
 				$_config->load('paypal');
 
 				$config_setting = $_config->get('paypal_setting');

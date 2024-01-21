@@ -277,7 +277,7 @@ class ModelExtensionPaymentPayPal extends Model {
 	}
 
 	public function log(array $data, ?string $title = null): void {
-		$_config = new Config();
+		$_config = new \Config();
 		$_config->load('paypal');
 
 		$config_setting = $_config->get('paypal_setting');
@@ -334,7 +334,7 @@ class ModelExtensionPaymentPayPal extends Model {
 		$this->load->model('setting/setting');
 
 		// Setting
-		$_config = new Config();
+		$_config = new \Config();
 		$_config->load('paypal');
 
 		$config_setting = $_config->get('paypal_setting');

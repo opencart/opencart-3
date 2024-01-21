@@ -197,8 +197,8 @@ class ModelExtensionPaymentPayPal extends Model {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "paypal_checkout_integration_transaction` SET `order_id` = '" . (int)$data['order_id'] . "', `reference` = '" . $this->db->escape($data['reference']) . "', `type` = '" . (int)$data['type'] . "', `amount` = '" . (float)$data['amount'] . "', `date_added` = NOW()");
 	}
 
-	public function deleteSubscriptionTransaction(int $subscription_id): void {
-		$query = $this->db->query("DELETE FROM `" . DB_PREFIX . "paypal_checkout_integration_transaction` WHERE `subscription_id` = '" . (int)$subscription_id . "'");
+	public function deleteSubscriptionTransaction(int $order_id): void {
+		$query = $this->db->query("DELETE FROM `" . DB_PREFIX . "paypal_checkout_integration_transaction` WHERE `order_id` = '" . (int)$order_id . "'");
 	}
 
 	/**
@@ -213,7 +213,7 @@ class ModelExtensionPaymentPayPal extends Model {
 	public function subscriptionPayment(array $item, array $order_info, array $paypal_order_data): void {
 		$this->load->model('checkout/subscription');
 
-		$_config = new Config();
+		$_config = new \Config();
 		$_config->load('paypal');
 
 		$config_setting = $_config->get('paypal_setting');
@@ -352,7 +352,7 @@ class ModelExtensionPaymentPayPal extends Model {
 		$this->load->model('checkout/order');
 		$this->load->model('account/order');
 
-		$_config = new Config();
+		$_config = new \Config();
 		$_config->load('paypal');
 
 		$config_setting = $_config->get('paypal_setting');
@@ -452,7 +452,7 @@ class ModelExtensionPaymentPayPal extends Model {
 	public function createPayment(array $order_data, array $paypal_order_data, float $price, string $name): array {
 		$this->load->language('extension/payment/paypal');
 
-		$_config = new Config();
+		$_config = new \Config();
 		$_config->load('paypal');
 
 		$config_setting = $_config->get('paypal_setting');
@@ -630,7 +630,7 @@ class ModelExtensionPaymentPayPal extends Model {
 
 	public function log(array $data, ?string $title = ''): void {
 		// Setting
-		$_config = new Config();
+		$_config = new \Config();
 		$_config->load('paypal');
 
 		$config_setting = $_config->get('paypal_setting');
