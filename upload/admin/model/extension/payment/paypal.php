@@ -307,13 +307,13 @@ class ModelExtensionPaymentPayPal extends Model {
 			`paypal_checkout_integration_subscription_id` int(11) NOT NULL AUTO_INCREMENT,
 			`subscription_id` int(11) NOT NULL,
 			`order_id` int(11) NOT NULL,
-			`date_added` datetime NOT NULL,
-			`date_modified` datetime NOT NULL,
 			`next_payment` datetime NOT NULL,
 			`trial_end` datetime DEFAULT NULL,
 			`subscription_end` datetime DEFAULT NULL,
 			`currency_code` varchar(3) NOT NULL,
 			`total` decimal(15,4) NOT NULL,
+			`date_added` datetime NOT NULL,
+			`date_modified` datetime NOT NULL,
 			PRIMARY KEY (`paypal_checkout_integration_subscription_id`),
 			KEY (`order_id`),
 			KEY (`subscription_id`)
@@ -322,12 +322,44 @@ class ModelExtensionPaymentPayPal extends Model {
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "paypal_checkout_integration_transaction` (
 			  `paypal_checkout_integration_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
-			  `subscription_id` int(11) NOT NULL,
+			  `order_id` int(11) NOT NULL,
 			  `reference` varchar(255) NOT NULL,
 			  `type` tinyint(1) NOT NULL,
 			  `amount` decimal(15,4) NOT NULL,
 			  `date_added` datetime NOT NULL,
-			  PRIMARY KEY (`paypal_checkout_integration_transaction_id`)
+			  PRIMARY KEY (`paypal_checkout_integration_transaction_id`),
+			  KEY (`order_id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
+
+		$this->load->model('setting/setting');
+
+		// Setting
+		$_config = new Config();
+		$_config->load('paypal');
+
+		$config_setting = $_config->get('paypal_setting');
+
+		$this->model_setting_setting->deleteSetting('paypal_version');
+
+		$this->model_setting_setting->editSetting($config_setting['version']);
+
+		// Events
+		$this->load->model('setting/event');
+
+		$this->model_setting_event->addEvent('paypal_order_info', 'admin/view/sale/order_info/before', 'extension/payment/paypal/order_info_before', 1, 0);
+		$this->model_setting_event->addEvent('paypal_header', 'catalog/controller/common/header/before', 'extension/payment/paypal/header_before', 1, 0);
+		$this->model_setting_event->addEvent('paypal_extension_get_extensions', 'paypal_extension_extensions', 'catalog/model/setting/extension/getExtensions/after', 'extension/payment/paypal/extension_get_extensions_after', 1, 0);
+		$this->model_setting_event->addEvent('paypal_order_delete_order', 'catalog/model/checkout/order/deleteOrder/before', 'extension/payment/paypal/order_delete_order_before', 1, 0);
+	}
+
+	public function uninstall(): void {
+		// Events
+		$this->load->model('setting/event');
+
+		$this->model_setting_event->deleteEventByCode('paypal_order_info');
+		$this->model_setting_event->deleteEventByCode('paypal_header');
+		$this->model_setting_event->deleteEventByCode('paypal_extension_get_extensions');
+		$this->model_setting_event->deleteEventByCode('paypal_order_delete_order');
+		$this->model_setting_event->deleteEventByCode('paypal_version');
 	}
 }

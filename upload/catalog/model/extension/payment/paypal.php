@@ -144,19 +144,19 @@ class ModelExtensionPaymentPayPal extends Model {
 	}
 
 	public function addPayPalOrderSubscription(array $data): void {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "paypal_checkout_integration_order_subscription` SET `order_id` = '" . (int)$data['order_id'] . "', `date_modified` = NOW(), `next_payment` = NOW(), `trial_end` = '" . $data['trial_end'] . "', `subscription_end` = '" . $data['subscription_end'] . "', `currency_code` = '" . $this->db->escape($data['currency_code']) . "', `total` = '" . $this->currency->format($data['amount'], $data['currency_code'], false, false) . "', `date_added` = NOW()");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "paypal_checkout_integration_subscription` SET `subscription_id` = '" . (int)$data['subscription_id'] . "', `order_id` = '" . (int)$data['order_id'] . "', `next_payment` = NOW(), `trial_end` = '" . $data['trial_end'] . "', `subscription_end` = '" . $data['subscription_end'] . "', `currency_code` = '" . $this->db->escape($data['currency_code']) . "', `total` = '" . $this->currency->format($data['amount'], $data['currency_code'], false, false) . "', `date_added` = NOW(), `date_modified` = NOW()");
 	}
 
 	public function editPayPalOrderSubscriptionNextPayment(int $order_id, string $next_payment): void {
-		$this->db->query("UPDATE `" . DB_PREFIX . "paypal_checkout_integration_order_subscription` SET `next_payment` = '" . $next_payment . "', `date_modified` = NOW() WHERE `order_id` = '" . (int)$order_id . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "paypal_checkout_integration_subscription` SET `next_payment` = '" . $this->db->escape($next_payment) . "', `date_modified` = NOW() WHERE `order_id` = '" . (int)$order_id . "'");
 	}
 
 	public function deletePayPalOrderSubscription(int $order_id): void {
-		$query = $this->db->query("DELETE FROM `" . DB_PREFIX . "paypal_checkout_integration_order_id` WHERE `order_id` = '" . (int)$order_id . "'");
+		$query = $this->db->query("DELETE FROM `" . DB_PREFIX . "paypal_checkout_integration_order` WHERE `order_id` = '" . (int)$order_id . "'");
 	}
 
 	public function getPayPalOrderSubscription(int $order_id): array {
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "paypal_checkout_integration_order_subscription` WHERE `order_id` = '" . (int)$order_id . "'");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "paypal_checkout_integration_subscription` WHERE `order_id` = '" . (int)$order_id . "'");
 
 		return $query->row;
 	}
@@ -193,11 +193,11 @@ class ModelExtensionPaymentPayPal extends Model {
 		return $query->row;
 	}
 
-	public function addOrderSubscriptionTransaction(array $data): void {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "order_subscription_transaction` SET `order_id` = '" . (int)$data['order_id'] . "', `reference` = '" . $this->db->escape($data['reference']) . "', `type` = '" . (int)$data['type'] . "', `amount` = '" . (float)$data['amount'] . "', `date_added` = NOW()");
+	public function addSubscriptionTransaction(array $data): void {
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "paypal_checkout_integration_transaction` SET `order_id` = '" . (int)$data['order_id'] . "', `reference` = '" . $this->db->escape($data['reference']) . "', `type` = '" . (int)$data['type'] . "', `amount` = '" . (float)$data['amount'] . "', `date_added` = NOW()");
 	}
 
-	public function deleteOrderSubscriptionTransaction(int $subscription_id): void {
+	public function deleteSubscriptionTransaction(int $subscription_id): void {
 		$query = $this->db->query("DELETE FROM `" . DB_PREFIX . "paypal_checkout_integration_transaction` WHERE `subscription_id` = '" . (int)$subscription_id . "'");
 	}
 
@@ -282,7 +282,7 @@ class ModelExtensionPaymentPayPal extends Model {
 			$subscription_end = new \DateTime('0000-00-00');
 		}
 
-		$this->addOrderSubscription($order_info['order_id'], $item);
+		$this->addOrderSubscription($item['subscription']['order_id'], $item);
 
 		$result = $this->createPayment($order_info, $paypal_order_data, $price, $item['subscription']['name']);
 
@@ -310,37 +310,39 @@ class ModelExtensionPaymentPayPal extends Model {
 		if ($transaction_id && $transaction_status && $currency_code && $amount) {
 			$this->editOrderSubscriptionStatus($order_info['order_id'], 1);
 
-			$paypal_order_subscription_data = [
-				'order_subscription_id' => $order_subscription_id,
-				'order_id'              => $order_info['order_id'],
-				'trial_end'             => date_format($trial_end, 'Y-m-d H       : i: s'),
-				'subscription_end'      => date_format($subscription_end, 'Y-m-d H: i: s'),
-				'currency_code'         => $currency_code,
-				'amount'                => $amount
+			$paypal_subscription_data = [
+				'subscription_id'  => $item['subscription']['subscription_id'],
+				'order_id'         => $item['subscription']['order_id'],
+				'trial_end'        => date_format($trial_end, 'Y-m-d H:i:s'),
+				'subscription_end' => date_format($subscription_end, 'Y-m-d H:i:s'),
+				'currency_code'    => $currency_code,
+				'amount'           => $amount
 			];
 
-			$this->addPayPalOrderSubscription($paypal_order_subscription_data);
+			$this->addPayPalOrderSubscription($paypal_subscription_data);
 
 			if (($transaction_status == 'CREATED') || ($transaction_status == 'COMPLETED') || ($transaction_status == 'PENDING')) {
-				$order_subscription_transaction_data = [
-					'order_subscription_id' => $order_subscription_id,
-					'reference'             => $transaction_id,
-					'type'                  => '1',
-					'amount'                => $amount
+				$subscription_transaction_data = [
+					'subscription_id' => $item['subscription']['subscription_id'],
+					'order_id'        => $item['subscription']['order_id'],
+					'reference'       => $transaction_id,
+					'type'            => '1',
+					'amount'          => $amount
 				];
 
-				$this->addOrderSubscriptionTransaction($order_subscription_transaction_data);
+				$this->addSubscriptionTransaction($subscription_transaction_data);
 
-				$this->editPayPalOrderSubscriptionNextPayment($order_subscription_id, date_format($next_payment, 'Y-m-d H:i:s'));
+				$this->editPayPalOrderSubscriptionNextPayment($subscription_id, date_format($next_payment, 'Y-m-d H:i:s'));
 			} else {
-				$order_subscription_transaction_data = [
-					'order_subscription_id' => $order_subscription_id,
-					'reference'             => $transaction_id,
-					'type'                  => '4',
-					'amount'                => $amount
+				$subscription_transaction_data = [
+					'subscription_id' => $item['subscription']['subscription_id'],
+					'order_id'        => $item['subscription']['order_id'],
+					'reference'       => $transaction_id,
+					'type'            => '4',
+					'amount'          => $amount
 				];
 
-				$this->addOrderSubscriptionTransaction($order_subscription_transaction_data);
+				$this->addSubscriptionTransaction($subscription_transaction_data);
 			}
 		}
 	}
@@ -421,25 +423,25 @@ class ModelExtensionPaymentPayPal extends Model {
 
 					if ($transaction_id && $transaction_status && $currency_code && $amount) {
 						if (($transaction_status == 'CREATED') || ($transaction_status == 'COMPLETED') || ($transaction_status == 'PENDING')) {
-							$order_subscription_transaction_data = [
-								'order_subscription_id' => $order_subscription['order_subscription_id'],
-								'reference'             => $transaction_id,
-								'type'                  => '1',
-								'amount'                => $amount
+							$subscription_transaction_data = [
+								'subscription_id' => $subscription['subscription_id'],
+								'reference'       => $transaction_id,
+								'type'            => '1',
+								'amount'          => $amount
 							];
 
-							$this->addOrderSubscriptionTransaction($order_subscription_transaction_data);
+							$this->addSubscriptionTransaction($subscription_transaction_data);
 
 							$this->editPayPalOrderSubscriptionNextPayment($order_subscription['order_id'], date_format($next_payment, 'Y-m-d H:i:s'));
 						} else {
-							$order_subscription_transaction_data = [
-								'order_subscription_id' => $order_subscription['order_subscription_id'],
-								'reference'             => $transaction_id,
-								'type'                  => '4',
-								'amount'                => $amount
+							$subscription_transaction_data = [
+								'subscription_id' => $subscription['subscription_id'],
+								'reference'       => $transaction_id,
+								'type'            => '4',
+								'amount'          => $amount
 							];
 
-							$this->addOrderSubscriptionTransaction($order_subscription_transaction_data);
+							$this->addSubscriptionTransaction($subscription_transaction_data);
 						}
 					}
 				}
@@ -639,70 +641,6 @@ class ModelExtensionPaymentPayPal extends Model {
 			$log = new \Log('paypal.log');
 			$log->write('PayPal debug (' . $title . '): ' . json_encode($data));
 		}
-	}
-
-	public function update(): void {
-		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "paypal_checkout_integration_order`");
-		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "paypal_checkout_integration_subscription`");
-
-		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "paypal_checkout_integration_order` (
-			`order_id` int(11) NOT NULL,
-			`transaction_id` varchar(20) NOT NULL,
-			`transaction_status` varchar(20) NULL,
-			`payment_method` varchar(20) NULL,
-			`vault_id` varchar(50) NULL,
-			`vault_customer_id` varchar(50) NULL,
-			`environment` varchar(20) NULL,
-			`status` tinyint(1) NOT NULL,
-			PRIMARY KEY (`order_id`, `transaction_id`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci");
-
-		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "paypal_checkout_integration_subscription` (
-				`paypal_checkout_integration_subscription_id` int(11) NOT NULL AUTO_INCREMENT,
-				`subscription_id` int(11) NOT NULL,
-				`order_id` int(11) NOT NULL,
-				`date_added` datetime NOT NULL,
-				`date_modified` datetime NOT NULL,
-				`next_payment` datetime NOT NULL,
-				`trial_end` datetime DEFAULT NULL,
-				`subscription_end` datetime DEFAULT NULL,
-				`currency_code` varchar(3) NOT NULL,
-				`total` decimal(15,4) NOT NULL,
-				PRIMARY KEY (`paypal_checkout_integration_subscription_id`),
-				KEY (`order_id`),
-				KEY (`subscription_id`)
-				) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci");
-
-		$this->db->query("
-			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "paypal_checkout_integration_transaction` (
-			  `paypal_checkout_integration_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
-			  `subscription_id` int(11) NOT NULL,
-			  `reference` varchar(255) NOT NULL,
-			  `type` tinyint(1) NOT NULL,
-			  `amount` decimal(15,4) NOT NULL,
-			  `date_added` datetime NOT NULL,
-			  PRIMARY KEY (`paypal_checkout_integration_transaction_id`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
-
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "event` WHERE `code` = 'paypal_order_info'");
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "event` WHERE `code` = 'paypal_header'");
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "event` WHERE `code` = 'paypal_extension_get_extensions'");
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "event` WHERE `code` = 'paypal_order_delete_order'");
-
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "event` SET `code` = 'paypal_order_info', `trigger` = 'admin/view/sale/order_info/before', `action` = 'extension/payment/paypal/order_info_before', `sort_order` = '0', `status` = '1'");
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "event` SET `code` = 'paypal_header', `trigger` = 'catalog/controller/common/header/before', `action` = 'extension/payment/paypal/header_before', `sort_order` = '0', `status` = '1'");
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "event` SET `code` = 'paypal_extension_get_extensions', `trigger` = 'catalog/model/setting/extension/getExtensions/after', `action` = 'extension/payment/paypal/extension_get_extensions_after', `sort_order` = '0', `status` = '1'");
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "event` SET `code` = 'paypal_order_delete_order', `trigger` = 'catalog/model/checkout/order/deleteOrder/before', `action` = 'extension/payment/paypal/order_delete_order_before', `sort_order` = '0', `status` = '1'");
-
-		// Setting
-		$_config = new Config();
-		$_config->load('paypal');
-
-		$config_setting = $_config->get('paypal_setting');
-
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "setting` WHERE `store_id` = '0' AND `code` = 'paypal_version'");
-
-		$this->db->query("INSERT INTO " . DB_PREFIX . "setting SET `store_id` = '0', `code` = 'paypal_version', `key` = 'paypal_version', `value` = '" . $this->db->escape($config_setting['version']) . "'");
 	}
 
 	/**

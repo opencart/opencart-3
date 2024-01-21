@@ -11,24 +11,6 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	private array $error = [];
 
 	/**
-	 * Constructor
-	 *
-	 * @param object $registry
-	 */
-	public function __construct(object $registry) {
-		parent::__construct($registry);
-
-		if (version_compare(PHP_VERSION, '8.3', '>=')) {
-			ini_set('precision', 14);
-			ini_set('serialize_precision', 14);
-		}
-
-		if (empty($this->config->get('paypal_version')) || (!empty($this->config->get('paypal_version')) && ($this->config->get('paypal_version') < '2.2.0'))) {
-			$this->update();
-		}
-	}
-
-	/**
 	 * @return string
 	 */
 	public function index(): string {
@@ -1394,14 +1376,16 @@ class ControllerExtensionPaymentPayPal extends Controller {
 												$item['subscription']['subscription_id'] = $subscription_info['subscription_id'];
 												$item['subscription']['order_id'] = $this->session->data['order_id'];
 												$item['subscription']['order_product_id'] = $order_product['order_product_id'];
+												$item['subscription']['name'] = $item['name'];
 												$item['subscription']['product_id'] = $order_product['product_id'];
+												$item['subscription']['tax'] = $this->tax->getTax($item['price'], $item['tax_class_id']);
+												$item['subscription']['quantity'] = $item['quantity'];
 												$item['subscription']['store_id'] = $this->config->get('config_store_id');
 												$item['subscription']['customer_id'] = $this->customer->getId();
 												$item['subscription']['payment_address_id'] = $order_info['payment_address_id'];
 												$item['subscription']['payment_method'] = $order_info['payment_method'];
 												$item['subscription']['shipping_address_id'] = $order_info['shipping_address_id'];
 												$item['subscription']['shipping_method'] = $order_info['shipping_method'];
-												$item['subscription']['quantity'] = $order_product['quantity'];
 												$item['subscription']['comment'] = $order_info['comment'];
 												$item['subscription']['affiliate_id'] = $order_info['affiliate_id'];
 												$item['subscription']['marketing_id'] = $order_info['marketing_id'];
@@ -1533,14 +1517,16 @@ class ControllerExtensionPaymentPayPal extends Controller {
 												$item['subscription']['subscription_id'] = $subscription_info['subscription_id'];
 												$item['subscription']['order_id'] = $this->session->data['order_id'];
 												$item['subscription']['order_product_id'] = $order_product['order_product_id'];
+												$item['subscription']['name'] = $item['name'];
 												$item['subscription']['product_id'] = $order_product['product_id'];
+												$item['subscription']['tax'] = $this->tax->getTax($item['price'], $item['tax_class_id']);
+												$item['subscription']['quantity'] = $item['quantity'];
 												$item['subscription']['store_id'] = $this->config->get('config_store_id');
 												$item['subscription']['customer_id'] = $this->customer->getId();
 												$item['subscription']['payment_address_id'] = $order_info['payment_address_id'];
 												$item['subscription']['payment_method'] = $order_info['payment_method'];
 												$item['subscription']['shipping_address_id'] = $order_info['shipping_address_id'];
 												$item['subscription']['shipping_method'] = $order_info['shipping_method'];
-												$item['subscription']['quantity'] = $order_product['quantity'];
 												$item['subscription']['comment'] = $order_info['comment'];
 												$item['subscription']['affiliate_id'] = $order_info['affiliate_id'];
 												$item['subscription']['marketing_id'] = $order_info['marketing_id'];
@@ -2673,14 +2659,16 @@ class ControllerExtensionPaymentPayPal extends Controller {
 											$item['subscription']['subscription_id'] = $subscription_info['subscription_id'];
 											$item['subscription']['order_id'] = $this->session->data['order_id'];
 											$item['subscription']['order_product_id'] = $order_product['order_product_id'];
+											$item['subscription']['name'] = $item['name'];
 											$item['subscription']['product_id'] = $order_product['product_id'];
+											$item['subscription']['tax'] = $this->tax->getTax($item['price'], $item['tax_class_id']);
+											$item['subscription']['quantity'] = $item['quantity'];
 											$item['subscription']['store_id'] = $this->config->get('config_store_id');
 											$item['subscription']['customer_id'] = $this->customer->getId();
 											$item['subscription']['payment_address_id'] = $order_info['payment_address_id'];
 											$item['subscription']['payment_method'] = $order_info['payment_method'];
 											$item['subscription']['shipping_address_id'] = $order_info['shipping_address_id'];
 											$item['subscription']['shipping_method'] = $order_info['shipping_method'];
-											$item['subscription']['quantity'] = $order_product['quantity'];
 											$item['subscription']['comment'] = $order_info['comment'];
 											$item['subscription']['affiliate_id'] = $order_info['affiliate_id'];
 											$item['subscription']['marketing_id'] = $order_info['marketing_id'];
@@ -2815,14 +2803,16 @@ class ControllerExtensionPaymentPayPal extends Controller {
 											$item['subscription']['subscription_id'] = $subscription_info['subscription_id'];
 											$item['subscription']['order_id'] = $this->session->data['order_id'];
 											$item['subscription']['order_product_id'] = $order_product['order_product_id'];
+											$item['subscription']['name'] = $item['name'];
 											$item['subscription']['product_id'] = $order_product['product_id'];
+											$item['subscription']['tax'] = $this->tax->getTax($item['price'], $item['tax_class_id']);
+											$item['subscription']['quantity'] = $item['quantity'];
 											$item['subscription']['store_id'] = $this->config->get('config_store_id');
 											$item['subscription']['customer_id'] = $this->customer->getId();
 											$item['subscription']['payment_address_id'] = $order_info['payment_address_id'];
 											$item['subscription']['payment_method'] = $order_info['payment_method'];
 											$item['subscription']['shipping_address_id'] = $order_info['shipping_address_id'];
 											$item['subscription']['shipping_method'] = $order_info['shipping_method'];
-											$item['subscription']['quantity'] = $order_product['quantity'];
 											$item['subscription']['comment'] = $order_info['comment'];
 											$item['subscription']['affiliate_id'] = $order_info['affiliate_id'];
 											$item['subscription']['marketing_id'] = $order_info['marketing_id'];
@@ -3226,17 +3216,6 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		}
 
 		return false;
-	}
-
-	/**
-	 * Update
-	 *
-	 * @return void
-	 */
-	public function update(): void {
-		$this->load->model('extension/payment/paypal');
-
-		$this->model_extension_payment_paypal->update();
 	}
 
 	/**

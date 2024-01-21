@@ -11,6 +11,19 @@ class ModelExtensionPaymentOpayo extends Model {
 	 * @return void
 	 */
 	public function install(): void {
+		$this->db->query("
+			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "opayo_card` (
+			  `card_id` int(11) NOT NULL AUTO_INCREMENT,
+			  `customer_id` int(11) NOT NULL,
+			  `token` varchar(50) NOT NULL,
+			  `digits` varchar(4) NOT NULL,
+			  `expiry` varchar(5) NOT NULL,
+			  `type` varchar(50) NOT NULL,
+			  PRIMARY KEY (`card_id`),
+			  KEY (`customer_id`),
+			  KEY (`token`)
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
+
 		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "opayo_order` (
 			  `opayo_order_id` int(11) NOT NULL AUTO_INCREMENT,
 			  `order_id` int(11) NOT NULL,
@@ -31,17 +44,7 @@ class ModelExtensionPaymentOpayo extends Model {
 			  KEY (`order_id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
 
-		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "opayo_order_transaction` (
-			  `opayo_order_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
-			  `opayo_order_id` int(11) NOT NULL,
-			  `type` enum('auth', 'payment', 'rebate', 'void') DEFAULT NULL,
-			  `amount` decimal(15,4) NOT NULL,
-			  `date_added` datetime NOT NULL,
-			  PRIMARY KEY (`opayo_order_transaction_id`),
-			  KEY (`opayo_order_id`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
-
-		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "opayo_order_subscription` (
+		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "opayo_subscription` (
 			  `opayo_subscription_id` int(11) NOT NULL AUTO_INCREMENT,
 			  `order_id` int(11) NOT NULL,
 			  `subscription_id` int(11) NOT NULL,
@@ -62,18 +65,16 @@ class ModelExtensionPaymentOpayo extends Model {
 			  KEY (`subscription_id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
 
-		$this->db->query("
-			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "opayo_card` (
-			  `card_id` int(11) NOT NULL AUTO_INCREMENT,
-			  `customer_id` int(11) NOT NULL,
-			  `token` varchar(50) NOT NULL,
-			  `digits` varchar(4) NOT NULL,
-			  `expiry` varchar(5) NOT NULL,
-			  `type` varchar(50) NOT NULL,
-			  PRIMARY KEY (`card_id`),
-			  KEY (`customer_id`),
-			  KEY (`token`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
+		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "opayo_subscription_transaction` (
+				`opayo_subscription_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
+				`opayo_order_id` int(11) NOT NULL,
+				`reference` varchar(255) NOT NULL,
+				`type` enum('auth', 'payment', 'rebate', 'void') DEFAULT NULL,
+				`amount` decimal(15,4) NOT NULL,
+				`date_added` datetime NOT NULL,
+				PRIMARY KEY (`opayo_subscription_transaction_id`),
+				KEY (`opayo_order_id`)
+			  ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
 	}
 
 	/**

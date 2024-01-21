@@ -178,7 +178,7 @@ class ModelExtensionPaymentOpayo extends Model {
 	 * @param int $status
 	 */
 	public function editOrderSubscriptionStatus(int $subscription_id, int $status): void {
-		$this->db->query("UPDATE `" . DB_PREFIX . "opayo_order_subscription` SET `status` = '" . (int)$status . "' WHERE `subscription_id` = '" . (int)$subscription_id . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "opayo_subscription` SET `status` = '" . (int)$status . "' WHERE `subscription_id` = '" . (int)$subscription_id . "'");
 	}
 
 	/**
@@ -536,7 +536,7 @@ class ModelExtensionPaymentOpayo extends Model {
 	 * @return void
 	 */
 	private function addSubscriptionOrder(int $order_id, array $response_data, int $subscription_id, string $trial_end, string $subscription_end): void {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "opayo_order_subscription` SET `order_id` = '" . (int)$order_id . "', `subscription_id` = '" . (int)$subscription_id . "', `vps_tx_id` = '" . $this->db->escape($response_data['VPSTxId']) . "', `vendor_tx_code` = '" . $this->db->escape($response_data['VendorTxCode']) . "', `security_key` = '" . $this->db->escape($response_data['SecurityKey']) . "', `tx_auth_no` = '" . $this->db->escape($response_data['TxAuthNo']) . "', `date_added` = now(), `date_modified` = now(), `next_payment` = now(), `trial_end` = '" . $trial_end . "', `subscription_end` = '" . $subscription_end . "', `currency_code` = '" . $this->db->escape($response_data['Currency']) . "', `total` = '" . $this->currency->format($response_data['Amount'], $response_data['Currency'], false, false) . "'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "opayo_subscription` SET `order_id` = '" . (int)$order_id . "', `subscription_id` = '" . (int)$subscription_id . "', `vps_tx_id` = '" . $this->db->escape($response_data['VPSTxId']) . "', `vendor_tx_code` = '" . $this->db->escape($response_data['VendorTxCode']) . "', `security_key` = '" . $this->db->escape($response_data['SecurityKey']) . "', `tx_auth_no` = '" . $this->db->escape($response_data['TxAuthNo']) . "', `date_added` = now(), `date_modified` = now(), `next_payment` = now(), `trial_end` = '" . $trial_end . "', `subscription_end` = '" . $subscription_end . "', `currency_code` = '" . $this->db->escape($response_data['Currency']) . "', `total` = '" . $this->currency->format($response_data['Amount'], $response_data['Currency'], false, false) . "'");
 	}
 
 	/**
@@ -548,7 +548,7 @@ class ModelExtensionPaymentOpayo extends Model {
 	 * @return void
 	 */
 	private function updateSubscriptionOrder(int $subscription_id, string $next_payment): void {
-		$this->db->query("UPDATE `" . DB_PREFIX . "opayo_order_subscription` SET `next_payment` = '" . $this->db->escape($next_payment) . "', `date_modified` = NOW() WHERE `subscription_id` = '" . (int)$subscription_id . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "opayo_subscription` SET `next_payment` = '" . $this->db->escape($next_payment) . "', `date_modified` = NOW() WHERE `subscription_id` = '" . (int)$subscription_id . "'");
 	}
 
 	/**
@@ -559,13 +559,13 @@ class ModelExtensionPaymentOpayo extends Model {
 	 * @return array
 	 */
 	private function getSubscriptionOrder(int $subscription_id): array {
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "opayo_order_subscription` WHERE `subscription_id` = '" . (int)$subscription_id . "'");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "opayo_subscription` WHERE `subscription_id` = '" . (int)$subscription_id . "'");
 
 		if ($query->num_rows) {
 			return $query->row;
 		} else {
 			return [];
-		}		
+		}
 	}
 
 	/**
@@ -578,7 +578,7 @@ class ModelExtensionPaymentOpayo extends Model {
 	 * @return void
 	 */
 	private function addOrderTransaction(int $subscription_id, array $response_data, int $type): void {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "order_subscription_transaction` SET `subscription_id` = '" . (int)$subscription_id . "', `date_added` = NOW(), `amount` = '" . (float)$response_data['Amount'] . "', `type` = '" . (int)$type . "', `reference` = '" . $this->db->escape($response_data['VendorTxCode']) . "'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "opayo_subscription_transaction` SET `subscription_id` = '" . (int)$subscription_id . "', `date_added` = NOW(), `amount` = '" . (float)$response_data['Amount'] . "', `type` = '" . (int)$type . "', `reference` = '" . $this->db->escape($response_data['VendorTxCode']) . "'");
 	}
 
 	/**
