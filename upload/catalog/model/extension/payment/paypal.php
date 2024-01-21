@@ -658,20 +658,20 @@ class ModelExtensionPaymentPayPal extends Model {
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci");
 
 		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "paypal_checkout_integration_subscription` (
-			`paypal_checkout_integration_order_subscription_id` int(11) NOT NULL AUTO_INCREMENT,
-			`subscription_id` int(11) NOT NULL,
-			`order_id` int(11) NOT NULL,
-			`date_added` datetime NOT NULL,
-			`date_modified` datetime NOT NULL,
-			`next_payment` datetime NOT NULL,
-			`trial_end` datetime DEFAULT NULL,
-			`subscription_end` datetime DEFAULT NULL,
-			`currency_code` varchar(3) NOT NULL,
-			`total` decimal(15,4) NOT NULL,
-			PRIMARY KEY (`paypal_checkout_integration_order_subscription_id`),
-			KEY (`order_id`),
-			KEY (`subscription_id`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci");
+				`paypal_checkout_integration_subscription_id` int(11) NOT NULL AUTO_INCREMENT,
+				`subscription_id` int(11) NOT NULL,
+				`order_id` int(11) NOT NULL,
+				`date_added` datetime NOT NULL,
+				`date_modified` datetime NOT NULL,
+				`next_payment` datetime NOT NULL,
+				`trial_end` datetime DEFAULT NULL,
+				`subscription_end` datetime DEFAULT NULL,
+				`currency_code` varchar(3) NOT NULL,
+				`total` decimal(15,4) NOT NULL,
+				PRIMARY KEY (`paypal_checkout_integration_subscription_id`),
+				KEY (`order_id`),
+				KEY (`subscription_id`)
+				) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci");
 
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "paypal_checkout_integration_transaction` (
