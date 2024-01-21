@@ -512,6 +512,7 @@ class ControllerExtensionPaymentOpayo extends Controller {
 
 					$payment_data['VendorTxCode'] = $this->session->data['order_id'] . 'SD' . date('YmdHis') . mt_rand(1, 999);
 
+					// Loop through any products that are subscription items
 					$subscription_products = $this->cart->getSubscriptions();
 
 					$order_products = $this->model_checkout_order->getProducts($this->session->data['order_id']);

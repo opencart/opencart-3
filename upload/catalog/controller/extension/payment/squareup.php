@@ -225,6 +225,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 							$subscription_info = $this->model_checkout_subscription->getSubscriptionByOrderProductId($this->session->data['order_id'], $order_product['order_product_id']);
 
 							if ($subscription_info && $order_product['product_id'] == $item['product_id'] && $item['product_id'] == $subscription_info['product_id']) {
+								// Loop through any products that are subscription items
 								$subscription_products = $this->cart->getSubscriptions();
 
 								$order_products = $this->model_checkout_order->getProducts($this->session->data['order_id']);

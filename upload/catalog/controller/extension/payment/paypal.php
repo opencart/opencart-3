@@ -2773,7 +2773,8 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 							if (($capture_status == 'COMPLETED') || ($capture_status == 'PENDING')) {
 								$this->load->model('checkout/subscription');
-								
+
+								// Loop through any products that are subscription items
 								$subscription_products = $this->cart->getSubscriptions();
 
 								$order_products = $this->model_checkout_order->getProducts($this->session->data['order_id']);

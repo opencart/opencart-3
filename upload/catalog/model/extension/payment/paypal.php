@@ -161,34 +161,34 @@ class ModelExtensionPaymentPayPal extends Model {
 		return $query->row;
 	}
 
-	public function addOrderSubscription(int $order_id, string $description, array $data): int {
+	public function addOrderSubscription(int $order_id, array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "order_subscription` SET `order_id` = '" . (int)$order_id . "', `product_id` = '" . (int)$data['subscription']['product_id'] . "', `order_product_id` = '" . (int)$data['subscription']['order_product_id'] . "', `subscription_plan_id` = '" . (int)$data['subscription']['subscription_plan_id'] . "', `frequency` = '" . $this->db->escape($data['subscription']['frequency']) . "', `cycle` = '" . (int)$data['subscription']['cycle'] . "', `duration` = '" . (int)$data['subscription']['duration'] . "', `price` = '" . (float)$data['subscription']['price'] . "', `tax` = '" . (float)$data['subscription']['tax'] . "', `trial_frequency` = '" . $this->db->escape($data['subscription']['trial_frequency']) . "', `trial_cycle` = '" . (int)$data['subscription']['trial_cycle'] . "', `trial_duration` = '" . (int)$data['subscription']['trial_duration'] . "', `trial_price` = '" . (float)$data['subscription']['trial_price'] . "'");
 
 		return $this->db->getLastId();
 	}
 
 	public function editOrderSubscriptionStatus(int $order_id, int $status): void {
-		$this->db->query("UPDATE `" . DB_PREFIX . "paypal_checkout_integration_order_subscription` SET `status` = '" . (int)$status . "' WHERE `order_id` = '" . (int)$order_id . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "paypal_checkout_integration_subscription` SET `status` = '" . (int)$status . "' WHERE `order_id` = '" . (int)$order_id . "'");
 	}
 
 	public function deleteOrderSubscription(int $order_id): void {
-		$query = $this->db->query("SELECT `order_id` FROM `" . DB_PREFIX . "order_subscription` WHERE `order_id` = '" . (int)$order_id . "'");
+		$query = $this->db->query("SELECT `order_id` FROM `" . DB_PREFIX . "paypal_checkout_integration_subscription` WHERE `order_id` = '" . (int)$order_id . "'");
 
 		foreach ($query->rows as $order_subscription) {
 			$this->deleteOrderSubscriptionTransaction($order_subscription['order_id']);
 		}
 
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "order_subscription` WHERE `order_id` = '" . (int)$order_id . "'");
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "paypal_checkout_integration_subscription` WHERE `order_id` = '" . (int)$order_id . "'");
 	}
 
 	public function getOrderSubscriptions(): array {
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_subscription` `os` INNER JOIN `" . DB_PREFIX . "order` `o` ON (`o`.`order_id` = `os`.`order_id`) WHERE `o`.`payment_code` = 'paypal' AND `o`.`customer_id` = '" . (int)$this->customer->getId() . "'");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "paypal_checkout_integration_subscription` `os` INNER JOIN `" . DB_PREFIX . "order` `o` ON (`o`.`order_id` = `os`.`order_id`) WHERE `o`.`payment_code` = 'paypal' AND `o`.`customer_id` = '" . (int)$this->customer->getId() . "'");
 
 		return $query->rows;
 	}
 
 	public function getOrderSubscription(int $order_id): array {
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_subscription` WHERE `order_id` = '" . (int)$order_id . "'");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "paypal_checkout_integration_subscription` WHERE `order_id` = '" . (int)$order_id . "'");
 
 		return $query->row;
 	}
@@ -197,8 +197,8 @@ class ModelExtensionPaymentPayPal extends Model {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "order_subscription_transaction` SET `order_id` = '" . (int)$data['order_id'] . "', `reference` = '" . $this->db->escape($data['reference']) . "', `type` = '" . (int)$data['type'] . "', `amount` = '" . (float)$data['amount'] . "', `date_added` = NOW()");
 	}
 
-	public function deleteOrderSubscriptionTransaction(int $order_id): void {
-		$query = $this->db->query("DELETE FROM `" . DB_PREFIX . "order_subscription_transaction` WHERE `order_id` = '" . (int)$order_id . "'");
+	public function deleteOrderSubscriptionTransaction(int $subscription_id): void {
+		$query = $this->db->query("DELETE FROM `" . DB_PREFIX . "paypal_checkout_integration_transaction` WHERE `subscription_id` = '" . (int)$subscription_id . "'");
 	}
 
 	/**
@@ -282,7 +282,7 @@ class ModelExtensionPaymentPayPal extends Model {
 			$subscription_end = new \DateTime('0000-00-00');
 		}
 
-		$this->addOrderSubscription($order_info['order_id'], $description, $item);
+		$this->addOrderSubscription($order_info['order_id'], $item);
 
 		$result = $this->createPayment($order_info, $paypal_order_data, $price, $item['subscription']['name']);
 
@@ -643,7 +643,7 @@ class ModelExtensionPaymentPayPal extends Model {
 
 	public function update(): void {
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "paypal_checkout_integration_order`");
-		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "paypal_checkout_integration_order_subscription`");
+		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "paypal_checkout_integration_subscription`");
 
 		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "paypal_checkout_integration_order` (
 			`order_id` int(11) NOT NULL,
@@ -657,29 +657,31 @@ class ModelExtensionPaymentPayPal extends Model {
 			PRIMARY KEY (`order_id`, `transaction_id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci");
 
-		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "paypal_checkout_integration_order_subscription` (
-			`paypal_subscription_id` int(11) NOT NULL AUTO_INCREMENT,
+		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "paypal_checkout_integration_subscription` (
+			`paypal_checkout_integration_order_subscription_id` int(11) NOT NULL AUTO_INCREMENT,
+			`subscription_id` int(11) NOT NULL,
 			`order_id` int(11) NOT NULL,
+			`date_added` datetime NOT NULL,
+			`date_modified` datetime NOT NULL,
 			`next_payment` datetime NOT NULL,
 			`trial_end` datetime DEFAULT NULL,
 			`subscription_end` datetime DEFAULT NULL,
 			`currency_code` varchar(3) NOT NULL,
-			`total` decimal(10, 2) NOT NULL,
-			`date_added` datetime NOT NULL,
-			`date_modified` datetime NOT NULL,
-			PRIMARY KEY (`paypal_subscription_id`),
-			KEY (`order_id`)
+			`total` decimal(15,4) NOT NULL,
+			PRIMARY KEY (`paypal_checkout_integration_order_subscription_id`),
+			KEY (`order_id`),
+			KEY (`subscription_id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci");
 
 		$this->db->query("
-			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "order_subscription_transaction` (
-			  `order_subscription_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
-			  `order_id` int(11) NOT NULL,
+			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "paypal_checkout_integration_transaction` (
+			  `paypal_checkout_integration_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
+			  `subscription_id` int(11) NOT NULL,
 			  `reference` varchar(255) NOT NULL,
 			  `type` tinyint(1) NOT NULL,
 			  `amount` decimal(15,4) NOT NULL,
 			  `date_added` datetime NOT NULL,
-			  PRIMARY KEY (`order_subscription_transaction_id`)
+			  PRIMARY KEY (`paypal_checkout_integration_transaction_id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
 
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "event` WHERE `code` = 'paypal_order_info'");

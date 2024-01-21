@@ -504,7 +504,8 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 			if ($order_details && $order_details['vendor_tx_code']) {
 				if ($this->config->get('payment_sagepay_server_transaction') == 'PAYMENT') {
 					$this->load->model('checkout/subscription');
-					
+
+					// Loop through any products that are subscription items
 					$subscription_products = $this->cart->getSubscriptions();
 
 					$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
