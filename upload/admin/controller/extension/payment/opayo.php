@@ -167,9 +167,15 @@ class ControllerExtensionPaymentOpayo extends Controller {
 		if ($this->config->get('payment_opayo_status')) {
 			$this->load->model('extension/payment/opayo');
 
-			$opayo_order = $this->model_extension_payment_opayo->getOrder($this->request->get['order_id']);
+			if (isset($this->request->get['order_id'])) {
+				$order_id = (int)$this->request->get['order_id'];
+			} else {
+				$order_id = 0;
+			}
 
-			if (!empty($opayo_order)) {
+			$opayo_order = $this->model_extension_payment_opayo->getOrder($order_id);
+
+			if ($opayo_order) {
 				$this->load->language('extension/payment/opayo');
 
 				$opayo_order['total_released'] = $this->model_extension_payment_opayo->getTotalReleased($opayo_order['opayo_order_id']);
@@ -201,7 +207,13 @@ class ControllerExtensionPaymentOpayo extends Controller {
 
 		$json = [];
 
-		if (!empty($this->request->post['order_id'])) {
+		if (isset($this->request->post['order_id'])) {
+			$order_id = (int)$this->request->post['order_id'];
+		} else {
+			$order_id = 0;
+		}
+
+		if ($order_id) {
 			$this->load->model('extension/payment/opayo');
 
 			$opayo_order = $this->model_extension_payment_opayo->getOrder($this->request->post['order_id']);
@@ -306,6 +318,12 @@ class ControllerExtensionPaymentOpayo extends Controller {
 		$json = [];
 
 		if (isset($this->request->post['order_id'])) {
+			$order_id = (int)$this->request->post['order_id'];
+		} else {
+			$order_id = 0;
+		}
+
+		if ($order_id) {
 			$this->load->model('extension/payment/opayo');
 
 			$opayo_order = $this->model_extension_payment_opayo->getOrder($this->request->post['order_id']);

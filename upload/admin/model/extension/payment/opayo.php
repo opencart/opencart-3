@@ -68,7 +68,6 @@ class ModelExtensionPaymentOpayo extends Model {
 		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "opayo_subscription_transaction` (
 				`opayo_subscription_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
 				`opayo_order_id` int(11) NOT NULL,
-				`reference` varchar(255) NOT NULL,
 				`type` enum('auth', 'payment', 'rebate', 'void') DEFAULT NULL,
 				`amount` decimal(15,4) NOT NULL,
 				`date_added` datetime NOT NULL,
@@ -83,10 +82,10 @@ class ModelExtensionPaymentOpayo extends Model {
 	 * @return void
 	 */
 	public function uninstall(): void {
-		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "opayo_order`");
-		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "opayo_order_transaction`");
-		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "opayo_order_subscription`");
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "opayo_card`");
+		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "opayo_order`");
+		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "opayo_order_subscription`");
+		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "opayo_order_transaction`");
 	}
 
 	/**
