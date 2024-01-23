@@ -228,9 +228,7 @@ class ControllerExtensionPaymentOpayo extends Controller {
 
 				$json['msg'] = $this->language->get('success_void_ok');
 
-				$json['data'] = [];
-
-				$json['data']['date_added'] = date('Y-m-d H:i:s');
+				$json['date_added'] = date('Y-m-d H:i:s');
 
 				$json['error'] = false;
 			} else {
@@ -284,12 +282,10 @@ class ControllerExtensionPaymentOpayo extends Controller {
 					$json['msg'] = $this->language->get('success_release_ok');
 				}
 
-				$json['data'] = [];
-
-				$json['data']['date_added'] = date('Y-m-d H:i:s');
-				$json['data']['amount'] = $this->request->post['amount'];
-				$json['data']['release_status'] = $release_status;
-				$json['data']['total'] = (float)$total_released;
+				$json['date_added'] = date('Y-m-d H:i:s');
+				$json['amount'] = $this->request->post['amount'];
+				$json['release_status'] = $release_status;
+				$json['total'] = (float)$total_released;
 
 				$json['error'] = false;
 			} else {

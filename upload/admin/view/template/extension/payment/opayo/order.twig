@@ -110,8 +110,8 @@ $('#button-void').click(function() {
             success: function(json) {
                 if (json.error == false) {
                     html = '';
-                    html += '<tr>';{% set json_data = json.data %}
-                    html += '  <td class="text-left">{{ json_data.date_added }}</td>';
+                    html += '<tr>';
+                    html += '  <td class="text-left">' + json.date_added + '</td>';
                     html += '  <td class="text-left">{{ text_void }}</td>';
                     html += '  <td class="text-left">0.00</td>';
                     html += '</tr>';
