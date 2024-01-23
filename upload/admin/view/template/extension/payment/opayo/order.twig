@@ -164,9 +164,9 @@ $('#button-release').click(function() {
                     html += '</tr>';
 
                     $('#opayo-transactions').append(html);
-                    $('#opayo-total-released').text({{ json_data.total }});
+                    $('#opayo-total-released').text({{ json.total }});
 
-                    var data_release_status = {{ json_data.release_status }};
+                    var data_release_status = {{ json.release_status }};
 
                     if (data_release_status == 1) {
                         $('#button-void').hide();
