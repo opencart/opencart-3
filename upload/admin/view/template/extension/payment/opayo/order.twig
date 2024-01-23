@@ -11,11 +11,11 @@
   </tr>
   <tr>
     <td>{{ text_total_released }}</td>
-    <td id="payment_opayo-total-released">{{ opayo_order.total_released_formatted }}</td>
+    <td id="payment-opayo-total-released">{{ opayo_order.total_released_formatted }}</td>
   </tr>
   <tr>
     <td>{{ text_release_status }}</td>
-    <td id="release_status">
+    <td id="release-status">
       {% if opayo_order.release_status == 1 %}
         <span class="release_text">{{ text_yes }}</span>
       {% else %}
@@ -35,7 +35,7 @@
   </tr>
   <tr>
     <td>{{ text_void_status }}</td>
-    <td id="void_status">
+    <td id="void-status">
       {% if opayo_order.void_status == 1 %}
         <span class="void-text">{{ text_yes }}</span>
       {% elseif opayo_order.void_status == 0 and opayo_order.release_status != 1 and opayo_order.rebate_status != 1 %}
@@ -52,7 +52,7 @@
   </tr>
   <tr>
     <td>{{ text_rebate_status }}</td>
-    <td id="rebate_status">
+    <td id="rebate-status">
       {% if opayo_order.rebate_status == 1 %}
         <span class="rebate-text">{{ text_yes }}</span>
       {% else %}
@@ -157,7 +157,7 @@ $('#button-release').click(function() {
             success: function(json) {
                 if (json.error == false) {
                     html = '';
-                    html += '<tr>';{% set json_data = json.data %}
+                    html += '<tr>';
                     html += '  <td class="text-left">{{ json_data.date_added }}</td>';
                     html += '  <td class="text-left">{{ text_payment }}</td>';
                     html += '  <td class="text-left">{{ json_data.amount }}</td>';
@@ -220,18 +220,16 @@ $('#button-rebate').click(function() {
             success: function(json) {
                 if (json.error == false) {
                     html = '';
-                    html += '<tr>';{% set json_data = json.data %}
-                    html += '  <td class="text-left">{{ json_data.date_added }}</td>';
+                    html += '<tr>';
+                    html += '  <td class="text-left">' + json.date_added + '</td>';
                     html += '  <td class="text-left">{{ text_rebate }}</td>';
-                    html += '  <td class="text-left">{{ json_data.amount }}</td>';
+                    html += '  <td class="text-left">' + json.amount + '</td>';
                     html += '</tr>';
 
                     $('#opayo-transactions').append(html);
-                    $('#opayo-total-released').text({{ json_data.total_released }});
+                    $('#opayo-total-released').text(json.total_released);
 
-                    var data_rebate_status = {{ json_data.rebate_status }};
-
-                    if (data_rebate_status == 1) {
+                    if (json.rebate_status == 1) {
                         $('.rebate-text').text('{{ text_yes }}');
                     } else {
                         $('#button-rebate').show();

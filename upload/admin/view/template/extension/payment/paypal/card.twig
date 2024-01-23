@@ -141,8 +141,8 @@
                     </div>
                     {% for card_secure_scenario in setting.card_secure_scenario %}
                       <div class="form-group">
-                        <label class="control-label" for="input-card-secure-scenario-{{ card_secure_scenario.code }}">{{ attribute(_context, card_secure_scenario.name) }}</label>	
-                        <select name="payment_paypal_setting[card][secure_scenario][{{ card_secure_scenario.code }}]" id="input-card-secure-scenario-{{ card_secure_scenario.code }}" class="form-control">
+                        <label class="control-label" for="input-card-secure-scenario{{ card_secure_scenario.code }}">{{ attribute(_context, card_secure_scenario.name) }}</label>	
+                        <select name="payment_paypal_setting[card][secure_scenario][{{ card_secure_scenario.code }}]" id="input-card-secure-scenario{{ card_secure_scenario.code }}" class="form-control">
                           <option value="1" {% if setting_card.secure_scenario[card_secure_scenario.code] %}selected="selected"{% endif %}>{{ text_accept }}{% if card_secure_scenario.recommended %} {{ text_recommended }}{% endif %}</option>
                           <option value="0" {% if not setting_card.secure_scenario[card_secure_scenario.code] %}selected="selected"{% endif %}>{{ text_decline }}{% if not card_secure_scenario.recommended %} {{ text_recommended }}{% endif %}</option>
                         </select>

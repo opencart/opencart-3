@@ -58,9 +58,9 @@
               <fieldset>
                 <legend>{{ text_settings_section_heading }}</legend>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="dropdown_payment_squareup_status"><span data-toggle="tooltip" title="{{ text_extension_status_help }}">{{ text_extension_status }}</span></label>
+                  <label class="col-sm-2 control-label" for="dropdown-payment-squareup-status"><span data-toggle="tooltip" title="{{ text_extension_status_help }}">{{ text_extension_status }}</span></label>
                   <div class="col-sm-10">
-                    <select name="payment_squareup_status" id="dropdown_payment_squareup_status" class="form-control">
+                    <select name="payment_squareup_status" id="dropdown-payment-squareup-status" class="form-control">
                       <option value="1" {% if payment_squareup_status == 1 %} selected {% endif %}>{{ text_extension_status_enabled }}</option>
                       <option value="0" {% if payment_squareup_status == 0 %} selected {% endif %}>{{ text_extension_status_disabled }}</option>
                     </select>
@@ -77,42 +77,42 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input_payment_squareup_redirect_uri_static"><span data-toggle="tooltip" title="{{ text_redirect_uri_help }}">{{ text_redirect_uri_label }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-payment-squareup-redirect-uri-static"><span data-toggle="tooltip" title="{{ text_redirect_uri_help }}">{{ text_redirect_uri_label }}</span></label>
                   <div class="col-sm-10">
-                    <input type="text" id="input_payment_squareup_redirect_uri_static" name="payment_squareup_redirect_uri_static" value="{{ payment_squareup_redirect_uri }}" class="form-control" disabled/>
+                    <input type="text" id="input-payment-squareup-redirect-uri-static" name="payment_squareup_redirect_uri_static" value="{{ payment_squareup_redirect_uri }}" class="form-control" disabled/>
                   </div>
                 </div>
                 <div class="form-group required">
-                  <label class="col-sm-2 control-label" for="input_payment_squareup_client_id"><span data-toggle="tooltip" title="{{ text_client_id_help }}">{{ text_client_id_label }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-payment-squareup-client-id"><span data-toggle="tooltip" title="{{ text_client_id_help }}">{{ text_client_id_label }}</span></label>
                   <div class="col-sm-10">
-                    <input type="text" name="payment_squareup_client_id" value="{{ payment_squareup_client_id }}" placeholder="{{ text_client_id_placeholder }}" id="input_payment_squareup_client_id" class="form-control"/>
+                    <input type="text" name="payment_squareup_client_id" value="{{ payment_squareup_client_id }}" placeholder="{{ text_client_id_placeholder }}" id="input-payment-squareup-client-id" class="form-control"/>
                     {% if error_client_id %}
                       <div class="text-danger">{{ error_client_id }}</div>
                     {% endif %}
                   </div>
                 </div>
                 <div class="form-group required">
-                  <label class="col-sm-2 control-label" for="input_payment_squareup_client_secret"><span data-toggle="tooltip" title="{{ text_client_secret_help }}">{{ text_client_secret_label }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-payment-squareup-client-secret"><span data-toggle="tooltip" title="{{ text_client_secret_help }}">{{ text_client_secret_label }}</span></label>
                   <div class="col-sm-10">
-                    <input type="text" name="payment_squareup_client_secret" value="{{ payment_squareup_client_secret }}" placeholder="{{ text_client_secret_placeholder }}" id="input_payment_squareup_client_secret" class="form-control"/>
+                    <input type="text" name="payment_squareup_client_secret" value="{{ payment_squareup_client_secret }}" placeholder="{{ text_client_secret_placeholder }}" id="input-payment-squareup-client-secret" class="form-control"/>
                     {% if error_client_secret %}
                       <div class="text-danger">{{ error_client_secret }}</div>
                     {% endif %}
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="dropdown_payment_squareup_delay_capture"><span data-toggle="tooltip" title="{{ text_delay_capture_help }}">{{ text_delay_capture_label }}</span></label>
+                  <label class="col-sm-2 control-label" for="dropdown-payment-squareup-delay-capture"><span data-toggle="tooltip" title="{{ text_delay_capture_help }}">{{ text_delay_capture_label }}</span></label>
                   <div class="col-sm-10">
-                    <select name="payment_squareup_delay_capture" id="dropdown_payment_squareup_delay_capture" class="form-control">
+                    <select name="payment_squareup_delay_capture" id="dropdown-payment-squareup-delay-capture" class="form-control">
                       <option value="1" {% if payment_squareup_delay_capture == 1 %} selected {% endif %}>{{ text_authorize_label }}</option>
                       <option value="0" {% if payment_squareup_delay_capture == 0 %} selected {% endif %}>{{ text_sale_label }}</option>
                     </select>
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input_payment_squareup_total"><span data-toggle="tooltip" title="{{ help_total }}">{{ entry_total }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-payment-squareup-total"><span data-toggle="tooltip" title="{{ help_total }}">{{ entry_total }}</span></label>
                   <div class="col-sm-10">
-                    <input type="text" name="payment_squareup_total" value="{{ payment_squareup_total }}" placeholder="{{ entry_total }}" id="payment_squareup_total" class="form-control"/>
+                    <input type="text" name="payment_squareup_total" value="{{ payment_squareup_total }}" placeholder="{{ entry_total }}" id="payment-squareup-total" class="form-control"/>
                   </div>
                 </div>
                 <div class="form-group">
@@ -127,45 +127,45 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input_payment_squareup_sort_order">{{ entry_sort_order }}</label>
+                  <label class="col-sm-2 control-label" for="input-payment-squareup-sort-order">{{ entry_sort_order }}</label>
                   <div class="col-sm-10">
-                    <input type="text" name="payment_squareup_sort_order" value="{{ payment_squareup_sort_order }}" placeholder="{{ entry_sort_order }}" id="input_payment_squareup_sort_order" class="form-control"/>
+                    <input type="text" name="payment_squareup_sort_order" value="{{ payment_squareup_sort_order }}" placeholder="{{ entry_sort_order }}" id="input-payment-squareup-sort-order" class="form-control"/>
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="dropdown_payment_squareup_debug"><span data-toggle="tooltip" title="{{ text_debug_help }}">{{ text_debug_label }}</span></label>
+                  <label class="col-sm-2 control-label" for="dropdown-payment-squareup-debug"><span data-toggle="tooltip" title="{{ text_debug_help }}">{{ text_debug_label }}</span></label>
                   <div class="col-sm-10">
-                    <select name="payment_squareup_debug" id="dropdown_payment_squareup_debug" class="form-control">
+                    <select name="payment_squareup_debug" id="dropdown-payment-squareup-debug" class="form-control">
                       <option value="1" {% if payment_squareup_debug == 1 %} selected {% endif %}>{{ text_debug_enabled }}</option>
                       <option value="0" {% if payment_squareup_debug == 0 %} selected {% endif %}>{{ text_debug_disabled }}</option>
                     </select>
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="dropdown_payment_squareup_enable_sandbox"><span data-toggle="tooltip" title="{{ text_enable_sandbox_help }}">{{ text_enable_sandbox_label }}</span></label>
+                  <label class="col-sm-2 control-label" for="dropdown-payment-squareup-enable-sandbox"><span data-toggle="tooltip" title="{{ text_enable_sandbox_help }}">{{ text_enable_sandbox_label }}</span></label>
                   <div class="col-sm-10">
-                    <select name="payment_squareup_enable_sandbox" id="dropdown_payment_squareup_enable_sandbox" class="form-control">
+                    <select name="payment_squareup_enable_sandbox" id="dropdown-payment-squareup-enable-sandbox" class="form-control">
                       <option value="1" {% if payment_squareup_enable_sandbox == 1 %} selected {% endif %}>{{ text_sandbox_enabled_label }}</option>
                       <option value="0" {% if payment_squareup_enable_sandbox == 0 %} selected {% endif %}>{{ text_sandbox_disabled_label }}</option>
                     </select>
                   </div>
                 </div>
               </fieldset>
-              <fieldset id="sandbox_settings" {% if not payment_squareup_enable_sandbox %} style="display: none;" {% endif %}>
+              <fieldset id="sandbox-settings" {% if not payment_squareup_enable_sandbox %} style="display: none;" {% endif %}>
                 <legend>{{ text_sandbox_section_heading }}</legend>
                 <div class="form-group required">
-                  <label class="col-sm-2 control-label" for="input_payment_squareup_sandbox_client_id"><span data-toggle="tooltip" title="{{ text_sandbox_client_id_help }}">{{ text_sandbox_client_id_label }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-payment-squareup-sandbox-client-id"><span data-toggle="tooltip" title="{{ text_sandbox_client_id_help }}">{{ text_sandbox_client_id_label }}</span></label>
                   <div class="col-sm-10">
-                    <input type="text" name="payment_squareup_sandbox_client_id" value="{{ payment_squareup_sandbox_client_id }}" placeholder="{{ text_sandbox_client_id_placeholder }}" id="input_payment_squareup_sandbox_client_id" class="form-control"/>
+                    <input type="text" name="payment_squareup_sandbox_client_id" value="{{ payment_squareup_sandbox_client_id }}" placeholder="{{ text_sandbox_client_id_placeholder }}" id="input-payment-squareup-sandbox-client-id" class="form-control"/>
                     {% if error_sandbox_client_id %}
                       <div class="text-danger">{{ error_sandbox_client_id }}</div>
                     {% endif %}
                   </div>
                 </div>
                 <div class="form-group required">
-                  <label class="col-sm-2 control-label" for="input_payment_squareup_sandbox_token"><span data-toggle="tooltip" title="{{ text_sandbox_access_token_help }}">{{ text_sandbox_access_token_label }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-payment-squareup-sandbox-token"><span data-toggle="tooltip" title="{{ text_sandbox_access_token_help }}">{{ text_sandbox_access_token_label }}</span></label>
                   <div class="col-sm-10">
-                    <input type="text" name="payment_squareup_sandbox_token" value="{{ payment_squareup_sandbox_token }}" placeholder="{{ text_sandbox_access_token_placeholder }}" id="input_payment_squareup_sandbox_token" class="form-control"/>
+                    <input type="text" name="payment_squareup_sandbox_token" value="{{ payment_squareup_sandbox_token }}" placeholder="{{ text_sandbox_access_token_placeholder }}" id="input-payment-squareup-sandbox-token" class="form-control"/>
                     {% if error_sandbox_token %}
                       <div class="text-danger">{{ error_sandbox_token }}</div>
                     {% endif %}
@@ -175,26 +175,26 @@
               <fieldset>
                 <legend>{{ text_merchant_info_section_heading }}</legend>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input_merchant_name">{{ text_merchant_name_label }}</label>
+                  <label class="col-sm-2 control-label" for="input-merchant-name">{{ text_merchant_name_label }}</label>
                   <div class="col-sm-10">
-                    <input type="text" name="merchant_name" value="{{ payment_squareup_merchant_name }}" placeholder="{{ text_merchant_name_placeholder }}" id="input_merchant_name" class="form-control" disabled/>
+                    <input type="text" name="merchant_name" value="{{ payment_squareup_merchant_name }}" placeholder="{{ text_merchant_name_placeholder }}" id="input-merchant-name" class="form-control" disabled/>
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="access_token_expires_time">{{ text_access_token_expires_label }}</label>
+                  <label class="col-sm-2 control-label" for="access-token-expires-time">{{ text_access_token_expires_label }}</label>
                   <div class="col-sm-10">
-                    <input type="text" name="access_token_expires" value="{{ access_token_expires_time }}" placeholder="{{ text_access_token_expires_placeholder }}" id="access_token_expires_time" class="form-control" disabled/>
+                    <input type="text" name="access_token_expires" value="{{ access_token_expires_time }}" placeholder="{{ text_access_token_expires_placeholder }}" id="access-token-expires-time" class="form-control" disabled/>
                   </div>
                 </div>
                 <div class="form-group required">
-                  <label class="col-sm-2 control-label" for="dropdown_payment_squareup_sandbox_location_id"><span data-toggle="tooltip" title="{{ text_location_help }}">{{ text_location_label }}</span></label>
+                  <label class="col-sm-2 control-label" for="dropdown-payment-squareup-sandbox-location-id"><span data-toggle="tooltip" title="{{ text_location_help }}">{{ text_location_label }}</span></label>
                   <div class="col-sm-10">
-                    <select name="payment_squareup_location_id" id="dropdown_payment_squareup_location_id" class="form-control" {% if not payment_squareup_locations %} disabled {% endif %}>
+                    <select name="payment_squareup_location_id" id="dropdown-payment-squareup-location-id" class="form-control" {% if not payment_squareup_locations %} disabled {% endif %}>
                       {% for location in payment_squareup_locations %}
                         <option value="{{ location.id }}" {% if location.id == payment_squareup_location_id %} selected {% endif %}>{{ location.name }}</option>
                       {% endfor %}
                     </select>
-                    <select name="payment_squareup_sandbox_location_id" id="dropdown_payment_squareup_sandbox_location_id" class="form-control" {% if not payment_squareup_sandbox_locations %} disabled {% endif %}>
+                    <select name="payment_squareup_sandbox_location_id" id="dropdown-payment-squareup-sandbox-location-id" class="form-control" {% if not payment_squareup_sandbox_locations %} disabled {% endif %}>
                       {% for location in payment_squareup_sandbox_locations %}
                         <option value="{{ location.id }}" {% if location.id == payment_squareup_sandbox_location_id %} selected {% endif %}>{{ location.name }}</option>
                       {% endfor %}
@@ -208,9 +208,9 @@
               <fieldset>
                 <legend>{{ text_transaction_statuses }}</legend>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="dropdown_payment_squareup_status_authorized"><span data-toggle="tooltip" title="{{ payment_squareup_status_comment_authorized }}">{{ entry_status_authorized }}</span></label>
+                  <label class="col-sm-2 control-label" for="dropdown-payment-squareup-status-authorized"><span data-toggle="tooltip" title="{{ payment_squareup_status_comment_authorized }}">{{ entry_status_authorized }}</span></label>
                   <div class="col-sm-10">
-                    <select name="payment_squareup_status_authorized" id="dropdown_payment_squareup_status_authorized" class="form-control">
+                    <select name="payment_squareup_status_authorized" id="dropdown-payment-squareup-status-authorized" class="form-control">
                       {% for order_status in order_statuses %}
                         <option value="{{ order_status.order_status_id }}" {% if order_status.order_status_id == payment_squareup_status_authorized %} selected {% endif %}>{{ order_status.name }}</option>
                       {% endfor %}
@@ -218,9 +218,9 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="dropdown_payment_squareup_status_captured"><span data-toggle="tooltip" title="{{ payment_squareup_status_comment_captured }}">{{ entry_status_captured }}</span></label>
+                  <label class="col-sm-2 control-label" for="dropdown-payment-squareup-status-captured"><span data-toggle="tooltip" title="{{ payment_squareup_status_comment_captured }}">{{ entry_status_captured }}</span></label>
                   <div class="col-sm-10">
-                    <select name="payment_squareup_status_captured" id="dropdown_payment_squareup_status_captured" class="form-control">
+                    <select name="payment_squareup_status_captured" id="dropdown-payment-squareup-status-captured" class="form-control">
                       {% for order_status in order_statuses %}
                         <option value="{{ order_status.order_status_id }}" {% if order_status.order_status_id == payment_squareup_status_captured %} selected {% endif %}>{{ order_status.name }}</option>
                       {% endfor %}
@@ -228,9 +228,9 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="dropdown_payment_squareup_status_voided"><span data-toggle="tooltip" title="{{ payment_squareup_status_comment_voided }}">{{ entry_status_voided }}</span></label>
+                  <label class="col-sm-2 control-label" for="dropdown-payment-squareup-status-voided"><span data-toggle="tooltip" title="{{ payment_squareup_status_comment_voided }}">{{ entry_status_voided }}</span></label>
                   <div class="col-sm-10">
-                    <select name="payment_squareup_status_voided" id="dropdown_payment_squareup_status_voided" class="form-control">
+                    <select name="payment_squareup_status_voided" id="dropdown-payment-squareup-status-voided" class="form-control">
                       {% for order_status in order_statuses %}
                         <option value="{{ order_status.order_status_id }}" {% if order_status.order_status_id == payment_squareup_status_voided %} selected {% endif %}>{{ order_status.name }}</option>
                       {% endfor %}
@@ -238,9 +238,9 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="dropdown_payment_squareup_status_failed"><span data-toggle="tooltip" title="{{ payment_squareup_status_comment_failed }}">{{ entry_status_failed }}</span></label>
+                  <label class="col-sm-2 control-label" for="dropdown-payment-squareup-status-failed"><span data-toggle="tooltip" title="{{ payment_squareup_status_comment_failed }}">{{ entry_status_failed }}</span></label>
                   <div class="col-sm-10">
-                    <select name="payment_squareup_status_failed" id="dropdown_payment_squareup_status_failed" class="form-control">
+                    <select name="payment_squareup_status_failed" id="dropdown-payment-squareup-status-failed" class="form-control">
                       {% for order_status in order_statuses %}
                         <option value="{{ order_status.order_status_id }}" {% if order_status.order_status_id == payment_squareup_status_failed %} selected {% endif %}>{{ order_status.name }}</option>
                       {% endfor %}
@@ -271,7 +271,7 @@
                   <tbody id="transactions">
                   </tbody>
                 </table>
-                <div id="transactions_pagination"></div>
+                <div id="transactions-pagination"></div>
               </div>
             </div>
             <div id="tab-cron" class="tab-pane">
@@ -287,18 +287,18 @@
                 <div class="form-group">
                   <label class="col-sm-2 control-label"><span data-toggle="tooltip" data-original-title="{{ help_remote_cron }}">{{ text_remote_cron }}</span></label>
                   <div class="col-sm-10">
-                    <div class="input-group"><input disabled type="text" name="payment_squareup_cron_url" id="input_payment_squareup_cron_url" class="form-control" value=""/>
+                    <div class="input-group"><input disabled type="text" name="payment_squareup_cron_url" id="input-payment-squareup-cron-url" class="form-control" value=""/>
                       <div data-toggle="tooltip" data-original-title="{{ text_refresh_token }}" class="input-group-addon btn btn-primary" id="refresh-cron-token">
                         <i class="fa fa-refresh"></i>
                       </div>
                     </div>
-                    <input id="input_payment_squareup_cron_token" type="hidden" name="payment_squareup_cron_token" value="{{ payment_squareup_cron_token }}"/>
+                    <input id="input-payment-squareup-cron-token" type="hidden" name="payment_squareup_cron_token" value="{{ payment_squareup_cron_token }}"/>
                   </div>
                 </div>
                 <div class="form-group required">
-                  <label class="col-sm-2 control-label" for="checkbox_payment_squareup_cron_acknowledge">{{ entry_setup_confirmation }}</label>
+                  <label class="col-sm-2 control-label" for="checkbox-payment-squareup-cron-acknowledge">{{ entry_setup_confirmation }}</label>
                   <div class="col-sm-10">
-                    <label class="checkbox-inline"><input id="checkbox_payment_squareup_cron_acknowledge" type="checkbox" value="1" {% if payment_squareup_cron_acknowledge %} checked {% endif %} name="payment_squareup_cron_acknowledge"/> {{ text_acknowledge_cron }}</label>
+                    <label class="checkbox-inline"><input id="checkbox-payment-squareup-cron-acknowledge" type="checkbox" value="1" {% if payment_squareup_cron_acknowledge %} checked {% endif %} name="payment_squareup_cron_acknowledge"/> {{ text_acknowledge_cron }}</label>
                     {% if error_cron_acknowledge %}
                       <div class="text-danger">{{ error_cron_acknowledge }}</div>
                     {% endif %}
@@ -308,18 +308,18 @@
               <fieldset>
                 <legend>{{ text_admin_notifications }}</legend>
                 <div class="form-group">
-                  <label class="control-label col-sm-2" for="dropdown_payment_squareup_cron_email_status"><span data-toggle="tooltip" data-original-title="{{ help_cron_email_status }}">{{ text_cron_email_status }}</span></label>
+                  <label class="control-label col-sm-2" for="dropdown-payment-squareup-cron-email-status"><span data-toggle="tooltip" data-original-title="{{ help_cron_email_status }}">{{ text_cron_email_status }}</span></label>
                   <div class="col-sm-10">
-                    <select name="payment_squareup_cron_email_status" id="dropdown_payment_squareup_cron_email_status" class="form-control">
+                    <select name="payment_squareup_cron_email_status" id="dropdown-payment-squareup-cron-email-status" class="form-control">
                       <option value="1" {% if payment_squareup_cron_email_status == '1' %} selected {% endif %}>{{ text_enabled }}</option>
                       <option value="0" {% if payment_squareup_cron_email_status == '0' %} selected {% endif %}>{{ text_disabled }}</option>
                     </select>
                   </div>
                 </div>
                 <div class="form-group required">
-                  <label class="col-sm-2 control-label" for="input_payment_squareup_cron_email"><span data-toggle="tooltip" data-original-title="{{ help_cron_email }}">{{ text_cron_email }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-payment-squareup-cron-email"><span data-toggle="tooltip" data-original-title="{{ help_cron_email }}">{{ text_cron_email }}</span></label>
                   <div class="col-sm-10">
-                    <input id="input_payment_squareup_cron_email" name="payment_squareup_cron_email" type="text" class="form-control" value="{{ payment_squareup_cron_email }}"/>
+                    <input id="input-payment-squareup-cron-email" name="payment-squareup-cron-email" type="text" class="form-control" value="{{ payment_squareup_cron_email }}"/>
                     {% if error_cron_email %}
                       <div class="text-danger">{{ error_cron_email }}</div>
                     {% endif %}
@@ -329,9 +329,9 @@
             </div>
             <div id="tab-subscription" class="tab-pane">
               <div class="form-group">
-                <label class="control-label col-sm-2" for="dropdown_payment_squareup_subscription_status"><span data-toggle="tooltip" data-original-title="{{ help_subscription_status }}">{{ text_subscription_status }}</span></label>
+                <label class="control-label col-sm-2" for="dropdown-payment-squareup-subscription-status"><span data-toggle="tooltip" data-original-title="{{ help_subscription_status }}">{{ text_subscription_status }}</span></label>
                 <div class="col-sm-10">
-                  <select name="payment_squareup_subscription_status" id="dropdown_payment_squareup_subscription_status" class="form-control">
+                  <select name="payment_squareup_subscription_status" id="dropdown-payment-squareup-subscription-status" class="form-control">
                     <option value="1" {% if payment_squareup_subscription_status == '1' %} selected {% endif %}>{{ text_enabled }}</option>
                     <option value="0" {% if payment_squareup_subscription_status == '0' %} selected {% endif %}>{{ text_disabled }}</option>
                   </select>
@@ -340,18 +340,18 @@
               <fieldset>
                 <legend>{{ text_customer_notifications }}</legend>
                 <div class="form-group">
-                  <label class="control-label col-sm-2" for="dropdown_payment_squareup_notify_subscription_success"><span data-toggle="tooltip" data-original-title="{{ help_notify_subscription_success }}">{{ text_notify_subscription_success }}</span></label>
+                  <label class="control-label col-sm-2" for="dropdown-payment-squareup-notify-subscription-success"><span data-toggle="tooltip" data-original-title="{{ help_notify_subscription_success }}">{{ text_notify_subscription_success }}</span></label>
                   <div class="col-sm-10">
-                    <select name="payment_squareup_notify_subscription_success" id="dropdown_payment_squareup_notify_subscription_success" class="form-control">
+                    <select name="payment_squareup_notify_subscription_success" id="dropdown-payment-squareup-notify-subscription-success" class="form-control">
                       <option value="1" {% if payment_squareup_notify_subscription_success == '1' %} selected {% endif %}>{{ text_enabled }}</option>
                       <option value="0" {% if payment_squareup_notify_subscription_success == '0' %} selected {% endif %}>{{ text_disabled }}</option>
                     </select>
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="control-label col-sm-2" for="dropdown_payment_squareup_notify_subscription_fail"><span data-toggle="tooltip" data-original-title="{{ help_notify_subscription_fail }}">{{ text_notify_subscription_fail }}</span></label>
+                  <label class="control-label col-sm-2" for="dropdown-payment-squareup-notify-subscription-fail"><span data-toggle="tooltip" data-original-title="{{ help_notify_subscription_fail }}">{{ text_notify_subscription_fail }}</span></label>
                   <div class="col-sm-10">
-                    <select name="payment_squareup_notify_subscription_fail" id="dropdown_payment_squareup_notify_subscription_fail" class="form-control">
+                    <select name="payment_squareup_notify_subscription_fail" id="dropdown-payment-squareup-notify-subscription-fail" class="form-control">
                       <option value="1" {% if payment_squareup_notify_subscription_fail == '1' %} selected {% endif %}>{{ text_enabled }}</option>
                       <option value="0" {% if payment_squareup_notify_subscription_fail == '0' %} selected {% endif %}>{{ text_disabled }}</option>
                     </select>
@@ -411,7 +411,7 @@
 <script type="text/javascript"><!--
 $(document).ready(function () {
     var triggerConnectButtons = function () {
-        if ($('#input_payment_squareup_client_id').val() != '' && $('#input_payment_squareup_client_secret').val() != '') {
+        if ($('#input-payment-squareup-client-id').val() != '' && $('#input-payment-squareup-client-secret').val() != '') {
             $('.btn-connect').removeClass('disabled');
         } else {
             $('.btn-connect').addClass('disabled');
@@ -419,8 +419,8 @@ $(document).ready(function () {
     }
 
     var setCronUrl = function () {
-        $('#input_payment_squareup_cron_url').val(
-            "{{ payment_squareup_cron_url }}".replace('{CRON_TOKEN}', $('#input_payment_squareup_cron_token').val())
+        $('#input-payment-squareup-cron-url').val(
+            "{{ payment-squareup-cron-url }}".replace('{CRON_TOKEN}', $('#input-payment-squareup-cron-token').val())
         );
     }
 
@@ -429,7 +429,7 @@ $(document).ready(function () {
     }
 
     var onConnectClick = function (e) {
-        if ($('#input_payment_squareup_client_id').val() != '{{ payment_squareup_client_id }}' || $('#input_payment_squareup_client_secret').val() != '{{ payment_squareup_client_secret }}') {
+        if ($('#input-payment-squareup-client-id').val() != '{{ payment_squareup_client_id }}' || $('#input-payment-squareup-client-secret').val() != '{{ payment_squareup_client_secret }}') {
             e.preventDefault();
             e.stopPropagation();
 
@@ -444,7 +444,7 @@ $(document).ready(function () {
             beforeSend: function () {
                 $('#refresh-transactions').button('loading');
 
-                $('#transactions_pagination').empty();
+                $('#transactions-pagination').empty();
 
                 $('#transactions').html('<tr><td colspan="9" class="text-center"><i class="fa fa-circle-o-notch fa-spin"></i>&nbsp;{{ text_loading }}</td></tr>');
             },
@@ -490,7 +490,7 @@ $(document).ready(function () {
 
                 $('#transactions').html(html);
 
-                $('#transactions_pagination').html(data.pagination).find('a[href]').each(function (index, element) {
+                $('#transactions-pagination').html(data.pagination).find('a[href]').each(function (index, element) {
                     $(this).click(function (e) {
                         e.preventDefault();
 
@@ -653,26 +653,26 @@ $(document).ready(function () {
 
     $('.nav-tabs a[href="#{{ tab }}"]').tab('show');
 
-    $('#dropdown_payment_squareup_enable_sandbox').change(function () {
+    $('#dropdown-payment-squareup-enable-sandbox').change(function () {
         if ($(this).val() == '0') {
-            $('#sandbox_settings').slideUp();
+            $('#sandbox-settings').slideUp();
 
-            $('#dropdown_payment_squareup_location_id').show();
-            $('#dropdown_payment_squareup_sandbox_location_id').hide();
+            $('#dropdown-payment-squareup-location-id').show();
+            $('#dropdown-payment-squareup-sandbox-location-id').hide();
         } else {
-            $('#sandbox_settings').slideDown();
+            $('#sandbox-settings').slideDown();
 
-            $('#dropdown_payment_squareup_location_id').hide();
-            $('#dropdown_payment_squareup_sandbox_location_id').show();
+            $('#dropdown-payment-squareup-location-id').hide();
+            $('#dropdown-payment-squareup-sandbox-location-id').show();
         }
     }).trigger('change');
 
-    $('#input_payment_squareup_client_id, #input_payment_squareup_client_secret').change(triggerConnectButtons)
+    $('#input-payment-squareup-client-id, #input-payment-squareup-client-secret').change(triggerConnectButtons)
             .keyup(triggerConnectButtons)
             .trigger('change');
 
     $('#refresh-cron-token').click(function () {
-        $('#input_payment_squareup_cron_token').val(randomString() + randomString());
+        $('#input-payment-squareup-cron-token').val(randomString() + randomString());
 
         setCronUrl();
     });

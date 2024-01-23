@@ -303,39 +303,39 @@
         }
     }
 </style>
-<div id="paypal_form">
+<div id="paypal-form">
   {% if message_status %}
-    <div id="paypal_message">
-        <div id="paypal_message_container">
+    <div id="paypal-message">
+        <div id="paypal-message-container">
             <div data-pp-message data-pp-placement="{{ message_placement }}" data-pp-amount="{{ message_amount }}" data-pp-style-layout="{{ message_layout }}" {% if message_layout == 'text' %}data-pp-style-text-color="{{ message_text_color }}" data-pp-style-text-size="{{ message_text_size }}" {% else %}data-pp-style-color="{{ message_flex_color }}" data-pp-style-ratio="{{ message_flex_ratio }}"{% endif %}></div>
         </div>
     </div>
   {% endif %}
   {% if express_status %}
-    <div id="paypal_express_button" class="buttons clearfix">
-      <div id="paypal_express_button_container"></div>
+    <div id="paypal-express-button" class="buttons clearfix">
+      <div id="paypal-express-button-container"></div>
     </div>
   {% endif %}
   {% if card_status %}
-    <div id="paypal_card" class="hidden">
-      <form id="paypal_card_form" class="well">
+    <div id="paypal-card" class="hidden">
+      <form id="paypal-card-form" class="well">
         <div class="card-info-number clearfix">
-          <label for="card_number" class="card-label">{{ entry_card_number }}</label>
-          <div id="card_number" class="card-input-container">
-            <div id="card_image"></div>
+          <label for="card-number" class="card-label">{{ entry_card_number }}</label>
+          <div id="card-number" class="card-input-container">
+            <div id="card-image"></div>
           </div>
         </div>
         <div class="card-info-date-cvv clearfix">
           <div class="card-info-date">
-            <label for="expiration_date" class="card-label">{{ entry_expiration_date }}</label>
-            <div id="expiration_date" class="card-input-container"></div>
+            <label for="expiration-date" class="card-label">{{ entry_expiration_date }}</label>
+            <div id="expiration-date" class="card-input-container"></div>
           </div>
           <div class="card-info-cvv">
             <label for="cvv" class="card-label">{{ entry_cvv }}</label>
             <div id="cvv" class="card-input-container"></div>
           </div>
         </div>
-        <button id="paypal_button_submit" class="btn" value="submit">{{ button_pay }}</button>
+        <button id="paypal-button-submit" class="btn" value="submit">{{ button_pay }}</button>
       </form>
     </div>
   {% endif %}
@@ -422,7 +422,7 @@ function setupPayPal() {
                         return actions.restart();
                     }
                 }
-            }).render('#paypal_express_button_container');
+            }).render('#paypal-express-button-container');
         } catch (error) {
             console.error('PayPal Express failed during startup', error);
         }
@@ -432,10 +432,10 @@ function setupPayPal() {
         try {
             // Check if card fields are eligible to render for the buyer's country. The card fields are not eligible in all countries where buyers are located.
             if (paypal_sdk.HostedFields.isEligible() === true) {
-                $('#paypal_card').removeClass('hidden');
+                $('#paypal-card').removeClass('hidden');
 
-                var paypal_card_form = document.querySelector('#paypal_card_form');
-                var paypal_button_submit = document.querySelector('#paypal_button_submit');
+                var paypal_card_form = document.querySelector('#paypal-card-form');
+                var paypal_button_submit = document.querySelector('#paypal-button-submit');
 
                 paypal_sdk.HostedFields.render({
                     styles: {
@@ -456,7 +456,7 @@ function setupPayPal() {
                     },
                     fields: {
                         number: {
-                            selector: '#card_number',
+                            selector: '#card-number',
                             placeholder: '#### #### #### ####'
                         },
                         cvv: {
@@ -464,7 +464,7 @@ function setupPayPal() {
                             placeholder: '###'
                         },
                         expirationDate: {
-                            selector: '#expiration_date',
+                            selector: '#expiration-date',
                             placeholder: 'MM / YYYY'
                         }
                     },
@@ -507,9 +507,9 @@ function setupPayPal() {
                         });
 
                         if (formValid) {
-                            $('#paypal_button_submit').addClass('show-button');
+                            $('#paypal-button-submit').addClass('show-button');
                         } else {
-                            $('#paypal_button_submit').removeClass('show-button');
+                            $('#paypal-button-submit').removeClass('show-button');
                         }
                     });
 
@@ -521,19 +521,19 @@ function setupPayPal() {
                         console.log('CCF Event "empty", state=' + hostedFieldsInstance.getState() + ',event=' + event);
 
                         $(paypal_card_form).removeClass().addClass('well');
-                        $('#card_image').removeClass();
+                        $('#card-image').removeClass();
                     });
 
                     hostedFieldsInstance.on('cardTypeChange', function (event) {
                         console.log('CCF Event "cardTypeChange", state=' + hostedFieldsInstance.getState() + ',event=' + event);
 
                         $(paypal_card_form).removeClass().addClass('well');
-                        $('#card_image').removeClass();
+                        $('#card-image').removeClass();
 
                         // Change card bg depending on card type
                         if (event.cards.length === 1) {
                             $(paypal_card_form).addClass(event.cards[0].type);
-                            $('#card_image').addClass(event.cards[0].type);
+                            $('#card-image').addClass(event.cards[0].type);
 
                             // Change the CVV length for AmericanExpress cards
                             if (event.cards[0].code.size === 4) {
@@ -561,7 +561,7 @@ function setupPayPal() {
                     paypal_button_submit.addEventListener('click', function (event) {
                         event.preventDefault();
 
-                        if ($('#paypal_button_submit').hasClass('show-button')) {
+                        if ($('#paypal-button-submit').hasClass('show-button')) {
                             showPayPalAlert({wait: true});
 
                             hostedFieldsInstance.submit({
@@ -602,16 +602,16 @@ function setupPayPal() {
     }
 
     function showPayPalAlert(json) {
-        $('#paypal_form .alert').remove();
-        $('#paypal_form .lds-spinner').addClass('hidden');
+        $('#paypal-form .alert').remove();
+        $('#paypal-form .lds-spinner').addClass('hidden');
 
         if (json['wait']) {
-            $('#paypal_form .lds-spinner').removeClass('hidden');
+            $('#paypal-form .lds-spinner').removeClass('hidden');
         }
 
         if (json['error']) {
             if (json['error']['warning']) {
-                $('#paypal_form').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i><button type="button" class="close" data-dismiss="alert">&times;</button> ' + json['error']['warning'] + '</div>');
+                $('#paypal-form').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i><button type="button" class="close" data-dismiss="alert">&times;</button> ' + json['error']['warning'] + '</div>');
             }
         }
     }
@@ -634,7 +634,7 @@ function setupPayPal() {
         script.async = false;
         script.onload = paypalReady();
 
-        var paypal_form = document.querySelector('#paypal_form');
+        var paypal_form = document.querySelector('#paypal-form');
 
         paypal_form.appendChild(script);
     } else {
