@@ -231,20 +231,6 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 	}
 
 	/**
-	 * addHistory
-	 * 
-	 * @param int    $order_id
-	 * @param int    $order_status_id
-	 * @param string $comment
-	 * @param bool   $notify
-	 * 
-	 * @return void
-	 */
-	public function addHistory(int $order_id, int $order_status_id, string $comment = '', bool $notify = false): void {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "order_history` SET `order_id` = '" . (int)$order_id . "', `order_status_id` = '" . (int)$order_status_id . "', `comment` = '" . $this->db->escape($comment) . "', `notify` = '" . (bool)$notify . "', `date_added` = NOW()");
-	}
-
-	/**
 	 * addTransaction
 	 *
 	 * @param int    $securetrading_ws_order_id

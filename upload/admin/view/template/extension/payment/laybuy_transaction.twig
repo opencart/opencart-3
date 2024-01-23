@@ -236,36 +236,37 @@
     }
 </style>
 <script type="text/javascript"><!--
-var token = '';
+var api_token = '';
 
-// Login to the API
-$.ajax({
-    url: '{{ store_url }}index.php?route=api/login',
-    type: 'post',
-    dataType: 'json',
-    data: 'key={{ api_key }}',
-    crossDomain: true,
-    success: function (json) {
-        if (json['error']) {
-            if (json['error']['key']) {
-                alert(json['error']['key']);
+$(document).ready(function() {
+    // Login to the API
+    $.ajax({
+        url: '{{ store_url }}index.php?route=api/login',
+        type: 'post',
+        dataType: 'json',
+        data: 'key={{ api_key }}',
+        crossDomain: true,
+        success: function (json) {
+            if (json['error']) {
+                if (json['error']['key']) {
+                    alert(json['error']['key']);
+                }
+
+                if (json['error']['ip']) {
+                    alert(json['error']['ip']);
+                }
             }
 
-            if (json['error']['ip']) {
-                alert(json['error']['ip']);
+            if (json['user_token']) {
+                api_token = json['user_token'];
             }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
         }
-
-        if (json['user_token']) {
-            token = json['user_token'];
-        }
-    },
-    error: function (xhr, ajaxOptions, thrownError) {
-        alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-    }
+    });
 });
-//--></script>
-<script type="text/javascript"><!--
+
 $('#cancel-plan').on('click', function (e) {
     e.preventDefault();
 
@@ -288,10 +289,10 @@ $('#cancel-plan').on('click', function (e) {
             }
 
             if (json['success']) {
-                if (token) {
+                if (api_token) {
                     // Send order history to the API
                     $.ajax({
-                        url: '{{ store_url }}index.php?route=api/order/history&token=' + token + '&order_id=' + json['order_id'],
+                        url: '{{ store_url }}index.php?route=api/order/history&api_token=' + api_token + '&order_id=' + json['order_id'],
                         type: 'post',
                         dataType: 'json',
                         data: 'order_status_id=' + json['order_status_id'] + '&notify=1&override=0&append=0&comment=' + encodeURIComponent(json['comment']),

@@ -81,6 +81,37 @@
   </tr>
 </table>
 <script type="text/javascript"><!--
+var api_token = '';
+
+$(document).ready(function() {
+    // Login to the API
+    $.ajax({
+        url: '{{ catalog }}index.php?route=api/login',
+        type: 'post',
+        dataType: 'json',
+        data: 'key={{ api_key }}',
+        crossDomain: true,
+        success: function(json) {
+            if (json['error']) {
+                if (json['error']['key']) {
+                    alert(json['error']['key']);
+                }
+
+                if (json['error']['ip']) {
+                    alert(json['error']['ip']);
+                }
+            }
+
+            if (json['user_token']) {
+                api_token = json['user_token'];
+            }
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+        }
+    });
+});
+
 $('#btn_void').click(function () {
     if (confirm('{{ text_confirm_void }}')) {
         $.ajax({
@@ -95,31 +126,48 @@ $('#btn_void').click(function () {
                 $('#img_loading_void').show();
             },
             success: function (json) {
-                if (json.error == false) {
-                    html = '';
-
-                    html += '<tr>';
-                    html += '  <td class="text-left">' + json.created + '</td>';
-                    html += '  <td class="text-left">{{ text_reversed }}</td>';
-                    html += '  <td class="text-left">0.00</td>';
-                    html += '</tr>';
-
-                    $('.void_text').text('{{ text_yes }}');
-
-                    $('#securetrading_ws_transactions').append(html);
-
-                    $('#btn_release').hide();
-                    $('#release_amount').hide();
-
-                    if (json.msg != '') {
-                        $('#securetrading_ws_transaction_msg').empty().html(json.msg).fadeIn();
-                    }
-                }
-
-                if (json.error == true) {
+              if (json.error == true) {
                     alert(json.msg);
 
                     $('#btn_void').show();
+                } elseif (json.error == false) {
+                    if (api_token) {
+                        $.ajax({
+                            url: '{{ catalog }}index.php?route=api/order/history&api_token=' + api_token + '&order_id=' + json.order_id,
+                            type: 'post',
+                            dataType: 'json',
+                            data: { 'order_status_id' : json.order_status_id, 'comment' : '', 'notify' : 1, 'override' : 0 }
+                            crossDomain: true,
+                            success: function(json1) {
+                                if (json1.error) {
+                                    $('#content > .container-fluid').prepend('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert" aria-label="X"><span aria-hidden="true">&times;</span></button><i class="fa fa-exclamation-circle"></i>' + json1.error + '</div>');
+                                }
+
+                                if (json1.success) {
+                                    $('#content > .container-fluid').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json1.success + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+
+                                    html = '';
+
+                                    html += '<tr>';
+                                    html += '  <td class="text-left">' + json.created + '</td>';
+                                    html += '  <td class="text-left">{{ text_reversed }}</td>';
+                                    html += '  <td class="text-left">0.00</td>';
+                                    html += '</tr>';
+
+                                    $('.void_text').text('{{ text_yes }}');
+
+                                    $('#securetrading_ws_transactions').append(html);
+
+                                    $('#btn_release').hide();
+                                    $('#release_amount').hide();
+
+                                    if (json.msg != '') {
+                                        $('#securetrading_ws_transaction_msg').empty().html(json.msg).fadeIn();
+                                    }
+                                }
+                            }
+                        });                        
+                    }
                 }
 
                 $('#img_loading_void').hide();
@@ -143,45 +191,62 @@ $('#btn_release').click(function () {
                 $('#img_loading_release').show();
             },
             success: function (json) {
-                if (json.error == false) {
-                    html = '';
-
-                    html += '<tr>';
-                    html += '  <td class="text-left">' + json.created + '</td>';
-                    html += '  <td class="text-left">{{ text_payment }}</td>';
-                    html += '  <td class="text-left">' + json.amount + '</td>';
-                    html += '</tr>';
-
-                    $('#securetrading_ws_transactions').append(html);
-                    $('#securetrading_ws_total_released').text(json.total);
-
-                    if (json.release_status == 1) {
-                        $('#btn_void').hide();
-
-                        $('.release_text').text('{{ text_yes }}');
-                    } else {
-                        $('#btn_release').show();
-
-                        $('#release_amount').val(0.00);
-
-                        {% if auto_settle == 2 %}
-                            $('#release_amount').show();
-                        {% endif %}
-                    }
-
-                    if (json.msg != '') {
-                        $('#securetrading_ws_transaction_msg').empty().html(json.msg).fadeIn();
-                    }
-
-                    $('#btn_rebate').show();
-                    $('#rebate_amount').val(0.00).show();
-                }
-
                 if (json.error == true) {
                     alert(json.msg);
 
                     $('#btn_release').show();
                     $('#release_amount').show();
+                } elseif (json.error == false) {
+                    if (api_token) {
+                        $.ajax({
+                            url: '{{ catalog }}index.php?route=api/order/history&api_token=' + api_token + '&order_id=' + json.order_id,
+                            type: 'post',
+                            dataType: 'json',
+                            data: { 'order_status_id' : json.order_status_id, 'comment' : '', 'notify' : 1, 'override' : 0 }
+                            crossDomain: true,
+                            success: function(json1) {
+                                if (json1.error) {
+                                    $('#content > .container-fluid').prepend('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert" aria-label="X"><span aria-hidden="true">&times;</span></button><i class="fa fa-exclamation-circle"></i>' + json1.error + '</div>');
+                                }
+
+                                if (json1.success) {
+                                    $('#content > .container-fluid').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json1.success + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+
+                                    html = '';
+
+                                    html += '<tr>';
+                                    html += '  <td class="text-left">' + json.created + '</td>';
+                                    html += '  <td class="text-left">{{ text_payment }}</td>';
+                                    html += '  <td class="text-left">' + json.amount + '</td>';
+                                    html += '</tr>';
+
+                                    $('#securetrading_ws_transactions').append(html);
+                                    $('#securetrading_ws_total_released').text(json.total);
+
+                                    if (json.release_status == 1) {
+                                        $('#btn_void').hide();
+
+                                        $('.release_text').text('{{ text_yes }}');
+                                    } else {
+                                        $('#btn_release').show();
+
+                                        $('#release_amount').val(0.00);
+
+                                        {% if auto_settle == 2 %}
+                                            $('#release_amount').show();
+                                        {% endif %}
+                                    }
+
+                                    if (json.msg != '') {
+                                        $('#securetrading_ws_transaction_msg').empty().html(json.msg).fadeIn();
+                                    }
+
+                                    $('#btn_rebate').show();
+                                    $('#rebate_amount').val(0.00).show();
+                                }
+                            }
+                        });
+                    }
                 }
 
                 $('#img_loading_release').hide();
@@ -205,35 +270,52 @@ $('#btn_rebate').click(function () {
                 $('#img_loading_rebate').show();
             },
             success: function (json) {
-                if (json.error == false) {
-                    html = '';
-
-                    html += '<tr>';
-                    html += '  <td class="text-left">' + json.created + '</td>';
-                    html += '  <td class="text-left">{{ text_rebate }}</td>';
-                    html += '  <td class="text-left">' + json.amount + '</td>';
-                    html += '</tr>';
-
-                    $('#securetrading_ws_transactions').append(html);
-
-                    $('#securetrading_ws_total_released').text(json.total_released);
-
-                    if (json.rebate_status == 1) {
-                        $('.rebate_text').text('{{ text_yes }}');
-                    } else {
-                        $('#btn_rebate').show();
-                        $('#rebate_amount').val(0.00).show();
-                    }
-
-                    if (json.msg != '') {
-                        $('#securetrading_ws_transaction_msg').empty().html(json.msg).fadeIn();
-                    }
-                }
-
                 if (json.error == true) {
                     alert(json.msg);
 
                     $('#btn_rebate').show();
+                } elseif (json.error == false) {
+                    if (api_token) {
+                        $.ajax({
+                            url: '{{ catalog }}index.php?route=api/order/history&api_token=' + api_token + '&order_id=' + json.order_id,
+                            type: 'post',
+                            dataType: 'json',
+                            data: { 'order_status_id' : json.order_status_id, 'comment' : '', 'notify' : 1, 'override' : 0 }
+                            crossDomain: true,
+                            success: function(json1) {
+                                if (json1.error) {
+                                    $('#content > .container-fluid').prepend('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert" aria-label="X"><span aria-hidden="true">&times;</span></button><i class="fa fa-exclamation-circle"></i>' + json1.error + '</div>');
+                                }
+
+                                if (json1.success) {
+                                    $('#content > .container-fluid').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json1.success + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+
+                                    html = '';
+
+                                    html += '<tr>';
+                                    html += '  <td class="text-left">' + json.created + '</td>';
+                                    html += '  <td class="text-left">{{ text_rebate }}</td>';
+                                    html += '  <td class="text-left">' + json.amount + '</td>';
+                                    html += '</tr>';
+
+                                    $('#securetrading_ws_transactions').append(html);
+
+                                    $('#securetrading_ws_total_released').text(json.total_released);
+
+                                    if (json.rebate_status == 1) {
+                                        $('.rebate_text').text('{{ text_yes }}');
+                                    } else {
+                                        $('#btn_rebate').show();
+                                        $('#rebate_amount').val(0.00).show();
+                                    }
+
+                                    if (json.msg != '') {
+                                        $('#securetrading_ws_transaction_msg').empty().html(json.msg).fadeIn();
+                                    }
+                                }
+                            }
+                        });
+                    }
                 }
 
                 $('#img_loading_rebate').hide();

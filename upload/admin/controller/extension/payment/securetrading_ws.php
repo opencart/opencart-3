@@ -402,6 +402,11 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
 				$data['user_token'] = $this->session->data['user_token'];
 
+				// API login
+				$data['catalog'] = $this->request->server['HTTPS'] ? HTTPS_CATALOG : HTTP_CATALOG;
+
+				$data['api_key'] = $this->getApiKey();
+
 				return $this->load->view('extension/payment/securetrading_ws_order', $data);
 			} else {
 				return '';
@@ -443,10 +448,11 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
 					$this->model_extension_payment_securetrading_ws->updateVoidStatus($securetrading_ws_order['securetrading_ws_order_id'], 1);
 
-					$this->model_extension_payment_securetrading_ws->addHistory($this->request->post['order_id'], $this->config->get('payment_securetrading_ws_authorisation_reversed_order_status_id'));
-
 					$json['msg'] = $this->language->get('text_authorisation_reversed');
 					$json['data']['created'] = date('Y-m-d H:i:s');
+
+					$json['order_id'] = (int)$this->request->post['order_id'];
+					$json['order_status_id'] = $this->config->get('payment_securetrading_ws_authorisation_reversed_order_status_id');
 
 					$json['error'] = false;
 				}
@@ -506,7 +512,8 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
 						$json['msg'] = $this->language->get('text_release_ok_order');
 
-						$this->model_extension_payment_securetrading_ws->addHistory($this->request->post['order_id'], $this->config->get('payment_securetrading_ws_order_status_success_settled_id'));
+						$json['order_id'] = (int)$this->request->post['order_id'];
+						$json['order_status_id'] = $this->config->get('payment_securetrading_ws_order_status_success_settled_id');
 					} else {
 						$release_status = 0;
 
@@ -577,7 +584,8 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
 						$json['msg'] = $this->language->get('text_rebate_ok_order');
 
-						$this->model_extension_payment_securetrading_ws->addHistory($this->request->post['order_id'], $this->config->get('payment_securetrading_ws_refunded_order_status_id'));
+						$json['order_id'] = (int)$this->request->post['order_id'];
+						$json['order_status_id'] = $this->config->get('payment_securetrading_ws_refunded_order_status_id');
 					} else {
 						$rebate_status = 0;
 
@@ -633,5 +641,27 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 		}
 
 		return !$this->error;
+	}
+
+	private function getApiKey() {
+		// API login
+		$this->load->model('user/api');
+
+		// Laybuy
+		$this->load->model('extension/payment/laybuy');
+
+		$this->model_extension_payment_securetrading_pp->log('Getting API key');
+
+		$api_info = $this->model_user_api->getApi($this->config->get('config_api_id'));
+
+		if ($api_info) {
+			$this->model_extension_payment_securetrading_pp->log('API key: ' . $api_info['key']);
+
+			return $api_info['key'];
+		} else {
+			$this->model_extension_payment_securetrading_pp->log('No API info');
+
+			return '';
+		}
 	}
 }
