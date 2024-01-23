@@ -2,15 +2,15 @@
 /**
  * Class Subscription
  *
- * @package Catalog\Model\Account
+ * @package Opencart\Catalog\Model\Account
  */
 class ModelAccountSubscription extends Model {
 	/**
-	 * getSubscription
+	 * Get Subscription
 	 *
 	 * @param int $subscription_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getSubscription(int $subscription_id): array {
 		$subscription_data = [];
@@ -29,12 +29,12 @@ class ModelAccountSubscription extends Model {
 	}
 
 	/**
-	 * getSubscriptionByOrderProductId
+	 * Get Subscription By Order Product ID
 	 *
 	 * @param int $order_id
 	 * @param int $order_product_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getSubscriptionByOrderProductId(int $order_id, int $order_product_id): array {
 		$subscription_data = [];
@@ -53,12 +53,12 @@ class ModelAccountSubscription extends Model {
 	}
 
 	/**
-	 * getSubscriptions
+	 * Get Subscriptions
 	 *
 	 * @param int $start
 	 * @param int $limit
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getSubscriptions(int $start = 0, int $limit = 20): array {
 		if ($start < 0) {
@@ -75,18 +75,22 @@ class ModelAccountSubscription extends Model {
 	}
 
 	/**
-	 * getTotalSubscriptions
+	 * Get Total Subscriptions
 	 *
 	 * @return int
 	 */
 	public function getTotalSubscriptions(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "subscription` WHERE `customer_id` = '" . (int)$this->customer->getId() . "' AND `subscription_status_id` > '0' AND `store_id` = '" . (int)$this->config->get('config_store_id') . "'");
 
-		return (int)$query->row['total'];
+		if ($query->num_rows) {
+			return (int)$query->row['total'];
+		} else {
+			return 0;
+		}
 	}
 
 	/**
-	 * getTotalSubscriptionByShippingAddressId
+	 * Get Total Subscription By Shipping Address ID
 	 *
 	 * @param int $address_id
 	 *
@@ -99,7 +103,7 @@ class ModelAccountSubscription extends Model {
 	}
 
 	/**
-	 * getTotalSubscriptionByPaymentAddressId
+	 * Get Total Subscription By Payment Address ID
 	 *
 	 * @param int $address_id
 	 *
@@ -112,13 +116,13 @@ class ModelAccountSubscription extends Model {
 	}
 
 	/**
-	 * getHistories
+	 * Get Histories
 	 *
 	 * @param int $subscription_id
 	 * @param int $start
 	 * @param int $limit
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getHistories(int $subscription_id, int $start = 0, int $limit = 10): array {
 		if ($start < 0) {
@@ -135,7 +139,7 @@ class ModelAccountSubscription extends Model {
 	}
 
 	/**
-	 * getTotalHistories
+	 * Get Total Histories
 	 *
 	 * @param int $subscription_id
 	 *
@@ -145,5 +149,29 @@ class ModelAccountSubscription extends Model {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "subscription_history` WHERE `subscription_id` = '" . (int)$subscription_id . "'");
 
 		return (int)$query->row['total'];
+	}
+
+	/**
+	 * Edit Remaining
+	 *
+	 * @param int $subscription_id
+	 * @param int $remaining
+	 *
+	 * @return void
+	 */
+	public function editRemaining(int $subscription_id, int $remaining): void {
+		$this->db->query("UPDATE `" . DB_PREFIX . "subscription` SET `remaining` = '" . (int)$remaining . "' WHERE `subscription_id` = '" . (int)$subscription_id . "'");
+	}
+
+	/**
+	 * Edit Trial Remaining
+	 *
+	 * @param int $subscription_id
+	 * @param int $trial_remaining
+	 *
+	 * @return void
+	 */
+	public function editTrialRemaining(int $subscription_id, int $trial_remaining): void {
+		$this->db->query("UPDATE `" . DB_PREFIX . "subscription` SET `trial_remaining` = '" . (int)$trial_remaining . "' WHERE `subscription_id` = '" . (int)$subscription_id . "'");
 	}
 }

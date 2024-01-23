@@ -2627,6 +2627,34 @@ INSERT INTO `oc_order_status` (`order_status_id`, `language_id`, `name`) VALUES
 -----------------------------------------------------------
 
 --
+-- Table structure for table `oc_order_subscription`
+--
+
+DROP TABLE IF EXISTS `oc_order_subscription`;
+CREATE TABLE `oc_order_subscription` (
+  `order_subscription_id` int(10) NOT NULL AUTO_INCREMENT,
+  `order_product_id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `subscription_plan_id` int(11) NOT NULL,
+  `trial_price` decimal(10,4) NOT NULL,
+  `trial_tax` decimal(15,4) NOT NULL,
+  `trial_frequency` enum(\'day\',\'week\',\'semi_month\',\'month\',\'year\') NOT NULL,
+  `trial_cycle` smallint(6) NOT NULL,
+  `trial_duration` smallint(6) NOT NULL,
+  `trial_remaining` smallint(6) NOT NULL,
+  `trial_status` tinyint(1) NOT NULL,
+  `price` decimal(10,4) NOT NULL,
+  `tax` decimal(15,4) NOT NULL,
+  `frequency` enum(\'day\',\'week\',\'semi_month\',\'month\',\'year\') NOT NULL,
+  `cycle` smallint(6) NOT NULL,
+  `duration` smallint(6) NOT NULL,
+  PRIMARY KEY (`order_subscription_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-----------------------------------------------------------
+
+--
 -- Table structure for table `oc_order_total`
 --
 
@@ -3011,20 +3039,6 @@ INSERT INTO `oc_product_option_value` (`product_option_value_id`, `product_optio
 -----------------------------------------------------------
 
 --
--- Table structure for table `oc_product_subscription`
---
-
-DROP TABLE IF EXISTS `oc_product_subscription`;
-CREATE TABLE `oc_product_subscription` (
-  `product_id` int(11) NOT NULL,
-  `subscription_plan_id` int(11) NOT NULL,
-  `customer_group_id` int(11) NOT NULL,
-  PRIMARY KEY (`product_id`,`subscription_plan_id`,`customer_group_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
------------------------------------------------------------
-
---
 -- Table structure for table `oc_product_recurring`
 --
 
@@ -3034,7 +3048,7 @@ CREATE TABLE `oc_product_recurring` (
   `recurring_id` int(11) NOT NULL,
   `customer_group_id` int(11) NOT NULL,
   PRIMARY KEY (`product_id`,`recurring_id`,`customer_group_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -----------------------------------------------------------
 
@@ -3126,6 +3140,20 @@ INSERT INTO `oc_product_special` (`product_special_id`, `product_id`, `customer_
 (419, 42, 1, 1, '90.0000', '0000-00-00', '0000-00-00'),
 (439, 30, 1, 2, '90.0000', '0000-00-00', '0000-00-00'),
 (438, 30, 1, 1, '80.0000', '0000-00-00', '0000-00-00');
+
+-----------------------------------------------------------
+
+--
+-- Table structure for table `oc_product_subscription`
+--
+
+DROP TABLE IF EXISTS `oc_product_subscription`;
+CREATE TABLE `oc_product_subscription` (
+  `product_id` int(11) NOT NULL,
+  `subscription_plan_id` int(11) NOT NULL,
+  `customer_group_id` int(11) NOT NULL,
+  PRIMARY KEY (`product_id`,`subscription_plan_id`,`customer_group_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -----------------------------------------------------------
 
@@ -3241,6 +3269,29 @@ INSERT INTO `oc_product_to_store` (`product_id`, `store_id`) VALUES
 (47, 0),
 (48, 0),
 (49, 0);
+
+-----------------------------------------------------------
+
+--
+-- Table structure for table `oc_recurring`
+--
+
+DROP TABLE IF EXISTS `oc_recurring`;
+CREATE TABLE `oc_recurring` (
+  `recurring_id` int(11) NOT NULL AUTO_INCREMENT,
+  `price` decimal(10,4) NOT NULL,
+  `frequency` enum('day','week','semi_month','month','year') NOT NULL,
+  `duration` int(10) unsigned NOT NULL,
+  `cycle` int(10) unsigned NOT NULL,
+  `trial_status` tinyint(4) NOT NULL,
+  `trial_price` decimal(10,4) NOT NULL,
+  `trial_frequency` enum('day','week','semi_month','month','year') NOT NULL,
+  `trial_duration` int(10) unsigned NOT NULL,
+  `trial_cycle` int(10) unsigned NOT NULL,
+  `status` tinyint(4) NOT NULL,
+  `sort_order` int(11) NOT NULL,
+  PRIMARY KEY (`recurring_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -----------------------------------------------------------
 

@@ -4136,6 +4136,109 @@ function oc_db_schema() {
 	];
 
 	$tables[] = [
+		'name'  => 'order_subscription',
+		'field' => [
+			[
+				'name'           => 'order_subscription_id',
+				'type'           => 'int(11)',
+				'auto_increment' => true
+			],
+			[
+				'name' => 'order_product_id',
+				'type' => 'int(11)'
+			],
+			[
+				'name' => 'order_id',
+				'type' => 'int(11)'
+			],
+			[
+				'name' => 'product_id',
+				'type' => 'int(11)'
+			],
+			[
+				'name' => 'subscription_plan_id',
+				'type' => 'int(11)'
+			],
+			[
+				'name' => 'trial_price',
+				'type' => 'decimal(10,4)'
+			],
+			[
+				'name' => 'trial_tax',
+				'type' => 'decimal(15,4)'
+			],
+			[
+				'name' => 'trial_frequency',
+				'type' => 'enum(\'day\',\'week\',\'semi_month\',\'month\',\'year\')'
+			],
+			[
+				'name' => 'trial_cycle',
+				'type' => 'smallint(6)'
+			],
+			[
+				'name' => 'trial_duration',
+				'type' => 'smallint(6)'
+			],
+			[
+				'name' => 'trial_remaining',
+				'type' => 'smallint(6)'
+			],
+			[
+				'name' => 'trial_status',
+				'type' => 'tinyint(1)'
+			],
+			[
+				'name' => 'price',
+				'type' => 'decimal(10,4)'
+			],
+			[
+				'name' => 'tax',
+				'type' => 'decimal(15,4)'
+			],
+			[
+				'name' => 'frequency',
+				'type' => 'enum(\'day\',\'week\',\'semi_month\',\'month\',\'year\')'
+			],
+			[
+				'name' => 'cycle',
+				'type' => 'smallint(6)'
+			],
+			[
+				'name' => 'duration',
+				'type' => 'smallint(6)'
+			]
+		],
+		'primary' => [
+			'order_subscription_id'
+		],
+		'foreign' => [
+			[
+				'key'   => 'order_id',
+				'table' => 'order',
+				'field' => 'order_id'
+			],
+			[
+				'key'   => 'order_product_id',
+				'table' => 'order_product',
+				'field' => 'order_product_id'
+			],
+			[
+				'key'   => 'subscription_plan_id',
+				'table' => 'subscription_plan',
+				'field' => 'subscription_plan_id'
+			],
+			[
+				'key'   => 'subscription_status_id',
+				'table' => 'subscription_status',
+				'field' => 'subscription_status_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
+	];
+
+	$tables[] = [
 		'name'  => 'order_total',
 		'field' => [
 			[
@@ -5088,6 +5191,61 @@ function oc_db_schema() {
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
 		'collate' => 'utf8mb4_general_ci'
+	];
+
+	$tables[] = [
+		'name'  => 'recurring',
+		'field' => [
+			[
+				'name'           => 'recurring_id',
+				'type'           => 'int(11)',
+				'auto_increment' => true
+			],
+			[
+				'name' => 'price',
+				'type' => 'decimal(15,4)'
+			],
+			[
+				'name' => 'frequency',
+				'type' => 'enum(\'pending\',\'approved\',\'disapproved\')'
+			],
+			[
+				'name' => 'duration',
+				'type' => 'int(10)'
+			],
+			[
+				'name' => 'cycle',
+				'type' => 'int(10)'
+			],
+			[
+				'name' => 'trial_status',
+				'type' => 'tinyint(4)'
+			],
+			[
+				'name' => 'trial_price',
+				'type' => 'decimal(15,4)'
+			],
+			[
+				'name' => 'trial_frequency',
+				'type' => 'enum(\'pending\',\'approved\',\'disapproved\')'
+			],
+			[
+				'name' => 'trial_duration',
+				'type' => 'int(10)'
+			],
+			[
+				'name' => 'trial_cycle',
+				'type' => 'int(10)'
+			],
+			[
+				'name' => 'status',
+				'type' => 'tinyint(4)'
+			],
+			[
+				'name' => 'sort_order',
+				'type' => 'int(11)'
+			],
+		]
 	];
 
 	$tables[] = [

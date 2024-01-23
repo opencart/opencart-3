@@ -180,11 +180,11 @@ $_['button_capture']                        = 'Capture';
 $_['button_connect']                        = 'Connect';
 $_['button_reconnect']                      = 'Reconnect';
 $_['button_refresh']                        = 'Refresh token';
-$_['button_cancel_subscription']            = 'Cancel Subscription';
+$_['button_cancel_recurring']               = 'Cancel Subscription';
 
 // Error
 $_['error_permission']                      = '<strong>Warning:</strong> You do not have permission to modify payment Square!';
-$_['error_permission_subscription']         = '<strong>Warning:</strong> You do not have permission to modify subscription payments!';
+$_['error_permission_recurring']           = '<strong>Warning:</strong> You do not have permission to modify recurring payments!';
 $_['error_transaction_missing']             = 'Transaction not found!';
 $_['error_no_ssl']                          = '<strong>Warning:</strong> SSL is not enabled on your admin panel. Please enable it to finish your configuration.';
 $_['error_user_rejected_connect_attempt']   = 'Connection attempt was canceled by the user.';

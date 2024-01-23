@@ -442,7 +442,7 @@ $(document).ready(function () {
             url: '{{ url_list_transactions }}'.replace('{PAGE}', page ? page : transactionListPage),
             dataType: 'json',
             beforeSend: function () {
-                $('#refresh_transactions').button('loading');
+                $('#refresh-transactions').button('loading');
 
                 $('#transactions_pagination').empty();
 
@@ -479,8 +479,7 @@ $(document).ready(function () {
                             break;
                         }
 
-                        html += '<a class="btn btn-info" href="' + row.url_info + '">{{ text_view }}</a>';
-                        html += '</td>';
+                        html += '<a class="btn btn-info" href="' + row.url_info + '">{{ text_view }}</a></td>';
                         html += '</tr>';
                     }
                 } else {
@@ -502,7 +501,7 @@ $(document).ready(function () {
                 });
             },
             complete: function () {
-                $('#refresh_transactions').button('reset');
+                $('#refresh-transactions').button('reset');
             }
         });
     }

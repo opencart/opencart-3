@@ -207,7 +207,7 @@ class ModelExtensionPaymentPayPal extends Model {
 	}
 
 	public function editOrderSubscriptionStatus(int $order_id, int $status): void {
-		$this->db->query("UPDATE `" . DB_PREFIX . "paypal_checkout_integration_subscription` SET `status` = '" . (int)$status . "' WHERE `order_id` = '" . (int)$order_id . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "paypal_checkout_integration_order` SET `status` = '" . (int)$status . "' WHERE `order_id` = '" . (int)$order_id . "'");
 	}
 
 	public function setAgreeStatus(): void {

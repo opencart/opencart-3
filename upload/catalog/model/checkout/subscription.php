@@ -2,13 +2,13 @@
 /**
  * Class Subscription
  *
- * @package Catalog\Model\Checkout
+ * @package Opencart\Catalog\Model\Checkout
  */
 class ModelCheckoutSubscription extends Model {
 	/**
-	 * addSubscription
+	 * Add Subscription
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -73,10 +73,10 @@ class ModelCheckoutSubscription extends Model {
 	}
 
 	/**
-	 * editSubscription
+	 * Edit Subscription
 	 *
-	 * @param int   $subscription_id
-	 * @param array $data
+	 * @param int                  $subscription_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -139,7 +139,7 @@ class ModelCheckoutSubscription extends Model {
 	}
 
 	/**
-	 * deleteSubscriptionByOrderId
+	 * Delete Subscription By Order ID
 	 *
 	 * @param int $order_id
 	 *
@@ -150,12 +150,12 @@ class ModelCheckoutSubscription extends Model {
 	}
 
 	/**
-	 * getSubscriptionByOrderProductId
+	 * Get Subscription By Order Product ID
 	 *
 	 * @param int $order_id
 	 * @param int $order_product_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getSubscriptionByOrderProductId(int $order_id, int $order_product_id): array {
 		$subscription_data = [];
@@ -174,7 +174,7 @@ class ModelCheckoutSubscription extends Model {
 	}
 
 	/**
-	 * addHistory
+	 * Add History
 	 *
 	 * @param int    $subscription_id
 	 * @param int    $subscription_status_id
@@ -190,7 +190,7 @@ class ModelCheckoutSubscription extends Model {
 	}
 
 	/**
-	 * editSubscriptionStatus
+	 * Edit Subscription Status
 	 *
 	 * @param int  $subscription_id
 	 * @param bool $subscription_status_id
@@ -202,7 +202,7 @@ class ModelCheckoutSubscription extends Model {
 	}
 
 	/**
-	 * editTrialRemaining
+	 * Edit Trial Remaining
 	 *
 	 * @param int $subscription_id
 	 * @param int $trial_remaining
@@ -214,7 +214,7 @@ class ModelCheckoutSubscription extends Model {
 	}
 
 	/**
-	 * editDateNext
+	 * Edit Date Next
 	 *
 	 * @param int    $subscription_id
 	 * @param string $date_next
@@ -226,11 +226,11 @@ class ModelCheckoutSubscription extends Model {
 	}
 
 	/**
-	 * getSubscriptions
+	 * Get Subscriptions
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getSubscriptions(array $data): array {
 		$sql = "SELECT `s`.`subscription_id`, `s`.*, CONCAT(`o`.`firstname`, ' ', `o`.`lastname`) AS `customer`, (SELECT `ss`.`name` FROM `" . DB_PREFIX . "subscription_status` `ss` WHERE `ss`.`subscription_status_id` = `s`.`subscription_status_id` AND `ss`.`language_id` = '" . (int)$this->config->get('config_language_id') . "') AS `subscription_status` FROM `" . DB_PREFIX . "subscription` `s` LEFT JOIN `" . DB_PREFIX . "order` `o` ON (`s`.`order_id` = `o`.`order_id`)";
