@@ -352,16 +352,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 
 					$this->model_extension_payment_securetrading_pp->updateVoidStatus($securetrading_pp_order['securetrading_pp_order_id'], 1);
 
-					$post_data = [
-						'order_status_id' => $this->config->get('payment_securetrading_pp_authorisation_reversed_order_status_id'),
-						'notify'          => false,
-						'comment'         => '',
-					];
-
-					// Orders
-					$this->load->model('sale/order');
-
-					$this->model_extension_payment_securetrading_pp->addHistory($this->request->post['order_id'], $post_data);
+					$this->model_extension_payment_securetrading_pp->addHistory($this->request->post['order_id'], $this->config->get('payment_securetrading_pp_authorisation_reversed_order_status_id'));
 
 					$json['msg'] = $this->language->get('text_authorisation_reversed');
 					$json['created'] = date('Y-m-d H:i:s');
@@ -424,7 +415,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 
 						$json['msg'] = $this->language->get('text_release_ok_order');
 
-						$this->model_extension_payment_securetrading_pp->addHistory($this->request->post['order_id'], $this->config->get('securetrading_pp_order_status_success_settled_id'));
+						$this->model_extension_payment_securetrading_pp->addHistory($this->request->post['order_id'], $this->config->get('payment_securetrading_pp_order_status_success_settled_id'));
 					} else {
 						$release_status = 0;
 
@@ -497,7 +488,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 
 						$json['msg'] = $this->language->get('text_rebate_ok_order');
 
-						$this->model_extension_payment_securetrading_pp->addHistory($this->request->post['order_id'], $this->config->get('securetrading_pp_order_status_success_settled_id'));
+						$this->model_extension_payment_securetrading_pp->addHistory($this->request->post['order_id'], $this->config->get('payment_securetrading_pp_order_status_success_settled_id'));
 					} else {
 						$rebate_status = 0;
 
