@@ -231,12 +231,12 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 
 	/**
 	 * addHistory
-	 * 
+	 *
 	 * @param int    $order_id
 	 * @param int    $order_status_id
 	 * @param string $comment
 	 * @param bool   $notify
-	 * 
+	 *
 	 * @return void
 	 */
 	public function addHistory(int $order_id, int $order_status_id, string $comment = '', bool $notify = false): void {

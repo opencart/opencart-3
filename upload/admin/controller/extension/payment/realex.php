@@ -299,13 +299,12 @@ class ControllerExtensionPaymentRealex extends Controller {
 
 			if (isset($void_response['result']) && $void_response['result'] == '00') {
 				$this->model_extension_payment_realex->addTransaction($payment_realex_order['realex_order_id'], 'void', 0.00);
+
 				$this->model_extension_payment_realex->updateVoidStatus($payment_realex_order['realex_order_id'], 1);
 
 				$json['msg'] = $this->language->get('text_void_ok');
 
-				$json['data'] = [];
-
-				$json['data']['date_added'] = date('Y-m-d H:i:s');
+				$json['date_added'] = date('Y-m-d H:i:s');
 
 				$json['error'] = false;
 			} else {
@@ -362,12 +361,10 @@ class ControllerExtensionPaymentRealex extends Controller {
 
 				$this->model_extension_payment_realex->updateForRebate($payment_realex_order['realex_order_id'], (string)$capture_response['pasref'], (string)$capture_response['orderid']);
 
-				$json['data'] = [];
-
-				$json['data']['date_added'] = date('Y-m-d H:i:s');
-				$json['data']['amount'] = $this->request->post['amount'];
-				$json['data']['capture_status'] = $capture_status;
-				$json['data']['total'] = (float)$total_captured;
+				$json['date_added'] = date('Y-m-d H:i:s');
+				$json['amount'] = $this->request->post['amount'];
+				$json['capture_status'] = $capture_status;
+				$json['total'] = (float)$total_captured;
 
 				$json['error'] = false;
 			} else {
@@ -422,13 +419,11 @@ class ControllerExtensionPaymentRealex extends Controller {
 					$json['msg'] = $this->language->get('text_rebate_ok');
 				}
 
-				$json['data'] = [];
-
-				$json['data']['date_added'] = date('Y-m-d H:i:s');
-				$json['data']['amount'] = $this->request->post['amount'] * -1;
-				$json['data']['total_captured'] = (float)$total_captured;
-				$json['data']['total_rebated'] = (float)$total_rebated;
-				$json['data']['rebate_status'] = $rebate_status;
+				$json['date_added'] = date('Y-m-d H:i:s');
+				$json['amount'] = $this->request->post['amount'] * -1;
+				$json['total_captured'] = (float)$total_captured;
+				$json['total_rebated'] = (float)$total_rebated;
+				$json['rebate_status'] = $rebate_status;
 
 				$json['error'] = false;
 			} else {

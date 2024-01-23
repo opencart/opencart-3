@@ -92,29 +92,29 @@ $('#button-void').bind('click', function () {
                 $('#img_loading_void').show();
                 $('#firstdata_transaction_msg').hide();
             },
-            success: function (data) {
-                if (data['error'] == false) {
+            success: function (json) {
+                if (json.error == false) {
                     html = '';
 
                     html += '<tr>';
-                    html += '  <td class="text-left">' + data.data.date_added + '</td>';
+                    html += '  <td class="text-left">' + json.date_added + '</td>';
                     html += '  <td class="text-left">{{ text_void }}</td>';
                     html += '  <td class="text-left">0.00</td>';
                     html += '</tr>';
 
-                    $('. void_text').text('{{ text_yes }}');
+                    $('.void_text').text('{{ text_yes }}');
 
                     $('#firstdata_transactions').append(html);
 
                     $('#button-capture').hide();
 
-                    if (data.msg != '') {
-                        $('#firstdata_transaction_msg').empty().html('<i class="fa fa-check-circle"></i> ' + data['msg']).fadeIn();
+                    if (json.msg != '') {
+                        $('#firstdata_transaction_msg').empty().html('<i class="fa fa-check-circle"></i> ' + json.msg).fadeIn();
                     }
                 }
 
-                if (data['error'] == true) {
-                    alert(data['msg']);
+                if (json.error == true) {
+                    alert(json.msg);
 
                     $('#button-void').show();
                 }
@@ -138,35 +138,35 @@ $('#button-capture').bind('click', function () {
                 $('#img_loading_capture').show();
                 $('#firstdata_transaction_msg').hide();
             },
-            success: function (data) {
-                if (data.error == false) {
+            success: function (json) {
+                if (json.error == false) {
                     html = '';
 
                     html += '<tr>';
-                    html += '  <td class="text-left">' + data.data.date_added + '</td>';
+                    html += '  <td class="text-left">' + json.date_added + '</td>';
                     html += '  <td class="text-left"{{ text_payment }}</td>';
-                    html += '  <td class="text-left">' + data.data.amount + '</td>';
+                    html += '  <td class="text-left">' + json.amount + '</td>';
                     html += '</tr>';
 
                     $('#firstdata_transactions').append(html);
-                    $('#firstdata_total_captured').text(data.data.total_formatted);
+                    $('#firstdata_total_captured').text(json.total_formatted);
 
-                    if (data.data.capture_status == 1) {
+                    if (json.capture_status == 1) {
                         $('#button-void').hide();
 
                         $('#button-refund').show();
-                        $(' . capture_text').text('{{ text_yes }}');
+                        $('.capture_text').text('{{ text_yes }}');
                     } else {
                         $('#button-capture').show();
                     }
 
-                    if (data.msg != '') {
-                        $('#firstdata_transaction_msg').empty().html('<i class="fa fa-check-circle"></i> ' + data.msg).fadeIn();
+                    if (json.msg != '') {
+                        $('#firstdata_transaction_msg').empty().html('<i class="fa fa-check-circle"></i> ' + json.msg).fadeIn();
                     }
                 }
 
-                if (data.error == true) {
-                    alert(data.msg);
+                if (json.error == true) {
+                    alert(json.msg);
 
                     $('#button-capture').show();
                 }
@@ -190,32 +190,32 @@ $('#button-refund').bind('click', function () {
                 $('#img_loading_refund').show();
                 $('#firstdata_transaction_msg').hide();
             },
-            success: function (data) {
-                if (data.error == false) {
+            success: function (json) {
+                if (json.error == false) {
                     html = '';
 
                     html += '<tr>';
-                    html += '  <td class="text-left">' + data.data.date_added + '</td>';
+                    html += '  <td class="text-left">' + json.date_added + '</td>';
                     html += '  <td class="text-left">{{ text_refund }}</td>';
-                    html += '  <td class="text-left">' + data.data.amount + '</td>';
+                    html += '  <td class="text-left">' + json.amount + '</td>';
                     html += '</tr>';
 
                     $('#firtdata_transactions').append(html);
-                    $('#firstdata_total_captured').text(data.data.total_captured);
+                    $('#firstdata_total_captured').text(json.total_captured);
 
-                    if (data.data.refund_status == 1) {
-                        $(' . refund_text').text('{{ text_yes }}');
+                    if (json.refund_status == 1) {
+                        $('.refund_text').text('{{ text_yes }}');
                     } else {
                         $('#button-refund').show();
                     }
 
-                    if (data.msg != '') {
-                        $('#firstdata_transaction_msg').empty().html('<i class="fa fa-check-circle"></i> ' + data.msg).fadeIn();
+                    if (json.msg != '') {
+                        $('#firstdata_transaction_msg').empty().html('<i class="fa fa-check-circle"></i> ' + json.msg).fadeIn();
                     }
                 }
 
-                if (data.error == true) {
-                    alert(data.msg);
+                if (json.error == true) {
+                    alert(json.msg);
 
                     $('#button-refund').show();
                 }

@@ -338,9 +338,7 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 
 				$json['msg'] = $this->language->get('text_void_ok');
 
-				$json['data'] = [];
-
-				$json['data']['column_date_added'] = date('Y-m-d H:i:s');
+				$json['column_date_added'] = date('Y-m-d H:i:s');
 
 				$json['error'] = false;
 			} else {
@@ -389,13 +387,11 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 
 				$json['msg'] = $this->language->get('text_capture_ok_order');
 
-				$json['data'] = [];
-
-				$json['data']['column_date_added'] = date('Y-m-d H:i:s');
-				$json['data']['amount'] = (float)$firstdata_order['total'];
-				$json['data']['capture_status'] = $capture_status;
-				$json['data']['total'] = (float)$total_captured;
-				$json['data']['total_formatted'] = $this->currency->format($total_captured, $firstdata_order['currency_code'], 1, true);
+				$json['column_date_added'] = date('Y-m-d H:i:s');
+				$json['amount'] = (float)$firstdata_order['total'];
+				$json['capture_status'] = $capture_status;
+				$json['total'] = (float)$total_captured;
+				$json['total_formatted'] = $this->currency->format($total_captured, $firstdata_order['currency_code'], 1, true);
 
 				$json['error'] = false;
 			} else {
@@ -451,13 +447,11 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 					$json['msg'] = $this->language->get('text_refund_ok');
 				}
 
-				$json['data'] = [];
-
-				$json['data']['column_date_added'] = date('Y-m-d H:i:s');
-				$json['data']['amount'] = $firstdata_order['total'] * -1;
-				$json['data']['total_captured'] = (float)$total_captured;
-				$json['data']['total_refunded'] = (float)$total_refunded;
-				$json['data']['refund_status'] = $refund_status;
+				$json['column_date_added'] = date('Y-m-d H:i:s');
+				$json['amount'] = $firstdata_order['total'] * -1;
+				$json['total_captured'] = (float)$total_captured;
+				$json['total_refunded'] = (float)$total_refunded;
+				$json['refund_status'] = $refund_status;
 
 				$json['error'] = false;
 			} else {

@@ -439,20 +439,11 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
 					$json['error'] = true;
 				} else {
-
 					$this->model_extension_payment_securetrading_ws->addTransaction($securetrading_ws_order['securetrading_ws_order_id'], 'reversed', 0.00);
+
 					$this->model_extension_payment_securetrading_ws->updateVoidStatus($securetrading_ws_order['securetrading_ws_order_id'], 1);
 
-					$post_data = [
-						'order_status_id' => $this->config->get('payment_securetrading_ws_authorisation_reversed_order_status_id'),
-						'notify'          => false,
-						'comment'         => '',
-					];
-
-					// Orders
-					$this->load->model('sale/order');
-
-					$this->model_extension_payment_securetrading_ws->addHistory($this->request->post['order_id'], $post_data);
+					$this->model_extension_payment_securetrading_ws->addHistory($this->request->post['order_id'], $this->config->get('payment_securetrading_ws_authorisation_reversed_order_status_id'));
 
 					$json['msg'] = $this->language->get('text_authorisation_reversed');
 					$json['data']['created'] = date('Y-m-d H:i:s');
@@ -491,6 +482,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 			$this->load->model('extension/payment/securetrading_ws');
 
 			$securetrading_ws_order = $this->model_extension_payment_securetrading_ws->getOrder($this->request->post['order_id']);
+
 			$release_response = $this->model_extension_payment_securetrading_ws->release($this->request->post['order_id'], $amount);
 
 			$this->model_extension_payment_securetrading_ws->logger('Release result:\r\n' . print_r($release_response, 1));
@@ -514,28 +506,17 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
 						$json['msg'] = $this->language->get('text_release_ok_order');
 
-						// Orders
-						$this->load->model('sale/order');
-
-						$history = [];
-
-						$history['order_status_id'] = $this->config->get('securetrading_ws_order_status_success_settled_id');
-						$history['comment'] = '';
-						$history['notify'] = '';
-
-						$this->model_extension_payment_securetrading_ws->addHistory($this->request->post['order_id'], $history);
+						$this->model_extension_payment_securetrading_ws->addHistory($this->request->post['order_id'], $this->config->get('securetrading_ws_order_status_success_settled_id'));
 					} else {
 						$release_status = 0;
 
 						$json['msg'] = $this->language->get('text_release_ok');
 					}
 
-					$json['data'] = [];
-
-					$json['data']['created'] = date('Y-m-d H:i:s');
-					$json['data']['amount'] = $amount;
-					$json['data']['release_status'] = $release_status;
-					$json['data']['total'] = (float)$total_released;
+					$json['created'] = date('Y-m-d H:i:s');
+					$json['amount'] = $amount;
+					$json['release_status'] = $release_status;
+					$json['total'] = (float)$total_released;
 
 					$json['error'] = false;
 				}
@@ -587,36 +568,27 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
 					if ($total_released <= 0 && $securetrading_ws_order['release_status'] == 1) {
 						$json['status'] = 1;
+
 						$json['message'] = $this->language->get('text_refund_issued');
 
 						$this->model_extension_payment_securetrading_ws->updateRebateStatus($securetrading_ws_order['securetrading_ws_order_id'], 1);
 
 						$rebate_status = 1;
+
 						$json['msg'] = $this->language->get('text_rebate_ok_order');
 
-						// Orders
-						$this->load->model('sale/order');
-
-						$history = [];
-
-						$history['order_status_id'] = $this->config->get('payment_securetrading_ws_refunded_order_status_id');
-						$history['comment'] = '';
-						$history['notify'] = '';
-
-						$this->model_extension_payment_securetrading_ws->addHistory($this->request->post['order_id'], $history);
+						$this->model_extension_payment_securetrading_ws->addHistory($this->request->post['order_id'], $this->config->get('payment_securetrading_ws_refunded_order_status_id'));
 					} else {
 						$rebate_status = 0;
 
 						$json['msg'] = $this->language->get('text_rebate_ok');
 					}
 
-					$json['data'] = [];
-
-					$json['data']['created'] = date('Y-m-d H:i:s');
-					$json['data']['amount'] = (float)$amount * -1;
-					$json['data']['total_released'] = (float)$total_released;
-					$json['data']['total_rebated'] = (float)$total_rebated;
-					$json['data']['rebate_status'] = $rebate_status;
+					$json['created'] = date('Y-m-d H:i:s');
+					$json['amount'] = (float)$amount * -1;
+					$json['total_released'] = (float)$total_released;
+					$json['total_rebated'] = (float)$total_rebated;
+					$json['rebate_status'] = $rebate_status;
 
 					$json['error'] = false;
 				} else {
@@ -626,6 +598,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 				}
 			} else {
 				$json['status'] = 0;
+
 				$json['message'] = $this->language->get('error_connection');
 			}
 		} else {

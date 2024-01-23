@@ -496,12 +496,10 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
 				$json['msg'] = $this->language->get('text_cancel_ok');
 
-				$json['data'] = [];
-
-				$json['data']['date_added'] = date('Y-m-d H:i:s');
-				$json['data']['type'] = 'cancel';
-				$json['data']['status'] = $cancel_response['status'];
-				$json['data']['amount'] = $this->currency->format(0.00, $amazon_login_pay_order['currency_code'], true, true);
+				$json['date_added'] = date('Y-m-d H:i:s');
+				$json['type'] = 'cancel';
+				$json['status'] = $cancel_response['status'];
+				$json['amount'] = $this->currency->format(0.00, $amazon_login_pay_order['currency_code'], true, true);
 
 				$json['error'] = false;
 			} else {
@@ -565,16 +563,14 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 					$json['msg'] = $this->language->get('text_capture_ok');
 				}
 
-				$json['data'] = [];
-
-				$json['data']['date_added'] = date('Y-m-d H:i:s');
-				$json['data']['type'] = 'capture';
-				$json['data']['status'] = $capture_response['status'];
-				$json['data']['amazon_authorization_id'] = $capture_response['AmazonAuthorizationId'];
-				$json['data']['amazon_capture_id'] = $capture_response['AmazonCaptureId'];
-				$json['data']['amount'] = $this->currency->format($this->request->post['amount'], $amazon_login_pay_order['currency_code'], true, true);
-				$json['data']['capture_status'] = $capture_status;
-				$json['data']['total'] = $this->currency->format($total_captured, $amazon_login_pay_order['currency_code'], true, true);
+				$json['date_added'] = date('Y-m-d H:i:s');
+				$json['type'] = 'capture';
+				$json['status'] = $capture_response['status'];
+				$json['amazon_authorization_id'] = $capture_response['AmazonAuthorizationId'];
+				$json['amazon_capture_id'] = $capture_response['AmazonCaptureId'];
+				$json['amount'] = $this->currency->format($this->request->post['amount'], $amazon_login_pay_order['currency_code'], true, true);
+				$json['capture_status'] = $capture_status;
+				$json['total'] = $this->currency->format($total_captured, $amazon_login_pay_order['currency_code'], true, true);
 
 				$json['error'] = false;
 			} else {
@@ -648,6 +644,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 					$json['data'][] = $post_data;
 				} else {
 					$json['error'] = true;
+
 					$json['error_msg'][] = isset($response['status_detail']) && $response['status_detail'] != '' ? sprintf($this->language->get('error_status'), (string)$response['status_detail']) : $this->language->get('error_refund');
 				}
 			}

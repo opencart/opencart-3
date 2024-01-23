@@ -236,10 +236,8 @@ class ControllerExtensionPaymentBluepayredirect extends Controller {
 
 				$json['msg'] = $this->language->get('text_void_ok');
 
-				$json['data'] = [];
-
-				$json['data']['date_added'] = date('Y-m-d H:i:s');
-				$json['data']['total'] = $bluepay_redirect_order['total'];
+				$json['date_added'] = date('Y-m-d H:i:s');
+				$json['total'] = $bluepay_redirect_order['total'];
 
 				$json['error'] = false;
 			} else {
@@ -296,12 +294,10 @@ class ControllerExtensionPaymentBluepayredirect extends Controller {
 					$json['msg'] = $this->language->get('text_release_ok');
 				}
 
-				$json['data'] = [];
-
-				$json['data']['date_added'] = date('Y-m-d H:i:s');
-				$json['data']['amount'] = $this->request->post['amount'];
-				$json['data']['release_status'] = $release_status;
-				$json['data']['total'] = (float)$total_released;
+				$json['date_added'] = date('Y-m-d H:i:s');
+				$json['amount'] = $this->request->post['amount'];
+				$json['release_status'] = $release_status;
+				$json['total'] = (float)$total_released;
 
 				$json['error'] = false;
 			} else {
@@ -347,20 +343,21 @@ class ControllerExtensionPaymentBluepayredirect extends Controller {
 
 				if ($total_released <= 0 && $bluepay_redirect_order['release_status'] == 1) {
 					$this->model_extension_payment_bluepay_redirect->updateRebateStatus($bluepay_redirect_order['bluepay_redirect_order_id'], 1);
+
 					$rebate_status = 1;
+
 					$json['msg'] = $this->language->get('text_rebate_ok_order');
 				} else {
 					$rebate_status = 0;
+
 					$json['msg'] = $this->language->get('text_rebate_ok');
 				}
 
-				$json['data'] = [];
-
-				$json['data']['date_added'] = date('Y-m-d H:i:s');
-				$json['data']['amount'] = $this->request->post['amount'] * -1;
-				$json['data']['total_released'] = (float)$total_released;
-				$json['data']['total_rebated'] = (float)$total_rebated;
-				$json['data']['rebate_status'] = $rebate_status;
+				$json['date_added'] = date('Y-m-d H:i:s');
+				$json['amount'] = $this->request->post['amount'] * -1;
+				$json['total_released'] = (float)$total_released;
+				$json['total_rebated'] = (float)$total_rebated;
+				$json['rebate_status'] = $rebate_status;
 
 				$json['error'] = false;
 			} else {

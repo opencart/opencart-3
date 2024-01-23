@@ -240,10 +240,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 				$this->model_extension_payment_sagepay_direct->updateVoidStatus($payment_sagepay_direct_order['sagepay_direct_order_id'], 1);
 
 				$json['msg'] = $this->language->get('text_void_ok');
-
-				$json['data'] = [];
-
-				$json['data']['date_added'] = date('Y-m-d H:i:s');
+				$json['date_added'] = date('Y-m-d H:i:s');
 
 				$json['error'] = false;
 			} else {
@@ -288,27 +285,30 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 
 				if ($total_released >= $payment_sagepay_direct_order['total'] || $payment_sagepay_direct_order['settle_type'] == 0) {
 					$this->model_extension_payment_sagepay_direct->updateReleaseStatus($payment_sagepay_direct_order['sagepay_direct_order_id'], 1);
+
 					$release_status = 1;
+
 					$json['msg'] = $this->language->get('text_release_ok_order');
 				} else {
 					$release_status = 0;
+
 					$json['msg'] = $this->language->get('text_release_ok');
 				}
 
-				$json['data'] = [];
-
-				$json['data']['date_added'] = date('Y-m-d H:i:s');
-				$json['data']['amount'] = $this->request->post['amount'];
-				$json['data']['release_status'] = $release_status;
-				$json['data']['total'] = (float)$total_released;
+				$json['date_added'] = date('Y-m-d H:i:s');
+				$json['amount'] = $this->request->post['amount'];
+				$json['release_status'] = $release_status;
+				$json['total'] = (float)$total_released;
 
 				$json['error'] = false;
 			} else {
 				$json['error'] = true;
+
 				$json['msg'] = isset($release_response['StatusDetail']) && $release_response['StatusDetail'] != '' ? sprintf($this->language->get('error_status'), (string)$release_response['StatusDetail']) : $this->language->get('error_release');
 			}
 		} else {
 			$json['error'] = true;
+
 			$json['msg'] = $this->language->get('error_data_missing');
 		}
 
@@ -354,13 +354,11 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 					$json['msg'] = $this->language->get('text_rebate_ok');
 				}
 
-				$json['data'] = [];
-
-				$json['data']['date_added'] = date('Y-m-d H:i:s');
-				$json['data']['amount'] = $this->request->post['amount'] * -1;
-				$json['data']['total_released'] = (float)$total_released;
-				$json['data']['total_rebated'] = (float)$total_rebated;
-				$json['data']['rebate_status'] = $rebate_status;
+				$json['date_added'] = date('Y-m-d H:i:s');
+				$json['amount'] = $this->request->post['amount'] * -1;
+				$json['total_released'] = (float)$total_released;
+				$json['total_rebated'] = (float)$total_rebated;
+				$json['rebate_status'] = $rebate_status;
 
 				$json['error'] = false;
 			} else {

@@ -68,34 +68,34 @@ $('#btn_refund').click(function () {
 
                 $('#img_loading_refund').show();
             },
-            success: function (data) {
-                if (data.error == false) {
+            success: function (json) {
+                if (json.error == false) {
                     html = '';
 
                     html += '<tr>';
-                    html += '  <td class="text-left">' + data.data.created + '</td>';
+                    html += '  <td class="text-left">' + json.created + '</td>';
                     html += '  <td class="text-left">{{ text_refund }}</td>';
-                    html += '  <td class="text-left">' + data.data.amount + '</td>';
+                    html += '  <td class="text-left">' + json.amount + '</td>';
                     html += '</tr>';
 
                     $('#worldpay_transactions').append(html);
 
-                    $('#worldpay_total_released').text(data.data.total_released);
+                    $('#worldpay_total_released').text(json.total_released);
 
-                    if (data.data.refund_status == 1) {
+                    if (json.refund_status == 1) {
                         $('.refund_text').text('{{ text_yes }}');
                     } else {
                         $('#btn_refund').show();
                         $('#refund_amount').val(0.00).show();
                     }
 
-                    if (data.msg != '') {
-                        $('#worldpay_transaction_msg').empty().html('<i class="fa fa-check-circle"></i> ' + data.msg).fadeIn();
+                    if (json.msg != '') {
+                        $('#worldpay_transaction_msg').empty().html('<i class="fa fa-check-circle"></i> ' + json.msg).fadeIn();
                     }
                 }
 
-                if (data.error == true) {
-                    alert(data.msg);
+                if (json.error == true) {
+                    alert(json.msg);
 
                     $('#btn_refund').show();
                 }
