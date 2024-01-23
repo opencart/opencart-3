@@ -88,7 +88,7 @@
                 </div>
               </div>
               <a class="button btn btn-primary col-sm-offset-2" id="button-register">{{ button_register }}</a>
-              <span class="btn btn-primary col-sm-offset-2" id="img_loading_register" style="display:none"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>
+              <span class="btn btn-primary col-sm-offset-2" id="img-loading-register" style="display:none"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>
             </div>
             <div class="tab-pane {% if not show_register %} active {% endif %}" id="tab-settings">
               {% if error_weight %}
@@ -228,7 +228,7 @@ $('#button-register').click(function () {
         },
         beforeSend: function () {
             $('#button-register').hide();
-            $('#img_loading_register').show();
+            $('#img-loading-register').show();
             $('.pilibaba_message').remove();
         },
         success: function (json) {
@@ -241,7 +241,7 @@ $('#button-register').click(function () {
             }
 
             $('#button-register').show();
-            $('#img_loading_register').hide();
+            $('#img-loading-register').hide();
             $('.pilibaba_message').fadeIn();
         }
     });
@@ -249,7 +249,7 @@ $('#button-register').click(function () {
 //--></script>
 <style>
     @media (min-width: 768px) {
-        #button-register, #img_loading_register {
+        #button-register, #img-loading-register {
             position: relative;
             left: 5px;
         }
