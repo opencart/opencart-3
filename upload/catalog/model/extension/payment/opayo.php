@@ -404,8 +404,11 @@ class ModelExtensionPaymentOpayo extends Model
      *
      * @return array<string, mixed>
      */
-    private function setPaymentData(array $order_info, array $opayo_order_info, float $price, int $subscription_id, string $subscription_name, string $subscription_expiry, int $subscription_frequency, $i = null): array
-    {
+    private function setPaymentData(array $order_info, array $opayo_order_info, float $price, int $subscription_id, string $subscription_name, string $subscription_expiry, int $subscription_frequency, $i = null): array {
+        $payment_data = [];
+
+        $url = '';
+        
         // Setting
         $_config = new \Config();
         $_config->load('opayo');
@@ -413,10 +416,6 @@ class ModelExtensionPaymentOpayo extends Model
         $config_setting = $_config->get('payze_opayo');
 
         $setting = array_replace_recursive((array)$config_setting, (array)$this->config->get('payment_opayo_setting'));
-
-        $payment_data = [];
-
-        $url = '';
 
         if ($setting['general']['environment'] == 'live') {
             $url = 'https://live.opayo.eu.elavon.com/gateway/service/repeat.vsp';

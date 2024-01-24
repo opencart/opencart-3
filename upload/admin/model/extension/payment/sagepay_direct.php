@@ -99,18 +99,26 @@ class ModelExtensionPaymentSagepayDirect extends Model {
 
 			$url = '';
 
-			if ($this->config->get('payment_sagepay_direct_test') == 'live') {
-				$url = 'https://live.opayo.eu.elavon.com/gateway/service/void.vsp';
+			$this->load->model('localisation/country');
 
-				$void_data['VPSProtocol'] = '3.00';
-			} elseif ($this->config->get('payment_sagepay_direct_test') == 'test') {
-				$url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/void.vsp';
+			$country_info = $this->model_localisation_country->getCountry($this->config->get('config_country_id'));
 
-				$void_data['VPSProtocol'] = '3.00';
-			} elseif ($this->config->get('payment_sagepay_direct_test') == 'sim') {
-				$url = 'https://test.sagepay.com/Simulator/VSPServerGateway.asp?Service=VendorVoidTx';
+			if ($setting['general']['environment'] == 'live') {
+				if ($country_info && $country_info['iso_code_2'] == 'EU') {
+					$url = 'https://live.opayo.eu.elavon.com/gateway/service/void.vsp';
+				} else {
+					$url = 'https://live.sagepay.com/gateway/service/void.vsp';
+				}
 
-				$void_data['VPSProtocol'] = '2.23';
+				$void_data['VPSProtocol'] = '4.00';
+			} elseif ($setting['general']['environment'] == 'test') {
+				if ($country_info && $country_info['iso_code_2'] == 'EU') {
+					$url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/void.vsp';
+				} else {
+					$url = 'https://test.sagepay.com/gateway/service/void.vsp';
+				}
+
+				$void_data['VPSProtocol'] = '4.00';
 			}
 
 			$void_data['TxType'] = 'VOID';
@@ -156,18 +164,34 @@ class ModelExtensionPaymentSagepayDirect extends Model {
 
 			$url = '';
 
+			$this->load->model('localisation/country');
+
+			$country_info = $this->model_localisation_country->getCountry($this->config->get('config_country_id'));
+
 			if ($this->config->get('payment_sagepay_direct_test') == 'live') {
-				$url = 'https://live.opayo.eu.elavon.com/gateway/service/release.vsp';
+				if ($country_info && $country_info['iso_code_2'] == 'EU') {
+					$url = 'https://live.opayo.eu.elavon.com/gateway/service/release.vsp';
+				} else {
+					$url = 'https://live.sagepay.com/gateway/service/release.vsp';
+				}
 
-				$release_data['VPSProtocol'] = '3.00';
+				$release_data['VPSProtocol'] = '4.00';
 			} elseif ($this->config->get('payment_sagepay_direct_test') == 'test') {
-				$url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/release.vsp';
+				if ($country_info && $country_info['iso_code_2'] == 'EU') {
+					$url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/release.vsp';
+				} else {
+					$url = 'https://test.sagepay.com/gateway/service/release.vsp';
+				}
 
-				$release_data['VPSProtocol'] = '3.00';
+				$release_data['VPSProtocol'] = '4.00';
 			} elseif ($this->config->get('payment_sagepay_direct_test') == 'sim') {
-				$url = 'https://test.sagepay.com/Simulator/VSPServerGateway.asp?Service=VendorReleaseTx';
+				if ($country_info && $country_info['iso_code_2'] == 'EU') {
+					$url = 'https://sandbox.opayo.eu.elavon.com/Simulator/VSPServerGateway.asp?Service=VendorReleaseTx';
+				} else {
+					$url = 'https://test.sagepay.com/VSPServerGateway.asp?Service=VendorReleaseTx';
+				}
 
-				$release_data['VPSProtocol'] = '2.23';
+				$release_data['VPSProtocol'] = '4.00';
 			}
 
 			$release_data['TxType'] = 'RELEASE';
@@ -212,18 +236,34 @@ class ModelExtensionPaymentSagepayDirect extends Model {
 
 			$url = '';
 
+			$this->load->model('localisation/country');
+
+			$country_info = $this->model_localisation_country->getCountry($this->config->get('config_country_id'));
+
 			if ($this->config->get('payment_sagepay_direct_test') == 'live') {
-				$url = 'https://live.opayo.eu.elavon.com/gateway/service/refund.vsp';
+				if ($country_info && $country_info['iso_code_2'] == 'EU') {
+					$url = 'https://live.opayo.eu.elavon.com/gateway/service/refund.vsp';
+				} else {
+					$url = 'https://live.sagepay.com/gateway/service/refund.vsp';
+				}
 
-				$refund_data['VPSProtocol'] = '3.00';
+				$refund_data['VPSProtocol'] = '4.00';
 			} elseif ($this->config->get('payment_sagepay_direct_test') == 'test') {
-				$url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/refund.vsp';
+				if ($country_info && $country_info['iso_code_2'] == 'EU') {
+					$url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/refund.vsp';
+				} else {
+					$url = 'https://test.sagepay.com/gateway/service/refund.vsp';
+				}
 
-				$refund_data['VPSProtocol'] = '3.00';
+				$refund_data['VPSProtocol'] = '4.00';
 			} elseif ($this->config->get('payment_sagepay_direct_test') == 'sim') {
-				$url = 'https://test.sagepay.com/Simulator/VSPServerGateway.asp?Service=VendorRefundTx';
+				if ($country_info && $country_info['iso_code_2'] == 'EU') {
+					$url = 'https://sandbox.opayo.eu.elavon.com/Simulator/VSPServerGateway.asp?Service=VendorRefundTx';
+				} else {
+					$url = 'https://test.sagepay.com/VSPServerGateway.asp?Service=VendorRefundTx';
+				}
 
-				$refund_data['VPSProtocol'] = '2.23';
+				$refund_data['VPSProtocol'] = '4.00';
 			}
 
 			$refund_data['TxType'] = 'REFUND';

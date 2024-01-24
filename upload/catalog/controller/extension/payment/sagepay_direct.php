@@ -120,8 +120,11 @@ class ControllerExtensionPaymentSagepayDirect extends Controller
      *
      * @return void
      */
-    public function send(): void
-    {
+    public function send(): void {
+        $payment_data = [];
+
+        $url = '';
+        
         $this->load->language('extension/payment/sagepay_direct');
 
         // Account Order
@@ -132,10 +135,6 @@ class ControllerExtensionPaymentSagepayDirect extends Controller
 
         // Sagepay Direct
         $this->load->model('extension/payment/sagepay_direct');
-
-        $payment_data = [];
-
-        $url = '';
 
         if ($this->config->get('payment_sagepay_direct_test') == 'live') {
             $url = 'https://live.opayo.eu.elavon.com/gateway/service/vspdirect-register.vsp';

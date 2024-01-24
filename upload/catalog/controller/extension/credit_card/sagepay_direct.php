@@ -52,7 +52,7 @@ class ControllerExtensionCreditCardSagepayDirect extends Controller {
 
 		if ($this->config->get('payment_sagepay_direct_card')) {
 			$data['cards'] = $this->model_extension_payment_sagepay_direct->getCards($this->customer->getId());
-			
+
 			$data['delete'] = $this->url->link('extension/credit_card/sagepay_direct/delete', 'card_id=', true);
 
 			if (isset($this->request->get['page'])) {
@@ -224,10 +224,24 @@ class ControllerExtensionCreditCardSagepayDirect extends Controller {
 		$card = $this->model_extension_payment_sagepay_direct->getCard($this->request->get['card_id'], false);
 
 		if (!empty($card['token'])) {
+			$url = '';
+
+			$this->load->model('localisation/country');
+
+			$country_info = $this->model_localisation_country->getCountry($this->config->get('config_country_id'));
+
 			if ($this->config->get('payment_sagepay_direct_test') == 'live') {
-				$url = 'https://live.opayo.eu.elavon.com/gateway/service/removetoken.vsp';
-			} else {
-				$url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/removetoken.vsp';
+				if ($country_info && $country_info['iso_code_2'] == 'EU') {
+					$url = 'https://live.opayo.eu.elavon.com/gateway/service/removetoken.vsp';
+				} else {
+					$url = 'https://live.sagepay.com/gateway/service/removetoken.vsp';
+				}
+			} elseif ($this->config->get('payment_sagepay_direct_test') == 'test') {
+				if ($country_info && $country_info['iso_code_2'] == 'EU') {
+					$url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/removetoken.vsp';
+				} else {
+					$url = 'https://test.sagepay.com/gateway/service/removetoken.vsp';
+				}
 			}
 
 			$payment_data = [];
@@ -267,15 +281,29 @@ class ControllerExtensionCreditCardSagepayDirect extends Controller {
 		// Sagepay Direct
 		$this->load->model('extension/payment/sagepay_direct');
 
+		$url = '';
+
+		$this->load->model('localisation/country');
+
+		$country_info = $this->model_localisation_country->getCountry($this->config->get('config_country_id'));
+
 		if ($this->config->get('payment_sagepay_direct_test') == 'live') {
-			$url = 'https://live.opayo.eu.elavon.com/gateway/service/directtoken.vsp';
-		} else {
-			$url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/directtoken.vsp';
+			if ($country_info && $country_info['iso_code_2'] == 'EU') {
+				$url = 'https://live.opayo.eu.elavon.com/gateway/service/directtoken.vsp';
+			} else {
+				$url = 'https://live.sagepay.com/gateway/service/directtoken.vsp';
+			}
+		} elseif ($this->config->get('payment_sagepay_direct_test') == 'test') {
+			if ($country_info && $country_info['iso_code_2'] == 'EU') {
+				$url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/directtoken.vsp';
+			} else {
+				$url = 'https://test.sagepay.com/gateway/service/directtoken.vsp';
+			}
 		}
 
 		$payment_data = [];
 
-		$payment_data['VPSProtocol'] = '3.00';
+		$payment_data['VPSProtocol'] = '4.00';
 		$payment_data['ReferrerID'] = 'E511AF91-E4A0-42DE-80B0-09C981A3FB61';
 		$payment_data['TxType'] = 'TOKEN';
 		$payment_data['Vendor'] = $this->config->get('payment_sagepay_direct_vendor');

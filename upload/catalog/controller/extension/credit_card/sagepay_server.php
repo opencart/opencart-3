@@ -100,15 +100,29 @@ class ControllerExtensionCreditCardSagepayServer extends Controller {
 		$card = $this->model_extension_payment_sagepay_server->getCard($this->request->get['card_id'], '');
 
 		if (!empty($card['token'])) {
+			$url = '';
+
+			$this->load->model('localisation/country');
+
+			$country_info = $this->model_localisation_country->getCountry($this->config->get('config_country_id'));
+
 			if ($this->config->get('payment_sagepay_server_test') == 'live') {
-				$url = 'https://live.opayo.eu.elavon.com/gateway/service/removetoken.vsp';
-			} else {
-				$url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/removetoken.vsp';
+				if ($country_info && $country_info['iso_code_2'] == 'EU') {
+					$url = 'https://live.opayo.eu.elavon.com/gateway/service/removetoken.vsp';
+				} else {
+					$url = 'https://live.sagepay.com/gateway/service/removetoken.vsp';
+				}
+			} elseif ($this->config->get('payment_sagepay_server_test') == 'test') {
+				if ($country_info && $country_info['iso_code_2'] == 'EU') {
+					$url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/removetoken.vsp';
+				} else {
+					$url = 'https://test.sagepay.com/gateway/service/removetoken.vsp';
+				}
 			}
 
 			$payment_data = [];
 
-			$payment_data['VPSProtocol'] = '3.00';
+			$payment_data['VPSProtocol'] = '4.00';
 			$payment_data['Vendor'] = $this->config->get('payment_sagepay_server_vendor');
 			$payment_data['TxType'] = 'REMOVETOKEN';
 			$payment_data['Token'] = $card['token'];
@@ -144,15 +158,29 @@ class ControllerExtensionCreditCardSagepayServer extends Controller {
 		// Sagepay Server
 		$this->load->model('extension/payment/sagepay_server');
 
+		$url = '';
+
+		$this->load->model('localisation/country');
+
+		$country_info = $this->model_localisation_country->getCountry($this->config->get('config_country_id'));
+
 		if ($this->config->get('payment_sagepay_server_test') == 'live') {
-			$url = 'https://live.opayo.eu.elavon.com/gateway/service/token.vsp';
-		} else {
-			$url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/token.vsp';
+			if ($country_info && $country_info['iso_code_2'] == 'EU') {
+				$url = 'https://live.opayo.eu.elavon.com/gateway/service/token.vsp';
+			} else {
+				$url = 'https://live.sagepay.com/gateway/service/token.vsp';
+			}
+		} elseif ($this->config->get('payment_sagepay_server_test') == 'test') {
+			if ($country_info && $country_info['iso_code_2'] == 'EU') {
+				$url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/token.vsp';
+			} else {
+				$url = 'https://test.sagepay.com/gateway/service/token.vsp';
+			}
 		}
 
 		$payment_data = [];
 
-		$payment_data['VPSProtocol'] = '3.00';
+		$payment_data['VPSProtocol'] = '4.00';
 		$payment_data['ReferrerID'] = 'E511AF91-E4A0-42DE-80B0-09C981A3FB61';
 		$payment_data['TxType'] = 'TOKEN';
 		$payment_data['Vendor'] = $this->config->get('payment_sagepay_server_vendor');

@@ -313,8 +313,9 @@ class ModelExtensionPaymentSagePayDirect extends Model
         }
     }
 
-    private function setPaymentData(array $order_info, array $sagepay_order_info, float $price, int $subscription_id, string $name, $i = null): array
-    {
+    private function setPaymentData(array $order_info, array $sagepay_order_info, float $price, int $subscription_id, string $name, $i = null): array {
+        $payment_data = [];
+        
         $url = '';
 
         if ($this->config->get('payment_sagepay_direct_test') == 'live') {
