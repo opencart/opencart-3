@@ -392,7 +392,7 @@ class ModelExtensionPaymentSagePayServer extends Model
             $url = 'https://live.opayo.eu.elavon.com/gateway/service/repeat.vsp';
             $payment_data['VPSProtocol'] = '3.00';
         } elseif ($this->config->get('payment_sagepay_server_test') == 'test') {
-            $url = 'https://test.sagepay.com/gateway/service/repeat.vsp';
+            $url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/repeat.vsp';
             $payment_data['VPSProtocol'] = '3.00';
         } elseif ($this->config->get('payment_sagepay_server_test') == 'sim') {
             $url = 'https://test.sagepay.com/Simulator/VSPServerGateway.asp?Service=VendorRepeatTx';

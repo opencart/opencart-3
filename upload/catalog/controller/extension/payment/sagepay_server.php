@@ -48,7 +48,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller
 
             $payment_data['VPSProtocol'] = '3.00';
         } elseif ($this->config->get('payment_sagepay_server_test') == 'test') {
-            $url = 'https://test.sagepay.com/gateway/service/vspserver-register.vsp';
+            $url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/vspserver-register.vsp';
             $payment_data['VPSProtocol'] = '3.00';
         } elseif ($this->config->get('payment_sagepay_server_test') == 'sim') {
             $url = 'https://test.sagepay.com/Simulator/VSPServerGateway.asp?Service=VendorRegisterTx';
@@ -626,7 +626,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller
             if ($this->config->get('payment_sagepay_server_test') == 'live') {
                 $url = 'https://live.opayo.eu.elavon.com/gateway/service/removetoken.vsp';
             } else {
-                $url = 'https://test.sagepay.com/gateway/service/removetoken.vsp';
+                $url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/removetoken.vsp';
             }
 
             $payment_data = [];

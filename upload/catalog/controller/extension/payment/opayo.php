@@ -101,7 +101,7 @@ class ControllerExtensionPaymentOpayo extends Controller
             $url = 'https://live.opayo.eu.elavon.com/gateway/service/vspdirect-register.vsp';
             $payment_data['VPSProtocol'] = '4.00';
         } elseif ($setting['general']['environment'] == 'test') {
-            $url = 'https://test.sagepay.com/gateway/service/vspdirect-register.vsp';
+            $url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/vspdirect-register.vsp';
             $payment_data['VPSProtocol'] = '4.00';
         }
 
@@ -453,7 +453,7 @@ class ControllerExtensionPaymentOpayo extends Controller
             if ($setting['general']['environment'] == 'live') {
                 $url = 'https://live.opayo.eu.elavon.com/gateway/service/direct3dcallback.vsp';
             } elseif ($setting['general']['environment'] == 'test') {
-                $url = 'https://test.sagepay.com/gateway/service/direct3dcallback.vsp';
+                $url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/direct3dcallback.vsp';
             }
 
             $this->request->post['VPSTxId'] = $opayo_order_info['vps_tx_id'];

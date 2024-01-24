@@ -105,7 +105,7 @@ class ModelExtensionPaymentSagepayServer extends Model {
 
 				$void_data['VPSProtocol'] = '3.00';
 			} elseif ($this->config->get('payment_sagepay_server_test') == 'test') {
-				$url = 'https://test.sagepay.com/gateway/service/void.vsp';
+				$url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/void.vsp';
 
 				$void_data['VPSProtocol'] = '3.00';
 			} elseif ($this->config->get('payment_sagepay_server_test') == 'sim') {
@@ -186,7 +186,7 @@ class ModelExtensionPaymentSagepayServer extends Model {
 
 				$release_data['VPSProtocol'] = '3.00';
 			} elseif ($this->config->get('payment_sagepay_server_test') == 'test') {
-				$url = 'https://test.sagepay.com/gateway/service/release.vsp';
+				$url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/release.vsp';
 
 				$release_data['VPSProtocol'] = '3.00';
 			} elseif ($this->config->get('payment_sagepay_server_test') == 'sim') {
@@ -242,7 +242,7 @@ class ModelExtensionPaymentSagepayServer extends Model {
 
 				$refund_data['VPSProtocol'] = '3.00';
 			} elseif ($this->config->get('payment_sagepay_server_test') == 'test') {
-				$url = 'https://test.sagepay.com/gateway/service/refund.vsp';
+				$url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/refund.vsp';
 
 				$refund_data['VPSProtocol'] = '3.00';
 			} elseif ($this->config->get('payment_sagepay_server_test') == 'sim') {

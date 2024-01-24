@@ -141,7 +141,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller
             $url = 'https://live.opayo.eu.elavon.com/gateway/service/vspdirect-register.vsp';
             $payment_data['VPSProtocol'] = '3.00';
         } elseif ($this->config->get('payment_sagepay_direct_test') == 'test') {
-            $url = 'https://test.sagepay.com/gateway/service/vspdirect-register.vsp';
+            $url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/vspdirect-register.vsp';
             $payment_data['VPSProtocol'] = '3.00';
         } elseif ($this->config->get('payment_sagepay_direct_test') == 'sim') {
             $url = 'https://test.sagepay.com/Simulator/VSPDirectGateway.asp';
@@ -458,7 +458,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller
             if ($this->config->get('payment_sagepay_direct_test') == 'live') {
                 $url = 'https://live.opayo.eu.elavon.com/gateway/service/direct3dcallback.vsp';
             } elseif ($this->config->get('payment_sagepay_direct_test') == 'test') {
-                $url = 'https://test.sagepay.com/gateway/service/direct3dcallback.vsp';
+                $url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/direct3dcallback.vsp';
             } elseif ($this->config->get('payment_sagepay_direct_test') == 'sim') {
                 $url = 'https://test.sagepay.com/Simulator/VSPDirectCallback.asp';
             }
@@ -618,7 +618,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller
             if ($this->config->get('payment_sagepay_direct_test') == 'live') {
                 $url = 'https://live.opayo.eu.elavon.com/gateway/service/removetoken.vsp';
             } else {
-                $url = 'https://test.sagepay.com/gateway/service/removetoken.vsp';
+                $url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/removetoken.vsp';
             }
 
             $payment_data = [];

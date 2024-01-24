@@ -103,7 +103,7 @@ class ControllerExtensionCreditCardSagepayServer extends Controller {
 			if ($this->config->get('payment_sagepay_server_test') == 'live') {
 				$url = 'https://live.opayo.eu.elavon.com/gateway/service/removetoken.vsp';
 			} else {
-				$url = 'https://test.sagepay.com/gateway/service/removetoken.vsp';
+				$url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/removetoken.vsp';
 			}
 
 			$payment_data = [];
@@ -147,7 +147,7 @@ class ControllerExtensionCreditCardSagepayServer extends Controller {
 		if ($this->config->get('payment_sagepay_server_test') == 'live') {
 			$url = 'https://live.opayo.eu.elavon.com/gateway/service/token.vsp';
 		} else {
-			$url = 'https://test.sagepay.com/gateway/service/token.vsp';
+			$url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/token.vsp';
 		}
 
 		$payment_data = [];
