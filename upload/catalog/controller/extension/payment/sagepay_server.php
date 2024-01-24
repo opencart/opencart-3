@@ -44,7 +44,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller
         $url = '';
 
         if ($this->config->get('payment_sagepay_server_test') == 'live') {
-            $url = 'https://live.sagepay.com/gateway/service//vspserver-register.vsp';
+            $url = 'https://live.sagepay.com/gateway/service/vspserver-register.vsp';
 
             $payment_data['VPSProtocol'] = '3.00';
         } elseif ($this->config->get('payment_sagepay_server_test') == 'test') {
@@ -624,7 +624,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller
 
         if ($card && $card['token']) {
             if ($this->config->get('payment_sagepay_server_test') == 'live') {
-                $url = 'https://live.sagepay.com/gateway/service//removetoken.vsp';
+                $url = 'https://live.sagepay.com/gateway/service/removetoken.vsp';
             } else {
                 $url = 'https://test.sagepay.com/gateway/service/removetoken.vsp';
             }

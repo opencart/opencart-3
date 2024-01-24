@@ -389,7 +389,7 @@ class ModelExtensionPaymentSagePayServer extends Model
         $url = '';
 
         if ($this->config->get('payment_sagepay_server_test') == 'live') {
-            $url = 'https://live.sagepay.com/gateway/service//repeat.vsp';
+            $url = 'https://live.sagepay.com/gateway/service/repeat.vsp';
             $payment_data['VPSProtocol'] = '3.00';
         } elseif ($this->config->get('payment_sagepay_server_test') == 'test') {
             $url = 'https://test.sagepay.com/gateway/service/repeat.vsp';

@@ -225,7 +225,7 @@ class ControllerExtensionCreditCardSagepayDirect extends Controller {
 
 		if (!empty($card['token'])) {
 			if ($this->config->get('payment_sagepay_direct_test') == 'live') {
-				$url = 'https://live.sagepay.com/gateway/service//removetoken.vsp';
+				$url = 'https://live.sagepay.com/gateway/service/removetoken.vsp';
 			} else {
 				$url = 'https://test.sagepay.com/gateway/service/removetoken.vsp';
 			}
@@ -268,7 +268,7 @@ class ControllerExtensionCreditCardSagepayDirect extends Controller {
 		$this->load->model('extension/payment/sagepay_direct');
 
 		if ($this->config->get('payment_sagepay_direct_test') == 'live') {
-			$url = 'https://live.sagepay.com/gateway/service//directtoken.vsp';
+			$url = 'https://live.sagepay.com/gateway/service/directtoken.vsp';
 		} else {
 			$url = 'https://test.sagepay.com/gateway/service/directtoken.vsp';
 		}
