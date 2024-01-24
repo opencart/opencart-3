@@ -1,23 +1,23 @@
 <style>
-    #paypal_form {
+    #paypal-form {
         position: relative;
     }
 
-    #paypal_smart_button {
+    #paypal-smart-button {
         text-align: {{ button_align }};
     }
 
-    #paypal_smart_button_container {
+    #paypal-smart-button-container {
     {% if button_width %} display: inline-block;
         width: {{ button_width }};
     {% endif %}
     }
 
-    #paypal_message {
+    #paypal-message {
         text-align: {{ message_align }};
     }
 
-    #paypal_message_container {
+    #paypal-message-container {
     {% if message_width %} display: inline-block;
         width: {{ message_width }};
     {% endif %}
@@ -81,7 +81,7 @@ function setupPayPalSmartButton() {
                     }
                 });
             }
-        }).render('#paypal_smart_button_container');
+        }).render('#paypal-smart-button-container');
     } catch (error) {
         console.error('PayPal failed during startup', error);
     }
@@ -105,10 +105,10 @@ function paypalReady() {
 
 window.addEventListener('load', function () {
     if ($('{{ insert_tag }}').length) {
-        var html = '<div id="paypal_form"><div id="paypal_smart_button" class="buttons clearfix"><div id="paypal_smart_button_container"></div></div>';
+        var html = '<div id="paypal-form"><div id="paypal-smart-button" class="buttons clearfix"><div id="paypal-smart-button-container"></div></div>';
 
         {% if message_status %}
-            html += '<div id="paypal_message"><div id="paypal_message_container"><div data-pp-message data-pp-placement="{{ message_placement }}" data-pp-amount="{{ message_amount }}" data-pp-style-layout="{{ message_layout }}" {% if message_layout == 'text' %}data-pp-style-text-color="{{ message_text_color }}" data-pp-style-text-size="{{ message_text_size }}"{% else %}data-pp-style-color="{{ message_flex_color }}" data-pp-style-ratio="{{ message_flex_ratio }}"{% endif %}></div></div></div>';
+            html += '<div id="paypal-message"><div id="paypal-message-container"><div data-pp-message data-pp-placement="{{ message_placement }}" data-pp-amount="{{ message_amount }}" data-pp-style-layout="{{ message_layout }}" {% if message_layout == 'text' %}data-pp-style-text-color="{{ message_text_color }}" data-pp-style-text-size="{{ message_text_size }}"{% else %}data-pp-style-color="{{ message_flex_color }}" data-pp-style-ratio="{{ message_flex_ratio }}"{% endif %}></div></div></div>';
         {% endif %}
         html += '</div>';
 
@@ -123,7 +123,7 @@ window.addEventListener('load', function () {
             script.async = false;
             script.onload = paypalReady();
 
-            var paypal_form = document.querySelector('#paypal_form');
+            var paypal_form = document.querySelector('#paypal-form');
             paypal_form.appendChild(script);
         } else {
             setupPayPalSmartButton();

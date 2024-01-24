@@ -4,11 +4,11 @@
     }
 
     {% if express_status %}
-        #paypal_express_button {
+        #paypal-express-button {
         text-align: {{ button_align }};
     }
 
-    #paypal_express_button_container {
+    #paypal-express-button-container {
         {% if button_width %}
             display: inline-block;
             width: {{ button_width }};
@@ -16,17 +16,17 @@
     }
 
     @media (max-width: 476px) {
-        #paypal_express_button_container {
+        #paypal-express-button-container {
             width: 100%;
         }
     }
     {% endif %}
     {% if card_status %}
-        #paypal_card {
+        #paypal-card {
         text-align: {{ form_align }};
     }
 
-    #paypal_card_form {
+    #paypal-card-form {
         {% if form_width %}
             display: inline-block;
             width: {{ form_width }};
@@ -39,77 +39,77 @@
     }
 
     @media (max-width: 476px) {
-        #paypal_card_form {
+        #paypal-card-form {
             width: 100%;
         }
     }
 
-    #paypal_card_form.visa {
+    #paypal-card-form.visa {
         color: #fff;
         background-color: #0D4AA2;
     }
 
-    #paypal_card_form.master-card {
+    #paypal-card-form.master-card {
         color: #fff;
         background-color: #363636;
         background: linear-gradient(115deg, #d82332, #d82332 50%, #f1ad3d 50%, #f1ad3d);
     }
 
-    #paypal_card_form.maestro {
+    #paypal-card-form.maestro {
         color: #fff;
         background-color: #363636;
         background: linear-gradient(115deg, #009ddd, #009ddd 50%, #ed1c2e 50%, #ed1c2e);
     }
 
-    #paypal_card_form.american-express {
+    #paypal-card-form.american-express {
         color: #fff;
         background-color: #007CC3;
     }
 
-    #paypal_card_form.discover {
+    #paypal-card-form.discover {
         color: #fff;
         background-color: #ff6000;
         background: linear-gradient(#d14310, #f7961e);
     }
 
-    #paypal_card_form.unionpay, #paypal_card_form.jcb, #paypal_card_form.diners-club {
+    #paypal-card-form.unionpay, #paypal-card-form.jcb, #paypal-card-form.diners-club {
         color: #fff;
         background-color: #363636;
     }
 
-    #paypal_card_form .card-info-number,
-    #paypal_card_form .card-info-date-cvv {
+    #paypal-card-form .card-info-number,
+    #paypal-card-form .card-info-date-cvv {
         position: relative;
         text-align: left;
     }
 
-    #paypal_card_form .card-info-date {
+    #paypal-card-form .card-info-date {
         width: 48%;
         float: left;
         margin-bottom: 0.5em;
     }
 
-    #paypal_card_form .card-info-cvv {
+    #paypal-card-form .card-info-cvv {
         width: 48%;
         float: right;
         margin-bottom: 0.5em;
     }
 
-    #paypal_card_form .card-info-number,
-    #paypal_card_form .card-info-date,
-    #paypal_card_form .card-info-cvv {
+    #paypal-card-form .card-info-number,
+    #paypal-card-form .card-info-date,
+    #paypal-card-form .card-info-cvv {
         transition: -webkit-transform 0.3s;
         transition: transform 0.3s;
         transition: transform 0.3s, -webkit-transform 0.3s;
     }
 
-    #paypal_card_form .card-label {
+    #paypal-card-form .card-label {
         display: block;
         margin-bottom: 0.5em;
         text-transform: uppercase;
     }
 
-    #paypal_card_form .card-input-container {
+    #paypal-card-form .card-input-container {
         position: relative;
         height: 2.75em;
         padding: 5px 10px;
@@ -119,7 +119,7 @@
         border-radius: 2px;
     }
 
-    #card_image {
+    #card-image {
         position: absolute;
         top: 0px;
         right: 2px;
@@ -132,35 +132,35 @@
         background-repeat: no-repeat;
     }
 
-    #card_image.visa {
+    #card-image.visa {
         background-position: 0 -398px;
     }
 
-    #card_image.master-card {
+    #card-image.master-card {
         background-position: 0 -281px;
     }
 
-    #card_image.american-express {
+    #card-image.american-express {
         background-position: 0 -370px;
     }
 
-    #card_image.discover {
+    #card-image.discover {
         background-position: 0 -163px;
     }
 
-    #card_image.maestro {
+    #card-image.maestro {
         background-position: 0 -251px;
     }
 
-    #card_image.jcb {
+    #card-image.jcb {
         background-position: 0 -221px;
     }
 
-    #card_image.diners-club {
+    #card-image.diners-club {
         background-position: 0 -133px;
     }
 
-    #paypal_button_submit {
+    #paypal-button-submit {
         width: 100%;
         padding: 1em 1em;
         color: #fff;
@@ -176,33 +176,33 @@
         -webkit-appearance: none;
     }
 
-    #paypal_button_submit:hover {
+    #paypal-button-submit:hover {
         background: #535b72;
     }
 
-    #paypal_button_submit:active {
+    #paypal-button-submit:active {
         -webkit-animation: cardIntro 200ms cubic-bezier(0.2, 1.3, 0.7, 1);
         animation: cardIntro 200ms cubic-bezier(0.2, 1.3, 0.7, 1);
     }
 
-    #paypal_button_submit.show-button {
+    #paypal-button-submit.show-button {
         opacity: 1;
         cursor: pointer;
     }
     {% endif %}
 
-    #paypal_message {
+    #paypal-message {
         text-align: {{ message_align }};
     }
 
-    #paypal_message_container {
+    #paypal-message-container {
     {% if message_width %}
         display: inline-block;
         width: {{ message_width }};
     {% endif %}
     }
 
-    #paypal_form .lds-spinner {
+    #paypal-form .lds-spinner {
         display: inline-block;
         position: absolute;
         width: 64px;
@@ -213,12 +213,12 @@
         margin-top: -32px;
     }
 
-    #paypal_form .lds-spinner div {
+    #paypal-form .lds-spinner div {
         transform-origin: 32px 32px;
         animation: lds-spinner 1.2s linear infinite;
     }
 
-    #paypal_form .lds-spinner div:after {
+    #paypal-form .lds-spinner div:after {
         content: " ";
         display: block;
         position: absolute;
@@ -230,67 +230,67 @@
         background: #000;
     }
 
-    #paypal_form .lds-spinner div:nth-child(1) {
+    #paypal-form .lds-spinner div:nth-child(1) {
         transform: rotate(0deg);
         animation-delay: -1.1s;
     }
 
-    #paypal_form .lds-spinner div:nth-child(2) {
+    #paypal-form .lds-spinner div:nth-child(2) {
         transform: rotate(30deg);
         animation-delay: -1s;
     }
 
-    #paypal_form .lds-spinner div:nth-child(3) {
+    #paypal-form .lds-spinner div:nth-child(3) {
         transform: rotate(60deg);
         animation-delay: -0.9s;
     }
 
-    #paypal_form .lds-spinner div:nth-child(4) {
+    #paypal-form .lds-spinner div:nth-child(4) {
         transform: rotate(90deg);
         animation-delay: -0.8s;
     }
 
-    #paypal_form .lds-spinner div:nth-child(5) {
+    #paypal-form .lds-spinner div:nth-child(5) {
         transform: rotate(120deg);
         animation-delay: -0.7s;
     }
 
-    #paypal_form .lds-spinner div:nth-child(6) {
+    #paypal-form .lds-spinner div:nth-child(6) {
         transform: rotate(150deg);
         animation-delay: -0.6s;
     }
 
-    #paypal_form .lds-spinner div:nth-child(7) {
+    #paypal-form .lds-spinner div:nth-child(7) {
         transform: rotate(180deg);
         animation-delay: -0.5s;
     }
 
-    #paypal_form .lds-spinner div:nth-child(8) {
+    #paypal-form .lds-spinner div:nth-child(8) {
         transform: rotate(210deg);
         animation-delay: -0.4s;
     }
 
-    #paypal_form .lds-spinner div:nth-child(9) {
+    #paypal-form .lds-spinner div:nth-child(9) {
         transform: rotate(240deg);
         animation-delay: -0.3s;
     }
 
-    #paypal_form .lds-spinner div:nth-child(10) {
+    #paypal-form .lds-spinner div:nth-child(10) {
         transform: rotate(270deg);
         animation-delay: -0.2s;
     }
 
-    #paypal_form .lds-spinner div:nth-child(11) {
+    #paypal-form .lds-spinner div:nth-child(11) {
         transform: rotate(300deg);
         animation-delay: -0.1s;
     }
 
-    #paypal_form .lds-spinner div:nth-child(12) {
+    #paypal-form .lds-spinner div:nth-child(12) {
         transform: rotate(330deg);
         animation-delay: 0s;
     }
 
-    #paypal_form .hidden {
+    #paypal-form .hidden {
         display: none;
     }
 
@@ -358,7 +358,7 @@
 function setupPayPal() {
     {% if express_status %}
         try {
-            // Render the PayPal button into #paypal_express_button_container
+            // Render the PayPal button into #paypal-express-button-container
             paypal_sdk.Buttons({
                 env: '{{ environment }}',
                 locale: '{{ locale }}',

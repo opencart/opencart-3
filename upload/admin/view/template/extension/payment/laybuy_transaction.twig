@@ -169,7 +169,7 @@
                     <label class="col-sm-2 control-label">{{ text_revise_plan }}</label>
                     <div class="col-sm-10">
                       <button class="btn btn-primary btn-xs" id="revise-plan" style="margin-bottom:10px">{{ button_revise_plan }}</button>
-                      <div class="amount_remaining"><b>{{ text_remaining }}</b> {{ transaction.remaining }}
+                      <div class="amount-remaining"><b>{{ text_remaining }}</b> {{ transaction.remaining }}
                         <input type="hidden" id="amount" name="amount" value="{{ total }}"/>
                       </div>
                       <select name="payment_type" id="payment-type">
@@ -231,7 +231,7 @@
         padding-top: 0;
     }
 
-    .amount_remaining {
+    .amount-remaining {
         margin-bottom: 10px;
     }
 </style>

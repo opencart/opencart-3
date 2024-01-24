@@ -1,11 +1,11 @@
-<div id="amazonContainer">
+<div id="amazon-container">
   {% if error %}
   <div class="alert alert-danger">
     <button type="button" class="close" data-dismiss="alert">&times;</button><i class="fa fa-exclamation-circle"></i> {{ error }}
   </div>
   {% endif %}
   <h3 class="text-center">{{ heading_payment }}</h3>
-  <div class="amazonWidget" id="walletWidget"></div>
+  <div class="amazon-widget" id="wallet-widget"></div>
   <div class="buttons clearfix">
     <div class="pull-left form-control-static">
       <a href="{{ back }}" class="btn btn-default">{{ text_back }}</a>
@@ -16,17 +16,17 @@
   </div>
 </div>
 <style>
-    #amazonContainer {
+    #amazon-container {
         max-width: 600px;
         margin: 0 auto;
     }
 
-    .amazonWidget {
+    .amazon-widget {
         margin: 0 0 10px 0;
         width: 100%;
     }
 
-    #walletWidget {
+    #wallet-widget {
         height: 350px;
     }
 </style>
@@ -37,13 +37,14 @@
         var showError = function (message) {
             $('#continue-button').button('reset');
 
-            $('#walletWidget').before('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button><i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;' + message + '</div>');
+            $('#wallet-widget').before('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button><i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;' + message + '</div>');
         }
 
         amazon.Login.setClientId('{{ client_id }}');
 
         $('#continue-button').click(function () {
             $('#continue-button').button('loading');
+
             $('div.alert').remove();
 
             if ($("input[name='payment_method']").val() == '1') {
@@ -85,7 +86,7 @@
             walletWidgetP.setPresentmentCurrency('{{ buyer_currency }}');
         {% endif %}
 
-        walletWidgetP.bind("walletWidget");
+        walletWidgetP.bind("wallet-widget");
     });
 })(jQuery);
 //--></script>

@@ -1,4 +1,4 @@
-<div id="amazonContainer">
+<div id="amazon-container">
   {% if success %}
     <div class="alert alert-success">
       <button type="button" class="close" data-dismiss="alert">&times;</button><i class="fa fa-exclamation-circle"></i> {{ success }}
@@ -7,23 +7,23 @@
   <h3 class="text-center">{{ heading_confirm }}</h3>
   <div class="row">
     <div class="col-md-6">
-      <div class="amazonWidget" id="addressBookWidget"></div>
+      <div class="amazon-widget" id="address-book-widget"></div>
     </div>
     <div class="col-md-6">
-      <div class="amazonWidget" id="walletWidget"></div>
+      <div class="amazon-widget" id="wallet-widget"></div>
     </div>
   </div>
   {% if is_coupon_change_allowed %}
     <hr>
     <h3 class="text-center">{{ text_coupon }}</h3>
     <p>{{ text_enter_coupon }}</p>
-    <div class="input-group" id="couponContainer">
+    <div class="input-group" id="coupon-container">
     {% if coupon %}
       <input id="coupon" class="form-control" type="text" disabled value="{{ coupon }}"/>
-      <span class="input-group-btn"><a id="couponDiscard" href="{{ coupon_discard }}" class="btn btn-danger"><i class="fa fa-times"></i></a></span>
+      <span class="input-group-btn"><a id="coupon-discard" href="{{ coupon_discard }}" class="btn btn-danger"><i class="fa fa-times"></i></a></span>
     {% else %}
       <input id="coupon" class="form-control" type="text" value=""/>
-      <span class="input-group-btn"><button class="btn btn-primary" id="couponApply"><i class="fa fa-tick"></i> {{ button_coupon }}</button></span>
+      <span class="input-group-btn"><button class="btn btn-primary" id="coupon-apply"><i class="fa fa-tick"></i> {{ button_coupon }}</button></span>
     {% endif %}
     </div>
   {% endif %}
@@ -100,7 +100,7 @@
   </div>
 </div>
 <style>
-    #amazonContainer {
+    #amazon-container {
         width: 100%;
         margin: 0 auto;
     }
@@ -114,7 +114,7 @@
         font-family: Courier;
     }
 
-    .amazonWidget {
+    .amazon-widget {
         margin: 0 0 10px 0;
         width: 100%;
         height: 230px;
@@ -123,7 +123,7 @@
 <script>
 (function ($) {
     var showCouponError = function (message) {
-        $('#couponContainer').before('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button><i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;' + message + '</div>');
+        $('#coupon-container').before('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button><i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;' + message + '</div>');
     }
 
     var typewatch = (function () {
@@ -155,7 +155,7 @@
                     console.log("Amazon Login Error for Address (" + error.getErrorCode() + "): " + error.getErrorMessage());
                 {% endif %}
             }
-        }).bind("addressBookWidget");
+        }).bind("address-book-widget");
 
         var walletWidgetC = new OffAmazonPayments.Widgets.Wallet({
             sellerId: '{{ merchant_id }}',
@@ -179,15 +179,15 @@
             walletWidgetC.setPresentmentCurrency('{{ buyer_currency }}');
         {% endif %}
 
-        walletWidgetC.bind("walletWidget");
+        walletWidgetC.bind("wallet-widget");
     });
 
-    $(document).on('click', '#couponDiscard', function () {
-        $('#couponDiscard').attr('disabled', true);
+    $(document).on('click', '#coupon-discard', function () {
+        $('#coupon-discard').attr('disabled', true);
     });
 
-    $(document).on('click', '#couponApply', function () {
-        $('#couponApply').attr('disabled', true);
+    $(document).on('click', '#coupon-apply', function () {
+        $('#coupon-apply').attr('disabled', true);
 
         $('.alert-danger').remove();
 
@@ -203,7 +203,7 @@
                     showCouponError(data.error);
 
                     $('#coupon').val('').trigger('input');
-                    $('#couponApply').attr('disabled', false);
+                    $('#coupon-apply').attr('disabled', false);
                 } else {
                     document.location = document.location;
                 }
