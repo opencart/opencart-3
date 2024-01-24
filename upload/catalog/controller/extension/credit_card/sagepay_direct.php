@@ -226,27 +226,16 @@ class ControllerExtensionCreditCardSagepayDirect extends Controller {
 		if (!empty($card['token'])) {
 			$url = '';
 
-			$this->load->model('localisation/country');
-
-			$country_info = $this->model_localisation_country->getCountry($this->config->get('config_country_id'));
-
+			// https://en.wikipedia.org/wiki/Opayo
 			if ($this->config->get('payment_sagepay_direct_test') == 'live') {
-				if ($country_info && $country_info['iso_code_2'] == 'EU') {
-					$url = 'https://live.opayo.eu.elavon.com/gateway/service/removetoken.vsp';
-				} else {
-					$url = 'https://live.sagepay.com/gateway/service/removetoken.vsp';
-				}
+				$url = 'https://live.opayo.eu.elavon.com/gateway/service/removetoken.vsp';
 			} elseif ($this->config->get('payment_sagepay_direct_test') == 'test') {
-				if ($country_info && $country_info['iso_code_2'] == 'EU') {
-					$url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/removetoken.vsp';
-				} else {
-					$url = 'https://test.sagepay.com/gateway/service/removetoken.vsp';
-				}
+				$url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/removetoken.vsp';
 			}
 
 			$payment_data = [];
 
-			$payment_data['VPSProtocol'] = '3.00';
+			$payment_data['VPSProtocol'] = '4.00';
 			$payment_data['Vendor'] = $this->config->get('payment_sagepay_direct_vendor');
 			$payment_data['TxType'] = 'REMOVETOKEN';
 			$payment_data['Token'] = $card['token'];
@@ -283,22 +272,11 @@ class ControllerExtensionCreditCardSagepayDirect extends Controller {
 
 		$url = '';
 
-		$this->load->model('localisation/country');
-
-		$country_info = $this->model_localisation_country->getCountry($this->config->get('config_country_id'));
-
+		// https://en.wikipedia.org/wiki/Opayo
 		if ($this->config->get('payment_sagepay_direct_test') == 'live') {
-			if ($country_info && $country_info['iso_code_2'] == 'EU') {
-				$url = 'https://live.opayo.eu.elavon.com/gateway/service/directtoken.vsp';
-			} else {
-				$url = 'https://live.sagepay.com/gateway/service/directtoken.vsp';
-			}
+			$url = 'https://live.opayo.eu.elavon.com/gateway/service/directtoken.vsp';
 		} elseif ($this->config->get('payment_sagepay_direct_test') == 'test') {
-			if ($country_info && $country_info['iso_code_2'] == 'EU') {
-				$url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/directtoken.vsp';
-			} else {
-				$url = 'https://test.sagepay.com/gateway/service/directtoken.vsp';
-			}
+			$url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/directtoken.vsp';
 		}
 
 		$payment_data = [];

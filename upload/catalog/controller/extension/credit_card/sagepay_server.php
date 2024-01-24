@@ -102,22 +102,11 @@ class ControllerExtensionCreditCardSagepayServer extends Controller {
 		if (!empty($card['token'])) {
 			$url = '';
 
-			$this->load->model('localisation/country');
-
-			$country_info = $this->model_localisation_country->getCountry($this->config->get('config_country_id'));
-
+			// https://en.wikipedia.org/wiki/Opayo
 			if ($this->config->get('payment_sagepay_server_test') == 'live') {
-				if ($country_info && $country_info['iso_code_2'] == 'EU') {
-					$url = 'https://live.opayo.eu.elavon.com/gateway/service/removetoken.vsp';
-				} else {
-					$url = 'https://live.sagepay.com/gateway/service/removetoken.vsp';
-				}
+				$url = 'https://live.opayo.eu.elavon.com/gateway/service/removetoken.vsp';
 			} elseif ($this->config->get('payment_sagepay_server_test') == 'test') {
-				if ($country_info && $country_info['iso_code_2'] == 'EU') {
-					$url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/removetoken.vsp';
-				} else {
-					$url = 'https://test.sagepay.com/gateway/service/removetoken.vsp';
-				}
+				$url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/removetoken.vsp';
 			}
 
 			$payment_data = [];
@@ -160,22 +149,11 @@ class ControllerExtensionCreditCardSagepayServer extends Controller {
 
 		$url = '';
 
-		$this->load->model('localisation/country');
-
-		$country_info = $this->model_localisation_country->getCountry($this->config->get('config_country_id'));
-
+		// https://en.wikipedia.org/wiki/Opayo
 		if ($this->config->get('payment_sagepay_server_test') == 'live') {
-			if ($country_info && $country_info['iso_code_2'] == 'EU') {
-				$url = 'https://live.opayo.eu.elavon.com/gateway/service/token.vsp';
-			} else {
-				$url = 'https://live.sagepay.com/gateway/service/token.vsp';
-			}
+			$url = 'https://live.opayo.eu.elavon.com/gateway/service/token.vsp';
 		} elseif ($this->config->get('payment_sagepay_server_test') == 'test') {
-			if ($country_info && $country_info['iso_code_2'] == 'EU') {
-				$url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/token.vsp';
-			} else {
-				$url = 'https://test.sagepay.com/gateway/service/token.vsp';
-			}
+			$url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/token.vsp';
 		}
 
 		$payment_data = [];
