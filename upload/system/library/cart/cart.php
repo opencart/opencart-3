@@ -295,23 +295,29 @@ class Cart {
 	/**
 	 * Add
 	 *
-	 * @param int   $product_id
-	 * @param int   $quantity
-	 * @param array $option
-	 * @param int   $subscription_plan_id
+	 * @param int          $product_id
+	 * @param int          $quantity
+	 * @param array<mixed> $option
+	 * @param int          $subscription_plan_id
+	 * @param bool         $override
+	 * @param float        $price
 	 *
 	 * @return void
 	 */
-	public function add(int $product_id, int $quantity = 1, array $option = [], int $subscription_plan_id = 0): void {
+	public function add(int $product_id, int $quantity = 1, array $option = [], int $subscription_plan_id = 0, bool $override = false, float $price = 0): void {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "cart` WHERE `api_id` = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND `customer_id` = '" . (int)$this->customer->getId() . "' AND `session_id` = '" . $this->db->escape($this->session->getId()) . "' AND `product_id` = '" . (int)$product_id . "' AND `subscription_plan_id` = '" . (int)$subscription_plan_id . "' AND `option` = '" . $this->db->escape(json_encode($option)) . "'");
 
 		if (!$query->row['total']) {
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "cart` SET `api_id` = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "', `customer_id` = '" . (int)$this->customer->getId() . "', `session_id` = '" . $this->db->escape($this->session->getId()) . "', `product_id` = '" . (int)$product_id . "', `subscription_plan_id` = '" . (int)$subscription_plan_id . "', `option` = '" . $this->db->escape(json_encode($option)) . "', `quantity` = '" . (int)$quantity . "', `date_added` = NOW()");
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "cart` SET `api_id` = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "', `customer_id` = '" . (int)$this->customer->getId() . "', `session_id` = '" . $this->db->escape($this->session->getId()) . "', `product_id` = '" . (int)$product_id . "', `subscription_plan_id` = '" . (int)$subscription_plan_id . "', `option` = '" . $this->db->escape(json_encode($option)) . "', `quantity` = '" . (int)$quantity . "', `override` = '" . (bool)$override . "', `price` = '" . (float)($override ? $price : 0) . "', `date_added` = NOW()");
 		} else {
 			$this->db->query("UPDATE `" . DB_PREFIX . "cart` SET `quantity` = (`quantity` + " . (int)$quantity . ") WHERE `api_id` = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND `customer_id` = '" . (int)$this->customer->getId() . "' AND `session_id` = '" . $this->db->escape($this->session->getId()) . "' AND `product_id` = '" . (int)$product_id . "' AND `subscription_plan_id` = '" . (int)$subscription_plan_id . "' AND `option` = '" . $this->db->escape(json_encode($option)) . "'");
 		}
 
+		// Clear cart data
 		$this->data = [];
+
+		// Populate the cart data
+		$this->data = $this->getProducts();
 	}
 
 	/**
@@ -325,7 +331,11 @@ class Cart {
 	public function update(int $cart_id, int $quantity): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "cart` SET `quantity` = '" . (int)$quantity . "' WHERE `cart_id` = '" . (int)$cart_id . "' AND `api_id` = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND `customer_id` = '" . (int)$this->customer->getId() . "' AND `session_id` = '" . $this->db->escape($this->session->getId()) . "'");
 
+		// Clear cart data
 		$this->data = [];
+
+		// Populate the cart data
+		$this->data = $this->getProducts();
 	}
 
 	/**

@@ -284,10 +284,12 @@ CREATE TABLE `oc_cart` (
   `subscription_plan_id` int(11) NOT NULL,
   `option` text NOT NULL,
   `quantity` int(5) NOT NULL,
+  `override` tinyint(1) NOT NULL,
+  `price` decimal(15,4) NOT NULL,
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`cart_id`),
   KEY `cart_id` (`api_id`,`customer_id`,`session_id`,`product_id`,`subscription_plan_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -----------------------------------------------------------
 

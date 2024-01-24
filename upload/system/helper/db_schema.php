@@ -464,6 +464,14 @@ function oc_db_schema() {
 				'type' => 'int(5)'
 			],
 			[
+				'name' => 'override',
+				'type' => 'tinyint(1)'
+			],
+			[
+				'name' => 'price',
+				'type' => 'decimal(15,4)'
+			],
+			[
 				'name' => 'date_added',
 				'type' => 'datetime'
 			]
