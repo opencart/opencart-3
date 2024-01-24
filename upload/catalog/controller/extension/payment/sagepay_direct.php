@@ -138,7 +138,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller
         $url = '';
 
         if ($this->config->get('payment_sagepay_direct_test') == 'live') {
-            $url = 'https://live.sagepay.com/gateway/service/vspdirect-register.vsp';
+            $url = 'https://live.sagepay.com/gateway/service//vspdirect-register.vsp';
             $payment_data['VPSProtocol'] = '3.00';
         } elseif ($this->config->get('payment_sagepay_direct_test') == 'test') {
             $url = 'https://test.sagepay.com/gateway/service/vspdirect-register.vsp';
@@ -456,7 +456,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller
             $url = '';
 
             if ($this->config->get('payment_sagepay_direct_test') == 'live') {
-                $url = 'https://live.sagepay.com/gateway/service/direct3dcallback.vsp';
+                $url = 'https://live.sagepay.com/gateway/service//direct3dcallback.vsp';
             } elseif ($this->config->get('payment_sagepay_direct_test') == 'test') {
                 $url = 'https://test.sagepay.com/gateway/service/direct3dcallback.vsp';
             } elseif ($this->config->get('payment_sagepay_direct_test') == 'sim') {
@@ -616,7 +616,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller
 
         if (!empty($card['token'])) {
             if ($this->config->get('payment_sagepay_direct_test') == 'live') {
-                $url = 'https://live.sagepay.com/gateway/service/removetoken.vsp';
+                $url = 'https://live.sagepay.com/gateway/service//removetoken.vsp';
             } else {
                 $url = 'https://test.sagepay.com/gateway/service/removetoken.vsp';
             }

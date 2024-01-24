@@ -98,7 +98,7 @@ class ControllerExtensionPaymentOpayo extends Controller
         $url = '';
 
         if ($setting['general']['environment'] == 'live') {
-            $url = 'https://live.sagepay.com/gateway/service/vspdirect-register.vsp';
+            $url = 'https://live.sagepay.com/gateway/service//vspdirect-register.vsp';
             $payment_data['VPSProtocol'] = '4.00';
         } elseif ($setting['general']['environment'] == 'test') {
             $url = 'https://test.sagepay.com/gateway/service/vspdirect-register.vsp';
@@ -451,7 +451,7 @@ class ControllerExtensionPaymentOpayo extends Controller
             $url = '';
 
             if ($setting['general']['environment'] == 'live') {
-                $url = 'https://live.sagepay.com/gateway/service/direct3dcallback.vsp';
+                $url = 'https://live.sagepay.com/gateway/service//direct3dcallback.vsp';
             } elseif ($setting['general']['environment'] == 'test') {
                 $url = 'https://test.sagepay.com/gateway/service/direct3dcallback.vsp';
             }
