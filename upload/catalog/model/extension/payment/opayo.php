@@ -419,7 +419,7 @@ class ModelExtensionPaymentOpayo extends Model
         $url = '';
 
         if ($setting['general']['environment'] == 'live') {
-            $url = 'https://live.sagepay.com/gateway/service/repeat.vsp';
+            $url = 'https://live.opayo.eu.elavon.com/gateway/service/repeat.vsp';
             $payment_data['VPSProtocol'] = '4.00';
         } elseif ($setting['general']['environment'] == 'test') {
             $url = 'https://test.sagepay.com/gateway/service/repeat.vsp';
