@@ -8,55 +8,68 @@ function oc_db_schema() {
 			[
 				'name'           => 'address_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'customer_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'firstname',
-				'type' => 'varchar(32)'
+				'type' => 'varchar(32)',
+				'not_null' => true
 			],
 			[
 				'name' => 'lastname',
-				'type' => 'varchar(32)'
+				'type' => 'varchar(32)',
+				'not_null' => true
 			],
 			[
 				'name' => 'company',
-				'type' => 'varchar(60)'
+				'type' => 'varchar(60)',
+				'not_null' => true
 			],
 			[
 				'name' => 'address_1',
-				'type' => 'varchar(128)'
+				'type' => 'varchar(128)',
+				'not_null' => true
 			],
 			[
 				'name' => 'address_2',
-				'type' => 'varchar(128)'
+				'type' => 'varchar(128)',
+				'not_null' => true
 			],
 			[
 				'name' => 'city',
-				'type' => 'varchar(128)'
+				'type' => 'varchar(128)',
+				'not_null' => true
 			],
 			[
 				'name' => 'postcode',
-				'type' => 'varchar(10)'
+				'type' => 'varchar(10)',
+				'not_null' => true
 			],
 			[
 				'name' => 'country_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'zone_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'custom_field',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			],
 			[
 				'name' => 'default',
-				'type' => 'tinyint(1)'
+				'type' => 'tinyint(1)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -90,15 +103,18 @@ function oc_db_schema() {
 			[
 				'name'           => 'address_format_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'name',
-				'type' => 'varchar(128)'
+				'type' => 'varchar(128)',
+				'not_null' => true
 			],
 			[
 				'name' => 'address_format',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -115,27 +131,33 @@ function oc_db_schema() {
 			[
 				'name'           => 'api_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'username',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true,
 			],
 			[
 				'name' => 'key',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			],
 			[
 				'name' => 'status',
-				'type' => 'tinyint(1)'
+				'type' => 'tinyint(1)',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_modified',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -152,15 +174,18 @@ function oc_db_schema() {
 			[
 				'name'           => 'api_ip_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'api_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true,
 			],
 			[
 				'name' => 'ip',
-				'type' => 'varchar(40)'
+				'type' => 'varchar(40)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -184,27 +209,33 @@ function oc_db_schema() {
 			[
 				'name'           => 'api_session_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'api_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'session_id',
-				'type' => 'varchar(32)'
+				'type' => 'varchar(32)',
+				'not_null' => true
 			],
 			[
 				'name' => 'ip',
-				'type' => 'varchar(40)'
+				'type' => 'varchar(40)',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_modified',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -228,15 +259,18 @@ function oc_db_schema() {
 			[
 				'name'           => 'attribute_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'attribute_group_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'sort_order',
-				'type' => 'int(3)'
+				'type' => 'int(3)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -259,15 +293,18 @@ function oc_db_schema() {
 		'field' => [
 			[
 				'name' => 'attribute_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'language_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'name',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -278,7 +315,7 @@ function oc_db_schema() {
 			[
 				'key'   => 'attribute_id',
 				'table' => 'attribute',
-				'field' => 'attribute_id'
+				'field' => 'attribute_id',
 			],
 			[
 				'key'   => 'language_id',
@@ -297,11 +334,13 @@ function oc_db_schema() {
 			[
 				'name'           => 'attribute_group_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'sort_order',
-				'type' => 'int(3)'
+				'type' => 'int(3)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -317,15 +356,18 @@ function oc_db_schema() {
 		'field' => [
 			[
 				'name' => 'attribute_group_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'language_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'name',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -355,15 +397,18 @@ function oc_db_schema() {
 			[
 				'name'           => 'banner_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'name',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			],
 			[
 				'name' => 'status',
-				'type' => 'tinyint(1)'
+				'type' => 'tinyint(1)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -380,31 +425,38 @@ function oc_db_schema() {
 			[
 				'name'           => 'banner_image_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'banner_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'language_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'title',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			],
 			[
 				'name' => 'link',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'image',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'sort_order',
-				'type' => 'int(3)'
+				'type' => 'int(3)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -433,47 +485,58 @@ function oc_db_schema() {
 			[
 				'name'           => 'cart_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'api_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'customer_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'session_id',
-				'type' => 'varchar(32)'
+				'type' => 'varchar(32)',
+				'not_null' => true
 			],
 			[
 				'name' => 'product_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'subscription_plan_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'option',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			],
 			[
 				'name' => 'quantity',
-				'type' => 'int(5)'
+				'type' => 'int(5)',
+				'not_null' => true
 			],
 			[
 				'name' => 'override',
-				'type' => 'tinyint(1)'
+				'type' => 'tinyint(1)',
+				'not_null' => true
 			],
 			[
 				'name' => 'price',
-				'type' => 'decimal(15,4)'
+				'type' => 'decimal(15,4)',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -517,39 +580,48 @@ function oc_db_schema() {
 			[
 				'name'           => 'category_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'image',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'parent_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'top',
-				'type' => 'tinyint(1)'
+				'type' => 'tinyint(1)',
+				'not_null' => true
 			],
 			[
 				'name' => 'column',
-				'type' => 'int(3)'
+				'type' => 'int(3)',
+				'not_null' => true
 			],
 			[
 				'name' => 'sort_order',
-				'type' => 'int(3)'
+				'type' => 'int(3)',
+				'not_null' => true
 			],
 			[
 				'name' => 'status',
-				'type' => 'tinyint(1)'
+				'type' => 'tinyint(1)',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_modified',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -565,31 +637,38 @@ function oc_db_schema() {
 		'field' => [
 			[
 				'name' => 'category_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'language_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'name',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'description',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			],
 			[
 				'name' => 'meta_title',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'meta_description',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'meta_keyword',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -613,11 +692,13 @@ function oc_db_schema() {
 		'field' => [
 			[
 				'name' => 'category_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'filter_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -646,15 +727,18 @@ function oc_db_schema() {
 		'field' => [
 			[
 				'name' => 'category_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'path_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'level',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -678,15 +762,18 @@ function oc_db_schema() {
 		'field' => [
 			[
 				'name' => 'category_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'store_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'layout_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -720,11 +807,13 @@ function oc_db_schema() {
 		'field' => [
 			[
 				'name' => 'category_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'store_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -754,31 +843,38 @@ function oc_db_schema() {
 			[
 				'name'           => 'country_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'name',
-				'type' => 'varchar(128)'
+				'type' => 'varchar(128)',
+				'not_null' => true
 			],
 			[
 				'name' => 'iso_code_2',
-				'type' => 'varchar(2)'
+				'type' => 'varchar(2)',
+				'not_null' => true
 			],
 			[
 				'name' => 'iso_code_3',
-				'type' => 'varchar(3)'
+				'type' => 'varchar(3)',
+				'not_null' => true
 			],
 			[
 				'name' => 'address_format_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'postcode_required',
-				'type' => 'tinyint(1)'
+				'type' => 'tinyint(1)',
+				'not_null' => true
 			],
 			[
 				'name' => 'status',
-				'type' => 'tinyint(1)'
+				'type' => 'tinyint(1)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -795,59 +891,73 @@ function oc_db_schema() {
 			[
 				'name'           => 'coupon_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'name',
-				'type' => 'varchar(128)'
+				'type' => 'varchar(128)',
+				'not_null' => true
 			],
 			[
 				'name' => 'code',
-				'type' => 'varchar(20)'
+				'type' => 'varchar(20)',
+				'not_null' => true
 			],
 			[
 				'name' => 'type',
-				'type' => 'char(1)'
+				'type' => 'char(1)',
+				'not_null' => true
 			],
 			[
 				'name' => 'discount',
-				'type' => 'decimal(15,4)'
+				'type' => 'decimal(15,4)',
+				'not_null' => true
 			],
 			[
 				'name' => 'logged',
-				'type' => 'tinyint(1)'
+				'type' => 'tinyint(1)',
+				'not_null' => true
 			],
 			[
 				'name' => 'shipping',
-				'type' => 'tinyint(1)'
+				'type' => 'tinyint(1)',
+				'not_null' => true
 			],
 			[
 				'name' => 'total',
-				'type' => 'decimal(15,4)'
+				'type' => 'decimal(15,4)',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_start',
-				'type' => 'date'
+				'type' => 'date',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_end',
-				'type' => 'date'
+				'type' => 'date',
+				'not_null' => true
 			],
 			[
 				'name' => 'uses_total',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'uses_customer',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'status',
-				'type' => 'tinyint(1)'
+				'type' => 'tinyint(1)',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -863,11 +973,13 @@ function oc_db_schema() {
 		'field' => [
 			[
 				'name' => 'coupon_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'category_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -897,27 +1009,33 @@ function oc_db_schema() {
 			[
 				'name'           => 'coupon_history_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'coupon_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'order_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'customer_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'amount',
-				'type' => 'decimal(15,4)'
+				'type' => 'decimal(15,4)',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -951,15 +1069,18 @@ function oc_db_schema() {
 			[
 				'name'           => 'coupon_product_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'coupon_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'product_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -988,39 +1109,48 @@ function oc_db_schema() {
 			[
 				'name'           => 'currency_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'title',
-				'type' => 'varchar(32)'
+				'type' => 'varchar(32)',
+				'not_null' => true
 			],
 			[
 				'name' => 'code',
-				'type' => 'varchar(3)'
+				'type' => 'varchar(3)',
+				'not_null' => true
 			],
 			[
 				'name' => 'symbol_left',
-				'type' => 'varchar(12)'
+				'type' => 'varchar(12)',
+				'not_null' => true
 			],
 			[
 				'name' => 'symbol_right',
-				'type' => 'varchar(12)'
+				'type' => 'varchar(12)',
+				'not_null' => true
 			],
 			[
 				'name' => 'decimal_place',
-				'type' => 'int(1)'
+				'type' => 'int(1)',
+				'not_null' => true
 			],
 			[
 				'name' => 'value',
-				'type' => 'double(15,8)'
+				'type' => 'double(15,8)',
+				'not_null' => true
 			],
 			[
 				'name' => 'status',
-				'type' => 'tinyint(1)'
+				'type' => 'tinyint(1)',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_modified',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -1037,87 +1167,108 @@ function oc_db_schema() {
 			[
 				'name'           => 'customer_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'customer_group_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'store_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'language_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'firstname',
-				'type' => 'varchar(32)'
+				'type' => 'varchar(32)',
+				'not_null' => true
 			],
 			[
 				'name' => 'lastname',
-				'type' => 'varchar(32)'
+				'type' => 'varchar(32)',
+				'not_null' => true
 			],
 			[
 				'name' => 'email',
-				'type' => 'varchar(96)'
+				'type' => 'varchar(96)',
+				'not_null' => true
 			],
 			[
 				'name' => 'telephone',
-				'type' => 'varchar(32)'
+				'type' => 'varchar(32)',
+				'not_null' => true
 			],
 			[
 				'name' => 'fax',
-				'type' => 'varchar(32)'
+				'type' => 'varchar(32)',
+				'not_null' => true
 			],
 			[
 				'name' => 'password',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'cart',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			],
 			[
 				'name' => 'wishlist',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			],
 			[
 				'name' => 'newsletter',
-				'type' => 'tinyint(1)'
+				'type' => 'tinyint(1)',
+				'not_null' => true
 			],
 			[
 				'name' => 'address_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'custom_field',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			],
 			[
 				'name' => 'ip',
-				'type' => 'varchar(40)'
+				'type' => 'varchar(40)',
+				'not_null' => true
 			],
 			[
 				'name' => 'status',
-				'type' => 'tinyint(1)'
+				'type' => 'tinyint(1)',
+				'not_null' => true
 			],
 			[
 				'name' => 'safe',
-				'type' => 'tinyint(1)'
+				'type' => 'tinyint(1)',
+				'not_null' => true
 			],
 			[
 				'name' => 'token',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			],
 			[
 				'name' => 'code',
-				'type' => 'varchar(40)'
+				'type' => 'varchar(40)',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -1151,27 +1302,33 @@ function oc_db_schema() {
 			[
 				'name'           => 'customer_activity_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'customer_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'key',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			],
 			[
 				'name' => 'data',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			],
 			[
 				'name' => 'ip',
-				'type' => 'varchar(40)'
+				'type' => 'varchar(40)',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -1194,71 +1351,88 @@ function oc_db_schema() {
 		'field' => [
 			[
 				'name' => 'customer_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'company',
-				'type' => 'varchar(60)'
+				'type' => 'varchar(60)',
+				'not_null' => true
 			],
 			[
 				'name' => 'website',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'tracking',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			],
 			[
 				'name' => 'commission',
-				'type' => 'decimal(4,2)'
+				'type' => 'decimal(4,2)',
+				'not_null' => true
 			],
 			[
 				'name' => 'tax',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			],
 			[
 				'name' => 'payment',
-				'type' => 'varchar(6)'
+				'type' => 'varchar(6)',
+				'not_null' => true
 			],
 			[
 				'name' => 'cheque',
-				'type' => 'varchar(100)'
+				'type' => 'varchar(100)',
+				'not_null' => true
 			],
 			[
 				'name' => 'paypal',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			],
 			[
 				'name' => 'bank_name',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			],
 			[
 				'name' => 'bank_branch_number',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			],
 			[
 				'name' => 'bank_swift_code',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			],
 			[
 				'name' => 'bank_account_name',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			],
 			[
 				'name' => 'bank_account_number',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			],
 			[
 				'name' => 'custom_field',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			],
 			[
 				'name' => 'status',
-				'type' => 'tinyint(1)'
+				'type' => 'tinyint(1)',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -1282,27 +1456,33 @@ function oc_db_schema() {
 			[
 				'name'           => 'customer_affiliate_report_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'customer_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'store_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'ip',
-				'type' => 'varchar(40)'
+				'type' => 'varchar(40)',
+				'not_null' => true
 			],
 			[
 				'name' => 'country',
-				'type' => 'varchar(2)'
+				'type' => 'varchar(2)',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -1331,19 +1511,23 @@ function oc_db_schema() {
 			[
 				'name'           => 'customer_approval_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'customer_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'type',
-				'type' => 'varchar(9)'
+				'type' => 'varchar(9)',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -1367,15 +1551,18 @@ function oc_db_schema() {
 			[
 				'name'           => 'customer_group_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'approval',
-				'type' => 'int(1)'
+				'type' => 'int(1)',
+				'not_null' => true
 			],
 			[
 				'name' => 'sort_order',
-				'type' => 'int(3)'
+				'type' => 'int(3)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -1391,19 +1578,23 @@ function oc_db_schema() {
 		'field' => [
 			[
 				'name' => 'customer_group_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'language_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'name',
-				'type' => 'varchar(32)'
+				'type' => 'varchar(32)',
+				'not_null' => true
 			],
 			[
 				'name' => 'description',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -1433,19 +1624,23 @@ function oc_db_schema() {
 			[
 				'name'           => 'customer_history_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'customer_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'comment',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -1462,27 +1657,33 @@ function oc_db_schema() {
 			[
 				'name'           => 'customer_ip_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'customer_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'store_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'ip',
-				'type' => 'varchar(40)'
+				'type' => 'varchar(40)',
+				'not_null' => true
 			],
 			[
 				'name' => 'country',
-				'type' => 'varchar(2)'
+				'type' => 'varchar(2)',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -1511,27 +1712,33 @@ function oc_db_schema() {
 			[
 				'name'           => 'customer_login_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'email',
-				'type' => 'varchar(96)'
+				'type' => 'varchar(96)',
+				'not_null' => true
 			],
 			[
 				'name' => 'ip',
-				'type' => 'varchar(40)'
+				'type' => 'varchar(40)',
+				'not_null' => true
 			],
 			[
 				'name' => 'total',
-				'type' => 'int(4)'
+				'type' => 'int(4)',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_modified',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -1547,23 +1754,28 @@ function oc_db_schema() {
 		'field' => [
 			[
 				'name' => 'ip',
-				'type' => 'varchar(40)'
+				'type' => 'varchar(40)',
+				'not_null' => true
 			],
 			[
 				'name' => 'customer_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'url',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			],
 			[
 				'name' => 'referer',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -1580,27 +1792,33 @@ function oc_db_schema() {
 			[
 				'name'           => 'customer_reward_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'customer_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'order_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'description',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			],
 			[
 				'name' => 'points',
-				'type' => 'int(8)'
+				'type' => 'int(8)',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -1629,47 +1847,58 @@ function oc_db_schema() {
 			[
 				'name'           => 'customer_search_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'store_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'language_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'customer_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'keyword',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'category_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'sub_category',
-				'type' => 'tinyint(1)'
+				'type' => 'tinyint(1)',
+				'not_null' => true
 			],
 			[
 				'name' => 'description',
-				'type' => 'tinyint(1)'
+				'type' => 'tinyint(1)',
+				'not_null' => true
 			],
 			[
 				'name' => 'products',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'ip',
-				'type' => 'varchar(40)'
+				'type' => 'varchar(40)',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -1708,27 +1937,33 @@ function oc_db_schema() {
 			[
 				'name'           => 'customer_transaction_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'customer_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'order_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'description',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			],
 			[
 				'name' => 'amount',
-				'type' => 'decimal(15,4)'
+				'type' => 'decimal(15,4)',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -1756,15 +1991,18 @@ function oc_db_schema() {
 		'field' => [
 			[
 				'name' => 'customer_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'product_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -1794,31 +2032,38 @@ function oc_db_schema() {
 			[
 				'name'           => 'custom_field_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'type',
-				'type' => 'varchar(32)'
+				'type' => 'varchar(32)',
+				'not_null' => true
 			],
 			[
 				'name' => 'value',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			],
 			[
 				'name' => 'validation',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'location',
-				'type' => 'varchar(10)'
+				'type' => 'varchar(10)',
+				'not_null' => true
 			],
 			[
 				'name' => 'status',
-				'type' => 'tinyint(1)'
+				'type' => 'tinyint(1)',
+				'not_null' => true
 			],
 			[
 				'name' => 'sort_order',
-				'type' => 'int(3)'
+				'type' => 'int(3)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -1834,15 +2079,18 @@ function oc_db_schema() {
 		'field' => [
 			[
 				'name' => 'custom_field_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'customer_group_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'required',
-				'type' => 'tinyint(1)'
+				'type' => 'tinyint(1)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -1871,15 +2119,18 @@ function oc_db_schema() {
 		'field' => [
 			[
 				'name' => 'custom_field_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'language_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'name',
-				'type' => 'varchar(128)'
+				'type' => 'varchar(128)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -1909,15 +2160,18 @@ function oc_db_schema() {
 			[
 				'name'           => 'custom_field_value_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'custom_field_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'sort_order',
-				'type' => 'int(3)'
+				'type' => 'int(3)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -1940,19 +2194,23 @@ function oc_db_schema() {
 		'field' => [
 			[
 				'name' => 'custom_field_value_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'language_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'custom_field_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'name',
-				'type' => 'varchar(128)'
+				'type' => 'varchar(128)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -1982,19 +2240,23 @@ function oc_db_schema() {
 			[
 				'name'           => 'download_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'filename',
-				'type' => 'varchar(160)'
+				'type' => 'varchar(160)',
+				'not_null' => true
 			],
 			[
 				'name' => 'mask',
-				'type' => 'varchar(128)'
+				'type' => 'varchar(128)',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -2010,15 +2272,18 @@ function oc_db_schema() {
 		'field' => [
 			[
 				'name' => 'download_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'language_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'name',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -2043,27 +2308,33 @@ function oc_db_schema() {
 			[
 				'name'           => 'event_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'code',
-				'type' => 'varchar(128)'
+				'type' => 'varchar(128)',
+				'not_null' => true
 			],
 			[
 				'name' => 'trigger',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			],
 			[
 				'name' => 'action',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			],
 			[
 				'name' => 'status',
-				'type' => 'tinyint(1)'
+				'type' => 'tinyint(1)',
+				'not_null' => true
 			],
 			[
 				'name' => 'sort_order',
-				'type' => 'int(3)'
+				'type' => 'int(3)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -2080,19 +2351,23 @@ function oc_db_schema() {
 			[
 				'name'           => 'extension_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'extension',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'type',
-				'type' => 'varchar(32)'
+				'type' => 'varchar(32)',
+				'not_null' => true
 			],
 			[
 				'name' => 'code',
-				'type' => 'varchar(128)'
+				'type' => 'varchar(128)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -2109,19 +2384,23 @@ function oc_db_schema() {
 			[
 				'name'           => 'extension_install_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'extension_download_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'filename',
-				'type' => 'varchar(128)'
+				'type' => 'varchar(128)',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -2145,19 +2424,23 @@ function oc_db_schema() {
 			[
 				'name'           => 'extension_path_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'extension_install_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'path',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -2181,15 +2464,18 @@ function oc_db_schema() {
 			[
 				'name'           => 'filter_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'filter_group_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'sort_order',
-				'type' => 'int(3)'
+				'type' => 'int(3)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -2212,19 +2498,23 @@ function oc_db_schema() {
 		'field' => [
 			[
 				'name' => 'filter_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'language_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'filter_group_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'name',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -2254,11 +2544,13 @@ function oc_db_schema() {
 			[
 				'name'           => 'filter_group_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'sort_order',
-				'type' => 'int(3)'
+				'type' => 'int(3)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -2274,15 +2566,18 @@ function oc_db_schema() {
 		'field' => [
 			[
 				'name' => 'filter_group_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'language_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'name',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -2312,35 +2607,43 @@ function oc_db_schema() {
 			[
 				'name'           => 'gdpr_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'store_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'language_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'code',
-				'type' => 'varchar(40)'
+				'type' => 'varchar(40)',
+				'not_null' => true
 			],
 			[
 				'name' => 'email',
-				'type' => 'varchar(96)'
+				'type' => 'varchar(96)',
+				'not_null' => true
 			],
 			[
 				'name' => 'action',
-				'type' => 'varchar(6)'
+				'type' => 'varchar(6)',
+				'not_null' => true
 			],
 			[
 				'name' => 'status',
-				'type' => 'tinyint(1)'
+				'type' => 'tinyint(1)',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -2369,23 +2672,28 @@ function oc_db_schema() {
 			[
 				'name'           => 'geo_zone_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'name',
-				'type' => 'varchar(32)'
+				'type' => 'varchar(32)',
+				'not_null' => true
 			],
 			[
 				'name' => 'description',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_modified',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -2401,15 +2709,18 @@ function oc_db_schema() {
 		'field' => [
 			[
 				'name' => 'google_product_category',
-				'type' => 'varchar(10)'
+				'type' => 'varchar(10)',
+				'not_null' => true
 			],
 			[
 				'name' => 'store_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'category_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -2427,87 +2738,108 @@ function oc_db_schema() {
 			[
 				'name'           => 'product_advertise_google_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'store_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'has_issues',
-				'type' => 'tinyint(1)'
+				'type' => 'tinyint(1)',
+				'not_null' => true
 			],
 			[
 				'name' => 'destination_status',
-				'type' => 'enum(\'pending\',\'approved\',\'disapproved\')'
+				'type' => 'enum(\'pending\',\'approved\',\'disapproved\')',
+				'not_null' => true
 			],
 			[
 				'name' => 'impressions',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'clicks',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'conversions',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'cost',
-				'type' => 'decimal(15,4)'
+				'type' => 'decimal(15,4)',
+				'not_null' => true
 			],
 			[
 				'name' => 'conversion_value',
-				'type' => 'decimal(15,4)'
+				'type' => 'decimal(15,4)',
+				'not_null' => true
 			],
 			[
 				'name' => 'google_product_category',
-				'type' => 'varchar(10)'
+				'type' => 'varchar(10)',
+				'not_null' => true
 			],
 			[
 				'name' => 'condition',
-				'type' => 'enum(\'new\',\'refurbished\',\'used\')'
+				'type' => 'enum(\'new\',\'refurbished\',\'used\')',
+				'not_null' => true
 			],
 			[
 				'name' => 'adult',
-				'type' => 'tinyint(1)'
+				'type' => 'tinyint(1)',
+				'not_null' => true
 			],
 			[
 				'name' => 'multipack',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'is_bundle',
-				'type' => 'tinyint(1)'
+				'type' => 'tinyint(1)',
+				'not_null' => true
 			],
 			[
 				'name' => 'condition',
-				'type' => 'enum(\'new\',\'refurbished\',\'used\')'
+				'type' => 'enum(\'new\',\'refurbished\',\'used\')',
+				'not_null' => true
 			],
 			[
 				'name' => 'color',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'gender',
-				'type' => 'enum(\'male\',\'female\',\'unisex\')'
+				'type' => 'enum(\'male\',\'female\',\'unisex\')',
+				'not_null' => true
 			],
 			[
 				'name' => 'size_type',
-				'type' => 'enum(\'regular\',\'petite\',\'plus\',\'big and tall\',\'maternity\')'
+				'type' => 'enum(\'regular\',\'petite\',\'plus\',\'big and tall\',\'maternity\')',
+				'not_null' => true
 			],
 			[
 				'name' => 'size_system',
-				'type' => 'enum(\'AU\',\'BR\',\'CN\',\'DE\',\'EU\',\'FR\',\'IT\',\'JP\',\'MEX\',\'UK\',\'US\')'
+				'type' => 'enum(\'AU\',\'BR\',\'CN\',\'DE\',\'EU\',\'FR\',\'IT\',\'JP\',\'MEX\',\'UK\',\'US\')',
+				'not_null' => true
 			],
 			[
 				'name' => 'size',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'is_modified',
-				'type' => 'tinyint(1)'
+				'type' => 'tinyint(1)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -2523,31 +2855,38 @@ function oc_db_schema() {
 		'field' => [
 			[
 				'name' => 'product_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'store_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'product_variation_id',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			],
 			[
 				'name' => 'destination_statuses',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			],
 			[
 				'name' => 'data_quality_issues',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			],
 			[
 				'name' => 'item_level_issues',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			],
 			[
 				'name' => 'google_expiration_date',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -2565,15 +2904,18 @@ function oc_db_schema() {
 		'field' => [
 			[
 				'name' => 'product_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'store_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'advertise_google_target_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -2590,39 +2932,48 @@ function oc_db_schema() {
 		'field' => [
 			[
 				'name' => 'advertise_google_target_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'store_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'campaign_name',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'country',
-				'type' => 'varchar(2)'
+				'type' => 'varchar(2)',
+				'not_null' => true
 			],
 			[
 				'name' => 'budget',
-				'type' => 'decimal(15,4)'
+				'type' => 'decimal(15,4)',
+				'not_null' => true
 			],
 			[
 				'name' => 'feeds',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			],
 			[
 				'name' => 'status',
-				'type' => 'enum(\'paused\',\'active\')'
+				'type' => 'enum(\'paused\',\'active\')',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'date'
+				'type' => 'date',
+				'not_null' => true
 			],
 			[
 				'name' => 'roas',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -2639,19 +2990,23 @@ function oc_db_schema() {
 			[
 				'name'           => 'information_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'bottom',
-				'type' => 'int(1)'
+				'type' => 'int(1)',
+				'not_null' => true
 			],
 			[
 				'name' => 'sort_order',
-				'type' => 'int(3)'
+				'type' => 'int(3)',
+				'not_null' => true
 			],
 			[
 				'name' => 'status',
-				'type' => 'tinyint(1)'
+				'type' => 'tinyint(1)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -2667,31 +3022,38 @@ function oc_db_schema() {
 		'field' => [
 			[
 				'name' => 'information_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'language_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'title',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			],
 			[
 				'name' => 'description',
-				'type' => 'mediumtext'
+				'type' => 'mediumtext',
+				'not_null' => true
 			],
 			[
 				'name' => 'meta_title',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'meta_description',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'meta_keyword',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -2715,15 +3077,18 @@ function oc_db_schema() {
 		'field' => [
 			[
 				'name' => 'information_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'store_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'layout_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -2757,11 +3122,13 @@ function oc_db_schema() {
 		'field' => [
 			[
 				'name' => 'information_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'store_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -2791,31 +3158,38 @@ function oc_db_schema() {
 			[
 				'name'           => 'language_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'name',
-				'type' => 'varchar(32)'
+				'type' => 'varchar(32)',
+				'not_null' => true
 			],
 			[
 				'name' => 'code',
-				'type' => 'varchar(5)'
+				'type' => 'varchar(5)',
+				'not_null' => true
 			],
 			[
 				'name' => 'locale',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'image',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			],
 			[
 				'name' => 'sort_order',
-				'type' => 'int(3)'
+				'type' => 'int(3)',
+				'not_null' => true
 			],
 			[
 				'name' => 'status',
-				'type' => 'tinyint(1)'
+				'type' => 'tinyint(1)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -2832,11 +3206,13 @@ function oc_db_schema() {
 			[
 				'name'           => 'layout_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'name',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -2853,23 +3229,28 @@ function oc_db_schema() {
 			[
 				'name'           => 'layout_module_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'layout_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'code',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			],
 			[
 				'name' => 'position',
-				'type' => 'varchar(14)'
+				'type' => 'varchar(14)',
+				'not_null' => true
 			],
 			[
 				'name' => 'sort_order',
-				'type' => 'int(3)'
+				'type' => 'int(3)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -2893,19 +3274,23 @@ function oc_db_schema() {
 			[
 				'name'           => 'layout_route_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'layout_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'store_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'route',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -2934,11 +3319,13 @@ function oc_db_schema() {
 			[
 				'name'           => 'length_class_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'value',
-				'type' => 'decimal(15,8)'
+				'type' => 'decimal(15,8)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -2954,19 +3341,23 @@ function oc_db_schema() {
 		'field' => [
 			[
 				'name' => 'length_class_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'language_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'title',
-				'type' => 'varchar(32)'
+				'type' => 'varchar(32)',
+				'not_null' => true
 			],
 			[
 				'name' => 'unit',
-				'type' => 'varchar(4)'
+				'type' => 'varchar(4)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -2996,35 +3387,43 @@ function oc_db_schema() {
 			[
 				'name'           => 'location_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'name',
-				'type' => 'varchar(32)'
+				'type' => 'varchar(32)',
+				'not_null' => true
 			],
 			[
 				'name' => 'address',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			],
 			[
 				'name' => 'telephone',
-				'type' => 'varchar(32)'
+				'type' => 'varchar(32)',
+				'not_null' => true
 			],
 			[
 				'name' => 'geocode',
-				'type' => 'varchar(32)'
+				'type' => 'varchar(32)',
+				'not_null' => true
 			],
 			[
 				'name' => 'image',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'open',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			],
 			[
 				'name' => 'comment',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -3041,19 +3440,23 @@ function oc_db_schema() {
 			[
 				'name'           => 'manufacturer_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'name',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			],
 			[
 				'name' => 'image',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'sort_order',
-				'type' => 'int(3)'
+				'type' => 'int(3)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -3069,11 +3472,13 @@ function oc_db_schema() {
 		'field' => [
 			[
 				'name' => 'manufacturer_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'store_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -3103,27 +3508,33 @@ function oc_db_schema() {
 			[
 				'name'           => 'marketing_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'name',
-				'type' => 'varchar(32)'
+				'type' => 'varchar(32)',
+				'not_null' => true
 			],
 			[
 				'name' => 'description',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			],
 			[
 				'name' => 'code',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			],
 			[
 				'name' => 'clicks',
-				'type' => 'int(5)'
+				'type' => 'int(5)',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -3140,44 +3551,54 @@ function oc_db_schema() {
 			[
 				'name'           => 'modification_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name'     => 'extension_install_id',
 				'type'     => 'int(11)',
+				'not_null' => true,
 				'not_null' => true
 			],
 			[
 				'name' => 'name',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			],
 			[
 				'name' => 'code',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			],
 			[
 				'name' => 'author',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			],
 			[
 				'name' => 'version',
-				'type' => 'varchar(32)'
+				'type' => 'varchar(32)',
+				'not_null' => true
 			],
 			[
 				'name' => 'link',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'xml',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			],
 			[
 				'name' => 'status',
-				'type' => 'tinyint(1)'
+				'type' => 'tinyint(1)',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -3194,19 +3615,23 @@ function oc_db_schema() {
 			[
 				'name'           => 'module_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'name',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			],
 			[
 				'name' => 'code',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			],
 			[
 				'name' => 'setting',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -3223,15 +3648,18 @@ function oc_db_schema() {
 			[
 				'name'           => 'option_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'type',
-				'type' => 'varchar(32)'
+				'type' => 'varchar(32)',
+				'not_null' => true
 			],
 			[
 				'name' => 'sort_order',
-				'type' => 'int(3)'
+				'type' => 'int(3)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -3247,15 +3675,18 @@ function oc_db_schema() {
 		'field' => [
 			[
 				'name' => 'option_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'language_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'name',
-				'type' => 'varchar(128)'
+				'type' => 'varchar(128)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -3280,19 +3711,23 @@ function oc_db_schema() {
 			[
 				'name'           => 'option_value_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'option_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'image',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'sort_order',
-				'type' => 'int(3)'
+				'type' => 'int(3)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -3315,19 +3750,23 @@ function oc_db_schema() {
 		'field' => [
 			[
 				'name' => 'option_value_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'language_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'option_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'name',
-				'type' => 'varchar(128)'
+				'type' => 'varchar(128)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -3357,247 +3796,308 @@ function oc_db_schema() {
 			[
 				'name'           => 'order_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'invoice_no',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'invoice_prefix',
-				'type' => 'varchar(26)'
+				'type' => 'varchar(26)',
+				'not_null' => true
 			],
 			[
 				'name' => 'store_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'store_name',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			],
 			[
 				'name' => 'store_url',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'customer_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'customer_group_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'firstname',
-				'type' => 'varchar(32)'
+				'type' => 'varchar(32)',
+				'not_null' => true
 			],
 			[
 				'name' => 'lastname',
-				'type' => 'varchar(32)'
+				'type' => 'varchar(32)',
+				'not_null' => true
 			],
 			[
 				'name' => 'email',
-				'type' => 'varchar(96)'
+				'type' => 'varchar(96)',
+				'not_null' => true
 			],
 			[
 				'name' => 'telephone',
-				'type' => 'varchar(32)'
+				'type' => 'varchar(32)',
+				'not_null' => true
 			],
 			[
 				'name' => 'fax',
-				'type' => 'varchar(32)'
+				'type' => 'varchar(32)',
+				'not_null' => true
 			],
 			[
 				'name' => 'custom_field',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			],
 			[
 				'name' => 'payment_address_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'payment_firstname',
-				'type' => 'varchar(32)'
+				'type' => 'varchar(32)',
+				'not_null' => true
 			],
 			[
 				'name' => 'payment_lastname',
-				'type' => 'varchar(32)'
+				'type' => 'varchar(32)',
+				'not_null' => true
 			],
 			[
 				'name' => 'payment_company',
-				'type' => 'varchar(60)'
+				'type' => 'varchar(60)',
+				'not_null' => true
 			],
 			[
 				'name' => 'payment_address_1',
-				'type' => 'varchar(128)'
+				'type' => 'varchar(128)',
+				'not_null' => true
 			],
 			[
 				'name' => 'payment_address_2',
-				'type' => 'varchar(128)'
+				'type' => 'varchar(128)',
+				'not_null' => true
 			],
 			[
 				'name' => 'payment_city',
-				'type' => 'varchar(128)'
+				'type' => 'varchar(128)',
+				'not_null' => true
 			],
 			[
 				'name' => 'payment_postcode',
-				'type' => 'varchar(10)'
+				'type' => 'varchar(10)',
+				'not_null' => true
 			],
 			[
 				'name' => 'payment_country',
-				'type' => 'varchar(128)'
+				'type' => 'varchar(128)',
+				'not_null' => true
 			],
 			[
 				'name' => 'payment_country_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'payment_zone',
-				'type' => 'varchar(128)'
+				'type' => 'varchar(128)',
+				'not_null' => true
 			],
 			[
 				'name' => 'payment_zone_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'payment_address_format',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			],
 			[
 				'name' => 'payment_custom_field',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			],
 			[
 				'name' => 'payment_method',
-				'type' => 'varchar(128)'
+				'type' => 'varchar(128)',
+				'not_null' => true
 			],
 			[
 				'name' => 'shipping_address_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'shipping_firstname',
-				'type' => 'varchar(32)'
+				'type' => 'varchar(32)',
+				'not_null' => true
 			],
 			[
 				'name' => 'shipping_lastname',
-				'type' => 'varchar(32)'
+				'type' => 'varchar(32)',
+				'not_null' => true
 			],
 			[
 				'name' => 'shipping_company',
-				'type' => 'varchar(60)'
+				'type' => 'varchar(60)',
+				'not_null' => true
 			],
 			[
 				'name' => 'shipping_address_1',
-				'type' => 'varchar(128)'
+				'type' => 'varchar(128)',
+				'not_null' => true
 			],
 			[
 				'name' => 'shipping_address_2',
-				'type' => 'varchar(128)'
+				'type' => 'varchar(128)',
+				'not_null' => true
 			],
 			[
 				'name' => 'shipping_city',
-				'type' => 'varchar(128)'
+				'type' => 'varchar(128)',
+				'not_null' => true
 			],
 			[
 				'name' => 'shipping_postcode',
-				'type' => 'varchar(10)'
+				'type' => 'varchar(10)',
+				'not_null' => true
 			],
 			[
 				'name' => 'shipping_country',
-				'type' => 'varchar(128)'
+				'type' => 'varchar(128)',
+				'not_null' => true
 			],
 			[
 				'name' => 'shipping_country_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'shipping_zone',
-				'type' => 'varchar(128)'
+				'type' => 'varchar(128)',
+				'not_null' => true
 			],
 			[
 				'name' => 'shipping_zone_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'shipping_address_format',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			],
 			[
 				'name' => 'shipping_custom_field',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			],
 			[
 				'name' => 'shipping_method',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			],
 			[
 				'name' => 'comment',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			],
 			[
 				'name' => 'total',
-				'type' => 'decimal(15,4)'
+				'type' => 'decimal(15,4)',
+				'not_null' => true
 			],
 			[
 				'name' => 'order_status_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'affiliate_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'commission',
-				'type' => 'decimal(15,4)'
+				'type' => 'decimal(15,4)',
+				'not_null' => true
 			],
 			[
 				'name' => 'marketing_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'tracking',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			],
 			[
 				'name' => 'language_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'currency_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'currency_code',
-				'type' => 'varchar(3)'
+				'type' => 'varchar(3)',
+				'not_null' => true
 			],
 			[
 				'name' => 'currency_value',
-				'type' => 'decimal(15,8)'
+				'type' => 'decimal(15,8)',
+				'not_null' => true
 			],
 			[
 				'name' => 'ip',
-				'type' => 'varchar(40)'
+				'type' => 'varchar(40)',
+				'not_null' => true
 			],
 			[
 				'name' => 'forwarded_ip',
-				'type' => 'varchar(40)'
+				'type' => 'varchar(40)',
+				'not_null' => true
 			],
 			[
 				'name' => 'user_agent',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'accept_language',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_modified',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -3676,27 +4176,33 @@ function oc_db_schema() {
 			[
 				'name'           => 'order_history_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'order_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'order_status_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'notify',
-				'type' => 'tinyint(1)'
+				'type' => 'tinyint(1)',
+				'not_null' => true
 			],
 			[
 				'name' => 'comment',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -3725,35 +4231,43 @@ function oc_db_schema() {
 			[
 				'name'           => 'order_option_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'order_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'order_product_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'product_option_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'product_option_value_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'name',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'value',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			],
 			[
 				'name' => 'type',
-				'type' => 'varchar(32)'
+				'type' => 'varchar(32)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -3792,43 +4306,53 @@ function oc_db_schema() {
 			[
 				'name'           => 'order_product_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'order_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'product_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'name',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'model',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			],
 			[
 				'name' => 'quantity',
-				'type' => 'int(4)'
+				'type' => 'int(4)',
+				'not_null' => true
 			],
 			[
 				'name' => 'price',
-				'type' => 'decimal(15,4)'
+				'type' => 'decimal(15,4)',
+				'not_null' => true
 			],
 			[
 				'name' => 'total',
-				'type' => 'decimal(15,4)'
+				'type' => 'decimal(15,4)',
+				'not_null' => true
 			],
 			[
 				'name' => 'tax',
-				'type' => 'decimal(15,4)'
+				'type' => 'decimal(15,4)',
+				'not_null' => true
 			],
 			[
 				'name' => 'reward',
-				'type' => 'int(8)'
+				'type' => 'int(8)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -3862,83 +4386,103 @@ function oc_db_schema() {
 			[
 				'name'           => 'order_recurring_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'order_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'reference',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'product_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'product_name',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'product_quantity',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'recurring_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'recurring_name',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'recurring_description',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'recurring_frequency',
-				'type' => 'varchar(25)'
+				'type' => 'varchar(25)',
+				'not_null' => true
 			],
 			[
 				'name' => 'recurring_cycle',
-				'type' => 'smallint(6)'
+				'type' => 'smallint(6)',
+				'not_null' => true
 			],
 			[
 				'name' => 'recurring_duration',
-				'type' => 'smallint(6)'
+				'type' => 'smallint(6)',
+				'not_null' => true
 			],
 			[
 				'name' => 'recurring_price',
-				'type' => 'decimal(10,4)'
+				'type' => 'decimal(10,4)',
+				'not_null' => true
 			],
 			[
 				'name' => 'trial',
-				'type' => 'tinyint(1)'
+				'type' => 'tinyint(1)',
+				'not_null' => true
 			],
 			[
 				'name' => 'trial_frequency',
-				'type' => 'varchar(25)'
+				'type' => 'varchar(25)',
+				'not_null' => true
 			],
 			[
 				'name' => 'trial_cycle',
-				'type' => 'smallint(6)'
+				'type' => 'smallint(6)',
+				'not_null' => true
 			],
 			[
 				'name' => 'trial_duration',
-				'type' => 'smallint(6)'
+				'type' => 'smallint(6)',
+				'not_null' => true
 			],
 			[
 				'name' => 'trial_price',
-				'type' => 'decimal(10,4)'
+				'type' => 'decimal(10,4)',
+				'not_null' => true
 			],
 			[
 				'name' => 'status',
-				'type' => 'tinyint(4)'
+				'type' => 'tinyint(4)',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -3967,23 +4511,28 @@ function oc_db_schema() {
 			[
 				'name'           => 'order_recurring_history_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'order_recurring_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'notify',
-				'type' => 'tinyint(1)'
+				'type' => 'tinyint(1)',
+				'not_null' => true
 			],
 			[
 				'name' => 'comment',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -4007,27 +4556,33 @@ function oc_db_schema() {
 			[
 				'name'           => 'order_recurring_transaction_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'order_recurring_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'reference',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'type',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'amount',
-				'type' => 'decimal(10,4)'
+				'type' => 'decimal(10,4)',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -4051,23 +4606,28 @@ function oc_db_schema() {
 			[
 				'name'           => 'order_shipment_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'order_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'shipment_courier_id',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'tracking_number',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -4091,15 +4651,18 @@ function oc_db_schema() {
 			[
 				'name'           => 'shipping_courier_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'shipping_courier_code',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'shipping_courier_name',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -4116,15 +4679,18 @@ function oc_db_schema() {
 			[
 				'name'           => 'order_status_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'language_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'name',
-				'type' => 'varchar(32)'
+				'type' => 'varchar(32)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -4149,71 +4715,88 @@ function oc_db_schema() {
 			[
 				'name'           => 'order_subscription_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'order_product_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'order_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'product_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'subscription_plan_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'trial_price',
-				'type' => 'decimal(10,4)'
+				'type' => 'decimal(10,4)',
+				'not_null' => true
 			],
 			[
 				'name' => 'trial_tax',
-				'type' => 'decimal(15,4)'
+				'type' => 'decimal(15,4)',
+				'not_null' => true
 			],
 			[
 				'name' => 'trial_frequency',
-				'type' => 'enum(\'day\',\'week\',\'semi_month\',\'month\',\'year\')'
+				'type' => 'enum(\'day\',\'week\',\'semi_month\',\'month\',\'year\')',
+				'not_null' => true
 			],
 			[
 				'name' => 'trial_cycle',
-				'type' => 'smallint(6)'
+				'type' => 'smallint(6)',
+				'not_null' => true
 			],
 			[
 				'name' => 'trial_duration',
-				'type' => 'smallint(6)'
+				'type' => 'smallint(6)',
+				'not_null' => true
 			],
 			[
 				'name' => 'trial_remaining',
-				'type' => 'smallint(6)'
+				'type' => 'smallint(6)',
+				'not_null' => true
 			],
 			[
 				'name' => 'trial_status',
-				'type' => 'tinyint(1)'
+				'type' => 'tinyint(1)',
+				'not_null' => true
 			],
 			[
 				'name' => 'price',
-				'type' => 'decimal(10,4)'
+				'type' => 'decimal(10,4)',
+				'not_null' => true
 			],
 			[
 				'name' => 'tax',
-				'type' => 'decimal(15,4)'
+				'type' => 'decimal(15,4)',
+				'not_null' => true
 			],
 			[
 				'name' => 'frequency',
-				'type' => 'enum(\'day\',\'week\',\'semi_month\',\'month\',\'year\')'
+				'type' => 'enum(\'day\',\'week\',\'semi_month\',\'month\',\'year\')',
+				'not_null' => true
 			],
 			[
 				'name' => 'cycle',
-				'type' => 'smallint(6)'
+				'type' => 'smallint(6)',
+				'not_null' => true
 			],
 			[
 				'name' => 'duration',
-				'type' => 'smallint(6)'
+				'type' => 'smallint(6)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -4252,27 +4835,33 @@ function oc_db_schema() {
 			[
 				'name'           => 'order_total_id',
 				'type'           => 'int(10)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'order_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'code',
-				'type' => 'varchar(32)'
+				'type' => 'varchar(32)',
+				'not_null' => true
 			],
 			[
 				'name' => 'title',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'value',
-				'type' => 'decimal(15,4)'
+				'type' => 'decimal(15,4)',
+				'not_null' => true
 			],
 			[
 				'name' => 'sort_order',
-				'type' => 'int(3)'
+				'type' => 'int(3)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -4296,51 +4885,63 @@ function oc_db_schema() {
 			[
 				'name'           => 'order_voucher_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'order_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'voucher_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'description',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'code',
-				'type' => 'varchar(10)'
+				'type' => 'varchar(10)',
+				'not_null' => true
 			],
 			[
 				'name' => 'from_name',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			],
 			[
 				'name' => 'from_email',
-				'type' => 'varchar(96)'
+				'type' => 'varchar(96)',
+				'not_null' => true
 			],
 			[
 				'name' => 'to_name',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			],
 			[
 				'name' => 'to_email',
-				'type' => 'varchar(96)'
+				'type' => 'varchar(96)',
+				'not_null' => true
 			],
 			[
 				'name' => 'voucher_theme_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'message',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			],
 			[
 				'name' => 'amount',
-				'type' => 'decimal(15,4)'
+				'type' => 'decimal(15,4)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -4369,127 +4970,158 @@ function oc_db_schema() {
 			[
 				'name'           => 'product_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'model',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			],
 			[
 				'name' => 'sku',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			],
 			[
 				'name' => 'upc',
-				'type' => 'varchar(12)'
+				'type' => 'varchar(12)',
+				'not_null' => true
 			],
 			[
 				'name' => 'ean',
-				'type' => 'varchar(14)'
+				'type' => 'varchar(14)',
+				'not_null' => true
 			],
 			[
 				'name' => 'jan',
-				'type' => 'varchar(13)'
+				'type' => 'varchar(13)',
+				'not_null' => true
 			],
 			[
 				'name' => 'isbn',
-				'type' => 'varchar(17)'
+				'type' => 'varchar(17)',
+				'not_null' => true
 			],
 			[
 				'name' => 'mpn',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			],
 			[
 				'name' => 'location',
-				'type' => 'varchar(128)'
+				'type' => 'varchar(128)',
+				'not_null' => true
 			],
 			[
 				'name' => 'quantity',
-				'type' => 'int(4)'
+				'type' => 'int(4)',
+				'not_null' => true
 			],
 			[
 				'name' => 'stock_status_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'image',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'manufacturer_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'shipping',
-				'type' => 'tinyint(1)'
+				'type' => 'tinyint(1)',
+				'not_null' => true
 			],
 			[
 				'name' => 'price',
-				'type' => 'decimal(15,4)'
+				'type' => 'decimal(15,4)',
+				'not_null' => true
 			],
 			[
 				'name' => 'points',
-				'type' => 'int(8)'
+				'type' => 'int(8)',
+				'not_null' => true
 			],
 			[
 				'name' => 'tax_class_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_available',
-				'type' => 'date'
+				'type' => 'date',
+				'not_null' => true
 			],
 			[
 				'name' => 'weight',
-				'type' => 'decimal(15,8)'
+				'type' => 'decimal(15,8)',
+				'not_null' => true
 			],
 			[
 				'name' => 'weight_class_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'length',
-				'type' => 'decimal(15,8)'
+				'type' => 'decimal(15,8)',
+				'not_null' => true
 			],
 			[
 				'name' => 'width',
-				'type' => 'decimal(15,8)'
+				'type' => 'decimal(15,8)',
+				'not_null' => true
 			],
 			[
 				'name' => 'height',
-				'type' => 'decimal(15,8)'
+				'type' => 'decimal(15,8)',
+				'not_null' => true
 			],
 			[
 				'name' => 'length_class_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'subtract',
-				'type' => 'tinyint(1)'
+				'type' => 'tinyint(1)',
+				'not_null' => true
 			],
 			[
 				'name' => 'minimum',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'sort_order',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'status',
-				'type' => 'tinyint(1)'
+				'type' => 'tinyint(1)',
+				'not_null' => true
 			],
 			[
 				'name' => 'viewed',
-				'type' => 'int(5)'
+				'type' => 'int(5)',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_modified',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -4532,19 +5164,23 @@ function oc_db_schema() {
 		'field' => [
 			[
 				'name' => 'product_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'attribute_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'language_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'text',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -4579,35 +5215,43 @@ function oc_db_schema() {
 		'field' => [
 			[
 				'name' => 'product_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'language_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'name',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'description',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			],
 			[
 				'name' => 'tag',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			],
 			[
 				'name' => 'meta_title',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'meta_description',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'meta_keyword',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -4637,35 +5281,43 @@ function oc_db_schema() {
 			[
 				'name'           => 'product_discount_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'product_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'customer_group_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'quantity',
-				'type' => 'int(4)'
+				'type' => 'int(4)',
+				'not_null' => true
 			],
 			[
 				'name' => 'priority',
-				'type' => 'int(5)'
+				'type' => 'int(5)',
+				'not_null' => true
 			],
 			[
 				'name' => 'price',
-				'type' => 'decimal(15,4)'
+				'type' => 'decimal(15,4)',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_start',
-				'type' => 'date'
+				'type' => 'date',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_end',
-				'type' => 'date'
+				'type' => 'date',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -4693,11 +5345,13 @@ function oc_db_schema() {
 		'field' => [
 			[
 				'name' => 'product_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'filter_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -4727,19 +5381,23 @@ function oc_db_schema() {
 			[
 				'name'           => 'product_image_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'product_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'image',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'sort_order',
-				'type' => 'int(3)'
+				'type' => 'int(3)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -4763,23 +5421,28 @@ function oc_db_schema() {
 			[
 				'name'           => 'product_option_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'product_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'option_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'value',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			],
 			[
 				'name' => 'required',
-				'type' => 'tinyint(1)'
+				'type' => 'tinyint(1)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -4808,55 +5471,68 @@ function oc_db_schema() {
 			[
 				'name'           => 'product_option_value_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'product_option_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'product_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'option_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'option_value_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'quantity',
-				'type' => 'int(3)'
+				'type' => 'int(3)',
+				'not_null' => true
 			],
 			[
 				'name' => 'subtract',
-				'type' => 'tinyint(1)'
+				'type' => 'tinyint(1)',
+				'not_null' => true
 			],
 			[
 				'name' => 'price',
-				'type' => 'decimal(15,4)'
+				'type' => 'decimal(15,4)',
+				'not_null' => true
 			],
 			[
 				'name' => 'price_prefix',
-				'type' => 'varchar(1)'
+				'type' => 'varchar(1)',
+				'not_null' => true
 			],
 			[
 				'name' => 'points',
-				'type' => 'int(8)'
+				'type' => 'int(8)',
+				'not_null' => true
 			],
 			[
 				'name' => 'points_prefix',
-				'type' => 'varchar(1)'
+				'type' => 'varchar(1)',
+				'not_null' => true
 			],
 			[
 				'name' => 'weight',
-				'type' => 'decimal(15,8)'
+				'type' => 'decimal(15,8)',
+				'not_null' => true
 			],
 			[
 				'name' => 'weight_prefix',
-				'type' => 'varchar(1)'
+				'type' => 'varchar(1)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -4895,15 +5571,18 @@ function oc_db_schema() {
 			[
 				'name'           => 'product_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'recurring_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'customer_group_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -4938,11 +5617,13 @@ function oc_db_schema() {
 		'field' => [
 			[
 				'name' => 'product_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'related_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -4972,19 +5653,23 @@ function oc_db_schema() {
 			[
 				'name'           => 'product_reward_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'product_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'customer_group_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'points',
-				'type' => 'int(8)'
+				'type' => 'int(8)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -5013,31 +5698,38 @@ function oc_db_schema() {
 			[
 				'name'           => 'product_special_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'product_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'customer_group_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'priority',
-				'type' => 'int(5)'
+				'type' => 'int(5)',
+				'not_null' => true
 			],
 			[
 				'name' => 'price',
-				'type' => 'decimal(15,4)'
+				'type' => 'decimal(15,4)',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_start',
-				'type' => 'date'
+				'type' => 'date',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_end',
-				'type' => 'date'
+				'type' => 'date',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -5065,11 +5757,13 @@ function oc_db_schema() {
 		'field' => [
 			[
 				'name' => 'product_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'category_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -5098,11 +5792,13 @@ function oc_db_schema() {
 		'field' => [
 			[
 				'name' => 'product_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'download_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -5131,15 +5827,18 @@ function oc_db_schema() {
 		'field' => [
 			[
 				'name' => 'product_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'store_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'layout_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -5173,11 +5872,13 @@ function oc_db_schema() {
 		'field' => [
 			[
 				'name' => 'product_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'store_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -5207,51 +5908,63 @@ function oc_db_schema() {
 			[
 				'name'           => 'recurring_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'price',
-				'type' => 'decimal(15,4)'
+				'type' => 'decimal(15,4)',
+				'not_null' => true
 			],
 			[
 				'name' => 'frequency',
-				'type' => 'enum(\'pending\',\'approved\',\'disapproved\')'
+				'type' => 'enum(\'pending\',\'approved\',\'disapproved\')',
+				'not_null' => true
 			],
 			[
 				'name' => 'duration',
-				'type' => 'int(10)'
+				'type' => 'int(10)',
+				'not_null' => true
 			],
 			[
 				'name' => 'cycle',
-				'type' => 'int(10)'
+				'type' => 'int(10)',
+				'not_null' => true
 			],
 			[
 				'name' => 'trial_status',
-				'type' => 'tinyint(4)'
+				'type' => 'tinyint(4)',
+				'not_null' => true
 			],
 			[
 				'name' => 'trial_price',
-				'type' => 'decimal(15,4)'
+				'type' => 'decimal(15,4)',
+				'not_null' => true
 			],
 			[
 				'name' => 'trial_frequency',
-				'type' => 'enum(\'pending\',\'approved\',\'disapproved\')'
+				'type' => 'enum(\'pending\',\'approved\',\'disapproved\')',
+				'not_null' => true
 			],
 			[
 				'name' => 'trial_duration',
-				'type' => 'int(10)'
+				'type' => 'int(10)',
+				'not_null' => true
 			],
 			[
 				'name' => 'trial_cycle',
-				'type' => 'int(10)'
+				'type' => 'int(10)',
+				'not_null' => true
 			],
 			[
 				'name' => 'status',
-				'type' => 'tinyint(4)'
+				'type' => 'tinyint(4)',
+				'not_null' => true
 			],
 			[
 				'name' => 'sort_order',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 		]
 	];
@@ -5262,79 +5975,98 @@ function oc_db_schema() {
 			[
 				'name'           => 'return_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'order_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'product_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'customer_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'firstname',
-				'type' => 'varchar(32)'
+				'type' => 'varchar(32)',
+				'not_null' => true
 			],
 			[
 				'name' => 'lastname',
-				'type' => 'varchar(32)'
+				'type' => 'varchar(32)',
+				'not_null' => true
 			],
 			[
 				'name' => 'email',
-				'type' => 'varchar(96)'
+				'type' => 'varchar(96)',
+				'not_null' => true
 			],
 			[
 				'name' => 'telephone',
-				'type' => 'varchar(32)'
+				'type' => 'varchar(32)',
+				'not_null' => true
 			],
 			[
 				'name' => 'product',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'model',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			],
 			[
 				'name' => 'quantity',
-				'type' => 'int(4)'
+				'type' => 'int(4)',
+				'not_null' => true
 			],
 			[
 				'name' => 'opened',
-				'type' => 'tinyint(1)'
+				'type' => 'tinyint(1)',
+				'not_null' => true
 			],
 			[
 				'name' => 'return_reason_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'return_action_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'return_status_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'comment',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_ordered',
-				'type' => 'date'
+				'type' => 'date',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_modified',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -5383,15 +6115,18 @@ function oc_db_schema() {
 			[
 				'name'           => 'return_action_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'language_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'name',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -5416,27 +6151,33 @@ function oc_db_schema() {
 			[
 				'name'           => 'return_history_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'return_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'return_status_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'notify',
-				'type' => 'tinyint(1)'
+				'type' => 'tinyint(1)',
+				'not_null' => true
 			],
 			[
 				'name' => 'comment',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -5465,15 +6206,18 @@ function oc_db_schema() {
 			[
 				'name'           => 'return_reason_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'language_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'name',
-				'type' => 'varchar(128)'
+				'type' => 'varchar(128)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -5498,15 +6242,18 @@ function oc_db_schema() {
 			[
 				'name'           => 'return_status_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'language_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'name',
-				'type' => 'varchar(32)'
+				'type' => 'varchar(32)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -5531,39 +6278,48 @@ function oc_db_schema() {
 			[
 				'name'           => 'review_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'product_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'customer_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'author',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			],
 			[
 				'name' => 'text',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			],
 			[
 				'name' => 'rating',
-				'type' => 'int(1)'
+				'type' => 'int(1)',
+				'not_null' => true
 			],
 			[
 				'name' => 'status',
-				'type' => 'tinyint(1)'
+				'type' => 'tinyint(1)',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_modified',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -5592,23 +6348,28 @@ function oc_db_schema() {
 			[
 				'name'           => 'seo_url_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'store_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'language_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'query',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'keyword',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -5636,15 +6397,18 @@ function oc_db_schema() {
 		'field' => [
 			[
 				'name' => 'session_id',
-				'type' => 'varchar(32)'
+				'type' => 'varchar(32)',
+				'not_null' => true
 			],
 			[
 				'name' => 'data',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			],
 			[
 				'name' => 'expire',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -5661,27 +6425,33 @@ function oc_db_schema() {
 			[
 				'name'           => 'setting_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'store_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'code',
-				'type' => 'varchar(128)'
+				'type' => 'varchar(128)',
+				'not_null' => true
 			],
 			[
 				'name' => 'key',
-				'type' => 'varchar(128)'
+				'type' => 'varchar(128)',
+				'not_null' => true
 			],
 			[
 				'name' => 'value',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			],
 			[
 				'name' => 'serialized',
-				'type' => 'tinyint(1)'
+				'type' => 'tinyint(1)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -5705,15 +6475,18 @@ function oc_db_schema() {
 			[
 				'name'           => 'statistics_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'code',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			],
 			[
 				'name' => 'value',
-				'type' => 'decimal(15,4)'
+				'type' => 'decimal(15,4)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -5730,15 +6503,18 @@ function oc_db_schema() {
 			[
 				'name'           => 'stock_status_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'language_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'name',
-				'type' => 'varchar(32)'
+				'type' => 'varchar(32)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -5763,19 +6539,23 @@ function oc_db_schema() {
 			[
 				'name'           => 'store_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'name',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			],
 			[
 				'name' => 'url',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'ssl',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -5792,23 +6572,28 @@ function oc_db_schema() {
 			[
 				'name'           => 'tax_class_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'title',
-				'type' => 'varchar(32)'
+				'type' => 'varchar(32)',
+				'not_null' => true
 			],
 			[
 				'name' => 'description',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_modified',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -5825,31 +6610,38 @@ function oc_db_schema() {
 			[
 				'name'           => 'tax_rate_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'geo_zone_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'name',
-				'type' => 'varchar(32)'
+				'type' => 'varchar(32)',
+				'not_null' => true
 			],
 			[
 				'name' => 'rate',
-				'type' => 'decimal(15,4)'
+				'type' => 'decimal(15,4)',
+				'not_null' => true
 			],
 			[
 				'name' => 'type',
-				'type' => 'char(1)'
+				'type' => 'char(1)',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_modified',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -5872,11 +6664,13 @@ function oc_db_schema() {
 		'field' => [
 			[
 				'name' => 'tax_rate_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'customer_group_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -5906,23 +6700,28 @@ function oc_db_schema() {
 			[
 				'name'           => 'tax_rule_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'tax_class_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'tax_rate_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'based',
-				'type' => 'varchar(10)'
+				'type' => 'varchar(10)',
+				'not_null' => true
 			],
 			[
 				'name' => 'priority',
-				'type' => 'int(5)'
+				'type' => 'int(5)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -5951,23 +6750,28 @@ function oc_db_schema() {
 			[
 				'name'           => 'theme_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'store_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'route',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			],
 			[
 				'name' => 'code',
-				'type' => 'mediumtext'
+				'type' => 'mediumtext',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -5991,31 +6795,38 @@ function oc_db_schema() {
 			[
 				'name'           => 'translation_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'store_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'language_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'route',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			],
 			[
 				'name' => 'key',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			],
 			[
 				'name' => 'value',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -6044,23 +6855,28 @@ function oc_db_schema() {
 			[
 				'name'           => 'upload_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'name',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'filename',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'code',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -6077,51 +6893,63 @@ function oc_db_schema() {
 			[
 				'name'           => 'user_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'user_group_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'username',
-				'type' => 'varchar(20)'
+				'type' => 'varchar(20)',
+				'not_null' => true
 			],
 			[
 				'name' => 'password',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'firstname',
-				'type' => 'varchar(32)'
+				'type' => 'varchar(32)',
+				'not_null' => true
 			],
 			[
 				'name' => 'lastname',
-				'type' => 'varchar(32)'
+				'type' => 'varchar(32)',
+				'not_null' => true
 			],
 			[
 				'name' => 'email',
-				'type' => 'varchar(96)'
+				'type' => 'varchar(96)',
+				'not_null' => true
 			],
 			[
 				'name' => 'image',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'code',
-				'type' => 'varchar(40)'
+				'type' => 'varchar(40)',
+				'not_null' => true
 			],
 			[
 				'name' => 'ip',
-				'type' => 'varchar(40)'
+				'type' => 'varchar(40)',
+				'not_null' => true
 			],
 			[
 				'name' => 'status',
-				'type' => 'tinyint(1)'
+				'type' => 'tinyint(1)',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -6145,15 +6973,18 @@ function oc_db_schema() {
 			[
 				'name'           => 'user_group_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'name',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			],
 			[
 				'name' => 'permission',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -6170,23 +7001,28 @@ function oc_db_schema() {
 			[
 				'name'           => 'user_login_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'user_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'ip',
-				'type' => 'varchar(40)'
+				'type' => 'varchar(40)',
+				'not_null' => true
 			],
 			[
 				'name' => 'user_agent',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -6210,51 +7046,63 @@ function oc_db_schema() {
 			[
 				'name'           => 'voucher_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'order_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'code',
-				'type' => 'varchar(10)'
+				'type' => 'varchar(10)',
+				'not_null' => true
 			],
 			[
 				'name' => 'from_name',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			],
 			[
 				'name' => 'from_email',
-				'type' => 'varchar(96)'
+				'type' => 'varchar(96)',
+				'not_null' => true
 			],
 			[
 				'name' => 'to_name',
-				'type' => 'varchar(64)'
+				'type' => 'varchar(64)',
+				'not_null' => true
 			],
 			[
 				'name' => 'to_email',
-				'type' => 'varchar(96)'
+				'type' => 'varchar(96)',
+				'not_null' => true
 			],
 			[
 				'name' => 'voucher_theme_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'message',
-				'type' => 'text'
+				'type' => 'text',
+				'not_null' => true
 			],
 			[
 				'name' => 'amount',
-				'type' => 'decimal(15,4)'
+				'type' => 'decimal(15,4)',
+				'not_null' => true
 			],
 			[
 				'name' => 'status',
-				'type' => 'tinyint(1)'
+				'type' => 'tinyint(1)',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -6278,23 +7126,28 @@ function oc_db_schema() {
 			[
 				'name'           => 'voucher_history_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'voucher_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'order_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'amount',
-				'type' => 'decimal(15,4)'
+				'type' => 'decimal(15,4)',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -6323,11 +7176,13 @@ function oc_db_schema() {
 			[
 				'name'           => 'voucher_theme_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'image',
-				'type' => 'varchar(255)'
+				'type' => 'varchar(255)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -6343,15 +7198,18 @@ function oc_db_schema() {
 		'field' => [
 			[
 				'name' => 'voucher_theme_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'language_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'name',
-				'type' => 'varchar(32)'
+				'type' => 'varchar(32)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -6376,11 +7234,13 @@ function oc_db_schema() {
 			[
 				'name'           => 'weight_class_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'value',
-				'type' => 'decimal(15,8)'
+				'type' => 'decimal(15,8)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -6396,19 +7256,24 @@ function oc_db_schema() {
 		'field' => [
 			[
 				'name' => 'weight_class_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'language_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'title',
-				'type' => 'varchar(32)'
+				'type' => 'varchar(32)',
+
+				'not_null' => true
 			],
 			[
 				'name' => 'unit',
-				'type' => 'varchar(4)'
+				'type' => 'varchar(4)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -6433,23 +7298,28 @@ function oc_db_schema() {
 			[
 				'name'           => 'zone_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'country_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'name',
-				'type' => 'varchar(128)'
+				'type' => 'varchar(128)',
+				'not_null' => true
 			],
 			[
 				'name' => 'code',
-				'type' => 'varchar(32)'
+				'type' => 'varchar(32)',
+				'not_null' => true
 			],
 			[
 				'name' => 'status',
-				'type' => 'tinyint(1)'
+				'type' => 'tinyint(1)',
+				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -6473,27 +7343,33 @@ function oc_db_schema() {
 			[
 				'name'           => 'zone_to_geo_zone_id',
 				'type'           => 'int(11)',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'not_null' => true
 			],
 			[
 				'name' => 'country_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'zone_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'geo_zone_id',
-				'type' => 'int(11)'
+				'type' => 'int(11)',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			],
 			[
 				'name' => 'date_modified',
-				'type' => 'datetime'
+				'type' => 'datetime',
+				'not_null' => true
 			]
 		],
 		'primary' => [
