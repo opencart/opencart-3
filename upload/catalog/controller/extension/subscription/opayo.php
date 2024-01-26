@@ -1,5 +1,8 @@
 <?php
 class ControllerExtensionRecurringOpayo extends Controller {
+	/**
+	 * @var array<string, string>
+	 */
 	private $error = [];
 
 	/**
