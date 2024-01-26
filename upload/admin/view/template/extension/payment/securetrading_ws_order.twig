@@ -150,7 +150,7 @@ $('#btn_void').click(function () {
 
                                     html += '<tr>';
                                     html += '  <td class="text-left">' + json.created + '</td>';
-                                    html += '  <td class="text-left">{{ text_reversed|escape('js') }}</td>';
+                                    html += '  <td class="text-left">{{ text_reversed }}</td>';
                                     html += '  <td class="text-left">0.00</td>';
                                     html += '</tr>';
 
@@ -216,7 +216,7 @@ $('#btn-release').click(function () {
 
                                     html += '<tr>';
                                     html += '  <td class="text-left">' + json.created + '</td>';
-                                    html += '  <td class="text-left">{{ text_payment|escape('js') }}</td>';
+                                    html += '  <td class="text-left">{{ text_payment }}</td>';
                                     html += '  <td class="text-left">' + json.amount + '</td>';
                                     html += '</tr>';
 
@@ -294,7 +294,7 @@ $('#btn-rebate').click(function () {
 
                                     html += '<tr>';
                                     html += '  <td class="text-left">' + json.created + '</td>';
-                                    html += '  <td class="text-left">{{ text_rebate|escape('js') }}</td>';
+                                    html += '  <td class="text-left">{{ text_rebate }}</td>';
                                     html += '  <td class="text-left">' + json.amount + '</td>';
                                     html += '</tr>';
 
