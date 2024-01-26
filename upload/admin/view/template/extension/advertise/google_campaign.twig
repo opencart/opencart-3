@@ -246,7 +246,7 @@
             <div class="form-group" data-error-type="error_roas">
               <label for="input-roas" class="col-sm-3 control-label">{{ entry_roas }}</label>
               <div class="col-sm-9">
-                <div class="alert alert-info"><i class="fa fa-info-circle"></i> {{ help_roas|escape('html') }}</div>
+                <div class="alert alert-info"><i class="fa fa-info-circle"></i> {{ help_roas }}</div>
                 <div id="warning-roas" class="alert alert-warning" style="display: none;">
                   <i class="fa fa-exclamation-triangle"></i> {roas_warning}
                 </div>
@@ -258,7 +258,7 @@
             <div class="form-group required" data-error-type="error_budget">
               <label for="input-budget" class="col-sm-3 control-label">{{ entry_budget }}</label>
               <div class="col-sm-9">
-                <div class="alert alert-info"><i class="fa fa-info-circle"></i> {{ help_budget|escape('html') }}</div>
+                <div class="alert alert-info"><i class="fa fa-info-circle"></i> {{ help_budget }}</div>
                 <div id="warning-budget" class="alert alert-warning" style="display: none;"><i class="fa fa-exclamation-triangle"></i> {{ warning_budget }}</div>
                 <div class="input-group"><div class="input-group-addon"><i class="fa fa-dollar"></i></div>
                   <input type="number" class="form-control" id="input-budget" name="budget" value="{budget}" min="5"/>
@@ -269,7 +269,7 @@
             <div class="form-group required" data-error-type="error_feed">
               <label class="col-sm-3 control-label">{{ entry_feed }}</label>
               <div class="col-sm-9">
-                <div class="alert alert-info"><i class="fa fa-info-circle"></i> {{ help_feed|escape('html') }}</div>
+                <div class="alert alert-info"><i class="fa fa-info-circle"></i> {{ help_feed }}</div>
                 <div id="feeds">{feeds}</div>
                 <div>
                   <button id="button-feed-add" class="btn btn-success"><i class="fa fa-plus"></i> {{ button_add_feed }}</button>
