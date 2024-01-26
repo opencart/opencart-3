@@ -4,6 +4,7 @@ $_['heading_title']                        = 'Subscriptions';
 
 // Text
 $_['text_account']                         = 'Account';
+$_['text_success']                         = 'Success: The subscription has been renewed successfully!';
 $_['text_subscription']                    = 'Subscription Payment Information';
 $_['text_subscription_id']                 = 'Subscription ID';
 $_['text_subscription_detail']             = 'Subscription Payment Details';
@@ -49,3 +50,4 @@ $_['button_return']                        = 'Return';
 // Error
 $_['error_not_canceled']                   = 'Error: %s';
 $_['error_not_found']                      = 'Could not cancel subscription';
+$_['error_payment_method']                 = 'Warning: Payment method %s could not be found!';

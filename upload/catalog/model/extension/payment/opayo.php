@@ -695,9 +695,14 @@ class ModelExtensionPaymentOpayo extends Model {
 	/**
 	 * Charge
 	 *
+	 * @param int    $customer_id
+	 * @param int    $order_id
+	 * @param float  $total
+	 * @param string $payment_code
+	 *
 	 * @return bool
 	 */
-	public function charge(): bool {
+	public function charge(int $customer_id, int $order_id, float $total, string $payment_code): bool {
 		/*
 		 * Used by the checkout to state the module
 		 * supports recurring subscriptions.
