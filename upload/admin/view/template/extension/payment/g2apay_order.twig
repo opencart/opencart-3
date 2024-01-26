@@ -74,7 +74,7 @@ $('#btn-refund').click(function () {
 
                     html += '<tr>';
                     html += '  <td class="text-left">' + json.date_added + '</td>';
-                    html += '  <td class="text-left">{{ text_refund }}</td>';
+                    html += '  <td class="text-left">{{ text_refund|escape('js') }}</td>';
                     html += '  <td class="text-left">' + json.amount + '</td>';
                     html += '</tr>';
 

@@ -97,7 +97,7 @@ $('#button-void').bind('click', function () {
 
                     html += '<tr>';
                     html += '  <td class="text-left">' + json.date_added + '</td>';
-                    html += '  <td class="text-left">{{ text_void }}</td>';
+                    html += '  <td class="text-left">{{ text_void|escape('js') }}</td>';
                     html += '  <td class="text-left">0.00</td>';
                     html += '</tr>';
 
@@ -143,7 +143,7 @@ $('#button-capture').bind('click', function () {
 
                     html += '<tr>';
                     html += '  <td class="text-left">' + json.date_added + '</td>';
-                    html += '  <td class="text-left"{{ text_payment }}</td>';
+                    html += '  <td class="text-left"{{ text_payment|escape('js') }}</td>';
                     html += '  <td class="text-left">' + json.amount + '</td>';
                     html += '</tr>';
 
@@ -194,7 +194,7 @@ $('#button-refund').bind('click', function () {
 
                     html += '<tr>';
                     html += '  <td class="text-left">' + json.date_added + '</td>';
-                    html += '  <td class="text-left">{{ text_refund }}</td>';
+                    html += '  <td class="text-left">{{ text_refund|escape('js') }}</td>';
                     html += '  <td class="text-left">' + json.amount + '</td>';
                     html += '</tr>';
 

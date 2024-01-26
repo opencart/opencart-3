@@ -79,11 +79,11 @@
                               <td>{{ download.date_added }}</td>
                               <td class="text-right">
                                 {% if download.extension_install_id %}
-                                  <button type="button" data-install="{{ download.extension_download_id }}" data-uninstall="{{ download.extension_install_id }}" data-loading="{{ text_loading }}" class="btn btn-danger"><i class="fa fa-trash-o"></i> {{ button_uninstall }}</button>
+                                  <button type="button" data-install="{{ download.extension_download_id }}" data-uninstall="{{ download.extension_install_id }}" data-loading-text="{{ text_loading }}" class="btn btn-danger"><i class="fa fa-trash-o"></i> {{ button_uninstall }}</button>
                                 {% elseif download.filename|slice(-10) == '.ocmod.zip' %}
-                                  <button type="button" data-install="{{ download.extension_download_id }}" data-uninstall="" data-loading="{{ text_loading }}" class="btn btn-primary"{% if not download.status %} disabled{% endif %}><i class="fa fa-download"></i> {{ button_install }}</button>
+                                  <button type="button" data-install="{{ download.extension_download_id }}" data-uninstall="" data-loading-text="{{ text_loading }}" class="btn btn-primary"{% if not download.status %} disabled{% endif %}><i class="fa fa-download"></i> {{ button_install }}</button>
                                 {% else %}
-                                  <button type="button" data-install="{{ download.extension_download_id }}" data-uninstall="" data-loading="{{ text_loading }}" class="btn btn-primary"{% if not download.status %} disabled{% endif %}><i class="fa fa-download"></i> {{ button_download }}</button>
+                                  <button type="button" data-install="{{ download.extension_download_id }}" data-uninstall="" data-loading-text="{{ text_loading }}" class="btn btn-primary"{% if not download.status %} disabled{% endif %}><i class="fa fa-download"></i> {{ button_download }}</button>
                                 {% endif %}</td>
                             </tr>
                           {% endfor %}
@@ -228,7 +228,7 @@
       html += '          <input type="password" name="pin" value="" placeholder="{{ entry_pin }}" id="input-pin" class="form-control"/>';
       html += '        </div>';
       html += '        <div class="form-group text-right">';
-      html += '          <button type="button" id="button-purchase" data-loading-text="{{ text_loading }}" class="btn btn-primary btn-lg">{{ button_purchase }}</button>';
+      html += '          <button type="button" id="button-purchase" data-loading-text="{{ text_loading|escape('js') }}" class="btn btn-primary btn-lg">{{ button_purchase|escape('js') }}</button>';
       html += '        </div>';
       html += '      </div>';
       html += '    </div>';
@@ -316,7 +316,7 @@
               }
 
               if (json['extension_install_id']) {
-                  $(element).replaceWith('<button type="button" data-install="' + $(element).attr('data-install') + '" data-uninstall="' + json['extension_install_id'] + '" data-loading="{{ text_loading }}" class="btn btn-danger"><i class="fa fa-trash-o"></i> {{ button_uninstall }}</button>');
+                  $(element).replaceWith('<button type="button" data-install="' + $(element).attr('data-install') + '" data-uninstall="' + json['extension_install_id'] + '" data-loading-text="{{ text_loading|escape('js') }}" class="btn btn-danger"><i class="fa fa-trash-o"></i> {{ button_uninstall|escape('js') }}</button>');
               }
 
               if (json['next']) {
@@ -397,7 +397,7 @@
 
                   $('#progress-text').html(json['success']);
 
-                  $(element).replaceWith('<button type="button" data-install="' + $(element).attr('data-install') + '" data-uninstall="" data-loading="{{ text_loading }}" class="btn btn-primary"><i class="fa fa-download"></i> {{ button_install }}</button>');
+                  $(element).replaceWith('<button type="button" data-install="' + $(element).attr('data-install') + '" data-uninstall="" data-loading-text="{{ text_loading|escape('js') }}" class="btn btn-primary"><i class="fa fa-download"></i> {{ button_install|escape('js') }}</button>');
               }
           },
           error: function (xhr, ajaxOptions, thrownError) {

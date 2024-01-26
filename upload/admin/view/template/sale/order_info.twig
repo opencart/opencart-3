@@ -426,7 +426,7 @@
               if (json['success']) {
                   $('#content > .container-fluid').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + '</div>');
 
-                  $('#button-reward-add').replaceWith('<button id="button-reward-remove" data-toggle="tooltip" title="{{ button_reward_remove }}" class="btn btn-danger btn-xs"><i class="fa fa-minus-circle"></i></button>');
+                  $('#button-reward-add').replaceWith('<button id="button-reward-remove" data-toggle="tooltip" title="{{ button_reward_remove|escape('js') }}" class="btn btn-danger btn-xs"><i class="fa fa-minus-circle"></i></button>');
               }
           },
           error: function (xhr, ajaxOptions, thrownError) {
@@ -456,7 +456,7 @@
               if (json['success']) {
                   $('#content > .container-fluid').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + '</div>');
 
-                  $('#button-reward-remove').replaceWith('<button id="button-reward-add" data-toggle="tooltip" title="{{ button_reward_add }}" class="btn btn-success btn-xs"><i class="fa fa-plus-circle"></i></button>');
+                  $('#button-reward-remove').replaceWith('<button id="button-reward-add" data-toggle="tooltip" title="{{ button_reward_add|escape('js') }}" class="btn btn-success btn-xs"><i class="fa fa-plus-circle"></i></button>');
               }
           },
           error: function (xhr, ajaxOptions, thrownError) {
@@ -486,7 +486,7 @@
               if (json['success']) {
                   $('#content > .container-fluid').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + '</div>');
 
-                  $('#button-commission-add').replaceWith('<button id="button-commission-remove" data-toggle="tooltip" title="{{ button_commission_remove }}" class="btn btn-danger btn-xs"><i class="fa fa-minus-circle"></i></button>');
+                  $('#button-commission-add').replaceWith('<button id="button-commission-remove" data-toggle="tooltip" title="{{ button_commission_remove|escape('js') }}" class="btn btn-danger btn-xs"><i class="fa fa-minus-circle"></i></button>');
               }
           },
           error: function (xhr, ajaxOptions, thrownError) {
@@ -516,7 +516,7 @@
               if (json['success']) {
                   $('#content > .container-fluid').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + '</div>');
 
-                  $('#button-commission-remove').replaceWith('<button id="button-commission-add" data-toggle="tooltip" title="{{ button_commission_add }}" class="btn btn-success btn-xs"><i class="fa fa-plus-circle"></i></button>');
+                  $('#button-commission-remove').replaceWith('<button id="button-commission-add" data-toggle="tooltip" title="{{ button_commission_add|escape('js') }}" class="btn btn-success btn-xs"><i class="fa fa-plus-circle"></i></button>');
               }
           },
           error: function (xhr, ajaxOptions, thrownError) {
@@ -542,7 +542,7 @@
               }
 
               if (json['error']['ip']) {
-                  $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['ip'] + ' <button type="button" id="button-ip-add" data-loading-text="{{ text_loading }}" class="btn btn-danger btn-xs pull-right"><i class="fa fa-plus"></i>{{ button_ip_add }}</button></div>');
+                  $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['ip'] + ' <button type="button" id="button-ip-add" data-loading-text="{{ text_loading|escape('js') }}" class="btn btn-danger btn-xs pull-right"><i class="fa fa-plus"></i>{{ button_ip_add|escape('js') }}</button></div>');
               }
           }
 

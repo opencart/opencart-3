@@ -1306,7 +1306,7 @@
                       html += '<div class="form-group' + (option['required'] ? ' required' : '') + '">';
                       html += '  <label class="col-sm-2 control-label">' + option['name'] + '</label>';
                       html += '  <div class="col-sm-10">';
-                      html += '    <button type="button" id="button-upload' + option['product_option_id'] + '" data-loading-text="{{ text_loading }}" class="btn btn-default"><i class="fa fa-upload"></i> {{ button_upload }}</button>';
+                      html += '    <button type="button" id="button-upload' + option['product_option_id'] + '" data-loading-text="{{ text_loading|escape('js') }}" class="btn btn-default"><i class="fa fa-upload"></i> {{ button_upload|escape('js') }}</button>';
                       html += '    <input type="hidden" name="option[' + option['product_option_id'] + ']" value="' + option['value'] + '" id="input-option' + option['product_option_id'] + '"/>';
                       html += '  </div>';
                       html += '</div>';
@@ -2379,10 +2379,10 @@
 
                       html += '  </td>';
                       html += '  <td class="text-left">' + product['model'] + '</td>';
-                      html += '  <td class="text-right"><div class="input-group btn-block" style="max-width: 200px;"><input type="text" name="product[' + i + '][quantity]" value="' + product['quantity'] + '" class="form-control"/><span class="input-group-btn"><button type="button" data-toggle="tooltip" title="{{ button_refresh }}" data-loading-text="{{ text_loading }}" class="btn btn-primary"><i class="fa fa-refresh"></i></button></span></div></td>';
+                      html += '  <td class="text-right"><div class="input-group btn-block" style="max-width: 200px;"><input type="text" name="product[' + i + '][quantity]" value="' + product['quantity'] + '" class="form-control"/><span class="input-group-btn"><button type="button" data-toggle="tooltip" title="{{ button_refresh|escape('js') }}" data-loading-text="{{ text_loading|escape('js') }}" class="btn btn-primary"><i class="fa fa-refresh"></i></button></span></div></td>';
                       html += '  <td class="text-right">' + product['price'] + '</td>';
                       html += '  <td class="text-right">' + product['total'] + '</td>';
-                      html += '  <td class="text-center" style="width: 3px;"><button type="button" value="' + product['cart_id'] + '" data-toggle="tooltip" title="{{ button_remove }}" data-loading-text="{{ text_loading }}" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';
+                      html += '  <td class="text-center" style="width: 3px;"><button type="button" value="' + product['cart_id'] + '" data-toggle="tooltip" title="{{ button_remove|escape('js') }}" data-loading-text="{{ text_loading|escape('js') }}" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';
                       html += '</tr>';
 
                       if (product['shipping'] != 0) {
@@ -2420,14 +2420,14 @@
                       html += '  <td class="text-right">1</td>';
                       html += '  <td class="text-right">' + voucher['price'] + '</td>';
                       html += '  <td class="text-right">' + voucher['price'] + '</td>';
-                      html += '  <td class="text-center" style="width: 3px;"><button type="button" value="' + voucher['code'] + '" data-toggle="tooltip" title="{{ button_remove }}" data-loading-text="{{ text_loading }}" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';
+                      html += '  <td class="text-center" style="width: 3px;"><button type="button" value="' + voucher['code'] + '" data-toggle="tooltip" title="{{ button_remove|escape('js') }}" data-loading-text="{{ text_loading|escape('js') }}" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';
                       html += '</tr>';
                   }
               }
 
               if (!json['products'].length && !json['vouchers'].length) {
                   html += '<tr>';
-                  html += '  <td colspan="6" class="text-center">{{ text_no_results }}</td>';
+                  html += '  <td colspan="6" class="text-center">{{ text_no_results|escape('js') }}</td>';
                   html += '</tr>';
               }
 
@@ -2487,7 +2487,7 @@
 
               if (!json['totals'].length && !json['products'].length && !json['vouchers'].length) {
                   html += '<tr>';
-                  html += '  <td colspan="5" class="text-center">{{ text_no_results }}</td>';
+                  html += '  <td colspan="5" class="text-center">{{ text_no_results|escape('js') }}</td>';
                   html += '</tr>';
               }
 

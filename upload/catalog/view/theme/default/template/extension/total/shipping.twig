@@ -106,12 +106,12 @@
 
                       html += '      </div>';
                       html += '      <div class="modal-footer">';
-                      html += '        <button type="button" class="btn btn-default" data-dismiss="modal">{{ button_cancel }}</button>';
+                      html += '        <button type="button" class="btn btn-default" data-dismiss="modal">{{ button_cancel|escape('js') }}</button>';
 
                       {% if shipping_method %}
-                          html += '        <input type="button" value="{{ button_shipping }}" id="button-shipping" data-loading-text="{{ text_loading }}" class="btn btn-primary"/>';
+                          html += '        <input type="button" value="{{ button_shipping|escape('js') }}" id="button-shipping" data-loading-text="{{ text_loading|escape('js') }}" class="btn btn-primary"/>';
                       {% else %}
-                          html += '        <input type="button" value="{{ button_shipping }}" id="button-shipping" data-loading-text="{{ text_loading }}" class="btn btn-primary" disabled="disabled"/>';
+                          html += '        <input type="button" value="{{ button_shipping|escape('js') }}" id="button-shipping" data-loading-text="{{ text_loading|escape('js') }}" class="btn btn-primary" disabled="disabled"/>';
                       {% endif %}
 
                       html += '      </div>';

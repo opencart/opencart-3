@@ -310,7 +310,7 @@
 
                 $('[data-sort="' + $(selector.list).data('sort') + '"]').addClass($(selector.list).data('order') == 'ASC' ? 'asc' : 'desc');
 
-                $(selector.list).html('<tr><td colspan="' + $(selector.head).find('th').length + '"><div class="text-center">{{ text_loading }}</div></td></tr>');
+                $(selector.list).html('<tr><td colspan="' + $(selector.head).find('th').length + '"><div class="text-center">{{ text_loading|escape('js') }}</div></td></tr>');
                 $(selector.button_advertise).attr('disabled', true).toggleClass('btn-info', false).toggleClass('btn-default', true);
                 $(selector.button_bulk_edit).attr('disabled', true);
                 $(selector.campaign_dropdown.checkboxes).prop('checked', false).trigger('change');
@@ -323,7 +323,7 @@
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 if ($(selector.ad_wrap).height() == 0) {
-                    $(selector.list).html('<tr><td colspan="' + $(selector.head).find('th').length + '"><div class="alert alert-danger">{{ error_adblock }}</div></td></tr>');
+                    $(selector.list).html('<tr><td colspan="' + $(selector.head).find('th').length + '"><div class="alert alert-danger">{{ error_adblock|escape('js') }}</div></td></tr>');
                 } else {
                     $(selector.list).html('<tr><td colspan="' + $(selector.head).find('th').length + '"><div class="alert alert-danger">' + textStatus + ': ' + errorThrown + '</div></td></tr>');
                 }
@@ -352,13 +352,13 @@
                                 html += '  <td class="highlightable text-left no-wrap">' + makeCampaigns(product.campaigns) + '</td>';
                                 html += '  <td class="highlightable text-center">' + makeDestinationStatus(product.destination_status) + '</td>';
                                 html += '  <td class="highlightable text-center">' + makeIssuesButton(product.has_issues, product.url_issues) + '</td>';
-                                html += '  <td class="highlightable text-right"><button class="btn ' + (product.is_modified ? "btn-default" : "btn-warning") + '" data-toggle="tooltip" title="' + (product.is_modified ? "{{ button_product_edit }}" : "{{ button_product_set }}") + '" data-product-id="' + product.product_id + '" data-product-advertise-google-id="' + product.product_advertise_google_id + '"><i class="fa fa-cog"></i></button></td>';
+                                html += '  <td class="highlightable text-right"><button class="btn ' + (product.is_modified ? "btn-default" : "btn-warning") + '" data-toggle="tooltip" title="' + (product.is_modified ? "{{ button_product_edit|escape('js') }}" : "{{ button_product_set|escape('js') }}") + '" data-product-id="' + product.product_id + '" data-product-advertise-google-id="' + product.product_advertise_google_id + '"><i class="fa fa-cog"></i></button></td>';
                                 html += '</tr>';
 
                                 $(selector.list).append(html);
                         });
                     } else {
-                        $(selector.list).html('<tr><td colspan="' + $(selector.head).find('th').length + '"><div class="text-center">{{ text_no_results }}</div></td></tr>');
+                        $(selector.list).html('<tr><td colspan="' + $(selector.head).find('th').length + '"><div class="text-center">{{ text_no_results|escape('js') }}</div></td></tr>');
                     }
 
                     $(selector.pagination).html(data.pagination);
@@ -412,7 +412,7 @@
             type: 'post',
             data: post_data,
             beforeSend: function () {
-                $(selector.list).html('<tr><td colspan="' + $(selector.head).find('th').length + '"><div class="text-center">{{ text_loading }}</div></td></tr>');
+                $(selector.list).html('<tr><td colspan="' + $(selector.head).find('th').length + '"><div class="text-center">{{ text_loading|escape('js') }}</div></td></tr>');
 
                 $(selector.campaign_dropdown.container).closest('.btn-group').removeClass('open');
 

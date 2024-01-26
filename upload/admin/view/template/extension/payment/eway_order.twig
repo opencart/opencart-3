@@ -78,7 +78,7 @@ $('#btn-refund').bind('click', function () {
                     html += '<tr>';
                     html += '  <td class="text-left">' + json.transactionid + '</td>';
                     html += '  <td class="text-left">' + json.created + '</td>';
-                    html += '  <td class="text-left">{{ text_refund }}</td>';
+                    html += '  <td class="text-left">{{ text_refund|escape('js') }}</td>';
                     html += '  <td class="text-left">' + json.amount + '</td>';
                     html += '</tr>';
 
@@ -135,7 +135,7 @@ $('#btn-refund').bind('click', function () {
                         html += '<tr>';
                         html += '  <td class="text-left">' + json.transactionid + '</td>';
                         html += '  <td class="text-left">' + json.created + '</td>';
-                        html += '  <td class="text-left">{{ text_payment }}</td>';
+                        html += '  <td class="text-left">{{ text_payment|escape('js') }}</td>';
                         html += '  <td class="text-left">' + json.amount + '</td>';
                         html += '</tr>';
 

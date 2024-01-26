@@ -170,13 +170,13 @@
       html += '  <td class="text-left"><input type="hidden" name="option_value[' + option_value_row + '][option_value_id]" value=""/>';
       {% for language in languages %}
           html += '    <div class="input-group">';
-          html += '      <span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span><input type="text" name="option_value[' + option_value_row + '][option_value_description][{{ language.language_id }}][name]" value="" placeholder="{{ entry_option_value }}" class="form-control"/>';
+          html += '      <span class="input-group-addon"><img src="language/{{ language.code|escape('js') }}/{{ language.code|escape('js') }}.png" title="{{ language.name|escape('js') }}"/></span><input type="text" name="option_value[' + option_value_row + '][option_value_description][{{ language.language_id }}][name]" value="" placeholder="{{ entry_option_value|escape('js') }}" class="form-control"/>';
           html += '    </div>';
       {% endfor %}
       html += '  </td>';
-      html += '  <td class="text-center"><a href="" id="thumb-image' + option_value_row + '" data-toggle="image" class="img-thumbnail"><img src="{{ placeholder }}" alt="" title="" data-placeholder="{{ placeholder }}"/></a><input type="hidden" name="option_value[' + option_value_row + '][image]" value="" id="input-image' + option_value_row + '"/></td>';
-      html += '  <td class="text-right"><input type="text" name="option_value[' + option_value_row + '][sort_order]" value="" placeholder="{{ entry_sort_order }}" class="form-control"/></td>';
-      html += '  <td class="text-right"><button type="button" onclick="$(\'#option-value-row' + option_value_row + '\').remove();" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';
+      html += '  <td class="text-center"><a href="" id="thumb-image' + option_value_row + '" data-toggle="image" class="img-thumbnail"><img src="{{ placeholder|escape('js') }}" alt="" title="" data-placeholder="{{ placeholder|escape('js') }}"/></a><input type="hidden" name="option_value[' + option_value_row + '][image]" value="" id="input-image' + option_value_row + '"/></td>';
+      html += '  <td class="text-right"><input type="text" name="option_value[' + option_value_row + '][sort_order]" value="" placeholder="{{ entry_sort_order|escape('js') }}" class="form-control"/></td>';
+      html += '  <td class="text-right"><button type="button" onclick="$(\'#option-value-row' + option_value_row + '\').remove();" data-toggle="tooltip" title="{{ button_remove|escape('js') }}" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';
       html += '</tr>';
 
       $('#option-value tbody').append(html);

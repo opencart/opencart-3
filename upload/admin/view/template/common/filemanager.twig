@@ -167,8 +167,8 @@ $('#button-search').on('click', function (e) {
         title: '{{ entry_folder }}',
         content: function () {
             html = '<div class="input-group">';
-            html += '  <input type="text" name="folder" value="" placeholder="{{ entry_folder }}" class="form-control">';
-            html += '  <span class="input-group-btn"><button type="button" title="{{ button_folder }}" id="button-create" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></span>';
+            html += '  <input type="text" name="folder" value="" placeholder="{{ entry_folder|escape('js') }}" class="form-control">';
+            html += '  <span class="input-group-btn"><button type="button" title="{{ button_folder|escape('js') }}" id="button-create" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></span>';
             html += '</div>';
 
             return html;

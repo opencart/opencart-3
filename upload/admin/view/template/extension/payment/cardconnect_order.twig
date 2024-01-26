@@ -97,14 +97,14 @@ $('#button-capture').click(function () {
                     html = '';
 
                     html += '<tr>';
-                    html += '  <td class="text-left">{{ text_payment }}</td>';
+                    html += '  <td class="text-left">{{ text_payment|escape('js') }}</td>';
                     html += '  <td class="text-left">' + json['retref'] + '</td>';
                     html += '  <td class="text-left">' + json['amount'] + '</td>';
                     html += '  <td class="text-left">' + json['status'] + '</td>';
                     html += '  <td class="text-left">' + json['date_modified'] + '</td>';
                     html += '  <td class="text-left">' + json['date_added'] + '</td>';
-                    html += '  <td class="text-left">' + '<a class="button btn btn-primary button-inquire btn-xs" data-inquire-retref="' + json['retref'] + '">{{ button_inquire }}</a> <span class="btn btn-primary btn-xs img-loading-inquire" style="display:none"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>' + '</td>';
-                    html += '  <td class="text-left">' + '<a class="button btn btn-primary button-void btn-xs" data-void-retref="' + json['retref'] + '">{{ button_void }}</a> <span class="btn btn-primary btn-xs img-loading-void" style="display:none"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>' + '</td>';
+                    html += '  <td class="text-left">' + '<a class="button btn btn-primary button-inquire btn-xs" data-inquire-retref="' + json['retref'] + '">{{ button_inquire|escape('js') }}</a> <span class="btn btn-primary btn-xs img-loading-inquire" style="display:none"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>' + '</td>';
+                    html += '  <td class="text-left">' + '<a class="button btn btn-primary button-void btn-xs" data-void-retref="' + json['retref'] + '">{{ button_void|escape('js') }}</a> <span class="btn btn-primary btn-xs img-loading-void" style="display:none"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>' + '</td>';
                     html += '</tr>';
 
                     $('#cardconnect-transactions').append(html);
@@ -147,14 +147,14 @@ $('#button-refund').click(function () {
                     html = '';
 
                     html += '<tr>';
-                    html += '  <td class="text-left">{{ text_refund }}</td>';
+                    html += '  <td class="text-left">{{ text_refund|escape('js') }}</td>';
                     html += '  <td class="text-left">' + json['retref'] + '</td>';
                     html += '  <td class="text-left">' + json['amount'] + '</td>';
                     html += '  <td class="text-left">' + json['status'] + '</td>';
                     html += '  <td class="text-left">' + json['date_modified'] + '</td>';
                     html += '  <td class="text-left">' + json['date_added'] + '</td>';
-                    html += '  <td class="text-left">' + '<a class="button btn btn-primary button-inquire btn-xs" data-inquire-retref="' + json['retref'] + '">{{ button_inquire }}</a> <span class="btn btn-primary btn-xs img-loading-inquire" style="display:none"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>' + '</td>';
-                    html += '  <td class="text-left">' + '<a class="button btn btn-primary button-void btn-xs" data-void-retref="' + json['retref'] + '">{{ button_void }}</a> <span class="btn btn-primary btn-xs img-loading-void" style="display:none"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>' + '</td>';
+                    html += '  <td class="text-left">' + '<a class="button btn btn-primary button-inquire btn-xs" data-inquire-retref="' + json['retref'] + '">{{ button_inquire|escape('js') }}</a> <span class="btn btn-primary btn-xs img-loading-inquire" style="display:none"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>' + '</td>';
+                    html += '  <td class="text-left">' + '<a class="button btn btn-primary button-void btn-xs" data-void-retref="' + json['retref'] + '">{{ button_void|escape('js') }}</a> <span class="btn btn-primary btn-xs img-loading-void" style="display:none"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>' + '</td>';
                     html += '</tr>';
 
                     $('#cardconnect-transactions').append(html);

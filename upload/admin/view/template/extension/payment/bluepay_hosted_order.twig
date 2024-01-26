@@ -96,7 +96,7 @@ $(document).on('click', '#button-void', function () {
 
                     html += '<tr>';
                     html += '  <td class="text-left">' + json.date_added + '</td>';
-                    html += '  <td class="text-left">{{ text_void }}</td>';
+                    html += '  <td class="text-left">{{ text_void|escape('js') }}</td>';
                     html += '  <td class="text-left">' + json.total + '</td>';
                     html += '</tr>';
 
@@ -144,7 +144,7 @@ $(document).on('click', '#button-release', function () {
 
                     html += '<tr>';
                     html += '  <td class="text-left">' + json.date_added + '</td>';
-                    html += '  <td class="text-left">{{ text_payment }}</td>';
+                    html += '  <td class="text-left">{{ text_payment|escape('js') }}</td>';
                     html += '  <td class="text-left">' + json.amount + '</td>';
                     html += '</tr>';
 
@@ -152,8 +152,8 @@ $(document).on('click', '#button-release', function () {
                     $('#bluepay-hosted-total-released').text(json.total);
 
                     if (json.release_status == 1) {
-                        $('.void_text').after('<a style="margin-left: 10px;" id="button-void" class="button btn btn-primary">{{ text_void }}</a>');
-                        $('.rebate_text').after('<input style="margin-left: 10px;" width="10" type="text" id="rebate-amount"><a style="margin-left: 5px;" id="button-rebate" class="button btn btn-primary">{{ button_rebate }}</a>');
+                        $('.void_text').after('<a style="margin-left: 10px;" id="button-void" class="button btn btn-primary">{{ text_void|escape('js') }}</a>');
+                        $('.rebate_text').after('<input style="margin-left: 10px;" width="10" type="text" id="rebate-amount"><a style="margin-left: 5px;" id="button-rebate" class="button btn btn-primary">{{ button_rebate|escape('js') }}</a>');
                         $('.release_text').text('{{ text_yes }}');
                         $('#rebate-amount').val(0.00).show();
                     } else {

@@ -446,7 +446,7 @@ $(document).ready(function () {
 
                 $('#transactions-pagination').empty();
 
-                $('#transactions').html('<tr><td colspan="9" class="text-center"><i class="fa fa-circle-o-notch fa-spin"></i>&nbsp;{{ text_loading }}</td></tr>');
+                $('#transactions').html('<tr><td colspan="9" class="text-center"><i class="fa fa-circle-o-notch fa-spin"></i>&nbsp;{{ text_loading|escape('js') }}</td></tr>');
             },
             success: function (data) {
                 html = '';
@@ -484,7 +484,7 @@ $(document).ready(function () {
                     }
                 } else {
                     html += '<tr>';
-                    html += '  <td class="text-center" colspan="9">{{ text_no_transactions }}</td>';
+                    html += '  <td class="text-center" colspan="9">{{ text_no_transactions|escape('js') }}</td>';
                     html += '</tr>';
                 }
 
