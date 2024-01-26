@@ -37,7 +37,7 @@
           <div class="tab-content">
             <div class="tab-pane active" id="tab-settings">
               <div class="form-group required">
-                <label class="col-sm-2 control-label" for="input-cardconnect-merchant-id"><span data-toggle="tooltip" title="{{ help_merchant_id }}">{{ entry_merchant_id }}</span></label>
+                <label class="col-sm-2 control-label" for="input-cardconnect-merchant-id"><span data-toggle="tooltip" title="{{ help_merchant_id|escape('html') }}">{{ entry_merchant_id }}</span></label>
                 <div class="col-sm-10">
                   <input type="text" name="payment_cardconnect_merchant_id" value="{{ payment_cardconnect_merchant_id }}" placeholder="{{ entry_merchant_id }}" id="input-cardconnect-merchant-id" class="form-control"/>
                   {% if error_payment_cardconnect_merchant_id %}
@@ -46,7 +46,7 @@
                 </div>
               </div>
               <div class="form-group required">
-                <label class="col-sm-2 control-label" for="input-cardconnect-api-username"><span data-toggle="tooltip" title="{{ help_api_username }}">{{ entry_api_username }}</span></label>
+                <label class="col-sm-2 control-label" for="input-cardconnect-api-username"><span data-toggle="tooltip" title="{{ help_api_username|escape('html') }}">{{ entry_api_username }}</span></label>
                 <div class="col-sm-10">
                   <input type="text" name="payment_cardconnect_api_username" value="{{ payment_cardconnect_api_username }}" placeholder="{{ entry_api_username }}" id="input-cardconnect-api-username" class="form-control"/>
                   {% if error_cardconnect_api_username %}
@@ -55,7 +55,7 @@
                 </div>
               </div>
               <div class="form-group required">
-                <label class="col-sm-2 control-label" for="input-cardconnect-api-password"><span data-toggle="tooltip" title="{{ help_api_password }}">{{ entry_api_password }}</span></label>
+                <label class="col-sm-2 control-label" for="input-cardconnect-api-password"><span data-toggle="tooltip" title="{{ help_api_password|escape('html') }}">{{ entry_api_password }}</span></label>
                 <div class="col-sm-10">
                   <input type="text" name="payment_cardconnect_api_password" value="{{ payment_cardconnect_api_password }}" placeholder="{{ entry_api_password }}" id="input-cardconnect-api-password" class="form-control"/>
                   {% if error_cardconnect_api_password %}
@@ -64,7 +64,7 @@
                 </div>
               </div>
               <div class="form-group required">
-                <label class="col-sm-2 control-label" for="input-cardconnect-token"><span data-toggle="tooltip" title="{{ help_token }}">{{ entry_token }}</span></label>
+                <label class="col-sm-2 control-label" for="input-cardconnect-token"><span data-toggle="tooltip" title="{{ help_token|escape('html') }}">{{ entry_token }}</span></label>
                 <div class="col-sm-10">
                   <input type="text" name="payment_cardconnect_token" value="{{ payment_cardconnect_token }}" placeholder="{{ entry_token }}" id="input-cardconnect-token" class="form-control"/>
                   {% if error_cardconnect_token %}
@@ -73,7 +73,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-cardconnect-transaction"><span data-toggle="tooltip" title="{{ help_transaction }}">{{ entry_transaction }}</span></label>
+                <label class="col-sm-2 control-label" for="input-cardconnect-transaction"><span data-toggle="tooltip" title="{{ help_transaction|escape('html') }}">{{ entry_transaction }}</span></label>
                 <div class="col-sm-10">
                   <select name="payment_cardconnect_transaction" id="input-cardconnect-transaction" class="form-control">
                     {% if payment_cardconnect_transaction == 'payment' %}
@@ -90,7 +90,7 @@
                 </div>
               </div>
               <div class="form-group required">
-                <label class="col-sm-2 control-label" for="input-cardconnect-site"><span data-toggle="tooltip" title="{{ help_site }}">{{ entry_site }}</span></label>
+                <label class="col-sm-2 control-label" for="input-cardconnect-site"><span data-toggle="tooltip" title="{{ help_site|escape('html') }}">{{ entry_site }}</span></label>
                 <div class="col-sm-10">
                   <input type="text" name="payment_cardconnect_site" value="{{ payment_cardconnect_site }}" placeholder="{{ entry_site }}" id="input-cardconnect-site" class="form-control"/>
                   {% if error_cardconnect_site %}
@@ -116,7 +116,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-cardconnect-store-cards"><span data-toggle="tooltip" title="{{ help_store_cards }}">{{ entry_store_cards }}</span></label>
+                <label class="col-sm-2 control-label" for="input-cardconnect-store-cards"><span data-toggle="tooltip" title="{{ help_store_cards|escape('html') }}">{{ entry_store_cards }}</span></label>
                 <div class="col-sm-10">
                   <select name="payment_cardconnect_store_cards" id="input-cardconnect-store-cards" class="form-control">
                     {% if payment_cardconnect_store_cards %}
@@ -130,7 +130,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-cardconnect-echeck"><span data-toggle="tooltip" title="{{ help_echeck }}">{{ entry_echeck }}</span></label>
+                <label class="col-sm-2 control-label" for="input-cardconnect-echeck"><span data-toggle="tooltip" title="{{ help_echeck|escape('html') }}">{{ entry_echeck }}</span></label>
                 <div class="col-sm-10">
                   <select name="payment_cardconnect_echeck" id="input-cardconnect-echeck" class="form-control">
                     {% if payment_cardconnect_echeck %}
@@ -144,7 +144,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-cardconnect-total"><span data-toggle="tooltip" title="{{ help_total }}">{{ entry_total }}</span></label>
+                <label class="col-sm-2 control-label" for="input-cardconnect-total"><span data-toggle="tooltip" title="{{ help_total|escape('html') }}">{{ entry_total }}</span></label>
                 <div class="col-sm-10">
                   <input type="text" name="payment_cardconnect_total" value="{{ payment_cardconnect_total }}" placeholder="{{ entry_total }}" id="input-cardconnect-total" class="form-control"/>
                 </div>
@@ -179,7 +179,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-cardconnect-logging"><span data-toggle="tooltip" title="{{ help_logging }}">{{ entry_logging }}</span></label>
+                <label class="col-sm-2 control-label" for="input-cardconnect-logging"><span data-toggle="tooltip" title="{{ help_logging|escape('html') }}">{{ entry_logging }}</span></label>
                 <div class="col-sm-10">
                   <select name="payment_cardconnect_logging" id="input-cardconnect-logging" class="form-control">
                     {% if payment_cardconnect_logging %}
@@ -199,13 +199,13 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-cardconnect-cron-url"><span data-toggle="tooltip" title="{{ help_cron_url }}">{{ entry_cron_url }}</span></label>
+                <label class="col-sm-2 control-label" for="input-cardconnect-cron-url"><span data-toggle="tooltip" title="{{ help_cron_url|escape('html') }}">{{ entry_cron_url }}</span></label>
                 <div class="col-sm-10">
                   <input type="text" name="cardconnect_cron_url" value="{{ cardconnect_cron_url }}" readonly placeholder="{{ entry_cron_url }}" id="input-cardconnect-cron-url" class="form-control"/>
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-cardconnect-cron-time"><span data-toggle="tooltip" title="{{ help_cron_time }}">{{ entry_cron_time }}</span></label>
+                <label class="col-sm-2 control-label" for="input-cardconnect-cron-time"><span data-toggle="tooltip" title="{{ help_cron_time|escape('html') }}">{{ entry_cron_time }}</span></label>
                 <div class="col-sm-10">
                   <input type="text" name="payment_cardconnect_cron_time" value="{{ payment_cardconnect_cron_time }}" readonly disabled placeholder="{{ entry_cron_time }}" id="input-cardconnect-cron-time" class="form-control"/>
                 </div>
@@ -213,7 +213,7 @@
             </div>
             <div id="tab-order-status" class="tab-pane">
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-cardconnect-order-status-pending"><span data-toggle="tooltip" title="{{ help_order_status_pending }}">{{ entry_order_status_pending }}</span></label>
+                <label class="col-sm-2 control-label" for="input-cardconnect-order-status-pending"><span data-toggle="tooltip" title="{{ help_order_status_pending|escape('html') }}">{{ entry_order_status_pending }}</span></label>
                 <div class="col-sm-10">
                   <select name="payment_cardconnect_order_status_id_pending" id="input-cardconnect-order-status-pending" class="form-control">
                     {% for order_status in order_statuses %}
@@ -227,7 +227,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-cardconnect-order-status-processing"><span data-toggle="tooltip" title="{{ help_order_status_processing }}">{{ entry_order_status_processing }}</span></label>
+                <label class="col-sm-2 control-label" for="input-cardconnect-order-status-processing"><span data-toggle="tooltip" title="{{ help_order_status_processing|escape('html') }}">{{ entry_order_status_processing }}</span></label>
                 <div class="col-sm-10">
                   <select name="payment_cardconnect_order_status_id_processing" id="input-cardconnect-order-status-processing" class="form-control">
                     {% for order_status in order_statuses %}

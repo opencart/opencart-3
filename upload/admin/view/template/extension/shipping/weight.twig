@@ -76,7 +76,7 @@
                 {% for geo_zone in geo_zones %}
                   <div id="tab-geo-zone{{ geo_zone.geo_zone_id }}" class="tab-pane">
                     <div class="form-group">
-                      <label class="col-sm-2 control-label" for="input-rate{{ geo_zone.geo_zone_id }}"><span data-toggle="tooltip" title="{{ help_rate }}">{{ entry_rate }}</span></label>
+                      <label class="col-sm-2 control-label" for="input-rate{{ geo_zone.geo_zone_id }}"><span data-toggle="tooltip" title="{{ help_rate|escape('html') }}">{{ entry_rate }}</span></label>
                       <div class="col-sm-10">
                         <textarea name="shipping_weight_{{ geo_zone.geo_zone_id }}_rate" rows="5" placeholder="{{ entry_rate }}" id="input-rate{{ geo_zone.geo_zone_id }}" class="form-control">{{ shipping_weight_geo_zone_rate[geo_zone.geo_zone_id] ? shipping_weight_geo_zone_rate[geo_zone.geo_zone_id] }}</textarea>
                       </div>

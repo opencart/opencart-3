@@ -50,13 +50,13 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-score"><span data-toggle="tooltip" title="{{ help_score }}">{{ entry_score }}</span></label>
+            <label class="col-sm-2 control-label" for="input-score"><span data-toggle="tooltip" title="{{ help_score|escape('html') }}">{{ entry_score }}</span></label>
             <div class="col-sm-10">
               <input type="text" name="fraud_fraudlabspro_score" value="{{ fraud_fraudlabspro_score }}" placeholder="{{ entry_score }}" id="input-score" class="form-control"/>
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-order-status"><span data-toggle="tooltip" title="{{ help_order_status }}">{{ entry_order_status }}</span></label>
+            <label class="col-sm-2 control-label" for="input-order-status"><span data-toggle="tooltip" title="{{ help_order_status|escape('html') }}">{{ entry_order_status }}</span></label>
             <div class="col-sm-10">
               <select name="fraud_fraudlabspro_order_status_id" id="input-order-status" class="form-control">
                 {% for order_status in order_statuses %}
@@ -72,7 +72,7 @@
           <fieldset>
             <legend>{{ text_rule_validation }}</legend>
             <div class="form-group">
-              <label class="col-sm-2 control-label" for="input-fraud-review-status"><span data-toggle="tooltip" title="{{ help_review_status }}">{{ entry_review_status }}</span></label>
+              <label class="col-sm-2 control-label" for="input-fraud-review-status"><span data-toggle="tooltip" title="{{ help_review_status|escape('html') }}">{{ entry_review_status }}</span></label>
               <div class="col-sm-10">
                 <select name="fraud_fraudlabspro_review_status_id" id="input-fraud-review-status" class="form-control">
                   {% for order_status in order_statuses %}
@@ -86,7 +86,7 @@
               </div>
             </div>
             <div class="form-group">
-              <label class="col-sm-2 control-label" for="input-fraud-approve-status"><span data-toggle="tooltip" title="{{ help_approve_status }}">{{ entry_approve_status }}</span></label>
+              <label class="col-sm-2 control-label" for="input-fraud-approve-status"><span data-toggle="tooltip" title="{{ help_approve_status|escape('html') }}">{{ entry_approve_status }}</span></label>
               <div class="col-sm-10">
                 <select name="fraud_fraudlabspro_approve_status_id" id="input-fraud-approve-status" class="form-control">
                   {% for order_status in order_statuses %}
@@ -100,7 +100,7 @@
               </div>
             </div>
             <div class="form-group">
-              <label class="col-sm-2 control-label" for="input-fraud-reject-status"><span data-toggle="tooltip" title="{{ help_reject_status }}">{{ entry_reject_status }}</span></label>
+              <label class="col-sm-2 control-label" for="input-fraud-reject-status"><span data-toggle="tooltip" title="{{ help_reject_status|escape('html') }}">{{ entry_reject_status }}</span></label>
               <div class="col-sm-10">
                 <select name="fraud_fraudlabspro_reject_status_id" id="input-fraud-reject-status" class="form-control">
                   {% for order_status in order_statuses %}
@@ -117,7 +117,7 @@
           <fieldset>
             <legend>{{ text_testing }}</legend>
             <div class="form-group">
-              <label class="col-sm-2 control-label" for="input-score"><span data-toggle="tooltip" title="{{ help_simulate_ip }}">{{ entry_simulate_ip }}</span></label>
+              <label class="col-sm-2 control-label" for="input-score"><span data-toggle="tooltip" title="{{ help_simulate_ip|escape('html') }}">{{ entry_simulate_ip }}</span></label>
               <div class="col-sm-10">
                 <input type="text" name="fraud_fraudlabspro_simulate_ip" value="{{ fraud_fraudlabspro_simulate_ip }}" placeholder="{{ entry_simulate_ip }}" id="input-score" class="form-control"/>
               </div>

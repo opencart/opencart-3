@@ -36,13 +36,13 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-score"><span data-toggle="tooltip" title="{{ help_score }}">{{ entry_score }}</span></label>
+            <label class="col-sm-2 control-label" for="input-score"><span data-toggle="tooltip" title="{{ help_score|escape('html') }}">{{ entry_score }}</span></label>
             <div class="col-sm-10">
               <input type="text" name="fraud_maxmind_score" value="{{ fraud_maxmind_score }}" placeholder="{{ entry_score }}" id="input-score" class="form-control"/>
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-order-status"><span data-toggle="tooltip" title="{{ help_order_status }}">{{ entry_order_status }}</span></label>
+            <label class="col-sm-2 control-label" for="input-order-status"><span data-toggle="tooltip" title="{{ help_order_status|escape('html') }}">{{ entry_order_status }}</span></label>
             <div class="col-sm-10">
               <select name="fraud_maxmind_order_status_id" id="input-order-status" class="form-control">
                 {% for order_status in order_statuses %}

@@ -43,7 +43,7 @@
                 </div>
               </div>
               <div class="form-group required">
-                <label class="col-sm-2 control-label" for="input-code"><span data-toggle="tooltip" title="{{ help_code }}">{{ entry_code }}</span></label>
+                <label class="col-sm-2 control-label" for="input-code"><span data-toggle="tooltip" title="{{ help_code|escape('html') }}">{{ entry_code }}</span></label>
                 <div class="col-sm-10">
                   <input type="text" name="code" value="{{ code }}" placeholder="{{ entry_code }}" id="input-code" class="form-control"/>
                   {% if error_code %}
@@ -52,7 +52,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-type"><span data-toggle="tooltip" title="{{ help_type }}">{{ entry_type }}</span></label>
+                <label class="col-sm-2 control-label" for="input-type"><span data-toggle="tooltip" title="{{ help_type|escape('html') }}">{{ entry_type }}</span></label>
                 <div class="col-sm-10">
                   <select name="type" id="input-type" class="form-control">
                     {% if type == 'P' %}
@@ -75,13 +75,13 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-total"><span data-toggle="tooltip" title="{{ help_total }}">{{ entry_total }}</span></label>
+                <label class="col-sm-2 control-label" for="input-total"><span data-toggle="tooltip" title="{{ help_total|escape('html') }}">{{ entry_total }}</span></label>
                 <div class="col-sm-10">
                   <input type="text" name="total" value="{{ total }}" placeholder="{{ entry_total }}" id="input-total" class="form-control"/>
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_logged }}">{{ entry_logged }}</span></label>
+                <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_logged|escape('html') }}">{{ entry_logged }}</span></label>
                 <div class="col-sm-10">
                   <label class="radio-inline">{% if logged %}
                       <input type="radio" name="logged" value="1" checked="checked"/>
@@ -119,7 +119,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-product"><span data-toggle="tooltip" title="{{ help_product }}">{{ entry_product }}</span></label>
+                <label class="col-sm-2 control-label" for="input-product"><span data-toggle="tooltip" title="{{ help_product|escape('html') }}">{{ entry_product }}</span></label>
                 <div class="col-sm-10">
                   <input type="text" name="product" value="" placeholder="{{ entry_product }}" id="input-product" class="form-control"/>
                   <div id="coupon-product" class="well well-sm" style="height: 150px; overflow: auto;">
@@ -133,7 +133,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-category"><span data-toggle="tooltip" title="{{ help_category }}">{{ entry_category }}</span></label>
+                <label class="col-sm-2 control-label" for="input-category"><span data-toggle="tooltip" title="{{ help_category|escape('html') }}">{{ entry_category }}</span></label>
                 <div class="col-sm-10">
                   <input type="text" name="category" value="" placeholder="{{ entry_category }}" id="input-category" class="form-control"/>
                   <div id="coupon-category" class="well well-sm" style="height: 150px; overflow: auto;">
@@ -165,13 +165,13 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-uses-total"><span data-toggle="tooltip" title="{{ help_uses_total }}">{{ entry_uses_total }}</span></label>
+                <label class="col-sm-2 control-label" for="input-uses-total"><span data-toggle="tooltip" title="{{ help_uses_total|escape('html') }}">{{ entry_uses_total }}</span></label>
                 <div class="col-sm-10">
                   <input type="text" name="uses_total" value="{{ uses_total }}" placeholder="{{ entry_uses_total }}" id="input-uses-total" class="form-control"/>
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-uses-customer"><span data-toggle="tooltip" title="{{ help_uses_customer }}">{{ entry_uses_customer }}</span></label>
+                <label class="col-sm-2 control-label" for="input-uses-customer"><span data-toggle="tooltip" title="{{ help_uses_customer|escape('html') }}">{{ entry_uses_customer }}</span></label>
                 <div class="col-sm-10">
                   <input type="text" name="uses_customer" value="{{ uses_customer }}" placeholder="{{ entry_uses_customer }}" id="input-uses-customer" class="form-control"/>
                 </div>

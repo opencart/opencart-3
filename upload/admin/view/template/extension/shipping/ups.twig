@@ -26,7 +26,7 @@
       <div class="panel-body">
         <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-shipping" class="form-horizontal">
           <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-key"><span data-toggle="tooltip" title="{{ help_key }}">{{ entry_key }}</span></label>
+            <label class="col-sm-2 control-label" for="input-key"><span data-toggle="tooltip" title="{{ help_key|escape('html') }}">{{ entry_key }}</span></label>
             <div class="col-sm-10">
               <input type="text" name="shipping_ups_key" value="{{ shipping_ups_key }}" placeholder="{{ entry_key }}" id="input-key" class="form-control"/>
               {% if error_key %}
@@ -35,7 +35,7 @@
             </div>
           </div>
           <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-username"><span data-toggle="tooltip" title="{{ help_username }}">{{ entry_username }}</span></label>
+            <label class="col-sm-2 control-label" for="input-username"><span data-toggle="tooltip" title="{{ help_username|escape('html') }}">{{ entry_username }}</span></label>
             <div class="col-sm-10">
               <input type="text" name="shipping_ups_username" value="{{ shipping_ups_username }}" placeholder="{{ entry_username }}" id="input-username" class="form-control"/>
               {% if error_username %}
@@ -44,7 +44,7 @@
             </div>
           </div>
           <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-password"><span data-toggle="tooltip" title="{{ help_password }}">{{ entry_password }}</span></label>
+            <label class="col-sm-2 control-label" for="input-password"><span data-toggle="tooltip" title="{{ help_password|escape('html') }}">{{ entry_password }}</span></label>
             <div class="col-sm-10">
               <input type="text" name="shipping_ups_password" value="{{ shipping_ups_password }}" placeholder="{{ entry_password }}" id="input-password" class="form-control"/>
               {% if error_password %}
@@ -53,7 +53,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-pickup"><span data-toggle="tooltip" title="{{ help_pickup }}">{{ entry_pickup }}</span></label>
+            <label class="col-sm-2 control-label" for="input-pickup"><span data-toggle="tooltip" title="{{ help_pickup|escape('html') }}">{{ entry_pickup }}</span></label>
             <div class="col-sm-10">
               <select name="shipping_ups_pickup" id="input-pickup" class="form-control">
                 {% for pickup in pickups %}
@@ -67,7 +67,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-packaging"><span data-toggle="tooltip" title="{{ help_packaging }}">{{ entry_packaging }}</span></label>
+            <label class="col-sm-2 control-label" for="input-packaging"><span data-toggle="tooltip" title="{{ help_packaging|escape('html') }}">{{ entry_packaging }}</span></label>
             <div class="col-sm-10">
               <select name="shipping_ups_packaging" id="input-packaging" class="form-control">
                 {% for package in packages %}
@@ -81,7 +81,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-classification"><span data-toggle="tooltip" title="{{ help_classification }}">{{ entry_classification }}</span></label>
+            <label class="col-sm-2 control-label" for="input-classification"><span data-toggle="tooltip" title="{{ help_classification|escape('html') }}">{{ entry_classification }}</span></label>
             <div class="col-sm-10">
               <select name="shipping_ups_classification" id="input-classification" class="form-control">
                 {% for classification in classifications %}
@@ -95,7 +95,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-origin"><span data-toggle="tooltip" title="{{ help_origin }}">{{ entry_origin }}</span></label>
+            <label class="col-sm-2 control-label" for="input-origin"><span data-toggle="tooltip" title="{{ help_origin|escape('html') }}">{{ entry_origin }}</span></label>
             <div class="col-sm-10">
               <select name="shipping_ups_origin" id="input-origin" class="form-control">
                 {% for origin in origins %}
@@ -109,7 +109,7 @@
             </div>
           </div>
           <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-city"><span data-toggle="tooltip" title="{{ help_city }}">{{ entry_city }}</span></label>
+            <label class="col-sm-2 control-label" for="input-city"><span data-toggle="tooltip" title="{{ help_city|escape('html') }}">{{ entry_city }}</span></label>
             <div class="col-sm-10">
               <input type="text" name="shipping_ups_city" value="{{ shipping_ups_city }}" placeholder="{{ entry_city }}" id="input-city" class="form-control"/>
               {% if error_city %}
@@ -118,7 +118,7 @@
             </div>
           </div>
           <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-state"><span data-toggle="tooltip" title="{{ help_state }}">{{ entry_state }}</span></label>
+            <label class="col-sm-2 control-label" for="input-state"><span data-toggle="tooltip" title="{{ help_state|escape('html') }}">{{ entry_state }}</span></label>
             <div class="col-sm-10">
               <input type="text" name="shipping_ups_state" value="{{ shipping_ups_state }}" placeholder="{{ entry_state }}" id="input-state" class="form-control" maxlength="2"/>
               {% if error_state %}
@@ -127,7 +127,7 @@
             </div>
           </div>
           <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-country"><span data-toggle="tooltip" title="{{ help_country }}">{{ entry_country }}</span></label>
+            <label class="col-sm-2 control-label" for="input-country"><span data-toggle="tooltip" title="{{ help_country|escape('html') }}">{{ entry_country }}</span></label>
             <div class="col-sm-10">
               <input type="text" name="shipping_ups_country" value="{{ shipping_ups_country }}" placeholder="{{ entry_country }}" id="input-country" class="form-control" maxlength="2"/>
               {% if error_country %}
@@ -136,13 +136,13 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-postcode"><span data-toggle="tooltip" title="{{ help_postcode }}">{{ entry_postcode }}</span></label>
+            <label class="col-sm-2 control-label" for="input-postcode"><span data-toggle="tooltip" title="{{ help_postcode|escape('html') }}">{{ entry_postcode }}</span></label>
             <div class="col-sm-10">
               <input type="text" name="shipping_ups_postcode" value="{{ shipping_ups_postcode }}" placeholder="{{ entry_postcode }}" id="input-postcode" class="form-control"/>
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_test }}">{{ entry_test }}</span></label>
+            <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_test|escape('html') }}">{{ entry_test }}</span></label>
             <div class="col-sm-10">
               <label class="radio-inline">{% if shipping_ups_test %}
                   <input type="radio" name="shipping_ups_test" value="1" checked="checked"/>
@@ -161,7 +161,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-quote-type"><span data-toggle="tooltip" title="{{ help_quote_type }}">{{ entry_quote_type }}</span></label>
+            <label class="col-sm-2 control-label" for="input-quote-type"><span data-toggle="tooltip" title="{{ help_quote_type|escape('html') }}">{{ entry_quote_type }}</span></label>
             <div class="col-sm-10">
               <select name="shipping_ups_quote_type" id="input-quote-type" class="form-control">
                 {% for quote_type in quote_types %}
@@ -175,7 +175,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_service }}">{{ entry_service }}</span></label>
+            <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_service|escape('html') }}">{{ entry_service }}</span></label>
             <div class="col-sm-10">
               <div id="service" class="well well-sm" style="height: 150px; overflow: auto;">
                 <div id="US">
@@ -637,7 +637,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_insurance }}">{{ entry_insurance }}</span></label>
+            <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_insurance|escape('html') }}">{{ entry_insurance }}</span></label>
             <div class="col-sm-10">
               <label class="radio-inline">{% if shipping_ups_insurance %}
                   <input type="radio" name="shipping_ups_insurance" value="1" checked="checked"/>
@@ -675,7 +675,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-weight-class"><span data-toggle="tooltip" title="{{ help_weight_class }}">{{ entry_weight_class }}</span></label>
+            <label class="col-sm-2 control-label" for="input-weight-class"><span data-toggle="tooltip" title="{{ help_weight_class|escape('html') }}">{{ entry_weight_class }}</span></label>
             <div class="col-sm-10">
               <select name="shipping_ups_weight_class_id" id="input-weight-class" class="form-control">
                 {% for weight_class in weight_classes %}
@@ -689,7 +689,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-length-class"><span data-toggle="tooltip" title="{{ help_length_class }}">{{ entry_length_class }}</span></label>
+            <label class="col-sm-2 control-label" for="input-length-class"><span data-toggle="tooltip" title="{{ help_length_class|escape('html') }}">{{ entry_length_class }}</span></label>
             <div class="col-sm-10">
               <select name="shipping_ups_length_class_id" id="input-length-class" class="form-control">
                 {% for length_class in length_classes %}
@@ -703,7 +703,7 @@
             </div>
           </div>
           <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-length"><span data-toggle="tooltip" title="{{ help_dimension }}">{{ entry_dimension }}</span></label>
+            <label class="col-sm-2 control-label" for="input-length"><span data-toggle="tooltip" title="{{ help_dimension|escape('html') }}">{{ entry_dimension }}</span></label>
             <div class="col-sm-10">
               <div class="row">
                 <div class="col-sm-4">
@@ -772,7 +772,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-debug"><span data-toggle="tooltip" title="{{ help_debug }}">{{ entry_debug }}</span></label>
+            <label class="col-sm-2 control-label" for="input-debug"><span data-toggle="tooltip" title="{{ help_debug|escape('html') }}">{{ entry_debug }}</span></label>
             <div class="col-sm-10">
               <select name="shipping_ups_debug" id="input-debug" class="form-control">
                 {% if shipping_ups_debug %}

@@ -26,7 +26,7 @@
       <div class="panel-body">
         <form action="{{ action }}" method="post" class="form-horizontal" enctype="multipart/form-data" id="form-fraud">
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-order-status"><span data-toggle="tooltip" title="{{ help_order_status }}">{{ entry_order_status }}</span></label>
+            <label class="col-sm-2 control-label" for="input-order-status"><span data-toggle="tooltip" title="{{ help_order_status|escape('html') }}">{{ entry_order_status }}</span></label>
             <div class="col-sm-10">
               <select name="fraud_ip_order_status_id" id="input-order-status" class="form-control">
                 {% for order_status in order_statuses %}

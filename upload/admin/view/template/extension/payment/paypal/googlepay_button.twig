@@ -76,7 +76,7 @@
                     </div>
                     <div class="col col-md-6">
                       <div class="form-group-status">
-                        <label class="control-label" for="input-googlepay-button-status"><span data-toggle="tooltip" title="{{ help_googlepay_button_status }}">{{ entry_status }}</span></label>
+                        <label class="control-label" for="input-googlepay-button-status"><span data-toggle="tooltip" title="{{ help_googlepay_button_status|escape('html') }}">{{ entry_status }}</span></label>
                         <input type="hidden" name="payment_paypal_setting[googlepay_button][status]" value="0" />{% set setting_googleplay_button = setting.googlepay_button %}
                         <input type="checkbox" name="payment_paypal_setting[googlepay_button][status]" value="1" class="switch" {% if setting_googlepay_button.status %}checked="checked"{% endif %} />
                       </div>

@@ -63,13 +63,13 @@
               </div>
             </div>
             <div class="form-group">
-              <label class="col-sm-2 control-label" for="input-total"><span data-toggle="tooltip" title="{{ help_total }}">{{ entry_total }}</span></label>
+              <label class="col-sm-2 control-label" for="input-total"><span data-toggle="tooltip" title="{{ help_total|escape('html') }}">{{ entry_total }}</span></label>
               <div class="col-sm-10">
                 <input type="text" name="payment_wechat_pay_total" value="{{ payment_wechat_pay_total }}" placeholder="{{ entry_total }}" id="input-total" class="form-control"/>
               </div>
             </div>
             <div class="form-group">
-              <label class="col-sm-2 control-label" for="input-currency"><span data-toggle="tooltip" title="{{ help_currency }}">{{ entry_currency }}</span></label>
+              <label class="col-sm-2 control-label" for="input-currency"><span data-toggle="tooltip" title="{{ help_currency|escape('html') }}">{{ entry_currency }}</span></label>
               <div class="col-sm-10">
                 <input type="text" name="payment_wechat_pay_currency" value="{{ payment_wechat_pay_currency }}" placeholder="{{ entry_currency }}" id="input-currency" class="form-control"/>
               </div>

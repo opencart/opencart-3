@@ -92,7 +92,7 @@
                 {% endif %}
                 <div class="input-group margin-top-10">
                   <div class="input-group-addon">
-                    <span data-toggle="tooltip" title="{{ help_carrier_price_percentage }}">{{ text_carrier_price_percentage }}</span>
+                    <span data-toggle="tooltip" title="{{ help_carrier_price_percentage|escape('html') }}">{{ text_carrier_price_percentage }}</span>
                   </div>
                   <input type="number" class="form-control" name="advertise_google_shipping_taxes[carrier_price_percentage]" value="{{ advertise_google_shipping_taxes.carrier_price_percentage }}"/>
                   <div class="input-group-addon"><i class="fa fa-percent"></i></div>

@@ -81,7 +81,7 @@
                     </select>
                   </div>
                   <div class="form-group">
-                    <label class="control-label" for="input-general-checkout-mode"><span data-toggle="tooltip" title="{{ help_checkout_mode }}">{{ entry_checkout_mode }}</span></label>
+                    <label class="control-label" for="input-general-checkout-mode"><span data-toggle="tooltip" title="{{ help_checkout_mode|escape('html') }}">{{ entry_checkout_mode }}</span></label>
                     <select name="payment_paypal_setting[general][checkout_mode]" id="input-general-checkout-mode" class="form-control">
                       {% for checkout_mode in setting.checkout_mode %}
                         {% if checkout_mode.code == setting_general.checkout_mode %}
@@ -105,7 +105,7 @@
                     </select>
                   </div>
                   <div class="form-group">
-                    <label class="control-label" for="input-total"><span data-toggle="tooltip" title="{{ help_total }}">{{ entry_total }}</span></label>
+                    <label class="control-label" for="input-total"><span data-toggle="tooltip" title="{{ help_total|escape('html') }}">{{ entry_total }}</span></label>
                     <input type="text" name="payment_paypal_total" value="{{ total }}" placeholder="{{ entry_total }}" id="input-total" class="form-control" />
                   </div>
                   <div class="form-group">
@@ -128,7 +128,7 @@
                 </div>
                 <div class="col col-md-6">
                   <div class="form-group">
-                    <label class="control-label" for="input-general-country-code"><span data-toggle="tooltip" title="{{ help_country_code }}">{{ entry_country_code }}</span></label>
+                    <label class="control-label" for="input-general-country-code"><span data-toggle="tooltip" title="{{ help_country_code|escape('html') }}">{{ entry_country_code }}</span></label>
                     <select name="payment_paypal_setting[general][country_code]" id="input-general-country-code" class="form-control">
                       {% for country in countries %}
                         {% if country.status %}
@@ -142,7 +142,7 @@
                     </select>
                   </div>
                   <div class="form-group">
-                    <label class="control-label" for="input-general-currency-code"><span data-toggle="tooltip" title="{{ help_currency_code }}">{{ entry_currency_code }}</span></label>
+                    <label class="control-label" for="input-general-currency-code"><span data-toggle="tooltip" title="{{ help_currency_code|escape('html') }}">{{ entry_currency_code }}</span></label>
                     <select name="payment_paypal_setting[general][currency_code]" id="input-general-currency-code" class="form-control">
                       {% for currency in setting.currency %}
                         {% if currency.status %}
@@ -156,11 +156,11 @@
                     </select>
                   </div>
                   <div class="form-group">
-                    <label class="control-label" for="input-general-currency-value"><span data-toggle="tooltip" title="{{ help_currency_value }}">{{ entry_currency_value }}</span></label>
+                    <label class="control-label" for="input-general-currency-value"><span data-toggle="tooltip" title="{{ help_currency_value|escape('html') }}">{{ entry_currency_value }}</span></label>
                     <input type="text" name="payment_paypal_setting[general][currency_value]" value="{{ setting_general.currency_value }}" placeholder="{{ entry_currency_value }}" id="input-general-currency-value" class="form-control" />
                   </div>
                   <div class="form-group">
-                    <label class="control-label" for="input-general-card-currency-code"><span data-toggle="tooltip" title="{{ help_card_currency_code }}">{{ entry_card_currency_code }}</span></label>
+                    <label class="control-label" for="input-general-card-currency-code"><span data-toggle="tooltip" title="{{ help_card_currency_code|escape('html') }}">{{ entry_card_currency_code }}</span></label>
                     <select name="payment_paypal_setting[general][card_currency_code]" id="input-general-card-currency-code" class="form-control">
                       {% for currency in setting.currency %}
                         {% if currency.card_status %}
@@ -174,11 +174,11 @@
                     </select>
                   </div>
                   <div class="form-group">
-                    <label class="control-label" for="input-general-card-currency-value"><span data-toggle="tooltip" title="{{ help_card_currency_value }}">{{ entry_card_currency_value }}</span></label>
+                    <label class="control-label" for="input-general-card-currency-value"><span data-toggle="tooltip" title="{{ help_card_currency_value|escape('html') }}">{{ entry_card_currency_value }}</span></label>
                     <input type="text" name="payment_paypal_setting[general][card_currency_value]" value="{{ setting_general.card_currency_value }}" placeholder="{{ entry_card_currency_value }}" id="input-general-card-currency-value" class="form-control" />										
                   </div>
                   <div class="form-group">
-                    <label class="control-label" for="input-cron-url"><span data-toggle="tooltip" title="{{ help_cron_url }}">{{ entry_cron_url }}</span></label>
+                    <label class="control-label" for="input-cron-url"><span data-toggle="tooltip" title="{{ help_cron_url|escape('html') }}">{{ entry_cron_url }}</span></label>
                     <input type="hidden" name="payment_paypal_setting[general][cron_token]" value="{{ setting_general.cron_token }}" />
                     <div class="input-group">
                       <input type="text" value="{{ cron_url }}" readonly="readonly" id="input-cron-url" class="form-control" />

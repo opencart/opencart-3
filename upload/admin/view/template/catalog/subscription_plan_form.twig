@@ -48,19 +48,19 @@
               </div>
             </div>
             <div class="form-group">
-              <label class="col-sm-2 control-label" for="input-duration"><span data-toggle="tooltip" title="{{ help_duration }}">{{ entry_duration }}</span></label>
+              <label class="col-sm-2 control-label" for="input-duration"><span data-toggle="tooltip" title="{{ help_duration|escape('html') }}">{{ entry_duration }}</span></label>
               <div class="col-sm-10">
                 <input type="text" name="duration" value="{{ duration }}" placeholder="{{ entry_duration }}" id="input-duration" class="form-control"/>
               </div>
             </div>
             <div class="form-group">
-              <label class="col-sm-2 control-label" for="input-cycle"><span data-toggle="tooltip" title="{{ help_cycle }}">{{ entry_cycle }}</span></label>
+              <label class="col-sm-2 control-label" for="input-cycle"><span data-toggle="tooltip" title="{{ help_cycle|escape('html') }}">{{ entry_cycle }}</span></label>
               <div class="col-sm-10">
                 <input type="text" name="cycle" value="{{ cycle }}" placeholder="{{ entry_cycle }}" id="input-cycle" class="form-control"/>
               </div>
             </div>
             <div class="form-group">
-              <label class="col-sm-2 control-label" for="input-frequency"><span data-toggle="tooltip" title="{{ help_frequency }}">{{ entry_frequency }}</span></label>
+              <label class="col-sm-2 control-label" for="input-frequency"><span data-toggle="tooltip" title="{{ help_frequency|escape('html') }}">{{ entry_frequency }}</span></label>
               <div class="col-sm-10">
                 <select name="frequency" id="input-frequency" class="form-control">
                   {% for frequency_option in frequencies %}
@@ -97,19 +97,19 @@
               </div>
             </div>
             <div class="form-group">
-              <label class="col-sm-2 control-label" for="input-trial-duration"><span data-toggle="tooltip" title="{{ help_trial_duration }}">{{ entry_trial_duration }}</span></label>
+              <label class="col-sm-2 control-label" for="input-trial-duration"><span data-toggle="tooltip" title="{{ help_trial_duration|escape('html') }}">{{ entry_trial_duration }}</span></label>
               <div class="col-sm-10">
                 <input type="text" name="trial_duration" value="{{ trial_duration }}" placeholder="{{ entry_trial_duration }}" id="input-trial-duration" class="form-control"/>
               </div>
             </div>
             <div class="form-group">
-              <label class="col-sm-2 control-label" for="input-trial-cycle"><span data-toggle="tooltip" title="{{ help_trial_cycle }}">{{ entry_trial_cycle }}</span></label>
+              <label class="col-sm-2 control-label" for="input-trial-cycle"><span data-toggle="tooltip" title="{{ help_trial_cycle|escape('html') }}">{{ entry_trial_cycle }}</span></label>
               <div class="col-sm-10">
                 <input type="text" name="trial_cycle" value="{{ trial_cycle }}" placeholder="{{ entry_trial_cycle }}" id="input-trial-cycle" class="form-control"/>
               </div>
             </div>
             <div class="form-group">
-              <label class="col-sm-2 control-label" for="input-trial-frequency"><span data-toggle="tooltip" title="{{ help_trial_frequency }}">{{ entry_trial_frequency }}</span></label>
+              <label class="col-sm-2 control-label" for="input-trial-frequency"><span data-toggle="tooltip" title="{{ help_trial_frequency|escape('html') }}">{{ entry_trial_frequency }}</span></label>
               <div class="col-sm-10">
                 <select name="trial_frequency" id="input-trial-frequency" class="form-control">
                   {% for frequency_option in frequencies %}

@@ -16,7 +16,7 @@
         <button type="button" class="close" data-dismiss="alert" aria-label="{{ text_close }}"><span aria-hidden="true"><i class="fa fa-close"></i></span></button><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;{{ error }}</div>
     {% endif %}
     <div class="form-group">
-      <label for="select-google-product-category" class="col-xs-12 control-label control-label-left"><span data-toggle="tooltip" title="{{ help_google_product_category }}">{{ entry_google_product_category }}</span></label>
+      <label for="select-google-product-category" class="col-xs-12 control-label control-label-left"><span data-toggle="tooltip" title="{{ help_google_product_category|escape('html') }}">{{ entry_google_product_category }}</span></label>
       <div class="col-xs-12">
         <select name="google_product_category" id="select-google-product-category" class="form-control">
           {% for id, name in google_product_categories %}
@@ -29,7 +29,7 @@
       </div>
     </div>
     <div class="form-group">
-      <label for="select-color" class="col-xs-12 control-label control-label-left"><span data-toggle="tooltip" title="{{ help_color }}">{{ entry_color }}</span></label>
+      <label for="select-color" class="col-xs-12 control-label control-label-left"><span data-toggle="tooltip" title="{{ help_color|escape('html') }}">{{ entry_color }}</span></label>
       <div class="col-xs-12">
         <select name="color" id="select-color" class="form-control">
           {% for id, name in options %}
@@ -45,7 +45,7 @@
       <div class="col-xs-12">
         <div class="row">
           <div class="col-sm-4 margin-top-10">
-            <label for="select-size-system" class="control-label control-label-left"><span data-toggle="tooltip" title="{{ help_size_system }}">{{ entry_size_system }}</span></label>
+            <label for="select-size-system" class="control-label control-label-left"><span data-toggle="tooltip" title="{{ help_size_system|escape('html') }}">{{ entry_size_system }}</span></label>
             <select name="size_system" id="select-size-system" class="form-control">
               {% for id, name in size_systems %}
                 <option value="{{ id }}" {{ id == size_system ? 'selected' }}>{{ name }}</option>
@@ -56,7 +56,7 @@
             {% endif %}
           </div>
           <div class="col-sm-4 margin-top-10">
-            <label for="select-size-type" class="control-label control-label-left"><span data-toggle="tooltip" title="{{ help_size_type }}">{{ entry_size_type }}</span></label>
+            <label for="select-size-type" class="control-label control-label-left"><span data-toggle="tooltip" title="{{ help_size_type|escape('html') }}">{{ entry_size_type }}</span></label>
             <select name="size_type" id="select-size-type" class="form-control">
               {% for id, name in size_types %}
                 <option value="{{ id }}" {{ id == size_type ? 'selected' }}>{{ name }}</option>
@@ -67,7 +67,7 @@
             {% endif %}
           </div>
           <div class="col-sm-4 margin-top-10">
-            <label for="select-size" class="control-label control-label-left"><span data-toggle="tooltip" title="{{ help_size }}">{{ entry_size }}</span></label>
+            <label for="select-size" class="control-label control-label-left"><span data-toggle="tooltip" title="{{ help_size|escape('html') }}">{{ entry_size }}</span></label>
             <select name="size" id="select-size" class="form-control">
               {% for id, name in options %}
                 <option value="{{ id }}" {{ id == size ? 'selected' }}>{{ name }}</option>
@@ -81,7 +81,7 @@
       </div>
     </div>
     <div class="form-group">
-      <label for="select-condition" class="col-xs-12 control-label control-label-left"><span data-toggle="tooltip" title="{{ help_condition }}">{{ entry_condition }}</span></label>
+      <label for="select-condition" class="col-xs-12 control-label control-label-left"><span data-toggle="tooltip" title="{{ help_condition|escape('html') }}">{{ entry_condition }}</span></label>
       <div class="col-xs-12">
         <select name="condition" id="select-condition" class="form-control">
           {% for id, name in conditions %}
@@ -94,7 +94,7 @@
       </div>
     </div>
     <div class="form-group">
-      <label for="select-age-group" class="col-xs-12 control-label control-label-left"><span data-toggle="tooltip" title="{{ help_age_group }}">{{ entry_age_group }}</span></label>
+      <label for="select-age-group" class="col-xs-12 control-label control-label-left"><span data-toggle="tooltip" title="{{ help_age_group|escape('html') }}">{{ entry_age_group }}</span></label>
       <div class="col-xs-12">
         <select name="age_group" id="select-age-group" class="form-control">
           {% for id, name in age_groups %}
@@ -107,7 +107,7 @@
       </div>
     </div>
     <div class="form-group">
-      <label for="select-gender" class="col-xs-12 control-label control-label-left"><span data-toggle="tooltip" title="{{ help_gender }}">{{ entry_gender }}</span></label>
+      <label for="select-gender" class="col-xs-12 control-label control-label-left"><span data-toggle="tooltip" title="{{ help_gender|escape('html') }}">{{ entry_gender }}</span></label>
       <div class="col-xs-12">
         <select name="gender" id="select-gender" class="form-control">
           {% for id, name in genders %}
@@ -120,7 +120,7 @@
       </div>
     </div>
     <div class="form-group">
-      <label class="col-xs-12 control-label control-label-left"><span data-toggle="tooltip" title="{{ help_adult }}">{{ entry_adult }}</span></label>
+      <label class="col-xs-12 control-label control-label-left"><span data-toggle="tooltip" title="{{ help_adult|escape('html') }}">{{ entry_adult }}</span></label>
       <div class="col-xs-12">
         <label class="radio-inline">
           <input type="radio" name="adult" value="1" {{ adult ? "checked" }}/> {{ text_yes }}
@@ -134,7 +134,7 @@
       </div>
     </div>
     <div class="form-group">
-      <label class="col-xs-12 control-label control-label-left"><span data-toggle="tooltip" title="{{ help_multipack }}">{{ entry_multipack }}</span></label>
+      <label class="col-xs-12 control-label control-label-left"><span data-toggle="tooltip" title="{{ help_multipack|escape('html') }}">{{ entry_multipack }}</span></label>
       <div class="col-xs-12">
         <input type="number" name="multipack" value="{{ multipack }}" class="form-control"/>
         {% if error_multipack %}
@@ -143,7 +143,7 @@
       </div>
     </div>
     <div class="form-group">
-      <label class="col-xs-12 control-label control-label-left"><span data-toggle="tooltip" title="{{ help_is_bundle }}">{{ entry_is_bundle }}</span></label>
+      <label class="col-xs-12 control-label control-label-left"><span data-toggle="tooltip" title="{{ help_is_bundle|escape('html') }}">{{ entry_is_bundle }}</span></label>
       <div class="col-xs-12">
         <label class="radio-inline"><input type="radio" name="is_bundle" value="1" {{ is_bundle ? "checked" }}/> {{ text_yes }}</label>
         <label class="radio-inline"><input type="radio" name="is_bundle" value="0" {{ not is_bundle ? "checked" }}/> {{ text_no }}</label>

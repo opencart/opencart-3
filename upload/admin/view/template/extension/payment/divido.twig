@@ -26,13 +26,13 @@
       <div class="panel-body">
         <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-payment" class="form-horizontal">
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="payment-divido-api-key"><span data-toggle="tooltip" title="{{ help_api_key }}">{{ entry_api_key }}</span></label>
+            <label class="col-sm-2 control-label" for="payment-divido-api-key"><span data-toggle="tooltip" title="{{ help_api_key|escape('html') }}">{{ entry_api_key }}</span></label>
             <div class="col-sm-10">
               <input id="payment-divido-api-key" class="form-control" type="text" name="payment_divido_api_key" value="{{ payment_divido_api_key }}" size="60">
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="payment-divido-status"><span data-toggle="tooltip" title="{{ help_status }}">{{ entry_status }}</span></label>
+            <label class="col-sm-2 control-label" for="payment-divido-status"><span data-toggle="tooltip" title="{{ help_status|escape('html') }}">{{ entry_status }}</span></label>
             <div class="col-sm-10">
               <select name="payment_divido_status" id="payment-divido-status" class="form-control">
                 {% if payment_divido_status %}
@@ -46,7 +46,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="payment-divido-order-status-id"><span data-toggle="tooltip" title="{{ help_order_status }}">{{ entry_order_status }}</span></label>
+            <label class="col-sm-2 control-label" for="payment-divido-order-status-id"><span data-toggle="tooltip" title="{{ help_order_status|escape('html') }}">{{ entry_order_status }}</span></label>
             <div class="col-sm-10">
               <select name="payment_divido_order_status_id" id="payment-divido-order-status-id" class="form-control">
                 {% for order_status in order_statuses %}
@@ -60,13 +60,13 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="payment-divido-title"><span data-toggle="tooltip" title="{{ help_title }}">{{ entry_title }}</span></label>
+            <label class="col-sm-2 control-label" for="payment-divido-title"><span data-toggle="tooltip" title="{{ help_title|escape('html') }}">{{ entry_title }}</span></label>
             <div class="col-sm-10">
               <input type="text" id="payment-ivido-title" name="payment_divido_title" value="{{ payment_divido_title }}" class="form-control">
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="payment-divido-planselection"><span data-toggle="tooltip" title="{{ help_planselection }}">{{ entry_planselection }}</span></label>
+            <label class="col-sm-2 control-label" for="payment-divido-planselection"><span data-toggle="tooltip" title="{{ help_planselection|escape('html') }}">{{ entry_planselection }}</span></label>
             <div class="col-sm-10">
               <select name="payment_divido_planselection" id="payment-divido-planselection" class="form-control">
                 {% for option, text in entry_plans_options %}
@@ -94,7 +94,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="payment-divido-productselection"><span data-toggle="tooltip" title="{{ help_productselection }}">{{ entry_productselection }}</span></label>
+            <label class="col-sm-2 control-label" for="payment-divido-productselection"><span data-toggle="tooltip" title="{{ help_productselection|escape('html') }}">{{ entry_productselection }}</span></label>
             <div class="col-sm-10">
               <select name="payment_divido_productselection" id="payment-divido-productselection" class="form-control">
                 {% for option, text in entry_products_options %}
@@ -114,7 +114,7 @@
             </div>
           </div>
           <div id="cart-threshold" class="form-group">
-            <label class="col-sm-2 control-label" for="payment-divido-cart-threshold"><span data-toggle="tooltip" title="{{ help_cart_threshold }}">{{ entry_cart_threshold }}</span></label>
+            <label class="col-sm-2 control-label" for="payment-divido-cart-threshold"><span data-toggle="tooltip" title="{{ help_cart_threshold|escape('html') }}">{{ entry_cart_threshold }}</span></label>
             <div class="col-sm-10">
               <input type="text" name="payment_divido_cart_threshold" value="{{ payment_divido_cart_threshold }}" class="form-control" id="payment-divido-cart-threshold">
             </div>
@@ -126,7 +126,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="payment-divido-category"><span data-toggle="tooltip" title="{{ help_category }}">{{ entry_category }}</span></label>
+            <label class="col-sm-2 control-label" for="payment-divido-category"><span data-toggle="tooltip" title="{{ help_category|escape('html') }}">{{ entry_category }}</span></label>
             <div class="col-sm-10">
               <input type="text" name="category" value="" placeholder="{{ entry_category }}" id="payment-divido-category" class="form-control"/>
               <div id="divido-category" class="well well-sm" style="height: 150px; overflow: auto;">

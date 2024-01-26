@@ -171,7 +171,7 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input_page_{{ page['code'] }}_message_status"><span data-toggle="tooltip" title="{{ help_message_status }}">{{ entry_message_status }}</span></label>
+                  <label class="col-sm-2 control-label" for="input_page_{{ page['code'] }}_message_status"><span data-toggle="tooltip" title="{{ help_message_status|escape('html') }}">{{ entry_message_status }}</span></label>
                   <div class="col-sm-10">
                     <select name="module_paypal_smart_button_setting[page][{{ page['code'] }}][message_status]" id="input_page_{{ page['code'] }}_message_status" class="form-control">
                       {% if page['message_status'] %}

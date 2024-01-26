@@ -279,13 +279,13 @@
                 <legend>{{ text_executables }}</legend>
                 <div class="alert alert-info"><i class="fa fa-info-circle"></i> {{ text_subscription_info }}</div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" data-original-title="{{ help_local_cron }}">{{ text_local_cron }}</span></label>
+                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" data-original-title="{{ help_local_cron|escape('html') }}">{{ text_local_cron }}</span></label>
                   <div class="col-sm-10">
                     <input disabled type="text" class="form-control" value="{{ payment_squareup_cron_command }}"/>
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" data-original-title="{{ help_remote_cron }}">{{ text_remote_cron }}</span></label>
+                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" data-original-title="{{ help_remote_cron|escape('html') }}">{{ text_remote_cron }}</span></label>
                   <div class="col-sm-10">
                     <div class="input-group"><input disabled type="text" name="payment_squareup_cron_url" id="input-payment-squareup-cron-url" class="form-control" value=""/>
                       <div data-toggle="tooltip" data-original-title="{{ text_refresh_token }}" class="input-group-addon btn btn-primary" id="refresh-cron-token">
@@ -308,7 +308,7 @@
               <fieldset>
                 <legend>{{ text_admin_notifications }}</legend>
                 <div class="form-group">
-                  <label class="control-label col-sm-2" for="dropdown-payment-squareup-cron-email-status"><span data-toggle="tooltip" data-original-title="{{ help_cron_email_status }}">{{ text_cron_email_status }}</span></label>
+                  <label class="control-label col-sm-2" for="dropdown-payment-squareup-cron-email-status"><span data-toggle="tooltip" data-original-title="{{ help_cron_email_status|escape('html') }}">{{ text_cron_email_status }}</span></label>
                   <div class="col-sm-10">
                     <select name="payment_squareup_cron_email_status" id="dropdown-payment-squareup-cron-email-status" class="form-control">
                       <option value="1" {% if payment_squareup_cron_email_status == '1' %} selected {% endif %}>{{ text_enabled }}</option>
@@ -317,7 +317,7 @@
                   </div>
                 </div>
                 <div class="form-group required">
-                  <label class="col-sm-2 control-label" for="input-payment-squareup-cron-email"><span data-toggle="tooltip" data-original-title="{{ help_cron_email }}">{{ text_cron_email }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-payment-squareup-cron-email"><span data-toggle="tooltip" data-original-title="{{ help_cron_email|escape('html') }}">{{ text_cron_email }}</span></label>
                   <div class="col-sm-10">
                     <input id="input-payment-squareup-cron-email" name="payment-squareup-cron-email" type="text" class="form-control" value="{{ payment_squareup_cron_email }}"/>
                     {% if error_cron_email %}
@@ -329,7 +329,7 @@
             </div>
             <div id="tab-subscription" class="tab-pane">
               <div class="form-group">
-                <label class="control-label col-sm-2" for="dropdown-payment-squareup-subscription-status"><span data-toggle="tooltip" data-original-title="{{ help_subscription_status }}">{{ text_subscription_status }}</span></label>
+                <label class="control-label col-sm-2" for="dropdown-payment-squareup-subscription-status"><span data-toggle="tooltip" data-original-title="{{ help_subscription_status|escape('html') }}">{{ text_subscription_status }}</span></label>
                 <div class="col-sm-10">
                   <select name="payment_squareup_subscription_status" id="dropdown-payment-squareup-subscription-status" class="form-control">
                     <option value="1" {% if payment_squareup_subscription_status == '1' %} selected {% endif %}>{{ text_enabled }}</option>
@@ -340,7 +340,7 @@
               <fieldset>
                 <legend>{{ text_customer_notifications }}</legend>
                 <div class="form-group">
-                  <label class="control-label col-sm-2" for="dropdown-payment-squareup-notify-subscription-success"><span data-toggle="tooltip" data-original-title="{{ help_notify_subscription_success }}">{{ text_notify_subscription_success }}</span></label>
+                  <label class="control-label col-sm-2" for="dropdown-payment-squareup-notify-subscription-success"><span data-toggle="tooltip" data-original-title="{{ help_notify_subscription_success|escape('html') }}">{{ text_notify_subscription_success }}</span></label>
                   <div class="col-sm-10">
                     <select name="payment_squareup_notify_subscription_success" id="dropdown-payment-squareup-notify-subscription-success" class="form-control">
                       <option value="1" {% if payment_squareup_notify_subscription_success == '1' %} selected {% endif %}>{{ text_enabled }}</option>
@@ -349,7 +349,7 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="control-label col-sm-2" for="dropdown-payment-squareup-notify-subscription-fail"><span data-toggle="tooltip" data-original-title="{{ help_notify_subscription_fail }}">{{ text_notify_subscription_fail }}</span></label>
+                  <label class="control-label col-sm-2" for="dropdown-payment-squareup-notify-subscription-fail"><span data-toggle="tooltip" data-original-title="{{ help_notify_subscription_fail|escape('html') }}">{{ text_notify_subscription_fail }}</span></label>
                   <div class="col-sm-10">
                     <select name="payment_squareup_notify_subscription_fail" id="dropdown-payment-squareup-notify-subscription-fail" class="form-control">
                       <option value="1" {% if payment_squareup_notify_subscription_fail == '1' %} selected {% endif %}>{{ text_enabled }}</option>

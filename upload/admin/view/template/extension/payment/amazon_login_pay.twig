@@ -140,7 +140,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-ipn-token"><span data-toggle="tooltip" title="{{ help_ipn_token }}">{{ entry_ipn_token }}</span></label>
+            <label class="col-sm-2 control-label" for="input-ipn-token"><span data-toggle="tooltip" title="{{ help_ipn_token|escape('html') }}">{{ entry_ipn_token }}</span></label>
             <div class="col-sm-10">
               <input type="text" name="payment_amazon_login_pay_ipn_token" value="{{ payment_amazon_login_pay_ipn_token }}" id="input-ipn-token" class="form-control"/>
             </div>
@@ -171,7 +171,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="amazon-login-pay-mode"><span data-toggle="tooltip" title="{{ help_pay_mode }}">{{ entry_login_pay_mode }}</span></label>
+            <label class="col-sm-2 control-label" for="amazon-login-pay-mode"><span data-toggle="tooltip" title="{{ help_pay_mode|escape('html') }}">{{ entry_login_pay_mode }}</span></label>
             <div class="col-sm-10">
               <select name="payment_amazon_login_pay_mode" id="amazon-login-pay-mode" class="form-control">
                 {% if payment_amazon_login_pay_mode == 'payment' %}
@@ -188,7 +188,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="amazon-login-pay-checkout"><span data-toggle="tooltip" title="{{ help_checkout }}">{{ entry_checkout }}</span></label>
+            <label class="col-sm-2 control-label" for="amazon-login-pay-checkout"><span data-toggle="tooltip" title="{{ help_checkout|escape('html') }}">{{ entry_checkout }}</span></label>
             <div class="col-sm-10">
               <select name="payment_amazon_login_pay_checkout" id="amazon-login-checkout-mode" class="form-control">
                 {% if payment_amazon_login_pay_checkout == 'account' %}
@@ -205,7 +205,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="amazon-login-pay-capture-status"><span data-toggle="tooltip" title="{{ help_capture_status }}">{{ entry_capture_status }}</span></label>
+            <label class="col-sm-2 control-label" for="amazon-login-pay-capture-status"><span data-toggle="tooltip" title="{{ help_capture_status|escape('html') }}">{{ entry_capture_status }}</span></label>
             <div class="col-sm-10">
               <select name="payment_amazon_login_pay_capture_status" id="amazon-login-pay-capturet-status" class="form-control">
                 <option value="">{{ text_no_capture }}</option>
@@ -234,7 +234,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="amazon-login-pay-pending-status"><span data-toggle="tooltip" title="{{ help_capture_oc_status }}">{{ entry_capture_oc_status }}</span></label>
+            <label class="col-sm-2 control-label" for="amazon-login-pay-pending-status"><span data-toggle="tooltip" title="{{ help_capture_oc_status|escape('html') }}">{{ entry_capture_oc_status }}</span></label>
             <div class="col-sm-10">
               <select name="payment_amazon_login_pay_capture_oc_status" id="amazon-login-pay-capture-oc-status" class="form-control">
                 {% for order_status in order_statuses %}
@@ -248,7 +248,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="amazon-login-pay-minimum-total"><span data-toggle="tooltip" title="{{ help_minimum_total }}">{{ text_minimum_total }}</span></label>
+            <label class="col-sm-2 control-label" for="amazon-login-pay-minimum-total"><span data-toggle="tooltip" title="{{ help_minimum_total|escape('html') }}">{{ text_minimum_total }}</span></label>
             <div class="col-sm-10">
               <input type="text" name="payment_amazon_login_pay_minimum_total" value="{{ payment_amazon_login_pay_minimum_total }}" placeholder="{{ text_minimum_total }}" id="amazon-login-pay-minimum-total" class="form-control"/>
               {% if error_minimum_total %}
@@ -276,7 +276,7 @@
             </div>
           </div>
           <div class="form-group" id="buyer-multi-currency">
-            <label class="col-sm-2 control-label" for="amazon-login-pay-buyer-multi-currency"><span data-toggle="tooltip" title="{{ help_buyer_multi_currency }}">
+            <label class="col-sm-2 control-label" for="amazon-login-pay-buyer-multi-currency"><span data-toggle="tooltip" title="{{ help_buyer_multi_currency|escape('html') }}">
                 {{ text_buyer_multi_currency }}</span></label>
             <div class="col-sm-10">
               {% if store_buyer_currencies is empty %}
@@ -294,7 +294,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="amazon-login-pay-input-debug"><span data-toggle="tooltip" title="{{ help_debug }}">{{ entry_debug }}</span></label>
+            <label class="col-sm-2 control-label" for="amazon-login-pay-input-debug"><span data-toggle="tooltip" title="{{ help_debug|escape('html') }}">{{ entry_debug }}</span></label>
             <div class="col-sm-10">
               <select name="payment_amazon_login_pay_debug" id="amazon-login-pay-input-debug" class="form-control">
                 {% if payment_amazon_login_pay_debug %}
@@ -331,7 +331,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="amazon-login-pay-declined-codes"><span data-toggle="tooltip" title="{{ help_declined_codes }}">{{ text_declined_codes }}</span></label>
+            <label class="col-sm-2 control-label" for="amazon-login-pay-declined-codes"><span data-toggle="tooltip" title="{{ help_declined_codes|escape('html') }}">{{ text_declined_codes }}</span></label>
             <div class="col-sm-10">
               <select name="payment_amazon_login_pay_declined_code" id="amazon-login-pay-declined-codes" class="form-control">
                 <option value="">{{ text_amazon_no_declined }}</option>

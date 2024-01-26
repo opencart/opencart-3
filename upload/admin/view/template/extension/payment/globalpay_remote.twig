@@ -74,7 +74,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-debug"><span data-toggle="tooltip" title="{{ help_debug }}">{{ entry_debug }}</span></label>
+                <label class="col-sm-2 control-label" for="input-debug"><span data-toggle="tooltip" title="{{ help_debug|escape('html') }}">{{ entry_debug }}</span></label>
                 <div class="col-sm-10">
                   <select name="payment_globalpay_remote_debug" id="input-debug" class="form-control">
                     {% if payment_globalpay_remote_debug %}
@@ -102,7 +102,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-card"><span data-toggle="tooltip" title="{{ help_card_data_status }}">{{ entry_card_data_status }}</span></label>
+                <label class="col-sm-2 control-label" for="input-card"><span data-toggle="tooltip" title="{{ help_card_data_status|escape('html') }}">{{ entry_card_data_status }}</span></label>
                 <div class="col-sm-10">
                   <select name="payment_globalpay_remote_card_data_status" id="input-card" class="form-control">
                     {% if payment_globalpay_remote_card_data_status %}
@@ -116,7 +116,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-total"><span data-toggle="tooltip" title="{{ help_total }}">{{ entry_total }}</span></label>
+                <label class="col-sm-2 control-label" for="input-total"><span data-toggle="tooltip" title="{{ help_total|escape('html') }}">{{ entry_total }}</span></label>
                 <div class="col-sm-10">
                   <input type="text" name="payment_globalpay_remote_total" value="{{ payment_globalpay_remote_total }}" placeholder="{{ entry_total }}" id="input-total" class="form-control"/>
                 </div>
@@ -306,7 +306,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-liability"><span data-toggle="tooltip" title="{{ help_liability }}">{{ entry_liability_shift }}</span></label>
+                <label class="col-sm-2 control-label" for="input-liability"><span data-toggle="tooltip" title="{{ help_liability|escape('html') }}">{{ entry_liability_shift }}</span></label>
                 <div class="col-sm-10">
                   <select name="payment_globalpay_remote_liability" id="input-liability" class="form-control">
                     {% if payment_globalpay_remote_liability %}

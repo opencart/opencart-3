@@ -69,7 +69,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-general-transaction-method"><span data-toggle="tooltip" title="{{ help_transaction_method }}">{{ entry_transaction_method }}</span></label>
+                <label class="col-sm-2 control-label" for="input-general-transaction-method"><span data-toggle="tooltip" title="{{ help_transaction_method|escape('html') }}">{{ entry_transaction_method }}</span></label>
                 <div class="col-sm-10">
                   <select name="payment_opayo_setting[general][transaction_method]" id="input-general-transaction-method" class="form-control">
                     {% for transaction_method in setting.transaction_method %}
@@ -98,7 +98,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-general-debug"><span data-toggle="tooltip" title="{{ help_debug }}">{{ entry_debug }}</span></label>
+                <label class="col-sm-2 control-label" for="input-general-debug"><span data-toggle="tooltip" title="{{ help_debug|escape('html') }}">{{ entry_debug }}</span></label>
                 <div class="col-sm-10">
                   <select name="payment_opayo_setting[general][debug]" id="input-general-debug" class="form-control">
                     {% if setting_general.debug %}
@@ -126,7 +126,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-total"><span data-toggle="tooltip" title="{{ help_total }}">{{ entry_total }}</span></label>
+                <label class="col-sm-2 control-label" for="input-total"><span data-toggle="tooltip" title="{{ help_total|escape('html') }}">{{ entry_total }}</span></label>
                 <div class="col-sm-10">
                   <input type="text" name="payment_opayo_total" value="{{ total }}" placeholder="{{ entry_total }}" id="input-total" class="form-control" />
                 </div>
@@ -155,13 +155,13 @@
             </div>
             <div class="tab-pane" id="tab-cron">
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-cron-token"><span data-toggle="tooltip" title="{{ help_cron_token }}">{{ entry_cron_token }}</span></label>
+                <label class="col-sm-2 control-label" for="input-cron-token"><span data-toggle="tooltip" title="{{ help_cron_token|escape('html') }}">{{ entry_cron_token }}</span></label>
                 <div class="col-sm-10">{% set setting_cron = setting.cron %}
                   <input type="text" name="payment_opayo_setting[cron][token]" value="{{ setting_cron.token }}" placeholder="{{ entry_cron_token }}" id="input-cron-token" class="form-control" />
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-cron-url"><span data-toggle="tooltip" title="{{ help_cron_url }}">{{ entry_cron_url }}</span></label>
+                <label class="col-sm-2 control-label" for="input-cron-url"><span data-toggle="tooltip" title="{{ help_cron_url|escape('html') }}">{{ entry_cron_url }}</span></label>
                 <div class="col-sm-10">
                   <input type="text" name="payment_opayo_setting[cron][url]" value="{{ setting_cron.url }}" placeholder="{{ entry_cron_url }}" id="input-cron-url" class="form-control" />
                 </div>

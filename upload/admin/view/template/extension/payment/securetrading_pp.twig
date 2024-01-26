@@ -35,7 +35,7 @@
             </div>
           </div>
           <div class="form-group required">
-            <label class="col-sm-2 control-label" for="securetrading-pp-version"><span data-toggle="tooltip" title="{{ help_version }}">{{ entry_version }}</span></label>
+            <label class="col-sm-2 control-label" for="securetrading-pp-version"><span data-toggle="tooltip" title="{{ help_version|escape('html') }}">{{ entry_version }}</span></label>
             <div class="col-sm-10">
               <input type="text" name="payment_securetrading_pp_version" value="{{ payment_securetrading_pp_version }}" placeholder="{{ entry_version }}" id="securetrading-pp-version" class="form-control"/>
               {% if error_version %}

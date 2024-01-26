@@ -130,7 +130,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-length-class"><span data-toggle="tooltip" title="{{ help_length_class }}">{{ entry_length_class }}</span></label>
+            <label class="col-sm-2 control-label" for="input-length-class"><span data-toggle="tooltip" title="{{ help_length_class|escape('html') }}">{{ entry_length_class }}</span></label>
             <div class="col-sm-10">
               <select name="shipping_fedex_length_class_id" id="input-length-class" class="form-control">
                 {% for length_class in length_classes %}
@@ -235,7 +235,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_display_time }}">{{ entry_display_time }}</span></label>
+            <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_display_time|escape('html') }}">{{ entry_display_time }}</span></label>
             <div class="col-sm-10">
               <label class="radio-inline">{% if shipping_fedex_display_time %}
                   <input type="radio" name="shipping_fedex_display_time" value="1" checked="checked"/>
@@ -254,7 +254,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_display_weight }}">{{ entry_display_weight }}</span></label>
+            <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_display_weight|escape('html') }}">{{ entry_display_weight }}</span></label>
             <div class="col-sm-10">
               <label class="radio-inline">{% if shipping_fedex_display_weight %}
                   <input type="radio" name="shipping_fedex_display_weight" value="1" checked="checked"/>
@@ -273,7 +273,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-weight-class"><span data-toggle="tooltip" title="{{ help_weight_class }}">{{ entry_weight_class }}</span></label>
+            <label class="col-sm-2 control-label" for="input-weight-class"><span data-toggle="tooltip" title="{{ help_weight_class|escape('html') }}">{{ entry_weight_class }}</span></label>
             <div class="col-sm-10">
               <select name="shipping_fedex_weight_class_id" id="input-weight-class" class="form-control">
                 {% for weight_class in weight_classes %}
