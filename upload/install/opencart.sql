@@ -3977,28 +3977,6 @@ INSERT INTO `oc_subscription_status` (`subscription_status_id`, `language_id`, `
 -----------------------------------------------------------
 
 --
--- Table structure for table `oc_subscription_transaction`
---
-
-DROP TABLE IF EXISTS `oc_subscription_transaction`;
-CREATE TABLE `oc_subscription_transaction` (
-  `subscription_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
-  `subscription_id` int(11) NOT NULL,
-  `order_id` int(11) NOT NULL,
-  `description` text NOT NULL,
-  `amount` decimal(10,4) NOT NULL,
-  `type` tinyint(2) NOT NULL,
-  `payment_method` varchar(128) NOT NULL,
-  `payment_code` varchar(128) NOT NULL,
-  `date_added` datetime NOT NULL,
-  PRIMARY KEY (`subscription_transaction_id`),
-  KEY `subscription_id` (`subscription_id`),
-  KEY `order_id` (`order_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
------------------------------------------------------------
-
---
 -- Table structure for table `oc_tax_class`
 --
 
