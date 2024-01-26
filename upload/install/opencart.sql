@@ -1531,7 +1531,7 @@ INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VAL
 INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
 ('module_subscription', 'catalog/view/account/recurring_list/after', 'extension/module/subscription/account', 1, 0);
 INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('account_subscription_charge', 'catalog/model/checkout/order/addHistory/before', 'account/order/charge', 1, 0);
+('subscription_charge', 'catalog/model/checkout/order/addHistory/before', 'account/subscription/charge', 1, 0);
 
 -----------------------------------------------------------
 
