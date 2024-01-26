@@ -447,7 +447,7 @@ class ControllerAccountOrder extends Controller {
 	 * catalog/model/checkout/order/addHistory/before
 	 */
 	public function charge(&$route, &$args): void {
-		$this->load->language('account/payment_method');
+		$this->load->language('account/subscription');
 
 		if (isset($args[0])) {
 			$order_id = $args[0];
