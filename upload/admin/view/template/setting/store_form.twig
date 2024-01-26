@@ -585,7 +585,7 @@
               $('select[name=\'config_country_id\']').prop('disabled', false);
           },
           success: function (json) {
-              html = '<option value="">{{ text_select }}</option>';
+              html = '<option value="">{{ text_select|escape('js') }}</option>';
 
               if (json['zone'] && json['zone'] != '') {
                   for (i = 0; i < json['zone'].length; i++) {
@@ -598,7 +598,7 @@
                       html += '>' + json['zone'][i]['name'] + '</option>';
                   }
               } else {
-                  html += '<option value="0" selected="selected">{{ text_none }}</option>';
+                  html += '<option value="0" selected="selected">{{ text_none|escape('js') }}</option>';
               }
 
               $('select[name=\'config_zone_id\']').html(html);

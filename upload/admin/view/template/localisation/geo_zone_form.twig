@@ -96,8 +96,8 @@
           html += '    <option value="{{ country.country_id }}">{{ country.name|escape('js') }}</option>';
       {% endfor %}
       html += '</select></td>';
-      html += '  <td class="text-left"><select name="zone_to_geo_zone[' + zone_to_geo_zone_row + '][zone_id]" class="form-control"><option value="0">{{ text_all_zones }}</option></select></td>';
-      html += '  <td class="text-left"><button type="button" onclick="$(\'#zone-to-geo-zone-row' + zone_to_geo_zone_row + '\').remove();" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';
+      html += '  <td class="text-left"><select name="zone_to_geo_zone[' + zone_to_geo_zone_row + '][zone_id]" class="form-control"><option value="0">{{ text_all_zones|escape('js') }}</option></select></td>';
+      html += '  <td class="text-left"><button type="button" onclick="$(\'#zone-to-geo-zone-row' + zone_to_geo_zone_row + '\').remove();" data-toggle="tooltip" title="{{ button_remove|escape('js') }}" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';
       html += '</tr>';
 
       $('#zone-to-geo-zone tbody').append(html);
@@ -123,7 +123,7 @@
                   $('button[form=\'form-geo-zone\']').prop('disabled', false);
               },
               success: function (json) {
-                  html = '<option value="0">{{ text_all_zones }}</option>';
+                  html = '<option value="0">{{ text_all_zones|escape('js') }}</option>';
 
                   if (json['zone'] && json['zone'] != '') {
                       for (i = 0; i < json['zone'].length; i++) {

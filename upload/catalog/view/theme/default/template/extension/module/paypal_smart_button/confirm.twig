@@ -411,7 +411,7 @@ function onLoadPaymentAddress() {
                     $('#payment_address input[name=\'postcode\']').parent().parent().removeClass('required');
                 }
 
-                html = '<option value="">{{ text_select }}</option>';
+                html = '<option value="">{{ text_select|escape('js') }}</option>';
 
                 if (json['zone'] && json['zone'] != '') {
                     for (i = 0; i < json['zone'].length; i++) {
@@ -424,7 +424,7 @@ function onLoadPaymentAddress() {
                         html += '>' + json['zone'][i]['name'] + '</option>';
                     }
                 } else {
-                    html += '<option value="0" selected="selected">{{ text_none }}</option>';
+                    html += '<option value="0" selected="selected">{{ text_none|escape('js') }}</option>';
                 }
 
                 $('#payment_address select[name=\'zone_id\']').html(html);
@@ -577,7 +577,7 @@ function onLoadShippingAddress() {
                     $('#shipping_address input[name=\'postcode\']').parent().parent().removeClass('required');
                 }
 
-                html = '<option value="">{{ text_select }}</option>';
+                html = '<option value="">{{ text_select|escape('js') }}</option>';
 
                 if (json['zone'] && json['zone'] != '') {
                     for (i = 0; i < json['zone'].length; i++) {
@@ -590,7 +590,7 @@ function onLoadShippingAddress() {
                         html += '>' + json['zone'][i]['name'] + '</option>';
                     }
                 } else {
-                    html += '<option value="0" selected="selected">{{ text_none }}</option>';
+                    html += '<option value="0" selected="selected">{{ text_none|escape('js') }}</option>';
                 }
 
                 $('#shipping_address select[name=\'zone_id\']').html(html);

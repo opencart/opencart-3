@@ -1020,7 +1020,7 @@
 
           $('select[name=\'customer_group_id\']').trigger('change');
 
-          html = '<option value="0">{{ text_none }}</option>';
+          html = '<option value="0">{{ text_none|escape('js') }}</option>';
 
           for (i in item['address']) {
               html += '<option value="' + item['address'][i]['address_id'] + '">' + item['address'][i]['firstname'] + ' ' + item['address'][i]['lastname'] + ', ' + item['address'][i]['address_1'] + ', ' + item['address'][i]['city'] + ', ' + item['address'][i]['country'] + '</option>';
@@ -1195,7 +1195,7 @@
                       html += '  <label class="col-sm-2 control-label" for="input-option' + option['product_option_id'] + '">' + option['name'] + '</label>';
                       html += '  <div class="col-sm-10">';
                       html += '    <select name="option[' + option['product_option_id'] + ']" id="input-option' + option['product_option_id'] + '" class="form-control">';
-                      html += '      <option value="">{{ text_select }}</option>';
+                      html += '      <option value="">{{ text_select|escape('js') }}</option>';
 
                       for (j = 0; j < option['product_option_value'].length; j++) {
                           option_value = option['product_option_value'][j];
@@ -1219,7 +1219,7 @@
                       html += '  <label class="col-sm-2 control-label" for="input-option' + option['product_option_id'] + '">' + option['name'] + '</label>';
                       html += '  <div class="col-sm-10">';
                       html += '    <select name="option[' + option['product_option_id'] + ']" id="input-option' + option['product_option_id'] + '" class="form-control">';
-                      html += '      <option value="">{{ text_select }}</option>';
+                      html += '      <option value="">{{ text_select|escape('js') }}</option>';
 
                       for (j = 0; j < option['product_option_value'].length; j++) {
                           option_value = option['product_option_value'][j];
@@ -1269,7 +1269,7 @@
                       html += '  <label class="col-sm-2 control-label" for="input-option' + option['product_option_id'] + '">' + option['name'] + '</label>';
                       html += '  <div class="col-sm-10">';
                       html += '    <select name="option[' + option['product_option_id'] + ']" id="input-option' + option['product_option_id'] + '" class="form-control">';
-                      html += '      <option value="">{{ text_select }}</option>';
+                      html += '      <option value="">{{ text_select|escape('js') }}</option>';
 
                       for (j = 0; j < option['product_option_value'].length; j++) {
                           option_value = option['product_option_value'][j];
@@ -1344,7 +1344,7 @@
                   html += '  <legend>{{ entry_subscription }}</legend>';
                   html += '  <div class="form-group">';
                   html += '    <select name="subscription_plan_id" id="input-subscription-plan" class="form-control">';
-                  html += '      <option value="">{{ text_select }}</option>';
+                  html += '      <option value="">{{ text_select|escape('js') }}</option>';
 
                   for (i = 0; i < item['subscription'].length; i++) {
                       html += '<option value="' + item['subscription'][i]['subscription_plan_id'] + '">' + item['subscription'][i]['name'] + '</option>';
@@ -1631,7 +1631,7 @@
                   $('#tab-payment input[name=\'postcode\']').closest('.form-group').removeClass('required');
               }
 
-              html = '<option value="">{{ text_select }}</option>';
+              html = '<option value="">{{ text_select|escape('js') }}</option>';
 
               if (json['zone'] && json['zone'] != '') {
                   for (i = 0; i < json['zone'].length; i++) {
@@ -1644,7 +1644,7 @@
                       html += '>' + json['zone'][i]['name'] + '</option>';
                   }
               } else {
-                  html += '<option value="0" selected="selected">{{ text_none }}</option>';
+                  html += '<option value="0" selected="selected">{{ text_none|escape('js') }}</option>';
               }
 
               $('#tab-payment select[name=\'zone_id\']').html(html);
@@ -1708,7 +1708,7 @@
                           if (json['error']) {
                               $('#content > .container-fluid').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
                           } else {
-                              html = '<option value="">{{ text_select }}</option>';
+                              html = '<option value="">{{ text_select|escape('js') }}</option>';
 
                               if (json['payment_methods']) {
                                   for (i in json['payment_methods']) {
@@ -1815,7 +1815,7 @@
                   $('#tab-shipping input[name=\'postcode\']').closest('.form-group').removeClass('required');
               }
 
-              html = '<option value="">{{ text_select }}</option>';
+              html = '<option value="">{{ text_select|escape('js') }}</option>';
 
               if (json['zone'] && json['zone'] != '') {
                   for (i = 0; i < json['zone'].length; i++) {
@@ -1828,7 +1828,7 @@
                       html += '>' + json['zone'][i]['name'] + '</option>';
                   }
               } else {
-                  html += '<option value="0" selected="selected">{{ text_none }}</option>';
+                  html += '<option value="0" selected="selected">{{ text_none|escape('js') }}</option>';
               }
 
               $('#tab-shipping select[name=\'zone_id\']').html(html);
@@ -1892,7 +1892,7 @@
                               $('#content > .container-fluid').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
                           } else {
                               // Shipping Methods
-                              html = '<option value="">{{ text_select }}</option>';
+                              html = '<option value="">{{ text_select|escape('js') }}</option>';
 
                               if (json['shipping_methods']) {
                                   for (i in json['shipping_methods']) {
