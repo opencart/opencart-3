@@ -1,33 +1,28 @@
 <?php
-class ControllerExtensionSubscriptionOpayo extends Controller {
-	/**
-	 * @var array<string, string>
-	 */
-	private array $error = [];
+class ControllerExtensionRecurringOpayo extends Controller {
+	private $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return string
 	 */
 	public function index(): string {
 		$content = '';
 
-		if ($this->config->get('payment_opayo_status')) {
+		if (!empty($this->request->get['subscription_id'])) {
 			$this->load->language('extension/subscription/opayo');
 
-			if (isset($this->request->post['subscription_id'])) {
-				$subscription_id = (int)$this->request->get['subscription_id'];
-			} else {
-				$subscription_id = 0;
-			}
+			$this->load->model('account/subscription');
 
-			$order_subscription_info = $this->model_extension_subscription_opayo->getSubscriptionOrder($subscription_id);
+			$data['subscription_id'] = (int)$this->request->get['subscription_id'];
 
-			if ($order_subscription_info) {
-				$data['subscription_id'] = $subscription_id;
+			$subscription_info = $this->model_account_subscription->getSubscription($data['subscription_id']);
 
-				$data['subscription_status'] = $order_subscription_info['status'];
+			if ($subscription_info) {
+				$data['subscription_status'] = $subscription_info['status'];
 
-				$data['info_url'] =  str_replace('&amp;', '&', $this->url->link('extension/subscription/opayo/getSubscriptionInfo', 'subscription_id=' . $subscription_id, true));
+				$data['info_url'] =  str_replace('&amp;', '&', $this->url->link('extension/subscription/opayo/getSubscriptionInfo', 'subscription_id=' . $data['subscription_id'], true));
 				$data['enable_url'] =  str_replace('&amp;', '&', $this->url->link('extension/subscription/opayo/enableSubscription', '', true));
 				$data['disable_url'] =  str_replace('&amp;', '&', $this->url->link('extension/subscription/opayo/disableSubscription', '', true));
 
@@ -39,8 +34,8 @@ class ControllerExtensionSubscriptionOpayo extends Controller {
 	}
 
 	/**
-	 * getSubscriptionInfo
-	 * 
+	 * Get Subscription Info
+	 *
 	 * @return void
 	 */
 	public function getSubscriptionInfo(): void {
@@ -48,62 +43,50 @@ class ControllerExtensionSubscriptionOpayo extends Controller {
 	}
 
 	/**
-	 * enableSubscription
-	 * 
+	 * Enable Subscription
+	 *
 	 * @return void
 	 */
 	public function enableSubscription(): void {
-		$json = [];
-
-		if ($this->config->get('payment_opayo_status')) {
+		if (!empty($this->request->post['subscription_id'])) {
 			$this->load->language('extension/subscription/opayo');
 
 			$this->load->model('extension/payment/opayo');
 
-			if (isset($this->request->post['subscription_id'])) {
-				$subscription_id = (int)$this->request->get['subscription_id'];
-			} else {
-				$subscription_id = 0;
-			}
+			$subscription_id = (int)$this->request->post['subscription_id'];
 
-			$this->model_extension_payment_opayo->editOrderSubscriptionStatus($subscription_id, 1);
+			$this->model_extension_payment_opayo->editSubscriptionStatus($subscription_id, 1);
 
-			$json['success'] = $this->language->get('text_success_enable_subscription');
+			$data['success'] = $this->language->get('success_enable_subscription');
 		}
 
-		$json['error'] = $this->error;
+		$data['error'] = $this->error;
 
 		$this->response->addHeader('Content-Type: application/json');
-		$this->response->setOutput(json_encode($json));
+		$this->response->setOutput(json_encode($data));
 	}
 
 	/**
-	 * disableSubscription
-	 * 
+	 * Disable Subscription
+	 *
 	 * @return void
 	 */
 	public function disableSubscription(): void {
-		$json = [];
-
-		if ($this->config->get('payment_opayo_status')) {
+		if (!empty($this->request->post['subscription_id'])) {
 			$this->load->language('extension/subscription/opayo');
 
 			$this->load->model('extension/payment/opayo');
 
-			if (isset($this->request->post['subscription_id'])) {
-				$subscription_id = (int)$this->request->get['subscription_id'];
-			} else {
-				$subscription_id = 0;
-			}
+			$subscription_id = (int)$this->request->post['subscription_id'];
 
-			$this->model_extension_payment_opayo->editOrderSubscriptionStatus($subscription_id, 2);
+			$this->model_extension_payment_opayo->editSubscriptionStatus($subscription_id, 2);
 
-			$json['success'] = $this->language->get('text_success_disable_subscription');
+			$data['success'] = $this->language->get('success_disable_subscription');
 		}
 
-		$json['error'] = $this->error;
+		$data['error'] = $this->error;
 
 		$this->response->addHeader('Content-Type: application/json');
-		$this->response->setOutput(json_encode($json));
+		$this->response->setOutput(json_encode($data));
 	}
 }
