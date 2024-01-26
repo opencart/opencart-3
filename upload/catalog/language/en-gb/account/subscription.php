@@ -34,7 +34,7 @@ $_['text_transaction_suspended_failed']    = 'Suspended from failed payment';
 $_['text_transaction_outstanding_failed']  = 'Outstanding payment failed';
 $_['text_transaction_expired']             = 'Expired';
 $_['text_no_results']                      = 'No subscriptions found!';
-$_['text_error']                           = 'The recurring order you requested could not be found!';
+$_['text_error']                           = 'The subscription order you requested could not be found!';
 
 // Column
 $_['column_subscription_id']               = 'Subscription ID';
