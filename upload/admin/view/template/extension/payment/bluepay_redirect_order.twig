@@ -93,7 +93,7 @@ $(document).on('click', '#button-void', function () {
 
                     html += '<tr>';
                     html += '  <td class="text-left">' + json.date_added + '</td>';
-                    html += '  <td class="text-left">{{ text_void }}</td>';
+                    html += '  <td class="text-left">{{ text_void|escape }}</td>';
                     html += '  <td class="text-left">' + json.total + '</td>';
                     html += '</tr>';
 

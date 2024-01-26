@@ -158,9 +158,9 @@ $('#button-release').click(function() {
                 if (json.error == false) {
                     html = '';
                     html += '<tr>';
-                    html += '  <td class="text-left">{{ json_data.date_added }}</td>';
+                    html += '  <td class="text-left">' + json.date_added + '</td>';
                     html += '  <td class="text-left">{{ text_payment }}</td>';
-                    html += '  <td class="text-left">{{ json_data.amount }}</td>';
+                    html += '  <td class="text-left">' + json.amount + '</td>';
                     html += '</tr>';
 
                     $('#opayo-transactions').append(html);
