@@ -128,19 +128,19 @@ class ControllerExtensionPaymentBluepayredirect extends Controller {
 		$data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();
 
 		if (isset($this->request->post['payment_bluepay_redirect_status'])) {
-			$data['payment_bluepay_redirect_status'] = $this->request->post['payment_bluepay_redirect_status'];
+			$data['payment_bluepay_redirect_status'] = (int)$this->request->post['payment_bluepay_redirect_status'];
 		} else {
 			$data['payment_bluepay_redirect_status'] = $this->config->get('payment_bluepay_redirect_status');
 		}
 
 		if (isset($this->request->post['payment_bluepay_redirect_debug'])) {
-			$data['payment_bluepay_redirect_debug'] = $this->request->post['payment_bluepay_redirect_debug'];
+			$data['payment_bluepay_redirect_debug'] = (int)$this->request->post['payment_bluepay_redirect_debug'];
 		} else {
 			$data['payment_bluepay_redirect_debug'] = $this->config->get('payment_bluepay_redirect_debug');
 		}
 
 		if (isset($this->request->post['payment_bluepay_redirect_sort_order'])) {
-			$data['payment_bluepay_redirect_sort_order'] = $this->request->post['payment_bluepay_redirect_sort_order'];
+			$data['payment_bluepay_redirect_sort_order'] = (int)$this->request->post['payment_bluepay_redirect_sort_order'];
 		} else {
 			$data['payment_bluepay_redirect_sort_order'] = $this->config->get('payment_bluepay_redirect_sort_order');
 		}

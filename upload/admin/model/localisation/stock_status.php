@@ -10,7 +10,7 @@ class ModelLocalisationStockStatus extends Model {
 	 *
 	 * @param array $data
 	 *
-	 * @return int
+	 * @return ?int
 	 */
 	public function addStockStatus(array $data): ?int {
 		$stock_status_id = 0;

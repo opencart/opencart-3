@@ -219,7 +219,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 		}
 
 		if (isset($this->request->post['payment_amazon_login_pay_capture_status'])) {
-			$data['payment_amazon_login_pay_capture_status'] = $this->request->post['payment_amazon_login_pay_capture_status'];
+			$data['payment_amazon_login_pay_capture_status'] = (int)$this->request->post['payment_amazon_login_pay_capture_status'];
 		} elseif ($this->config->get('payment_amazon_login_pay_capture_status')) {
 			$data['payment_amazon_login_pay_capture_status'] = $this->config->get('payment_amazon_login_pay_capture_status');
 		} else {
@@ -227,19 +227,19 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 		}
 
 		if (isset($this->request->post['payment_amazon_login_pay_pending_status'])) {
-			$data['payment_amazon_login_pay_pending_status'] = $this->request->post['payment_amazon_login_pay_pending_status'];
+			$data['payment_amazon_login_pay_pending_status'] = (int)$this->request->post['payment_amazon_login_pay_pending_status'];
 		} elseif ($this->config->get('payment_amazon_login_pay_pending_status')) {
 			$data['payment_amazon_login_pay_pending_status'] = $this->config->get('payment_amazon_login_pay_pending_status');
 		} else {
-			$data['payment_amazon_login_pay_pending_status'] = '0';
+			$data['payment_amazon_login_pay_pending_status'] = 0;
 		}
 
 		if (isset($this->request->post['payment_amazon_login_pay_capture_oc_status'])) {
-			$data['payment_amazon_login_pay_capture_oc_status'] = $this->request->post['payment_amazon_login_pay_capture_oc_status'];
+			$data['payment_amazon_login_pay_capture_oc_status'] = (int)$this->request->post['payment_amazon_login_pay_capture_oc_status'];
 		} elseif ($this->config->get('payment_amazon_login_pay_capture_oc_status')) {
 			$data['payment_amazon_login_pay_capture_oc_status'] = $this->config->get('payment_amazon_login_pay_capture_oc_status');
 		} else {
-			$data['payment_amazon_login_pay_capture_oc_status'] = '0';
+			$data['payment_amazon_login_pay_capture_oc_status'] = 0;
 		}
 
 		if (isset($this->request->post['payment_amazon_login_pay_ipn_token'])) {
@@ -261,11 +261,11 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 		}
 
 		if (isset($this->request->post['payment_amazon_login_pay_geo_zone'])) {
-			$data['payment_amazon_login_pay_geo_zone'] = $this->request->post['payment_amazon_login_pay_geo_zone'];
+			$data['payment_amazon_login_pay_geo_zone'] = (int)$this->request->post['payment_amazon_login_pay_geo_zone'];
 		} elseif ($this->config->get('payment_amazon_login_pay_geo_zone')) {
 			$data['payment_amazon_login_pay_geo_zone'] = $this->config->get('payment_amazon_login_pay_geo_zone');
 		} else {
-			$data['payment_amazon_login_pay_geo_zone'] = '0';
+			$data['payment_amazon_login_pay_geo_zone'] = 0;
 		}
 
 		if (isset($this->request->post['payment_amazon_login_pay_buyer_multi_currency'])) {
@@ -273,7 +273,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 		} elseif ($this->config->get('payment_amazon_login_pay_buyer_multi_currency')) {
 			$data['payment_amazon_login_pay_buyer_multi_currency'] = $this->config->get('payment_amazon_login_pay_buyer_multi_currency');
 		} else {
-			$data['payment_amazon_login_pay_buyer_multi_currency'] = '0';
+			$data['payment_amazon_login_pay_buyer_multi_currency'] = 0;
 		}
 
 		// Currencies
@@ -311,27 +311,27 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 		$data['help_capture_oc_status'] = sprintf($this->language->get('help_capture_oc_status'), $this->language->get('text_sale'), $this->language->get('text_order'), $this->language->get('button_view'));
 
 		if (isset($this->request->post['payment_amazon_login_pay_debug'])) {
-			$data['payment_amazon_login_pay_debug'] = $this->request->post['payment_amazon_login_pay_debug'];
+			$data['payment_amazon_login_pay_debug'] = (int)$this->request->post['payment_amazon_login_pay_debug'];
 		} elseif ($this->config->get('payment_amazon_login_pay_debug')) {
 			$data['payment_amazon_login_pay_debug'] = $this->config->get('payment_amazon_login_pay_debug');
 		} else {
-			$data['payment_amazon_login_pay_debug'] = '0';
+			$data['payment_amazon_login_pay_debug'] = 0;
 		}
 
 		if (isset($this->request->post['payment_amazon_login_pay_sort_order'])) {
-			$data['payment_amazon_login_pay_sort_order'] = $this->request->post['payment_amazon_login_pay_sort_order'];
+			$data['payment_amazon_login_pay_sort_order'] = (int)$this->request->post['payment_amazon_login_pay_sort_order'];
 		} elseif ($this->config->get('payment_amazon_login_pay_sort_order')) {
 			$data['payment_amazon_login_pay_sort_order'] = $this->config->get('payment_amazon_login_pay_sort_order');
 		} else {
-			$data['payment_amazon_login_pay_sort_order'] = '0';
+			$data['payment_amazon_login_pay_sort_order'] = 0;
 		}
 
 		if (isset($this->request->post['payment_amazon_login_pay_status'])) {
-			$data['payment_amazon_login_pay_status'] = $this->request->post['payment_amazon_login_pay_status'];
+			$data['payment_amazon_login_pay_status'] = (int)$this->request->post['payment_amazon_login_pay_status'];
 		} elseif ($this->config->get('payment_amazon_login_pay_status')) {
 			$data['payment_amazon_login_pay_status'] = $this->config->get('payment_amazon_login_pay_status');
 		} else {
-			$data['payment_amazon_login_pay_status'] = '0';
+			$data['payment_amazon_login_pay_status'] = 0;
 		}
 
 		if (isset($this->request->post['payment_amazon_login_pay_declined_code'])) {

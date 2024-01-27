@@ -947,7 +947,7 @@ class ControllerExtensionPaymentPayPal extends Controller
 
             if ($page_code != 'checkout') {
                 if (isset($this->request->post['paypal_order_id'])) {
-                    $this->session->data['paypal_order_id'] = $this->request->post['paypal_order_id'];
+                    $this->session->data['paypal_order_id'] = (int)$this->request->post['paypal_order_id'];
                 } else {
                     $json['url'] = $this->url->link('checkout/cart', '', true);
 
@@ -1141,7 +1141,7 @@ class ControllerExtensionPaymentPayPal extends Controller
                 }
             } else {
                 if ((($payment_type == 'button') || ($payment_type == 'googlepay_button') || ($payment_type == 'applepay_button')) && !empty($this->request->post['paypal_order_id'])) {
-                    $paypal_order_id = $this->request->post['paypal_order_id'];
+                    $paypal_order_id = (int)$this->request->post['paypal_order_id'];
                 }
 
                 if (($payment_type == 'card') && !empty($this->request->post['payload'])) {
@@ -2948,8 +2948,8 @@ class ControllerExtensionPaymentPayPal extends Controller
             $this->session->data['payment_address']['address_2'] = $this->request->post['address_2'];
             $this->session->data['payment_address']['postcode'] = $this->request->post['postcode'];
             $this->session->data['payment_address']['city'] = $this->request->post['city'];
-            $this->session->data['payment_address']['country_id'] = $this->request->post['country_id'];
-            $this->session->data['payment_address']['zone_id'] = $this->request->post['zone_id'];
+            $this->session->data['payment_address']['country_id'] = (int)$this->request->post['country_id'];
+            $this->session->data['payment_address']['zone_id'] = (int)$this->request->post['zone_id'];
 
             $this->load->model('localisation/country');
 
@@ -3013,8 +3013,8 @@ class ControllerExtensionPaymentPayPal extends Controller
             $this->session->data['shipping_address']['address_2'] = $this->request->post['address_2'];
             $this->session->data['shipping_address']['postcode'] = $this->request->post['postcode'];
             $this->session->data['shipping_address']['city'] = $this->request->post['city'];
-            $this->session->data['shipping_address']['country_id'] = $this->request->post['country_id'];
-            $this->session->data['shipping_address']['zone_id'] = $this->request->post['zone_id'];
+            $this->session->data['shipping_address']['country_id'] = (int)$this->request->post['country_id'];
+            $this->session->data['shipping_address']['zone_id'] = (int)$this->request->post['zone_id'];
 
             $this->load->model('localisation/country');
 
@@ -3454,7 +3454,7 @@ class ControllerExtensionPaymentPayPal extends Controller
 
         // Customer Group
         if (isset($this->request->post['customer_group_id']) && is_array($this->config->get('config_customer_group_display')) && in_array($this->request->post['customer_group_id'], (array)$this->config->get('config_customer_group_display'))) {
-            $customer_group_id = $this->request->post['customer_group_id'];
+            $customer_group_id = (int)$this->request->post['customer_group_id'];
         } else {
             $customer_group_id = $this->config->get('config_customer_group_id');
         }
@@ -3511,7 +3511,7 @@ class ControllerExtensionPaymentPayPal extends Controller
 
         // Customer Group
         if (isset($this->request->post['customer_group_id']) && is_array($this->config->get('config_customer_group_display')) && in_array($this->request->post['customer_group_id'], $this->config->get('config_customer_group_display'))) {
-            $customer_group_id = $this->request->post['customer_group_id'];
+            $customer_group_id = (int)$this->request->post['customer_group_id'];
         } else {
             $customer_group_id = $this->config->get('config_customer_group_id');
         }

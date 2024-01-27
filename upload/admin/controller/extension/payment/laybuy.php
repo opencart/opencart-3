@@ -149,7 +149,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 		}
 
 		if (isset($this->request->post['payment_laybuy_logging'])) {
-			$data['payment_laybuy_logging'] = $this->request->post['payment_laybuy_logging'];
+			$data['payment_laybuy_logging'] = (int)$this->request->post['payment_laybuy_logging'];
 		} else {
 			$data['payment_laybuy_logging'] = $this->config->get('payment_laybuy_logging');
 		}
@@ -161,7 +161,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 		}
 
 		if (isset($this->request->post['payment_laybuy_order_status_id_pending'])) {
-			$data['payment_laybuy_order_status_id_pending'] = $this->request->post['payment_laybuy_order_status_id_pending'];
+			$data['payment_laybuy_order_status_id_pending'] = (int)$this->request->post['payment_laybuy_order_status_id_pending'];
 		} elseif ($this->config->get('payment_laybuy_order_status_id_pending')) {
 			$data['payment_laybuy_order_status_id_pending'] = $this->config->get('payment_laybuy_order_status_id_pending');
 		} else {
@@ -169,7 +169,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 		}
 
 		if (isset($this->request->post['payment_laybuy_order_status_id_canceled'])) {
-			$data['payment_laybuy_order_status_id_canceled'] = $this->request->post['payment_laybuy_order_status_id_canceled'];
+			$data['payment_laybuy_order_status_id_canceled'] = (int)$this->request->post['payment_laybuy_order_status_id_canceled'];
 		} elseif ($this->config->get('payment_laybuy_order_status_id_canceled')) {
 			$data['payment_laybuy_order_status_id_canceled'] = $this->config->get('payment_laybuy_order_status_id_canceled');
 		} else {
@@ -177,7 +177,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 		}
 
 		if (isset($this->request->post['payment_laybuy_order_status_id_processing'])) {
-			$data['payment_laybuy_order_status_id_processing'] = $this->request->post['payment_laybuy_order_status_id_processing'];
+			$data['payment_laybuy_order_status_id_processing'] = (int)$this->request->post['payment_laybuy_order_status_id_processing'];
 		} elseif ($this->config->get('payment_laybuy_order_status_id_processing')) {
 			$data['payment_laybuy_order_status_id_processing'] = $this->config->get('payment_laybuy_order_status_id_processing');
 		} else {
@@ -207,13 +207,13 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 		}
 
 		if (isset($this->request->post['payment_laybuy_status'])) {
-			$data['payment_laybuy_status'] = $this->request->post['payment_laybuy_status'];
+			$data['payment_laybuy_status'] = (int)$this->request->post['payment_laybuy_status'];
 		} else {
 			$data['payment_laybuy_status'] = $this->config->get('payment_laybuy_status');
 		}
 
 		if (isset($this->request->post['payment_laybuy_sort_order'])) {
-			$data['payment_laybuy_sort_order'] = $this->request->post['payment_laybuy_sort_order'];
+			$data['payment_laybuy_sort_order'] = (int)$this->request->post['payment_laybuy_sort_order'];
 		} else {
 			$data['payment_laybuy_sort_order'] = $this->config->get('payment_laybuy_sort_order');
 		}

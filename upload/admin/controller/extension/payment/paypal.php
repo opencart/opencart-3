@@ -1849,7 +1849,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 			$this->load->model('extension/payment/paypal');
 
-			$data['order_id'] = $this->request->get['order_id'];
+			$data['order_id'] = (int)$this->request->get['order_id'];
 
 			$paypal_order_info = $this->model_extension_payment_paypal->getPayPalOrder($data['order_id']);
 
@@ -1891,7 +1891,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 			$this->load->model('extension/payment/paypal');
 
-			$data['order_id'] = $this->request->get['order_id'];
+			$data['order_id'] = (int)$this->request->get['order_id'];
 
 			$paypal_order_info = $this->model_extension_payment_paypal->getPayPalOrder($data['order_id']);
 
@@ -1931,7 +1931,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 			$this->load->model('extension/payment/paypal');
 
-			$order_id = $this->request->post['order_id'];
+			$order_id = (int)$this->request->post['order_id'];
 			$transaction_id = $this->request->post['transaction_id'];
 
 			$_config = new \Config();
@@ -2025,7 +2025,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 			$this->load->model('extension/payment/paypal');
 
-			$order_id = $this->request->post['order_id'];
+			$order_id = (int)$this->request->post['order_id'];
 			$transaction_id = $this->request->post['transaction_id'];
 
 			$_config = new \Config();
@@ -2119,7 +2119,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 			$this->load->model('extension/payment/paypal');
 
-			$order_id = $this->request->post['order_id'];
+			$order_id = (int)$this->request->post['order_id'];
 			$transaction_id = $this->request->post['transaction_id'];
 
 			$_config = new \Config();

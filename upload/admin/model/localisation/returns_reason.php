@@ -10,7 +10,7 @@ class ModelLocalisationReturnsReason extends Model {
 	 *
 	 * @param array $data
 	 *
-	 * @return int
+	 * @return ?int
 	 */
 	public function addReturnReason(array $data): ?int {
 		$return_reason_id = 0;

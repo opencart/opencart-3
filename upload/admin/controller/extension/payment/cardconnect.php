@@ -123,19 +123,19 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 		}
 
 		if (isset($this->request->post['payment_cardconnect_status'])) {
-			$data['payment_cardconnect_status'] = $this->request->post['payment_cardconnect_status'];
+			$data['payment_cardconnect_status'] = (int)$this->request->post['payment_cardconnect_status'];
 		} else {
 			$data['payment_cardconnect_status'] = $this->config->get('payment_cardconnect_status');
 		}
 
 		if (isset($this->request->post['payment_cardconnect_logging'])) {
-			$data['payment_cardconnect_logging'] = $this->request->post['payment_cardconnect_logging'];
+			$data['payment_cardconnect_logging'] = (int)$this->request->post['payment_cardconnect_logging'];
 		} else {
 			$data['payment_cardconnect_logging'] = $this->config->get('payment_cardconnect_logging');
 		}
 
 		if (isset($this->request->post['payment_cardconnect_sort_order'])) {
-			$data['payment_cardconnect_sort_order'] = $this->request->post['payment_cardconnect_sort_order'];
+			$data['payment_cardconnect_sort_order'] = (int)$this->request->post['payment_cardconnect_sort_order'];
 		} else {
 			$data['payment_cardconnect_sort_order'] = $this->config->get('payment_cardconnect_sort_order');
 		}
@@ -149,19 +149,19 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 		}
 
 		if (isset($this->request->post['payment_cardconnect_order_status_id_pending'])) {
-			$data['payment_cardconnect_order_status_id_pending'] = $this->request->post['payment_cardconnect_order_status_id_pending'];
+			$data['payment_cardconnect_order_status_id_pending'] = (int)$this->request->post['payment_cardconnect_order_status_id_pending'];
 		} elseif ($this->config->has('payment_cardconnect_order_status_id_pending')) {
 			$data['payment_cardconnect_order_status_id_pending'] = $this->config->get('payment_cardconnect_order_status_id_pending');
 		} else {
-			$data['payment_cardconnect_order_status_id_pending'] = '1';
+			$data['payment_cardconnect_order_status_id_pending'] = 1;
 		}
 
 		if (isset($this->request->post['payment_cardconnect_order_status_id_processing'])) {
-			$data['payment_cardconnect_order_status_id_processing'] = $this->request->post['payment_cardconnect_order_status_id_processing'];
+			$data['payment_cardconnect_order_status_id_processing'] = (int)$this->request->post['payment_cardconnect_order_status_id_processing'];
 		} elseif ($this->config->has('payment_cardconnect_order_status_id_processing')) {
 			$data['payment_cardconnect_order_status_id_processing'] = $this->config->get('payment_cardconnect_order_status_id_processing');
 		} else {
-			$data['payment_cardconnect_order_status_id_processing'] = '2';
+			$data['payment_cardconnect_order_status_id_processing'] = 2;
 		}
 
 		if (isset($this->error['warning'])) {

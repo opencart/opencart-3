@@ -161,13 +161,13 @@ class ControllerExtensionPaymentAlipayCross extends Controller {
 		}
 
 		if (isset($this->request->post['payment_alipay_cross_status'])) {
-			$data['payment_alipay_cross_status'] = $this->request->post['payment_alipay_cross_status'];
+			$data['payment_alipay_cross_status'] = (int)$this->request->post['payment_alipay_cross_status'];
 		} else {
 			$data['payment_alipay_cross_status'] = $this->config->get('payment_alipay_cross_status');
 		}
 
 		if (isset($this->request->post['payment_alipay_cross_sort_order'])) {
-			$data['payment_alipay_cross_sort_order'] = $this->request->post['payment_alipay_cross_sort_order'];
+			$data['payment_alipay_cross_sort_order'] = (int)$this->request->post['payment_alipay_cross_sort_order'];
 		} else {
 			$data['payment_alipay_cross_sort_order'] = $this->config->get('payment_alipay_cross_sort_order');
 		}

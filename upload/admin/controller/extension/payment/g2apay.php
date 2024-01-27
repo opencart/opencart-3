@@ -166,25 +166,25 @@ class ControllerExtensionPaymentG2APay extends Controller {
 		$data['g2apay_ipn_url'] = HTTPS_CATALOG . 'index.php?route=extension/payment/g2apay/ipn&token=' . $data['payment_g2apay_secret_token'];
 
 		if (isset($this->request->post['payment_g2apay_geo_zone_id'])) {
-			$data['payment_g2apay_geo_zone_id'] = $this->request->post['payment_g2apay_geo_zone_id'];
+			$data['payment_g2apay_geo_zone_id'] = (int)$this->request->post['payment_g2apay_geo_zone_id'];
 		} else {
 			$data['payment_g2apay_geo_zone_id'] = $this->config->get('payment_g2apay_geo_zone_id');
 		}
 
 		if (isset($this->request->post['payment_g2apay_status'])) {
-			$data['payment_g2apay_status'] = $this->request->post['payment_g2apay_status'];
+			$data['payment_g2apay_status'] = (int)$this->request->post['payment_g2apay_status'];
 		} else {
 			$data['payment_g2apay_status'] = $this->config->get('payment_g2apay_status');
 		}
 
 		if (isset($this->request->post['payment_g2apay_debug'])) {
-			$data['payment_g2apay_debug'] = $this->request->post['payment_g2apay_debug'];
+			$data['payment_g2apay_debug'] = (int)$this->request->post['payment_g2apay_debug'];
 		} else {
 			$data['payment_g2apay_debug'] = $this->config->get('payment_g2apay_debug');
 		}
 
 		if (isset($this->request->post['payment_g2apay_sort_order'])) {
-			$data['payment_g2apay_sort_order'] = $this->request->post['payment_g2apay_sort_order'];
+			$data['payment_g2apay_sort_order'] = (int)$this->request->post['payment_g2apay_sort_order'];
 		} else {
 			$data['payment_g2apay_sort_order'] = $this->config->get('payment_g2apay_sort_order');
 		}

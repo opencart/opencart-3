@@ -86,7 +86,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 		}
 
 		if (isset($this->request->post['payment_realex_remote_geo_zone_id'])) {
-			$data['payment_realex_remote_geo_zone_id'] = $this->request->post['payment_realex_remote_geo_zone_id'];
+			$data['payment_realex_remote_geo_zone_id'] = (int)$this->request->post['payment_realex_remote_geo_zone_id'];
 		} else {
 			$data['payment_realex_remote_geo_zone_id'] = $this->config->get('payment_realex_remote_geo_zone_id');
 		}
@@ -103,25 +103,25 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 		}
 
 		if (isset($this->request->post['payment_realex_remote_sort_order'])) {
-			$data['payment_realex_remote_sort_order'] = $this->request->post['payment_realex_remote_sort_order'];
+			$data['payment_realex_remote_sort_order'] = (int)$this->request->post['payment_realex_remote_sort_order'];
 		} else {
 			$data['payment_realex_remote_sort_order'] = $this->config->get('payment_realex_remote_sort_order');
 		}
 
 		if (isset($this->request->post['payment_realex_remote_status'])) {
-			$data['payment_realex_remote_status'] = $this->request->post['payment_realex_remote_status'];
+			$data['payment_realex_remote_status'] = (int)$this->request->post['payment_realex_remote_status'];
 		} else {
 			$data['payment_realex_remote_status'] = $this->config->get('payment_realex_remote_status');
 		}
 
 		if (isset($this->request->post['payment_realex_remote_card_data_status'])) {
-			$data['payment_realex_remote_card_data_status'] = $this->request->post['payment_realex_remote_card_data_status'];
+			$data['payment_realex_remote_card_data_status'] = (int)$this->request->post['payment_realex_remote_card_data_status'];
 		} else {
 			$data['payment_realex_remote_card_data_status'] = $this->config->get('payment_realex_remote_card_data_status');
 		}
 
 		if (isset($this->request->post['payment_realex_remote_debug'])) {
-			$data['payment_realex_remote_debug'] = $this->request->post['payment_realex_remote_debug'];
+			$data['payment_realex_remote_debug'] = (int)$this->request->post['payment_realex_remote_debug'];
 		} else {
 			$data['payment_realex_remote_debug'] = $this->config->get('payment_realex_remote_debug');
 		}

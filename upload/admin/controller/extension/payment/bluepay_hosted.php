@@ -111,7 +111,7 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
 		}
 
 		if (isset($this->request->post['payment_bluepay_hosted_order_status_id'])) {
-			$data['payment_bluepay_hosted_order_status_id'] = $this->request->post['payment_bluepay_hosted_order_status_id'];
+			$data['payment_bluepay_hosted_order_status_id'] = (int)$this->request->post['payment_bluepay_hosted_order_status_id'];
 		} elseif ($this->config->get('payment_bluepay_hosted_order_status_id')) {
 			$data['payment_bluepay_hosted_order_status_id'] = $this->config->get('payment_bluepay_hosted_order_status_id');
 		} else {
@@ -123,7 +123,7 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
 		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
 
 		if (isset($this->request->post['payment_bluepay_hosted_geo_zone_id'])) {
-			$data['payment_bluepay_hosted_geo_zone_id'] = $this->request->post['payment_bluepay_hosted_geo_zone_id'];
+			$data['payment_bluepay_hosted_geo_zone_id'] = (int)$this->request->post['payment_bluepay_hosted_geo_zone_id'];
 		} else {
 			$data['payment_bluepay_hosted_geo_zone_id'] = $this->config->get('payment_bluepay_hosted_geo_zone_id');
 		}
@@ -133,19 +133,19 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
 		$data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();
 
 		if (isset($this->request->post['payment_bluepay_hosted_status'])) {
-			$data['payment_bluepay_hosted_status'] = $this->request->post['payment_bluepay_hosted_status'];
+			$data['payment_bluepay_hosted_status'] = (int)$this->request->post['payment_bluepay_hosted_status'];
 		} else {
 			$data['payment_bluepay_hosted_status'] = $this->config->get('payment_bluepay_hosted_status');
 		}
 
 		if (isset($this->request->post['payment_bluepay_hosted_debug'])) {
-			$data['payment_bluepay_hosted_debug'] = $this->request->post['payment_bluepay_hosted_debug'];
+			$data['payment_bluepay_hosted_debug'] = (int)$this->request->post['payment_bluepay_hosted_debug'];
 		} else {
 			$data['payment_bluepay_hosted_debug'] = $this->config->get('payment_bluepay_hosted_debug');
 		}
 
 		if (isset($this->request->post['payment_bluepay_hosted_sort_order'])) {
-			$data['payment_bluepay_hosted_sort_order'] = $this->request->post['payment_bluepay_hosted_sort_order'];
+			$data['payment_bluepay_hosted_sort_order'] = (int)$this->request->post['payment_bluepay_hosted_sort_order'];
 		} else {
 			$data['payment_bluepay_hosted_sort_order'] = $this->config->get('payment_bluepay_hosted_sort_order');
 		}

@@ -1645,8 +1645,8 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 			$this->session->data['shipping_address']['address_2'] = $this->request->post['address_2'];
 			$this->session->data['shipping_address']['postcode'] = $this->request->post['postcode'];
 			$this->session->data['shipping_address']['city'] = $this->request->post['city'];
-			$this->session->data['shipping_address']['country_id'] = $this->request->post['country_id'];
-			$this->session->data['shipping_address']['zone_id'] = $this->request->post['zone_id'];
+			$this->session->data['shipping_address']['country_id'] = (int)$this->request->post['country_id'];
+			$this->session->data['shipping_address']['zone_id'] = (int)$this->request->post['zone_id'];
 
 			// Countries
 			$this->load->model('localisation/country');

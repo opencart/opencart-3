@@ -10,7 +10,7 @@ class ModelLocalisationOrderStatus extends Model {
 	 *
 	 * @param array $data
 	 *
-	 * @return int
+	 * @return ?int
 	 */
 	public function addOrderStatus(array $data): ?int {
 		$order_status_id = 0;

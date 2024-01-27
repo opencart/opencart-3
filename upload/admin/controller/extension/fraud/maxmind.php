@@ -74,7 +74,7 @@ class ControllerExtensionFraudMaxMind extends Controller {
 		}
 
 		if (isset($this->request->post['fraud_maxmind_order_status_id'])) {
-			$data['fraud_maxmind_order_status_id'] = $this->request->post['fraud_maxmind_order_status_id'];
+			$data['fraud_maxmind_order_status_id'] = (int)$this->request->post['fraud_maxmind_order_status_id'];
 		} else {
 			$data['fraud_maxmind_order_status_id'] = $this->config->get('fraud_maxmind_order_status_id');
 		}
@@ -85,7 +85,7 @@ class ControllerExtensionFraudMaxMind extends Controller {
 		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
 
 		if (isset($this->request->post['fraud_maxmind_status'])) {
-			$data['fraud_maxmind_status'] = $this->request->post['fraud_maxmind_status'];
+			$data['fraud_maxmind_status'] = (int)$this->request->post['fraud_maxmind_status'];
 		} else {
 			$data['fraud_maxmind_status'] = $this->config->get('fraud_maxmind_status');
 		}

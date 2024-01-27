@@ -162,25 +162,25 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 		}
 
 		if (isset($this->request->post['payment_firstdata_remote_sort_order'])) {
-			$data['payment_firstdata_remote_sort_order'] = $this->request->post['payment_firstdata_remote_sort_order'];
+			$data['payment_firstdata_remote_sort_order'] = (int)$this->request->post['payment_firstdata_remote_sort_order'];
 		} else {
 			$data['payment_firstdata_remote_sort_order'] = $this->config->get('payment_firstdata_remote_sort_order');
 		}
 
 		if (isset($this->request->post['payment_firstdata_remote_status'])) {
-			$data['payment_firstdata_remote_status'] = $this->request->post['payment_firstdata_remote_status'];
+			$data['payment_firstdata_remote_status'] = (int)$this->request->post['payment_firstdata_remote_status'];
 		} else {
 			$data['payment_firstdata_remote_status'] = $this->config->get('payment_firstdata_remote_status');
 		}
 
 		if (isset($this->request->post['payment_firstdata_remote_debug'])) {
-			$data['payment_firstdata_remote_debug'] = $this->request->post['payment_firstdata_remote_debug'];
+			$data['payment_firstdata_remote_debug'] = (int)$this->request->post['payment_firstdata_remote_debug'];
 		} else {
 			$data['payment_firstdata_remote_debug'] = $this->config->get('payment_firstdata_remote_debug');
 		}
 
 		if (isset($this->request->post['payment_firstdata_remote_auto_settle'])) {
-			$data['payment_firstdata_remote_auto_settle'] = $this->request->post['payment_firstdata_remote_auto_settle'];
+			$data['payment_firstdata_remote_auto_settle'] = (int)$this->request->post['payment_firstdata_remote_auto_settle'];
 		} elseif (!isset($this->request->post['payment_firstdata_auto_settle']) && $this->config->get('payment_firstdata_remote_auto_settle') != '') {
 			$data['payment_firstdata_remote_auto_settle'] = $this->config->get('payment_firstdata_remote_auto_settle');
 		} else {

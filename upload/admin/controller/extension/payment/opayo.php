@@ -100,7 +100,7 @@ class ControllerExtensionPaymentOpayo extends Controller {
 		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
 
 		if (isset($this->request->post['payment_opayo_geo_zone_id'])) {
-			$data['geo_zone_id'] = $this->request->post['payment_opayo_geo_zone_id'];
+			$data['geo_zone_id'] = (int)$this->request->post['payment_opayo_geo_zone_id'];
 		} else {
 			$data['geo_zone_id'] = $this->config->get('payment_opayo_geo_zone_id');
 		}
@@ -110,13 +110,13 @@ class ControllerExtensionPaymentOpayo extends Controller {
 		$data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();
 
 		if (isset($this->request->post['payment_opayo_status'])) {
-			$data['status'] = $this->request->post['payment_opayo_status'];
+			$data['status'] = (int)$this->request->post['payment_opayo_status'];
 		} else {
 			$data['status'] = $this->config->get('payment_opayo_status');
 		}
 
 		if (isset($this->request->post['payment_opayo_sort_order'])) {
-			$data['sort_order'] = $this->request->post['payment_opayo_sort_order'];
+			$data['sort_order'] = (int)$this->request->post['payment_opayo_sort_order'];
 		} else {
 			$data['sort_order'] = $this->config->get('payment_opayo_sort_order');
 		}

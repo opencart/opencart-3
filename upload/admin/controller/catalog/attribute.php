@@ -357,7 +357,7 @@ class ControllerCatalogAttribute extends Controller {
 		}
 
 		if (isset($this->request->post['attribute_group_id'])) {
-			$data['attribute_group_id'] = $this->request->post['attribute_group_id'];
+			$data['attribute_group_id'] = (int)$this->request->post['attribute_group_id'];
 		} elseif (!empty($attribute_info)) {
 			$data['attribute_group_id'] = $attribute_info['attribute_group_id'];
 		} else {
@@ -369,7 +369,7 @@ class ControllerCatalogAttribute extends Controller {
 		$data['attribute_groups'] = $this->model_catalog_attribute_group->getAttributeGroups();
 
 		if (isset($this->request->post['sort_order'])) {
-			$data['sort_order'] = $this->request->post['sort_order'];
+			$data['sort_order'] = (int)$this->request->post['sort_order'];
 		} elseif (!empty($attribute_info)) {
 			$data['sort_order'] = $attribute_info['sort_order'];
 		} else {

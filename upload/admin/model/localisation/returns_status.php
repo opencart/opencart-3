@@ -10,7 +10,7 @@ class ModelLocalisationReturnsStatus extends Model {
 	 *
 	 * @param array $data
 	 *
-	 * @return int
+	 * @return ?int
 	 */
 	public function addReturnStatus(array $data): ?int {
 		$return_status_id = 0;

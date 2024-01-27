@@ -10,7 +10,7 @@ class ModelLocalisationReturnsAction extends Model {
 	 *
 	 * @param array $data
 	 *
-	 * @return int
+	 * @return ?int
 	 */
 	public function addReturnAction(array $data): ?int {
 		$return_action_id = 0;

@@ -126,13 +126,13 @@ class ControllerExtensionPaymentAlipay extends Controller {
 		}
 
 		if (isset($this->request->post['payment_alipay_status'])) {
-			$data['payment_alipay_status'] = $this->request->post['payment_alipay_status'];
+			$data['payment_alipay_status'] = (int)$this->request->post['payment_alipay_status'];
 		} else {
 			$data['payment_alipay_status'] = $this->config->get('payment_alipay_status');
 		}
 
 		if (isset($this->request->post['payment_alipay_sort_order'])) {
-			$data['payment_alipay_sort_order'] = $this->request->post['payment_alipay_sort_order'];
+			$data['payment_alipay_sort_order'] = (int)$this->request->post['payment_alipay_sort_order'];
 		} else {
 			$data['payment_alipay_sort_order'] = $this->config->get('payment_alipay_sort_order');
 		}

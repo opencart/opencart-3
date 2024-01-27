@@ -140,19 +140,19 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 		}
 
 		if (isset($this->request->post['payment_securetrading_ws_geo_zone'])) {
-			$data['payment_securetrading_ws_geo_zone_id'] = $this->request->post['payment_securetrading_ws_geo_zone_id'];
+			$data['payment_securetrading_ws_geo_zone_id'] = (int)$this->request->post['payment_securetrading_ws_geo_zone_id'];
 		} else {
 			$data['payment_securetrading_ws_geo_zone_id'] = $this->config->get('payment_securetrading_ws_geo_zone_id');
 		}
 
 		if (isset($this->request->post['payment_securetrading_ws_status'])) {
-			$data['payment_securetrading_ws_status'] = $this->request->post['payment_securetrading_ws_status'];
+			$data['payment_securetrading_ws_status'] = (int)$this->request->post['payment_securetrading_ws_status'];
 		} else {
 			$data['payment_securetrading_ws_status'] = $this->config->get('payment_securetrading_ws_status');
 		}
 
 		if (isset($this->request->post['payment_securetrading_ws_sort_order'])) {
-			$data['payment_securetrading_ws_sort_order'] = $this->request->post['payment_securetrading_ws_sort_order'];
+			$data['payment_securetrading_ws_sort_order'] = (int)$this->request->post['payment_securetrading_ws_sort_order'];
 		} else {
 			$data['payment_securetrading_ws_sort_order'] = $this->config->get('payment_securetrading_ws_sort_order');
 		}

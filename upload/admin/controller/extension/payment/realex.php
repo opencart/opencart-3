@@ -123,19 +123,19 @@ class ControllerExtensionPaymentRealex extends Controller {
 		}
 
 		if (isset($this->request->post['payment_realex_sort_order'])) {
-			$data['payment_realex_sort_order'] = $this->request->post['payment_realex_sort_order'];
+			$data['payment_realex_sort_order'] = (int)$this->request->post['payment_realex_sort_order'];
 		} else {
 			$data['payment_realex_sort_order'] = $this->config->get('payment_realex_sort_order');
 		}
 
 		if (isset($this->request->post['payment_realex_status'])) {
-			$data['payment_realex_status'] = $this->request->post['payment_realex_status'];
+			$data['payment_realex_status'] = (int)$this->request->post['payment_realex_status'];
 		} else {
 			$data['payment_realex_status'] = $this->config->get('payment_realex_status');
 		}
 
 		if (isset($this->request->post['payment_realex_debug'])) {
-			$data['payment_realex_debug'] = $this->request->post['payment_realex_debug'];
+			$data['payment_realex_debug'] = (int)$this->request->post['payment_realex_debug'];
 		} else {
 			$data['payment_realex_debug'] = $this->config->get('payment_realex_debug');
 		}
