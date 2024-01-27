@@ -60,6 +60,9 @@ $_['text_commission_removed']    = 'Success: Commission removed!';
 $_['text_restock']               = 'Success: Products have been restocked!';
 $_['text_upload']                = 'Your file was successfully uploaded!';
 $_['text_subscription']          = 'Subscription';
+$_['text_subscription_trial']    = '%s every %d %s(s) for %d payment(s) then ';
+$_['text_subscription_duration'] = '%s every %d %s(s) for %d payment(s)';
+$_['text_subscription_cancel']   = '%s every %d %s(s) until canceled';
 $_['text_picklist']              = 'Dispatch Note';
 
 // Column
@@ -120,6 +123,7 @@ $_['entry_voucher']              = 'Voucher';
 $_['entry_reward']               = 'Reward';
 $_['entry_order_id']             = 'Order ID';
 $_['entry_total']                = 'Total';
+$_['entry_subscription']         = 'Choose Subscription';
 $_['entry_date_added']           = 'Date Added';
 $_['entry_date_modified']        = 'Date Modified';
 
