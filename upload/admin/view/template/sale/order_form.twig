@@ -1398,7 +1398,6 @@ $('#tab-product input[name=\'product\']').autocomplete({
                 html += '<div id="subscription-description-' + item['subscription'][i]['subscription_plan_id'] + '" style="display: none;">' + item['subscription'][i]['description'] + '</div>';
             }
 
-            html += '    <div id="error-subscription" class="text-danger"></div>';
             html += '  </div>';
             html += '</fieldset>';
 
@@ -1436,19 +1435,21 @@ $('#button-product-add').on('click', function() {
                         var element = $('#input-option' + i.replace('_', '-'));
 
                         if (element.parent().hasClass('input-group')) {
-                            $(element).parent().after('<div class="text-danger">' + json['error']['option'][i] + '</div>');
+                            $(element).parent().after('<div class="text-danger"> ' + json['error']['option'][i] + ' </div>');
                         } else {
-                            $(element).after('<div class="text-danger">' + json['error']['option'][i] + '</div>');
+                            $(element).after('<div class="text-danger"> ' + json['error']['option'][i] + ' </div>');
                         }
                     }
                 }
 
                 if (json['error']['subscription_plan']) {
-                    $('#content > .container-fluid').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error']['subscription_plan'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                    var element = $('#input-subscription-plan');
+
+                    $(element).after('<div class="text-danger"> ' + json['error']['subscription_plan'] + ' </div>');
                 }
 
                 if (json['error']['store']) {
-                    $('#content > .container-fluid').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error']['store'] + '</div>');
+                    $('#content > .container-fluid').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error']['store'] + ' </div>');
                 }
 
                 // Highlight any found errors
@@ -2406,6 +2407,11 @@ $('#button-refresh').on('click', function() {
                     }
 
                     html += '</td>';
+
+                    if (product['subscription']) {
+                        html += '  <td class="text-left">' + product['subscription'] + '</td>';
+                    }
+
                     html += '  <td class="text-left">' + product['model'] + '</td>';
                     html += '  <td class="text-right"><div class="input-group btn-block" style="max-width: 200px;"><input type="text" name="product[' + i + '][quantity]" value="' + product['quantity'] + '" class="form-control" /><span class="input-group-btn"><button type="button" data-toggle="tooltip" title="{{ button_refresh }}" data-loading-text="{{ text_loading }}" class="btn btn-primary"><i class="fa fa-refresh"></i></button></span></div></td>';
                     html += '  <td class="text-right">' + product['price'] + '</td>';
@@ -2480,6 +2486,11 @@ $('#button-refresh').on('click', function() {
                     }
 
                     html += '  </td>';
+
+                    if (product['subscription']) {
+                        html += '  <td class="text-left">' + product['subscription'] + '</td>';
+                    }
+
                     html += '  <td class="text-left">' + product['model'] + '</td>';
                     html += '  <td class="text-right">' + product['quantity'] + '</td>';
                     html += '  <td class="text-right">' + product['price'] + '</td>';
