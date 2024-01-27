@@ -211,18 +211,36 @@ class ControllerApiOrder extends Controller {
 						];
 					}
 
+					$subscription_data = [];
+
+					if ($product['subscription']) {
+						$subscription_data = [
+							'subscription_plan_id' => $product['subscription']['subscription_plan_id'],
+							'name'                 => $product['subscription']['name'],
+							'trial_frequency'      => $product['subscription']['trial_frequency'],
+							'trial_cycle'          => $product['subscription']['trial_cycle'],
+							'trial_duration'       => $product['subscription']['trial_duration'],
+							'trial_remaining'      => $product['subscription']['trial_remaining'],
+							'trial_status'         => $product['subscription']['trial_status'],
+							'frequency'            => $product['subscription']['frequency'],
+							'cycle'                => $product['subscription']['cycle'],
+							'duration'             => $product['subscription']['duration']
+						];
+					}
+
 					$order_data['products'][] = [
-						'product_id' => $product['product_id'],
-						'name'       => $product['name'],
-						'model'      => $product['model'],
-						'option'     => $option_data,
-						'download'   => $product['download'],
-						'quantity'   => $product['quantity'],
-						'subtract'   => $product['subtract'],
-						'price'      => $product['price'],
-						'total'      => $product['total'],
-						'tax'        => $this->tax->getTax($product['price'], $product['tax_class_id']),
-						'reward'     => $product['reward']
+						'product_id'   => $product['product_id'],
+						'name'         => $product['name'],
+						'model'        => $product['model'],
+						'option'       => $option_data,
+						'subscription' => $subscription_data,
+						'download'     => $product['download'],
+						'quantity'     => $product['quantity'],
+						'subtract'     => $product['subtract'],
+						'price'        => $product['price'],
+						'total'        => $product['total'],
+						'tax'          => $this->tax->getTax($product['price'], $product['tax_class_id']),
+						'reward'       => $product['reward']
 					];
 				}
 
@@ -589,18 +607,36 @@ class ControllerApiOrder extends Controller {
 							];
 						}
 
+						$subscription_data = [];
+
+						if ($product['subscription']) {
+							$subscription_data = [
+								'subscription_plan_id' => $product['subscription']['subscription_plan_id'],
+								'name'                 => $product['subscription']['name'],
+								'trial_frequency'      => $product['subscription']['trial_frequency'],
+								'trial_cycle'          => $product['subscription']['trial_cycle'],
+								'trial_duration'       => $product['subscription']['trial_duration'],
+								'trial_remaining'      => $product['subscription']['trial_remaining'],
+								'trial_status'         => $product['subscription']['trial_status'],
+								'frequency'            => $product['subscription']['frequency'],
+								'cycle'                => $product['subscription']['cycle'],
+								'duration'             => $product['subscription']['duration']
+							];
+						}
+
 						$order_data['products'][] = [
-							'product_id' => $product['product_id'],
-							'name'       => $product['name'],
-							'model'      => $product['model'],
-							'option'     => $option_data,
-							'download'   => $product['download'],
-							'quantity'   => $product['quantity'],
-							'subtract'   => $product['subtract'],
-							'price'      => $product['price'],
-							'total'      => $product['total'],
-							'tax'        => $this->tax->getTax($product['price'], $product['tax_class_id']),
-							'reward'     => $product['reward']
+							'product_id'   => $product['product_id'],
+							'name'         => $product['name'],
+							'model'        => $product['model'],
+							'option'       => $option_data,
+							'subscription' => $subscription_data,
+							'download'     => $product['download'],
+							'quantity'     => $product['quantity'],
+							'subtract'     => $product['subtract'],
+							'price'        => $product['price'],
+							'total'        => $product['total'],
+							'tax'          => $this->tax->getTax($product['price'], $product['tax_class_id']),
+							'reward'       => $product['reward']
 						];
 					}
 
