@@ -128,10 +128,10 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 			$data['payment_cardconnect_status'] = $this->config->get('payment_cardconnect_status');
 		}
 
-		if (isset($this->request->post['payment_cardconnect_logging'])) {
-			$data['payment_cardconnect_logging'] = (int)$this->request->post['payment_cardconnect_logging'];
+		if (isset($this->request->post['payment_cardconnect_debug'])) {
+			$data['payment_cardconnect_debug'] = (int)$this->request->post['payment_cardconnect_debug'];
 		} else {
-			$data['payment_cardconnect_logging'] = $this->config->get('payment_cardconnect_logging');
+			$data['payment_cardconnect_debug'] = $this->config->get('payment_cardconnect_debug');
 		}
 
 		if (isset($this->request->post['payment_cardconnect_sort_order'])) {

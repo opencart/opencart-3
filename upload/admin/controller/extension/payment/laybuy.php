@@ -148,10 +148,10 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 			}
 		}
 
-		if (isset($this->request->post['payment_laybuy_logging'])) {
-			$data['payment_laybuy_logging'] = (int)$this->request->post['payment_laybuy_logging'];
+		if (isset($this->request->post['payment_laybuy_debug'])) {
+			$data['payment_laybuy_debug'] = (int)$this->request->post['payment_laybuy_debug'];
 		} else {
-			$data['payment_laybuy_logging'] = $this->config->get('payment_laybuy_logging');
+			$data['payment_laybuy_debug'] = $this->config->get('payment_laybuy_debug');
 		}
 
 		if (isset($this->request->post['payment_laybuy_total'])) {

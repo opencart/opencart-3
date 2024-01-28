@@ -43,7 +43,7 @@ $_['entry_environment']     = 'Environment';
 $_['entry_shipping_fee']    = 'Shipping Fee';
 $_['entry_order_status']    = 'Order Status';
 $_['entry_status']          = 'Status';
-$_['entry_logging']         = 'Debug Logging';
+$_['entry_debug']           = 'Debug Mode';
 $_['entry_sort_order']      = 'Sort Order';
 
 // Help
@@ -57,7 +57,7 @@ $_['help_secret_key']       = 'Your secret key to access the Pilibaba API.';
 $_['help_shipping_fee']     = 'The shipping cost from your warehouse to Pilibaba warehouse. Use two decimal places.';
 $_['help_order_status']     = 'The order status after the customer has placed the order.';
 $_['help_total']            = 'The checkout total the order must reach before this payment method becomes active. Must be a value with no currency sign.';
-$_['help_logging']          = 'Enabling debug will write sensitive data to a log file. You should always disable unless instructed otherwise.';
+$_['help_debug']            = 'Enabling debug mode will write sensitive data to a log file. You should always disable unless instructed otherwise.';
 
 // Buttons
 $_['button_register']       = 'Register';

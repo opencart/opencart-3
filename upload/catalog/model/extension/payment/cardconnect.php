@@ -273,7 +273,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 	 * @return void
 	 */
 	public function log(string $message): void {
-		if ($this->config->get('payment_cardconnect_logging')) {
+		if ($this->config->get('payment_cardconnect_debug')) {
 			// Log
 			$log = new \Log('cardconnect.log');
 			$log->write($message);

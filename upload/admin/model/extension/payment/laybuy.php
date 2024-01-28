@@ -438,7 +438,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 	 * @return void
 	 */
 	public function log(string $data, int $step = 6): void {
-		if ($this->config->get('payment_laybuy_logging')) {
+		if ($this->config->get('payment_laybuy_debug')) {
 			$backtrace = debug_backtrace();
 
 			// Log

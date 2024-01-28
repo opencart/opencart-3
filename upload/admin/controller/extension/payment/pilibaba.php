@@ -96,10 +96,10 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 			$data['payment_pilibaba_status'] = $this->config->get('payment_pilibaba_status');
 		}
 
-		if (isset($this->request->post['payment_pilibaba_logging'])) {
-			$data['payment_pilibaba_logging'] = $this->request->post['payment_pilibaba_logging'];
+		if (isset($this->request->post['payment_pilibaba_debug'])) {
+			$data['payment_pilibaba_debug'] = $this->request->post['payment_pilibaba_debug'];
 		} else {
-			$data['payment_pilibaba_logging'] = $this->config->get('payment_pilibaba_logging');
+			$data['payment_pilibaba_debug'] = $this->config->get('payment_pilibaba_debug');
 		}
 
 		if (isset($this->request->post['payment_pilibaba_sort_order'])) {
