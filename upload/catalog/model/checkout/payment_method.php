@@ -1,21 +1,20 @@
 <?php
 /**
- * Class Payment Method
+ * Class PaymentMethod
  *
- * @package Catalog\Model\Checkout
+ * @package Opencart\Catalog\Model\Checkout
  */
 class ModelCheckoutPaymentMethod extends Model {
 	/**
-	 * getMethods
+	 * Get Methods
 	 *
-	 * @param array $payment_address
+	 * @param array<string, mixed> $payment_address
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
-	public function getMethods(array $payment_address): array {
+	public function getMethods(array $payment_address = []): array {
 		$method_data = [];
 
-		// Extensions
 		$this->load->model('setting/extension');
 
 		$results = $this->model_setting_extension->getExtensionsByType('payment');
@@ -24,11 +23,11 @@ class ModelCheckoutPaymentMethod extends Model {
 			if ($this->config->get('payment_' . $result['code'] . '_status')) {
 				$this->load->model('extension/payment/' . $result['code']);
 
-				if (is_callable([$this->{'model_extension_payment_' . $result['code']}, 'getMethod'])) {
-					$payment_method = $this->{'model_extension_payment_' . $result['code']}->getMethod($payment_address);
+				if (is_callable([$this->{'model_extension_payment_' . $result['code']}, 'getMethods'])) {
+					$payment_methods = $this->{'model_extension_payment_' . $result['code']}->getMethods($payment_address);
 
-					if ($payment_method) {
-						$method_data[$result['code']] = $payment_method;
+					if ($payment_methods) {
+						$method_data[$result['code']] = $payment_methods;
 					}
 				}
 			}
@@ -41,28 +40,6 @@ class ModelCheckoutPaymentMethod extends Model {
 		}
 
 		array_multisort($sort_order, SORT_ASC, $method_data);
-
-		// Since the API does not use the same session super globals
-		// as the one during checkout, we need to validate both.
-		if (isset($this->session->data['customer']['customer_id'])) {
-			$customer_id = (int)$this->session->data['customer']['customer_id'];
-		} elseif ($this->customer->getId()) {
-			$customer_id = $this->customer->getId();
-		} else {
-			$customer_id = 0;
-		}
-
-		// Stored payment methods
-		$this->load->model('account/payment_method');
-
-		$payment_methods = $this->model_account_payment_method->getPaymentMethods($customer_id);
-
-		foreach ($payment_methods as $payment_method) {
-			$method_data[$payment_method['code'] . '_' . $payment_method['code']] = [
-				'name' => $payment_method['name'],
-				'code' => $payment_method['code']
-			];
-		}
 
 		return $method_data;
 	}
