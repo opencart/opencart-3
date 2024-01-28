@@ -2,7 +2,7 @@
 /**
  * Class ShippingMethod
  *
- * @package Opencart\Catalog\Model\Checkout
+ * @package Catalog\Model\Checkout
  */
 class ModelCheckoutShippingMethod extends Model {
 	/**

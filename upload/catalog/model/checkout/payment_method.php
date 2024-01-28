@@ -2,7 +2,7 @@
 /**
  * Class PaymentMethod
  *
- * @package Opencart\Catalog\Model\Checkout
+ * @package Catalog\Model\Checkout
  */
 class ModelCheckoutPaymentMethod extends Model {
 	/**
