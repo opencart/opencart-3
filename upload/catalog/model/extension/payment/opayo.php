@@ -290,8 +290,6 @@ class ModelExtensionPaymentOpayo extends Model {
 			$this->updateSubscriptionOrder($item['subscription']['subscription_id'], date_format($next_payment, 'Y-m-d H:i:s'));
 
 			$this->addOrderTransaction($item['subscription']['subscription_id'], $response_data, 1);
-
-			$opayo_order_info = $this->getOrder($this->session->data['order_id']);
 		} else {
 			$this->addOrderTransaction($item['subscription']['subscription_id'], $response_data, 4);
 		}
