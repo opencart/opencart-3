@@ -17,7 +17,6 @@ $_['text_balance']              = 'Balance';
 $_['text_cheque']               = 'Cheque';
 $_['text_paypal']               = 'PayPal';
 $_['text_bank']                 = 'Bank Transfer';
-$_['text_customer_payment']     = 'To view the payment methods, please click <a href="%s">here</a>.';
 $_['text_payment_method']       = 'Payment Methods';
 $_['text_history']              = 'History';
 $_['text_history_add']          = 'Add History';

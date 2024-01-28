@@ -160,41 +160,41 @@
       location = url;
   });
 
-  $('.date').datetimepicker({
-      language: '{{ datepicker }}',
-      pickTime: false
-  });
+$('.date').datetimepicker({
+    language: '{{ datepicker }}',
+    pickTime: false
+});
 
-  $('.datetime').datetimepicker({
-      language: '{{ datepicker }}',
-      pickDate: true,
-      pickTime: true
-  });
+$('.datetime').datetimepicker({
+    language: '{{ datepicker }}',
+    pickDate: true,
+    pickTime: true
+});
 
-  $('.time').datetimepicker({
-      language: '{{ datepicker }}',
-      pickDate: false
-  });
+$('.time').datetimepicker({
+    language: '{{ datepicker }}',
+    pickDate: false
+});
 
-  $('input[name=\'filter_customer\']').autocomplete({
-      'source': function (request, response) {
-          $.ajax({
-              url: 'index.php?route=customer/customer/autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
-              dataType: 'json',
-              success: function (json) {
-                  response($.map(json, function (item) {
-                      return {
-                          label: item['name'],
-                          value: item['customer_id']
-                      }
-                  }));
-              }
-          });
-      },
-      'select': function (item) {
-          $('input[name=\'filter_customer\']').val(item['label']);
-      }
-  });
-  //--></script>
+$('input[name=\'filter_customer\']').autocomplete({
+    'source': function (request, response) {
+        $.ajax({
+            url: 'index.php?route=customer/customer/autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
+            dataType: 'json',
+            success: function (json) {
+                response($.map(json, function (item) {
+                    return {
+                        label: item['name'],
+                        value: item['customer_id']
+                    }
+                }));
+            }
+        });
+    },
+    'select': function (item) {
+        $('input[name=\'filter_customer\']').val(item['label']);
+    }
+});
+//--></script>
 </div>
 {{ footer }}

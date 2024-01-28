@@ -905,10 +905,6 @@ class ControllerCustomerCustomer extends Controller {
 			$data['address_id'] = '';
 		}
 
-		if (!empty($customer_info)) {
-			$data['customer_payment'] = sprintf($this->language->get('text_customer_payment'), $this->url->link('customer/customer_payment', 'user_token=' . $this->session->data['user_token'] . '&customer_id=' . $customer_info['customer_id'], true));
-		}
-
 		$data['config_telephone_required'] = $this->config->get('config_telephone_required');
 
 		$data['header'] = $this->load->controller('common/header');

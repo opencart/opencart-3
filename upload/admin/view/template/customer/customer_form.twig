@@ -581,18 +581,7 @@
                 </div>
               </div>
             </div>
-            {% if customer_id %}
-              <div id="tab-payment" class="tab-pane">
-                <fieldset>
-                  <legend>{{ text_payment_method }}</legend>
-                  <div class="form-group required">
-                    <label class="col-sm-2 control-label" for="input-password">{{ entry_payment_method }}</label>
-                    <div class="col-sm-10">
-                      {{ text_customer_payment }}
-                    </div>
-                  </div>
-                </fieldset>
-              </div>
+            {% if customer_id %}              
               <div id="tab-history" class="tab-pane">
                 <fieldset>
                   <legend>{{ text_history }}</legend>
