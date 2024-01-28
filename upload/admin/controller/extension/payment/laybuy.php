@@ -160,28 +160,28 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 			$data['payment_laybuy_total'] = $this->config->get('payment_laybuy_total');
 		}
 
-		if (isset($this->request->post['payment_laybuy_order_status_id_pending'])) {
-			$data['payment_laybuy_order_status_id_pending'] = (int)$this->request->post['payment_laybuy_order_status_id_pending'];
-		} elseif ($this->config->get('payment_laybuy_order_status_id_pending')) {
-			$data['payment_laybuy_order_status_id_pending'] = $this->config->get('payment_laybuy_order_status_id_pending');
+		if (isset($this->request->post['payment_laybuy_pending_status_id'])) {
+			$data['payment_laybuy_pending_status_id'] = (int)$this->request->post['payment_laybuy_pending_status_id'];
+		} elseif ($this->config->get('payment_laybuy_pending_status_id')) {
+			$data['payment_laybuy_pending_status_id'] = $this->config->get('payment_laybuy_pending_status_id');
 		} else {
-			$data['payment_laybuy_order_status_id_pending'] = '1';
+			$data['payment_laybuy_pending_status_id'] = 1;
 		}
 
-		if (isset($this->request->post['payment_laybuy_order_status_id_canceled'])) {
-			$data['payment_laybuy_order_status_id_canceled'] = (int)$this->request->post['payment_laybuy_order_status_id_canceled'];
-		} elseif ($this->config->get('payment_laybuy_order_status_id_canceled')) {
-			$data['payment_laybuy_order_status_id_canceled'] = $this->config->get('payment_laybuy_order_status_id_canceled');
+		if (isset($this->request->post['payment_laybuy_canceled_status_id'])) {
+			$data['payment_laybuy_canceled_status_id'] = (int)$this->request->post['payment_laybuy_canceled_status_id'];
+		} elseif ($this->config->get('payment_laybuy_canceled_status_id')) {
+			$data['payment_laybuy_canceled_status_id'] = $this->config->get('payment_laybuy_canceled_status_id');
 		} else {
-			$data['payment_laybuy_order_status_id_canceled'] = '7';
+			$data['payment_laybuy_canceled_status_id'] = 7;
 		}
 
-		if (isset($this->request->post['payment_laybuy_order_status_id_processing'])) {
-			$data['payment_laybuy_order_status_id_processing'] = (int)$this->request->post['payment_laybuy_order_status_id_processing'];
-		} elseif ($this->config->get('payment_laybuy_order_status_id_processing')) {
-			$data['payment_laybuy_order_status_id_processing'] = $this->config->get('payment_laybuy_order_status_id_processing');
+		if (isset($this->request->post['payment_laybuy_processing_status_id'])) {
+			$data['payment_laybuy_processing_status_id'] = (int)$this->request->post['payment_laybuy_processing_status_id'];
+		} elseif ($this->config->get('payment_laybuy_processing_status_id')) {
+			$data['payment_laybuy_processing_status_id'] = $this->config->get('payment_laybuy_processing_status_id');
 		} else {
-			$data['payment_laybuy_order_status_id_processing'] = '2';
+			$data['payment_laybuy_processing_status_id'] = 2;
 		}
 
 		if (isset($this->request->post['payment_laybuy_gateway_url'])) {
@@ -619,7 +619,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 							switch ($status) {
 								case -1: // Cancel
 									$this->model_extension_payment_laybuy->log('Transaction #' . $transaction['laybuy_transaction_id'] . ' canceled');
-									$this->model_extension_payment_laybuy->updateOrderStatus($order_id, $this->config->get('payment_laybuy_order_status_id_canceled'), $this->language->get('text_comment'));
+									$this->model_extension_payment_laybuy->updateOrderStatus($order_id, $this->config->get('payment_laybuy_canceled_status_id'), $this->language->get('text_comment'));
 									$this->model_extension_payment_laybuy->updateTransaction($transaction['laybuy_transaction_id'], '7', $report_content, $start_index);
 
 									$fetched++;
@@ -632,7 +632,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 									break;
 								case 1: // Paid
 									$this->model_extension_payment_laybuy->log('Transaction #' . $transaction['laybuy_transaction_id'] . ' paid');
-									$this->model_extension_payment_laybuy->updateOrderStatus($order_id, $this->config->get('payment_laybuy_order_status_id_processing'), $this->language->get('text_comment'));
+									$this->model_extension_payment_laybuy->updateOrderStatus($order_id, $this->config->get('payment_laybuy_processing_status_id'), $this->language->get('text_comment'));
 									$this->model_extension_payment_laybuy->updateTransaction($transaction['laybuy_transaction_id'], '5', $report_content, $start_index);
 
 									$fetched++;
@@ -909,7 +909,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 
 				$json['order_id'] = $transaction_info['order_id'];
 
-				$json['order_status_id'] = $this->config->get('payment_laybuy_order_status_id_canceled');
+				$json['order_status_id'] = $this->config->get('payment_laybuy_canceled_status_id');
 
 				$json['comment'] = sprintf($this->language->get('text_comment_canceled'), $transaction_info['paypal_profile_id']);
 			} else {

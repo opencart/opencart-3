@@ -215,9 +215,9 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-cardconnect-order-status-pending"><span data-toggle="tooltip" title="{{ help_order_status_pending|escape('html') }}">{{ entry_order_status_pending }}</span></label>
                 <div class="col-sm-10">
-                  <select name="payment_cardconnect_order_status_id_pending" id="input-cardconnect-order-status-pending" class="form-control">
+                  <select name="payment_cardconnect_pending_status_id" id="input-cardconnect-order-status-pending" class="form-control">
                     {% for order_status in order_statuses %}
-                      {% if order_status.order_status_id == payment_cardconnect_order_status_id_pending %}
+                      {% if order_status.order_status_id == payment_cardconnect_pending_status_id %}
                         <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
                       {% else %}
                         <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
@@ -229,9 +229,9 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-cardconnect-order-status-processing"><span data-toggle="tooltip" title="{{ help_order_status_processing|escape('html') }}">{{ entry_order_status_processing }}</span></label>
                 <div class="col-sm-10">
-                  <select name="payment_cardconnect_order_status_id_processing" id="input-cardconnect-order-status-processing" class="form-control">
+                  <select name="payment_cardconnect_processing_status_id" id="input-cardconnect-order-status-processing" class="form-control">
                     {% for order_status in order_statuses %}
-                      {% if order_status.order_status_id == payment_cardconnect_order_status_id_processing %}
+                      {% if order_status.order_status_id == payment_cardconnect_processing_status_id %}
                         <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
                       {% else %}
                         <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>

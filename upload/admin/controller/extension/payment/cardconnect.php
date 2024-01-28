@@ -148,20 +148,20 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 			$data['payment_cardconnect_cron_time'] = $this->language->get('text_no_cron_time');
 		}
 
-		if (isset($this->request->post['payment_cardconnect_order_status_id_pending'])) {
-			$data['payment_cardconnect_order_status_id_pending'] = (int)$this->request->post['payment_cardconnect_order_status_id_pending'];
-		} elseif ($this->config->has('payment_cardconnect_order_status_id_pending')) {
-			$data['payment_cardconnect_order_status_id_pending'] = $this->config->get('payment_cardconnect_order_status_id_pending');
+		if (isset($this->request->post['payment_cardconnect_pending_status_id'])) {
+			$data['payment_cardconnect_pending_status_id'] = (int)$this->request->post['payment_cardconnect_pending_status_id'];
+		} elseif ($this->config->has('payment_cardconnect_pending_status_id')) {
+			$data['payment_cardconnect_pending_status_id'] = $this->config->get('payment_cardconnect_pending_status_id');
 		} else {
-			$data['payment_cardconnect_order_status_id_pending'] = 1;
+			$data['payment_cardconnect_pending_status_id'] = 1;
 		}
 
-		if (isset($this->request->post['payment_cardconnect_order_status_id_processing'])) {
-			$data['payment_cardconnect_order_status_id_processing'] = (int)$this->request->post['payment_cardconnect_order_status_id_processing'];
-		} elseif ($this->config->has('payment_cardconnect_order_status_id_processing')) {
-			$data['payment_cardconnect_order_status_id_processing'] = $this->config->get('payment_cardconnect_order_status_id_processing');
+		if (isset($this->request->post['payment_cardconnect_processing_status_id'])) {
+			$data['payment_cardconnect_processing_status_id'] = (int)$this->request->post['payment_cardconnect_processing_status_id'];
+		} elseif ($this->config->has('payment_cardconnect_processing_status_id')) {
+			$data['payment_cardconnect_processing_status_id'] = $this->config->get('payment_cardconnect_processing_status_id');
 		} else {
-			$data['payment_cardconnect_order_status_id_processing'] = 2;
+			$data['payment_cardconnect_processing_status_id'] = 2;
 		}
 
 		if (isset($this->error['warning'])) {
