@@ -46,6 +46,16 @@ $_['column_status']              = 'Status';
 $_['column_date_added']          = 'Date Added';
 $_['column_product']             = 'Product Details';
 $_['column_quantity']            = 'Quantity';
+$_['column_name']                = 'Name';
+$_['column_company']             = 'Company';
+$_['column_address_1']           = 'Address 1';
+$_['column_address_2']           = 'Address 2';
+$_['column_city']                = 'City';
+$_['column_postcode']            = 'Postcode';
+$_['column_zone']                = 'Zone';
+$_['column_country']             = 'Country';
+$_['column_payment_method']      = 'Payment Method';
+$_['column_shipping_method']     = 'Shipping Method';
 $_['column_total']               = 'Total';
 $_['column_action']              = 'Action';
 
@@ -82,7 +92,8 @@ $_['help_duration']              = 'The duration is the number of times the user
 $_['help_cycle']                 = 'Subscription amounts are calculated by the frequency and cycles.';
 $_['help_frequency']             = 'If you use a frequency of "week" and a cycle of "2", then the user will be billed every 2 weeks.';
 
-// Tab
+// Tabs
+$_['tab_subscription']           = 'Subscriptions';
 $_['tab_order']                  = 'Orders';
 
 // Error
