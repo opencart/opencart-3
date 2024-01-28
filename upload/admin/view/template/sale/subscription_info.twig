@@ -31,177 +31,243 @@
       </ul>
       <div class="tab-content">
         <div class="tab-pane active" id="tab-subscription">
+          <ul class="nav nav-tabs" id="subscription">
+            <li><a href="#subscription1" data-toggle="tab"> {{ text_subscription }}</a></li>
+            <li><a href="#subscription2" data-toggle="tab"> {{ text_payment_address }}</a></li>
+            <li><a href="#subscription3" data-toggle="tab"> {{ text_shipping_address }}</a></li>
+            <li><a href="#subscription4" data-toggle="tab"> {{ text_shipping_method }}</a></li>
+            <li><a href="#subscription5" data-toggle="tab"> {{ text_payment_method }}</a></li>
+            <li><a href="#subscription6" data-toggle="tab"> {{ text_product }}</a></li>
+          </ul>
           <div class="tab-content">
             <form id="form-subscription" class="form-horizontal">
-              <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-date-added">{{ text_date_added }}</label>
-                <div class="col-sm-10">
-                  {{ date_added }}
+              <div id="subscription1" class="tab-pane">
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-date-added">{{ entry_date_added }}</label>
+                  <div class="col-sm-10">
+                    {{ date_added }}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-order">{{ entry_order }}</label>
+                  <div class="col-sm-10">
+                    <a href="index.php?route=customer/customer/edit&user_token={{ user_token }}&customer_id={{ customer_id }}" target="_blank">{{ order_id }}</a>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-customer">{{ entry_customer }}</label>
+                  <div class="col-sm-10">
+                    <div id="customer-value"><a href="index.php?route=customer/customer/edit&user_token={{ user_token }}&customer_id={{ customer_id }}" target="_blank">{{ firstname }} {{ lastname }}</a></div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-subscription-plan">{{ entry_subscription_plan }}</label>
+                  <div class="col-sm-10">
+                    {{ subscription_plan }}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-date-next">{{ entry_date_next }}</label>
+                  <div class="col-sm-10">
+                    {{ date_next }}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-remaining">{{ entry_remaining }}</label>
+                  <div class="col-sm-10">
+                    {{ remaining }}
+                  </div>
                 </div>
               </div>
-              <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-date-added">{{ text_order }}</label>
-                <div class="col-sm-10">
-                  <br/>
-                  <a href="index.php?route=customer/customer/edit&user_token={{ user_token }}&customer_id={{ customer_id }}" target="_blank">{{ order_id }}</a>
+              <div id="subscription2" class="tab-pane">
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-payment-name">{{ entry_payment_name }}</label>
+                  <div class="col-sm-10">
+                    {% if payment_firstname %}
+                      {{ payment_firstname }} {{ payment_lastname }}                      
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-payment-company">{{ entry_company }}</label>
+                  <div class="col-sm-10">
+                    {% if payment_company %}
+                      {{ payment_company }}
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-payment-address-1">{{ entry_address_1 }}</label>
+                  <div class="col-sm-10">
+                    {% if payment_address_1 %}
+                      {{ payment_address_1 }}
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-payment-address-2">{{ entry_address_2 }}</label>
+                  <div class="col-sm-10">
+                    {% if payment_address_2 %}
+                      {{ payment_address_2 }}
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-payment-city">{{ entry_city }}</label>
+                  <div class="col-sm-10">
+                    {% if payment_city %}
+                      {{ payment_city }}
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-payment-postcode">{{ entry_postcode }}</label>
+                  <div class="col-sm-10">
+                    {% if payment_postcode %}
+                      {{ payment_postcode }}
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-payment-zone">{{ entry_zone }}</label>
+                  <div class="col-sm-10">
+                    {% if payment_zone %}
+                      {{ payment_zone }}
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-payment-country">{{ entry_country }}</label>
+                  <div class="col-sm-10">
+                    {% if payment_country %}
+                      {{ payment_country }}
+                    {% endif %}
+                  </div>
                 </div>
               </div>
-              <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-date-added">{{ text_customer }}</label>
-                <div class="col-sm-10">
-                  <br/>
-                  <div id="customer-value"><a href="index.php?route=customer/customer/edit&user_token={{ user_token }}&customer_id={{ customer_id }}" target="_blank">{{ firstname }} {{ lastname }}</a></div>
+              <div id="subscription3" class="tab-pane">
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-shipping-name">{{ entry_shipping_name }}</label>
+                  <div class="col-sm-10">
+                    {% if shipping_firstname %}
+                      {{ shipping_firstname }} {{ shipping_lastname }}                      
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-shipping-company">{{ entry_company }}</label>
+                  <div class="col-sm-10">
+                    {% if shipping_company %}
+                      {{ shipping_company }}
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-shipping-address-1">{{ entry_address_1 }}</label>
+                  <div class="col-sm-10">
+                    {% if shipping_address_1 %}
+                      {{ shipping_address_1 }}
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-shipping-address-2">{{ entry_address_2 }}</label>
+                  <div class="col-sm-10">
+                    {% if shipping_address_2 %}
+                      {{ shipping_address_2 }}
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-shipping-city">{{ entry_city }}</label>
+                  <div class="col-sm-10">
+                    {% if shipping_city %}
+                      {{ shipping_city }}
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-shipping-postcode">{{ entry_postcode }}</label>
+                  <div class="col-sm-10">
+                    {% if shipping_postcode %}
+                      {{ shipping_postcode }}
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-shipping-zone">{{ entry_zone }}</label>
+                  <div class="col-sm-10">
+                    {% if shipping_zone %}
+                      {{ shipping_zone }}
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-shipping-country">{{ entry_country }}</label>
+                  <div class="col-sm-10">
+                    {% if shipping_country %}
+                      {{ shipping_country }}
+                    {% endif %}
+                  </div>
                 </div>
               </div>
-              <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-date-added">{{ text_subscription_plan }}</label>
-                <div class="col-sm-10">
-                  {{ subscription_plan }}
+              <div id="subscription4" class="tab-pane">
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-shipping-method">{{ entry_shipping_method }}</label>
+                  <div class="col-sm-10">
+                    {% if shipping_method %}
+                      {{ shipping_method }}
+                    {% endif %}
+                  </div>
                 </div>
               </div>
-              <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-date-added">{{ text_date_next }}</label>
-                <div class="col-sm-10">
-                  {{ date_next }}
+              <div id="subscription5" class="tab-pane">
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-payment-method">{{ entry_payment_method }}</label>
+                  <div class="col-sm-10">
+                    {% if payment_method %}
+                      {{ payment_method }}
+                    {% endif %}
+                  </div>
                 </div>
               </div>
-              <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-date-added">{{ text_remaining }}</label>
-                <div class="col-sm-10">
-                  {{ remaining }}
+              <div id="subscription6" class="tab-pane">
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-product">{{ entry_product }}</label>
+                  <div class="col-sm-10">
+                    {% if payment_method %}
+                      {{ payment_method }}
+                    {% endif %}
+                  </div>
                 </div>
-              </div>              
-              <fieldset>
-                <legend>{{ text_payment_address }}</legend>
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <td>{{ column_name }}</td>
-                      <td>{{ column_company }}</td>
-                      <td>{{ column_address_1 }}</td>
-
-                      {% if payment_address_2 %}
-                        <td>{{ column_address_2 }}</td>
-                      {% endif %}
-
-                      <td>{{ column_city }}</td>
-                      <td>{{ column_postcode }}</td>
-                      <td>{{ column_zone }}</td>
-                      <td>{{ column_country }}</td>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>{{ payment_firstname }} {{ payment_lastname }}</td>
-                      <td>{{ payment_company }}</td>
-                      <td>{{ payment_address_1 }}</td>
-                      
-                      {% if payment_address_2 %}
-                        <td>{{ payment_address_2 }}</td>
-                      {% endif %}
-
-                      <td>{{ payment_city }}</td>
-                      <td>{{ payment_postcode }}</td>
-                      <td>{{ payment_zone }}</td>
-                      <td>{{ payment_country }}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </fieldset>
-              <fieldset>
-                <legend>{{ text_shipping_address }}</legend>
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <td>{{ column_name }}</td>
-                      <td>{{ column_company }}</td>
-                      <td>{{ column_address_1 }}</td>
-
-                      {% if shipping_address_2 %}
-                        <td>{{ column_address_2 }}</td>
-                      {% endif %}
-
-                      <td>{{ column_city }}</td>
-                      <td>{{ column_postcode }}</td>
-                      <td>{{ column_zone }}</td>
-                      <td>{{ column_country }}</td>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>{{ shipping_firstname }} {{ shipping_lastname }}</td>
-                      <td>{{ shipping_company }}</td>
-                      <td>{{ shipping_address_1 }}</td>
-                      
-                      {% if shipping_address_2 %}
-                        <td>{{ shipping_address_2 }}</td>
-                      {% endif %}
-
-                      <td>{{ shipping_city }}</td>
-                      <td>{{ shipping_postcode }}</td>
-                      <td>{{ shipping_zone }}</td>
-                      <td>{{ shipping_country }}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </fieldset>
-              <fieldset>
-                <legend>{{ text_shipping_method }}</legend>
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <td>{{ column_shipping_method }}</td>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>{{ shipping_method }}</td>
-                    </tr>
-                  </tbody>
-                  <input type="hidden" name="shipping_code" value="{{ shipping_code }}" id="input-shipping-code"/>
-                </table>
-              </fieldset>
-              <fieldset>
-                <legend>{{ text_payment_method }}</legend>
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <td>{{ column_payment_method }}</td>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>{{ payment_method }}</td>
-                    </tr>
-                  </tbody>
-                  <input type="hidden" name="payment_code" value="{{ payment_code }}" id="input-payment-code"/>
-                </table>
-              </fieldset>
-              <fieldset>
-                <legend>{{ text_product }}</legend>
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <td>{{ column_product }}</td>
-                      <td>{{ column_quantity }}</td>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td><a href="{{ product }}" target="_blank">{{ product_name }}</a>
-                        {% if options %}
-                          {% for option in options %}
+                <fieldset>
+                  <legend>{{ text_product }}</legend>
+                  <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                      <thead>
+                        <tr>
+                          <td class="text-left">{{ column_product }}</td>
+                          <td class="text-right">{{ column_quantity }}</td>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><a href="{{ product }}" target="_blank">{{ product_name }}</a>
+                            {% if options %}
+                              {% for option in options %}
+                                <br/>
+                                <small> - {{ option.name }}: {{ option.value }}</small>
+                              {% endfor %}
+                            {% endif %}
                             <br/>
-                            <small> - {{ option.name }}: {{ option.value }}</small>
-                          {% endfor %}
-                        {% endif %}
-                        <br/>
-                        <small> - {{ text_subscription }}: {{ description }}</small></td>
-                      <td>{{ quantity }}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </fieldset>
+                            <small> - {{ text_subscription }}: {{ description }}</small></td>
+                          <td>{{ quantity }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </fieldset>
+              </div>
               <input type="hidden" name="subscription_id" value="{{ subscription_id }}" id="input-subscription-id"/>
             </form>
           </div>
@@ -219,9 +285,9 @@
                 <label class="col-sm-2 control-label" for="input-comment">{{ entry_subscription_status }}</label>
                 <div class="col-sm-10">
                   <select name="subscription_status_id" id="input-subscription-status" class="form-control"/>
-                  {% for subscription_status in subscription_statuses %}
-                    <option value="{{ subscription_status.subscription_status_id }}"{% if subscription_status.subscription_status_id == subscription_status_id %} selected{% endif %}>{{ subscription_status.name }}</option>
-                  {% endfor %}
+                    {% for subscription_status in subscription_statuses %}
+                      <option value="{{ subscription_status.subscription_status_id }}"{% if subscription_status.subscription_status_id == subscription_status_id %} selected{% endif %}>{{ subscription_status.name }}</option>
+                    {% endfor %}
                   </select>
                 </div>
               </div>
