@@ -5,7 +5,7 @@
       <div class="form-group">
         <label class="col-sm-2 control-label" for="input-method">{{ entry_method }}</label>
         <div class="col-sm-10">
-          <select name="method" id="input-method" class="form-control">
+          <select name="method" id="input-method" class="form-control"/>
             <option value="card">{{ text_card }}</option>
             <option value="echeck">{{ text_echeck }}</option>
           </select>
@@ -24,7 +24,7 @@
         <div class="form-group">
           <label class="col-sm-2 control-label" for="input-card-type">{{ entry_card_type }}</label>
           <div class="col-sm-10">
-            <select name="card_type" id="input-card-type" class="form-control">
+            <select name="card_type" id="input-card-type" class="form-control"/>
               {% for card_type in card_types %}
                 <option value="{{ card_type.value }}">{{ card_type.text }}</option>
               {% endfor %}
@@ -40,14 +40,14 @@
         <div class="form-group">
           <label class="col-sm-2 control-label" for="input-card-expiry">{{ entry_card_expiry }}</label>
           <div class="col-sm-3">
-            <select name="card_expiry_month" id="input-card-expiry" class="form-control">
+            <select name="card_expiry_month" id="input-card-expiry" class="form-control"/>
               {% for month in months %}
                 <option value="{{ month.value }}">{{ month.text }}</option>
               {% endfor %}
             </select>
           </div>
           <div class="col-sm-3">
-            <select name="card_expiry_year" class="form-control">
+            <select name="card_expiry_year" class="form-control"/>
               {% for year in years %}
                 <option value="{{ year.value }}">{{ year.text }}</option>
               {% endfor %}

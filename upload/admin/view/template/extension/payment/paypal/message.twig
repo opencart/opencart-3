@@ -196,13 +196,13 @@
                             <div class="col col-md-6">
                               <div class="form-group">
                                 <label class="control-label" for="input-message-{{ message.page_code }}-insert-tag">{{ entry_message_insert_tag }}</label>
-                                <input type="text" name="payment_paypal_setting[message][{{ message.page_code }}][insert_tag]" value="{{ message.insert_tag }}" id="input-button-{{ message.page_code }}-insert-tag" class="form-control" />
+                                <input type="text" name="payment_paypal_setting[message][{{ message.page_code }}][insert_tag]" value="{{ message.insert_tag }}" id="input-button-{{ message.page_code }}-insert-tag" class="form-control"/>
                               </div>
                             </div>
                             <div class="col col-md-6">
                               <div class="form-group">
                                 <label class="control-label" for="input-message-{{ message.page_code }}-insert-type">{{ entry_message_insert_type }}</label>
-                                <select name="payment_paypal_setting[message][{{ message.page_code }}][insert_type]" id="input-message-{{ message.page_code }}-insert-type" class="form-control">
+                                <select name="payment_paypal_setting[message][{{ message.page_code }}][insert_type]" id="input-message-{{ message.page_code }}-insert-type" class="form-control"/>
                                   {% for message_insert_type in setting.message_insert_type %}
                                     {% if message_insert_type.code == message.insert_type %}
                                       <option value="{{ message_insert_type.code }}" selected="selected">{{ attribute(_context, message_insert_type.name) }}</option>

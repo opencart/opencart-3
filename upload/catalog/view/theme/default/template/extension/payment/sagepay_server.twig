@@ -13,7 +13,7 @@
         <div class="form-group required">
           <label class="col-sm-2 control-label" for="Token">{{ entry_cc_choice }}</label>
           <div class="col-sm-8">
-            <select name="Token" class="form-control">
+            <select name="Token" class="form-control"/>
               {% for card in cards %}
                 <option value="{{ card.token }}">{{ text_card_type }} {{ card.type }}, {{ text_card_digits }} {{ card.digit }}, {{ text_card_expiry }} {{ card.expiry }}</option>
               {% endfor %}

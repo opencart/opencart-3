@@ -9,7 +9,7 @@
         <div class="form-group required">
           <label class="col-sm-2 control-label" for="input-country">{{ entry_country }}</label>
           <div class="col-sm-10">
-            <select name="country_id" id="input-country" class="form-control">
+            <select name="country_id" id="input-country" class="form-control"/>
               <option value="">{{ text_select }}</option>
               {% for country in countries %}
                 {% if country.country_id == country_id %}
@@ -24,7 +24,7 @@
         <div class="form-group required">
           <label class="col-sm-2 control-label" for="input-zone">{{ entry_zone }}</label>
           <div class="col-sm-10">
-            <select name="zone_id" id="input-zone" class="form-control">
+            <select name="zone_id" id="input-zone" class="form-control"/>
             </select>
           </div>
         </div>

@@ -42,7 +42,7 @@
             </div>
             <div class="form-group">
               <label class="control-label" for="input-customer-group">{{ entry_customer_group }}</label>
-              <select name="filter_customer_group_id" id="input-customer-group" class="form-control">
+              <select name="filter_customer_group_id" id="input-customer-group" class="form-control"/>
                 <option value=""></option>
                 {% for customer_group in customer_groups %}
                   {% if customer_group.customer_group_id == filter_customer_group_id %}
@@ -55,7 +55,7 @@
             </div>
             <div class="form-group">
               <label class="control-label" for="input-status">{{ entry_status }}</label>
-              <select name="filter_status" id="input-status" class="form-control">
+              <select name="filter_status" id="input-status" class="form-control"/>
                 <option value=""></option>
                 {% if filter_status == '1' %}
                   <option value="1" selected="selected">{{ text_enabled }}</option>

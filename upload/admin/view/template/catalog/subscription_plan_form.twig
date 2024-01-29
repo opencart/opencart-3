@@ -62,7 +62,7 @@
             <div class="form-group">
               <label class="col-sm-2 control-label" for="input-frequency"><span data-toggle="tooltip" title="{{ help_frequency|escape('html') }}">{{ entry_frequency }}</span></label>
               <div class="col-sm-10">
-                <select name="frequency" id="input-frequency" class="form-control">
+                <select name="frequency" id="input-frequency" class="form-control"/>
                   {% for frequency_option in frequencies %}
                     {% if frequency == frequency_option.value %}
                       <option value="{{ frequency_option.value }}" selected="selected">{{ frequency_option.text }}</option>
@@ -76,7 +76,7 @@
             <div class="form-group">
               <label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
               <div class="col-sm-10">
-                <select name="status" id="input-status" class="form-control">
+                <select name="status" id="input-status" class="form-control"/>
                   {% if status %}
                     <option value="1" selected="selected">{{ text_enabled }}</option>
                     <option value="0">{{ text_disabled }}</option>
@@ -111,7 +111,7 @@
             <div class="form-group">
               <label class="col-sm-2 control-label" for="input-trial-frequency"><span data-toggle="tooltip" title="{{ help_trial_frequency|escape('html') }}">{{ entry_trial_frequency }}</span></label>
               <div class="col-sm-10">
-                <select name="trial_frequency" id="input-trial-frequency" class="form-control">
+                <select name="trial_frequency" id="input-trial-frequency" class="form-control"/>
                   {% for frequency_option in frequencies %}
                     {% if trial_frequency == frequency_option.value %}
                       <option value="{{ frequency_option.value }}" selected="selected">{{ frequency_option.text }}</option>
@@ -125,7 +125,7 @@
             <div class="form-group">
               <label class="col-sm-2 control-label" for="input-trial-status">{{ entry_trial_status }}</label>
               <div class="col-sm-10">
-                <select name="trial_status" id="input-trial-status" class="form-control">
+                <select name="trial_status" id="input-trial-status" class="form-control"/>
                   {% if trial_status %}
                     <option value="0">{{ text_disabled }}</option>
                     <option value="1" selected="selected">{{ text_enabled }}</option>

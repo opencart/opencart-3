@@ -48,7 +48,7 @@
                 {% set route_row = 0 %}
                 {% for layout_route in layout_routes %}
                   <tr id="route-row{{ route_row }}">
-                    <td class="text-left"><select name="layout_route[{{ route_row }}][store_id]" class="form-control">
+                    <td class="text-left"><select name="layout_route[{{ route_row }}][store_id]" class="form-control"/>
                         <option value="0">{{ text_default }}</option>
                         {% for store in stores %}
                           {% if store.store_id == layout_route.store_id %}
@@ -378,7 +378,7 @@
 
   function addRoute() {
       html = '<tr id="route-row' + route_row + '">';
-      html += '  <td class="text-left"><select name="layout_route[' + route_row + '][store_id]" class="form-control">';
+      html += '  <td class="text-left"><select name="layout_route[' + route_row + '][store_id]" class="form-control"/>';
       html += '  <option value="0">{{ text_default('js') }}</option>';
       {% for store in stores %}
           html += '<option value="{{ store.store_id }}">{{ store.name|escape('js') }}</option>';

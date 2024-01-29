@@ -37,7 +37,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-code">{{ entry_code }}</label>
             <div class="col-sm-10">
-              <select name="code" id="input-code" class="form-control">
+              <select name="code" id="input-code" class="form-control"/>
                 {% for language in languages %}
                   {% if language == code %}
                     <option value="{{ language }}" selected="selected">{{ language }}</option>
@@ -63,7 +63,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-status"><span data-toggle="tooltip" title="{{ help_status|escape('html') }}">{{ entry_status }}</span></label>
             <div class="col-sm-10">
-              <select name="status" id="input-status" class="form-control">
+              <select name="status" id="input-status" class="form-control"/>
                 {% if status %}
                   <option value="1" selected="selected">{{ text_enabled }}</option>
                   <option value="0">{{ text_disabled }}</option>

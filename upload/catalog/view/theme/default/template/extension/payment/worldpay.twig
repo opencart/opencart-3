@@ -15,7 +15,7 @@
         <div class="form-group required">
           <label class="col-sm-2 control-label" for="token">{{ entry_cc_choice }}</label>
           <div class="col-sm-10">
-            <select name="token" data-worldpay="token" class="form-control">
+            <select name="token" data-worldpay="token" class="form-control"/>
               {% for existing_card in existing_cards %}
                 <option value="{{ existing_card.token }}">{{ text_card_type }} {{ existing_card.type }}, {{ text_card_digits }} {{ existing_card.digits }}, {{ text_card_expiry }} {{ existing_card.expiry }}</option>
               {% endfor %}

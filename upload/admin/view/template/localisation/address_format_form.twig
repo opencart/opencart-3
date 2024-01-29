@@ -37,7 +37,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-address-format"><span data-toggle="tooltip" title="{{ help_address_format|escape('html') }}">{{ entry_address_format }}</span></label>
             <div class="col-sm-10">
-              <textarea name="address_format" rows="5" placeholder="{{ entry_address_format }}" id="input-address-format" class="form-control">{{ address_format }}</textarea>
+              <textarea name="address_format" rows="5" placeholder="{{ entry_address_format }}" id="input-address-format" class="form-control"/>{{ address_format }}</textarea>
               {% if error_address_format %}
                 <div class="text-danger">{{ error_address_format }}</div>
               {% endif %}

@@ -61,7 +61,7 @@
                     <div class="form-group">
                       <label class="col-sm-2 control-label" for="input-description{{ language.language_id }}">{{ entry_description }}</label>
                       <div class="col-sm-10">
-                        <textarea name="product_description[{{ language.language_id }}][description]" placeholder="{{ entry_description }}" id="input-description{{ language.language_id }}" data-toggle="summernote" data-lang="{{ summernote }}" class="form-control">{{ product_description[language.language_id] ? product_description[language.language_id].description }}</textarea>
+                        <textarea name="product_description[{{ language.language_id }}][description]" placeholder="{{ entry_description }}" id="input-description{{ language.language_id }}" data-toggle="summernote" data-lang="{{ summernote }}" class="form-control"/>{{ product_description[language.language_id] ? product_description[language.language_id].description }}</textarea>
                       </div>
                     </div>
                     <div class="form-group required">
@@ -76,13 +76,13 @@
                     <div class="form-group">
                       <label class="col-sm-2 control-label" for="input-meta-description{{ language.language_id }}">{{ entry_meta_description }}</label>
                       <div class="col-sm-10">
-                        <textarea name="product_description[{{ language.language_id }}][meta_description]" rows="5" placeholder="{{ entry_meta_description }}" id="input-meta-description{{ language.language_id }}" class="form-control">{{ product_description[language.language_id] ? product_description[language.language_id].meta_description }}</textarea>
+                        <textarea name="product_description[{{ language.language_id }}][meta_description]" rows="5" placeholder="{{ entry_meta_description }}" id="input-meta-description{{ language.language_id }}" class="form-control"/>{{ product_description[language.language_id] ? product_description[language.language_id].meta_description }}</textarea>
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label" for="input-meta-keyword{{ language.language_id }}">{{ entry_meta_keyword }}</label>
                       <div class="col-sm-10">
-                        <textarea name="product_description[{{ language.language_id }}][meta_keyword]" rows="5" placeholder="{{ entry_meta_keyword }}" id="input-meta-keyword{{ language.language_id }}" class="form-control">{{ product_description[language.language_id] ? product_description[language.language_id].meta_keyword }}</textarea>
+                        <textarea name="product_description[{{ language.language_id }}][meta_keyword]" rows="5" placeholder="{{ entry_meta_keyword }}" id="input-meta-keyword{{ language.language_id }}" class="form-control"/>{{ product_description[language.language_id] ? product_description[language.language_id].meta_keyword }}</textarea>
                       </div>
                     </div>
                     <div class="form-group">
@@ -156,7 +156,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-tax-class">{{ entry_tax_class }}</label>
                 <div class="col-sm-10">
-                  <select name="tax_class_id" id="input-tax-class" class="form-control">
+                  <select name="tax_class_id" id="input-tax-class" class="form-control"/>
                     <option value="0">{{ text_none }}</option>
                     {% for tax_class in tax_classes %}
                       {% if tax_class.tax_class_id == tax_class_id %}
@@ -183,7 +183,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-subtract">{{ entry_subtract }}</label>
                 <div class="col-sm-10">
-                  <select name="subtract" id="input-subtract" class="form-control">
+                  <select name="subtract" id="input-subtract" class="form-control"/>
                     {% if subtract %}
                       <option value="1" selected="selected">{{ text_yes }}</option>
                       <option value="0">{{ text_no }}</option>
@@ -197,7 +197,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-stock-status"><span data-toggle="tooltip" title="{{ help_stock_status|escape('html') }}">{{ entry_stock_status }}</span></label>
                 <div class="col-sm-10">
-                  <select name="stock_status_id" id="input-stock-status" class="form-control">
+                  <select name="stock_status_id" id="input-stock-status" class="form-control"/>
                     {% for stock_status in stock_statuses %}
                       {% if stock_status.stock_status_id == stock_status_id %}
                         <option value="{{ stock_status.stock_status_id }}" selected="selected">{{ stock_status.name }}</option>
@@ -255,7 +255,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-length-class">{{ entry_length_class }}</label>
                 <div class="col-sm-10">
-                  <select name="length_class_id" id="input-length-class" class="form-control">
+                  <select name="length_class_id" id="input-length-class" class="form-control"/>
                     {% for length_class in length_classes %}
                       {% if length_class.length_class_id == length_class_id %}
                         <option value="{{ length_class.length_class_id }}" selected="selected">{{ length_class.title }}</option>
@@ -275,7 +275,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-weight-class">{{ entry_weight_class }}</label>
                 <div class="col-sm-10">
-                  <select name="weight_class_id" id="input-weight-class" class="form-control">
+                  <select name="weight_class_id" id="input-weight-class" class="form-control"/>
                     {% for weight_class in weight_classes %}
                       {% if weight_class.weight_class_id == weight_class_id %}
                         <option value="{{ weight_class.weight_class_id }}" selected="selected">{{ weight_class.title }}</option>
@@ -289,7 +289,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
                 <div class="col-sm-10">
-                  <select name="status" id="input-status" class="form-control">
+                  <select name="status" id="input-status" class="form-control"/>
                     {% if status %}
                       <option value="1" selected="selected">{{ text_enabled }}</option>
                       <option value="0">{{ text_disabled }}</option>
@@ -408,7 +408,7 @@
                           <input type="hidden" name="product_attribute[{{ attribute_row }}][attribute_id]" value="{{ product_attribute.attribute_id }}"/></td>
                         <td class="text-left">{% for language in languages %}
                             <div class="input-group"><span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
-                              <textarea name="product_attribute[{{ attribute_row }}][product_attribute_description][{{ language.language_id }}][text]" rows="5" placeholder="{{ entry_text }}" class="form-control">{{ product_attribute.product_attribute_description[language.language_id] ? product_attribute.product_attribute_description[language.language_id].text }}</textarea>
+                              <textarea name="product_attribute[{{ attribute_row }}][product_attribute_description][{{ language.language_id }}][text]" rows="5" placeholder="{{ entry_text }}" class="form-control"/>{{ product_attribute.product_attribute_description[language.language_id] ? product_attribute.product_attribute_description[language.language_id].text }}</textarea>
                             </div>
                           {% endfor %}</td>
                         <td class="text-right"><button type="button" onclick="$('#attribute-row{{ attribute_row }}').remove();" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>
@@ -450,7 +450,7 @@
                         <div class="form-group">
                           <label class="col-sm-2 control-label" for="input-required{{ option_row }}">{{ entry_required }}</label>
                           <div class="col-sm-10">
-                            <select name="product_option[{{ option_row }}][required]" id="input-required{{ option_row }}" class="form-control">
+                            <select name="product_option[{{ option_row }}][required]" id="input-required{{ option_row }}" class="form-control"/>
                               {% if product_option.required %}
                                 <option value="1" selected="selected">{{ text_yes }}</option>
                                 <option value="0">{{ text_no }}</option>
@@ -473,7 +473,7 @@
                           <div class="form-group">
                             <label class="col-sm-2 control-label" for="input-value{{ option_row }}">{{ entry_option_value }}</label>
                             <div class="col-sm-10">
-                              <textarea name="product_option[{{ option_row }}][value]" rows="5" placeholder="{{ entry_option_value }}" id="input-value{{ option_row }}" class="form-control">{{ product_option.value }}</textarea>
+                              <textarea name="product_option[{{ option_row }}][value]" rows="5" placeholder="{{ entry_option_value }}" id="input-value{{ option_row }}" class="form-control"/>{{ product_option.value }}</textarea>
                             </div>
                           </div>
                         {% endif %}
@@ -536,7 +536,7 @@
                                 {% for product_option_value in product_option.product_option_value %}
                                   <tr id="option-value-row{{ option_value_row }}">
                                     <td class="text-left">
-                                      <select name="product_option[{{ option_row }}][product_option_value][{{ option_value_row }}][option_value_id]" class="form-control">
+                                      <select name="product_option[{{ option_row }}][product_option_value][{{ option_value_row }}][option_value_id]" class="form-control"/>
                                         {% if option_values[product_option.option_id] %}
                                           {% for option_value in option_values[product_option.option_id] %}
                                             {% if option_value.option_value_id == product_option_value.option_value_id %}
@@ -549,7 +549,7 @@
                                       </select>
                                       <input type="hidden" name="product_option[{{ option_row }}][product_option_value][{{ option_value_row }}][product_option_value_id]" value="{{ product_option_value.product_option_value_id }}"/></td>
                                     <td class="text-right"><input type="text" name="product_option[{{ option_row }}][product_option_value][{{ option_value_row }}][quantity]" value="{{ product_option_value.quantity }}" placeholder="{{ entry_quantity }}" class="form-control"/></td>
-                                    <td class="text-left"><select name="product_option[{{ option_row }}][product_option_value][{{ option_value_row }}][subtract]" class="form-control">
+                                    <td class="text-left"><select name="product_option[{{ option_row }}][product_option_value][{{ option_value_row }}][subtract]" class="form-control"/>
                                         {% if product_option_value.subtract %}
                                           <option value="1" selected="selected">{{ text_yes }}</option>
                                           <option value="0">{{ text_no }}</option>
@@ -558,7 +558,7 @@
                                           <option value="0" selected="selected">{{ text_no }}</option>
                                         {% endif %}
                                       </select></td>
-                                    <td class="text-right"><select name="product_option[{{ option_row }}][product_option_value][{{ option_value_row }}][price_prefix]" class="form-control">
+                                    <td class="text-right"><select name="product_option[{{ option_row }}][product_option_value][{{ option_value_row }}][price_prefix]" class="form-control"/>
                                         {% if product_option_value.price_prefix == '+' %}
                                           <option value="+" selected="selected">+</option>
                                         {% else %}
@@ -571,7 +571,7 @@
                                         {% endif %}
                                       </select>
                                       <input type="text" name="product_option[{{ option_row }}][product_option_value][{{ option_value_row }}][price]" value="{{ product_option_value.price }}" placeholder="{{ entry_price }}" class="form-control"/></td>
-                                    <td class="text-right"><select name="product_option[{{ option_row }}][product_option_value][{{ option_value_row }}][points_prefix]" class="form-control">
+                                    <td class="text-right"><select name="product_option[{{ option_row }}][product_option_value][{{ option_value_row }}][points_prefix]" class="form-control"/>
                                         {% if product_option_value.points_prefix == '+' %}
                                           <option value="+" selected="selected">+</option>
                                         {% else %}
@@ -584,7 +584,7 @@
                                         {% endif %}
                                       </select>
                                       <input type="text" name="product_option[{{ option_row }}][product_option_value][{{ option_value_row }}][points]" value="{{ product_option_value.points }}" placeholder="{{ entry_points }}" class="form-control"/></td>
-                                    <td class="text-right"><select name="product_option[{{ option_row }}][product_option_value][{{ option_value_row }}][weight_prefix]" class="form-control">
+                                    <td class="text-right"><select name="product_option[{{ option_row }}][product_option_value][{{ option_value_row }}][weight_prefix]" class="form-control"/>
                                         {% if product_option_value.weight_prefix == '+' %}
                                           <option value="+" selected="selected">+</option>
                                         {% else %}
@@ -639,7 +639,7 @@
                     {% set subscription_row = 0 %}
                     {% for product_subscription in product_subscriptions %}
                       <tr id="subscription-row{{ subscription_row }}">
-                        <td class="text-left"><select name="product_subscription[{{ subscription_row }}][subscription_plan_id]" class="form-control">
+                        <td class="text-left"><select name="product_subscription[{{ subscription_row }}][subscription_plan_id]" class="form-control"/>
                             {% for subscription_plan in subscription_plans %}
                               {% if subscription_plan.subscription_plan_id == product_subscription.subscription_plan_id %}
                                 <option value="{{ subscription_plan.subscription_plan_id }}" selected="selected">{{ subscription_plan.name }}</option>
@@ -648,7 +648,7 @@
                               {% endif %}
                             {% endfor %}
                           </select></td>
-                        <td class="text-left"><select name="product_subscription[{{ subscription_row }}][customer_group_id]" class="form-control">
+                        <td class="text-left"><select name="product_subscription[{{ subscription_row }}][customer_group_id]" class="form-control"/>
                             {% for customer_group in customer_groups %}
                               {% if customer_group.customer_group_id == product_subscription.customer_group_id %}
                                 <option value="{{ customer_group.customer_group_id }}" selected="selected">{{ customer_group.name }}</option>
@@ -689,7 +689,7 @@
                     {% set discount_row = 0 %}
                     {% for product_discount in product_discounts %}
                       <tr id="discount-row{{ discount_row }}">
-                        <td class="text-left"><select name="product_discount[{{ discount_row }}][customer_group_id]" class="form-control">
+                        <td class="text-left"><select name="product_discount[{{ discount_row }}][customer_group_id]" class="form-control"/>
                             {% for customer_group in customer_groups %}
                               {% if customer_group.customer_group_id == product_discount.customer_group_id %}
                                 <option value="{{ customer_group.customer_group_id }}" selected="selected">{{ customer_group.name }}</option>
@@ -744,7 +744,7 @@
                     {% set special_row = 0 %}
                     {% for product_special in product_specials %}
                       <tr id="special-row{{ special_row }}">
-                        <td class="text-left"><select name="product_special[{{ special_row }}][customer_group_id]" class="form-control">
+                        <td class="text-left"><select name="product_special[{{ special_row }}][customer_group_id]" class="form-control"/>
                             {% for customer_group in customer_groups %}
                               {% if customer_group.customer_group_id == product_special.customer_group_id %}
                                 <option value="{{ customer_group.customer_group_id }}" selected="selected">{{ customer_group.name }}</option>
@@ -894,7 +894,7 @@
                     {% for store in stores %}
                       <tr>
                         <td class="text-left">{{ store.name }}</td>
-                        <td class="text-left"><select name="product_layout[{{ store.store_id }}]" class="form-control">
+                        <td class="text-left"><select name="product_layout[{{ store.store_id }}]" class="form-control"/>
                             <option value=""></option>
                             {% for layout in layouts %}
                               {% if product_layout[store.store_id] and product_layout[store.store_id] == layout.layout_id %}
@@ -1148,7 +1148,7 @@
 
           html += '	<div class="form-group">';
           html += '	  <label class="col-sm-2 control-label" for="input-required' + option_row + '">{{ entry_required|escape('js') }}</label>';
-          html += '	  <div class="col-sm-10"><select name="product_option[' + option_row + '][required]" id="input-required' + option_row + '" class="form-control">';
+          html += '	  <div class="col-sm-10"><select name="product_option[' + option_row + '][required]" id="input-required' + option_row + '" class="form-control"/>';
           html += '	      <option value="1">{{ text_yes|escape('js') }}</option>';
           html += '	      <option value="0">{{ text_no|escape('js') }}</option>';
           html += '	  </select></div>';
@@ -1164,7 +1164,7 @@
           if (item['type'] == 'textarea') {
               html += '	<div class="form-group">';
               html += '	  <label class="col-sm-2 control-label" for="input-value' + option_row + '">{{ entry_option_value }}</label>';
-              html += '	  <div class="col-sm-10"><textarea name="product_option[' + option_row + '][value]" rows="5" placeholder="{{ entry_option_value }}" id="input-value' + option_row + '" class="form-control"></textarea></div>';
+              html += '	  <div class="col-sm-10"><textarea name="product_option[' + option_row + '][value]" rows="5" placeholder="{{ entry_option_value }}" id="input-value' + option_row + '" class="form-control"/></textarea></div>';
               html += '	</div>';
           }
 
@@ -1267,25 +1267,25 @@
 
   function addOptionValue(option_row) {
       html = '<tr id="option-value-row' + option_value_row + '">';
-      html += '  <td class="text-left"><select name="product_option[' + option_row + '][product_option_value][' + option_value_row + '][option_value_id]" class="form-control">';
+      html += '  <td class="text-left"><select name="product_option[' + option_row + '][product_option_value][' + option_value_row + '][option_value_id]" class="form-control"/>';
       html += $('#option-values' + option_row).html();
       html += '  </select><input type="hidden" name="product_option[' + option_row + '][product_option_value][' + option_value_row + '][product_option_value_id]" value=""/></td>';
       html += '  <td class="text-right"><input type="text" name="product_option[' + option_row + '][product_option_value][' + option_value_row + '][quantity]" value="" placeholder="{{ entry_quantity|escape('js') }}" class="form-control"/></td>';
-      html += '  <td class="text-left"><select name="product_option[' + option_row + '][product_option_value][' + option_value_row + '][subtract]" class="form-control">';
+      html += '  <td class="text-left"><select name="product_option[' + option_row + '][product_option_value][' + option_value_row + '][subtract]" class="form-control"/>';
       html += '    <option value="1">{{ text_yes }}</option>';
       html += '    <option value="0">{{ text_no }}</option>';
       html += '  </select></td>';
-      html += '  <td class="text-right"><select name="product_option[' + option_row + '][product_option_value][' + option_value_row + '][price_prefix]" class="form-control">';
+      html += '  <td class="text-right"><select name="product_option[' + option_row + '][product_option_value][' + option_value_row + '][price_prefix]" class="form-control"/>';
       html += '    <option value="+">+</option>';
       html += '    <option value="-">-</option>';
       html += '  </select>';
       html += '  <input type="text" name="product_option[' + option_row + '][product_option_value][' + option_value_row + '][price]" value="" placeholder="{{ entry_price|escape('js') }}" class="form-control"/></td>';
-      html += '  <td class="text-right"><select name="product_option[' + option_row + '][product_option_value][' + option_value_row + '][points_prefix]" class="form-control">';
+      html += '  <td class="text-right"><select name="product_option[' + option_row + '][product_option_value][' + option_value_row + '][points_prefix]" class="form-control"/>';
       html += '    <option value="+">+</option>';
       html += '    <option value="-">-</option>';
       html += '  </select>';
       html += '  <input type="text" name="product_option[' + option_row + '][product_option_value][' + option_value_row + '][points]" value="" placeholder="{{ entry_points|escape('js') }}" class="form-control"/></td>';
-      html += '  <td class="text-right"><select name="product_option[' + option_row + '][product_option_value][' + option_value_row + '][weight_prefix]" class="form-control">';
+      html += '  <td class="text-right"><select name="product_option[' + option_row + '][product_option_value][' + option_value_row + '][weight_prefix]" class="form-control"/>';
       html += '    <option value="+">+</option>';
       html += '    <option value="-">-</option>';
       html += '  </select>';
@@ -1304,7 +1304,7 @@
 
   function addDiscount() {
       html = '<tr id="discount-row' + discount_row + '">';
-      html += '  <td class="text-left"><select name="product_discount[' + discount_row + '][customer_group_id]" class="form-control">';
+      html += '  <td class="text-left"><select name="product_discount[' + discount_row + '][customer_group_id]" class="form-control"/>';
       {% for customer_group in customer_groups %}
           html += '    <option value="{{ customer_group.customer_group_id }}">{{ customer_group.name|escape('js') }}</option>';
       {% endfor %}
@@ -1331,7 +1331,7 @@
 
   function addSpecial() {
       html = '<tr id="special-row' + special_row + '">';
-      html += '  <td class="text-left"><select name="product_special[' + special_row + '][customer_group_id]" class="form-control">';
+      html += '  <td class="text-left"><select name="product_special[' + special_row + '][customer_group_id]" class="form-control"/>';
       {% for customer_group in customer_groups %}
           html += '      <option value="{{ customer_group.customer_group_id }}">{{ customer_group.name|escape('js') }}</option>';
       {% endfor %}
@@ -1374,14 +1374,14 @@
   function addSubscriptionPlan() {
       html = '<tr id="subscription-row' + subscription_row + '">';
       html += '  <td class="text-left">';
-      html += '    <select name="product_subscription[' + subscription_row + '][subscription_plan_id]" class="form-control">';
+      html += '    <select name="product_subscription[' + subscription_row + '][subscription_plan_id]" class="form-control"/>';
       {% for subscription_plan in subscription_plans %}
           html += '      <option value="{{ subscription_plan.subscription_plan_id }}">{{ subscription_plan.name|escape('js') }}</option>';
       {% endfor %}
       html += '    </select>';
       html += '  </td>';
       html += '  <td class="text-left">';
-      html += '    <select name="product_subscription[' + subscription_row + '][customer_group_id]" class="form-control">';
+      html += '    <select name="product_subscription[' + subscription_row + '][customer_group_id]" class="form-control"/>';
       {% for customer_group in customer_groups %}
           html += '      <option value="{{ customer_group.customer_group_id }}">{{ customer_group.name|escape('js') }}</option>';
       {% endfor %}

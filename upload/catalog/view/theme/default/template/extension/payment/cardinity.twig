@@ -18,14 +18,14 @@
   <div id="expiry-date-group" class="form-group required">
     <label class="col-sm-2 control-label">{{ entry_expires }}</label>
     <div class="col-sm-3">
-      <select name="exp_month" class="form-control">
+      <select name="exp_month" class="form-control"/>
         {% for month in months %}
           <option value="{{ month.value }}">{{ month.text }}</option>
         {% endfor %}
       </select>
     </div>
     <div class="col-sm-3">
-      <select name="exp_year" class="form-control">
+      <select name="exp_year" class="form-control"/>
         {% for year in years %}
           <option value="{{ year.value }}">{{ year.text }}</option>
         {% endfor %}

@@ -127,7 +127,7 @@
                 <div class="form-group">
                   <label class="col-sm-2 control-label" for="input-return-reason">{{ entry_return_reason }}</label>
                   <div class="col-sm-10">
-                    <select name="return_reason_id" id="input-return-reason" class="form-control">
+                    <select name="return_reason_id" id="input-return-reason" class="form-control"/>
                       {% for return_reason in return_reasons %}
                         {% if return_reason.return_reason_id == return_reason_id %}
                           <option value="{{ return_reason.return_reason_id }}" selected="selected">{{ return_reason.name }}</option>
@@ -141,7 +141,7 @@
                 <div class="form-group">
                   <label class="col-sm-2 control-label" for="input-opened">{{ entry_opened }}</label>
                   <div class="col-sm-10">
-                    <select name="opened" id="input-opened" class="form-control">
+                    <select name="opened" id="input-opened" class="form-control"/>
                       {% if opened %}
                         <option value="1" selected="selected">{{ text_opened }}</option>
                         <option value="0">{{ text_unopened }}</option>
@@ -155,13 +155,13 @@
                 <div class="form-group">
                   <label class="col-sm-2 control-label" for="input-comment">{{ entry_comment }}</label>
                   <div class="col-sm-10">
-                    <textarea name="comment" rows="5" placeholder="{{ entry_comment }}" id="input-comment" class="form-control">{{ comment }}</textarea>
+                    <textarea name="comment" rows="5" placeholder="{{ entry_comment }}" id="input-comment" class="form-control"/>{{ comment }}</textarea>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-2 control-label" for="input-return-action">{{ entry_return_action }}</label>
                   <div class="col-sm-10">
-                    <select name="return_action_id" id="input-return-action" class="form-control">
+                    <select name="return_action_id" id="input-return-action" class="form-control"/>
                       <option value="0"></option>
                       {% for return_action in return_actions %}
                         {% if return_action.return_action_id == return_action_id %}
@@ -177,7 +177,7 @@
                   <div class="form-group">
                     <label class="col-sm-2 control-label" for="input-return-status">{{ entry_return_status }}</label>
                     <div class="col-sm-10">
-                      <select name="return_status_id" id="input-return-status" class="form-control">
+                      <select name="return_status_id" id="input-return-status" class="form-control"/>
                         {% for return_status in return_statuses %}
                           {% if return_status.return_status_id == return_status_id %}
                             <option value="{{ return_status.return_status_id }}" selected="selected">{{ return_status.name }}</option>
@@ -205,7 +205,7 @@
                   <div class="form-group">
                     <label class="col-sm-2 control-label" for="input-return-status">{{ entry_return_status }}</label>
                     <div class="col-sm-10">
-                      <select name="return_status_id" id="input-return-status" class="form-control">
+                      <select name="return_status_id" id="input-return-status" class="form-control"/>
                         {% for return_status in return_statuses %}
                           {% if return_status.return_status_id == return_status_id %}
                             <option value="{{ return_status.return_status_id }}" selected="selected">{{ return_status.name }}</option>
@@ -225,7 +225,7 @@
                   <div class="form-group">
                     <label class="col-sm-2 control-label" for="input-history-comment">{{ entry_comment }}</label>
                     <div class="col-sm-10">
-                      <textarea name="comment" rows="8" id="input-history-comment" class="form-control"></textarea>
+                      <textarea name="comment" rows="8" id="input-history-comment" class="form-control"/></textarea>
                     </div>
                   </div>
                   <div class="text-right">

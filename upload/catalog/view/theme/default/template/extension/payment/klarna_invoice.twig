@@ -10,7 +10,7 @@
         <div class="form-group required">
           <label class="col-sm-2 control-label" for="input-dob">{{ entry_dob }}</label>
           <div class="col-sm-3">
-            <select name="pno_day" id="input-dob" class="form-control">
+            <select name="pno_day" id="input-dob" class="form-control"/>
               <option value="">{{ text_day }}</option>
               {% for day in days %}
                 <option value="{{ day.value }}">{{ day.text }}</option>
@@ -18,7 +18,7 @@
             </select>
           </div>
           <div class="col-sm-3">
-            <select name="pno_month" class="form-control">
+            <select name="pno_month" class="form-control"/>
               <option value="">{{ text_month }}</option>
               {% for month in months %}
                 <option value="{{ month.value }}">{{ month.text }}</option>
@@ -26,7 +26,7 @@
             </select>
           </div>
           <div class="col-sm-3">
-            <select name="pno_year" class="form-control">
+            <select name="pno_year" class="form-control"/>
               <option value="">{{ text_year }}</option>
               {% for year in years %}
                 <option value="{{ year.value }}">{{ year.text }}</option>

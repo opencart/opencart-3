@@ -80,7 +80,7 @@
                     <div class="form-group required">
                       <div class="col-sm-12">
                         <label class="control-label" for="input-review">{{ entry_review }}</label>
-                        <textarea name="text" rows="5" id="input-review" class="form-control"></textarea>
+                        <textarea name="text" rows="5" id="input-review" class="form-control"/></textarea>
                         <div class="help-block">{{ text_note }}</div>
                       </div>
                     </div>
@@ -161,7 +161,7 @@
                 {% if option.type == 'select' %}
                   <div class="form-group{% if option.required %} required {% endif %}">
                     <label class="control-label" for="input-option{{ option.product_option_id }}">{{ option.name }}</label>
-                    <select name="option[{{ option.product_option_id }}]" id="input-option{{ option.product_option_id }}" class="form-control">
+                    <select name="option[{{ option.product_option_id }}]" id="input-option{{ option.product_option_id }}" class="form-control"/>
                       <option value="">{{ text_select }}</option>
                       {% for option_value in option.product_option_value %}
                         <option value="{{ option_value.product_option_value_id }}">{{ option_value.name }}
@@ -220,7 +220,7 @@
                 {% if option.type == 'textarea' %}
                   <div class="form-group{% if option.required %} required {% endif %}">
                     <label class="control-label" for="input-option{{ option.product_option_id }}">{{ option.name }}</label>
-                    <textarea name="option[{{ option.product_option_id }}]" rows="5" placeholder="{{ option.name }}" id="input-option{{ option.product_option_id }}" class="form-control">{{ option.value }}</textarea>
+                    <textarea name="option[{{ option.product_option_id }}]" rows="5" placeholder="{{ option.name }}" id="input-option{{ option.product_option_id }}" class="form-control"/>{{ option.value }}</textarea>
                   </div>
                 {% endif %}
                 {% if option.type == 'file' %}
@@ -269,7 +269,7 @@
               <hr>
               <h3>{{ text_subscription }}</h3>
               <div class="form-group required">
-                <select name="subscription_plan_id" id="input-subscription" class="form-control">
+                <select name="subscription_plan_id" id="input-subscription" class="form-control"/>
                   <option value="">{{ text_select }}</option>
                   {% for subscription_plan in subscription_plans %}
                     <option value="{{ subscription_plan.subscription_plan_id }}">{{ subscription_plan.name }}</option>

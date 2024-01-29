@@ -58,7 +58,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-laybuy-min-deposit"><span data-toggle="tooltip" title="{{ help_minimum|escape('html') }}">{{ entry_minimum }}</span></label>
                 <div class="col-sm-10">
-                  <select name="payment_laybuy_min_deposit" id="input-laybuy-min-deposit" class="form-control">
+                  <select name="payment_laybuy_min_deposit" id="input-laybuy-min-deposit" class="form-control"/>
                     <option value="10" {{ payment_laybuy_min_deposit == 10 ? 'selected="selected"' : '' }} >10%</option>
                     <option value="20" {{ payment_laybuy_min_deposit == 20 ? 'selected="selected"' : '' }} >20%</option>
                     <option value="30" {{ payment_laybuy_min_deposit == 30 ? 'selected="selected"' : '' }} >30%</option>
@@ -73,7 +73,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-laybuy-max-deposit"><span data-toggle="tooltip" title="{{ help_maximum|escape('html') }}">{{ entry_maximum }}</span></label>
                 <div class="col-sm-10">
-                  <select name="payment_laybuy_max_deposit" id="input-laybuy-max-deposit" class="form-control">
+                  <select name="payment_laybuy_max_deposit" id="input-laybuy-max-deposit" class="form-control"/>
                     <option value="10" {{ payment_laybuy_max_deposit == 10 ? 'selected="selected"' : '' }} >10%</option>
                     <option value="20" {{ payment_laybuy_max_deposit == 20 ? 'selected="selected"' : '' }} >20%</option>
                     <option value="30" {{ payment_laybuy_max_deposit == 30 ? 'selected="selected"' : '' }} >30%</option>
@@ -85,7 +85,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-laybuy-max-months"><span data-toggle="tooltip" title="{{ help_months|escape('html') }}">{{ entry_max_months }}</span></label>
                 <div class="col-sm-10">
-                  <select name="payment_laybuy_max_months" id="input-laybuy-max-months" class="form-control">
+                  <select name="payment_laybuy_max_months" id="input-laybuy-max-months" class="form-control"/>
                     <option value="1" {{ payment_laybuy_max_months == 1 ? 'selected="selected"' : '' }} >1</option>
                     <option value="2" {{ payment_laybuy_max_months == 2 ? 'selected="selected"' : '' }} >2</option>
                     <option value="3" {{ payment_laybuy_max_months == 3 ? 'selected="selected"' : '' }} >3</option>
@@ -132,7 +132,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-laybuy-debug"><span data-toggle="tooltip" title="{{ help_debug|escape('html') }}">{{ entry_debug }}</span></label>
                 <div class="col-sm-10">
-                  <select name="payment_laybuy_debug" id="input-laybuy-debug" class="form-control">
+                  <select name="payment_laybuy_debug" id="input-laybuy-debug" class="form-control"/>
                     {% if payment_laybuy_debug %}
                       <option value="1" selected="selected">{{ text_enabled }}</option>
                       <option value="0">{{ text_disabled }}</option>
@@ -152,7 +152,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-laybuy-order-status-pending"><span data-toggle="tooltip" title="{{ help_order_status_pending|escape('html') }}">{{ entry_order_status_pending }}</span></label>
                 <div class="col-sm-10">
-                  <select name="payment_laybuy_pending_status_id" id="input-laybuy-order-status-pending" class="form-control">
+                  <select name="payment_laybuy_pending_status_id" id="input-laybuy-order-status-pending" class="form-control"/>
                     {% for order_status in order_statuses %}
                       {% if order_status.order_status_id == payment_laybuy_pending_status_id %}
                         <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
@@ -166,7 +166,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-laybuy-order-status-canceled"><span data-toggle="tooltip" title="{{ help_order_status_canceled|escape('html') }}">{{ entry_order_status_canceled }}</span></label>
                 <div class="col-sm-10">
-                  <select name="payment_laybuy_canceled_status_id" id="input-laybuy-order-status-canceled" class="form-control">
+                  <select name="payment_laybuy_canceled_status_id" id="input-laybuy-order-status-canceled" class="form-control"/>
                     {% for order_status in order_statuses %}
                       {% if order_status.order_status_id == payment_laybuy_canceled_status_id %}
                         <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
@@ -180,7 +180,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-laybuy-order-status-processing"><span data-toggle="tooltip" title="{{ help_order_status_processing|escape('html') }}">{{ entry_order_status_processing }}</span></label>
                 <div class="col-sm-10">
-                  <select name="payment_laybuy_processing_status_id" id="input-laybuy-order-status-processing" class="form-control">
+                  <select name="payment_laybuy_processing_status_id" id="input-laybuy-order-status-processing" class="form-control"/>
                     {% for order_status in order_statuses %}
                       {% if order_status.order_status_id == payment_laybuy_processing_status_id %}
                         <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
@@ -206,7 +206,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-laybuy-geo-zone">{{ entry_geo_zone }}</label>
                 <div class="col-sm-10">
-                  <select name="payment_laybuy_geo_zone_id" id="input-laybuy-geo-zone" class="form-control">
+                  <select name="payment_laybuy_geo_zone_id" id="input-laybuy-geo-zone" class="form-control"/>
                     <option value="0">{{ text_all_zones }}</option>
                     {% for geo_zone in geo_zones %}
                       {% if geo_zone.geo_zone_id == payment_laybuy_geo_zone_id %}
@@ -221,7 +221,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-laybuy-status">{{ entry_status }}</label>
                 <div class="col-sm-10">
-                  <select name="payment_laybuy_status" id="input-laybuy-status" class="form-control">
+                  <select name="payment_laybuy_status" id="input-laybuy-status" class="form-control"/>
                     {% if payment_laybuy_status %}
                       <option value="1" selected="selected">{{ text_enabled }}</option>
                       <option value="0">{{ text_disabled }}</option>

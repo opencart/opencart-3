@@ -18,7 +18,7 @@
     <div class="form-group">
       <label for="select-google-product-category" class="col-xs-12 control-label control-label-left"><span data-toggle="tooltip" title="{{ help_google_product_category|escape('html') }}">{{ entry_google_product_category }}</span></label>
       <div class="col-xs-12">
-        <select name="google_product_category" id="select-google-product-category" class="form-control">
+        <select name="google_product_category" id="select-google-product-category" class="form-control"/>
           {% for id, name in google_product_categories %}
             <option value="{{ id }}" {{ id == google_product_category ? 'selected' }}>{{ name }}</option>
           {% endfor %}
@@ -31,7 +31,7 @@
     <div class="form-group">
       <label for="select-color" class="col-xs-12 control-label control-label-left"><span data-toggle="tooltip" title="{{ help_color|escape('html') }}">{{ entry_color }}</span></label>
       <div class="col-xs-12">
-        <select name="color" id="select-color" class="form-control">
+        <select name="color" id="select-color" class="form-control"/>
           {% for id, name in options %}
             <option value="{{ id }}" {{ id == color ? 'selected' }}>{{ name }}</option>
           {% endfor %}
@@ -46,7 +46,7 @@
         <div class="row">
           <div class="col-sm-4 margin-top-10">
             <label for="select-size-system" class="control-label control-label-left"><span data-toggle="tooltip" title="{{ help_size_system|escape('html') }}">{{ entry_size_system }}</span></label>
-            <select name="size_system" id="select-size-system" class="form-control">
+            <select name="size_system" id="select-size-system" class="form-control"/>
               {% for id, name in size_systems %}
                 <option value="{{ id }}" {{ id == size_system ? 'selected' }}>{{ name }}</option>
               {% endfor %}
@@ -57,7 +57,7 @@
           </div>
           <div class="col-sm-4 margin-top-10">
             <label for="select-size-type" class="control-label control-label-left"><span data-toggle="tooltip" title="{{ help_size_type|escape('html') }}">{{ entry_size_type }}</span></label>
-            <select name="size_type" id="select-size-type" class="form-control">
+            <select name="size_type" id="select-size-type" class="form-control"/>
               {% for id, name in size_types %}
                 <option value="{{ id }}" {{ id == size_type ? 'selected' }}>{{ name }}</option>
               {% endfor %}
@@ -68,7 +68,7 @@
           </div>
           <div class="col-sm-4 margin-top-10">
             <label for="select-size" class="control-label control-label-left"><span data-toggle="tooltip" title="{{ help_size|escape('html') }}">{{ entry_size }}</span></label>
-            <select name="size" id="select-size" class="form-control">
+            <select name="size" id="select-size" class="form-control"/>
               {% for id, name in options %}
                 <option value="{{ id }}" {{ id == size ? 'selected' }}>{{ name }}</option>
               {% endfor %}
@@ -83,7 +83,7 @@
     <div class="form-group">
       <label for="select-condition" class="col-xs-12 control-label control-label-left"><span data-toggle="tooltip" title="{{ help_condition|escape('html') }}">{{ entry_condition }}</span></label>
       <div class="col-xs-12">
-        <select name="condition" id="select-condition" class="form-control">
+        <select name="condition" id="select-condition" class="form-control"/>
           {% for id, name in conditions %}
             <option value="{{ id }}" {{ id == condition ? 'selected' }}>{{ name }}</option>
           {% endfor %}
@@ -96,7 +96,7 @@
     <div class="form-group">
       <label for="select-age-group" class="col-xs-12 control-label control-label-left"><span data-toggle="tooltip" title="{{ help_age_group|escape('html') }}">{{ entry_age_group }}</span></label>
       <div class="col-xs-12">
-        <select name="age_group" id="select-age-group" class="form-control">
+        <select name="age_group" id="select-age-group" class="form-control"/>
           {% for id, name in age_groups %}
             <option value="{{ id }}" {{ id == age_group ? 'selected' }}>{{ name }}</option>
           {% endfor %}
@@ -109,7 +109,7 @@
     <div class="form-group">
       <label for="select-gender" class="col-xs-12 control-label control-label-left"><span data-toggle="tooltip" title="{{ help_gender|escape('html') }}">{{ entry_gender }}</span></label>
       <div class="col-xs-12">
-        <select name="gender" id="select-gender" class="form-control">
+        <select name="gender" id="select-gender" class="form-control"/>
           {% for id, name in genders %}
             <option value="{{ id }}" {{ id == gender ? 'selected' }}>{{ name }}</option>
           {% endfor %}

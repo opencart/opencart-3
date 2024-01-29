@@ -39,7 +39,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-user-group">{{ entry_user_group }}</label>
                 <div class="col-sm-10">
-                  <select name="user_group_id" id="input-user-group" class="form-control">
+                  <select name="user_group_id" id="input-user-group" class="form-control"/>
                     {% for user_group in user_groups %}
                       {% if user_group.user_group_id == user_group_id %}
                         <option value="{{ user_group.user_group_id }}" selected="selected">{{ user_group.name }}</option>
@@ -105,7 +105,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
                 <div class="col-sm-10">
-                  <select name="status" id="input-status" class="form-control">
+                  <select name="status" id="input-status" class="form-control"/>
                     {% if status %}
                       <option value="0">{{ text_disabled }}</option>
                       <option value="1" selected="selected">{{ text_enabled }}</option>

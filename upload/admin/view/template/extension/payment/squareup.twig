@@ -60,7 +60,7 @@
                 <div class="form-group">
                   <label class="col-sm-2 control-label" for="dropdown-payment-squareup-status"><span data-toggle="tooltip" title="{{ text_extension_status_help }}">{{ text_extension_status }}</span></label>
                   <div class="col-sm-10">
-                    <select name="payment_squareup_status" id="dropdown-payment-squareup-status" class="form-control">
+                    <select name="payment_squareup_status" id="dropdown-payment-squareup-status" class="form-control"/>
                       <option value="1" {% if payment_squareup_status == 1 %} selected {% endif %}>{{ text_extension_status_enabled }}</option>
                       <option value="0" {% if payment_squareup_status == 0 %} selected {% endif %}>{{ text_extension_status_disabled }}</option>
                     </select>
@@ -103,7 +103,7 @@
                 <div class="form-group">
                   <label class="col-sm-2 control-label" for="dropdown-payment-squareup-delay-capture"><span data-toggle="tooltip" title="{{ text_delay_capture_help }}">{{ text_delay_capture_label }}</span></label>
                   <div class="col-sm-10">
-                    <select name="payment_squareup_delay_capture" id="dropdown-payment-squareup-delay-capture" class="form-control">
+                    <select name="payment_squareup_delay_capture" id="dropdown-payment-squareup-delay-capture" class="form-control"/>
                       <option value="1" {% if payment_squareup_delay_capture == 1 %} selected {% endif %}>{{ text_authorize_label }}</option>
                       <option value="0" {% if payment_squareup_delay_capture == 0 %} selected {% endif %}>{{ text_sale_label }}</option>
                     </select>
@@ -118,7 +118,7 @@
                 <div class="form-group">
                   <label class="col-sm-2 control-label" for="input-geo-zone">{{ entry_geo_zone }}</label>
                   <div class="col-sm-10">
-                    <select name="payment_squareup_geo_zone_id" id="input-geo-zone" class="form-control">
+                    <select name="payment_squareup_geo_zone_id" id="input-geo-zone" class="form-control"/>
                       <option value="0">{{ text_all_zones }}</option>
                       {% for geo_zone in geo_zones %}
                         <option value="{{ geo_zone.geo_zone_id }}" {% if geo_zone.geo_zone_id == payment_squareup_geo_zone_id %} selected {% endif %}>{{ geo_zone.name }}</option>
@@ -135,7 +135,7 @@
                 <div class="form-group">
                   <label class="col-sm-2 control-label" for="dropdown-payment-squareup-debug"><span data-toggle="tooltip" title="{{ text_debug_help }}">{{ text_debug_label }}</span></label>
                   <div class="col-sm-10">
-                    <select name="payment_squareup_debug" id="dropdown-payment-squareup-debug" class="form-control">
+                    <select name="payment_squareup_debug" id="dropdown-payment-squareup-debug" class="form-control"/>
                       <option value="1" {% if payment_squareup_debug == 1 %} selected {% endif %}>{{ text_debug_enabled }}</option>
                       <option value="0" {% if payment_squareup_debug == 0 %} selected {% endif %}>{{ text_debug_disabled }}</option>
                     </select>
@@ -144,7 +144,7 @@
                 <div class="form-group">
                   <label class="col-sm-2 control-label" for="dropdown-payment-squareup-enable-sandbox"><span data-toggle="tooltip" title="{{ text_enable_sandbox_help }}">{{ text_enable_sandbox_label }}</span></label>
                   <div class="col-sm-10">
-                    <select name="payment_squareup_enable_sandbox" id="dropdown-payment-squareup-enable-sandbox" class="form-control">
+                    <select name="payment_squareup_enable_sandbox" id="dropdown-payment-squareup-enable-sandbox" class="form-control"/>
                       <option value="1" {% if payment_squareup_enable_sandbox == 1 %} selected {% endif %}>{{ text_sandbox_enabled_label }}</option>
                       <option value="0" {% if payment_squareup_enable_sandbox == 0 %} selected {% endif %}>{{ text_sandbox_disabled_label }}</option>
                     </select>
@@ -210,7 +210,7 @@
                 <div class="form-group">
                   <label class="col-sm-2 control-label" for="dropdown-payment-squareup-status-authorized"><span data-toggle="tooltip" title="{{ payment_squareup_status_comment_authorized }}">{{ entry_status_authorized }}</span></label>
                   <div class="col-sm-10">
-                    <select name="payment_squareup_status_authorized" id="dropdown-payment-squareup-status-authorized" class="form-control">
+                    <select name="payment_squareup_status_authorized" id="dropdown-payment-squareup-status-authorized" class="form-control"/>
                       {% for order_status in order_statuses %}
                         <option value="{{ order_status.order_status_id }}" {% if order_status.order_status_id == payment_squareup_status_authorized %} selected {% endif %}>{{ order_status.name }}</option>
                       {% endfor %}
@@ -220,7 +220,7 @@
                 <div class="form-group">
                   <label class="col-sm-2 control-label" for="dropdown-payment-squareup-status-captured"><span data-toggle="tooltip" title="{{ payment_squareup_status_comment_captured }}">{{ entry_status_captured }}</span></label>
                   <div class="col-sm-10">
-                    <select name="payment_squareup_status_captured" id="dropdown-payment-squareup-status-captured" class="form-control">
+                    <select name="payment_squareup_status_captured" id="dropdown-payment-squareup-status-captured" class="form-control"/>
                       {% for order_status in order_statuses %}
                         <option value="{{ order_status.order_status_id }}" {% if order_status.order_status_id == payment_squareup_status_captured %} selected {% endif %}>{{ order_status.name }}</option>
                       {% endfor %}
@@ -230,7 +230,7 @@
                 <div class="form-group">
                   <label class="col-sm-2 control-label" for="dropdown-payment-squareup-status-voided"><span data-toggle="tooltip" title="{{ payment_squareup_status_comment_voided }}">{{ entry_status_voided }}</span></label>
                   <div class="col-sm-10">
-                    <select name="payment_squareup_status_voided" id="dropdown-payment-squareup-status-voided" class="form-control">
+                    <select name="payment_squareup_status_voided" id="dropdown-payment-squareup-status-voided" class="form-control"/>
                       {% for order_status in order_statuses %}
                         <option value="{{ order_status.order_status_id }}" {% if order_status.order_status_id == payment_squareup_status_voided %} selected {% endif %}>{{ order_status.name }}</option>
                       {% endfor %}
@@ -240,7 +240,7 @@
                 <div class="form-group">
                   <label class="col-sm-2 control-label" for="dropdown-payment-squareup-status-failed"><span data-toggle="tooltip" title="{{ payment_squareup_status_comment_failed }}">{{ entry_status_failed }}</span></label>
                   <div class="col-sm-10">
-                    <select name="payment_squareup_status_failed" id="dropdown-payment-squareup-status-failed" class="form-control">
+                    <select name="payment_squareup_status_failed" id="dropdown-payment-squareup-status-failed" class="form-control"/>
                       {% for order_status in order_statuses %}
                         <option value="{{ order_status.order_status_id }}" {% if order_status.order_status_id == payment_squareup_status_failed %} selected {% endif %}>{{ order_status.name }}</option>
                       {% endfor %}
@@ -310,7 +310,7 @@
                 <div class="form-group">
                   <label class="control-label col-sm-2" for="dropdown-payment-squareup-cron-email-status"><span data-toggle="tooltip" data-original-title="{{ help_cron_email_status|escape('html') }}">{{ text_cron_email_status }}</span></label>
                   <div class="col-sm-10">
-                    <select name="payment_squareup_cron_email_status" id="dropdown-payment-squareup-cron-email-status" class="form-control">
+                    <select name="payment_squareup_cron_email_status" id="dropdown-payment-squareup-cron-email-status" class="form-control"/>
                       <option value="1" {% if payment_squareup_cron_email_status == '1' %} selected {% endif %}>{{ text_enabled }}</option>
                       <option value="0" {% if payment_squareup_cron_email_status == '0' %} selected {% endif %}>{{ text_disabled }}</option>
                     </select>
@@ -331,7 +331,7 @@
               <div class="form-group">
                 <label class="control-label col-sm-2" for="dropdown-payment-squareup-subscription-status"><span data-toggle="tooltip" data-original-title="{{ help_subscription_status|escape('html') }}">{{ text_subscription_status }}</span></label>
                 <div class="col-sm-10">
-                  <select name="payment_squareup_subscription_status" id="dropdown-payment-squareup-subscription-status" class="form-control">
+                  <select name="payment_squareup_subscription_status" id="dropdown-payment-squareup-subscription-status" class="form-control"/>
                     <option value="1" {% if payment_squareup_subscription_status == '1' %} selected {% endif %}>{{ text_enabled }}</option>
                     <option value="0" {% if payment_squareup_subscription_status == '0' %} selected {% endif %}>{{ text_disabled }}</option>
                   </select>
@@ -342,7 +342,7 @@
                 <div class="form-group">
                   <label class="control-label col-sm-2" for="dropdown-payment-squareup-notify-subscription-success"><span data-toggle="tooltip" data-original-title="{{ help_notify_subscription_success|escape('html') }}">{{ text_notify_subscription_success }}</span></label>
                   <div class="col-sm-10">
-                    <select name="payment_squareup_notify_subscription_success" id="dropdown-payment-squareup-notify-subscription-success" class="form-control">
+                    <select name="payment_squareup_notify_subscription_success" id="dropdown-payment-squareup-notify-subscription-success" class="form-control"/>
                       <option value="1" {% if payment_squareup_notify_subscription_success == '1' %} selected {% endif %}>{{ text_enabled }}</option>
                       <option value="0" {% if payment_squareup_notify_subscription_success == '0' %} selected {% endif %}>{{ text_disabled }}</option>
                     </select>
@@ -351,7 +351,7 @@
                 <div class="form-group">
                   <label class="control-label col-sm-2" for="dropdown-payment-squareup-notify-subscription-fail"><span data-toggle="tooltip" data-original-title="{{ help_notify_subscription_fail|escape('html') }}">{{ text_notify_subscription_fail }}</span></label>
                   <div class="col-sm-10">
-                    <select name="payment_squareup_notify_subscription_fail" id="dropdown-payment-squareup-notify-subscription-fail" class="form-control">
+                    <select name="payment_squareup_notify_subscription_fail" id="dropdown-payment-squareup-notify-subscription-fail" class="form-control"/>
                       <option value="1" {% if payment_squareup_notify_subscription_fail == '1' %} selected {% endif %}>{{ text_enabled }}</option>
                       <option value="0" {% if payment_squareup_notify_subscription_fail == '0' %} selected {% endif %}>{{ text_disabled }}</option>
                     </select>

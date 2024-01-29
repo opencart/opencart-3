@@ -37,7 +37,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-test">{{ entry_test }}</label>
             <div class="col-sm-10">
-              <select name="payment_sagepay_direct_test" id="input-test" class="form-control">
+              <select name="payment_sagepay_direct_test" id="input-test" class="form-control"/>
                 {% if payment_sagepay_direct_test == 'sim' %}
                   <option value="sim" selected="selected">{{ text_sim }}</option>
                 {% else %}
@@ -59,7 +59,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-transaction"><span data-toggle="tooltip" title="{{ help_transaction|escape('html') }}">{{ entry_transaction }}</span></label>
             <div class="col-sm-10">
-              <select name="payment_sagepay_direct_transaction" id="input-transaction" class="form-control">
+              <select name="payment_sagepay_direct_transaction" id="input-transaction" class="form-control"/>
                 {% if payment_sagepay_direct_transaction == 'PAYMENT' %}
                   <option value="PAYMENT" selected="selected">{{ text_payment }}</option>
                 {% else %}
@@ -87,7 +87,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-card">{{ entry_card }}</label>
             <div class="col-sm-10">
-              <select name="payment_sagepay_direct_card" id="input-card" class="form-control">
+              <select name="payment_sagepay_direct_card" id="input-card" class="form-control"/>
                 {% if payment_sagepay_direct_card %}
                   <option value="1" selected="selected">{{ text_enabled }}</option>
                   <option value="0">{{ text_disabled }}</option>
@@ -101,7 +101,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-order-status">{{ entry_order_status }}</label>
             <div class="col-sm-10">
-              <select name="payment_sagepay_direct_order_status_id" id="input-order-status" class="form-control">
+              <select name="payment_sagepay_direct_order_status_id" id="input-order-status" class="form-control"/>
                 {% for order_status in order_statuses %}
                   {% if order_status.order_status_id == payment_sagepay_direct_order_status_id %}
                     <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
@@ -115,7 +115,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-geo-zone">{{ entry_geo_zone }}</label>
             <div class="col-sm-10">
-              <select name="payment_sagepay_direct_geo_zone_id" id="input-geo-zone" class="form-control">
+              <select name="payment_sagepay_direct_geo_zone_id" id="input-geo-zone" class="form-control"/>
                 <option value="0">{{ text_all_zones }}</option>
                 {% for geo_zone in geo_zones %}
                   {% if geo_zone.geo_zone_id == payment_sagepay_direct_geo_zone_id %}
@@ -130,7 +130,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-debug"><span data-toggle="tooltip" title="{{ help_debug|escape('html') }}">{{ entry_debug }}</span></label>
             <div class="col-sm-10">
-              <select name="payment_sagepay_direct_debug" id="input-debug" class="form-control">
+              <select name="payment_sagepay_direct_debug" id="input-debug" class="form-control"/>
                 {% if payment_sagepay_direct_debug %}
                   <option value="1" selected="selected">{{ text_enabled }}</option>
                   <option value="0">{{ text_disabled }}</option>
@@ -144,7 +144,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
             <div class="col-sm-10">
-              <select name="payment_sagepay_direct_status" id="input-status" class="form-control">
+              <select name="payment_sagepay_direct_status" id="input-status" class="form-control"/>
                 {% if payment_sagepay_direct_status %}
                   <option value="1" selected="selected">{{ text_enabled }}</option>
                   <option value="0">{{ text_disabled }}</option>

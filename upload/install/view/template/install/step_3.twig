@@ -29,7 +29,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-db-driver">{{ entry_db_driver }}</label>
             <div class="col-sm-10">
-              <select name="db_driver" id="input-db-driver" class="form-control">
+              <select name="db_driver" id="input-db-driver" class="form-control"/>
                 {% for driver in drivers %}
                   {% if db_driver == driver.value %}
                     <option value="{{ driver.value }}" selected="selected">{{ driver.text }}</option>

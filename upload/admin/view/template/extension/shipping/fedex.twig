@@ -132,7 +132,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-length-class"><span data-toggle="tooltip" title="{{ help_length_class|escape('html') }}">{{ entry_length_class }}</span></label>
             <div class="col-sm-10">
-              <select name="shipping_fedex_length_class_id" id="input-length-class" class="form-control">
+              <select name="shipping_fedex_length_class_id" id="input-length-class" class="form-control"/>
                 {% for length_class in length_classes %}
                   {% if length_class.length_class_id == shipping_fedex_length_class_id %}
                     <option value="{{ length_class.length_class_id }}" selected="selected">{{ length_class.title }}</option>
@@ -146,7 +146,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-dropoff-type">{{ entry_dropoff_type }}</label>
             <div class="col-sm-10">
-              <select name="shipping_fedex_dropoff_type" id="input-dropoff-type" class="form-control">
+              <select name="shipping_fedex_dropoff_type" id="input-dropoff-type" class="form-control"/>
                 {% if shipping_fedex_dropoff_type == 'REGULAR_PICKUP' %}
                   <option value="REGULAR_PICKUP" selected="selected">{{ text_regular_pickup }}</option>
                 {% else %}
@@ -178,7 +178,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-packaging-type">{{ entry_packaging_type }}</label>
             <div class="col-sm-10">
-              <select name="shipping_fedex_packaging_type" id="input-packaging-type" class="form-control">
+              <select name="shipping_fedex_packaging_type" id="input-packaging-type" class="form-control"/>
                 {% if shipping_fedex_packaging_type == 'FEDEX_ENVELOPE' %}
                   <option value="FEDEX_ENVELOPE" selected="selected">{{ text_fedex_envelope }}</option>
                 {% else %}
@@ -220,7 +220,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-rate-type">{{ entry_rate_type }}</label>
             <div class="col-sm-10">
-              <select name="shipping_fedex_rate_type" id="input-rate-type" class="form-control">
+              <select name="shipping_fedex_rate_type" id="input-rate-type" class="form-control"/>
                 {% if shipping_fedex_rate_type == 'LIST' %}
                   <option value="LIST" selected="selected">{{ text_list_rate }}</option>
                 {% else %}
@@ -275,7 +275,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-weight-class"><span data-toggle="tooltip" title="{{ help_weight_class|escape('html') }}">{{ entry_weight_class }}</span></label>
             <div class="col-sm-10">
-              <select name="shipping_fedex_weight_class_id" id="input-weight-class" class="form-control">
+              <select name="shipping_fedex_weight_class_id" id="input-weight-class" class="form-control"/>
                 {% for weight_class in weight_classes %}
                   {% if weight_class.weight_class_id == shipping_fedex_weight_class_id %}
                     <option value="{{ weight_class.weight_class_id }}" selected="selected">{{ weight_class.title }}</option>
@@ -289,7 +289,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-tax-class">{{ entry_tax_class }}</label>
             <div class="col-sm-10">
-              <select name="shipping_fedex_tax_class_id" id="input-tax-class" class="form-control">
+              <select name="shipping_fedex_tax_class_id" id="input-tax-class" class="form-control"/>
                 <option value="0">{{ text_none }}</option>
                 {% for tax_class in tax_classes %}
                   {% if tax_class.tax_class_id == shipping_fedex_tax_class_id %}
@@ -304,7 +304,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-geo-zone">{{ entry_geo_zone }}</label>
             <div class="col-sm-10">
-              <select name="shipping_fedex_geo_zone_id" id="input-geo-zone" class="form-control">
+              <select name="shipping_fedex_geo_zone_id" id="input-geo-zone" class="form-control"/>
                 <option value="0">{{ text_all_zones }}</option>
                 {% for geo_zone in geo_zones %}
                   {% if geo_zone.geo_zone_id == shipping_fedex_geo_zone_id %}
@@ -319,7 +319,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
             <div class="col-sm-10">
-              <select name="shipping_fedex_status" id="input-status" class="form-control">
+              <select name="shipping_fedex_status" id="input-status" class="form-control"/>
                 {% if shipping_fedex_status %}
                   <option value="1" selected="selected">{{ text_enabled }}</option>
                   <option value="0">{{ text_disabled }}</option>

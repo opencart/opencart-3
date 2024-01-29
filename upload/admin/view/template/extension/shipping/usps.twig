@@ -408,7 +408,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-size">{{ entry_size }}</label>
             <div class="col-sm-10">
-              <select name="shipping_usps_size" id="input-size" class="form-control">
+              <select name="shipping_usps_size" id="input-size" class="form-control"/>
                 {% for size in sizes %}
                   {% if size.value == shipping_usps_size %}
                     <option value="{{ size.value }}" selected="selected">{{ size.text }}</option>
@@ -422,7 +422,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-container">{{ entry_container }}</label>
             <div class="col-sm-10">
-              <select name="shipping_usps_container" id="input-container" class="form-control">
+              <select name="shipping_usps_container" id="input-container" class="form-control"/>
                 {% for container in containers %}
                   {% if container.value == shipping_usps_container %}
                     <option value="{{ container.value }}" selected="selected">{{ container.text }}</option>
@@ -436,7 +436,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-machinable">{{ entry_machinable }}</label>
             <div class="col-sm-10">
-              <select name="shipping_usps_machinable" id="input-machinable" class="form-control">
+              <select name="shipping_usps_machinable" id="input-machinable" class="form-control"/>
                 {% if shipping_usps_machinable %}
                   <option value="1" selected="selected">{{ text_yes }}</option>
                   <option value="0">{{ text_no }}</option>
@@ -507,7 +507,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-weight-class"><span data-toggle="tooltip" title="{{ help_weight_class|escape('html') }}">{{ entry_weight_class }}</span></label>
             <div class="col-sm-10">
-              <select name="shipping_usps_weight_class_id" id="input-weight-class" class="form-control">
+              <select name="shipping_usps_weight_class_id" id="input-weight-class" class="form-control"/>
                 {% for weight_class in weight_classes %}
                   {% if weight_class.weight_class_id == shipping_usps_weight_class_id %}
                     <option value="{{ weight_class.weight_class_id }}" selected="selected">{{ weight_class.title }}</option>
@@ -521,7 +521,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-tax-class">{{ entry_tax }}</label>
             <div class="col-sm-10">
-              <select name="shipping_usps_tax_class_id" id="input-tax-class" class="form-control">
+              <select name="shipping_usps_tax_class_id" id="input-tax-class" class="form-control"/>
                 <option value="0">{{ text_none }}</option>
                 {% for tax_class in tax_classes %}
                   {% if tax_class.tax_class_id == shipping_usps_tax_class_id %}
@@ -536,7 +536,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-geo-zone">{{ entry_geo_zone }}</label>
             <div class="col-sm-10">
-              <select name="shipping_usps_geo_zone_id" id="input-geo-zone" class="form-control">
+              <select name="shipping_usps_geo_zone_id" id="input-geo-zone" class="form-control"/>
                 <option value="0">{{ text_all_zones }}</option>
                 {% for geo_zone in geo_zones %}
                   {% if geo_zone.geo_zone_id == shipping_usps_geo_zone_id %}
@@ -551,7 +551,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
             <div class="col-sm-10">
-              <select name="shipping_usps_status" id="input-status" class="form-control">
+              <select name="shipping_usps_status" id="input-status" class="form-control"/>
                 {% if shipping_usps_status %}
                   <option value="1" selected="selected">{{ text_enabled }}</option>
                   <option value="0">{{ text_disabled }}</option>
@@ -571,7 +571,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-debug"><span data-toggle="tooltip" title="{{ help_debug|escape('html') }}">{{ entry_debug }}</span></label>
             <div class="col-sm-10">
-              <select name="shipping_usps_debug" id="input-debug" class="form-control">
+              <select name="shipping_usps_debug" id="input-debug" class="form-control"/>
                 {% if shipping_usps_debug %}
                   <option value="1" selected="selected">{{ text_enabled }}</option>
                   <option value="0">{{ text_disabled }}</option>

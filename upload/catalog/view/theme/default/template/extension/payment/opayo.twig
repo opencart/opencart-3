@@ -14,7 +14,7 @@
       <div class="form-group required">
         <label class="col-sm-2 control-label" for="input-opayo-card">{{ entry_card_choice }}</label>
         <div class="col-sm-8">
-          <select name="opayo_card_token" id="input-opayo-card" class="form-control">
+          <select name="opayo_card_token" id="input-opayo-card" class="form-control"/>
             {% for card in cards %}
             <option value="{{ card.token }}">{{ text_card_type }} {{ card.type }}, {{ text_card_digits }} {{ card.digits }}, {{ text_card_expiry }} {{ card.expiry }}</option>
             {% endfor %}
@@ -27,7 +27,7 @@
       <div class="form-group required">
         <label class="col-sm-2 control-label" for="input-card-cvv2">{{ entry_card_cvv2 }}</label>
         <div class="col-sm-10">
-          <input type="text" name="opayo_card_cvv2_1" value="" placeholder="{{ entry_card_cvv2 }}" id="input-card-cvv2" class="form-control" />
+          <input type="text" name="opayo_card_cvv2_1" value="" placeholder="{{ entry_card_cvv2 }}" id="input-card-cvv2" class="form-control"/>
         </div>
       </div>
     </div>
@@ -35,13 +35,13 @@
       <div class="form-group required">
         <label class="col-sm-2 control-label" for="input-card-owner">{{ entry_card_owner }}</label>
         <div class="col-sm-10">
-          <input type="text" name="opayo_card_owner" value="" placeholder="{{ entry_card_owner }}" id="input-card-owner" class="form-control" />
+          <input type="text" name="opayo_card_owner" value="" placeholder="{{ entry_card_owner }}" id="input-card-owner" class="form-control"/>
         </div>
       </div>
       <div class="form-group required">
         <label class="col-sm-2 control-label" for="input-card-type">{{ entry_card_type }}</label>
         <div class="col-sm-10">
-          <select name="opayo_card_type" id="input-card-type" class="form-control">
+          <select name="opayo_card_type" id="input-card-type" class="form-control"/>
             {% for card_type in card_types %}
             <option value="{{ card_type.code }}">{{ card_type.name }}</option>
             {% endfor %}
@@ -51,20 +51,20 @@
       <div class="form-group required">
         <label class="col-sm-2 control-label" for="input-card-number">{{ entry_card_number }}</label>
         <div class="col-sm-10">
-          <input type="text" name="opayo_card_number" value="" placeholder="{{ entry_card_number }}" id="input-card-number" class="form-control" />
+          <input type="text" name="opayo_card_number" value="" placeholder="{{ entry_card_number }}" id="input-card-number" class="form-control"/>
         </div>
       </div>
       <div class="form-group required">
         <label class="col-sm-2 control-label" for="input-card-expire-date">{{ entry_card_expire_date }}</label>
         <div class="col-sm-5">
-          <select name="opayo_card_expire_date_month" id="input-card-expire-date" class="form-control">
+          <select name="opayo_card_expire_date_month" id="input-card-expire-date" class="form-control"/>
             {% for month in months %}
             <option value="{{ month.code }}">{{ month.name }}</option>
             {% endfor %}
           </select>
         </div>
         <div class="col-sm-5">
-          <select name="opayo_card_expire_date_year" class="form-control">
+          <select name="opayo_card_expire_date_year" class="form-control"/>
             {% for year in years %}
             <option value="{{ year.code }}">{{ year.name }}</option>
             {% endfor %}
@@ -74,7 +74,7 @@
       <div class="form-group required">
         <label class="col-sm-2 control-label" for="input-card-cvv2">{{ entry_card_cvv2 }}</label>
         <div class="col-sm-10">
-          <input type="text" name="opayo_card_cvv2_2" value="" placeholder="{{ entry_card_cvv2 }}" id="input-card-cvv2" class="form-control" />
+          <input type="text" name="opayo_card_cvv2_2" value="" placeholder="{{ entry_card_cvv2 }}" id="input-card-cvv2" class="form-control"/>
         </div>
       </div>
       {% if logged and card_save %}

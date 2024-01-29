@@ -71,7 +71,7 @@
                 </div>
                 <div class="form-group">
                   <label class="control-label" for="input-contact-sales">{{ entry_contact_sales }}</label>
-                  <select name="payment_paypal_setting[contact][00N30000000gJEZ]" id="input-contact-sales" class="form-control">
+                  <select name="payment_paypal_setting[contact][00N30000000gJEZ]" id="input-contact-sales" class="form-control"/>
                     {% if setting_contact.00N30000000gJEZ == '' %}
                       <option value="" selected="selected">{{ text_none }}</option>
                     {% else %}
@@ -94,7 +94,7 @@
               <div class="col col-md-6">
                 <div class="form-group">
                   <label class="control-label" for="input-contact-country">{{ entry_contact_country }}</label>
-                  <select name="payment_paypal_setting[contact][country]" id="input-contact-country" class="form-control">
+                  <select name="payment_paypal_setting[contact][country]" id="input-contact-country" class="form-control"/>
                     {% for country in countries %}
                       {% if country.iso_code_2 == setting_contact.country %}
                         <option value="{{ country.iso_code_2 }}" selected="selected">{{ country.name }}</option>
@@ -106,7 +106,7 @@
                 </div>
                 <div class="form-group">
                   <label class="control-label" for="input-contact-notes">{{ entry_contact_notes }}</label>
-                  <textarea name="payment_paypal_setting[contact][00N2E00000II4xQ]" id="input-contact-notes" class="form-control">{{ setting_contact.00N2E00000II4xQ }}</textarea>
+                  <textarea name="payment_paypal_setting[contact][00N2E00000II4xQ]" id="input-contact-notes" class="form-control"/>{{ setting_contact.00N2E00000II4xQ }}</textarea>
                 </div>
                 <div class="form-group">
                   <div id="input-contact-merchant">

@@ -56,7 +56,7 @@
               <div class="form-group required">
                 <label class="col-sm-2 control-label" for="input-pilibaba-currency"><span data-toggle="tooltip" title="{{ help_currency|escape('html') }}">{{ entry_currency }}</span></label>
                 <div class="col-sm-10">
-                  <select name="pilibaba_currency" id="input-pilibaba-currency" class="form-control">
+                  <select name="pilibaba_currency" id="input-pilibaba-currency" class="form-control"/>
                     <option value="">{{ text_select_currency }}</option>
                     {% for currency in currencies %}
                       <option value="{{ currency }}">{{ currency }}</option>
@@ -67,7 +67,7 @@
               <div class="form-group required">
                 <label class="col-sm-2 control-label" for="input-pilibaba-warehouse"><span data-toggle="tooltip" title="{{ help_warehouse|escape('html') }}">{{ entry_warehouse }}</span></label>
                 <div class="col-sm-10">
-                  <select name="pilibaba_warehouse" id="input-pilibaba-warehouse" class="form-control">
+                  <select name="pilibaba_warehouse" id="input-pilibaba-warehouse" class="form-control"/>
                     <option value="">{{ text_select_warehouse }}</option>
                     {% for warehouse in warehouses %}
                       <option value="{{ warehouse.id }}">{{ warehouse.country }} {{ warehouse.city }} {{ warehouse.firstName }} {{ warehouse.lastName }}</option>
@@ -79,7 +79,7 @@
               <div class="form-group" style="display:none">
                 <label class="col-sm-2 control-label" for="input-pilibaba-country"><span data-toggle="tooltip" title="{{ help_country|escape('html') }}">{{ entry_country }}</span></label>
                 <div class="col-sm-10">
-                  <select name="pilibaba_country" id="input-pilibaba-country" class="form-control">
+                  <select name="pilibaba_country" id="input-pilibaba-country" class="form-control"/>
                     <option value="">{{ text_select_country }}</option>
                     {% for country in countries %}
                       <option value="{{ country.iso_code_3 }}">{{ country.name }}</option>
@@ -118,7 +118,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-pilibaba-environment">{{ entry_environment }}</label>
                 <div class="col-sm-10">
-                  <select name="payment_pilibaba_environment" id="input-pilibaba-environment" class="form-control">
+                  <select name="payment_pilibaba_environment" id="input-pilibaba-environment" class="form-control"/>
                     {% if payment_pilibaba_environment == 'live' %}
                       <option value="live" selected="selected">{{ text_live }}</option>
                     {% else %}
@@ -144,7 +144,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-pilibaba-order-status"><span data-toggle="tooltip" title="{{ help_order_status|escape('html') }}">{{ entry_order_status }}</span></label>
                 <div class="col-sm-10">
-                  <select name="payment_pilibaba_order_status_id" id="input-pilibaba-order-status" class="form-control">
+                  <select name="payment_pilibaba_order_status_id" id="input-pilibaba-order-status" class="form-control"/>
                     {% for order_status in order_statuses %}
                       {% if order_status.order_status_id == payment_pilibaba_order_status_id %}
                         <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
@@ -158,7 +158,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-pilibaba-status">{{ entry_status }}</label>
                 <div class="col-sm-10">
-                  <select name="payment_pilibaba_status" id="input-pilibaba-status" class="form-control">
+                  <select name="payment_pilibaba_status" id="input-pilibaba-status" class="form-control"/>
                     {% if payment_pilibaba_status %}
                       <option value="1" selected="selected">{{ text_enabled }}</option>
                       <option value="0">{{ text_disabled }}</option>
@@ -172,7 +172,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-pilibaba-debug"><span data-toggle="tooltip" title="{{ help_debug|escape('html') }}">{{ entry_debug }}</span></label>
                 <div class="col-sm-10">
-                  <select name="payment_pilibaba_debug" id="input-pilibaba-debug" class="form-control">
+                  <select name="payment_pilibaba_debug" id="input-pilibaba-debug" class="form-control"/>
                     {% if payment_pilibaba_debug %}
                       <option value="1" selected="selected">{{ text_enabled }}</option>
                       <option value="0">{{ text_disabled }}</option>

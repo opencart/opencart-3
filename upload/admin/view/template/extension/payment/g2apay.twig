@@ -96,7 +96,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-geo-zone">{{ entry_geo_zone }}</label>
                 <div class="col-sm-10">
-                  <select name="payment_g2apay_geo_zone_id" id="input-geo-zone" class="form-control">
+                  <select name="payment_g2apay_geo_zone_id" id="input-geo-zone" class="form-control"/>
                     <option value="0">{{ text_all_zones }}</option>
                     {% for geo_zone in geo_zones %}
                       {% if geo_zone.geo_zone_id == payment_g2apay_geo_zone_id %}
@@ -111,7 +111,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-debug">{{ entry_debug }}</label>
                 <div class="col-sm-10">
-                  <select name="payment_g2apay_debug" id="input-debug" class="form-control">
+                  <select name="payment_g2apay_debug" id="input-debug" class="form-control"/>
                     {% if payment_g2apay_debug %}
                       <option value="1" selected="selected">{{ text_enabled }}</option>
                       <option value="0">{{ text_disabled }}</option>
@@ -126,7 +126,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
                 <div class="col-sm-10">
-                  <select name="payment_g2apay_status" id="input-status" class="form-control">
+                  <select name="payment_g2apay_status" id="input-status" class="form-control"/>
                     {% if payment_g2apay_status %}
                       <option value="1" selected="selected">{{ text_enabled }}</option>
                       <option value="0">{{ text_disabled }}</option>
@@ -148,7 +148,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-order-status">{{ entry_order_status }}</label>
                 <div class="col-sm-10">
-                  <select name="payment_g2apay_order_status_id" id="input-order-status" class="form-control">
+                  <select name="payment_g2apay_order_status_id" id="input-order-status" class="form-control"/>
                     {% for order_status in order_statuses %}
                       {% if order_status.order_status_id == payment_g2apay_order_status_id %}
                         <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
@@ -162,7 +162,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label">{{ entry_complete_status }}</label>
                 <div class="col-sm-10">
-                  <select name="payment_g2apay_complete_status_id" class="form-control">
+                  <select name="payment_g2apay_complete_status_id" class="form-control"/>
                     {% for order_status in order_statuses %}
                       {% if order_status.order_status_id == payment_g2apay_complete_status_id %}
                         <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
@@ -176,7 +176,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label">{{ entry_rejected_status }}</label>
                 <div class="col-sm-10">
-                  <select name="payment_g2apay_rejected_status_id" class="form-control">
+                  <select name="payment_g2apay_rejected_status_id" class="form-control"/>
                     {% for order_status in order_statuses %}
                       {% if order_status.order_status_id == payment_g2apay_rejected_status_id %}
                         <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
@@ -190,7 +190,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label">{{ entry_cancelled_status }}</label>
                 <div class="col-sm-10">
-                  <select name="payment_g2apay_cancelled_status_id" class="form-control">
+                  <select name="payment_g2apay_cancelled_status_id" class="form-control"/>
                     {% for order_status in order_statuses %}
                       {% if order_status.order_status_id == payment_g2apay_cancelled_status_id %}
                         <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
@@ -204,7 +204,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label">{{ entry_pending_status }}</label>
                 <div class="col-sm-10">
-                  <select name="payment_g2apay_pending_status_id" class="form-control">
+                  <select name="payment_g2apay_pending_status_id" class="form-control"/>
                     {% for order_status in order_statuses %}
                       {% if order_status.order_status_id == payment_g2apay_pending_status_id %}
                         <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
@@ -218,7 +218,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label">{{ entry_refunded_status }}</label>
                 <div class="col-sm-10">
-                  <select name="payment_g2apay_refunded_status_id" class="form-control">
+                  <select name="payment_g2apay_refunded_status_id" class="form-control"/>
                     {% for order_status in order_statuses %}
                       {% if order_status.order_status_id == payment_g2apay_refunded_status_id %}
                         <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
@@ -232,7 +232,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label">{{ entry_partially_refunded_status }}</label>
                 <div class="col-sm-10">
-                  <select name="payment_g2apay_partially_refunded_status_id" class="form-control">
+                  <select name="payment_g2apay_partially_refunded_status_id" class="form-control"/>
                     {% for order_status in order_statuses %}
                       {% if order_status.order_status_id == payment_g2apay_partially_refunded_status_id %}
                         <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>

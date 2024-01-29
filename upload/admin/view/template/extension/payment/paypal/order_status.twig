@@ -44,7 +44,7 @@
                   {% for paypal_order_status in column_paypal_order_status %}
                     <div class="form-group">
                       <label class="control-label" for="input-order-status-{{ paypal_order_status.code }}">{{ attribute(_context, paypal_order_status.name) }}</label>
-                      <select name="payment_paypal_setting[order_status][{{ paypal_order_status.code }}][id]" id="input-{{ paypal_order_status.code }}-status" class="form-control">
+                      <select name="payment_paypal_setting[order_status][{{ paypal_order_status.code }}][id]" id="input-{{ paypal_order_status.code }}-status" class="form-control"/>
                         {% for order_status in order_statuses %}
                           {% if order_status.order_status_id == paypal_order_status.id %}
                             <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
