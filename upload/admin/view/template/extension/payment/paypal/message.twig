@@ -43,7 +43,7 @@
                 <li class="nav-pill {% if loop.first %}active{% endif %}"><a href="#pill-{{ message.page_code }}" class="pill" data-toggle="tab">{{ attribute(_context, message.page_name) }}</a></li>
               {% endfor %}
             </ul>
-            <hr class="hr" />
+            <hr class="hr"/>
             <div class="tab-content">
               {% for message in setting.message %}
                 <div id="pill-{{ message.page_code }}" class="tab-pane {% if loop.first %}active{% endif %}">
@@ -64,7 +64,7 @@
                               <div class="form-check-input"></div>
                               <label class="payment-label">
                                 {{ text_payment_method_paypal_paylater }}
-                                <br />
+                                <br/>
                                 <div id="paypal-message-checkout" class="paypal-message">
                                   <div id="paypal-message-checkout-container" class="paypal-message-container paypal-spinner"></div>
                                 </div>
@@ -178,8 +178,8 @@
                           <div class="col col-md-6">
                             <div class="form-group-status">
                               <label class="control-label" for="input-message-{{ message.page_code }}-status"><span data-toggle="tooltip" title="{{ help_message_status|escape('html') }}">{{ entry_status }}</span></label>
-                              <input type="hidden" name="payment_paypal_setting[message][{{ message.page_code }}][status]" value="0" />
-                              <input type="checkbox" name="payment_paypal_setting[message][{{ message.page_code }}][status]" value="1" class="switch" {% if message.status %}checked="checked"{% endif %} />
+                              <input type="hidden" name="payment_paypal_setting[message][{{ message.page_code }}][status]" value="0"/>
+                              <input type="checkbox" name="payment_paypal_setting[message][{{ message.page_code }}][status]" value="1" class="switch" {% if message.status %}checked="checked"{% endif %}/>
                             </div>
                           </div>
                         </div>

@@ -234,9 +234,9 @@
                         <label>
                           {% if quote.code == code or not code %}
                             {% set code = quote.code %}
-                              <input type="radio" name="shipping_method" value="{{ quote.code }}" id="{{ quote.code }}" checked="checked" />
+                              <input type="radio" name="shipping_method" value="{{ quote.code }}" id="{{ quote.code }}" checked="checked"/>
                             {% else %}
-                              <input type="radio" name="shipping_method" value="{{ quote.code }}" id="{{ quote.code }}" />
+                              <input type="radio" name="shipping_method" value="{{ quote.code }}" id="{{ quote.code }}"/>
                             {% endif %}
                             {{ quote.title }} - {{ quote.text }}
                         </label>
@@ -260,7 +260,7 @@
             {% if payment_method.code == 'paypal' %}
               <div class="radio">
                 <label>
-                  <input type="radio" name="payment_method" value="{{ payment_method.code }}" checked="checked" />
+                  <input type="radio" name="payment_method" value="{{ payment_method.code }}" checked="checked"/>
                   {{ payment_method.title }}
                 </label>
               </div>
@@ -284,11 +284,11 @@
               <tr>
                 <td class="text-left">
                   <a href="{{ product.href }}">{{ product.name }}</a>
-                  {% for option in product.option %} <br />
+                  {% for option in product.option %} <br/>
                     <small> - {{ option.name }}: {{ option.value }}</small>
                   {% endfor %}
                   {% if product.subscription %}
-                    <br /><span class="label label-info">{{ text_recurring_item }}</span> <small>{{ product.subscription }}</small>
+                    <br/><span class="label label-info">{{ text_recurring_item }}</span> <small>{{ product.subscription }}</small>
                   {% endif %}
                 </td>
                 <td class="text-left">{{ product.model }}</td>
@@ -309,10 +309,10 @@
           </tbody>
         </table>
       </div>
-      <br />
+      <br/>
       {% if total_coupon or total_voucher or total_reward %}
         <div class="panel-group" id="accordion">{{ total_coupon }}{{ total_voucher }}{{ total_reward }}</div>
-      <br />
+      <br/>
       {% endif %}
       <div class="row">
         <div class="col-sm-4 col-sm-offset-8">
@@ -465,7 +465,7 @@ function onLoadPaymentAddress() {
 
         $('#form-upload').remove();
 
-        $('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="file" /></form>');
+        $('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="file"/></form>');
 
         $('#form-upload input[name=\'file\']').trigger('click');
 
@@ -631,7 +631,7 @@ function onLoadShippingAddress() {
 
         $('#form-upload').remove();
 
-        $('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="file" /></form>');
+        $('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="file"/></form>');
 
         $('#form-upload input[name=\'file\']').trigger('click');
 

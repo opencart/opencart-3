@@ -96,8 +96,8 @@
                     <div class="col col-md-6">
                       <div class="form-group-status">
                         <label class="control-label" for="input-card-status"><span data-toggle="tooltip" title="{{ help_card_status|escape('html') }}">{{ entry_status }}</span></label>
-                        <input type="hidden" name="payment_paypal_setting[card][status]" value="0" />{% set setting_card = setting.card %}
-                        <input type="checkbox" name="payment_paypal_setting[card][status]" value="1" class="switch" {% if setting_card.status %}checked="checked"{% endif %} />
+                        <input type="hidden" name="payment_paypal_setting[card][status]" value="0"/>{% set setting_card = setting.card %}
+                        <input type="checkbox" name="payment_paypal_setting[card][status]" value="1" class="switch" {% if setting_card.status %}checked="checked"{% endif %}/>
                       </div>
                     </div>
                   </div>
@@ -128,11 +128,11 @@
                   <div class="form-group">
                     <label class="control-label" for="input-card-secure-status"><span data-toggle="tooltip" title="{{ help_card_secure_status|escape('html') }}">{{ entry_card_secure_status }}</span></label>
                     <div id="input-secure-status">
-                      <input type="hidden" name="payment_paypal_setting[card][secure_status]" value="0" />
-                      <input type="checkbox" name="payment_paypal_setting[card][secure_status]" value="1" class="switch" {% if setting_card.secure_status %}checked="checked"{% endif %} />
+                      <input type="hidden" name="payment_paypal_setting[card][secure_status]" value="0"/>
+                      <input type="checkbox" name="payment_paypal_setting[card][secure_status]" value="1" class="switch" {% if setting_card.secure_status %}checked="checked"{% endif %}/>
                     </div>
                   </div>
-                  <hr class="hr" />
+                  <hr class="hr"/>
                   <button type="button" href="#all-settings" class="btn btn-default button-all-settings collapsed" data-toggle="collapse" role="button">{{ button_all_settings }}<i class="icon icon-all-settings"></i></button>	
                   <div id="all-settings" class="all-settings collapse">
                     <div class="form-group">

@@ -43,31 +43,31 @@
                 <legend class="legend">{{ text_contact_business }}</legend>
               </div>
               <div class="col col-md-6">{% set setting_contact = setting.contact %}
-                <input type="hidden" name="payment_paypal_setting[contact][oid]" value="{{ setting_contact.oid }}" />
+                <input type="hidden" name="payment_paypal_setting[contact][oid]" value="{{ setting_contact.oid }}"/>
                 <input type="hidden" name="payment_paypal_setting[contact][retURL]" value="{{ setting_contact.retURL }}">
-                <input type="hidden" name="payment_paypal_setting[contact][Vendor_Partner_ID_VPID_MAM__c]" value="{{ setting_contact.Vendor_Partner_ID_VPID_MAM__c }}" />
-                <input type="hidden" name="payment_paypal_setting[contact][Campaign_ID__c]" value="{{ setting_contact.Campaign_ID__c }}" />
-                <input type="hidden" name="payment_paypal_setting[contact][lead_source]" value="{{ setting_contact.lead_source }}" />
-                <input type="hidden" name="payment_paypal_setting[contact][recordType]" value="{{ setting_contact.recordType }}" />
+                <input type="hidden" name="payment_paypal_setting[contact][Vendor_Partner_ID_VPID_MAM__c]" value="{{ setting_contact.Vendor_Partner_ID_VPID_MAM__c }}"/>
+                <input type="hidden" name="payment_paypal_setting[contact][Campaign_ID__c]" value="{{ setting_contact.Campaign_ID__c }}"/>
+                <input type="hidden" name="payment_paypal_setting[contact][lead_source]" value="{{ setting_contact.lead_source }}"/>
+                <input type="hidden" name="payment_paypal_setting[contact][recordType]" value="{{ setting_contact.recordType }}"/>
                 <div class="form-group">
                   <label class="control-label" for="input-contact-company">{{ entry_contact_company }}</label>
-                  <input type="text" name="payment_paypal_setting[contact][company]" value="{{ setting_contact.company }}" id="input-contact-company" class="form-control" maxlength="40" />
+                  <input type="text" name="payment_paypal_setting[contact][company]" value="{{ setting_contact.company }}" id="input-contact-company" class="form-control" maxlength="40"/>
                 </div>
                 <div class="form-group">
                   <label class="control-label" for="input-contact-first-name">{{ entry_contact_first_name }}</label>
-                  <input type="text" name="payment_paypal_setting[contact][first_name]" value="{{ setting_contact.first_name }}" id="input-contact-first-name" class="form-control" maxlength="40" />
+                  <input type="text" name="payment_paypal_setting[contact][first_name]" value="{{ setting_contact.first_name }}" id="input-contact-first-name" class="form-control" maxlength="40"/>
                 </div>
                 <div class="form-group">
                   <label class="control-label" for="input-contact-last-name">{{ entry_contact_last_name }}</label>
-                  <input type="text" name="payment_paypal_setting[contact][last_name]" value="{{ setting_contact.last_name }}" id="input-contact-last-name" class="form-control" maxlength="80" />
+                  <input type="text" name="payment_paypal_setting[contact][last_name]" value="{{ setting_contact.last_name }}" id="input-contact-last-name" class="form-control" maxlength="80"/>
                 </div>
                 <div class="form-group">
                   <label class="control-label" for="input-contact-email">{{ entry_contact_email }}</label>
-                  <input type="text" name="payment_paypal_setting[contact][email]" value="{{ setting_contact.email }}" id="input-contact-email" class="form-control" maxlength="80" />
+                  <input type="text" name="payment_paypal_setting[contact][email]" value="{{ setting_contact.email }}" id="input-contact-email" class="form-control" maxlength="80"/>
                 </div>
                 <div class="form-group">
                   <label class="control-label" for="input-contact-url">{{ entry_contact_url }}</label>
-                  <input type="text" name="payment_paypal_setting[contact][url]" value="{{ setting_contact.url }}" id="input-contact-url" class="form-control" maxlength="80" />
+                  <input type="text" name="payment_paypal_setting[contact][url]" value="{{ setting_contact.url }}" id="input-contact-url" class="form-control" maxlength="80"/>
                 </div>
                 <div class="form-group">
                   <label class="control-label" for="input-contact-sales">{{ entry_contact_sales }}</label>
@@ -88,7 +88,7 @@
                 </div>
                 <div class="form-group">
                   <label class="control-label" for="input-contact-phone">{{ entry_contact_phone }}</label>
-                  <input type="text" name="payment_paypal_setting[contact][phone]" value="{{ setting_contact.phone }}" id="input-contact-phone" class="form-control" maxlength="40" />
+                  <input type="text" name="payment_paypal_setting[contact][phone]" value="{{ setting_contact.phone }}" id="input-contact-phone" class="form-control" maxlength="40"/>
                 </div>
               </div>
               <div class="col col-md-6">
@@ -110,13 +110,13 @@
                 </div>
                 <div class="form-group">
                   <div id="input-contact-merchant">
-                    <input type="hidden" name="payment_paypal_setting[contact][00N2E00000II4xP]" value="0" />
-                    <input type="checkbox" name="payment_paypal_setting[contact][00N2E00000II4xP]" value="1" class="form-check-input" {% if setting_contact.00N2E00000II4xP %}checked="checked"{% endif %} /><label class="control-label">{{ entry_contact_merchant }}</label>
+                    <input type="hidden" name="payment_paypal_setting[contact][00N2E00000II4xP]" value="0"/>
+                    <input type="checkbox" name="payment_paypal_setting[contact][00N2E00000II4xP]" value="1" class="form-check-input" {% if setting_contact.00N2E00000II4xP %}checked="checked"{% endif %}/><label class="control-label">{{ entry_contact_merchant }}</label>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="control-label" for="input-contact-merchant-name">{{ entry_contact_merchant_name }}</label>
-                  <input type="text" name="payment_paypal_setting[contact][00N2E00000II4xO]" value="{{ setting_contact.00N2E00000II4xO }}" id="input-contact-merchant-name" class="form-control" maxlength="55" />
+                  <input type="text" name="payment_paypal_setting[contact][00N2E00000II4xO]" value="{{ setting_contact.00N2E00000II4xO }}" id="input-contact-merchant-name" class="form-control" maxlength="55"/>
                 </div>
                 <div class="form-group"></div>
                 <legend class="legend">{{ text_contact_product }}</legend>

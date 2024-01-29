@@ -43,7 +43,7 @@
                 <li class="nav-pill {% if loop.first %}active{% endif %}"><a href="#pill-{{ button.page_code }}" class="pill" data-toggle="tab">{{ attribute(_context, button.page_name) }}</a></li>
               {% endfor %}
             </ul>
-            <hr class="hr" />
+            <hr class="hr"/>
             <div class="tab-content">
               {% for button in setting.button %}
                 <div id="pill-{{ button.page_code }}" class="tab-pane {% if loop.first %}active{% endif %}">
@@ -160,8 +160,8 @@
                           <div class="col col-md-6">
                             <div class="form-group-status">
                               <label class="control-label" for="input-button-{{ button.page_code }}-status"><span data-toggle="tooltip" title="{{ help_button_status|escape('html') }}">{{ entry_status }}</span></label>
-                              <input type="hidden" name="payment_paypal_setting[button][{{ button.page_code }}][status]" value="0" />
-                              <input type="checkbox" name="payment_paypal_setting[button][{{ button.page_code }}][status]" value="1" class="switch" {% if button.status %}checked="checked"{% endif %} />
+                              <input type="hidden" name="payment_paypal_setting[button][{{ button.page_code }}][status]" value="0"/>
+                              <input type="checkbox" name="payment_paypal_setting[button][{{ button.page_code }}][status]" value="1" class="switch" {% if button.status %}checked="checked"{% endif %}/>
                             </div>
                           </div>
                         </div>
@@ -270,7 +270,7 @@
                           </div>
                         </div>
                         {% if button.page_code == 'checkout' %}
-                          <hr class="hr" />
+                          <hr class="hr"/>
                           <button type="button" href="#all-settings-{{ button.page_code }}" class="btn btn-default button-all-settings collapsed" data-toggle="collapse" role="button">{{ button_all_settings }}<i class="icon icon-all-settings"></i></button>
                           <div id="all-settings-{{ button.page_code }}" class="all-settings collapse">
                             <div class="row">
