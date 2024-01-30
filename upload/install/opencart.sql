@@ -2370,8 +2370,7 @@ CREATE TABLE `oc_order` (
   `payment_zone_id` int(11) NOT NULL,
   `payment_address_format` text NOT NULL,
   `payment_custom_field` text NOT NULL,
-  `payment_method` varchar(128) NOT NULL,
-  `payment_code` varchar(128) NOT NULL,
+  `payment_method` text NOT NULL,
   `shipping_firstname` varchar(32) NOT NULL,
   `shipping_lastname` varchar(32) NOT NULL,
   `shipping_company` varchar(60) NOT NULL,
@@ -2385,8 +2384,7 @@ CREATE TABLE `oc_order` (
   `shipping_zone_id` int(11) NOT NULL,
   `shipping_address_format` text NOT NULL,
   `shipping_custom_field` text NOT NULL,
-  `shipping_method` varchar(128) NOT NULL,
-  `shipping_code` varchar(128) NOT NULL,
+  `shipping_method` text NOT NULL,
   `comment` text NOT NULL,
   `total` decimal(15,4) NOT NULL DEFAULT '0.0000',
   `order_status_id` int(11) NOT NULL DEFAULT '0',
@@ -2557,7 +2555,7 @@ CREATE TABLE `oc_shipping_courier` (
   `shipping_courier_code` varchar(255) NOT NULL DEFAULT '',
   `shipping_courier_name` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`shipping_courier_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `oc_shipping_courier`
@@ -3261,12 +3259,12 @@ DROP TABLE IF EXISTS `oc_recurring`;
 CREATE TABLE `oc_recurring` (
   `recurring_id` int(11) NOT NULL AUTO_INCREMENT,
   `price` decimal(10,4) NOT NULL,
-  `frequency` enum('day','week','semi_month','month','year') NOT NULL,
+  `frequency` enum(\'day\',\'week\',\'semi_month\',\'month\',\'year\') NOT NULL,
   `duration` int(10) unsigned NOT NULL,
   `cycle` int(10) unsigned NOT NULL,
   `trial_status` tinyint(4) NOT NULL,
   `trial_price` decimal(10,4) NOT NULL,
-  `trial_frequency` enum('day','week','semi_month','month','year') NOT NULL,
+  `trial_frequency` enum(\'day\',\'week\',\'semi_month\',\'month\',\'year\') NOT NULL,
   `trial_duration` int(10) unsigned NOT NULL,
   `trial_cycle` int(10) unsigned NOT NULL,
   `status` tinyint(4) NOT NULL,
@@ -3734,7 +3732,9 @@ INSERT INTO `oc_setting` (`store_id`, `code`, `key`, `value`, `serialized`) VALU
   (0, 'report_customer_search', 'report_customer_search_sort_order', '3', 0),
   (0, 'report_customer_search', 'report_customer_search_status', '1', 0),
   (0, 'report_customer_transaction', 'report_customer_transaction_status', '1', 0),
-  (0, 'report_customer_transaction', 'report_customer_transaction_status_sort_order', '4', 0),
+  (0, 'report_customer_transaction', 'report_customer_transaction_sort_order', '4', 0),
+  (0, 'report_subscription', 'report_subscription_status', '0', 0),
+  (0, 'report_subscription', 'report_subscription_sort_order', '4', 0),
   (0, 'report_sale_tax', 'report_sale_tax_status', '1', 0),
   (0, 'report_sale_tax', 'report_sale_tax_sort_order', '5', 0),
   (0, 'report_sale_shipping', 'report_sale_shipping_status', '1', 0),
