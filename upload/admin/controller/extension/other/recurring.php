@@ -746,7 +746,7 @@ class ControllerExtensionOtherRecurring extends Controller {
 			// Recurring
 			$this->load->model('extension/other/recurring');
 
-			$this->model_extension_other_recurring->addHistory($this->request->get['order_recurring_id'], $this->request->post['status'], $this->request->post['comment']);
+			$this->model_extension_other_recurring->addHistory($this->request->get['order_recurring_id'], $this->request->post['comment']);
 
 			$json['success'] = $this->language->get('text_success');
 		}

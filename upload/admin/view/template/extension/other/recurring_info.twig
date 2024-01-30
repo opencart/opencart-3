@@ -68,17 +68,7 @@
                   </fieldset>
                   <br/>
                   <fieldset>
-                    <legend>{{ text_history_add }}</legend>
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
-                      <div class="col-sm-10">
-                        <select name="status" id="input-status" class="form-control"/>
-                          {% for status in statuses %}
-                            <option value="{{ status.value }}">{{ status.text }}</option>
-                          {% endfor %}
-                        </select>
-                      </div>
-                    </div>
+                    <legend>{{ text_history_add }}</legend>                    
                     <div class="form-group">
                       <label class="col-sm-2 control-label" for="input-comment">{{ entry_comment }}</label>
                       <div class="col-sm-10">
@@ -232,7 +222,7 @@ $('#button-history').on('click', function(e) {
         url: 'index.php?route=extension/other/recurring/addHistory&user_token={{ user_token }}&order_recurring_id={{ order_recurring_id }}',
         type: 'post',
         dataType: 'json',
-        data: 'status=' + encodeURIComponent($('#tab-history select[name=\'status\']').val()) + '&comment=' + encodeURIComponent($('#tab-history textarea[name=\'comment\']').val()),
+        data: 'comment=' + encodeURIComponent($('#tab-history textarea[name=\'comment\']').val()),
         beforeSend: function() {
             $('#button-history').button('loading');
         },
@@ -251,7 +241,6 @@ $('#button-history').on('click', function(e) {
 
                 $('#history').load('index.php?route=extension/other/recurring/history&user_token={{ user_token }}&order_recurring_id={{ order_recurring_id }}');
                 
-                $('#tab-history select[name=\'status\']').val('');
                 $('#tab-history textarea[name=\'comment\']').val('');
             }
         },
