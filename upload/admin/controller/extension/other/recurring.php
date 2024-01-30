@@ -467,38 +467,6 @@ class ControllerExtensionOtherRecurring extends Controller {
 				$data['recurring_status'] = '';
 			}
 
-			$data['statuses'] = [];
-
-			$data['statuses'][] = [
-				'text'  => $this->language->get('text_status_inactive'),
-				'value' => 1
-			];
-
-			$data['statuses'][] = [
-				'text'  => $this->language->get('text_status_active'),
-				'value' => 2
-			];
-
-			$data['statuses'][] = [
-				'text'  => $this->language->get('text_status_suspended'),
-				'value' => 3
-			];
-
-			$data['statuses'][] = [
-				'text'  => $this->language->get('text_status_cancelled'),
-				'value' => 4
-			];
-
-			$data['statuses'][] = [
-				'text'  => $this->language->get('text_status_expired'),
-				'value' => 5
-			];
-
-			$data['statuses'][] = [
-				'text'  => $this->language->get('text_status_pending'),
-				'value' => 6
-			];
-
 			// Orders
 			$this->load->model('sale/order');
 
