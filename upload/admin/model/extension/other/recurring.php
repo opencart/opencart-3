@@ -231,13 +231,13 @@ class ModelExtensionOtherRecurring extends Model {
 	/**
 	 * addHistory
 	 *
-	 * @param int    $customer_id
+	 * @param int    $order_recurring_id
 	 * @param string $comment
 	 *
 	 * @return void
 	 */
-	public function addHistory(int $customer_id, string $comment): void {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "customer_history` SET `customer_id` = '" . (int)$customer_id . "', `comment` = '" . $this->db->escape(strip_tags($comment)) . "', `date_added` = NOW()");
+	public function addHistory(int $order_recurring_id, string $comment): void {
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "order_recurring_history` SET `order_recurring_id` = '" . (int)$order_recurring_id . "', `comment` = '" . $this->db->escape(strip_tags($comment)) . "', `date_added` = NOW()");
 	}
 
 	/**
