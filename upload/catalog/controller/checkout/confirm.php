@@ -160,8 +160,8 @@ class ControllerCheckoutConfirm extends Controller {
 			$order_data['payment_address_format'] = $this->session->data['payment_address']['address_format'];
 			$order_data['payment_custom_field'] = $this->session->data['payment_address']['custom_field'] ?? [];
 
-			if (isset($this->session->data['payment_method']['title'])) {
-				$order_data['payment_method'] = $this->session->data['payment_method']['title'];
+			if (isset($this->session->data['payment_method']['name'])) {
+				$order_data['payment_method'] = $this->session->data['payment_method']['name'];
 			} else {
 				$order_data['payment_method'] = '';
 			}

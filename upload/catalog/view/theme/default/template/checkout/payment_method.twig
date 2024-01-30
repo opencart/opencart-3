@@ -11,7 +11,7 @@
         {% else %}
           <input type="radio" name="payment_method" value="{{ payment_method.code }}"/>
         {% endif %}
-        {{ payment_method.title }}
+        {{ payment_method.name }}
         {% if payment_method.terms %}
           ({{ payment_method.terms }})
         {% endif %}</label>

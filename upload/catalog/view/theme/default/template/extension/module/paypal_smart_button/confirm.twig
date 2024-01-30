@@ -255,7 +255,7 @@
           {% for payment_method in payment_methods %}
             {% if payment_method.code == 'paypal' %}
               <div class="radio">
-                <label><input type="radio" name="payment_method" value="{{ payment_method.code }}" checked="checked"/>{{ payment_method.title }}</label>
+                <label><input type="radio" name="payment_method" value="{{ payment_method.code }}" checked="checked"/>{{ payment_method.name }}</label>
               </div>
             {% endif %}
           {% endfor %}
