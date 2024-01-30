@@ -754,4 +754,22 @@ class ControllerExtensionOtherRecurring extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
+	/**
+	 * Install
+	 *
+	 * @return void
+	 */
+	public function install(): void {
+		$this->db->query("
+			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "order_recurring_history` (
+			`order_recurring_history_id` int(11) NOT NULL AUTO_INCREMENT,
+			`order_recurring_id` int(11) NOT NULL,
+			`notify` tinyint(1) NOT NULL,
+			`comment` text NOT NULL,
+			`date_added` datetime NOT NULL,
+			PRIMARY KEY (`order_recurring_history_id`)
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+		");
+	}
 }
