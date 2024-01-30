@@ -467,6 +467,38 @@ class ControllerExtensionOtherRecurring extends Controller {
 				$data['recurring_status'] = '';
 			}
 
+			$data['statuses'] = [];
+
+			$data['statuses'][] = [
+				'text'  => $this->language->get('text_status_inactive'),
+				'value' => 1
+			];
+
+			$data['statuses'][] = [
+				'text'  => $this->language->get('text_status_active'),
+				'value' => 2
+			];
+
+			$data['statuses'][] = [
+				'text'  => $this->language->get('text_status_suspended'),
+				'value' => 3
+			];
+
+			$data['statuses'][] = [
+				'text'  => $this->language->get('text_status_cancelled'),
+				'value' => 4
+			];
+
+			$data['statuses'][] = [
+				'text'  => $this->language->get('text_status_expired'),
+				'value' => 5
+			];
+
+			$data['statuses'][] = [
+				'text'  => $this->language->get('text_status_pending'),
+				'value' => 6
+			];
+
 			// Orders
 			$this->load->model('sale/order');
 
@@ -714,7 +746,7 @@ class ControllerExtensionOtherRecurring extends Controller {
 			// Recurring
 			$this->load->model('extension/other/recurring');
 
-			$this->model_extension_other_recurring->addHistory($this->request->get['order_recurring_id'], $this->request->post['comment']);
+			$this->model_extension_other_recurring->addHistory($this->request->get['order_recurring_id'], $this->request->post['status'], $this->request->post['comment']);
 
 			$json['success'] = $this->language->get('text_success');
 		}
