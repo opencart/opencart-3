@@ -36,7 +36,7 @@ class ModelExtensionPaymentSagepayServer extends Model {
 			  `sagepay_server_order_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
 			  `sagepay_server_order_id` int(11) NOT NULL,
 			  `date_added` datetime NOT NULL,
-			  `type` enum('auth', 'payment', 'rebate', 'void') DEFAULT NULL,
+			  `type` enum(\'auth\',\'payment\',\'rebate\',\'void\') DEFAULT NULL,
 			  `amount` decimal(15,4) NOT NULL,
 			  PRIMARY KEY (`sagepay_server_order_transaction_id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");

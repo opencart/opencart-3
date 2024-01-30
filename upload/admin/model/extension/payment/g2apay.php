@@ -30,7 +30,7 @@ class ModelExtensionPaymentG2aPay extends Model {
 			  `g2apay_order_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
 			  `g2apay_order_id` int(11) NOT NULL,
 			  `date_added` datetime NOT NULL,
-			  `type` enum('payment', 'refund') DEFAULT NULL,
+			  `type` enum(\'payment\',\'refund\') DEFAULT NULL,
 			  `amount` decimal(15,4) NOT NULL,
 			  PRIMARY KEY (`g2apay_order_transaction_id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");

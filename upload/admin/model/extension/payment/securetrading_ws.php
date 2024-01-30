@@ -33,7 +33,7 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 			  `securetrading_ws_order_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
 			  `securetrading_ws_order_id` int(11) NOT NULL,
 			  `created` datetime NOT NULL,
-			  `type` enum('auth', 'payment', 'rebate', 'reversed') DEFAULT NULL,
+			  `type` enum(\'auth\',\'payment\',\'rebate\',\'reversed\') DEFAULT NULL,
 			  `amount` decimal(15,4) NOT NULL,
 			  PRIMARY KEY (`securetrading_ws_order_transaction_id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
