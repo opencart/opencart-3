@@ -227,4 +227,52 @@ class ModelExtensionOtherRecurring extends Model {
 
 		return $result;
 	}
+
+	/**
+	 * addHistory
+	 *
+	 * @param int    $customer_id
+	 * @param string $comment
+	 *
+	 * @return void
+	 */
+	public function addHistory(int $customer_id, string $comment): void {
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "customer_history` SET `customer_id` = '" . (int)$customer_id . "', `comment` = '" . $this->db->escape(strip_tags($comment)) . "', `date_added` = NOW()");
+	}
+
+	/**
+	 * getHistories
+	 *
+	 * @param int $order_recurring_id
+	 * @param int $start
+	 * @param int $limit
+	 *
+	 * @return array
+	 */
+	public function getHistories(int $order_recurring_id, int $start = 0, int $limit = 10): array {
+		if ($start < 0) {
+			$start = 0;
+		}
+
+		if ($limit < 1) {
+			$limit = 10;
+		}
+
+		$query = $this->db->query("SELECT `comment`, `date_added` FROM `" . DB_PREFIX . "order_recurring_history` WHERE `order_recurring_id` = '" . (int)$order_recurring_id . "' ORDER BY `date_added` DESC LIMIT " . (int)$start . "," . (int)$limit);
+
+		return $query->rows;
+	}
+
+	/**
+	 * getTotalHistories
+	 *
+	 * @param int $order_recurring_id
+	 *
+	 * @return int
+	 */
+	public function getTotalHistories(int $order_recurring_id): int {
+		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order_recurring_history` WHERE `order_recurring_id` = '" . (int)$order_recurring_id . "'");
+
+		return (int)$query->row['total'];
+	}
 }
