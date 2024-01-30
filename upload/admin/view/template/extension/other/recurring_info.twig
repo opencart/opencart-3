@@ -231,7 +231,7 @@ $('#button-history').on('click', function(e) {
         url: 'index.php?route=extension/other/recurring/addHistory&user_token={{ user_token }}&order_recurring_id={{ order_recurring_id }}',
         type: 'post',
         dataType: 'json',
-        data: 'status=' + encodeURIComponent($('#tab-history select[name=\'status\']').val() + '&comment=' + encodeURIComponent($('#tab-history textarea[name=\'comment\']').val()),
+        data: 'status=' + encodeURIComponent($('#tab-history select[name=\'status\']').val()) + '&comment=' + encodeURIComponent($('#tab-history textarea[name=\'comment\']').val()),
         beforeSend: function() {
             $('#button-history').button('loading');
         },
