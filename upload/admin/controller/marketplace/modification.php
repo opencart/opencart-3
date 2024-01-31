@@ -435,7 +435,7 @@ class ControllerMarketplaceModification extends Controller {
 						$path = $path . '/' . $directory;
 
 						if (!is_dir(DIR_MODIFICATION . $path)) {
-							@mkdir(DIR_MODIFICATION . $path, 0o777);
+							@mkdir(DIR_MODIFICATION . $path, 0777);
 						}
 					}
 

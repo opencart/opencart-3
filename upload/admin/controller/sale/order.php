@@ -403,7 +403,7 @@ class ControllerSaleOrder extends Controller {
 
 		$this->load->model('localisation/order_status');
 
-		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
+		$data['order_statuses'] = $this->model_localisation_order_status->getStatuses();
 
 		// API login
 		$data['catalog'] = $this->request->server['HTTPS'] ? HTTPS_CATALOG : HTTP_CATALOG;
@@ -553,14 +553,14 @@ class ControllerSaleOrder extends Controller {
 			// Products
 			$data['order_products'] = [];
 
-			$products = $this->model_sale_order->getOrderProducts($this->request->get['order_id']);
+			$products = $this->model_sale_order->getProducts($this->request->get['order_id']);
 
 			foreach ($products as $product) {
 				$data['order_products'][] = [
 					'product_id' => $product['product_id'],
 					'name'       => $product['name'],
 					'model'      => $product['model'],
-					'option'     => $this->model_sale_order->getOrderOptions($this->request->get['order_id'], $product['order_product_id']),
+					'option'     => $this->model_sale_order->getOptions($this->request->get['order_id'], $product['order_product_id']),
 					'quantity'   => $product['quantity'],
 					'price'      => $product['price'],
 					'total'      => $product['total'],
@@ -569,7 +569,7 @@ class ControllerSaleOrder extends Controller {
 			}
 
 			// Vouchers
-			$data['order_vouchers'] = $this->model_sale_order->getOrderVouchers($this->request->get['order_id']);
+			$data['order_vouchers'] = $this->model_sale_order->getVouchers($this->request->get['order_id']);
 
 			$data['coupon'] = '';
 			$data['voucher'] = '';
@@ -577,7 +577,7 @@ class ControllerSaleOrder extends Controller {
 
 			$data['order_totals'] = [];
 
-			$order_totals = $this->model_sale_order->getOrderTotals($this->request->get['order_id']);
+			$order_totals = $this->model_sale_order->getTotals($this->request->get['order_id']);
 
 			foreach ($order_totals as $order_total) {
 				// If coupon, voucher or reward points
@@ -727,7 +727,7 @@ class ControllerSaleOrder extends Controller {
 
 		$this->load->model('localisation/order_status');
 
-		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
+		$data['order_statuses'] = $this->model_localisation_order_status->getStatuses();
 
 		$this->load->model('localisation/country');
 

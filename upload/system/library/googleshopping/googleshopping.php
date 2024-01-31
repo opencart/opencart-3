@@ -1309,7 +1309,7 @@ class Googleshopping extends Library {
 				$path = $path . '/' . $directory;
 
 				if (!is_dir(DIR_IMAGE . $path)) {
-					@mkdir(DIR_IMAGE . $path, 0o777);
+					@mkdir(DIR_IMAGE . $path, 0777);
 				}
 			}
 

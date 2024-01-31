@@ -474,7 +474,7 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 	 *
 	 * @return void
 	 */
-	public function log(string $message): void {
+	public function logger(string $message): void {
 		$log = new \Log('securetrading_ws.log');
 		$log->write($message);
 	}

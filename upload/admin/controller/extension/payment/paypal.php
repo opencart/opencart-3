@@ -1737,7 +1737,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			$dir = str_replace('admin/', '.well-known/', DIR_APPLICATION);
 
 			if (!file_exists($dir)) {
-				mkdir($dir, 0o777, true);
+				mkdir($dir, 0777, true);
 			}
 
 			if (file_exists($dir)) {

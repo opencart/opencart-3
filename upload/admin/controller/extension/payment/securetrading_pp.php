@@ -562,16 +562,16 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 		// Laybuy
 		$this->load->model('extension/payment/laybuy');
 
-		$this->model_extension_payment_securetrading_pp->log('Getting API key');
+		$this->model_extension_payment_securetrading_pp->logger('Getting API key');
 
 		$api_info = $this->model_user_api->getApi($this->config->get('config_api_id'));
 
 		if ($api_info) {
-			$this->model_extension_payment_securetrading_pp->log('API key: ' . $api_info['key']);
+			$this->model_extension_payment_securetrading_pp->logger('API key: ' . $api_info['key']);
 
 			return $api_info['key'];
 		} else {
-			$this->model_extension_payment_securetrading_pp->log('No API info');
+			$this->model_extension_payment_securetrading_pp->logger('No API info');
 
 			return '';
 		}

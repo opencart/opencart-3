@@ -327,7 +327,7 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 	 *
 	 * @return void
 	 */
-	public function log(string $message): void {
+	public function logger(string $message): void {
 		$log = new \Log('securetrading_pp.log');
 		$log->write($message);
 	}

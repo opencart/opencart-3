@@ -102,7 +102,7 @@ class ControllerCommonSecurity extends Controller {
 
 				// Create the new storage folder
 				if (!is_dir($path . $directory)) {
-					mkdir($path . $directory, 0o777);
+					mkdir($path . $directory, 0777);
 				}
 
 				// Copy the
@@ -110,7 +110,7 @@ class ControllerCommonSecurity extends Controller {
 					$destination = $path . $directory . substr($file, strlen(DIR_SYSTEM . 'storage/'));
 
 					if (is_dir($file) && !is_dir($destination)) {
-						mkdir($destination, 0o777);
+						mkdir($destination, 0777);
 					}
 
 					if (is_file($file)) {
