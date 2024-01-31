@@ -2,9 +2,9 @@
 /**
  * Class Subscription Plan
  *
- * @package Opencart\Catalog\Model\Catalog
+ * @package Catalog\Model\Catalog
  */
-class ModelCatalogSubscriptionPlan extends \Opencart\System\Engine\Model {
+class ModelCatalogSubscriptionPlan extends Model {
 	/**
 	 * Get Subscription Plan
 	 *

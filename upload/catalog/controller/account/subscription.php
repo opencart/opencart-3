@@ -264,7 +264,6 @@ class ControllerAccountSubscription extends Controller {
 	 *
 	 * @param string $route
 	 * @param array  $args
-	 * @param mixed  $output
 	 *
 	 * @return void
 	 *
@@ -320,8 +319,8 @@ class ControllerAccountSubscription extends Controller {
 					$message = '';
 				}
 
-				$this->model_checkout_order->addHistory($store->session->data['order_id'], $order_status_id, $message, false);
-				$this->model_checkout_order->addHistory($store->session->data['order_id'], $order_status_id);
+				$this->model_checkout_order->addHistory($this->session->data['order_id'], $order_status_id, $message, false);
+				$this->model_checkout_order->addHistory($this->session->data['order_id'], $order_status_id);
 
 				// If payment order status is active or processing
 				if (!in_array($order_status_id, (array)$this->config->get('config_processing_status') + (array)$this->config->get('config_complete_status'))) {
@@ -359,13 +358,7 @@ class ControllerAccountSubscription extends Controller {
 
 						$this->model_checkout_subscription->addHistory($result['subscription_id'], $this->config->get('config_subscription_active_status_id'), $this->language->get('text_success'), true);
 					}
-				} else {
-					// If payment failed change subscription history to failed
-					$this->model_checkout_subscription->addHistory($result['subscription_id'], $this->config->get('config_subscription_failed_status_id'), $message, true);
 				}
-			} else {
-				// Add subscription history failed if no charge method
-				$this->model_checkout_subscription->addHistory($result['subscription_id'], $this->config->get('config_subscription_failed_status_id'), $this->language->get('error_payment_method'), true);
 			}
 		}
 	}

@@ -491,7 +491,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 			$this->model_extension_payment_amazon_login_pay->logger($cancel_response);
 
 			if ($cancel_response['status'] == 'Completed') {
-				$this->model_extension_payment_amazon_login_pay->addTransaction($amazon_login_pay_order['amazon_login_pay_order_id'], 'cancel', $cancel_response['status'], 0.00);
+				$this->model_extension_payment_amazon_login_pay->addTransaction($amazon_login_pay_order['amazon_login_pay_order_id'], 'cancel', $cancel_response['status'], 0.00, $cancel_response['AmazonAuthorizationId'], $cancel_response['AmazonCaptureId'], $cancel_response['AmazonRefundId']);
 				$this->model_extension_payment_amazon_login_pay->updateCancelStatus($amazon_login_pay_order['amazon_login_pay_order_id'], 1);
 
 				$json['msg'] = $this->language->get('text_cancel_ok');
@@ -538,7 +538,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 			$this->model_extension_payment_amazon_login_pay->logger($capture_response);
 
 			if ($capture_response['status'] == 'Completed' || $capture_response['status'] == 'Pending') {
-				$this->model_extension_payment_amazon_login_pay->addTransaction($amazon_login_pay_order['amazon_login_pay_order_id'], 'capture', $capture_response['status'], $this->request->post['amount'], $capture_response['AmazonAuthorizationId'], $capture_response['AmazonCaptureId']);
+				$this->model_extension_payment_amazon_login_pay->addTransaction($amazon_login_pay_order['amazon_login_pay_order_id'], 'capture', $capture_response['status'], $this->request->post['amount'], $capture_response['AmazonAuthorizationId'], $capture_response['AmazonCaptureId']);				
 				$this->model_extension_payment_amazon_login_pay->updateAuthorizationStatus($capture_response['AmazonAuthorizationId'], 'Closed');
 
 				$total_captured = $this->model_extension_payment_amazon_login_pay->getTotalCaptured($amazon_login_pay_order['amazon_login_pay_order_id']);
@@ -614,7 +614,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
 			foreach ($refund_response as $response) {
 				if ($response['status'] == 'Pending') {
-					$this->model_extension_payment_amazon_login_pay->addTransaction($amazon_login_pay_order['amazon_login_pay_order_id'], 'refund', $response['status'], $response['amount'] * -1, $response['amazon_authorization_id'], $response['amazon_capture_id'], $response['AmazonRefundId']);
+					$this->model_extension_payment_amazon_login_pay->addTransaction($amazon_login_pay_order['amazon_login_pay_order_id'], 'refund', $response['status'], $response['amount'] * -1, $response['AmazonAuthorizationId'], $response['AmazonCaptureId'], $response['AmazonRefundId']);
 
 					$total_refunded = $this->model_extension_payment_amazon_login_pay->getTotalRefunded($amazon_login_pay_order['amazon_login_pay_order_id']);
 					$total_captured = $this->model_extension_payment_amazon_login_pay->getTotalCaptured($amazon_login_pay_order['amazon_login_pay_order_id']);

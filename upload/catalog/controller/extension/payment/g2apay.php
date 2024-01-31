@@ -79,7 +79,7 @@ class ControllerExtensionPaymentG2APay extends Controller {
 			}
 		}
 
-		$ordered_products = $this->model_account_order->getOrderProducts($this->session->data['order_id']);
+		$ordered_products = $this->model_account_order->getProducts($this->session->data['order_id']);
 
 		foreach ($ordered_products as $product) {
 			$item = new \stdClass();

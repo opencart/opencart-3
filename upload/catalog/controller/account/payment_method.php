@@ -20,10 +20,7 @@ class ControllerAccountPaymentMethod extends Controller {
 		$this->load->language('account/payment_method');
 
 		$this->document->setTitle($this->language->get('heading_title'));
-
-		// Stored payment methods
-		$this->load->model('account/payment_method');
-
+		
 		$this->getList();
 	}
 
@@ -37,43 +34,36 @@ class ControllerAccountPaymentMethod extends Controller {
 
 		$json = [];
 
-		if (isset($this->request->get['customer_payment_id'])) {
-			$customer_payment_id = (int)$this->request->get['customer_payment_id'];
+		if (isset($this->request->get['code'])) {
+			$code = (string)$this->request->get['code'];
 		} else {
-			$customer_payment_id = 0;
+			$code = '';
 		}
 
 		if (!$this->customer->isLogged() || (!isset($this->request->get['customer_token']) || !isset($this->session->data['customer_token']) || ($this->request->get['customer_token'] != $this->session->data['customer_token']))) {
-			$this->session->data['redirect'] = $this->url->link('account/payment_method', '', true);
+			$this->session->data['redirect'] = $this->url->link('account/payment_method');
 
 			$json['redirect'] = $this->url->link('account/login', '', true);
 		}
 
 		if (!$json) {
-			// Stored payment methods
-			$this->load->model('account/payment_method');
+			$this->load->model('setting/extension');
 
-			$payment_method_info = $this->model_account_payment_method->getPaymentMethod($this->customer->getId(), $customer_payment_id);
+			$payment_method_info = $this->model_setting_extension->getExtensionByCode('payment', $code);
 
 			if (!$payment_method_info) {
 				$json['error'] = $this->language->get('error_payment_method');
 			}
 		}
 
-		if (!$json && isset($payment_method_info)) {
-			// Dynamic Payment Methods
-			$this->load->model('extension/payment/' . $payment_method_info['extension'] . '/' . $payment_method_info['code']);
+		if (!$json) {
+			$this->load->model('extension/payment/' . $payment_method_info['code']);
 
 			if (is_callable([$this->{'model_extension_payment_' . $payment_method_info['code']}, 'delete'])) {
-				$this->{'model_extension_payment_' . $payment_method_info['code']}->delete($customer_payment_id);
+				$this->{'model_extension_payment_' . $payment_method_info['code']}->delete();
 			}
 
-			// Delete payment method from database.
-			$this->model_account_payment_method->deletePaymentMethod($customer_payment_id);
-
-			$this->session->data['success'] = $this->language->get('text_delete');
-
-			$json['success'] = str_replace('&amp;', '&', $this->url->link('account/payment_method', 'customer_token=' . $this->session->data['customer_token'], true));
+			$json['success'] = $this->language->get('text_success');
 		}
 
 		$this->response->addHeader('Content-Type: application/json');
@@ -108,17 +98,28 @@ class ControllerAccountPaymentMethod extends Controller {
 
 		$data['payment_methods'] = [];
 
-		$results = $this->model_account_payment_method->getPaymentMethods($this->customer->getId());
+		$this->load->model('setting/extension');
+
+		$results = $this->model_setting_extension->getExtensionsByType('payment');
 
 		foreach ($results as $result) {
-			$data['payment_methods'][] = [
-				'customer_payment_id' => $result['customer_payment_id'],
-				'name'                => $result['name'],
-				'image'               => $result['image'],
-				'type'                => $result['type'],
-				'date_expire'         => date('m-Y', strtotime($result['date_expire'])),
-				'delete'              => $this->url->link('account/payment_method/delete', 'customer_token=' . $this->session->data['customer_token'] . '&customer_payment_id=' . $result['customer_payment_id'], true)
-			];
+			if ($this->config->get('payment_' . $result['code'] . '_status')) {
+				$this->load->model('extension/payment/' . $result['code']);
+
+				if (is_callable([$this->{'model_extension_payment_' . $result['code']}, 'getStored'])) {
+					$payment_method_info = $this->{'model_extension_payment_' . $result['code']}->getStored();
+
+					if ($payment_method_info) {
+						$data['payment_methods'][] = [
+							'code'        => $payment_method_info['code'],
+							'name'        => $payment_method_info['name'],
+							'description' => $payment_method_info['description'],
+							'image'       => $payment_method_info['image'],
+							'delete'      => $this->url->link('account/payment_method/delete', 'customer_token=' . $this->session->data['customer_token'] . '&code=' . $payment_method_info['code'])
+						];
+					}
+				}
+			}
 		}
 
 		$data['customer_token'] = $this->session->data['customer_token'];

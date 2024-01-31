@@ -64,14 +64,14 @@ class ControllerApiCart extends Controller {
 						}
 					}
 
-					$product_subscriptions = $this->model_catalog_product->getSubscriptions($this->request->post['product_id']);
+					$product_subscription = $this->model_catalog_product->getSubscription($this->request->post['product_id'], $this->request->post['subscription_plan_id']);
 
-					if (!$product_subscriptions) {
+					if (!$product_subscription) {
 						$json['error']['subscription_plan'] = $this->language->get('error_subscription_plan');
 					}
 
 					if (!$json) {
-						$this->cart->add($this->request->post['product_id'], $quantity, $option, $subscription_plan_id, true, $product_info['price']);
+						$this->cart->add($this->request->post['product_id'], $quantity, $option, $this->request->post['subscription_plan_id'], true, $product_info['price']);
 
 						$json['success'] = $this->language->get('text_success');
 
@@ -108,13 +108,13 @@ class ControllerApiCart extends Controller {
 			} else {
 				$key = 0;
 			}
-	
+
 			if (isset($this->request->post['quantity'])) {
 				$quantity = (int)$this->request->post['quantity'];
 			} else {
 				$quantity = 1;
 			}
-	
+
 			$this->cart->update($key, $quantity);
 
 			$json['success'] = $this->language->get('text_success');
@@ -149,7 +149,7 @@ class ControllerApiCart extends Controller {
 			} else {
 				$key = 0;
 			}
-	
+
 			// Remove
 			$this->cart->remove($key);
 
@@ -161,7 +161,7 @@ class ControllerApiCart extends Controller {
 			unset($this->session->data['shipping_methods']);
 			unset($this->session->data['payment_method']);
 			unset($this->session->data['payment_methods']);
-			unset($this->session->data['reward']);			
+			unset($this->session->data['reward']);
 		}
 
 		$this->response->addHeader('Content-Type: application/json');

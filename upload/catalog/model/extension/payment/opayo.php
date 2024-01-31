@@ -351,22 +351,21 @@ class ModelExtensionPaymentOpayo extends Model {
 
 				$subscription_frequency = date_diff(new \DateTime('now'), new \DateTime(date_format($next_payment, 'Y-m-d H:i:s')))->days;
 
-				$response_data = $this->setPaymentData($order_info, $opayo_order_info, $price, $item['subscription']['subscription_id'], $order_product['name'], $subscription_expiry, $subscription_frequency, $i);
+				$response_data = $this->setPaymentData($order_info, $opayo_order_info, $price, $subscription_info['subscription_id'], $order_product['name'], $subscription_expiry, $subscription_frequency, $i);
 
 				$cron_data[] = $response_data;
 
 				if ($response_data['RepeatResponseData_' . $i++]['Status'] == 'OK') {
-					$this->addOrderTransaction($item['subscription']['subscription_id'], $response_data, 1);
+					$this->addOrderTransaction($subscription_info['subscription_id'], $response_data, 1);
 
-					$this->updateSubscriptionOrder($item['subscription']['subscription_id'], date_format($next_payment, 'Y-m-d H:i:s'));
+					$this->updateSubscriptionOrder($subscription_info['subscription_id'], date_format($next_payment, 'Y-m-d H:i:s'));
 				} else {
-					$this->addOrderTransaction($item['subscription']['subscription_id'], $response_data, 4);
+					$this->addOrderTransaction($subscription_info['subscription_id'], $response_data, 4);
 				}
 			}
 		}
 
 		$log = new \Log('opayo_subscription_orders.log');
-
 		$log->write(print_r($cron_data, true));
 
 		return $cron_data;
@@ -683,7 +682,6 @@ class ModelExtensionPaymentOpayo extends Model {
 
 		if ($setting['general']['debug']) {
 			$log = new \Log('opayo.log');
-
 			$log->write($title . ': ' . print_r($data, 1));
 		}
 

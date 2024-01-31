@@ -414,7 +414,7 @@ class ControllerSaleOrder extends Controller {
 		$api_info = $this->model_user_api->getApi($this->config->get('config_api_id'));
 
 		if ($api_info && $this->user->hasPermission('modify', 'sale/order')) {
-			$session = new Session($this->config->get('session_engine'), $this->registry);
+			$session = new \Session($this->config->get('session_engine'), $this->registry);
 
 			$session->start();
 
@@ -507,6 +507,9 @@ class ControllerSaleOrder extends Controller {
 		}
 
 		if (!empty($order_info)) {
+			$this->load->model('customer/customer');
+			$this->load->model('sale/subscription');
+
 			$data['order_id'] = (int)$this->request->get['order_id'];
 			$data['store_id'] = $order_info['store_id'];
 			$data['store_url'] = $this->request->server['HTTPS'] ? HTTPS_CATALOG : HTTP_CATALOG;
@@ -519,8 +522,6 @@ class ControllerSaleOrder extends Controller {
 			$data['email'] = $order_info['email'];
 			$data['telephone'] = $order_info['telephone'];
 			$data['account_custom_field'] = $order_info['custom_field'];
-
-			$this->load->model('customer/customer');
 
 			$data['addresses'] = $this->model_customer_customer->getAddresses($order_info['customer_id']);
 
@@ -556,15 +557,18 @@ class ControllerSaleOrder extends Controller {
 			$products = $this->model_sale_order->getProducts($this->request->get['order_id']);
 
 			foreach ($products as $product) {
+				$subscription_info = $this->model_sale_subscription->getSubscriptionByOrderProductId($this->request->get['order_id'], $product['order_product_id']);
+
 				$data['order_products'][] = [
-					'product_id' => $product['product_id'],
-					'name'       => $product['name'],
-					'model'      => $product['model'],
-					'option'     => $this->model_sale_order->getOptions($this->request->get['order_id'], $product['order_product_id']),
-					'quantity'   => $product['quantity'],
-					'price'      => $product['price'],
-					'total'      => $product['total'],
-					'reward'     => $product['reward']
+					'product_id'           => $product['product_id'],
+					'name'                 => $product['name'],
+					'model'                => $product['model'],
+					'subscription_plan_id' => $subscription_info ? $subscription_info['subscription_plan_id'] : 0,
+					'option'               => $this->model_sale_order->getOptions($this->request->get['order_id'], $product['order_product_id']),
+					'quantity'             => $product['quantity'],
+					'price'                => $product['price'],
+					'total'                => $product['total'],
+					'reward'               => $product['reward']
 				];
 			}
 
@@ -726,33 +730,30 @@ class ControllerSaleOrder extends Controller {
 		}
 
 		$this->load->model('localisation/order_status');
+		$this->load->model('localisation/country');
+		$this->load->model('localisation/currency');
+		$this->load->model('sale/voucher_theme');
+
+		// API login
+		$this->load->model('user/api');
 
 		$data['order_statuses'] = $this->model_localisation_order_status->getStatuses();
 
-		$this->load->model('localisation/country');
-
 		$data['countries'] = $this->model_localisation_country->getCountries();
-
-		$this->load->model('localisation/currency');
 
 		$data['currencies'] = $this->model_localisation_currency->getCurrencies();
 
 		$data['voucher_min'] = $this->config->get('config_voucher_min');
-
-		$this->load->model('sale/voucher_theme');
 
 		$data['voucher_themes'] = $this->model_sale_voucher_theme->getVoucherThemes();
 
 		// API login
 		$data['catalog'] = $this->request->server['HTTPS'] ? HTTPS_CATALOG : HTTP_CATALOG;
 
-		// API login
-		$this->load->model('user/api');
-
 		$api_info = $this->model_user_api->getApi($this->config->get('config_api_id'));
 
 		if ($api_info && $this->user->hasPermission('modify', 'sale/order')) {
-			$session = new Session($this->config->get('session_engine'), $this->registry);
+			$session = new \Session($this->config->get('session_engine'), $this->registry);
 
 			$session->start();
 
@@ -858,14 +859,16 @@ class ControllerSaleOrder extends Controller {
 
 		$data['order_id'] = (int)$this->request->get['order_id'];
 
-		$data['store_id'] = $order_info['store_id'];
-		$data['store_name'] = $order_info['store_name'];
+		$order_info = [];
 
 		if ($order_id) {
 			$this->load->model('sale/order');
 
 			$order_info = $this->model_sale_order->getOrder($order_id);
 		}
+
+		$data['store_id'] = $order_info['store_id'];
+		$data['store_name'] = $order_info['store_name'];
 
 		if ($order_info['store_id'] == 0) {
 			$data['store_url'] = $this->request->server['HTTPS'] ? HTTPS_CATALOG : HTTP_CATALOG;
@@ -1010,6 +1013,7 @@ class ControllerSaleOrder extends Controller {
 			}
 
 			$description = '';
+			$subscription = '';
 
 			$subscription_info = $this->model_sale_order->getSubscription($order_id, $product['order_product_id']);
 
@@ -1038,7 +1042,7 @@ class ControllerSaleOrder extends Controller {
 			$subscription_info = $this->model_sale_subscription->getSubscriptionByOrderProductId($order_id, $product['order_product_id']);
 
 			if ($subscription_info) {
-				$subscription = $this->url->link('sale/subscription.info', 'user_token=' . $this->session->data['user_token'] . '&subscription_id=' . $subscription_info['subscription_id']);
+				$subscription = $this->url->link('sale/subscription/info', 'user_token=' . $this->session->data['user_token'] . '&subscription_id=' . $subscription_info['subscription_id']);
 			} else {
 				$subscription = '';
 			}
@@ -1081,9 +1085,9 @@ class ControllerSaleOrder extends Controller {
 			];
 		}
 
-		$data['comment'] = nl2br($order_info['comment']);
-
 		$this->load->model('customer/customer');
+
+		$data['comment'] = nl2br($order_info['comment']);
 
 		$data['reward'] = $order_info['reward'];
 
@@ -1587,7 +1591,7 @@ class ControllerSaleOrder extends Controller {
 
 		$history_total = $this->model_sale_order->getTotalOrderHistories($this->request->get['order_id']);
 
-		$pagination = new Pagination();
+		$pagination = new \Pagination();
 		$pagination->total = $history_total;
 		$pagination->page = $page;
 		$pagination->limit = 10;

@@ -1533,6 +1533,9 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 		$filter_data = null;
 
 		$product_ids = [];
+		$required_fields = [];
+		$options = [];
+		$default_form_data = [];
 
 		if ($this->request->post['operand']['type'] == 'single') {
 			$product_advertise_google_id = $this->request->post['operand']['data'];

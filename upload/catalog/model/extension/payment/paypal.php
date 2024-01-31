@@ -333,7 +333,7 @@ class ModelExtensionPaymentPayPal extends Model {
 
 				$this->addSubscriptionTransaction($subscription_transaction_data);
 
-				$this->editPayPalOrderSubscriptionNextPayment($subscription_id, date_format($next_payment, 'Y-m-d H:i:s'));
+				$this->editPayPalOrderSubscriptionNextPayment($item['subscription']['subscription_id'], date_format($next_payment, 'Y-m-d H:i:s'));
 			} else {
 				$subscription_transaction_data = [
 					'subscription_id' => $item['subscription']['subscription_id'],

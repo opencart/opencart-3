@@ -178,7 +178,7 @@
                   {% endfor %}
                   {% if product.subscription %}
                     <br/>
-                    <small> - {{ text_subscription }}: {{ product.subscription }}</small>
+                    <small> - {{ text_subscription }}: <a href="{{ product.subscription }}" target="_blank">{{ product.subscription_description }}</a></small>
                   {% endif %}</td>
                 <td class="text-left">{{ product.model }}</td>
                 <td class="text-right">{{ product.quantity }}</td>

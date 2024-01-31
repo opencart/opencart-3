@@ -1412,7 +1412,7 @@ $('#button-product-add').on('click', function() {
     $.ajax({
         url: '{{ catalog }}index.php?route=api/cart/add&api_token={{ api_token }}&store_id=' + $('select[name=\'store_id\'] option:selected').val(),
         type: 'post',
-        data: $('#tab-product input[name=\'product_id\'], #tab-product input[name=\'quantity\'], #tab-product input[name^=\'option\'][type=\'text\'], #tab-product input[name^=\'option\'][type=\'hidden\'], #tab-product input[name^=\'option\'][type=\'radio\']:checked, #tab-product input[name^=\'option\'][type=\'checkbox\']:checked, #tab-product select[name^=\'option\'], #tab-product textarea[name^=\'option\']'),
+        data: $('#tab-product input[name=\'product_id\'], #tab-product input[name=\'quantity\'], #tab-product input[name^=\'option\'][type=\'text\'], #tab-product input[name^=\'option\'][type=\'hidden\'], #tab-product input[name^=\'option\'][type=\'radio\']:checked, #tab-product input[name^=\'option\'][type=\'checkbox\']:checked, #tab-product select[name^=\'option\'], #tab-product textarea[name^=\'option\'], #tab-product select[name^=\'subscription_plan_id\']'),
         dataType: 'json',
         crossDomain: true,
         beforeSend: function() {

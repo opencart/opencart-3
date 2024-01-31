@@ -251,7 +251,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 
 		$sagepay_order_info = $this->getOrder($this->session->data['order_id']);
 
-		$response_data = $this->setPaymentData($order_info, $sagepay_order_info, $price, $subscription_id, $item['subscription']['name']);
+		$response_data = $this->setPaymentData($order_info, $sagepay_order_info, $price, $item['subscription']['subscription_id'], $item['subscription']['name']);
 
 		$next_payment = new \DateTime('now');
 		$trial_end = new \DateTime('now');

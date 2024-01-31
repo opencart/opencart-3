@@ -96,6 +96,7 @@ class ModelExtensionPaymentSagepayDirect extends Model {
 
 		if ($sagepay_direct_order && $sagepay_direct_order['release_status'] == 0) {
 			$void_data = [];
+			$setting = [];
 
 			$url = '';
 

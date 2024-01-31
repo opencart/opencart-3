@@ -2774,6 +2774,8 @@ class ControllerExtensionPaymentPayPal extends Controller
                                 // Loop through any products that are subscription items
                                 $subscription_products = $this->cart->getSubscriptions();
 
+                                $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
+
                                 $order_products = $this->model_checkout_order->getProducts($this->session->data['order_id']);
 
                                 if (isset($this->request->server['HTTP_X_REAL_IP'])) {
