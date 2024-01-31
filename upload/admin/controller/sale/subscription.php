@@ -589,6 +589,15 @@ class ControllerSaleSubscription extends Controller {
 			$data['quantity'] = '';
 		}
 
+		$this->load->model('tool/image');
+
+		$data['image_subscription_details'] = $this->model_tool_image->resize('subscription/subscription_details.png', 45, 45);
+		$data['image_payment_address'] = $this->model_tool_image->resize('subscription/payment_address.png', 45, 45);
+		$data['image_shipping_address'] = $this->model_tool_image->resize('subscription/shipping_address.png', 45, 45);
+		$data['image_shipping_method'] = $this->model_tool_image->resize('subscription/shipping_method.png', 45, 45);
+		$data['image_payment_method'] = $this->model_tool_image->resize('subscription/payment_method.png', 45, 45);
+		$data['image_product'] = $this->model_tool_image->resize('subscription/product.png', 45, 45);
+
 		$this->load->model('localisation/subscription_status');
 
 		$data['subscription_statuses'] = $this->model_localisation_subscription_status->getSubscriptionStatuses();

@@ -32,16 +32,16 @@
       <div class="tab-content">
         <div class="tab-pane active" id="tab-subscription">
           <ul class="nav nav-tabs" id="subscription">
-            <li><a href="#subscription1" data-toggle="tab"> {{ text_subscription }}</a></li>
-            <li><a href="#subscription2" data-toggle="tab"> {{ text_payment_address }}</a></li>
-            <li><a href="#subscription3" data-toggle="tab"> {{ text_shipping_address }}</a></li>
-            <li><a href="#subscription4" data-toggle="tab"> {{ text_shipping_method }}</a></li>
-            <li><a href="#subscription5" data-toggle="tab"> {{ text_payment_method }}</a></li>
-            <li><a href="#subscription6" data-toggle="tab"> {{ text_product }}</a></li>
+            <li><a href="#subscriptiondetails" data-toggle="tab"><img src="{{ image_subscription_details }}" alt="{{ text_subscription }}" title="{{ text_subscription }}"/> {{ text_subscription }}</a></li>
+            <li><a href="#paymentaddress" data-toggle="tab"><img src="{{ image_payment_address }}" alt="{{ text_payment_address }}" title="{{ text_payment_address }}"/> {{ text_payment_address }}</a></li>
+            <li><a href="#paymentaddress" data-toggle="tab"><img src="{{ image_shipping_address }}" alt="{{ text_shipping_address }}" title="{{ text_shipping_address }}"/> {{ text_shipping_address }}</a></li>
+            <li><a href="#shippingmethod" data-toggle="tab"><img src="{{ image_shipping_method }}" alt="{{ text_shipping_method }}" title="{{ text_shipping_method }}"/> {{ text_shipping_method }}</a></li>
+            <li><a href="#paymentmethod" data-toggle="tab"><img src="{{ image_payment_method }}" alt="{{ text_payment_method }}" title="{{ text_payment_method }}"/> {{ text_payment_method }}</a></li>
+            <li><a href="#product" data-toggle="tab"><img src="{{ image_product }}" alt="{{ text_product }}" title="{{ text_product }}"/> {{ text_product }}</a></li>
           </ul>
           <div class="tab-content">
             <form id="form-subscription" class="form-horizontal">
-              <div id="subscription1" class="tab-pane active">
+              <div id="subscriptiondetails" class="tab-pane active">
                 <fieldset>
                   <legend>{{ entry_date_added }}</legend>
                   <div class="row">
@@ -84,7 +84,7 @@
                   </div>
                 </fieldset>
               </div>
-              <div id="subscription2" class="tab-pane">
+              <div id="paymentaddress" class="tab-pane">
                 <fieldset>
                   <legend>{{ entry_payment_name }}</legend>
                   <div class="row">
@@ -152,7 +152,7 @@
                   </div>
                 </fieldset>
               </div>
-              <div id="subscription3" class="tab-pane">
+              <div id="shippingaddress" class="tab-pane">
                 <fieldset>
                   <legend>{{ entry_shipping_name }}</legend>
                   <div class="row">
@@ -220,7 +220,7 @@
                   </div>
                 </fieldset>
               </div>
-              <div id="subscription4" class="tab-pane">
+              <div id="shippingmethod" class="tab-pane">
                 <fieldset>
                   <legend>{{ entry_shipping_method }}</legend>
                   <div class="row">
@@ -232,7 +232,7 @@
                   </div>
                 </fieldset>
               </div>
-              <div id="subscription5" class="tab-pane">
+              <div id="paymentmethod" class="tab-pane">
                 <fieldset>
                   <legend>{{ entry_payment_method }}</legend>
                   <div class="row">
@@ -244,7 +244,7 @@
                   </div>
                 </fieldset>
               </div>
-              <div id="subscription6" class="tab-pane">
+              <div id="product" class="tab-pane">
                 <fieldset>
                   <legend>{{ entry_product }}</legend>
                   <div class="row">
