@@ -6,9 +6,9 @@
  */
 class ModelLocalisationGeoZone extends Model {
 	/**
-	 * addGeoZone
+	 * Add Geo Zone
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -31,10 +31,10 @@ class ModelLocalisationGeoZone extends Model {
 	}
 
 	/**
-	 * editGeoZone
+	 * Edit Geo Zone
 	 *
-	 * @param int   $geo_zone_id
-	 * @param array $data
+	 * @param int                  $geo_zone_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -55,7 +55,7 @@ class ModelLocalisationGeoZone extends Model {
 	}
 
 	/**
-	 * deleteGeoZone
+	 * Delete Geo Zone
 	 *
 	 * @param int $geo_zone_id
 	 *
@@ -69,11 +69,11 @@ class ModelLocalisationGeoZone extends Model {
 	}
 
 	/**
-	 * getGeoZone
+	 * Get Geo Zone
 	 *
 	 * @param int $geo_zone_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getGeoZone(int $geo_zone_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "geo_zone` WHERE `geo_zone_id` = '" . (int)$geo_zone_id . "'");
@@ -82,11 +82,11 @@ class ModelLocalisationGeoZone extends Model {
 	}
 
 	/**
-	 * getGeoZones
+	 * Get Geo Zones
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getGeoZones(array $data = []): array {
 		if ($data) {
@@ -140,7 +140,7 @@ class ModelLocalisationGeoZone extends Model {
 	}
 
 	/**
-	 * getTotalGeoZones
+	 * Get Total Geo Zones
 	 *
 	 * @return int
 	 */
@@ -151,11 +151,11 @@ class ModelLocalisationGeoZone extends Model {
 	}
 
 	/**
-	 * getZoneToGeoZones
+	 * Get Zone To Geo Zones
 	 *
 	 * @param int $geo_zone_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getZoneToGeoZones(int $geo_zone_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `geo_zone_id` = '" . (int)$geo_zone_id . "'");
@@ -164,7 +164,7 @@ class ModelLocalisationGeoZone extends Model {
 	}
 
 	/**
-	 * getTotalZoneToGeoZoneByGeoZoneId
+	 * Get Total Zone To Geo Zone By Geo Zone Id
 	 *
 	 * @param int $geo_zone_id
 	 *
@@ -177,7 +177,7 @@ class ModelLocalisationGeoZone extends Model {
 	}
 
 	/**
-	 * getTotalZoneToGeoZoneByCountryId
+	 * Get Total Zone To Geo Zone By Country Id
 	 *
 	 * @param int $country_id
 	 *
@@ -190,7 +190,7 @@ class ModelLocalisationGeoZone extends Model {
 	}
 
 	/**
-	 * getTotalZoneToGeoZoneByZoneId
+	 * Get Total Zone To Geo Zone By Zone Id
 	 *
 	 * @param int $zone_id
 	 *

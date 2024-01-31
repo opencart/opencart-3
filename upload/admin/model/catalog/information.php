@@ -6,9 +6,9 @@
  */
 class ModelCatalogInformation extends Model {
 	/**
-	 * addInformation
+	 * Add Information
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -50,10 +50,10 @@ class ModelCatalogInformation extends Model {
 	}
 
 	/**
-	 * editInformation
+	 * Edit Information
 	 *
-	 * @param int   $information_id
-	 * @param array $data
+	 * @param int                  $information_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -98,7 +98,7 @@ class ModelCatalogInformation extends Model {
 	}
 
 	/**
-	 * deleteInformation
+	 * Delete Information
 	 *
 	 * @param int $information_id
 	 *
@@ -115,11 +115,11 @@ class ModelCatalogInformation extends Model {
 	}
 
 	/**
-	 * getInformation
+	 * Get Information
 	 *
 	 * @param int $information_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getInformation(int $information_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "information` WHERE `information_id` = '" . (int)$information_id . "'");
@@ -128,11 +128,11 @@ class ModelCatalogInformation extends Model {
 	}
 
 	/**
-	 * getInformations
+	 * Get Information(s)
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getInformations(array $data = []): array {
 		if ($data) {
@@ -186,11 +186,11 @@ class ModelCatalogInformation extends Model {
 	}
 
 	/**
-	 * getDescriptions
+	 * Get Descriptions
 	 *
 	 * @param int $information_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, string>>
 	 */
 	public function getDescriptions(int $information_id): array {
 		$information_description_data = [];
@@ -211,11 +211,11 @@ class ModelCatalogInformation extends Model {
 	}
 
 	/**
-	 * getStores
+	 * Get Stores
 	 *
 	 * @param int $information_id
 	 *
-	 * @return array
+	 * @return array<int, int>
 	 */
 	public function getStores(int $information_id): array {
 		$information_store_data = [];
@@ -230,11 +230,11 @@ class ModelCatalogInformation extends Model {
 	}
 
 	/**
-	 * getInformationSeoUrls
+	 * Get Information Seo Urls
 	 *
 	 * @param int $information_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, string>>
 	 */
 	public function getInformationSeoUrls(int $information_id): array {
 		$information_seo_url_data = [];
@@ -249,11 +249,11 @@ class ModelCatalogInformation extends Model {
 	}
 
 	/**
-	 * getInformationLayouts
+	 * Get Information Layouts
 	 *
 	 * @param int $information_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, string>>
 	 */
 	public function getInformationLayouts(int $information_id): array {
 		$information_layout_data = [];
@@ -268,7 +268,7 @@ class ModelCatalogInformation extends Model {
 	}
 
 	/**
-	 * getTotalInformations
+	 * Get Total Information(s)
 	 *
 	 * @return int
 	 */
@@ -279,7 +279,7 @@ class ModelCatalogInformation extends Model {
 	}
 
 	/**
-	 * getTotalInformationsByLayoutId
+	 * Get Total Information(s) By LayoutId
 	 *
 	 * @param int $layout_id
 	 *

@@ -6,9 +6,9 @@
  */
 class ModelCustomerCustomerGroup extends Model {
 	/**
-	 * addCustomerGroup
+	 * Add Customer Group
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -25,10 +25,10 @@ class ModelCustomerCustomerGroup extends Model {
 	}
 
 	/**
-	 * editCustomerGroup
+	 * Edit Customer Group
 	 *
-	 * @param int   $customer_group_id
-	 * @param array $data
+	 * @param int                  $customer_group_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -43,7 +43,7 @@ class ModelCustomerCustomerGroup extends Model {
 	}
 
 	/**
-	 * deleteCustomerGroup
+	 * Delete Customer Group
 	 *
 	 * @param int $customer_group_id
 	 *
@@ -59,11 +59,11 @@ class ModelCustomerCustomerGroup extends Model {
 	}
 
 	/**
-	 * getCustomerGroup
+	 * Get Customer Group
 	 *
 	 * @param int $customer_group_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getCustomerGroup(int $customer_group_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "customer_group` `cg` LEFT JOIN `" . DB_PREFIX . "customer_group_description` `cgd` ON (`cg`.`customer_group_id` = `cgd`.`customer_group_id`) WHERE `cg`.`customer_group_id` = '" . (int)$customer_group_id . "' AND `cgd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -72,11 +72,11 @@ class ModelCustomerCustomerGroup extends Model {
 	}
 
 	/**
-	 * getCustomerGroups
+	 * Get Customer Groups
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getCustomerGroups(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "customer_group` `cg` LEFT JOIN `" . DB_PREFIX . "customer_group_description` `cgd` ON (`cg`.`customer_group_id` = `cgd`.`customer_group_id`) WHERE `cgd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
@@ -116,11 +116,11 @@ class ModelCustomerCustomerGroup extends Model {
 	}
 
 	/**
-	 * getDescriptions
+	 * Get Descriptions
 	 *
 	 * @param int $customer_group_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, string>>
 	 */
 	public function getDescriptions(int $customer_group_id): array {
 		$customer_group_data = [];
@@ -138,7 +138,7 @@ class ModelCustomerCustomerGroup extends Model {
 	}
 
 	/**
-	 * getTotalCustomerGroups
+	 * Get Total Customer Groups
 	 *
 	 * @return int
 	 */

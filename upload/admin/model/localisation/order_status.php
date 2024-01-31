@@ -6,9 +6,9 @@
  */
 class ModelLocalisationOrderStatus extends Model {
 	/**
-	 * addOrderStatus
+	 * Add Order Status
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return ?int
 	 */
@@ -31,10 +31,10 @@ class ModelLocalisationOrderStatus extends Model {
 	}
 
 	/**
-	 * editOrderStatus
+	 * Edit Order Status
 	 *
-	 * @param int   $order_status_id
-	 * @param array $data
+	 * @param int                  $order_status_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -49,7 +49,7 @@ class ModelLocalisationOrderStatus extends Model {
 	}
 
 	/**
-	 * deleteOrderStatus
+	 * Delete Order Status
 	 *
 	 * @param int $order_status_id
 	 *
@@ -62,11 +62,11 @@ class ModelLocalisationOrderStatus extends Model {
 	}
 
 	/**
-	 * getOrderStatus
+	 * Get Order Status
 	 *
 	 * @param int $order_status_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getOrderStatus(int $order_status_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_status` WHERE `order_status_id` = '" . (int)$order_status_id . "' AND `language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -75,11 +75,11 @@ class ModelLocalisationOrderStatus extends Model {
 	}
 
 	/**
-	 * getOrderStatuses
+	 * Get Order Statuses
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getOrderStatuses(array $data = []): array {
 		if ($data) {
@@ -124,11 +124,11 @@ class ModelLocalisationOrderStatus extends Model {
 	}
 
 	/**
-	 * getDescriptions
+	 * Get Descriptions
 	 *
 	 * @param int $order_status_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, string>>
 	 */
 	public function getDescriptions(int $order_status_id): array {
 		$order_status_data = [];
@@ -143,7 +143,7 @@ class ModelLocalisationOrderStatus extends Model {
 	}
 
 	/**
-	 * getTotalOrderStatuses
+	 * Get Total Order Statuses
 	 *
 	 * @return int
 	 */

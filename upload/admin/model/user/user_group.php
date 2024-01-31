@@ -6,9 +6,9 @@
  */
 class ModelUserUserGroup extends Model {
 	/**
-	 * addUserGroup
+	 * Add User Group
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -19,10 +19,10 @@ class ModelUserUserGroup extends Model {
 	}
 
 	/**
-	 * editUserGroup
+	 * Edit User Group
 	 *
-	 * @param int   $user_group_id
-	 * @param array $data
+	 * @param int                  $user_group_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -31,7 +31,7 @@ class ModelUserUserGroup extends Model {
 	}
 
 	/**
-	 * deleteUserGroup
+	 * Delete User Group
 	 *
 	 * @param int $user_group_id
 	 *
@@ -42,11 +42,11 @@ class ModelUserUserGroup extends Model {
 	}
 
 	/**
-	 * getUserGroup
+	 * Get User Group
 	 *
 	 * @param int $user_group_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getUserGroup(int $user_group_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "user_group` WHERE `user_group_id` = '" . (int)$user_group_id . "'");
@@ -58,11 +58,11 @@ class ModelUserUserGroup extends Model {
 	}
 
 	/**
-	 * getUserGroups
+	 * Get User Groups
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getUserGroups(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "user_group`";
@@ -93,7 +93,7 @@ class ModelUserUserGroup extends Model {
 	}
 
 	/**
-	 * getTotalUserGroups
+	 * Get Total User Groups
 	 *
 	 * @return int
 	 */
@@ -104,7 +104,7 @@ class ModelUserUserGroup extends Model {
 	}
 
 	/**
-	 * addPermission
+	 * Add Permission
 	 *
 	 * @param int    $user_group_id
 	 * @param string $type
@@ -124,7 +124,7 @@ class ModelUserUserGroup extends Model {
 	}
 
 	/**
-	 * removePermission
+	 * Remove Permission
 	 *
 	 * @param int    $user_group_id
 	 * @param string $type

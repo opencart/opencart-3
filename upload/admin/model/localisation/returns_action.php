@@ -6,9 +6,9 @@
  */
 class ModelLocalisationReturnsAction extends Model {
 	/**
-	 * addReturnAction
+	 * Add Return Action
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return ?int
 	 */
@@ -31,10 +31,10 @@ class ModelLocalisationReturnsAction extends Model {
 	}
 
 	/**
-	 * editReturnAction
+	 * Edit Return Action
 	 *
-	 * @param int   $return_action_id
-	 * @param array $data
+	 * @param int                  $return_action_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -49,7 +49,7 @@ class ModelLocalisationReturnsAction extends Model {
 	}
 
 	/**
-	 * deleteReturnAction
+	 * Delete Return Action
 	 *
 	 * @param int $return_action_id
 	 *
@@ -62,11 +62,11 @@ class ModelLocalisationReturnsAction extends Model {
 	}
 
 	/**
-	 * getReturnAction
+	 * Get Return Action
 	 *
 	 * @param int $return_action_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getReturnAction(int $return_action_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "return_action` WHERE `return_action_id` = '" . (int)$return_action_id . "' AND `language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -75,11 +75,11 @@ class ModelLocalisationReturnsAction extends Model {
 	}
 
 	/**
-	 * getReturnActions
+	 * Get Return Actions
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getReturnActions(array $data = []): array {
 		if ($data) {
@@ -124,11 +124,11 @@ class ModelLocalisationReturnsAction extends Model {
 	}
 
 	/**
-	 * getDescriptions
+	 * Get Descriptions
 	 *
 	 * @param int $return_action_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, string>>
 	 */
 	public function getDescriptions(int $return_action_id): array {
 		$return_action_data = [];
@@ -143,7 +143,7 @@ class ModelLocalisationReturnsAction extends Model {
 	}
 
 	/**
-	 * getTotalReturnActions
+	 * Get Total Return Actions
 	 *
 	 * @return int
 	 */

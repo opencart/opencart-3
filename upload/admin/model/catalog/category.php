@@ -6,9 +6,9 @@
  */
 class ModelCatalogCategory extends Model {
 	/**
-	 * addCategory
+	 * Add Category
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -73,10 +73,10 @@ class ModelCatalogCategory extends Model {
 	}
 
 	/**
-	 * editCategory
+	 * Edit Category
 	 *
-	 * @param int   $category_id
-	 * @param array $data
+	 * @param int                  $category_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -185,7 +185,7 @@ class ModelCatalogCategory extends Model {
 	}
 
 	/**
-	 * deleteCategory
+	 * Delete Category
 	 *
 	 * @param int $category_id
 	 *
@@ -213,7 +213,7 @@ class ModelCatalogCategory extends Model {
 	}
 
 	/**
-	 * repairCategories
+	 * Repair Categories
 	 *
 	 * @param int $parent_id
 	 *
@@ -244,11 +244,11 @@ class ModelCatalogCategory extends Model {
 	}
 
 	/**
-	 * getCategory
+	 * Get Category
 	 *
 	 * @param int $category_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getCategory(int $category_id): array {
 		$query = $this->db->query("SELECT DISTINCT *, (SELECT GROUP_CONCAT(`cd1`.`name` ORDER BY `level` SEPARATOR ' > ') FROM `" . DB_PREFIX . "category_path` `cp` LEFT JOIN `" . DB_PREFIX . "category_description` `cd1` ON (`cp`.`path_id` = `cd1`.`category_id` AND `cp`.`category_id` != `cp`.`path_id`) WHERE `cp`.`category_id` = `c`.`category_id` AND `cd1`.`language_id` = '" . (int)$this->config->get('config_language_id') . "' GROUP BY `cp`.`category_id`) AS `path` FROM `" . DB_PREFIX . "category` `c` LEFT JOIN `" . DB_PREFIX . "category_description` `cd2` ON (`c`.`category_id` = `cd2`.`category_id`) WHERE `c`.`category_id` = '" . (int)$category_id . "' AND `cd2`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -257,11 +257,11 @@ class ModelCatalogCategory extends Model {
 	}
 
 	/**
-	 * getCategories
+	 * Get Categories
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getCategories(array $data = []): array {
 		$sql = "SELECT `cp`.`category_id` AS `category_id`, GROUP_CONCAT(`cd1`.`name` ORDER BY `cp`.`level` SEPARATOR ' > ') AS `name`, `c1`.`parent_id`, `c1`.`sort_order` FROM `" . DB_PREFIX . "category_path` `cp` LEFT JOIN `" . DB_PREFIX . "category` `c1` ON (`cp`.`category_id` = `c1`.`category_id`) LEFT JOIN `" . DB_PREFIX . "category` `c2` ON (`cp`.`path_id` = `c2`.`category_id`) LEFT JOIN `" . DB_PREFIX . "category_description` `cd1` ON (`cp`.`path_id` = `cd1`.`category_id`) LEFT JOIN `" . DB_PREFIX . "category_description` `cd2` ON (`cp`.`category_id` = `cd2`.`category_id`) WHERE `cd1`.`language_id` = '" . (int)$this->config->get('config_language_id') . "' AND `cd2`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
@@ -307,11 +307,11 @@ class ModelCatalogCategory extends Model {
 	}
 
 	/**
-	 * getDescriptions
+	 * Get Descriptions
 	 *
 	 * @param int $category_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, string>>
 	 */
 	public function getDescriptions(int $category_id): array {
 		$category_description_data = [];
@@ -332,11 +332,11 @@ class ModelCatalogCategory extends Model {
 	}
 
 	/**
-	 * getPath
+	 * Get Path
 	 *
 	 * @param int $category_id
 	 *
-	 * @return array
+	 * @return string
 	 */
 	public function getPath(int $category_id): array {
 		$query = $this->db->query("SELECT `category_id`, `path_id`, `level` FROM `" . DB_PREFIX . "category_path` WHERE `category_id` = '" . (int)$category_id . "'");
@@ -345,11 +345,11 @@ class ModelCatalogCategory extends Model {
 	}
 
 	/**
-	 * getFilters
+	 * Get Filters
 	 *
 	 * @param int $category_id
 	 *
-	 * @return array
+	 * @return array<int, int>
 	 */
 	public function getFilters(int $category_id): array {
 		$category_filter_data = [];
@@ -364,11 +364,11 @@ class ModelCatalogCategory extends Model {
 	}
 
 	/**
-	 * getCategoryStores
+	 * Get Category Stores
 	 *
 	 * @param int $category_id
 	 *
-	 * @return array
+	 * @return array<int, int>
 	 */
 	public function getCategoryStores(int $category_id): array {
 		$category_store_data = [];
@@ -383,11 +383,11 @@ class ModelCatalogCategory extends Model {
 	}
 
 	/**
-	 * getCategorySeoUrls
+	 * Get Category Seo Urls
 	 *
 	 * @param int $category_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, string>>
 	 */
 	public function getCategorySeoUrls(int $category_id): array {
 		$category_seo_url_data = [];
@@ -402,11 +402,11 @@ class ModelCatalogCategory extends Model {
 	}
 
 	/**
-	 * getCategoryLayouts
+	 * Get Category Layouts
 	 *
 	 * @param int $category_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, string>>
 	 */
 	public function getCategoryLayouts(int $category_id): array {
 		$category_layout_data = [];
@@ -421,7 +421,7 @@ class ModelCatalogCategory extends Model {
 	}
 
 	/**
-	 * getTotalCategories
+	 * Get Total Categories
 	 *
 	 * @return int
 	 */
@@ -432,7 +432,7 @@ class ModelCatalogCategory extends Model {
 	}
 
 	/**
-	 * getTotalCategoriesByLayoutId
+	 * Get Total Categories By LayoutId
 	 *
 	 * @param int $layout_id
 	 *

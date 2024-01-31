@@ -1,9 +1,14 @@
 <?php
+/**
+ * Class Language
+ *
+ * @package Admin\Model\Localisation
+ */
 class ModelLocalisationLanguage extends Model {
 	/**
-	 * addLanguage
+	 * Add Language
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -200,10 +205,10 @@ class ModelLocalisationLanguage extends Model {
 	}
 
 	/**
-	 * editLanguage
+	 * Edit Language
 	 *
-	 * @param int   $language_id
-	 * @param array $data
+	 * @param int                  $language_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -222,7 +227,7 @@ class ModelLocalisationLanguage extends Model {
 	}
 
 	/**
-	 * deleteLanguage
+	 * Delete Language
 	 *
 	 * @param int $language_id
 	 *
@@ -237,11 +242,11 @@ class ModelLocalisationLanguage extends Model {
 	}
 
 	/**
-	 * getLanguage
+	 * Get Language
 	 *
 	 * @param int $language_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getLanguage(int $language_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "language` WHERE `language_id` = '" . (int)$language_id . "'");
@@ -250,11 +255,11 @@ class ModelLocalisationLanguage extends Model {
 	}
 
 	/**
-	 * getLanguages
+	 * Get Languages
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<string, array<string, mixed>>
 	 */
 	public function getLanguages(array $data = []): array {
 		if ($data) {
@@ -322,11 +327,11 @@ class ModelLocalisationLanguage extends Model {
 	}
 
 	/**
-	 * getLanguageByCode
+	 * Get Language By Code
 	 *
 	 * @param string $code
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getLanguageByCode(string $code): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "language` WHERE `code` = '" . $this->db->escape($code) . "'");
@@ -335,7 +340,7 @@ class ModelLocalisationLanguage extends Model {
 	}
 
 	/**
-	 * getTotalLanguages
+	 * Get Total Languages
 	 *
 	 * @return int
 	 */

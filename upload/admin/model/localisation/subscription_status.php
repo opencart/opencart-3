@@ -6,9 +6,9 @@
  */
 class ModelLocalisationSubscriptionStatus extends Model {
 	/**
-	 * addSubscriptionStatus
+	 * Add Subscription Status
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return ?int
 	 */
@@ -33,10 +33,10 @@ class ModelLocalisationSubscriptionStatus extends Model {
 	}
 
 	/**
-	 * editSubscriptionStatus
+	 * Edit Subscription Status
 	 *
-	 * @param int   $subscription_status_id
-	 * @param array $data
+	 * @param int                  $subscription_status_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -51,7 +51,7 @@ class ModelLocalisationSubscriptionStatus extends Model {
 	}
 
 	/**
-	 * deleteSubscriptionStatus
+	 * Delete Subscription Status
 	 *
 	 * @param int $subscription_status_id
 	 *
@@ -64,11 +64,11 @@ class ModelLocalisationSubscriptionStatus extends Model {
 	}
 
 	/**
-	 * getSubscriptionStatus
+	 * Get Subscription Status
 	 *
 	 * @param int $subscription_status_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getSubscriptionStatus(int $subscription_status_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "subscription_status` WHERE `subscription_status_id` = '" . (int)$subscription_status_id . "' AND `language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -77,11 +77,11 @@ class ModelLocalisationSubscriptionStatus extends Model {
 	}
 
 	/**
-	 * getSubscriptionStatuses
+	 * Get Subscription Statuses
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getSubscriptionStatuses(array $data = []): array {
 		if ($data) {
@@ -126,11 +126,11 @@ class ModelLocalisationSubscriptionStatus extends Model {
 	}
 
 	/**
-	 * getDescriptions
+	 * Get Descriptions
 	 *
 	 * @param int $subscription_status_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, string>>
 	 */
 	public function getDescriptions(int $subscription_status_id): array {
 		$subscription_status_data = [];
@@ -145,7 +145,7 @@ class ModelLocalisationSubscriptionStatus extends Model {
 	}
 
 	/**
-	 * getTotalSubscriptionStatuses
+	 * Get Total Subscription Statuses
 	 *
 	 * @return int
 	 */

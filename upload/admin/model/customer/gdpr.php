@@ -6,7 +6,7 @@
  */
 class ModelCustomerGdpr extends Model {
 	/**
-	 * editStatus
+	 * Edit Status
 	 *
 	 * @param int $gdpr_id
 	 * @param int $status
@@ -18,7 +18,7 @@ class ModelCustomerGdpr extends Model {
 	}
 
 	/**
-	 * deleteGdpr
+	 * Delete Gdpr
 	 *
 	 * @param int $gdpr_id
 	 *
@@ -29,11 +29,11 @@ class ModelCustomerGdpr extends Model {
 	}
 
 	/**
-	 * getGdprs
+	 * Get Gdpr(s)
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getGdprs(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "gdpr`";
@@ -80,11 +80,11 @@ class ModelCustomerGdpr extends Model {
 	}
 
 	/**
-	 * getGdpr
+	 * Get Gdpr
 	 *
 	 * @param int $gdpr_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getGdpr(int $gdpr_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "gdpr` WHERE `gdpr_id` = '" . (int)$gdpr_id . "'");
@@ -93,9 +93,9 @@ class ModelCustomerGdpr extends Model {
 	}
 
 	/**
-	 * getTotalGdprs
+	 * Get Total Gdpr(s)
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -130,9 +130,9 @@ class ModelCustomerGdpr extends Model {
 	}
 
 	/**
-	 * getExpires
+	 * Get Expires
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getExpires(): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "gdpr` WHERE `status` = '2' AND DATE(`date_added`) <= DATE('" . $this->db->escape(date('Y-m-d', strtotime('+' . (int)$this->config->get('config_gdpr_limit') . ' days'))) . "') ORDER BY `date_added` DESC");

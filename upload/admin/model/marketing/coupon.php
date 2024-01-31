@@ -6,9 +6,9 @@
  */
 class ModelMarketingCoupon extends Model {
 	/**
-	 * addCoupon
+	 * Add Coupon
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -33,10 +33,10 @@ class ModelMarketingCoupon extends Model {
 	}
 
 	/**
-	 * editCoupon
+	 * Edit Coupon
 	 *
-	 * @param int   $coupon_id
-	 * @param array $data
+	 * @param int                  $coupon_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -61,7 +61,7 @@ class ModelMarketingCoupon extends Model {
 	}
 
 	/**
-	 * deleteCoupon
+	 * Delete Coupon
 	 *
 	 * @param int $coupon_id
 	 *
@@ -75,11 +75,11 @@ class ModelMarketingCoupon extends Model {
 	}
 
 	/**
-	 * getCoupon
+	 * Get Coupon
 	 *
 	 * @param int $coupon_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getCoupon(int $coupon_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "coupon` WHERE `coupon_id` = '" . (int)$coupon_id . "'");
@@ -88,11 +88,11 @@ class ModelMarketingCoupon extends Model {
 	}
 
 	/**
-	 * getCouponByCode
+	 * Get Coupon By Code
 	 *
 	 * @param string $code
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getCouponByCode(string $code): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "coupon` WHERE `code` = '" . $this->db->escape($code) . "'");
@@ -101,11 +101,11 @@ class ModelMarketingCoupon extends Model {
 	}
 
 	/**
-	 * getCoupons
+	 * Get Coupons
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getCoupons(array $data = []): array {
 		$sql = "SELECT `coupon_id`, `name`, `code`, `discount`, `date_start`, `date_end`, `status` FROM `" . DB_PREFIX . "coupon`";
@@ -149,11 +149,11 @@ class ModelMarketingCoupon extends Model {
 	}
 
 	/**
-	 * getProducts
+	 * Get Products
 	 *
 	 * @param int $coupon_id
 	 *
-	 * @return array
+	 * @return array<int, int>
 	 */
 	public function getProducts(int $coupon_id): array {
 		$coupon_product_data = [];
@@ -168,11 +168,11 @@ class ModelMarketingCoupon extends Model {
 	}
 
 	/**
-	 * getCategories
+	 * Get Categories
 	 *
 	 * @param int $coupon_id
 	 *
-	 * @return array
+	 * @return array<int, int>
 	 */
 	public function getCategories(int $coupon_id): array {
 		$coupon_category_data = [];
@@ -187,7 +187,7 @@ class ModelMarketingCoupon extends Model {
 	}
 
 	/**
-	 * getTotalCoupons
+	 * Get Total Coupons
 	 *
 	 * @return int
 	 */
@@ -198,13 +198,13 @@ class ModelMarketingCoupon extends Model {
 	}
 
 	/**
-	 * getHistories
+	 * Get Histories
 	 *
 	 * @param int $coupon_id
 	 * @param int $start
 	 * @param int $limit
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getHistories(int $coupon_id, int $start = 0, int $limit = 10): array {
 		if ($start < 0) {
@@ -221,7 +221,7 @@ class ModelMarketingCoupon extends Model {
 	}
 
 	/**
-	 * getTotalHistories
+	 * Get Total Histories
 	 *
 	 * @param int $coupon_id
 	 *

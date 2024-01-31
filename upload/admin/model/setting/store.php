@@ -6,9 +6,9 @@
  */
 class ModelSettingStore extends Model {
 	/**
-	 * addStore
+	 * Add Store
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -30,10 +30,10 @@ class ModelSettingStore extends Model {
 	}
 
 	/**
-	 * editStore
+	 * Edit Store
 	 *
-	 * @param int   $store_id
-	 * @param array $data
+	 * @param int                  $store_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -44,7 +44,7 @@ class ModelSettingStore extends Model {
 	}
 
 	/**
-	 * deleteStore
+	 * Delete Store
 	 *
 	 * @param int $store_id
 	 *
@@ -78,11 +78,11 @@ class ModelSettingStore extends Model {
 	}
 
 	/**
-	 * getStore
+	 * Get Store
 	 *
 	 * @param int $store_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getStore(int $store_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "store` WHERE `store_id` = '" . (int)$store_id . "'");
@@ -91,11 +91,11 @@ class ModelSettingStore extends Model {
 	}
 
 	/**
-	 * getStores
+	 * Get Stores
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getStores(array $data = []): array {
 		$store_data = $this->cache->get('store');
@@ -112,7 +112,7 @@ class ModelSettingStore extends Model {
 	}
 
 	/**
-	 * getTotalStores
+	 * Get Total Stores
 	 *
 	 * @return int
 	 */
@@ -123,7 +123,7 @@ class ModelSettingStore extends Model {
 	}
 
 	/**
-	 * getTotalStoresByLayoutId
+	 * Get Total Stores By Layout ID
 	 *
 	 * @param int $layout_id
 	 *
@@ -136,7 +136,7 @@ class ModelSettingStore extends Model {
 	}
 
 	/**
-	 * getTotalStoresByLanguage
+	 * Get Total Stores By Language
 	 *
 	 * @param string $language
 	 *
@@ -149,7 +149,7 @@ class ModelSettingStore extends Model {
 	}
 
 	/**
-	 * getTotalStoresByCurrency
+	 * Get Total Stores By Currency
 	 *
 	 * @param string $currency
 	 *
@@ -162,7 +162,7 @@ class ModelSettingStore extends Model {
 	}
 
 	/**
-	 * getTotalStoresByCountryId
+	 * Get Total Stores By Country ID
 	 *
 	 * @param int $country_id
 	 *
@@ -175,7 +175,7 @@ class ModelSettingStore extends Model {
 	}
 
 	/**
-	 * getTotalStoresByZoneId
+	 * Get Total Stores By Zone ID
 	 *
 	 * @param int $zone_id
 	 *
@@ -188,7 +188,7 @@ class ModelSettingStore extends Model {
 	}
 
 	/**
-	 * getTotalStoresByCustomerGroupId
+	 * Get Total Stores By Customer Group ID
 	 *
 	 * @param int $customer_group_id
 	 *
@@ -201,7 +201,7 @@ class ModelSettingStore extends Model {
 	}
 
 	/**
-	 * getTotalStoresByInformationId
+	 * Get Total Stores By Information ID
 	 *
 	 * @param int $information_id
 	 *
@@ -215,7 +215,7 @@ class ModelSettingStore extends Model {
 	}
 
 	/**
-	 * getTotalStoresByOrderStatusId
+	 * Get Total Stores By Order Status ID
 	 *
 	 * @param int $order_status_id
 	 *

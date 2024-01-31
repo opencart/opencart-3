@@ -6,9 +6,9 @@
  */
 class ModelCustomerCustomer extends Model {
 	/**
-	 * addCustomer
+	 * Add Customer
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -33,10 +33,10 @@ class ModelCustomerCustomer extends Model {
 	}
 
 	/**
-	 * editCustomer
+	 * Edit Customer
 	 *
-	 * @param int   $customer_id
-	 * @param array $data
+	 * @param int                  $customer_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -63,7 +63,7 @@ class ModelCustomerCustomer extends Model {
 	}
 
 	/**
-	 * editToken
+	 * Edit Token
 	 *
 	 * @param int    $customer_id
 	 * @param string $token
@@ -75,7 +75,7 @@ class ModelCustomerCustomer extends Model {
 	}
 
 	/**
-	 * deleteCustomer
+	 * Delete Customer
 	 *
 	 * @param int $customer_id
 	 *
@@ -95,11 +95,11 @@ class ModelCustomerCustomer extends Model {
 	}
 
 	/**
-	 * getCustomer
+	 * Get Customer
 	 *
 	 * @param int $customer_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getCustomer(int $customer_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "customer` WHERE `customer_id` = '" . (int)$customer_id . "'");
@@ -112,11 +112,11 @@ class ModelCustomerCustomer extends Model {
 	}
 
 	/**
-	 * getCustomerByEmail
+	 * Get Customer By Email
 	 *
 	 * @param string $email
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getCustomerByEmail(string $email): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "customer` WHERE LCASE(`email`) = '" . $this->db->escape(oc_strtolower($email)) . "'");
@@ -129,11 +129,11 @@ class ModelCustomerCustomer extends Model {
 	}
 
 	/**
-	 * getCustomers
+	 * Get Customers
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getCustomers(array $data = []): array {
 		$sql = "SELECT *, CONCAT(`c`.`firstname`, ' ', `c`.`lastname`) AS `name`, `cgd`.`name` AS `customer_group` FROM `" . DB_PREFIX . "customer` `c` LEFT JOIN `" . DB_PREFIX . "customer_group_description` `cgd` ON (`c`.`customer_group_id` = `cgd`.`customer_group_id`)";
@@ -207,11 +207,11 @@ class ModelCustomerCustomer extends Model {
 	}
 
 	/**
-	 * getAddress
+	 * Get Address
 	 *
 	 * @param int $address_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getAddress(int $address_id): array {
 		$address_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "address` WHERE `address_id` = '" . (int)$address_id . "'");
@@ -268,11 +268,11 @@ class ModelCustomerCustomer extends Model {
 	}
 
 	/**
-	 * getAddresses
+	 * Get Addresses
 	 *
 	 * @param int $customer_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getAddresses(int $customer_id): array {
 		$address_data = [];
@@ -291,9 +291,9 @@ class ModelCustomerCustomer extends Model {
 	}
 
 	/**
-	 * getTotalCustomers
+	 * Get Total Customers
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -340,11 +340,11 @@ class ModelCustomerCustomer extends Model {
 	}
 
 	/**
-	 * getAffiliateByTracking
+	 * Get Affiliate By Tracking
 	 * 
 	 * @param string $tracking
 	 * 
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getAffiliateByTracking(string $tracking): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_affiliate` WHERE `tracking` = '" . $this->db->escape($tracking) . "'");
@@ -353,11 +353,11 @@ class ModelCustomerCustomer extends Model {
     }
 	
 	/**
-	 * getAffiliate
+	 * Get Affiliate
 	 * 
 	 * @param int $customer_id
 	 * 
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getAffiliate(int $customer_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_affiliate` WHERE `customer_id` = '" . (int)$customer_id . "'");
@@ -366,11 +366,11 @@ class ModelCustomerCustomer extends Model {
 	}
 	
 	/**
-	 * getAffiliates
+	 * Get Affiliates
 	 * 
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 * 
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getAffiliates(array $data = array()): array {
 		$sql = "SELECT DISTINCT *, CONCAT(`c`.`firstname`, ' ', `c`.`lastname`) AS `name` FROM `" . DB_PREFIX . "customer_affiliate` `ca` LEFT JOIN `" . DB_PREFIX . "customer` `c` ON (`ca`.`customer_id` = `c`.`customer_id`)";
@@ -403,9 +403,9 @@ class ModelCustomerCustomer extends Model {
 	}
 	
 	/**
-	 * getTotalAffiliates
+	 * Get Total Affiliates
 	 * 
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 * 
 	 * @return int
 	 */
@@ -428,7 +428,7 @@ class ModelCustomerCustomer extends Model {
 	}
 
 	/**
-	 * getTotalAddressesByCustomerId
+	 * Get Total Addresses By Customer Id
 	 *
 	 * @param int $customer_id
 	 *
@@ -441,7 +441,7 @@ class ModelCustomerCustomer extends Model {
 	}
 
 	/**
-	 * getTotalAddressesByCountryId
+	 * Get Total Addresses By Country Id
 	 *
 	 * @param int $country_id
 	 *
@@ -454,7 +454,7 @@ class ModelCustomerCustomer extends Model {
 	}
 
 	/**
-	 * getTotalAddressesByZoneId
+	 * Get Total Addresses By Zone Id
 	 *
 	 * @param int $zone_id
 	 *
@@ -467,7 +467,7 @@ class ModelCustomerCustomer extends Model {
 	}
 
 	/**
-	 * getTotalCustomersByCustomerGroupId
+	 * Get Total Customers By Customer Group Id
 	 *
 	 * @param int $customer_group_id
 	 *
@@ -480,7 +480,7 @@ class ModelCustomerCustomer extends Model {
 	}
 
 	/**
-	 * addHistory
+	 * Add History
 	 *
 	 * @param int    $customer_id
 	 * @param string $comment
@@ -492,13 +492,13 @@ class ModelCustomerCustomer extends Model {
 	}
 
 	/**
-	 * getHistories
+	 * Get Histories
 	 *
 	 * @param int $customer_id
 	 * @param int $start
 	 * @param int $limit
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getHistories(int $customer_id, int $start = 0, int $limit = 10): array {
 		if ($start < 0) {
@@ -515,7 +515,7 @@ class ModelCustomerCustomer extends Model {
 	}
 
 	/**
-	 * getTotalHistories
+	 * Get Total Histories
 	 *
 	 * @param int $customer_id
 	 *
@@ -528,7 +528,7 @@ class ModelCustomerCustomer extends Model {
 	}
 
 	/**
-	 * addTransaction
+	 * Add Transaction
 	 *
 	 * @param int    $customer_id
 	 * @param string $description
@@ -542,7 +542,7 @@ class ModelCustomerCustomer extends Model {
 	}
 
 	/**
-	 * deleteTransactionByOrderId
+	 * Delete Transaction By Order Id
 	 *
 	 * @param int $order_id
 	 *
@@ -553,13 +553,13 @@ class ModelCustomerCustomer extends Model {
 	}
 
 	/**
-	 * getTransactions
+	 * Get Transactions
 	 *
 	 * @param int $customer_id
 	 * @param int $start
 	 * @param int $limit
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getTransactions(int $customer_id, int $start = 0, int $limit = 10): array {
 		if ($start < 0) {
@@ -576,7 +576,7 @@ class ModelCustomerCustomer extends Model {
 	}
 
 	/**
-	 * getTotalTransactions
+	 * Get Total Transactions
 	 *
 	 * @param int $customer_id
 	 *
@@ -589,7 +589,7 @@ class ModelCustomerCustomer extends Model {
 	}
 
 	/**
-	 * getTransactionTotal
+	 * Get Transaction Total
 	 *
 	 * @param int $customer_id
 	 *
@@ -602,7 +602,7 @@ class ModelCustomerCustomer extends Model {
 	}
 
 	/**
-	 * getTotalTransactionsByOrderId
+	 * Get Total Transactions By Order Id
 	 *
 	 * @param int $order_id
 	 *
@@ -615,7 +615,7 @@ class ModelCustomerCustomer extends Model {
 	}
 
 	/**
-	 * addReward
+	 * Add Reward
 	 *
 	 * @param int    $customer_id
 	 * @param string $description
@@ -629,7 +629,7 @@ class ModelCustomerCustomer extends Model {
 	}
 
 	/**
-	 * deleteReward
+	 * Delete Reward
 	 *
 	 * @param int $order_id
 	 *
@@ -640,13 +640,13 @@ class ModelCustomerCustomer extends Model {
 	}
 
 	/**
-	 * getRewards
+	 * Get Rewards
 	 *
 	 * @param int $customer_id
 	 * @param int $start
 	 * @param int $limit
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getRewards(int $customer_id, int $start = 0, int $limit = 10): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_reward` WHERE `customer_id` = '" . (int)$customer_id . "' ORDER BY `date_added` DESC LIMIT " . (int)$start . "," . (int)$limit);
@@ -655,7 +655,7 @@ class ModelCustomerCustomer extends Model {
 	}
 
 	/**
-	 * getTotalRewards
+	 * Get Total Rewards
 	 *
 	 * @param int $customer_id
 	 *
@@ -668,7 +668,7 @@ class ModelCustomerCustomer extends Model {
 	}
 
 	/**
-	 * getRewardTotal
+	 * Get Reward Total
 	 *
 	 * @param int $customer_id
 	 *
@@ -685,7 +685,7 @@ class ModelCustomerCustomer extends Model {
 	}
 
 	/**
-	 * getTotalCustomerRewardsByOrderId
+	 * Get Total Customer Rewards By Order Id
 	 *
 	 * @param int $order_id
 	 *
@@ -698,13 +698,13 @@ class ModelCustomerCustomer extends Model {
 	}
 
 	/**
-	 * getIps
+	 * Get Ips
 	 *
 	 * @param int $customer_id
 	 * @param int $start
 	 * @param int $limit
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getIps(int $customer_id, int $start = 0, int $limit = 10): array {
 		if ($start < 0) {
@@ -721,7 +721,7 @@ class ModelCustomerCustomer extends Model {
 	}
 
 	/**
-	 * getTotalIps
+	 * Get Total Ips
 	 *
 	 * @param int $customer_id
 	 *
@@ -734,7 +734,7 @@ class ModelCustomerCustomer extends Model {
 	}
 
 	/**
-	 * getTotalCustomersByIp
+	 * Get Total Customers By Ip
 	 *
 	 * @param string $ip
 	 *
@@ -747,11 +747,11 @@ class ModelCustomerCustomer extends Model {
 	}
 
 	/**
-	 * getTotalLoginAttempts
+	 * Get Total Login Attempts
 	 *
 	 * @param string $email
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getTotalLoginAttempts(string $email): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_login` WHERE LCASE(`email`) = '" . $this->db->escape(oc_strtolower($email)) . "'");
@@ -760,7 +760,7 @@ class ModelCustomerCustomer extends Model {
 	}
 
 	/**
-	 * deleteLoginAttempts
+	 * Delete Login Attempts
 	 *
 	 * @param string $email
 	 *

@@ -6,7 +6,7 @@
  */
 class ModelSettingEvent extends Model {
 	/**
-	 * addEvent
+	 * Add Event
 	 *
 	 * @param string $code
 	 * @param string $trigger
@@ -23,7 +23,7 @@ class ModelSettingEvent extends Model {
 	}
 
 	/**
-	 * deleteEvent
+	 * Delete Event
 	 *
 	 * @param int $event_id
 	 *
@@ -34,7 +34,7 @@ class ModelSettingEvent extends Model {
 	}
 
 	/**
-	 * deleteEventByCode
+	 * Delete Event By Code
 	 *
 	 * @param string $code
 	 *
@@ -45,7 +45,7 @@ class ModelSettingEvent extends Model {
 	}
 
 	/**
-	 * enableEvent
+	 * Enable Event
 	 *
 	 * @param int $event_id
 	 *
@@ -56,7 +56,7 @@ class ModelSettingEvent extends Model {
 	}
 
 	/**
-	 * disableEvent
+	 * Disable Event
 	 *
 	 * @param int $event_id
 	 *
@@ -80,11 +80,11 @@ class ModelSettingEvent extends Model {
 	}
 
 	/**
-	 * getEvent
+	 * Get Event
 	 *
 	 * @param int $event_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getEvent(int $event_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "event` WHERE `event_id` = '" . (int)$event_id . "' LIMIT 1");
@@ -93,11 +93,11 @@ class ModelSettingEvent extends Model {
 	}
 
 	/**
-	 * getEventByCode
+	 * Get Event By Code
 	 *
 	 * @param string $code
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getEventByCode(string $code): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "event` WHERE `code` = '" . $this->db->escape($code) . "' LIMIT 1");
@@ -106,11 +106,11 @@ class ModelSettingEvent extends Model {
 	}
 
 	/**
-	 * getEvents
+	 * Get Events
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getEvents(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "event`";
@@ -154,7 +154,7 @@ class ModelSettingEvent extends Model {
 	}
 
 	/**
-	 * getTotalEvents
+	 * Get Total Events
 	 *
 	 * @return int
 	 */

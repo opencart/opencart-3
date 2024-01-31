@@ -6,9 +6,9 @@
  */
 class ModelCatalogAttributeGroup extends Model {
 	/**
-	 * addAttributeGroup
+	 * Add Attribute Group
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -25,10 +25,10 @@ class ModelCatalogAttributeGroup extends Model {
 	}
 
 	/**
-	 * editAttributeGroup
+	 * Edit Attribute Group
 	 *
-	 * @param int   $attribute_group_id
-	 * @param array $data
+	 * @param int                  $attribute_group_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -43,7 +43,7 @@ class ModelCatalogAttributeGroup extends Model {
 	}
 
 	/**
-	 * deleteAttributeGroup
+	 * Delete Attribute Group
 	 *
 	 * @param int $attribute_group_id
 	 *
@@ -55,11 +55,11 @@ class ModelCatalogAttributeGroup extends Model {
 	}
 
 	/**
-	 * getAttributeGroyp
+	 * Get Attribute Group
 	 *
 	 * @param int $attribute_group_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getAttributeGroup(int $attribute_group_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "attribute_group` WHERE `attribute_group_id` = '" . (int)$attribute_group_id . "'");
@@ -68,11 +68,11 @@ class ModelCatalogAttributeGroup extends Model {
 	}
 
 	/**
-	 * getAttributeGroups
+	 * Get Attribute Groups
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getAttributeGroups(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "attribute_group` `ag` LEFT JOIN `" . DB_PREFIX . "attribute_group_description` `agd` ON (`ag`.`attribute_group_id` = `agd`.`attribute_group_id`) WHERE `agd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
@@ -112,11 +112,11 @@ class ModelCatalogAttributeGroup extends Model {
 	}
 
 	/**
-	 * getDescriptions
+	 * Get Descriptions
 	 *
 	 * @param int $attribute_group_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, string>>
 	 */
 	public function getDescriptions(int $attribute_group_id): array {
 		$attribute_group_data = [];
@@ -131,7 +131,7 @@ class ModelCatalogAttributeGroup extends Model {
 	}
 
 	/**
-	 * getTotalAttributeGroups
+	 * Get Total Attribute Groups
 	 *
 	 * @return int
 	 */

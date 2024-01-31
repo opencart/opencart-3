@@ -6,9 +6,9 @@
  */
 class ModelLocalisationZone extends Model {
 	/**
-	 * addZone
+	 * Add Zone
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -21,10 +21,10 @@ class ModelLocalisationZone extends Model {
 	}
 
 	/**
-	 * editZone
+	 * Edit Zone
 	 *
-	 * @param int   $zone_id
-	 * @param array $data
+	 * @param int                  $zone_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -35,7 +35,7 @@ class ModelLocalisationZone extends Model {
 	}
 
 	/**
-	 * deleteZone
+	 * Delete Zone
 	 *
 	 * @param int $zone_id
 	 *
@@ -48,11 +48,11 @@ class ModelLocalisationZone extends Model {
 	}
 
 	/**
-	 * getZone
+	 * Get Zone
 	 *
 	 * @param int $zone_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getZone(int $zone_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "zone` WHERE `zone_id` = '" . (int)$zone_id . "'");
@@ -61,11 +61,11 @@ class ModelLocalisationZone extends Model {
 	}
 
 	/**
-	 * getZones
+	 * Get Zones
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getZones(array $data = []): array {
 		$sql = "SELECT *, `z`.`name`, `c`.`name` AS `country` FROM `" . DB_PREFIX . "zone` `z` LEFT JOIN `" . DB_PREFIX . "country` `c` ON (`z`.`country_id` = `c`.`country_id`)";
@@ -106,11 +106,11 @@ class ModelLocalisationZone extends Model {
 	}
 
 	/**
-	 * getZonesByCountryId
+	 * Get Zones By Country ID
 	 *
 	 * @param int $country_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getZonesByCountryId(int $country_id): array {
 		$zone_data = $this->cache->get('zone.' . (int)$country_id);
@@ -127,7 +127,9 @@ class ModelLocalisationZone extends Model {
 	}
 
 	/**
-	 * getTotalZones
+	 * Get Total Zones
+	 *
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -138,7 +140,7 @@ class ModelLocalisationZone extends Model {
 	}
 
 	/**
-	 * getTotalZonesByCountryId
+	 * Get Total Zones By Country ID
 	 *
 	 * @param int $country_id
 	 *

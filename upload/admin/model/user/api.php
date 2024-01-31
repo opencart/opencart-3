@@ -6,9 +6,9 @@
  */
 class ModelUserApi extends Model {
 	/**
-	 * addApi
+	 * Add Api
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -29,10 +29,10 @@ class ModelUserApi extends Model {
 	}
 
 	/**
-	 * editApi
+	 * Edit Api
 	 *
-	 * @param int   $api_id
-	 * @param array $data
+	 * @param int                  $api_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -51,7 +51,7 @@ class ModelUserApi extends Model {
 	}
 
 	/**
-	 * deleteApi
+	 * Delete Api
 	 *
 	 * @param int $api_id
 	 *
@@ -62,11 +62,11 @@ class ModelUserApi extends Model {
 	}
 
 	/**
-	 * getApi
+	 * Get Api
 	 *
 	 * @param int $api_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getApi(int $api_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "api` WHERE `api_id` = '" . (int)$api_id . "'");
@@ -75,11 +75,11 @@ class ModelUserApi extends Model {
 	}
 
 	/**
-	 * getApis
+	 * Get Apis
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getApis(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "api`";
@@ -121,7 +121,7 @@ class ModelUserApi extends Model {
 	}
 
 	/**
-	 * getTotalApis
+	 * Get Total Apis
 	 *
 	 * @return int
 	 */
@@ -132,7 +132,7 @@ class ModelUserApi extends Model {
 	}
 
 	/**
-	 * addIp
+	 * Add Ip
 	 *
 	 * @param int    $api_id
 	 * @param string $ip
@@ -144,11 +144,11 @@ class ModelUserApi extends Model {
 	}
 
 	/**
-	 * getIps
+	 * Get Ips
 	 *
 	 * @param int $api_id
 	 *
-	 * @return array
+	 * @return array<int, string>
 	 */
 	public function getIps(int $api_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "api_ip` WHERE `api_id` = '" . (int)$api_id . "'");
@@ -157,7 +157,7 @@ class ModelUserApi extends Model {
 	}
 
 	/**
-	 * addSession
+	 * Add Session
 	 *
 	 * @param int    $api_id
 	 * @param string $session_id
@@ -178,11 +178,11 @@ class ModelUserApi extends Model {
 	}
 
 	/**
-	 * getSessions
+	 * Get Sessions
 	 *
 	 * @param int $api_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getSessions(int $api_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "api_session` WHERE `api_id` = '" . (int)$api_id . "'");
@@ -191,7 +191,7 @@ class ModelUserApi extends Model {
 	}
 
 	/**
-	 * deleteSession
+	 * Delete Session
 	 *
 	 * @param int $api_session_id
 	 *
@@ -202,7 +202,7 @@ class ModelUserApi extends Model {
 	}
 
 	/**
-	 * deleteSessionBySessionId
+	 * Delete Session By Session ID
 	 *
 	 * @param string $session_id
 	 *

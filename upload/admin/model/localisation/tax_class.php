@@ -6,9 +6,9 @@
  */
 class ModelLocalisationTaxClass extends Model {
 	/**
-	 * addTaxClass
+	 * Add Tax Class
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -29,10 +29,10 @@ class ModelLocalisationTaxClass extends Model {
 	}
 
 	/**
-	 * editTaxClass
+	 * Edit Tax Class
 	 *
-	 * @param int   $tax_class_id
-	 * @param array $data
+	 * @param int                  $tax_class_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -51,7 +51,7 @@ class ModelLocalisationTaxClass extends Model {
 	}
 
 	/**
-	 * deleteTaxClass
+	 * Delete Tax Class
 	 *
 	 * @param int $tax_class_id
 	 *
@@ -65,11 +65,11 @@ class ModelLocalisationTaxClass extends Model {
 	}
 
 	/**
-	 * getTaxClass
+	 * Get Tax Class
 	 *
 	 * @param int $tax_class_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getTaxClass(int $tax_class_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "tax_class` WHERE `tax_class_id` = '" . (int)$tax_class_id . "'");
@@ -78,11 +78,11 @@ class ModelLocalisationTaxClass extends Model {
 	}
 
 	/**
-	 * getTaxClasses
+	 * Get Tax Classes
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getTaxClasses(array $data = []): array {
 		if ($data) {
@@ -127,7 +127,7 @@ class ModelLocalisationTaxClass extends Model {
 	}
 
 	/**
-	 * getTotalTaxClasses
+	 * Get Total Tax Classes
 	 *
 	 * @return int
 	 */
@@ -138,11 +138,11 @@ class ModelLocalisationTaxClass extends Model {
 	}
 
 	/**
-	 * getTaxRules
+	 * Get Tax Rules
 	 *
 	 * @param int $tax_class_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getTaxRules(int $tax_class_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "tax_rule` WHERE `tax_class_id` = '" . (int)$tax_class_id . "' ORDER BY `priority` ASC");
@@ -151,7 +151,7 @@ class ModelLocalisationTaxClass extends Model {
 	}
 
 	/**
-	 * getTotalTaxRulesByTaxRateId
+	 * Get Total Tax Rules By Tax Rate ID
 	 *
 	 * @param int $tax_rate_id
 	 *

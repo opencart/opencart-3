@@ -6,9 +6,9 @@
  */
 class ModelSaleVoucherTheme extends Model {
 	/**
-	 * addVoucherTheme
+	 * Add Voucher Theme
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -27,10 +27,10 @@ class ModelSaleVoucherTheme extends Model {
 	}
 
 	/**
-	 * editVoucherTheme
+	 * Edit Voucher Theme
 	 *
-	 * @param int   $voucher_theme_id
-	 * @param array $data
+	 * @param int                  $voucher_theme_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -47,7 +47,7 @@ class ModelSaleVoucherTheme extends Model {
 	}
 
 	/**
-	 * deleteVoucherTheme
+	 * Delete Voucher Theme
 	 *
 	 * @param int $voucher_theme_id
 	 *
@@ -61,11 +61,11 @@ class ModelSaleVoucherTheme extends Model {
 	}
 
 	/**
-	 * getVoucherTheme
+	 * Get Voucher Theme
 	 *
 	 * @param int $voucher_theme_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getVoucherTheme(int $voucher_theme_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "voucher_theme` `vt` LEFT JOIN `" . DB_PREFIX . "voucher_theme_description` `vtd` ON (`vt`.`voucher_theme_id` = `vtd`.`voucher_theme_id`) WHERE `vt`.`voucher_theme_id` = '" . (int)$voucher_theme_id . "' AND `vtd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -74,11 +74,11 @@ class ModelSaleVoucherTheme extends Model {
 	}
 
 	/**
-	 * getVoucherThemes
+	 * Get Voucher Themes
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getVoucherThemes(array $data = []): array {
 		if ($data) {
@@ -121,11 +121,11 @@ class ModelSaleVoucherTheme extends Model {
 	}
 
 	/**
-	 * getDescriptions
+	 * Get Descriptions
 	 *
 	 * @param int $voucher_theme_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, string>>
 	 */
 	public function getDescriptions(int $voucher_theme_id): array {
 		$voucher_theme_data = [];
@@ -140,7 +140,7 @@ class ModelSaleVoucherTheme extends Model {
 	}
 
 	/**
-	 * getTotalVoucherThemes
+	 * Get Total Voucher Themes
 	 *
 	 * @return int
 	 */

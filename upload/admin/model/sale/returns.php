@@ -6,9 +6,9 @@
  */
 class ModelSaleReturns extends Model {
 	/**
-	 * addReturn
+	 * Add Return
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -19,10 +19,10 @@ class ModelSaleReturns extends Model {
 	}
 
 	/**
-	 * editReturn
+	 * Edit Return
 	 *
-	 * @param int   $return_id
-	 * @param array $data
+	 * @param int                  $return_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -31,7 +31,7 @@ class ModelSaleReturns extends Model {
 	}
 
 	/**
-	 * deleteReturn
+	 * Delete Return
 	 *
 	 * @param int $return_id
 	 *
@@ -43,11 +43,11 @@ class ModelSaleReturns extends Model {
 	}
 
 	/**
-	 * getReturn
+	 * Get Return
 	 *
 	 * @param int $return_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getReturn(int $return_id): array {
 		$query = $this->db->query("SELECT DISTINCT *, (SELECT CONCAT(`c`.`firstname`, ' ', `c`.`lastname`) FROM `" . DB_PREFIX . "customer` `c` WHERE `c`.`customer_id` = `r`.`customer_id`) AS `customer`, (SELECT `rs`.`name` FROM `" . DB_PREFIX . "return_status` `rs` WHERE `rs`.`return_status_id` = `r`.`return_status_id` AND `rs`.`language_id` = '" . (int)$this->config->get('config_language_id') . "') AS `return_status` FROM `" . DB_PREFIX . "return` `r` WHERE `r`.`return_id` = '" . (int)$return_id . "'");
@@ -56,11 +56,11 @@ class ModelSaleReturns extends Model {
 	}
 
 	/**
-	 * getReturns
+	 * Get Returns
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getReturns(array $data = []): array {
 		$sql = "SELECT *, CONCAT(`r`.`firstname`, ' ', `r`.`lastname`) AS `customer`, (SELECT `rs`.`name` FROM `" . DB_PREFIX . "return_status` `rs` WHERE `rs`.`return_status_id` = `r`.`return_status_id` AND `rs`.`language_id` = '" . (int)$this->config->get('config_language_id') . "') AS `return_status` FROM `" . DB_PREFIX . "return` `r`";
@@ -144,9 +144,9 @@ class ModelSaleReturns extends Model {
 	}
 
 	/**
-	 * getTotalReturns
+	 * Get Total Returns
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -197,7 +197,7 @@ class ModelSaleReturns extends Model {
 	}
 
 	/**
-	 * getTotalReturnsByReturnStatusId
+	 * Get Total Returns By Return Status ID
 	 *
 	 * @param int $return_status_id
 	 *
@@ -210,7 +210,7 @@ class ModelSaleReturns extends Model {
 	}
 
 	/**
-	 * getTotalReturnsByReturnReasonId
+	 * Get Total Returns By Return Reason ID
 	 *
 	 * @param int $return_reason_id
 	 *
@@ -223,7 +223,7 @@ class ModelSaleReturns extends Model {
 	}
 
 	/**
-	 * getTotalReturnsByReturnActionId
+	 * Get Total Returns By Return Action ID
 	 *
 	 * @param int $return_action_id
 	 *
@@ -236,7 +236,7 @@ class ModelSaleReturns extends Model {
 	}
 
 	/**
-	 * addHistory
+	 * Add History
 	 *
 	 * @param int    $return_id
 	 * @param int    $return_status_id
@@ -252,13 +252,13 @@ class ModelSaleReturns extends Model {
 	}
 
 	/**
-	 * getHistories
+	 * Get Histories
 	 *
 	 * @param int $return_id
 	 * @param int $start
 	 * @param int $limit
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getHistories(int $return_id, int $start = 0, int $limit = 10): array {
 		if ($start < 0) {
@@ -275,7 +275,7 @@ class ModelSaleReturns extends Model {
 	}
 
 	/**
-	 * getTotalHistories
+	 * Get Total Histories
 	 *
 	 * @param int $return_id
 	 *
@@ -288,7 +288,7 @@ class ModelSaleReturns extends Model {
 	}
 
 	/**
-	 * getTotalReturnHistoriesByReturnStatusId
+	 * Get Total Histories By Return Status ID
 	 *
 	 * @param int $return_status_id
 	 *
