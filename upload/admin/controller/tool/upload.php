@@ -11,6 +11,8 @@ class ControllerToolUpload extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -79,6 +81,11 @@ class ControllerToolUpload extends Controller {
 		$this->getList();
 	}
 
+	/**
+	 * Get List
+	 *
+	 * @return void
+	 */
 	protected function getList(): void {
 		if (isset($this->request->get['filter_name'])) {
 			$filter_name = $this->request->get['filter_name'];
@@ -261,6 +268,9 @@ class ControllerToolUpload extends Controller {
 		$this->response->setOutput($this->load->view('tool/upload', $data));
 	}
 
+	/**
+	 * Validate Delete
+	 */
 	protected function validateDelete() {
 		if (!$this->user->hasPermission('modify', 'tool/upload')) {
 			$this->error['warning'] = $this->language->get('error_permission');
@@ -361,6 +371,7 @@ class ControllerToolUpload extends Controller {
 
 				// Allowed file extension types
 				$allowed = [];
+
 				$extension_allowed = preg_replace('~\r?\n~', "\n", $this->config->get('config_file_ext_allowed'));
 				$filetypes = explode("\n", $extension_allowed);
 

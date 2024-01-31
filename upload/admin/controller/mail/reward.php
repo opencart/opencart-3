@@ -9,7 +9,7 @@ class ControllerMailReward extends Controller {
 	 * Deny
 	 *
 	 * @param string $route
-	 * @param array  $args
+	 * @param array<int, mixed> $args
 	 * @param mixed  $output
 	 *
 	 * @return void
@@ -95,6 +95,7 @@ class ControllerMailReward extends Controller {
 				];
 
 				$mail = new \Mail($this->config->get('config_mail_engine'), $mail_option);
+
 				$mail->setTo($customer_info['email']);
 				$mail->setFrom($this->config->get('config_email'));
 				$mail->setSender($store_name);

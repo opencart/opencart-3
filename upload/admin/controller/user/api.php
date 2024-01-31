@@ -11,6 +11,8 @@ class ControllerUserApi extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -140,6 +142,11 @@ class ControllerUserApi extends Controller {
 		$this->getList();
 	}
 
+	/**
+	 * Get List
+	 *
+	 * @return void
+	 */
 	protected function getList(): void {
 		if (isset($this->request->get['sort'])) {
 			$sort = $this->request->get['sort'];
@@ -278,6 +285,11 @@ class ControllerUserApi extends Controller {
 		$this->response->setOutput($this->load->view('user/api_list', $data));
 	}
 
+	/**
+	 * Get Form
+	 *
+	 * @return void
+	 */
 	protected function getForm(): void {
 		$data['text_form'] = !isset($this->request->get['api_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 		$data['text_ip'] = sprintf($this->language->get('text_ip'), $this->request->server['REMOTE_ADDR']);
@@ -397,6 +409,9 @@ class ControllerUserApi extends Controller {
 		$this->response->setOutput($this->load->view('user/api_form', $data));
 	}
 
+	/**
+	 * Validate Form
+	 */
 	protected function validateForm() {
 		if (!$this->user->hasPermission('modify', 'user/user')) {
 			$this->error['warning'] = $this->language->get('error_permission');
@@ -417,6 +432,9 @@ class ControllerUserApi extends Controller {
 		return !$this->error;
 	}
 
+	/**
+	 * Validate Delete
+	 */
 	protected function validateDelete() {
 		if (!$this->user->hasPermission('modify', 'user/api')) {
 			$this->error['warning'] = $this->language->get('error_permission');
@@ -426,7 +444,7 @@ class ControllerUserApi extends Controller {
 	}
 
 	/**
-	 * deleteSession
+	 * Delete Session
 	 *
 	 * @return void
 	 */

@@ -11,6 +11,8 @@ class ControllerMarketplaceExtension extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {

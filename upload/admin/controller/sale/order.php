@@ -387,7 +387,6 @@ class ControllerSaleOrder extends Controller {
 		$pagination->url = $this->url->link('sale/order', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
 
 		$data['pagination'] = $pagination->render();
-
 		$data['results'] = sprintf($this->language->get('text_pagination'), ($order_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($order_total - $this->config->get('config_limit_admin'))) ? $order_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $order_total, ceil($order_total / $this->config->get('config_limit_admin')));
 
 		$data['filter_order_id'] = $filter_order_id;
@@ -1375,7 +1374,7 @@ class ControllerSaleOrder extends Controller {
 	}
 
 	/**
-	 * Create Invoive No
+	 * Create Invoice No
 	 *
 	 * @return void
 	 */
@@ -1870,9 +1869,7 @@ class ControllerSaleOrder extends Controller {
 		$data['lang'] = $this->language->get('code');
 
 		$this->load->model('sale/order');
-
 		$this->load->model('catalog/product');
-
 		$this->load->model('setting/setting');
 
 		$data['orders'] = [];

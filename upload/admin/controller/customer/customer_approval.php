@@ -6,6 +6,8 @@
  */
 class ControllerCustomerCustomerApproval extends Controller {
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -198,7 +200,7 @@ class ControllerCustomerCustomerApproval extends Controller {
 			$url .= '&filter_date_added=' . $this->request->get['filter_date_added'];
 		}
 
-		$pagination = new Pagination();
+		$pagination = new \Pagination();
 		$pagination->total = $customer_approval_total;
 		$pagination->page = $page;
 		$pagination->limit = $this->config->get('config_limit_admin');

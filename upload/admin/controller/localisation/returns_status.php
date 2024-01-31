@@ -11,6 +11,8 @@ class ControllerLocalisationReturnsStatus extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -140,6 +142,11 @@ class ControllerLocalisationReturnsStatus extends Controller {
 		$this->getList();
 	}
 
+	/**
+	 * Get List
+	 *
+	 * @return void
+	 */
 	protected function getList(): void {
 		if (isset($this->request->get['sort'])) {
 			$sort = $this->request->get['sort'];
@@ -272,6 +279,11 @@ class ControllerLocalisationReturnsStatus extends Controller {
 		$this->response->setOutput($this->load->view('localisation/returns_status_list', $data));
 	}
 
+	/**
+	 * Get Form
+	 *
+	 * @return void
+	 */
 	protected function getForm(): void {
 		$data['text_form'] = !isset($this->request->get['return_status_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 
@@ -341,6 +353,9 @@ class ControllerLocalisationReturnsStatus extends Controller {
 		$this->response->setOutput($this->load->view('localisation/returns_status_form', $data));
 	}
 
+	/**
+	 * Validate Form
+	 */
 	protected function validateForm() {
 		if (!$this->user->hasPermission('modify', 'localisation/returns_status')) {
 			$this->error['warning'] = $this->language->get('error_permission');
@@ -355,6 +370,9 @@ class ControllerLocalisationReturnsStatus extends Controller {
 		return !$this->error;
 	}
 
+	/**
+	 * Validate Delete
+	 */
 	protected function validateDelete() {
 		if (!$this->user->hasPermission('modify', 'localisation/returns_status')) {
 			$this->error['warning'] = $this->language->get('error_permission');

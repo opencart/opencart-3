@@ -6,7 +6,7 @@
  */
 class ControllerEventStatistics extends Controller {
 	/**
-	 * addReview
+	 * Add Review
 	 *
 	 * @param string $route
 	 * @param array  $args
@@ -24,7 +24,7 @@ class ControllerEventStatistics extends Controller {
 	}
 
 	/**
-	 * deleteReview
+	 * Delete Review
 	 *
 	 * @param string $route
 	 * @param array  $args
@@ -42,7 +42,7 @@ class ControllerEventStatistics extends Controller {
 	}
 
 	/**
-	 * addReturn
+	 * Add Return
 	 *
 	 * @param string $route
 	 * @param array  $args
@@ -60,7 +60,7 @@ class ControllerEventStatistics extends Controller {
 	}
 
 	/**
-	 * deleteReturn
+	 * Delete Return
 	 *
 	 * @param string $route
 	 * @param array  $args

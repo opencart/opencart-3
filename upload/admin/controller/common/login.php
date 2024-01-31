@@ -11,6 +11,8 @@ class ControllerCommonLogin extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -95,6 +97,9 @@ class ControllerCommonLogin extends Controller {
 		$this->response->setOutput($this->load->view('common/login', $data));
 	}
 
+	/**
+	 * Validate
+	 */
 	protected function validate() {
 		// Stop any undefined index messages.
 		$keys = [

@@ -11,6 +11,8 @@ class ControllerSettingStore extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -115,6 +117,11 @@ class ControllerSettingStore extends Controller {
 		$this->getList();
 	}
 
+	/**
+	 * Get List
+	 *
+	 * @return void
+	 */
 	protected function getList(): void {
 		$url = '';
 
@@ -186,6 +193,11 @@ class ControllerSettingStore extends Controller {
 		$this->response->setOutput($this->load->view('setting/store_list', $data));
 	}
 
+	/**
+	 * Get Form
+	 *
+	 * @return void
+	 */
 	protected function getForm(): void {
 		$data['text_form'] = !isset($this->request->get['store_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 
@@ -709,6 +721,9 @@ class ControllerSettingStore extends Controller {
 		$this->response->setOutput($this->load->view('setting/store_form', $data));
 	}
 
+	/**
+	 * Validate Form
+	 */
 	protected function validateForm() {
 		if (!$this->user->hasPermission('modify', 'setting/store')) {
 			$this->error['warning'] = $this->language->get('error_permission');
@@ -753,6 +768,9 @@ class ControllerSettingStore extends Controller {
 		return !$this->error;
 	}
 
+	/**
+	 * Validate Delete
+	 */
 	protected function validateDelete() {
 		if (!$this->user->hasPermission('modify', 'setting/store')) {
 			$this->error['warning'] = $this->language->get('error_permission');

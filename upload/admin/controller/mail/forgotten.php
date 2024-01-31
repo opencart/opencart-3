@@ -6,12 +6,12 @@
  */
 class ControllerMailForgotten extends Controller {
 	/**
-	 * Denu
+	 * Deny
 	 *
 	 * admin/model/user/user/editCode/after
 	 *
 	 * @param string $route
-	 * @param array  $args
+	 * @param array<int, mixed> $args
 	 * @param mixed  $output
 	 *
 	 * @return void
@@ -40,6 +40,7 @@ class ControllerMailForgotten extends Controller {
 				];
 
 				$mail = new \Mail($this->config->get('config_mail_engine'), $mail_option);
+
 				$mail->setTo($args[0]);
 				$mail->setFrom($this->config->get('config_email'));
 				$mail->setSender($store_name);

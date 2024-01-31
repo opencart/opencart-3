@@ -11,6 +11,8 @@ class ControllerCatalogProduct extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -259,6 +261,11 @@ class ControllerCatalogProduct extends Controller {
 		$this->getList();
 	}
 
+	/**
+	 * Get List
+	 *
+	 * @return void
+	 */
 	protected function getList(): void {
 		if (isset($this->request->get['filter_name'])) {
 			$filter_name = $this->request->get['filter_name'];
@@ -522,6 +529,11 @@ class ControllerCatalogProduct extends Controller {
 		$this->response->setOutput($this->load->view('catalog/product_list', $data));
 	}
 
+	/**
+	 * Get Form
+	 *
+	 * @return void
+	 */
 	protected function getForm(): void {
 		$data['text_form'] = !isset($this->request->get['product_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 
@@ -1283,6 +1295,9 @@ class ControllerCatalogProduct extends Controller {
 		return !$this->error;
 	}
 
+	/**
+	 * Validate Delete
+	 */
 	protected function validateDelete() {
 		if (!$this->user->hasPermission('modify', 'catalog/product')) {
 			$this->error['warning'] = $this->language->get('error_permission');
@@ -1291,6 +1306,9 @@ class ControllerCatalogProduct extends Controller {
 		return !$this->error;
 	}
 
+	/**
+	 * Validate Copy
+	 */
 	protected function validateCopy() {
 		if (!$this->user->hasPermission('modify', 'catalog/product')) {
 			$this->error['warning'] = $this->language->get('error_permission');

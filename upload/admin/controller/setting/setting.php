@@ -11,6 +11,8 @@ class ControllerSettingSetting extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -1072,6 +1074,9 @@ class ControllerSettingSetting extends Controller {
 		$this->response->setOutput($this->load->view('setting/setting', $data));
 	}
 
+	/**
+	 * Validate
+	 */
 	protected function validate() {
 		if (!$this->user->hasPermission('modify', 'setting/setting')) {
 			$this->error['warning'] = $this->language->get('error_permission');

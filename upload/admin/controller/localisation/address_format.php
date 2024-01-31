@@ -11,6 +11,8 @@ class ControllerLocalisationAddressFormat extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -101,6 +103,11 @@ class ControllerLocalisationAddressFormat extends Controller {
 		$this->getList();
 	}
 
+	/**
+	 * Get List
+	 *
+	 * @return void
+	 */
 	protected function getList(): void {
 		if (isset($this->request->get['page'])) {
 			$page = (int)$this->request->get['page'];
@@ -188,6 +195,11 @@ class ControllerLocalisationAddressFormat extends Controller {
 		$this->response->setOutput($this->load->view('localisation/address_format_list', $data));
 	}
 
+	/**
+	 * Get Form
+	 *
+	 * @return void
+	 */
 	protected function getForm(): void {
 		$data['text_form'] = !isset($this->request->get['address_format_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 
@@ -250,6 +262,9 @@ class ControllerLocalisationAddressFormat extends Controller {
 		$this->response->setOutput($this->load->view('localisation/address_format_form', $data));
 	}
 
+	/**
+	 * Validate Form
+	 */
 	protected function validateForm() {
 		if (!$this->user->hasPermission('modify', 'localisation/address_format')) {
 			$this->error['warning'] = $this->language->get('error_permission');
@@ -262,6 +277,9 @@ class ControllerLocalisationAddressFormat extends Controller {
 		return !$this->error;
 	}
 
+	/**
+	 * Validate Delete
+	 */
 	protected function validateDelete() {
 		if (!$this->user->hasPermission('modify', 'localisation/address_format')) {
 			$this->error['warning'] = $this->language->get('error_permission');

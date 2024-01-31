@@ -11,6 +11,8 @@ class ControllerCommonForgotten extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -70,6 +72,9 @@ class ControllerCommonForgotten extends Controller {
 		$this->response->setOutput($this->load->view('common/forgotten', $data));
 	}
 
+	/**
+	 * Validate
+	 */
 	protected function validate() {
 		$keys = ['email'];
 

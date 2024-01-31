@@ -11,6 +11,8 @@ class ControllerCustomerCustomer extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -274,6 +276,11 @@ class ControllerCustomerCustomer extends Controller {
 		$this->getList();
 	}
 
+	/**
+	 * Get List
+	 *
+	 * @return void
+	 */
 	protected function getList(): void {
 		if (isset($this->request->get['filter_name'])) {
 			$filter_name = $this->request->get['filter_name'];
@@ -573,6 +580,11 @@ class ControllerCustomerCustomer extends Controller {
 		$this->response->setOutput($this->load->view('customer/customer_list', $data));
 	}
 
+	/**
+	 * Get Form
+	 *
+	 * @return void
+	 */
 	protected function getForm(): void {
 		$data['text_form'] = !isset($this->request->get['customer_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 
@@ -914,6 +926,9 @@ class ControllerCustomerCustomer extends Controller {
 		$this->response->setOutput($this->load->view('customer/customer_form', $data));
 	}
 
+	/**
+	 * Validate Form
+	 */
 	protected function validateForm() {
 		if (!$this->user->hasPermission('modify', 'customer/customer')) {
 			$this->error['warning'] = $this->language->get('error_permission');
@@ -1032,6 +1047,9 @@ class ControllerCustomerCustomer extends Controller {
 		return !$this->error;
 	}
 
+	/**
+	 * Validate Delete
+	 */
 	protected function validateDelete() {
 		if (!$this->user->hasPermission('modify', 'customer/customer')) {
 			$this->error['warning'] = $this->language->get('error_permission');
@@ -1040,6 +1058,9 @@ class ControllerCustomerCustomer extends Controller {
 		return !$this->error;
 	}
 
+	/**
+	 * Validate Unlock
+	 */
 	protected function validateUnlock() {
 		if (!$this->user->hasPermission('modify', 'customer/customer')) {
 			$this->error['warning'] = $this->language->get('error_permission');
@@ -1139,7 +1160,7 @@ class ControllerCustomerCustomer extends Controller {
 	}
 
 	/**
-	 * addHistory
+	 * Add History
 	 *
 	 * @return void
 	 */
@@ -1211,7 +1232,7 @@ class ControllerCustomerCustomer extends Controller {
 	}
 
 	/**
-	 * addTransaction
+	 * Add Transaction
 	 *
 	 * @return void
 	 */
@@ -1283,7 +1304,7 @@ class ControllerCustomerCustomer extends Controller {
 	}
 
 	/**
-	 * addReward
+	 * Add Reward
 	 *
 	 * @return void
 	 */

@@ -11,6 +11,8 @@ class ControllerReportStatistics extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -275,6 +277,11 @@ class ControllerReportStatistics extends Controller {
 		$this->getList();
 	}
 
+	/**
+	 * Get List
+	 *
+	 * @return void
+	 */
 	protected function getList(): void {
 		$data['breadcrumbs'] = [];
 
@@ -324,6 +331,9 @@ class ControllerReportStatistics extends Controller {
 		$this->response->setOutput($this->load->view('report/statistics', $data));
 	}
 
+	/**
+	 * Validate
+	 */
 	protected function validate() {
 		if (!$this->user->hasPermission('modify', 'report/statistics')) {
 			$this->error['warning'] = $this->language->get('error_permission');

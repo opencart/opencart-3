@@ -11,6 +11,8 @@ class ControllerLocalisationTaxClass extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -140,6 +142,11 @@ class ControllerLocalisationTaxClass extends Controller {
 		$this->getList();
 	}
 
+	/**
+	 * Get List
+	 *
+	 * @return void
+	 */
 	protected function getList(): void {
 		if (isset($this->request->get['sort'])) {
 			$sort = $this->request->get['sort'];
@@ -272,6 +279,11 @@ class ControllerLocalisationTaxClass extends Controller {
 		$this->response->setOutput($this->load->view('localisation/tax_class_list', $data));
 	}
 
+	/**
+	 * Get Form
+	 *
+	 * @return void
+	 */
 	protected function getForm(): void {
 		$data['text_form'] = !isset($this->request->get['tax_class_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 
@@ -367,6 +379,9 @@ class ControllerLocalisationTaxClass extends Controller {
 		$this->response->setOutput($this->load->view('localisation/tax_class_form', $data));
 	}
 
+	/**
+	 * Validate Form
+	 */
 	protected function validateForm() {
 		if (!$this->user->hasPermission('modify', 'localisation/tax_class')) {
 			$this->error['warning'] = $this->language->get('error_permission');
@@ -383,6 +398,9 @@ class ControllerLocalisationTaxClass extends Controller {
 		return !$this->error;
 	}
 
+	/**
+	 * Validate Delete
+	 */
 	protected function validateDelete() {
 		if (!$this->user->hasPermission('modify', 'localisation/tax_class')) {
 			$this->error['warning'] = $this->language->get('error_permission');

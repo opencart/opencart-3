@@ -11,6 +11,8 @@ class ControllerSaleSubscription extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -24,6 +26,11 @@ class ControllerSaleSubscription extends Controller {
 		$this->getList();
 	}
 
+	/**
+	 * Get List
+	 *
+	 * @return void
+	 */
 	protected function getList(): void {
 		if (isset($this->request->get['filter_subscription_id'])) {
 			$filter_subscription_id = (int)$this->request->get['filter_subscription_id'];
@@ -629,8 +636,6 @@ class ControllerSaleSubscription extends Controller {
 			$page = 1;
 		}
 
-		$limit = 10;
-
 		$data['orders'] = [];
 
 		$this->load->model('sale/order');
@@ -767,7 +772,7 @@ class ControllerSaleSubscription extends Controller {
 	}
 
 	/**
-	 * addHistory
+	 * Add History
 	 *
 	 * @return void
 	 */

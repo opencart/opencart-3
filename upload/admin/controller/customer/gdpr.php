@@ -6,6 +6,8 @@
  */
 class ControllerCustomerGdpr extends Controller {
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -20,7 +22,7 @@ class ControllerCustomerGdpr extends Controller {
 	}
 
 	/**
-	 * getList
+	 * Get List
 	 *
 	 * @return void
 	 */

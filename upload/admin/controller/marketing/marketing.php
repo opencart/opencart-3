@@ -11,6 +11,8 @@ class ControllerMarketingMarketing extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -176,6 +178,11 @@ class ControllerMarketingMarketing extends Controller {
 		$this->getList();
 	}
 
+	/**
+	 * Get List
+	 *
+	 * @return void
+	 */
 	protected function getList(): void {
 		if (isset($this->request->get['filter_name'])) {
 			$filter_name = $this->request->get['filter_name'];
@@ -381,6 +388,11 @@ class ControllerMarketingMarketing extends Controller {
 		$this->response->setOutput($this->load->view('marketing/marketing_list', $data));
 	}
 
+	/**
+	 * Get Form
+	 *
+	 * @return void
+	 */
 	protected function getForm(): void {
 		$data['text_form'] = !isset($this->request->get['marketing_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 
@@ -487,6 +499,9 @@ class ControllerMarketingMarketing extends Controller {
 		$this->response->setOutput($this->load->view('marketing/marketing_form', $data));
 	}
 
+	/**
+	 * Validate Form
+	 */
 	protected function validateForm() {
 		if (!$this->user->hasPermission('modify', 'marketing/marketing')) {
 			$this->error['warning'] = $this->language->get('error_permission');
@@ -515,6 +530,9 @@ class ControllerMarketingMarketing extends Controller {
 		return !$this->error;
 	}
 
+	/**
+	 * Validate Delete
+	 */
 	protected function validateDelete() {
 		if (!$this->user->hasPermission('modify', 'marketing/marketing')) {
 			$this->error['warning'] = $this->language->get('error_permission');

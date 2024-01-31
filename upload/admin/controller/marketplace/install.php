@@ -6,6 +6,8 @@
  */
 class ControllerMarketplaceInstall extends Controller {
 	/**
+	 * Install
+	 *
 	 * @return void
 	 */
 	public function install(): void {
@@ -224,7 +226,7 @@ class ControllerMarketplaceInstall extends Controller {
 						}
 
 						if (is_dir($file) && !is_dir($path)) {
-							if (mkdir($path, 0777)) {
+							if (mkdir($path, 0o777)) {
 								$this->model_setting_extension->addPath($extension_install_id, $destination);
 							}
 						}
@@ -553,6 +555,11 @@ class ControllerMarketplaceInstall extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
+	/**
+	 * Is Dir Empty
+	 *
+	 * @param mixed $dir_name
+	 */
 	protected function isDirEmpty($dir_name) {
 		if (!is_dir($dir_name)) {
 			return false;

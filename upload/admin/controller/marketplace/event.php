@@ -11,6 +11,8 @@ class ControllerMarketplaceEvent extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -140,6 +142,11 @@ class ControllerMarketplaceEvent extends Controller {
 		$this->getList();
 	}
 
+	/**
+	 * Get List
+	 *
+	 * @return void
+	 */
 	protected function getList(): void {
 		if (isset($this->request->get['sort'])) {
 			$sort = $this->request->get['sort'];
@@ -279,6 +286,9 @@ class ControllerMarketplaceEvent extends Controller {
 		$this->response->setOutput($this->load->view('marketplace/event', $data));
 	}
 
+	/**
+	 * Validate
+	 */
 	protected function validate() {
 		if (!$this->user->hasPermission('modify', 'marketplace/event')) {
 			$this->error['warning'] = $this->language->get('error_permission');

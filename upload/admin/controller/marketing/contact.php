@@ -11,14 +11,14 @@ class ControllerMarketingContact extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
 		$this->load->language('marketing/contact');
 
 		$this->document->setTitle($this->language->get('heading_title'));
-
-		$data['user_token'] = $this->session->data['user_token'];
 
 		$data['breadcrumbs'] = [];
 
@@ -43,6 +43,8 @@ class ControllerMarketingContact extends Controller {
 		$this->load->model('customer/customer_group');
 
 		$data['customer_groups'] = $this->model_customer_customer_group->getCustomerGroups();
+
+		$data['user_token'] = $this->session->data['user_token'];
 
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
@@ -93,6 +95,7 @@ class ControllerMarketingContact extends Controller {
 				$this->load->model('setting/setting');
 
 				$setting = $this->model_setting_setting->getSetting('config', $this->request->post['store_id']);
+
 				$store_email = $setting['config_email'] ?? $this->config->get('config_email');
 
 				// Customers

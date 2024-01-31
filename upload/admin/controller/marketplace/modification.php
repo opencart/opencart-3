@@ -14,6 +14,8 @@ class ControllerMarketplaceModification extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -435,7 +437,7 @@ class ControllerMarketplaceModification extends Controller {
 						$path = $path . '/' . $directory;
 
 						if (!is_dir(DIR_MODIFICATION . $path)) {
-							@mkdir(DIR_MODIFICATION . $path, 0777);
+							@mkdir(DIR_MODIFICATION . $path, 0o777);
 						}
 					}
 
@@ -661,6 +663,11 @@ class ControllerMarketplaceModification extends Controller {
 		$this->getList();
 	}
 
+	/**
+	 * Get List
+	 *
+	 * @return void
+	 */
 	protected function getList(): void {
 		if (isset($this->request->get['sort'])) {
 			$sort = $this->request->get['sort'];
@@ -818,6 +825,9 @@ class ControllerMarketplaceModification extends Controller {
 		$this->response->setOutput($this->load->view('marketplace/modification', $data));
 	}
 
+	/**
+	 * Validate
+	 */
 	protected function validate() {
 		if (!$this->user->hasPermission('modify', 'marketplace/modification')) {
 			$this->error['warning'] = $this->language->get('error_permission');

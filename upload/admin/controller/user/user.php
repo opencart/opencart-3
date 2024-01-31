@@ -11,6 +11,8 @@ class ControllerUserUser extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -140,6 +142,11 @@ class ControllerUserUser extends Controller {
 		$this->getList();
 	}
 
+	/**
+	 * Get List
+	 *
+	 * @return void
+	 */
 	protected function getList(): void {
 		if (isset($this->request->get['sort'])) {
 			$sort = $this->request->get['sort'];
@@ -278,6 +285,11 @@ class ControllerUserUser extends Controller {
 		$this->response->setOutput($this->load->view('user/user_list', $data));
 	}
 
+	/**
+	 * Get Form
+	 *
+	 * @return void
+	 */
 	protected function getForm(): void {
 		$data['text_form'] = !isset($this->request->get['user_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 
@@ -455,7 +467,7 @@ class ControllerUserUser extends Controller {
 	}
 
 	/**
-	 * getLogins
+	 * Get Logins
 	 *
 	 * @return string
 	 */
@@ -503,6 +515,9 @@ class ControllerUserUser extends Controller {
 		return $this->load->view('user/user_login', $data);
 	}
 
+	/**
+	 * Validate Form
+	 */
 	protected function validateForm() {
 		if (!$this->user->hasPermission('modify', 'user/user')) {
 			$this->error['warning'] = $this->language->get('error_permission');
@@ -561,6 +576,9 @@ class ControllerUserUser extends Controller {
 		return !$this->error;
 	}
 
+	/**
+	 * Validate Delete
+	 */
 	protected function validateDelete() {
 		if (!$this->user->hasPermission('modify', 'user/user')) {
 			$this->error['warning'] = $this->language->get('error_permission');

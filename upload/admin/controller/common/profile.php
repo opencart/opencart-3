@@ -11,6 +11,8 @@ class ControllerCommonProfile extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -175,6 +177,9 @@ class ControllerCommonProfile extends Controller {
 		$this->response->setOutput($this->load->view('common/profile', $data));
 	}
 
+	/**
+	 * Validate Form
+	 */
 	protected function validateForm() {
 		if (!$this->user->hasPermission('modify', 'common/profile')) {
 			$this->error['warning'] = $this->language->get('error_permission');

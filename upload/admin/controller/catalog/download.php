@@ -11,6 +11,8 @@ class ControllerCatalogDownload extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -140,6 +142,11 @@ class ControllerCatalogDownload extends Controller {
 		$this->getList();
 	}
 
+	/**
+	 * Get List
+	 *
+	 * @return void
+	 */
 	protected function getList(): void {
 		$sort = $this->request->get['sort'] ?? 'dd.name';
 
@@ -270,6 +277,11 @@ class ControllerCatalogDownload extends Controller {
 		$this->response->setOutput($this->load->view('catalog/download_list', $data));
 	}
 
+	/**
+	 * Get Form
+	 *
+	 * @return void
+	 */
 	protected function getForm(): void {
 		$data['text_form'] = !isset($this->request->get['download_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 
@@ -379,6 +391,9 @@ class ControllerCatalogDownload extends Controller {
 		$this->response->setOutput($this->load->view('catalog/download_form', $data));
 	}
 
+	/**
+	 * Validate Form
+	 */
 	protected function validateForm() {
 		// Check user has permission
 		if (!$this->user->hasPermission('modify', 'catalog/download')) {
@@ -406,6 +421,9 @@ class ControllerCatalogDownload extends Controller {
 		return !$this->error;
 	}
 
+	/**
+	 * Validate Delete
+	 */
 	protected function validateDelete() {
 		if (!$this->user->hasPermission('modify', 'catalog/download')) {
 			$this->error['warning'] = $this->language->get('error_permission');
