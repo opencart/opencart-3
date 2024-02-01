@@ -8,7 +8,7 @@ class ModelExtensionReportReturns extends Model {
 	/**
 	 * getReturns
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return array
 	 */
@@ -77,7 +77,7 @@ class ModelExtensionReportReturns extends Model {
 	/**
 	 * getTotalReturns
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */

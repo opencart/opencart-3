@@ -6,11 +6,11 @@
  */
 class ModelLocalisationZone extends Model {
 	/**
-	 * getZone
+	 * Get Zone
 	 *
 	 * @param int $zone_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getZone(int $zone_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone` WHERE `zone_id` = '" . (int)$zone_id . "' AND `status` = '1'");
@@ -19,11 +19,11 @@ class ModelLocalisationZone extends Model {
 	}
 
 	/**
-	 * getZonesByCountryId
+	 * Get Zones By Country Id
 	 *
 	 * @param int $country_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getZonesByCountryId(int $country_id): array {
 		$zone_data = $this->cache->get('zone.' . (int)$country_id);

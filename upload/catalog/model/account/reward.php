@@ -6,11 +6,11 @@
  */
 class ModelAccountReward extends Model {
 	/**
-	 * getRewards
+	 * Get Rewards
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getRewards(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "customer_reward` WHERE `customer_id` = '" . (int)$this->customer->getId() . "'";
@@ -51,7 +51,7 @@ class ModelAccountReward extends Model {
 	}
 
 	/**
-	 * getTotalRewards
+	 * Get Total Rewards
 	 *
 	 * @return int
 	 */
@@ -62,7 +62,7 @@ class ModelAccountReward extends Model {
 	}
 
 	/**
-	 * getTotalPoints
+	 * Get Total Points
 	 *
 	 * @return int
 	 */

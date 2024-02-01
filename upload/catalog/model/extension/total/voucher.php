@@ -9,7 +9,7 @@ class ModelExtensionTotalVoucher extends Model {
 	 * addVoucher
 	 *
 	 * @param int   $order_id
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */

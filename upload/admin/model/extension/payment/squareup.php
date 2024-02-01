@@ -28,7 +28,7 @@ class ModelExtensionPaymentSquareup extends Model {
 	/**
 	 * getTransactions
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return array
 	 */
@@ -61,7 +61,7 @@ class ModelExtensionPaymentSquareup extends Model {
 	/**
 	 * getTotalTransactions
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */

@@ -89,7 +89,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
 	/**
 	 * addCard
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -296,7 +296,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
 	 * updateSubscriptionPayment
 	 *
 	 * @param array $item['subscription']
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */

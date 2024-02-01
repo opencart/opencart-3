@@ -72,7 +72,7 @@ class ControllerMarketplaceModification extends Controller {
 	/**
 	 * Refresh
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */

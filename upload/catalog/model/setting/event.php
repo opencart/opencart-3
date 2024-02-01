@@ -6,9 +6,9 @@
  */
 class ModelSettingEvent extends Model {
 	/**
-	 * getEvents
+	 * Get Events
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getEvents(): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "event` WHERE `trigger` LIKE 'catalog/%' AND `status` = '1' ORDER BY `sort_order` ASC");

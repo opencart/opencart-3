@@ -8,7 +8,7 @@ class ModelExtensionReportProduct extends Model {
 	/**
 	 * getProductsViewed
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return array
 	 */
@@ -70,7 +70,7 @@ class ModelExtensionReportProduct extends Model {
 	/**
 	 * getPurchased
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return array
 	 */
@@ -119,7 +119,7 @@ class ModelExtensionReportProduct extends Model {
 	/**
 	 * getTotalPurchased
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */

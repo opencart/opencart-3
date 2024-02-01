@@ -6,7 +6,7 @@
  */
 class ModelCatalogReview extends Model {
 	/**
-	 * addReview
+	 * Add Review
 	 *
 	 * @param int                  $product_id
 	 * @param array<string, mixed> $data
@@ -48,6 +48,7 @@ class ModelCatalogReview extends Model {
 				];
 
 				$mail = new \Mail($this->config->get('config_mail_engine'), $mail_option);
+
 				$mail->setTo($this->config->get('config_email'));
 				$mail->setFrom($this->config->get('config_email'));
 				$mail->setSender(html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
@@ -69,13 +70,13 @@ class ModelCatalogReview extends Model {
 	}
 
 	/**
-	 * getReviewsByProductId
+	 * Get Reviews By Product Id
 	 *
 	 * @param int $product_id
 	 * @param int $start
 	 * @param int $limit
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getReviewsByProductId(int $product_id, int $start = 0, int $limit = 20): array {
 		if ($start < 0) {
@@ -92,7 +93,7 @@ class ModelCatalogReview extends Model {
 	}
 
 	/**
-	 * getTotalReviewsByProductId
+	 * Get Total Reviews By Product Id
 	 *
 	 * @param int $product_id
 	 *

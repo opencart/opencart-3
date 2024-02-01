@@ -8,7 +8,7 @@ class ModelExtensionReportCoupon extends Model {
 	/**
 	 * getCoupons
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return array
 	 */
@@ -51,7 +51,7 @@ class ModelExtensionReportCoupon extends Model {
 	/**
 	 * getTotalCoupons
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */

@@ -6,11 +6,11 @@
  */
 class ModelAccountDownload extends Model {
 	/**
-	 * getDownload
+	 * Get Download
 	 *
 	 * @param int $download_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getDownload(int $download_id): array {
 		$implode = [];
@@ -31,12 +31,12 @@ class ModelAccountDownload extends Model {
 	}
 
 	/**
-	 * getDownloads
+	 * Get Downloads
 	 *
 	 * @param int $start
 	 * @param int $limit
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getDownloads(int $start = 0, int $limit = 20): array {
 		if ($start < 0) {
@@ -65,7 +65,7 @@ class ModelAccountDownload extends Model {
 	}
 
 	/**
-	 * getTotalDownloads
+	 * Get Total Downloads
 	 *
 	 * @return int
 	 */

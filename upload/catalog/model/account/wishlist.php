@@ -6,7 +6,7 @@
  */
 class ModelAccountWishlist extends Model {
 	/**
-	 * addWishlist
+	 * Add Wishlist
 	 *
 	 * @param int $product_id
 	 *
@@ -19,7 +19,7 @@ class ModelAccountWishlist extends Model {
 	}
 
 	/**
-	 * deleteWishlist
+	 * Delete Wishlist
 	 *
 	 * @param int $product_id
 	 *
@@ -30,9 +30,9 @@ class ModelAccountWishlist extends Model {
 	}
 
 	/**
-	 * getWishlist
+	 * Get Wishlist
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getWishlist(): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_wishlist` WHERE `customer_id` = '" . (int)$this->customer->getId() . "'");
@@ -41,7 +41,7 @@ class ModelAccountWishlist extends Model {
 	}
 
 	/**
-	 * getTotalWishlist
+	 * Get Total Wishlist
 	 *
 	 * @return int
 	 */

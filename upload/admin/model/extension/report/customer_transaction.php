@@ -8,7 +8,7 @@ class ModelExtensionReportCustomerTransaction extends Model {
 	/**
 	 * getTransactions
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return array
 	 */
@@ -57,7 +57,7 @@ class ModelExtensionReportCustomerTransaction extends Model {
 	/**
 	 * getTotalTransactions
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */

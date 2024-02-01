@@ -21,7 +21,7 @@ class ModelExtensionOtherRecurring extends Model {
 	/**
 	 * getRecurrings
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return array
 	 */
@@ -158,7 +158,7 @@ class ModelExtensionOtherRecurring extends Model {
 	/**
 	 * getTotalRecurrings
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */

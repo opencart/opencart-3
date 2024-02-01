@@ -6,7 +6,7 @@
  */
 class ModelToolOnline extends Model {
 	/**
-	 * addOnline
+	 * Add Online
 	 *
 	 * @param string $ip
 	 * @param int    $customer_id

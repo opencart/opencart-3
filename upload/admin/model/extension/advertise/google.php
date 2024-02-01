@@ -302,7 +302,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	/**
 	 * getRequiredFieldsByFilter
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 * @param int   $store_id
 	 *
 	 * @return array
@@ -342,7 +342,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	/**
 	 * getTargetCountriesByFilter
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 * @param int   $store_id
 	 *
 	 * @return array
@@ -371,7 +371,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	/**
 	 * getProductOptionsByFilter
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return array
 	 */
@@ -446,7 +446,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	/**
 	 * setAdvertisingByFilter
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 * @param array $post_target_ids
 	 * @param int   $store_id
 	 *
@@ -504,7 +504,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	/**
 	 * updateSingleProductFields
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -524,7 +524,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	 * updateMultipleProductFields
 	 *
 	 * @param array $filter_data
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -572,7 +572,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	/**
 	 * getCategories
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 * @param int   $store_id
 	 *
 	 * @return array

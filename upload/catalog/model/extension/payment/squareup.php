@@ -70,7 +70,7 @@ class ModelExtensionPaymentSquareup extends Model {
 	 * Create Subscription
 	 *
 	 * @param int   $order_id
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */

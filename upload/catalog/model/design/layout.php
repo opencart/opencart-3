@@ -6,7 +6,7 @@
  */
 class ModelDesignLayout extends Model {
 	/**
-	 * getLayout
+	 * Get Layout
 	 *
 	 * @param string $route
 	 *
@@ -23,12 +23,12 @@ class ModelDesignLayout extends Model {
 	}
 
 	/**
-	 * getModules
+	 * Get Modules
 	 *
 	 * @param int    $layout_id
 	 * @param string $position
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getModules(int $layout_id, string $position): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "layout_module` WHERE `layout_id` = '" . (int)$layout_id . "' AND `position` = '" . $this->db->escape($position) . "' ORDER BY `sort_order`");

@@ -8,11 +8,11 @@ class ModelLocalisationLanguage extends Model {
 	private array $data = [];
 
 	/**
-	 * getLanguage
+	 * Get Language
 	 *
 	 * @param int $language_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getLanguage(int $language_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "language` WHERE `language_id` = '" . (int)$language_id . "'");
@@ -21,11 +21,11 @@ class ModelLocalisationLanguage extends Model {
 	}
 
 	/**
-	 * getLanguageByCode
+	 * Get Language By Code
 	 *
 	 * @param string $code
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getLanguageByCode(string $code): array {
 		if (isset($this->data[$code])) {
@@ -54,9 +54,9 @@ class ModelLocalisationLanguage extends Model {
 	}
 
 	/**
-	 * getLanguages
+	 * Get Languages
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getLanguages(): array {
 		$language_data = $this->cache->get('catalog.language');

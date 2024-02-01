@@ -122,7 +122,7 @@ class ModelExtensionReportCustomer extends Model {
 	/**
 	 * getOrders
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return array
 	 */
@@ -180,7 +180,7 @@ class ModelExtensionReportCustomer extends Model {
 	/**
 	 * getTotalOrders
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -213,7 +213,7 @@ class ModelExtensionReportCustomer extends Model {
 	/**
 	 * getRewardPoints
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return array
 	 */
@@ -254,7 +254,7 @@ class ModelExtensionReportCustomer extends Model {
 	/**
 	 * getTotalRewardPoints
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -287,7 +287,7 @@ class ModelExtensionReportCustomer extends Model {
 	/**
 	 * getCustomerActivities
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return array
 	 */
@@ -338,7 +338,7 @@ class ModelExtensionReportCustomer extends Model {
 	/**
 	 * getTotalCustomerActivities
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -375,7 +375,7 @@ class ModelExtensionReportCustomer extends Model {
 	/**
 	 * getCustomerSearches
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return array
 	 */
@@ -430,7 +430,7 @@ class ModelExtensionReportCustomer extends Model {
 	/**
 	 * getTotalCustomerSearches
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */

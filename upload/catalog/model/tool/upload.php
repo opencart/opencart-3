@@ -6,7 +6,7 @@
  */
 class ModelToolUpload extends Model {
 	/**
-	 * addUpload
+	 * Add Upload
 	 *
 	 * @param string $name
 	 * @param string $filename
@@ -22,11 +22,11 @@ class ModelToolUpload extends Model {
 	}
 
 	/**
-	 * getUploadByCode
-	 *
+	 * Get Upload By Code
+	 * 
 	 * @param string $code
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getUploadByCode(string $code): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "upload` WHERE code = '" . $this->db->escape($code) . "'");

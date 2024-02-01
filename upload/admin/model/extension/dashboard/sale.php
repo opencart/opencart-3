@@ -8,7 +8,7 @@ class ModelExtensionDashboardSale extends Model {
 	/**
 	 * getTotalSales
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return float
 	 */
@@ -176,7 +176,7 @@ class ModelExtensionDashboardSale extends Model {
 	/**
 	 * getOrders
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return array
 	 */
@@ -247,7 +247,7 @@ class ModelExtensionDashboardSale extends Model {
 	/**
 	 * getTotalOrders
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -296,7 +296,7 @@ class ModelExtensionDashboardSale extends Model {
 	/**
 	 * getTaxes
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return array
 	 */
@@ -359,7 +359,7 @@ class ModelExtensionDashboardSale extends Model {
 	/**
 	 * getTotalTaxes
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -418,7 +418,7 @@ class ModelExtensionDashboardSale extends Model {
 	/**
 	 * getShipping
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return array
 	 */
@@ -481,7 +481,7 @@ class ModelExtensionDashboardSale extends Model {
 	/**
 	 * getTotalShipping
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */

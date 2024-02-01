@@ -637,7 +637,7 @@ class Googleshopping extends Library {
 	/**
 	 * getProducts
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 * @param int   $store_id
 	 *
 	 * @return array
@@ -693,7 +693,7 @@ class Googleshopping extends Library {
 	/**
 	 * getTotalProducts
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 * @param int   $store_id
 	 *
 	 * @return int
@@ -711,7 +711,7 @@ class Googleshopping extends Library {
 	/**
 	 * getProductIds
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 * @param int   $store_id
 	 *
 	 * @return array
@@ -912,7 +912,7 @@ class Googleshopping extends Library {
 	/**
 	 * getProductVariationTargetSpecificIds
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return array
 	 */
@@ -1476,7 +1476,7 @@ class Googleshopping extends Library {
 	/**
 	 * getMerchantAuthUrl
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return string
 	 */
@@ -1914,7 +1914,7 @@ class Googleshopping extends Library {
 	/**
 	 * Authorize
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return string
 	 */

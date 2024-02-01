@@ -6,7 +6,7 @@
  */
 class ModelCheckoutRecurring extends Model {
 	/**
-	 * addHistory
+	 * Add History
 	 *
 	 * @param int    $order_recurring_id
 	 * @param string $comment

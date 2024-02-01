@@ -6,11 +6,11 @@
  */
 class ModelLocalisationReturnsReason extends Model {
 	/**
-	 * getReturnReasons
+	 * Get Return Reasons
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getReturnReasons(array $data = []): array {
 		if ($data) {

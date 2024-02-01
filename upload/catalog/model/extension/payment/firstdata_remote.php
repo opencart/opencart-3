@@ -42,7 +42,7 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 	/**
 	 * capturePayment
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 * @param int   $order_id
 	 *
 	 * return array

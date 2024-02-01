@@ -8,7 +8,7 @@ class ModelExtensionReportSubscription extends Model {
 	/**
 	 * getSubscriptions
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return array
 	 */
@@ -79,7 +79,7 @@ class ModelExtensionReportSubscription extends Model {
 	/**
 	 * getTotalSubscriptions
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */

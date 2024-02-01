@@ -8,7 +8,7 @@ class ModelExtensionReportMarketing extends Model {
 	/**
 	 * getMarketing
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return array
 	 */
@@ -67,7 +67,7 @@ class ModelExtensionReportMarketing extends Model {
 	/**
 	 * getTotalMarketing
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */

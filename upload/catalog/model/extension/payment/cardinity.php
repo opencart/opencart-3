@@ -12,7 +12,7 @@ class ModelExtensionPaymentCardinity extends Model {
 	/**
 	 * addOrder
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */

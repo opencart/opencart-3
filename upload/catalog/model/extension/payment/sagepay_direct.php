@@ -162,7 +162,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	 * updateOrder
 	 *
 	 * @param array $order_info
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */

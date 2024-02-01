@@ -76,7 +76,7 @@ class ModelSettingModification extends Model {
 	/**
 	 * Get Modifications
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */

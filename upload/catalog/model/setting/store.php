@@ -6,11 +6,11 @@
  */
 class ModelSettingStore extends Model {
 	/**
-	 * getStore
+	 * Get Store
 	 *
 	 * @param int $store_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getStore(int $store_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "store` WHERE `store_id` = '" . (int)$store_id . "'");
@@ -19,9 +19,9 @@ class ModelSettingStore extends Model {
 	}
 
 	/**
-	 * getStores
+	 * Get Stores
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getStores(): array {
 		$store_data = $this->cache->get('store');
@@ -38,11 +38,11 @@ class ModelSettingStore extends Model {
 	}
 
 	/**
-	 * getStoreByHostname
+	 * Get Store By Hostname
 	 *
 	 * @param string $url
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getStoreByHostname(string $url): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "store` WHERE REPLACE(`url`, 'www.', '') = '" . $this->db->escape($url) . "'");

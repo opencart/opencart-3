@@ -8,7 +8,7 @@ class ModelExtensionReportSale extends Model {
 	/**
 	 * getTotalSales
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -175,7 +175,7 @@ class ModelExtensionReportSale extends Model {
 	/**
 	 * getOrders
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return array
 	 */
@@ -246,7 +246,7 @@ class ModelExtensionReportSale extends Model {
 	/**
 	 * getTotalOrders
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -301,7 +301,7 @@ class ModelExtensionReportSale extends Model {
 	/**
 	 * getTaxes
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return array
 	 */
@@ -372,7 +372,7 @@ class ModelExtensionReportSale extends Model {
 	/**
 	 * getTotalTaxes
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -431,7 +431,7 @@ class ModelExtensionReportSale extends Model {
 	/**
 	 * getShipping
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return array
 	 */
@@ -502,7 +502,7 @@ class ModelExtensionReportSale extends Model {
 	/**
 	 * getTotalShipping
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */

@@ -478,7 +478,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	/**
 	 * validateDetails
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return array
 	 */

@@ -284,7 +284,7 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 	/**
 	 * getCsv
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return string
 	 */
@@ -430,7 +430,7 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 	/**
 	 * Call
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return array
 	 */

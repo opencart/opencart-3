@@ -19,7 +19,7 @@ class ModelExtensionTotalVoucherTheme extends Model {
 	/**
 	 * getVoucherThemes
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 */
 	public function getVoucherThemes(array $data = []): array {
 		if ($data) {

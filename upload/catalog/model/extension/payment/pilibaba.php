@@ -110,7 +110,7 @@ class ModelExtensionPaymentPilibaba extends Model {
 	/**
 	 * updateOrderInfo
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 * @param int   $order_id
 	 *
 	 * @return void
