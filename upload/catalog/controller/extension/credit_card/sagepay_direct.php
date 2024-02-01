@@ -257,7 +257,7 @@ class ControllerExtensionCreditCardSagepayDirect extends Controller {
 	}
 
 	/**
-	 * addCard
+	 * Add Card
 	 *
 	 * @return void
 	 */

@@ -148,7 +148,7 @@ class ControllerExtensionPaymentCardinity extends Controller {
 	}
 
 	/**
-	 * threeDSecureForm
+	 * Three D Secure Form
 	 *
 	 * @return void
 	 */
@@ -190,7 +190,7 @@ class ControllerExtensionPaymentCardinity extends Controller {
 	}
 
 	/**
-	 * threeDSecureCallback
+	 * Three D Secure Callback
 	 *
 	 * @return void
 	 */

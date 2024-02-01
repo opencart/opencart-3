@@ -318,7 +318,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 	/**
 	 * Calculator
 	 *
-	 * @param array $args
+	 * @param array<string, mixed> $args
 	 *
 	 * @return string
 	 */

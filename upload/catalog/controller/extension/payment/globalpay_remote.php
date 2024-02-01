@@ -223,7 +223,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 	}
 
 	/**
-	 * acsReturn
+	 * Acs Return
 	 *
 	 * @return void
 	 */

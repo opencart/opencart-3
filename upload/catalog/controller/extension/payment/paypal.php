@@ -1892,9 +1892,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
 				if (is_callable([$this->{'model_extension_payment_' . $result['code']}, 'getMethod'])) {
 					$method = $this->{'model_extension_payment_' . $result['code']}->getMethod($data['payment_address'], $total);
 
-                    if ($method) {
-                        $method_data[$result['code']] = $method;
-                    }
+					if ($method) {
+						$method_data[$result['code']] = $method;
+					}
 				}
 			}
 		}
@@ -3228,12 +3228,12 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	/**
 	 * Header Before
 	 *
-	 * @param mixed $route
-	 * @param mixed $data
+	 * @param string               $route
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
-	public function header_before($route, &$data): void {
+	public function header_before(string &$route, array &$data): void {
 		$this->load->model('extension/payment/paypal');
 
 		$agree_status = $this->model_extension_payment_paypal->getAgreeStatus();
@@ -3306,11 +3306,11 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	/**
 	 * Extension Get Extensions After
 	 *
-	 * @param mixed $route
-	 * @param mixed $data
-	 * @param mixed $output
+	 * @param string               $route
+	 * @param array<string, mixed> $data
+	 * @param mixed                $output
 	 */
-	public function extension_get_extensions_after($route, $data, &$output): void {
+	public function extension_get_extensions_after(string &$route, array &$data, mixed &$output): void {
 		if ($this->config->get('payment_paypal_status') && $this->config->get('payment_paypal_client_id') && $this->config->get('payment_paypal_secret')) {
 			$type = $data[0];
 
@@ -3359,11 +3359,11 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	 * Order Delete Order Before
 	 *
 	 * @param mixed $route
-	 * @param mixed $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
-	public function order_delete_order_before(&$route, &$data): void {
+	public function order_delete_order_before(string &$route, array &$data): void {
 		$this->load->model('extension/payment/paypal');
 
 		$order_id = $data[0];

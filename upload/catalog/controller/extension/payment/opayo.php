@@ -425,7 +425,7 @@ class ControllerExtensionPaymentOpayo extends Controller {
 	}
 
 	/**
-	 * threeDSnotify
+	 * Three DSnotify
 	 *
 	 * @return void
 	 */

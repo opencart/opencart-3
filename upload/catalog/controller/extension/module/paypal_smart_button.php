@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Extension\Module
  */
 class ControllerExtensionModulePayPalSmartButton extends Controller {
+	/**
+	 * @var array
+	 */
 	private array $error = [];
 
 	/**
@@ -149,7 +152,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 	}
 
 	/**
-	 * createOrder
+	 * Create Order
 	 *
 	 * @return void
 	 */
@@ -360,7 +363,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 	}
 
 	/**
-	 * approveOrder
+	 * Approve Order
 	 *
 	 * @return void
 	 */
@@ -568,7 +571,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 	}
 
 	/**
-	 * confirmOrder
+	 * Confirm Order
 	 *
 	 * @return void
 	 */
@@ -982,7 +985,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 	}
 
 	/**
-	 * completeOrder
+	 * Complete Order
 	 *
 	 * @return void
 	 */
@@ -1495,7 +1498,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 	}
 
 	/**
-	 * paymentAddress
+	 * Payment Address
 	 *
 	 * @return void
 	 */
@@ -1520,7 +1523,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 	}
 
 	/**
-	 * shippingAddress
+	 * Shipping Address
 	 *
 	 * @return void
 	 */
@@ -1542,7 +1545,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 	}
 
 	/**
-	 * confirmShipping
+	 * Confirm Shipping
 	 *
 	 * @return void
 	 */
@@ -1553,7 +1556,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 	}
 
 	/**
-	 * confirmPaymentAddress
+	 * Confirm Payment Address
 	 *
 	 * @return void
 	 */
@@ -1630,7 +1633,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 	}
 
 	/**
-	 * confirmShippingAddress
+	 * Confirm Shipping Address
 	 *
 	 * @return void
 	 */

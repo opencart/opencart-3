@@ -45,7 +45,7 @@ class ControllerExtensionSubscriptionPayPal extends Controller {
 	}
 
 	/**
-	 * getSubscriptionInfo
+	 * Get Subscription Info
 	 * 
 	 * @return void
 	 */
@@ -54,7 +54,7 @@ class ControllerExtensionSubscriptionPayPal extends Controller {
 	}
 
 	/**
-	 * enableSubscription
+	 * Enable Subscription
 	 * 
 	 * @return void
 	 */
@@ -84,7 +84,7 @@ class ControllerExtensionSubscriptionPayPal extends Controller {
 	}
 
 	/**
-	 * disableSubscription
+	 * Disable Subscription
 	 * 
 	 * @return void
 	 */

@@ -194,7 +194,7 @@ class ControllerExtensionPaymentEway extends Controller {
 	}
 
 	/**
-	 * lowestDenomination
+	 * Lowest Denomination
 	 *
 	 * @param float $value
 	 * @param float $currency
@@ -210,7 +210,7 @@ class ControllerExtensionPaymentEway extends Controller {
 	}
 
 	/**
-	 * validateDenomination
+	 * Validate Denomination
 	 *
 	 * @param float $value
 	 * @param float $currency

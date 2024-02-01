@@ -242,7 +242,8 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 		$this->response->setOutput($this->load->view('extension/advertise/google', $data));
 	}
 
-	/** Debug Log Download
+	/** 
+	 * Debug Log Download
 	 *
 	 * @return void
 	 */

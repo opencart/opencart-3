@@ -106,7 +106,7 @@ class ControllerExtensionPaymentBluepayHosted extends Controller {
 	}
 
 	/**
-	 * adminCallback
+	 * Admin Callback
 	 *
 	 * @return void
 	 */

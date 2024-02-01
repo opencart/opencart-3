@@ -74,7 +74,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * getStoreUrl
+	 * Get Store Url
 	 *
 	 * @return string
 	 */
@@ -83,7 +83,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * getStoreName
+	 * Get Store Name
 	 *
 	 * @return string
 	 */
@@ -92,7 +92,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * getSupportedLanguageId
+	 * Get Supported Language Id
 	 *
 	 * @param string $code
 	 *
@@ -111,7 +111,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * getSupportedCurrencyId
+	 * Get Supported Currency Id
 	 *
 	 * @param string $code
 	 *
@@ -128,7 +128,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * getCountryName
+	 * Get Country Name
 	 *
 	 * @param string $code
 	 *
@@ -154,7 +154,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * compareTrimmedLowercase
+	 * Compare Trimmed Lowercase
 	 *
 	 * @param mixed $text1
 	 * @param mixed $text2
@@ -166,7 +166,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * getTargets
+	 * Get Targets
 	 *
 	 * @param int $store_id
 	 *
@@ -179,7 +179,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * getTarget
+	 * Get Target
 	 *
 	 * @param int $advertise_google_target_id
 	 *
@@ -192,7 +192,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * editTarget
+	 * Edit Target
 	 *
 	 * @param int   $target_id
 	 * @param array $target
@@ -206,7 +206,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * deleteTarget
+	 * Delete Target
 	 *
 	 * @param int $target_id
 	 *
@@ -218,7 +218,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * doJob
+	 * Do Job
 	 *
 	 * @param array $job
 	 *
@@ -287,7 +287,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * getProductVariationIds
+	 * Get Product Variation Ids
 	 *
 	 * @param int $page
 	 *
@@ -384,7 +384,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * convertedTaxedPrice
+	 * Converted Taxed Price
 	 *
 	 * @param ?float $value
 	 * @param int    $tax_class_id
@@ -397,7 +397,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * getFeedProducts
+	 * Get Feed Products
 	 *
 	 * @param int    $page
 	 * @param int    $language_id
@@ -545,7 +545,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * getGroups
+	 * Get Groups
 	 *
 	 * @param int $product_id
 	 * @param int $language_id
@@ -577,7 +577,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * getProductOptionValueNames
+	 * Get Product Option Value Names
 	 *
 	 * @param int $product_id
 	 * @param int $language_id
@@ -605,7 +605,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * applyFilter
+	 * Apply Filter
 	 *
 	 * @param string $sql
 	 * @param array  $data
@@ -635,10 +635,10 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * getProducts
+	 * Get Products
 	 *
 	 * @param array<string, mixed> $data
-	 * @param int   $store_id
+	 * @param int                  $store_id
 	 *
 	 * @return array
 	 */
@@ -691,10 +691,10 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * getTotalProducts
+	 * Get Total Products
 	 *
 	 * @param array<string, mixed> $data
-	 * @param int   $store_id
+	 * @param int                  $store_id
 	 *
 	 * @return int
 	 */
@@ -709,10 +709,10 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * getProductIds
+	 * Get Product Ids
 	 *
 	 * @param array<string, mixed> $data
-	 * @param int   $store_id
+	 * @param int                  $store_id
 	 *
 	 * @return array
 	 */
@@ -734,7 +734,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * clearProductStatuses
+	 * Clear Product Statuses
 	 *
 	 * @param array $product_ids
 	 * @param int   $store_id
@@ -747,7 +747,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * productIdsToIntegerExpression
+	 * ProductIds To Integer Expression
 	 *
 	 * @param array $product_ids
 	 *
@@ -854,6 +854,7 @@ class Googleshopping extends Library {
 
 					if (!empty($product_reports)) {
 						$this->updateProductReports($product_reports);
+
 						$report_count += count($product_reports);
 					}
 				}
@@ -892,6 +893,7 @@ class Googleshopping extends Library {
 
 						if (!empty($product_statuses)) {
 							$this->updateProductStatuses($product_statuses);
+
 							$status_count += count($product_statuses);
 						}
 					}
@@ -952,7 +954,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * updateProductReports
+	 * Update Product Reports
 	 *
 	 * @param array $reports
 	 *
@@ -979,7 +981,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * updateProductStatuses
+	 * Update Product Statuses
 	 *
 	 * @param array $statuses
 	 *
@@ -1062,7 +1064,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * memoryLimitInBytes
+	 * Memory Limit In Bytes
 	 *
 	 * @return int
 	 */
@@ -1083,7 +1085,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * enableErrorReporting
+	 * Enable Error Reporting
 	 *
 	 * @return void
 	 */
@@ -1095,7 +1097,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * getProductIdFromTargetSpecificId
+	 * Get Product Id From Target Specific Id
 	 *
 	 * @param ?string $target_specific_id
 	 *
@@ -1106,7 +1108,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * getProductVariationIdFromTargetSpecificId
+	 * Get Product Variation Id From Target Specific Id
 	 *
 	 * @param ?string $target_specific_id
 	 *
@@ -1117,7 +1119,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * getProductIdFromOfferId
+	 * Get Product Id From Offer Id
 	 *
 	 * @param ?string $offer_id
 	 *
@@ -1128,7 +1130,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * clearReports
+	 * Clear Reports
 	 *
 	 * @return void
 	 */
@@ -1137,7 +1139,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * getJobs
+	 * Get Jobs
 	 *
 	 * @return array
 	 */
@@ -1187,7 +1189,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * sendEmailReport
+	 * Send Email Report
 	 *
 	 * @param array $report
 	 *
@@ -1229,7 +1231,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * getOptionValueName
+	 * Get Option Value Name
 	 *
 	 * @param array $row
 	 *
@@ -1242,9 +1244,9 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * combineOptions
+	 * Combine Options
 	 *
-	 * @param array $arrays
+	 * @param array<string, mixed> $arrays
 	 *
 	 * @return array
 	 */
@@ -1309,7 +1311,7 @@ class Googleshopping extends Library {
 				$path = $path . '/' . $directory;
 
 				if (!is_dir(DIR_IMAGE . $path)) {
-					@mkdir(DIR_IMAGE . $path, 0777);
+					@mkdir(DIR_IMAGE . $path, 0o777);
 				}
 			}
 
@@ -1328,7 +1330,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * sanitizeText
+	 * Sanitize Text
 	 *
 	 * @param string $text
 	 * @param int    $limit
@@ -1340,7 +1342,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * setRuntimeExceptionErrorHandler
+	 * Set Runtime Exception Error Handler
 	 *
 	 * @throws \Exception
 	 *
@@ -1377,7 +1379,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * restoreErrorHandler
+	 * Restore Error Handler
 	 *
 	 * @return void
 	 */
@@ -1386,7 +1388,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * getFeedProductsQuery
+	 * Get Feed Products Query
 	 *
 	 * @param int $page
 	 * @param int $language_id
@@ -1400,7 +1402,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * setEventSnippet
+	 * Set Event Snippet
 	 *
 	 * @param mixed $snippet
 	 *
@@ -1411,7 +1413,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * getEventSnippet
+	 * Get Event Snippet
 	 *
 	 * @return mixed
 	 */
@@ -1420,7 +1422,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * getEventSnippetSendTo
+	 * Get Event Snippet Send To
 	 *
 	 * @return mixed|null
 	 */
@@ -1439,7 +1441,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * setPurchaseData
+	 * Set Purchase Data
 	 *
 	 * @param $total
 	 *
@@ -1450,7 +1452,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * getPurchaseData
+	 * Get Purchase Data
 	 *
 	 * @return mixed
 	 */
@@ -1459,7 +1461,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * convertAndFormat
+	 * Convert And Format
 	 *
 	 * @param ?float $price
 	 * @param string $currency
@@ -1474,7 +1476,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * getMerchantAuthUrl
+	 * Get Merchant Auth Url
 	 *
 	 * @param array<string, mixed> $data
 	 *
@@ -1495,7 +1497,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * isConnected
+	 * Is Connected
 	 *
 	 * @return ConnectionException|object|null
 	 */
@@ -1512,7 +1514,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * isStoreUrlClaimed
+	 * Is Store Url Claimed
 	 *
 	 * @return mixed
 	 */
@@ -1535,7 +1537,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * currencyFormat
+	 * Currency Format
 	 *
 	 * @param ?float $value
 	 *
@@ -1546,7 +1548,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * getCampaignReports
+	 * Get Campaign Reports
 	 *
 	 * @throws \Exception
 	 *
@@ -1678,9 +1680,9 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * getProductReports
+	 * Get Product Reports
 	 *
-	 * @param array $product_ids
+	 * @param array<string, mixed> $product_ids
 	 *
 	 * @throws \Exception
 	 *
@@ -1764,9 +1766,9 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * getProductStatuses
+	 * Get Product Statuses
 	 *
-	 * @param array $product_ids
+	 * @param array<string, mixed> $product_ids
 	 *
 	 * @return array
 	 */
@@ -1791,7 +1793,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * getConversionTracker
+	 * Get Conversion Tracker
 	 *
 	 * @return array
 	 */
@@ -1820,7 +1822,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * testCampaigns
+	 * Test Campaigns
 	 *
 	 * @return bool
 	 */
@@ -1836,7 +1838,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * testAccessToken
+	 * Test Access Token
 	 *
 	 * @return AccessForbiddenException|\RuntimeException $e|null|object
 	 */
@@ -1860,7 +1862,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * getAccessToken
+	 * Get Access Token
 	 *
 	 * @return mixed
 	 */
@@ -1931,7 +1933,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * verifySite
+	 * Verify Site
 	 *
 	 * @return \RuntimeException $e|null|object
 	 * @return ?object
@@ -1977,7 +1979,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * deleteCampaign
+	 * Delete Campaign
 	 *
 	 * @param string $name
 	 *
@@ -2006,7 +2008,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * pushTargets
+	 * Push Targets
 	 *
 	 * @return void
 	 */
@@ -2046,7 +2048,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * pushShippingAndTaxes
+	 * Push Shipping And Taxes
 	 *
 	 * @return void
 	 */
@@ -2084,7 +2086,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * pushCampaignStatus
+	 * Push Campaign Status
 	 *
 	 * @return void
 	 */
@@ -2117,7 +2119,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * getAvailableCarriers
+	 * Get Available Carriers
 	 *
 	 * @return array
 	 */
@@ -2134,13 +2136,13 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * getLanguages
+	 * Get Languages
 	 *
-	 * @param array $language_codes
+	 * @param array<string, mixed> $language_codes
 	 *
 	 * @return array
 	 */
-	public function getLanguages($language_codes): array {
+	public function getLanguages(array $language_codes): array {
 		$result = [];
 
 		$this->registry->get('load')->config('googleshopping/googleshopping');
@@ -2162,7 +2164,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * getLanguageName
+	 * Get Language Name
 	 *
 	 * @param int    $language_id
 	 * @param string $default
@@ -2181,9 +2183,9 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * getCurrencies
+	 * Get Currencies
 	 *
-	 * @param array $currency_codes
+	 * @param array<string, mixed> $currency_codes
 	 *
 	 * @return array
 	 */
@@ -2208,7 +2210,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * getCurrencyName
+	 * Get Currency Name
 	 *
 	 * @param int    $currency_id
 	 * @param string $default
@@ -2230,7 +2232,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * getCurrency
+	 * Get Currency
 	 *
 	 * @param int $currency_id
 	 *
@@ -2243,7 +2245,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * debugLog
+	 * Debug Log
 	 *
 	 * @param ?string $text
 	 *
@@ -2258,7 +2260,7 @@ class Googleshopping extends Library {
 	/**
 	 * Target
 	 *
-	 * @param array $target
+	 * @param array<string, mixed> $target
 	 *
 	 * @return array
 	 */
@@ -2298,7 +2300,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * curlPostQuery
+	 * Curl Post Query
 	 *
 	 * @param array  $arrays
 	 * @param array  $new
@@ -2319,7 +2321,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * createVerificationToken
+	 * Create Verification Token
 	 *
 	 * @param string $token
 	 *
@@ -2338,7 +2340,7 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * deleteVerificationToken
+	 * Delete Verification Token
 	 *
 	 * @param string $token
 	 *
@@ -2363,10 +2365,10 @@ class Googleshopping extends Library {
 	}
 
 	/**
-	 * applyNewSetting
+	 * Apply New Setting
 	 *
 	 * @param string $key
-	 * @param array  $value
+	 * @param array<string, mixed> $value
 	 *
 	 * @return void
 	 */
@@ -2395,13 +2397,13 @@ class Googleshopping extends Library {
 	/**
 	 * Api
 	 *
-	 * @param array $request
+	 * @param array<string, mixed> $request
 	 *
 	 * @Throws \RuntimeException|\ConnectionException|AccessForbiddenException|null|object
 	 *
 	 * @return ?object
 	 */
-	private function api($request): ?object {
+	private function api(array $request): ?object {
 		$this->debugLog("REQUEST: " . json_encode($request));
 
 		$url = sprintf($this->endpoint_url, $request['endpoint']);

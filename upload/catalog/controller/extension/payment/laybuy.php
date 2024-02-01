@@ -35,7 +35,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 	}
 
 	/**
-	 * postToLaybuy
+	 * Post To Laybuy
 	 *
 	 * @return void
 	 */
@@ -198,7 +198,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 	}
 
 	/**
-	 * reviseCallback
+	 * Revise Callback
 	 *
 	 * @return void
 	 */
@@ -338,7 +338,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 	}
 
 	/**
-	 * reviseCancel
+	 * Revise Cancel
 	 *
 	 * @return void
 	 */
@@ -352,7 +352,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 	}
 
 	/**
-	 * deleteOrder
+	 * Delete Order
 	 *
 	 * @param string $route
 	 * @param string $output
