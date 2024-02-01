@@ -183,7 +183,7 @@ class ControllerExtensionPaymentSquareup extends Controller
                 'integration_id'      => Squareup::SQUARE_INTEGRATION_ID
             ];
 
-            if (!empty($shipping_address)) {
+            if ($shipping_address) {
                 $transaction_data['shipping_address'] = $shipping_address;
             }
 
@@ -194,7 +194,7 @@ class ControllerExtensionPaymentSquareup extends Controller
                 $transaction_data['card_nonce'] = $this->request->post['squareup_nonce'];
             }
 
-            if (!empty($transaction['tenders'][0]['card_details']['status'])) {
+            if (isset($transaction['tenders'][0]['card_details']['status'])) {
                 $transaction_status = strtolower($transaction['tenders'][0]['card_details']['status']);
             } else {
                 $transaction_status = '';

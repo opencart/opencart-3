@@ -2053,8 +2053,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	/**
 	 * Get Filter
 	 *
-	 * @param array                $array
-	 * @param array<string, mixed> $data  array of filter
+	 * @param array<string, mixed> $array  array of filter
 	 *
 	 * @return array<string, mixed>
 	 */
@@ -2077,8 +2076,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	/**
 	 * Apply New Settings
 	 *
-	 * @param array                $new_settings
-	 * @param array<string, mixed> $data         array of filter
+	 * @param array<string, mixed> $new_settings         array of filter
 	 *
 	 * @return void
 	 */

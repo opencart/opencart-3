@@ -261,12 +261,12 @@ class ModelSaleOrder extends Model {
 	}
 
 	/**
-	 * Get Product By Product ID
+	 * Get Product By Order Product ID
 	 *
-	 * @param int $product_id
+	 * @param int $order_id
 	 * @param int $order_product_id
 	 *
-	 * @return int
+	 * @return array<string, mixed>
 	 */
 	public function getProductByOrderProductId(int $order_id, int $order_product_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_product` WHERE `order_id` = '" . (int)$order_id . "' AND `order_product_id` = '" . (int)$order_product_id . "' ORDER BY `order_product_id` ASC");
@@ -483,7 +483,7 @@ class ModelSaleOrder extends Model {
 	 *
 	 * @param array<string, mixed> $data
 	 *
-	 * @return float
+	 * @return int
 	 */
 	public function getTotalSales(array $data = []): int {
 		$sql = "SELECT SUM(`total`) AS `total` FROM `" . DB_PREFIX . "order`";

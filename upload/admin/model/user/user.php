@@ -169,8 +169,6 @@ class ModelUserUser extends Model {
 	/**
 	 * Get Total Users
 	 *
-	 * @param array<string, mixed> $data
-	 *
 	 * @return int
 	 */
 	public function getTotalUsers(): int {

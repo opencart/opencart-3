@@ -129,8 +129,6 @@ class ModelLocalisationZone extends Model {
 	/**
 	 * Get Total Zones
 	 *
-	 * @param array<string, mixed> $data
-	 *
 	 * @return int
 	 */
 	public function getTotalZones(): int {

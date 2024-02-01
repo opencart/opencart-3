@@ -87,11 +87,11 @@ class ModelAccountCustomer extends Model {
 	/**
 	 * Edit Newsletter
 	 *
-	 * @param bool $newsletter
+	 * @param int $newsletter
 	 *
 	 * @return void
 	 */
-	public function editNewsletter(string $newsletter): void {
+	public function editNewsletter(int $newsletter): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "customer` SET `newsletter` = '" . (int)$newsletter . "' WHERE `customer_id` = '" . (int)$this->customer->getId() . "'");
 	}
 
