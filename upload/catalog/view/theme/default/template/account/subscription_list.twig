@@ -34,7 +34,7 @@
                   <td class="text-left">{{ subscription.product }}</td>
                   <td class="text-left">{{ subscription.status }}</td>
                   <td class="text-left">{{ subscription.date_added }}</td>
-                  <td class="text-right">{% if subscription.is_subscription %}<a href="{{ subscription.view }}" data-bs-toggle="tooltip" title="{{ button_view }}" class="btn btn-info"><i class="fa-solid fa-eye"></i></a>{% endif %}</td>
+                  <td class="text-right"><a href="{{ subscription.view }}" data-bs-toggle="tooltip" title="{{ button_view }}" class="btn btn-info"><i class="fa-solid fa-eye"></i></a></td>
                 </tr>
               {% endfor %}
             </tbody>

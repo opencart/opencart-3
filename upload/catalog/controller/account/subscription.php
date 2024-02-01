@@ -7,7 +7,7 @@
 class ControllerAccountSubscription extends Controller {
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -54,6 +54,7 @@ class ControllerAccountSubscription extends Controller {
 
 		// Subscriptions
 		$this->load->model('account/subscription');
+		$this->load->model('localisation/subscription_status');
 
 		$filter_data = [
 			'start' => ($page - 1) * 10,
@@ -65,18 +66,12 @@ class ControllerAccountSubscription extends Controller {
 		$results = $this->model_account_subscription->getSubscriptions($filter_data);
 
 		foreach ($results as $result) {
-			if ($result['status']) {
-				$status = $this->language->get('text_status_' . $result['status']);
-			} else {
-				$status = '';
-			}
+			$subscription_status_info = $this->model_localisation_subscription_status->getSubscriptionStatus($result['subscription_status_id']);
 
-			if ($result['duration']) {
-				if ($result['frequency'] == 'semi_month') {
-					$period = strtotime("2 weeks");
-				} else {
-					$period = strtotime($result['cycle'] . ' ' . $result['frequency']);
-				}
+			if ($subscription_status_info) {
+				$subscription_status = $subscription_status_info['name'];
+			} else {
+				$subscription_status = '';
 			}
 
 			$date_next = strtotime($result['date_next']);
@@ -84,9 +79,8 @@ class ControllerAccountSubscription extends Controller {
 			$data['subscriptions'][] = [
 				'subscription_id' => $result['subscription_id'],
 				'product'         => $result['product'],
-				'status'          => $status,
+				'status'          => $subscription_status,
 				'date_added'      => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
-				'is_subscription' => isset($period) && $date_next <= $period ? true : false,
 				'view'            => $this->url->link('account/subscription/info', 'customer_token=' . $this->session->data['customer_token'] . '&subscription_id=' . $result['subscription_id'], true)
 			];
 		}
@@ -176,18 +170,6 @@ class ControllerAccountSubscription extends Controller {
 			} else {
 				$data['status'] = '';
 			}
-
-			if ($subscription_info['duration']) {
-				if ($subscription_info['frequency'] == 'semi_month') {
-					$period = strtotime('2 weeks');
-				} else {
-					$period = strtotime($subscription_info['cycle'] . ' ' . $subscription_info['frequency']);
-				}
-			}
-
-			$date_next = strtotime($subscription_info['date_next']);
-
-			$data['is_subscription'] = isset($period) && $date_next <= $period ? true : false;
 
 			// Orders
 			$this->load->model('account/order');
