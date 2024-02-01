@@ -239,7 +239,12 @@ class ControllerAccountRegister extends Controller {
 		$this->response->setOutput($this->load->view('account/register', $data));
 	}
 
-	private function validate() {
+	/**
+	 * Validate
+	 * 
+	 * @return bool
+	 */
+	private function validate(): bool {
 		$keys = [
 			'customer_group_id',
 			'firstname',

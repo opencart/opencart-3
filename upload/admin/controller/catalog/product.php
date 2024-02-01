@@ -1245,7 +1245,12 @@ class ControllerCatalogProduct extends Controller {
 		$this->response->setOutput($this->load->view('catalog/product_form', $data));
 	}
 
-	protected function validateForm() {
+	/**
+	 * Validate
+	 * 
+	 * @return bool
+	 */
+	protected function validateForm(): bool {
 		if (!$this->user->hasPermission('modify', 'catalog/product')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

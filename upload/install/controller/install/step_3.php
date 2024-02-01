@@ -266,7 +266,12 @@ class ControllerInstallStep3 extends Controller {
 		$this->response->setOutput($this->load->view('install/step_3', $data));
 	}
 
-	private function validate() {
+	/**
+	 * Validate
+	 * 
+	 * @return bool
+	 */
+	private function validate(): bool {
 		if (!$this->request->post['db_hostname']) {
 			$this->error['db_hostname'] = $this->language->get('error_db_hostname');
 		}

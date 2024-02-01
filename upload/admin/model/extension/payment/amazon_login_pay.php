@@ -558,6 +558,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 		return $this->sendCurl($url, $parameters);
 	}
 
+	/**
+	 * Validate Response
+	 */
 	private function validateResponse($action, $details, $skip_logger = false) {
 		$details_xml = simplexml_load_string($details['ResponseBody']);
 

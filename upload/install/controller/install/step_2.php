@@ -168,7 +168,12 @@ class ControllerInstallStep2 extends Controller {
 		$this->response->setOutput($this->load->view('install/step_2', $data));
 	}
 
-	private function validate() {
+	/**
+	 * Validate
+	 * 
+	 * @return bool
+	 */
+	private function validate(): bool {
 		if (PHP_VERSION < '8.3') {
 			$this->error['warning'] = $this->language->get('error_version');
 		}

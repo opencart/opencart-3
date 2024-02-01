@@ -148,7 +148,7 @@ class ControllerExtensionExtensionMenu extends Controller {
 	 * 
 	 * @return bool
 	 */
-	protected function validate() {
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/extension/menu')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
