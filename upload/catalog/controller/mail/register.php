@@ -6,6 +6,8 @@
  */
 class ControllerMailRegister extends Controller {
 	/**
+	 * Index
+	 * 
 	 * @param string $route
 	 * @param array  $args
 	 * @param mixed  $output
@@ -55,6 +57,7 @@ class ControllerMailRegister extends Controller {
 			];
 
 			$mail = new \Mail($this->config->get('config_mail_engine'), $mail_option);
+
 			$mail->setTo($args[0]['email']);
 			$mail->setFrom($this->config->get('config_email'));
 			$mail->setSender($store_name);
@@ -123,6 +126,7 @@ class ControllerMailRegister extends Controller {
 				];
 
 				$mail = new \Mail($this->config->get('config_mail_engine'), $mail_option);
+				
 				$mail->setTo($this->config->get('config_email'));
 				$mail->setFrom($this->config->get('config_email'));
 				$mail->setSender($store_name);

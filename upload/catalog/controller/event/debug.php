@@ -6,6 +6,8 @@
  */
 class ControllerEventDebug extends Controller {
 	/**
+	 * Index
+	 * 
 	 * @param string $route
 	 * @param array  $args
 	 *

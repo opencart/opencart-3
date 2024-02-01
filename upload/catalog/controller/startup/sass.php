@@ -6,6 +6,8 @@
  */
 class ControllerStartupSass extends Controller {
 	/**
+	 * Index
+	 * 
 	 * @return void
 	 */
 	public function index(): void {

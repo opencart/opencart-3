@@ -5,9 +5,14 @@
  * @package Catalog\Controller\Account
  */
 class ControllerAccountPassword extends Controller {
+	/**
+	 * @var array<string, string>
+	 */
 	private array $error = [];
 
 	/**
+	 * Index
+	 * 
 	 * @return void
 	 */
 	public function index(): void {
@@ -86,6 +91,9 @@ class ControllerAccountPassword extends Controller {
 		$this->response->setOutput($this->load->view('account/password', $data));
 	}
 
+	/**
+	 * Validate
+	 */
 	protected function validate() {
 		$keys = [
 			'password',

@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Account
  */
 class ControllerAccountAffiliate extends Controller {
+	/**
+	 * @var array<string, string>
+	 */
 	private array $error = [];
 
 	/**
@@ -284,6 +287,9 @@ class ControllerAccountAffiliate extends Controller {
 		$this->response->setOutput($this->load->view('account/affiliate', $data));
 	}
 
+	/**
+	 * Validate
+	 */
 	protected function validate() {
 		$keys = [
 			'payment',

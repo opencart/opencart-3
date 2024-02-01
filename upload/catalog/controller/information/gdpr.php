@@ -6,6 +6,8 @@
  */
 class ControllerInformationGdpr extends Controller {
 	/**
+	 * Index
+	 *
 	 * @return \Action|object|null
 	 */
 	public function index(): ?object {
@@ -54,7 +56,7 @@ class ControllerInformationGdpr extends Controller {
 		return null;
 	}
 
-	/*
+	/**
 	 * Action
 	 *
 	 *  Action Statuses
@@ -78,8 +80,7 @@ class ControllerInformationGdpr extends Controller {
 	 *	pending    = 1
 	 *	processing = 2
 	 *	denied     = -1
-	*/
-	/**
+	 *
 	 * @return void
 	 */
 	public function action(): void {

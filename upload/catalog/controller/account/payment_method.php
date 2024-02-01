@@ -5,9 +5,14 @@
  * @package Catalog\Controller\Account
  */
 class ControllerAccountPaymentMethod extends Controller {
+	/**
+	 * @var array<string, string>
+	 */
 	private array $error = [];
 
 	/**
+	 * Index
+	 * 
 	 * @return void
 	 */
 	public function index(): void {
@@ -70,6 +75,11 @@ class ControllerAccountPaymentMethod extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
+	/**
+	 * Get List
+	 * 
+	 * @return void
+	 */
 	protected function getList(): void {
 		$data['breadcrumbs'] = [];
 

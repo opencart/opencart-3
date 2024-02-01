@@ -5,9 +5,14 @@
  * @package Catalog\Controller\Account
  */
 class ControllerAccountReturns extends Controller {
+	/**
+	 * @var array<string, string>
+	 */
 	private array $error = [];
 
 	/**
+	 * Index
+	 * 
 	 * @return void
 	 */
 	public function index(): void {
@@ -482,6 +487,9 @@ class ControllerAccountReturns extends Controller {
 		$this->response->setOutput($this->load->view('account/returns_form', $data));
 	}
 
+	/**
+	 * Validate
+	 */
 	protected function validate() {
 		$keys = [
 			'order_id',

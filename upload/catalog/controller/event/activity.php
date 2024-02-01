@@ -6,7 +6,7 @@
  */
 class ControllerEventActivity extends Controller {
 	/**
-	 * addCustomer
+	 * Add Customer
 	 *
 	 * @param string $route
 	 * @param array  $args
@@ -31,7 +31,7 @@ class ControllerEventActivity extends Controller {
 	}
 
 	/**
-	 * editCustomer
+	 * Edit Customer
 	 *
 	 * @param string $route
 	 * @param array  $args
@@ -56,7 +56,7 @@ class ControllerEventActivity extends Controller {
 	}
 
 	/**
-	 * editPassword
+	 * Edit Password
 	 *
 	 * @param string $route
 	 * @param array  $args
@@ -155,7 +155,7 @@ class ControllerEventActivity extends Controller {
 	}
 
 	/**
-	 * addTransaction
+	 * Add Transaction
 	 *
 	 * @param string $route
 	 * @param array  $args
@@ -188,7 +188,7 @@ class ControllerEventActivity extends Controller {
 	}
 
 	/**
-	 * addAffiliate
+	 * Add Affiliate
 	 *
 	 * @param string $route
 	 * @param array  $args
@@ -213,7 +213,7 @@ class ControllerEventActivity extends Controller {
 	}
 
 	/**
-	 * editAffiliate
+	 * Edit Affiliate
 	 *
 	 * @param string $route
 	 * @param array  $args
@@ -238,7 +238,7 @@ class ControllerEventActivity extends Controller {
 	}
 
 	/**
-	 * addAddress
+	 * Add Address
 	 *
 	 * @param string $route
 	 * @param array  $args
@@ -263,7 +263,7 @@ class ControllerEventActivity extends Controller {
 	}
 
 	/**
-	 * editAddress
+	 * Edit Address
 	 *
 	 * @param string $route
 	 * @param array  $args
@@ -288,7 +288,7 @@ class ControllerEventActivity extends Controller {
 	}
 
 	/**
-	 * deleteAddress
+	 * Delete Address
 	 *
 	 * @param string $route
 	 * @param array  $args
@@ -313,7 +313,7 @@ class ControllerEventActivity extends Controller {
 	}
 
 	/**
-	 * addReturn
+	 * Add Return
 	 *
 	 * @param string $route
 	 * @param array  $args
@@ -348,7 +348,7 @@ class ControllerEventActivity extends Controller {
 	}
 
 	/**
-	 * addHistory
+	 * Add History
 	 *
 	 * @param string $route
 	 * @param array  $args

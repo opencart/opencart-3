@@ -6,6 +6,8 @@
  */
 class ControllerCommonContentBottom extends Controller {
 	/**
+	 * Index
+	 * 
 	 * @return string
 	 */
 	public function index(): string {

@@ -7,6 +7,8 @@
 class ControllerEventLanguage extends Controller {
 	// view/*/before
 	/**
+	 * Index
+	 * 
 	 * @param string $route
 	 * @param array  $args
 	 *

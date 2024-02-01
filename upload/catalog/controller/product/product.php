@@ -5,9 +5,14 @@
  * @package Catalog\Controller\Product
  */
 class ControllerProductProduct extends Controller {
+	/**
+	 * @var array<string, string>
+	 */
 	private array $error = [];
 
 	/**
+	 * Index
+	 * 
 	 * @return void
 	 */
 	public function index(): void {

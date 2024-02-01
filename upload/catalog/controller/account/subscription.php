@@ -6,6 +6,8 @@
  */
 class ControllerAccountSubscription extends Controller {
 	/**
+	 * Index
+	 * 
 	 * @return void
 	 */
 	public function index(): void {
@@ -177,7 +179,7 @@ class ControllerAccountSubscription extends Controller {
 
 			if ($subscription_info['duration']) {
 				if ($subscription_info['frequency'] == 'semi_month') {
-					$period = strtotime("2 weeks");
+					$period = strtotime('2 weeks');
 				} else {
 					$period = strtotime($subscription_info['cycle'] . ' ' . $subscription_info['frequency']);
 				}

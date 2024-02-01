@@ -6,6 +6,8 @@
  */
 class ControllerAccountTracking extends Controller {
 	/**
+	 * Index
+	 * 
 	 * @return \Action|object|null
 	 */
 	public function index(): ?object {
