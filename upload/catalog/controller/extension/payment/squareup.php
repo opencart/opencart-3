@@ -194,11 +194,11 @@ class ControllerExtensionPaymentSquareup extends Controller
                 $transaction_data['card_nonce'] = $this->request->post['squareup_nonce'];
             }
 
-            if (isset($transaction['tenders'][0]['card_details']['status'])) {
-                $transaction_status = strtolower($transaction['tenders'][0]['card_details']['status']);
-            } else {
+            //if ($transaction['tenders'][0]['card_details']['status']) {
+                //$transaction_status = strtolower($transaction['tenders'][0]['card_details']['status']);
+            //} else {
                 $transaction_status = '';
-            }
+            //}
 
             $transaction = $this->squareup->addSubscriptionTransaction($transaction_data, $transaction_status);
 

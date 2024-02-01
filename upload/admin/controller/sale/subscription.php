@@ -413,7 +413,7 @@ class ControllerSaleSubscription extends Controller {
 
 			if ($subscription_plan_info['trial_status']) {
 				$trial_price = $this->currency->format($subscription_info['trial_price'], $this->config->get('config_currency'));
-				$trial_cycle = $result['trial_cycle'];
+				$trial_cycle = $subscription_info['trial_cycle'];
 				$trial_frequency = $this->language->get('text_' . $subscription_plan_info['trial_frequency']);
 				$trial_duration = $subscription_plan_info['trial_duration'];
 
@@ -421,7 +421,7 @@ class ControllerSaleSubscription extends Controller {
 			}
 
 			$price = $this->currency->format($subscription_info['price'], $this->config->get('config_currency'));
-			$cycle = $result['cycle'];
+			$cycle = $subscription_info['cycle'];
 			$frequency = $this->language->get('text_' . $subscription_plan_info['frequency']);
 			$duration = $subscription_plan_info['duration'];
 
@@ -763,7 +763,7 @@ class ControllerSaleSubscription extends Controller {
 		$pagination->total = $subscription_total;
 		$pagination->page = $page;
 		$pagination->limit = $this->config->get('config_limit_admin');
-		$pagination->url = $this->url->link('sale/subscription/history', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
+		$pagination->url = $this->url->link('sale/subscription/history', 'user_token=' . $this->session->data['user_token'] . '&page={page}', true);
 
 		$data['pagination'] = $pagination->render();
 		$data['results'] = sprintf($this->language->get('text_pagination'), ($subscription_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($subscription_total - $this->config->get('config_limit_admin'))) ? $subscription_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $subscription_total, ceil($subscription_total / $this->config->get('config_limit_admin')));

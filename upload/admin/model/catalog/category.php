@@ -336,7 +336,7 @@ class ModelCatalogCategory extends Model {
 	 *
 	 * @param int $category_id
 	 *
-	 * @return string
+	 * @return array
 	 */
 	public function getPath(int $category_id): array {
 		$query = $this->db->query("SELECT `category_id`, `path_id`, `level` FROM `" . DB_PREFIX . "category_path` WHERE `category_id` = '" . (int)$category_id . "'");
