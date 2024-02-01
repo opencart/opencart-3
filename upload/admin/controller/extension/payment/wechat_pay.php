@@ -19,7 +19,7 @@ class ControllerExtensionPaymentWechatPay extends Controller {
 
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -167,7 +167,7 @@ class ControllerExtensionPaymentWechatPay extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return bool
 	 */
 	private function validate(): bool {

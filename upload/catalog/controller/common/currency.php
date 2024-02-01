@@ -7,7 +7,7 @@
 class ControllerCommonCurrency extends Controller {
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return string
 	 */
 	public function index(): string {

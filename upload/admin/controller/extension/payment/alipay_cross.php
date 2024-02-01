@@ -31,7 +31,7 @@ class ControllerExtensionPaymentAlipayCross extends Controller {
 
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -183,7 +183,7 @@ class ControllerExtensionPaymentAlipayCross extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return bool
 	 */
 	private function validate(): bool {

@@ -33,8 +33,8 @@ class ModelExtensionCreditCardSquareup extends Model {
 	/**
 	 * addCard
 	 *
-	 * @param int   $customer_id
-	 * @param int   $sandbox
+	 * @param int                  $customer_id
+	 * @param int                  $sandbox
 	 * @param array<string, mixed> $data
 	 *
 	 * @return void
@@ -73,7 +73,7 @@ class ModelExtensionCreditCardSquareup extends Model {
 	/**
 	 * cardExists
 	 *
-	 * @param int   $customer_id
+	 * @param int                  $customer_id
 	 * @param array<string, mixed> $data
 	 *
 	 * @return bool

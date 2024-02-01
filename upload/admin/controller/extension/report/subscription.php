@@ -12,7 +12,7 @@ class ControllerExtensionReportSubscription extends Controller {
 
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -78,7 +78,7 @@ class ControllerExtensionReportSubscription extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validate(): bool {

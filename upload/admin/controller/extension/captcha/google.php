@@ -12,7 +12,7 @@ class ControllerExtensionCaptchaGoogle extends Controller {
 
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -96,7 +96,7 @@ class ControllerExtensionCaptchaGoogle extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validate(): bool {

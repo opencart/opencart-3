@@ -12,7 +12,7 @@ class ControllerExtensionExtensionCurrency extends Controller {
 
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -77,7 +77,7 @@ class ControllerExtensionExtensionCurrency extends Controller {
 
 	/**
 	 * Get List
-	 * 
+	 *
 	 * @return void
 	 */
 	protected function getList(): void {
@@ -134,7 +134,7 @@ class ControllerExtensionExtensionCurrency extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validate(): bool {

@@ -99,7 +99,7 @@ class ControllerCommonLogin extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validate(): bool {

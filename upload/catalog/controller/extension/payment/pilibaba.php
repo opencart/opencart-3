@@ -51,7 +51,7 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 			}
 
 			$price = $this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax'));
-			
+
 			$products[] = array_map('strval', [
 				'name'       => $product['name'],
 				'pictureUrl' => $this->config->get('config_url') . 'image/' . $product['image'],

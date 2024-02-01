@@ -7,7 +7,7 @@
 class ControllerCommonFooter extends Controller {
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return string
 	 */
 	public function index(): string {

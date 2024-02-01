@@ -203,7 +203,7 @@ class ControllerExtensionPaymentEway extends Controller {
 	// Legacy 2.0.0
 	/**
 	 * Order Action
-	 * 
+	 *
 	 * @return string
 	 */
 	public function orderAction(): string {
@@ -213,7 +213,7 @@ class ControllerExtensionPaymentEway extends Controller {
 	// Legacy 2.0.3
 	/**
 	 * Action
-	 * 
+	 *
 	 * @return string
 	 */
 	public function action(): string {
@@ -420,7 +420,7 @@ class ControllerExtensionPaymentEway extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return bool
 	 */
 	private function validate(): bool {

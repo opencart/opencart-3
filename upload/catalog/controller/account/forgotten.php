@@ -12,7 +12,7 @@ class ControllerAccountForgotten extends Controller {
 
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -79,7 +79,7 @@ class ControllerAccountForgotten extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validate(): bool {

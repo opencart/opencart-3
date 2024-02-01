@@ -12,7 +12,7 @@ class ControllerExtensionShippingECShip extends Controller {
 
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -225,7 +225,7 @@ class ControllerExtensionShippingECShip extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validate(): bool {

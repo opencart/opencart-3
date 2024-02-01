@@ -12,7 +12,7 @@ class ControllerExtensionPaymentLiqPay extends Controller {
 
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -142,7 +142,7 @@ class ControllerExtensionPaymentLiqPay extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validate(): bool {

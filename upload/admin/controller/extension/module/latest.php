@@ -12,7 +12,7 @@ class ControllerExtensionModuleLatest extends Controller {
 
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -146,7 +146,7 @@ class ControllerExtensionModuleLatest extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validate(): bool {

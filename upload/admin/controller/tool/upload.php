@@ -270,7 +270,7 @@ class ControllerToolUpload extends Controller {
 
 	/**
 	 * Validate Delete
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validateDelete(): bool {

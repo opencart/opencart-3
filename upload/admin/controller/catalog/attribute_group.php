@@ -367,7 +367,7 @@ class ControllerCatalogAttributeGroup extends Controller {
 
 	/**
 	 * Validate Form
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validateForm(): bool {
@@ -386,7 +386,7 @@ class ControllerCatalogAttributeGroup extends Controller {
 
 	/**
 	 * Validate Delete
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validateDelete(): bool {

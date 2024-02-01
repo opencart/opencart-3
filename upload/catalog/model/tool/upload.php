@@ -23,7 +23,7 @@ class ModelToolUpload extends Model {
 
 	/**
 	 * Get Upload By Code
-	 * 
+	 *
 	 * @param string $code
 	 *
 	 * @return array<string, mixed>

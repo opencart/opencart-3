@@ -12,7 +12,7 @@ class ControllerAccountEdit extends Controller {
 
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -196,7 +196,7 @@ class ControllerAccountEdit extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validate(): bool {

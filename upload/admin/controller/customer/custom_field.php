@@ -503,7 +503,7 @@ class ControllerCustomerCustomField extends Controller {
 
 	/**
 	 * Validate Form
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validateForm(): bool {
@@ -542,7 +542,7 @@ class ControllerCustomerCustomField extends Controller {
 
 	/**
 	 * Validate Delete
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validateDelete(): bool {

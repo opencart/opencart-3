@@ -21,7 +21,8 @@ class Session {
 	 * Constructor
 	 *
 	 * @param string $adaptor
-	 * 
+	 * @param mixed  $registry
+	 *
 	 * @property Registry $registry
 	 */
 	public function __construct(string $adaptor, $registry = '') {

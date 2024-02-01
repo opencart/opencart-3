@@ -12,7 +12,7 @@ class ControllerCommonReset extends Controller {
 
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return \Action|object|null
 	 */
 	public function index(): ?object {
@@ -105,7 +105,7 @@ class ControllerCommonReset extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validate(): bool {

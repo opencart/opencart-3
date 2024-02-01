@@ -241,7 +241,7 @@ class ControllerAccountRegister extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return bool
 	 */
 	private function validate(): bool {

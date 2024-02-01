@@ -12,7 +12,7 @@ class ControllerExtensionTotalKlarnaFee extends Controller {
 
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -118,7 +118,7 @@ class ControllerExtensionTotalKlarnaFee extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return bool
 	 */
 	private function validate(): bool {

@@ -12,7 +12,7 @@ class ControllerExtensionOtherRecurring extends Controller {
 
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -72,7 +72,7 @@ class ControllerExtensionOtherRecurring extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validate(): bool {
@@ -100,7 +100,7 @@ class ControllerExtensionOtherRecurring extends Controller {
 
 	/**
 	 * Get List
-	 * 
+	 *
 	 * @return void
 	 */
 	protected function getList(): void {

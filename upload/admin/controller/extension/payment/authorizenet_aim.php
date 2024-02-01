@@ -12,7 +12,7 @@ class ControllerExtensionPaymentAuthorizenetAim extends Controller {
 
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -154,7 +154,7 @@ class ControllerExtensionPaymentAuthorizenetAim extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validate(): bool {

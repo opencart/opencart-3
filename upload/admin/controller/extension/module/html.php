@@ -12,7 +12,7 @@ class ControllerExtensionModuleHTML extends Controller {
 
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -121,7 +121,7 @@ class ControllerExtensionModuleHTML extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validate(): bool {

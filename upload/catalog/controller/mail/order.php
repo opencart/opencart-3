@@ -7,7 +7,7 @@
 class ControllerMailOrder extends Controller {
 	/**
 	 * Index
-	 * 
+	 *
 	 * Mail class for orders
 	 *
 	 * @param string $route
@@ -518,7 +518,7 @@ class ControllerMailOrder extends Controller {
 				];
 
 				$mail = new \Mail($this->config->get('config_mail_engine'), $mail_option);
-				
+
 				$mail->setTo($this->config->get('config_email'));
 				$mail->setFrom($this->config->get('config_email'));
 				$mail->setSender(html_entity_decode($order_info['store_name'], ENT_QUOTES, 'UTF-8'));

@@ -580,7 +580,7 @@ class ControllerCatalogReview extends Controller {
 
 	/**
 	 * Validate Form
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validateForm(): bool {
@@ -609,7 +609,7 @@ class ControllerCatalogReview extends Controller {
 
 	/**
 	 * Validate Delete
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validateDelete(): bool {

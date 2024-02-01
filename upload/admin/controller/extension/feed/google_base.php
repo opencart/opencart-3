@@ -12,7 +12,7 @@ class ControllerExtensionFeedGoogleBase extends Controller {
 
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -76,7 +76,7 @@ class ControllerExtensionFeedGoogleBase extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validate(): bool {
@@ -222,7 +222,7 @@ class ControllerExtensionFeedGoogleBase extends Controller {
 
 	/**
 	 * Add Category
-	 * 
+	 *
 	 * @return void
 	 */
 	public function addCategory(): void {
@@ -272,7 +272,7 @@ class ControllerExtensionFeedGoogleBase extends Controller {
 
 	/**
 	 * Autocomplete
-	 * 
+	 *
 	 * @return void
 	 */
 	public function autocomplete(): void {

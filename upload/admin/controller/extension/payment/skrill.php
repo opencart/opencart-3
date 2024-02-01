@@ -12,7 +12,7 @@ class ControllerExtensionPaymentSkrill extends Controller {
 
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -160,7 +160,7 @@ class ControllerExtensionPaymentSkrill extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validate(): bool {

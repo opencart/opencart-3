@@ -517,7 +517,7 @@ class ControllerUserUser extends Controller {
 
 	/**
 	 * Validate Form
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validateForm(): bool {
@@ -580,7 +580,7 @@ class ControllerUserUser extends Controller {
 
 	/**
 	 * Validate Delete
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validateDelete(): bool {

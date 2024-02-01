@@ -12,7 +12,7 @@ class ControllerMarketingAffiliate extends Controller {
 
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -204,7 +204,7 @@ class ControllerMarketingAffiliate extends Controller {
 
 	/**
 	 * Get List
-	 * 
+	 *
 	 * @return void
 	 */
 	protected function getList(): void {
@@ -457,7 +457,7 @@ class ControllerMarketingAffiliate extends Controller {
 
 	/**
 	 * Get Form
-	 * 
+	 *
 	 * @return void
 	 */
 	protected function getForm(): void {
@@ -743,7 +743,7 @@ class ControllerMarketingAffiliate extends Controller {
 
 	/**
 	 * Validate Form
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validateForm(): bool {
@@ -821,7 +821,7 @@ class ControllerMarketingAffiliate extends Controller {
 
 	/**
 	 * Validate Delete
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validateDelete(): bool {

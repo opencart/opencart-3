@@ -82,7 +82,7 @@ class ModelLocalisationCurrency extends Model {
 	 * @param string $currency
 	 *
 	 * @return array<string, mixed>
-	 */	
+	 */
 	public function getCurrencyByCode(string $currency): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "currency` WHERE `code` = '" . $this->db->escape($currency) . "'");
 

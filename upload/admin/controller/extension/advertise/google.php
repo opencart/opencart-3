@@ -242,7 +242,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 		$this->response->setOutput($this->load->view('extension/advertise/google', $data));
 	}
 
-	/** 
+	/**
 	 * Debug Log Download
 	 *
 	 * @return void
@@ -2054,7 +2054,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	/**
 	 * Get Filter
 	 *
-	 * @param array<string, mixed> $array  array of filter
+	 * @param array<string, mixed> $array array of filter
 	 *
 	 * @return array<string, mixed>
 	 */
@@ -2077,7 +2077,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	/**
 	 * Apply New Settings
 	 *
-	 * @param array<string, mixed> $new_settings         array of filter
+	 * @param array<string, mixed> $new_settings array of filter
 	 *
 	 * @return void
 	 */
@@ -2144,7 +2144,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	 *
 	 * @return string
 	 */
-	protected function getSettingValue(string $key, string $default = null, bool $checkbox = false): string {
+	protected function getSettingValue(string $key, ?string $default = null, bool $checkbox = false): string {
 		if ($checkbox) {
 			if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post[$key])) {
 				return $default;
@@ -2164,9 +2164,9 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
 	/**
 	 * Get Validation Error
-	 * 
+	 *
 	 * @param string $key
-	 * 
+	 *
 	 * @return string
 	 */
 	protected function getValidationError(string $key): string {
@@ -2179,7 +2179,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
 	/**
 	 * Validate Settings
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validateSettings(): bool {
@@ -2208,7 +2208,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
 	/**
 	 * Validate Shipping And Taxes
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validateShippingAndTaxes(): bool {
@@ -2258,7 +2258,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
 	/**
 	 * Validate Mapping
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validateMapping(): bool {
@@ -2273,9 +2273,9 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
 	/**
 	 * Validate Product
-	 * 
+	 *
 	 * @param array<string, mixed> $required_fields
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validateProduct($required_fields): bool {
@@ -2306,7 +2306,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
 	/**
 	 * Validate Permission
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validatePermission(): bool {
@@ -2319,7 +2319,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
 	/**
 	 * Validate Campaign
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validateCampaign(): bool {
@@ -2343,7 +2343,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
 	/**
 	 * Validate Connect
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validateConnect(): bool {
@@ -2368,7 +2368,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
 	/**
 	 * Validate Target
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validateTarget(): bool {

@@ -12,7 +12,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -629,7 +629,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validate(): bool {
@@ -658,7 +658,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
 	/**
 	 * Get Api Key
-	 * 
+	 *
 	 * @return string
 	 */
 	private function getApiKey(): string {

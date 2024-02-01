@@ -12,7 +12,7 @@ class ControllerExtensionExtensionAnalytics extends Controller {
 
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -82,7 +82,7 @@ class ControllerExtensionExtensionAnalytics extends Controller {
 
 	/**
 	 * Get List
-	 * 
+	 *
 	 * @return void
 	 */
 	protected function getList(): void {
@@ -163,7 +163,7 @@ class ControllerExtensionExtensionAnalytics extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validate(): bool {

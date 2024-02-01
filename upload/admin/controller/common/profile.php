@@ -179,7 +179,7 @@ class ControllerCommonProfile extends Controller {
 
 	/**
 	 * Validate Form
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validateForm(): bool {

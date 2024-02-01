@@ -167,7 +167,7 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
 
 	/**
 	 * Install
-	 * 
+	 *
 	 * @return void
 	 */
 	public function install(): void {
@@ -178,7 +178,7 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
 
 	/**
 	 * Uninstall
-	 * 
+	 *
 	 * @return void
 	 */
 	public function uninstall(): void {
@@ -189,7 +189,7 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
 
 	/**
 	 * Order
-	 * 
+	 *
 	 * @return string
 	 */
 	public function order(): string {
@@ -222,7 +222,7 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
 
 	/**
 	 * Void
-	 * 
+	 *
 	 * @return void
 	 */
 	public function void(): void {
@@ -265,7 +265,7 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
 
 	/**
 	 * Release
-	 * 
+	 *
 	 * @return void
 	 */
 	public function release(): void {
@@ -324,7 +324,7 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
 
 	/**
 	 * Rebate
-	 * 
+	 *
 	 * @return void
 	 */
 	public function rebate(): void {
@@ -383,7 +383,7 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validate(): bool {
@@ -408,7 +408,7 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
 
 	/**
 	 * Callback
-	 * 
+	 *
 	 * @return void
 	 */
 	public function callback(): void {

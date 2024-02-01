@@ -68,7 +68,7 @@ class ModelCheckoutOrder extends Model {
 	/**
 	 * Edit Order
 	 *
-	 * @param int   $order_id
+	 * @param int                  $order_id
 	 * @param array<string, mixed> $data
 	 *
 	 * @return void

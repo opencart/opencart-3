@@ -12,7 +12,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -539,7 +539,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validate(): bool {
@@ -568,7 +568,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 
 	/**
 	 * Get Api Key
-	 * 
+	 *
 	 * @return string
 	 */
 	private function getApiKey(): string {

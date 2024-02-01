@@ -480,7 +480,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 	/**
 	 * updateRevisedTransaction
 	 *
-	 * @param int   $id
+	 * @param int                  $id
 	 * @param array<string, mixed> $data
 	 *
 	 * @return void

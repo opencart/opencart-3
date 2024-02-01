@@ -70,7 +70,7 @@ class ModelExtensionPaymentEway extends Model {
 	 * @param string $transactionid
 	 * @param float  $total
 	 * @param string $currency_code
-	 * 
+	 *
 	 * @return int
 	 */
 	public function addTransaction(int $eway_order_id, string $type, string $transactionid, float $total, string $currency_code): int {

@@ -453,7 +453,7 @@ class ControllerLocalisationCurrency extends Controller {
 
 	/**
 	 * Validate Form
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validateForm(): bool {
@@ -474,7 +474,7 @@ class ControllerLocalisationCurrency extends Controller {
 
 	/**
 	 * Validate Delete
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validateDelete(): bool {
@@ -515,7 +515,7 @@ class ControllerLocalisationCurrency extends Controller {
 
 	/**
 	 * Validate Refresh
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validateRefresh(): bool {

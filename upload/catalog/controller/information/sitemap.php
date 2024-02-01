@@ -7,7 +7,7 @@
 class ControllerInformationSitemap extends Controller {
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index(): void {

@@ -12,7 +12,7 @@ class ControllerExtensionExtensionModule extends Controller {
 
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -91,7 +91,7 @@ class ControllerExtensionExtensionModule extends Controller {
 
 	/**
 	 * Add
-	 * 
+	 *
 	 * @return void
 	 */
 	public function add(): void {
@@ -116,7 +116,7 @@ class ControllerExtensionExtensionModule extends Controller {
 
 	/**
 	 * Delete
-	 * 
+	 *
 	 * @return void
 	 */
 	public function delete(): void {
@@ -139,7 +139,7 @@ class ControllerExtensionExtensionModule extends Controller {
 
 	/**
 	 * Get List
-	 * 
+	 *
 	 * @return void
 	 */
 	protected function getList(): void {
@@ -232,7 +232,7 @@ class ControllerExtensionExtensionModule extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validate(): bool {

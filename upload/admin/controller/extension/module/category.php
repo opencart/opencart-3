@@ -12,7 +12,7 @@ class ControllerExtensionModuleCategory extends Controller {
 
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -72,7 +72,7 @@ class ControllerExtensionModuleCategory extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validate(): bool {

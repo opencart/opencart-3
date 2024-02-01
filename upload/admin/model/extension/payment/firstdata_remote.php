@@ -33,7 +33,7 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 			  `firstdata_remote_order_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
 			  `firstdata_remote_order_id` int(11) NOT NULL,
 			  `date_added` datetime NOT NULL,
-			  `type` enum(\'auth\',\'payment\',\'refund\',\'void\') DEFAULT NULL,
+			  `type` enum(\\'auth\\',\\'payment\\',\\'refund\\',\\'void\\') DEFAULT NULL,
 			  `amount` DECIMAL(15,4) NOT NULL,
 			  PRIMARY KEY (`firstdata_remote_order_transaction_id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");

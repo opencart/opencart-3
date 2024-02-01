@@ -12,7 +12,7 @@ class ControllerExtensionPaymentBankTransfer extends Controller {
 
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -129,7 +129,7 @@ class ControllerExtensionPaymentBankTransfer extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validate(): bool {

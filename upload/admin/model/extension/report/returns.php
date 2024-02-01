@@ -14,7 +14,7 @@ class ModelExtensionReportReturns extends Model {
 	 */
 	public function getReturns(array $data = []): array {
 		$implode = [];
-		
+
 		$sql = "SELECT MIN(`r`.`date_added`) AS `date_start`, MAX(`r`.`date_added`) AS `date_end`, COUNT(`r`.`return_id`) AS `returns` FROM `" . DB_PREFIX . "return` `r`";
 
 		if (!empty($data['filter_return_status_id'])) {
@@ -83,7 +83,7 @@ class ModelExtensionReportReturns extends Model {
 	 */
 	public function getTotalReturns(array $data = []): int {
 		$implode = [];
-		
+
 		if (!empty($data['filter_group'])) {
 			$group = $data['filter_group'];
 		} else {

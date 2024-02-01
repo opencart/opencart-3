@@ -341,22 +341,22 @@ class ModelCustomerCustomer extends Model {
 
 	/**
 	 * Get Affiliate By Tracking
-	 * 
+	 *
 	 * @param string $tracking
-	 * 
+	 *
 	 * @return array<string, mixed>
 	 */
 	public function getAffiliateByTracking(string $tracking): array {
-        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_affiliate` WHERE `tracking` = '" . $this->db->escape($tracking) . "'");
-                
-        return $query->row;
-    }
-	
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_affiliate` WHERE `tracking` = '" . $this->db->escape($tracking) . "'");
+
+		return $query->row;
+	}
+
 	/**
 	 * Get Affiliate
-	 * 
+	 *
 	 * @param int $customer_id
-	 * 
+	 *
 	 * @return array<string, mixed>
 	 */
 	public function getAffiliate(int $customer_id): array {
@@ -364,27 +364,27 @@ class ModelCustomerCustomer extends Model {
 
 		return $query->row;
 	}
-	
+
 	/**
 	 * Get Affiliates
-	 * 
+	 *
 	 * @param array<string, mixed> $data
-	 * 
+	 *
 	 * @return array<int, array<string, mixed>>
 	 */
-	public function getAffiliates(array $data = array()): array {
+	public function getAffiliates(array $data = []): array {
 		$sql = "SELECT DISTINCT *, CONCAT(`c`.`firstname`, ' ', `c`.`lastname`) AS `name` FROM `" . DB_PREFIX . "customer_affiliate` `ca` LEFT JOIN `" . DB_PREFIX . "customer` `c` ON (`ca`.`customer_id` = `c`.`customer_id`)";
-		
-		$implode = array();
+
+		$implode = [];
 
 		if (!empty($data['filter_name'])) {
 			$implode[] = "CONCAT(`c`.`firstname`, ' ', `c`.`lastname`) LIKE '%" . $this->db->escape($data['filter_name']) . "%'";
-		}		
-		
+		}
+
 		if ($implode) {
 			$sql .= " WHERE " . implode(" AND ", $implode);
 		}
-		
+
 		if (isset($data['start']) || isset($data['limit'])) {
 			if ($data['start'] < 0) {
 				$data['start'] = 0;
@@ -396,28 +396,28 @@ class ModelCustomerCustomer extends Model {
 
 			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
 		}
-						
+
 		$query = $this->db->query($sql . "ORDER BY `name`");
 
 		return $query->rows;
 	}
-	
+
 	/**
 	 * Get Total Affiliates
-	 * 
+	 *
 	 * @param array<string, mixed> $data
-	 * 
+	 *
 	 * @return int
 	 */
-	public function getTotalAffiliates($data = array()): int {
+	public function getTotalAffiliates($data = []): int {
 		$sql = "SELECT DISTINCT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer_affiliate` `ca` LEFT JOIN `" . DB_PREFIX . "customer` `c` ON (`ca`.`customer_id` = `c`.`customer_id`)";
-		
-		$implode = array();
+
+		$implode = [];
 
 		if (!empty($data['filter_name'])) {
 			$implode[] = "CONCAT(`c`.`firstname`, ' ', `c`.`lastname`) LIKE '%" . $this->db->escape($data['filter_name']) . "%'";
-		}		
-		
+		}
+
 		if ($implode) {
 			$sql .= " WHERE " . implode(" AND ", $implode);
 		}

@@ -106,7 +106,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validate(): bool {

@@ -12,7 +12,7 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -372,7 +372,7 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validate(): bool {

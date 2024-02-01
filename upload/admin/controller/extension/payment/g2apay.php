@@ -12,7 +12,7 @@ class ControllerExtensionPaymentG2APay extends Controller {
 
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -318,7 +318,7 @@ class ControllerExtensionPaymentG2APay extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validate(): bool {

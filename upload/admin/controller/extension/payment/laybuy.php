@@ -12,7 +12,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -1158,7 +1158,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 
 	/**
 	 * Get Api Key
-	 * 
+	 *
 	 * @return string
 	 */
 	private function getApiKey(): string {
@@ -1185,7 +1185,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validate(): bool {

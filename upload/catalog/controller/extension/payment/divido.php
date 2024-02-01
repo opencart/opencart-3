@@ -305,7 +305,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 			];
 		} else {
 			$error = (string)$response['error'];
-			
+
 			$data = [
 				'status'  => 'error',
 				'message' => $this->language->get($error),

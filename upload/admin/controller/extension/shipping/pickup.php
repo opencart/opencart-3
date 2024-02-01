@@ -12,7 +12,7 @@ class ControllerExtensionShippingPickup extends Controller {
 
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -89,7 +89,7 @@ class ControllerExtensionShippingPickup extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validate(): bool {

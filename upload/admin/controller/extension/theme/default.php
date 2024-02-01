@@ -12,7 +12,7 @@ class ControllerExtensionThemeDefault extends Controller {
 
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -342,7 +342,7 @@ class ControllerExtensionThemeDefault extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validate(): bool {

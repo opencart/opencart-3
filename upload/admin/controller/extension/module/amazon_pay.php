@@ -14,7 +14,7 @@ class ControllerExtensionModuleAmazonPay extends Controller {
 
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -114,7 +114,7 @@ class ControllerExtensionModuleAmazonPay extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validate(): bool {

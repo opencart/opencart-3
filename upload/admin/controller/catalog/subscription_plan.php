@@ -519,7 +519,7 @@ class ControllerCatalogSubscriptionPlan extends Controller {
 
 	/**
 	 * Validate Form
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validateForm(): bool {
@@ -542,7 +542,7 @@ class ControllerCatalogSubscriptionPlan extends Controller {
 
 	/**
 	 * Validate Delete
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validateDelete(): bool {
@@ -566,7 +566,7 @@ class ControllerCatalogSubscriptionPlan extends Controller {
 
 	/**
 	 * Validate Copy
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validateCopy(): bool {

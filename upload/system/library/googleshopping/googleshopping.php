@@ -2367,7 +2367,7 @@ class Googleshopping extends Library {
 	/**
 	 * Apply New Setting
 	 *
-	 * @param string $key
+	 * @param string               $key
 	 * @param array<string, mixed> $value
 	 *
 	 * @return void

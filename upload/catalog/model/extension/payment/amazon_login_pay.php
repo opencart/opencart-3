@@ -120,7 +120,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	 *
 	 * @param mixed|null $message
 	 * @param mixed      $return_value
-	 * 
+	 *
 	 * @return ?object
 	 */
 	public function cartRedirect($message = null, $return_value = false): ?object {

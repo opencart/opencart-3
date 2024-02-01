@@ -381,7 +381,7 @@ class ControllerLocalisationTaxClass extends Controller {
 
 	/**
 	 * Validate Form
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validateForm(): bool {
@@ -402,7 +402,7 @@ class ControllerLocalisationTaxClass extends Controller {
 
 	/**
 	 * Validate Delete
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validateDelete(): bool {

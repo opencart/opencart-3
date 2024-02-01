@@ -312,7 +312,7 @@ class ModelAccountCustomer extends Model {
 	/**
 	 * Add Affiliate
 	 *
-	 * @param int   $customer_id
+	 * @param int                  $customer_id
 	 * @param array<string, mixed> $data
 	 *
 	 * @return void
@@ -328,7 +328,7 @@ class ModelAccountCustomer extends Model {
 	/**
 	 * Edit Affiliate
 	 *
-	 * @param int   $customer_id
+	 * @param int                  $customer_id
 	 * @param array<string, mixed> $data
 	 *
 	 * @return void

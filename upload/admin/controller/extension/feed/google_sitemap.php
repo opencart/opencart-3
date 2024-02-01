@@ -12,7 +12,7 @@ class ControllerExtensionFeedGoogleSitemap extends Controller {
 
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -74,7 +74,7 @@ class ControllerExtensionFeedGoogleSitemap extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validate(): bool {

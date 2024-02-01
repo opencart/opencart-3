@@ -12,7 +12,7 @@ class ControllerExtensionFraudFraudLabsPro extends Controller {
 
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -149,7 +149,7 @@ class ControllerExtensionFraudFraudLabsPro extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validate(): bool {
@@ -347,7 +347,7 @@ class ControllerExtensionFraudFraudLabsPro extends Controller {
 
 	/**
 	 * Fix Case
-	 * 
+	 *
 	 * @param string $s
 	 */
 	private function fix_case(string $s) {

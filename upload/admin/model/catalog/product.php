@@ -818,7 +818,7 @@ class ModelCatalogProduct extends Model {
 	 */
 	public function getTotalProducts(array $data = []): int {
 		$implode = [];
-		
+
 		$sql = "SELECT COUNT(DISTINCT `p`.`product_id`) AS `total` FROM `" . DB_PREFIX . "product` `p` LEFT JOIN `" . DB_PREFIX . "product_description` `pd` ON (`p`.`product_id` = `pd`.`product_id`)";
 
 		$implode[] = "`pd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";

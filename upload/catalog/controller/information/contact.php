@@ -12,7 +12,7 @@ class ControllerInformationContact extends Controller {
 
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -161,7 +161,7 @@ class ControllerInformationContact extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validate(): bool {
@@ -203,7 +203,7 @@ class ControllerInformationContact extends Controller {
 
 	/**
 	 * Success
-	 * 
+	 *
 	 * @return void
 	 */
 	public function success(): void {

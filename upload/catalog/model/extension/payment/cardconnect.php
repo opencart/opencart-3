@@ -165,13 +165,13 @@ class ModelExtensionPaymentCardConnect extends Model {
 	/**
 	 * addOrder
 	 *
-	 * @param int       $order_id
-	 * @param int       $customer_id	 
-	 * @param string    $retref
-	 * @param string    $auth_code
-	 * @param string    $currency_code
-	 * @param float     $total
-	 * @param string    $payment_method
+	 * @param int    $order_id
+	 * @param int    $customer_id
+	 * @param string $retref
+	 * @param string $auth_code
+	 * @param float  $total
+	 * @param string $currency_code
+	 * @param string $payment_method
 	 *
 	 * @return int
 	 */

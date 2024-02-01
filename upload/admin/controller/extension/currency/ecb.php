@@ -12,7 +12,7 @@ class ControllerExtensionCurrencyEcb extends Controller {
 
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -91,7 +91,7 @@ class ControllerExtensionCurrencyEcb extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validate(): bool {

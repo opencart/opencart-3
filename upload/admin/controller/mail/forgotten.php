@@ -10,9 +10,9 @@ class ControllerMailForgotten extends Controller {
 	 *
 	 * admin/model/user/user/editCode/after
 	 *
-	 * @param string $route
+	 * @param string            $route
 	 * @param array<int, mixed> $args
-	 * @param mixed  $output
+	 * @param mixed             $output
 	 *
 	 * @return void
 	 */

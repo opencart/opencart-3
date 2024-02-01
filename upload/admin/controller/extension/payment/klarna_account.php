@@ -14,7 +14,7 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -148,7 +148,7 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return bool
 	 */
 	private function validate(): bool {
@@ -293,6 +293,9 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 
 	/**
 	 * Parse Response
+	 *
+	 * @param mixed $node
+	 * @param mixed $document
 	 */
 	private function parseResponse($node, $document) {
 		$child = $node;

@@ -29,7 +29,7 @@ class ModelExtensionPaymentWorldpay extends Model {
 			  `worldpay_order_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
 			  `worldpay_order_id` int(11) NOT NULL,
 			  `date_added` datetime NOT NULL,
-			  `type` enum(\'payment\',\'refund\') DEFAULT NULL,
+			  `type` enum(\\'payment\\',\\'refund\\') DEFAULT NULL,
 			  `amount` decimal(15,4) NOT NULL,
 			  PRIMARY KEY (`worldpay_order_transaction_id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
@@ -38,7 +38,7 @@ class ModelExtensionPaymentWorldpay extends Model {
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "worldpay_order_subscription` (
 			  `worldpay_order_subscription_id` int(11) NOT NULL AUTO_INCREMENT,
 			  `subscription_id` int(11) NOT NULL,
-			  `order_id` int(11) NOT NULL,			  
+			  `order_id` int(11) NOT NULL,
 			  `order_code` varchar(50),
 			  `token` varchar(50),
 			  `date_added` datetime NOT NULL,

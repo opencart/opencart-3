@@ -12,7 +12,7 @@ class ControllerAccountAddress extends Controller {
 
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -177,7 +177,7 @@ class ControllerAccountAddress extends Controller {
 
 	/**
 	 * Get List
-	 * 
+	 *
 	 * @return void
 	 */
 	protected function getList(): void {
@@ -236,7 +236,7 @@ class ControllerAccountAddress extends Controller {
 
 	/**
 	 * Get Form
-	 * 
+	 *
 	 * @return void
 	 */
 	protected function getForm(): void {
@@ -476,7 +476,7 @@ class ControllerAccountAddress extends Controller {
 
 	/**
 	 * Validate Form
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validateForm(): bool {

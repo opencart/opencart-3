@@ -562,7 +562,7 @@ class ControllerCatalogCategory extends Controller {
 
 	/**
 	 * Validate Form
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validateForm(): bool {
@@ -624,7 +624,7 @@ class ControllerCatalogCategory extends Controller {
 
 	/**
 	 * Validate Delete
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validateDelete(): bool {
@@ -637,7 +637,7 @@ class ControllerCatalogCategory extends Controller {
 
 	/**
 	 * Validate Repair
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validateRepair(): bool {

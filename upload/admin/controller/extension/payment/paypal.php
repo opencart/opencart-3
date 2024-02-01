@@ -12,7 +12,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -1739,7 +1739,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			$dir = str_replace('admin/', '.well-known/', DIR_APPLICATION);
 
 			if (!file_exists($dir)) {
-				mkdir($dir, 0777, true);
+				mkdir($dir, 0o777, true);
 			}
 
 			if (file_exists($dir)) {
@@ -2414,7 +2414,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return bool
 	 */
 	private function validate(): bool {
@@ -2427,9 +2427,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 	/**
 	 * Token
-	 * 
+	 *
 	 * @param int $length
-	 * 
+	 *
 	 * @return string
 	 */
 	private function token(int $length = 32): string {

@@ -7,7 +7,7 @@
 class ControllerExtensionModuleSpecial extends Controller {
 	/**
 	 * Index
-	 * 
+	 *
 	 * @param array<string, mixed> $setting
 	 *
 	 * @return string

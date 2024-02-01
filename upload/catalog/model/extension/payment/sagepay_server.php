@@ -295,7 +295,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
 	/**
 	 * updateSubscriptionPayment
 	 *
-	 * @param array $item['subscription']
+	 * @param array                $item['subscription']
 	 * @param array<string, mixed> $data
 	 *
 	 * @return void

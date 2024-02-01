@@ -43,7 +43,7 @@ class ModelAccountAddress extends Model {
 
 	/**
 	 * Delete Address
-	 * 
+	 *
 	 * @param int $address_id
 	 *
 	 * @return void

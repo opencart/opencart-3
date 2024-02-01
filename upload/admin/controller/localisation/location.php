@@ -12,7 +12,7 @@ class ControllerLocalisationLocation extends Controller {
 
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -144,7 +144,7 @@ class ControllerLocalisationLocation extends Controller {
 
 	/**
 	 * Get List
-	 * 
+	 *
 	 * @return void
 	 */
 	protected function getList(): void {
@@ -283,7 +283,7 @@ class ControllerLocalisationLocation extends Controller {
 
 	/**
 	 * Get Form
-	 * 
+	 *
 	 * @return void
 	 */
 	protected function getForm(): void {
@@ -442,7 +442,7 @@ class ControllerLocalisationLocation extends Controller {
 
 	/**
 	 * Validate Form
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validateForm(): bool {
@@ -467,7 +467,7 @@ class ControllerLocalisationLocation extends Controller {
 
 	/**
 	 * Validate Delete
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validateDelete(): bool {

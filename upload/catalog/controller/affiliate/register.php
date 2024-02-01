@@ -12,7 +12,7 @@ class ControllerAffiliateRegister extends Controller {
 
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -324,7 +324,7 @@ class ControllerAffiliateRegister extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validate(): bool {

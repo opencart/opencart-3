@@ -928,7 +928,7 @@ class ControllerCustomerCustomer extends Controller {
 
 	/**
 	 * Validate Form
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validateForm(): bool {
@@ -1051,7 +1051,7 @@ class ControllerCustomerCustomer extends Controller {
 
 	/**
 	 * Validate Delete
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validateDelete(): bool {
@@ -1064,7 +1064,7 @@ class ControllerCustomerCustomer extends Controller {
 
 	/**
 	 * Validate Unlock
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validateUnlock(): bool {

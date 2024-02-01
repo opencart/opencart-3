@@ -14,7 +14,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -540,7 +540,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 			$this->model_extension_payment_amazon_login_pay->logger($capture_response);
 
 			if ($capture_response['status'] == 'Completed' || $capture_response['status'] == 'Pending') {
-				$this->model_extension_payment_amazon_login_pay->addTransaction($amazon_login_pay_order['amazon_login_pay_order_id'], 'capture', $capture_response['status'], $this->request->post['amount'], $capture_response['AmazonAuthorizationId'], $capture_response['AmazonCaptureId']);				
+				$this->model_extension_payment_amazon_login_pay->addTransaction($amazon_login_pay_order['amazon_login_pay_order_id'], 'capture', $capture_response['status'], $this->request->post['amount'], $capture_response['AmazonAuthorizationId'], $capture_response['AmazonCaptureId']);
 				$this->model_extension_payment_amazon_login_pay->updateAuthorizationStatus($capture_response['AmazonAuthorizationId'], 'Closed');
 
 				$total_captured = $this->model_extension_payment_amazon_login_pay->getTotalCaptured($amazon_login_pay_order['amazon_login_pay_order_id']);
@@ -667,7 +667,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
 	/**
 	 * Trim Integration Details
-	 * 
+	 *
 	 * @return void
 	 */
 	protected function trimIntegrationDetails(): void {
@@ -688,7 +688,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validate(): bool {

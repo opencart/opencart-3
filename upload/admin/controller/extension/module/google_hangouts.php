@@ -12,7 +12,7 @@ class ControllerExtensionModuleGoogleHangouts extends Controller {
 
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -84,7 +84,7 @@ class ControllerExtensionModuleGoogleHangouts extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validate(): bool {

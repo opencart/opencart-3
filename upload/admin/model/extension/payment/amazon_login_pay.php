@@ -38,8 +38,8 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 			  `amazon_capture_id` varchar(255),
 			  `amazon_refund_id` varchar(255),
 			  `date_added` datetime NOT NULL,
-			  `type` enum(\'authorization\',\'capture\',\'refund\',\'cancel\') DEFAULT NULL,
-			  `status` enum(\'Open\',\'Pending\',\'Completed\',\'Suspended\',\'Declined\',\'Closed\',\'Canceled\') DEFAULT NULL,
+			  `type` enum(\\'authorization\\',\\'capture\\',\\'refund\\',\\'cancel\\') DEFAULT NULL,
+			  `status` enum(\\'Open\\',\\'Pending\\',\\'Completed\\',\\'Suspended\\',\\'Declined\\',\\'Closed\\',\\'Canceled\\') DEFAULT NULL,
 			  `amount` decimal(15,4) NOT NULL,
 			  PRIMARY KEY (`amazon_login_pay_order_transaction_id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -560,6 +560,10 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 	/**
 	 * Validate Response
+	 *
+	 * @param mixed $action
+	 * @param mixed $details
+	 * @param mixed $skip_logger
 	 */
 	private function validateResponse($action, $details, $skip_logger = false) {
 		$details_xml = simplexml_load_string($details['ResponseBody']);

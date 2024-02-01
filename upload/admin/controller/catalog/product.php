@@ -1247,7 +1247,7 @@ class ControllerCatalogProduct extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validateForm(): bool {
@@ -1302,7 +1302,7 @@ class ControllerCatalogProduct extends Controller {
 
 	/**
 	 * Validate Delete
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validateDelete(): bool {
@@ -1315,7 +1315,7 @@ class ControllerCatalogProduct extends Controller {
 
 	/**
 	 * Validate Copy
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validateCopy(): bool {

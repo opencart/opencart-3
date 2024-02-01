@@ -12,7 +12,7 @@ class ControllerAccountPaymentMethod extends Controller {
 
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -25,7 +25,7 @@ class ControllerAccountPaymentMethod extends Controller {
 		$this->load->language('account/payment_method');
 
 		$this->document->setTitle($this->language->get('heading_title'));
-		
+
 		$this->getList();
 	}
 
@@ -77,7 +77,7 @@ class ControllerAccountPaymentMethod extends Controller {
 
 	/**
 	 * Get List
-	 * 
+	 *
 	 * @return void
 	 */
 	protected function getList(): void {

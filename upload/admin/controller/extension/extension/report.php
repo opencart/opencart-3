@@ -12,7 +12,7 @@ class ControllerExtensionExtensionReport extends Controller {
 
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -76,7 +76,7 @@ class ControllerExtensionExtensionReport extends Controller {
 
 	/**
 	 * Get List
-	 * 
+	 *
 	 * @return void
 	 */
 	protected function getList(): void {
@@ -137,7 +137,7 @@ class ControllerExtensionExtensionReport extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validate(): bool {
