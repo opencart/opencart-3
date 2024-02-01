@@ -68,7 +68,7 @@ class ModelExtensionPaymentOpayo extends Model {
 		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "opayo_subscription_transaction` (
 				`opayo_subscription_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
 				`opayo_order_id` int(11) NOT NULL,
-				`type` enum(\\'auth\\',\\'payment\\',\\'rebate\\',\\'void\\') DEFAULT NULL,
+				`type` enum(\'auth\',\'payment\',\'rebate\',\'void\') DEFAULT NULL,
 				`amount` decimal(15,4) NOT NULL,
 				`date_added` datetime NOT NULL,
 				PRIMARY KEY (`opayo_subscription_transaction_id`),
