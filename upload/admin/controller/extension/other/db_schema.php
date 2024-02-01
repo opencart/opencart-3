@@ -221,6 +221,8 @@ class ControllerExtensionOtherDbSchema extends Controller {
 			// Foreign
 			$foreign_extension_data = [];
 
+			$data['tables'] = [];
+
 			foreach ($tables as $table) {
 				if (in_array($table['name'], $selected)) {
 					$field_type_data = [];
