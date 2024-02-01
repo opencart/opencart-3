@@ -12,7 +12,7 @@
         <div class="col-sm-12">
           <ul>
             {% if payment_type.visa == 1 or payment_type.mastercard == 1 or payment_type.diners == 1 or payment_type.jcb == 1 or payment_type.amex == 1 %}
-              <label><input type="radio" name="EWAY_PAYMENTTYPE" id="eway-radio-cc" value="creditcard" checked="checked" onchange="javascript:select_eWAYPaymentOption('creditcard')"/>
+              <label><input type="radio" name="EWAY_PAYMENTTYPE" value="creditcard" checked="checked" onchange="javascript:select_eWAYPaymentOption('creditcard')" id="eway-radio-cc"/>
                 {% if payment_type.visa == 1 %}<img src="catalog/view/theme/default/image/eway_creditcard_visa.png" height="30" alt="Visa"/> {% endif %}
                 {% if payment_type.mastercard == 1 %}<img src="catalog/view/theme/default/image/eway_creditcard_master.png" height="30" alt="MasterCard"/> {% endif %}
                 {% if payment_type.diners == 1 %}<img src="catalog/view/theme/default/image/eway_creditcard_diners.png" height="30" alt="Diners Club"/> {% endif %}
@@ -29,57 +29,57 @@
         </div>
       </div>
       {% if payment_type.paypal == 1 %}
-        <p id="tip-paypal" style="display:none;">{{ text_type_help }}{{ text_card_type_pp }}</p>
+        <p style="display:none;" id="tip-paypal">{{ text_type_help }}{{ text_card_type_pp }}</p>
       {% endif %}
       {% if payment_type.masterpass == 1 %}
-        <p id="tip-masterpass" style="display:none;">{{ text_type_help }}{{ text_card_type_mp }}</p>
+        <p style="display:none;" id="tip-masterpass">{{ text_type_help }}{{ text_card_type_mp }}</p>
       {% endif %}
       {% if payment_type.visa == 1 or payment_type.mastercard == 1 or payment_type.diners == 1 or payment_type.jcb == 1 or payment_type.amex == 1 %}
         <div id="creditcard-info">
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="eway-cardname">{{ entry_cc_name }}</label>
             <div class="col-sm-10">
-              <input name="EWAY_CARDNAME" type="text" value="" id="eway-cardname" placeholder="{{ entry_cc_name }}" autocomplete="off" class="form-control"/>
-              <span id="ewaycard-error" class="text-danger"></span>
+              <input name="EWAY_CARDNAME" type="text" value="" placeholder="{{ entry_cc_name }}" autocomplete="off" class="form-control" id="eway-cardname"/>
+              <span class="text-danger" id="ewaycard-error"></span>
             </div>
           </div>
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="eway-cardnumber">{{ entry_cc_number }}</label>
             <div class="col-sm-10">
-              <input name="EWAY_CARDNUMBER" type="text" maxlength="19" id="eway-cardnumber" value="" placeholder="{{ entry_cc_number }}" autocomplete="off" class="form-control" pattern="\d*"/>
-              <span id="ewaynumber-error" class="text-danger"></span>
+              <input name="EWAY_CARDNUMBER" type="text" maxlength="19" value="" placeholder="{{ entry_cc_number }}" autocomplete="off" class="form-control" pattern="\d*" id="eway-cardnumber"/>
+              <span class="text-danger" id="ewaynumber-error"></span>
             </div>
           </div>
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="eway-card-expiry-month">{{ entry_cc_expire_date }}</label>
             <div class="col-sm-2">
-              <select name="EWAY_CARDEXPIRYMONTH" id="eway-card-expiry-month" class="form-control"/>
+              <select name="EWAY_CARDEXPIRYMONTH" class="form-control" id="eway-card-expiry-month"/>
                 {% for month in months %}
                   <option value="{{ month.value }}">{{ month.text }}</option>
                 {% endfor %}
               </select>
             </div>
             <div class="col-sm-2">
-              <select name="EWAY_CARDEXPIRYYEAR" id="eway-card-expiry-year" class="form-control"/>
+              <select name="EWAY_CARDEXPIRYYEAR" class="form-control" id="eway-card-expiry-year"/>
                 {% for year in year_expire %}
                   <option value="{{ year.value }}">{{ year.text }}</option>
                 {% endfor %}
               </select>
-              <div id="expiry-error" class="text-danger"></div>
+              <div class="text-danger" id="expiry-error"></div>
             </div>
           </div>
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="eway-cardcvn">{{ entry_cc_cvv2 }}</label>
             <div class="col-sm-10">
-              <input name="EWAY_CARDCVN" type="text" maxlength="4" value="" placeholder="{{ entry_cc_cvv2 }}" id="eway-cardcvn" autocomplete="off" class="form-control" pattern="\d*"/>
-               <span id="cvn-details" class="help"> {{ help_cvv }}
+              <input name="EWAY_CARDCVN" type="text" maxlength="4" value="" placeholder="{{ entry_cc_cvv2 }}" autocomplete="off" class="form-control" pattern="\d*" id="eway-cardcvn"/>
+               <span class="help" id="cvn-details"> {{ help_cvv }}
                 {% if 'amex' in payment_type %}
                   <br/>
                   {{ help_cvv_amex }}
                 {% endif %}
               </span>
               <br/>
-              <span id="ewaycvn-error" class="text-danger"></span>
+              <span class="text-danger" id="ewaycvn-error"></span>
             </div>
           </div>
         {% endif %}
@@ -88,7 +88,7 @@
   </form>
   <div class="buttons">
     <div class="pull-right">
-      <input type="button" value="{{ button_confirm }}" id="button-confirm" data-loading-text="{{ text_loading }}" class="btn btn-primary"/>
+      <input type="button" value="{{ button_confirm }}" data-loading-text="{{ text_loading }}" class="btn btn-primary" id="button-confirm"/>
     </div>
   </div>
   <script type="text/javascript"><!--

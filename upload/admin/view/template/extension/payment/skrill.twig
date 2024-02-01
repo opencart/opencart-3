@@ -24,11 +24,11 @@
         <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3>
       </div>
       <div class="panel-body">
-        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-payment" class="form-horizontal">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal" id="form-payment">
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-email">{{ entry_email }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_skrill_email" value="{{ payment_skrill_email }}" placeholder="{{ entry_email }}" id="input-email" class="form-control"/>
+              <input type="text" name="payment_skrill_email" value="{{ payment_skrill_email }}" placeholder="{{ entry_email }}" class="form-control" id="input-email"/>
               {% if error_email %}
                 <div class="text-danger">{{ error_email }}</div>
               {% endif %}
@@ -37,19 +37,19 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-secret">{{ entry_secret }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_skrill_secret" value="{{ payment_skrill_secret }}" placeholder="{{ entry_secret }}" id="input-secret" class="form-control"/>
+              <input type="text" name="payment_skrill_secret" value="{{ payment_skrill_secret }}" placeholder="{{ entry_secret }}" class="form-control" id="input-secret"/>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-total"><span data-toggle="tooltip" title="{{ help_total|escape('html') }}">{{ entry_total }}</span></label>
             <div class="col-sm-10">
-              <input type="text" name="payment_skrill_total" value="{{ payment_skrill_total }}" placeholder="{{ entry_total }}" id="input-total" class="form-control"/>
+              <input type="text" name="payment_skrill_total" value="{{ payment_skrill_total }}" placeholder="{{ entry_total }}" class="form-control" id="input-total"/>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-order-status">{{ entry_order_status }}</label>
             <div class="col-sm-10">
-              <select name="payment_skrill_order_status_id" id="input-order-status" class="form-control"/>
+              <select name="payment_skrill_order_status_id" class="form-control" id="input-order-status"/>
                 {% for order_status in order_statuses %}
                   {% if order_status.order_status_id == payment_skrill_order_status_id %}
                     <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
@@ -63,7 +63,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-pending-status">{{ entry_pending_status }}</label>
             <div class="col-sm-10">
-              <select name="payment_skrill_pending_status_id" id="input-pending-status" class="form-control"/>
+              <select name="payment_skrill_pending_status_id" class="form-control" id="input-pending-status"/>
                 {% for order_status in order_statuses %}
                   {% if order_status.order_status_id == payment_skrill_pending_status_id %}
                     <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
@@ -77,7 +77,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-canceled-status">{{ entry_canceled_status }}</label>
             <div class="col-sm-10">
-              <select name="payment_skrill_canceled_status_id" id="input-canceled-status" class="form-control"/>
+              <select name="payment_skrill_canceled_status_id" class="form-control" id="input-canceled-status"/>
                 {% for order_status in order_statuses %}
                   {% if order_status.order_status_id == payment_skrill_canceled_status_id %}
                     <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
@@ -91,7 +91,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-failed-status">{{ entry_failed_status }}</label>
             <div class="col-sm-10">
-              <select name="payment_skrill_failed_status_id" id="input-failed-status" class="form-control"/>
+              <select name="payment_skrill_failed_status_id" class="form-control" id="input-failed-status"/>
                 {% for order_status in order_statuses %}
                   {% if order_status.order_status_id == payment_skrill_failed_status_id %}
                     <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
@@ -105,7 +105,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-chargeback-status">{{ entry_chargeback_status }}</label>
             <div class="col-sm-10">
-              <select name="payment_skrill_chargeback_status_id" id="input-chargeback-status" class="form-control"/>
+              <select name="payment_skrill_chargeback_status_id" class="form-control" id="input-chargeback-status"/>
                 {% for order_status in order_statuses %}
                   {% if order_status.order_status_id == payment_skrill_chargeback_status_id %}
                     <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
@@ -119,7 +119,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-geo-zone">{{ entry_geo_zone }}</label>
             <div class="col-sm-10">
-              <select name="payment_skrill_geo_zone_id" id="input-geo-zone" class="form-control"/>
+              <select name="payment_skrill_geo_zone_id" class="form-control" id="input-geo-zone"/>
                 <option value="0">{{ text_all_zones }}</option>
                 {% for geo_zone in geo_zones %}
                   {% if geo_zone.geo_zone_id == payment_skrill_geo_zone_id %}
@@ -134,7 +134,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
             <div class="col-sm-10">
-              <select name="payment_skrill_status" id="input-status" class="form-control"/>
+              <select name="payment_skrill_status" class="form-control" id="input-status"/>
                 {% if payment_skrill_status %}
                   <option value="1" selected="selected">{{ text_enabled }}</option>
                   <option value="0">{{ text_disabled }}</option>
@@ -148,7 +148,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-sort-order">{{ entry_sort_order }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_skrill_sort_order" value="{{ payment_skrill_sort_order }}" placeholder="{{ entry_sort_order }}" id="input-sort-order" class="form-control"/>
+              <input type="text" name="payment_skrill_sort_order" value="{{ payment_skrill_sort_order }}" placeholder="{{ entry_sort_order }}" class="form-control" id="input-sort-order"/>
             </div>
           </div>
         </form>

@@ -1,5 +1,5 @@
 {{ header }}
-<div id="information-contact" class="container">
+<div class="container" id="information-contact">
   <ul class="breadcrumb">
     {% for breadcrumb in breadcrumbs %}
       <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
@@ -13,7 +13,7 @@
     {% else %}
       {% set class = 'col-sm-12' %}
     {% endif %}
-    <div id="content" class="{{ class }}">{{ content_top }}
+    <div class="{{ class }}" id="content">{{ content_top }}
       <h1>{{ heading_title }}</h1>
       <h3>{{ text_location }}</h3>
       <div class="panel panel-default">
@@ -120,7 +120,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-name">{{ entry_name }}</label>
             <div class="col-sm-10">
-              <input type="text" name="name" value="{{ name }}" id="input-name" class="form-control"/>
+              <input type="text" name="name" value="{{ name }}" class="form-control" id="input-name"/>
               {% if error_name %}
                 <div class="text-danger">{{ error_name }}</div>
               {% endif %}
@@ -129,7 +129,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-email">{{ entry_email }}</label>
             <div class="col-sm-10">
-              <input type="text" name="email" value="{{ email }}" id="input-email" class="form-control"/>
+              <input type="text" name="email" value="{{ email }}" class="form-control" id="input-email"/>
               {% if error_email %}
                 <div class="text-danger">{{ error_email }}</div>
               {% endif %}
@@ -138,7 +138,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-enquiry">{{ entry_enquiry }}</label>
             <div class="col-sm-10">
-              <textarea name="enquiry" rows="10" id="input-enquiry" class="form-control"/>{{ enquiry }}</textarea>
+              <textarea name="enquiry" rows="10" class="form-control" id="input-enquiry"/>{{ enquiry }}</textarea>
               {% if error_enquiry %}
                 <div class="text-danger">{{ error_enquiry }}</div>
               {% endif %}

@@ -24,11 +24,11 @@
         <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3>
       </div>
       <div class="panel-body">
-        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-payment" class="form-horizontal">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal" id="form-payment">
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-account-name">{{ entry_account_name }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_bluepay_hosted_account_name" value="{{ payment_bluepay_hosted_account_name }}" placeholder="{{ entry_account_name }}" id="input-account-name" class="form-control"/>
+              <input type="text" name="payment_bluepay_hosted_account_name" value="{{ payment_bluepay_hosted_account_name }}" placeholder="{{ entry_account_name }}" class="form-control" id="input-account-name"/>
               {% if error_account_name %}
                 <div class="text-danger">{{ error_account_name }}</div>
               {% endif %}
@@ -37,7 +37,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-account-id">{{ entry_account_id }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_bluepay_hosted_account_id" value="{{ payment_bluepay_hosted_account_id }}" placeholder="{{ entry_account_id }}" id="input-account-id" class="form-control"/>
+              <input type="text" name="payment_bluepay_hosted_account_id" value="{{ payment_bluepay_hosted_account_id }}" placeholder="{{ entry_account_id }}" class="form-control" id="input-account-id"/>
               {% if error_account_id %}
                 <div class="text-danger">{{ error_account_id }}</div>
               {% endif %}
@@ -46,7 +46,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="payment-bluepay-hosted-secret-key">{{ entry_secret_key }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_bluepay_hosted_secret_key" value="{{ payment_bluepay_hosted_secret_key }}" placeholder="{{ entry_secret_key }}" id="payment-bluepay-hosted-secret-key" class="form-control"/>
+              <input type="text" name="payment_bluepay_hosted_secret_key" value="{{ payment_bluepay_hosted_secret_key }}" placeholder="{{ entry_secret_key }}" class="form-control" id="payment-bluepay-hosted-secret-key"/>
               {% if error_secret_key %}
                 <div class="text-danger">{{ error_secret_key }}</div>
               {% endif %}
@@ -55,7 +55,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-test">{{ entry_test }}</label>
             <div class="col-sm-10">
-              <select name="payment_bluepay_hosted_test" id="input-test" class="form-control"/>
+              <select name="payment_bluepay_hosted_test" class="form-control" id="input-test"/>
                 {% if payment_bluepay_hosted_test == 'test' %}
                   <option value="test" selected="selected">{{ text_test }}</option>
                 {% else %}
@@ -72,7 +72,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-transaction"><span data-toggle="tooltip" title="{{ help_transaction|escape('html') }}">{{ entry_transaction }}</span></label>
             <div class="col-sm-10">
-              <select name="payment_bluepay_hosted_transaction" id="input-transaction" class="form-control"/>
+              <select name="payment_bluepay_hosted_transaction" class="form-control" id="input-transaction"/>
                 {% if payment_bluepay_hosted_transaction == 'SALE' %}
                   <option value="SALE" selected="selected">{{ text_sale }}</option>
                 {% else %}
@@ -89,7 +89,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-amex">{{ entry_card_amex }}</label>
             <div class="col-sm-10">
-              <select name="payment_bluepay_hosted_amex" id="input-amex" class="form-control"/>
+              <select name="payment_bluepay_hosted_amex" class="form-control" id="input-amex"/>
                 {% if payment_bluepay_hosted_amex %}
                   <option value="1" selected="selected">{{ text_enabled }}</option>
                   <option value="0">{{ text_disabled }}</option>
@@ -103,7 +103,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-discover">{{ entry_card_discover }}</label>
             <div class="col-sm-10">
-              <select name="payment_bluepay_hosted_discover" id="input-discover" class="form-control"/>
+              <select name="payment_bluepay_hosted_discover" class="form-control" id="input-discover"/>
                 {% if payment_bluepay_hosted_discover %}
                   <option value="1" selected="selected">{{ text_enabled }}</option>
                   <option value="0">{{ text_disabled }}</option>
@@ -117,13 +117,13 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-total"><span data-toggle="tooltip" title="{{ help_total|escape('html') }}">{{ entry_total }}</span></label>
             <div class="col-sm-10">
-              <input type="text" name="payment_bluepay_hosted_total" value="{{ payment_bluepay_hosted_total }}" placeholder="{{ entry_total }}" id="input-total" class="form-control"/>
+              <input type="text" name="payment_bluepay_hosted_total" value="{{ payment_bluepay_hosted_total }}" placeholder="{{ entry_total }}" class="form-control" id="input-total"/>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-order-status">{{ entry_order_status }}</label>
             <div class="col-sm-10">
-              <select name="payment_bluepay_hosted_order_status_id" id="input-order-status" class="form-control"/>
+              <select name="payment_bluepay_hosted_order_status_id" class="form-control" id="input-order-status"/>
                 {% for order_status in order_statuses %}
                   {% if order_status.order_status_id == payment_bluepay_hosted_order_status_id %}
                     <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
@@ -137,7 +137,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-geo-zone">{{ entry_geo_zone }}</label>
             <div class="col-sm-10">
-              <select name="payment_bluepay_hosted_geo_zone_id" id="input-geo-zone" class="form-control"/>
+              <select name="payment_bluepay_hosted_geo_zone_id" class="form-control" id="input-geo-zone"/>
                 <option value="0">{{ text_all_zones }}</option>
                 {% for geo_zone in geo_zones %}
                   {% if geo_zone.geo_zone_id == payment_bluepay_hosted_geo_zone_id %}
@@ -152,7 +152,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-debug"><span data-toggle="tooltip" title="{{ help_debug|escape('html') }}">{{ entry_debug }}</span></label>
             <div class="col-sm-10">
-              <select name="payment_bluepay_hosted_debug" id="input-debug" class="form-control"/>
+              <select name="payment_bluepay_hosted_debug" class="form-control" id="input-debug"/>
                 {% if payment_bluepay_hosted_debug %}
                   <option value="1" selected="selected">{{ text_enabled }}</option>
                   <option value="0">{{ text_disabled }}</option>
@@ -166,7 +166,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
             <div class="col-sm-10">
-              <select name="payment_bluepay_hosted_status" id="input-status" class="form-control"/>
+              <select name="payment_bluepay_hosted_status" class="form-control" id="input-status"/>
                 {% if payment_bluepay_hosted_status %}
                   <option value="1" selected="selected">{{ text_enabled }}</option>
                   <option value="0">{{ text_disabled }}</option>

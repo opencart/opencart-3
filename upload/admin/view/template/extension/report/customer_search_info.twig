@@ -1,5 +1,5 @@
 <div class="row">
-  <div id="filter-report" class="col-md-3 col-md-push-9 col-sm-12 hidden-sm hidden-xs">
+  <div class="col-md-3 col-md-push-9 col-sm-12 hidden-sm hidden-xs" id="filter-report">
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title"><i class="fa fa-filter"></i> {{ text_filter }}</h3>
@@ -8,31 +8,31 @@
         <div class="form-group">
           <label class="control-label" for="input-date-start">{{ entry_date_start }}</label>
           <div class="input-group date">
-            <input type="text" name="filter_date_start" value="{{ filter_date_start }}" placeholder="{{ entry_date_start }}" data-date-format="YYYY-MM-DD" id="input-date-start" class="form-control"/>
+            <input type="text" name="filter_date_start" value="{{ filter_date_start }}" placeholder="{{ entry_date_start }}" data-date-format="YYYY-MM-DD" class="form-control" id="input-date-start"/>
             <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span>
           </div>
         </div>
         <div class="form-group">
           <label class="control-label" for="input-customer">{{ entry_customer }}</label>
-          <input type="text" name="filter_customer" value="{{ filter_customer }}" placeholder="{{ entry_customer }}" id="input-customer" class="form-control"/>
+          <input type="text" name="filter_customer" value="{{ filter_customer }}" placeholder="{{ entry_customer }}" class="form-control" id="input-customer"/>
         </div>
         <div class="form-group">
           <label class="control-label" for="input-date-end">{{ entry_date_end }}</label>
           <div class="input-group date">
-            <input type="text" name="filter_date_end" value="{{ filter_date_end }}" placeholder="{{ entry_date_end }}" data-date-format="YYYY-MM-DD" id="input-date-end" class="form-control"/>
+            <input type="text" name="filter_date_end" value="{{ filter_date_end }}" placeholder="{{ entry_date_end }}" data-date-format="YYYY-MM-DD" class="form-control" id="input-date-end"/>
             <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span>
           </div>
         </div>
         <div class="form-group">
           <label class="control-label" for="input-ip">{{ entry_ip }}</label>
-          <input type="text" name="filter_ip" value="{{ filter_ip }}" placeholder="{{ entry_ip }}" id="input-ip" class="form-control"/>
+          <input type="text" name="filter_ip" value="{{ filter_ip }}" placeholder="{{ entry_ip }}" class="form-control" id="input-ip"/>
         </div>
         <div class="form-group">
           <label class="control-label" for="input-keyword">{{ entry_keyword }}</label>
-          <input type="text" name="filter_keyword" value="{{ filter_keyword }}" placeholder="{{ entry_keyword }}" id="input-keyword" class="form-control"/>
+          <input type="text" name="filter_keyword" value="{{ filter_keyword }}" placeholder="{{ entry_keyword }}" class="form-control" id="input-keyword"/>
         </div>
         <div class="form-group text-right">
-          <button type="button" id="button-filter" class="btn btn-default"><i class="fa fa-filter"></i> {{ button_filter }}</button>
+          <button type="button" class="btn btn-default" id="button-filter"><i class="fa fa-filter"></i> {{ button_filter }}</button>
         </div>
       </div>
     </div>

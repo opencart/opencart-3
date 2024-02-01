@@ -1,8 +1,8 @@
 {% if checkout_mode == 'multi_button' %}
   <div id="paypal-form">
     {% if googlepay_button_status %}
-      <div id="googlepay-button" class="googlepay-button buttons clearfix">
-        <div id="googlepay-button-container" class="googlepay-button-container paypal-spinner"></div>
+      <div class="googlepay-button buttons clearfix" id="googlepay-button">
+        <div class="googlepay-button-container paypal-spinner" id="googlepay-button-container"></div>
       </div>
     {% endif %}
   </div>
@@ -14,7 +14,7 @@
 {% else %}
   <div class="buttons">
     <div class="pull-right">
-      <button type="button" id="button-confirm" class="btn btn-primary paypal-googlepay-button-confirm" data-loading-text="{{ text_loading }}">{{ button_confirm }}</button>
+      <button type="button" class="btn btn-primary paypal-googlepay-button-confirm" data-loading-text="{{ text_loading }}" id="button-confirm">{{ button_confirm }}</button>
     </div>
   </div>
   <script type="text/javascript">
@@ -23,7 +23,7 @@
 	
 	  $('#paypal-modal').remove();
 	
-	  $('body').append('<div id="paypal-modal" class="modal fade"></div>');
+	  $('body').append('<div class="modal fade" id="paypal-modal"></div>');
 	
 	  $('#paypal-modal').load('index.php?route=extension/payment/paypal_googlepay/modal #paypal-modal >', function() {		
 		  $('.paypal-googlepay-button-confirm').button('reset');

@@ -92,14 +92,14 @@
   </tr>
   {% if flp_status == 'review' %}
     <tr style="background-color: #eee;">
-      <td id="flp_action" colspan="2">
-        <form id="review-action" method="post">
+      <td colspan="2" id="flp_action">
+        <form method="post" id="review-action">
           <div style=text-align:center>
-            <button type="button" id="button-flp-approve" class="btn btn-primary"><i class="fa fa-check"></i> {{ text_approve }}</button>
-            <button type="button" id="button-flp-reject" class="btn btn-danger"><i class="fa fa-remove"></i> {{ text_reject }}</button>
+            <button type="button" class="btn btn-primary" id="button-flp-approve"><i class="fa fa-check"></i> {{ text_approve }}</button>
+            <button type="button" class="btn btn-danger" id="button-flp-reject"><i class="fa fa-remove"></i> {{ text_reject }}</button>
           </div>
-          <input type="hidden" id="flp_id" name="flp_id" value="{{ flp_id }}"/>
-          <input type="hidden" id="new_status" name="new_status" value=""/>
+          <input type="hidden" name="flp_id" value="{{ flp_id }}" id="flp_id"/>
+          <input type="hidden" name="new_status" value="" id="new_status"/>
         </form>
         <script>
         $(document).ready(function () {

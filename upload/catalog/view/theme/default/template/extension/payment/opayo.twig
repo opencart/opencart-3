@@ -1,47 +1,47 @@
-<div id="opayo-form" class="form-horizontal">
+<div class="form-horizontal" id="opayo-form">
   <fieldset class="opayo-payment">
     <legend>{{ text_credit_card }}</legend>
-    <div id="opayo-cards" style="display: {% if cards %}block{% else %}none{% endif %}">
+    <div style="display: {% if cards %}block{% else %}none{% endif %}" id="opayo-cards">
       <div class="form-group">
         <label class="col-sm-2 control-label">{{ entry_card }}</label>
         <div class="col-sm-10">
-          <label class="radio-inline"><input type="radio" name="opayo_card_existing" value="1" id="input-opayo-card-existing" class="input-opayo-card-existing" {% if cards %}checked{% endif %}/>	{{ entry_card_existing }}</label>
-          <label class="radio-inline"><input type="radio" name="opayo_card_existing" value="0" id="input-opayo-card-new" class="input-opayo-card-existing" {% if not cards %}checked{% endif %}/>{{ entry_card_new }}</label>
+          <label class="radio-inline"><input type="radio" name="opayo_card_existing" value="1" class="input-opayo-card-existing" {% if cards %}checked{% endif %} id="input-opayo-card-existing"/>	{{ entry_card_existing }}</label>
+          <label class="radio-inline"><input type="radio" name="opayo_card_existing" value="0" class="input-opayo-card-existing" {% if not cards %}checked{% endif %} id="input-opayo-card-new"/>{{ entry_card_new }}</label>
         </div>
       </div>
     </div>
-    <div id="opayo-card-existing" style="display: {% if cards %}block{% else %}none{% endif %}">
+    <div style="display: {% if cards %}block{% else %}none{% endif %}" id="opayo-card-existing">
       <div class="form-group required">
         <label class="col-sm-2 control-label" for="input-opayo-card">{{ entry_card_choice }}</label>
         <div class="col-sm-8">
-          <select name="opayo_card_token" id="input-opayo-card" class="form-control"/>
+          <select name="opayo_card_token" class="form-control" id="input-opayo-card"/>
             {% for card in cards %}
             <option value="{{ card.token }}">{{ text_card_type }} {{ card.type }}, {{ text_card_digits }} {{ card.digits }}, {{ text_card_expiry }} {{ card.expiry }}</option>
             {% endfor %}
           </select>
         </div>
         <div class="col-sm-2">
-          <input type="button" value="{{ button_delete_card }}" id="opayo-button-delete-card" data-loading-text="{{ text_loading }}" class="btn btn-danger"/>
+          <input type="button" value="{{ button_delete_card }}" data-loading-text="{{ text_loading }}" class="btn btn-danger" id="opayo-button-delete-card"/>
         </div>
       </div>
       <div class="form-group required">
         <label class="col-sm-2 control-label" for="input-card-cvv2">{{ entry_card_cvv2 }}</label>
         <div class="col-sm-10">
-          <input type="text" name="opayo_card_cvv2_1" value="" placeholder="{{ entry_card_cvv2 }}" id="input-card-cvv2" class="form-control"/>
+          <input type="text" name="opayo_card_cvv2_1" value="" placeholder="{{ entry_card_cvv2 }}" class="form-control" id="input-card-cvv2"/>
         </div>
       </div>
     </div>
-    <div id="opayo-card-new" style="display: {% if not cards %}block{% else %}none{% endif %}">
+    <div style="display: {% if not cards %}block{% else %}none{% endif %}" id="opayo-card-new">
       <div class="form-group required">
         <label class="col-sm-2 control-label" for="input-card-owner">{{ entry_card_owner }}</label>
         <div class="col-sm-10">
-          <input type="text" name="opayo_card_owner" value="" placeholder="{{ entry_card_owner }}" id="input-card-owner" class="form-control"/>
+          <input type="text" name="opayo_card_owner" value="" placeholder="{{ entry_card_owner }}" class="form-control" id="input-card-owner"/>
         </div>
       </div>
       <div class="form-group required">
         <label class="col-sm-2 control-label" for="input-card-type">{{ entry_card_type }}</label>
         <div class="col-sm-10">
-          <select name="opayo_card_type" id="input-card-type" class="form-control"/>
+          <select name="opayo_card_type" class="form-control" id="input-card-type"/>
             {% for card_type in card_types %}
             <option value="{{ card_type.code }}">{{ card_type.name }}</option>
             {% endfor %}
@@ -51,13 +51,13 @@
       <div class="form-group required">
         <label class="col-sm-2 control-label" for="input-card-number">{{ entry_card_number }}</label>
         <div class="col-sm-10">
-          <input type="text" name="opayo_card_number" value="" placeholder="{{ entry_card_number }}" id="input-card-number" class="form-control"/>
+          <input type="text" name="opayo_card_number" value="" placeholder="{{ entry_card_number }}" class="form-control" id="input-card-number"/>
         </div>
       </div>
       <div class="form-group required">
         <label class="col-sm-2 control-label" for="input-card-expire-date">{{ entry_card_expire_date }}</label>
         <div class="col-sm-5">
-          <select name="opayo_card_expire_date_month" id="input-card-expire-date" class="form-control"/>
+          <select name="opayo_card_expire_date_month" class="form-control" id="input-card-expire-date"/>
             {% for month in months %}
             <option value="{{ month.code }}">{{ month.name }}</option>
             {% endfor %}
@@ -74,14 +74,14 @@
       <div class="form-group required">
         <label class="col-sm-2 control-label" for="input-card-cvv2">{{ entry_card_cvv2 }}</label>
         <div class="col-sm-10">
-          <input type="text" name="opayo_card_cvv2_2" value="" placeholder="{{ entry_card_cvv2 }}" id="input-card-cvv2" class="form-control"/>
+          <input type="text" name="opayo_card_cvv2_2" value="" placeholder="{{ entry_card_cvv2 }}" class="form-control" id="input-card-cvv2"/>
         </div>
       </div>
       {% if logged and card_save %}
       <div class="form-group">
         <label class="col-sm-2 control-label" for="input-card-save">{{ entry_card_save }}</label>
         <div class="col-sm-2">
-          <input type="checkbox" name="opayo_card_save" value="1" id="input-card-save" checked/>
+          <input type="checkbox" name="opayo_card_save" value="1" checked id="input-card-save"/>
         </div>
       </div>
       {% endif %}
@@ -89,7 +89,7 @@
   </fieldset>
   <div class="buttons">
     <div class="pull-right">
-      <button type="button" id="opayo-button-confirm" class="btn btn-primary" data-loading-text="{{ text_loading }}">{{ button_confirm }}</button>
+      <button type="button" class="btn btn-primary" data-loading-text="{{ text_loading }}" id="opayo-button-confirm">{{ button_confirm }}</button>
     </div>
   </div>
 </div>

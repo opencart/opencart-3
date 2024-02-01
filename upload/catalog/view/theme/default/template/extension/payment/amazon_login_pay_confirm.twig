@@ -19,10 +19,10 @@
     <p>{{ text_enter_coupon }}</p>
     <div class="input-group" id="coupon-container">
     {% if coupon %}
-      <input id="coupon" class="form-control" type="text" disabled value="{{ coupon }}"/>
-      <span class="input-group-btn"><a id="coupon-discard" href="{{ coupon_discard }}" class="btn btn-danger"><i class="fa fa-times"></i></a></span>
+      <input class="form-control" type="text" disabled value="{{ coupon }}" id="coupon"/>
+      <span class="input-group-btn"><a href="{{ coupon_discard }}" class="btn btn-danger" id="coupon-discard"><i class="fa fa-times"></i></a></span>
     {% else %}
-      <input id="coupon" class="form-control" type="text" value=""/>
+      <input class="form-control" type="text" value="" id="coupon"/>
       <span class="input-group-btn"><button class="btn btn-primary" id="coupon-apply"><i class="fa fa-tick"></i> {{ button_coupon }}</button></span>
     {% endif %}
     </div>
@@ -68,7 +68,7 @@
   </table>
   <div class="buttons">
     <div class="pull-right form-control-static">
-      <div class="alert alert-warning" id="text-must-apply-coupon" style="display: none;">{{ text_must_apply_coupon }}</div>
+      <div class="alert alert-warning" style="display: none;" id="text-must-apply-coupon">{{ text_must_apply_coupon }}</div>
       {% if is_order_total_positive %}
         {% if enabled_buyers_multi_currency %}
           <a class="btn btn-primary" id="confirm-button">{{ text_confirm }}</a>

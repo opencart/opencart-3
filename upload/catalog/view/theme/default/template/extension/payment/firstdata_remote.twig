@@ -43,23 +43,23 @@
         </div>
       </div>
     {% endif %}
-    <div id="card_info" style="display:none;">
+    <div style="display:none;" id="card_info">
       <div class="form-group required">
         <label class="col-sm-2 control-label" for="input-cc-name">{{ entry_cc_name }}</label>
         <div class="col-sm-10">
-          <input type="text" name="cc_name" value="" placeholder="{{ entry_cc_name }}" id="input-cc-name" class="form-control"/>
+          <input type="text" name="cc_name" value="" placeholder="{{ entry_cc_name }}" class="form-control" id="input-cc-name"/>
         </div>
       </div>
       <div class="form-group required">
         <label class="col-sm-2 control-label" for="input-cc-number">{{ entry_cc_number }}</label>
         <div class="col-sm-10">
-          <input type="text" name="cc_number" value="" placeholder="{{ entry_cc_number }}" id="input-cc-number" class="form-control"/>
+          <input type="text" name="cc_number" value="" placeholder="{{ entry_cc_number }}" class="form-control" id="input-cc-number"/>
         </div>
       </div>
       <div class="form-group required">
         <label class="col-sm-2 control-label" for="input-cc-expire-date">{{ entry_cc_expire_date }}</label>
         <div class="col-sm-3">
-          <select name="cc_expire_date_month" id="input-cc-expire-date" class="form-control"/>
+          <select name="cc_expire_date_month" class="form-control" id="input-cc-expire-date"/>
             {% for month in months %}
               <option value="{{ month.value }}">{{ month.text }}</option>
             {% endfor %}
@@ -85,14 +85,14 @@
     <div class="form-group required">
       <label class="col-sm-2 control-label" for="input-cc-cvv2">{{ entry_cc_cvv2 }}</label>
       <div class="col-sm-10">
-        <input type="text" name="cc_cvv2" value="" placeholder="{{ entry_cc_cvv2 }}" id="input-cc-cvv2" class="form-control"/>
+        <input type="text" name="cc_cvv2" value="" placeholder="{{ entry_cc_cvv2 }}" class="form-control" id="input-cc-cvv2"/>
       </div>
     </div>
   </fieldset>
 </form>
 <div class="buttons">
   <div class="pull-right">
-    <input type="button" value="{{ button_confirm }}" id="button-confirm" data-loading-text="{{ text_loading }}" class="btn btn-primary"/>
+    <input type="button" value="{{ button_confirm }}" data-loading-text="{{ text_loading }}" class="btn btn-primary" id="button-confirm"/>
   </div>
 </div>
 <script type="text/javascript"><!--
@@ -105,7 +105,7 @@ $('#button-confirm').bind('click', function() {
         beforeSend: function() {
             $('#firstdata_message_error').remove();
             $('#button-confirm').attr('disabled', true);
-            $('#payment').before('<div id="firstdata_message_wait" class="alert alert-info"><i class="fa fa-info-circle"></i> {{ text_wait }}</div>');
+            $('#payment').before('<div class="alert alert-info" id="firstdata_message_wait"><i class="fa fa-info-circle"></i> {{ text_wait }}</div>');
         },
         complete: function() {
             $('#button-confirm').attr('disabled', false);
@@ -114,7 +114,7 @@ $('#button-confirm').bind('click', function() {
         success: function (json) {
             // if error
             if (json['error']) {
-                $('#payment').before('<div id="firstdata_message_error" class="alert alert-warning"><i class="fa fa-info-circle"></i> ' + json['error'] + '</div>');
+                $('#payment').before('<div class="alert alert-warning" id="firstdata_message_error"><i class="fa fa-info-circle"></i> ' + json['error'] + '</div>');
             }
 
             // if success

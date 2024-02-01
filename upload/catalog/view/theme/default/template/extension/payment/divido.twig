@@ -317,7 +317,7 @@
         color: #000;
     }
 </style>
-<div id="divido-checkout" data-divido-calculator class="divido-calculator divido-theme-blue" data-divido-amount="{{ grand_total }}" data-divido-plans="{{ plan_list }}">
+<div data-divido-calculator class="divido-calculator divido-theme-blue" data-divido-amount="{{ grand_total }}" data-divido-plans="{{ plan_list }}" id="divido-checkout">
   <h1>
     <a href="https://www.divido.com" target="_blank" class="divido-logo divido-logo-sm" style="float:right;">{{ text_divido }}</a>
     {{ text_checkout_title }}
@@ -359,7 +359,7 @@
 
 <div class="buttons">
   <div class="pull-right">
-    <input type="button" value="{{ button_confirm }}" id="button-confirm" class="btn btn-primary" data-loading-text="{{ text_loading }}"/>
+    <input type="button" value="{{ button_confirm }}" class="btn btn-primary" data-loading-text="{{ text_loading }}" id="button-confirm"/>
   </div>
 </div>
 

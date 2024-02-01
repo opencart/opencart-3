@@ -24,11 +24,11 @@
         <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_form }}</h3>
       </div>
       <div class="panel-body">
-        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-attribute-group" class="form-horizontal">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal" id="form-attribute-group">
           <div class="form-group required">
             <label class="col-sm-2 control-label">{{ entry_name }}</label>
             <div class="col-sm-10">
-              <input type="text" name="name" value="{{ name }}" placeholder="{{ entry_name }}" id="input-name" class="form-control"/>
+              <input type="text" name="name" value="{{ name }}" placeholder="{{ entry_name }}" class="form-control" id="input-name"/>
               {% if error_name %}
                 <div class="text-danger">{{ error_name }}</div>
               {% endif %}
@@ -37,7 +37,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-address-format"><span data-toggle="tooltip" title="{{ help_address_format|escape('html') }}">{{ entry_address_format }}</span></label>
             <div class="col-sm-10">
-              <textarea name="address_format" rows="5" placeholder="{{ entry_address_format }}" id="input-address-format" class="form-control"/>{{ address_format }}</textarea>
+              <textarea name="address_format" rows="5" placeholder="{{ entry_address_format }}" class="form-control" id="input-address-format"/>{{ address_format }}</textarea>
               {% if error_address_format %}
                 <div class="text-danger">{{ error_address_format }}</div>
               {% endif %}

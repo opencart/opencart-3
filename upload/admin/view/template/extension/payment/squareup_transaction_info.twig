@@ -4,11 +4,11 @@
     <div class="container-fluid">
       <div class="pull-right">
         {% if is_authorized %}
-          <a id="transaction-capture" data-url-transaction-capture="{{ url_capture }}" data-confirm-capture="{{ confirm_capture }}" class="btn btn-success">{{ button_capture }}</a>
-          <a id="transaction-void" data-url-transaction-void="{{ url_void }}" data-confirm-void="{{ confirm_void }}" class="btn btn-warning">{{ button_void }}</a>
+          <a data-url-transaction-capture="{{ url_capture }}" data-confirm-capture="{{ confirm_capture }}" class="btn btn-success" id="transaction-capture">{{ button_capture }}</a>
+          <a data-url-transaction-void="{{ url_void }}" data-confirm-void="{{ confirm_void }}" class="btn btn-warning" id="transaction-void">{{ button_void }}</a>
         {% endif %}
         {% if is_captured %}
-          <a id="transaction-refund" data-url-transaction-refund="{{ url_refund }}" data-confirm-refund="{{ confirm_refund }}" data-insert-amount="{{ insert_amount }}" class="btn btn-danger">{{ button_refund }}</a>
+          <a data-url-transaction-refund="{{ url_refund }}" data-confirm-refund="{{ confirm_refund }}" data-insert-amount="{{ insert_amount }}" class="btn btn-danger" id="transaction-refund">{{ button_refund }}</a>
         {% endif %}
         <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a>
       </div>
@@ -21,7 +21,7 @@
     </div>
   </div>
   <div class="container-fluid">
-    <div id="transaction-alert" data-message="{{ text_loading }}">
+    <div data-message="{{ text_loading }}" id="transaction-alert">
       {% for alert in alerts %}
         <div class="alert alert-{{ alert.type }}"><i class="fa fa-{{ alert.icon }}"></i>&nbsp;{{ alert.text }}
           <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -160,7 +160,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">{{ text_close }}</button>
-        <button id="squareup-confirm-ok" type="button" class="btn btn-primary">{{ text_ok }}</button>
+        <button type="button" class="btn btn-primary" id="squareup-confirm-ok">{{ text_ok }}</button>
       </div>
     </div>
   </div>
@@ -176,16 +176,16 @@
       <div class="modal-body">
         <div class="form-group">
           <label class="control-label" id="squareup-refund-modal-content-reason"></label>
-          <textarea class="form-control" id="squareup-refund-reason" required></textarea>
+          <textarea class="form-control" required id="squareup-refund-reason"></textarea>
         </div>
         <div class="form-group">
           <label class="control-label" id="squareup-refund-modal-content-amount"></label>
-          <input class="form-control" type="text" id="squareup-refund-amount" required/>
+          <input class="form-control" type="text" required id="squareup-refund-amount"/>
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">{{ text_close }}</button>
-        <button id="squareup-refund-ok" type="button" class="btn btn-primary">{{ text_ok }}</button>
+        <button type="button" class="btn btn-primary" id="squareup-refund-ok">{{ text_ok }}</button>
       </div>
     </div>
   </div>

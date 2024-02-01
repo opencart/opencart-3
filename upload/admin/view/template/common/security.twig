@@ -1,4 +1,4 @@
-<div id="modal-security" class="modal">
+<div class="modal" id="modal-security">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -11,18 +11,18 @@
           <fieldset>
             <legend>{{ text_choose }}</legend>
             <div class="form-group">
-              <select name="type" id="input-type" class="form-control"/>
+              <select name="type" class="form-control" id="input-type"/>
                 <option value="automatic">{{ text_automatic }}</option>
                 <option value="manual">{{ text_manual }}</option>
               </select>
             </div>
           </fieldset>
-          <fieldset id="collapse-automatic" class="collapse">
+          <fieldset class="collapse" id="collapse-automatic">
             <legend>{{ text_automatic }}</legend>
             <div class="form-group">
               <div class="input-group">
                 <div class="input-group-btn dropdown">
-                  <button type="button" id="button-path" data-toggle="dropdown" class="btn btn-default">{{ document_root }}<span class="caret"></span></button>
+                  <button type="button" data-toggle="dropdown" class="btn btn-default" id="button-path">{{ document_root }}<span class="caret"></span></button>
                   <ul class="dropdown-menu">
                     {% for path in paths %}
                       {% if path|length > document_root|length %}
@@ -35,13 +35,13 @@
                 </div>
                 <input type="text" name="directory" value="storage" placeholder="{{ entry_directory }}" class="form-control"/>
                 <div class="input-group-btn">
-                  <button type="button" id="button-move" data-loading-text="{{ text_loading }}" class="btn btn-danger"><i class="fa fa-exclamation-triangle"></i> {{ button_move }}</button>
+                  <button type="button" data-loading-text="{{ text_loading }}" class="btn btn-danger" id="button-move"><i class="fa fa-exclamation-triangle"></i> {{ button_move }}</button>
                 </div>
               </div>
               <input type="hidden" name="path" value="{{ document_root }}"/>
             </div>
           </fieldset>
-          <fieldset id="collapse-manual" class="collapse">
+          <fieldset class="collapse" id="collapse-manual">
             <legend>{{ text_manual }}</legend>
             <div class="form-group">
               <div style="height: 300px; overflow-y: scroll;" class="form-control" disabled="disabled"></div>

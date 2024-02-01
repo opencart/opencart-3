@@ -3,7 +3,7 @@
   <div class="page-header">
     <div class="container-fluid">
       <div class="pull-right">
-        <button id="button-send" data-loading-text="{{ text_loading }}" data-toggle="tooltip" title="{{ button_send }}" class="btn btn-primary" onclick="send('index.php?route=marketing/contact/send&user_token={{ user_token }}');"><i class="fa fa-envelope"></i></button>
+        <button data-loading-text="{{ text_loading }}" data-toggle="tooltip" title="{{ button_send }}" class="btn btn-primary" onclick="send('index.php?route=marketing/contact/send&user_token={{ user_token }}');" id="button-send"><i class="fa fa-envelope"></i></button>
         <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
       <h1>{{ heading_title }}</h1>
       <ul class="breadcrumb">
@@ -23,7 +23,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-store">{{ entry_store }}</label>
             <div class="col-sm-10">
-              <select name="store_id" id="input-store" class="form-control"/>
+              <select name="store_id" class="form-control" id="input-store"/>
                 <option value="0">{{ text_default }}</option>
                 {% for store in stores %}
                   <option value="{{ store.store_id }}">{{ store.name }}</option>
@@ -34,7 +34,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-to">{{ entry_to }}</label>
             <div class="col-sm-10">
-              <select name="to" id="input-to" class="form-control"/>
+              <select name="to" class="form-control" id="input-to"/>
                 <option value="newsletter">{{ text_newsletter }}</option>
                 <option value="customer_all">{{ text_customer_all }}</option>
                 <option value="customer_group">{{ text_customer_group }}</option>
@@ -48,7 +48,7 @@
           <div class="form-group to" id="to-customer-group">
             <label class="col-sm-2 control-label" for="input-customer-group">{{ entry_customer_group }}</label>
             <div class="col-sm-10">
-              <select name="customer_group_id" id="input-customer-group" class="form-control"/>
+              <select name="customer_group_id" class="form-control" id="input-customer-group"/>
                 {% for customer_group in customer_groups %}
                   <option value="{{ customer_group.customer_group_id }}">{{ customer_group.name }}</option>
                 {% endfor %}
@@ -58,34 +58,34 @@
           <div class="form-group to" id="to-customer">
             <label class="col-sm-2 control-label" for="input-customer"><span data-toggle="tooltip" title="{{ help_customer|escape('html') }}">{{ entry_customer }}</span></label>
             <div class="col-sm-10">
-              <input type="text" name="customers" value="" placeholder="{{ entry_customer }}" id="input-customer" class="form-control"/>
+              <input type="text" name="customers" value="" placeholder="{{ entry_customer }}" class="form-control" id="input-customer"/>
               <div class="well well-sm" style="height: 150px; overflow: auto;"></div>
             </div>
           </div>
           <div class="form-group to" id="to-affiliate">
             <label class="col-sm-2 control-label" for="input-affiliate"><span data-toggle="tooltip" title="{{ help_affiliate|escape('html') }}">{{ entry_affiliate }}</span></label>
             <div class="col-sm-10">
-              <input type="text" name="affiliates" value="" placeholder="{{ entry_affiliate }}" id="input-affiliate" class="form-control"/>
+              <input type="text" name="affiliates" value="" placeholder="{{ entry_affiliate }}" class="form-control" id="input-affiliate"/>
               <div class="well well-sm" style="height: 150px; overflow: auto;"></div>
             </div>
           </div>
           <div class="form-group to" id="to-product">
             <label class="col-sm-2 control-label" for="input-product"><span data-toggle="tooltip" title="{{ help_product|escape('html') }}">{{ entry_product }}</span></label>
             <div class="col-sm-10">
-              <input type="text" name="products" value="" placeholder="{{ entry_product }}" id="input-product" class="form-control"/>
+              <input type="text" name="products" value="" placeholder="{{ entry_product }}" class="form-control" id="input-product"/>
               <div class="well well-sm" style="height: 150px; overflow: auto;"></div>
             </div>
           </div>
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-subject">{{ entry_subject }}</label>
             <div class="col-sm-10">
-              <input type="text" name="subject" value="" placeholder="{{ entry_subject }}" id="input-subject" class="form-control"/>
+              <input type="text" name="subject" value="" placeholder="{{ entry_subject }}" class="form-control" id="input-subject"/>
             </div>
           </div>
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-message">{{ entry_message }}</label>
             <div class="col-sm-10">
-              <textarea name="message" placeholder="{{ entry_message }}" id="input-message" data-toggle="summernote" data-lang="{{ summernote }}" class="form-control"/></textarea>
+              <textarea name="message" placeholder="{{ entry_message }}" data-toggle="summernote" data-lang="{{ summernote }}" class="form-control" id="input-message"/></textarea>
             </div>
           </div>
         </form>
@@ -139,7 +139,7 @@
 
           $('#customer' + item['value']).remove();
 
-          $('#input-customer').parent().find('.well').append('<div id="customer' + item['value'] + '"><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden" name="customer[]" value="' + item['value'] + '"/></div>');
+          $('#input-customer').parent().find('.well').append('<div name="customer[]" value="' + item['value'] + '" id="customer' + item['value'] + '"/><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden"></div>');
       }
   });
 
@@ -171,7 +171,7 @@
 
           $('#affiliate' + item['value']).remove();
 
-          $('#input-affiliate').parent().find('.well').append('<div id="affiliate' + item['value'] + '"><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden" name="affiliate[]" value="' + item['value'] + '"/></div>');
+          $('#input-affiliate').parent().find('.well').append('<div name="affiliate[]" value="' + item['value'] + '" id="affiliate' + item['value'] + '"/><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden"></div>');
       }
   });
 
@@ -203,7 +203,7 @@
 
           $('#product' + item['value']).remove();
 
-          $('#input-product').parent().find('.well').append('<div id="product' + item['value'] + '"><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden" name="product[]" value="' + item['value'] + '"/></div>');
+          $('#input-product').parent().find('.well').append('<div name="product[]" value="' + item['value'] + '" id="product' + item['value'] + '"/><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden"></div>');
       }
   });
 

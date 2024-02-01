@@ -27,11 +27,11 @@
           <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3>
         </div>
         <div class="panel-body">
-          <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-currency" class="form-horizontal">
+          <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal" id="form-currency">
             <div class="form-group">
               <label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
               <div class="col-sm-10">
-                <select name="currency_ecb_status" id="input-status" class="form-control"/>
+                <select name="currency_ecb_status" class="form-control" id="input-status"/>
                   {% if currency_ecb_status %}
                     <option value="1" selected="selected">{{ text_enabled }}</option>
                     <option value="0">{{ text_disabled }}</option>
@@ -45,7 +45,7 @@
             <div class="form-group">
               <label class="col-sm-2 control-label" for="input-ip"><span data-toggle="tooltip" title="{{ help_ip|escape('html') }}">{{ entry_ip }}</span></label>
               <div class="col-sm-10">
-                <input type="text" name="currency_ecb_ip" value="{{ currency_ecb_ip }}" placeholder="{{ entry_ip }}" id="input-ip" class="form-control"/>
+                <input type="text" name="currency_ecb_ip" value="{{ currency_ecb_ip }}" placeholder="{{ entry_ip }}" class="form-control" id="input-ip"/>
                 {% if (error_ip) %}
                   <div class="text-danger">{{ error_ip }}</div>
                 {% endif %}
@@ -54,7 +54,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-cron"><span data-toggle="tooltip" title="{{ help_cron|escape('html') }}">{{ entry_cron }}</span></label>
             <div class="col-sm-10">
-              <input type="text" name="currency_ecb_cron" value="{{ currency_ecb_cron }}" placeholder="{{ entry_cron }}" id="input-cron" class="form-control" readonly="readonly"/>
+              <input type="text" name="currency_ecb_cron" value="{{ currency_ecb_cron }}" placeholder="{{ entry_cron }}" class="form-control" readonly="readonly" id="input-cron"/>
             </div>
           </div>
         </form>

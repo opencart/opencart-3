@@ -2,7 +2,7 @@
   <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}</div>
 {% endif %}
 <p><img src="https://cdn.klarna.com/public/images/{{ iso_code_2 }}/badges/v1/invoice/{{ iso_code_2 }}_invoice_badge_std_blue.png?width=150&eid={{ merchant }}"/></p>
-<form id="payment" class="form-horizontal">
+<form class="form-horizontal" id="payment">
   <fieldset>
     <legend>{{ text_additional }}</legend>
     {% if not company %}
@@ -10,7 +10,7 @@
         <div class="form-group required">
           <label class="col-sm-2 control-label" for="input-dob">{{ entry_dob }}</label>
           <div class="col-sm-3">
-            <select name="pno_day" id="input-dob" class="form-control"/>
+            <select name="pno_day" class="form-control" id="input-dob"/>
               <option value="">{{ text_day }}</option>
               {% for day in days %}
                 <option value="{{ day.value }}">{{ day.text }}</option>
@@ -38,7 +38,7 @@
         <div class="form-group required">
           <label class="col-sm-2 control-label" for="input-pno">{{ entry_pno }}</label>
           <div class="col-sm-10">
-            <input type="text" name="pno" value="" id="input-pno" class="form-control"/>
+            <input type="text" name="pno" value="" class="form-control" id="input-pno"/>
           </div>
         </div>
       {% endif %}
@@ -46,7 +46,7 @@
       <div class="form-group required">
         <label class="col-sm-2 control-label" for="input-company">{{ entry_company }}</label>
         <div class="col-sm-10">
-          <input type="text" name="pno" value="" id="input-company" class="form-control"/>
+          <input type="text" name="pno" value="" class="form-control" id="input-company"/>
         </div>
       </div>
     {% endif %}
@@ -61,13 +61,13 @@
       <div class="form-group required">
         <label class="col-sm-2 control-label" for="input-street">{{ entry_street }}</label>
         <div class="col-sm-10">
-          <input type="text" name="street" value="{{ street }}" id="input-street" class="form-control"/>
+          <input type="text" name="street" value="{{ street }}" class="form-control" id="input-street"/>
         </div>
       </div>
       <div class="form-group required">
         <label class="col-sm-2 control-label" for="input-house-no">{{ entry_house_no }}</label>
         <div class="col-sm-10">
-          <input type="text" name="house_no" value="{{ street_number }}" id="input-house-no" class="form-control"/>
+          <input type="text" name="house_no" value="{{ street_number }}" class="form-control" id="input-house-no"/>
         </div>
       </div>
     {% endif %}
@@ -75,14 +75,14 @@
       <div class="form-group">
         <label class="col-sm-2 control-label" for="input-house-ext">{{ entry_house_ext }}</label>
         <div class="col-sm-10">
-          <input type="text" name="house_ext" value="{{ street_extension }}" id="input-house-ext" class="form-control"/>
+          <input type="text" name="house_ext" value="{{ street_extension }}" class="form-control" id="input-house-ext"/>
         </div>
       </div>
     {% endif %}
     <div class="form-group required">
       <label class="col-sm-2 control-label" for="input-phone-no">{{ entry_phone_no }}</label>
       <div class="col-sm-10">
-        <input type="text" name="phone_no" value="{{ phone_number }}" id="input-phone-no" class="form-control"/>
+        <input type="text" name="phone_no" value="{{ phone_number }}" class="form-control" id="input-phone-no"/>
       </div>
     </div>
     {% if iso_code_3 == 'DEU' %}
@@ -95,7 +95,7 @@
 </form>
 <div class="buttons">
   <div class="pull-right">
-    <input type="button" value="{{ button_confirm }}" id="button-confirm" data-loading-text="{{ text_loading }}" class="btn btn-primary"/>
+    <input type="button" value="{{ button_confirm }}" data-loading-text="{{ text_loading }}" class="btn btn-primary" id="button-confirm"/>
   </div>
 </div>
 <script type="text/javascript"><!--

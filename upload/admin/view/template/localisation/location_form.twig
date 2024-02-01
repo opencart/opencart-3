@@ -24,11 +24,11 @@
         <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_form }}</h3>
       </div>
       <div class="panel-body">
-        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-location" class="form-horizontal">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal" id="form-location">
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-name">{{ entry_name }}</label>
             <div class="col-sm-10">
-              <input type="text" name="name" value="{{ name }}" placeholder="{{ entry_name }}" id="input-name" class="form-control"/>
+              <input type="text" name="name" value="{{ name }}" placeholder="{{ entry_name }}" class="form-control" id="input-name"/>
               {% if error_name %}
                 <div class="text-danger">{{ error_name }}</div>
               {% endif %}
@@ -37,7 +37,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-address">{{ entry_address }}</label>
             <div class="col-sm-10">
-              <textarea type="text" name="address" placeholder="{{ entry_address }}" rows="5" id="input-address" class="form-control"/>{{ address }}</textarea>
+              <textarea type="text" name="address" placeholder="{{ entry_address }}" rows="5" class="form-control" id="input-address"/>{{ address }}</textarea>
               {% if error_address %}
                 <div class="text-danger">{{ error_address }}</div>
               {% endif %}
@@ -46,13 +46,13 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-geocode"><span data-toggle="tooltip" data-container="#content" title="{{ help_geocode|escape('html') }}">{{ entry_geocode }}</span></label>
             <div class="col-sm-10">
-              <input type="text" name="geocode" value="{{ geocode }}" placeholder="{{ entry_geocode }}" id="input-geocode" class="form-control"/>
+              <input type="text" name="geocode" value="{{ geocode }}" placeholder="{{ entry_geocode }}" class="form-control" id="input-geocode"/>
             </div>
           </div>
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-telephone">{{ entry_telephone }}</label>
             <div class="col-sm-10">
-              <input type="text" name="telephone" value="{{ telephone }}" placeholder="{{ entry_telephone }}" id="input-telephone" class="form-control"/>
+              <input type="text" name="telephone" value="{{ telephone }}" placeholder="{{ entry_telephone }}" class="form-control" id="input-telephone"/>
               {% if error_telephone %}
                 <div class="text-danger">{{ error_telephone }}</div>
               {% endif %}
@@ -61,26 +61,26 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-fax">{{ entry_fax }}</label>
             <div class="col-sm-10">
-              <input type="text" name="fax" value="{{ fax }}" placeholder="{{ entry_fax }}" id="input-fax" class="form-control"/>
+              <input type="text" name="fax" value="{{ fax }}" placeholder="{{ entry_fax }}" class="form-control" id="input-fax"/>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-image">{{ entry_image }}</label>
             <div class="col-sm-10">
-              <a href="" id="thumb-image" data-toggle="image" class="img-thumbnail"><img src="{{ thumb }}" alt="" title="" data-placeholder="{{ placeholder }}"/></a>
+              <a href="" data-toggle="image" class="img-thumbnail" id="thumb-image"><img src="{{ thumb }}" alt="" title="" data-placeholder="{{ placeholder }}"/></a>
               <input type="hidden" name="image" value="{{ image }}" id="input-image"/>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-open"><span data-toggle="tooltip" data-container="#content" title="{{ help_open|escape('html') }}">{{ entry_open }}</span></label>
             <div class="col-sm-10">
-              <textarea name="open" rows="5" placeholder="{{ entry_open }}" id="input-open" class="form-control"/>{{ open }}</textarea>
+              <textarea name="open" rows="5" placeholder="{{ entry_open }}" class="form-control" id="input-open"/>{{ open }}</textarea>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-comment"><span data-toggle="tooltip" data-container="#content" title="{{ help_comment|escape('html') }}">{{ entry_comment }}</span></label>
             <div class="col-sm-10">
-              <textarea name="comment" rows="5" placeholder="{{ entry_comment }}" id="input-comment" class="form-control"/>{{ comment }}</textarea>
+              <textarea name="comment" rows="5" placeholder="{{ entry_comment }}" class="form-control" id="input-comment"/>{{ comment }}</textarea>
             </div>
           </div>
         </form>

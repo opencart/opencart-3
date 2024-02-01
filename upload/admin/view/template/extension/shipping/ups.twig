@@ -24,11 +24,11 @@
         <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3>
       </div>
       <div class="panel-body">
-        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-shipping" class="form-horizontal">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal" id="form-shipping">
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-key"><span data-toggle="tooltip" title="{{ help_key|escape('html') }}">{{ entry_key }}</span></label>
             <div class="col-sm-10">
-              <input type="text" name="shipping_ups_key" value="{{ shipping_ups_key }}" placeholder="{{ entry_key }}" id="input-key" class="form-control"/>
+              <input type="text" name="shipping_ups_key" value="{{ shipping_ups_key }}" placeholder="{{ entry_key }}" class="form-control" id="input-key"/>
               {% if error_key %}
                 <div class="text-danger">{{ error_key }}</div>
               {% endif %}
@@ -37,7 +37,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-username"><span data-toggle="tooltip" title="{{ help_username|escape('html') }}">{{ entry_username }}</span></label>
             <div class="col-sm-10">
-              <input type="text" name="shipping_ups_username" value="{{ shipping_ups_username }}" placeholder="{{ entry_username }}" id="input-username" class="form-control"/>
+              <input type="text" name="shipping_ups_username" value="{{ shipping_ups_username }}" placeholder="{{ entry_username }}" class="form-control" id="input-username"/>
               {% if error_username %}
                 <div class="text-danger">{{ error_username }}</div>
               {% endif %}
@@ -46,7 +46,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-password"><span data-toggle="tooltip" title="{{ help_password|escape('html') }}">{{ entry_password }}</span></label>
             <div class="col-sm-10">
-              <input type="text" name="shipping_ups_password" value="{{ shipping_ups_password }}" placeholder="{{ entry_password }}" id="input-password" class="form-control"/>
+              <input type="text" name="shipping_ups_password" value="{{ shipping_ups_password }}" placeholder="{{ entry_password }}" class="form-control" id="input-password"/>
               {% if error_password %}
                 <div class="text-danger">{{ error_password }}</div>
               {% endif %}
@@ -55,7 +55,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-pickup"><span data-toggle="tooltip" title="{{ help_pickup|escape('html') }}">{{ entry_pickup }}</span></label>
             <div class="col-sm-10">
-              <select name="shipping_ups_pickup" id="input-pickup" class="form-control"/>
+              <select name="shipping_ups_pickup" class="form-control" id="input-pickup"/>
                 {% for pickup in pickups %}
                   {% if pickup.value == shipping_ups_pickup %}
                     <option value="{{ pickup.value }}" selected="selected">{{ pickup.text }}</option>
@@ -69,7 +69,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-packaging"><span data-toggle="tooltip" title="{{ help_packaging|escape('html') }}">{{ entry_packaging }}</span></label>
             <div class="col-sm-10">
-              <select name="shipping_ups_packaging" id="input-packaging" class="form-control"/>
+              <select name="shipping_ups_packaging" class="form-control" id="input-packaging"/>
                 {% for package in packages %}
                   {% if package.value == shipping_ups_packaging %}
                     <option value="{{ package.value }}" selected="selected">{{ package.text }}</option>
@@ -83,7 +83,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-classification"><span data-toggle="tooltip" title="{{ help_classification|escape('html') }}">{{ entry_classification }}</span></label>
             <div class="col-sm-10">
-              <select name="shipping_ups_classification" id="input-classification" class="form-control"/>
+              <select name="shipping_ups_classification" class="form-control" id="input-classification"/>
                 {% for classification in classifications %}
                   {% if classification.value == shipping_ups_classification %}
                     <option value="{{ classification.value }}" selected="selected">{{ classification.text }}</option>
@@ -97,7 +97,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-origin"><span data-toggle="tooltip" title="{{ help_origin|escape('html') }}">{{ entry_origin }}</span></label>
             <div class="col-sm-10">
-              <select name="shipping_ups_origin" id="input-origin" class="form-control"/>
+              <select name="shipping_ups_origin" class="form-control" id="input-origin"/>
                 {% for origin in origins %}
                   {% if origin.value == shipping_ups_origin %}
                     <option value="{{ origin.value }}" selected="selected">{{ origin.text }}</option>
@@ -111,7 +111,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-city"><span data-toggle="tooltip" title="{{ help_city|escape('html') }}">{{ entry_city }}</span></label>
             <div class="col-sm-10">
-              <input type="text" name="shipping_ups_city" value="{{ shipping_ups_city }}" placeholder="{{ entry_city }}" id="input-city" class="form-control"/>
+              <input type="text" name="shipping_ups_city" value="{{ shipping_ups_city }}" placeholder="{{ entry_city }}" class="form-control" id="input-city"/>
               {% if error_city %}
                 <div class="text-danger">{{ error_city }}</div>
               {% endif %}
@@ -120,7 +120,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-state"><span data-toggle="tooltip" title="{{ help_state|escape('html') }}">{{ entry_state }}</span></label>
             <div class="col-sm-10">
-              <input type="text" name="shipping_ups_state" value="{{ shipping_ups_state }}" placeholder="{{ entry_state }}" id="input-state" class="form-control" maxlength="2"/>
+              <input type="text" name="shipping_ups_state" value="{{ shipping_ups_state }}" placeholder="{{ entry_state }}" class="form-control" maxlength="2" id="input-state"/>
               {% if error_state %}
                 <div class="text-danger">{{ error_state }}</div>
               {% endif %}
@@ -129,7 +129,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-country"><span data-toggle="tooltip" title="{{ help_country|escape('html') }}">{{ entry_country }}</span></label>
             <div class="col-sm-10">
-              <input type="text" name="shipping_ups_country" value="{{ shipping_ups_country }}" placeholder="{{ entry_country }}" id="input-country" class="form-control" maxlength="2"/>
+              <input type="text" name="shipping_ups_country" value="{{ shipping_ups_country }}" placeholder="{{ entry_country }}" class="form-control" maxlength="2" id="input-country"/>
               {% if error_country %}
                 <div class="text-danger">{{ error_country }}</div>
               {% endif %}
@@ -138,7 +138,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-postcode"><span data-toggle="tooltip" title="{{ help_postcode|escape('html') }}">{{ entry_postcode }}</span></label>
             <div class="col-sm-10">
-              <input type="text" name="shipping_ups_postcode" value="{{ shipping_ups_postcode }}" placeholder="{{ entry_postcode }}" id="input-postcode" class="form-control"/>
+              <input type="text" name="shipping_ups_postcode" value="{{ shipping_ups_postcode }}" placeholder="{{ entry_postcode }}" class="form-control" id="input-postcode"/>
             </div>
           </div>
           <div class="form-group">
@@ -163,7 +163,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-quote-type"><span data-toggle="tooltip" title="{{ help_quote_type|escape('html') }}">{{ entry_quote_type }}</span></label>
             <div class="col-sm-10">
-              <select name="shipping_ups_quote_type" id="input-quote-type" class="form-control"/>
+              <select name="shipping_ups_quote_type" class="form-control" id="input-quote-type"/>
                 {% for quote_type in quote_types %}
                   {% if quote_type.value == shipping_ups_quote_type %}
                     <option value="{{ quote_type.value }}" selected="selected">{{ quote_type.text }}</option>
@@ -177,7 +177,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_service|escape('html') }}">{{ entry_service }}</span></label>
             <div class="col-sm-10">
-              <div id="service" class="well well-sm" style="height: 150px; overflow: auto;">
+              <div class="well well-sm" style="height: 150px; overflow: auto;" id="service">
                 <div id="US">
                   <div class="checkbox">
                     <label>{% if shipping_ups_us_01 %}
@@ -677,7 +677,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-weight-class"><span data-toggle="tooltip" title="{{ help_weight_class|escape('html') }}">{{ entry_weight_class }}</span></label>
             <div class="col-sm-10">
-              <select name="shipping_ups_weight_class_id" id="input-weight-class" class="form-control"/>
+              <select name="shipping_ups_weight_class_id" class="form-control" id="input-weight-class"/>
                 {% for weight_class in weight_classes %}
                   {% if weight_class.weight_class_id == shipping_ups_weight_class_id %}
                     <option value="{{ weight_class.weight_class_id }}" selected="selected">{{ weight_class.title }}</option>
@@ -691,7 +691,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-length-class"><span data-toggle="tooltip" title="{{ help_length_class|escape('html') }}">{{ entry_length_class }}</span></label>
             <div class="col-sm-10">
-              <select name="shipping_ups_length_class_id" id="input-length-class" class="form-control"/>
+              <select name="shipping_ups_length_class_id" class="form-control" id="input-length-class"/>
                 {% for length_class in length_classes %}
                   {% if length_class.length_class_id == shipping_ups_length_class_id %}
                     <option value="{{ length_class.length_class_id }}" selected="selected">{{ length_class.title }}</option>
@@ -707,13 +707,13 @@
             <div class="col-sm-10">
               <div class="row">
                 <div class="col-sm-4">
-                  <input type="text" name="shipping_ups_length" value="{{ shipping_ups_length }}" placeholder="{{ entry_length }}" id="input-length" class="form-control"/>
+                  <input type="text" name="shipping_ups_length" value="{{ shipping_ups_length }}" placeholder="{{ entry_length }}" class="form-control" id="input-length"/>
                 </div>
                 <div class="col-sm-4">
-                  <input type="text" name="shipping_ups_width" value="{{ shipping_ups_width }}" placeholder="{{ entry_width }}" id="input-width" class="form-control"/>
+                  <input type="text" name="shipping_ups_width" value="{{ shipping_ups_width }}" placeholder="{{ entry_width }}" class="form-control" id="input-width"/>
                 </div>
                 <div class="col-sm-4">
-                  <input type="text" name="shipping_ups_height" value="{{ shipping_ups_height }}" placeholder="{{ entry_height }}" id="input-height" class="form-control"/>
+                  <input type="text" name="shipping_ups_height" value="{{ shipping_ups_height }}" placeholder="{{ entry_height }}" class="form-control" id="input-height"/>
                 </div>
               </div>
               {% if error_dimension %}
@@ -724,7 +724,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-tax-class">{{ entry_tax_class }}</label>
             <div class="col-sm-10">
-              <select name="shipping_ups_tax_class_id" id="input-tax-class" class="form-control"/>
+              <select name="shipping_ups_tax_class_id" class="form-control" id="input-tax-class"/>
                 <option value="0">{{ text_none }}</option>
                 {% for tax_class in tax_classes %}
                   {% if tax_class.tax_class_id == shipping_ups_tax_class_id %}
@@ -739,7 +739,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-geo-zone">{{ entry_geo_zone }}</label>
             <div class="col-sm-10">
-              <select name="shipping_ups_geo_zone_id" id="input-geo-zone" class="form-control"/>
+              <select name="shipping_ups_geo_zone_id" class="form-control" id="input-geo-zone"/>
                 <option value="0">{{ text_all_zones }}</option>
                 {% for geo_zone in geo_zones %}
                   {% if geo_zone.geo_zone_id == shipping_ups_geo_zone_id %}
@@ -754,7 +754,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
             <div class="col-sm-10">
-              <select name="shipping_ups_status" id="input-status" class="form-control"/>
+              <select name="shipping_ups_status" class="form-control" id="input-status"/>
                 {% if shipping_ups_status %}
                   <option value="1" selected="selected">{{ text_enabled }}</option>
                   <option value="0">{{ text_disabled }}</option>
@@ -768,13 +768,13 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-sort-order">{{ entry_sort_order }}</label>
             <div class="col-sm-10">
-              <input type="text" name="shipping_ups_sort_order" value="{{ shipping_ups_sort_order }}" placeholder="{{ entry_sort_order }}" id="input-sort-order" class="form-control"/>
+              <input type="text" name="shipping_ups_sort_order" value="{{ shipping_ups_sort_order }}" placeholder="{{ entry_sort_order }}" class="form-control" id="input-sort-order"/>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-debug"><span data-toggle="tooltip" title="{{ help_debug|escape('html') }}">{{ entry_debug }}</span></label>
             <div class="col-sm-10">
-              <select name="shipping_ups_debug" id="input-debug" class="form-control"/>
+              <select name="shipping_ups_debug" class="form-control" id="input-debug"/>
                 {% if shipping_ups_debug %}
                   <option value="1" selected="selected">{{ text_enabled }}</option>
                   <option value="0">{{ text_disabled }}</option>

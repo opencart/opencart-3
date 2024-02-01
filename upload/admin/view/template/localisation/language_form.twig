@@ -24,11 +24,11 @@
         <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_form }}</h3>
       </div>
       <div class="panel-body">
-        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-language" class="form-horizontal">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal" id="form-language">
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-name">{{ entry_name }}</label>
             <div class="col-sm-10">
-              <input type="text" name="name" value="{{ name }}" placeholder="{{ entry_name }}" id="input-name" class="form-control"/>
+              <input type="text" name="name" value="{{ name }}" placeholder="{{ entry_name }}" class="form-control" id="input-name"/>
               {% if error_name %}
                 <div class="text-danger">{{ error_name }}</div>
               {% endif %}
@@ -37,7 +37,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-code">{{ entry_code }}</label>
             <div class="col-sm-10">
-              <select name="code" id="input-code" class="form-control"/>
+              <select name="code" class="form-control" id="input-code"/>
                 {% for language in languages %}
                   {% if language == code %}
                     <option value="{{ language }}" selected="selected">{{ language }}</option>
@@ -54,7 +54,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label required" for="input-locale"><span data-toggle="tooltip" title="{{ help_locale|escape('html') }}">{{ entry_locale }}</span></label>
             <div class="col-sm-10">
-              <input type="text" name="locale" value="{{ locale }}" placeholder="{{ entry_locale }}" id="input-locale" class="form-control"/>
+              <input type="text" name="locale" value="{{ locale }}" placeholder="{{ entry_locale }}" class="form-control" id="input-locale"/>
               {% if error_locale %}
                 <div class="text-danger">{{ error_locale }}</div>
               {% endif %}
@@ -63,7 +63,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-status"><span data-toggle="tooltip" title="{{ help_status|escape('html') }}">{{ entry_status }}</span></label>
             <div class="col-sm-10">
-              <select name="status" id="input-status" class="form-control"/>
+              <select name="status" class="form-control" id="input-status"/>
                 {% if status %}
                   <option value="1" selected="selected">{{ text_enabled }}</option>
                   <option value="0">{{ text_disabled }}</option>
@@ -77,7 +77,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-sort-order">{{ entry_sort_order }}</label>
             <div class="col-sm-10">
-              <input type="text" name="sort_order" value="{{ sort_order }}" placeholder="{{ entry_sort_order }}" id="input-sort-order" class="form-control"/>
+              <input type="text" name="sort_order" value="{{ sort_order }}" placeholder="{{ entry_sort_order }}" class="form-control" id="input-sort-order"/>
             </div>
           </div>
         </form>

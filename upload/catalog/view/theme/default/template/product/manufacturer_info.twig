@@ -1,5 +1,5 @@
 {{ header }}
-<div id="product-manufacturer" class="container">
+<div class="container" id="product-manufacturer">
   <ul class="breadcrumb">
     {% for breadcrumb in breadcrumbs %}
       <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
@@ -13,23 +13,23 @@
     {% else %}
       {% set class = 'col-sm-12' %}
     {% endif %}
-    <div id="content" class="{{ class }}">{{ content_top }}
+    <div class="{{ class }}" id="content">{{ content_top }}
       <h2>{{ heading_title }}</h2>
       {% if products %}
         <div class="row">
           <div class="col-md-2 col-sm-6 hidden-xs">
             <div class="btn-group btn-group-sm">
-              <button type="button" id="list-view" class="btn btn-default" data-toggle="tooltip" title="{{ button_list }}"><i class="fa fa-th-list"></i></button>
-              <button type="button" id="grid-view" class="btn btn-default" data-toggle="tooltip" title="{{ button_grid }}"><i class="fa fa-th"></i></button>
+              <button type="button" class="btn btn-default" data-toggle="tooltip" title="{{ button_list }}" id="list-view"><i class="fa fa-th-list"></i></button>
+              <button type="button" class="btn btn-default" data-toggle="tooltip" title="{{ button_grid }}" id="grid-view"><i class="fa fa-th"></i></button>
             </div>
           </div>
           <div class="col-md-3 col-sm-6">
-            <div class="form-group"><a href="{{ compare }}" id="compare-total" class="btn btn-link">{{ text_compare }}</a></div>
+            <div class="form-group"><a href="{{ compare }}" class="btn btn-link" id="compare-total">{{ text_compare }}</a></div>
           </div>
           <div class="col-md-4 col-xs-6">
             <div class="form-group input-group input-group-sm">
               <label class="input-group-addon" for="input-sort">{{ text_sort }}</label>
-              <select id="input-sort" class="form-control" onchange="location = this.value;">
+              <select class="form-control" onchange="location = this.value;" id="input-sort">
                 {% for sorts in sorts %}
                   {% if sorts.value == '%s-%s'|format(sort, order) %}
                     <option value="{{ sorts.href }}" selected="selected">{{ sorts.text }}</option>
@@ -43,7 +43,7 @@
           <div class="col-md-3 col-xs-6">
             <div class="form-group input-group input-group-sm">
               <label class="input-group-addon" for="input-limit">{{ text_limit }}</label>
-              <select id="input-limit" class="form-control" onchange="location = this.value;">
+              <select class="form-control" onchange="location = this.value;" id="input-limit">
                 {% for limits in limits %}
                   {% if limits.value == limit %}
                     <option value="{{ limits.href }}" selected="selected">{{ limits.text }}</option>

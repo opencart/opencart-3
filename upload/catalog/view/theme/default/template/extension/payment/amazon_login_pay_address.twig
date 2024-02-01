@@ -7,7 +7,7 @@
       <a href="{{ cart }}" class="btn btn-default">{{ text_cart }}</a>
     </div>
     <div class="pull-right form-control-static">
-      <input class="btn btn-primary" id="continue-button" data-loading-text="{{ text_loading }}" type="submit" value="{{ text_continue }}"/>
+      <input class="btn btn-primary" data-loading-text="{{ text_loading }}" type="submit" value="{{ text_continue }}" id="continue-button"/>
     </div>
   </div>
 </div>
@@ -96,7 +96,7 @@
                                     html += '<label>';
 
                                     if (data.selected == quote.code) {
-                                        html += '<input type="radio" name="shipping_method" value="' + quote.code + '" id="' + quote.code + '" checked="checked"/>';
+                                        html += '<input type="radio" name="shipping_method" value="' + quote.code + '" checked="checked" id="' + quote.code + '"/>';
                                     } else {
                                         html += '<input type="radio" name="shipping_method" value="' + quote.code + '" id="' + quote.code + '"/>';
                                     }

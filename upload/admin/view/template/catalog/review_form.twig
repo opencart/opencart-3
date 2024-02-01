@@ -24,11 +24,11 @@
         <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_form }}</h3>
       </div>
       <div class="panel-body">
-        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-review" class="form-horizontal">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal" id="form-review">
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-author">{{ entry_author }}</label>
             <div class="col-sm-10">
-              <input type="text" name="author" value="{{ author }}" placeholder="{{ entry_author }}" id="input-author" class="form-control"/>
+              <input type="text" name="author" value="{{ author }}" placeholder="{{ entry_author }}" class="form-control" id="input-author"/>
               {% if error_author %}
                 <div class="text-danger">{{ error_author }}</div>
               {% endif %}
@@ -37,7 +37,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-product"><span data-toggle="tooltip" title="{{ help_product|escape('html') }}">{{ entry_product }}</span></label>
             <div class="col-sm-10">
-              <input type="text" name="product" value="{{ product }}" placeholder="{{ entry_product }}" id="input-product" class="form-control"/>
+              <input type="text" name="product" value="{{ product }}" placeholder="{{ entry_product }}" class="form-control" id="input-product"/>
               <input type="hidden" name="product_id" value="{{ product_id }}"/>
               {% if error_product %}
                 <div class="text-danger">{{ error_product }}</div>
@@ -47,7 +47,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-text">{{ entry_text }}</label>
             <div class="col-sm-10">
-              <textarea name="text" cols="60" rows="8" placeholder="{{ entry_text }}" id="input-text" class="form-control"/>{{ text }}</textarea>
+              <textarea name="text" cols="60" rows="8" placeholder="{{ entry_text }}" class="form-control" id="input-text"/>{{ text }}</textarea>
               {% if error_text %}
                 <div class="text-danger">{{ error_text }}</div>
               {% endif %}
@@ -100,7 +100,7 @@
             <label class="col-sm-2 control-label" for="input-date-added">{{ entry_date_added }}</label>
             <div class="col-sm-3">
               <div class="input-group datetime">
-                <input type="text" name="date_added" value="{{ date_added }}" placeholder="{{ entry_date_added }}" data-date-format="YYYY-MM-DD HH:mm:ss" id="input-date-added" class="form-control"/>
+                <input type="text" name="date_added" value="{{ date_added }}" placeholder="{{ entry_date_added }}" data-date-format="YYYY-MM-DD HH:mm:ss" class="form-control" id="input-date-added"/>
                 <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span>
               </div>
             </div>
@@ -108,7 +108,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
             <div class="col-sm-10">
-              <select name="status" id="input-status" class="form-control"/>
+              <select name="status" class="form-control" id="input-status"/>
                 {% if status %}
                   <option value="1" selected="selected">{{ text_enabled }}</option>
                   <option value="0">{{ text_disabled }}</option>

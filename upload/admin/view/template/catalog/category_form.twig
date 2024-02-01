@@ -24,7 +24,7 @@
         <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_form }}</h3>
       </div>
       <div class="panel-body">
-        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-category" class="form-horizontal">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal" id="form-category">
           <ul class="nav nav-tabs">
             <li class="active"><a href="#tab-general" data-toggle="tab">{{ tab_general }}</a></li>
             <li><a href="#tab-data" data-toggle="tab">{{ tab_data }}</a></li>
@@ -40,11 +40,11 @@
               </ul>
               <div class="tab-content">
                 {% for language in languages %}
-                  <div id="language{{ language.language_id }}" class="tab-pane">
+                  <div class="tab-pane" id="language{{ language.language_id }}">
                     <div class="form-group required">
                       <label class="col-sm-2 control-label" for="input-name{{ language.language_id }}">{{ entry_name }}</label>
                       <div class="col-sm-10">
-                        <input type="text" name="category_description[{{ language.language_id }}][name]" value="{{ category_description[language.language_id] ? category_description[language.language_id].name }}" placeholder="{{ entry_name }}" id="input-name{{ language.language_id }}" class="form-control"/>
+                        <input type="text" name="category_description[{{ language.language_id }}][name]" value="{{ category_description[language.language_id] ? category_description[language.language_id].name }}" placeholder="{{ entry_name }}" class="form-control" id="input-name{{ language.language_id }}"/>
                         {% if error_name[language.language_id] %}
                           <div class="text-danger">{{ error_name[language.language_id] }}</div>
                         {% endif %}
@@ -53,13 +53,13 @@
                     <div class="form-group">
                       <label class="col-sm-2 control-label" for="input-description{{ language.language_id }}">{{ entry_description }}</label>
                       <div class="col-sm-10">
-                        <textarea name="category_description[{{ language.language_id }}][description]" placeholder="{{ entry_description }}" id="input-description{{ language.language_id }}" data-toggle="summernote" data-lang="{{ summernote }}" class="form-control"/>{{ category_description[language.language_id] ? category_description[language.language_id].description }}</textarea>
+                        <textarea name="category_description[{{ language.language_id }}][description]" placeholder="{{ entry_description }}" data-toggle="summernote" data-lang="{{ summernote }}" class="form-control" id="input-description{{ language.language_id }}"/>{{ category_description[language.language_id] ? category_description[language.language_id].description }}</textarea>
                       </div>
                     </div>
                     <div class="form-group required">
                       <label class="col-sm-2 control-label" for="input-meta-title{{ language.language_id }}">{{ entry_meta_title }}</label>
                       <div class="col-sm-10">
-                        <input type="text" name="category_description[{{ language.language_id }}][meta_title]" value="{{ category_description[language.language_id] ? category_description[language.language_id].meta_title }}" placeholder="{{ entry_meta_title }}" id="input-meta-title{{ language.language_id }}" class="form-control"/>
+                        <input type="text" name="category_description[{{ language.language_id }}][meta_title]" value="{{ category_description[language.language_id] ? category_description[language.language_id].meta_title }}" placeholder="{{ entry_meta_title }}" class="form-control" id="input-meta-title{{ language.language_id }}"/>
                         {% if error_meta_title[language.language_id] %}
                           <div class="text-danger">{{ error_meta_title[language.language_id] }}</div>
                         {% endif %}
@@ -68,24 +68,24 @@
                     <div class="form-group">
                       <label class="col-sm-2 control-label" for="input-meta-description{{ language.language_id }}">{{ entry_meta_description }}</label>
                       <div class="col-sm-10">
-                        <textarea name="category_description[{{ language.language_id }}][meta_description]" rows="5" placeholder="{{ entry_meta_description }}" id="input-meta-description{{ language.language_id }}" class="form-control"/>{{ category_description[language.language_id] ? category_description[language.language_id].meta_description }}</textarea>
+                        <textarea name="category_description[{{ language.language_id }}][meta_description]" rows="5" placeholder="{{ entry_meta_description }}" class="form-control" id="input-meta-description{{ language.language_id }}"/>{{ category_description[language.language_id] ? category_description[language.language_id].meta_description }}</textarea>
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label" for="input-meta-keyword{{ language.language_id }}">{{ entry_meta_keyword }}</label>
                       <div class="col-sm-10">
-                        <textarea name="category_description[{{ language.language_id }}][meta_keyword]" rows="5" placeholder="{{ entry_meta_keyword }}" id="input-meta-keyword{{ language.language_id }}" class="form-control"/>{{ category_description[language.language_id] ? category_description[language.language_id].meta_keyword }}</textarea>
+                        <textarea name="category_description[{{ language.language_id }}][meta_keyword]" rows="5" placeholder="{{ entry_meta_keyword }}" class="form-control" id="input-meta-keyword{{ language.language_id }}"/>{{ category_description[language.language_id] ? category_description[language.language_id].meta_keyword }}</textarea>
                       </div>
                     </div>
                   </div>
                 {% endfor %}
               </div>
             </div>
-            <div id="tab-data" class="tab-pane">
+            <div class="tab-pane" id="tab-data">
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-parent">{{ entry_parent }}</label>
                 <div class="col-sm-10">
-                  <input type="text" name="path" value="{{ path }}" placeholder="{{ entry_parent }}" id="input-parent" class="form-control"/>
+                  <input type="text" name="path" value="{{ path }}" placeholder="{{ entry_parent }}" class="form-control" id="input-parent"/>
                   <input type="hidden" name="parent_id" value="{{ parent_id }}"/>
                   {% if error_parent %}
                     <div class="text-danger">{{ error_parent }}</div>
@@ -95,8 +95,8 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-filter"><span data-toggle="tooltip" title="{{ help_filter|escape('html') }}">{{ entry_filter }}</span></label>
                 <div class="col-sm-10">
-                  <input type="text" name="filter" value="" placeholder="{{ entry_filter }}" id="input-filter" class="form-control"/>
-                  <div id="category-filter" class="well well-sm" style="height: 150px; overflow: auto;">
+                  <input type="text" name="filter" value="" placeholder="{{ entry_filter }}" class="form-control" id="input-filter"/>
+                  <div class="well well-sm" style="height: 150px; overflow: auto;" id="category-filter">
                     {% for category_filter in category_filters %}
                       <div id="category-filter{{ category_filter.filter_id }}">
                         <i class="fa fa-minus-circle"></i> {{ category_filter.name }}
@@ -127,7 +127,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label">{{ entry_image }}</label>
                 <div class="col-sm-10">
-                  <a href="" id="thumb-image" data-toggle="image" class="img-thumbnail"><img src="{{ thumb }}" alt="" title="" data-placeholder="{{ placeholder }}"/></a>
+                  <a href="" data-toggle="image" class="img-thumbnail" id="thumb-image"><img src="{{ thumb }}" alt="" title="" data-placeholder="{{ placeholder }}"/></a>
                   <input type="hidden" name="image" value="{{ image }}" id="input-image"/>
                 </div>
               </div>
@@ -146,19 +146,19 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-column"><span data-toggle="tooltip" title="{{ help_column|escape('html') }}">{{ entry_column }}</span></label>
                 <div class="col-sm-10">
-                  <input type="text" name="column" value="{{ column }}" placeholder="{{ entry_column }}" id="input-column" class="form-control"/>
+                  <input type="text" name="column" value="{{ column }}" placeholder="{{ entry_column }}" class="form-control" id="input-column"/>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-sort-order">{{ entry_sort_order }}</label>
                 <div class="col-sm-10">
-                  <input type="text" name="sort_order" value="{{ sort_order }}" placeholder="{{ entry_sort_order }}" id="input-sort-order" class="form-control"/>
+                  <input type="text" name="sort_order" value="{{ sort_order }}" placeholder="{{ entry_sort_order }}" class="form-control" id="input-sort-order"/>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
                 <div class="col-sm-10">
-                  <select name="status" id="input-status" class="form-control"/>
+                  <select name="status" class="form-control" id="input-status"/>
                     {% if status %}
                       <option value="1" selected="selected">{{ text_enabled }}</option>
                       <option value="0">{{ text_disabled }}</option>
@@ -170,7 +170,7 @@
                 </div>
               </div>
             </div>
-            <div id="tab-seo" class="tab-pane">
+            <div class="tab-pane" id="tab-seo">
               <div class="alert alert-info"><i class="fa fa-info-circle"></i> {{ text_keyword }}</div>
               <div class="table-responsive">
                 <table class="table table-bordered table-hover">
@@ -198,7 +198,7 @@
                 </table>
               </div>
             </div>
-            <div id="tab-design" class="tab-pane">
+            <div class="tab-pane" id="tab-design">
               <div class="table-responsive">
                 <table class="table table-bordered table-hover">
                   <thead>
@@ -290,7 +290,7 @@
 
           $('#category-filter' + item['value']).remove();
 
-          $('#category-filter').append('<div id="category-filter' + item['value'] + '"><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden" name="category_filter[]" value="' + item['value'] + '"/></div>');
+          $('#category-filter').append('<div name="category_filter[]" value="' + item['value'] + '" id="category-filter' + item['value'] + '"/><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden"></div>');
       }
   });
 

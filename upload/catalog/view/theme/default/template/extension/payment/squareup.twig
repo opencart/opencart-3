@@ -6,7 +6,7 @@
 <div id="squareup-notification">
   <div class="text-center alert alert-info"><i class="fa fa-circle-o-notch fa-spin"></i>&nbsp;{{ text_loading }}</div>
 </div>
-<form class="form-horizontal" action="{{ action }}" method="post" id="squareup-card-details-form" style="display: none;">
+<form class="form-horizontal" action="{{ action }}" method="post" style="display: none;" id="squareup-card-details-form">
   <fieldset>
     <legend>{{ text_card_details }}</legend>
     {% if cards %}
@@ -44,14 +44,14 @@
       <div class="form-group">
         <label class="col-sm-2 control-label" for="squareup-save-card">{{ text_card_save }}</label>
         <div class="col-sm-10">
-          <input type="checkbox" id="squareup-save-card" value="1" name="squareup_save_card"/>
+          <input type="checkbox" value="1" name="squareup_save_card" id="squareup-save-card"/>
         </div>
       </div>
     {% endif %}
   </fieldset>
   <div class="buttons">
     <div class="pull-right">
-      <input type="button" value="{{ button_confirm }}" id="button-confirm-order" data-loading-text="{{ text_loading }}" class="btn btn-primary">
+      <input type="button" value="{{ button_confirm }}" data-loading-text="{{ text_loading }}" class="btn btn-primary" id="button-confirm-order">
     </div>
   </div>
   <input type="hidden" name="squareup_nonce" id="squareup-nonce"/>

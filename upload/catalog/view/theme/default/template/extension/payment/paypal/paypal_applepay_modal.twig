@@ -1,4 +1,4 @@
-<div id="paypal-modal" class="modal fade">
+<div class="modal fade" id="paypal-modal">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -8,8 +8,8 @@
       <div class="modal-body">
         <div id="paypal-form">
           {% if button_status %}
-            <div id="paypal-button" class="paypal-button buttons clearfix">
-              <div id="paypal-button-container" class="paypal-button-container paypal-spinner"></div>
+            <div class="paypal-button buttons clearfix" id="paypal-button">
+              <div class="paypal-button-container paypal-spinner" id="paypal-button-container"></div>
             </div>
           {% endif %}
         </div>

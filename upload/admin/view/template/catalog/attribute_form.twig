@@ -24,7 +24,7 @@
         <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_form }}</h3>
       </div>
       <div class="panel-body">
-        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-attribute" class="form-horizontal">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal" id="form-attribute">
           <div class="form-group required">
             <label class="col-sm-2 control-label">{{ entry_name }}</label>
             <div class="col-sm-10">
@@ -41,7 +41,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-attribute-group">{{ entry_attribute_group }}</label>
             <div class="col-sm-10">
-              <select name="attribute_group_id" id="input-attribute-group" class="form-control"/>
+              <select name="attribute_group_id" class="form-control" id="input-attribute-group"/>
                 <option value="0"></option>
                 {% for attribute_group in attribute_groups %}
                   {% if attribute_group.attribute_group_id == attribute_group_id %}
@@ -59,7 +59,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-sort-order">{{ entry_sort_order }}</label>
             <div class="col-sm-10">
-              <input type="text" name="sort_order" value="{{ sort_order }}" placeholder="{{ entry_sort_order }}" id="input-sort-order" class="form-control"/>
+              <input type="text" name="sort_order" value="{{ sort_order }}" placeholder="{{ entry_sort_order }}" class="form-control" id="input-sort-order"/>
             </div>
           </div>
         </form>

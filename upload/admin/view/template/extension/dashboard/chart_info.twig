@@ -1,7 +1,7 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <div class="pull-right"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-calendar"></i><i class="caret"></i></a>
-      <ul id="range" class="dropdown-menu dropdown-menu-right">
+      <ul class="dropdown-menu dropdown-menu-right" id="range">
         <li><a href="day">{{ text_day }}</a></li>
         <li><a href="week">{{ text_week }}</a></li>
         <li class="active"><a href="month">{{ text_month }}</a></li>
@@ -11,7 +11,7 @@
     <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> {{ heading_title }}</h3>
   </div>
   <div class="panel-body">
-    <div id="chart-sale" style="width: 100%; height: 260px;"></div>
+    <div style="width: 100%; height: 260px;" id="chart-sale"></div>
   </div>
 </div>
 <script type="text/javascript" src="view/javascript/jquery/flot/jquery.flot.js"></script>
@@ -60,7 +60,7 @@ $('#range a').on('click', function (e) {
                 $('.tooltip').remove();
 
                 if (item) {
-                    $('<div id="tooltip" class="tooltip top in"><div class="tooltip-arrow"></div><div class="tooltip-inner">' + item.datapoint[1].toFixed(2) + '</div></div>').prependTo('body');
+                    $('<div class="tooltip top in" id="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner">' + item.datapoint[1].toFixed(2) + '</div></div>').prependTo('body');
 
                     $('#tooltip').css({
                         position: 'absolute',

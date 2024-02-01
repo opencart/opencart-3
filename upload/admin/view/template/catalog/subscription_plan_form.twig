@@ -25,7 +25,7 @@
         <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_form }}</h3>
       </div>
       <div class="panel-body">
-        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-subscription" class="form-horizontal">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal" id="form-subscription">
           <div class="form-group required">
             <label class="col-sm-2 control-label">{{ entry_name }}</label>
             <div class="col-sm-10">
@@ -44,25 +44,25 @@
             <div class="form-group">
               <label class="col-sm-2 control-label" for="input-price">{{ entry_price }}</label>
               <div class="col-sm-10">
-                <input type="text" name="price" value="{{ price }}" placeholder="{{ entry_price }}" id="input-price" class="form-control"/>
+                <input type="text" name="price" value="{{ price }}" placeholder="{{ entry_price }}" class="form-control" id="input-price"/>
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label" for="input-duration"><span data-toggle="tooltip" title="{{ help_duration|escape('html') }}">{{ entry_duration }}</span></label>
               <div class="col-sm-10">
-                <input type="text" name="duration" value="{{ duration }}" placeholder="{{ entry_duration }}" id="input-duration" class="form-control"/>
+                <input type="text" name="duration" value="{{ duration }}" placeholder="{{ entry_duration }}" class="form-control" id="input-duration"/>
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label" for="input-cycle"><span data-toggle="tooltip" title="{{ help_cycle|escape('html') }}">{{ entry_cycle }}</span></label>
               <div class="col-sm-10">
-                <input type="text" name="cycle" value="{{ cycle }}" placeholder="{{ entry_cycle }}" id="input-cycle" class="form-control"/>
+                <input type="text" name="cycle" value="{{ cycle }}" placeholder="{{ entry_cycle }}" class="form-control" id="input-cycle"/>
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label" for="input-frequency"><span data-toggle="tooltip" title="{{ help_frequency|escape('html') }}">{{ entry_frequency }}</span></label>
               <div class="col-sm-10">
-                <select name="frequency" id="input-frequency" class="form-control"/>
+                <select name="frequency" class="form-control" id="input-frequency"/>
                   {% for frequency_option in frequencies %}
                     {% if frequency == frequency_option.value %}
                       <option value="{{ frequency_option.value }}" selected="selected">{{ frequency_option.text }}</option>
@@ -76,7 +76,7 @@
             <div class="form-group">
               <label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
               <div class="col-sm-10">
-                <select name="status" id="input-status" class="form-control"/>
+                <select name="status" class="form-control" id="input-status"/>
                   {% if status %}
                     <option value="1" selected="selected">{{ text_enabled }}</option>
                     <option value="0">{{ text_disabled }}</option>
@@ -93,25 +93,25 @@
             <div class="form-group">
               <label class="col-sm-2 control-label" for="input-trial-price">{{ entry_trial_price }}</label>
               <div class="col-sm-10">
-                <input type="text" name="trial_price" value="{{ trial_price }}" placeholder="{{ entry_trial_price }}" id="input-trial-price" class="form-control"/>
+                <input type="text" name="trial_price" value="{{ trial_price }}" placeholder="{{ entry_trial_price }}" class="form-control" id="input-trial-price"/>
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label" for="input-trial-duration"><span data-toggle="tooltip" title="{{ help_trial_duration|escape('html') }}">{{ entry_trial_duration }}</span></label>
               <div class="col-sm-10">
-                <input type="text" name="trial_duration" value="{{ trial_duration }}" placeholder="{{ entry_trial_duration }}" id="input-trial-duration" class="form-control"/>
+                <input type="text" name="trial_duration" value="{{ trial_duration }}" placeholder="{{ entry_trial_duration }}" class="form-control" id="input-trial-duration"/>
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label" for="input-trial-cycle"><span data-toggle="tooltip" title="{{ help_trial_cycle|escape('html') }}">{{ entry_trial_cycle }}</span></label>
               <div class="col-sm-10">
-                <input type="text" name="trial_cycle" value="{{ trial_cycle }}" placeholder="{{ entry_trial_cycle }}" id="input-trial-cycle" class="form-control"/>
+                <input type="text" name="trial_cycle" value="{{ trial_cycle }}" placeholder="{{ entry_trial_cycle }}" class="form-control" id="input-trial-cycle"/>
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label" for="input-trial-frequency"><span data-toggle="tooltip" title="{{ help_trial_frequency|escape('html') }}">{{ entry_trial_frequency }}</span></label>
               <div class="col-sm-10">
-                <select name="trial_frequency" id="input-trial-frequency" class="form-control"/>
+                <select name="trial_frequency" class="form-control" id="input-trial-frequency"/>
                   {% for frequency_option in frequencies %}
                     {% if trial_frequency == frequency_option.value %}
                       <option value="{{ frequency_option.value }}" selected="selected">{{ frequency_option.text }}</option>
@@ -125,7 +125,7 @@
             <div class="form-group">
               <label class="col-sm-2 control-label" for="input-trial-status">{{ entry_trial_status }}</label>
               <div class="col-sm-10">
-                <select name="trial_status" id="input-trial-status" class="form-control"/>
+                <select name="trial_status" class="form-control" id="input-trial-status"/>
                   {% if trial_status %}
                     <option value="0">{{ text_disabled }}</option>
                     <option value="1" selected="selected">{{ text_enabled }}</option>
@@ -140,7 +140,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-sort-order">{{ entry_sort_order }}</label>
             <div class="col-sm-10">
-              <input type="text" name="sort_order" value="{{ sort_order }}" placeholder="{{ entry_sort_order }}" id="input-sort-order" class="form-control"/>
+              <input type="text" name="sort_order" value="{{ sort_order }}" placeholder="{{ entry_sort_order }}" class="form-control" id="input-sort-order"/>
             </div>
           </div>
         </form>

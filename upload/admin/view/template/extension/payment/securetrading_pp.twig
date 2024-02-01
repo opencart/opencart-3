@@ -24,11 +24,11 @@
         <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ heading_title }}</h3>
       </div>
       <div class="panel-body">
-        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-payment" class="form-horizontal">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal" id="form-payment">
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="securetrading_pp_site_reference">{{ entry_site_reference }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_securetrading_pp_site_reference" value="{{ payment_securetrading_pp_site_reference }}" placeholder="{{ entry_site_reference }}" id="securetrading-pp-site-reference" class="form-control"/>
+              <input type="text" name="payment_securetrading_pp_site_reference" value="{{ payment_securetrading_pp_site_reference }}" placeholder="{{ entry_site_reference }}" class="form-control" id="securetrading-pp-site-reference"/>
               {% if error_site_reference %}
                 <div class="text-danger">{{ error_site_reference }}</div>
               {% endif %}
@@ -37,7 +37,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="securetrading-pp-version"><span data-toggle="tooltip" title="{{ help_version|escape('html') }}">{{ entry_version }}</span></label>
             <div class="col-sm-10">
-              <input type="text" name="payment_securetrading_pp_version" value="{{ payment_securetrading_pp_version }}" placeholder="{{ entry_version }}" id="securetrading-pp-version" class="form-control"/>
+              <input type="text" name="payment_securetrading_pp_version" value="{{ payment_securetrading_pp_version }}" placeholder="{{ entry_version }}" class="form-control" id="securetrading-pp-version"/>
               {% if error_version %}
                 <div class="text-danger">{{ error_version }}</div>
               {% endif %}
@@ -46,19 +46,19 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="payment-securetrading-pp-username">{{ entry_username }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_securetrading_pp_username" value="{{ payment_securetrading_pp_username }}" placeholder="{{ entry_username }}" id="payment-securetrading-pp-username" class="form-control"/>
+              <input type="text" name="payment_securetrading_pp_username" value="{{ payment_securetrading_pp_username }}" placeholder="{{ entry_username }}" class="form-control" id="payment-securetrading-pp-username"/>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="securetrading-pp-password">{{ entry_password }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_securetrading_pp_password" value="{{ payment_securetrading_pp_password }}" placeholder="{{ entry_password }}" id="securetrading-pp-password" class="form-control"/>
+              <input type="text" name="payment_securetrading_pp_password" value="{{ payment_securetrading_pp_password }}" placeholder="{{ entry_password }}" class="form-control" id="securetrading-pp-password"/>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="securetrading-pp-site-security-status">{{ entry_site_security_status }}</label>
             <div class="col-sm-10">
-              <select name="payment_securetrading_pp_site_security_status" id="securetrading-pp-status" class="form-control"/>
+              <select name="payment_securetrading_pp_site_security_status" class="form-control" id="securetrading-pp-status"/>
                 {% if payment_securetrading_pp_site_security_status == 1 %}
                   <option value="1" selected="selected">{{ text_enabled }}</option>
                 {% else %}
@@ -75,13 +75,13 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="securetrading-pp-site-security-password">{{ entry_site_security_password }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_securetrading_pp_site_security_password" value="{{ payment_securetrading_pp_site_security_password }}" placeholder="{{ entry_site_security_password }}" id="securetrading-pp-site-security-password" class="form-control"/>
+              <input type="text" name="payment_securetrading_pp_site_security_password" value="{{ payment_securetrading_pp_site_security_password }}" placeholder="{{ entry_site_security_password }}" class="form-control" id="securetrading-pp-site-security-password"/>
             </div>
           </div>
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="securetrading-pp-notification-password">{{ entry_notification_password }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_securetrading_pp_notification_password" value="{{ payment_securetrading_pp_notification_password }}" placeholder="{{ entry_notification_password }}" id="securetrading-pp-site-security-password" class="form-control"/>
+              <input type="text" name="payment_securetrading_pp_notification_password" value="{{ payment_securetrading_pp_notification_password }}" placeholder="{{ entry_notification_password }}" class="form-control" id="securetrading-pp-site-security-password"/>
               {% if error_notification_password %}
                 <div class="text-danger">{{ error_notification_password }}</div>
               {% endif %}
@@ -90,13 +90,13 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="securetrading-pp-webservice-username">{{ entry_username }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_securetrading_pp_webservice_username" value="{{ payment_securetrading_pp_webservice_username }}" placeholder="{{ entry_username }}" id="securetrading-pp-webservice-username" class="form-control"/>
+              <input type="text" name="payment_securetrading_pp_webservice_username" value="{{ payment_securetrading_pp_webservice_username }}" placeholder="{{ entry_username }}" class="form-control" id="securetrading-pp-webservice-username"/>
               <span class="help-block">{{ help_username }}</span></div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="securetrading-pp-webservice-password">{{ entry_password }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_securetrading_pp_webservice_password" value="{{ payment_securetrading_pp_webservice_password }}" placeholder="{{ entry_password }}" id="securetrading-pp-webservice-password" class="form-control"/>
+              <input type="text" name="payment_securetrading_pp_webservice_password" value="{{ payment_securetrading_pp_webservice_password }}" placeholder="{{ entry_password }}" class="form-control" id="securetrading-pp-webservice-password"/>
               <span class="help-block">{{ help_password }}</span></div>
           </div>
           <div class="form-group required">
@@ -120,7 +120,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="securetrading-pp-settle-status">{{ entry_settle_status }}</label>
             <div class="col-sm-10">
-              <select name="payment_securetrading_pp_settle_status" id="securetrading-pp-settle-status" class="form-control"/>
+              <select name="payment_securetrading_pp_settle_status" class="form-control" id="securetrading-pp-settle-status"/>
                 {% for key, value in settlement_statuses %}
                   {% if key == payment_securetrading_pp_settle_status %}
                     <option value="{{ key }}" selected="selected">{{ value }}</option>
@@ -134,7 +134,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="securetrading-pp-settle-due-date">{{ entry_settle_due_date }}</label>
             <div class="col-sm-10">
-              <select name="payment_securetrading_pp_settle_due_date" id="securetrading-pp-settle-due-date" class="form-control"/>
+              <select name="payment_securetrading_pp_settle_due_date" class="form-control" id="securetrading-pp-settle-due-date"/>
                 {% if payment_securetrading_pp_settle_due_date == 0 %}
                   <option value="0" selected="selected">{{ text_process_immediately }}</option>
                 {% else %}
@@ -153,13 +153,13 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="securetrading-pp-total">{{ entry_total }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_securetrading_pp_total" value="{{ payment_securetrading_pp_total }}" placeholder="{{ entry_total }}" id="securetrading-pp-total" class="form-control"/>
+              <input type="text" name="payment_securetrading_pp_total" value="{{ payment_securetrading_pp_total }}" placeholder="{{ entry_total }}" class="form-control" id="securetrading-pp-total"/>
               <span class="help-block">{{ help_total }}</span></div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="securetrading-pp-order-status-id">{{ entry_order_status }}</label>
             <div class="col-sm-10">
-              <select name="payment_securetrading_pp_order_status_id" id="securetrading-pp-order-status-id" class="form-control"/>
+              <select name="payment_securetrading_pp_order_status_id" class="form-control" id="securetrading-pp-order-status-id"/>
                 {% for order_status in order_statuses %}
                   {% if order_status.order_status_id == payment_securetrading_pp_order_status_id %}
                     <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
@@ -173,7 +173,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="securetrading-pp-declined-order-status-id">{{ entry_declined_order_status }}</label>
             <div class="col-sm-10">
-              <select name="payment_securetrading_pp_declined_order_status_id" id="securetrading-pp-declined-order-status-id" class="form-control"/>
+              <select name="payment_securetrading_pp_declined_order_status_id" class="form-control" id="securetrading-pp-declined-order-status-id"/>
                 {% for order_status in order_statuses %}
                   {% if order_status.order_status_id == payment_securetrading_pp_declined_order_status_id %}
                     <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
@@ -187,7 +187,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="securetrading-pp-refunded-order-status-id">{{ entry_refunded_order_status }}</label>
             <div class="col-sm-10">
-              <select name="payment_securetrading_pp_refunded_order_status_id" id="securetrading-pp-refunded-order-status-id" class="form-control"/>
+              <select name="payment_securetrading_pp_refunded_order_status_id" class="form-control" id="securetrading-pp-refunded-order-status-id"/>
                 {% for order_status in order_statuses %}
                   {% if order_status.order_status_id == payment_securetrading_pp_refunded_order_status_id %}
                     <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
@@ -201,7 +201,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="securetrading-pp-authorisation-reversed-order-status-id">{{ entry_authorisation_reversed_order_status }}</label>
             <div class="col-sm-10">
-              <select name="payment_securetrading_pp_authorisation_reversed_order_status_id" id="securetrading-pp-authorisation-reversed-order-status-id" class="form-control"/>
+              <select name="payment_securetrading_pp_authorisation_reversed_order_status_id" class="form-control" id="securetrading-pp-authorisation-reversed-order-status-id"/>
                 {% for order_status in order_statuses %}
                   {% if order_status.order_status_id == payment_securetrading_pp_authorisation_reversed_order_status_id %}
                     <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
@@ -215,7 +215,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="securetrading-pp-geo-zone-id">{{ entry_geo_zone }}</label>
             <div class="col-sm-10">
-              <select name="payment_securetrading_pp_geo_zone_id" id="securetrading-pp-geo-zone-id" class="form-control"/>
+              <select name="payment_securetrading_pp_geo_zone_id" class="form-control" id="securetrading-pp-geo-zone-id"/>
                 {% if payment_securetrading_pp_geo_zone_id == 0 %}
                   <option value="0" selected="selected">{{ text_all_geo_zones }}</option>
                 {% else %}
@@ -234,7 +234,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="securetrading-pp-status">{{ entry_status }}</label>
             <div class="col-sm-10">
-              <select name="payment_securetrading_pp_status" id="securetrading-pp-status" class="form-control"/>
+              <select name="payment_securetrading_pp_status" class="form-control" id="securetrading-pp-status"/>
                 {% if payment_securetrading_pp_status == 1 %}
                   <option value="1" selected="selected">{{ text_enabled }}</option>
                 {% else %}
@@ -251,19 +251,19 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="securetrading-pp-sort-order">{{ entry_sort_order }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_securetrading_pp_sort_order" value="{{ payment_securetrading_pp_sort_order }}" placeholder="{{ entry_sort_order }}" id="securetrading-pp-sort-order" class="form-control"/>
+              <input type="text" name="payment_securetrading_pp_sort_order" value="{{ payment_securetrading_pp_sort_order }}" placeholder="{{ entry_sort_order }}" class="form-control" id="securetrading-pp-sort-order"/>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="securetrading-pp-parent-css">{{ entry_parent_css }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_securetrading_pp_parent_css" value="{{ payment_securetrading_pp_parent_css }}" placeholder="{{ entry_parent_css }}" id="securetrading-pp-parent-css" class="form-control"/>
+              <input type="text" name="payment_securetrading_pp_parent_css" value="{{ payment_securetrading_pp_parent_css }}" placeholder="{{ entry_parent_css }}" class="form-control" id="securetrading-pp-parent-css"/>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="securetrading-pp-child-css">{{ entry_child_css }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_securetrading_pp_child_css" value="{{ payment_securetrading_pp_child_css }}" placeholder="{{ entry_child_css }}" id="securetrading-pp-child-css" class="form-control"/>
+              <input type="text" name="payment_securetrading_pp_child_css" value="{{ payment_securetrading_pp_child_css }}" placeholder="{{ entry_child_css }}" class="form-control" id="securetrading-pp-child-css"/>
             </div>
           </div>
         </form>

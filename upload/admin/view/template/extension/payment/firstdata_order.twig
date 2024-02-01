@@ -27,7 +27,7 @@
         <span class="capture_text">{{ text_no }}</span>&nbsp;&nbsp;
         {% if firstdata_order.void_status == 0 %}
           <a class="button btn btn-primary" id="button_capture">{{ button_capture }}</a>
-          <span class="btn btn-primary" id="img-loading-capture" style="display:none;"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>
+          <span class="btn btn-primary" style="display:none;" id="img-loading-capture"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>
         {% endif %}
       {% endif %}</td>
   </tr>
@@ -37,7 +37,7 @@
       {% if firstdata_order.void_status == 1 %}
         <span class="void_text">{{ text_yes }}</span>
       {% else %}
-        <span class="void_text">{{ text_no }}</span>&nbsp;&nbsp;<a class="button btn btn-primary" id="button-void">{{ button_void }}</a> <span class="btn btn-primary" id="img-loading-void" style="display:none;"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>
+        <span class="void_text">{{ text_no }}</span>&nbsp;&nbsp;<a class="button btn btn-primary" id="img-loading-void" style="display:none;" id="button-void">{{ button_void }}</a> <span class="btn btn-primary"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>
       {% endif %}</td>
   </tr>
   <tr>
@@ -66,7 +66,7 @@
     </td>
   </tr>
 </table>
-<form method="post" id="voidform" action="{{ action_url }}">
+<form method="post" action="{{ action_url }}" id="voidform">
   <input type="hidden" name="responseSuccessURL" value="{{ void_url }}"/>
   <input type="hidden" name="responseFailURL" value="{{ void_url }}"/>
   <input type="hidden" name="transactionNotificationURL" value="{{ notify_url }}"/>
@@ -81,7 +81,7 @@
   <input type="hidden" name="tdate" value="{{ firstdata_order.tdate }}"/>
   <input type="hidden" name="order_id" value="{{ order_id }}"/>
 </form>
-<form method="post" id="captureform" action="{{ action_url }}">
+<form method="post" action="{{ action_url }}" id="captureform">
   <input type="hidden" name="responseSuccessURL" value="{{ capture_url }}"/>
   <input type="hidden" name="responseFailURL" value="{{ capture_url }}"/>
   <input type="hidden" name="transactionNotificationURL" value="{{ notify_url }}"/>

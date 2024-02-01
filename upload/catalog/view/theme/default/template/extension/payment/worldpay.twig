@@ -1,7 +1,7 @@
 {% if existing_cards %}
   <legend>{{ text_credit_card }}</legend>
   <div class="form-horizontal">
-    <div id="choose-card" class="form-group">
+    <div class="form-group" id="choose-card">
       <label class="col-sm-2 control-label">{{ entry_card }}</label>
       <div class="col-sm-10">
         <label class="radio-inline"><input type="radio" name="existing-card" value="1" checked="checked"/>{{ entry_card_existing }}</label>
@@ -24,26 +24,26 @@
         </div>
         <div class="buttons clearfix">
           <div class="pull-right">
-            <input type="button" value="{{ button_delete_card }}" id="button-delete" data-loading-text="{{ text_loading }}" class="btn btn-primary"/>
+            <input type="button" value="{{ button_delete_card }}" data-loading-text="{{ text_loading }}" class="btn btn-primary" id="button-delete"/>
           </div>
         </div>
         <div class="form-group required">
           <label class="col-sm-2 control-label" for="input-cc-cvc">{{ entry_cc_cvc }}</label>
           <div class="col-sm-10">
-            <input type="text" data-worldpay="cvc" value="" size="4" placeholder="{{ entry_cc_cvc }}" id="input-cc-cvc" class="form-control"/>
+            <input type="text" data-worldpay="cvc" value="" size="4" placeholder="{{ entry_cc_cvc }}" class="form-control" id="input-cc-cvc"/>
           </div>
         </div>
       </div>
     </fieldset>
     <div class="buttons">
       <div class="pull-right">
-        <input type="submit" value="{{ button_confirm }}" id="button-confirm" data-loading-text="{{ text_loading }}" class="btn btn-primary"/>
+        <input type="submit" value="{{ button_confirm }}" data-loading-text="{{ text_loading }}" class="btn btn-primary" id="button-confirm"/>
       </div>
     </div>
   </form>
-  <form style="display: none" id="payment-new-form" action="{{ form_submit }}" method="post" class="form-horizontal">
+  <form style="display: none" action="{{ form_submit }}" method="post" class="form-horizontal" id="payment-new-form">
 {% else %}
-  <form id="payment-new-form" action="{{ form_submit }}" method="post" class="form-horizontal">
+  <form action="{{ form_submit }}" method="post" class="form-horizontal" id="payment-new-form">
 {% endif %}
 <fieldset>
   <div class="form-group">
@@ -61,7 +61,7 @@
 </fieldset>
 <div class="buttons">
   <div class="pull-right">
-    <input type="submit" value="{{ button_confirm }}" id="button-confirm" data-loading-text="{{ text_loading }}" class="btn btn-primary"/>
+    <input type="submit" value="{{ button_confirm }}" data-loading-text="{{ text_loading }}" class="btn btn-primary" id="button-confirm"/>
   </div>
 </div>
 </form>

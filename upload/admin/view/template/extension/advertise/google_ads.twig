@@ -1,5 +1,5 @@
 {# The filters #}
-<div id="filter-ads" class="col-lg-3 col-lg-push-9 col-md-12">
+<div class="col-lg-3 col-lg-push-9 col-md-12" id="filter-ads">
   <div class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title"><i class="fa fa-filter"></i> {{ text_filter }}</h3>
@@ -7,18 +7,18 @@
     <div class="panel-body">
       <div class="form-group">
         <label class="control-label" for="input-name">{{ text_product_name }}</label>
-        <input type="text" name="filter_name" value="" placeholder="{{ text_product_name }}" id="input-name" class="form-control" autocomplete="off">
+        <input type="text" name="filter_name" value="" placeholder="{{ text_product_name }}" class="form-control" autocomplete="off" id="input-name">
       </div>
       <div class="form-group">
         <label class="control-label" for="input-model">{{ text_product_model }}</label>
-        <input type="text" name="filter_model" value="" placeholder="{{ text_product_model }}" id="input-model" class="form-control" autocomplete="off">
+        <input type="text" name="filter_model" value="" placeholder="{{ text_product_model }}" class="form-control" autocomplete="off" id="input-model">
       </div>
       <div class="form-group">
         <label class="control-label" for="input-category">{{ text_product_category }}</label>
         <div class="category-select-container">
-          <input id="input-category" type="text" name="category_autocomplete" value="" class="form-control" placeholder="{{ text_product_category }}"/>
+          <input type="text" name="category_autocomplete" value="" class="form-control" placeholder="{{ text_product_category }}" id="input-category"/>
           <input type="hidden" name="filter_category_id" value="">
-          <button id="button-category-remove" class="btn btn-default" disabled><i class="fa fa-close"></i></button>
+          <button class="btn btn-default" disabled id="button-category-remove"><i class="fa fa-close"></i></button>
         </div>
       </div>
       <div class="form-group">
@@ -30,7 +30,7 @@
         </select>
       </div>
       <div class="form-group text-right">
-        <button type="button" id="button-filter" class="btn btn-default"><i class="fa fa-filter"></i> {{ text_filter }}</button>
+        <button type="button" class="btn btn-default" id="button-filter"><i class="fa fa-filter"></i> {{ text_filter }}</button>
       </div>
     </div>
   </div>
@@ -148,22 +148,22 @@
         white-space: pre-line;
     }
 </style>
-<script id="template-success" type="text/template">
+<script type="text/template" id="template-success">
   <div class="alert alert-success alert-dismissible" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="{{ text_close }}"><span aria-hidden="true"><i class="fa fa-close"></i></span></button><i class="fa fa-check-circle" aria-hidden="true"></i>&nbsp;{message}
   </div>
 </script>
-<script id="template-error" type="text/template">
+<script type="text/template" id="template-error">
   <div class="alert alert-danger alert-dismissible" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="{{ text_close }}"><span aria-hidden="true"><i class="fa fa-close"></i></span></button> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;{message}
   </div>
 </script>
-<script id="template-warning" type="text/template">
+<script type="text/template" id="template-warning">
   <div class="alert alert-warning alert-dismissible" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="{{ text_close }}"><span aria-hidden="true"><i class="fa fa-close"></i></span></button><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;{message}
   </div>
 </script>
-<script id="template-popup-product" type="text/template">
+<script type="text/template" id="template-popup-product">
   <div class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -180,7 +180,7 @@
     </div>
   </div>
 </script>
-<script id="template-popup-issues" type="text/template">
+<script type="text/template" id="template-popup-issues">
   <div class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">

@@ -20,7 +20,7 @@
       </div>
     {% endif %}
     <div class="row">
-      <div id="filter-subscription" class="col-md-3 col-md-push-9 col-sm-12 hidden-sm hidden-xs">
+      <div class="col-md-3 col-md-push-9 col-sm-12 hidden-sm hidden-xs" id="filter-subscription">
         <div class="panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title"><i class="fa fa-filter"></i> {{ text_list }}</h3>
@@ -28,19 +28,19 @@
           <div class="panel-body">
             <div class="form-group">
               <label for="input-subscription-id" class="control-label">{{ entry_subscription_id }}</label>
-              <input type="text" name="filter_subscription_id" value="{{ filter_subscription_id }}" placeholder="{{ entry_subscription_id }}" id="input-subscription-id" class="form-control"/>
+              <input type="text" name="filter_subscription_id" value="{{ filter_subscription_id }}" placeholder="{{ entry_subscription_id }}" class="form-control" id="input-subscription-id"/>
             </div>
             <div class="form-group">
               <label for="input-order-id" class="control-label">{{ entry_order_id }}</label>
-              <input type="text" name="filter_order_id" value="{{ filter_order_id }}" placeholder="{{ entry_order_id }}" id="input-order-id" class="form-control"/>
+              <input type="text" name="filter_order_id" value="{{ filter_order_id }}" placeholder="{{ entry_order_id }}" class="form-control" id="input-order-id"/>
             </div>
             <div class="form-group">
               <label for="input-customer" class="control-label">{{ entry_customer }}</label>
-              <input type="text" name="filter_customer" value="{{ filter_customer }}" placeholder="{{ entry_customer }}" id="input-customer" class="form-control"/>
+              <input type="text" name="filter_customer" value="{{ filter_customer }}" placeholder="{{ entry_customer }}" class="form-control" id="input-customer"/>
             </div>
             <div class="form-group">
               <label for="input-subscription-status" class="control-label">{{ entry_subscription_status }}</label>
-              <select name="filter_subscription_status_id" id="input-subscription-status" class="form-control"/>
+              <select name="filter_subscription_status_id" class="form-control" id="input-subscription-status"/>
                 <option value=""></option>
                 {% for subscription_status in subscription_statuses %}
                   <option value="{{ subscription_status.subscription_status_id }}"{% if subscription_status.subscription_status_id == filter_subscription_status_id %} selected="selected"{% endif %}>{{ subscription_status.name }}</option>
@@ -50,19 +50,19 @@
             <div class="form-group">
               <label class="control-label" for="input-date-from">{{ entry_date_from }}</label>
               <div class="input-group date">
-                <input type="text" name="filter_date_from" value="{{ filter_date_from }}" placeholder="{{ entry_date_from }}" data-date-format="YYYY-MM-DD" id="input-date-from" class="form-control"/>
+                <input type="text" name="filter_date_from" value="{{ filter_date_from }}" placeholder="{{ entry_date_from }}" data-date-format="YYYY-MM-DD" class="form-control" id="input-date-from"/>
                 <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span>
               </div>
             </div>
             <div class="form-group">
               <label class="control-label" for="input-date-to">{{ entry_date_to }}</label>
               <div class="input-group date">
-                <input type="text" name="filter_date_to" value="{{ filter_date_to }}" placeholder="{{ entry_date_to }}" data-date-format="YYYY-MM-DD" id="input-date-to" class="form-control"/>
+                <input type="text" name="filter_date_to" value="{{ filter_date_to }}" placeholder="{{ entry_date_to }}" data-date-format="YYYY-MM-DD" class="form-control" id="input-date-to"/>
                 <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span>
               </div>
             </div>
             <div class="form-group text-right">
-              <button type="button" id="button-filter" class="btn btn-default"><i class="fa fa-filter"></i> {{ button_filter }}</button>
+              <button type="button" class="btn btn-default" id="button-filter"><i class="fa fa-filter"></i> {{ button_filter }}</button>
             </div>
           </div>
         </div>

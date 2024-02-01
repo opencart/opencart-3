@@ -24,17 +24,17 @@
         <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3>
       </div>
       <div class="panel-body">
-        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-payment" class="form-horizontal">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal" id="form-payment">
           <div class="form-group">
             <label class="col-sm-2 control-label" for="payment-divido-api-key"><span data-toggle="tooltip" title="{{ help_api_key|escape('html') }}">{{ entry_api_key }}</span></label>
             <div class="col-sm-10">
-              <input id="payment-divido-api-key" class="form-control" type="text" name="payment_divido_api_key" value="{{ payment_divido_api_key }}" size="60">
+              <input class="form-control" type="text" name="payment_divido_api_key" value="{{ payment_divido_api_key }}" size="60" id="payment-divido-api-key">
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="payment-divido-status"><span data-toggle="tooltip" title="{{ help_status|escape('html') }}">{{ entry_status }}</span></label>
             <div class="col-sm-10">
-              <select name="payment_divido_status" id="payment-divido-status" class="form-control"/>
+              <select name="payment_divido_status" class="form-control" id="payment-divido-status"/>
                 {% if payment_divido_status %}
                   <option value="1" selected="selected">{{ text_enabled }}</option>
                   <option value="0">{{ text_disabled }}</option>
@@ -48,7 +48,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="payment-divido-order-status-id"><span data-toggle="tooltip" title="{{ help_order_status|escape('html') }}">{{ entry_order_status }}</span></label>
             <div class="col-sm-10">
-              <select name="payment_divido_order_status_id" id="payment-divido-order-status-id" class="form-control"/>
+              <select name="payment_divido_order_status_id" class="form-control" id="payment-divido-order-status-id"/>
                 {% for order_status in order_statuses %}
                   {% if order_status.order_status_id == payment_divido_order_status_id %}
                     <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
@@ -62,13 +62,13 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="payment-divido-title"><span data-toggle="tooltip" title="{{ help_title|escape('html') }}">{{ entry_title }}</span></label>
             <div class="col-sm-10">
-              <input type="text" id="payment-ivido-title" name="payment_divido_title" value="{{ payment_divido_title }}" class="form-control"/>
+              <input type="text" name="payment_divido_title" value="{{ payment_divido_title }}" class="form-control" id="payment-ivido-title"/>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="payment-divido-planselection"><span data-toggle="tooltip" title="{{ help_planselection|escape('html') }}">{{ entry_planselection }}</span></label>
             <div class="col-sm-10">
-              <select name="payment_divido_planselection" id="payment-divido-planselection" class="form-control"/>
+              <select name="payment_divido_planselection" class="form-control" id="payment-divido-planselection"/>
                 {% for option, text in entry_plans_options %}
                   {% if option == payment_divido_planselection %}
                     <option value="{{ option }}" selected="selected">{{ text }}</option>
@@ -79,7 +79,7 @@
               </select>
             </div>
           </div>
-          <div id="plan-list" class="form-group">
+          <div class="form-group" id="plan-list">
             <label class="col-sm-2 control-label">{{ entry_planlist }}</label>
             <div class="col-sm-10">
               {% for plan in divido_plans %}
@@ -96,7 +96,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="payment-divido-productselection"><span data-toggle="tooltip" title="{{ help_productselection|escape('html') }}">{{ entry_productselection }}</span></label>
             <div class="col-sm-10">
-              <select name="payment_divido_productselection" id="payment-divido-productselection" class="form-control"/>
+              <select name="payment_divido_productselection" class="form-control" id="payment-divido-productselection"/>
                 {% for option, text in entry_products_options %}
                   {% if option == payment_divido_productselection %}
                     <option value="{{ option }}" selected="selected">{{ text }}</option>
@@ -107,13 +107,13 @@
               </select>
             </div>
           </div>
-          <div id="threshold" class="form-group">
+          <div class="form-group" id="threshold">
             <label class="col-sm-2 control-label" for="payment-divido-price-threshold">{{ entry_price_threshold }}</label>
             <div class="col-sm-10">
               <input type="text" name="payment_divido_price_threshold" value="{{ payment_divido_price_threshold }}" class="form-control" id="payment-divido-price-threshold">
             </div>
           </div>
-          <div id="cart-threshold" class="form-group">
+          <div class="form-group" id="cart-threshold">
             <label class="col-sm-2 control-label" for="payment-divido-cart-threshold"><span data-toggle="tooltip" title="{{ help_cart_threshold|escape('html') }}">{{ entry_cart_threshold }}</span></label>
             <div class="col-sm-10">
               <input type="text" name="payment_divido_cart_threshold" value="{{ payment_divido_cart_threshold }}" class="form-control" id="payment-divido-cart-threshold">
@@ -122,14 +122,14 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="payment-divido-sort_order">{{ entry_sort_order }}</label>
             <div class="col-sm-10">
-              <input type="text" id="payment-divido-sort-order" class="form-control" name="payment_divido_sort_order" value="{{ payment_divido_sort_order }}" size="1">
+              <input type="text" class="form-control" name="payment_divido_sort_order" value="{{ payment_divido_sort_order }}" size="1" id="payment-divido-sort-order">
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="payment-divido-category"><span data-toggle="tooltip" title="{{ help_category|escape('html') }}">{{ entry_category }}</span></label>
             <div class="col-sm-10">
-              <input type="text" name="category" value="" placeholder="{{ entry_category }}" id="payment-divido-category" class="form-control"/>
-              <div id="divido-category" class="well well-sm" style="height: 150px; overflow: auto;">
+              <input type="text" name="category" value="" placeholder="{{ entry_category }}" class="form-control" id="payment-divido-category"/>
+              <div class="well well-sm" style="height: 150px; overflow: auto;" id="divido-category">
                 {% for category in categories %}
                   <div id="category{{ category.category_id }}"><i class="fa fa-minus-circle"></i> {{ category.name }}
                     <input type="hidden" name="payment_divido_categories[]" value="{{ category.category_id }}"/>
@@ -205,7 +205,7 @@
         select: function (item) {
             $('input[name=\'category\']').val('');
             $('#payment-divido-category' + item['value']).remove();
-            $('#payment-divido-category').append('<div id="payment-divido-category' + item['value'] + '"><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden" name="payment_divido_categories[]" value="' + item['value'] + '"/></div>');
+            $('#payment-divido-category').append('<div name="payment_divido_categories[]" value="' + item['value'] + '" id="payment-divido-category' + item['value'] + '"/><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden"></div>');
         }
     });
 

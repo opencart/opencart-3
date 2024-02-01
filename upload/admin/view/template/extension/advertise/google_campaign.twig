@@ -47,7 +47,7 @@
             </h3>
           </div>
           <div class="panel-body">
-            <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form" class="form-horizontal">
+            <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal" id="form">
               <div class="form-group required">
                 <label class="col-sm-2 control-label">{{ entry_campaign }}</label>
                 <div class="col-sm-10">
@@ -103,7 +103,7 @@
                     {% endif %}
                   </div>
                   <div>
-                    <button id="button-target-add" class="btn btn-default"><i class="fa fa-plus"></i> {{ button_add_target }}</button>
+                    <button class="btn btn-default" id="button-target-add"><i class="fa fa-plus"></i> {{ button_add_target }}</button>
                   </div>
                 </div>
               </div>
@@ -150,7 +150,7 @@
             <h3 class="panel-title"><i class="fa fa-image"></i>&nbsp;<span>{{ text_panel_heading_preview }}</span></h3>
           </div>
           <div class="panel-body text-center">
-            <img id="ad-preview" src="view/image/advertise/google/ad-preview.png"/>
+            <img src="view/image/advertise/google/ad-preview.png" id="ad-preview"/>
           </div>
         </div>
       </div>
@@ -211,7 +211,7 @@
     </tr>
   </script>
   <script type="text/template" id="template-modal">
-    <div id="target-modal" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static">
+    <div class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" id="target-modal">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -223,13 +223,13 @@
             <div class="form-group required" data-error-type="error_campaign_name">
               <label for="input-campaign-name" class="col-sm-3 control-label">{{ entry_campaign_name }}</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control" id="input-campaign-name" name="campaign_name" value="{campaign_name}"/>
+                <input type="text" class="form-control" name="campaign_name" value="{campaign_name}" id="input-campaign-name"/>
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-3 control-label">{{ entry_status }}</label>
               <div class="col-sm-9">
-                <select class="form-control" name="status" id="select-status" data-value="{status}">
+                <select class="form-control" name="status" data-value="{status}" id="select-status">
                   <option value="active">{{ text_active }}</option>
                   <option value="paused">{{ text_paused }}</option>
                 </select>
@@ -238,7 +238,7 @@
             <div class="form-group required" data-error-type="error_country">
               <label for="select-country" class="col-sm-3 control-label">{{ entry_country }}</label>
               <div class="col-sm-9">
-                <select class="form-control" name="country" id="select-country" data-value="{country}">
+                <select class="form-control" name="country" data-value="{country}" id="select-country">
                   <option value="">{{ text_select_country }}</option>
                 </select>
               </div>
@@ -247,10 +247,10 @@
               <label for="input-roas" class="col-sm-3 control-label">{{ entry_roas }}</label>
               <div class="col-sm-9">
                 <div class="alert alert-info"><i class="fa fa-info-circle"></i> {{ help_roas }}</div>
-                <div id="warning-roas" class="alert alert-warning" style="display: none;">
+                <div class="alert alert-warning" style="display: none;" id="warning-roas">
                   <i class="fa fa-exclamation-triangle"></i> {roas_warning}
                 </div>
-                <div class="input-group"><input type="number" class="form-control" id="input-roas" name="roas" value="{roas}" min="0"/>
+                <div class="input-group"><input type="number" class="form-control" name="roas" value="{roas}" min="0" id="input-roas"/>
                   <div class="input-group-addon"><i class="fa fa-percent"></i></div>
                 </div>
               </div>
@@ -259,9 +259,9 @@
               <label for="input-budget" class="col-sm-3 control-label">{{ entry_budget }}</label>
               <div class="col-sm-9">
                 <div class="alert alert-info"><i class="fa fa-info-circle"></i> {{ help_budget }}</div>
-                <div id="warning-budget" class="alert alert-warning" style="display: none;"><i class="fa fa-exclamation-triangle"></i> {{ warning_budget }}</div>
+                <div class="alert alert-warning" style="display: none;" id="warning-budget"><i class="fa fa-exclamation-triangle"></i> {{ warning_budget }}</div>
                 <div class="input-group"><div class="input-group-addon"><i class="fa fa-dollar"></i></div>
-                  <input type="number" class="form-control" id="input-budget" name="budget" value="{budget}" min="5"/>
+                  <input type="number" class="form-control" name="budget" value="{budget}" min="5" id="input-budget"/>
                   <div class="input-group-addon">{{ text_usd_day }}</div>
                 </div>
               </div>
@@ -272,14 +272,14 @@
                 <div class="alert alert-info"><i class="fa fa-info-circle"></i> {{ help_feed }}</div>
                 <div id="feeds">{feeds}</div>
                 <div>
-                  <button id="button-feed-add" class="btn btn-success"><i class="fa fa-plus"></i> {{ button_add_feed }}</button>
+                  <button class="btn btn-success" id="button-feed-add"><i class="fa fa-plus"></i> {{ button_add_feed }}</button>
                 </div>
               </div>
             </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i> {{ button_close }}</button>
-            <button type="button" class="btn btn-primary" id="button-target-save" data-text="{{ button_save }}" data-loading-text ="{{ text_loading_please_wait }}" data-url="{url}"><i class="fa fa-save"></i> {{ button_save }}</button>
+            <button type="button" class="btn btn-primary" data-text="{{ button_save }}" data-loading-text ="{{ text_loading_please_wait }}" data-url="{url}" id="button-target-save"><i class="fa fa-save"></i> {{ button_save }}</button>
           </div>
         </div>
       </div>

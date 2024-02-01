@@ -1,5 +1,5 @@
 {{ header }}{{ column_left }}
-<div id="content" class="payment-paypal">
+<div class="payment-paypal" id="content">
   <div class="page-header">
     <div class="container-fluid">
       <div class="pull-right">
@@ -46,7 +46,7 @@
             <hr class="hr"/>
             <div class="tab-content">
               {% for button in setting.button %}
-                <div id="pill-{{ button.page_code }}" class="tab-pane {% if loop.first %}active{% endif %}">
+                <div class="tab-pane {% if loop.first %}active{% endif %}" id="pill-{{ button.page_code }}">
                   <div class="row">
                     <div class="col col-lg-6">
                       {% if button.page_code == 'checkout' %}
@@ -72,8 +72,8 @@
                               </div>
                             </div>
                           </div>
-                          <div id="paypal-button-checkout" class="paypal-button">
-                            <div id="paypal-button-checkout-container" class="paypal-button-container paypal-spinner"></div>
+                          <div class="paypal-button" id="paypal-button-checkout">
+                            <div class="paypal-button-container paypal-spinner" id="paypal-button-checkout-container"></div>
                           </div>
                         </div>
                       {% endif %}
@@ -125,8 +125,8 @@
                               <button type="button" class="btn button-cart">{{ button_checkout }}</button>
                             </div>
                           </div>
-                          <div id="paypal-button-cart" class="paypal-button">
-                            <div id="paypal-button-cart-container" class="paypal-button-container paypal-spinner"></div>
+                          <div class="paypal-button" id="paypal-button-cart">
+                            <div class="paypal-button-container paypal-spinner" id="paypal-button-cart-container"></div>
                           </div>
                         </div>
                       {% endif %}
@@ -143,8 +143,8 @@
                               <div class="product-model">{{ text_product_model }}</div>
                               <div class="product-stock">{{ text_product_stock }}</div>
                               <button type="button" class="btn button-cart">{{ button_cart }}</button>
-                              <div id="paypal-button-product" class="paypal-button">
-                                <div id="paypal-button-product-container" class="paypal-button-container paypal-spinner"></div>
+                              <div class="paypal-button" id="paypal-button-product">
+                                <div class="paypal-button-container paypal-spinner" id="paypal-button-product-container"></div>
                               </div>
                             </div>
                           </div>
@@ -170,13 +170,13 @@
                             <div class="col col-md-6">
                               <div class="form-group">
                                 <label class="control-label" for="input-button-{{ button.page_code }}-insert-tag">{{ entry_button_insert_tag }}</label>
-                                <input type="text" name="payment_paypal_setting[button][{{ button.page_code }}][insert_tag]" value="{{ button.insert_tag }}" id="input-button-{{ button.page_code }}-insert-tag" class="form-control"/>
+                                <input type="text" name="payment_paypal_setting[button][{{ button.page_code }}][insert_tag]" value="{{ button.insert_tag }}" class="form-control" id="input-button-{{ button.page_code }}-insert-tag"/>
                               </div>
                             </div>
                             <div class="col col-md-6">
                               <div class="form-group">
                                 <label class="control-label" for="input-button-{{ button.page_code }}-insert_type">{{ entry_button_insert_type }}</label>
-                                <select name="payment_paypal_setting[button][{{ button.page_code }}][insert_type]" id="input-button-{{ button.page_code }}-insert-type" class="form-control"/>
+                                <select name="payment_paypal_setting[button][{{ button.page_code }}][insert_type]" class="form-control" id="input-button-{{ button.page_code }}-insert-type"/>
                                   {% for button_insert_type in setting.button_insert_type %}
                                     {% if button_insert_type.code == button.insert_type %}
                                       <option value="{{ button_insert_type.code }}" selected="selected">{{ attribute(_context, button_insert_type.name) }}</option>
@@ -193,7 +193,7 @@
                           <div class="col col-md-6">
                             <div class="form-group">
                               <label class="control-label" for="input-button-{{ button.page_code }}-align">{{ entry_button_align }}</label>
-                              <select name="payment_paypal_setting[button][{{ button.page_code }}][align]" id="input-button-{{ button.page_code }}-align" class="form-control control-paypal-button">
+                              <select name="payment_paypal_setting[button][{{ button.page_code }}][align]" class="form-control control-paypal-button" id="input-button-{{ button.page_code }}-align">
                                 {% for button_align in setting.button_align %}
                                   {% if button_align.code == button.align %}
                                     <option value="{{ button_align.code }}" selected="selected">{{ attribute(_context, button_align.name) }}</option>
@@ -205,7 +205,7 @@
                             </div>
                             <div class="form-group">
                               <label class="control-label" for="input-button-{{ button.page_code }}-size">{{ entry_button_size }}</label>
-                              <select name="payment_paypal_setting[button][{{ button.page_code }}][size]" id="input-button-{{ button.page_code }}-size" class="form-control control-paypal-button">
+                              <select name="payment_paypal_setting[button][{{ button.page_code }}][size]" class="form-control control-paypal-button" id="input-button-{{ button.page_code }}-size">
                                 {% for button_size in setting.button_size %}
                                   {% if button_size.code == button.size %}
                                     <option value="{{ button_size.code }}" selected="selected">{{ attribute(_context, button_size.name) }}</option>
@@ -217,7 +217,7 @@
                             </div>
                             <div class="form-group">
                               <label class="control-label" for="input-button-{{ button.page_code }}-color">{{ entry_button_color }}</label>
-                              <select name="payment_paypal_setting[button][{{ button.page_code }}][color]" id="input-button-{{ button.page_code }}-color" class="form-control control-paypal-button">
+                              <select name="payment_paypal_setting[button][{{ button.page_code }}][color]" class="form-control control-paypal-button" id="input-button-{{ button.page_code }}-color">
                                 {% for button_color in setting.button_color %}
                                   {% if button_color.code == button.color %}
                                     <option value="{{ button_color.code }}" selected="selected">{{ attribute(_context, button_color.name) }}</option>
@@ -231,7 +231,7 @@
                           <div class="col col-md-6">
                             <div class="form-group">
                               <label class="control-label" for="input-button-{{ button.page_code }}-shape">{{ entry_button_shape }}</label>
-                              <select name="payment_paypal_setting[button][{{ button.page_code }}][shape]" id="input-button-{{ button.page_code }}-shape" class="form-control control-paypal-button">
+                              <select name="payment_paypal_setting[button][{{ button.page_code }}][shape]" class="form-control control-paypal-button" id="input-button-{{ button.page_code }}-shape">
                                 {% for button_shape in setting.button_shape %}
                                   {% if button_shape.code == button.shape %}
                                     <option value="{{ button_shape.code }}" selected="selected">{{ attribute(_context, button_shape.name) }}</option>
@@ -243,7 +243,7 @@
                             </div>
                             <div class="form-group">
                               <label class="control-label" for="input-button-{{ button.page_code }}-label">{{ entry_button_label }}</label>
-                              <select name="payment_paypal_setting[button][{{ button.page_code }}][label]" id="input-button-{{ button.page_code }}-label" class="form-control control-paypal-button">
+                              <select name="payment_paypal_setting[button][{{ button.page_code }}][label]" class="form-control control-paypal-button" id="input-button-{{ button.page_code }}-label">
                                 {% for button_label in setting.button_label %}
                                   {% if button_label.code == button.label %}
                                     <option value="{{ button_label.code }}" selected="selected">{{ attribute(_context, button_label.name) }}</option>
@@ -256,7 +256,7 @@
                             {% if button.page_code != 'checkout' %}
                               <div class="form-group">
                                 <label class="control-label" for="input-button-{{ button.page_code }}-tagline">{{ entry_button_tagline }}</label>
-                                <select name="payment_paypal_setting[button][{{ button.page_code }}][tagline]" id="input-button-{{ button.page_code }}-tagline" class="form-control control-paypal-button">
+                                <select name="payment_paypal_setting[button][{{ button.page_code }}][tagline]" class="form-control control-paypal-button" id="input-button-{{ button.page_code }}-tagline">
                                   {% for button_tagline in setting.button_tagline %}
                                     {% if button_tagline.code == button.tagline %}
                                       <option value="{{ button_tagline.code }}" selected="selected">{{ attribute(_context, button_tagline.name) }}</option>
@@ -272,14 +272,14 @@
                         {% if button.page_code == 'checkout' %}
                           <hr class="hr"/>
                           <button type="button" href="#all-settings-{{ button.page_code }}" class="btn btn-default button-all-settings collapsed" data-toggle="collapse" role="button">{{ button_all_settings }}<i class="icon icon-all-settings"></i></button>
-                          <div id="all-settings-{{ button.page_code }}" class="all-settings collapse">
+                          <div class="all-settings collapse" id="all-settings-{{ button.page_code }}">
                             <div class="row">
                               {% for column_button_funding in setting.button_funding|batch(setting.button_funding|length / 2|round(1, 'ceil')) %}
                                 <div class="col col-md-6">
                                   {% for button_funding in column_button_funding %}
                                     <div class="form-group">
                                       <label class="control-label" for="input-button-{{ button.page_code }}-funding-{{ button_funding.code }}">{{ attribute(_context, button_funding.name) }}</label>
-                                      <select name="payment_paypal_setting[button][{{ button.page_code }}][funding][{{ button_funding.code }}]" id="input-button-{{ button.page_code }}-funding-{{ button_funding.code }}" class="form-control control-paypal-button" funding_code="{{ button_funding.code }}">
+                                      <select name="payment_paypal_setting[button][{{ button.page_code }}][funding][{{ button_funding.code }}]" class="form-control control-paypal-button" funding_code="{{ button_funding.code }}" id="input-button-{{ button.page_code }}-funding-{{ button_funding.code }}">
                                         <option value="0" {% if button.funding[button_funding.code] == 0 %}selected="selected"{% endif %}>{{ text_auto }}</option>
                                         <option value="1" {% if button.funding[button_funding.code] == 1 %}selected="selected"{% endif %}>{{ text_enabled }}</option>
                                         <option value="2" {% if button.funding[button_funding.code] == 2 %}selected="selected"{% endif %}>{{ text_disabled }}</option>	

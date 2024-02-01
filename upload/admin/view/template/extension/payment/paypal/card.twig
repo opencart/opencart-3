@@ -1,5 +1,5 @@
 {{ header }}{{ column_left }}
-<div id="content" class="payment-paypal">
+<div class="payment-paypal" id="content">
   <div class="page-header">
     <div class="container-fluid">
       <div class="pull-right">
@@ -62,26 +62,26 @@
                       </div>
                     </div>
                   </div>
-                  <div id="paypal-card" class="paypal-card">
-                    <div id="paypal-card-container" class="paypal-card-container paypal-spinner">
-                      <div id="paypal-card-form" class="paypal-card-form well">
+                  <div class="paypal-card" id="paypal-card">
+                    <div class="paypal-card-container paypal-spinner" id="paypal-card-container">
+                      <div class="paypal-card-form well" id="paypal-card-form">
                         <div class="card-info-number clearfix">
                           <label for="card-number" class="card-label">{{ entry_card_number }}</label>
-                          <div id="card-number" class="card-input-container">
+                          <div class="card-input-container" id="card-number">
                             <div id="card-image"></div>
                           </div>
                         </div>
                         <div class="card-info-date-cvv clearfix">
                           <div class="card-info-date">
                             <label for="expiration-date" class="card-label">{{ entry_expiration_date }}</label>
-                            <div id="expiration-date" class="card-input-container"></div>
+                            <div class="card-input-container" id="expiration-date"></div>
                           </div>
                           <div class="card-info-cvv">
                             <label for="cvv" class="card-label">{{ entry_cvv }}</label>
-                            <div id="cvv" class="card-input-container"></div>
+                            <div class="card-input-container" id="cvv"></div>
                           </div>
                         </div>
-                        <button id="paypal-button-submit" class="btn" value="submit">{{ button_pay }}</button>
+                        <button class="btn" value="submit" id="paypal-button-submit">{{ button_pay }}</button>
                       </div>
                     </div>
                   </div>
@@ -103,7 +103,7 @@
                   </div>
                   <div class="form-group">
                     <label class="control-label" for="input-card-align">{{ entry_card_align }}</label>
-                    <select name="payment_paypal_setting[card][align]" id="input-card-align" class="form-control control-paypal-card">
+                    <select name="payment_paypal_setting[card][align]" class="form-control control-paypal-card" id="input-card-align">
                       {% for card_align in setting.card_align %}
                         {% if card_align.code == setting_card.align %}
                           <option value="{{ card_align.code }}" selected="selected">{{ attribute(_context, card_align.name) }}</option>
@@ -115,7 +115,7 @@
                   </div>
                   <div class="form-group">
                     <label class="control-label" for="input-card-size">{{ entry_card_size }}</label>
-                    <select name="payment_paypal_setting[card][size]" id="input-card-size" class="form-control control-paypal-card">
+                    <select name="payment_paypal_setting[card][size]" class="form-control control-paypal-card" id="input-card-size">
                       {% for card_size in setting.card_size %}
                         {% if card_size.code == setting_card.size %}
                           <option value="{{ card_size.code }}" selected="selected">{{ attribute(_context, card_size.name) }}</option>
@@ -134,7 +134,7 @@
                   </div>
                   <hr class="hr"/>
                   <button type="button" href="#all-settings" class="btn btn-default button-all-settings collapsed" data-toggle="collapse" role="button">{{ button_all_settings }}<i class="icon icon-all-settings"></i></button>	
-                  <div id="all-settings" class="all-settings collapse">
+                  <div class="all-settings collapse" id="all-settings">
                     <div class="form-group">
                       <label class="control-label" for="input-card-secure-scenario">{{ entry_card_secure_scenario }}</label>
                       <p class="alert alert-info">{{ help_card_secure_scenario }}</p>
@@ -142,7 +142,7 @@
                     {% for card_secure_scenario in setting.card_secure_scenario %}
                       <div class="form-group">
                         <label class="control-label" for="input-card-secure-scenario{{ card_secure_scenario.code }}">{{ attribute(_context, card_secure_scenario.name) }}</label>	
-                        <select name="payment_paypal_setting[card][secure_scenario][{{ card_secure_scenario.code }}]" id="input-card-secure-scenario{{ card_secure_scenario.code }}" class="form-control"/>
+                        <select name="payment_paypal_setting[card][secure_scenario][{{ card_secure_scenario.code }}]" class="form-control" id="input-card-secure-scenario{{ card_secure_scenario.code }}"/>
                           <option value="1" {% if setting_card.secure_scenario[card_secure_scenario.code] %}selected="selected"{% endif %}>{{ text_accept }}{% if card_secure_scenario.recommended %} {{ text_recommended }}{% endif %}</option>
                           <option value="0" {% if not setting_card.secure_scenario[card_secure_scenario.code] %}selected="selected"{% endif %}>{{ text_decline }}{% if not card_secure_scenario.recommended %} {{ text_recommended }}{% endif %}</option>
                         </select>

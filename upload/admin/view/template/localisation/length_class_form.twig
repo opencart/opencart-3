@@ -24,7 +24,7 @@
         <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_form }}</h3>
       </div>
       <div class="panel-body">
-        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-length-class" class="form-horizontal">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal" id="form-length-class">
           <div class="form-group required">
             <label class="col-sm-2 control-label">{{ entry_title }}</label>
             <div class="col-sm-10">
@@ -54,7 +54,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-value"><span data-toggle="tooltip" title="{{ help_value|escape('html') }}">{{ entry_value }}</span></label>
             <div class="col-sm-10">
-              <input type="text" name="value" value="{{ value }}" placeholder="{{ entry_value }}" id="input-value" class="form-control"/>
+              <input type="text" name="value" value="{{ value }}" placeholder="{{ entry_value }}" class="form-control" id="input-value"/>
             </div>
           </div>
         </form>

@@ -24,11 +24,11 @@
         <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3>
       </div>
       <div class="panel-body">
-        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-payment" class="form-horizontal">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal" id="form-payment">
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-account">{{ entry_account }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_twocheckout_account" value="{{ payment_twocheckout_account }}" placeholder="{{ entry_account }}" id="input-account" class="form-control"/>
+              <input type="text" name="payment_twocheckout_account" value="{{ payment_twocheckout_account }}" placeholder="{{ entry_account }}" class="form-control" id="input-account"/>
               {% if error_account %}
                 <div class="text-danger">{{ error_account }}</div>
               {% endif %}
@@ -37,7 +37,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-secret"><span data-toggle="tooltip" title="{{ help_secret|escape('html') }}">{{ entry_secret }}</span></label>
             <div class="col-sm-10">
-              <input type="text" name="payment_twocheckout_secret" value="{{ payment_twocheckout_secret }}" placeholder="{{ entry_secret }}" id="input-secret" class="form-control"/>
+              <input type="text" name="payment_twocheckout_secret" value="{{ payment_twocheckout_secret }}" placeholder="{{ entry_secret }}" class="form-control" id="input-secret"/>
               {% if error_secret %}
                 <div class="text-danger">{{ error_secret }}</div>
               {% endif %}
@@ -84,13 +84,13 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-total"><span data-toggle="tooltip" title="{{ help_total|escape('html') }}">{{ entry_total }}</span></label>
             <div class="col-sm-10">
-              <input type="text" name="payment_twocheckout_total" value="{{ payment_twocheckout_total }}" placeholder="{{ entry_total }}" id="input-total" class="form-control"/>
+              <input type="text" name="payment_twocheckout_total" value="{{ payment_twocheckout_total }}" placeholder="{{ entry_total }}" class="form-control" id="input-total"/>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-order-status">{{ entry_order_status }}</label>
             <div class="col-sm-10">
-              <select name="payment_twocheckout_order_status_id" id="input-order-status" class="form-control"/>
+              <select name="payment_twocheckout_order_status_id" class="form-control" id="input-order-status"/>
                 {% for order_status in order_statuses %}
                   {% if order_status.order_status_id == payment_twocheckout_order_status_id %}
                     <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
@@ -104,7 +104,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-geo-zone">{{ entry_geo_zone }}</label>
             <div class="col-sm-10">
-              <select name="payment_twocheckout_geo_zone_id" id="input-geo-zone" class="form-control"/>
+              <select name="payment_twocheckout_geo_zone_id" class="form-control" id="input-geo-zone"/>
                 <option value="0">{{ text_all_zones }}</option>
                 {% for geo_zone in geo_zones %}
                   {% if geo_zone.geo_zone_id == payment_twocheckout_geo_zone_id %}
@@ -119,7 +119,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
             <div class="col-sm-10">
-              <select name="payment_twocheckout_status" id="input-status" class="form-control"/>
+              <select name="payment_twocheckout_status" class="form-control" id="input-status"/>
                 {% if payment_twocheckout_status %}
                   <option value="1" selected="selected">{{ text_enabled }}</option>
                   <option value="0">{{ text_disabled }}</option>
@@ -133,7 +133,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-sort-order">{{ entry_sort_order }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_twocheckout_sort_order" value="{{ payment_twocheckout_sort_order }}" placeholder="{{ entry_sort_order }}" id="input-sort-order" class="form-control"/>
+              <input type="text" name="payment_twocheckout_sort_order" value="{{ payment_twocheckout_sort_order }}" placeholder="{{ entry_sort_order }}" class="form-control" id="input-sort-order"/>
             </div>
           </div>
         </form>

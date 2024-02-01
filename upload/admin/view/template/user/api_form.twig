@@ -24,7 +24,7 @@
         <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_form }}</h3>
       </div>
       <div class="panel-body">
-        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-api" class="form-horizontal">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal" id="form-api">
           <ul class="nav nav-tabs">
             <li class="active"><a href="#tab-general" data-toggle="tab">{{ tab_general }}</a></li>
             <li><a href="#tab-ip" data-toggle="tab">{{ tab_ip }}</a></li>
@@ -35,7 +35,7 @@
               <div class="form-group required">
                 <label class="col-sm-2 control-label" for="input-username">{{ entry_username }}</label>
                 <div class="col-sm-10">
-                  <input type="text" name="username" value="{{ username }}" placeholder="{{ entry_username }}" id="input-username" class="form-control"/>
+                  <input type="text" name="username" value="{{ username }}" placeholder="{{ entry_username }}" class="form-control" id="input-username"/>
                   {% if error_username %}
                     <div class="text-danger">{{ error_username }}</div>
                   {% endif %}
@@ -44,9 +44,9 @@
               <div class="form-group required">
                 <label class="col-sm-2 control-label" for="input-key">{{ entry_key }}</label>
                 <div class="col-sm-10">
-                  <textarea name="key" placeholder="{{ entry_key }}" rows="5" id="input-key" class="form-control"/>{{ key }}</textarea>
+                  <textarea name="key" placeholder="{{ entry_key }}" rows="5" class="form-control" id="input-key"/>{{ key }}</textarea>
                   <br/>
-                  <button type="button" id="button-generate" class="btn btn-primary"><i class="fa fa-refresh"></i> {{ button_generate }}</button>
+                  <button type="button" class="btn btn-primary" id="button-generate"><i class="fa fa-refresh"></i> {{ button_generate }}</button>
                   {% if error_key %}
                     <div class="text-danger">{{ error_key }}</div>
                   {% endif %}
@@ -55,7 +55,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
                 <div class="col-sm-10">
-                  <select name="status" id="input-status" class="form-control"/>
+                  <select name="status" class="form-control" id="input-status"/>
                     {% if status %}
                       <option value="0">{{ text_disabled }}</option>
                       <option value="1" selected="selected">{{ text_enabled }}</option>
@@ -67,10 +67,10 @@
                 </div>
               </div>
             </div>
-            <div id="tab-ip" class="tab-pane">
+            <div class="tab-pane" id="tab-ip">
               <div class="alert alert-info"><i class="fa fa-info-circle"></i> {{ text_ip }}</div>
               <div class="table-responsive">
-                <table id="ip" class="table table-striped table-bordered table-hover">
+                <table class="table table-striped table-bordered table-hover" id="ip">
                   <thead>
                     <tr>
                       <td class="text-left">{{ entry_ip }}</td>
@@ -96,9 +96,9 @@
                 </table>
               </div>
             </div>
-            <div id="tab-session" class="tab-pane">
+            <div class="tab-pane" id="tab-session">
               <div class="table-responsive">
-                <table id="session" class="table table-striped table-bordered table-hover">
+                <table class="table table-striped table-bordered table-hover" id="session">
                   <thead>
                     <tr>
                       <td class="text-left">{{ column_token }}</td>

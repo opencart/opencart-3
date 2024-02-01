@@ -26,7 +26,7 @@
         <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3>
       </div>
       <div class="panel-body">
-        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-payment" class="form-horizontal">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal" id="form-payment">
           <ul class="nav nav-tabs" id="tabs">
             <li class="active"><a href="#tab-api" data-toggle="tab">{{ tab_api }}</a></li>
             <li><a href="#tab-account" data-toggle="tab">{{ tab_account }}</a></li>
@@ -39,7 +39,7 @@
               <div class="form-group required">
                 <label class="col-sm-2 control-label" for="input-merchant-id">{{ entry_merchant_id }}</label>
                 <div class="col-sm-10">
-                  <input type="text" name="payment_globalpay_merchant_id" value="{{ payment_globalpay_merchant_id }}" placeholder="{{ entry_merchant_id }}" id="input-merchant-id" class="form-control"/>
+                  <input type="text" name="payment_globalpay_merchant_id" value="{{ payment_globalpay_merchant_id }}" placeholder="{{ entry_merchant_id }}" class="form-control" id="input-merchant-id"/>
                   {% if error_merchant_id %}
                     <div class="text-danger">{{ error_merchant_id }}</div>
                   {% endif %}
@@ -48,7 +48,7 @@
               <div class="form-group required">
                 <label class="col-sm-2 control-label" for="input-secret">{{ entry_secret }}</label>
                 <div class="col-sm-10">
-                  <input type="password" name="payment_globalpay_secret" value="{{ payment_globalpay_secret }}" placeholder="{{ entry_secret }}" id="input-secret" class="form-control"/>
+                  <input type="password" name="payment_globalpay_secret" value="{{ payment_globalpay_secret }}" placeholder="{{ entry_secret }}" class="form-control" id="input-secret"/>
                   {% if error_secret %}
                     <div class="text-danger">{{ error_secret }}</div>
                   {% endif %}
@@ -57,13 +57,13 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-secret">{{ entry_rebate_password }}</label>
                 <div class="col-sm-10">
-                  <input type="password" name="payment_globalpay_rebate_password" value="{{ payment_globalpay_rebate_password }}" placeholder="{{ entry_rebate_password }}" id="input-rebate-password" class="form-control"/>
+                  <input type="password" name="payment_globalpay_rebate_password" value="{{ payment_globalpay_rebate_password }}" placeholder="{{ entry_rebate_password }}" class="form-control" id="input-rebate-password"/>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-live-demo">{{ entry_live_demo }}</label>
                 <div class="col-sm-10">
-                  <select name="payment_globalpay_live_demo" id="input-live-demo" class="form-control"/>
+                  <select name="payment_globalpay_live_demo" class="form-control" id="input-live-demo"/>
                     {% if payment_globalpay_live_demo %}
                       <option value="1" selected="selected">{{ text_live }}</option>
                       <option value="0">{{ text_demo }}</option>
@@ -77,7 +77,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-geo-zone">{{ entry_geo_zone }}</label>
                 <div class="col-sm-10">
-                  <select name="payment_globalpay_geo_zone_id" id="input-geo-zone" class="form-control"/>
+                  <select name="payment_globalpay_geo_zone_id" class="form-control" id="input-geo-zone"/>
                     <option value="0">{{ text_all_zones }}</option>
                     {% for geo_zone in geo_zones %}
                       {% if geo_zone.geo_zone_id == payment_globalpay_geo_zone_id %}
@@ -92,7 +92,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-debug"><span data-toggle="tooltip" title="{{ help_debug|escape('html') }}">{{ entry_debug }}</span></label>
                 <div class="col-sm-10">
-                  <select name="payment_globalpay_debug" id="input-debug" class="form-control"/>
+                  <select name="payment_globalpay_debug" class="form-control" id="input-debug"/>
                     {% if payment_globalpay_debug %}
                       <option value="1" selected="selected">{{ text_enabled }}</option>
                       <option value="0">{{ text_disabled }}</option>
@@ -106,7 +106,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
                 <div class="col-sm-10">
-                  <select name="payment_globalpay_status" id="input-status" class="form-control"/>
+                  <select name="payment_globalpay_status" class="form-control" id="input-status"/>
                     {% if payment_globalpay_status %}
                       <option value="1" selected="selected">{{ text_enabled }}</option>
                       <option value="0">{{ text_disabled }}</option>
@@ -120,17 +120,17 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-total"><span data-toggle="tooltip" title="{{ help_total|escape('html') }}">{{ entry_total }}</span></label>
                 <div class="col-sm-10">
-                  <input type="text" name="payment_globalpay_total" value="{{ payment_globalpay_total }}" placeholder="{{ entry_total }}" id="input-total" class="form-control"/>
+                  <input type="text" name="payment_globalpay_total" value="{{ payment_globalpay_total }}" placeholder="{{ entry_total }}" class="form-control" id="input-total"/>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-sort-order">{{ entry_sort_order }}</label>
                 <div class="col-sm-10">
-                  <input type="text" name="payment_globalpay_sort_order" value="{{ payment_globalpay_sort_order }}" placeholder="{{ entry_sort_order }}" id="input-sort-order" class="form-control"/>
+                  <input type="text" name="payment_globalpay_sort_order" value="{{ payment_globalpay_sort_order }}" placeholder="{{ entry_sort_order }}" class="form-control" id="input-sort-order"/>
                 </div>
               </div>
             </div>
-            <div id="tab-account" class="tab-pane">
+            <div class="tab-pane" id="tab-account">
               <div class="alert alert-warning"><i class="fa fa-exclamation-circle"></i> {{ error_use_select_card }}
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
               </div>
@@ -185,11 +185,11 @@
                 </table>
               </div>
             </div>
-            <div id="tab-order-status" class="tab-pane">
+            <div class="tab-pane" id="tab-order-status">
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-order-status-success-settled">{{ entry_status_success_settled }}</label>
                 <div class="col-sm-10">
-                  <select name="payment_globalpay_order_status_success_settled_id" id="input-order-status-success-settled" class="form-control"/>
+                  <select name="payment_globalpay_order_status_success_settled_id" class="form-control" id="input-order-status-success-settled"/>
                     {% for order_status in order_statuses %}
                       {% if order_status.order_status_id == payment_globalpay_order_status_success_settled_id %}
                         <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
@@ -203,7 +203,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-order-status-success-unsettled">{{ entry_status_success_unsettled }}</label>
                 <div class="col-sm-10">
-                  <select name="payment_globalpay_order_status_success_unsettled_id" id="input-order-status-success-unsettled" class="form-control"/>
+                  <select name="payment_globalpay_order_status_success_unsettled_id" class="form-control" id="input-order-status-success-unsettled"/>
                     {% for order_status in order_statuses %}
                       {% if order_status.order_status_id == payment_globalpay_order_status_success_unsettled_id %}
                         <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
@@ -217,7 +217,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-order-status-decline">{{ entry_status_decline }}</label>
                 <div class="col-sm-10">
-                  <select name="payment_globalpay_order_status_decline_id" id="input-order-status-decline" class="form-control"/>
+                  <select name="payment_globalpay_order_status_decline_id" class="form-control" id="input-order-status-decline"/>
                     {% for order_status in order_statuses %}
                       {% if order_status.order_status_id == payment_globalpay_order_status_decline_id %}
                         <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
@@ -231,7 +231,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-order-status-decline-pending">{{ entry_status_decline_pending }}</label>
                 <div class="col-sm-10">
-                  <select name="payment_globalpay_order_status_decline_pending_id" id="input-order-status-decline-pending" class="form-control"/>
+                  <select name="payment_globalpay_order_status_decline_pending_id" class="form-control" id="input-order-status-decline-pending"/>
                     {% for order_status in order_statuses %}
                       {% if order_status.order_status_id == payment_globalpay_order_status_decline_pending_id %}
                         <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
@@ -245,7 +245,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-order-status-decline-stolen">{{ entry_status_decline_stolen }}</label>
                 <div class="col-sm-10">
-                  <select name="payment_globalpay_order_status_decline_stolen_id" id="input-order-status-decline-stolen" class="form-control"/>
+                  <select name="payment_globalpay_order_status_decline_stolen_id" class="form-control" id="input-order-status-decline-stolen"/>
                     {% for order_status in order_statuses %}
                       {% if order_status.order_status_id == payment_globalpay_order_status_decline_stolen_id %}
                         <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
@@ -259,7 +259,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-order-status-decline-bank">{{ entry_status_decline_bank }}</label>
                 <div class="col-sm-10">
-                  <select name="payment_globalpay_order_status_decline_bank_id" id="input-order-status-decline-bank" class="form-control"/>
+                  <select name="payment_globalpay_order_status_decline_bank_id" class="form-control" id="input-order-status-decline-bank"/>
                     {% for order_status in order_statuses %}
                       {% if order_status.order_status_id == payment_globalpay_order_status_decline_bank_id %}
                         <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
@@ -271,11 +271,11 @@
                 </div>
               </div>
             </div>
-            <div id="tab-payment" class="tab-pane">
+            <div class="tab-pane" id="tab-payment">
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-auto-settle"><span data-toggle="tooltip" title="{{ help_dcc_settle|escape('html') }}">{{ entry_auto_settle }}</span></label>
                 <div class="col-sm-10">
-                  <select name="payment_globalpay_auto_settle" id="input-auto-settle" class="form-control"/>
+                  <select name="payment_globalpay_auto_settle" class="form-control" id="input-auto-settle"/>
                     <option value="0"{{ payment_globalpay_auto_settle == 0 ? ' selected="selected"' : '' }}>{{ text_settle_delayed }}</option>
                     <option value="1"{{ payment_globalpay_auto_settle == 1 ? ' selected="selected"' : '' }}>{{ text_settle_auto }}</option>
                     <option value="2"{{ payment_globalpay_auto_settle == 2 ? ' selected="selected"' : '' }}>{{ text_settle_multi }}</option>
@@ -285,7 +285,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-card-select"><span data-toggle="tooltip" title="{{ help_card_select|escape('html') }}">{{ entry_card_select }}</span></label>
                 <div class="col-sm-10">
-                  <select name="payment_globalpay_card_select" id="input-card-select" class="form-control"/>
+                  <select name="payment_globalpay_card_select" class="form-control" id="input-card-select"/>
                     {% if payment_globalpay_card_select %}
                       <option value="1" selected="selected">{{ text_yes }}</option>
                       <option value="0">{{ text_no }}</option>
@@ -299,7 +299,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-tss-check">{{ entry_tss_check }}</label>
                 <div class="col-sm-10">
-                  <select name="payment_globalpay_tss_check" id="input-tss-check" class="form-control"/>
+                  <select name="payment_globalpay_tss_check" class="form-control" id="input-tss-check"/>
                     {% if payment_globalpay_tss_check %}
                       <option value="1" selected="selected">{{ text_yes }}</option>
                       <option value="0">{{ text_no }}</option>
@@ -311,11 +311,11 @@
                 </div>
               </div>
             </div>
-            <div id="tab-advanced" class="tab-pane">
+            <div class="tab-pane" id="tab-advanced">
               <div class="form-group required">
                 <label class="col-sm-2 control-label" for="input-live-url">{{ entry_live_url }}</label>
                 <div class="col-sm-10">
-                  <input type="text" name="payment_globalpay_live_url" value="{{ payment_globalpay_live_url }}" placeholder="{{ entry_live_url }}" id="input-live-url" class="form-control"/>
+                  <input type="text" name="payment_globalpay_live_url" value="{{ payment_globalpay_live_url }}" placeholder="{{ entry_live_url }}" class="form-control" id="input-live-url"/>
                   {% if error_live_url %}
                     <div class="text-danger">{{ error_live_url }}</div>
                   {% endif %}
@@ -324,7 +324,7 @@
               <div class="form-group required">
                 <label class="col-sm-2 control-label" for="input-demo-url">{{ entry_demo_url }}</label>
                 <div class="col-sm-10">
-                  <input type="text" name="payment_globalpay_demo_url" value="{{ payment_globalpay_demo_url }}" placeholder="{{ entry_demo_url }}" id="input-demo-url" class="form-control"/>
+                  <input type="text" name="payment_globalpay_demo_url" value="{{ payment_globalpay_demo_url }}" placeholder="{{ entry_demo_url }}" class="form-control" id="input-demo-url"/>
                   {% if error_demo_url %}
                     <div class="text-danger">{{ error_demo_url }}</div>
                   {% endif %}

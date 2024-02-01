@@ -29,7 +29,7 @@
     {% else %}
       {% set class = 'col-sm-12' %}
     {% endif %}
-    <div id="content" class="{{ class }}">
+    <div class="{{ class }}" id="content">
       {{ content_top }}
       <h1>{{ heading_title }}</h1>
       <div class="panel panel-default">
@@ -234,7 +234,7 @@
                         <label>
                           {% if quote.code == code or not code %}
                             {% set code = quote.code %}
-                              <input type="radio" name="shipping_method" value="{{ quote.code }}" id="{{ quote.code }}" checked="checked"/>
+                              <input type="radio" name="shipping_method" value="{{ quote.code }}" checked="checked" id="{{ quote.code }}"/>
                             {% else %}
                               <input type="radio" name="shipping_method" value="{{ quote.code }}" id="{{ quote.code }}"/>
                             {% endif %}
@@ -341,14 +341,14 @@ $('input[name=\'shipping_method\']').change(function() {
 
 $(document).on('click', '.button-payment-address', function(event) {
     $('#payment-address').remove();
-    $('body').append('<div id="payment-address" class="modal fade"></div>');
+    $('body').append('<div class="modal fade" id="payment-address"></div>');
     $('#payment-address').load('index.php?route=extension/payment/paypal/paymentAddress #payment-address >', onLoadPaymentAddress);
     $('#payment-address').modal('show');
 });
 
 $(document).on('click', '.button-shipping-address', function(event) {
     $('#shipping-address').remove();
-    $('body').append('<div id="shipping-address" class="modal fade"></div>');
+    $('body').append('<div class="modal fade" id="shipping-address"></div>');
     $('#shipping-address').load('index.php?route=extension/payment/paypal/shippingAddress #shipping-address >', onLoadShippingAddress);
     $('#shipping-address').modal('show');
 });
@@ -465,7 +465,7 @@ function onLoadPaymentAddress() {
 
         $('#form-upload').remove();
 
-        $('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="file"/></form>');
+        $('body').prepend('<form enctype="multipart/form-data" style="display: none;" id="form-upload"><input type="file" name="file"/></form>');
 
         $('#form-upload input[name=\'file\']').trigger('click');
 
@@ -631,7 +631,7 @@ function onLoadShippingAddress() {
 
         $('#form-upload').remove();
 
-        $('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="file"/></form>');
+        $('body').prepend('<form enctype="multipart/form-data" style="display: none;" id="form-upload"><input type="file" name="file"/></form>');
 
         $('#form-upload input[name=\'file\']').trigger('click');
 
