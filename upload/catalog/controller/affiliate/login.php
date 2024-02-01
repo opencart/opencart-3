@@ -107,8 +107,10 @@ class ControllerAffiliateLogin extends Controller {
 
 	/**
 	 * Validate
+	 * 
+	 * @return bool
 	 */
-	protected function validate() {
+	protected function validate(): bool {
 		// Check how many login attempts have been made.
 		$login_info = $this->model_account_customer->getLoginAttempts($this->request->post['email']);
 

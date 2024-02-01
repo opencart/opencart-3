@@ -179,8 +179,10 @@ class ControllerCommonProfile extends Controller {
 
 	/**
 	 * Validate Form
+	 * 
+	 * @return bool
 	 */
-	protected function validateForm() {
+	protected function validateForm(): bool {
 		if (!$this->user->hasPermission('modify', 'common/profile')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

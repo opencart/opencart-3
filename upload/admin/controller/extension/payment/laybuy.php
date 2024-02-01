@@ -11,6 +11,8 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 * 
 	 * @return void
 	 */
 	public function index(): void {
@@ -1154,7 +1156,12 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 		}
 	}
 
-	private function getApiKey() {
+	/**
+	 * Get Api Key
+	 * 
+	 * @return string
+	 */
+	private function getApiKey(): string {
 		// API login
 		$this->load->model('user/api');
 
@@ -1176,7 +1183,12 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 		}
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 * 
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/payment/laybuy')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

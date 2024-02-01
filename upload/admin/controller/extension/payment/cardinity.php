@@ -11,6 +11,8 @@ class ControllerExtensionPaymentCardinity extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 * 
 	 * @return void
 	 */
 	public function index(): void {
@@ -147,7 +149,7 @@ class ControllerExtensionPaymentCardinity extends Controller {
 		return $this->load->view('extension/payment/cardinity_order', $data);
 	}
 
-	/** getPayment
+	/** Get Payment
 	 *
 	 * @return void
 	 */
@@ -268,7 +270,12 @@ class ControllerExtensionPaymentCardinity extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 * 
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		// Cardinity
 		$this->load->model('extension/payment/cardinity');
 

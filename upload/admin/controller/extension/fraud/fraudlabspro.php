@@ -11,6 +11,8 @@ class ControllerExtensionFraudFraudLabsPro extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 * 
 	 * @return void
 	 */
 	public function index(): void {
@@ -145,7 +147,12 @@ class ControllerExtensionFraudFraudLabsPro extends Controller {
 		$this->model_extension_fraud_fraudlabspro->uninstall();
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 * 
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/fraud/fraudlabspro')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
@@ -338,7 +345,12 @@ class ControllerExtensionFraudFraudLabsPro extends Controller {
 		}
 	}
 
-	private function fix_case($s) {
+	/**
+	 * Fix Case
+	 * 
+	 * @param string $s
+	 */
+	private function fix_case(string $s) {
 		$s = ucwords(strtolower($s));
 
 		return preg_replace_callback("/( [ a-zA-Z]{1}')([a-zA-Z0-9]{1})/s", fn ($matches) => $matches[1] . strtoupper($matches[2]), $s);

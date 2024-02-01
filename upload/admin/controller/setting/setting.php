@@ -1076,8 +1076,10 @@ class ControllerSettingSetting extends Controller {
 
 	/**
 	 * Validate
+	 * 
+	 * @return bool
 	 */
-	protected function validate() {
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'setting/setting')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

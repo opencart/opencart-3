@@ -11,6 +11,8 @@ class ControllerExtensionPaymentEway extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -199,12 +201,22 @@ class ControllerExtensionPaymentEway extends Controller {
 	}
 
 	// Legacy 2.0.0
-	public function orderAction() {
+	/**
+	 * Order Action
+	 * 
+	 * @return string
+	 */
+	public function orderAction(): string {
 		return $this->order();
 	}
 
 	// Legacy 2.0.3
-	public function action() {
+	/**
+	 * Action
+	 * 
+	 * @return string
+	 */
+	public function action(): string {
 		return $this->order();
 	}
 
@@ -406,7 +418,12 @@ class ControllerExtensionPaymentEway extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	private function validate() {
+	/**
+	 * Validate
+	 * 
+	 * @return bool
+	 */
+	private function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/payment/eway')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

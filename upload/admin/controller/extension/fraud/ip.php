@@ -11,6 +11,8 @@ class ControllerExtensionFraudIp extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 * 
 	 * @return void
 	 */
 	public function index(): void {
@@ -105,7 +107,12 @@ class ControllerExtensionFraudIp extends Controller {
 		$this->model_extension_fraud_ip->uninstall();
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 * 
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/fraud/ip')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
@@ -162,7 +169,7 @@ class ControllerExtensionFraudIp extends Controller {
 	}
 
 	/**
-	 * addIp
+	 * Add Ip
 	 *
 	 * @return void
 	 */
@@ -189,7 +196,7 @@ class ControllerExtensionFraudIp extends Controller {
 	}
 
 	/**
-	 * removeIp
+	 * Remove Ip
 	 *
 	 * @return void
 	 */

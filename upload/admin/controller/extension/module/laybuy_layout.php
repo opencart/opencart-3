@@ -11,6 +11,8 @@ class ControllerExtensionModuleLaybuyLayout extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 * 
 	 * @return void
 	 */
 	public function index(): void {
@@ -68,7 +70,12 @@ class ControllerExtensionModuleLaybuyLayout extends Controller {
 		$this->response->setOutput($this->load->view('extension/module/laybuy_layout', $data));
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 * 
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/module/laybuy_layout')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

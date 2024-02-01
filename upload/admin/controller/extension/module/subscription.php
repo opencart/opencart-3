@@ -11,6 +11,8 @@ class ControllerExtensionModuleSubscription extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 * 
 	 * @return void
 	 */
 	public function index(): void {
@@ -68,7 +70,12 @@ class ControllerExtensionModuleSubscription extends Controller {
 		$this->response->setOutput($this->load->view('extension/module/subscription', $data));
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 * 
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/module/subscription')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

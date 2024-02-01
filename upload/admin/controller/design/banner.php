@@ -412,8 +412,10 @@ class ControllerDesignBanner extends Controller {
 
 	/**
 	 * Validate Form
+	 * 
+	 * @return bool
 	 */
-	protected function validateForm() {
+	protected function validateForm(): bool {
 		if (!$this->user->hasPermission('modify', 'design/banner')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
@@ -437,8 +439,10 @@ class ControllerDesignBanner extends Controller {
 
 	/**
 	 * Validate Delete
+	 * 
+	 * @return bool
 	 */
-	protected function validateDelete() {
+	protected function validateDelete(): bool {
 		if (!$this->user->hasPermission('modify', 'design/banner')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

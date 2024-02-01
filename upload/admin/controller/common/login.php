@@ -99,8 +99,10 @@ class ControllerCommonLogin extends Controller {
 
 	/**
 	 * Validate
+	 * 
+	 * @return bool
 	 */
-	protected function validate() {
+	protected function validate(): bool {
 		// Stop any undefined index messages.
 		$keys = [
 			'username',

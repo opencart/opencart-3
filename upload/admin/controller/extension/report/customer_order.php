@@ -11,6 +11,8 @@ class ControllerExtensionReportCustomerOrder extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 * 
 	 * @return void
 	 */
 	public function index(): void {
@@ -74,7 +76,12 @@ class ControllerExtensionReportCustomerOrder extends Controller {
 		$this->response->setOutput($this->load->view('extension/report/customer_order_form', $data));
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 * 
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/report/customer_order')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

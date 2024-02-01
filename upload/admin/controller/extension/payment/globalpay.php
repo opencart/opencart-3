@@ -11,6 +11,8 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 * 
 	 * @return void
 	 */
 	public function index(): void {
@@ -441,7 +443,12 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 * 
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/payment/globalpay')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

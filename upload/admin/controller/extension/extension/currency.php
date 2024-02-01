@@ -11,6 +11,8 @@ class ControllerExtensionExtensionCurrency extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 * 
 	 * @return void
 	 */
 	public function index(): void {
@@ -73,6 +75,11 @@ class ControllerExtensionExtensionCurrency extends Controller {
 		$this->getList();
 	}
 
+	/**
+	 * Get List
+	 * 
+	 * @return void
+	 */
 	protected function getList(): void {
 		if (isset($this->error['warning'])) {
 			$data['error_warning'] = $this->error['warning'];
@@ -125,7 +132,12 @@ class ControllerExtensionExtensionCurrency extends Controller {
 		$this->response->setOutput($this->load->view('extension/extension/currency', $data));
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 * 
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/extension/currency')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

@@ -11,6 +11,8 @@ class ControllerExtensionModuleCarousel extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 * 
 	 * @return void
 	 */
 	public function index(): void {
@@ -145,7 +147,12 @@ class ControllerExtensionModuleCarousel extends Controller {
 		$this->response->setOutput($this->load->view('extension/module/carousel', $data));
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 * 
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/module/carousel')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

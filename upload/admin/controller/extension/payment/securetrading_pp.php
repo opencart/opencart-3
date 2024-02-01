@@ -11,6 +11,8 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 * 
 	 * @return void
 	 */
 	public function index(): void {
@@ -232,6 +234,8 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 
 		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
 
+		$data['cards'] = [];
+
 		$data['cards'] = [
 			'AMEX'            => 'American Express',
 			'VISA'            => 'Visa',
@@ -244,6 +248,8 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 			'MAESTRO'         => 'Maestro',
 			'PAYPAL'          => 'PayPal'
 		];
+
+		$data['settlement_statuses'] = [];
 
 		$data['settlement_statuses'] = [
 			'0'   => $this->language->get('text_pending_settlement'),
@@ -531,7 +537,12 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 * 
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/payment/securetrading_pp')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
@@ -555,7 +566,12 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 		return !$this->error;
 	}
 
-	private function getApiKey() {
+	/**
+	 * Get Api Key
+	 * 
+	 * @return string
+	 */
+	private function getApiKey(): string {
 		// API login
 		$this->load->model('user/api');
 

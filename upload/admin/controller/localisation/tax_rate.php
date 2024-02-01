@@ -412,8 +412,10 @@ class ControllerLocalisationTaxRate extends Controller {
 
 	/**
 	 * Validate Form
+	 * 
+	 * @return bool
 	 */
-	protected function validateForm() {
+	protected function validateForm(): bool {
 		if (!$this->user->hasPermission('modify', 'localisation/tax_rate')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
@@ -431,8 +433,10 @@ class ControllerLocalisationTaxRate extends Controller {
 
 	/**
 	 * Validate Delete
+	 * 
+	 * @return bool
 	 */
-	protected function validateDelete() {
+	protected function validateDelete(): bool {
 		if (!$this->user->hasPermission('modify', 'localisation/tax_rate')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

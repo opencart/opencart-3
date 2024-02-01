@@ -13,6 +13,8 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 * 
 	 * @return void
 	 */
 	public function index(): void {
@@ -185,11 +187,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 			$data['payment_amazon_login_pay_payment_region'] = $this->request->post['payment_amazon_login_pay_payment_region'];
 		} elseif ($this->config->get('payment_amazon_login_pay_payment_region')) {
 			$data['payment_amazon_login_pay_payment_region'] = $this->config->get('payment_amazon_login_pay_payment_region');
-		} elseif (in_array($this->config->get('config_currency'), [
-			'EUR',
-			'GBP',
-			'USD'
-		])) {
+		} elseif (in_array($this->config->get('config_currency'), ['EUR', 'GBP', 'USD'])) {
 			$data['payment_amazon_login_pay_payment_region'] = $this->config->get('config_currency');
 		} else {
 			$data['payment_amazon_login_pay_payment_region'] = 'USD';
@@ -359,10 +357,14 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 		];
 
 		$data['unique_id'] = 'oc-' . str_replace(' ', '-', strtolower($this->config->get('config_name'))) . '_' . mt_rand();
+
 		$data['allowed_login_domain'] = html_entity_decode(HTTPS_CATALOG);
+
 		$data['login_redirect_urls'][] = HTTPS_CATALOG . 'index.php?route=payment/amazon_login/login';
 		$data['login_redirect_urls'][] = HTTPS_CATALOG . 'index.php?route=payment/amazon_pay/login';
+
 		$data['store_name'] = $this->config->get('config_name');
+
 		$data['simple_path_language'] = str_replace('-', '_', $data['payment_amazon_login_pay_language']);
 
 		$data['languages'] = [];
@@ -663,6 +665,11 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
+	/**
+	 * Trim Integration Details
+	 * 
+	 * @return void
+	 */
 	protected function trimIntegrationDetails(): void {
 		$integration_keys = [
 			'payment_amazon_login_pay_merchant_id',
@@ -679,7 +686,12 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 		}
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 * 
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		// Currencies
 		$this->load->model('localisation/currency');
 

@@ -11,6 +11,8 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 * 
 	 * @return void
 	 */
 	public function index(): void {
@@ -218,6 +220,8 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 		// Order Statuses
 		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
 
+		$data['cards'] = [];
+
 		$data['cards'] = [
 			'AMEX'            => 'American Express',
 			'VISA'            => 'Visa',
@@ -230,6 +234,8 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 			'MAESTRO'         => 'Maestro',
 			'PAYPAL'          => 'PayPal'
 		];
+
+		$data['settlement_statuses'] = [];
 
 		$data['settlement_statuses'] = [
 			'0'   => $this->language->get('text_pending_settlement'),
@@ -291,7 +297,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 	}
 
 	/**
-	 * downloadTransactions
+	 * Download Transactions
 	 *
 	 * @return void
 	 */
@@ -302,6 +308,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 		$this->load->model('extension/payment/securetrading_ws');
 
 		$csv_data = $this->request->post;
+
 		$csv_data['detail'] = true;
 
 		$response = $this->model_extension_payment_securetrading_ws->getCsv($csv_data);
@@ -317,7 +324,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 	}
 
 	/**
-	 * showTransactions
+	 * Show Transactions
 	 *
 	 * @return string
 	 */
@@ -328,6 +335,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 		$this->load->model('extension/payment/securetrading_ws');
 
 		$csv_data = $this->request->post;
+
 		$csv_data['detail'] = false;
 
 		$response = $this->model_extension_payment_securetrading_ws->getCsv($csv_data);
@@ -619,7 +627,12 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 * 
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/payment/securetrading_pp')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
@@ -643,7 +656,12 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 		return !$this->error;
 	}
 
-	private function getApiKey() {
+	/**
+	 * Get Api Key
+	 * 
+	 * @return string
+	 */
+	private function getApiKey(): string {
 		// API login
 		$this->load->model('user/api');
 

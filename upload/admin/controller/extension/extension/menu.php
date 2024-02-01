@@ -11,6 +11,8 @@ class ControllerExtensionExtensionMenu extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 * 
 	 * @return void
 	 */
 	public function index(): void {
@@ -74,6 +76,11 @@ class ControllerExtensionExtensionMenu extends Controller {
 		$this->getList();
 	}
 
+	/**
+	 * Get List
+	 * 
+	 * @return void
+	 */
 	protected function getList(): void {
 		$data['text_layout'] = sprintf($this->language->get('text_layout'), $this->url->link('design/layout', 'user_token=' . $this->session->data['user_token'], true));
 
@@ -136,6 +143,11 @@ class ControllerExtensionExtensionMenu extends Controller {
 		$this->response->setOutput($this->load->view('extension/extension/menu', $data));
 	}
 
+	/**
+	 * Validate
+	 * 
+	 * @return bool
+	 */
 	protected function validate() {
 		if (!$this->user->hasPermission('modify', 'extension/extension/menu')) {
 			$this->error['warning'] = $this->language->get('error_permission');

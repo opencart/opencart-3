@@ -204,8 +204,10 @@ class ControllerAccountVoucher extends Controller {
 
 	/**
 	 * Validate
+	 * 
+	 * @return bool
 	 */
-	protected function validate() {
+	protected function validate(): bool {
 		if ((oc_strlen($this->request->post['to_name']) < 1) || (oc_strlen($this->request->post['to_name']) > 64)) {
 			$this->error['to_name'] = $this->language->get('error_to_name');
 		}

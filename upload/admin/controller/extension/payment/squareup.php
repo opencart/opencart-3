@@ -11,6 +11,8 @@ class ControllerExtensionPaymentSquareup extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -313,6 +315,8 @@ class ControllerExtensionPaymentSquareup extends Controller {
 	}
 
 	/**
+	 * Transaction Info
+	 *
 	 * @return void
 	 */
 	public function transaction_info(): void {
@@ -455,7 +459,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 	}
 
 	/**
-	 * transactions
+	 * Transactions
 	 *
 	 * @return void
 	 */
@@ -531,6 +535,8 @@ class ControllerExtensionPaymentSquareup extends Controller {
 	}
 
 	/**
+	 * Refresh Token
+	 *
 	 * @return void
 	 */
 	public function refresh_token(): void {
@@ -587,6 +593,8 @@ class ControllerExtensionPaymentSquareup extends Controller {
 	}
 
 	/**
+	 * OAuth Callback
+	 *
 	 * @return void
 	 */
 	public function oauth_callback(): void {
@@ -852,7 +860,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 	}
 
 	/**
-	 * recurringButtons
+	 * Recurring Buttons
 	 *
 	 * @return string
 	 */
@@ -922,7 +930,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 	}
 
 	/**
-	 * recurringCancel
+	 * Recurring Cancel
 	 *
 	 * @return void
 	 */
@@ -961,7 +969,12 @@ class ControllerExtensionPaymentSquareup extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 *
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/payment/squareup')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
@@ -1017,6 +1030,11 @@ class ControllerExtensionPaymentSquareup extends Controller {
 		return !$this->error;
 	}
 
+	/**
+	 * Transaction Action
+	 *
+	 * @param mixed $callback
+	 */
 	protected function transactionAction($callback): void {
 		$this->load->language('extension/payment/squareup');
 
@@ -1071,11 +1089,23 @@ class ControllerExtensionPaymentSquareup extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
+	/**
+	 * Push Alert
+	 *
+	 * @param string $alert
+	 *
+	 * @return void
+	 */
 	protected function pushAlert($alert): void {
 		$this->session->data['payment_squareup_alerts'][] = $alert;
 	}
 
-	protected function pullAlerts() {
+	/**
+	 * Pull Alerts
+	 *
+	 * @return array
+	 */
+	protected function pullAlerts(): array {
 		if (isset($this->session->data['payment_squareup_alerts'])) {
 			return $this->session->data['payment_squareup_alerts'];
 		} else {
@@ -1083,11 +1113,25 @@ class ControllerExtensionPaymentSquareup extends Controller {
 		}
 	}
 
+	/**
+	 * Clear Alerts
+	 *
+	 * @return void
+	 */
 	protected function clearAlerts(): void {
 		unset($this->session->data['payment_squareup_alerts']);
 	}
 
-	protected function getSettingValue($key, $default = null, $checkbox = false) {
+	/**
+	 * Get Setting Value
+	 *
+	 * @param string $key
+	 * @param string $default
+	 * @param bool   $checkbox
+	 *
+	 * @return string
+	 */
+	protected function getSettingValue(string $key, ?string $default = null, bool $checkbox = false): string {
 		if ($checkbox) {
 			if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post[$key])) {
 				return $default;
@@ -1105,7 +1149,14 @@ class ControllerExtensionPaymentSquareup extends Controller {
 		}
 	}
 
-	protected function getValidationError($key) {
+	/**
+	 * Get Validation Error
+	 *
+	 * @param string $key
+	 *
+	 * @return string
+	 */
+	protected function getValidationError(string $key) {
 		if (isset($this->error[$key])) {
 			return $this->error[$key];
 		} else {

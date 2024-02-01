@@ -5,6 +5,9 @@
  * @package Admin\Controller\Extension\Extension
  */
 class ControllerExtensionExtensionPromotion extends Controller {
+	/**
+	 * Index
+	 */
 	public function index() {
 		$curl = curl_init();
 
@@ -27,7 +30,7 @@ class ControllerExtensionExtensionPromotion extends Controller {
 	}
 
 	/**
-	 * getList
+	 * Get List
 	 *
 	 * @param string $route
 	 * @param array  $args

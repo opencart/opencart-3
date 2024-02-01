@@ -11,6 +11,8 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 * 
 	 * @return void
 	 */
 	public function index(): void {
@@ -529,7 +531,12 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 * 
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/payment/cardconnect')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

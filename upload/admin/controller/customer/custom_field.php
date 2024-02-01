@@ -501,7 +501,12 @@ class ControllerCustomerCustomField extends Controller {
 		$this->response->setOutput($this->load->view('customer/custom_field_form', $data));
 	}
 
-	protected function validateForm() {
+	/**
+	 * Validate Form
+	 * 
+	 * @return bool
+	 */
+	protected function validateForm(): bool {
 		if (!$this->user->hasPermission('modify', 'customer/custom_field')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
@@ -537,8 +542,10 @@ class ControllerCustomerCustomField extends Controller {
 
 	/**
 	 * Validate Delete
+	 * 
+	 * @return bool
 	 */
-	protected function validateDelete() {
+	protected function validateDelete(): bool {
 		if (!$this->user->hasPermission('modify', 'customer/custom_field')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

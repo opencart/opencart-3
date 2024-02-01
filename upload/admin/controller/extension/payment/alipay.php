@@ -11,6 +11,8 @@ class ControllerExtensionPaymentAlipay extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 * 
 	 * @return void
 	 */
 	public function index(): void {
@@ -144,7 +146,12 @@ class ControllerExtensionPaymentAlipay extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/alipay', $data));
 	}
 
-	private function validate() {
+	/**
+	 * Validate
+	 * 
+	 * @return bool
+	 */
+	private function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/payment/alipay')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

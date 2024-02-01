@@ -13,6 +13,8 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
 	private array $pclasses = [];
 
 	/**
+	 * Index
+	 * 
 	 * @return void
 	 */
 	public function index(): void {
@@ -144,7 +146,12 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/klarna_invoice', $data));
 	}
 
-	private function validate() {
+	/**
+	 * Validate
+	 * 
+	 * @return bool
+	 */
+	private function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/payment/klarna_invoice')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
@@ -152,6 +159,9 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
 		return !$this->error;
 	}
 
+	/**
+	 * Parse Response
+	 */
 	private function parseResponse($node, $document) {
 		$child = $node;
 

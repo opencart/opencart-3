@@ -270,8 +270,10 @@ class ControllerToolUpload extends Controller {
 
 	/**
 	 * Validate Delete
+	 * 
+	 * @return bool
 	 */
-	protected function validateDelete() {
+	protected function validateDelete(): bool {
 		if (!$this->user->hasPermission('modify', 'tool/upload')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

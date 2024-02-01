@@ -1,7 +1,15 @@
 <?php
 class ControllerExtensionPaymentBluePayHosted extends Controller {
-	private $error = [];
+	/**
+	 * @var array<string, string>
+	 */
+	private array $error = [];
 
+	/**
+	 * Index
+	 *
+	 * @return void
+	 */
 	public function index(): void {
 		$this->load->language('extension/payment/bluepay_hosted');
 
@@ -157,19 +165,36 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/bluepay_hosted', $data));
 	}
 
+	/**
+	 * Install
+	 * 
+	 * @return void
+	 */
 	public function install(): void {
 		$this->load->model('extension/payment/bluepay_hosted');
 
 		$this->model_extension_payment_bluepay_hosted->install();
 	}
 
+	/**
+	 * Uninstall
+	 * 
+	 * @return void
+	 */
 	public function uninstall(): void {
 		$this->load->model('extension/payment/bluepay_hosted');
 
 		$this->model_extension_payment_bluepay_hosted->uninstall();
 	}
 
-	public function order() {
+	/**
+	 * Order
+	 * 
+	 * @return string
+	 */
+	public function order(): string {
+		$content = '';
+
 		if ($this->config->get('payment_bluepay_hosted_status')) {
 			$this->load->model('extension/payment/bluepay_hosted');
 
@@ -188,11 +213,18 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
 				$data['order_id'] = (int)$this->request->get['order_id'];
 				$data['user_token'] = $this->session->data['user_token'];
 
-				return $this->load->view('extension/payment/bluepay_hosted_order', $data);
+				$content = $this->load->view('extension/payment/bluepay_hosted_order', $data);
 			}
 		}
+
+		return $content;
 	}
 
+	/**
+	 * Void
+	 * 
+	 * @return void
+	 */
 	public function void(): void {
 		$this->load->language('extension/payment/bluepay_hosted');
 
@@ -231,6 +263,11 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
+	/**
+	 * Release
+	 * 
+	 * @return void
+	 */
 	public function release(): void {
 		$this->load->language('extension/payment/bluepay_hosted');
 
@@ -285,6 +322,11 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
+	/**
+	 * Rebate
+	 * 
+	 * @return void
+	 */
 	public function rebate(): void {
 		$this->load->language('extension/payment/bluepay_hosted');
 
@@ -339,7 +381,12 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 * 
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/payment/bluepay_hosted')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
@@ -359,6 +406,11 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
 		return !$this->error;
 	}
 
+	/**
+	 * Callback
+	 * 
+	 * @return void
+	 */
 	public function callback(): void {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($this->request->get));

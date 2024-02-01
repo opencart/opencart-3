@@ -18,6 +18,8 @@ class ControllerExtensionPaymentWechatPay extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 * 
 	 * @return void
 	 */
 	public function index(): void {
@@ -163,7 +165,12 @@ class ControllerExtensionPaymentWechatPay extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/wechat_pay', $data));
 	}
 
-	private function validate() {
+	/**
+	 * Validate
+	 * 
+	 * @return bool
+	 */
+	private function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/payment/wechat_pay')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

@@ -371,7 +371,7 @@ class ControllerExtensionPaymentOpayo extends Controller {
 	 *
 	 * @return bool
 	 */
-	private function validate() {
+	private function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/payment/opayo')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

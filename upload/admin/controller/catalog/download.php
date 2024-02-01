@@ -393,8 +393,10 @@ class ControllerCatalogDownload extends Controller {
 
 	/**
 	 * Validate Form
+	 * 
+	 * @return bool
 	 */
-	protected function validateForm() {
+	protected function validateForm(): bool {
 		// Check user has permission
 		if (!$this->user->hasPermission('modify', 'catalog/download')) {
 			$this->error['warning'] = $this->language->get('error_permission');
@@ -423,8 +425,10 @@ class ControllerCatalogDownload extends Controller {
 
 	/**
 	 * Validate Delete
+	 * 
+	 * @return bool
 	 */
-	protected function validateDelete() {
+	protected function validateDelete(): bool {
 		if (!$this->user->hasPermission('modify', 'catalog/download')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

@@ -1297,8 +1297,10 @@ class ControllerCatalogProduct extends Controller {
 
 	/**
 	 * Validate Delete
+	 * 
+	 * @return bool
 	 */
-	protected function validateDelete() {
+	protected function validateDelete(): bool {
 		if (!$this->user->hasPermission('modify', 'catalog/product')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
@@ -1308,8 +1310,10 @@ class ControllerCatalogProduct extends Controller {
 
 	/**
 	 * Validate Copy
+	 * 
+	 * @return bool
 	 */
-	protected function validateCopy() {
+	protected function validateCopy(): bool {
 		if (!$this->user->hasPermission('modify', 'catalog/product')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

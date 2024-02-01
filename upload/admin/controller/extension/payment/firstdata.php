@@ -11,6 +11,8 @@ class ControllerExtensionPaymentFirstdata extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 * 
 	 * @return void
 	 */
 	public function index(): void {
@@ -356,7 +358,12 @@ class ControllerExtensionPaymentFirstdata extends Controller {
 		$this->response->redirect($this->url->link('sale/order/info', 'order_id=' . $this->request->post['order_id'] . '&user_token=' . $this->session->data['user_token'], true));
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 * 
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/payment/firstdata')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

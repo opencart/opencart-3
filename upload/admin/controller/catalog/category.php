@@ -562,8 +562,10 @@ class ControllerCatalogCategory extends Controller {
 
 	/**
 	 * Validate Form
+	 * 
+	 * @return bool
 	 */
-	protected function validateForm() {
+	protected function validateForm(): bool {
 		if (!$this->user->hasPermission('modify', 'catalog/category')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
@@ -622,8 +624,10 @@ class ControllerCatalogCategory extends Controller {
 
 	/**
 	 * Validate Delete
+	 * 
+	 * @return bool
 	 */
-	protected function validateDelete() {
+	protected function validateDelete(): bool {
 		if (!$this->user->hasPermission('modify', 'catalog/category')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
@@ -633,8 +637,10 @@ class ControllerCatalogCategory extends Controller {
 
 	/**
 	 * Validate Repair
+	 * 
+	 * @return bool
 	 */
-	protected function validateRepair() {
+	protected function validateRepair(): bool {
 		if (!$this->user->hasPermission('modify', 'catalog/category')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

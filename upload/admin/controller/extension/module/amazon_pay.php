@@ -13,6 +13,8 @@ class ControllerExtensionModuleAmazonPay extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 * 
 	 * @return void
 	 */
 	public function index(): void {
@@ -110,7 +112,12 @@ class ControllerExtensionModuleAmazonPay extends Controller {
 		$this->response->setOutput($this->load->view('extension/module/amazon_pay', $data));
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 * 
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/module/amazon_pay')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

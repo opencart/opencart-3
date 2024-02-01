@@ -11,6 +11,8 @@ class ControllerExtensionFraudMaxMind extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 * 
 	 * @return void
 	 */
 	public function index(): void {
@@ -121,7 +123,12 @@ class ControllerExtensionFraudMaxMind extends Controller {
 		$this->model_extension_fraud_maxmind->uninstall();
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 * 
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/fraud/maxmind')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

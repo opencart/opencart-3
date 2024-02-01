@@ -79,8 +79,10 @@ class ControllerAccountForgotten extends Controller {
 
 	/**
 	 * Validate
+	 * 
+	 * @return bool
 	 */
-	protected function validate() {
+	protected function validate(): bool {
 		$keys = [
 			'password'
 		];

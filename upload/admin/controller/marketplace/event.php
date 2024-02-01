@@ -288,8 +288,10 @@ class ControllerMarketplaceEvent extends Controller {
 
 	/**
 	 * Validate
+	 * 
+	 * @return bool
 	 */
-	protected function validate() {
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'marketplace/event')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

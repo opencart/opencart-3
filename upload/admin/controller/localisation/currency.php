@@ -453,8 +453,10 @@ class ControllerLocalisationCurrency extends Controller {
 
 	/**
 	 * Validate Form
+	 * 
+	 * @return bool
 	 */
-	protected function validateForm() {
+	protected function validateForm(): bool {
 		if (!$this->user->hasPermission('modify', 'localisation/currency')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
@@ -472,8 +474,10 @@ class ControllerLocalisationCurrency extends Controller {
 
 	/**
 	 * Validate Delete
+	 * 
+	 * @return bool
 	 */
-	protected function validateDelete() {
+	protected function validateDelete(): bool {
 		if (!$this->user->hasPermission('modify', 'localisation/currency')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
@@ -511,8 +515,10 @@ class ControllerLocalisationCurrency extends Controller {
 
 	/**
 	 * Validate Refresh
+	 * 
+	 * @return bool
 	 */
-	protected function validateRefresh() {
+	protected function validateRefresh(): bool {
 		if (!$this->user->hasPermission('modify', 'localisation/currency')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

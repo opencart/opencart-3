@@ -289,8 +289,10 @@ class ControllerAccountAffiliate extends Controller {
 
 	/**
 	 * Validate
+	 * 
+	 * @return bool
 	 */
-	protected function validate() {
+	protected function validate(): bool {
 		$keys = [
 			'payment',
 			'cheque',

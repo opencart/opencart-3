@@ -30,6 +30,8 @@ class ControllerExtensionPaymentAlipayCross extends Controller {
 	];
 
 	/**
+	 * Index
+	 * 
 	 * @return void
 	 */
 	public function index(): void {
@@ -179,7 +181,12 @@ class ControllerExtensionPaymentAlipayCross extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/alipay_cross', $data));
 	}
 
-	private function validate() {
+	/**
+	 * Validate
+	 * 
+	 * @return bool
+	 */
+	private function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/payment/alipay_cross')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

@@ -11,6 +11,8 @@ class ControllerExtensionShippingFlat extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 * 
 	 * @return void
 	 */
 	public function index(): void {
@@ -102,7 +104,12 @@ class ControllerExtensionShippingFlat extends Controller {
 		$this->response->setOutput($this->load->view('extension/shipping/flat', $data));
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 * 
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/shipping/flat')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

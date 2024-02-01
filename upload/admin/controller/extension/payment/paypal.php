@@ -11,6 +11,8 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 * 
 	 * @return void
 	 */
 	public function index(): void {
@@ -1838,8 +1840,8 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	/**
 	 * Order Info Before
 	 *
-	 * @param mixed $route
-	 * @param mixed $data
+	 * @param string $route
+	 * @param array  $data
 	 *
 	 * @return void
 	 */
@@ -2322,9 +2324,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 				$data['subscription_status'] = $paypal_order_info['status'];
 
-				$data['info_url'] = str_replace('&amp;', '&', $this->url->link('extension/payment/paypal/getSubscriptionInfo', 'user_token=' . $this->session->data['user_token'] . '&order_recurring_id=' . $order_recurring_id, true));
-				$data['enable_url'] = str_replace('&amp;', '&', $this->url->link('extension/payment/paypal/enableSubscription', 'user_token=' . $this->session->data['user_token'], true));
-				$data['disable_url'] = str_replace('&amp;', '&', $this->url->link('extension/payment/paypal/disableSubscription', 'user_token=' . $this->session->data['user_token'], true));
+				$data['info_url'] = str_replace('&amp;', '&', $this->url->link('extension/payment/paypal/getRecurringInfo', 'user_token=' . $this->session->data['user_token'] . '&order_recurring_id=' . $order_recurring_id, true));
+				$data['enable_url'] = str_replace('&amp;', '&', $this->url->link('extension/payment/paypal/enableRecurring', 'user_token=' . $this->session->data['user_token'], true));
+				$data['disable_url'] = str_replace('&amp;', '&', $this->url->link('extension/payment/paypal/disableRecurring', 'user_token=' . $this->session->data['user_token'], true));
 
 				$content = $this->load->view('extension/payment/paypal/subscription', $data);
 			}
@@ -2334,11 +2336,11 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	}
 
 	/**
-	 * Get Subscription Info
+	 * Get Recurring Info
 	 *
 	 * @return void
 	 */
-	public function getSubscriptionInfo(): void {
+	public function getRecurringInfo(): void {
 		$this->response->setOutput($this->recurringButtons());
 	}
 
@@ -2347,7 +2349,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	 *
 	 * @return void
 	 */
-	public function enableSubscription(): void {
+	public function enableRecurring(): void {
 		$json = [];
 
 		if ($this->config->get('payment_paypal_status')) {
@@ -2381,7 +2383,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	 *
 	 * @return void
 	 */
-	public function disableSubscription(): void {
+	public function disableRecurring(): void {
 		$json = [];
 
 		if ($this->config->get('payment_paypal_status')) {
@@ -2410,7 +2412,12 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	private function validate() {
+	/**
+	 * Validate
+	 * 
+	 * @return bool
+	 */
+	private function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/payment/paypal')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
@@ -2418,7 +2425,14 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		return !$this->error;
 	}
 
-	private function token($length = 32) {
+	/**
+	 * Token
+	 * 
+	 * @param int $length
+	 * 
+	 * @return string
+	 */
+	private function token(int $length = 32): string {
 		// Create random token
 		$string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 

@@ -11,6 +11,8 @@ class ControllerExtensionOtherRecurring extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 * 
 	 * @return void
 	 */
 	public function index(): void {
@@ -68,7 +70,12 @@ class ControllerExtensionOtherRecurring extends Controller {
 		$this->response->setOutput($this->load->view('extension/other/recurring_form', $data));
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 * 
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/other/recurring')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
@@ -91,6 +98,11 @@ class ControllerExtensionOtherRecurring extends Controller {
 		$this->getList();
 	}
 
+	/**
+	 * Get List
+	 * 
+	 * @return void
+	 */
 	protected function getList(): void {
 		if (isset($this->request->get['filter_order_recurring_id'])) {
 			$filter_order_recurring_id = $this->request->get['filter_order_recurring_id'];
@@ -522,7 +534,7 @@ class ControllerExtensionOtherRecurring extends Controller {
 	}
 
 	/**
-	 * getReport
+	 * Get Report
 	 *
 	 * @return ?object
 	 */
@@ -699,7 +711,7 @@ class ControllerExtensionOtherRecurring extends Controller {
 	}
 
 	/**
-	 * addHistory
+	 * Add History
 	 *
 	 * @return void
 	 */

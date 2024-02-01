@@ -11,6 +11,8 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 * 
 	 * @return void
 	 */
 	public function index(): void {
@@ -376,7 +378,12 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 * 
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/payment/sagepay_direct')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

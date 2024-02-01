@@ -476,8 +476,10 @@ class ControllerAccountAddress extends Controller {
 
 	/**
 	 * Validate Form
+	 * 
+	 * @return bool
 	 */
-	protected function validateForm() {
+	protected function validateForm(): bool {
 		$keys = [
 			'firstname',
 			'lastname',
