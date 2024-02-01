@@ -6,6 +6,8 @@
  */
 class ControllerExtensionPaymentAuthorizeNetAim extends Controller {
 	/**
+	 * Index
+	 * 
 	 * @return string
 	 *
 	 * catalog/model/checkout/order/editOrder/after

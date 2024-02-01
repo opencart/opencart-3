@@ -6,6 +6,8 @@
  */
 class ControllerExtensionModuleSlideshow extends Controller {
 	/**
+	 * Index
+	 * 
 	 * @param array $setting
 	 *
 	 * @return string

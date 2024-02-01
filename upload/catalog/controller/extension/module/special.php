@@ -6,6 +6,8 @@
  */
 class ControllerExtensionModuleSpecial extends Controller {
 	/**
+	 * Index
+	 * 
 	 * @param array $setting
 	 *
 	 * @return string

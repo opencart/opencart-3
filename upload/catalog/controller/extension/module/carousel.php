@@ -6,6 +6,8 @@
  */
 class ControllerExtensionModuleCarousel extends Controller {
 	/**
+	 * Index
+	 * 
 	 * @param array $setting
 	 *
 	 * @return string

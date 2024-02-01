@@ -6,6 +6,8 @@
  */
 class ControllerExtensionModuleBanner extends Controller {
 	/**
+	 * Index
+	 * 
 	 * @param array $setting
 	 *
 	 * @return string

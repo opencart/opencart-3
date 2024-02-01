@@ -6,6 +6,8 @@
  */
 class ControllerExtensionModuleHTML extends Controller {
 	/**
+	 * Index
+	 * 
 	 * @param array $setting
 	 *
 	 * @return string

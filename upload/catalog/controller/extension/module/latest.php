@@ -6,6 +6,8 @@
  */
 class ControllerExtensionModuleLatest extends Controller {
 	/**
+	 * Index
+	 * 
 	 * @param array $setting
 	 *
 	 * @return string

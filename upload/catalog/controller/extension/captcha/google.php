@@ -6,6 +6,8 @@
  */
 class ControllerExtensionCaptchaGoogle extends Controller {
 	/**
+	 * Index
+	 * 
 	 * @param array $error
 	 *
 	 * @return string
