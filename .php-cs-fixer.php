@@ -46,7 +46,7 @@ return $config
 		'empty_loop_condition'                             => true,
 		'ereg_to_preg'                                     => true,
 		'error_suppression'                                => true,
-		'escape_implicit_backslashes'                      => true,
+		'string_implicit_backslashes'                      => true,
 		'explicit_indirect_variable'                       => true,
 		'explicit_string_variable'                         => true,
 		'fopen_flag_order'                                 => true,
