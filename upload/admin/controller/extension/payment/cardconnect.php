@@ -11,6 +11,8 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -123,19 +125,19 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 		}
 
 		if (isset($this->request->post['payment_cardconnect_status'])) {
-			$data['payment_cardconnect_status'] = $this->request->post['payment_cardconnect_status'];
+			$data['payment_cardconnect_status'] = (int)$this->request->post['payment_cardconnect_status'];
 		} else {
 			$data['payment_cardconnect_status'] = $this->config->get('payment_cardconnect_status');
 		}
 
-		if (isset($this->request->post['payment_cardconnect_logging'])) {
-			$data['payment_cardconnect_logging'] = $this->request->post['payment_cardconnect_logging'];
+		if (isset($this->request->post['payment_cardconnect_debug'])) {
+			$data['payment_cardconnect_debug'] = (int)$this->request->post['payment_cardconnect_debug'];
 		} else {
-			$data['payment_cardconnect_logging'] = $this->config->get('payment_cardconnect_logging');
+			$data['payment_cardconnect_debug'] = $this->config->get('payment_cardconnect_debug');
 		}
 
 		if (isset($this->request->post['payment_cardconnect_sort_order'])) {
-			$data['payment_cardconnect_sort_order'] = $this->request->post['payment_cardconnect_sort_order'];
+			$data['payment_cardconnect_sort_order'] = (int)$this->request->post['payment_cardconnect_sort_order'];
 		} else {
 			$data['payment_cardconnect_sort_order'] = $this->config->get('payment_cardconnect_sort_order');
 		}
@@ -148,20 +150,20 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 			$data['payment_cardconnect_cron_time'] = $this->language->get('text_no_cron_time');
 		}
 
-		if (isset($this->request->post['payment_cardconnect_order_status_id_pending'])) {
-			$data['payment_cardconnect_order_status_id_pending'] = $this->request->post['payment_cardconnect_order_status_id_pending'];
-		} elseif ($this->config->has('payment_cardconnect_order_status_id_pending')) {
-			$data['payment_cardconnect_order_status_id_pending'] = $this->config->get('payment_cardconnect_order_status_id_pending');
+		if (isset($this->request->post['payment_cardconnect_pending_status_id'])) {
+			$data['payment_cardconnect_pending_status_id'] = (int)$this->request->post['payment_cardconnect_pending_status_id'];
+		} elseif ($this->config->has('payment_cardconnect_pending_status_id')) {
+			$data['payment_cardconnect_pending_status_id'] = $this->config->get('payment_cardconnect_pending_status_id');
 		} else {
-			$data['payment_cardconnect_order_status_id_pending'] = '1';
+			$data['payment_cardconnect_pending_status_id'] = 1;
 		}
 
-		if (isset($this->request->post['payment_cardconnect_order_status_id_processing'])) {
-			$data['payment_cardconnect_order_status_id_processing'] = $this->request->post['payment_cardconnect_order_status_id_processing'];
-		} elseif ($this->config->has('payment_cardconnect_order_status_id_processing')) {
-			$data['payment_cardconnect_order_status_id_processing'] = $this->config->get('payment_cardconnect_order_status_id_processing');
+		if (isset($this->request->post['payment_cardconnect_processing_status_id'])) {
+			$data['payment_cardconnect_processing_status_id'] = (int)$this->request->post['payment_cardconnect_processing_status_id'];
+		} elseif ($this->config->has('payment_cardconnect_processing_status_id')) {
+			$data['payment_cardconnect_processing_status_id'] = $this->config->get('payment_cardconnect_processing_status_id');
 		} else {
-			$data['payment_cardconnect_order_status_id_processing'] = '2';
+			$data['payment_cardconnect_processing_status_id'] = 2;
 		}
 
 		if (isset($this->error['warning'])) {
@@ -529,7 +531,12 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 *
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/payment/cardconnect')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

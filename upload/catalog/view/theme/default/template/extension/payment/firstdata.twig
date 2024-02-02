@@ -41,7 +41,7 @@
           {% endfor %}
           <p>
             <input type="radio" name="hosteddataid" value="{{ new_hosted_id }}" {% if i == 1 %} checked="checked"{% endif %}/>
-            Use a new card
+            {{ text_use_new_card }}
           </p>
         {% else %}
           <input type="hidden" name="hosteddataid" value="{{ new_hosted_id }}"/>
@@ -51,7 +51,7 @@
 </form>
 <div class="buttons">
   <div class="pull-right">
-    <input type="button" value="{{ button_confirm }}" id="button-confirm" class="btn btn-primary"/>
+    <input type="button" value="{{ button_confirm }}" class="btn btn-primary" id="button-confirm"/>
   </div>
 </div>
 <script type="text/javascript"><!--

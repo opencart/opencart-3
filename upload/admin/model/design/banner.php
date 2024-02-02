@@ -6,9 +6,9 @@
  */
 class ModelDesignBanner extends Model {
 	/**
-	 * addBanner
+	 * Add Banner
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -29,10 +29,10 @@ class ModelDesignBanner extends Model {
 	}
 
 	/**
-	 * editBanner
+	 * Edit Banner
 	 *
-	 * @param int   $banner_id
-	 * @param array $data
+	 * @param int                  $banner_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -51,7 +51,7 @@ class ModelDesignBanner extends Model {
 	}
 
 	/**
-	 * deleteBanner
+	 * Delete Banner
 	 *
 	 * @param int $banner_id
 	 *
@@ -63,11 +63,11 @@ class ModelDesignBanner extends Model {
 	}
 
 	/**
-	 * getBanner
+	 * Get Banner
 	 *
 	 * @param int $banner_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getBanner(int $banner_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "banner` WHERE `banner_id` = '" . (int)$banner_id . "'");
@@ -76,11 +76,11 @@ class ModelDesignBanner extends Model {
 	}
 
 	/**
-	 * getBanners
+	 * Get Banners
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getBanners(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "banner`";
@@ -120,11 +120,11 @@ class ModelDesignBanner extends Model {
 	}
 
 	/**
-	 * getImages
+	 * Get Images
 	 *
 	 * @param int $banner_id
 	 *
-	 * @return array
+	 * @return array<int, array<int, array<string, mixed>>>
 	 */
 	public function getImages(int $banner_id): array {
 		$banner_image_data = [];
@@ -144,7 +144,7 @@ class ModelDesignBanner extends Model {
 	}
 
 	/**
-	 * getTotalBanners
+	 * Get Total Banners
 	 *
 	 * @return int
 	 */

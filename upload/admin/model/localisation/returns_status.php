@@ -6,22 +6,22 @@
  */
 class ModelLocalisationReturnsStatus extends Model {
 	/**
-	 * addReturnStatus
+	 * Add Return Status
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return int
+	 * @return ?int
 	 */
-	public function addReturnStatus(array $data): int {
-		$return_status_id = null;
+	public function addReturnStatus(array $data): ?int {
+		$return_status_id = 0;
 
 		foreach ($data['return_status'] as $language_id => $value) {
-			if (isset($return_status_id)) {
-				$this->db->query("INSERT INTO `" . DB_PREFIX . "return_status` SET `return_status_id` = '" . (int)$return_status_id . "', `language_id` = '" . (int)$language_id . "', `name` = '" . $this->db->escape($value['name']) . "'");
-			} else {
+			if (!$return_status_id) {
 				$this->db->query("INSERT INTO `" . DB_PREFIX . "return_status` SET `language_id` = '" . (int)$language_id . "', `name` = '" . $this->db->escape($value['name']) . "'");
 
 				$return_status_id = $this->db->getLastId();
+			} else {
+				$this->db->query("INSERT INTO `" . DB_PREFIX . "return_status` SET `return_status_id` = '" . (int)$return_status_id . "', `language_id` = '" . (int)$language_id . "', `name` = '" . $this->db->escape($value['name']) . "'");
 			}
 		}
 
@@ -31,10 +31,10 @@ class ModelLocalisationReturnsStatus extends Model {
 	}
 
 	/**
-	 * editReturnStatus
+	 * Edit Return Status
 	 *
-	 * @param int   $return_status_id
-	 * @param array $data
+	 * @param int                  $return_status_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -49,7 +49,7 @@ class ModelLocalisationReturnsStatus extends Model {
 	}
 
 	/**
-	 * deleteReturnStatus
+	 * Delete Return Status
 	 *
 	 * @param int $return_status_id
 	 *
@@ -62,11 +62,11 @@ class ModelLocalisationReturnsStatus extends Model {
 	}
 
 	/**
-	 * getReturnStatus
+	 * Get Return Status
 	 *
 	 * @param int $return_status_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getReturnStatus(int $return_status_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "return_status` WHERE `return_status_id` = '" . (int)$return_status_id . "' AND `language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -75,11 +75,11 @@ class ModelLocalisationReturnsStatus extends Model {
 	}
 
 	/**
-	 * getReturnStatuses
+	 * Get Return Statuses
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getReturnStatuses(array $data = []): array {
 		if ($data) {
@@ -124,11 +124,11 @@ class ModelLocalisationReturnsStatus extends Model {
 	}
 
 	/**
-	 * getDescriptions
+	 * Get Descriptions
 	 *
 	 * @param int $return_status_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, string>>
 	 */
 	public function getDescriptions(int $return_status_id): array {
 		$return_status_data = [];
@@ -143,7 +143,7 @@ class ModelLocalisationReturnsStatus extends Model {
 	}
 
 	/**
-	 * getTotalReturnStatuses
+	 * Get Total Return Statuses
 	 *
 	 * @return int
 	 */

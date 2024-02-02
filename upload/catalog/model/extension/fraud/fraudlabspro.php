@@ -8,7 +8,7 @@ class ModelExtensionFraudFraudLabsPro extends Model {
 	/**
 	 * Check
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */

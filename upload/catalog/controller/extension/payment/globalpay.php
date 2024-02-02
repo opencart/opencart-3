@@ -69,7 +69,7 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
 
 		$amount = round($this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false));
 		$data['amount'] = (float)$amount * 100;
-		
+
 		$data['currency'] = $order_info['currency_code'];
 
 		$tmp = $data['timestamp'] . '.' . $data['merchant_id'] . '.' . $data['order_id'] . '.' . $data['amount'] . '.' . $data['currency'];

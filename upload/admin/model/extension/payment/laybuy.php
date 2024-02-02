@@ -8,7 +8,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 	/**
 	 * addRevisedTransaction
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -170,7 +170,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 	/**
 	 * getTransactions
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return array
 	 */
@@ -256,7 +256,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 	/**
 	 * getTotalTransactions
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -438,7 +438,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 	 * @return void
 	 */
 	public function log(string $data, int $step = 6): void {
-		if ($this->config->get('payment_laybuy_logging')) {
+		if ($this->config->get('payment_laybuy_debug')) {
 			$backtrace = debug_backtrace();
 
 			// Log
@@ -480,8 +480,8 @@ class ModelExtensionPaymentLaybuy extends Model {
 	/**
 	 * updateRevisedTransaction
 	 *
-	 * @param int   $id
-	 * @param array $data
+	 * @param int                  $id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */

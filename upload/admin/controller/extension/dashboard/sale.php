@@ -11,6 +11,8 @@ class ControllerExtensionDashboardSale extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -86,7 +88,12 @@ class ControllerExtensionDashboardSale extends Controller {
 		$this->response->setOutput($this->load->view('extension/dashboard/sale_form', $data));
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 *
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/dashboard/sale')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

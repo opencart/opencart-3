@@ -11,6 +11,8 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -22,7 +24,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			$catalog = HTTP_CATALOG;
 		}
 
-		$_config = new Config();
+		$_config = new \Config();
 		$_config->load('paypal');
 
 		$config_setting = $_config->get('paypal_setting');
@@ -224,7 +226,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			$data['catalog'] = HTTP_CATALOG;
 		}
 
-		$_config = new Config();
+		$_config = new \Config();
 		$_config->load('paypal');
 
 		$data['setting'] = $_config->get('paypal_setting');
@@ -341,7 +343,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			$data['catalog'] = HTTP_CATALOG;
 		}
 
-		$_config = new Config();
+		$_config = new \Config();
 		$_config->load('paypal');
 
 		$data['setting'] = $_config->get('paypal_setting');
@@ -477,7 +479,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			$data['catalog'] = HTTP_CATALOG;
 		}
 
-		$_config = new Config();
+		$_config = new \Config();
 		$_config->load('paypal');
 
 		$data['setting'] = $_config->get('paypal_setting');
@@ -601,7 +603,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			$data['catalog'] = HTTP_CATALOG;
 		}
 
-		$_config = new Config();
+		$_config = new \Config();
 		$_config->load('paypal');
 
 		$data['setting'] = $_config->get('paypal_setting');
@@ -758,7 +760,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			$data['catalog'] = HTTP_CATALOG;
 		}
 
-		$_config = new Config();
+		$_config = new \Config();
 		$_config->load('paypal');
 
 		$data['setting'] = $_config->get('paypal_setting');
@@ -916,7 +918,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			$data['catalog'] = HTTP_CATALOG;
 		}
 
-		$_config = new Config();
+		$_config = new \Config();
 		$_config->load('paypal');
 
 		$data['setting'] = $_config->get('paypal_setting');
@@ -1072,7 +1074,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			$data['catalog'] = HTTP_CATALOG;
 		}
 
-		$_config = new Config();
+		$_config = new \Config();
 		$_config->load('paypal');
 
 		$data['setting'] = $_config->get('paypal_setting');
@@ -1227,7 +1229,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			$data['catalog'] = HTTP_CATALOG;
 		}
 
-		$_config = new Config();
+		$_config = new \Config();
 		$_config->load('paypal');
 
 		$data['setting'] = $_config->get('paypal_setting');
@@ -1386,7 +1388,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			$data['catalog'] = HTTP_CATALOG;
 		}
 
-		$_config = new Config();
+		$_config = new \Config();
 		$_config->load('paypal');
 
 		$data['setting'] = $_config->get('paypal_setting');
@@ -1483,7 +1485,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			$data['catalog'] = HTTP_CATALOG;
 		}
 
-		$_config = new Config();
+		$_config = new \Config();
 		$_config->load('paypal');
 
 		$data['setting'] = $_config->get('paypal_setting');
@@ -1823,7 +1825,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		$this->model_setting_event->addEvent('paypal_extension_get_extensions', 'catalog/model/setting/extension/getExtensions/after', 'extension/payment/paypal/extension_get_extensions_after');
 		$this->model_setting_event->addEvent('paypal_order_delete_order', 'catalog/model/checkout/order/deleteOrder/before', 'extension/payment/paypal/order_delete_order_before');
 
-		$_config = new Config();
+		$_config = new \Config();
 		$_config->load('paypal');
 
 		$config_setting = $_config->get('paypal_setting');
@@ -1836,32 +1838,10 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	}
 
 	/**
-	 * Uninstall
-	 *
-	 * @return void
-	 */
-	public function uninstall(): void {
-		$this->load->model('extension/payment/paypal');
-
-		$this->model_extension_payment_paypal->uninstall();
-
-		$this->load->model('setting/event');
-
-		$this->model_setting_event->deleteEventByCode('paypal_order_info');
-		$this->model_setting_event->deleteEventByCode('paypal_header');
-		$this->model_setting_event->deleteEventByCode('paypal_extension_get_extensions');
-		$this->model_setting_event->deleteEventByCode('paypal_order_delete_order');
-
-		$this->load->model('setting/setting');
-
-		$this->model_setting_setting->deleteSetting('paypal_version');
-	}
-
-	/**
 	 * Order Info Before
 	 *
-	 * @param mixed $route
-	 * @param mixed $data
+	 * @param string $route
+	 * @param array  $data
 	 *
 	 * @return void
 	 */
@@ -1871,7 +1851,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 			$this->load->model('extension/payment/paypal');
 
-			$data['order_id'] = $this->request->get['order_id'];
+			$data['order_id'] = (int)$this->request->get['order_id'];
 
 			$paypal_order_info = $this->model_extension_payment_paypal->getPayPalOrder($data['order_id']);
 
@@ -1913,7 +1893,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 			$this->load->model('extension/payment/paypal');
 
-			$data['order_id'] = $this->request->get['order_id'];
+			$data['order_id'] = (int)$this->request->get['order_id'];
 
 			$paypal_order_info = $this->model_extension_payment_paypal->getPayPalOrder($data['order_id']);
 
@@ -1953,10 +1933,10 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 			$this->load->model('extension/payment/paypal');
 
-			$order_id = $this->request->post['order_id'];
+			$order_id = (int)$this->request->post['order_id'];
 			$transaction_id = $this->request->post['transaction_id'];
 
-			$_config = new Config();
+			$_config = new \Config();
 			$_config->load('paypal');
 
 			$config_setting = $_config->get('paypal_setting');
@@ -2047,10 +2027,10 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 			$this->load->model('extension/payment/paypal');
 
-			$order_id = $this->request->post['order_id'];
+			$order_id = (int)$this->request->post['order_id'];
 			$transaction_id = $this->request->post['transaction_id'];
 
-			$_config = new Config();
+			$_config = new \Config();
 			$_config->load('paypal');
 
 			$config_setting = $_config->get('paypal_setting');
@@ -2141,10 +2121,10 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 			$this->load->model('extension/payment/paypal');
 
-			$order_id = $this->request->post['order_id'];
+			$order_id = (int)$this->request->post['order_id'];
 			$transaction_id = $this->request->post['transaction_id'];
 
-			$_config = new Config();
+			$_config = new \Config();
 			$_config->load('paypal');
 
 			$config_setting = $_config->get('paypal_setting');
@@ -2235,10 +2215,10 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 			$this->load->model('extension/payment/paypal');
 
-			$order_id = $this->request->post['order_id'];
+			$order_id = (int)$this->request->post['order_id'];
 			$transaction_id = $this->request->post['transaction_id'];
 
-			$_config = new Config();
+			$_config = new \Config();
 			$_config->load('paypal');
 
 			$config_setting = $_config->get('paypal_setting');
@@ -2322,23 +2302,33 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	public function recurringButtons(): string {
 		$content = '';
 
-		if ($this->config->get('payment_paypal_status') && !empty($this->request->get['order_recurring_id'])) {
+		if ($this->config->get('payment_paypal_status')) {
 			$this->load->language('extension/payment/paypal');
+
+			$this->load->model('extension/payment/paypal');
+
+			if (isset($this->request->get['order_recurring_id'])) {
+				$order_recurring_id = (int)$this->request->get['order_recurring_id'];
+			} else {
+				$order_recurring_id = 0;
+			}
+
+			$data['order_recurring_id'] = $order_recurring_id;
 
 			$this->load->model('extension/other/recurring');
 
-			$data['order_recurring_id'] = $this->request->get['order_recurring_id'];
-
-			$order_recurring_info = $this->model_extension_other_recurring->getRecurring($data['order_recurring_id']);
+			$order_recurring_info = $this->model_extension_other_recurring->getRecurring($order_recurring_id);
 
 			if ($order_recurring_info) {
-				$data['recurring_status'] = $order_recurring_info['status'];
+				$paypal_order_info = $this->model_extension_payment_paypal->getPayPalOrder($order_recurring_info['order_id']);
 
-				$data['info_url'] = str_replace('&amp;', '&', $this->url->link('extension/payment/paypal/getRecurringInfo', 'user_token=' . $this->session->data['user_token'] . '&order_recurring_id=' . $data['order_recurring_id'], true));
+				$data['subscription_status'] = $paypal_order_info['status'];
+
+				$data['info_url'] = str_replace('&amp;', '&', $this->url->link('extension/payment/paypal/getRecurringInfo', 'user_token=' . $this->session->data['user_token'] . '&order_recurring_id=' . $order_recurring_id, true));
 				$data['enable_url'] = str_replace('&amp;', '&', $this->url->link('extension/payment/paypal/enableRecurring', 'user_token=' . $this->session->data['user_token'], true));
 				$data['disable_url'] = str_replace('&amp;', '&', $this->url->link('extension/payment/paypal/disableRecurring', 'user_token=' . $this->session->data['user_token'], true));
 
-				$content = $this->load->view('extension/payment/paypal/recurring', $data);
+				$content = $this->load->view('extension/payment/paypal/subscription', $data);
 			}
 		}
 
@@ -2355,21 +2345,29 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	}
 
 	/**
-	 * Enable Recurring
+	 * Enable Subscription
 	 *
 	 * @return void
 	 */
 	public function enableRecurring(): void {
 		$json = [];
 
-		if ($this->config->get('payment_paypal_status') && !empty($this->request->post['order_recurring_id'])) {
+		if ($this->config->get('payment_paypal_status')) {
 			$this->load->language('extension/payment/paypal');
 
 			$this->load->model('extension/payment/paypal');
 
-			$order_recurring_id = $this->request->post['order_recurring_id'];
+			if (isset($this->request->get['order_recurring_id'])) {
+				$order_recurring_id = (int)$this->request->get['order_recurring_id'];
+			} else {
+				$order_recurring_id = 0;
+			}
 
-			$this->model_extension_payment_paypal->editOrderRecurringStatus($order_recurring_id, 1);
+			$this->load->model('extension/other/recurring');
+
+			$order_recurring_info = $this->model_extension_other_recurring->getRecurring($order_recurring_id);
+
+			$this->model_extension_payment_paypal->editOrderSubscriptionStatus($order_recurring_info['order_id'], 1);
 
 			$json['success'] = $this->language->get('success_enable_recurring');
 		}
@@ -2381,23 +2379,31 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	}
 
 	/**
-	 * Disable Recurring
+	 * Disable Subscription
 	 *
 	 * @return void
 	 */
 	public function disableRecurring(): void {
 		$json = [];
 
-		if ($this->config->get('payment_paypal_status') && !empty($this->request->post['order_recurring_id'])) {
+		if ($this->config->get('payment_paypal_status')) {
 			$this->load->language('extension/payment/paypal');
 
 			$this->load->model('extension/payment/paypal');
 
-			$order_recurring_id = $this->request->post['order_recurring_id'];
+			if (isset($this->request->get['order_recurring_id'])) {
+				$order_recurring_id = (int)$this->request->get['order_recurring_id'];
+			} else {
+				$order_recurring_id = 0;
+			}
 
-			$this->model_extension_payment_paypal->editOrderRecurringStatus($order_recurring_id, 2);
+			$this->load->model('extension/other/recurring');
 
-			$json['success'] = $this->language->get('success_disable_recurring');
+			$order_recurring_info = $this->model_extension_other_recurring->getRecurring($order_recurring_id);
+
+			$this->model_extension_payment_paypal->editOrderSubscriptionStatus($order_recurring_info['order_id'], 2);
+
+			$json['success'] = $this->language->get('success_disable_subscription');
 		}
 
 		$json['error'] = $this->error;
@@ -2406,7 +2412,12 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	private function validate() {
+	/**
+	 * Validate
+	 *
+	 * @return bool
+	 */
+	private function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/payment/paypal')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
@@ -2414,7 +2425,14 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		return !$this->error;
 	}
 
-	private function token($length = 32) {
+	/**
+	 * Token
+	 *
+	 * @param int $length
+	 *
+	 * @return string
+	 */
+	private function token(int $length = 32): string {
 		// Create random token
 		$string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 

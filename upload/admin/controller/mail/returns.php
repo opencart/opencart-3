@@ -8,9 +8,9 @@ class ControllerMailReturns extends Controller {
 	/**
 	 * Deny
 	 *
-	 * @param string $route
-	 * @param array  $args
-	 * @param mixed  $output
+	 * @param string            $route
+	 * @param array<int, mixed> $args
+	 * @param mixed             $output
 	 *
 	 * @return void
 	 *
@@ -96,6 +96,7 @@ class ControllerMailReturns extends Controller {
 					];
 
 					$mail = new \Mail($this->config->get('config_mail_engine'), $mail_option);
+
 					$mail->setTo($return_info['email']);
 					$mail->setFrom($this->config->get('config_email'));
 					$mail->setSender($store_name);

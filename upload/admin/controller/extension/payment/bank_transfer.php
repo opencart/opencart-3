@@ -11,6 +11,8 @@ class ControllerExtensionPaymentBankTransfer extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -125,7 +127,12 @@ class ControllerExtensionPaymentBankTransfer extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/bank_transfer', $data));
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 *
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/payment/bank_transfer')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

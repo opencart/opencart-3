@@ -20,7 +20,7 @@
           <legend>{{ text_type }}</legend>
           <div class="well">
             <div class="input-group">
-              <select name="type" class="form-control">
+              <select name="type" class="form-control"/>
                 {% for category in categories %}
                   {% if type == category.code %}
                     <option value="{{ category.href }}" selected="selected">{{ category.text }}</option>

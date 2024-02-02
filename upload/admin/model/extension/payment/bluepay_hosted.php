@@ -15,7 +15,7 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "bluepay_hosted_order` (
 			  `bluepay_hosted_order_id` int(11) NOT NULL AUTO_INCREMENT,
 			  `order_id` int(11) NOT NULL,
-			  `transaction_id` varchar(50) NOT NULL,			  
+			  `transaction_id` varchar(50) NOT NULL,
 			  `release_status` int(1) NOT NULL DEFAULT '0',
 			  `void_status` int(1) NOT NULL DEFAULT '0',
 			  `rebate_status` int(1) NOT NULL DEFAULT '0',
@@ -29,8 +29,8 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "bluepay_hosted_order_transaction` (
 			  `bluepay_hosted_order_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
-			  `bluepay_hosted_order_id` int(11) NOT NULL,			  
-			  `type` enum('auth', 'payment', 'rebate', 'void') DEFAULT NULL,
+			  `bluepay_hosted_order_id` int(11) NOT NULL,
+			  `type` enum(\'auth\',\'payment\',\'rebate\',\'void\') DEFAULT NULL,
 			  `amount` decimal(15,4) NOT NULL,
 			  `date_added` datetime NOT NULL,
 			  PRIMARY KEY (`bluepay_hosted_order_transaction_id`)
@@ -61,10 +61,10 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 
 	/**
 	 * addOrder
-	 * 
+	 *
 	 * @param array $order_info
 	 * @param array $response_data
-	 * 
+	 *
 	 * @return int
 	 */
 	public function addOrder($order_info, $response_data): int {
@@ -253,9 +253,9 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 
 	/**
 	 * getTransactions
-	 * 
+	 *
 	 * @param int $bluepay_hosted_order_id
-	 * 
+	 *
 	 * @return array
 	 */
 	private function getTransactions(int $bluepay_hosted_order_id): array {
@@ -270,12 +270,12 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 
 	/**
 	 * addHistory
-	 * 
+	 *
 	 * @param int    $order_id
 	 * @param int    $order_status_id
 	 * @param string $comment
 	 * @param bool   $notify
-	 * 
+	 *
 	 * @return void
 	 */
 	public function addHistory(int $order_id, int $order_status_id, string $comment = '', bool $notify = false): void {

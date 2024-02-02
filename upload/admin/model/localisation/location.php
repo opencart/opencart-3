@@ -6,9 +6,9 @@
  */
 class ModelLocalisationLocation extends Model {
 	/**
-	 * addLocation
+	 * Add Location
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -19,10 +19,10 @@ class ModelLocalisationLocation extends Model {
 	}
 
 	/**
-	 * editLocation
+	 * Edit Location
 	 *
-	 * @param int   $location_id
-	 * @param array $data
+	 * @param int                  $location_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -31,7 +31,7 @@ class ModelLocalisationLocation extends Model {
 	}
 
 	/**
-	 * deleteLocation
+	 * Delete Location
 	 *
 	 * @param int $location_id
 	 *
@@ -42,11 +42,11 @@ class ModelLocalisationLocation extends Model {
 	}
 
 	/**
-	 * getLocation
+	 * Get Location
 	 *
 	 * @param int $location_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getLocation(int $location_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "location` WHERE `location_id` = '" . (int)$location_id . "'");
@@ -55,11 +55,11 @@ class ModelLocalisationLocation extends Model {
 	}
 
 	/**
-	 * getLocations
+	 * Get Locations
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getLocations(array $data = []): array {
 		$sql = "SELECT `location_id`, `name`, `address` FROM `" . DB_PREFIX . "location`";
@@ -99,7 +99,7 @@ class ModelLocalisationLocation extends Model {
 	}
 
 	/**
-	 * getTotalLocations
+	 * Get Total Locations
 	 *
 	 * @return int
 	 */

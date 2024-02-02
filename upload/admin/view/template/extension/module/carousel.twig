@@ -24,11 +24,11 @@
         <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3>
       </div>
       <div class="panel-body">
-        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-module" class="form-horizontal">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal" id="form-module">
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-name">{{ entry_name }}</label>
             <div class="col-sm-10">
-              <input type="text" name="name" value="{{ name }}" placeholder="{{ entry_name }}" id="input-name" class="form-control"/>
+              <input type="text" name="name" value="{{ name }}" placeholder="{{ entry_name }}" class="form-control" id="input-name"/>
               {% if error_name %}
                 <div class="text-danger">{{ error_name }}</div>
               {% endif %}
@@ -37,7 +37,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-banner">{{ entry_banner }}</label>
             <div class="col-sm-10">
-              <select name="banner_id" id="input-banner" class="form-control">
+              <select name="banner_id" class="form-control" id="input-banner"/>
                 {% for banner in banners %}
                   {% if banner.banner_id == banner_id %}
                     <option value="{{ banner.banner_id }}" selected="selected">{{ banner.name }}</option>
@@ -51,7 +51,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-width">{{ entry_width }}</label>
             <div class="col-sm-10">
-              <input type="text" name="width" value="{{ width }}" placeholder="{{ entry_width }}" id="input-width" class="form-control"/>
+              <input type="text" name="width" value="{{ width }}" placeholder="{{ entry_width }}" class="form-control" id="input-width"/>
               {% if error_width %}
                 <div class="text-danger">{{ error_width }}</div>
               {% endif %}
@@ -60,7 +60,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-height">{{ entry_height }}</label>
             <div class="col-sm-10">
-              <input type="text" name="height" value="{{ height }}" placeholder="{{ entry_height }}" id="input-height" class="form-control"/>
+              <input type="text" name="height" value="{{ height }}" placeholder="{{ entry_height }}" class="form-control" id="input-height"/>
               {% if error_height %}
                 <div class="text-danger">{{ error_height }}</div>
               {% endif %}
@@ -69,7 +69,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
             <div class="col-sm-10">
-              <select name="status" id="input-status" class="form-control">
+              <select name="status" class="form-control" id="input-status"/>
                 {% if status %}
                   <option value="1" selected="selected">{{ text_enabled }}</option>
                   <option value="0">{{ text_disabled }}</option>

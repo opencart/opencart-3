@@ -24,11 +24,11 @@
         <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_form }}</h3>
       </div>
       <div class="panel-body">
-        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-tax-rate" class="form-horizontal">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal" id="form-tax-rate">
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-name">{{ entry_name }}</label>
             <div class="col-sm-10">
-              <input type="text" name="name" value="{{ name }}" placeholder="{{ entry_name }}" id="input-name" class="form-control"/>
+              <input type="text" name="name" value="{{ name }}" placeholder="{{ entry_name }}" class="form-control" id="input-name"/>
               {% if error_name %}
                 <div class="text-danger">{{ error_name }}</div>
               {% endif %}
@@ -37,7 +37,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-rate">{{ entry_rate }}</label>
             <div class="col-sm-10">
-              <input type="text" name="rate" value="{{ rate }}" placeholder="{{ entry_rate }}" id="input-rate" class="form-control"/>
+              <input type="text" name="rate" value="{{ rate }}" placeholder="{{ entry_rate }}" class="form-control" id="input-rate"/>
               {% if error_rate %}
                 <div class="text-danger">{{ error_rate }}</div>
               {% endif %}
@@ -46,7 +46,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-type">{{ entry_type }}</label>
             <div class="col-sm-10">
-              <select name="type" id="input-type" class="form-control">
+              <select name="type" class="form-control" id="input-type"/>
                 {% if type == 'P' %}
                   <option value="P" selected="selected">{{ text_percent }}</option>
                 {% else %}
@@ -79,7 +79,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-geo-zone">{{ entry_geo_zone }}</label>
             <div class="col-sm-10">
-              <select name="geo_zone_id" id="input-geo-zone" class="form-control">
+              <select name="geo_zone_id" class="form-control" id="input-geo-zone"/>
                 {% for geo_zone in geo_zones %}
                   {% if geo_zone.geo_zone_id == geo_zone_id %}
                     <option value="{{ geo_zone.geo_zone_id }}" selected="selected">{{ geo_zone.name }}</option>

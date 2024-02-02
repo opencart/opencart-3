@@ -1,11 +1,11 @@
-<form id="laybuy-form" action="{{ action }}" method="post" class="form form-horizontal">
+<form action="{{ action }}" method="post" class="form form-horizontal" id="laybuy-form">
   <div>
     <h3>{{ heading_title }}</h3>
   </div>
   <div class="form-group">
     <label for="down-payment" class="col-sm-2">{{ entry_initial }}</label>
     <div class="col-sm-3">
-      <select name="INIT" id="input-down-payment" class="form-control">
+      <select name="INIT" class="form-control" id="input-down-payment"/>
         {% for percent in initial_payments %}
           <option value="{{ percent }}">{{ percent }}%</option>
         {% endfor %}
@@ -15,7 +15,7 @@
   <div class="form-group">
     <label for="months" class="col-sm-2">{{ entry_months }}</label>
     <div class="col-sm-3">
-      <select name="MONTHS" id="input-months" class="form-control">
+      <select name="MONTHS" class="form-control" id="input-months"/>
         {% for month in months %}
           {% if month.value == 3 %}
             <option value="{{ month.value }}" selected="selected">{{ month.label }}</option>
@@ -48,7 +48,7 @@
 <p style="font-size: 1.3em">{{ text_fee_msg }}</p>
 <div class="buttons">
   <div class="pull-right">
-    <input type="submit" form="laybuy-form" value="{{ button_confirm }}" id="button-confirm" class="btn btn-primary" data-loading-text="{{ text_loading }}">
+    <input type="submit" form="laybuy-form" value="{{ button_confirm }}" class="btn btn-primary" data-loading-text="{{ text_loading }}" id="button-confirm">
   </div>
 </div>
 <script type="text/javascript"><!--

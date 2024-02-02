@@ -1,5 +1,5 @@
 {{ header }}{{ column_left }}
-<div id="content" class="payment-paypal">
+<div class="payment-paypal" id="content">
   <div class="page-header">
     <div class="container-fluid">
       <div class="pull-right">
@@ -34,7 +34,7 @@
             <div class="col col-sm-offset-4 col-sm-4 text-left">
               <div class="form-group">
                 <label class="control-label" for="input-environment">{{ entry_environment }}</label>
-                <select name="payment_paypal_environment" id="input-environment" class="form-control">
+                <select name="payment_paypal_environment" class="form-control" id="input-environment"/>
                   {% if environment == 'production' %}
                     <option value="production" selected="selected">{{ text_production }}</option>
                     <option value="sandbox">{{ text_sandbox }}</option>

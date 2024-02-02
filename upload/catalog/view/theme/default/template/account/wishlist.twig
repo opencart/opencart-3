@@ -1,5 +1,5 @@
 {{ header }}
-<div id="account-wishlist" class="container">
+<div class="container" id="account-wishlist">
   <ul class="breadcrumb">
     {% for breadcrumb in breadcrumbs %}
       <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
@@ -18,7 +18,7 @@
     {% else %}
       {% set class = 'col-sm-12' %}
     {% endif %}
-    <div id="content" class="{{ class }}">{{ content_top }}
+    <div class="{{ class }}" id="content">{{ content_top }}
       <h2>{{ heading_title }}</h2>
       {% if products %}
         <div class="table-responsive">

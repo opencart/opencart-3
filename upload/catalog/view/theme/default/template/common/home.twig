@@ -1,5 +1,5 @@
 {{ header }}
-<div id="common-home" class="container">
+<div class="container" id="common-home">
   <div class="row">{{ column_left }}
     {% if column_left and column_right %}
       {% set class = 'col-sm-6' %}
@@ -8,7 +8,7 @@
     {% else %}
       {% set class = 'col-sm-12' %}
     {% endif %}
-    <div id="content" class="{{ class }}">
+    <div class="{{ class }}" id="content">
       {{ content_top }}
       {{ content_bottom }}
     </div>

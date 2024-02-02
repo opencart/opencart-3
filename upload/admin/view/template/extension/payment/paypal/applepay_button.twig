@@ -1,5 +1,5 @@
 {{ header }}{{ column_left }}
-<div id="content" class="payment-paypal">
+<div class="payment-paypal" id="content">
   <div class="page-header">
     <div class="container-fluid">
       <div class="pull-right">
@@ -62,10 +62,10 @@
                       </div>
                     </div>
                   </div>
-                  <div id="applepay-button" class="applepay-button">
-                    <div id="applepay-button-container" class="applepay-button-container paypal-spinner"></div>
+                  <div class="applepay-button" id="applepay-button">
+                    <div class="applepay-button-container paypal-spinner" id="applepay-button-container"></div>
                   </div>
-                  <br />
+                  <br/>
                 </div>
               </div>
               <div class="col col-lg-6">
@@ -76,9 +76,9 @@
                     </div>
                     <div class="col col-md-6">
                       <div class="form-group-status">
-                        <label class="control-label" for="input-applepay-button-status"><span data-toggle="tooltip" title="{{ help_applepay_button_status }}">{{ entry_status }}</span></label>
-                        <input type="hidden" name="payment_paypal_setting[applepay_button][status]" value="0" />{% set setting_applepay_button = setting.applepay_button %}
-                        <input type="checkbox" name="payment_paypal_setting[applepay_button][status]" value="1" class="switch" {% if setting_applepay_button.status %}checked="checked"{% endif %} />
+                        <label class="control-label" for="input-applepay-button-status"><span data-toggle="tooltip" title="{{ help_applepay_button_status|escape('html') }}">{{ entry_status }}</span></label>
+                        <input type="hidden" name="payment_paypal_setting[applepay_button][status]" value="0"/>{% set setting_applepay_button = setting.applepay_button %}
+                        <input type="checkbox" name="payment_paypal_setting[applepay_button][status]" value="1" class="switch" {% if setting_applepay_button.status %}checked="checked"{% endif %}/>
                       </div>
                     </div>
                   </div>
@@ -105,7 +105,7 @@
                     <div class="col col-md-6">
                       <div class="form-group">
                         <label class="control-label" for="input-applepay-button-align">{{ entry_applepay_button_align }}</label>
-                        <select name="payment_paypal_setting[applepay_button][align]" id="input-applepay-button-align" class="form-control control-applepay-button">
+                        <select name="payment_paypal_setting[applepay_button][align]" class="form-control control-applepay-button" id="input-applepay-button-align">
                           {% for applepay_button_align in setting.applepay_button_align %}
                             {% if applepay_button_align.code == setting_applepay_button.align %}
                               <option value="{{ applepay_button_align.code }}" selected="selected">{{ attribute(_context, applepay_button_align.name) }}</option>
@@ -117,7 +117,7 @@
                       </div>
                       <div class="form-group">
                         <label class="control-label" for="input-applepay-button-size">{{ entry_applepay_button_size }}</label>
-                        <select name="payment_paypal_setting[applepay_button][size]" id="input-applepay-button-size" class="form-control control-applepay-button">
+                        <select name="payment_paypal_setting[applepay_button][size]" class="form-control control-applepay-button" id="input-applepay-button-size">
                           {% for applepay_button_size in setting.applepay_button_size %}
                             {% if applepay_button_size.code == setting_applepay_button.size %}
                               <option value="{{ applepay_button_size.code }}" selected="selected">{{ attribute(_context, applepay_button_size.name) }}</option>
@@ -129,7 +129,7 @@
                       </div>
                       <div class="form-group">
                         <label class="control-label" for="input-applepay-button-color">{{ entry_applepay_button_color }}</label>
-                        <select name="payment_paypal_setting[applepay_button][color]" id="input-applepay-button-color" class="form-control control-applepay-button">
+                        <select name="payment_paypal_setting[applepay_button][color]" class="form-control control-applepay-button" id="input-applepay-button-color">
                           {% for applepay_button_color in setting.applepay_button_color %}
                             {% if applepay_button_color.code == setting_applepay_button.color %}
                               <option value="{{ applepay_button_color.code }}" selected="selected">{{ attribute(_context, applepay_button_color.name) }}</option>
@@ -143,7 +143,7 @@
                     <div class="col col-md-6">
                       <div class="form-group">
                         <label class="control-label" for="input-applepay-button-shape">{{ entry_applepay_button_shape }}</label>
-                        <select name="payment_paypal_setting[applepay_button][shape]" id="input-applepay-button-shape" class="form-control control-applepay-button">
+                        <select name="payment_paypal_setting[applepay_button][shape]" class="form-control control-applepay-button" id="input-applepay-button-shape">
                           {% for applepay_button_shape in setting.applepay_button_shape %}
                             {% if applepay_button_shape.code == setting_applepay_button.shape %}
                               <option value="{{ applepay_button_shape.code }}" selected="selected">{{ attribute(_context, applepay_button_shape.name) }}</option>
@@ -155,7 +155,7 @@
                       </div>
                       <div class="form-group">
                         <label class="control-label" for="input-applepay-button-type">{{ entry_applepay_button_type }}</label>
-                        <select name="payment_paypal_setting[applepay_button][type]" id="input-applepay-button-type" class="form-control control-applepay-button">
+                        <select name="payment_paypal_setting[applepay_button][type]" class="form-control control-applepay-button" id="input-applepay-button-type">
                           {% for applepay_button_type in setting.applepay_button_type %}
                             {% if applepay_button_type.code == setting_applepay_button.type %}
                               <option value="{{ applepay_button_type.code }}" selected="selected">{{ attribute(_context, applepay_button_type.name) }}</option>

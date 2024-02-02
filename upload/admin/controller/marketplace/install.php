@@ -6,6 +6,8 @@
  */
 class ControllerMarketplaceInstall extends Controller {
 	/**
+	 * Install
+	 *
 	 * @return void
 	 */
 	public function install(): void {
@@ -553,6 +555,11 @@ class ControllerMarketplaceInstall extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
+	/**
+	 * Is Dir Empty
+	 *
+	 * @param mixed $dir_name
+	 */
 	protected function isDirEmpty($dir_name) {
 		if (!is_dir($dir_name)) {
 			return false;

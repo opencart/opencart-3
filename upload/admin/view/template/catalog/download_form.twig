@@ -24,7 +24,7 @@
         <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_form }}</h3>
       </div>
       <div class="panel-body">
-        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-download" class="form-horizontal">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal" id="form-download">
           <div class="form-group required">
             <label class="col-sm-2 control-label">{{ entry_name }}</label>
             <div class="col-sm-10">
@@ -39,10 +39,10 @@
             </div>
           </div>
           <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-filename"><span data-toggle="tooltip" title="{{ help_filename }}">{{ entry_filename }}</span></label>
+            <label class="col-sm-2 control-label" for="input-filename"><span data-toggle="tooltip" title="{{ help_filename|escape('html') }}">{{ entry_filename }}</span></label>
             <div class="col-sm-10">
-              <div class="input-group"><input type="text" name="filename" value="{{ filename }}" placeholder="{{ entry_filename }}" id="input-filename" class="form-control"/>
-                <span class="input-group-btn"><button type="button" id="button-upload" data-loading-text="{{ text_loading }}" class="btn btn-primary"><i class="fa fa-upload"></i> {{ button_upload }}</button></span>
+              <div class="input-group"><input type="text" name="filename" value="{{ filename }}" placeholder="{{ entry_filename }}" class="form-control" id="input-filename"/>
+                <span class="input-group-btn"><button type="button" data-loading-text="{{ text_loading }}" class="btn btn-primary" id="button-upload"><i class="fa fa-upload"></i> {{ button_upload }}</button></span>
               </div>
               {% if error_filename %}
                 <div class="text-danger">{{ error_filename }}</div>
@@ -50,9 +50,9 @@
             </div>
           </div>
           <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-mask"><span data-toggle="tooltip" title="{{ help_mask }}">{{ entry_mask }}</span></label>
+            <label class="col-sm-2 control-label" for="input-mask"><span data-toggle="tooltip" title="{{ help_mask|escape('html') }}">{{ entry_mask }}</span></label>
             <div class="col-sm-10">
-              <input type="text" name="mask" value="{{ mask }}" placeholder="{{ entry_mask }}" id="input-mask" class="form-control"/>
+              <input type="text" name="mask" value="{{ mask }}" placeholder="{{ entry_mask }}" class="form-control" id="input-mask"/>
               {% if error_mask %}
                 <div class="text-danger">{{ error_mask }}</div>
               {% endif %}
@@ -66,7 +66,7 @@
   $('#button-upload').on('click', function () {
       $('#form-upload').remove();
 
-      $('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="file"/></form>');
+      $('body').prepend('<form enctype="multipart/form-data" style="display: none;" id="form-upload"><input type="file" name="file"/></form>');
 
       $('#form-upload input[name=\'file\']').trigger('click');
 

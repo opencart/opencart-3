@@ -6,9 +6,9 @@
  */
 class ModelLocalisationAddressFormat extends Model {
 	/**
-	 * addAddressFormat
+	 * Add Address Format
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -19,10 +19,10 @@ class ModelLocalisationAddressFormat extends Model {
 	}
 
 	/**
-	 * editAddressFormat
+	 * Edit Address Format
 	 *
-	 * @param int   $address_format_id
-	 * @param array $data
+	 * @param int                  $address_format_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -31,7 +31,7 @@ class ModelLocalisationAddressFormat extends Model {
 	}
 
 	/**
-	 * deleteAddressFormat
+	 * Delete Address Format
 	 *
 	 * @param int $address_format_id
 	 *
@@ -42,11 +42,11 @@ class ModelLocalisationAddressFormat extends Model {
 	}
 
 	/**
-	 * getAddressFormat
+	 * Get Address Format
 	 *
 	 * @param int $address_format_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getAddressFormat(int $address_format_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "address_format` WHERE `address_format_id` = '" . (int)$address_format_id . "'");
@@ -55,11 +55,11 @@ class ModelLocalisationAddressFormat extends Model {
 	}
 
 	/**
-	 * getAddressFormats
+	 * Get Address Formats
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getAddressFormats(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "address_format`";
@@ -82,9 +82,9 @@ class ModelLocalisationAddressFormat extends Model {
 	}
 
 	/**
-	 * getTotalAddressFormats
+	 * Get Total Address Formats
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */

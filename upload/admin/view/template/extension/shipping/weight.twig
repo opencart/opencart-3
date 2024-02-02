@@ -24,7 +24,7 @@
         <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3>
       </div>
       <div class="panel-body">
-        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-shipping" class="form-horizontal">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal" id="form-shipping">
           <div class="row">
             <div class="col-sm-2">
               <ul class="nav nav-pills nav-stacked">
@@ -40,7 +40,7 @@
                   <div class="form-group">
                     <label class="col-sm-2 control-label" for="input-tax-class">{{ entry_tax_class }}</label>
                     <div class="col-sm-10">
-                      <select name="shipping_weight_tax_class_id" id="input-tax-class" class="form-control">
+                      <select name="shipping_weight_tax_class_id" class="form-control" id="input-tax-class"/>
                         <option value="0">{{ text_none }}</option>
                         {% for tax_class in tax_classes %}
                           {% if tax_class.tax_class_id == shipping_weight_tax_class_id %}
@@ -55,7 +55,7 @@
                   <div class="form-group">
                     <label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
                     <div class="col-sm-10">
-                      <select name="shipping_weight_status" id="input-status" class="form-control">
+                      <select name="shipping_weight_status" class="form-control" id="input-status"/>
                         {% if shipping_weight_status %}
                           <option value="1" selected="selected">{{ text_enabled }}</option>
                           <option value="0">{{ text_disabled }}</option>
@@ -69,22 +69,22 @@
                   <div class="form-group">
                     <label class="col-sm-2 control-label" for="input-sort-order">{{ entry_sort_order }}</label>
                     <div class="col-sm-10">
-                      <input type="text" name="shipping_weight_sort_order" value="{{ shipping_weight_sort_order }}" placeholder="{{ entry_sort_order }}" id="input-sort-order" class="form-control"/>
+                      <input type="text" name="shipping_weight_sort_order" value="{{ shipping_weight_sort_order }}" placeholder="{{ entry_sort_order }}" class="form-control" id="input-sort-order"/>
                     </div>
                   </div>
                 </div>
                 {% for geo_zone in geo_zones %}
-                  <div id="tab-geo-zone{{ geo_zone.geo_zone_id }}" class="tab-pane">
+                  <div class="tab-pane" id="tab-geo-zone{{ geo_zone.geo_zone_id }}">
                     <div class="form-group">
-                      <label class="col-sm-2 control-label" for="input-rate{{ geo_zone.geo_zone_id }}"><span data-toggle="tooltip" title="{{ help_rate }}">{{ entry_rate }}</span></label>
+                      <label class="col-sm-2 control-label" for="input-rate{{ geo_zone.geo_zone_id }}"><span data-toggle="tooltip" title="{{ help_rate|escape('html') }}">{{ entry_rate }}</span></label>
                       <div class="col-sm-10">
-                        <textarea name="shipping_weight_{{ geo_zone.geo_zone_id }}_rate" rows="5" placeholder="{{ entry_rate }}" id="input-rate{{ geo_zone.geo_zone_id }}" class="form-control">{{ shipping_weight_geo_zone_rate[geo_zone.geo_zone_id] ? shipping_weight_geo_zone_rate[geo_zone.geo_zone_id] }}</textarea>
+                        <textarea name="shipping_weight_{{ geo_zone.geo_zone_id }}_rate" rows="5" placeholder="{{ entry_rate }}" class="form-control" id="input-rate{{ geo_zone.geo_zone_id }}"/>{{ shipping_weight_geo_zone_rate[geo_zone.geo_zone_id] ? shipping_weight_geo_zone_rate[geo_zone.geo_zone_id] }}</textarea>
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label" for="input-status{{ geo_zone.geo_zone_id }}">{{ entry_status }}</label>
                       <div class="col-sm-10">
-                        <select name="shipping_weight_{{ geo_zone.geo_zone_id }}_status" id="input-status{{ geo_zone.geo_zone_id }}" class="form-control">
+                        <select name="shipping_weight_{{ geo_zone.geo_zone_id }}_status" class="form-control" id="input-status{{ geo_zone.geo_zone_id }}"/>
                           {% if shipping_weight_geo_zone_status[geo_zone.geo_zone_id] %}
                             <option value="1" selected="selected">{{ text_enabled }}</option>
                             <option value="0">{{ text_disabled }}</option>

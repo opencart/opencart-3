@@ -6,9 +6,9 @@
  */
 class ModelLocalisationLengthClass extends Model {
 	/**
-	 * addLengthClass
+	 * Add Length Class
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -27,10 +27,10 @@ class ModelLocalisationLengthClass extends Model {
 	}
 
 	/**
-	 * editLengthClass
+	 * Edit Length Class
 	 *
-	 * @param int   $length_class_id
-	 * @param array $data
+	 * @param int                  $length_class_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -47,7 +47,7 @@ class ModelLocalisationLengthClass extends Model {
 	}
 
 	/**
-	 * deleteLengthClass
+	 * Delete Length Class
 	 *
 	 * @param int $length_class_id
 	 *
@@ -61,11 +61,11 @@ class ModelLocalisationLengthClass extends Model {
 	}
 
 	/**
-	 * getLengthClasses
+	 * Get Length Classes
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getLengthClasses(array $data = []): array {
 		if ($data) {
@@ -120,11 +120,11 @@ class ModelLocalisationLengthClass extends Model {
 	}
 
 	/**
-	 * getLengthClass
+	 * Get Length Class
 	 *
 	 * @param int $length_class_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getLengthClass(int $length_class_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "length_class` `lc` LEFT JOIN `" . DB_PREFIX . "length_class_description` `lcd` ON (`lc`.`length_class_id` = `lcd`.`length_class_id`) WHERE `lc`.`length_class_id` = '" . (int)$length_class_id . "' AND `lcd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -133,11 +133,11 @@ class ModelLocalisationLengthClass extends Model {
 	}
 
 	/**
-	 * getDescriptionByUnit
+	 * Get Description By Unit
 	 *
 	 * @param string $unit
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getDescriptionByUnit(string $unit): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "length_class_description` WHERE `unit` = '" . $this->db->escape($unit) . "' AND `language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -146,11 +146,11 @@ class ModelLocalisationLengthClass extends Model {
 	}
 
 	/**
-	 * getDescriptions
+	 * Get Descriptions
 	 *
 	 * @param int $length_class_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getDescriptions(int $length_class_id): array {
 		$length_class_data = [];
@@ -168,7 +168,7 @@ class ModelLocalisationLengthClass extends Model {
 	}
 
 	/**
-	 * getTotalLengthClasses
+	 * Get Total Length Classes
 	 *
 	 * @return int
 	 */

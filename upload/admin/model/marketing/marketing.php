@@ -6,9 +6,9 @@
  */
 class ModelMarketingMarketing extends Model {
 	/**
-	 * addMarketing
+	 * Add Marketing
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -19,10 +19,10 @@ class ModelMarketingMarketing extends Model {
 	}
 
 	/**
-	 * editMarketing
+	 * Edit Marketing
 	 *
-	 * @param int   $marketing_id
-	 * @param array $data
+	 * @param int                  $marketing_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -31,7 +31,7 @@ class ModelMarketingMarketing extends Model {
 	}
 
 	/**
-	 * deleteMarketing
+	 * Delete Marketing
 	 *
 	 * @param int $marketing_id
 	 *
@@ -42,11 +42,11 @@ class ModelMarketingMarketing extends Model {
 	}
 
 	/**
-	 * getMarketing
+	 * Get Marketing
 	 *
 	 * @param int $marketing_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getMarketing(int $marketing_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "marketing` WHERE `marketing_id` = '" . (int)$marketing_id . "'");
@@ -55,11 +55,11 @@ class ModelMarketingMarketing extends Model {
 	}
 
 	/**
-	 * getMarketingByCode
+	 * Get Marketing By Code
 	 *
 	 * @param string $code
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getMarketingByCode(string $code): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "marketing` WHERE `code` = '" . $this->db->escape($code) . "'");
@@ -68,11 +68,11 @@ class ModelMarketingMarketing extends Model {
 	}
 
 	/**
-	 * getMarketings
+	 * Get Marketing(s)
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getMarketings(array $data = []): array {
 		$implode = [];
@@ -139,9 +139,9 @@ class ModelMarketingMarketing extends Model {
 	}
 
 	/**
-	 * getTotalMarketings
+	 * Get Total Marketing(s)
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */

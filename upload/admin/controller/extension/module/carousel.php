@@ -11,6 +11,8 @@ class ControllerExtensionModuleCarousel extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -102,7 +104,7 @@ class ControllerExtensionModuleCarousel extends Controller {
 		}
 
 		if (isset($this->request->post['banner_id'])) {
-			$data['banner_id'] = $this->request->post['banner_id'];
+			$data['banner_id'] = (int)$this->request->post['banner_id'];
 		} elseif (!empty($module_info)) {
 			$data['banner_id'] = $module_info['banner_id'];
 		} else {
@@ -145,7 +147,12 @@ class ControllerExtensionModuleCarousel extends Controller {
 		$this->response->setOutput($this->load->view('extension/module/carousel', $data));
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 *
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/module/carousel')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

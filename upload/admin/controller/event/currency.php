@@ -6,6 +6,8 @@
  */
 class ControllerEventCurrency extends Controller {
 	/**
+	 * Index
+	 *
 	 * admin/model/setting/setting/editSetting
 	 * admin/model/localisation/currency/addCurrency
 	 * admin/model/localisation/currency/editCurrency

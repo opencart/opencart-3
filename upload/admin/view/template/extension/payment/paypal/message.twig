@@ -1,5 +1,5 @@
 {{ header }}{{ column_left }}
-<div id="content" class="payment-paypal">
+<div class="payment-paypal" id="content">
   <div class="page-header">
     <div class="container-fluid">
       <div class="pull-right">
@@ -43,10 +43,10 @@
                 <li class="nav-pill {% if loop.first %}active{% endif %}"><a href="#pill-{{ message.page_code }}" class="pill" data-toggle="tab">{{ attribute(_context, message.page_name) }}</a></li>
               {% endfor %}
             </ul>
-            <hr class="hr" />
+            <hr class="hr"/>
             <div class="tab-content">
               {% for message in setting.message %}
-                <div id="pill-{{ message.page_code }}" class="tab-pane {% if loop.first %}active{% endif %}">
+                <div class="tab-pane {% if loop.first %}active{% endif %}" id="pill-{{ message.page_code }}">
                   <div class="row">
                     <div class="col col-lg-6">
                       {% if message.page_code == 'checkout' %}
@@ -64,9 +64,9 @@
                               <div class="form-check-input"></div>
                               <label class="payment-label">
                                 {{ text_payment_method_paypal_paylater }}
-                                <br />
-                                <div id="paypal-message-checkout" class="paypal-message">
-                                  <div id="paypal-message-checkout-container" class="paypal-message-container paypal-spinner"></div>
+                                <br/>
+                                <div class="paypal-message" id="paypal-message-checkout">
+                                  <div class="paypal-message-container paypal-spinner" id="paypal-message-checkout-container"></div>
                                 </div>
                               </label>
                             </div>
@@ -125,8 +125,8 @@
                               <button type="button" class="btn button-cart">{{ button_checkout }}</button>
                             </div>
                           </div>
-                          <div id="paypal-message-cart" class="paypal-message">
-                            <div id="paypal-message-cart-container" class="paypal-message-container paypal-spinner"></div>
+                          <div class="paypal-message" id="paypal-message-cart">
+                            <div class="paypal-message-container paypal-spinner" id="paypal-message-cart-container"></div>
                           </div>
                         </div>
                       {% endif %}
@@ -139,8 +139,8 @@
                             <div class="col col-sm-6">
                               <div class="product-name">{{ text_product_name }}</div>
                               <div class="product-price">{{ text_product_price }}</div>
-                              <div id="paypal-message-product" class="paypal-message">
-                                <div id="paypal-message-product-container" class="paypal-message-container paypal-spinner"></div>
+                              <div class="paypal-message" id="paypal-message-product">
+                                <div class="paypal-message-container paypal-spinner" id="paypal-message-product-container"></div>
                               </div>
                               <div class="product-manufacturer">{{ text_product_manufacturer }}</div>
                               <div class="product-model">{{ text_product_model }}</div>
@@ -163,8 +163,8 @@
                               <div class="table-col">{{ text_menu_cameras }}</div>
                             </div>
                           </div>
-                          <div id="paypal-message-home" class="paypal-message">
-                            <div id="paypal-message-home-container" class="paypal-message-container paypal-spinner"></div>
+                          <div class="paypal-message" id="paypal-message-home">
+                            <div class="paypal-message-container paypal-spinner" id="paypal-message-home-container"></div>
                           </div>
                         </div>
                       {% endif %}
@@ -177,9 +177,9 @@
                           </div>
                           <div class="col col-md-6">
                             <div class="form-group-status">
-                              <label class="control-label" for="input-message-{{ message.page_code }}-status"><span data-toggle="tooltip" title="{{ help_message_status }}">{{ entry_status }}</span></label>
-                              <input type="hidden" name="payment_paypal_setting[message][{{ message.page_code }}][status]" value="0" />
-                              <input type="checkbox" name="payment_paypal_setting[message][{{ message.page_code }}][status]" value="1" class="switch" {% if message.status %}checked="checked"{% endif %} />
+                              <label class="control-label" for="input-message-{{ message.page_code }}-status"><span data-toggle="tooltip" title="{{ help_message_status|escape('html') }}">{{ entry_status }}</span></label>
+                              <input type="hidden" name="payment_paypal_setting[message][{{ message.page_code }}][status]" value="0"/>
+                              <input type="checkbox" name="payment_paypal_setting[message][{{ message.page_code }}][status]" value="1" class="switch" {% if message.status %}checked="checked"{% endif %}/>
                             </div>
                           </div>
                         </div>
@@ -196,13 +196,13 @@
                             <div class="col col-md-6">
                               <div class="form-group">
                                 <label class="control-label" for="input-message-{{ message.page_code }}-insert-tag">{{ entry_message_insert_tag }}</label>
-                                <input type="text" name="payment_paypal_setting[message][{{ message.page_code }}][insert_tag]" value="{{ message.insert_tag }}" id="input-button-{{ message.page_code }}-insert-tag" class="form-control" />
+                                <input type="text" name="payment_paypal_setting[message][{{ message.page_code }}][insert_tag]" value="{{ message.insert_tag }}" class="form-control" id="input-button-{{ message.page_code }}-insert-tag"/>
                               </div>
                             </div>
                             <div class="col col-md-6">
                               <div class="form-group">
                                 <label class="control-label" for="input-message-{{ message.page_code }}-insert-type">{{ entry_message_insert_type }}</label>
-                                <select name="payment_paypal_setting[message][{{ message.page_code }}][insert_type]" id="input-message-{{ message.page_code }}-insert-type" class="form-control">
+                                <select name="payment_paypal_setting[message][{{ message.page_code }}][insert_type]" class="form-control" id="input-message-{{ message.page_code }}-insert-type"/>
                                   {% for message_insert_type in setting.message_insert_type %}
                                     {% if message_insert_type.code == message.insert_type %}
                                       <option value="{{ message_insert_type.code }}" selected="selected">{{ attribute(_context, message_insert_type.name) }}</option>
@@ -219,7 +219,7 @@
                           <div class="col col-md-6">
                             <div class="form-group">
                               <label class="control-label" for="input-message-{{ message.page_code }}-align">{{ entry_message_align }}</label>
-                              <select name="payment_paypal_setting[message][{{ message.page_code }}][align]" id="input-message-{{ message.page_code }}-align" class="form-control control-paypal-message">
+                              <select name="payment_paypal_setting[message][{{ message.page_code }}][align]" class="form-control control-paypal-message" id="input-message-{{ message.page_code }}-align">
                                 {% for message_align in setting.message_align %}
                                   {% if message_align.code == message.align %}
                                     <option value="{{ message_align.code }}" selected="selected">{{ attribute(_context, message_align.name) }}</option>
@@ -231,7 +231,7 @@
                             </div>
                             <div class="form-group">
                               <label class="control-label" for="input-message-{{ message.page_code }}-size">{{ entry_message_size }}</label>
-                              <select name="payment_paypal_setting[message][{{ message.page_code }}][size]" id="input-message-{{ message.page_code }}-size" class="form-control control-paypal-message">
+                              <select name="payment_paypal_setting[message][{{ message.page_code }}][size]" class="form-control control-paypal-message" id="input-message-{{ message.page_code }}-size">
                                 {% for message_size in setting.message_size %}
                                   {% if message_size.code == message.size %}
                                     <option value="{{ message_size.code }}" selected="selected">{{ attribute(_context, message_size.name) }}</option>
@@ -243,7 +243,7 @@
                             </div>
                             <div class="form-group">
                               <label class="control-label" for="input-message-{{ message.page_code }}-layout">{{ entry_message_layout }}</label>
-                              <select name="payment_paypal_setting[message][{{ message.page_code }}][layout]" id="input-message-{{ message.page_code }}-layout" class="form-control input-message-layout control-paypal-message">
+                              <select name="payment_paypal_setting[message][{{ message.page_code }}][layout]" class="form-control input-message-layout control-paypal-message" id="input-message-{{ message.page_code }}-layout">
                                 {% for message_layout in setting.message_layout %}
                                   {% if message_layout.code == message.layout %}
                                     <option value="{{ message_layout.code }}" selected="selected">{{ attribute(_context, message_layout.name) }}</option>
@@ -258,7 +258,7 @@
                             {% set setting_message = setting.message %}
                               <div class="form-group {% if setting_message[message.page_code].layout == 'flex' %}hidden{% endif %}">
                                 <label class="control-label" for="input-message-{{ message.page_code }}-text-color">{{ entry_message_text_color }}</label>
-                                <select name="payment_paypal_setting[message][{{ message.page_code }}][text_color]" id="input-message-{{ message.page_code }}-text-color" class="form-control control-paypal-message">
+                                <select name="payment_paypal_setting[message][{{ message.page_code }}][text_color]" class="form-control control-paypal-message" id="input-message-{{ message.page_code }}-text-color">
                                 {% for message_text_color in setting.message_text_color %}
                                   {% if message_text_color.code == message.text_color %}
                                     <option value="{{ message_text_color.code }}" selected="selected">{{ attribute(_context, message_text_color.name) }}</option>
@@ -270,7 +270,7 @@
                             </div>
                             <div class="form-group {% if setting_message[message.page_code].layout == 'flex' %}hidden{% endif %}">
                               <label class="control-label" for="input-message-{{ message.page_code }}-text-size">{{ entry_message_text_size }}</label>
-                              <select name="payment_paypal_setting[message][{{ message.page_code }}][text_size]" id="input-message-{{ message.page_code }}-text-size" class="form-control control-paypal-message">
+                              <select name="payment_paypal_setting[message][{{ message.page_code }}][text_size]" class="form-control control-paypal-message" id="input-message-{{ message.page_code }}-text-size">
                                 {% for message_text_size in setting.message_text_size %}
                                   {% if message_text_size == message.text_size %}
                                     <option value="{{ message_text_size }}" selected="selected">{{ message_text_size }}</option>
@@ -282,7 +282,7 @@
                             </div>
                             <div class="form-group {% if setting_message[message.page_code].layout == 'text' %}hidden{% endif %}">
                               <label class="control-label" for="input-message-{{ message.page_code }}-flex-color">{{ entry_message_flex_color }}</label>
-                              <select name="payment_paypal_setting[message][{{ message.page_code }}][flex_color]" id="input-message-{{ message.page_code }}-flex-color" class="form-control control-paypal-message">
+                              <select name="payment_paypal_setting[message][{{ message.page_code }}][flex_color]" class="form-control control-paypal-message" id="input-message-{{ message.page_code }}-flex-color">
                                 {% for message_flex_color in setting.message_flex_color %}
                                   {% if message_flex_color.code == message.flex_color %}
                                     <option value="{{ message_flex_color.code }}" selected="selected">{{ attribute(_context, message_flex_color.name) }}</option>
@@ -294,7 +294,7 @@
                             </div>
                             <div class="form-group {% if setting_message[message.page_code].layout == 'text' %}hidden{% endif %}">
                               <label class="control-label" for="input-message-{{ message.page_code }}-flex-ratio">{{ entry_message_flex_ratio }}</label>
-                              <select name="payment_paypal_setting[message][{{ message.page_code }}][flex_ratio]" id="input-message-{{ message.page_code }}-flex-ratio" class="form-control control-paypal-message">
+                              <select name="payment_paypal_setting[message][{{ message.page_code }}][flex_ratio]" class="form-control control-paypal-message" id="input-message-{{ message.page_code }}-flex-ratio">
                                 {% for message_flex_ratio in setting.message_flex_ratio %}
                                   {% if message_flex_ratio == message.flex_ratio %}
                                     <option value="{{ message_flex_ratio }}" selected="selected">{{ message_flex_ratio }}</option>

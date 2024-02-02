@@ -11,6 +11,8 @@ class ControllerExtensionPaymentBluepayredirect extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -128,19 +130,19 @@ class ControllerExtensionPaymentBluepayredirect extends Controller {
 		$data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();
 
 		if (isset($this->request->post['payment_bluepay_redirect_status'])) {
-			$data['payment_bluepay_redirect_status'] = $this->request->post['payment_bluepay_redirect_status'];
+			$data['payment_bluepay_redirect_status'] = (int)$this->request->post['payment_bluepay_redirect_status'];
 		} else {
 			$data['payment_bluepay_redirect_status'] = $this->config->get('payment_bluepay_redirect_status');
 		}
 
 		if (isset($this->request->post['payment_bluepay_redirect_debug'])) {
-			$data['payment_bluepay_redirect_debug'] = $this->request->post['payment_bluepay_redirect_debug'];
+			$data['payment_bluepay_redirect_debug'] = (int)$this->request->post['payment_bluepay_redirect_debug'];
 		} else {
 			$data['payment_bluepay_redirect_debug'] = $this->config->get('payment_bluepay_redirect_debug');
 		}
 
 		if (isset($this->request->post['payment_bluepay_redirect_sort_order'])) {
-			$data['payment_bluepay_redirect_sort_order'] = $this->request->post['payment_bluepay_redirect_sort_order'];
+			$data['payment_bluepay_redirect_sort_order'] = (int)$this->request->post['payment_bluepay_redirect_sort_order'];
 		} else {
 			$data['payment_bluepay_redirect_sort_order'] = $this->config->get('payment_bluepay_redirect_sort_order');
 		}
@@ -236,10 +238,8 @@ class ControllerExtensionPaymentBluepayredirect extends Controller {
 
 				$json['msg'] = $this->language->get('text_void_ok');
 
-				$json['data'] = [];
-
-				$json['data']['date_added'] = date('Y-m-d H:i:s');
-				$json['data']['total'] = $bluepay_redirect_order['total'];
+				$json['date_added'] = date('Y-m-d H:i:s');
+				$json['total'] = $bluepay_redirect_order['total'];
 
 				$json['error'] = false;
 			} else {
@@ -296,12 +296,10 @@ class ControllerExtensionPaymentBluepayredirect extends Controller {
 					$json['msg'] = $this->language->get('text_release_ok');
 				}
 
-				$json['data'] = [];
-
-				$json['data']['date_added'] = date('Y-m-d H:i:s');
-				$json['data']['amount'] = $this->request->post['amount'];
-				$json['data']['release_status'] = $release_status;
-				$json['data']['total'] = (float)$total_released;
+				$json['date_added'] = date('Y-m-d H:i:s');
+				$json['amount'] = $this->request->post['amount'];
+				$json['release_status'] = $release_status;
+				$json['total'] = (float)$total_released;
 
 				$json['error'] = false;
 			} else {
@@ -347,20 +345,21 @@ class ControllerExtensionPaymentBluepayredirect extends Controller {
 
 				if ($total_released <= 0 && $bluepay_redirect_order['release_status'] == 1) {
 					$this->model_extension_payment_bluepay_redirect->updateRebateStatus($bluepay_redirect_order['bluepay_redirect_order_id'], 1);
+
 					$rebate_status = 1;
+
 					$json['msg'] = $this->language->get('text_rebate_ok_order');
 				} else {
 					$rebate_status = 0;
+
 					$json['msg'] = $this->language->get('text_rebate_ok');
 				}
 
-				$json['data'] = [];
-
-				$json['data']['date_added'] = date('Y-m-d H:i:s');
-				$json['data']['amount'] = $this->request->post['amount'] * -1;
-				$json['data']['total_released'] = (float)$total_released;
-				$json['data']['total_rebated'] = (float)$total_rebated;
-				$json['data']['rebate_status'] = $rebate_status;
+				$json['date_added'] = date('Y-m-d H:i:s');
+				$json['amount'] = $this->request->post['amount'] * -1;
+				$json['total_released'] = (float)$total_released;
+				$json['total_rebated'] = (float)$total_rebated;
+				$json['rebate_status'] = $rebate_status;
 
 				$json['error'] = false;
 			} else {
@@ -378,7 +377,12 @@ class ControllerExtensionPaymentBluepayredirect extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 *
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/payment/bluepay_redirect')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

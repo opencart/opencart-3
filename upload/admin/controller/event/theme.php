@@ -6,6 +6,8 @@
  */
 class ControllerEventTheme extends Controller {
 	/**
+	 * Index
+	 *
 	 * @param string $route
 	 * @param array  $args
 	 *

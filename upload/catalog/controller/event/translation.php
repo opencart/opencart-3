@@ -6,6 +6,8 @@
  */
 class ControllerEventTranslation extends Controller {
 	/**
+	 * Index
+	 *
 	 * @param string $route
 	 * @param string $key
 	 *

@@ -6,11 +6,11 @@
  */
 class ModelCustomerCustomerApproval extends Model {
 	/**
-	 * getCustomerApprovals
+	 * Get Customer Approvals
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getCustomerApprovals(array $data = []): array {
 		$sql = "SELECT *, CONCAT(`c`.`firstname`, ' ', `c`.`lastname`) AS `name`, `cgd`.`name` AS `customer_group`, `ca`.`type` FROM `" . DB_PREFIX . "customer_approval` `ca` LEFT JOIN `" . DB_PREFIX . "customer` `c` ON (`ca`.`customer_id` = `c`.`customer_id`) LEFT JOIN `" . DB_PREFIX . "customer_group_description` `cgd` ON (`c`.`customer_group_id` = `cgd`.`customer_group_id`) WHERE `cgd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
@@ -55,11 +55,11 @@ class ModelCustomerCustomerApproval extends Model {
 	}
 
 	/**
-	 * getCustomerApproval
+	 * Get Customer Approval
 	 *
 	 * @param int $customer_approval_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getCustomerApproval(int $customer_approval_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_approval` WHERE `customer_approval_id` = '" . (int)$customer_approval_id . "'");
@@ -68,9 +68,9 @@ class ModelCustomerCustomerApproval extends Model {
 	}
 
 	/**
-	 * getTotalCustomerApprovals
+	 * Get Total Customer Approvals
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -109,7 +109,7 @@ class ModelCustomerCustomerApproval extends Model {
 	}
 
 	/**
-	 * approveCustomer
+	 * Approve Customer
 	 *
 	 * @param int $customer_id
 	 *
@@ -122,7 +122,7 @@ class ModelCustomerCustomerApproval extends Model {
 	}
 
 	/**
-	 * denyCustomer
+	 * Deny Customer
 	 *
 	 * @param int $customer_id
 	 *
@@ -133,7 +133,7 @@ class ModelCustomerCustomerApproval extends Model {
 	}
 
 	/**
-	 * approveAffiliate
+	 * Approve Affiliate
 	 *
 	 * @param int $customer_id
 	 *
@@ -146,7 +146,7 @@ class ModelCustomerCustomerApproval extends Model {
 	}
 
 	/**
-	 * denyAffiliate
+	 * Deny Affiliate
 	 *
 	 * @param int $customer_id
 	 *

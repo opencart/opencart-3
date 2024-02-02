@@ -8,7 +8,7 @@ class ModelExtensionReportProduct extends Model {
 	/**
 	 * getProductsViewed
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return array
 	 */
@@ -70,13 +70,13 @@ class ModelExtensionReportProduct extends Model {
 	/**
 	 * getPurchased
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return array
 	 */
 	public function getPurchased(array $data = []): array {
 		$implode = [];
-		
+
 		$sql = "SELECT `op`.`name`, `op`.`model`, SUM(`op`.`quantity`) AS `quantity`, SUM((`op`.`price` + `op`.`tax`) * `op`.`quantity`) AS `total` FROM `" . DB_PREFIX . "order_product` `op` LEFT JOIN `" . DB_PREFIX . "order` `o` ON (`op`.`order_id` = `o`.`order_id`)";
 
 		if (!empty($data['filter_order_status_id'])) {
@@ -119,7 +119,7 @@ class ModelExtensionReportProduct extends Model {
 	/**
 	 * getTotalPurchased
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */

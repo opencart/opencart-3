@@ -6,18 +6,18 @@
  */
 class ModelCatalogReview extends Model {
 	/**
-	 * addReview
+	 * Add Review
 	 *
-	 * @param int    $product_id
-	 * @param array  $data
+	 * @param int                  $product_id
+	 * @param array<string, mixed> $data
+	 *
+	 * @throws \Exception
 	 *
 	 * @return void
-	 * 
-	 * @throws \Exception
 	 */
 	public function addReview(int $product_id, array $data): void {
-		$this->db->query("INSERT INTO " . DB_PREFIX . "review SET author = '" . $this->db->escape($data['name']) . "', customer_id = '" . (int)$this->customer->getId() . "', product_id = '" . (int)$product_id . "', text = '" . $this->db->escape($data['text']) . "', rating = '" . (int)$data['rating'] . "', date_added = NOW(), `date_modified` = NOW()");
-		
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "review` SET `author` = '" . $this->db->escape($data['name']) . "', `customer_id` = '" . (int)$this->customer->getId() . "', `product_id` = '" . (int)$product_id . "', `text` = '" . $this->db->escape($data['text']) . "', `rating` = '" . (int)$data['rating'] . "', `date_added` = NOW(), `date_modified` = NOW()");
+
 		$review_id = $this->db->getLastId();
 
 		if (in_array('review', (array)$this->config->get('config_mail_alert'))) {
@@ -32,10 +32,10 @@ class ModelCatalogReview extends Model {
 
 			$message = $this->language->get('text_waiting') . "\n";
 			$message .= sprintf($this->language->get('text_product'), html_entity_decode($product_info['name'], ENT_QUOTES, 'UTF-8')) . "\n";
-			$message .= sprintf($this->language->get('text_reviewer'), html_entity_decode($name, ENT_QUOTES, 'UTF-8')) . "\n";
-			$message .= sprintf($this->language->get('text_rating'), $rating) . "\n";
+			$message .= sprintf($this->language->get('text_reviewer'), html_entity_decode($data['name'], ENT_QUOTES, 'UTF-8')) . "\n";
+			$message .= sprintf($this->language->get('text_rating'), $data['rating']) . "\n";
 			$message .= $this->language->get('text_review') . "\n";
-			$message .= html_entity_decode($text, ENT_QUOTES, 'UTF-8') . "\n\n";
+			$message .= html_entity_decode($data['text'], ENT_QUOTES, 'UTF-8') . "\n\n";
 
 			if ($this->config->get('config_mail_engine')) {
 				$mail_option = [
@@ -48,6 +48,7 @@ class ModelCatalogReview extends Model {
 				];
 
 				$mail = new \Mail($this->config->get('config_mail_engine'), $mail_option);
+
 				$mail->setTo($this->config->get('config_email'));
 				$mail->setFrom($this->config->get('config_email'));
 				$mail->setSender(html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
@@ -69,13 +70,13 @@ class ModelCatalogReview extends Model {
 	}
 
 	/**
-	 * getReviewsByProductId
+	 * Get Reviews By Product Id
 	 *
 	 * @param int $product_id
 	 * @param int $start
 	 * @param int $limit
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getReviewsByProductId(int $product_id, int $start = 0, int $limit = 20): array {
 		if ($start < 0) {
@@ -92,7 +93,7 @@ class ModelCatalogReview extends Model {
 	}
 
 	/**
-	 * getTotalReviewsByProductId
+	 * Get Total Reviews By Product Id
 	 *
 	 * @param int $product_id
 	 *

@@ -6,9 +6,9 @@
  */
 class ModelCatalogDownload extends Model {
 	/**
-	 * addDownload
+	 * Add Download
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -25,10 +25,10 @@ class ModelCatalogDownload extends Model {
 	}
 
 	/**
-	 * editDownload
+	 * Edit Download
 	 *
-	 * @param int   $download_id
-	 * @param array $data
+	 * @param int                  $download_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -43,7 +43,7 @@ class ModelCatalogDownload extends Model {
 	}
 
 	/**
-	 * deleteDownload
+	 * Delete Download
 	 *
 	 * @param int $download_id
 	 *
@@ -55,11 +55,11 @@ class ModelCatalogDownload extends Model {
 	}
 
 	/**
-	 * getDownload
+	 * Get Download
 	 *
 	 * @param int $download_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getDownload(int $download_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "download` `d` LEFT JOIN `" . DB_PREFIX . "download_description` `dd` ON (`d`.`download_id` = `dd`.`download_id`) WHERE `d`.`download_id` = '" . (int)$download_id . "' AND `dd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -68,11 +68,11 @@ class ModelCatalogDownload extends Model {
 	}
 
 	/**
-	 * getDownloads
+	 * Get Downloads
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getDownloads(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "download` `d` LEFT JOIN `" . DB_PREFIX . "download_description` `dd` ON (`d`.`download_id` = `dd`.`download_id`) WHERE `dd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
@@ -116,11 +116,11 @@ class ModelCatalogDownload extends Model {
 	}
 
 	/**
-	 * getDescriptions
+	 * Get Descriptions
 	 *
 	 * @param int $download_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, string>>
 	 */
 	public function getDescriptions(int $download_id): array {
 		$download_description_data = [];
@@ -135,7 +135,7 @@ class ModelCatalogDownload extends Model {
 	}
 
 	/**
-	 * getTotalDownloads
+	 * Get Total Downloads
 	 *
 	 * @return int
 	 */

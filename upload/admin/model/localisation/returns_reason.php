@@ -6,22 +6,22 @@
  */
 class ModelLocalisationReturnsReason extends Model {
 	/**
-	 * addReturnReason
+	 * Add Return Reason
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return int
+	 * @return ?int
 	 */
-	public function addReturnReason(array $data): int {
-		$return_reason_id = null;
+	public function addReturnReason(array $data): ?int {
+		$return_reason_id = 0;
 
 		foreach ($data['return_reason'] as $language_id => $value) {
-			if (isset($return_reason_id)) {
-				$this->db->query("INSERT INTO `" . DB_PREFIX . "return_reason` SET `return_reason_id` = '" . (int)$return_reason_id . "', `language_id` = '" . (int)$language_id . "', `name` = '" . $this->db->escape($value['name']) . "'");
-			} else {
+			if (!$return_reason_id) {
 				$this->db->query("INSERT INTO `" . DB_PREFIX . "return_reason` SET `language_id` = '" . (int)$language_id . "', `name` = '" . $this->db->escape($value['name']) . "'");
 
 				$return_reason_id = $this->db->getLastId();
+			} else {
+				$this->db->query("INSERT INTO `" . DB_PREFIX . "return_reason` SET `return_reason_id` = '" . (int)$return_reason_id . "', `language_id` = '" . (int)$language_id . "', `name` = '" . $this->db->escape($value['name']) . "'");
 			}
 		}
 
@@ -31,10 +31,10 @@ class ModelLocalisationReturnsReason extends Model {
 	}
 
 	/**
-	 * editReturnReason
+	 * Edit Return Reason
 	 *
-	 * @param int   $return_reason_id
-	 * @param array $data
+	 * @param int                  $return_reason_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -49,7 +49,7 @@ class ModelLocalisationReturnsReason extends Model {
 	}
 
 	/**
-	 * deleteReturnReason
+	 * Delete Return Reason
 	 *
 	 * @param int $return_reason_id
 	 *
@@ -62,11 +62,11 @@ class ModelLocalisationReturnsReason extends Model {
 	}
 
 	/**
-	 * getReturnReason
+	 * Get Return Reason
 	 *
 	 * @param int $return_reason_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getReturnReason(int $return_reason_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "return_reason` WHERE `return_reason_id` = '" . (int)$return_reason_id . "' AND `language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -75,11 +75,11 @@ class ModelLocalisationReturnsReason extends Model {
 	}
 
 	/**
-	 * getReturnReasons
+	 * Get Return Reasons
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getReturnReasons(array $data = []): array {
 		if ($data) {
@@ -124,11 +124,11 @@ class ModelLocalisationReturnsReason extends Model {
 	}
 
 	/**
-	 * getDescriptions
+	 * Get Descriptions
 	 *
 	 * @param int $return_reason_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, string>>
 	 */
 	public function getDescriptions(int $return_reason_id): array {
 		$return_reason_data = [];
@@ -143,7 +143,7 @@ class ModelLocalisationReturnsReason extends Model {
 	}
 
 	/**
-	 * getTotalReturnReasons
+	 * Get Total Return Reasons
 	 *
 	 * @return int
 	 */

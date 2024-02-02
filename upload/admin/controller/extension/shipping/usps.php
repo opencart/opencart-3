@@ -11,6 +11,8 @@ class ControllerExtensionShippingUsps extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -424,19 +426,19 @@ class ControllerExtensionShippingUsps extends Controller {
 		$data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();
 
 		if (isset($this->request->post['shipping_usps_debug'])) {
-			$data['shipping_usps_debug'] = $this->request->post['shipping_usps_debug'];
+			$data['shipping_usps_debug'] = (int)$this->request->post['shipping_usps_debug'];
 		} else {
 			$data['shipping_usps_debug'] = $this->config->get('shipping_usps_debug');
 		}
 
 		if (isset($this->request->post['shipping_usps_status'])) {
-			$data['shipping_usps_status'] = $this->request->post['shipping_usps_status'];
+			$data['shipping_usps_status'] = (int)$this->request->post['shipping_usps_status'];
 		} else {
 			$data['shipping_usps_status'] = $this->config->get('shipping_usps_status');
 		}
 
 		if (isset($this->request->post['shipping_usps_sort_order'])) {
-			$data['shipping_usps_sort_order'] = $this->request->post['shipping_usps_sort_order'];
+			$data['shipping_usps_sort_order'] = (int)$this->request->post['shipping_usps_sort_order'];
 		} else {
 			$data['shipping_usps_sort_order'] = $this->config->get('shipping_usps_sort_order');
 		}
@@ -448,7 +450,12 @@ class ControllerExtensionShippingUsps extends Controller {
 		$this->response->setOutput($this->load->view('extension/shipping/usps', $data));
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 *
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/shipping/usps')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

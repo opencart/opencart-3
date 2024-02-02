@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Extension\Module
  */
 class ControllerExtensionModulePayPalSmartButton extends Controller {
+	/**
+	 * @var array
+	 */
 	private array $error = [];
 
 	/**
@@ -149,7 +152,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 	}
 
 	/**
-	 * createOrder
+	 * Create Order
 	 *
 	 * @return void
 	 */
@@ -360,7 +363,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 	}
 
 	/**
-	 * approveOrder
+	 * Approve Order
 	 *
 	 * @return void
 	 */
@@ -568,7 +571,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 	}
 
 	/**
-	 * confirmOrder
+	 * Confirm Order
 	 *
 	 * @return void
 	 */
@@ -784,15 +787,17 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 					if ($this->config->get('shipping_' . $result['code'] . '_status')) {
 						$this->load->model('extension/shipping/' . $result['code']);
 
-						$quote = $this->{'model_extension_shipping_' . $result['code']}->getQuote($data['shipping_address']);
+						if (is_callable([$this->{'model_extension_shipping_' . $result['code']}, 'getQuote'])) {
+							$quote = $this->{'model_extension_shipping_' . $result['code']}->getQuote($data['shipping_address']);
 
-						if ($quote) {
-							$quote_data[$result['code']] = [
-								'title'      => $quote['title'],
-								'quote'      => $quote['quote'],
-								'sort_order' => $quote['sort_order'],
-								'error'      => $quote['error']
-							];
+							if ($quote) {
+								$quote_data[$result['code']] = [
+									'title'      => $quote['title'],
+									'quote'      => $quote['quote'],
+									'sort_order' => $quote['sort_order'],
+									'error'      => $quote['error']
+								];
+							}
 						}
 					}
 				}
@@ -850,10 +855,12 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 				if ($this->config->get('payment_' . $result['code'] . '_status')) {
 					$this->load->model('extension/payment/' . $result['code']);
 
-					$method = $this->{'model_extension_payment_' . $result['code']}->getMethod($data['payment_address'], $total);
+					if (is_callable([$this->{'model_extension_payment_' . $result['code']}, 'getMethod'])) {
+						$method = $this->{'model_extension_payment_' . $result['code']}->getMethod($data['payment_address'], $total);
 
-					if ($method) {
-						$method_data[$result['code']] = $method;
+						if ($method) {
+							$method_data[$result['code']] = $method;
+						}
 					}
 				}
 			}
@@ -914,7 +921,9 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 					$this->load->model('extension/total/' . $result['code']);
 
 					// We have to put the totals in an array so that they pass by reference.
-					$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
+					if (is_callable([$this->{'model_extension_total_' . $result['code']}, 'getTotal'])) {
+						$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
+					}
 				}
 			}
 
@@ -976,7 +985,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 	}
 
 	/**
-	 * completeOrder
+	 * Complete Order
 	 *
 	 * @return void
 	 */
@@ -1046,7 +1055,9 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 					$this->load->model('extension/total/' . $result['code']);
 
 					// We have to put the totals in an array so that they pass by reference.
-					$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
+					if (is_callable([$this->{'model_extension_total_' . $result['code']}, 'getTotal'])) {
+						$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
+					}
 				}
 			}
 
@@ -1098,8 +1109,8 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 			$order_data['payment_address_format'] = $this->session->data['payment_address']['address_format'];
 			$order_data['payment_custom_field'] = $this->session->data['payment_address']['custom_field'] ?? [];
 
-			if (isset($this->session->data['payment_method']['title'])) {
-				$order_data['payment_method'] = $this->session->data['payment_method']['title'];
+			if (isset($this->session->data['payment_method']['name'])) {
+				$order_data['payment_method'] = $this->session->data['payment_method']['name'];
 			} else {
 				$order_data['payment_method'] = '';
 			}
@@ -1487,7 +1498,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 	}
 
 	/**
-	 * paymentAddress
+	 * Payment Address
 	 *
 	 * @return void
 	 */
@@ -1512,7 +1523,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 	}
 
 	/**
-	 * shippingAddress
+	 * Shipping Address
 	 *
 	 * @return void
 	 */
@@ -1534,7 +1545,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 	}
 
 	/**
-	 * confirmShipping
+	 * Confirm Shipping
 	 *
 	 * @return void
 	 */
@@ -1545,7 +1556,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 	}
 
 	/**
-	 * confirmPaymentAddress
+	 * Confirm Payment Address
 	 *
 	 * @return void
 	 */
@@ -1622,7 +1633,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 	}
 
 	/**
-	 * confirmShippingAddress
+	 * Confirm Shipping Address
 	 *
 	 * @return void
 	 */
@@ -1637,8 +1648,8 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 			$this->session->data['shipping_address']['address_2'] = $this->request->post['address_2'];
 			$this->session->data['shipping_address']['postcode'] = $this->request->post['postcode'];
 			$this->session->data['shipping_address']['city'] = $this->request->post['city'];
-			$this->session->data['shipping_address']['country_id'] = $this->request->post['country_id'];
-			$this->session->data['shipping_address']['zone_id'] = $this->request->post['zone_id'];
+			$this->session->data['shipping_address']['country_id'] = (int)$this->request->post['country_id'];
+			$this->session->data['shipping_address']['zone_id'] = (int)$this->request->post['zone_id'];
 
 			// Countries
 			$this->load->model('localisation/country');

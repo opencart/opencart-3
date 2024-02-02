@@ -6,9 +6,9 @@
  */
 class ModelSettingModification extends Model {
 	/**
-	 * addModification
+	 * Add Modification
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -17,7 +17,7 @@ class ModelSettingModification extends Model {
 	}
 
 	/**
-	 * deleteModification
+	 * Delete Modification
 	 *
 	 * @param int $modification_id
 	 *
@@ -28,7 +28,7 @@ class ModelSettingModification extends Model {
 	}
 
 	/**
-	 * deleteModificationsByExtensionInstallId
+	 * Delete Modification By Extension Install ID
 	 *
 	 * @param int $extension_install_id
 	 *
@@ -39,7 +39,7 @@ class ModelSettingModification extends Model {
 	}
 
 	/**
-	 * enableModification
+	 * Enable Modification
 	 *
 	 * @param int $modification_id
 	 *
@@ -50,7 +50,7 @@ class ModelSettingModification extends Model {
 	}
 
 	/**
-	 * disableModification
+	 * Disable Modification
 	 *
 	 * @param int $modification_id
 	 *
@@ -61,11 +61,11 @@ class ModelSettingModification extends Model {
 	}
 
 	/**
-	 * getModification
+	 * Get Modification
 	 *
 	 * @param int $modification_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getModification(int $modification_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "modification` WHERE `modification_id` = '" . (int)$modification_id . "'");
@@ -74,11 +74,11 @@ class ModelSettingModification extends Model {
 	}
 
 	/**
-	 * getModifications
+	 * Get Modifications
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getModifications(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "modification`";
@@ -121,7 +121,7 @@ class ModelSettingModification extends Model {
 	}
 
 	/**
-	 * getTotalModifications
+	 * Get Total Modifications
 	 *
 	 * @return int
 	 */
@@ -132,11 +132,11 @@ class ModelSettingModification extends Model {
 	}
 
 	/**
-	 * getModificationByCode
+	 * Get Modification By Code
 	 *
 	 * @param string $code
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getModificationByCode(string $code): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "modification` WHERE `code` = '" . $this->db->escape($code) . "'");

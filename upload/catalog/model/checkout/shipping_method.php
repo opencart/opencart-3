@@ -1,21 +1,20 @@
 <?php
 /**
- * Class Shipping Method
+ * Class ShippingMethod
  *
  * @package Catalog\Model\Checkout
  */
 class ModelCheckoutShippingMethod extends Model {
 	/**
-	 * getMethods
+	 * Get Methods
 	 *
-	 * @param array $shipping_address
+	 * @param array<string, mixed> $shipping_address
 	 *
-	 * @return array
+	 * @return array<string, array<string, mixed>>
 	 */
 	public function getMethods(array $shipping_address): array {
 		$method_data = [];
 
-		// Extensions
 		$this->load->model('setting/extension');
 
 		$results = $this->model_setting_extension->getExtensionsByType('shipping');
@@ -24,15 +23,12 @@ class ModelCheckoutShippingMethod extends Model {
 			if ($this->config->get('shipping_' . $result['code'] . '_status')) {
 				$this->load->model('extension/shipping/' . $result['code']);
 
-				$quote = $this->{'model_extension_shipping_' . $result['code']}->getQuote($shipping_address);
+				if (is_callable([$this->{'model_extension_shipping_' . $result['code']}, 'getQuote'])) {
+					$quote = $this->{'model_extension_shipping_' . $result['code']}->getQuote($shipping_address);
 
-				if ($quote) {
-					$method_data[$result['code']] = [
-						'title'      => $quote['title'],
-						'quote'      => $quote['quote'],
-						'sort_order' => $quote['sort_order'],
-						'error'      => $quote['error']
-					];
+					if ($quote) {
+						$method_data[$result['code']] = $quote;
+					}
 				}
 			}
 		}

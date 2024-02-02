@@ -122,13 +122,13 @@ class ModelExtensionReportCustomer extends Model {
 	/**
 	 * getOrders
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return array
 	 */
 	public function getOrders(array $data = []): array {
 		$implode = [];
-		
+
 		$sql = "SELECT `c`.`customer_id`, CONCAT(`c`.`firstname`, ' ', `c`.`lastname`) AS `customer`, `c`.`email`, `cgd`.`name` AS `customer_group`, `c`.`status`, `o`.`order_id`, SUM(`op`.`quantity`) AS `products`, `o`.`total` AS `total` FROM `" . DB_PREFIX . "order` `o` LEFT JOIN `" . DB_PREFIX . "order_product` `op` ON (`o`.`order_id` = `op`.`order_id`) LEFT JOIN `" . DB_PREFIX . "customer` `c` ON (`o`.`customer_id` = `c`.`customer_id`) LEFT JOIN `" . DB_PREFIX . "customer_group_description` `cgd` ON (`c`.`customer_group_id` = `cgd`.`customer_group_id`)";
 
 		$implode[] = "`o`.`customer_id` > '0'";
@@ -180,7 +180,7 @@ class ModelExtensionReportCustomer extends Model {
 	/**
 	 * getTotalOrders
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -213,7 +213,7 @@ class ModelExtensionReportCustomer extends Model {
 	/**
 	 * getRewardPoints
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return array
 	 */
@@ -254,7 +254,7 @@ class ModelExtensionReportCustomer extends Model {
 	/**
 	 * getTotalRewardPoints
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -287,7 +287,7 @@ class ModelExtensionReportCustomer extends Model {
 	/**
 	 * getCustomerActivities
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return array
 	 */
@@ -338,7 +338,7 @@ class ModelExtensionReportCustomer extends Model {
 	/**
 	 * getTotalCustomerActivities
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -375,7 +375,7 @@ class ModelExtensionReportCustomer extends Model {
 	/**
 	 * getCustomerSearches
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return array
 	 */
@@ -430,7 +430,7 @@ class ModelExtensionReportCustomer extends Model {
 	/**
 	 * getTotalCustomerSearches
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */

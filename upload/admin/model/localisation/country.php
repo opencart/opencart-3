@@ -6,9 +6,9 @@
  */
 class ModelLocalisationCountry extends Model {
 	/**
-	 * addCountry
+	 * Add Country
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -21,10 +21,10 @@ class ModelLocalisationCountry extends Model {
 	}
 
 	/**
-	 * editCountry
+	 * Edit Country
 	 *
-	 * @param int   $country_id
-	 * @param array $data
+	 * @param int                  $country_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -35,7 +35,7 @@ class ModelLocalisationCountry extends Model {
 	}
 
 	/**
-	 * deleteCountry
+	 * Delete Country
 	 *
 	 * @param int $country_id
 	 *
@@ -48,11 +48,11 @@ class ModelLocalisationCountry extends Model {
 	}
 
 	/**
-	 * getCountry
+	 * Get Country
 	 *
 	 * @param int $country_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getCountry(int $country_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "country` WHERE `country_id` = '" . (int)$country_id . "'");
@@ -61,11 +61,11 @@ class ModelLocalisationCountry extends Model {
 	}
 
 	/**
-	 * getCountryByIsoCode2
+	 * Get Country By Iso Code 2
 	 *
-	 * @param $iso_code_2
+	 * @param string $iso_code_2
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getCountryByIsoCode2(string $iso_code_2): array {
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "country WHERE `iso_code_2` = '" . $this->db->escape($iso_code_2) . "' AND `status` = '1'");
@@ -74,11 +74,11 @@ class ModelLocalisationCountry extends Model {
 	}
 
 	/**
-	 *  getCountryByIsoCode3
+	 * Get Country By Iso Code 3
 	 *
-	 * @param $iso_code_3
+	 * @param string $iso_code_3
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getCountryByIsoCode3(string $iso_code_3): array {
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "country WHERE `iso_code_3` = '" . $this->db->escape($iso_code_3) . "' AND `status` = '1'");
@@ -87,11 +87,11 @@ class ModelLocalisationCountry extends Model {
 	}
 
 	/**
-	 * getCountries
+	 * Get Countries
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getCountries(array $data = []): array {
 		if ($data) {
@@ -164,9 +164,9 @@ class ModelLocalisationCountry extends Model {
 	}
 
 	/**
-	 * getTotalCountries
+	 * Get Total Countries
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -197,7 +197,7 @@ class ModelLocalisationCountry extends Model {
 	}
 
 	/**
-	 * getTotalCountriesByAddressFormatId
+	 * Get Total Countries By Address Format ID
 	 *
 	 * @param int $address_format_id
 	 *

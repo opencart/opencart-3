@@ -6,11 +6,11 @@
  */
 class ModelSaleOrder extends Model {
 	/**
-	 * getOrder
+	 * Get Order
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getOrder(int $order_id): array {
 		$order_query = $this->db->query("SELECT *, (SELECT CONCAT(`c`.`firstname`, ' ', `c`.`lastname`) FROM `" . DB_PREFIX . "customer` `c` WHERE `c`.`customer_id` = `o`.`customer_id`) AS `customer`, (SELECT `os`.`name` FROM `" . DB_PREFIX . "order_status` `os` WHERE `os`.`order_status_id` = `o`.`order_status_id` AND `os`.`language_id` = '" . (int)$this->config->get('config_language_id') . "') AS `order_status` FROM `" . DB_PREFIX . "order` `o` WHERE `o`.`order_id` = '" . (int)$order_id . "'");
@@ -162,11 +162,11 @@ class ModelSaleOrder extends Model {
 	}
 
 	/**
-	 * getOrders
+	 * Get Orders
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getOrders(array $data = []): array {
 		$sql = "SELECT `o`.`order_id`, CONCAT(`o`.`firstname`, ' ', `o`.`lastname`) AS `customer`, (SELECT `os`.`name` FROM `" . DB_PREFIX . "order_status` `os` WHERE `os`.`order_status_id` = `o`.`order_status_id` AND `os`.`language_id` = '" . (int)$this->config->get('config_language_id') . "') AS `order_status`, `o`.`shipping_code`, `o`.`total`, `o`.`currency_code`, `o`.`currency_value`, `o`.`date_added`, `o`.`date_modified` FROM `" . DB_PREFIX . "order` `o`";
@@ -248,11 +248,11 @@ class ModelSaleOrder extends Model {
 	}
 
 	/**
-	 * getProducts
+	 * Get Products
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getProducts(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_product` WHERE `order_id` = '" . (int)$order_id . "'");
@@ -261,12 +261,12 @@ class ModelSaleOrder extends Model {
 	}
 
 	/**
-	 * getProductByOrderProductId
+	 * Get Product By Order Product ID
 	 *
 	 * @param int $order_id
 	 * @param int $order_product_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getProductByOrderProductId(int $order_id, int $order_product_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_product` WHERE `order_id` = '" . (int)$order_id . "' AND `order_product_id` = '" . (int)$order_product_id . "' ORDER BY `order_product_id` ASC");
@@ -275,12 +275,12 @@ class ModelSaleOrder extends Model {
 	}
 
 	/**
-	 * getOptions
+	 * Get Options
 	 *
 	 * @param int $order_id
 	 * @param int $order_product_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getOptions(int $order_id, int $order_product_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_option` WHERE `order_id` = '" . (int)$order_id . "' AND `order_product_id` = '" . (int)$order_product_id . "'");
@@ -289,11 +289,11 @@ class ModelSaleOrder extends Model {
 	}
 
 	/**
-	 * getVouchers
+	 * Get Vouchers
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getVouchers(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_voucher` WHERE `order_id` = '" . (int)$order_id . "'");
@@ -302,11 +302,11 @@ class ModelSaleOrder extends Model {
 	}
 
 	/**
-	 * getOrderVoucherByVoucherId
+	 * Get Voucher By Voucher ID
 	 *
 	 * @param int $voucher_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getOrderVoucherByVoucherId(int $voucher_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_voucher` WHERE `voucher_id` = '" . (int)$voucher_id . "'");
@@ -315,11 +315,11 @@ class ModelSaleOrder extends Model {
 	}
 
 	/**
-	 * getTotals
+	 * Get Totals
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getTotals(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_total` WHERE `order_id` = '" . (int)$order_id . "' ORDER BY `sort_order`");
@@ -328,9 +328,9 @@ class ModelSaleOrder extends Model {
 	}
 
 	/**
-	 * getTotalOrders
+	 * Get Total Orders
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -381,7 +381,7 @@ class ModelSaleOrder extends Model {
 	}
 
 	/**
-	 * getTotalOrdersByStoreId
+	 * Get Total Orders By Store ID
 	 *
 	 * @param int $store_id
 	 *
@@ -394,7 +394,7 @@ class ModelSaleOrder extends Model {
 	}
 
 	/**
-	 * getTotalOrdersByOrderStatusId
+	 * Get Total Orders By Order Status ID
 	 *
 	 * @param int $order_status_id
 	 *
@@ -407,7 +407,7 @@ class ModelSaleOrder extends Model {
 	}
 
 	/**
-	 * getTotalOrdersByProcessingStatus
+	 * Get Total Orders By Processing Status
 	 *
 	 * @return int
 	 */
@@ -430,7 +430,7 @@ class ModelSaleOrder extends Model {
 	}
 
 	/**
-	 * getTotalOrdersByCompleteStatus
+	 * Get Total Orders By Complete Status
 	 *
 	 * @return int
 	 */
@@ -453,7 +453,7 @@ class ModelSaleOrder extends Model {
 	}
 
 	/**
-	 * getTotalOrdersByLanguageId
+	 * Get Total Orders By Language ID
 	 *
 	 * @param int $language_id
 	 *
@@ -466,7 +466,7 @@ class ModelSaleOrder extends Model {
 	}
 
 	/**
-	 * getTotalOrdersByCurrencyId
+	 * Get Total Orders By Currency ID
 	 *
 	 * @param int $currency_id
 	 *
@@ -479,9 +479,9 @@ class ModelSaleOrder extends Model {
 	}
 
 	/**
-	 * getTotalSales
+	 * Get Total Sales
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -532,7 +532,7 @@ class ModelSaleOrder extends Model {
 	}
 
 	/**
-	 * createInvoiceNo
+	 * Create Invoice No
 	 *
 	 * @param int $order_id
 	 *
@@ -559,13 +559,13 @@ class ModelSaleOrder extends Model {
 	}
 
 	/**
-	 * getHistories
+	 * Get Histories
 	 *
 	 * @param int $order_id
 	 * @param int $start
 	 * @param int $limit
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getHistories(int $order_id, int $start = 0, int $limit = 10): array {
 		if ($start < 0) {
@@ -582,7 +582,7 @@ class ModelSaleOrder extends Model {
 	}
 
 	/**
-	 * getTotalOrderHistories
+	 * Get Total Histories
 	 *
 	 * @param int $order_id
 	 *
@@ -595,7 +595,7 @@ class ModelSaleOrder extends Model {
 	}
 
 	/**
-	 * getTotalOrderHistoriesByOrderStatusId
+	 * Get Total Histories By Order Status ID
 	 *
 	 * @param int $order_status_id
 	 *
@@ -608,13 +608,13 @@ class ModelSaleOrder extends Model {
 	}
 
 	/**
-	 * getEmailsByProductsOrdered
+	 * Get Emails By Products Ordered
 	 *
-	 * @param array $products
-	 * @param int   $start
-	 * @param int   $end
+	 * @param array<int> $products
+	 * @param int        $start
+	 * @param int        $end
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getEmailsByProductsOrdered(array $products, int $start, int $end): array {
 		$implode = [];
@@ -629,9 +629,9 @@ class ModelSaleOrder extends Model {
 	}
 
 	/**
-	 * getTotalEmailsByProductsOrdered
+	 * Get Total Emails By Products Ordered
 	 *
-	 * @param array $products
+	 * @param array<int> $products
 	 *
 	 * @return int
 	 */

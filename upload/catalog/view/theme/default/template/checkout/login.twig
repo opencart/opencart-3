@@ -21,19 +21,19 @@
     </div>
     {% endif %}
     <p>{{ text_register_account }}</p>
-    <input type="button" value="{{ button_continue }}" id="button-account" data-loading-text="{{ text_loading }}" class="btn btn-primary"/>
+    <input type="button" value="{{ button_continue }}" data-loading-text="{{ text_loading }}" class="btn btn-primary" id="button-account"/>
   </div>
   <div class="col-sm-6">
     <h2>{{ text_returning_customer }}</h2>
     <p>{{ text_i_am_returning_customer }}</p>
     <div class="form-group">
       <label class="control-label" for="input-email">{{ entry_email }}</label>
-      <input type="text" name="email" value="" placeholder="{{ entry_email }}" id="input-email" class="form-control"/>
+      <input type="text" name="email" value="" placeholder="{{ entry_email }}" class="form-control" id="input-email"/>
     </div>
     <div class="form-group">
       <label class="control-label" for="input-password">{{ entry_password }}</label>
-      <input type="password" name="password" value="" placeholder="{{ entry_password }}" id="input-password" class="form-control"/>
+      <input type="password" name="password" value="" placeholder="{{ entry_password }}" class="form-control" id="input-password"/>
       <a href="{{ forgotten }}">{{ text_forgotten }}</a></div>
-    <input type="button" value="{{ button_login }}" id="button-login" data-loading-text="{{ text_loading }}" class="btn btn-primary"/>
+    <input type="button" value="{{ button_login }}" data-loading-text="{{ text_loading }}" class="btn btn-primary" id="button-login"/>
   </div>
 </div>

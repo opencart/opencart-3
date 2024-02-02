@@ -11,6 +11,8 @@ class ControllerCatalogOption extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -140,6 +142,11 @@ class ControllerCatalogOption extends Controller {
 		$this->getList();
 	}
 
+	/**
+	 * Get List
+	 *
+	 * @return void
+	 */
 	protected function getList(): void {
 		if (isset($this->request->get['sort'])) {
 			$sort = $this->request->get['sort'];
@@ -274,6 +281,11 @@ class ControllerCatalogOption extends Controller {
 		$this->response->setOutput($this->load->view('catalog/option_list', $data));
 	}
 
+	/**
+	 * Get Form
+	 *
+	 * @return void
+	 */
 	protected function getForm(): void {
 		$data['text_form'] = !isset($this->request->get['option_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 
@@ -404,7 +416,12 @@ class ControllerCatalogOption extends Controller {
 		$this->response->setOutput($this->load->view('catalog/option_form', $data));
 	}
 
-	protected function validateForm() {
+	/**
+	 * Validate Form
+	 *
+	 * @return bool
+	 */
+	protected function validateForm(): bool {
 		if (!$this->user->hasPermission('modify', 'catalog/option')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
@@ -432,7 +449,12 @@ class ControllerCatalogOption extends Controller {
 		return !$this->error;
 	}
 
-	protected function validateDelete() {
+	/**
+	 * Validate Delete
+	 *
+	 * @return bool
+	 */
+	protected function validateDelete(): bool {
 		if (!$this->user->hasPermission('modify', 'catalog/option')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

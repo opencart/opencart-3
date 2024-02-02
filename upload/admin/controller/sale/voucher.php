@@ -11,6 +11,8 @@ class ControllerSaleVoucher extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -140,6 +142,11 @@ class ControllerSaleVoucher extends Controller {
 		$this->getList();
 	}
 
+	/**
+	 * Get List
+	 *
+	 * @return void
+	 */
 	protected function getList(): void {
 		if (isset($this->request->get['sort'])) {
 			$sort = $this->request->get['sort'];
@@ -293,6 +300,11 @@ class ControllerSaleVoucher extends Controller {
 		$this->response->setOutput($this->load->view('sale/voucher_list', $data));
 	}
 
+	/**
+	 * Get Form
+	 *
+	 * @return void
+	 */
 	protected function getForm(): void {
 		$data['text_form'] = !isset($this->request->get['voucher_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 
@@ -468,7 +480,12 @@ class ControllerSaleVoucher extends Controller {
 		$this->response->setOutput($this->load->view('sale/voucher_form', $data));
 	}
 
-	protected function validateForm() {
+	/**
+	 * Validate Form
+	 *
+	 * @return bool
+	 */
+	protected function validateForm(): bool {
 		if (!$this->user->hasPermission('modify', 'sale/voucher')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
@@ -510,7 +527,12 @@ class ControllerSaleVoucher extends Controller {
 		return !$this->error;
 	}
 
-	protected function validateDelete() {
+	/**
+	 * Validate Delete
+	 *
+	 * @return bool
+	 */
+	protected function validateDelete(): bool {
 		if (!$this->user->hasPermission('modify', 'sale/voucher')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
@@ -661,8 +683,9 @@ class ControllerSaleVoucher extends Controller {
 									'smtp_port'     => $this->config->get('config_mail_smtp_port'),
 									'smtp_timeout'  => $this->config->get('config_mail_smtp_timeout')
 								];
-				
+
 								$mail = new \Mail($this->config->get('config_mail_engine'), $mail_option);
+
 								$mail->setTo($voucher_info['to_email']);
 								$mail->setFrom($this->config->get('config_email'));
 								$mail->setSender(html_entity_decode($order_info['store_name'], ENT_QUOTES, 'UTF-8'));
@@ -704,7 +727,8 @@ class ControllerSaleVoucher extends Controller {
 									'smtp_timeout'  => $this->config->get('config_mail_smtp_timeout')
 								];
 
-								$mail = new \Mail($this->config->get('config_mail_engine'), $mail_option);								
+								$mail = new \Mail($this->config->get('config_mail_engine'), $mail_option);
+
 								$mail->setTo($voucher_info['to_email']);
 								$mail->setFrom($this->config->get('config_email'));
 								$mail->setSender(html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));

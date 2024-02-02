@@ -11,6 +11,8 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -96,10 +98,10 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 			$data['payment_pilibaba_status'] = $this->config->get('payment_pilibaba_status');
 		}
 
-		if (isset($this->request->post['payment_pilibaba_logging'])) {
-			$data['payment_pilibaba_logging'] = $this->request->post['payment_pilibaba_logging'];
+		if (isset($this->request->post['payment_pilibaba_debug'])) {
+			$data['payment_pilibaba_debug'] = $this->request->post['payment_pilibaba_debug'];
 		} else {
-			$data['payment_pilibaba_logging'] = $this->config->get('payment_pilibaba_logging');
+			$data['payment_pilibaba_debug'] = $this->config->get('payment_pilibaba_debug');
 		}
 
 		if (isset($this->request->post['payment_pilibaba_sort_order'])) {
@@ -368,7 +370,12 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 		}
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 *
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/payment/pilibaba')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

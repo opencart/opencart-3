@@ -11,6 +11,8 @@ class ControllerSaleVoucherTheme extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -140,6 +142,11 @@ class ControllerSaleVoucherTheme extends Controller {
 		$this->getList();
 	}
 
+	/**
+	 * Get List
+	 *
+	 * @return void
+	 */
 	protected function getList(): void {
 		if (isset($this->request->get['sort'])) {
 			$sort = $this->request->get['sort'];
@@ -272,6 +279,11 @@ class ControllerSaleVoucherTheme extends Controller {
 		$this->response->setOutput($this->load->view('sale/voucher_theme_list', $data));
 	}
 
+	/**
+	 * Get Form
+	 *
+	 * @return void
+	 */
 	protected function getForm(): void {
 		$data['text_form'] = !isset($this->request->get['voucher_theme_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 
@@ -374,7 +386,12 @@ class ControllerSaleVoucherTheme extends Controller {
 		$this->response->setOutput($this->load->view('sale/voucher_theme_form', $data));
 	}
 
-	protected function validateForm() {
+	/**
+	 * Validate Form
+	 *
+	 * @return bool
+	 */
+	protected function validateForm(): bool {
 		if (!$this->user->hasPermission('modify', 'sale/voucher_theme')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
@@ -392,7 +409,12 @@ class ControllerSaleVoucherTheme extends Controller {
 		return !$this->error;
 	}
 
-	protected function validateDelete() {
+	/**
+	 * Validate Delete
+	 *
+	 * @return bool
+	 */
+	protected function validateDelete(): bool {
 		if (!$this->user->hasPermission('modify', 'sale/voucher_theme')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

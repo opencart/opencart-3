@@ -11,6 +11,8 @@ class ControllerExtensionShippingRoyalMail extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -407,7 +409,12 @@ class ControllerExtensionShippingRoyalMail extends Controller {
 		$this->response->setOutput($this->load->view('extension/shipping/royal_mail', $data));
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 *
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/shipping/royal_mail')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

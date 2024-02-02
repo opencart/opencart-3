@@ -4,7 +4,7 @@
       <label><input type="radio" name="shipping_address" value="existing" checked="checked"/>{{ text_address_existing }}</label>
     </div>
     <div id="shipping-existing">
-      <select name="address_id" class="form-control">
+      <select name="address_id" class="form-control"/>
         {% for address in addresses %}
           {% if address.address_id == address_id %}
             <option value="{{ address.address_id }}" selected="selected">{{ address.firstname }} {{ address.lastname }}, {{ address.address_1 }}, {{ address.city }}, {{ address.zone }}, {{ address.country }}</option>
@@ -19,53 +19,53 @@
     </div>
   {% endif %}
   <br/>
-  <div id="shipping-new" style="display: {% if addresses %}none{% else %}block{% endif %};">
+  <div style="display: {% if addresses %}none{% else %}block{% endif %};" id="shipping-new">
     <div class="form-group required">
       <label class="col-sm-2 control-label" for="input-shipping-firstname">{{ entry_firstname }}</label>
       <div class="col-sm-10">
-        <input type="text" name="firstname" value="" placeholder="{{ entry_firstname }}" id="input-shipping-firstname" class="form-control"/>
+        <input type="text" name="firstname" value="" placeholder="{{ entry_firstname }}" class="form-control" id="input-shipping-firstname"/>
       </div>
     </div>
     <div class="form-group required">
       <label class="col-sm-2 control-label" for="input-shipping-lastname">{{ entry_lastname }}</label>
       <div class="col-sm-10">
-        <input type="text" name="lastname" value="" placeholder="{{ entry_lastname }}" id="input-shipping-lastname" class="form-control"/>
+        <input type="text" name="lastname" value="" placeholder="{{ entry_lastname }}" class="form-control" id="input-shipping-lastname"/>
       </div>
     </div>
     <div class="form-group">
       <label class="col-sm-2 control-label" for="input-shipping-company">{{ entry_company }}</label>
       <div class="col-sm-10">
-        <input type="text" name="company" value="" placeholder="{{ entry_company }}" id="input-shipping-company" class="form-control"/>
+        <input type="text" name="company" value="" placeholder="{{ entry_company }}" class="form-control" id="input-shipping-company"/>
       </div>
     </div>
     <div class="form-group required">
       <label class="col-sm-2 control-label" for="input-shipping-address-1">{{ entry_address_1 }}</label>
       <div class="col-sm-10">
-        <input type="text" name="address_1" value="" placeholder="{{ entry_address_1 }}" id="input-shipping-address-1" class="form-control"/>
+        <input type="text" name="address_1" value="" placeholder="{{ entry_address_1 }}" class="form-control" id="input-shipping-address-1"/>
       </div>
     </div>
     <div class="form-group">
       <label class="col-sm-2 control-label" for="input-shipping-address-2">{{ entry_address_2 }}</label>
       <div class="col-sm-10">
-        <input type="text" name="address_2" value="" placeholder="{{ entry_address_2 }}" id="input-shipping-address-2" class="form-control"/>
+        <input type="text" name="address_2" value="" placeholder="{{ entry_address_2 }}" class="form-control" id="input-shipping-address-2"/>
       </div>
     </div>
     <div class="form-group required">
       <label class="col-sm-2 control-label" for="input-shipping-city">{{ entry_city }}</label>
       <div class="col-sm-10">
-        <input type="text" name="city" value="" placeholder="{{ entry_city }}" id="input-shipping-city" class="form-control"/>
+        <input type="text" name="city" value="" placeholder="{{ entry_city }}" class="form-control" id="input-shipping-city"/>
       </div>
     </div>
     <div class="form-group required">
       <label class="col-sm-2 control-label" for="input-shipping-postcode">{{ entry_postcode }}</label>
       <div class="col-sm-10">
-        <input type="text" name="postcode" value="{{ postcode }}" placeholder="{{ entry_postcode }}" id="input-shipping-postcode" class="form-control"/>
+        <input type="text" name="postcode" value="{{ postcode }}" placeholder="{{ entry_postcode }}" class="form-control" id="input-shipping-postcode"/>
       </div>
     </div>
     <div class="form-group required">
       <label class="col-sm-2 control-label" for="input-shipping-country">{{ entry_country }}</label>
       <div class="col-sm-10">
-        <select name="country_id" id="input-shipping-country" class="form-control">
+        <select name="country_id" class="form-control" id="input-shipping-country"/>
           <option value="">{{ text_select }}</option>
           {% for country in countries %}
             {% if country.country_id == country_id %}
@@ -80,7 +80,7 @@
     <div class="form-group required">
       <label class="col-sm-2 control-label" for="input-shipping-zone">{{ entry_zone }}</label>
       <div class="col-sm-10">
-        <select name="zone_id" id="input-shipping-zone" class="form-control"></select>
+        <select name="zone_id" class="form-control" id="input-shipping-zone"/></select>
       </div>
     </div>
     {% for custom_field in custom_fields %}
@@ -88,7 +88,7 @@
         <div class="form-group{% if custom_field.required %} required {% endif %} custom-field" data-sort="{{ custom_field.sort_order }}">
           <label class="col-sm-2 control-label" for="input-shipping-custom-field{{ custom_field.custom_field_id }}">{{ custom_field.name }}</label>
           <div class="col-sm-10">
-            <select name="custom_field[{{ custom_field.custom_field_id }}]" id="input-shipping-custom-field{{ custom_field.custom_field_id }}" class="form-control">
+            <select name="custom_field[{{ custom_field.custom_field_id }}]" class="form-control" id="input-shipping-custom-field{{ custom_field.custom_field_id }}"/>
               <option value="">{{ text_select }}</option>
               {% for custom_field_value in custom_field.custom_field_value %}
                 <option value="{{ custom_field_value.custom_field_value_id }}">{{ custom_field_value.name }}</option>
@@ -129,7 +129,7 @@
         <div class="form-group{% if custom_field.required %} required {% endif %} custom-field" data-sort="{{ custom_field.sort_order }}">
           <label class="col-sm-2 control-label" for="input-shipping-custom-field{{ custom_field.custom_field_id }}">{{ custom_field.name }}</label>
           <div class="col-sm-10">
-            <input type="text" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ custom_field.value }}" placeholder="{{ custom_field.name }}" id="input-shipping-custom-field{{ custom_field.custom_field_id }}" class="form-control"/>
+            <input type="text" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ custom_field.value }}" placeholder="{{ custom_field.name }}" class="form-control" id="input-shipping-custom-field{{ custom_field.custom_field_id }}"/>
           </div>
         </div>
       {% endif %}
@@ -137,7 +137,7 @@
         <div class="form-group{% if custom_field.required %} required {% endif %} custom-field" data-sort="{{ custom_field.sort_order }}">
           <label class="col-sm-2 control-label" for="input-shipping-custom-field{{ custom_field.custom_field_id }}">{{ custom_field.name }}</label>
           <div class="col-sm-10">
-            <textarea name="custom_field[{{ custom_field.custom_field_id }}]" rows="5" placeholder="{{ custom_field.name }}" id="input-shipping-custom-field{{ custom_field.custom_field_id }}" class="form-control">{{ custom_field.value }}</textarea>
+            <textarea name="custom_field[{{ custom_field.custom_field_id }}]" rows="5" placeholder="{{ custom_field.name }}" class="form-control" id="input-shipping-custom-field{{ custom_field.custom_field_id }}"/>{{ custom_field.value }}</textarea>
           </div>
         </div>
       {% endif %}
@@ -145,7 +145,7 @@
         <div class="form-group{% if custom_field.required %} required {% endif %} custom-field" data-sort="{{ custom_field.sort_order }}">
           <label class="col-sm-2 control-label">{{ custom_field.name }}</label>
           <div class="col-sm-10">
-            <button type="button" id="button-shipping-custom-field{{ custom_field.custom_field_id }}" data-loading-text="{{ text_loading }}" class="btn btn-default"><i class="fa fa-upload"></i> {{ button_upload }}</button>
+            <button type="button" data-loading-text="{{ text_loading }}" class="btn btn-default" id="button-shipping-custom-field{{ custom_field.custom_field_id }}"><i class="fa fa-upload"></i> {{ button_upload }}</button>
             <input type="hidden" name="custom_field[{{ custom_field.custom_field_id }}]" value="" id="input-shipping-custom-field{{ custom_field.custom_field_id }}"/>
           </div>
         </div>
@@ -155,7 +155,7 @@
           <label class="col-sm-2 control-label" for="input-shipping-custom-field{{ custom_field.custom_field_id }}">{{ custom_field.name }}</label>
           <div class="col-sm-10">
             <div class="input-group date">
-              <input type="text" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ custom_field.value }}" placeholder="{{ custom_field.name }}" data-date-format="YYYY-MM-DD" id="input-shipping-custom-field{{ custom_field.custom_field_id }}" class="form-control"/>
+              <input type="text" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ custom_field.value }}" placeholder="{{ custom_field.name }}" data-date-format="YYYY-MM-DD" class="form-control" id="input-shipping-custom-field{{ custom_field.custom_field_id }}"/>
               <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span>
             </div>
           </div>
@@ -166,7 +166,7 @@
           <label class="col-sm-2 control-label" for="input-shipping-custom-field{{ custom_field.custom_field_id }}">{{ custom_field.name }}</label>
           <div class="col-sm-10">
             <div class="input-group time">
-              <input type="text" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ custom_field.value }}" placeholder="{{ custom_field.name }}" data-date-format="HH:mm" id="input-shipping-custom-field{{ custom_field.custom_field_id }}" class="form-control"/>
+              <input type="text" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ custom_field.value }}" placeholder="{{ custom_field.name }}" data-date-format="HH:mm" class="form-control" id="input-shipping-custom-field{{ custom_field.custom_field_id }}"/>
               <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span>
             </div>
           </div>
@@ -177,7 +177,7 @@
           <label class="col-sm-2 control-label" for="input-shipping-custom-field{{ custom_field.custom_field_id }}">{{ custom_field.name }}</label>
           <div class="col-sm-10">
             <div class="input-group datetime">
-              <input type="text" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ custom_field.value }}" placeholder="{{ custom_field.name }}" data-date-format="YYYY-MM-DD HH:mm" id="input-shipping-custom-field{{ custom_field.custom_field_id }}" class="form-control"/>
+              <input type="text" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ custom_field.value }}" placeholder="{{ custom_field.name }}" data-date-format="YYYY-MM-DD HH:mm" class="form-control" id="input-shipping-custom-field{{ custom_field.custom_field_id }}"/>
               <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span>
             </div>
           </div>
@@ -187,7 +187,7 @@
   </div>
   <div class="buttons clearfix">
     <div class="pull-right">
-      <input type="button" value="{{ button_continue }}" id="button-shipping-address" data-loading-text="{{ text_loading }}" class="btn btn-primary"/>
+      <input type="button" value="{{ button_continue }}" data-loading-text="{{ text_loading }}" class="btn btn-primary" id="button-shipping-address"/>
     </div>
   </div>
 </form>
@@ -227,7 +227,7 @@ $('#collapse-shipping-address button[id^=\'button-shipping-custom-field\']').on(
 
     $('#form-upload').remove();
 
-    $('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="file"/></form>');
+    $('body').prepend('<form enctype="multipart/form-data" style="display: none;" id="form-upload"><input type="file" name="file"/></form>');
 
     $('#form-upload input[name=\'file\']').trigger('click');
 
@@ -309,7 +309,7 @@ $('#collapse-shipping-address select[name=\'country_id\']').on('change', functio
                 $('#collapse-shipping-address input[name=\'postcode\']').parent().parent().removeClass('required');
             }
 
-            html = '<option value="">{{ text_select }}</option>';
+            html = '<option value="">{{ text_select|escape('js') }}</option>';
 
             if (json['zone'] && json['zone'] != '') {
                 for (i = 0; i < json['zone'].length; i++) {
@@ -322,7 +322,7 @@ $('#collapse-shipping-address select[name=\'country_id\']').on('change', functio
                     html += '>' + json['zone'][i]['name'] + '</option>';
                 }
             } else {
-                html += '<option value="0" selected="selected">{{ text_none }}</option>';
+                html += '<option value="0" selected="selected">{{ text_none|escape('js') }}</option>';
             }
 
             $('#collapse-shipping-address select[name=\'zone_id\']').html(html);

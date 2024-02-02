@@ -6,9 +6,9 @@
  */
 class ModelCatalogReview extends Model {
 	/**
-	 * addReview
+	 * Add Review
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -23,10 +23,10 @@ class ModelCatalogReview extends Model {
 	}
 
 	/**
-	 * editReview
+	 * Edit Review
 	 *
-	 * @param int   $review_id
-	 * @param array $data
+	 * @param int                  $review_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -37,7 +37,7 @@ class ModelCatalogReview extends Model {
 	}
 
 	/**
-	 * deleteReview
+	 * Delete Review
 	 *
 	 * @param int $review_id
 	 *
@@ -50,11 +50,11 @@ class ModelCatalogReview extends Model {
 	}
 
 	/**
-	 * getReview
+	 * Get Review
 	 *
 	 * @param int $review_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getReview(int $review_id): array {
 		$query = $this->db->query("SELECT DISTINCT *, (SELECT `pd`.`name` FROM `" . DB_PREFIX . "product_description` `pd` WHERE `pd`.`product_id` = `r`.`product_id` AND `pd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "') AS `product` FROM `" . DB_PREFIX . "review` `r` WHERE `r`.`review_id` = '" . (int)$review_id . "'");
@@ -63,11 +63,11 @@ class ModelCatalogReview extends Model {
 	}
 
 	/**
-	 * getReviews
+	 * Get Reviews
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getReviews(array $data = []): array {
 		$sql = "SELECT `r`.`review_id`, `pd`.`name`, `r`.`author`, `r`.`rating`, `r`.`status`, `r`.`date_added` FROM `" . DB_PREFIX . "review` `r` LEFT JOIN `" . DB_PREFIX . "product_description` `pd` ON (`r`.`product_id` = `pd`.`product_id`) WHERE `pd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
@@ -130,9 +130,9 @@ class ModelCatalogReview extends Model {
 	}
 
 	/**
-	 * getTotalReviews
+	 * Get Total Reviews
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -165,7 +165,7 @@ class ModelCatalogReview extends Model {
 	}
 
 	/**
-	 * getTotalReviewsAwaitingApproval
+	 * Get Total Reviews Awaiting Approval
 	 *
 	 * @return int
 	 */

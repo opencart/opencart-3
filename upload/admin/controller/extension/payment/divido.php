@@ -11,6 +11,8 @@ class ControllerExtensionPaymentDivido extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -250,7 +252,12 @@ class ControllerExtensionPaymentDivido extends Controller {
 		$this->model_extension_payment_divido->uninstall();
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 *
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/payment/divido')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

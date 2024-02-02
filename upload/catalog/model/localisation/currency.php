@@ -6,11 +6,11 @@
  */
 class ModelLocalisationCurrency extends Model {
 	/**
-	 * getCurrencyByCode
+	 * Get Currency By Code
 	 *
 	 * @param string $currency
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getCurrencyByCode(string $currency): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "currency` WHERE `code` = '" . $this->db->escape($currency) . "'");
@@ -19,9 +19,9 @@ class ModelLocalisationCurrency extends Model {
 	}
 
 	/**
-	 * getCurrencies
+	 * Get Currencies
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getCurrencies(): array {
 		$currency_data = $this->cache->get('currency');

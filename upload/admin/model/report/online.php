@@ -6,11 +6,11 @@
  */
 class ModelReportOnline extends Model {
 	/**
-	 * getOnline
+	 * Get Online
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getOnline(array $data = []): array {
 		$sql = "SELECT `co`.`ip`, `co`.`customer_id`, `co`.`url`, `co`.`referer`, `co`.`date_added` FROM `" . DB_PREFIX . "customer_online` `co` LEFT JOIN `" . DB_PREFIX . "customer` `c` ON (`co`.`customer_id` = `c`.`customer_id`)";
@@ -49,9 +49,9 @@ class ModelReportOnline extends Model {
 	}
 
 	/**
-	 * getTotalOnline
+	 * Get Total Online
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */

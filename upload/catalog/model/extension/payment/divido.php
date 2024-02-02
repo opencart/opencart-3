@@ -169,7 +169,7 @@ class ModelExtensionPaymentDivido extends Model {
 
 		$response = Divido_Finances::all();
 
-		if (isset($response->status) && strtolower($response->status) != 'ok') {
+		if (($response->status) && strtolower($response->status) != 'ok') {
 			throw new \Exception('Can\'t get list of finance plans from Divido!');
 		}
 
@@ -277,7 +277,9 @@ class ModelExtensionPaymentDivido extends Model {
 				$this->load->model('extension/total/' . $result['code']);
 
 				// We have to put the totals in an array so that they pass by reference.
-				$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
+				if (is_callable([$this->{'model_extension_total_' . $result['code']}, 'getTotal'])) {
+					$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
+				}
 			}
 		}
 

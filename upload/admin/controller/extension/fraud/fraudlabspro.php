@@ -11,6 +11,8 @@ class ControllerExtensionFraudFraudLabsPro extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -74,25 +76,25 @@ class ControllerExtensionFraudFraudLabsPro extends Controller {
 		}
 
 		if (isset($this->request->post['fraud_fraudlabspro_order_status_id'])) {
-			$data['fraud_fraudlabspro_order_status_id'] = $this->request->post['fraud_fraudlabspro_order_status_id'];
+			$data['fraud_fraudlabspro_order_status_id'] = (int)$this->request->post['fraud_fraudlabspro_order_status_id'];
 		} else {
 			$data['fraud_fraudlabspro_order_status_id'] = $this->config->get('fraud_fraudlabspro_order_status_id');
 		}
 
 		if (isset($this->request->post['fraud_fraudlabspro_review_status_id'])) {
-			$data['fraud_fraudlabspro_review_status_id'] = $this->request->post['fraud_fraudlabspro_review_status_id'];
+			$data['fraud_fraudlabspro_review_status_id'] = (int)$this->request->post['fraud_fraudlabspro_review_status_id'];
 		} else {
 			$data['fraud_fraudlabspro_review_status_id'] = $this->config->get('fraud_fraudlabspro_review_status_id');
 		}
 
 		if (isset($this->request->post['fraud_fraudlabspro_approve_status_id'])) {
-			$data['fraud_fraudlabspro_approve_status_id'] = $this->request->post['fraud_fraudlabspro_approve_status_id'];
+			$data['fraud_fraudlabspro_approve_status_id'] = (int)$this->request->post['fraud_fraudlabspro_approve_status_id'];
 		} else {
 			$data['fraud_fraudlabspro_approve_status_id'] = $this->config->get('fraud_fraudlabspro_approve_status_id');
 		}
 
 		if (isset($this->request->post['fraud_fraudlabspro_reject_status_id'])) {
-			$data['fraud_fraudlabspro_reject_status_id'] = $this->request->post['fraud_fraudlabspro_reject_status_id'];
+			$data['fraud_fraudlabspro_reject_status_id'] = (int)$this->request->post['fraud_fraudlabspro_reject_status_id'];
 		} else {
 			$data['fraud_fraudlabspro_reject_status_id'] = $this->config->get('fraud_fraudlabspro_reject_status_id');
 		}
@@ -109,7 +111,7 @@ class ControllerExtensionFraudFraudLabsPro extends Controller {
 		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
 
 		if (isset($this->request->post['fraud_fraudlabspro_status'])) {
-			$data['fraud_fraudlabspro_status'] = $this->request->post['fraud_fraudlabspro_status'];
+			$data['fraud_fraudlabspro_status'] = (int)$this->request->post['fraud_fraudlabspro_status'];
 		} else {
 			$data['fraud_fraudlabspro_status'] = $this->config->get('fraud_fraudlabspro_status');
 		}
@@ -145,7 +147,12 @@ class ControllerExtensionFraudFraudLabsPro extends Controller {
 		$this->model_extension_fraud_fraudlabspro->uninstall();
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 *
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/fraud/fraudlabspro')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
@@ -338,7 +345,12 @@ class ControllerExtensionFraudFraudLabsPro extends Controller {
 		}
 	}
 
-	private function fix_case($s) {
+	/**
+	 * Fix Case
+	 *
+	 * @param string $s
+	 */
+	private function fix_case(string $s) {
 		$s = ucwords(strtolower($s));
 
 		return preg_replace_callback("/( [ a-zA-Z]{1}')([a-zA-Z0-9]{1})/s", fn ($matches) => $matches[1] . strtoupper($matches[2]), $s);

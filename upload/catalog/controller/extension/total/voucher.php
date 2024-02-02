@@ -114,7 +114,7 @@ class ControllerExtensionTotalVoucher extends Controller {
 							'smtp_port'     => $this->config->get('config_mail_smtp_port'),
 							'smtp_timeout'  => $this->config->get('config_mail_smtp_timeout')
 						];
-		
+
 						$mail = new \Mail($this->config->get('config_mail_engine'), $mail_option);
 						$mail->setTo($voucher['to_email']);
 						$mail->setFrom($this->config->get('config_email'));

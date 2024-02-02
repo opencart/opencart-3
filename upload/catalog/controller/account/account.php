@@ -6,6 +6,8 @@
  */
 class ControllerAccountAccount extends Controller {
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -109,10 +111,10 @@ class ControllerAccountAccount extends Controller {
 	 * @return void
 	 */
 	public function country(): void {
-		$json = [];
-
 		// Countries
 		$this->load->model('localisation/country');
+
+		$json = [];
 
 		$country_info = $this->model_localisation_country->getCountry($this->request->get['country_id']);
 

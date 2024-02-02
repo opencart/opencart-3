@@ -11,6 +11,8 @@ class ControllerExtensionShippingUPS extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -206,6 +208,8 @@ class ControllerExtensionShippingUPS extends Controller {
 		} else {
 			$data['shipping_ups_classification'] = $this->config->get('shipping_ups_classification');
 		}
+
+		$data['classifications'][] = [];
 
 		$data['classifications'][] = [
 			'value' => '01',
@@ -713,7 +717,12 @@ class ControllerExtensionShippingUPS extends Controller {
 		$this->response->setOutput($this->load->view('extension/shipping/ups', $data));
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 *
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/shipping/ups')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

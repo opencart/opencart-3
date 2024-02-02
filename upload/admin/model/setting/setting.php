@@ -6,11 +6,11 @@
  */
 class ModelSettingSetting extends Model {
 	/**
-	 * getSettings
+	 * Get Settings
 	 *
 	 * @param int $store_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getSettings(int $store_id = 0): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `store_id` = '" . (int)$store_id . "' OR `store_id` = '0' ORDER BY `store_id` ASC");
@@ -19,12 +19,12 @@ class ModelSettingSetting extends Model {
 	}
 
 	/**
-	 * getSetting
+	 * Get Setting
 	 *
 	 * @param string $code
 	 * @param int    $store_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getSetting(string $code, int $store_id = 0): array {
 		$setting_data = [];
@@ -43,11 +43,11 @@ class ModelSettingSetting extends Model {
 	}
 
 	/**
-	 * editSetting
+	 * Edit Setting
 	 *
-	 * @param string $code
-	 * @param array  $data
-	 * @param int    $store_id
+	 * @param string               $code
+	 * @param array<string, mixed> $data
+	 * @param int                  $store_id
 	 *
 	 * @return void
 	 */
@@ -66,7 +66,7 @@ class ModelSettingSetting extends Model {
 	}
 
 	/**
-	 * deleteSetting
+	 * Delete Setting
 	 *
 	 * @param string $code
 	 * @param int    $store_id
@@ -78,7 +78,7 @@ class ModelSettingSetting extends Model {
 	}
 
 	/**
-	 * getValue
+	 * Get Value
 	 *
 	 * @param string $key
 	 * @param int    $store_id
@@ -96,12 +96,12 @@ class ModelSettingSetting extends Model {
 	}
 
 	/**
-	 * editValue
+	 * Edit Value
 	 *
-	 * @param string       $code
-	 * @param string       $key
-	 * @param array|string $value
-	 * @param int          $store_id
+	 * @param string              $code
+	 * @param string              $key
+	 * @param array<mixed>|string $value
+	 * @param int                 $store_id
 	 *
 	 * @return void
 	 */

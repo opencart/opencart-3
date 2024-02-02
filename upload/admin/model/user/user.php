@@ -6,9 +6,9 @@
  */
 class ModelUserUser extends Model {
 	/**
-	 * addUser
+	 * Add User
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -19,10 +19,10 @@ class ModelUserUser extends Model {
 	}
 
 	/**
-	 * editUser
+	 * Edit User
 	 *
-	 * @param int   $user_id
-	 * @param array $data
+	 * @param int                  $user_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -35,10 +35,10 @@ class ModelUserUser extends Model {
 	}
 
 	/**
-	 * editPassword
+	 * Edit Password
 	 *
-	 * @param int $user_id
-	 * @param     $password
+	 * @param int    $user_id
+	 * @param string $password
 	 *
 	 * @return void
 	 */
@@ -47,7 +47,7 @@ class ModelUserUser extends Model {
 	}
 
 	/**
-	 * editCode
+	 * Edit Code
 	 *
 	 * @param string $email
 	 * @param string $code
@@ -59,7 +59,7 @@ class ModelUserUser extends Model {
 	}
 
 	/**
-	 * deleteUser
+	 * Delete User
 	 *
 	 * @param int $user_id
 	 *
@@ -70,11 +70,11 @@ class ModelUserUser extends Model {
 	}
 
 	/**
-	 * getUser
+	 * Get User
 	 *
 	 * @param int $user_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getUser(int $user_id): array {
 		$query = $this->db->query("SELECT *, (SELECT `ug`.`name` FROM `" . DB_PREFIX . "user_group` `ug` WHERE `ug`.`user_group_id` = `u`.`user_group_id`) AS `user_group` FROM `" . DB_PREFIX . "user` `u` WHERE `u`.`user_id` = '" . (int)$user_id . "'");
@@ -83,11 +83,11 @@ class ModelUserUser extends Model {
 	}
 
 	/**
-	 * getUserByUsername
+	 * Get User By Username
 	 *
 	 * @param string $username
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getUserByUsername(string $username): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "user` WHERE `username` = '" . $this->db->escape($username) . "'");
@@ -96,11 +96,11 @@ class ModelUserUser extends Model {
 	}
 
 	/**
-	 * getUserByEmail
+	 * Get User By Email
 	 *
 	 * @param string $email
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getUserByEmail(string $email): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "user` WHERE LCASE(`email`) = '" . $this->db->escape(oc_strtolower($email)) . "'");
@@ -109,11 +109,11 @@ class ModelUserUser extends Model {
 	}
 
 	/**
-	 * getUserByCode
+	 * Get User By Code
 	 *
 	 * @param string $code
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getUserByCode(string $code): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "user` WHERE `code` = '" . $this->db->escape($code) . "' AND `code` != ''");
@@ -122,11 +122,11 @@ class ModelUserUser extends Model {
 	}
 
 	/**
-	 * getUsers
+	 * Get Users
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getUsers(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "user`";
@@ -167,7 +167,7 @@ class ModelUserUser extends Model {
 	}
 
 	/**
-	 * getTotalusers
+	 * Get Total Users
 	 *
 	 * @return int
 	 */
@@ -178,7 +178,7 @@ class ModelUserUser extends Model {
 	}
 
 	/**
-	 * getTotalUsersByGroupId
+	 * Get Total Users By Group ID
 	 *
 	 * @param int $user_group_id
 	 *
@@ -191,7 +191,7 @@ class ModelUserUser extends Model {
 	}
 
 	/**
-	 * getTotalUsersByEmail
+	 * Get Total Users By Email
 	 *
 	 * @param string $email
 	 *
@@ -204,10 +204,10 @@ class ModelUserUser extends Model {
 	}
 
 	/**
-	 * addLogin
+	 * Add Login
 	 *
-	 * @param int   $user_id
-	 * @param array $data
+	 * @param int                  $user_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -216,13 +216,13 @@ class ModelUserUser extends Model {
 	}
 
 	/**
-	 * getLogins
+	 * Get Logins
 	 *
 	 * @param int $user_id
 	 * @param int $start
 	 * @param int $limit
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getLogins(int $user_id, int $start = 0, int $limit = 10): array {
 		if ($start < 0) {
@@ -243,7 +243,7 @@ class ModelUserUser extends Model {
 	}
 
 	/**
-	 * getTotalLogins
+	 * Get Total Logins
 	 *
 	 * @param int $user_id
 	 *

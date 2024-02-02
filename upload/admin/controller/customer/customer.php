@@ -11,6 +11,8 @@ class ControllerCustomerCustomer extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -274,6 +276,11 @@ class ControllerCustomerCustomer extends Controller {
 		$this->getList();
 	}
 
+	/**
+	 * Get List
+	 *
+	 * @return void
+	 */
 	protected function getList(): void {
 		if (isset($this->request->get['filter_name'])) {
 			$filter_name = $this->request->get['filter_name'];
@@ -573,6 +580,11 @@ class ControllerCustomerCustomer extends Controller {
 		$this->response->setOutput($this->load->view('customer/customer_list', $data));
 	}
 
+	/**
+	 * Get Form
+	 *
+	 * @return void
+	 */
 	protected function getForm(): void {
 		$data['text_form'] = !isset($this->request->get['customer_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 
@@ -905,10 +917,6 @@ class ControllerCustomerCustomer extends Controller {
 			$data['address_id'] = '';
 		}
 
-		if (!empty($customer_info)) {
-			$data['customer_payment'] = sprintf($this->language->get('text_customer_payment'), $this->url->link('customer/customer_payment', 'user_token=' . $this->session->data['user_token'] . '&customer_id=' . $customer_info['customer_id'], true));
-		}
-
 		$data['config_telephone_required'] = $this->config->get('config_telephone_required');
 
 		$data['header'] = $this->load->controller('common/header');
@@ -918,7 +926,12 @@ class ControllerCustomerCustomer extends Controller {
 		$this->response->setOutput($this->load->view('customer/customer_form', $data));
 	}
 
-	protected function validateForm() {
+	/**
+	 * Validate Form
+	 *
+	 * @return bool
+	 */
+	protected function validateForm(): bool {
 		if (!$this->user->hasPermission('modify', 'customer/customer')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
@@ -1036,7 +1049,12 @@ class ControllerCustomerCustomer extends Controller {
 		return !$this->error;
 	}
 
-	protected function validateDelete() {
+	/**
+	 * Validate Delete
+	 *
+	 * @return bool
+	 */
+	protected function validateDelete(): bool {
 		if (!$this->user->hasPermission('modify', 'customer/customer')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
@@ -1044,7 +1062,12 @@ class ControllerCustomerCustomer extends Controller {
 		return !$this->error;
 	}
 
-	protected function validateUnlock() {
+	/**
+	 * Validate Unlock
+	 *
+	 * @return bool
+	 */
+	protected function validateUnlock(): bool {
 		if (!$this->user->hasPermission('modify', 'customer/customer')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
@@ -1143,7 +1166,7 @@ class ControllerCustomerCustomer extends Controller {
 	}
 
 	/**
-	 * addHistory
+	 * Add History
 	 *
 	 * @return void
 	 */
@@ -1215,7 +1238,7 @@ class ControllerCustomerCustomer extends Controller {
 	}
 
 	/**
-	 * addTransaction
+	 * Add Transaction
 	 *
 	 * @return void
 	 */
@@ -1287,7 +1310,7 @@ class ControllerCustomerCustomer extends Controller {
 	}
 
 	/**
-	 * addReward
+	 * Add Reward
 	 *
 	 * @return void
 	 */

@@ -6,9 +6,9 @@
  */
 class ModelCustomerCustomField extends Model {
 	/**
-	 * addCustomField
+	 * Add Custom Field
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -45,10 +45,10 @@ class ModelCustomerCustomField extends Model {
 	}
 
 	/**
-	 * editCustomField
+	 * Edit Custom Field
 	 *
-	 * @param int   $custom_field_id
-	 * @param array $data
+	 * @param int                  $custom_field_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -92,7 +92,7 @@ class ModelCustomerCustomField extends Model {
 	}
 
 	/**
-	 * deleteCustomField
+	 * Delete Custom Field
 	 *
 	 * @param int $custom_field_id
 	 *
@@ -107,11 +107,11 @@ class ModelCustomerCustomField extends Model {
 	}
 
 	/**
-	 * getCustomField
+	 * Get Custom Field
 	 *
 	 * @param int $custom_field_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getCustomField(int $custom_field_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "custom_field` `cf` LEFT JOIN `" . DB_PREFIX . "custom_field_description` `cfd` ON (`cf`.`custom_field_id` = `cfd`.`custom_field_id`) WHERE `cf`.`custom_field_id` = '" . (int)$custom_field_id . "' AND `cfd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -120,11 +120,11 @@ class ModelCustomerCustomField extends Model {
 	}
 
 	/**
-	 * getCustomFields
+	 * Get Custom Fields
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getCustomFields(array $data = []): array {
 		if (empty($data['filter_customer_group_id'])) {
@@ -179,11 +179,11 @@ class ModelCustomerCustomField extends Model {
 	}
 
 	/**
-	 * getDescriptions
+	 * Get Descriptions
 	 *
 	 * @param int $custom_field_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, string>>
 	 */
 	public function getDescriptions(int $custom_field_id): array {
 		$custom_field_data = [];
@@ -198,11 +198,11 @@ class ModelCustomerCustomField extends Model {
 	}
 
 	/**
-	 * getValue
+	 * Get Value
 	 *
 	 * @param int $custom_field_value_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getValue(int $custom_field_value_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "custom_field_value` `cfv` LEFT JOIN `" . DB_PREFIX . "custom_field_value_description` `cfvd` ON (`cfv`.`custom_field_value_id` = `cfvd`.`custom_field_value_id`) WHERE `cfv`.`custom_field_value_id` = '" . (int)$custom_field_value_id . "' AND `cfvd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -211,11 +211,11 @@ class ModelCustomerCustomField extends Model {
 	}
 
 	/**
-	 * getValues
+	 * Get Values
 	 *
 	 * @param int $custom_field_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getValues(int $custom_field_id): array {
 		$custom_field_value_data = [];
@@ -233,11 +233,11 @@ class ModelCustomerCustomField extends Model {
 	}
 
 	/**
-	 * getCustomerGroups
+	 * Get Customer Groups
 	 *
 	 * @param int $custom_field_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getCustomerGroups(int $custom_field_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "custom_field_customer_group` WHERE `custom_field_id` = '" . (int)$custom_field_id . "'");

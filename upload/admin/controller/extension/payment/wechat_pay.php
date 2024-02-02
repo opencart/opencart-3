@@ -18,6 +18,8 @@ class ControllerExtensionPaymentWechatPay extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -145,13 +147,13 @@ class ControllerExtensionPaymentWechatPay extends Controller {
 		$data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();
 
 		if (isset($this->request->post['payment_wechat_pay_status'])) {
-			$data['payment_wechat_pay_status'] = $this->request->post['payment_wechat_pay_status'];
+			$data['payment_wechat_pay_status'] = (int)$this->request->post['payment_wechat_pay_status'];
 		} else {
 			$data['payment_wechat_pay_status'] = $this->config->get('payment_wechat_pay_status');
 		}
 
 		if (isset($this->request->post['payment_wechat_pay_sort_order'])) {
-			$data['payment_wechat_pay_sort_order'] = $this->request->post['payment_wechat_pay_sort_order'];
+			$data['payment_wechat_pay_sort_order'] = (int)$this->request->post['payment_wechat_pay_sort_order'];
 		} else {
 			$data['payment_wechat_pay_sort_order'] = $this->config->get('payment_wechat_pay_sort_order');
 		}
@@ -163,7 +165,12 @@ class ControllerExtensionPaymentWechatPay extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/wechat_pay', $data));
 	}
 
-	private function validate() {
+	/**
+	 * Validate
+	 *
+	 * @return bool
+	 */
+	private function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/payment/wechat_pay')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

@@ -11,6 +11,8 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -102,7 +104,12 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 		$this->model_setting_setting->editSetting('module_paypal_smart_button', $setting);
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 *
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/module/paypal_smart_button')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

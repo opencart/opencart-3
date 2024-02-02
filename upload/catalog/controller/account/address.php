@@ -5,9 +5,14 @@
  * @package Catalog\Controller\Account
  */
 class ControllerAccountAddress extends Controller {
+	/**
+	 * @var array<string, string>
+	 */
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -121,6 +126,8 @@ class ControllerAccountAddress extends Controller {
 	 * @return void
 	 */
 	public function delete(): void {
+		$this->load->language('account/address');
+
 		$json = [];
 
 		if (!$this->customer->isLogged() || (!isset($this->request->get['customer_token']) || !isset($this->session->data['customer_token']) || ($this->request->get['customer_token'] != $this->session->data['customer_token']))) {
@@ -128,8 +135,6 @@ class ControllerAccountAddress extends Controller {
 
 			$json['redirect'] = str_replace('&amp;', '&', $this->url->link('account/login', '', true));
 		}
-
-		$this->load->language('account/address');
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
@@ -170,6 +175,11 @@ class ControllerAccountAddress extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
+	/**
+	 * Get List
+	 *
+	 * @return void
+	 */
 	protected function getList(): void {
 		$data['breadcrumbs'] = [];
 
@@ -224,6 +234,11 @@ class ControllerAccountAddress extends Controller {
 		$this->response->setOutput($this->load->view('account/address_list', $data));
 	}
 
+	/**
+	 * Get Form
+	 *
+	 * @return void
+	 */
 	protected function getForm(): void {
 		$data['breadcrumbs'] = [];
 
@@ -459,7 +474,12 @@ class ControllerAccountAddress extends Controller {
 		$this->response->setOutput($this->load->view('account/address_form', $data));
 	}
 
-	protected function validateForm() {
+	/**
+	 * Validate Form
+	 *
+	 * @return bool
+	 */
+	protected function validateForm(): bool {
 		$keys = [
 			'firstname',
 			'lastname',

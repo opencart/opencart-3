@@ -6,9 +6,9 @@
  */
 class ModelCatalogManufacturer extends Model {
 	/**
-	 * addManufacturer
+	 * Add Manufacturer
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -44,10 +44,10 @@ class ModelCatalogManufacturer extends Model {
 	}
 
 	/**
-	 * editManufacturer
+	 * Edit Manufacturer
 	 *
-	 * @param int   $manufacturer_id
-	 * @param array $data
+	 * @param int                  $manufacturer_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -82,7 +82,7 @@ class ModelCatalogManufacturer extends Model {
 	}
 
 	/**
-	 * deleteManufacturer
+	 * Delete Manufacturer
 	 *
 	 * @param int $manufacturer_id
 	 *
@@ -97,11 +97,11 @@ class ModelCatalogManufacturer extends Model {
 	}
 
 	/**
-	 * getManufacturer
+	 * Get Manufacturer
 	 *
 	 * @param int $manufacturer_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getManufacturer(int $manufacturer_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "manufacturer` WHERE `manufacturer_id` = '" . (int)$manufacturer_id . "'");
@@ -110,11 +110,11 @@ class ModelCatalogManufacturer extends Model {
 	}
 
 	/**
-	 * getManufacturers
+	 * Get Manufacturers
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getManufacturers(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "manufacturer`";
@@ -158,11 +158,11 @@ class ModelCatalogManufacturer extends Model {
 	}
 
 	/**
-	 * getStores
+	 * Get Stores
 	 *
 	 * @param int $manufacturer_id
 	 *
-	 * @return array
+	 * @return array<int, int>
 	 */
 	public function getStores(int $manufacturer_id): array {
 		$manufacturer_store_data = [];
@@ -177,11 +177,11 @@ class ModelCatalogManufacturer extends Model {
 	}
 
 	/**
-	 * getSeoUrls
+	 * Get Seo Urls
 	 *
 	 * @param int $manufacturer_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, string>>
 	 */
 	public function getSeoUrls(int $manufacturer_id): array {
 		$manufacturer_seo_url_data = [];
@@ -196,7 +196,7 @@ class ModelCatalogManufacturer extends Model {
 	}
 
 	/**
-	 * getTotalManufacturers
+	 * Get Total Manufacturers
 	 *
 	 * @return int
 	 */

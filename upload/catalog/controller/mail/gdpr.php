@@ -6,6 +6,8 @@
  */
 class ControllerMailGdpr extends Controller {
 	/**
+	 * Index
+	 *
 	 * @param string $route
 	 * @param array  $args
 	 * @param mixed  $output
@@ -49,6 +51,7 @@ class ControllerMailGdpr extends Controller {
 			];
 
 			$mail = new \Mail($this->config->get('config_mail_engine'), $mail_option);
+
 			$mail->setTo($args[1]);
 			$mail->setFrom($this->config->get('config_email'));
 			$mail->setSender($store_name);
@@ -160,6 +163,7 @@ class ControllerMailGdpr extends Controller {
 				];
 
 				$mail = new \Mail($this->config->get('config_mail_engine'), $mail_option);
+
 				$mail->setTo($gdpr_info['email']);
 				$mail->setFrom($this->config->get('config_email'));
 				$mail->setSender($store_name);

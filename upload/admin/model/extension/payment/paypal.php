@@ -200,8 +200,14 @@ class ModelExtensionPaymentPayPal extends Model {
 		}
 	}
 
-	public function editOrderRecurringStatus(int $subscription_id, int $status): void {
-		$this->db->query("UPDATE `" . DB_PREFIX . "order_subscription` SET `status` = '" . (int)$status . "' WHERE `subscription_id` = '" . (int)$subscription_id . "'");
+	public function getPayPalOrderSubscription(int $order_id): array {
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "paypal_checkout_integration_subscription` WHERE `order_id` = '" . (int)$order_id . "'");
+
+		return $query->row;
+	}
+
+	public function editOrderSubscriptionStatus(int $order_id, int $status): void {
+		$this->db->query("UPDATE `" . DB_PREFIX . "paypal_checkout_integration_order` SET `status` = '" . (int)$status . "' WHERE `order_id` = '" . (int)$order_id . "'");
 	}
 
 	public function setAgreeStatus(): void {
@@ -271,7 +277,7 @@ class ModelExtensionPaymentPayPal extends Model {
 	}
 
 	public function log(array $data, ?string $title = null): void {
-		$_config = new Config();
+		$_config = new \Config();
 		$_config->load('paypal');
 
 		$config_setting = $_config->get('paypal_setting');
@@ -285,12 +291,75 @@ class ModelExtensionPaymentPayPal extends Model {
 	}
 
 	public function install(): void {
-		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "paypal_checkout_integration_order` (`order_id` int(11) NOT NULL, `transaction_id` varchar(20) NOT NULL, `transaction_status` varchar(20) NULL, `payment_method` varchar(20) NULL, `vault_id` varchar(50) NULL, `vault_customer_id` varchar(50) NULL, `environment` varchar(20) NULL, PRIMARY KEY (`order_id`, `transaction_id`)) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci");
-		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "paypal_checkout_integration_order_recurring` (`paypal_order_recurring_id` int(11) NOT NULL AUTO_INCREMENT, `order_id` int(11) NOT NULL, `order_recurring_id` int(11) NOT NULL, `date_added` datetime NOT NULL, `date_modified` datetime NOT NULL, `next_payment` datetime NOT NULL, `trial_end` datetime DEFAULT NULL, `subscription_end` datetime DEFAULT NULL, `currency_code` CHAR(3) NOT NULL, `total` decimal(10, 2) NOT NULL, PRIMARY KEY (`paypal_order_recurring_id`), KEY (`order_id`), KEY (`order_recurring_id`)) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci");
+		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "paypal_checkout_integration_order` (
+			`order_id` int(11) NOT NULL,
+			`transaction_id` varchar(20) NOT NULL,
+			`transaction_status` varchar(20) NULL,
+			`payment_method` varchar(20) NULL,
+			`vault_id` varchar(50) NULL,
+			`vault_customer_id` varchar(50) NULL,
+			`environment` varchar(20) NULL,
+			`status` tinyint(1) NOT NULL,
+			PRIMARY KEY (`order_id`, `transaction_id`)
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci");
+
+		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "paypal_checkout_integration_subscription` (
+			`paypal_checkout_integration_subscription_id` int(11) NOT NULL AUTO_INCREMENT,
+			`subscription_id` int(11) NOT NULL,
+			`order_id` int(11) NOT NULL,
+			`next_payment` datetime NOT NULL,
+			`trial_end` datetime DEFAULT NULL,
+			`subscription_end` datetime DEFAULT NULL,
+			`currency_code` varchar(3) NOT NULL,
+			`total` decimal(15,4) NOT NULL,
+			`date_added` datetime NOT NULL,
+			`date_modified` datetime NOT NULL,
+			PRIMARY KEY (`paypal_checkout_integration_subscription_id`),
+			KEY (`order_id`),
+			KEY (`subscription_id`)
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci");
+
+		$this->db->query("
+			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "paypal_checkout_integration_transaction` (
+			  `paypal_checkout_integration_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
+			  `order_id` int(11) NOT NULL,
+			  `reference` varchar(255) NOT NULL,
+			  `type` tinyint(1) NOT NULL,
+			  `amount` decimal(15,4) NOT NULL,
+			  `date_added` datetime NOT NULL,
+			  PRIMARY KEY (`paypal_checkout_integration_transaction_id`),
+			  KEY (`order_id`)
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
+
+		$this->load->model('setting/setting');
+
+		// Setting
+		$_config = new \Config();
+		$_config->load('paypal');
+
+		$config_setting = $_config->get('paypal_setting');
+
+		$this->model_setting_setting->deleteSetting('paypal_version');
+
+		$this->model_setting_setting->editSetting($config_setting['version']);
+
+		// Events
+		$this->load->model('setting/event');
+
+		$this->model_setting_event->addEvent('paypal_order_info', 'admin/view/sale/order_info/before', 'extension/payment/paypal/order_info_before', 1, 0);
+		$this->model_setting_event->addEvent('paypal_header', 'catalog/controller/common/header/before', 'extension/payment/paypal/header_before', 1, 0);
+		$this->model_setting_event->addEvent('paypal_extension_get_extensions', 'paypal_extension_extensions', 'catalog/model/setting/extension/getExtensions/after', 'extension/payment/paypal/extension_get_extensions_after', 1, 0);
+		$this->model_setting_event->addEvent('paypal_order_delete_order', 'catalog/model/checkout/order/deleteOrder/before', 'extension/payment/paypal/order_delete_order_before', 1, 0);
 	}
 
 	public function uninstall(): void {
-		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "paypal_checkout_integration_order`");
-		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "paypal_checkout_integration_order_recurring`");
+		// Events
+		$this->load->model('setting/event');
+
+		$this->model_setting_event->deleteEventByCode('paypal_order_info');
+		$this->model_setting_event->deleteEventByCode('paypal_header');
+		$this->model_setting_event->deleteEventByCode('paypal_extension_get_extensions');
+		$this->model_setting_event->deleteEventByCode('paypal_order_delete_order');
+		$this->model_setting_event->deleteEventByCode('paypal_version');
 	}
 }

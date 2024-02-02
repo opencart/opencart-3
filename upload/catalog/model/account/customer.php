@@ -6,9 +6,9 @@
  */
 class ModelAccountCustomer extends Model {
 	/**
-	 * addCustomer
+	 * Add Customer
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -36,10 +36,10 @@ class ModelAccountCustomer extends Model {
 	}
 
 	/**
-	 * editCustomer
+	 * Edit Customer
 	 *
-	 * @param int   $customer_id
-	 * @param array $data
+	 * @param int                  $customer_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -48,7 +48,7 @@ class ModelAccountCustomer extends Model {
 	}
 
 	/**
-	 * editPassword
+	 * Edit Password
 	 *
 	 * @param string $email
 	 * @param string $password
@@ -60,7 +60,7 @@ class ModelAccountCustomer extends Model {
 	}
 
 	/**
-	 * editAddressId
+	 * Edit Address Id
 	 *
 	 * @param int $customer_id
 	 * @param int $address_id
@@ -73,7 +73,7 @@ class ModelAccountCustomer extends Model {
 	}
 
 	/**
-	 * editCode
+	 * Edit Code
 	 *
 	 * @param string $email
 	 * @param string $code
@@ -85,22 +85,22 @@ class ModelAccountCustomer extends Model {
 	}
 
 	/**
-	 * editNewsletter
+	 * Edit Newsletter
 	 *
-	 * @param string $newsletter
+	 * @param int $newsletter
 	 *
 	 * @return void
 	 */
-	public function editNewsletter(string $newsletter): void {
+	public function editNewsletter(int $newsletter): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "customer` SET `newsletter` = '" . (int)$newsletter . "' WHERE `customer_id` = '" . (int)$this->customer->getId() . "'");
 	}
 
 	/**
-	 * getCustomer
+	 * Get Customer
 	 *
 	 * @param int $customer_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getCustomer(int $customer_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer` WHERE `customer_id` = '" . (int)$customer_id . "'");
@@ -113,11 +113,11 @@ class ModelAccountCustomer extends Model {
 	}
 
 	/**
-	 * getCustomerByEmail
+	 * Get Customer By Email
 	 *
 	 * @param string $email
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getCustomerByEmail(string $email): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer` WHERE LCASE(`email`) = '" . $this->db->escape(oc_strtolower($email)) . "'");
@@ -130,11 +130,11 @@ class ModelAccountCustomer extends Model {
 	}
 
 	/**
-	 * getCustomerByCode
+	 * Get Customer By Code
 	 *
 	 * @param string $code
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getCustomerByCode(string $code): array {
 		$query = $this->db->query("SELECT `customer_id`, `firstname`, `lastname`, `email` FROM `" . DB_PREFIX . "customer` WHERE `code` = '" . $this->db->escape($code) . "' AND `code` != ''");
@@ -143,11 +143,11 @@ class ModelAccountCustomer extends Model {
 	}
 
 	/**
-	 * getCustomerByToken
+	 * Get Customer By Token
 	 *
 	 * @param string $token
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getCustomerByToken(string $token): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer` WHERE `token` = '" . $this->db->escape($token) . "' AND `token` != ''");
@@ -162,7 +162,7 @@ class ModelAccountCustomer extends Model {
 	}
 
 	/**
-	 * getTotalCustomersByEmail
+	 * Get Total Customers By Email
 	 *
 	 * @param string $email
 	 *
@@ -175,7 +175,7 @@ class ModelAccountCustomer extends Model {
 	}
 
 	/**
-	 * addTransaction
+	 * Add Transaction
 	 *
 	 * @param int    $customer_id
 	 * @param string $description
@@ -189,7 +189,7 @@ class ModelAccountCustomer extends Model {
 	}
 
 	/**
-	 * deleteTransactionByOrderId
+	 * Delete Transaction By Order ID
 	 *
 	 * @param int $order_id
 	 *
@@ -200,7 +200,7 @@ class ModelAccountCustomer extends Model {
 	}
 
 	/**
-	 * getTransactionTotal
+	 * Get Transaction Total
 	 *
 	 * @param int $customer_id
 	 *
@@ -213,7 +213,7 @@ class ModelAccountCustomer extends Model {
 	}
 
 	/**
-	 * getTotalTransactionsByOrderId
+	 * Get Total Transactions By Order ID
 	 *
 	 * @param int $order_id
 	 *
@@ -226,7 +226,7 @@ class ModelAccountCustomer extends Model {
 	}
 
 	/**
-	 * getRewardTotal
+	 * Get Reward Total
 	 *
 	 * @param int $customer_id
 	 *
@@ -243,11 +243,11 @@ class ModelAccountCustomer extends Model {
 	}
 
 	/**
-	 * getIps
+	 * Get Ips
 	 *
 	 * @param int $customer_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getIps(int $customer_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_ip` WHERE `customer_id` = '" . (int)$customer_id . "'");
@@ -256,7 +256,7 @@ class ModelAccountCustomer extends Model {
 	}
 
 	/**
-	 * addLogin
+	 * Add Login
 	 *
 	 * @param int    $customer_id
 	 * @param string $ip
@@ -269,7 +269,7 @@ class ModelAccountCustomer extends Model {
 	}
 
 	/**
-	 * addLoginAttempt
+	 * Add Login Attempt
 	 *
 	 * @param string $email
 	 *
@@ -286,11 +286,11 @@ class ModelAccountCustomer extends Model {
 	}
 
 	/**
-	 * getLoginAttempts
+	 * Get Login Attempts
 	 *
 	 * @param string $email
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getLoginAttempts(string $email): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_login` WHERE LCASE(`email`) = '" . $this->db->escape(oc_strtolower($email)) . "'");
@@ -299,7 +299,7 @@ class ModelAccountCustomer extends Model {
 	}
 
 	/**
-	 * deleteLoginAttempts
+	 * Delete Login Attempts
 	 *
 	 * @param string $email
 	 *
@@ -310,10 +310,10 @@ class ModelAccountCustomer extends Model {
 	}
 
 	/**
-	 * addAffiliate
+	 * Add Affiliate
 	 *
-	 * @param int   $customer_id
-	 * @param array $data
+	 * @param int                  $customer_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -326,10 +326,10 @@ class ModelAccountCustomer extends Model {
 	}
 
 	/**
-	 * editAffiliate
+	 * Edit Affiliate
 	 *
-	 * @param int   $customer_id
-	 * @param array $data
+	 * @param int                  $customer_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -338,11 +338,11 @@ class ModelAccountCustomer extends Model {
 	}
 
 	/**
-	 * getAffiliate
+	 * Get Affiliate
 	 *
 	 * @param int $customer_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getAffiliate(int $customer_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_affiliate` WHERE `customer_id` = '" . (int)$customer_id . "'");
@@ -355,11 +355,11 @@ class ModelAccountCustomer extends Model {
 	}
 
 	/**
-	 * getAffiliateByTracking
+	 * Get Affiliate By Tracking
 	 *
 	 * @param string $tracking
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getAffiliateByTracking(string $tracking): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_affiliate` WHERE `tracking` = '" . $this->db->escape($tracking) . "'");
@@ -372,7 +372,7 @@ class ModelAccountCustomer extends Model {
 	}
 
 	/**
-	 * addReport
+	 * Add Report
 	 *
 	 * @param int    $customer_id
 	 * @param string $ip

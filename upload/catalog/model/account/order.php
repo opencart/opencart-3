@@ -6,11 +6,11 @@
  */
 class ModelAccountOrder extends Model {
 	/**
-	 * getOrder
+	 * Get Order
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getOrder(int $order_id): array {
 		$order_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order` WHERE `order_id` = '" . (int)$order_id . "' AND `customer_id` = '" . (int)$this->customer->getId() . "' AND `customer_id` != '0' AND `order_status_id` > '0'");
@@ -113,12 +113,12 @@ class ModelAccountOrder extends Model {
 	}
 
 	/**
-	 * getOrders
+	 * Get Orders
 	 *
 	 * @param int $start
 	 * @param int $limit
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getOrders(int $start = 0, int $limit = 20): array {
 		if ($start < 0) {
@@ -135,12 +135,12 @@ class ModelAccountOrder extends Model {
 	}
 
 	/**
-	 * getProduct
+	 * Get Product
 	 *
 	 * @param int $order_id
 	 * @param int $order_product_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getProduct(int $order_id, int $order_product_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_product` WHERE `order_id` = '" . (int)$order_id . "' AND `order_product_id` = '" . (int)$order_product_id . "'");
@@ -149,11 +149,11 @@ class ModelAccountOrder extends Model {
 	}
 
 	/**
-	 * getProducts
+	 * Get Products
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getProducts(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_product` WHERE `order_id` = '" . (int)$order_id . "'");
@@ -162,12 +162,12 @@ class ModelAccountOrder extends Model {
 	}
 
 	/**
-	 * getOptions
+	 * Get Options
 	 *
 	 * @param int $order_id
 	 * @param int $order_product_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getOptions(int $order_id, int $order_product_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_option` WHERE `order_id` = '" . (int)$order_id . "' AND `order_product_id` = '" . (int)$order_product_id . "'");
@@ -176,11 +176,11 @@ class ModelAccountOrder extends Model {
 	}
 
 	/**
-	 * getVouchers
+	 * Get Vouchers
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getVouchers(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_voucher` WHERE `order_id` = '" . (int)$order_id . "'");
@@ -189,11 +189,11 @@ class ModelAccountOrder extends Model {
 	}
 
 	/**
-	 * getTotals
+	 * Get Totals
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getTotals(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_total` WHERE `order_id` = '" . (int)$order_id . "' ORDER BY `sort_order`");
@@ -202,11 +202,11 @@ class ModelAccountOrder extends Model {
 	}
 
 	/**
-	 * getHistories
+	 * Get Histories
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getHistories(int $order_id): array {
 		$query = $this->db->query("SELECT `date_added`, `os`.`name` AS `status`, `oh`.`comment`, `oh`.`notify` FROM `" . DB_PREFIX . "order_history` `oh` LEFT JOIN `" . DB_PREFIX . "order_status` `os` ON `oh`.`order_status_id` = `os`.`order_status_id` WHERE `oh`.`order_id` = '" . (int)$order_id . "' AND `os`.`language_id` = '" . (int)$this->config->get('config_language_id') . "' ORDER BY `oh`.`date_added`");
@@ -215,7 +215,7 @@ class ModelAccountOrder extends Model {
 	}
 
 	/**
-	 * getTotalOrders
+	 * Get Total Orders
 	 *
 	 * @return int
 	 */
@@ -226,7 +226,7 @@ class ModelAccountOrder extends Model {
 	}
 
 	/**
-	 * getTotalOrderProductsByOrderId
+	 * Get Total Order Products By Order Id
 	 *
 	 * @param int $order_id
 	 *
@@ -239,7 +239,7 @@ class ModelAccountOrder extends Model {
 	}
 
 	/**
-	 * getTotalOrderVouchersByOrderId
+	 * Get Total Order Vouchers By Order Id
 	 *
 	 * @param int $order_id
 	 *

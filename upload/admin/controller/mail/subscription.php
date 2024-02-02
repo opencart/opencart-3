@@ -5,18 +5,19 @@
  * @package Admin\Controller\Mail
  */
 class ControllerMailSubscription extends Controller {
+	// admin/controller/sale/subscription/addHistory/after
 	/**
 	 * History
 	 *
-	 * @param string $route
-	 * @param array  $args
-	 * @param mixed  $output
+	 * @param string            $route
+	 * @param array<int, mixed> $args
+	 * @param mixed             $output
+	 *
+	 * @throws \Exception
 	 *
 	 * @return void
-	 *
-	 * admin/controller/sale/subscription/addHistory/after
 	 */
-	public function history(string &$route, array &$args, mixed &$output): void {
+	public function history(string &$route, array &$args, &$output): void {
 		if (isset($args[0])) {
 			$subscription_id = $args[0];
 		} else {
@@ -41,7 +42,7 @@ class ControllerMailSubscription extends Controller {
 			$notify = '';
 		}
 
-		// Subscriptions
+		// Subscription
 		$this->load->model('sale/subscription');
 
 		$filter_data = [
@@ -54,10 +55,11 @@ class ControllerMailSubscription extends Controller {
 
 		if ($subscriptions) {
 			foreach ($subscriptions as $subscription) {
-				// Subscription Histories
+				// Subscription histories
 				$history_total = $this->model_sale_subscription->getTotalHistoriesBySubscriptionStatusId($subscription_status_id);
 
-				// Requires an API to edit the subscription status from the catalog
+				// The charge() method handles the subscription statuses in the cron/subscription
+				// controller from the catalog whereas an extension needs to return the active subscription status
 				if ($history_total && $subscription['subscription_status_id'] == $subscription_status_id) {
 					// Subscription Statuses
 					$this->load->model('localisation/subscription_status');
@@ -65,13 +67,15 @@ class ControllerMailSubscription extends Controller {
 					$subscription_status_info = $this->model_localisation_subscription_status->getSubscriptionStatus($subscription_status_id);
 
 					if ($subscription_status_info) {
-						// Customers
-						$this->load->model('customer/customer');
-
 						// Customer payment
-						$customer_payment_info = $this->model_customer_customer->getPaymentMethod($subscription['customer_id'], $subscription['customer_payment_id']);
+						$customer_payment_info = $this->model_sale_subscription->getSubscriptions(['filter_customer_id' => $subscription['customer_id'], 'filter_customer_payment_id' => $subscription['customer_payment_id']]);
 
 						if ($customer_payment_info) {
+							// Customers
+							$this->load->model('customer/customer');
+
+							// Since the customer payment is integrated into the customer/customer page,
+							// we need to gather the customer's information rather than the order
 							$customer_info = $this->model_customer_customer->getCustomer($subscription['customer_id']);
 
 							if ($customer_info) {
@@ -107,9 +111,20 @@ class ControllerMailSubscription extends Controller {
 
 									$data['subscription_status'] = $subscription_status_info['name'];
 
+									// Languages
+									$this->load->model('localisation/language');
+
+									$language_info = $this->model_localisation_language->getLanguage($customer_info['language_id']);
+
+									if ($language_info) {
+										$language_code = $language_info['code'];
+									} else {
+										$language_code = $this->config->get('config_language');
+									}
+
 									// Load the language for any mails that might be required to be sent out
-									$language = new \Language($language_info['code']);
-									$language->load($language_info['code']);
+									$language = new \Language($language_code);
+									$language->load($language_code);
 									$language->load('mail/subscription');
 
 									$data['date_added'] = date($language->get('date_format_short'), $subscription['date_added']);
@@ -131,6 +146,7 @@ class ControllerMailSubscription extends Controller {
 										];
 
 										$mail = new \Mail($this->config->get('config_mail_engine'), $mail_option);
+
 										$mail->setTo($customer_info['email']);
 										$mail->setFrom($from);
 										$mail->setSender(html_entity_decode($store_name, ENT_QUOTES, 'UTF-8'));
@@ -157,8 +173,10 @@ class ControllerMailSubscription extends Controller {
 	 * @throws \Exception
 	 *
 	 * @return void
+	 *
+	 * admin/controller/sale/subscription/addTransaction/after
 	 */
-	public function transaction(string &$route, array &$args, &$output): void {
+	public function transaction(string &$route, array &$args, mixed &$output): void {
 		if (isset($args[0])) {
 			$subscription_id = $args[0];
 		} else {
@@ -228,9 +246,9 @@ class ControllerMailSubscription extends Controller {
 					// the order ID needs to be identical
 					if ($order_info && $subscription['order_id'] == $order_info['order_id']) {
 						// Same for the payment method
-						if ($order_info['payment_method'] == $subscription['payment_method'] && $subscription['payment_method'] == $payment_method) {
+						if ($order_info['payment_method']['name'] == $subscription['payment_method']['name'] && $subscription['payment_method']['name'] == $payment_method) {
 							// Same for the payment code
-							if ($order_info['payment_code'] == $subscription['payment_code'] && $subscription['payment_code'] == $payment_code) {
+							if ($order_info['payment_method']['code'] == $subscription['payment_method']['code'] && $subscription['payment_method']['code'] == $payment_code) {
 								$this->load->language('mail/subscription');
 
 								// Store
@@ -246,8 +264,11 @@ class ControllerMailSubscription extends Controller {
 								}
 
 								$data['subscription_id'] = $subscription_id;
-								$data['payment_method'] = $payment_method;
-								$data['payment_code'] = $payment_code;
+
+								$data['payment_method'] = [];
+
+								$data['payment_method']['name'] = $payment_method;
+								$data['payment_method']['code'] = $payment_code;
 
 								$data['date_added'] = date($this->language->get('date_format_short'), $subscription['date_added']);
 
@@ -260,8 +281,8 @@ class ControllerMailSubscription extends Controller {
 										'smtp_port'     => $this->config->get('config_mail_smtp_port'),
 										'smtp_timeout'  => $this->config->get('config_mail_smtp_timeout')
 									];
-
 									$mail = new \Mail($this->config->get('config_mail_engine'), $mail_option);
+
 									$mail->setTo($from);
 									$mail->setFrom($from);
 									$mail->setSender(html_entity_decode($store_name, ENT_QUOTES, 'UTF-8'));

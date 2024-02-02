@@ -27,6 +27,9 @@ $_['text_column_date_added']  			= 'Created';
 $_['text_confirm_void']		  			= 'Are you sure you want to void the payment?';
 $_['text_confirm_release']	  			= 'Are you sure you want to release the payment?';
 $_['text_confirm_rebate']	  			= 'Are you sure you want to rebate the payment?';
+$_['text_void']                         = 'void';
+$_['text_payment']                      = 'payment';
+$_['text_rebate']                       = 'rebate';
 
 // Entry
 $_['entry_vendor']			  			= 'Vendor';

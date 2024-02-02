@@ -14,6 +14,8 @@ class ControllerMarketplaceModification extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -70,7 +72,7 @@ class ControllerMarketplaceModification extends Controller {
 	/**
 	 * Refresh
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -661,6 +663,11 @@ class ControllerMarketplaceModification extends Controller {
 		$this->getList();
 	}
 
+	/**
+	 * Get List
+	 *
+	 * @return void
+	 */
 	protected function getList(): void {
 		if (isset($this->request->get['sort'])) {
 			$sort = $this->request->get['sort'];
@@ -818,7 +825,12 @@ class ControllerMarketplaceModification extends Controller {
 		$this->response->setOutput($this->load->view('marketplace/modification', $data));
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 *
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'marketplace/modification')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

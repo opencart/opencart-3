@@ -154,7 +154,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 
 		$this->model_checkout_order->addHistory($order_id, $order_status_id, $message, false);
 
-		echo 'OK';
+		return 'OK';
 	}
 
 	/**
@@ -305,7 +305,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 			];
 		} else {
 			$error = (string)$response['error'];
-			
+
 			$data = [
 				'status'  => 'error',
 				'message' => $this->language->get($error),
@@ -318,7 +318,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 	/**
 	 * Calculator
 	 *
-	 * @param array $args
+	 * @param array<string, mixed> $args
 	 *
 	 * @return string
 	 */

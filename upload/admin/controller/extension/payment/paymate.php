@@ -11,6 +11,8 @@ class ControllerExtensionPaymentPayMate extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -134,7 +136,12 @@ class ControllerExtensionPaymentPayMate extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/paymate', $data));
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 *
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/payment/paymate')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

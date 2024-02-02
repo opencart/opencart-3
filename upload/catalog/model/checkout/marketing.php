@@ -6,11 +6,11 @@
  */
 class ModelCheckoutMarketing extends Model {
 	/**
-	 * getMarketingByCode
+	 * Get Marketing By Code
 	 *
 	 * @param string $code
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getMarketingByCode(string $code): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "marketing` WHERE `code` = '" . $this->db->escape($code) . "'");
@@ -19,7 +19,7 @@ class ModelCheckoutMarketing extends Model {
 	}
 
 	/**
-	 * addReport
+	 * Add Report
 	 *
 	 * @param int    $marketing_id
 	 * @param string $ip

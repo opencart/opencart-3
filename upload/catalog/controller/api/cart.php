@@ -64,29 +64,14 @@ class ControllerApiCart extends Controller {
 						}
 					}
 
-					if (isset($this->request->post['subscription_plan_id'])) {
-						$subscription_plan_id = (int)$this->request->post['subscription_plan_id'];
-					} else {
-						$subscription_plan_id = 0;
-					}
+					$product_subscription = $this->model_catalog_product->getSubscription($this->request->post['product_id'], $this->request->post['subscription_plan_id']);
 
-					// Validate Subscription plan
-					$subscriptions = $this->model_catalog_product->getSubscriptions($this->request->post['product_id']);
-
-					if ($subscriptions) {
-						$subscription_plan_ids = [];
-
-						foreach ($subscriptions as $subscription) {
-							$subscription_plan_ids[] = $subscription['subscription_plan_id'];
-						}
-
-						if (!in_array($subscription_plan_id, $subscription_plan_ids)) {
-							$json['error']['subscription'] = $this->language->get('error_subscription');
-						}
+					if (!$product_subscription) {
+						$json['error']['subscription_plan'] = $this->language->get('error_subscription_plan');
 					}
 
 					if (!$json) {
-						$this->cart->add($this->request->post['product_id'], $quantity, $option, $subscription_plan_id);
+						$this->cart->add($this->request->post['product_id'], $quantity, $option, $this->request->post['subscription_plan_id'], true, $product_info['price']);
 
 						$json['success'] = $this->language->get('text_success');
 
@@ -118,7 +103,19 @@ class ControllerApiCart extends Controller {
 		if (!isset($this->session->data['api_id'])) {
 			$json['error'] = $this->language->get('error_permission');
 		} else {
-			$this->cart->update($this->request->post['key'], $this->request->post['quantity']);
+			if (isset($this->request->post['key'])) {
+				$key = (int)$this->request->post['key'];
+			} else {
+				$key = 0;
+			}
+
+			if (isset($this->request->post['quantity'])) {
+				$quantity = (int)$this->request->post['quantity'];
+			} else {
+				$quantity = 1;
+			}
+
+			$this->cart->update($key, $quantity);
 
 			$json['success'] = $this->language->get('text_success');
 
@@ -148,18 +145,23 @@ class ControllerApiCart extends Controller {
 		} else {
 			// Remove
 			if (isset($this->request->post['key'])) {
-				$this->cart->remove($this->request->post['key']);
-
-				unset($this->session->data['vouchers'][$this->request->post['key']]);
-
-				$json['success'] = $this->language->get('text_success');
-
-				unset($this->session->data['shipping_method']);
-				unset($this->session->data['shipping_methods']);
-				unset($this->session->data['payment_method']);
-				unset($this->session->data['payment_methods']);
-				unset($this->session->data['reward']);
+				$key = (int)$this->request->post['key'];
+			} else {
+				$key = 0;
 			}
+
+			// Remove
+			$this->cart->remove($key);
+
+			unset($this->session->data['vouchers'][$key]);
+
+			$json['success'] = $this->language->get('text_success');
+
+			unset($this->session->data['shipping_method']);
+			unset($this->session->data['shipping_methods']);
+			unset($this->session->data['payment_method']);
+			unset($this->session->data['payment_methods']);
+			unset($this->session->data['reward']);
 		}
 
 		$this->response->addHeader('Content-Type: application/json');
@@ -304,7 +306,9 @@ class ControllerApiCart extends Controller {
 					$this->load->model('extension/total/' . $result['code']);
 
 					// We have to put the totals in an array so that they pass by reference.
-					$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
+					if (is_callable([$this->{'model_extension_total_' . $result['code']}, 'getTotal'])) {
+						$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
+					}
 				}
 			}
 

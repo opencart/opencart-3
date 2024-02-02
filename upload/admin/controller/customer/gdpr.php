@@ -6,6 +6,8 @@
  */
 class ControllerCustomerGdpr extends Controller {
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -20,7 +22,7 @@ class ControllerCustomerGdpr extends Controller {
 	}
 
 	/**
-	 * getList
+	 * Get List
 	 *
 	 * @return void
 	 */
@@ -98,6 +100,8 @@ class ControllerCustomerGdpr extends Controller {
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('customer/gdpr', 'user_token=' . $this->session->data['user_token'], true)
 		];
+
+		$data['text_info'] = sprintf($this->language->get('text_info'), $this->config->get('config_gdpr_limit'));
 
 		// GDPR
 		$data['gdprs'] = [];

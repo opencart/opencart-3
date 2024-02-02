@@ -6,7 +6,7 @@
  */
 class ModelAccountGdpr extends Model {
 	/**
-	 * addGdpr
+	 * Add Gdpr
 	 *
 	 * @param string $code
 	 * @param string $email
@@ -19,7 +19,7 @@ class ModelAccountGdpr extends Model {
 	}
 
 	/**
-	 * editStatus
+	 * Edit Status
 	 *
 	 * @param int $gdpr_id
 	 * @param int $status
@@ -31,11 +31,11 @@ class ModelAccountGdpr extends Model {
 	}
 
 	/**
-	 * getGdprByCode
+	 * Get Gdpr By Code
 	 *
 	 * @param string $code
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getGdprByCode(string $code): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "gdpr` WHERE `code` = '" . $this->db->escape($code) . "'");
@@ -44,11 +44,11 @@ class ModelAccountGdpr extends Model {
 	}
 
 	/**
-	 * getGdprsByEmail
+	 * Get Gdprs By Email
 	 *
 	 * @param string $email
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getGdprsByEmail(string $email): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "gdpr` WHERE `email` = '" . $this->db->escape($email) . "'");

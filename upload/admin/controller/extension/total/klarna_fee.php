@@ -11,6 +11,8 @@ class ControllerExtensionTotalKlarnaFee extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -114,7 +116,12 @@ class ControllerExtensionTotalKlarnaFee extends Controller {
 		$this->response->setOutput($this->load->view('extension/total/klarna_fee', $data));
 	}
 
-	private function validate() {
+	/**
+	 * Validate
+	 *
+	 * @return bool
+	 */
+	private function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/total/klarna_fee')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

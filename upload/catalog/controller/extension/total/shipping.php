@@ -148,15 +148,17 @@ class ControllerExtensionTotalShipping extends Controller {
 				if ($this->config->get('shipping_' . $result['code'] . '_status')) {
 					$this->load->model('extension/shipping/' . $result['code']);
 
-					$quote = $this->{'model_extension_shipping_' . $result['code']}->getQuote($this->session->data['shipping_address']);
+					if (is_callable([$this->{'model_extension_shipping_' . $result['code']}, 'getQuote'])) {
+						$quote = $this->{'model_extension_shipping_' . $result['code']}->getQuote($this->session->data['shipping_address']);
 
-					if ($quote) {
-						$quote_data[$result['code']] = [
-							'title'      => $quote['title'],
-							'quote'      => $quote['quote'],
-							'sort_order' => $quote['sort_order'],
-							'error'      => $quote['error']
-						];
+						if ($quote) {
+							$quote_data[$result['code']] = [
+								'title'      => $quote['title'],
+								'quote'      => $quote['quote'],
+								'sort_order' => $quote['sort_order'],
+								'error'      => $quote['error']
+							];
+						}
 					}
 				}
 			}

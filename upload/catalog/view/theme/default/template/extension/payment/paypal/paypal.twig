@@ -1,74 +1,74 @@
 {% if checkout_mode == 'multi_button' %}
   <div id="paypal-form">
     {% if button_status %}
-      <div id="paypal-button" class="paypal-button buttons clearfix">
-        <div id="paypal-button-container" class="paypal-button-container paypal-spinner"></div>
+      <div class="paypal-button buttons clearfix" id="paypal-button">
+        <div class="paypal-button-container paypal-spinner" id="paypal-button-container"></div>
       </div>
     {% endif %}
     {% if googlepay_button_status %}
-      <div id="googlepay-button" class="googlepay-button buttons clearfix">
-        <div id="googlepay-button-container" class="googlepay-button-container paypal-spinner"></div>
+      <div class="googlepay-button buttons clearfix" id="googlepay-button">
+        <div class="googlepay-button-container paypal-spinner" id="googlepay-button-container"></div>
       </div>
     {% endif %}
     {% if applepay_button_status %}
-      <div id="applepay-button" class="applepay-button buttons clearfix">
-        <div id="applepay-button-container" class="applepay-button-container paypal-spinner"></div>
+      <div class="applepay-button buttons clearfix" id="applepay-button">
+        <div class="applepay-button-container paypal-spinner" id="applepay-button-container"></div>
       </div>
     {% endif %}
     {% if card_status %}
-      <div id="paypal-card" class="paypal-card">
-        <div id="paypal-card-container" class="paypal-card-container paypal-spinner">
-          <form id="paypal-card-form" class="paypal-card-form well">
+      <div class="paypal-card" id="paypal-card">
+        <div class="paypal-card-container paypal-spinner" id="paypal-card-container">
+          <form class="paypal-card-form well" id="paypal-card-form">
             <div class="card-info-number clearfix">
               <label for="card-number" class="card-label">{{ entry_card_number }}</label>
-              <div id="card-number" class="card-input-container">
+              <div class="card-input-container" id="card-number">
                 <div id="card-image"></div>
               </div>
             </div>
             <div class="card-info-date-cvv clearfix">
               <div class="card-info-date">
                 <label for="expiration-date" class="card-label">{{ entry_expiration_date }}</label>
-                <div id="expiration-date" class="card-input-container"></div>
+                <div class="card-input-container" id="expiration-date"></div>
               </div>
               <div class="card-info-cvv">
                 <label for="cvv" class="card-label">{{ entry_cvv }}</label>
-                <div id="cvv" class="card-input-container"></div>
+                <div class="card-input-container" id="cvv"></div>
               </div>
             </div>
-            <button id="paypal-button-submit" class="btn" value="submit">{{ button_pay }}</button>
+            <button class="btn" value="submit" id="paypal-button-submit">{{ button_pay }}</button>
           </form>
         </div>
       </div>
     {% endif %}
   </div>
   <script type="text/javascript">
-    if (typeof PayPalAPI !== 'undefined') {
-  	  PayPalAPI.init();
-    }	
+  if (typeof PayPalAPI !== 'undefined') {
+      PayPalAPI.init();
+  }
   </script>
 {% else %}
-<div class="buttons">
-  <div class="pull-right">
-    <button type="button" id="button-confirm" class="btn btn-primary paypal-button-confirm" data-loading-text="{{ text_loading }}">{{ button_confirm }}</button>
+  <div class="buttons">
+    <div class="pull-right">
+      <button type="button" class="btn btn-primary paypal-button-confirm" data-loading-text="{{ text_loading }}" id="button-confirm">{{ button_confirm }}</button>
+    </div>
   </div>
-</div>
-<script type="text/javascript">
-$(document).on('click', '.paypal-button-confirm', function(event) {
-	$('.paypal-button-confirm').button('loading');
-	
-	$('#paypal-modal').remove();
-	
-	$('body').append('<div id="paypal-modal" class="modal fade"></div>');
-	
-	$('#paypal-modal').load('index.php?route=extension/payment/paypal/modal #paypal-modal >', function() {		
-		$('.paypal-button-confirm').button('reset');
-		
-		$('#paypal-modal').modal('show');
-		
-		if (typeof PayPalAPI !== 'undefined') {
-			PayPalAPI.init();
-		}
-	});
-});
-</script>
+  <script type="text/javascript">
+  $(document).on('click', '.paypal-button-confirm', function(event) {
+      $('.paypal-button-confirm').button('loading');
+
+      $('#paypal-modal').remove();
+
+      $('body').append('<div class="modal fade" id="paypal-modal"></div>');
+
+      $('#paypal-modal').load('index.php?route=extension/payment/paypal/modal #paypal-modal >', function() {
+          $('.paypal-button-confirm').button('reset');
+
+          $('#paypal-modal').modal('show');
+
+          if (typeof PayPalAPI !== 'undefined') {
+              PayPalAPI.init();
+          }
+      });
+  });
+  </script>
 {% endif %}

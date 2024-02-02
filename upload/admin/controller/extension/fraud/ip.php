@@ -11,6 +11,8 @@ class ControllerExtensionFraudIp extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -58,7 +60,7 @@ class ControllerExtensionFraudIp extends Controller {
 		$data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=fraud', true);
 
 		if (isset($this->request->post['fraud_ip_order_status_id'])) {
-			$data['fraud_ip_order_status_id'] = $this->request->post['fraud_ip_order_status_id'];
+			$data['fraud_ip_order_status_id'] = (int)$this->request->post['fraud_ip_order_status_id'];
 		} else {
 			$data['fraud_ip_order_status_id'] = $this->config->get('fraud_ip_order_status_id');
 		}
@@ -69,7 +71,7 @@ class ControllerExtensionFraudIp extends Controller {
 		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
 
 		if (isset($this->request->post['fraud_ip_status'])) {
-			$data['fraud_ip_status'] = $this->request->post['fraud_ip_status'];
+			$data['fraud_ip_status'] = (int)$this->request->post['fraud_ip_status'];
 		} else {
 			$data['fraud_ip_status'] = $this->config->get('fraud_ip_status');
 		}
@@ -105,7 +107,12 @@ class ControllerExtensionFraudIp extends Controller {
 		$this->model_extension_fraud_ip->uninstall();
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 *
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/fraud/ip')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
@@ -162,7 +169,7 @@ class ControllerExtensionFraudIp extends Controller {
 	}
 
 	/**
-	 * addIp
+	 * Add Ip
 	 *
 	 * @return void
 	 */
@@ -189,7 +196,7 @@ class ControllerExtensionFraudIp extends Controller {
 	}
 
 	/**
-	 * removeIp
+	 * Remove Ip
 	 *
 	 * @return void
 	 */

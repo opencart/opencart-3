@@ -1,6 +1,6 @@
 <fieldset>
   <legend>{{ heading_title }}</legend>
-  <div id="blockerError" style="display: none;" class="alert alert-danger">
+  <div style="display: none;" class="alert alert-danger" id="blocker-error">
     <i class="fa fa-exclamation-circle"></i> {{ error_adblock }}
   </div>
   {% if error_warning %}
@@ -60,13 +60,13 @@
       width: 1px;
   }
 </style>
-<div id="wrapTest">
+<div id="wrap-test">
   <div class="adBanner"></div>
 </div>
 <script type="text/javascript"><!--
 (function ($) {
     $(document).ready(function() {
-        $('#blockerError').toggle($('#wrapTest').height() == 0);
+        $('#blocker-error').toggle($('#wrap-test').height() == 0);
     });
 })(jQuery);
 //--></script>

@@ -6,11 +6,11 @@
  */
 class ModelLocalisationOrderStatus extends Model {
 	/**
-	 * getOrderStatus
+	 * Get Order Status
 	 *
 	 * @param int $order_status_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getOrderStatus(int $order_status_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_status` WHERE `order_status_id` = '" . (int)$order_status_id . "' AND `language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -19,9 +19,9 @@ class ModelLocalisationOrderStatus extends Model {
 	}
 
 	/**
-	 * getOrderStatuses
+	 * Get Order Statuses
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getOrderStatuses(): array {
 		$order_status_data = $this->cache->get('order_status.' . (int)$this->config->get('config_language_id'));

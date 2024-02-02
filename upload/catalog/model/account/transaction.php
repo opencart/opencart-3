@@ -6,11 +6,11 @@
  */
 class ModelAccountTransaction extends Model {
 	/**
-	 * getTransactions
+	 * Get Transactions
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getTransactions(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "customer_transaction` WHERE `customer_id` = '" . (int)$this->customer->getId() . "'";
@@ -51,7 +51,7 @@ class ModelAccountTransaction extends Model {
 	}
 
 	/**
-	 * getTotalTransactions
+	 * Get Total Transactions
 	 *
 	 * @return int
 	 */
@@ -62,7 +62,7 @@ class ModelAccountTransaction extends Model {
 	}
 
 	/**
-	 * getTotalAmount
+	 * Get Total Amount
 	 *
 	 * @return int
 	 */

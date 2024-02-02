@@ -5,9 +5,14 @@
  * @package Catalog\Controller\Information
  */
 class ControllerInformationContact extends Controller {
+	/**
+	 * @var array<string, string>
+	 */
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -154,7 +159,12 @@ class ControllerInformationContact extends Controller {
 		$this->response->setOutput($this->load->view('information/contact', $data));
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 *
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		$keys = [
 			'name',
 			'email',
@@ -192,6 +202,8 @@ class ControllerInformationContact extends Controller {
 	}
 
 	/**
+	 * Success
+	 *
 	 * @return void
 	 */
 	public function success(): void {

@@ -28,7 +28,7 @@ class ModelExtensionPaymentSquareup extends Model {
 	/**
 	 * getTransactions
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return array
 	 */
@@ -61,7 +61,7 @@ class ModelExtensionPaymentSquareup extends Model {
 	/**
 	 * getTotalTransactions
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -112,15 +112,15 @@ class ModelExtensionPaymentSquareup extends Model {
 	}
 
 	/**
-	 * editOrderRecurringStatus
+	 * editOrderSubscriptionStatus
 	 *
-	 * @param int $order_recurring_id
+	 * @param int $subscription_id
 	 * @param int $status
 	 *
 	 * @return void
 	 */
-	public function editOrderRecurringStatus(int $order_recurring_id, int $status): void {
-		$this->db->query("UPDATE `" . DB_PREFIX . "order_recurring` SET `status` = '" . (int)$status . "' WHERE `order_recurring_id` = '" . (int)$order_recurring_id . "'");
+	public function editOrderSubscriptionStatus(int $subscription_id, int $status): void {
+		$this->db->query("UPDATE `" . DB_PREFIX . "subscription` SET `status` = '" . (int)$status . "' WHERE `subscription_id` = '" . (int)$subscription_id . "'");
 	}
 
 	/**
@@ -129,64 +129,64 @@ class ModelExtensionPaymentSquareup extends Model {
 	 * @return void
 	 */
 	public function createTables(): void {
-		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "squareup_transaction` (
-          `squareup_transaction_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-          `transaction_id` char(40) NOT NULL,
-          `merchant_id` char(32) NOT NULL,
-          `location_id` varchar(32) NOT NULL,
-          `order_id` int(11) NOT NULL,
-          `transaction_type` char(20) NOT NULL,
-          `transaction_amount` decimal(15,2) NOT NULL,
-          `transaction_currency` varchar(3) NOT NULL,
-          `billing_address_city` char(100) NOT NULL,
-          `billing_address_company` char(100) NOT NULL,
-          `billing_address_country` varchar(3) NOT NULL,
-          `billing_address_postcode` char(10) NOT NULL,
-          `billing_address_province` char(20) NOT NULL,
-          `billing_address_street_1` char(100) NOT NULL,
-          `billing_address_street_2` char(100) NOT NULL,
-          `device_browser` char(255) NOT NULL,
-          `device_ip` char(15) NOT NULL,
-          `created_at` char(29) NOT NULL,
-          `is_refunded` tinyint(1) NOT NULL,
-          `refunded_at` varchar(29) NOT NULL,
-          `tenders` text NOT NULL,
-          `refunds` text NOT NULL,
-          PRIMARY KEY (`squareup_transaction_id`),
-          KEY `order_id` (`order_id`),
-          KEY `transaction_id` (`transaction_id`)
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "squareup_customer` (
+			`customer_id` int(11) NOT NULL,
+			`sandbox` tinyint(1) NOT NULL,
+			`square_customer_id` varchar(32) NOT NULL,
+			PRIMARY KEY (`customer_id`, `sandbox`)
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
+
+		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "squareup_subscription` (
+			`squareup_subscription_id` int(11) NOT NULL,
+			`order_id` int(11) NOT NULL,
+			`subscription_id` int(11) NOT NULL,
+			`reference` varchar(40) NOT NULL,
+			`status` tinyint(1) NOT NULL,
+			`date_added` datetime NOT NULL,
+			PRIMARY KEY (`squareup_subscription_id`),
+			KEY (`order_id`)
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
 
 		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "squareup_token` (
-         `squareup_token_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-         `customer_id` int(11) NOT NULL,
-         `sandbox` tinyint(1) NOT NULL,
-         `token` char(40) NOT NULL,
-         `date_added` datetime NOT NULL,
-         `brand` VARCHAR(32) NOT NULL,
-         `ends_in` VARCHAR(4) NOT NULL,
-         PRIMARY KEY (`squareup_token_id`),
-         KEY `getCards` (`customer_id`, `sandbox`),
-         KEY `verifyCardCustomer` (`squareup_token_id`, `customer_id`),
-         KEY `cardExists` (`customer_id`, `brand`, `ends_in`)
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8");
+			`squareup_token_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+			`customer_id` int(11) NOT NULL,
+			`sandbox` tinyint(1) NOT NULL,
+			`token` varchar(40) NOT NULL,
+			`date_added` datetime NOT NULL,
+			`brand` VARCHAR(32) NOT NULL,
+			`ends_in` VARCHAR(4) NOT NULL,
+			PRIMARY KEY (`squareup_token_id`),
+			KEY `get_cards` (`customer_id`, `sandbox`),
+			KEY `verify_card_customer` (`squareup_token_id`, `customer_id`),
+			KEY `card_exists` (`customer_id`, `brand`, `ends_in`)
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
 
-		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "squareup_customer` (
-         `customer_id` int(11) NOT NULL,
-         `sandbox` tinyint(1) NOT NULL,
-         `square_customer_id` varchar(32) NOT NULL,
-         PRIMARY KEY (`customer_id`, `sandbox`)
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8");
-	}
-
-	/**
-	 * dropTables
-	 *
-	 * @return void
-	 */
-	public function dropTables(): void {
-		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "squareup_transaction`");
-		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "squareup_token`");
-		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "squareup_customer`");
+		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "squareup_transaction` (
+            `squareup_transaction_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+            `transaction_id` varchar(40) NOT NULL,
+            `merchant_id` varchar(32) NOT NULL,
+            `location_id` varchar(32) NOT NULL,
+            `order_id` int(11) NOT NULL,
+            `transaction_type` varchar(20) NOT NULL,
+            `transaction_amount` decimal(15,4) NOT NULL,
+            `transaction_currency` varchar(3) NOT NULL,
+            `billing_address_city` varchar(100) NOT NULL,
+            `billing_address_company` varchar(100) NOT NULL,
+            `billing_address_country` varchar(3) NOT NULL,
+            `billing_address_postcode` varchar(10) NOT NULL,
+            `billing_address_province` varchar(20) NOT NULL,
+            `billing_address_street_1` varchar(100) NOT NULL,
+            `billing_address_street_2` varchar(100) NOT NULL,
+            `device_browser` varchar(255) NOT NULL,
+            `device_ip` varchar(15) NOT NULL,
+            `created_at` varchar(29) NOT NULL,
+            `is_refunded` tinyint(1) NOT NULL,
+            `refunded_at` varchar(29) NOT NULL,
+            `tenders` text NOT NULL,
+            `refunds` text NOT NULL,
+            PRIMARY KEY (`squareup_transaction_id`),
+            KEY `order_id` (`order_id`),
+            KEY `transaction_id` (`transaction_id`)
+		    ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
 	}
 }

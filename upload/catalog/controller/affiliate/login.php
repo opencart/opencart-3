@@ -5,9 +5,14 @@
  * @package Catalog\Controller\Affiliate
  */
 class ControllerAffiliateLogin extends Controller {
+	/**
+	 * @var array<string, string>
+	 */
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -100,7 +105,12 @@ class ControllerAffiliateLogin extends Controller {
 		$this->response->setOutput($this->load->view('affiliate/login', $data));
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 *
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		// Check how many login attempts have been made.
 		$login_info = $this->model_account_customer->getLoginAttempts($this->request->post['email']);
 

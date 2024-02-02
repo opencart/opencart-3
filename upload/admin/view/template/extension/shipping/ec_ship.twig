@@ -24,36 +24,36 @@
         <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3>
       </div>
       <div class="panel-body">
-        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-shipping" class="form-horizontal">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal" id="form-shipping">
           <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-key"><span data-toggle="tooltip" title="{{ help_api_key }}">{{ entry_api_key }}</span></label>
+            <label class="col-sm-2 control-label" for="input-key"><span data-toggle="tooltip" title="{{ help_api_key|escape('html') }}">{{ entry_api_key }}</span></label>
             <div class="col-sm-10">
-              <input type="text" name="shipping_ec_ship_api_key" value="{{ shipping_ec_ship_api_key }}" placeholder="{{ entry_api_key }}" id="input-key" class="form-control"/>
+              <input type="text" name="shipping_ec_ship_api_key" value="{{ shipping_ec_ship_api_key }}" placeholder="{{ entry_api_key }}" class="form-control" id="input-key"/>
               {% if error_api_key %}
                 <div class="text-danger">{{ error_api_key }}</div>
               {% endif %}
             </div>
           </div>
           <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-api_username"><span data-toggle="tooltip" title="{{ help_api_username }}">{{ entry_api_username }}</span></label>
+            <label class="col-sm-2 control-label" for="input-api_username"><span data-toggle="tooltip" title="{{ help_api_username|escape('html') }}">{{ entry_api_username }}</span></label>
             <div class="col-sm-10">
-              <input type="text" name="shipping_ec_ship_api_username" value="{{ shipping_ec_ship_api_username }}" placeholder="{{ entry_api_username }}" id="input-api_username" class="form-control"/>
+              <input type="text" name="shipping_ec_ship_api_username" value="{{ shipping_ec_ship_api_username }}" placeholder="{{ entry_api_username }}" class="form-control" id="input-api_username"/>
               {% if error_api_username %}
                 <div class="text-danger">{{ error_api_username }}</div>
               {% endif %}
             </div>
           </div>
           <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-username"><span data-toggle="tooltip" title="{{ help_username }}">{{ entry_username }}</span></label>
+            <label class="col-sm-2 control-label" for="input-username"><span data-toggle="tooltip" title="{{ help_username|escape('html') }}">{{ entry_username }}</span></label>
             <div class="col-sm-10">
-              <input type="text" name="shipping_ec_ship_username" value="{{ shipping_ec_ship_username }}" placeholder="{{ entry_username }}" id="input-username" class="form-control"/>
+              <input type="text" name="shipping_ec_ship_username" value="{{ shipping_ec_ship_username }}" placeholder="{{ entry_username }}" class="form-control" id="input-username"/>
               {% if error_username %}
                 <div class="text-danger">{{ error_username }}</div>
               {% endif %}
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_test }}">{{ entry_test }}</span></label>
+            <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_test|escape('html') }}">{{ entry_test }}</span></label>
             <div class="col-sm-10">
               <label class="radio-inline">{% if shipping_ec_ship_test %}
                   <input type="radio" name="shipping_ec_ship_test" value="1" checked="checked"/>
@@ -72,9 +72,9 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_service }}">{{ entry_service }}</span></label>
+            <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_service|escape('html') }}">{{ entry_service }}</span></label>
             <div class="col-sm-10">
-              <div id="service" class="well well-sm" style="height: 150px; overflow: auto;">
+              <div class="well well-sm" style="height: 150px; overflow: auto;" id="service">
                 <div class="checkbox">
                   <label>{% if shipping_ec_ship_air_registered_mail %}
                       <input type="checkbox" name="shipping_ec_ship_air_registered_mail" value="1" checked="checked"/>
@@ -190,9 +190,9 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-weight-class"><span data-toggle="tooltip" title="{{ help_weight_class }}">{{ entry_weight_class }}</span></label>
+            <label class="col-sm-2 control-label" for="input-weight-class"><span data-toggle="tooltip" title="{{ help_weight_class|escape('html') }}">{{ entry_weight_class }}</span></label>
             <div class="col-sm-10">
-              <select name="shipping_ec_ship_weight_class_id" id="input-weight-class" class="form-control">
+              <select name="shipping_ec_ship_weight_class_id" class="form-control" id="input-weight-class"/>
                 {% for weight_class in weight_classes %}
                   {% if weight_class['weight_class_id'] == shipping_ec_ship_weight_class_id %}
                     <option value="{{ weight_class['weight_class_id'] }}" selected="selected">{{ weight_class['title'] }}</option>
@@ -206,7 +206,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-tax-class">{{ entry_tax_class }}</label>
             <div class="col-sm-10">
-              <select name="shipping_ec_ship_tax_class_id" id="input-tax-class" class="form-control">
+              <select name="shipping_ec_ship_tax_class_id" class="form-control" id="input-tax-class"/>
                 <option value="0">{{ text_none }}</option>
                 {% for tax_class in tax_classes %}
                   {% if tax_class['tax_class_id'] == shipping_ec_ship_tax_class_id %}
@@ -221,7 +221,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-geo-zone">{{ entry_geo_zone }}</label>
             <div class="col-sm-10">
-              <select name="shipping_ec_ship_geo_zone_id" id="input-geo-zone" class="form-control">
+              <select name="shipping_ec_ship_geo_zone_id" class="form-control" id="input-geo-zone"/>
                 <option value="0">{{ text_all_zones }}</option>
                 {% for geo_zone in geo_zones %}
                   {% if geo_zone['geo_zone_id'] == shipping_ec_ship_geo_zone_id %}
@@ -236,7 +236,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
             <div class="col-sm-10">
-              <select name="shipping_ec_ship_status" id="input-status" class="form-control">
+              <select name="shipping_ec_ship_status" class="form-control" id="input-status"/>
                 {% if shipping_ec_ship_status %}
                   <option value="1" selected="selected">{{ text_enabled }}</option>
                   <option value="0">{{ text_disabled }}</option>
@@ -250,7 +250,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-sort-order">{{ entry_sort_order }}</label>
             <div class="col-sm-10">
-              <input type="text" name="shipping_ec_ship_sort_order" value="{{ shipping_ec_ship_sort_order }}" placeholder="{{ entry_sort_order }}" id="input-sort-order" class="form-control"/>
+              <input type="text" name="shipping_ec_ship_sort_order" value="{{ shipping_ec_ship_sort_order }}" placeholder="{{ entry_sort_order }}" class="form-control" id="input-sort-order"/>
             </div>
           </div>
         </form>

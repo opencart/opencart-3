@@ -6,6 +6,8 @@
  */
 class ControllerMailTransaction extends Controller {
 	/**
+	 * Index
+	 *
 	 * @param string $route
 	 * @param array  $args
 	 * @param mixed  $output

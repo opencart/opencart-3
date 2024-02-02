@@ -13,18 +13,18 @@
         <div class="form-group required">
           <label class="col-sm-2 control-label" for="Token">{{ entry_cc_choice }}</label>
           <div class="col-sm-8">
-            <select name="Token" class="form-control">
+            <select name="Token" class="form-control"/>
               {% for card in cards %}
                 <option value="{{ card.token }}">{{ text_card_type }} {{ card.type }}, {{ text_card_digits }} {{ card.digit }}, {{ text_card_expiry }} {{ card.expiry }}</option>
               {% endfor %}
             </select>
           </div>
           <div class="col-sm-2">
-            <input type="button" value="{{ button_delete_card }}" id="button-delete" data-loading-text="{{ text_loading }}" class="btn btn-danger"/>
+            <input type="button" value="{{ button_delete_card }}" data-loading-text="{{ text_loading }}" class="btn btn-danger" id="button-delete"/>
           </div>
         </div>
       </div>
-      <div style="display:none" id="card-save" class="form-group">
+      <div style="display:none" class="form-group" id="card-save">
         <label class="col-sm-2 control-label">{{ entry_card_save }}</label>
         <div class="col-sm-10">
           <div class="checkbox">
@@ -43,7 +43,7 @@
           </label>
         </div>
       </div>
-      <div id="card-save" class="form-group">
+      <div class="form-group" id="card-save">
         <label class="col-sm-2 control-label">{{ entry_card_save }}</label>
         <div class="col-sm-10">
           <div class="checkbox">
@@ -54,7 +54,7 @@
     {% endif %}
     <div class="buttons">
       <div class="pull-right">
-        <input type="button" value="{{ button_confirm }}" id="button-confirm" data-loading-text="{{ text_loading }}" class="btn btn-primary"/>
+        <input type="button" value="{{ button_confirm }}" data-loading-text="{{ text_loading }}" class="btn btn-primary" id="button-confirm"/>
       </div>
     </div>
   </fieldset>
@@ -104,7 +104,7 @@ $('#button-confirm').bind('click', function () {
 
             // if error
             if (json['error']) {
-                $('#payment').before('<div id="sagepay_message_error" class="alert alert-warning"><i class="fa fa-info-circle"></i> ' + json['error'] + '</div>');
+                $('#payment').before('<div class="alert alert-warning" id="sagepay_message_error"><i class="fa fa-info-circle"></i> ' + json['error'] + '</div>');
             }
         }
     });

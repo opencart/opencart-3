@@ -27,7 +27,7 @@
       </div>
     {% endif %}
     <div class="row">
-      <div id="filter-product" class="col-md-3 col-md-push-9 col-sm-12 hidden-sm hidden-xs">
+      <div class="col-md-3 col-md-push-9 col-sm-12 hidden-sm hidden-xs" id="filter-product">
         <div class="panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title"><i class="fa fa-filter"></i> {{ text_filter }}</h3>
@@ -35,23 +35,23 @@
           <div class="panel-body">
             <div class="form-group">
               <label class="control-label" for="input-name">{{ entry_name }}</label>
-              <input type="text" name="filter_name" value="{{ filter_name }}" placeholder="{{ entry_name }}" id="input-name" class="form-control"/>
+              <input type="text" name="filter_name" value="{{ filter_name }}" placeholder="{{ entry_name }}" class="form-control" id="input-name"/>
             </div>
             <div class="form-group">
               <label class="control-label" for="input-model">{{ entry_model }}</label>
-              <input type="text" name="filter_model" value="{{ filter_model }}" placeholder="{{ entry_model }}" id="input-model" class="form-control"/>
+              <input type="text" name="filter_model" value="{{ filter_model }}" placeholder="{{ entry_model }}" class="form-control" id="input-model"/>
             </div>
             <div class="form-group">
               <label class="control-label" for="input-price">{{ entry_price }}</label>
-              <input type="text" name="filter_price" value="{{ filter_price }}" placeholder="{{ entry_price }}" id="input-price" class="form-control"/>
+              <input type="text" name="filter_price" value="{{ filter_price }}" placeholder="{{ entry_price }}" class="form-control" id="input-price"/>
             </div>
             <div class="form-group">
               <label class="control-label" for="input-quantity">{{ entry_quantity }}</label>
-              <input type="text" name="filter_quantity" value="{{ filter_quantity }}" placeholder="{{ entry_quantity }}" id="input-quantity" class="form-control"/>
+              <input type="text" name="filter_quantity" value="{{ filter_quantity }}" placeholder="{{ entry_quantity }}" class="form-control" id="input-quantity"/>
             </div>
             <div class="form-group">
               <label class="control-label" for="input-status">{{ entry_status }}</label>
-              <select name="filter_status" id="input-status" class="form-control">
+              <select name="filter_status" class="form-control" id="input-status"/>
                 <option value=""></option>
                 {% if filter_status == '1' %}
                   <option value="1" selected="selected">{{ text_enabled }}</option>
@@ -66,7 +66,7 @@
               </select>
             </div>
             <div class="form-group text-right">
-              <button type="button" id="button-filter" class="btn btn-default"><i class="fa fa-filter"></i> {{ button_filter }}</button>
+              <button type="button" class="btn btn-default" id="button-filter"><i class="fa fa-filter"></i> {{ button_filter }}</button>
             </div>
           </div>
         </div>

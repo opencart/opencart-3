@@ -35,7 +35,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 	}
 
 	/**
-	 * postToLaybuy
+	 * Post To Laybuy
 	 *
 	 * @return void
 	 */
@@ -153,7 +153,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 				$order_info = $this->model_checkout_order->getOrder($order_id);
 
 				if ($order_info) {
-					$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_laybuy_order_status_id_pending'));
+					$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_laybuy_pending_status_id'));
 
 					$transaction_report = $this->model_extension_payment_laybuy->prepareTransactionReport($this->request->post);
 
@@ -198,7 +198,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 	}
 
 	/**
-	 * reviseCallback
+	 * Revise Callback
 	 *
 	 * @return void
 	 */
@@ -252,7 +252,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 
 							$status = 5;
 
-							$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_laybuy_order_status_id_processing'), $this->language->get('text_comment'));
+							$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_laybuy_processing_status_id'), $this->language->get('text_comment'));
 						} else {
 							$this->model_extension_payment_laybuy->log('Lay-Buy');
 						}
@@ -338,7 +338,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 	}
 
 	/**
-	 * reviseCancel
+	 * Revise Cancel
 	 *
 	 * @return void
 	 */
@@ -352,7 +352,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 	}
 
 	/**
-	 * deleteOrder
+	 * Delete Order
 	 *
 	 * @param string $route
 	 * @param string $output
@@ -497,7 +497,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 
 							switch ($status) {
 								case -1: // Cancel
-									$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_laybuy_order_status_id_canceled'), $this->language->get('text_comment'), false, false);
+									$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_laybuy_canceled_status_id'), $this->language->get('text_comment'), false, false);
 
 									$this->model_extension_payment_laybuy->updateTransaction($transaction['laybuy_transaction_id'], '7', $report_content, $start_index);
 									$this->model_extension_payment_laybuy->log('Transaction #' . $transaction['laybuy_transaction_id'] . ' canceled');
@@ -507,7 +507,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 									$this->model_extension_payment_laybuy->log('Transaction #' . $transaction['laybuy_transaction_id'] . ' still pending');
 									break;
 								case 1: // Paid
-									$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_laybuy_order_status_id_processing'), $this->language->get('text_comment'), false, false);
+									$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_laybuy_processing_status_id'), $this->language->get('text_comment'), false, false);
 
 									$this->model_extension_payment_laybuy->updateTransaction($transaction['laybuy_transaction_id'], '5', $report_content, $start_index);
 									$this->model_extension_payment_laybuy->log('Transaction #' . $transaction['laybuy_transaction_id'] . ' paid');

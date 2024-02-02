@@ -6,7 +6,7 @@
  */
 class ModelAccountRecurring extends Model {
 	/**
-	 * editStatus
+	 * Edit Status
 	 *
 	 * @param int $order_recurring_id
 	 * @param int $status
@@ -18,11 +18,11 @@ class ModelAccountRecurring extends Model {
 	}
 
 	/**
-	 * getRecurring
+	 * Get Recurring
 	 *
 	 * @param int $order_recurring_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getRecurring(int $order_recurring_id): array {
 		$query = $this->db->query("SELECT `or`.*, `o`.`payment_method`, `o`.`payment_code`, `o`.`currency_code` FROM `" . DB_PREFIX . "order_recurring` `or` LEFT JOIN `" . DB_PREFIX . "order` `o` ON `or`.`order_id` = `o`.`order_id` WHERE `or`.`order_recurring_id` = '" . (int)$order_recurring_id . "' AND `o`.`customer_id` = '" . (int)$this->customer->getId() . "'");
@@ -31,12 +31,12 @@ class ModelAccountRecurring extends Model {
 	}
 
 	/**
-	 * getRecurrings
+	 * Get Recurrings
 	 *
 	 * @param int $start
 	 * @param int $limit
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getRecurrings(int $start = 0, int $limit = 20): array {
 		if ($start < 0) {
@@ -53,11 +53,11 @@ class ModelAccountRecurring extends Model {
 	}
 
 	/**
-	 * getRecurringByReference
+	 * Get Recurring By Reference
 	 *
 	 * @param string $reference
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getRecurringByReference(string $reference): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_recurring` WHERE `reference` = '" . $this->db->escape($reference) . "'");
@@ -66,11 +66,11 @@ class ModelAccountRecurring extends Model {
 	}
 
 	/**
-	 * getRecyrringTransactions
+	 * Get Recurring Transactions
 	 *
 	 * @param int $order_recurring_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getRecurringTransactions(int $order_recurring_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_recurring_transaction` WHERE `order_recurring_id` = '" . (int)$order_recurring_id . "'");
@@ -79,7 +79,7 @@ class ModelAccountRecurring extends Model {
 	}
 
 	/**
-	 * getTotalRecurrings
+	 * Get Total Recurrings
 	 *
 	 * @return int
 	 */

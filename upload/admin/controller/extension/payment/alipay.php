@@ -11,6 +11,8 @@ class ControllerExtensionPaymentAlipay extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -126,13 +128,13 @@ class ControllerExtensionPaymentAlipay extends Controller {
 		}
 
 		if (isset($this->request->post['payment_alipay_status'])) {
-			$data['payment_alipay_status'] = $this->request->post['payment_alipay_status'];
+			$data['payment_alipay_status'] = (int)$this->request->post['payment_alipay_status'];
 		} else {
 			$data['payment_alipay_status'] = $this->config->get('payment_alipay_status');
 		}
 
 		if (isset($this->request->post['payment_alipay_sort_order'])) {
-			$data['payment_alipay_sort_order'] = $this->request->post['payment_alipay_sort_order'];
+			$data['payment_alipay_sort_order'] = (int)$this->request->post['payment_alipay_sort_order'];
 		} else {
 			$data['payment_alipay_sort_order'] = $this->config->get('payment_alipay_sort_order');
 		}
@@ -144,7 +146,12 @@ class ControllerExtensionPaymentAlipay extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/alipay', $data));
 	}
 
-	private function validate() {
+	/**
+	 * Validate
+	 *
+	 * @return bool
+	 */
+	private function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/payment/alipay')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

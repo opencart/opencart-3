@@ -11,6 +11,8 @@ class ControllerExtensionFraudMaxMind extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -74,7 +76,7 @@ class ControllerExtensionFraudMaxMind extends Controller {
 		}
 
 		if (isset($this->request->post['fraud_maxmind_order_status_id'])) {
-			$data['fraud_maxmind_order_status_id'] = $this->request->post['fraud_maxmind_order_status_id'];
+			$data['fraud_maxmind_order_status_id'] = (int)$this->request->post['fraud_maxmind_order_status_id'];
 		} else {
 			$data['fraud_maxmind_order_status_id'] = $this->config->get('fraud_maxmind_order_status_id');
 		}
@@ -85,7 +87,7 @@ class ControllerExtensionFraudMaxMind extends Controller {
 		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
 
 		if (isset($this->request->post['fraud_maxmind_status'])) {
-			$data['fraud_maxmind_status'] = $this->request->post['fraud_maxmind_status'];
+			$data['fraud_maxmind_status'] = (int)$this->request->post['fraud_maxmind_status'];
 		} else {
 			$data['fraud_maxmind_status'] = $this->config->get('fraud_maxmind_status');
 		}
@@ -121,7 +123,12 @@ class ControllerExtensionFraudMaxMind extends Controller {
 		$this->model_extension_fraud_maxmind->uninstall();
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 *
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/fraud/maxmind')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

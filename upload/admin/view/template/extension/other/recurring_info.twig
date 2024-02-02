@@ -2,7 +2,9 @@
 <div id="content">
   <div class="page-header">
     <div class="container-fluid">
-      <div class="pull-right"><a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+      <div class="pull-right">
+      <button type="submit" form="form-recurring" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
+      <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
       <h1>{{ heading_title }}</h1>
       <ul class="breadcrumb">
         {% for breadcrumb in breadcrumbs %}
@@ -19,32 +21,92 @@
             <h3 class="panel-title"><i class="fa fa-list"></i> {{ text_recurring_detail }}</h3>
           </div>
           <div class="panel-body">
-            <table class="table table-bordered">
-              <tr>
-                <td>{{ text_order_recurring_id }}</td>
-                <td>{{ order_recurring_id }}</td>
-              </tr>
-              <tr>
-                <td>{{ text_reference }}</td>
-                <td>{{ reference }}</td>
-              </tr>
-              <tr>
-                <td>{{ text_recurring_name }}</td>
-                <td>{{ recurring_name }}</td>
-              </tr>
-              <tr>
-                <td>{{ text_recurring_description }}</td>
-                <td>{{ recurring_description }}</td>
-              </tr>
-              <tr>
-                <td>{{ text_recurring_status }}</td>
-                <td>{{ recurring_status }}</td>
-              </tr>
-              <tr>
-                <td>{{ text_payment_method }}</td>
-                <td>{{ payment_method }}</td>
-              </tr>
-            </table>
+            <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal" id="form-recurring">
+              <ul class="nav nav-tabs">
+                <li class="active"><a href="#tab-general" data-toggle="tab">{{ tab_general }}</a></li>
+                <li><a href="#tab-history" data-toggle="tab">{{ tab_history }}</a></li>
+                <li><a href="#tab-transaction" data-toggle="tab">{{ tab_transaction }}</a></li>
+              </ul>
+              <div class="tab-content">
+                <div class="tab-pane active" id="tab-general">
+                  <fieldset>
+                    <legend>{{ text_product }}</legend>
+                    <div class="responsive">
+                      <table class="table table-bordered">
+                        <tr>
+                          <td>{{ text_order_recurring_id }}</td>
+                          <td>{{ order_recurring_id }}</td>
+                        </tr>
+                        <tr>
+                          <td>{{ text_reference }}</td>
+                          <td>{{ reference }}</td>
+                        </tr>
+                        <tr>
+                          <td>{{ text_recurring_name }}</td>
+                          <td>{{ recurring_name }}</td>
+                        </tr>
+                        <tr>
+                          <td>{{ text_recurring_description }}</td>
+                          <td>{{ recurring_description }}</td>
+                        </tr>
+                        <tr>
+                          <td>{{ text_recurring_status }}</td>
+                          <td>{{ recurring_status }}</td>
+                        </tr>
+                        <tr>
+                          <td>{{ text_payment_method }}</td>
+                          <td>{{ payment_method }}</td>
+                        </tr>
+                      </table>
+                    </div>
+                  </fieldset>                  
+                </div>
+                <div class="tab-pane" id="tab-history">
+                  <fieldset>
+                    <legend>{{ text_history }}</legend>
+                    <div id="history"></div>
+                  </fieldset>
+                  <br/>
+                  <fieldset>
+                    <legend>{{ text_history_add }}</legend>                    
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label" for="input-comment">{{ entry_comment }}</label>
+                      <div class="col-sm-10">
+                        <textarea name="comment" rows="8" placeholder="{{ entry_comment }}" class="form-control" id="input-comment"/></textarea>
+                      </div>
+                    </div>
+                  </fieldset>
+                  <div class="text-right">
+                    <button data-loading-text="{{ text_loading }}" class="btn btn-primary" id="button-history"><i class="fa fa-plus-circle"></i> {{ button_history_add }}</button>
+                  </div>
+                </div>
+                <div class="tab-pane" id="tab-transaction">
+                  <fieldset>
+                    <legend>{{ text_transaction }}</legend>
+                    <div id="transaction"></div>
+                  </fieldset>
+                  <br/>
+                  <fieldset>
+                    <legend>{{ text_transaction_add }}</legend>
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label" for="input-transaction-description">{{ entry_description }}</label>
+                      <div class="col-sm-10">
+                        <input type="text" name="description" value="" placeholder="{{ entry_description }}" class="form-control" id="input-transaction-description"/>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label" for="input-amount">{{ entry_amount }}</label>
+                      <div class="col-sm-10">
+                        <input type="text" name="amount" value="" placeholder="{{ entry_amount }}" class="form-control" id="input-amount"/>
+                      </div>
+                    </div>
+                  </fieldset>
+                  <div class="text-right">
+                    <button type="button" data-loading-text="{{ text_loading }}" class="btn btn-primary" id="button-transaction"><i class="fa fa-plus-circle"></i> {{ button_transaction_add }}</button>
+                  </div>
+                </div>
+              </div>
+            </div>                
           </div>
         </div>
       </div>
@@ -54,33 +116,35 @@
             <h3 class="panel-title"><i class="fa fa-list"></i> {{ text_order_detail }}</h3>
           </div>
           <div class="panel-body">
-            <table class="table table-bordered">
-              <tr>
-                <td>{{ text_order_id }}</td>
-                <td><a href="{{ order }}">{{ order_id }}</a></td>
-              </tr>
-              <tr>
-                <td>{{ text_customer }}</td>
-                <td>
-                  {% if customer %}
-                    <a href="{{ customer }}">{{ firstname }} {{ lastname }}</a>
-                  {% else %}
-                    {{ firstname }} {{ lastname }}
-                  {% endif %}</td>
-              </tr>
-              <tr>
-                <td>{{ text_email }}</td>
-                <td>{{ email }}</td>
-              </tr>
-              <tr>
-                <td>{{ text_order_status }}</td>
-                <td>{{ order_status }}</td>
-              </tr>
-              <tr>
-                <td>{{ text_date_added }}</td>
-                <td>{{ date_added }}</td>
-              </tr>
-            </table>
+            <div class="responsive">
+              <table class="table table-bordered">
+                <tr>
+                  <td>{{ text_order_id }}</td>
+                  <td><a href="{{ order }}">{{ order_id }}</a></td>
+                </tr>
+                <tr>
+                  <td>{{ text_customer }}</td>
+                  <td>
+                    {% if customer %}
+                      <a href="{{ customer }}">{{ firstname }} {{ lastname }}</a>
+                    {% else %}
+                      {{ firstname }} {{ lastname }}
+                    {% endif %}</td>
+                </tr>
+                <tr>
+                  <td>{{ text_email }}</td>
+                  <td>{{ email }}</td>
+                </tr>
+                <tr>
+                  <td>{{ text_order_status }}</td>
+                  <td>{{ order_status }}</td>
+                </tr>
+                <tr>
+                  <td>{{ text_date_added }}</td>
+                  <td>{{ date_added }}</td>
+                </tr>
+              </table>
+            </div>
           </div>
         </div>
       </div>
@@ -111,32 +175,78 @@
         <h3 class="panel-title"><i class="fa fa-list"></i> {{ text_transaction }}</h3>
       </div>
       <div class="panel-body"> {{ buttons }}
-        <table class="table table-bordered">
-          <thead>
-          <tr>
-            <td class="text-left">{{ column_date_added }}</td>
-            <td class="text-right">{{ column_amount }}</td>
-            <td class="text-left">{{ column_type }}</td>
-          </tr>
-          </thead>
-          <tbody>
-          {% if transactions %}
-            {% for transaction in transactions %}
-              <tr>
-                <td class="text-left">{{ transaction.date_added }}</td>
-                <td class="text-right">{{ transaction.amount }}</td>
-                <td class="text-left">{{ transaction.type }}</td>
-              </tr>
-            {% endfor %}
-          {% else %}
+        <div class="responsive">
+          <table class="table table-bordered">
+            <thead>
             <tr>
-              <td class="text-center" colspan="7">{{ text_no_results }}</td>
+              <td class="text-left">{{ column_date_added }}</td>
+              <td class="text-right">{{ column_amount }}</td>
+              <td class="text-left">{{ column_type }}</td>
             </tr>
-          {% endif %}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+            {% if transactions %}
+              {% for transaction in transactions %}
+                <tr>
+                  <td class="text-left">{{ transaction.date_added }}</td>
+                  <td class="text-right">{{ transaction.amount }}</td>
+                  <td class="text-left">{{ transaction.type }}</td>
+                </tr>
+              {% endfor %}
+            {% else %}
+              <tr>
+                <td class="text-center" colspan="7">{{ text_no_results }}</td>
+              </tr>
+            {% endif %}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
 </div>
 {{ footer }}
+<script type="text/javascript"><!--
+$('#history').on('click', '.pagination a', function(e) {
+    e.preventDefault();
+
+    $('#history').load(this.href);
+});
+
+$('#history').load('index.php?route=extension/other/recurring/history&user_token={{ user_token }}&order_recurring_id={{ order_recurring_id }}');
+
+$('#button-history').on('click', function(e) {
+    e.preventDefault();
+
+    $.ajax({
+        url: 'index.php?route=extension/other/recurring/addHistory&user_token={{ user_token }}&order_recurring_id={{ order_recurring_id }}',
+        type: 'post',
+        dataType: 'json',
+        data: 'comment=' + encodeURIComponent($('#tab-history textarea[name=\'comment\']').val()),
+        beforeSend: function() {
+            $('#button-history').button('loading');
+        },
+        complete: function() {
+            $('#button-history').button('reset');
+        },
+        success: function(json) {
+            $('.alert-dismissible').remove();
+
+            if (json['error']) {
+                $('#tab-history').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+            }
+
+            if (json['success']) {
+                $('#tab-history').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+
+                $('#history').load('index.php?route=extension/other/recurring/history&user_token={{ user_token }}&order_recurring_id={{ order_recurring_id }}');
+                
+                $('#tab-history textarea[name=\'comment\']').val('');
+            }
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+        }
+    });
+});
+//--></script>

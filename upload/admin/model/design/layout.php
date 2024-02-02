@@ -6,9 +6,9 @@
  */
 class ModelDesignLayout extends Model {
 	/**
-	 * addLayout
+	 * Add Layout
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -33,10 +33,10 @@ class ModelDesignLayout extends Model {
 	}
 
 	/**
-	 * editLayout
+	 * Edit Layout
 	 *
-	 * @param int   $layout_id
-	 * @param array $data
+	 * @param int                  $layout_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -61,7 +61,7 @@ class ModelDesignLayout extends Model {
 	}
 
 	/**
-	 * deleteLayout
+	 * Delete Layout
 	 *
 	 * @param int $layout_id
 	 *
@@ -77,11 +77,11 @@ class ModelDesignLayout extends Model {
 	}
 
 	/**
-	 * getLayout
+	 * Get Layout
 	 *
 	 * @param int $layout_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getLayout(int $layout_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "layout` WHERE `layout_id` = '" . (int)$layout_id . "'");
@@ -90,11 +90,11 @@ class ModelDesignLayout extends Model {
 	}
 
 	/**
-	 * getLayouts
+	 * Get Layouts
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getLayouts(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "layout`";
@@ -131,11 +131,11 @@ class ModelDesignLayout extends Model {
 	}
 
 	/**
-	 * getRoutes
+	 * Get Routes
 	 *
 	 * @param int $layout_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getRoutes(int $layout_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "layout_route` WHERE `layout_id` = '" . (int)$layout_id . "'");
@@ -144,11 +144,11 @@ class ModelDesignLayout extends Model {
 	}
 
 	/**
-	 * getModules
+	 * Get Modules
 	 *
 	 * @param int $layout_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getModules(int $layout_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "layout_module` WHERE `layout_id` = '" . (int)$layout_id . "' ORDER BY `position` ASC, `sort_order` ASC");
@@ -157,7 +157,7 @@ class ModelDesignLayout extends Model {
 	}
 
 	/**
-	 * getTotalLayouts
+	 * Get Total Layouts
 	 *
 	 * @return int
 	 */

@@ -26,7 +26,7 @@
       </div>
     {% endif %}
     <div class="row">
-      <div id="filter-return" class="col-md-3 col-md-push-9 col-sm-12 hidden-sm hidden-xs">
+      <div class="col-md-3 col-md-push-9 col-sm-12 hidden-sm hidden-xs" id="filter-return">
         <div class="panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title"><i class="fa fa-filter"></i> {{ text_filter }}</h3>
@@ -34,27 +34,27 @@
           <div class="panel-body">
             <div class="form-group">
               <label class="control-label" for="input-return-id">{{ entry_return_id }}</label>
-              <input type="text" name="filter_return_id" value="{{ filter_return_id }}" placeholder="{{ entry_return_id }}" id="input-return-id" class="form-control"/>
+              <input type="text" name="filter_return_id" value="{{ filter_return_id }}" placeholder="{{ entry_return_id }}" class="form-control" id="input-return-id"/>
             </div>
             <div class="form-group">
               <label class="control-label" for="input-order-id">{{ entry_order_id }}</label>
-              <input type="text" name="filter_order_id" value="{{ filter_order_id }}" placeholder="{{ entry_order_id }}" id="input-order-id" class="form-control"/>
+              <input type="text" name="filter_order_id" value="{{ filter_order_id }}" placeholder="{{ entry_order_id }}" class="form-control" id="input-order-id"/>
             </div>
             <div class="form-group">
               <label class="control-label" for="input-customer">{{ entry_customer }}</label>
-              <input type="text" name="filter_customer" value="{{ filter_customer }}" placeholder="{{ entry_customer }}" id="input-customer" class="form-control"/>
+              <input type="text" name="filter_customer" value="{{ filter_customer }}" placeholder="{{ entry_customer }}" class="form-control" id="input-customer"/>
             </div>
             <div class="form-group">
               <label class="control-label" for="input-product">{{ entry_product }}</label>
-              <input type="text" name="filter_product" value="{{ filter_product }}" placeholder="{{ entry_product }}" id="input-product" class="form-control"/>
+              <input type="text" name="filter_product" value="{{ filter_product }}" placeholder="{{ entry_product }}" class="form-control" id="input-product"/>
             </div>
             <div class="form-group">
               <label class="control-label" for="input-model">{{ entry_model }}</label>
-              <input type="text" name="filter_model" value="{{ filter_model }}" placeholder="{{ entry_model }}" id="input-model" class="form-control"/>
+              <input type="text" name="filter_model" value="{{ filter_model }}" placeholder="{{ entry_model }}" class="form-control" id="input-model"/>
             </div>
             <div class="form-group">
               <label class="control-label" for="input-return-status">{{ entry_return_status }}</label>
-              <select name="filter_return_status_id" id="input-return-status" class="form-control">
+              <select name="filter_return_status_id" class="form-control" id="input-return-status"/>
                 <option value=""></option>
                 {% for return_status in return_statuses %}
                   {% if return_status.return_status_id == filter_return_status_id %}
@@ -68,19 +68,19 @@
             <div class="form-group">
               <label class="control-label" for="input-date-added">{{ entry_date_added }}</label>
               <div class="input-group date">
-                <input type="text" name="filter_date_added" value="{{ filter_date_added }}" placeholder="{{ entry_date_added }}" data-date-format="YYYY-MM-DD" id="input-date-added" class="form-control"/>
+                <input type="text" name="filter_date_added" value="{{ filter_date_added }}" placeholder="{{ entry_date_added }}" data-date-format="YYYY-MM-DD" class="form-control" id="input-date-added"/>
                 <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span>
               </div>
             </div>
             <div class="form-group">
               <label class="control-label" for="input-date-modified">{{ entry_date_modified }}</label>
               <div class="input-group date">
-                <input type="text" name="filter_date_modified" value="{{ filter_date_modified }}" placeholder="{{ entry_date_modified }}" data-date-format="YYYY-MM-DD" id="input-date-modified" class="form-control"/>
+                <input type="text" name="filter_date_modified" value="{{ filter_date_modified }}" placeholder="{{ entry_date_modified }}" data-date-format="YYYY-MM-DD" class="form-control" id="input-date-modified"/>
                 <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span>
               </div>
             </div>
             <div class="form-group text-right">
-              <button type="button" id="button-filter" class="btn btn-default"><i class="fa fa-filter"></i> {{ button_filter }}</button>
+              <button type="button" class="btn btn-default" id="button-filter"><i class="fa fa-filter"></i> {{ button_filter }}</button>
             </div>
           </div>
         </div>

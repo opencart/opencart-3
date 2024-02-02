@@ -14,7 +14,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	use StoreLoader;
 
 	private array $error;
-	private int   $store_id;
+	private int $store_id;
 
 	/**
 	 * Constructor
@@ -32,6 +32,8 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	}
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -241,6 +243,8 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	}
 
 	/**
+	 * Debug Log Download
+	 *
 	 * @return void
 	 */
 	public function debug_log_download(): void {
@@ -329,6 +333,8 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	}
 
 	/**
+	 * List Ads
+	 *
 	 * @return void
 	 */
 	public function list_ads(): void {
@@ -468,6 +474,8 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	}
 
 	/**
+	 * Shipping Taxes
+	 *
 	 * @return void
 	 */
 	public function shipping_taxes(): void {
@@ -779,6 +787,8 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	}
 
 	/**
+	 * Mapping Verify
+	 *
 	 * @return void
 	 */
 	public function mapping_verify(): void {
@@ -799,6 +809,8 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	}
 
 	/**
+	 * Campaign Test
+	 *
 	 * @return void
 	 */
 	public function campaign_test(): void {
@@ -955,6 +967,8 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	}
 
 	/**
+	 * Target Add
+	 *
 	 * @return void
 	 */
 	public function target_add(): void {
@@ -1022,6 +1036,8 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	}
 
 	/**
+	 * Target Edit
+	 *
 	 * @return void
 	 */
 	public function target_edit(): void {
@@ -1088,6 +1104,8 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	}
 
 	/**
+	 * Target Delete
+	 *
 	 * @return void
 	 */
 	public function target_delete(): void {
@@ -1130,6 +1148,8 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	}
 
 	/**
+	 * Target List
+	 *
 	 * @return void
 	 */
 	public function target_list(): void {
@@ -1160,6 +1180,8 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	}
 
 	/**
+	 * Callback Merchant
+	 *
 	 * @return void
 	 */
 	public function callback_merchant(): void {
@@ -1235,6 +1257,8 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	}
 
 	/**
+	 * Callback Connect
+	 *
 	 * @return void
 	 */
 	public function callback_connect(): void {
@@ -1512,6 +1536,8 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	}
 
 	/**
+	 * Popup Product
+	 *
 	 * @return void
 	 */
 	public function popup_product(): void {
@@ -1533,6 +1559,9 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 		$filter_data = null;
 
 		$product_ids = [];
+		$required_fields = [];
+		$options = [];
+		$default_form_data = [];
 
 		if ($this->request->post['operand']['type'] == 'single') {
 			$product_advertise_google_id = $this->request->post['operand']['data'];
@@ -1613,6 +1642,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
 		if ($operand_info !== null) {
 			$json['title'] = $operand_info['title'];
+
 			$json['success_message'] = $this->language->get('success_product');
 
 			$this->load->config('googleshopping/googleshopping');
@@ -1713,11 +1743,15 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
 			$data['google_product_categories'] = $this->config->get('advertise_google_google_product_categories');
 
+			$data['conditions'] = [];
+
 			$data['conditions'] = [
 				'new'         => $this->language->get('text_condition_new'),
 				'refurbished' => $this->language->get('text_condition_refurbished'),
 				'used'        => $this->language->get('text_condition_used')
 			];
+
+			$data['age_groups'] = [];
 
 			$data['age_groups'] = [
 				''        => $this->language->get('text_does_not_apply'),
@@ -1728,11 +1762,15 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 				'adult'   => $this->language->get('text_age_group_adult')
 			];
 
+			$data['genders'] = [];
+
 			$data['genders'] = [
 				'unisex' => $this->language->get('text_gender_unisex'),
 				'female' => $this->language->get('text_gender_female'),
 				'male'   => $this->language->get('text_gender_male')
 			];
+
+			$data['size_systems'] = [];
 
 			$data['size_systems'] = [
 				'' => $this->language->get('text_does_not_apply')
@@ -1742,6 +1780,8 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 				$data['size_systems'][$system] = $system;
 			}
 
+			$data['size_types'] = [];
+
 			$data['size_types'] = [
 				''             => $this->language->get('text_does_not_apply'),
 				'regular'      => $this->language->get('text_size_type_regular'),
@@ -1750,6 +1790,8 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 				'big and tall' => $this->language->get('text_size_type_big_and_tall'),
 				'maternity'    => $this->language->get('text_size_type_maternity')
 			];
+
+			$data['options'] = [];
 
 			$data['options'] = [
 				'' => $this->language->get('text_does_not_apply')
@@ -1790,6 +1832,8 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	}
 
 	/**
+	 * Popup issues
+	 *
 	 * @return void
 	 */
 	public function popup_issues(): void {
@@ -1826,23 +1870,25 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	}
 
 	/**
-	 * @param mixed $route
-	 * @param mixed $data
-	 * @param mixed $template
+	 * Admin Link
+	 *
+	 * @param string $route
+	 * @param array  $data
+	 * @param mixed  $template
 	 *
 	 * @return void
 	 */
-	public function admin_link(&$route, &$data, &$template): void {
+	public function admin_link(string &$route, array &$data, mixed &$template): void {
 		if (!$this->user->hasPermission('access', 'extension/advertise/google')) {
 			return;
 		}
 
+		// Stores
+		$this->load->model('setting/store');
+
 		foreach ($data['menus'] as &$menu) {
 			if ($menu['id'] == 'menu-marketing') {
 				$children = [];
-
-				// Stores
-				$this->load->model('setting/store');
 
 				$children[] = [
 					'name'     => $this->config->get('config_name'),
@@ -1870,7 +1916,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	}
 
 	/**
-	 * addProduct
+	 * Add Product
 	 *
 	 * @param string $route
 	 * @param array  $args
@@ -1893,7 +1939,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	}
 
 	/**
-	 * copyProduct
+	 * Copy Product
 	 *
 	 * @param string $route
 	 * @param array  $args
@@ -1920,7 +1966,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	}
 
 	/**
-	 * deleteProduct
+	 * Delete Product
 	 *
 	 * @param string $route
 	 * @param array  $args
@@ -1964,6 +2010,8 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	}
 
 	/**
+	 * Category Autocomplete
+	 *
 	 * @return void
 	 */
 	public function category_autocomplete(): void {
@@ -2003,7 +2051,14 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	protected function getFilter($array) {
+	/**
+	 * Get Filter
+	 *
+	 * @param array<string, mixed> $array array of filter
+	 *
+	 * @return array<string, mixed>
+	 */
+	protected function getFilter(array $array): array {
 		if (!empty($array)) {
 			return [
 				'filter_product_name'  => $array['product_name'],
@@ -2019,7 +2074,14 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 		];
 	}
 
-	protected function applyNewSettings($new_settings): void {
+	/**
+	 * Apply New Settings
+	 *
+	 * @param array<string, mixed> $new_settings array of filter
+	 *
+	 * @return void
+	 */
+	protected function applyNewSettings(array $new_settings): void {
 		// Settings
 		$this->load->model('setting/setting');
 
@@ -2034,6 +2096,13 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 		}
 	}
 
+	/**
+	 * Product
+	 *
+	 * @param array<string, mixed> $row
+	 *
+	 * @return array<string, mixed>
+	 */
 	protected function product(&$row) {
 		// Google Shopping
 		$this->load->config('googleshopping/googleshopping');
@@ -2066,7 +2135,16 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 		];
 	}
 
-	protected function getSettingValue($key, $default = null, $checkbox = false) {
+	/**
+	 * Get Setting Value
+	 *
+	 * @param string $key
+	 * @param string $default
+	 * @param bool   $checkbox
+	 *
+	 * @return string
+	 */
+	protected function getSettingValue(string $key, ?string $default = null, bool $checkbox = false): string {
 		if ($checkbox) {
 			if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post[$key])) {
 				return $default;
@@ -2084,7 +2162,14 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 		}
 	}
 
-	protected function getValidationError($key) {
+	/**
+	 * Get Validation Error
+	 *
+	 * @param string $key
+	 *
+	 * @return string
+	 */
+	protected function getValidationError(string $key): string {
 		if (isset($this->error[$key])) {
 			return $this->error[$key];
 		} else {
@@ -2092,7 +2177,12 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 		}
 	}
 
-	protected function validateSettings() {
+	/**
+	 * Validate Settings
+	 *
+	 * @return bool
+	 */
+	protected function validateSettings(): bool {
 		$this->validatePermission();
 
 		if (empty($this->request->post['advertise_google_status'])) {
@@ -2116,7 +2206,12 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 		return !$this->error;
 	}
 
-	protected function validateShippingAndTaxes() {
+	/**
+	 * Validate Shipping And Taxes
+	 *
+	 * @return bool
+	 */
+	protected function validateShippingAndTaxes(): bool {
 		$this->validatePermission();
 
 		if (empty($this->request->post['advertise_google_shipping_taxes']['min_transit_time']) || !is_numeric($this->request->post['advertise_google_shipping_taxes']['min_transit_time']) || (int)$this->request->post['advertise_google_shipping_taxes']['min_transit_time'] < 0) {
@@ -2161,7 +2256,12 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 		return !$this->error;
 	}
 
-	protected function validateMapping() {
+	/**
+	 * Validate Mapping
+	 *
+	 * @return bool
+	 */
+	protected function validateMapping(): bool {
 		$this->validatePermission();
 
 		if ($this->error && !isset($this->error['warning'])) {
@@ -2171,7 +2271,14 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 		return !$this->error;
 	}
 
-	protected function validateProduct($required_fields) {
+	/**
+	 * Validate Product
+	 *
+	 * @param array<string, mixed> $required_fields
+	 *
+	 * @return bool
+	 */
+	protected function validateProduct($required_fields): bool {
 		if (!$this->user->hasPermission('modify', 'extension/advertise/google')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
@@ -2197,7 +2304,12 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 		return !$this->error;
 	}
 
-	protected function validatePermission() {
+	/**
+	 * Validate Permission
+	 *
+	 * @return bool
+	 */
+	protected function validatePermission(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/advertise/google')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
@@ -2205,7 +2317,12 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 		return !$this->error;
 	}
 
-	protected function validateCampaign() {
+	/**
+	 * Validate Campaign
+	 *
+	 * @return bool
+	 */
+	protected function validateCampaign(): bool {
 		$this->validatePermission();
 
 		// Google
@@ -2224,7 +2341,12 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 		return !$this->error;
 	}
 
-	protected function validateConnect() {
+	/**
+	 * Validate Connect
+	 *
+	 * @return bool
+	 */
+	protected function validateConnect(): bool {
 		$this->validatePermission();
 
 		if (!isset($this->request->post['advertise_google_app_id']) || $this->request->post['advertise_google_app_id'] == '') {
@@ -2244,7 +2366,12 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 		return !$this->error;
 	}
 
-	protected function validateTarget() {
+	/**
+	 * Validate Target
+	 *
+	 * @return bool
+	 */
+	protected function validateTarget(): bool {
 		$this->validatePermission();
 
 		if (!isset($this->request->post['budget']) || !is_numeric($this->request->post['budget']) || (float)$this->request->post['budget'] < 5) {

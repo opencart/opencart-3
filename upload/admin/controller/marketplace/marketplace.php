@@ -6,6 +6,8 @@
  */
 class ControllerMarketplaceMarketplace extends Controller {
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -913,7 +915,7 @@ class ControllerMarketplaceMarketplace extends Controller {
 	}
 
 	/**
-	 * addComment
+	 * Add Comment
 	 *
 	 * @return void
 	 */

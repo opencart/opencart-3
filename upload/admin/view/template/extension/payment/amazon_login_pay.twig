@@ -42,10 +42,10 @@
       </form>
       <div id="container-credentials">
         <div class="col-sm-5">
-          <textarea class="form-control" id="input-credentials" placeholder="{{ text_credentials }}" rows="7" name="credentials"></textarea>
+          <textarea class="form-control" placeholder="{{ text_credentials }}" rows="7" name="credentials" id="input-credentials"></textarea>
         </div>
         <div class="col-sm-5">
-          <button id="button-credentials" class="btn btn-primary" type="button">{{ text_validate_credentials }}</button>
+          <button class="btn btn-primary" type="button" id="button-credentials">{{ text_validate_credentials }}</button>
         </div>
       </div>
     </div>
@@ -54,11 +54,11 @@
         <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3>
       </div>
       <div class="panel-body">
-        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-payment" class="form-horizontal">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal" id="form-payment">
           <div class="form-group">
             <label class="col-sm-2 control-label" for="amazon-login-pay-payment-region">{{ entry_payment_region }}</label>
             <div class="col-sm-10">
-              <select name="payment_amazon_login_pay_payment_region" id="amazon-login-pay-payment_region" class="form-control">
+              <select name="payment_amazon_login_pay_payment_region" class="form-control" id="amazon-login-pay-payment-region"/>
                 {% for payment_region_code, payment_region_name in payment_regions %}
                   {% if payment_region_code == payment_amazon_login_pay_payment_region %}
                     <option value="{{ payment_region_code }}" selected="selected">{{ payment_region_name }}</option>
@@ -72,7 +72,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="amazon-login-pay-language">{{ entry_language }}</label>
             <div class="col-sm-10">
-              <select name="payment_amazon_login_pay_language" id="amazon-login-pay-language" class="form-control">
+              <select name="payment_amazon_login_pay_language" class="form-control" id="amazon-login-pay-language"/>
                 {% for language_code, language_name in languages %}
                   {% if language_code == payment_amazon_login_pay_language %}
                     <option value="{{ language_code }}" selected="selected">{{ language_name }}</option>
@@ -89,7 +89,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="amazon-login-pay-merchant-id">{{ entry_merchant_id }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_amazon_login_pay_merchant_id" value="{{ payment_amazon_login_pay_merchant_id }}" placeholder="{{ entry_merchant_id }}" id="amazon-login-pay-merchant-id" class="form-control" autocomplete="new-password"/>
+              <input type="text" name="payment_amazon_login_pay_merchant_id" value="{{ payment_amazon_login_pay_merchant_id }}" placeholder="{{ entry_merchant_id }}" class="form-control" autocomplete="new-password" id="amazon-login-pay-merchant-id"/>
               {% if error_merchant_id %}
                 <div class="text-danger">{{ error_merchant_id }}</div>
               {% endif %}
@@ -98,7 +98,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="amazon-login-pay-access-key">{{ entry_access_key }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_amazon_login_pay_access_key" value="{{ payment_amazon_login_pay_access_key }}" placeholder="{{ entry_access_key }}" id="amazon-login-pay-access-key" class="form-control" autocomplete="new-password"/>
+              <input type="text" name="payment_amazon_login_pay_access_key" value="{{ payment_amazon_login_pay_access_key }}" placeholder="{{ entry_access_key }}" class="form-control" autocomplete="new-password" id="amazon-login-pay-access-key"/>
               {% if error_access_key %}
                 <div class="text-danger">{{ error_access_key }}</div>
               {% endif %}
@@ -107,7 +107,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="amazon-login-pay-access-secret">{{ entry_access_secret }}</label>
             <div class="col-sm-10">
-              <div class="input-group"><input data-toggle-password type="password" name="payment_amazon_login_pay_access_secret" value="{{ has_modify_permission ? payment_amazon_login_pay_access_secret : text_generic_password }}" placeholder="{{ entry_access_secret }}" id="amazon-login-pay-access-secret" class="form-control" autocomplete="new-password"/>
+              <div class="input-group"><input data-toggle-password type="password" name="payment_amazon_login_pay_access_secret" value="{{ has_modify_permission ? payment_amazon_login_pay_access_secret : text_generic_password }}" placeholder="{{ entry_access_secret }}" class="form-control" autocomplete="new-password" id="amazon-login-pay-access-secret"/>
                 <div class="input-group-addon btn btn-default toggle-password">
                   <i class="fa fa-eye"></i>
                 </div>
@@ -120,7 +120,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="amazon-login-pay-client-id">{{ entry_client_id }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_amazon_login_pay_client_id" value="{{ payment_amazon_login_pay_client_id }}" placeholder="{{ entry_client_id }}" id="amazon-login-pay-client-id" class="form-control" autocomplete="new-password"/>
+              <input type="text" name="payment_amazon_login_pay_client_id" value="{{ payment_amazon_login_pay_client_id }}" placeholder="{{ entry_client_id }}" class="form-control" autocomplete="new-password" id="amazon-login-pay-client-id"/>
               {% if error_client_id %}
                 <div class="text-danger">{{ error_client_id }}</div>
               {% endif %}
@@ -129,7 +129,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="amazon-login-pay-client-secret">{{ entry_client_secret }}</label>
             <div class="col-sm-10">
-              <div class="input-group"><input data-toggle-password type="password" name="payment_amazon_login_pay_client_secret" value="{{ has_modify_permission ? payment_amazon_login_pay_client_secret : text_generic_password }}" placeholder="{{ entry_client_secret }}" id="amazon-login-pay-client-secret" class="form-control" autocomplete="new-password"/>
+              <div class="input-group"><input data-toggle-password type="password" name="payment_amazon_login_pay_client_secret" value="{{ has_modify_permission ? payment_amazon_login_pay_client_secret : text_generic_password }}" placeholder="{{ entry_client_secret }}" class="form-control" autocomplete="new-password" id="amazon-login-pay-client-secret"/>
                 <div class="input-group-addon btn btn-default toggle-password">
                   <i class="fa fa-eye"></i>
                 </div>
@@ -140,23 +140,23 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-ipn-token"><span data-toggle="tooltip" title="{{ help_ipn_token }}">{{ entry_ipn_token }}</span></label>
+            <label class="col-sm-2 control-label" for="input-ipn-token"><span data-toggle="tooltip" title="{{ help_ipn_token|escape('html') }}">{{ entry_ipn_token }}</span></label>
             <div class="col-sm-10">
-              <input type="text" name="payment_amazon_login_pay_ipn_token" value="{{ payment_amazon_login_pay_ipn_token }}" id="input-ipn-token" class="form-control"/>
+              <input type="text" name="payment_amazon_login_pay_ipn_token" value="{{ payment_amazon_login_pay_ipn_token }}" class="form-control" id="input-ipn-token"/>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-ipn-url">{{ entry_ipn_url }}</label>
             <div class="col-sm-10">
               <div class="input-group"><span class="input-group-addon"><i class="fa fa-link"></i></span>
-                <input type="text" readonly value="{{ ipn_url }}" id="input-ipn-url" class="form-control"/>
+                <input type="text" readonly value="{{ ipn_url }}" class="form-control" id="input-ipn-url"/>
               </div>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="amazon-login-pay-test">{{ entry_login_pay_test }}</label>
             <div class="col-sm-10">
-              <select name="payment_amazon_login_pay_test" id="amazon-login-pay-test" class="form-control">
+              <select name="payment_amazon_login_pay_test" class="form-control" id="amazon-login-pay-test"/>
                 {% if payment_amazon_login_pay_test == 'sandbox' %}
                   <option value="sandbox" selected="selected">{{ text_sandbox }}</option>
                 {% else %}
@@ -171,9 +171,9 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="amazon-login-pay-mode"><span data-toggle="tooltip" title="{{ help_pay_mode }}">{{ entry_login_pay_mode }}</span></label>
+            <label class="col-sm-2 control-label" for="amazon-login-pay-mode"><span data-toggle="tooltip" title="{{ help_pay_mode|escape('html') }}">{{ entry_login_pay_mode }}</span></label>
             <div class="col-sm-10">
-              <select name="payment_amazon_login_pay_mode" id="amazon-login-pay-mode" class="form-control">
+              <select name="payment_amazon_login_pay_mode" class="form-control" id="amazon-login-pay-mode"/>
                 {% if payment_amazon_login_pay_mode == 'payment' %}
                   <option value="payment" selected="selected">{{ text_payment }}</option>
                 {% else %}
@@ -188,9 +188,9 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="amazon-login-pay-checkout"><span data-toggle="tooltip" title="{{ help_checkout }}">{{ entry_checkout }}</span></label>
+            <label class="col-sm-2 control-label" for="amazon-login-pay-checkout"><span data-toggle="tooltip" title="{{ help_checkout|escape('html') }}">{{ entry_checkout }}</span></label>
             <div class="col-sm-10">
-              <select name="payment_amazon_login_pay_checkout" id="amazon-login-checkout-mode" class="form-control">
+              <select name="payment_amazon_login_pay_checkout" class="form-control" id="amazon-login-checkout-mode"/>
                 {% if payment_amazon_login_pay_checkout == 'account' %}
                   <option value="account" selected="selected">{{ text_account }}</option>
                 {% else %}
@@ -205,9 +205,9 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="amazon-login-pay-capture-status"><span data-toggle="tooltip" title="{{ help_capture_status }}">{{ entry_capture_status }}</span></label>
+            <label class="col-sm-2 control-label" for="amazon-login-pay-capture-status"><span data-toggle="tooltip" title="{{ help_capture_status|escape('html') }}">{{ entry_capture_status }}</span></label>
             <div class="col-sm-10">
-              <select name="payment_amazon_login_pay_capture_status" id="amazon-login-pay-capturet-status" class="form-control">
+              <select name="payment_amazon_login_pay_capture_status" class="form-control" id="amazon-login-pay-capturet-status"/>
                 <option value="">{{ text_no_capture }}</option>
                 {% for order_status in order_statuses %}
                   {% if order_status.order_status_id == payment_amazon_login_pay_capture_status %}
@@ -222,7 +222,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="amazon-login-pay-pending-status">{{ entry_pending_status }}</label>
             <div class="col-sm-10">
-              <select name="payment_amazon_login_pay_pending_status" id="amazon-login-pay-pending-status" class="form-control">
+              <select name="payment_amazon_login_pay_pending_status" class="form-control" id="amazon-login-pay-pending-status"/>
                 {% for order_status in order_statuses %}
                   {% if order_status.order_status_id == payment_amazon_login_pay_pending_status %}
                     <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
@@ -234,9 +234,9 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="amazon-login-pay-pending-status"><span data-toggle="tooltip" title="{{ help_capture_oc_status }}">{{ entry_capture_oc_status }}</span></label>
+            <label class="col-sm-2 control-label" for="amazon-login-pay-pending-status"><span data-toggle="tooltip" title="{{ help_capture_oc_status|escape('html') }}">{{ entry_capture_oc_status }}</span></label>
             <div class="col-sm-10">
-              <select name="payment_amazon_login_pay_capture_oc_status" id="amazon-login-pay-capture-oc-status" class="form-control">
+              <select name="payment_amazon_login_pay_capture_oc_status" class="form-control" id="amazon-login-pay-capture-oc-status"/>
                 {% for order_status in order_statuses %}
                   {% if order_status.order_status_id == payment_amazon_login_pay_capture_oc_status %}
                     <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
@@ -248,9 +248,9 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="amazon-login-pay-minimum-total"><span data-toggle="tooltip" title="{{ help_minimum_total }}">{{ text_minimum_total }}</span></label>
+            <label class="col-sm-2 control-label" for="amazon-login-pay-minimum-total"><span data-toggle="tooltip" title="{{ help_minimum_total|escape('html') }}">{{ text_minimum_total }}</span></label>
             <div class="col-sm-10">
-              <input type="text" name="payment_amazon_login_pay_minimum_total" value="{{ payment_amazon_login_pay_minimum_total }}" placeholder="{{ text_minimum_total }}" id="amazon-login-pay-minimum-total" class="form-control"/>
+              <input type="text" name="payment_amazon_login_pay_minimum_total" value="{{ payment_amazon_login_pay_minimum_total }}" placeholder="{{ text_minimum_total }}" class="form-control" id="amazon-login-pay-minimum-total"/>
               {% if error_minimum_total %}
                 <div class="text-danger">{{ error_minimum_total }}</div>
               {% endif %}
@@ -259,7 +259,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="amazon-login-pay-geo-zone">{{ text_geo_zone }}</label>
             <div class="col-sm-10">
-              <select name="payment_amazon_login_pay_geo_zone" id="amazon-login-pay-geo-zone" class="form-control">
+              <select name="payment_amazon_login_pay_geo_zone" class="form-control" id="amazon-login-pay-geo-zone"/>
                 {% if payment_amazon_login_pay_geo_zone == 0 %}
                   <option value="0" selected="selected">{{ text_all_geo_zones }}</option>
                 {% else %}
@@ -276,13 +276,13 @@
             </div>
           </div>
           <div class="form-group" id="buyer-multi-currency">
-            <label class="col-sm-2 control-label" for="amazon-login-pay-buyer-multi-currency"><span data-toggle="tooltip" title="{{ help_buyer_multi_currency }}">
+            <label class="col-sm-2 control-label" for="amazon-login-pay-buyer-multi-currency"><span data-toggle="tooltip" title="{{ help_buyer_multi_currency|escape('html') }}">
                 {{ text_buyer_multi_currency }}</span></label>
             <div class="col-sm-10">
               {% if store_buyer_currencies is empty %}
                 <div class="alert alert-info"><i class="fa fa-exclamation-circle"></i> {{ text_info_buyer_multi_currencies }}</div>
               {% endif %}
-              <select name="payment_amazon_login_pay_buyer_multi_currency" id="amazon-login-pay-buyer-multi-currency" class="form-control">
+              <select name="payment_amazon_login_pay_buyer_multi_currency" class="form-control" id="amazon-login-pay-buyer-multi-currency"/>
                 {% if payment_amazon_login_pay_buyer_multi_currency %}
                   <option value="1" selected="selected">{{ text_enabled }}</option>
                   <option value="0">{{ text_disabled }}</option>
@@ -294,9 +294,9 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="amazon-login-pay-input-debug"><span data-toggle="tooltip" title="{{ help_debug }}">{{ entry_debug }}</span></label>
+            <label class="col-sm-2 control-label" for="amazon-login-pay-input-debug"><span data-toggle="tooltip" title="{{ help_debug|escape('html') }}">{{ entry_debug }}</span></label>
             <div class="col-sm-10">
-              <select name="payment_amazon_login_pay_debug" id="amazon-login-pay-input-debug" class="form-control">
+              <select name="payment_amazon_login_pay_debug" class="form-control" id="amazon-login-pay-input-debug"/>
                 {% if payment_amazon_login_pay_debug %}
                   <option value="1" selected="selected">{{ text_enabled }}</option>
                   <option value="0">{{ text_disabled }}</option>
@@ -310,13 +310,13 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="amazon-login-pay-sort-order">{{ text_sort_order }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_amazon_login_pay_sort_order" value="{{ payment_amazon_login_pay_sort_order }}" placeholder="{{ text_sort_order }}" id="amazon-login-pay-sort-order" class="form-control"/>
+              <input type="text" name="payment_amazon_login_pay_sort_order" value="{{ payment_amazon_login_pay_sort_order }}" placeholder="{{ text_sort_order }}" class="form-control" id="amazon-login-pay-sort-order"/>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="amazon-login-pay-status">{{ text_status }}</label>
             <div class="col-sm-10">
-              <select name="payment_amazon_login_pay_status" id="amazon-login-pay-status" class="form-control">
+              <select name="payment_amazon_login_pay_status" class="form-control" id="amazon-login-pay-status"/>
                 {% if payment_amazon_login_pay_status == 1 %}
                   <option value="1" selected="selected">{{ text_enabled }}</option>
                 {% else %}
@@ -331,9 +331,9 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="amazon-login-pay-declined_codes"><span data-toggle="tooltip" title="{{ help_declined_codes }}">{{ text_declined_codes }}</span></label>
+            <label class="col-sm-2 control-label" for="amazon-login-pay-declined-codes"><span data-toggle="tooltip" title="{{ help_declined_codes|escape('html') }}">{{ text_declined_codes }}</span></label>
             <div class="col-sm-10">
-              <select name="payment_amazon_login_pay_declined_code" id="amazon-login-pay-declined_code" class="form-control">
+              <select name="payment_amazon_login_pay_declined_code" class="form-control" id="amazon-login-pay-declined-codes"/>
                 <option value="">{{ text_amazon_no_declined }}</option>
                 {% for declined_code in declined_codes %}
                   {% if payment_amazon_login_pay_declined_code == declined_code %}
@@ -362,15 +362,11 @@
           $('#amazon-login-pay-client-id').val(credentials['client_id']);
           $('#amazon-login-pay-client-secret').val(credentials['client_secret']);
 
-          $('<input>').attr({
-              type: 'hidden',
-              value: 'true',
-              name: 'language_reload'
-          }).appendTo('#form-amazon-login-pay');
+          $('<input>').attr({type: 'hidden', value: 'true', name: 'language_reload'}).appendTo('#form-amazon-login-pay');
 
           $('.pull-right > .btn-primary').click();
       } catch (e) {
-          $('.container-fluid:eq(1)').prepend('<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><i class="fa fa-exclamation-circle"></i> {{ error_credentials }}</div>')
+          $('.container-fluid:eq(1)').prepend('<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><i class="fa fa-exclamation-circle"></i> {{ error_credentials|escape('js') }}</div>')
       }
   });
   //--></script>
@@ -386,25 +382,21 @@
   });
   //--></script>
   <script type="text/javascript"><!--
-  $('#amazon-login-pay-payment_region').on('change', function () {
+  $('#amazon-login-pay-payment-region').on('change', function () {
       switch ($(this).val()) {
           case 'EUR':
-              $('#amazon-login-pay-language').html('<option selected value="de-DE">{{ text_de }}</option>');
+              $('#amazon-login-pay-language').html('<option selected value="de-DE">{{ text_de|escape('js') }}</option>');
               break;
           case 'GBP':
-              $('#amazon-login-pay-language').html('<option selected value="en-GB">{{ text_uk }}</option>');
+              $('#amazon-login-pay-language').html('<option selected value="en-GB">{{ text_uk|escape('js') }}</option>');
               break;
           case 'USD':
-              $('#amazon-login-pay-language').html('<option selected value="en-US">{{ text_us }}</option>');
+              $('#amazon-login-pay-language').html('<option selected value="en-US">{{ text_us|escape('js') }}</option>');
               $('#buyer-multi-currency').hide();
               break;
       }
 
-      $('<input>').attr({
-          type: 'hidden',
-          value: 'true',
-          name: 'language_reload'
-      }).appendTo('#form-amazon-login-pay');
+      $('<input>').attr({type: 'hidden', value: 'true', name: 'language_reload'}).appendTo('#form-amazon-login-pay');
 
       $('#form-amazon-login-pay').submit();
   });
@@ -439,7 +431,7 @@
   });
 
   $(document).ready(function () {
-      if ($('#amazon-login-pay-payment_region').val() === 'USD') {
+      if ($('#amazon-login-pay-payment-region').val() === 'USD') {
           $('#buyer-multi-currency').hide();
       }
   });

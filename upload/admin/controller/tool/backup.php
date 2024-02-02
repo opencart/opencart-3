@@ -6,6 +6,8 @@
  */
 class ControllerToolBackup extends Controller {
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -78,7 +80,7 @@ class ControllerToolBackup extends Controller {
 		}
 
 		if (isset($this->request->get['position'])) {
-			$position = $this->request->get['position'];
+			$position = (int)$this->request->get['position'];
 		} else {
 			$position = 0;
 		}

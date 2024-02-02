@@ -1,7 +1,7 @@
 <div class="transaction-id">{{ text_transaction_id }}: <a href="{{ transaction_url }}" target="_blank">{{ transaction_id }}</a></div>
-<br />
+<br/>
 <div class="transaction-status">{{ attribute(_context, 'text_transaction_' ~ transaction_status) }}</div>
-<br />
+<br/>
 {% if transaction_status == 'created' %}
   <button type="button" class="btn btn-primary button-capture-payment">{{ button_capture_payment }}</button>
   <button type="button" class="btn btn-primary button-reauthorize-payment">{{ button_reauthorize_payment }}</button>

@@ -1,5 +1,5 @@
 {{ header }}
-<div id="account-reset" class="container">
+<div class="container" id="account-reset">
   <ul class="breadcrumb">
     {% for breadcrumb in breadcrumbs %}
       <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
@@ -13,7 +13,7 @@
     {% else %}
       {% set class = 'col-sm-12' %}
     {% endif %}
-    <div id="content" class="{{ class }}">{{ content_top }}
+    <div class="{{ class }}" id="content">{{ content_top }}
       <h1>{{ heading_title }}</h1>
       <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal">
         <fieldset>
@@ -21,7 +21,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-password">{{ entry_password }}</label>
             <div class="col-sm-10">
-              <input type="password" name="password" value="{{ password }}" id="input-password" class="form-control"/>
+              <input type="password" name="password" value="{{ password }}" class="form-control" id="input-password"/>
               {% if error_password %}
                 <div class="text-danger">{{ error_password }}</div>
               {% endif %}
@@ -30,7 +30,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-confirm">{{ entry_confirm }}</label>
             <div class="col-sm-10">
-              <input type="password" name="confirm" value="{{ confirm }}" id="input-confirm" class="form-control"/>
+              <input type="password" name="confirm" value="{{ confirm }}" class="form-control" id="input-confirm"/>
               {% if error_confirm %}
                 <div class="text-danger">{{ error_confirm }}</div>
               {% endif %}

@@ -24,21 +24,21 @@
         <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3>
       </div>
       <div class="panel-body">
-        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-module" class="form-horizontal">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal" id="form-module">
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-name">{{ entry_name }}</label>
             <div class="col-sm-10">
-              <input type="text" name="name" value="{{ name }}" placeholder="{{ entry_name }}" id="input-name" class="form-control"/>
+              <input type="text" name="name" value="{{ name }}" placeholder="{{ entry_name }}" class="form-control" id="input-name"/>
               {% if error_name %}
                 <div class="text-danger">{{ error_name }}</div>
               {% endif %}
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-product"><span data-toggle="tooltip" title="{{ help_product }}">{{ entry_product }}</span></label>
+            <label class="col-sm-2 control-label" for="input-product"><span data-toggle="tooltip" title="{{ help_product|escape('html') }}">{{ entry_product }}</span></label>
             <div class="col-sm-10">
-              <input type="text" name="product_name" value="" placeholder="{{ entry_product }}" id="input-product" class="form-control"/>
-              <div id="featured-product" class="well well-sm" style="height: 150px; overflow: auto;">
+              <input type="text" name="product_name" value="" placeholder="{{ entry_product }}" class="form-control" id="input-product"/>
+              <div class="well well-sm" style="height: 150px; overflow: auto;" id="featured-product">
                 {% for product in products %}
                   <div id="featured-product{{ product.product_id }}">
                     <i class="fa fa-minus-circle"></i> {{ product.name }}
@@ -51,13 +51,13 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-limit">{{ entry_limit }}</label>
             <div class="col-sm-10">
-              <input type="text" name="limit" value="{{ limit }}" placeholder="{{ entry_limit }}" id="input-limit" class="form-control"/>
+              <input type="text" name="limit" value="{{ limit }}" placeholder="{{ entry_limit }}" class="form-control" id="input-limit"/>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-width">{{ entry_width }}</label>
             <div class="col-sm-10">
-              <input type="text" name="width" value="{{ width }}" placeholder="{{ entry_width }}" id="input-width" class="form-control"/>
+              <input type="text" name="width" value="{{ width }}" placeholder="{{ entry_width }}" class="form-control" id="input-width"/>
               {% if error_width %}
                 <div class="text-danger">{{ error_width }}</div>
               {% endif %}
@@ -66,7 +66,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-height">{{ entry_height }}</label>
             <div class="col-sm-10">
-              <input type="text" name="height" value="{{ height }}" placeholder="{{ entry_height }}" id="input-height" class="form-control"/>
+              <input type="text" name="height" value="{{ height }}" placeholder="{{ entry_height }}" class="form-control" id="input-height"/>
               {% if error_height %}
                 <div class="text-danger">{{ error_height }}</div>
               {% endif %}
@@ -75,7 +75,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
             <div class="col-sm-10">
-              <select name="status" id="input-status" class="form-control">
+              <select name="status" class="form-control" id="input-status"/>
                 {% if status %}
                   <option value="1" selected="selected">{{ text_enabled }}</option>
                   <option value="0">{{ text_disabled }}</option>
@@ -111,7 +111,7 @@
 
           $('#featured-product' + item['value']).remove();
 
-          $('#featured-product').append('<div id="featured-product' + item['value'] + '"><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden" name="product[]" value="' + item['value'] + '"/></div>');
+          $('#featured-product').append('<div name="product[]" value="' + item['value'] + '" id="featured-product' + item['value'] + '"/><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden"></div>');
       }
   });
 

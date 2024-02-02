@@ -6,9 +6,9 @@
  */
 class ModelDesignSeoUrl extends Model {
 	/**
-	 * addSeoUrl
+	 * Add Seo Url
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -17,10 +17,10 @@ class ModelDesignSeoUrl extends Model {
 	}
 
 	/**
-	 * editSeoUrl
+	 * Edit Seo Url
 	 *
-	 * @param int   $seo_url_id
-	 * @param array $data
+	 * @param int                  $seo_url_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -29,7 +29,7 @@ class ModelDesignSeoUrl extends Model {
 	}
 
 	/**
-	 * deleteSeoUrl
+	 * Delete Seo Url
 	 *
 	 * @param int $seo_url_id
 	 *
@@ -40,11 +40,11 @@ class ModelDesignSeoUrl extends Model {
 	}
 
 	/**
-	 * getSeoUrl
+	 * Get Seo Url
 	 *
 	 * @param int $seo_url_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getSeoUrl(int $seo_url_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "seo_url` WHERE `seo_url_id` = '" . (int)$seo_url_id . "'");
@@ -53,11 +53,11 @@ class ModelDesignSeoUrl extends Model {
 	}
 
 	/**
-	 * getSeoUrls
+	 * Get Seo Urls
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getSeoUrls(array $data = []): array {
 		$sql = "SELECT *, (SELECT `name` FROM `" . DB_PREFIX . "store` `s` WHERE `s`.`store_id` = `su`.`store_id`) AS `store`, (SELECT `name` FROM `" . DB_PREFIX . "language` `l` WHERE `l`.`language_id` = `su`.`language_id`) AS `language` FROM `" . DB_PREFIX . "seo_url` `su`";
@@ -121,9 +121,9 @@ class ModelDesignSeoUrl extends Model {
 	}
 
 	/**
-	 * getTotalSeoUrls
+	 * Get Total Seo Urls
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -158,11 +158,11 @@ class ModelDesignSeoUrl extends Model {
 	}
 
 	/**
-	 * getSeoUrlsByKeyword
+	 * Get Seo Urls By Keyword
 	 *
 	 * @param string $keyword
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getSeoUrlsByKeyword(string $keyword): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "seo_url` WHERE `keyword` = '" . $this->db->escape($keyword) . "'");
@@ -171,11 +171,11 @@ class ModelDesignSeoUrl extends Model {
 	}
 
 	/**
-	 * getSeoUrlsByQuery
+	 * Get Seo Urls By Query
 	 *
 	 * @param string $query
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getSeoUrlsByQuery(string $query): array {
 		$data = $this->db->query("SELECT * FROM `" . DB_PREFIX . "seo_url` WHERE `query` = '" . $this->db->escape($query) . "'");
@@ -184,12 +184,12 @@ class ModelDesignSeoUrl extends Model {
 	}
 
 	/**
-	 * getSeoUrlsByQueryId
+	 * Get Seo Urls By Query Id
 	 *
 	 * @param int    $seo_url_id
 	 * @param string $query
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getSeoUrlsByQueryId(int $seo_url_id, string $query): array {
 		$data = $this->db->query("SELECT * FROM `" . DB_PREFIX . "seo_url` WHERE `query` = '" . $this->db->escape($query) . "' AND `seo_url_id` != '" . (int)$seo_url_id . "'");
@@ -198,12 +198,12 @@ class ModelDesignSeoUrl extends Model {
 	}
 
 	/**
-	 * getSeoUrlsByKeywordId
+	 * Get Seo Urls By Keyword Id
 	 *
 	 * @param int    $seo_url_id
 	 * @param string $keyword
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getSeoUrlsByKeywordId(int $seo_url_id, string $keyword): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "seo_url` WHERE `keyword` = '" . $this->db->escape($keyword) . "' AND `seo_url_id` != '" . (int)$seo_url_id . "'");

@@ -6,14 +6,14 @@
 <div id="squareup-notification">
   <div class="text-center alert alert-info"><i class="fa fa-circle-o-notch fa-spin"></i>&nbsp;{{ text_loading }}</div>
 </div>
-<form class="form-horizontal" action="{{ action }}" method="post" id="squareup_card_details_form" style="display: none;">
+<form class="form-horizontal" action="{{ action }}" method="post" style="display: none;" id="squareup-card-details-form">
   <fieldset>
     <legend>{{ text_card_details }}</legend>
     {% if cards %}
       <div class="form-group">
-        <label class="col-sm-2 control-label" for="squareup_select_card">{{ text_saved_card }}</label>
+        <label class="col-sm-2 control-label" for="squareup-select-card">{{ text_saved_card }}</label>
         <div class="col-sm-10">
-          <select class="form-control" name="squareup_select_card" id="squareup_select_card">
+          <select class="form-control" name="squareup_select_card" id="squareup-select-card">
             <option selected value>{{ text_new_card }}</option>
             {% for card in cards %}
               <option value="{{ card.id }}">{{ card.text }}</option>
@@ -25,36 +25,36 @@
   </fieldset>
   <fieldset id="hide-card-details">
     <div class="form-group">
-      <label class="col-sm-2 control-label" for="id_card_number">{{ text_card_number }}</label>
-      <div class="col-sm-10"><div id="id_card_number"></div></div>
+      <label class="col-sm-2 control-label" for="id-card-number">{{ text_card_number }}</label>
+      <div class="col-sm-10"><div id="id-card-number"></div></div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label" for="id_card_expiry">{{ text_card_expiry }}</label>
-      <div class="col-sm-10"><div id="id_card_expiry"></div></div>
+      <label class="col-sm-2 control-label" for="id-card-expiry">{{ text_card_expiry }}</label>
+      <div class="col-sm-10"><div id="id-card-expiry"></div></div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label" for="id_cvc">{{ text_card_cvc }}</label>
-      <div class="col-sm-10"><div id="id_cvc"></div></div>
+      <label class="col-sm-2 control-label" for="id-cvc">{{ text_card_cvc }}</label>
+      <div class="col-sm-10"><div id="id-cvc"></div></div>
     </div>
     <div class="form-group">
-        <label class="col-sm-2 control-label" for="id_card_zip_code">{{ text_card_zip }}</label>
-        <div class="col-sm-10"><div id="id_card_zip_code"></div></div>
+        <label class="col-sm-2 control-label" for="id-card-zip-code">{{ text_card_zip }}</label>
+        <div class="col-sm-10"><div id="id-card-zip-code"></div></div>
     </div>
     {% if is_logged %}
       <div class="form-group">
-        <label class="col-sm-2 control-label" for="squareup_save_card">{{ text_card_save }}</label>
+        <label class="col-sm-2 control-label" for="squareup-save-card">{{ text_card_save }}</label>
         <div class="col-sm-10">
-          <input type="checkbox" id="squareup_save_card" value="1" name="squareup_save_card"/>
+          <input type="checkbox" value="1" name="squareup_save_card" id="squareup-save-card"/>
         </div>
       </div>
     {% endif %}
   </fieldset>
   <div class="buttons">
     <div class="pull-right">
-      <input type="button" value="{{ button_confirm }}" id="button-confirm-order" data-loading-text="{{ text_loading }}" class="btn btn-primary">
+      <input type="button" value="{{ button_confirm }}" data-loading-text="{{ text_loading }}" class="btn btn-primary" id="button-confirm-order">
     </div>
   </div>
-  <input type="hidden" name="squareup_nonce" id="squareup_nonce"/>
+  <input type="hidden" name="squareup_nonce" id="squareup-nonce"/>
 </form>
 <style>
     .control-label {
@@ -69,7 +69,7 @@
         outline: 5px auto rgb(255, 97, 97);
     }
 
-    #squareup_save_card {
+    #squareup-save-card {
         margin-top: 10px;
         cursor: pointer;
     }
@@ -85,19 +85,19 @@ $(document).ready(function () {
             fontSize: '15px'
         }],
         cardNumber: {
-            elementId: 'id_card_number',
+            elementId: 'id-card-number',
             placeholder: '{{ text_card_placeholder }}'
         },
         cvv: {
-            elementId: 'id_cvc',
+            elementId: 'id-cvc',
             placeholder: '{{ text_cvv }}'
         },
         expirationDate: {
-            elementId: 'id_card_expiry',
-            placeholder: '{{ text_expiry }}'
+            elementId: 'id-card-expiry',
+            placeholder: '{{ text-expiry }}'
         },
         postalCode: {
-            elementId: 'id_card_zip_code'
+            elementId: 'id-card-zip-code'
         },
         callbacks: {
             // Called when the SqPaymentForm completes a request to generate a card
@@ -113,7 +113,7 @@ $(document).ready(function () {
                     squareupError(message);
                 } else {
                     // No errors occurred. Extract the card nonce.
-                    $('#squareup_nonce').val(nonce);
+                    $('#squareup-nonce').val(nonce);
 
                     submitForm();
                 }
@@ -129,13 +129,13 @@ $(document).ready(function () {
 
                 $('#squareup-notification').empty();
 
-                $('#squareup_card_details_form').slideDown();
+                $('#squareup-card-details-form').slideDown();
             }
         }
     };
 
     function submitForm() {
-        var form = '#squareup_card_details_form';
+        var form = '#squareup-card-details-form';
 
         $.ajax({
             url: $(form).attr('action'),
@@ -167,7 +167,7 @@ $(document).ready(function () {
     }
 
     function onConfirmCheckout() {
-        if ($('#squareup_select_card').val()) {
+        if ($('#squareup-select-card').val()) {
             submitForm();
         } else {
             paymentForm.requestCardNonce();
@@ -211,7 +211,7 @@ $(document).ready(function () {
         onConfirmCheckout();
     });
 
-    $('#squareup_select_card').change(function () {
+    $('#squareup-select-card').change(function () {
         if ($(this).val()) {
             $('#hide-card-details').slideUp();
         } else {

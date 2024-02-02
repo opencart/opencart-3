@@ -11,6 +11,8 @@ class ControllerExtensionModuleFeatured extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -166,7 +168,12 @@ class ControllerExtensionModuleFeatured extends Controller {
 		$this->response->setOutput($this->load->view('extension/module/featured', $data));
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 *
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/module/featured')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

@@ -120,8 +120,10 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	 *
 	 * @param mixed|null $message
 	 * @param mixed      $return_value
+	 *
+	 * @return ?object
 	 */
-	public function cartRedirect($message = null, $return_value = false) {
+	public function cartRedirect($message = null, $return_value = false): ?object {
 		unset($this->session->data['apalwa']['pay']);
 		unset($this->session->data['order_id']);
 
@@ -134,6 +136,8 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 		} else {
 			return $this->response->redirect($this->url->link('checkout/cart', '', true));
 		}
+
+		return null;
 	}
 
 	/**
@@ -160,7 +164,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 				$this->load->model('extension/total/' . $result['code']);
 
 				// We have to put the totals in an array so that they pass by reference.
-				$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
+				if (is_callable([$this->{'model_extension_total_' . $result['code']}, 'getTotal'])) {
+					$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
+				}
 			}
 		}
 
@@ -628,7 +634,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	 *
 	 * @param string $amazon_login_pay_order_id
 	 * @param object $authorization
-	 * 
+	 *
 	 * @return void
 	 */
 	public function addAuthorization(string $amazon_login_pay_order_id, object $authorization): void {
@@ -637,18 +643,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 		$amount = $type == 'capture' ? (float)$authorization->CapturedAmount->Amount : (float)$authorization->AuthorizationAmount->Amount;
 		$authorization_id = (string)$authorization->AmazonAuthorizationId;
 
-		$transaction = [
-			'amazon_login_pay_order_id' => $amazon_login_pay_order_id,
-			'amazon_authorization_id'   => $authorization_id,
-			'amazon_capture_id'         => $capture_id,
-			'amazon_refund_id'          => '',
-			'date_added'                => date('Y-m-d H:i:s', strtotime((string)$authorization->CreationTimestamp)),
-			'status'                    => (string)$authorization->AuthorizationStatus->State,
-			'amount'                    => $amount,
-			'type'                      => $type
-		];
-
-		$this->addTransaction($transaction);
+		$this->addTransaction($amazon_login_pay_order_id, $authorization_id, $capture_id, '', date('Y-m-d H:i:s', strtotime((string)$authorization->CreationTimestamp)), (string)$authorization->AuthorizationStatus->State, $amount, $type);
 
 		$capture_status = $type == 'capture';
 

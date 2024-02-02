@@ -11,6 +11,8 @@ class ControllerSaleReturns extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -236,6 +238,11 @@ class ControllerSaleReturns extends Controller {
 		$this->getList();
 	}
 
+	/**
+	 * Get List
+	 *
+	 * @return void
+	 */
 	protected function getList(): void {
 		if (isset($this->request->get['filter_return_id'])) {
 			$filter_return_id = (int)$this->request->get['filter_return_id'];
@@ -519,6 +526,11 @@ class ControllerSaleReturns extends Controller {
 		$this->response->setOutput($this->load->view('sale/returns_list', $data));
 	}
 
+	/**
+	 * Get Form
+	 *
+	 * @return void
+	 */
 	protected function getForm(): void {
 		$data['text_form'] = !isset($this->request->get['return_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 
@@ -780,7 +792,12 @@ class ControllerSaleReturns extends Controller {
 		$this->response->setOutput($this->load->view('sale/returns_form', $data));
 	}
 
-	protected function validateForm() {
+	/**
+	 * Validate Form
+	 *
+	 * @return bool
+	 */
+	protected function validateForm(): bool {
 		if (!$this->user->hasPermission('modify', 'sale/returns')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
@@ -824,7 +841,12 @@ class ControllerSaleReturns extends Controller {
 		return !$this->error;
 	}
 
-	protected function validateDelete() {
+	/**
+	 * Validate Delete
+	 *
+	 * @return bool
+	 */
+	protected function validateDelete(): bool {
 		if (!$this->user->hasPermission('modify', 'sale/returns')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
@@ -877,7 +899,7 @@ class ControllerSaleReturns extends Controller {
 	}
 
 	/**
-	 * addHistory
+	 * Add History
 	 *
 	 * @return void
 	 */

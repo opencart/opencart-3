@@ -6,9 +6,9 @@
  */
 class ModelCatalogProduct extends Model {
 	/**
-	 * addProduct
+	 * Add Product
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -152,10 +152,10 @@ class ModelCatalogProduct extends Model {
 	}
 
 	/**
-	 * editProduct
+	 * Edit Product
 	 *
-	 * @param int   $product_id
-	 * @param array $data
+	 * @param int                  $product_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -325,7 +325,7 @@ class ModelCatalogProduct extends Model {
 	}
 
 	/**
-	 * copyProduct
+	 * Copy Product
 	 *
 	 * @param int $product_id
 	 *
@@ -362,7 +362,7 @@ class ModelCatalogProduct extends Model {
 	}
 
 	/**
-	 * deleteProduct
+	 * Delete Product
 	 *
 	 * @param int $product_id
 	 *
@@ -394,11 +394,11 @@ class ModelCatalogProduct extends Model {
 	}
 
 	/**
-	 * getProduct
+	 * Get Product
 	 *
 	 * @param int $product_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getProduct(int $product_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "product` `p` LEFT JOIN `" . DB_PREFIX . "product_description` `pd` ON (`p`.`product_id` = `pd`.`product_id`) WHERE `p`.`product_id` = '" . (int)$product_id . "' AND `pd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -407,11 +407,11 @@ class ModelCatalogProduct extends Model {
 	}
 
 	/**
-	 * getProducts
+	 * Get Products
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getProducts(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "product` `p` LEFT JOIN `" . DB_PREFIX . "product_description` `pd` ON (`p`.`product_id` = `pd`.`product_id`) WHERE `pd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
@@ -477,7 +477,7 @@ class ModelCatalogProduct extends Model {
 	}
 
 	/**
-	 * getProductsByCategoryId
+	 * Get Products By Category ID
 	 *
 	 * @param int $category_id
 	 *
@@ -490,11 +490,11 @@ class ModelCatalogProduct extends Model {
 	}
 
 	/**
-	 * getDescriptions
+	 * Get Descriptions
 	 *
 	 * @param int $product_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getDescriptions(int $product_id): array {
 		$product_description_data = [];
@@ -516,11 +516,11 @@ class ModelCatalogProduct extends Model {
 	}
 
 	/**
-	 * getCategories
+	 * Get Categories
 	 *
 	 * @param int $product_id
 	 *
-	 * @return array
+	 * @return array<int, int>
 	 */
 	public function getCategories(int $product_id): array {
 		$product_category_data = [];
@@ -535,11 +535,11 @@ class ModelCatalogProduct extends Model {
 	}
 
 	/**
-	 * getFilters
+	 * Get Filters
 	 *
 	 * @param int $product_id
 	 *
-	 * @return array
+	 * @return array<int, int>
 	 */
 	public function getFilters(int $product_id): array {
 		$product_filter_data = [];
@@ -554,11 +554,11 @@ class ModelCatalogProduct extends Model {
 	}
 
 	/**
-	 * getAttributes
+	 * Get Attributes
 	 *
 	 * @param int $product_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getAttributes(int $product_id): array {
 		$product_attribute_data = [];
@@ -584,11 +584,11 @@ class ModelCatalogProduct extends Model {
 	}
 
 	/**
-	 * getOptions
+	 * Get Options
 	 *
 	 * @param int $product_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getOptions(int $product_id): array {
 		$product_option_data = [];
@@ -630,12 +630,12 @@ class ModelCatalogProduct extends Model {
 	}
 
 	/**
-	 * getOptionValue
+	 * Get Option Value
 	 *
 	 * @param int $product_id
 	 * @param int $product_option_value_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getOptionValue(int $product_id, int $product_option_value_id): array {
 		$query = $this->db->query("SELECT `pov`.`option_value_id`, `ovd`.`name`, `pov`.`quantity`, `pov`.`subtract`, `pov`.`price`, `pov`.`price_prefix`, `pov`.`points`, `pov`.`points_prefix`, `pov`.`weight`, `pov`.`weight_prefix` FROM `" . DB_PREFIX . "product_option_value` `pov` LEFT JOIN `" . DB_PREFIX . "option_value` `ov` ON (`pov`.`option_value_id` = `ov`.`option_value_id`) LEFT JOIN `" . DB_PREFIX . "option_value_description` `ovd` ON (`ov`.`option_value_id` = `ovd`.`option_value_id`) WHERE `pov`.`product_id` = '" . (int)$product_id . "' AND `pov`.`product_option_value_id` = '" . (int)$product_option_value_id . "' AND `ovd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -644,11 +644,11 @@ class ModelCatalogProduct extends Model {
 	}
 
 	/**
-	 * getImages
+	 * Get Images
 	 *
 	 * @param int $product_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getImages(int $product_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "product_image` WHERE `product_id` = '" . (int)$product_id . "' ORDER BY `sort_order` ASC");
@@ -657,11 +657,11 @@ class ModelCatalogProduct extends Model {
 	}
 
 	/**
-	 * getDiscounts
+	 * Get Discounts
 	 *
 	 * @param int $product_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getDiscounts(int $product_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "product_discount` WHERE `product_id` = '" . (int)$product_id . "' ORDER BY `quantity`, `priority`, `price`");
@@ -670,11 +670,11 @@ class ModelCatalogProduct extends Model {
 	}
 
 	/**
-	 * getSpecials
+	 * Get Specials
 	 *
 	 * @param int $product_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getSpecials(int $product_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "product_special` WHERE `product_id` = '" . (int)$product_id . "' ORDER BY `priority`, `price`");
@@ -683,11 +683,11 @@ class ModelCatalogProduct extends Model {
 	}
 
 	/**
-	 * getRewards
+	 * Get Rewards
 	 *
 	 * @param int $product_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getRewards(int $product_id): array {
 		$product_reward_data = [];
@@ -702,11 +702,11 @@ class ModelCatalogProduct extends Model {
 	}
 
 	/**
-	 * getDownloads
+	 * Get Downloads
 	 *
 	 * @param int $product_id
 	 *
-	 * @return array
+	 * @return array<int, int>
 	 */
 	public function getDownloads(int $product_id): array {
 		$product_download_data = [];
@@ -721,11 +721,11 @@ class ModelCatalogProduct extends Model {
 	}
 
 	/**
-	 * getStores
+	 * Get Stores
 	 *
 	 * @param int $product_id
 	 *
-	 * @return array
+	 * @return array<int, int>
 	 */
 	public function getStores(int $product_id): array {
 		$product_store_data = [];
@@ -744,7 +744,7 @@ class ModelCatalogProduct extends Model {
 	 *
 	 * @param int $product_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, string>>
 	 */
 	public function getSeoUrls(int $product_id): array {
 		$product_seo_url_data = [];
@@ -759,11 +759,11 @@ class ModelCatalogProduct extends Model {
 	}
 
 	/**
-	 * getLayouts
+	 * Get Layouts
 	 *
 	 * @param int $product_id
 	 *
-	 * @return array
+	 * @return array<int, int>
 	 */
 	public function getLayouts(int $product_id): array {
 		$product_layout_data = [];
@@ -778,11 +778,11 @@ class ModelCatalogProduct extends Model {
 	}
 
 	/**
-	 * getRelated
+	 * Get Related
 	 *
 	 * @param int $product_id
 	 *
-	 * @return array
+	 * @return array<int, int>
 	 */
 	public function getRelated(int $product_id): array {
 		$product_related_data = [];
@@ -797,11 +797,11 @@ class ModelCatalogProduct extends Model {
 	}
 
 	/**
-	 * getSubscriptions
+	 * Get Subscriptions
 	 *
 	 * @param int $product_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getSubscriptions(int $product_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "product_subscription` WHERE `product_id` = '" . (int)$product_id . "'");
@@ -810,15 +810,15 @@ class ModelCatalogProduct extends Model {
 	}
 
 	/**
-	 * getTotalProducts
+	 * Get Total Products
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
 	public function getTotalProducts(array $data = []): int {
 		$implode = [];
-		
+
 		$sql = "SELECT COUNT(DISTINCT `p`.`product_id`) AS `total` FROM `" . DB_PREFIX . "product` `p` LEFT JOIN `" . DB_PREFIX . "product_description` `pd` ON (`p`.`product_id` = `pd`.`product_id`)";
 
 		$implode[] = "`pd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
@@ -853,7 +853,7 @@ class ModelCatalogProduct extends Model {
 	}
 
 	/**
-	 * getTotalProductsByTaxClassId
+	 * Get Total Products By Tax Class ID
 	 *
 	 * @param int $tax_class_id
 	 *
@@ -866,7 +866,7 @@ class ModelCatalogProduct extends Model {
 	}
 
 	/**
-	 * getTotalProductsByStockStatusId
+	 * Get Total Products By Stock Status ID
 	 *
 	 * @param int $stock_status_id
 	 *
@@ -879,7 +879,7 @@ class ModelCatalogProduct extends Model {
 	}
 
 	/**
-	 * getTotalProductsByWeightClassId
+	 * Get Total Products By Weight Class ID
 	 *
 	 * @param int $weight_class_id
 	 *
@@ -892,7 +892,7 @@ class ModelCatalogProduct extends Model {
 	}
 
 	/**
-	 * getTotalProductsByLengthClassId
+	 * Get Total Products By Length Class ID
 	 *
 	 * @param int $length_class_id
 	 *
@@ -905,7 +905,7 @@ class ModelCatalogProduct extends Model {
 	}
 
 	/**
-	 * getTotalProductsByDownloadId
+	 * Get Total Products By Download ID
 	 *
 	 * @param int $download_id
 	 *
@@ -918,7 +918,7 @@ class ModelCatalogProduct extends Model {
 	}
 
 	/**
-	 * getTotalProductsByManufacturerId
+	 * Get Total Products By Manufacturer ID
 	 *
 	 * @param int $manufacturer_id
 	 *
@@ -931,7 +931,7 @@ class ModelCatalogProduct extends Model {
 	}
 
 	/**
-	 * getTotalProductsByAttributeId
+	 * Get Total Products By Attribute ID
 	 *
 	 * @param int $attribute_id
 	 *
@@ -944,7 +944,7 @@ class ModelCatalogProduct extends Model {
 	}
 
 	/**
-	 * getTotalProductsBySubscriptionPlanId
+	 * Get Total Products By Subscription Plan ID
 	 *
 	 * @param int $subscription_plan_id
 	 *
@@ -957,7 +957,7 @@ class ModelCatalogProduct extends Model {
 	}
 
 	/**
-	 * getTotalProductsByOptionId
+	 * Get Total Products By Option ID
 	 *
 	 * @param int $option_id
 	 *
@@ -970,7 +970,7 @@ class ModelCatalogProduct extends Model {
 	}
 
 	/**
-	 * getTotalProductsByLayoutId
+	 * Get Total Products By Layout ID
 	 *
 	 * @param int $layout_id
 	 *

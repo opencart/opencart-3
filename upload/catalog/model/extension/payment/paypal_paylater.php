@@ -24,7 +24,7 @@ class ModelExtensionPaymentPaypalPaylater extends Model {
 
 			if ($status) {
 				// Setting
-				$_config = new Config();
+				$_config = new \Config();
 				$_config->load('paypal');
 
 				$config_setting = $_config->get('paypal_setting');

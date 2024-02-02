@@ -11,6 +11,8 @@ class ControllerExtensionModuleGoogleHangouts extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -80,7 +82,12 @@ class ControllerExtensionModuleGoogleHangouts extends Controller {
 		$this->response->setOutput($this->load->view('extension/module/google_hangouts', $data));
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 *
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/module/google_hangouts')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

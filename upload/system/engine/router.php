@@ -15,7 +15,7 @@
 class Router {
 	private object $registry;
 	private array $pre_action = [];
-	private object $error;
+	private ?string $error;
 
 	/**
 	 * Constructor

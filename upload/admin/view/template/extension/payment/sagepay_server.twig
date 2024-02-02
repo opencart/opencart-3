@@ -24,11 +24,11 @@
         <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3>
       </div>
       <div class="panel-body">
-        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-payment" class="form-horizontal">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal" id="form-payment">
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-vendor">{{ entry_vendor }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_sagepay_server_vendor" value="{{ payment_sagepay_server_vendor }}" placeholder="{{ entry_vendor }}" id="input-vendor" class="form-control"/>
+              <input type="text" name="payment_sagepay_server_vendor" value="{{ payment_sagepay_server_vendor }}" placeholder="{{ entry_vendor }}" class="form-control" id="input-vendor"/>
               {% if error_vendor %}
                 <div class="text-danger">{{ error_vendor }}</div>
               {% endif %}
@@ -37,7 +37,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-test">{{ entry_test }}</label>
             <div class="col-sm-10">
-              <select name="payment_sagepay_server_test" id="input-test" class="form-control">
+              <select name="payment_sagepay_server_test" class="form-control" id="input-test"/>
                 {% if payment_sagepay_server_test == 'sim' %}
                   <option value="sim" selected="selected">{{ text_sim }}</option>
                 {% else %}
@@ -57,9 +57,9 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-transaction"><span data-toggle="tooltip" title="{{ help_transaction }}">{{ entry_transaction }}</span></label>
+            <label class="col-sm-2 control-label" for="input-transaction"><span data-toggle="tooltip" title="{{ help_transaction|escape('html') }}">{{ entry_transaction }}</span></label>
             <div class="col-sm-10">
-              <select name="payment_sagepay_server_transaction" id="input-transaction" class="form-control">
+              <select name="payment_sagepay_server_transaction" class="form-control" id="input-transaction"/>
                 {% if payment_sagepay_server_transaction == 'PAYMENT' %}
                   <option value="PAYMENT" selected="selected">{{ text_payment }}</option>
                 {% else %}
@@ -79,15 +79,15 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-total"><span data-toggle="tooltip" title="{{ help_total }}">{{ entry_total }}</span></label>
+            <label class="col-sm-2 control-label" for="input-total"><span data-toggle="tooltip" title="{{ help_total|escape('html') }}">{{ entry_total }}</span></label>
             <div class="col-sm-10">
-              <input type="text" name="payment_sagepay_server_total" value="{{ payment_sagepay_server_total }}" placeholder="{{ entry_total }}" id="input-total" class="form-control"/>
+              <input type="text" name="payment_sagepay_server_total" value="{{ payment_sagepay_server_total }}" placeholder="{{ entry_total }}" class="form-control" id="input-total"/>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-card">{{ entry_card }}</label>
             <div class="col-sm-10">
-              <select name="payment_sagepay_server_card" id="input-debug" class="form-control">
+              <select name="payment_sagepay_server_card" class="form-control" id="input-debug"/>
                 {% if payment_sagepay_server_card %}
                   <option value="1" selected="selected">{{ text_enabled }}</option>
                   <option value="0">{{ text_disabled }}</option>
@@ -101,7 +101,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-order-status">{{ entry_order_status }}</label>
             <div class="col-sm-10">
-              <select name="payment_sagepay_server_order_status_id" id="input-order-status" class="form-control">
+              <select name="payment_sagepay_server_order_status_id" class="form-control" id="input-order-status"/>
                 {% for order_status in order_statuses %}
                   {% if order_status.order_status_id == payment_sagepay_server_order_status_id %}
                     <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
@@ -115,7 +115,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-geo-zone">{{ entry_geo_zone }}</label>
             <div class="col-sm-10">
-              <select name="payment_sagepay_server_geo_zone_id" id="input-geo-zone" class="form-control">
+              <select name="payment_sagepay_server_geo_zone_id" class="form-control" id="input-geo-zone"/>
                 <option value="0">{{ text_all_zones }}</option>
                 {% for geo_zone in geo_zones %}
                   {% if geo_zone.geo_zone_id == payment_sagepay_server_geo_zone_id %}
@@ -128,9 +128,9 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-debug"><span data-toggle="tooltip" title="{{ help_debug }}">{{ entry_debug }}</span></label>
+            <label class="col-sm-2 control-label" for="input-debug"><span data-toggle="tooltip" title="{{ help_debug|escape('html') }}">{{ entry_debug }}</span></label>
             <div class="col-sm-10">
-              <select name="payment_sagepay_server_debug" id="input-debug" class="form-control">
+              <select name="payment_sagepay_server_debug" class="form-control" id="input-debug"/>
                 {% if payment_sagepay_server_debug %}
                   <option value="1" selected="selected">{{ text_enabled }}</option>
                   <option value="0">{{ text_disabled }}</option>
@@ -144,7 +144,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
             <div class="col-sm-10">
-              <select name="payment_sagepay_server_status" id="input-status" class="form-control">
+              <select name="payment_sagepay_server_status" class="form-control" id="input-status"/>
                 {% if payment_sagepay_server_status %}
                   <option value="1" selected="selected">{{ text_enabled }}</option>
                   <option value="0">{{ text_disabled }}</option>
@@ -158,17 +158,17 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-sort-order">{{ entry_sort_order }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_sagepay_server_sort_order" value="{{ payment_sagepay_server_sort_order }}" placeholder="{{ entry_sort_order }}" id="input-sort-order" class="form-control"/>
+              <input type="text" name="payment_sagepay_server_sort_order" value="{{ payment_sagepay_server_sort_order }}" placeholder="{{ entry_sort_order }}" class="form-control" id="input-sort-order"/>
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="payment_sagepay_server_cron_job_token"><span data-toggle="tooltip" title="{{ help_cron_job_token }}">{{ entry_cron_job_token }}</span></label>
+            <label class="col-sm-2 control-label" for="payment-sagepay-server-cron-job-token"><span data-toggle="tooltip" title="{{ help_cron_job_token|escape('html') }}">{{ entry_cron_job_token }}</span></label>
             <div class="col-sm-10">
-              <input type="text" name="payment_sagepay_server_cron_job_token" value="{{ payment_sagepay_server_cron_job_token }}" placeholder="{{ entry_cron_job_token }}" id="payment_sagepay_server_cron_job_token" class="form-control"/>
+              <input type="text" name="payment_sagepay_server_cron_job_token" value="{{ payment_sagepay_server_cron_job_token }}" placeholder="{{ entry_cron_job_token }}" class="form-control" id="payment-sagepay-server-cron-job-token"/>
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_cron_job_url }}">{{ entry_cron_job_url }}</span></label>
+            <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_cron_job_url|escape('html') }}">{{ entry_cron_job_url }}</span></label>
             <div class="col-sm-10"><span id="cron-job-url">{{ sagepay_server_cron_job_url }}</span></div>
           </div>
           <div class="form-group">

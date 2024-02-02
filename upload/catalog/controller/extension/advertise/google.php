@@ -31,6 +31,8 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	}
 
 	/**
+	 * Google Global Site Tag
+	 *
 	 * @param string $route
 	 * @param array  $args
 	 * @param mixed  $output
@@ -59,6 +61,8 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	}
 
 	/**
+	 * Before Checkout Success
+	 *
 	 * @param string $route
 	 * @param array  $data
 	 *
@@ -152,6 +156,8 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	}
 
 	/**
+	 * Google Dynamic Remarketing Purchase
+	 *
 	 * @param string $route
 	 * @param array  $data
 	 * @param mixed  $output
@@ -192,6 +198,8 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	}
 
 	/**
+	 * Google Dynamic Remarketing Home
+	 *
 	 * @param string $route
 	 * @param array  $data
 	 * @param mixed  $output
@@ -230,6 +238,8 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	}
 
 	/**
+	 * Google Dynamic Remarketing Searchresults
+	 *
 	 * @param string $route
 	 * @param array  $data
 	 * @param mixed  $output
@@ -269,6 +279,8 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	}
 
 	/**
+	 * Google Dynamic Remarketing Category
+	 *
 	 * @param string $route
 	 * @param array  $data
 	 * @param mixed  $output
@@ -322,6 +334,8 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	}
 
 	/**
+	 * Google Dynamic Remarketing Product
+	 *
 	 * @param string $route
 	 * @param array  $data
 	 * @param mixed  $output
@@ -382,6 +396,8 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	}
 
 	/**
+	 * Google Dynamic Remarketing Cart
+	 *
 	 * @param string $route
 	 * @param array  $data
 	 * @param mixed  $output
@@ -431,6 +447,8 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	}
 
 	/**
+	 * Cron
+	 *
 	 * @param int    $cron_id
 	 * @param string $code
 	 * @param int    $cycle

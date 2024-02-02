@@ -30,6 +30,8 @@ class ControllerExtensionPaymentAlipayCross extends Controller {
 	];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -161,13 +163,13 @@ class ControllerExtensionPaymentAlipayCross extends Controller {
 		}
 
 		if (isset($this->request->post['payment_alipay_cross_status'])) {
-			$data['payment_alipay_cross_status'] = $this->request->post['payment_alipay_cross_status'];
+			$data['payment_alipay_cross_status'] = (int)$this->request->post['payment_alipay_cross_status'];
 		} else {
 			$data['payment_alipay_cross_status'] = $this->config->get('payment_alipay_cross_status');
 		}
 
 		if (isset($this->request->post['payment_alipay_cross_sort_order'])) {
-			$data['payment_alipay_cross_sort_order'] = $this->request->post['payment_alipay_cross_sort_order'];
+			$data['payment_alipay_cross_sort_order'] = (int)$this->request->post['payment_alipay_cross_sort_order'];
 		} else {
 			$data['payment_alipay_cross_sort_order'] = $this->config->get('payment_alipay_cross_sort_order');
 		}
@@ -179,7 +181,12 @@ class ControllerExtensionPaymentAlipayCross extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/alipay_cross', $data));
 	}
 
-	private function validate() {
+	/**
+	 * Validate
+	 *
+	 * @return bool
+	 */
+	private function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/payment/alipay_cross')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

@@ -11,6 +11,8 @@ class ControllerExtensionPaymentPerpetualPayments extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -114,13 +116,13 @@ class ControllerExtensionPaymentPerpetualPayments extends Controller {
 		$data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();
 
 		if (isset($this->request->post['payment_perpetual_payments_status'])) {
-			$data['payment_perpetual_payments_status'] = $this->request->post['payment_perpetual_payments_status'];
+			$data['payment_perpetual_payments_status'] = (int)$this->request->post['payment_perpetual_payments_status'];
 		} else {
 			$data['payment_perpetual_payments_status'] = $this->config->get('payment_perpetual_payments_status');
 		}
 
 		if (isset($this->request->post['payment_perpetual_payments_sort_order'])) {
-			$data['payment_perpetual_payments_sort_order'] = $this->request->post['payment_perpetual_payments_sort_order'];
+			$data['payment_perpetual_payments_sort_order'] = (int)$this->request->post['payment_perpetual_payments_sort_order'];
 		} else {
 			$data['payment_perpetual_payments_sort_order'] = $this->config->get('payment_perpetual_payments_sort_order');
 		}
@@ -132,7 +134,12 @@ class ControllerExtensionPaymentPerpetualPayments extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/perpetual_payments', $data));
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 *
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/payment/perpetual_payments')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

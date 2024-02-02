@@ -12,13 +12,25 @@ class ModelExtensionPaymentOpayo extends Model {
 	 */
 	public function install(): void {
 		$this->db->query("
-			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "opayo_order` (
+			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "opayo_card` (
+			  `card_id` int(11) NOT NULL AUTO_INCREMENT,
+			  `customer_id` int(11) NOT NULL,
+			  `token` varchar(50) NOT NULL,
+			  `digits` varchar(4) NOT NULL,
+			  `expiry` varchar(5) NOT NULL,
+			  `type` varchar(50) NOT NULL,
+			  PRIMARY KEY (`card_id`),
+			  KEY (`customer_id`),
+			  KEY (`token`)
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
+
+		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "opayo_order` (
 			  `opayo_order_id` int(11) NOT NULL AUTO_INCREMENT,
 			  `order_id` int(11) NOT NULL,
 			  `vps_tx_id` varchar(50),
 			  `vendor_tx_code` varchar(50) NOT NULL,
 			  `security_key` varchar(50) NOT NULL,
-			  `tx_auth_no` varchar(50),			  
+			  `tx_auth_no` varchar(50),
 			  `release_status` int(1) DEFAULT NULL,
 			  `void_status` int(1) DEFAULT NULL,
 			  `settle_type` int(1) DEFAULT NULL,
@@ -32,49 +44,36 @@ class ModelExtensionPaymentOpayo extends Model {
 			  KEY (`order_id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
 
-		$this->db->query("
-			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "opayo_order_transaction` (
-			  `opayo_order_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
-			  `opayo_order_id` int(11) NOT NULL,			  
-			  `type` enum('auth', 'payment', 'rebate', 'void') DEFAULT NULL,
-			  `amount` decimal(15,4) NOT NULL,
-			  `date_added` datetime NOT NULL,
-			  PRIMARY KEY (`opayo_order_transaction_id`),
-			  KEY (`opayo_order_id`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
-
-		$this->db->query("
-			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "opayo_order_subscription` (
-			  `opayo_order_subscription_id` int(11) NOT NULL AUTO_INCREMENT,
+		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "opayo_subscription` (
+			  `opayo_subscription_id` int(11) NOT NULL AUTO_INCREMENT,
 			  `order_id` int(11) NOT NULL,
 			  `subscription_id` int(11) NOT NULL,
 			  `vps_tx_id` varchar(50),
 			  `vendor_tx_code` varchar(50) NOT NULL,
 			  `security_key` varchar(50) NOT NULL,
-			  `tx_auth_no` varchar(50),			  
+			  `tx_auth_no` varchar(50),
 			  `next_payment` datetime NOT NULL,
 			  `trial_end` datetime DEFAULT NULL,
 			  `subscription_end` datetime DEFAULT NULL,
 			  `currency_code` varchar(3) NOT NULL,
 			  `total` decimal(15,4) NOT NULL,
+			  `status` tinyint(1) NOT NULL,
 			  `date_added` datetime NOT NULL,
 			  `date_modified` datetime NOT NULL,
-			  PRIMARY KEY (`opayo_order_subscription_id`),
-			  KEY (`order_id`)
+			  PRIMARY KEY (`opayo_subscription_id`),
+			  KEY (`order_id`),
+			  KEY (`subscription_id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
 
-		$this->db->query("
-			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "opayo_card` (
-			  `card_id` int(11) NOT NULL AUTO_INCREMENT,
-			  `customer_id` int(11) NOT NULL,
-			  `token` varchar(50) NOT NULL,
-			  `digits` varchar(4) NOT NULL,
-			  `expiry` varchar(5) NOT NULL,
-			  `type` varchar(50) NOT NULL,
-			  PRIMARY KEY (`card_id`),
-			  KEY (`customer_id`),
-			  KEY (`token`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
+		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "opayo_subscription_transaction` (
+				`opayo_subscription_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
+				`opayo_order_id` int(11) NOT NULL,
+				`type` enum(\'auth\',\'payment\',\'rebate\',\'void\') DEFAULT NULL,
+				`amount` decimal(15,4) NOT NULL,
+				`date_added` datetime NOT NULL,
+				PRIMARY KEY (`opayo_subscription_transaction_id`),
+				KEY (`opayo_order_id`)
+			  ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
 	}
 
 	/**
@@ -83,10 +82,10 @@ class ModelExtensionPaymentOpayo extends Model {
 	 * @return void
 	 */
 	public function uninstall(): void {
-		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "opayo_order`");
-		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "opayo_order_transaction`");
-		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "opayo_order_subscription`");
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "opayo_card`");
+		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "opayo_order`");
+		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "opayo_order_subscription`");
+		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "opayo_order_transaction`");
 	}
 
 	/**
@@ -103,7 +102,7 @@ class ModelExtensionPaymentOpayo extends Model {
 			$void_data = [];
 
 			// Setting
-			$_config = new Config();
+			$_config = new \Config();
 			$_config->load('opayo');
 
 			$config_setting = $_config->get('opayo_setting');
@@ -112,11 +111,14 @@ class ModelExtensionPaymentOpayo extends Model {
 
 			$url = '';
 
+			// https://en.wikipedia.org/wiki/Opayo
 			if ($setting['general']['environment'] == 'live') {
-				$url = 'https://live.sagepay.com/gateway/service/void.vsp';
+				$url = 'https://live.opayo.eu.elavon.com/gateway/service/void.vsp';
+
 				$void_data['VPSProtocol'] = '4.00';
 			} elseif ($setting['general']['environment'] == 'test') {
-				$url = 'https://test.sagepay.com/gateway/service/void.vsp';
+				$url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/void.vsp';
+
 				$void_data['VPSProtocol'] = '4.00';
 			}
 
@@ -162,7 +164,7 @@ class ModelExtensionPaymentOpayo extends Model {
 			$release_data = [];
 
 			// Setting
-			$_config = new Config();
+			$_config = new \Config();
 			$_config->load('opayo');
 
 			$config_setting = $_config->get('opayo_setting');
@@ -171,12 +173,15 @@ class ModelExtensionPaymentOpayo extends Model {
 
 			$url = '';
 
+			// https://en.wikipedia.org/wiki/Opayo
 			if ($setting['general']['environment'] == 'live') {
-				$url = 'https://live.sagepay.com/gateway/service/release.vsp';
-				$release_data['VPSProtocol'] = '4.00';
+				$url = 'https://live.opayo.eu.elavon.com/gateway/service/void.vsp';
+
+				$void_data['VPSProtocol'] = '4.00';
 			} elseif ($setting['general']['environment'] == 'test') {
-				$url = 'https://test.sagepay.com/gateway/service/release.vsp';
-				$release_data['VPSProtocol'] = '4.00';
+				$url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/void.vsp';
+
+				$void_data['VPSProtocol'] = '4.00';
 			}
 
 			$release_data['TxType'] = 'RELEASE';
@@ -220,7 +225,7 @@ class ModelExtensionPaymentOpayo extends Model {
 			$refund_data = [];
 
 			// Setting
-			$_config = new Config();
+			$_config = new \Config();
 			$_config->load('opayo');
 
 			$config_setting = $_config->get('opayo_setting');
@@ -229,12 +234,15 @@ class ModelExtensionPaymentOpayo extends Model {
 
 			$url = '';
 
+			// https://en.wikipedia.org/wiki/Opayo
 			if ($setting['general']['environment'] == 'live') {
-				$url = 'https://live.sagepay.com/gateway/service/refund.vsp';
-				$refund_data['VPSProtocol'] = '4.00';
+				$url = 'https://live.opayo.eu.elavon.com/gateway/service/void.vsp';
+
+				$void_data['VPSProtocol'] = '4.00';
 			} elseif ($setting['general']['environment'] == 'test') {
-				$url = 'https://test.sagepay.com/gateway/service/refund.vsp';
-				$refund_data['VPSProtocol'] = '4.00';
+				$url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/void.vsp';
+
+				$void_data['VPSProtocol'] = '4.00';
 			}
 
 			$refund_data['TxType'] = 'REFUND';
@@ -391,13 +399,13 @@ class ModelExtensionPaymentOpayo extends Model {
 	/**
 	 * Log
 	 *
-	 * @param string  $title
-	 * @param mixed   $data
+	 * @param string $title
+	 * @param mixed  $data
 	 *
 	 * @return void
 	 */
 	public function log(string $title, mixed $data): void {
-		$_config = new Config();
+		$_config = new \Config();
 		$_config->load('opayo');
 		$config_setting = $_config->get('opayo_setting');
 

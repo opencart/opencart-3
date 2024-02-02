@@ -30,11 +30,11 @@
         <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3>
       </div>
       <div class="panel-body">
-        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-payment" class="form-horizontal">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal" id="form-payment">
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-paymode">{{ entry_paymode }}</label>
             <div class="col-sm-10">
-              <select name="payment_eway_paymode" id="input-test" class="form-control">
+              <select name="payment_eway_paymode" class="form-control" id="input-test"/>
                 {% if payment_eway_paymode == 'iframe' %}
                   <option value="iframe" selected="selected">{{ text_iframe }}</option>
                   <option value="transparent">{{ text_transparent }}</option>
@@ -46,9 +46,9 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-test"><span data-toggle="tooltip" title="{{ help_testmode }}">{{ entry_test }}</span></label>
+            <label class="col-sm-2 control-label" for="input-test"><span data-toggle="tooltip" title="{{ help_testmode|escape('html') }}">{{ entry_test }}</span></label>
             <div class="col-sm-10">
-              <select name="payment_eway_test" id="input-test" class="form-control">
+              <select name="payment_eway_test" class="form-control" id="input-test"/>
                 {% if payment_eway_test %}
                   <option value="1" selected="selected">{{ text_yes }}</option>
                   <option value="0">{{ text_no }}</option>
@@ -60,18 +60,18 @@
             </div>
           </div>
           <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-username"><span data-toggle="tooltip" title="{{ help_username }}">{{ entry_username }}</span></label>
+            <label class="col-sm-2 control-label" for="input-username"><span data-toggle="tooltip" title="{{ help_username|escape('html') }}">{{ entry_username }}</span></label>
             <div class="col-sm-10">
-              <input type="text" name="payment_eway_username" value="{{ payment_eway_username }}" placeholder="{{ entry_username }}" id="input-username" class="form-control"/>
+              <input type="text" name="payment_eway_username" value="{{ payment_eway_username }}" placeholder="{{ entry_username }}" class="form-control" id="input-username"/>
               {% if error_username %}
                 <div class="text-danger">{{ error_username }}</div>
               {% endif %}
             </div>
           </div>
           <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-password"><span data-toggle="tooltip" title="{{ help_password }}">{{ entry_password }}</span></label>
+            <label class="col-sm-2 control-label" for="input-password"><span data-toggle="tooltip" title="{{ help_password|escape('html') }}">{{ entry_password }}</span></label>
             <div class="col-sm-10">
-              <input type="password" name="payment_eway_password" value="{{ payment_eway_password }}" placeholder="{{ entry_password }}" id="input-password" class="form-control"/>
+              <input type="password" name="payment_eway_password" value="{{ payment_eway_password }}" placeholder="{{ entry_password }}" class="form-control" id="input-password"/>
               {% if error_password %}
                 <div class="text-danger">{{ error_password }}</div>
               {% endif %}
@@ -80,7 +80,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
             <div class="col-sm-10">
-              <select name="payment_eway_status" id="input-status" class="form-control">
+              <select name="payment_eway_status" class="form-control" id="input-status"/>
                 {% if payment_eway_status %}
                   <option value="1" selected="selected">{{ text_enabled }}</option>
                   <option value="0">{{ text_disabled }}</option>
@@ -92,9 +92,9 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-transaction-method"><span data-toggle="tooltip" title="{{ help_transaction_method }}">{{ entry_transaction_method }}</span></label>
+            <label class="col-sm-2 control-label" for="input-transaction-method"><span data-toggle="tooltip" title="{{ help_transaction_method|escape('html') }}">{{ entry_transaction_method }}</span></label>
             <div class="col-sm-10">
-              <select name="payment_eway_transaction_method" id="input-transaction-method" class="form-control">
+              <select name="payment_eway_transaction_method" class="form-control" id="input-transaction-method"/>
                 {% if payment_eway_transaction_method == 'auth' %}
                   <option value="payment">{{ text_sale }}</option>
                   <option value="auth" selected="selected">{{ text_authorisation }}</option>
@@ -106,11 +106,11 @@
             </div>
           </div>
           <div class="form-group required">
-            <label class="col-sm-2 control-label" for="eway_payment_type">{{ entry_payment_type }}</label>
+            <label class="col-sm-2 control-label" for="payment-eway-payment-type">{{ entry_payment_type }}</label>
             <div class="col-sm-10">
               <p>
                 <input type="hidden" name="payment_eway_payment_type[visa]" value="0"/>
-                <input type='checkbox' name='payment_eway_payment_type[visa]' id="eway_payment_type" value='1' {{ payment_eway_payment_type.visa is defined and payment_eway_payment_type.visa == 1 ? 'checked="checked"' : '' }}/> CC - Visa
+                <input type='checkbox' name='payment_eway_payment_type[visa]' value='1' {{ payment_eway_payment_type.visa is defined and payment_eway_payment_type.visa == 1 ? 'checked="checked"' : '' }} id="payment-eway-payment-type"/> CC - Visa
               </p>
               <p>
                 <input type="hidden" name="payment_eway_payment_type[mastercard]" value="0"/>
@@ -144,7 +144,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-geo-zone">{{ entry_geo_zone }}</label>
             <div class="col-sm-10">
-              <select name="payment_eway_standard_geo_zone_id" id="input-geo-zone" class="form-control">
+              <select name="payment_eway_standard_geo_zone_id" class="form-control" id="input-geo-zone"/>
                 <option value="0">{{ text_all_zones }}</option>
                 {% for geo_zone in geo_zones %}
                   {% if geo_zone.geo_zone_id == payment_eway_standard_geo_zone_id %}
@@ -159,7 +159,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-order-status">{{ entry_order_status }}</label>
             <div class="col-sm-10">
-              <select name="payment_eway_order_status_id" id="input-order-status" class="form-control">
+              <select name="payment_eway_order_status_id" class="form-control" id="input-order-status"/>
                 {% for order_status in order_statuses %}
                   {% if order_status.order_status_id == payment_eway_order_status_id %}
                     <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
@@ -173,7 +173,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-order-status-refund">{{ entry_order_status_refund }}</label>
             <div class="col-sm-10">
-              <select name="payment_eway_order_status_refunded_id" id="input-order-status-refund" class="form-control">
+              <select name="payment_eway_order_status_refunded_id" class="form-control" id="input-order-status-refund"/>
                 {% for order_status in order_statuses %}
                   {% if order_status.order_status_id == payment_eway_order_status_refunded_id %}
                     <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
@@ -187,7 +187,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-order-status-auth">{{ entry_order_status_auth }}</label>
             <div class="col-sm-10">
-              <select name="payment_eway_order_status_auth_id" id="input-order-status-auth" class="form-control">
+              <select name="payment_eway_order_status_auth_id" class="form-control" id="input-order-status-auth"/>
                 {% for order_status in order_statuses %}
                   {% if order_status.order_status_id == payment_eway_order_status_auth_id %}
                     <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
@@ -201,7 +201,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-order-status-fraud">{{ entry_order_status_fraud }}</label>
             <div class="col-sm-10">
-              <select name="payment_eway_order_status_fraud_id" id="input-order-status-fraud" class="form-control">
+              <select name="payment_eway_order_status_fraud_id" class="form-control" id="input-order-status-fraud"/>
                 {% for order_status in order_statuses %}
                   {% if order_status.order_status_id == payment_eway_order_status_fraud_id %}
                     <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
@@ -215,7 +215,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-sort-order">{{ entry_sort_order }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_eway_sort_order" value="{{ payment_eway_sort_order }}" placeholder="{{ entry_sort_order }}" id="input-sort-order" class="form-control"/>
+              <input type="text" name="payment_eway_sort_order" value="{{ payment_eway_sort_order }}" placeholder="{{ entry_sort_order }}" class="form-control" id="input-sort-order"/>
             </div>
           </div>
         </form>

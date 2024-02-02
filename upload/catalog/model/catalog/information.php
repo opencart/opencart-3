@@ -6,11 +6,11 @@
  */
 class ModelCatalogInformation extends Model {
 	/**
-	 * getInformation
+	 * Get Information
 	 *
 	 * @param int $information_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getInformation(int $information_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "information` `i` LEFT JOIN `" . DB_PREFIX . "information_description` `id` ON (`i`.`information_id` = `id`.`information_id`) LEFT JOIN `" . DB_PREFIX . "information_to_store` `i2s` ON (`i`.`information_id` = `i2s`.`information_id`) WHERE `i`.`information_id` = '" . (int)$information_id . "' AND `id`.`language_id` = '" . (int)$this->config->get('config_language_id') . "' AND `i2s`.`store_id` = '" . (int)$this->config->get('config_store_id') . "' AND `i`.`status` = '1'");
@@ -19,9 +19,9 @@ class ModelCatalogInformation extends Model {
 	}
 
 	/**
-	 * getInformations
+	 * Get Informations
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getInformations(): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "information` `i` LEFT JOIN `" . DB_PREFIX . "information_description` `id` ON (`i`.`information_id` = `id`.`information_id`) LEFT JOIN `" . DB_PREFIX . "information_to_store` `i2s` ON (`i`.`information_id` = `i2s`.`information_id`) WHERE `id`.`language_id` = '" . (int)$this->config->get('config_language_id') . "' AND `i2s`.`store_id` = '" . (int)$this->config->get('config_store_id') . "' AND `i`.`status` = '1' ORDER BY `i`.`sort_order`, LCASE(`id`.`title`) ASC");
@@ -30,7 +30,7 @@ class ModelCatalogInformation extends Model {
 	}
 
 	/**
-	 * getLayoutId
+	 * Get LayoutId
 	 *
 	 * @param int $information_id
 	 *

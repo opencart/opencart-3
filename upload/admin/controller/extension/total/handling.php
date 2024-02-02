@@ -11,6 +11,8 @@ class ControllerExtensionTotalHandling extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -97,7 +99,12 @@ class ControllerExtensionTotalHandling extends Controller {
 		$this->response->setOutput($this->load->view('extension/total/handling', $data));
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 *
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/total/handling')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

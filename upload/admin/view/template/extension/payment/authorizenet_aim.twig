@@ -24,11 +24,11 @@
         <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3>
       </div>
       <div class="panel-body">
-        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-payment" class="form-horizontal">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal" id="form-payment">
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-login">{{ entry_login }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_authorizenet_aim_login" value="{{ payment_authorizenet_aim_login }}" placeholder="{{ entry_login }}" id="input-login" class="form-control"/>
+              <input type="text" name="payment_authorizenet_aim_login" value="{{ payment_authorizenet_aim_login }}" placeholder="{{ entry_login }}" class="form-control" id="input-login"/>
               {% if error_login %}
                 <div class="text-danger">{{ error_login }}</div>
               {% endif %}
@@ -37,7 +37,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-key">{{ entry_key }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_authorizenet_aim_key" value="{{ payment_authorizenet_aim_key }}" placeholder="{{ entry_key }}" id="input-key" class="form-control"/>
+              <input type="text" name="payment_authorizenet_aim_key" value="{{ payment_authorizenet_aim_key }}" placeholder="{{ entry_key }}" class="form-control" id="input-key"/>
               {% if error_key %}
                 <div class="text-danger">{{ error_key }}</div>
               {% endif %}
@@ -46,13 +46,13 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-hash">{{ entry_hash }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_authorizenet_aim_hash" value="{{ payment_authorizenet_aim_hash }}" placeholder="{{ entry_hash }}" id="input-hash" class="form-control"/>
+              <input type="text" name="payment_authorizenet_aim_hash" value="{{ payment_authorizenet_aim_hash }}" placeholder="{{ entry_hash }}" class="form-control" id="input-hash"/>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-server">{{ entry_server }}</label>
             <div class="col-sm-10">
-              <select name="payment_authorizenet_aim_server" id="input-server" class="form-control">
+              <select name="payment_authorizenet_aim_server" class="form-control" id="input-server"/>
                 {% if payment_authorizenet_aim_server == 'live' %}
                   <option value="live" selected="selected">{{ text_live }}</option>
                 {% else %}
@@ -69,7 +69,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-mode">{{ entry_mode }}</label>
             <div class="col-sm-10">
-              <select name="payment_authorizenet_aim_mode" id="input-mode" class="form-control">
+              <select name="payment_authorizenet_aim_mode" class="form-control" id="input-mode"/>
                 {% if payment_authorizenet_aim_mode == 'live' %}
                   <option value="live" selected="selected">{{ text_live }}</option>
                 {% else %}
@@ -86,7 +86,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-method">{{ entry_method }}</label>
             <div class="col-sm-10">
-              <select name="payment_authorizenet_aim_method" id="input-method" class="form-control">
+              <select name="payment_authorizenet_aim_method" class="form-control" id="input-method"/>
                 {% if payment_authorizenet_aim_method == 'authorization' %}
                   <option value="authorization" selected="selected">{{ text_authorization }}</option>
                 {% else %}
@@ -101,15 +101,15 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-total"><span data-toggle="tooltip" title="{{ help_total }}">{{ entry_total }}</span></label>
+            <label class="col-sm-2 control-label" for="input-total"><span data-toggle="tooltip" title="{{ help_total|escape('html') }}">{{ entry_total }}</span></label>
             <div class="col-sm-10">
-              <input type="text" name="payment_authorizenet_aim_total" value="{{ payment_authorizenet_aim_total }}" placeholder="{{ entry_total }}" id="input-total" class="form-control"/>
+              <input type="text" name="payment_authorizenet_aim_total" value="{{ payment_authorizenet_aim_total }}" placeholder="{{ entry_total }}" class="form-control" id="input-total"/>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-order-status">{{ entry_order_status }}</label>
             <div class="col-sm-10">
-              <select name="payment_authorizenet_aim_order_status_id" id="input-order-status" class="form-control">
+              <select name="payment_authorizenet_aim_order_status_id" class="form-control" id="input-order-status"/>
                 {% for order_status in order_statuses %}
                   {% if order_status.order_status_id == payment_authorizenet_aim_order_status_id %}
                     <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
@@ -123,7 +123,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-geo-zone">{{ entry_geo_zone }}</label>
             <div class="col-sm-10">
-              <select name="payment_authorizenet_aim_geo_zone_id" id="input-geo-zone" class="form-control">
+              <select name="payment_authorizenet_aim_geo_zone_id" class="form-control" id="input-geo-zone"/>
                 <option value="0">{{ text_all_zones }}</option>
                 {% for geo_zone in geo_zones %}
                   {% if geo_zone.geo_zone_id == payment_authorizenet_aim_geo_zone_id %}
@@ -138,7 +138,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
             <div class="col-sm-10">
-              <select name="payment_authorizenet_aim_status" id="input-status" class="form-control">
+              <select name="payment_authorizenet_aim_status" class="form-control" id="input-status"/>
                 {% if payment_authorizenet_aim_status %}
                   <option value="1" selected="selected">{{ text_enabled }}</option>
                   <option value="0">{{ text_disabled }}</option>
@@ -152,7 +152,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-sort-order">{{ entry_sort_order }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_authorizenet_aim_sort_order" value="{{ payment_authorizenet_aim_sort_order }}" placeholder="{{ entry_sort_order }}" id="input-sort-order" class="form-control"/>
+              <input type="text" name="payment_authorizenet_aim_sort_order" value="{{ payment_authorizenet_aim_sort_order }}" placeholder="{{ entry_sort_order }}" class="form-control" id="input-sort-order"/>
             </div>
           </div>
         </form>

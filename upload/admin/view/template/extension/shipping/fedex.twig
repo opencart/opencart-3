@@ -24,11 +24,11 @@
         <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3>
       </div>
       <div class="panel-body">
-        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-shipping" class="form-horizontal">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal" id="form-shipping">
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-key">{{ entry_key }}</label>
             <div class="col-sm-10">
-              <input type="text" name="shipping_fedex_key" value="{{ shipping_fedex_key }}" placeholder="{{ entry_key }}" id="input-key" class="form-control"/>
+              <input type="text" name="shipping_fedex_key" value="{{ shipping_fedex_key }}" placeholder="{{ entry_key }}" class="form-control" id="input-key"/>
               {% if error_key %}
                 <div class="text-danger">{{ error_key }}</div>
               {% endif %}
@@ -37,7 +37,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-password">{{ entry_password }}</label>
             <div class="col-sm-10">
-              <input type="text" name="shipping_fedex_password" value="{{ shipping_fedex_password }}" placeholder="{{ entry_password }}" id="input-password" class="form-control"/>
+              <input type="text" name="shipping_fedex_password" value="{{ shipping_fedex_password }}" placeholder="{{ entry_password }}" class="form-control" id="input-password"/>
               {% if error_password %}
                 <div class="text-danger">{{ error_password }}</div>
               {% endif %}
@@ -46,7 +46,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-account">{{ entry_account }}</label>
             <div class="col-sm-10">
-              <input type="text" name="shipping_fedex_account" value="{{ shipping_fedex_account }}" placeholder="{{ entry_account }}" id="input-account" class="form-control"/>
+              <input type="text" name="shipping_fedex_account" value="{{ shipping_fedex_account }}" placeholder="{{ entry_account }}" class="form-control" id="input-account"/>
               {% if error_account %}
                 <div class="text-danger">{{ error_account }}</div>
               {% endif %}
@@ -55,7 +55,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-meter">{{ entry_meter }}</label>
             <div class="col-sm-10">
-              <input type="text" name="shipping_fedex_meter" value="{{ shipping_fedex_meter }}" placeholder="{{ entry_meter }}" id="input-meter" class="form-control"/>
+              <input type="text" name="shipping_fedex_meter" value="{{ shipping_fedex_meter }}" placeholder="{{ entry_meter }}" class="form-control" id="input-meter"/>
               {% if error_meter %}
                 <div class="text-danger">{{ error_meter }}</div>
               {% endif %}
@@ -64,7 +64,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-postcode">{{ entry_postcode }}</label>
             <div class="col-sm-10">
-              <input type="text" name="shipping_fedex_postcode" value="{{ shipping_fedex_postcode }}" placeholder="{{ entry_postcode }}" id="input-postcode" class="form-control"/>
+              <input type="text" name="shipping_fedex_postcode" value="{{ shipping_fedex_postcode }}" placeholder="{{ entry_postcode }}" class="form-control" id="input-postcode"/>
               {% if error_postcode %}
                 <div class="text-danger">{{ error_postcode }}</div>
               {% endif %}
@@ -115,13 +115,13 @@
             <div class="col-sm-10">
               <div class="row">
                 <div class="col-sm-4">
-                  <input type="text" name="shipping_fedex_length" value="{{ shipping_fedex_length }}" placeholder="{{ entry_length }}" id="input-length" class="form-control"/>
+                  <input type="text" name="shipping_fedex_length" value="{{ shipping_fedex_length }}" placeholder="{{ entry_length }}" class="form-control" id="input-length"/>
                 </div>
                 <div class="col-sm-4">
-                  <input type="text" name="shipping_fedex_width" value="{{ shipping_fedex_width }}" placeholder="{{ entry_width }}" id="input-width" class="form-control"/>
+                  <input type="text" name="shipping_fedex_width" value="{{ shipping_fedex_width }}" placeholder="{{ entry_width }}" class="form-control" id="input-width"/>
                 </div>
                 <div class="col-sm-4">
-                  <input type="text" name="shipping_fedex_height" value="{{ shipping_fedex_height }}" placeholder="{{ entry_height }}" id="input-height" class="form-control"/>
+                  <input type="text" name="shipping_fedex_height" value="{{ shipping_fedex_height }}" placeholder="{{ entry_height }}" class="form-control" id="input-height"/>
                 </div>
               </div>
               {% if error_dimension %}
@@ -130,9 +130,9 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-length-class"><span data-toggle="tooltip" title="{{ help_length_class }}">{{ entry_length_class }}</span></label>
+            <label class="col-sm-2 control-label" for="input-length-class"><span data-toggle="tooltip" title="{{ help_length_class|escape('html') }}">{{ entry_length_class }}</span></label>
             <div class="col-sm-10">
-              <select name="shipping_fedex_length_class_id" id="input-length-class" class="form-control">
+              <select name="shipping_fedex_length_class_id" class="form-control" id="input-length-class"/>
                 {% for length_class in length_classes %}
                   {% if length_class.length_class_id == shipping_fedex_length_class_id %}
                     <option value="{{ length_class.length_class_id }}" selected="selected">{{ length_class.title }}</option>
@@ -146,7 +146,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-dropoff-type">{{ entry_dropoff_type }}</label>
             <div class="col-sm-10">
-              <select name="shipping_fedex_dropoff_type" id="input-dropoff-type" class="form-control">
+              <select name="shipping_fedex_dropoff_type" class="form-control" id="input-dropoff-type"/>
                 {% if shipping_fedex_dropoff_type == 'REGULAR_PICKUP' %}
                   <option value="REGULAR_PICKUP" selected="selected">{{ text_regular_pickup }}</option>
                 {% else %}
@@ -178,7 +178,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-packaging-type">{{ entry_packaging_type }}</label>
             <div class="col-sm-10">
-              <select name="shipping_fedex_packaging_type" id="input-packaging-type" class="form-control">
+              <select name="shipping_fedex_packaging_type" class="form-control" id="input-packaging-type"/>
                 {% if shipping_fedex_packaging_type == 'FEDEX_ENVELOPE' %}
                   <option value="FEDEX_ENVELOPE" selected="selected">{{ text_fedex_envelope }}</option>
                 {% else %}
@@ -220,7 +220,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-rate-type">{{ entry_rate_type }}</label>
             <div class="col-sm-10">
-              <select name="shipping_fedex_rate_type" id="input-rate-type" class="form-control">
+              <select name="shipping_fedex_rate_type" class="form-control" id="input-rate-type"/>
                 {% if shipping_fedex_rate_type == 'LIST' %}
                   <option value="LIST" selected="selected">{{ text_list_rate }}</option>
                 {% else %}
@@ -235,7 +235,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_display_time }}">{{ entry_display_time }}</span></label>
+            <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_display_time|escape('html') }}">{{ entry_display_time }}</span></label>
             <div class="col-sm-10">
               <label class="radio-inline">{% if shipping_fedex_display_time %}
                   <input type="radio" name="shipping_fedex_display_time" value="1" checked="checked"/>
@@ -254,7 +254,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_display_weight }}">{{ entry_display_weight }}</span></label>
+            <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_display_weight|escape('html') }}">{{ entry_display_weight }}</span></label>
             <div class="col-sm-10">
               <label class="radio-inline">{% if shipping_fedex_display_weight %}
                   <input type="radio" name="shipping_fedex_display_weight" value="1" checked="checked"/>
@@ -273,9 +273,9 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-weight-class"><span data-toggle="tooltip" title="{{ help_weight_class }}">{{ entry_weight_class }}</span></label>
+            <label class="col-sm-2 control-label" for="input-weight-class"><span data-toggle="tooltip" title="{{ help_weight_class|escape('html') }}">{{ entry_weight_class }}</span></label>
             <div class="col-sm-10">
-              <select name="shipping_fedex_weight_class_id" id="input-weight-class" class="form-control">
+              <select name="shipping_fedex_weight_class_id" class="form-control" id="input-weight-class"/>
                 {% for weight_class in weight_classes %}
                   {% if weight_class.weight_class_id == shipping_fedex_weight_class_id %}
                     <option value="{{ weight_class.weight_class_id }}" selected="selected">{{ weight_class.title }}</option>
@@ -289,7 +289,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-tax-class">{{ entry_tax_class }}</label>
             <div class="col-sm-10">
-              <select name="shipping_fedex_tax_class_id" id="input-tax-class" class="form-control">
+              <select name="shipping_fedex_tax_class_id" class="form-control" id="input-tax-class"/>
                 <option value="0">{{ text_none }}</option>
                 {% for tax_class in tax_classes %}
                   {% if tax_class.tax_class_id == shipping_fedex_tax_class_id %}
@@ -304,7 +304,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-geo-zone">{{ entry_geo_zone }}</label>
             <div class="col-sm-10">
-              <select name="shipping_fedex_geo_zone_id" id="input-geo-zone" class="form-control">
+              <select name="shipping_fedex_geo_zone_id" class="form-control" id="input-geo-zone"/>
                 <option value="0">{{ text_all_zones }}</option>
                 {% for geo_zone in geo_zones %}
                   {% if geo_zone.geo_zone_id == shipping_fedex_geo_zone_id %}
@@ -319,7 +319,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
             <div class="col-sm-10">
-              <select name="shipping_fedex_status" id="input-status" class="form-control">
+              <select name="shipping_fedex_status" class="form-control" id="input-status"/>
                 {% if shipping_fedex_status %}
                   <option value="1" selected="selected">{{ text_enabled }}</option>
                   <option value="0">{{ text_disabled }}</option>
@@ -333,7 +333,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-sort-order">{{ entry_sort_order }}</label>
             <div class="col-sm-10">
-              <input type="text" name="shipping_fedex_sort_order" value="{{ shipping_fedex_sort_order }}" placeholder="{{ entry_sort_order }}" id="input-sort-order" class="form-control"/>
+              <input type="text" name="shipping_fedex_sort_order" value="{{ shipping_fedex_sort_order }}" placeholder="{{ entry_sort_order }}" class="form-control" id="input-sort-order"/>
             </div>
           </div>
         </form>

@@ -1,11 +1,11 @@
-<form id="cardconnect-form" action="{{ action }}" method="post" class="form form-horizontal">
+<form action="{{ action }}" method="post" class="form form-horizontal" id="cardconnect-form">
   <fieldset id="payment">
     <legend>{{ text_card_details }}</legend>
     {% if echeck %}
       <div class="form-group">
         <label class="col-sm-2 control-label" for="input-method">{{ entry_method }}</label>
         <div class="col-sm-10">
-          <select name="method" id="input-method" class="form-control">
+          <select name="method" class="form-control" id="input-method"/>
             <option value="card">{{ text_card }}</option>
             <option value="echeck">{{ text_echeck }}</option>
           </select>
@@ -24,7 +24,7 @@
         <div class="form-group">
           <label class="col-sm-2 control-label" for="input-card-type">{{ entry_card_type }}</label>
           <div class="col-sm-10">
-            <select name="card_type" id="input-card-type" class="form-control">
+            <select name="card_type" class="form-control" id="input-card-type"/>
               {% for card_type in card_types %}
                 <option value="{{ card_type.value }}">{{ card_type.text }}</option>
               {% endfor %}
@@ -34,20 +34,20 @@
         <div class="form-group required">
           <label class="col-sm-2 control-label" for="input-card-number">{{ entry_card_number }}</label>
           <div class="col-sm-10">
-            <input type="text" name="card_number" value="" placeholder="{{ entry_card_number }}" id="input-card-number" class="form-control"/>
+            <input type="text" name="card_number" value="" placeholder="{{ entry_card_number }}" class="form-control" id="input-card-number"/>
           </div>
         </div>
         <div class="form-group">
           <label class="col-sm-2 control-label" for="input-card-expiry">{{ entry_card_expiry }}</label>
           <div class="col-sm-3">
-            <select name="card_expiry_month" id="input-card-expiry" class="form-control">
+            <select name="card_expiry_month" class="form-control" id="input-card-expiry"/>
               {% for month in months %}
                 <option value="{{ month.value }}">{{ month.text }}</option>
               {% endfor %}
             </select>
           </div>
           <div class="col-sm-3">
-            <select name="card_expiry_year" class="form-control">
+            <select name="card_expiry_year" class="form-control"/>
               {% for year in years %}
                 <option value="{{ year.value }}">{{ year.text }}</option>
               {% endfor %}
@@ -57,7 +57,7 @@
         <div class="form-group required">
           <label class="col-sm-2 control-label" for="input-card-cvv2">{{ entry_card_cvv2 }}</label>
           <div class="col-sm-10">
-            <input type="text" name="card_cvv2" value="" placeholder="{{ entry_card_cvv2 }}" id="input-card-cvv2" class="form-control"/>
+            <input type="text" name="card_cvv2" value="" placeholder="{{ entry_card_cvv2 }}" class="form-control" id="input-card-cvv2"/>
           </div>
         </div>
         {% if store_cards %}
@@ -73,7 +73,7 @@
         <div class="form-group">
           <label class="col-sm-2 control-label" for="input-card-choice">{{ entry_card_choice }}</label>
           <div class="col-sm-8">
-            <select name="card_choice" id="input-card-choice" class="form-control" {% if not cards %} disabled {% endif %}>
+            <select name="card_choice" class="form-control" {% if not cards %} disabled {% endif %} id="input-card-choice">
           	  {% if cards %}
                 <option value="">{{ text_select_card }}</option>
                 {% for card in cards %}
@@ -85,7 +85,7 @@
             </select>
           </div>
           <div class="col-sm-2">
-            <input type="button" value="{{ button_delete }}" id="button-delete" data-loading-text="{{ text_loading }}" class="btn btn-danger"/>
+            <input type="button" value="{{ button_delete }}" data-loading-text="{{ text_loading }}" class="btn btn-danger" id="button-delete"/>
           </div>
         </div>
       </div>
@@ -94,13 +94,13 @@
       <div class="form-group required">
         <label class="col-sm-2 control-label" for="input-account-number">{{ entry_account_number }}</label>
         <div class="col-sm-10">
-          <input type="text" name="account_number" value="" placeholder="{{ entry_account_number }}" id="input-account-number" class="form-control"/>
+          <input type="text" name="account_number" value="" placeholder="{{ entry_account_number }}" class="form-control" id="input-account-number"/>
         </div>
       </div>
       <div class="form-group required">
         <label class="col-sm-2 control-label" for="input-routing-number">{{ entry_routing_number }}</label>
         <div class="col-sm-10">
-          <input type="text" name="routing_number" value="" placeholder="{{ entry_routing_number }}" id="input-routing-number" class="form-control"/>
+          <input type="text" name="routing_number" value="" placeholder="{{ entry_routing_number }}" class="form-control" id="input-routing-number"/>
         </div>
       </div>
     </div>
@@ -108,7 +108,7 @@
 </form>
 <div class="buttons">
   <div class="pull-right">
-    <input type="button" value="{{ button_confirm }}" id="button-confirm" class="btn btn-primary" data-loading-text="{{ text_loading }}">
+    <input type="button" value="{{ button_confirm }}" class="btn btn-primary" data-loading-text="{{ text_loading }}" id="button-confirm">
   </div>
 </div>
 <script type="text/javascript"><!--

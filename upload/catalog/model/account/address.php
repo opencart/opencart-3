@@ -6,10 +6,10 @@
  */
 class ModelAccountAddress extends Model {
 	/**
-	 * addAddress
+	 * Add Address
 	 *
-	 * @param int   $customer_id
-	 * @param array $data
+	 * @param int                  $customer_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -26,10 +26,10 @@ class ModelAccountAddress extends Model {
 	}
 
 	/**
-	 * editAddress
+	 * Edit Address
 	 *
-	 * @param int   $address_id
-	 * @param array $data
+	 * @param int                  $address_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -42,7 +42,7 @@ class ModelAccountAddress extends Model {
 	}
 
 	/**
-	 * deleteAddress
+	 * Delete Address
 	 *
 	 * @param int $address_id
 	 *
@@ -59,11 +59,11 @@ class ModelAccountAddress extends Model {
 	}
 
 	/**
-	 * getAddress
+	 * Get Address
 	 *
 	 * @param int $address_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getAddress(int $address_id): array {
 		$address_query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "address` WHERE `address_id` = '" . (int)$address_id . "' AND `customer_id` = '" . (int)$this->customer->getId() . "'");
@@ -153,9 +153,9 @@ class ModelAccountAddress extends Model {
 	}
 
 	/**
-	 * getAddresses
+	 * Get Addresses
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getAddresses(): array {
 		$address_data = [];
@@ -174,7 +174,7 @@ class ModelAccountAddress extends Model {
 	}
 
 	/**
-	 * getTotalAddresses
+	 * Get Total Addresses
 	 *
 	 * @return int
 	 */

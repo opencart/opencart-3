@@ -100,7 +100,7 @@ class ControllerExtensionPaymentOpayo extends Controller {
 		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
 
 		if (isset($this->request->post['payment_opayo_geo_zone_id'])) {
-			$data['geo_zone_id'] = $this->request->post['payment_opayo_geo_zone_id'];
+			$data['geo_zone_id'] = (int)$this->request->post['payment_opayo_geo_zone_id'];
 		} else {
 			$data['geo_zone_id'] = $this->config->get('payment_opayo_geo_zone_id');
 		}
@@ -110,13 +110,13 @@ class ControllerExtensionPaymentOpayo extends Controller {
 		$data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();
 
 		if (isset($this->request->post['payment_opayo_status'])) {
-			$data['status'] = $this->request->post['payment_opayo_status'];
+			$data['status'] = (int)$this->request->post['payment_opayo_status'];
 		} else {
 			$data['status'] = $this->config->get('payment_opayo_status');
 		}
 
 		if (isset($this->request->post['payment_opayo_sort_order'])) {
-			$data['sort_order'] = $this->request->post['payment_opayo_sort_order'];
+			$data['sort_order'] = (int)$this->request->post['payment_opayo_sort_order'];
 		} else {
 			$data['sort_order'] = $this->config->get('payment_opayo_sort_order');
 		}
@@ -167,9 +167,15 @@ class ControllerExtensionPaymentOpayo extends Controller {
 		if ($this->config->get('payment_opayo_status')) {
 			$this->load->model('extension/payment/opayo');
 
-			$opayo_order = $this->model_extension_payment_opayo->getOrder($this->request->get['order_id']);
+			if (isset($this->request->get['order_id'])) {
+				$order_id = (int)$this->request->get['order_id'];
+			} else {
+				$order_id = 0;
+			}
 
-			if (!empty($opayo_order)) {
+			$opayo_order = $this->model_extension_payment_opayo->getOrder($order_id);
+
+			if ($opayo_order) {
 				$this->load->language('extension/payment/opayo');
 
 				$opayo_order['total_released'] = $this->model_extension_payment_opayo->getTotalReleased($opayo_order['opayo_order_id']);
@@ -201,7 +207,13 @@ class ControllerExtensionPaymentOpayo extends Controller {
 
 		$json = [];
 
-		if (!empty($this->request->post['order_id'])) {
+		if (isset($this->request->post['order_id'])) {
+			$order_id = (int)$this->request->post['order_id'];
+		} else {
+			$order_id = 0;
+		}
+
+		if ($order_id) {
 			$this->load->model('extension/payment/opayo');
 
 			$opayo_order = $this->model_extension_payment_opayo->getOrder($this->request->post['order_id']);
@@ -216,9 +228,7 @@ class ControllerExtensionPaymentOpayo extends Controller {
 
 				$json['msg'] = $this->language->get('success_void_ok');
 
-				$json['data'] = [];
-
-				$json['data']['date_added'] = date('Y-m-d H:i:s');
+				$json['date_added'] = date('Y-m-d H:i:s');
 
 				$json['error'] = false;
 			} else {
@@ -272,12 +282,10 @@ class ControllerExtensionPaymentOpayo extends Controller {
 					$json['msg'] = $this->language->get('success_release_ok');
 				}
 
-				$json['data'] = [];
-
-				$json['data']['date_added'] = date('Y-m-d H:i:s');
-				$json['data']['amount'] = $this->request->post['amount'];
-				$json['data']['release_status'] = $release_status;
-				$json['data']['total'] = (float)$total_released;
+				$json['date_added'] = date('Y-m-d H:i:s');
+				$json['amount'] = $this->request->post['amount'];
+				$json['release_status'] = $release_status;
+				$json['total'] = (float)$total_released;
 
 				$json['error'] = false;
 			} else {
@@ -306,6 +314,12 @@ class ControllerExtensionPaymentOpayo extends Controller {
 		$json = [];
 
 		if (isset($this->request->post['order_id'])) {
+			$order_id = (int)$this->request->post['order_id'];
+		} else {
+			$order_id = 0;
+		}
+
+		if ($order_id) {
 			$this->load->model('extension/payment/opayo');
 
 			$opayo_order = $this->model_extension_payment_opayo->getOrder($this->request->post['order_id']);
@@ -331,13 +345,11 @@ class ControllerExtensionPaymentOpayo extends Controller {
 					$json['msg'] = $this->language->get('success_rebate_ok');
 				}
 
-				$json['data'] = [];
-
-				$json['data']['date_added'] = date('Y-m-d H:i:s');
-				$json['data']['amount'] = $this->request->post['amount'] * -1;
-				$json['data']['total_released'] = (float)$total_released;
-				$json['data']['total_rebated'] = (float)$total_rebated;
-				$json['data']['rebate_status'] = $rebate_status;
+				$json['date_added'] = date('Y-m-d H:i:s');
+				$json['amount'] = $this->request->post['amount'] * -1;
+				$json['total_released'] = (float)$total_released;
+				$json['total_rebated'] = (float)$total_rebated;
+				$json['rebate_status'] = $rebate_status;
 
 				$json['error'] = false;
 			} else {
@@ -359,7 +371,7 @@ class ControllerExtensionPaymentOpayo extends Controller {
 	 *
 	 * @return bool
 	 */
-	private function validate() {
+	private function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/payment/opayo')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

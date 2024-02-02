@@ -41,7 +41,7 @@
 <nav id="top">
   <div class="container">{{ currency }}
     {{ language }}
-    <div id="top-links" class="nav pull-right">
+    <div class="nav pull-right" id="top-links">
       <ul class="list-inline">
         <li><a href="{{ contact }}"><i class="fa fa-phone"></i></a><span class="hidden-xs hidden-sm hidden-md">{{ telephone }}</span></li>
         <li class="dropdown">
@@ -59,7 +59,7 @@
             {% endif %}
           </ul>
         </li>
-        <li><a href="{{ wishlist }}" id="wishlist-total" title="{{ text_wishlist }}"><i class="fa fa-heart"></i><span class="hidden-xs hidden-sm hidden-md">{{ text_wishlist }}</span></a></li>
+        <li><a href="{{ wishlist }}" title="{{ text_wishlist }}" id="wishlist-total"><i class="fa fa-heart"></i><span class="hidden-xs hidden-sm hidden-md">{{ text_wishlist }}</span></a></li>
         <li><a href="{{ shopping_cart }}" title="{{ text_shopping_cart }}"><i class="fa fa-shopping-cart"></i><span class="hidden-xs hidden-sm hidden-md">{{ text_shopping_cart }}</span></a></li>
         <li><a href="{{ checkout }}" title="{{ text_checkout }}"><i class="fa fa-share"></i><span class="hidden-xs hidden-sm hidden-md">{{ text_checkout }}</span></a></li>
       </ul>

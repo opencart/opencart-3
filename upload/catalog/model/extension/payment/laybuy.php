@@ -233,7 +233,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 	 * @return void
 	 */
 	public function log(string $message, int $step = 6): void {
-		if ($this->config->get('payment_laybuy_logging')) {
+		if ($this->config->get('payment_laybuy_debug')) {
 			// Log
 			$log = new \Log('laybuy.log');
 			$backtrace = debug_backtrace();

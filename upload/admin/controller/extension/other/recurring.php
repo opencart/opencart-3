@@ -11,6 +11,8 @@ class ControllerExtensionOtherRecurring extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -68,7 +70,12 @@ class ControllerExtensionOtherRecurring extends Controller {
 		$this->response->setOutput($this->load->view('extension/other/recurring_form', $data));
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 *
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/other/recurring')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
@@ -91,6 +98,11 @@ class ControllerExtensionOtherRecurring extends Controller {
 		$this->getList();
 	}
 
+	/**
+	 * Get List
+	 *
+	 * @return void
+	 */
 	protected function getList(): void {
 		if (isset($this->request->get['filter_order_recurring_id'])) {
 			$filter_order_recurring_id = $this->request->get['filter_order_recurring_id'];
@@ -522,7 +534,7 @@ class ControllerExtensionOtherRecurring extends Controller {
 	}
 
 	/**
-	 * getReport
+	 * Get Report
 	 *
 	 * @return ?object
 	 */
@@ -652,5 +664,92 @@ class ControllerExtensionOtherRecurring extends Controller {
 		}
 
 		return null;
+	}
+
+	/**
+	 * History
+	 *
+	 * @return void
+	 */
+	public function history(): void {
+		$this->load->language('extension/other/recurring');
+
+		// Recurring
+		$this->load->model('extension/other/recurring');
+
+		if (isset($this->request->get['page'])) {
+			$page = (int)$this->request->get['page'];
+		} else {
+			$page = 1;
+		}
+
+		$limit = $this->config->get('config_limit_admin');
+
+		$data['histories'] = [];
+
+		$results = $this->model_extension_other_recurring->getHistories($this->request->get['order_recurring_id'], ($page - 1) * $limit, $limit);
+
+		foreach ($results as $result) {
+			$data['histories'][] = [
+				'comment'    => $result['comment'],
+				'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added']))
+			];
+		}
+
+		$history_total = $this->model_extension_other_recurring->getTotalHistories($this->request->get['order_recurring_id']);
+
+		$pagination = new \Pagination();
+		$pagination->total = $history_total;
+		$pagination->page = $page;
+		$pagination->limit = $limit;
+		$pagination->url = $this->url->link('extension/other/recurring/history', 'user_token=' . $this->session->data['user_token'] . '&order_recurring_id=' . $this->request->get['order_recurring_id'] . '&page={page}', true);
+
+		$data['pagination'] = $pagination->render();
+		$data['results'] = sprintf($this->language->get('text_pagination'), ($history_total) ? (($page - 1) * $limit) + 1 : 0, ((($page - 1) * $limit) > ($history_total - $limit)) ? $history_total : ((($page - 1) * $limit) + $limit), $history_total, ceil($history_total / $limit));
+
+		$this->response->setOutput($this->load->view('extension/other/recurring/history', $data));
+	}
+
+	/**
+	 * Add History
+	 *
+	 * @return void
+	 */
+	public function addHistory(): void {
+		$this->load->language('extension/other/recurring');
+
+		$json = [];
+
+		if (!$this->user->hasPermission('modify', 'extension/other/recurring')) {
+			$json['error'] = $this->language->get('error_permission');
+		} else {
+			// Recurring
+			$this->load->model('extension/other/recurring');
+
+			$this->model_extension_other_recurring->addHistory($this->request->get['order_recurring_id'], $this->request->post['comment']);
+
+			$json['success'] = $this->language->get('text_success');
+		}
+
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
+	}
+
+	/**
+	 * Install
+	 *
+	 * @return void
+	 */
+	public function install(): void {
+		$this->db->query("
+			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "order_recurring_history` (
+			`order_recurring_history_id` int(11) NOT NULL AUTO_INCREMENT,
+			`order_recurring_id` int(11) NOT NULL,
+			`notify` tinyint(1) NOT NULL,
+			`comment` text NOT NULL,
+			`date_added` datetime NOT NULL,
+			PRIMARY KEY (`order_recurring_history_id`)
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+		");
 	}
 }

@@ -24,17 +24,17 @@
         <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3>
       </div>
       <div class="panel-body">
-        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-shipping" class="form-horizontal">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal" id="form-shipping">
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-cost">{{ entry_cost }}</label>
             <div class="col-sm-10">
-              <input type="text" name="shipping_item_cost" value="{{ shipping_item_cost }}" placeholder="{{ entry_cost }}" id="input-cost" class="form-control"/>
+              <input type="text" name="shipping_item_cost" value="{{ shipping_item_cost }}" placeholder="{{ entry_cost }}" class="form-control" id="input-cost"/>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-tax-class">{{ entry_tax_class }}</label>
             <div class="col-sm-10">
-              <select name="shipping_item_tax_class_id" id="input-tax-class" class="form-control">
+              <select name="shipping_item_tax_class_id" class="form-control" id="input-tax-class"/>
                 <option value="0">{{ text_none }}</option>
                 {% for tax_class in tax_classes %}
                   {% if tax_class.tax_class_id == shipping_item_tax_class_id %}
@@ -49,7 +49,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-geo-zone">{{ entry_geo_zone }}</label>
             <div class="col-sm-10">
-              <select name="shipping_item_geo_zone_id" id="input-geo-zone" class="form-control">
+              <select name="shipping_item_geo_zone_id" class="form-control" id="input-geo-zone"/>
                 <option value="0">{{ text_all_zones }}</option>
                 {% for geo_zone in geo_zones %}
                   {% if geo_zone.geo_zone_id == shipping_item_geo_zone_id %}
@@ -64,7 +64,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
             <div class="col-sm-10">
-              <select name="shipping_item_status" id="input-status" class="form-control">
+              <select name="shipping_item_status" class="form-control" id="input-status"/>
                 {% if shipping_item_status %}
                   <option value="1" selected="selected">{{ text_enabled }}</option>
                   <option value="0">{{ text_disabled }}</option>
@@ -78,7 +78,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-sort-order">{{ entry_sort_order }}</label>
             <div class="col-sm-10">
-              <input type="text" name="shipping_item_sort_order" value="{{ shipping_item_sort_order }}" placeholder="{{ entry_sort_order }}" id="input-sort-order" class="form-control"/>
+              <input type="text" name="shipping_item_sort_order" value="{{ shipping_item_sort_order }}" placeholder="{{ entry_sort_order }}" class="form-control" id="input-sort-order"/>
             </div>
           </div>
         </form>

@@ -161,8 +161,8 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	/**
 	 * updateOrder
 	 *
-	 * @param array $order_info
-	 * @param array $data
+	 * @param array                $order_info
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -245,16 +245,13 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 
 		$item['subscription']['description'] = $subscription_description;
 
-		// Create new subscription and set to pending status as no payment has been made yet.
-		$subscription_id = $this->model_checkout_subscription->addSubscription($item['subscription']);
-
 		//$this->model_checkout_subscription->editReference($subscription_id, $vendor_tx_code);
 
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
 		$sagepay_order_info = $this->getOrder($this->session->data['order_id']);
 
-		$response_data = $this->setPaymentData($order_info, $sagepay_order_info, $price, $subscription_id, $item['subscription']['name']);
+		$response_data = $this->setPaymentData($order_info, $sagepay_order_info, $price, $item['subscription']['subscription_id'], $item['subscription']['name']);
 
 		$next_payment = new \DateTime('now');
 		$trial_end = new \DateTime('now');
@@ -283,7 +280,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 			$subscription_end = new \DateTime('0000-00-00');
 		}
 
-		$this->addRecurringOrder($this->session->data['order_id'], $response_data, $subscription_id, date_format($trial_end, 'Y-m-d H:i:s'), date_format($subscription_end, 'Y-m-d H:i:s'));
+		$this->addSubscriptionOrder($this->session->data['order_id'], $response_data, $item['subscription']['subscription_id'], date_format($trial_end, 'Y-m-d H:i:s'), date_format($subscription_end, 'Y-m-d H:i:s'));
 
 		$transaction = [
 			'order_id'       => $this->session->data['order_id'],
@@ -294,22 +291,25 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 		];
 
 		if ($response_data['Status'] == 'OK') {
-			$this->updateRecurringOrder($subscription_id, date_format($next_payment, 'Y-m-d H:i:s'));
+			$this->updateSubscriptionOrder($item['subscription']['subscription_id'], date_format($next_payment, 'Y-m-d H:i:s'));
 
-			$this->addRecurringTransaction($subscription_id, $response_data, $transaction, 1);
+			$this->addSubscriptionTransaction($item['subscription']['subscription_id'], $response_data, $transaction, 1);
 		} else {
-			$this->addRecurringTransaction($subscription_id, $response_data, $transaction, 4);
+			$this->addSubscriptionTransaction($item['subscription']['subscription_id'], $response_data, $transaction, 4);
 		}
 	}
 
-	private function setPaymentData(array $order_info, array $sagepay_order_info, float $price, int $subscription_id, string $recurring_name, $i = null): array {
+	private function setPaymentData(array $order_info, array $sagepay_order_info, float $price, int $subscription_id, string $name, $i = null): array {
+		$payment_data = [];
+
 		$url = '';
 
+		// https://en.wikipedia.org/wiki/Opayo
 		if ($this->config->get('payment_sagepay_direct_test') == 'live') {
-			$url = 'https://live.sagepay.com/gateway/service/repeat.vsp';
+			$url = 'https://live.opayo.eu.elavon.com/gateway/service/repeat.vsp';
 			$payment_data['VPSProtocol'] = '3.00';
 		} elseif ($this->config->get('payment_sagepay_direct_test') == 'test') {
-			$url = 'https://test.sagepay.com/gateway/service/repeat.vsp';
+			$url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/repeat.vsp';
 			$payment_data['VPSProtocol'] = '3.00';
 		} elseif ($this->config->get('payment_sagepay_direct_test') == 'sim') {
 			$url = 'https://test.sagepay.com/Simulator/VSPServerGateway.asp?Service=VendorRepeatTx';
@@ -321,7 +321,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 		$payment_data['VendorTxCode'] = $subscription_id . 'RSD' . date('YmdHis') . mt_rand(1, 999);
 		$payment_data['Amount'] = $this->currency->format($price, $this->session->data['currency'], false, false);
 		$payment_data['Currency'] = $this->session->data['currency'];
-		$payment_data['Description'] = substr($recurring_name, 0, 100);
+		$payment_data['Description'] = substr($name, 0, 100);
 		$payment_data['RelatedVPSTxId'] = trim($sagepay_order_info['vps_tx_id'], '{}');
 		$payment_data['RelatedVendorTxCode'] = $sagepay_order_info['vendor_tx_code'];
 		$payment_data['RelatedSecurityKey'] = $sagepay_order_info['security_key'];
@@ -385,17 +385,19 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 		$this->load->model('account/order');
 
 		$i = 0;
-		$subscriptions = $this->getProfiles();
+
 		$cron_data = [];
 
+		$subscriptions = $this->getProfiles();
+
 		foreach ($subscriptions as $subscription) {
-			$recurring_order = $this->getRecurringOrder($subscription['subscription_id']);
+			$order_subscription = $this->getSubscriptionOrder($subscription['subscription_id']);
 
 			$today = new \DateTime('now');
 			$unlimited = new \DateTime('0000-00-00');
-			$next_payment = new \DateTime($recurring_order['next_payment']);
-			$trial_end = new \DateTime($recurring_order['trial_end']);
-			$subscription_end = new \DateTime($recurring_order['subscription_end']);
+			$next_payment = new \DateTime($order_subscription['next_payment']);
+			$trial_end = new \DateTime($order_subscription['trial_end']);
+			$subscription_end = new \DateTime($order_subscription['subscription_end']);
 
 			$order_info = $this->model_account_order->getOrder($subscription['order_id']);
 
@@ -426,19 +428,19 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 			];
 
 			if ($response_data['RepeatResponseData_' . $i++]['Status'] == 'OK') {
-				$this->addRecurringTransaction($subscription['subscription_id'], $response_data, $transaction, 1);
+				$this->addSubscriptionTransaction($subscription['subscription_id'], $response_data, $transaction, 1);
 
 				$next_payment = $this->calculateSchedule($frequency, $next_payment, $cycle);
 				$next_payment = date_format($next_payment, 'Y-m-d H:i:s');
 
-				$this->updateRecurringOrder($subscription['subscription_id'], $next_payment);
+				$this->updateSubscriptionOrder($subscription['subscription_id'], $next_payment);
 			} else {
-				$this->addRecurringTransaction($subscription['subscription_id'], $response_data, $transaction, 4);
+				$this->addSubscriptionTransaction($subscription['subscription_id'], $response_data, $transaction, 4);
 			}
 		}
 
 		// Log
-		$log = new \Log('sagepay_direct_recurring_orders.log');
+		$log = new \Log('sagepay_direct_subscription_orders.log');
 		$log->write(print_r($cron_data, 1));
 
 		return $cron_data;
@@ -495,21 +497,21 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 		return $next_payment;
 	}
 
-	private function addRecurringOrder(int $order_id, array $response_data, int $order_recurring_id, string $trial_end, string $subscription_end): void {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "sagepay_direct_order_recurring` SET `order_id` = '" . (int)$order_id . "', `order_recurring_id` = '" . (int)$order_recurring_id . "', `vps_tx_id` = '" . $this->db->escape($response_data['VPSTxId']) . "', `vendor_tx_code` = '" . $this->db->escape($response_data['VendorTxCode']) . "', `security_key` = '" . $this->db->escape($response_data['SecurityKey']) . "', `tx_auth_no` = '" . $this->db->escape($response_data['TxAuthNo']) . "', `date_added` = NOW(), `date_modified` = NOW(), `next_payment` = NOW(), `trial_end` = '" . $this->db->escape($trial_end) . "', `subscription_end` = '" . $this->db->escape($subscription_end) . "', `currency_code` = '" . $this->db->escape($response_data['Currency']) . "', `total` = '" . $this->currency->format($response_data['Amount'], $response_data['Currency'], false, false) . "'");
+	private function addSubscriptionOrder(int $order_id, array $response_data, int $subscription_id, string $trial_end, string $subscription_end): void {
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "sagepay_direct_order_subscription` SET `order_id` = '" . (int)$order_id . "', `subscription_id` = '" . (int)$subscription_id . "', `vps_tx_id` = '" . $this->db->escape($response_data['VPSTxId']) . "', `vendor_tx_code` = '" . $this->db->escape($response_data['VendorTxCode']) . "', `security_key` = '" . $this->db->escape($response_data['SecurityKey']) . "', `tx_auth_no` = '" . $this->db->escape($response_data['TxAuthNo']) . "', `date_added` = NOW(), `date_modified` = NOW(), `next_payment` = NOW(), `trial_end` = '" . $this->db->escape($trial_end) . "', `subscription_end` = '" . $this->db->escape($subscription_end) . "', `currency_code` = '" . $this->db->escape($response_data['Currency']) . "', `total` = '" . $this->currency->format($response_data['Amount'], $response_data['Currency'], false, false) . "'");
 	}
 
-	private function updateRecurringOrder(int $order_recurring_id, string $next_payment): void {
-		$this->db->query("UPDATE `" . DB_PREFIX . "sagepay_direct_order_recurring` SET `next_payment` = '" . $this->db->escape($next_payment) . "', `date_modified` = NOW() WHERE `order_recurring_id` = '" . (int)$order_recurring_id . "'");
+	private function updateSubscriptionOrder(int $subscription_id, string $next_payment): void {
+		$this->db->query("UPDATE `" . DB_PREFIX . "sagepay_direct_order_subscription` SET `next_payment` = '" . $this->db->escape($next_payment) . "', `date_modified` = NOW() WHERE `subscription_id` = '" . (int)$subscription_id . "'");
 	}
 
-	private function getRecurringOrder($order_recurring_id) {
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "sagepay_direct_order_recurring` WHERE `order_recurring_id` = '" . (int)$order_recurring_id . "'");
+	private function getSubscriptionOrder(int $subscription_id) {
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "sagepay_direct_order_subscription` WHERE `subscription_id` = '" . (int)$subscription_id . "'");
 
 		return $query->row;
 	}
 
-	private function addRecurringTransaction(int $subscription_id, array $response_data, array $transaction, int $type): void {
+	private function addSubscriptionTransaction(int $subscription_id, array $response_data, array $transaction, int $type): void {
 		// Subscriptions
 		$this->load->model('account/subscription');
 
@@ -614,9 +616,16 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	}
 
 	/**
-	 * subscriptionPayments
+	 * Charge
+	 *
+	 * @param int    $customer_id
+	 * @param int    $order_id
+	 * @param float  $total
+	 * @param string $payment_code
+	 *
+	 * @return bool
 	 */
-	public function subscriptionPayments() {
+	public function charge(int $customer_id, int $order_id, float $total, string $payment_code): bool {
 		/*
 		 * Used by the checkout to state the module
 		 * supports subscriptions.

@@ -11,6 +11,8 @@ class ControllerExtensionPaymentPayza extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -128,7 +130,12 @@ class ControllerExtensionPaymentPayza extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/payza', $data));
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 *
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/payment/payza')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

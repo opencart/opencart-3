@@ -92,9 +92,11 @@ class ControllerExtensionSubscriptionSquareup extends Controller {
 	/**
 	 * Subscription
 	 *
-	 * @return ?object
+	 * @throws \Exception
+	 *
+	 * @return object
 	 */
-	public function subscription(): ?object {
+	public function subscription(): object {
 		$this->load->language('extension/payment/squareup');
 
 		// Squareup
@@ -203,5 +205,7 @@ class ControllerExtensionSubscriptionSquareup extends Controller {
 		if ($this->config->get('payment_squareup_cron_email_status')) {
 			$this->model_extension_payment_squareup->cronEmail($result);
 		}
+
+		return null;
 	}
 }

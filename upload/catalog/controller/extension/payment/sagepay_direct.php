@@ -119,6 +119,10 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 	 * @return void
 	 */
 	public function send(): void {
+		$payment_data = [];
+
+		$url = '';
+
 		$this->load->language('extension/payment/sagepay_direct');
 
 		// Account Order
@@ -130,15 +134,12 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 		// Sagepay Direct
 		$this->load->model('extension/payment/sagepay_direct');
 
-		$payment_data = [];
-
-		$url = '';
-
+		// https://en.wikipedia.org/wiki/Opayo
 		if ($this->config->get('payment_sagepay_direct_test') == 'live') {
-			$url = 'https://live.sagepay.com/gateway/service/vspdirect-register.vsp';
+			$url = 'https://live.opayo.eu.elavon.com/gateway/service/vspdirect-register.vsp';
 			$payment_data['VPSProtocol'] = '3.00';
 		} elseif ($this->config->get('payment_sagepay_direct_test') == 'test') {
-			$url = 'https://test.sagepay.com/gateway/service/vspdirect-register.vsp';
+			$url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/vspdirect-register.vsp';
 			$payment_data['VPSProtocol'] = '3.00';
 		} elseif ($this->config->get('payment_sagepay_direct_test') == 'sim') {
 			$url = 'https://test.sagepay.com/Simulator/VSPDirectGateway.asp';
@@ -353,11 +354,73 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 			$this->model_checkout_order->addHistory($this->session->data['order_id'], $this->config->get('payment_sagepay_direct_order_status_id'), $message, false);
 
 			if ($this->config->get('payment_sagepay_direct_transaction') == 'PAYMENT') {
+				$this->load->model('checkout/subscription');
+
 				// Loop through any products that are subscription items
 				$subscription_products = $this->cart->getSubscriptions();
 
+				$order_products = $this->model_checkout_order->getProducts($this->session->data['order_id']);
+
+				if (isset($this->request->server['HTTP_X_REAL_IP'])) {
+					$ip = $this->request->server['HTTP_X_REAL_IP'];
+				} elseif (isset($this->request->server['REMOTE_ADDR'])) {
+					$ip = $this->request->server['REMOTE_ADDR'];
+				} else {
+					$ip = '';
+				}
+
+				if (!empty($this->request->server['HTTP_X_FORWARDED_FOR'])) {
+					$forwarded_ip = $this->request->server['HTTP_X_FORWARDED_FOR'];
+				} elseif (!empty($this->request->server['HTTP_CLIENT_IP'])) {
+					$forwarded_ip = $this->request->server['HTTP_CLIENT_IP'];
+				} else {
+					$forwarded_ip = '';
+				}
+
+				if (isset($this->request->server['HTTP_USER_AGENT'])) {
+					$user_agent = $this->request->server['HTTP_USER_AGENT'];
+				} else {
+					$user_agent = '';
+				}
+
+				if (isset($this->request->server['HTTP_ACCEPT_LANGUAGE'])) {
+					$accept_language = $this->request->server['HTTP_ACCEPT_LANGUAGE'];
+				} else {
+					$accept_language = '';
+				}
+
 				foreach ($subscription_products as $item) {
-					$this->model_extension_payment_sagepay_direct->subscriptionPayment($item, $payment_data['VendorTxCode']);
+					foreach ($order_products as $order_product) {
+						$subscription_info = $this->model_checkout_subscription->getSubscriptionByOrderProductId($this->session->data['order_id'], $order_product['order_product_id']);
+
+						if ($subscription_info && $order_product['product_id'] == $item['product_id'] && $item['product_id'] == $subscription_info['product_id']) {
+							$item['subscription']['subscription_id'] = $subscription_info['subscription_id'];
+							$item['subscription']['order_id'] = $this->session->data['order_id'];
+							$item['subscription']['order_product_id'] = $order_product['order_product_id'];
+							$item['subscription']['name'] = $item['name'];
+							$item['subscription']['product_id'] = $item['product_id'];
+							$item['subscription']['tax'] = $this->tax->getTax($item['price'], $item['tax_class_id']);
+							$item['subscription']['quantity'] = $item['quantity'];
+							$item['subscription']['store_id'] = $this->config->get('config_store_id');
+							$item['subscription']['customer_id'] = $this->customer->getId();
+							$item['subscription']['payment_address_id'] = $subscription_info['payment_address_id'];
+							$item['subscription']['payment_method'] = $subscription_info['payment_method'];
+							$item['subscription']['shipping_address_id'] = $subscription_info['shipping_address_id'];
+							$item['subscription']['shipping_method'] = $subscription_info['shipping_method'];
+							$item['subscription']['comment'] = $subscription_info['comment'];
+							$item['subscription']['affiliate_id'] = $subscription_info['affiliate_id'];
+							$item['subscription']['marketing_id'] = $subscription_info['marketing_id'];
+							$item['subscription']['tracking'] = $subscription_info['tracking'];
+							$item['subscription']['language_id'] = $this->config->get('config_language_id');
+							$item['subscription']['currency_id'] = $subscription_info['currency_id'];
+							$item['subscription']['ip'] = $ip;
+							$item['subscription']['forwarded_ip'] = $forwarded_ip;
+							$item['subscription']['user_agent'] = $user_agent;
+							$item['subscription']['accept_language'] = $accept_language;
+
+							$this->model_extension_payment_sagepay_direct->subscriptionPayment($item, $payment_data['VendorTxCode']);
+						}
+					}
 				}
 			}
 
@@ -389,10 +452,11 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 		if (isset($this->session->data['order_id'])) {
 			$url = '';
 
+			// https://en.wikipedia.org/wiki/Opayo
 			if ($this->config->get('payment_sagepay_direct_test') == 'live') {
-				$url = 'https://live.sagepay.com/gateway/service/direct3dcallback.vsp';
+				$url = 'https://live.opayo.eu.elavon.com/gateway/service/direct3dcallback.vsp';
 			} elseif ($this->config->get('payment_sagepay_direct_test') == 'test') {
-				$url = 'https://test.sagepay.com/gateway/service/direct3dcallback.vsp';
+				$url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/direct3dcallback.vsp';
 			} elseif ($this->config->get('payment_sagepay_direct_test') == 'sim') {
 				$url = 'https://test.sagepay.com/Simulator/VSPDirectCallback.asp';
 			}
@@ -451,11 +515,73 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 				}
 
 				if ($this->config->get('payment_sagepay_direct_transaction') == 'PAYMENT') {
+					$this->load->model('checkout/subscription');
+
 					// Loop through any products that are subscription items
 					$subscription_products = $this->cart->getSubscriptions();
 
+					$order_products = $this->model_checkout_order->getProducts($this->session->data['order_id']);
+
+					if (isset($this->request->server['HTTP_X_REAL_IP'])) {
+						$ip = $this->request->server['HTTP_X_REAL_IP'];
+					} elseif (isset($this->request->server['REMOTE_ADDR'])) {
+						$ip = $this->request->server['REMOTE_ADDR'];
+					} else {
+						$ip = '';
+					}
+
+					if (!empty($this->request->server['HTTP_X_FORWARDED_FOR'])) {
+						$forwarded_ip = $this->request->server['HTTP_X_FORWARDED_FOR'];
+					} elseif (!empty($this->request->server['HTTP_CLIENT_IP'])) {
+						$forwarded_ip = $this->request->server['HTTP_CLIENT_IP'];
+					} else {
+						$forwarded_ip = '';
+					}
+
+					if (isset($this->request->server['HTTP_USER_AGENT'])) {
+						$user_agent = $this->request->server['HTTP_USER_AGENT'];
+					} else {
+						$user_agent = '';
+					}
+
+					if (isset($this->request->server['HTTP_ACCEPT_LANGUAGE'])) {
+						$accept_language = $this->request->server['HTTP_ACCEPT_LANGUAGE'];
+					} else {
+						$accept_language = '';
+					}
+
 					foreach ($subscription_products as $item) {
-						$this->model_extension_payment_sagepay_direct->subscriptionPayment($item, $sagepay_order_info['vendor_tx_code']);
+						foreach ($order_products as $order_product) {
+							$subscription_info = $this->model_checkout_subscription->getSubscriptionByOrderProductId($this->session->data['order_id'], $order_product['order_product_id']);
+
+							if ($subscription_info && $order_product['product_id'] == $item['product_id'] && $item['product_id'] == $subscription_info['product_id']) {
+								$item['subscription']['subscription_id'] = $subscription_info['subscription_id'];
+								$item['subscription']['order_id'] = $this->session->data['order_id'];
+								$item['subscription']['order_product_id'] = $order_product['order_product_id'];
+								$item['subscription']['name'] = $item['name'];
+								$item['subscription']['product_id'] = $item['product_id'];
+								$item['subscription']['tax'] = $this->tax->getTax($item['price'], $item['tax_class_id']);
+								$item['subscription']['quantity'] = $item['quantity'];
+								$item['subscription']['store_id'] = $this->config->get('config_store_id');
+								$item['subscription']['customer_id'] = $this->customer->getId();
+								$item['subscription']['payment_address_id'] = $subscription_info['payment_address_id'];
+								$item['subscription']['payment_method'] = $subscription_info['payment_method'];
+								$item['subscription']['shipping_address_id'] = $subscription_info['shipping_address_id'];
+								$item['subscription']['shipping_method'] = $subscription_info['shipping_method'];
+								$item['subscription']['comment'] = $subscription_info['comment'];
+								$item['subscription']['affiliate_id'] = $subscription_info['affiliate_id'];
+								$item['subscription']['marketing_id'] = $subscription_info['marketing_id'];
+								$item['subscription']['tracking'] = $subscription_info['tracking'];
+								$item['subscription']['language_id'] = $this->config->get('config_language_id');
+								$item['subscription']['currency_id'] = $subscription_info['currency_id'];
+								$item['subscription']['ip'] = $ip;
+								$item['subscription']['forwarded_ip'] = $forwarded_ip;
+								$item['subscription']['user_agent'] = $user_agent;
+								$item['subscription']['accept_language'] = $accept_language;
+
+								$this->model_extension_payment_sagepay_direct->subscriptionPayment($item, $sagepay_order_info['vendor_tx_code']);
+							}
+						}
 					}
 				}
 
@@ -486,10 +612,13 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 		$card = $this->model_extension_payment_sagepay_direct->getCard(false, $this->request->post['Token']);
 
 		if (!empty($card['token'])) {
+			$url = '';
+
+			// https://en.wikipedia.org/wiki/Opayo
 			if ($this->config->get('payment_sagepay_direct_test') == 'live') {
-				$url = 'https://live.sagepay.com/gateway/service/removetoken.vsp';
+				$url = 'https://live.opayo.eu.elavon.com/gateway/service/removetoken.vsp';
 			} else {
-				$url = 'https://test.sagepay.com/gateway/service/removetoken.vsp';
+				$url = 'https://sandbox.opayo.eu.elavon.com/gateway/service/removetoken.vsp';
 			}
 
 			$payment_data = [];

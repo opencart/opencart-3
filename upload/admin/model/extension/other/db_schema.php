@@ -34,7 +34,7 @@ class ModelExtensionOtherDbSchema extends Model {
 	/**
 	 * getTables
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return array
 	 */

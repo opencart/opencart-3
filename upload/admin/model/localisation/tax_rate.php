@@ -6,9 +6,9 @@
  */
 class ModelLocalisationTaxRate extends Model {
 	/**
-	 * addTaxRate
+	 * Add Tax Rate
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -27,10 +27,10 @@ class ModelLocalisationTaxRate extends Model {
 	}
 
 	/**
-	 * editTaxRate
+	 * Edit Tax Rate
 	 *
-	 * @param int   $tax_rate_id
-	 * @param array $data
+	 * @param int                  $tax_rate_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -47,7 +47,7 @@ class ModelLocalisationTaxRate extends Model {
 	}
 
 	/**
-	 * deleteTaxRate
+	 * Delete Tax Rate
 	 *
 	 * @param int $tax_rate_id
 	 *
@@ -59,11 +59,11 @@ class ModelLocalisationTaxRate extends Model {
 	}
 
 	/**
-	 * getTaxRate
+	 * Get Tax Rate
 	 *
 	 * @param int $tax_rate_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getTaxRate(int $tax_rate_id): array {
 		$query = $this->db->query("SELECT `tr`.`tax_rate_id`, `tr`.`name` AS `name`, `tr`.`rate`, `tr`.`type`, `tr`.`geo_zone_id`, `gz`.`name` AS `geo_zone`, `tr`.`date_added`, `tr`.`date_modified` FROM `" . DB_PREFIX . "tax_rate` `tr` LEFT JOIN `" . DB_PREFIX . "geo_zone` `gz` ON (`tr`.`geo_zone_id` = `gz`.`geo_zone_id`) WHERE `tr`.`tax_rate_id` = '" . (int)$tax_rate_id . "'");
@@ -72,11 +72,11 @@ class ModelLocalisationTaxRate extends Model {
 	}
 
 	/**
-	 * getTaxRates
+	 * Get Tax Rates
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getTaxRates(array $data = []): array {
 		$sql = "SELECT `tr`.`tax_rate_id`, `tr`.`name` AS `name`, `tr`.`rate`, `tr`.`type`, `gz`.`name` AS `geo_zone`, `tr`.`date_added`, `tr`.`date_modified` FROM `" . DB_PREFIX . "tax_rate` `tr` LEFT JOIN `" . DB_PREFIX . "geo_zone` `gz` ON (`tr`.`geo_zone_id` = `gz`.`geo_zone_id`)";
@@ -120,11 +120,11 @@ class ModelLocalisationTaxRate extends Model {
 	}
 
 	/**
-	 * getCustomerGroups
+	 * Get Customer Groups
 	 *
 	 * @param int $tax_rate_id
 	 *
-	 * @return array
+	 * @return array<int, int>
 	 */
 	public function getCustomerGroups(int $tax_rate_id): array {
 		$tax_customer_group_data = [];
@@ -139,7 +139,7 @@ class ModelLocalisationTaxRate extends Model {
 	}
 
 	/**
-	 * getTotalTaxRates
+	 * Get Total Tax Rates
 	 *
 	 * @return int
 	 */
@@ -150,7 +150,7 @@ class ModelLocalisationTaxRate extends Model {
 	}
 
 	/**
-	 * getTotalTaxRatesByGeoZoneId
+	 * Get Total Tax Rates By Geo Zone Id
 	 *
 	 * @param int $geo_zone_id
 	 *

@@ -6,9 +6,9 @@
  */
 class ModelLocalisationWeightClass extends Model {
 	/**
-	 * addWeightClass
+	 * Add Weight Class
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -27,10 +27,10 @@ class ModelLocalisationWeightClass extends Model {
 	}
 
 	/**
-	 * editWeightClass
+	 * Edit Weight Class
 	 *
-	 * @param int   $weight_class_id
-	 * @param array $data
+	 * @param int                  $weight_class_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -47,7 +47,7 @@ class ModelLocalisationWeightClass extends Model {
 	}
 
 	/**
-	 * deleteWeightClass
+	 * Delete Weight Class
 	 *
 	 * @param int $weight_class_id
 	 *
@@ -61,11 +61,11 @@ class ModelLocalisationWeightClass extends Model {
 	}
 
 	/**
-	 * getWeightClasses
+	 * Get Weight Classes
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getWeightClasses(array $data = []): array {
 		if ($data) {
@@ -120,11 +120,11 @@ class ModelLocalisationWeightClass extends Model {
 	}
 
 	/**
-	 * getWeightClass
+	 * Get Weight Class
 	 *
 	 * @param int $weight_class_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getWeightClass(int $weight_class_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "weight_class` `wc` LEFT JOIN `" . DB_PREFIX . "weight_class_description` `wcd` ON (`wc`.`weight_class_id` = `wcd`.`weight_class_id`) WHERE `wc`.`weight_class_id` = '" . (int)$weight_class_id . "' AND `wcd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -133,11 +133,11 @@ class ModelLocalisationWeightClass extends Model {
 	}
 
 	/**
-	 * getDescriptionByUnit
+	 * Get Description By Unit
 	 *
 	 * @param string $unit
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getDescriptionByUnit(string $unit): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "weight_class_description` WHERE `unit` = '" . $this->db->escape($unit) . "' AND `language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -146,11 +146,11 @@ class ModelLocalisationWeightClass extends Model {
 	}
 
 	/**
-	 * getDescriptions
+	 * Get Descriptions
 	 *
 	 * @param int $weight_class_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getDescriptions(int $weight_class_id): array {
 		$weight_class_data = [];
@@ -168,7 +168,7 @@ class ModelLocalisationWeightClass extends Model {
 	}
 
 	/**
-	 * getTotalWeightClasses
+	 * Get Total Weight Classes
 	 *
 	 * @return int
 	 */

@@ -11,24 +11,6 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	private array $error = [];
 
 	/**
-	 * Constructor
-	 *
-	 * @param object $registry
-	 */
-	public function __construct(object $registry) {
-		parent::__construct($registry);
-
-		if (version_compare(PHP_VERSION, '8.3', '>=')) {
-			ini_set('precision', 14);
-			ini_set('serialize_precision', 14);
-		}
-
-		if (empty($this->config->get('paypal_version')) || (!empty($this->config->get('paypal_version')) && ($this->config->get('paypal_version') < '2.2.0'))) {
-			$this->update();
-		}
-	}
-
-	/**
 	 * @return string
 	 */
 	public function index(): string {
@@ -39,7 +21,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		if ($this->config->get('payment_paypal_status') && $this->config->get('payment_paypal_client_id') && $this->config->get('payment_paypal_secret') && !$this->webhook() && !$this->cron() && $agree_status) {
 			$this->load->language('extension/payment/paypal');
 
-			$_config = new Config();
+			$_config = new \Config();
 			$_config->load('paypal');
 
 			$config_setting = $_config->get('paypal_setting');
@@ -120,7 +102,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	public function modal(): void {
 		$this->load->language('extension/payment/paypal');
 
-		$_config = new Config();
+		$_config = new \Config();
 		$_config->load('paypal');
 
 		$config_setting = $_config->get('paypal_setting');
@@ -209,7 +191,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			$this->load->model('localisation/country');
 			$this->load->model('checkout/order');
 
-			$_config = new Config();
+			$_config = new \Config();
 			$_config->load('paypal');
 
 			$config_setting = $_config->get('paypal_setting');
@@ -588,6 +570,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 			if (($page_code == 'product') && (!empty($this->request->post['product']['product_id']))) {
 				$product = $this->request->post['product'];
+
 				$product_id = (int)$product['product_id'];
 
 				$this->load->model('catalog/product');
@@ -615,29 +598,35 @@ class ControllerExtensionPaymentPayPal extends Controller {
 						}
 					}
 
-					if (isset($product['recurring_id'])) {
-						$recurring_id = $product['recurring_id'];
+					if (isset($product['subscription_plan_id'])) {
+						$subscription_plan_id = $product['subscription_plan_id'];
 					} else {
-						$recurring_id = 0;
+						$subscription_plan_id = 0;
 					}
 
-					$recurrings = $this->model_catalog_product->getProfiles($product_info['product_id']);
+					$this->load->model('catalog/subscription_plan');
 
-					if ($recurrings) {
-						$recurring_ids = [];
+					$filter_data = [
+						'filter_name' => $product_info['name']
+					];
 
-						foreach ($recurrings as $recurring) {
-							$recurring_ids[] = $recurring['recurring_id'];
+					$subscription_plans = $this->model_catalog_subscription_plan->getSubscriptionPlans($filter_data);
+
+					if ($subscription_plans) {
+						$subscription_plan_ids = [];
+
+						foreach ($subscription_plans as $subscription_plan) {
+							$subscription_plan_ids[] = $subscription_plan['subscription_plan_id'];
 						}
 
-						if (!in_array($recurring_id, $recurring_ids)) {
-							$errors[] = $this->language->get('error_recurring_required');
+						if (!in_array($subscription_plan_id, $subscription_plan_ids)) {
+							$errors[] = $this->language->get('error_subscription_required');
 						}
 					}
 
 					if (!$errors) {
-						if (!$this->model_extension_payment_paypal->hasProductInCart($product_id, $option, $recurring_id)) {
-							$this->cart->add($product_id, $quantity, $option, $recurring_id);
+						if (!$this->model_extension_payment_paypal->hasProductInCart($product_id, $option, $subscription_plan_id)) {
+							$this->cart->add($product_id, $quantity, $option, $subscription_plan_id);
 						}
 
 						// Unset all shipping and payment methods
@@ -678,7 +667,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			}
 
 			if (!$errors) {
-				$_config = new Config();
+				$_config = new \Config();
 				$_config->load('paypal');
 
 				$config_setting = $_config->get('paypal_setting');
@@ -952,7 +941,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 			if ($page_code != 'checkout') {
 				if (isset($this->request->post['paypal_order_id'])) {
-					$this->session->data['paypal_order_id'] = $this->request->post['paypal_order_id'];
+					$this->session->data['paypal_order_id'] = (int)$this->request->post['paypal_order_id'];
 				} else {
 					$json['url'] = $this->url->link('checkout/cart', '', true);
 
@@ -1146,7 +1135,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 				}
 			} else {
 				if ((($payment_type == 'button') || ($payment_type == 'googlepay_button') || ($payment_type == 'applepay_button')) && !empty($this->request->post['paypal_order_id'])) {
-					$paypal_order_id = $this->request->post['paypal_order_id'];
+					$paypal_order_id = (int)$this->request->post['paypal_order_id'];
 				}
 
 				if (($payment_type == 'card') && !empty($this->request->post['payload'])) {
@@ -1345,10 +1334,72 @@ class ControllerExtensionPaymentPayPal extends Controller {
 								}
 
 								if (($authorization_status == 'CREATED') || ($authorization_status == 'PENDING')) {
+									$this->load->model('checkout/subscription');
+
 									$subscription_products = $this->cart->getSubscriptions();
 
+									$order_products = $this->model_checkout_order->getProducts($this->session->data['order_id']);
+
+									if (isset($this->request->server['HTTP_X_REAL_IP'])) {
+										$ip = $this->request->server['HTTP_X_REAL_IP'];
+									} elseif (isset($this->request->server['REMOTE_ADDR'])) {
+										$ip = $this->request->server['REMOTE_ADDR'];
+									} else {
+										$ip = '';
+									}
+
+									if (!empty($this->request->server['HTTP_X_FORWARDED_FOR'])) {
+										$forwarded_ip = $this->request->server['HTTP_X_FORWARDED_FOR'];
+									} elseif (!empty($this->request->server['HTTP_CLIENT_IP'])) {
+										$forwarded_ip = $this->request->server['HTTP_CLIENT_IP'];
+									} else {
+										$forwarded_ip = '';
+									}
+
+									if (isset($this->request->server['HTTP_USER_AGENT'])) {
+										$user_agent = $this->request->server['HTTP_USER_AGENT'];
+									} else {
+										$user_agent = '';
+									}
+
+									if (isset($this->request->server['HTTP_ACCEPT_LANGUAGE'])) {
+										$accept_language = $this->request->server['HTTP_ACCEPT_LANGUAGE'];
+									} else {
+										$accept_language = '';
+									}
+
 									foreach ($subscription_products as $item) {
-										$this->model_extension_payment_paypal->subscriptionPayment($item, $order_info, $paypal_order_data);
+										foreach ($order_products as $order_product) {
+											$subscription_info = $this->model_checkout_subscription->getSubscriptionByOrderProductId($this->session->data['order_id'], $order_product['order_product_id']);
+
+											if ($subscription_info && $order_product['product_id'] == $item['product_id'] && $item['product_id'] == $subscription_info['product_id']) {
+												$item['subscription']['subscription_id'] = $subscription_info['subscription_id'];
+												$item['subscription']['order_id'] = $this->session->data['order_id'];
+												$item['subscription']['order_product_id'] = $order_product['order_product_id'];
+												$item['subscription']['name'] = $item['name'];
+												$item['subscription']['product_id'] = $item['product_id'];
+												$item['subscription']['tax'] = $this->tax->getTax($item['price'], $item['tax_class_id']);
+												$item['subscription']['quantity'] = $item['quantity'];
+												$item['subscription']['store_id'] = $this->config->get('config_store_id');
+												$item['subscription']['customer_id'] = $this->customer->getId();
+												$item['subscription']['payment_address_id'] = $subscription_info['payment_address_id'];
+												$item['subscription']['payment_method'] = $subscription_info['payment_method'];
+												$item['subscription']['shipping_address_id'] = $subscription_info['shipping_address_id'];
+												$item['subscription']['shipping_method'] = $subscription_info['shipping_method'];
+												$item['subscription']['comment'] = $subscription_info['comment'];
+												$item['subscription']['affiliate_id'] = $subscription_info['affiliate_id'];
+												$item['subscription']['marketing_id'] = $subscription_info['marketing_id'];
+												$item['subscription']['tracking'] = $subscription_info['tracking'];
+												$item['subscription']['language_id'] = $this->config->get('config_language_id');
+												$item['subscription']['currency_id'] = $subscription_info['currency_id'];
+												$item['subscription']['ip'] = $ip;
+												$item['subscription']['forwarded_ip'] = $forwarded_ip;
+												$item['subscription']['user_agent'] = $user_agent;
+												$item['subscription']['accept_language'] = $accept_language;
+
+												$this->model_extension_payment_paypal->subscriptionPayment($item, $order_info, $paypal_order_data);
+											}
+										}
 									}
 								}
 
@@ -1426,10 +1477,71 @@ class ControllerExtensionPaymentPayPal extends Controller {
 								}
 
 								if (($capture_status == 'COMPLETED') || ($capture_status == 'PENDING')) {
+									// Loop through any products that are subscription items
 									$subscription_products = $this->cart->getSubscriptions();
 
+									$order_products = $this->model_checkout_order->getProducts($this->session->data['order_id']);
+
+									if (isset($this->request->server['HTTP_X_REAL_IP'])) {
+										$ip = $this->request->server['HTTP_X_REAL_IP'];
+									} elseif (isset($this->request->server['REMOTE_ADDR'])) {
+										$ip = $this->request->server['REMOTE_ADDR'];
+									} else {
+										$ip = '';
+									}
+
+									if (!empty($this->request->server['HTTP_X_FORWARDED_FOR'])) {
+										$forwarded_ip = $this->request->server['HTTP_X_FORWARDED_FOR'];
+									} elseif (!empty($this->request->server['HTTP_CLIENT_IP'])) {
+										$forwarded_ip = $this->request->server['HTTP_CLIENT_IP'];
+									} else {
+										$forwarded_ip = '';
+									}
+
+									if (isset($this->request->server['HTTP_USER_AGENT'])) {
+										$user_agent = $this->request->server['HTTP_USER_AGENT'];
+									} else {
+										$user_agent = '';
+									}
+
+									if (isset($this->request->server['HTTP_ACCEPT_LANGUAGE'])) {
+										$accept_language = $this->request->server['HTTP_ACCEPT_LANGUAGE'];
+									} else {
+										$accept_language = '';
+									}
+
 									foreach ($subscription_products as $item) {
-										$this->model_extension_payment_paypal->subscriptionPayment($item, $order_info, $paypal_order_data);
+										foreach ($order_products as $order_product) {
+											$subscription_info = $this->model_checkout_subscription->getSubscriptionByOrderProductId($this->session->data['order_id'], $order_product['order_product_id']);
+
+											if ($subscription_info && $order_product['product_id'] == $item['product_id'] && $item['product_id'] == $subscription_info['product_id']) {
+												$item['subscription']['subscription_id'] = $subscription_info['subscription_id'];
+												$item['subscription']['order_id'] = $this->session->data['order_id'];
+												$item['subscription']['order_product_id'] = $order_product['order_product_id'];
+												$item['subscription']['name'] = $item['name'];
+												$item['subscription']['product_id'] = $item['product_id'];
+												$item['subscription']['tax'] = $this->tax->getTax($item['price'], $item['tax_class_id']);
+												$item['subscription']['quantity'] = $item['quantity'];
+												$item['subscription']['store_id'] = $this->config->get('config_store_id');
+												$item['subscription']['customer_id'] = $this->customer->getId();
+												$item['subscription']['payment_address_id'] = $subscription_info['payment_address_id'];
+												$item['subscription']['payment_method'] = $subscription_info['payment_method'];
+												$item['subscription']['shipping_address_id'] = $subscription_info['shipping_address_id'];
+												$item['subscription']['shipping_method'] = $subscription_info['shipping_method'];
+												$item['subscription']['comment'] = $subscription_info['comment'];
+												$item['subscription']['affiliate_id'] = $subscription_info['affiliate_id'];
+												$item['subscription']['marketing_id'] = $subscription_info['marketing_id'];
+												$item['subscription']['tracking'] = $subscription_info['tracking'];
+												$item['subscription']['language_id'] = $this->config->get('config_language_id');
+												$item['subscription']['currency_id'] = $subscription_info['currency_id'];
+												$item['subscription']['ip'] = $ip;
+												$item['subscription']['forwarded_ip'] = $forwarded_ip;
+												$item['subscription']['user_agent'] = $user_agent;
+												$item['subscription']['accept_language'] = $accept_language;
+
+												$this->model_extension_payment_paypal->subscriptionPayment($item, $order_info, $paypal_order_data);
+											}
+										}
 									}
 								}
 
@@ -1662,20 +1774,22 @@ class ControllerExtensionPaymentPayPal extends Controller {
 						if ($this->config->get('shipping_' . $result['code'] . '_status')) {
 							$this->load->model('extension/shipping/' . $result['code']);
 
-							$quote = $this->{'model_extension_shipping_' . $result['code']}->getQuote($data['shipping_address']);
+							if (is_callable([$this->{'model_extension_shipping_' . $result['code']}, 'getQuote'])) {
+								$quote = $this->{'model_extension_shipping_' . $result['code']}->getQuote($data['shipping_address']);
 
-							if ($quote) {
-								$quote_data[$result['code']] = [
-									'title'      => $quote['title'],
-									'quote'      => $quote['quote'],
-									'sort_order' => $quote['sort_order'],
-									'error'      => $quote['error']
-								];
+								if ($quote) {
+									$quote_data[$result['code']] = [
+										'title'      => $quote['title'],
+										'quote'      => $quote['quote'],
+										'sort_order' => $quote['sort_order'],
+										'error'      => $quote['error']
+									];
+								}
 							}
 						}
 					}
 
-					if (!empty($quote_data)) {
+					if ($quote_data) {
 						$sort_order = [];
 
 						foreach ($quote_data as $key => $value) {
@@ -1685,16 +1799,19 @@ class ControllerExtensionPaymentPayPal extends Controller {
 						array_multisort($sort_order, SORT_ASC, $quote_data);
 
 						$this->session->data['shipping_methods'] = $quote_data;
+
 						$data['shipping_methods'] = $quote_data;
 
 						if (!isset($this->session->data['shipping_method'])) {
 							//default the shipping to the very first option.
 							$key1 = key($quote_data);
 							$key2 = key($quote_data[$key1]['quote']);
+
 							$this->session->data['shipping_method'] = $quote_data[$key1]['quote'][$key2];
 						}
 
 						$data['code'] = $this->session->data['shipping_method']['code'];
+
 						$data['action_shipping'] = $this->url->link('extension/payment/paypal/confirmShipping', '', true);
 					} else {
 						unset($this->session->data['shipping_methods']);
@@ -1714,6 +1831,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		}
 
 		$data['guest'] = $this->session->data['guest'] ?? [];
+
 		$data['payment_address'] = $this->session->data['payment_address'] ?? [];
 
 		// Totals
@@ -1745,7 +1863,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
 					$this->load->model('extension/total/' . $result['code']);
 
 					// We have to put the totals in an array so that they pass by reference.
-					$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
+					if (is_callable([$this->{'model_extension_total_' . $result['code']}, 'getTotal'])) {
+						$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
+					}
 				}
 			}
 
@@ -1769,10 +1889,12 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			if ($this->config->get('payment_' . $result['code'] . '_status')) {
 				$this->load->model('extension/payment/' . $result['code']);
 
-				$method = $this->{'model_extension_payment_' . $result['code']}->getMethod($data['payment_address'], $total);
+				if (is_callable([$this->{'model_extension_payment_' . $result['code']}, 'getMethod'])) {
+					$method = $this->{'model_extension_payment_' . $result['code']}->getMethod($data['payment_address'], $total);
 
-				if ($method) {
-					$method_data[$result['code']] = $method;
+					if ($method) {
+						$method_data[$result['code']] = $method;
+					}
 				}
 			}
 		}
@@ -1830,7 +1952,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
 					$this->load->model('extension/total/' . $result['code']);
 
 					// We have to put the totals in an array so that they pass by reference.
-					$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
+					if (is_callable([$this->{'model_extension_total_' . $result['code']}, 'getTotal'])) {
+						$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
+					}
 				}
 			}
 
@@ -1954,7 +2078,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
 					$this->load->model('extension/total/' . $result['code']);
 
 					// We have to put the totals in an array so that they pass by reference.
-					$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
+					if (is_callable([$this->{'model_extension_total_' . $result['code']}, 'getTotal'])) {
+						$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
+					}
 				}
 			}
 
@@ -2004,8 +2130,8 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			$order_data['payment_address_format'] = $this->session->data['payment_address']['address_format'];
 			$order_data['payment_custom_field'] = ($this->session->data['payment_address']['custom_field'] ?? []);
 
-			if (isset($this->session->data['payment_method']['title'])) {
-				$order_data['payment_method'] = $this->session->data['payment_method']['title'];
+			if (isset($this->session->data['payment_method']['name'])) {
+				$order_data['payment_method'] = $this->session->data['payment_method']['name'];
 			} else {
 				$order_data['payment_method'] = '';
 			}
@@ -2181,7 +2307,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 			$order_data['order_id'] = $this->session->data['order_id'];
 
-			$_config = new Config();
+			$_config = new \Config();
 			$_config->load('paypal');
 
 			$config_setting = $_config->get('paypal_setting');
@@ -2494,10 +2620,74 @@ class ControllerExtensionPaymentPayPal extends Controller {
 							}
 
 							if (($authorization_status == 'CREATED') || ($authorization_status == 'PENDING')) {
+								$this->load->model('checkout/subscription');
+
 								$subscription_products = $this->cart->getSubscriptions();
 
+								$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
+
+								$order_products = $this->model_checkout_order->getProducts($this->session->data['order_id']);
+
+								if (isset($this->request->server['HTTP_X_REAL_IP'])) {
+									$ip = $this->request->server['HTTP_X_REAL_IP'];
+								} elseif (isset($this->request->server['REMOTE_ADDR'])) {
+									$ip = $this->request->server['REMOTE_ADDR'];
+								} else {
+									$ip = '';
+								}
+
+								if (!empty($this->request->server['HTTP_X_FORWARDED_FOR'])) {
+									$forwarded_ip = $this->request->server['HTTP_X_FORWARDED_FOR'];
+								} elseif (!empty($this->request->server['HTTP_CLIENT_IP'])) {
+									$forwarded_ip = $this->request->server['HTTP_CLIENT_IP'];
+								} else {
+									$forwarded_ip = '';
+								}
+
+								if (isset($this->request->server['HTTP_USER_AGENT'])) {
+									$user_agent = $this->request->server['HTTP_USER_AGENT'];
+								} else {
+									$user_agent = '';
+								}
+
+								if (isset($this->request->server['HTTP_ACCEPT_LANGUAGE'])) {
+									$accept_language = $this->request->server['HTTP_ACCEPT_LANGUAGE'];
+								} else {
+									$accept_language = '';
+								}
+
 								foreach ($subscription_products as $item) {
-									$this->model_extension_payment_paypal->subscriptionPayment($item, $order_data, $paypal_order_data);
+									foreach ($order_products as $order_product) {
+										$subscription_info = $this->model_checkout_subscription->getSubscriptionByOrderProductId($this->session->data['order_id'], $order_product['order_product_id']);
+
+										if ($subscription_info && $order_product['product_id'] == $item['product_id'] && $item['product_id'] == $subscription_info['product_id']) {
+											$item['subscription']['subscription_id'] = $subscription_info['subscription_id'];
+											$item['subscription']['order_id'] = $this->session->data['order_id'];
+											$item['subscription']['order_product_id'] = $order_product['order_product_id'];
+											$item['subscription']['name'] = $item['name'];
+											$item['subscription']['product_id'] = $item['product_id'];
+											$item['subscription']['tax'] = $this->tax->getTax($item['price'], $item['tax_class_id']);
+											$item['subscription']['quantity'] = $item['quantity'];
+											$item['subscription']['store_id'] = $this->config->get('config_store_id');
+											$item['subscription']['customer_id'] = $this->customer->getId();
+											$item['subscription']['payment_address_id'] = $subscription_info['payment_address_id'];
+											$item['subscription']['payment_method'] = $subscription_info['payment_method'];
+											$item['subscription']['shipping_address_id'] = $subscription_info['shipping_address_id'];
+											$item['subscription']['shipping_method'] = $subscription_info['shipping_method'];
+											$item['subscription']['comment'] = $subscription_info['comment'];
+											$item['subscription']['affiliate_id'] = $subscription_info['affiliate_id'];
+											$item['subscription']['marketing_id'] = $subscription_info['marketing_id'];
+											$item['subscription']['tracking'] = $subscription_info['tracking'];
+											$item['subscription']['language_id'] = $this->config->get('config_language_id');
+											$item['subscription']['currency_id'] = $subscription_info['currency_id'];
+											$item['subscription']['ip'] = $ip;
+											$item['subscription']['forwarded_ip'] = $forwarded_ip;
+											$item['subscription']['user_agent'] = $user_agent;
+											$item['subscription']['accept_language'] = $accept_language;
+
+											$this->model_extension_payment_paypal->subscriptionPayment($item, $order_info, $paypal_order_data);
+										}
+									}
 								}
 							}
 
@@ -2575,10 +2765,75 @@ class ControllerExtensionPaymentPayPal extends Controller {
 							}
 
 							if (($capture_status == 'COMPLETED') || ($capture_status == 'PENDING')) {
+								$this->load->model('checkout/subscription');
+
+								// Loop through any products that are subscription items
 								$subscription_products = $this->cart->getSubscriptions();
 
+								$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
+
+								$order_products = $this->model_checkout_order->getProducts($this->session->data['order_id']);
+
+								if (isset($this->request->server['HTTP_X_REAL_IP'])) {
+									$ip = $this->request->server['HTTP_X_REAL_IP'];
+								} elseif (isset($this->request->server['REMOTE_ADDR'])) {
+									$ip = $this->request->server['REMOTE_ADDR'];
+								} else {
+									$ip = '';
+								}
+
+								if (!empty($this->request->server['HTTP_X_FORWARDED_FOR'])) {
+									$forwarded_ip = $this->request->server['HTTP_X_FORWARDED_FOR'];
+								} elseif (!empty($this->request->server['HTTP_CLIENT_IP'])) {
+									$forwarded_ip = $this->request->server['HTTP_CLIENT_IP'];
+								} else {
+									$forwarded_ip = '';
+								}
+
+								if (isset($this->request->server['HTTP_USER_AGENT'])) {
+									$user_agent = $this->request->server['HTTP_USER_AGENT'];
+								} else {
+									$user_agent = '';
+								}
+
+								if (isset($this->request->server['HTTP_ACCEPT_LANGUAGE'])) {
+									$accept_language = $this->request->server['HTTP_ACCEPT_LANGUAGE'];
+								} else {
+									$accept_language = '';
+								}
+
 								foreach ($subscription_products as $item) {
-									$this->model_extension_payment_paypal->subscriptionPayment($item, $order_data, $paypal_order_data);
+									foreach ($order_products as $order_product) {
+										$subscription_info = $this->model_checkout_subscription->getSubscriptionByOrderProductId($this->session->data['order_id'], $order_product['order_product_id']);
+
+										if ($subscription_info && $order_product['product_id'] == $item['product_id'] && $item['product_id'] == $subscription_info['product_id']) {
+											$item['subscription']['subscription_id'] = $subscription_info['subscription_id'];
+											$item['subscription']['order_id'] = $this->session->data['order_id'];
+											$item['subscription']['order_product_id'] = $order_product['order_product_id'];
+											$item['subscription']['name'] = $item['name'];
+											$item['subscription']['product_id'] = $item['product_id'];
+											$item['subscription']['tax'] = $this->tax->getTax($item['price'], $item['tax_class_id']);
+											$item['subscription']['quantity'] = $item['quantity'];
+											$item['subscription']['store_id'] = $this->config->get('config_store_id');
+											$item['subscription']['customer_id'] = $this->customer->getId();
+											$item['subscription']['payment_address_id'] = $subscription_info['payment_address_id'];
+											$item['subscription']['payment_method'] = $subscription_info['payment_method'];
+											$item['subscription']['shipping_address_id'] = $subscription_info['shipping_address_id'];
+											$item['subscription']['shipping_method'] = $subscription_info['shipping_method'];
+											$item['subscription']['comment'] = $subscription_info['comment'];
+											$item['subscription']['affiliate_id'] = $subscription_info['affiliate_id'];
+											$item['subscription']['marketing_id'] = $subscription_info['marketing_id'];
+											$item['subscription']['tracking'] = $subscription_info['tracking'];
+											$item['subscription']['language_id'] = $this->config->get('config_language_id');
+											$item['subscription']['currency_id'] = $subscription_info['currency_id'];
+											$item['subscription']['ip'] = $ip;
+											$item['subscription']['forwarded_ip'] = $forwarded_ip;
+											$item['subscription']['user_agent'] = $user_agent;
+											$item['subscription']['accept_language'] = $accept_language;
+
+											$this->model_extension_payment_paypal->subscriptionPayment($item, $order_info, $paypal_order_data);
+										}
+									}
 								}
 							}
 
@@ -2687,8 +2942,8 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			$this->session->data['payment_address']['address_2'] = $this->request->post['address_2'];
 			$this->session->data['payment_address']['postcode'] = $this->request->post['postcode'];
 			$this->session->data['payment_address']['city'] = $this->request->post['city'];
-			$this->session->data['payment_address']['country_id'] = $this->request->post['country_id'];
-			$this->session->data['payment_address']['zone_id'] = $this->request->post['zone_id'];
+			$this->session->data['payment_address']['country_id'] = (int)$this->request->post['country_id'];
+			$this->session->data['payment_address']['zone_id'] = (int)$this->request->post['zone_id'];
 
 			$this->load->model('localisation/country');
 
@@ -2751,8 +3006,8 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			$this->session->data['shipping_address']['address_2'] = $this->request->post['address_2'];
 			$this->session->data['shipping_address']['postcode'] = $this->request->post['postcode'];
 			$this->session->data['shipping_address']['city'] = $this->request->post['city'];
-			$this->session->data['shipping_address']['country_id'] = $this->request->post['country_id'];
-			$this->session->data['shipping_address']['zone_id'] = $this->request->post['zone_id'];
+			$this->session->data['shipping_address']['country_id'] = (int)$this->request->post['country_id'];
+			$this->session->data['shipping_address']['zone_id'] = (int)$this->request->post['zone_id'];
 
 			$this->load->model('localisation/country');
 
@@ -2804,7 +3059,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	 */
 	public function webhook(): bool {
 		if (!empty($this->request->get['webhook_token'])) {
-			$_config = new Config();
+			$_config = new \Config();
 			$_config->load('paypal');
 
 			$config_setting = $_config->get('paypal_setting');
@@ -2951,7 +3206,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	 */
 	public function cron(): bool {
 		if (!empty($this->request->get['cron_token'])) {
-			$_config = new Config();
+			$_config = new \Config();
 			$_config->load('paypal');
 
 			$config_setting = $_config->get('paypal_setting');
@@ -2971,31 +3226,20 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	}
 
 	/**
-	 * Update
-	 *
-	 * @return void
-	 */
-	public function update(): void {
-		$this->load->model('extension/payment/paypal');
-
-		$this->model_extension_payment_paypal->update();
-	}
-
-	/**
 	 * Header Before
 	 *
-	 * @param mixed $route
-	 * @param mixed $data
+	 * @param string               $route
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
-	public function header_before($route, &$data): void {
+	public function header_before(string &$route, array &$data): void {
 		$this->load->model('extension/payment/paypal');
 
 		$agree_status = $this->model_extension_payment_paypal->getAgreeStatus();
 
 		if ($this->config->get('payment_paypal_status') && $this->config->get('payment_paypal_client_id') && $this->config->get('payment_paypal_secret') && $agree_status) {
-			$_config = new Config();
+			$_config = new \Config();
 			$_config->load('paypal');
 
 			$config_setting = $_config->get('paypal_setting');
@@ -3062,16 +3306,16 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	/**
 	 * Extension Get Extensions After
 	 *
-	 * @param mixed $route
-	 * @param mixed $data
-	 * @param mixed $output
+	 * @param string               $route
+	 * @param array<string, mixed> $data
+	 * @param mixed                $output
 	 */
-	public function extension_get_extensions_after($route, $data, &$output): void {
+	public function extension_get_extensions_after(string &$route, array &$data, mixed &$output): void {
 		if ($this->config->get('payment_paypal_status') && $this->config->get('payment_paypal_client_id') && $this->config->get('payment_paypal_secret')) {
 			$type = $data[0];
 
 			if ($type == 'payment') {
-				$_config = new Config();
+				$_config = new \Config();
 				$_config->load('paypal');
 
 				$config_setting = $_config->get('paypal_setting');
@@ -3114,19 +3358,19 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	/**
 	 * Order Delete Order Before
 	 *
-	 * @param mixed $route
-	 * @param mixed $data
+	 * @param mixed                $route
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
-	public function order_delete_order_before(&$route, &$data): void {
+	public function order_delete_order_before(string &$route, array &$data): void {
 		$this->load->model('extension/payment/paypal');
 
 		$order_id = $data[0];
 
-		$this->model_extension_payment_paypal->deleteOrderRecurring($order_id);
+		$this->model_extension_payment_paypal->deleteOrderSubscription($order_id);
 		$this->model_extension_payment_paypal->deletePayPalOrder($order_id);
-		$this->model_extension_payment_paypal->deletePayPalOrderRecurring($order_id);
+		$this->model_extension_payment_paypal->deletePayPalOrderSubscription($order_id);
 	}
 
 	private function validateShipping($code) {
@@ -3196,7 +3440,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 		// Customer Group
 		if (isset($this->request->post['customer_group_id']) && is_array($this->config->get('config_customer_group_display')) && in_array($this->request->post['customer_group_id'], (array)$this->config->get('config_customer_group_display'))) {
-			$customer_group_id = $this->request->post['customer_group_id'];
+			$customer_group_id = (int)$this->request->post['customer_group_id'];
 		} else {
 			$customer_group_id = $this->config->get('config_customer_group_id');
 		}
@@ -3252,7 +3496,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 		// Customer Group
 		if (isset($this->request->post['customer_group_id']) && is_array($this->config->get('config_customer_group_display')) && in_array($this->request->post['customer_group_id'], $this->config->get('config_customer_group_display'))) {
-			$customer_group_id = $this->request->post['customer_group_id'];
+			$customer_group_id = (int)$this->request->post['customer_group_id'];
 		} else {
 			$customer_group_id = $this->config->get('config_customer_group_id');
 		}

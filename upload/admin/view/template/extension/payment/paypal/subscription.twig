@@ -1,23 +1,23 @@
-<div id="paypal-recurring" class="paypal-recurring">
-  {% if recurring_status == '2' or recurring_status == '3' %}
-    <button type="button" class="btn btn-primary button-enable-recurring">{{ button_enable_recurring }}</button>
+<div class="paypal-subscription" id="paypal-subscription">
+  {% if subscription_status == '2' or subscription_status == '3' %}
+    <button type="button" class="btn btn-primary button-enable-subscription">{{ button_enable_subscription }}</button>
   {% else %}
-    <button type="button" class="btn btn-primary button-disable-recurring">{{ button_disable_recurring }}</button>
+    <button type="button" class="btn btn-primary button-disable-subscription">{{ button_disable_subscription }}</button>
   {% endif %}
 </div>
-<br />
+<br/>
 <script type="text/javascript">
-$('#paypal-recurring').on('click', '.button-enable-recurring', function() {
+$('#paypal-subscription').on('click', '.button-enable-subscription', function() {
 	$.ajax({
 		type: 'post',
 		url: '{{ enable_url }}',
-		data: {'order_recurring_id' : '{{ order_recurring_id }}'},
+		data: { 'order_subscription_id' : '{{ order_subscription_id }}' },
 		dataType: 'json',
 		beforeSend: function() {
-			$('#paypal-recurring .btn').prop('disabled', true);
+			$('#paypal-subscription .btn').prop('disabled', true);
 		},
 		complete: function() {
-			$('#paypal-recurring .btn').prop('disabled', false);
+			$('#paypal-subscription .btn').prop('disabled', false);
 		},
 		success: function(json) {
 			$('.alert-dismissible').remove();
@@ -33,7 +33,7 @@ $('#paypal-recurring').on('click', '.button-enable-recurring', function() {
 				
 				$('html, body').animate({scrollTop: $('#content > .container-fluid .alert-success').offset().top}, 'slow');
 				
-				$('#paypal-recurring').load('{{ info_url }} #paypal-recurring >');
+				$('#paypal-subscription').load('{{ info_url }} #paypal-subscription >');
 			}
 		},
 		error: function(xhr, ajaxOptions, thrownError) {
@@ -42,17 +42,17 @@ $('#paypal-recurring').on('click', '.button-enable-recurring', function() {
 	});
 });
 
-$('#paypal-recurring').on('click', '.button-disable-recurring', function() {
+$('#paypal-subscription').on('click', '.button-disable-subscription', function() {
 	$.ajax({
 		type: 'post',
 		url: '{{ disable_url }}',
-		data: {'order_recurring_id' : '{{ order_recurring_id }}'},
+		data: {'order_subscription_id' : '{{ order_subscription_id }}'},
 		dataType: 'json',
 		beforeSend: function() {
-			$('#paypal-recurring .btn').prop('disabled', true);
+			$('#paypal-subscription .btn').prop('disabled', true);
 		},
 		complete: function() {
-			$('#paypal-recurring .btn').prop('disabled', false);
+			$('#paypal-subscription .btn').prop('disabled', false);
 		},
 		success: function(json) {
 			$('.alert-dismissible').remove();
@@ -68,7 +68,7 @@ $('#paypal-recurring').on('click', '.button-disable-recurring', function() {
 				
 				$('html, body').animate({scrollTop: $('#content > .container-fluid .alert-success').offset().top}, 'slow');
 				
-				$('#paypal-recurring').load('{{ info_url }} #paypal-recurring >');
+				$('#paypal-subscription').load('{{ info_url }} #paypal-subscription >');
 			}
 		},
 		error: function(xhr, ajaxOptions, thrownError) {

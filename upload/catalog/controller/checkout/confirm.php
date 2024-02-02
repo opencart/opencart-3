@@ -6,6 +6,8 @@
  */
 class ControllerCheckoutConfirm extends Controller {
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -94,7 +96,9 @@ class ControllerCheckoutConfirm extends Controller {
 					$this->load->model('extension/total/' . $result['code']);
 
 					// We have to put the totals in an array so that they pass by reference.
-					$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
+					if (is_callable([$this->{'model_extension_total_' . $result['code']}, 'getTotal'])) {
+						$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
+					}
 				}
 			}
 
@@ -158,8 +162,8 @@ class ControllerCheckoutConfirm extends Controller {
 			$order_data['payment_address_format'] = $this->session->data['payment_address']['address_format'];
 			$order_data['payment_custom_field'] = $this->session->data['payment_address']['custom_field'] ?? [];
 
-			if (isset($this->session->data['payment_method']['title'])) {
-				$order_data['payment_method'] = $this->session->data['payment_method']['title'];
+			if (isset($this->session->data['payment_method']['name'])) {
+				$order_data['payment_method'] = $this->session->data['payment_method']['name'];
 			} else {
 				$order_data['payment_method'] = '';
 			}

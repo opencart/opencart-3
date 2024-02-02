@@ -11,6 +11,8 @@ class ControllerExtensionPaymentG2APay extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -166,25 +168,25 @@ class ControllerExtensionPaymentG2APay extends Controller {
 		$data['g2apay_ipn_url'] = HTTPS_CATALOG . 'index.php?route=extension/payment/g2apay/ipn&token=' . $data['payment_g2apay_secret_token'];
 
 		if (isset($this->request->post['payment_g2apay_geo_zone_id'])) {
-			$data['payment_g2apay_geo_zone_id'] = $this->request->post['payment_g2apay_geo_zone_id'];
+			$data['payment_g2apay_geo_zone_id'] = (int)$this->request->post['payment_g2apay_geo_zone_id'];
 		} else {
 			$data['payment_g2apay_geo_zone_id'] = $this->config->get('payment_g2apay_geo_zone_id');
 		}
 
 		if (isset($this->request->post['payment_g2apay_status'])) {
-			$data['payment_g2apay_status'] = $this->request->post['payment_g2apay_status'];
+			$data['payment_g2apay_status'] = (int)$this->request->post['payment_g2apay_status'];
 		} else {
 			$data['payment_g2apay_status'] = $this->config->get('payment_g2apay_status');
 		}
 
 		if (isset($this->request->post['payment_g2apay_debug'])) {
-			$data['payment_g2apay_debug'] = $this->request->post['payment_g2apay_debug'];
+			$data['payment_g2apay_debug'] = (int)$this->request->post['payment_g2apay_debug'];
 		} else {
 			$data['payment_g2apay_debug'] = $this->config->get('payment_g2apay_debug');
 		}
 
 		if (isset($this->request->post['payment_g2apay_sort_order'])) {
-			$data['payment_g2apay_sort_order'] = $this->request->post['payment_g2apay_sort_order'];
+			$data['payment_g2apay_sort_order'] = (int)$this->request->post['payment_g2apay_sort_order'];
 		} else {
 			$data['payment_g2apay_sort_order'] = $this->config->get('payment_g2apay_sort_order');
 		}
@@ -268,13 +270,11 @@ class ControllerExtensionPaymentG2APay extends Controller {
 					$json['msg'] = $this->language->get('text_refund_ok');
 				}
 
-				$json['data'] = [];
-
-				$json['data']['date_added'] = date('Y-m-d H:i:s');
-				$json['data']['amount'] = $this->currency->format(($this->request->post['amount'] * -1), $payment_g2apay_order['currency_code'], false);
-				$json['data']['total_released'] = (float)$total_released;
-				$json['data']['total_refunded'] = (float)$total_refunded;
-				$json['data']['refund_status'] = $refund_status;
+				$json['date_added'] = date('Y-m-d H:i:s');
+				$json['amount'] = $this->currency->format(($this->request->post['amount'] * -1), $payment_g2apay_order['currency_code'], false);
+				$json['total_released'] = (float)$total_released;
+				$json['total_refunded'] = (float)$total_refunded;
+				$json['refund_status'] = $refund_status;
 
 				$json['error'] = false;
 			} else {
@@ -316,7 +316,12 @@ class ControllerExtensionPaymentG2APay extends Controller {
 		$this->model_extension_payment_g2apay->uninstall();
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 *
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/payment/g2apay')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

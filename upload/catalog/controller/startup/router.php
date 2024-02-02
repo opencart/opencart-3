@@ -6,6 +6,8 @@
  */
 class ControllerStartupRouter extends Controller {
 	/**
+	 * Index
+	 *
 	 * @return mixed
 	 */
 	public function index(): mixed {

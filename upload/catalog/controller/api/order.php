@@ -136,8 +136,8 @@ class ControllerApiOrder extends Controller {
 				$order_data['payment_address_format'] = $this->session->data['payment_address']['address_format'];
 				$order_data['payment_custom_field'] = $this->session->data['payment_address']['custom_field'] ?? [];
 
-				if (isset($this->session->data['payment_method']['title'])) {
-					$order_data['payment_method'] = $this->session->data['payment_method']['title'];
+				if (isset($this->session->data['payment_method']['name'])) {
+					$order_data['payment_method'] = $this->session->data['payment_method']['name'];
 				} else {
 					$order_data['payment_method'] = '';
 				}
@@ -211,12 +211,29 @@ class ControllerApiOrder extends Controller {
 						];
 					}
 
+					$subscription_data = [];
+
+					if ($product['subscription']) {
+						$subscription_data = [
+							'subscription_plan_id' => $product['subscription']['subscription_plan_id'],
+							'name'                 => $product['subscription']['name'],
+							'trial_frequency'      => $product['subscription']['trial_frequency'],
+							'trial_cycle'          => $product['subscription']['trial_cycle'],
+							'trial_duration'       => $product['subscription']['trial_duration'],
+							'trial_remaining'      => $product['subscription']['trial_remaining'],
+							'trial_status'         => $product['subscription']['trial_status'],
+							'frequency'            => $product['subscription']['frequency'],
+							'cycle'                => $product['subscription']['cycle'],
+							'duration'             => $product['subscription']['duration']
+						];
+					}
+
 					$order_data['products'][] = [
 						'product_id'   => $product['product_id'],
 						'name'         => $product['name'],
 						'model'        => $product['model'],
 						'option'       => $option_data,
-						'subscription' => $product['subscription'],
+						'subscription' => $subscription_data,
 						'download'     => $product['download'],
 						'quantity'     => $product['quantity'],
 						'subtract'     => $product['subtract'],
@@ -275,7 +292,9 @@ class ControllerApiOrder extends Controller {
 						$this->load->model('extension/total/' . $result['code']);
 
 						// We have to put the totals in an array so that they pass by reference.
-						$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
+						if (is_callable([$this->{'model_extension_total_' . $result['code']}, 'getTotal'])) {
+							$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
+						}
 					}
 				}
 
@@ -513,8 +532,8 @@ class ControllerApiOrder extends Controller {
 					$order_data['payment_address_format'] = $this->session->data['payment_address']['address_format'];
 					$order_data['payment_custom_field'] = $this->session->data['payment_address']['custom_field'];
 
-					if (isset($this->session->data['payment_method']['title'])) {
-						$order_data['payment_method'] = $this->session->data['payment_method']['title'];
+					if (isset($this->session->data['payment_method']['name'])) {
+						$order_data['payment_method'] = $this->session->data['payment_method']['name'];
 					} else {
 						$order_data['payment_method'] = '';
 					}
@@ -588,12 +607,29 @@ class ControllerApiOrder extends Controller {
 							];
 						}
 
+						$subscription_data = [];
+
+						if ($product['subscription']) {
+							$subscription_data = [
+								'subscription_plan_id' => $product['subscription']['subscription_plan_id'],
+								'name'                 => $product['subscription']['name'],
+								'trial_frequency'      => $product['subscription']['trial_frequency'],
+								'trial_cycle'          => $product['subscription']['trial_cycle'],
+								'trial_duration'       => $product['subscription']['trial_duration'],
+								'trial_remaining'      => $product['subscription']['trial_remaining'],
+								'trial_status'         => $product['subscription']['trial_status'],
+								'frequency'            => $product['subscription']['frequency'],
+								'cycle'                => $product['subscription']['cycle'],
+								'duration'             => $product['subscription']['duration']
+							];
+						}
+
 						$order_data['products'][] = [
 							'product_id'   => $product['product_id'],
 							'name'         => $product['name'],
 							'model'        => $product['model'],
 							'option'       => $option_data,
-							'subscription' => $product['subscription'],
+							'subscription' => $subscription_data,
 							'download'     => $product['download'],
 							'quantity'     => $product['quantity'],
 							'subtract'     => $product['subtract'],
@@ -652,7 +688,9 @@ class ControllerApiOrder extends Controller {
 							$this->load->model('extension/total/' . $result['code']);
 
 							// We have to put the totals in an array so that they pass by reference.
-							$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
+							if (is_callable([$this->{'model_extension_total_' . $result['code']}, 'getTotal'])) {
+								$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
+							}
 						}
 					}
 

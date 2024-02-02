@@ -51,7 +51,7 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 			}
 
 			$price = $this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax'));
-			
+
 			$products[] = array_map('strval', [
 				'name'       => $product['name'],
 				'pictureUrl' => $this->config->get('config_url') . 'image/' . $product['image'],
@@ -129,7 +129,9 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 						$this->load->model('extension/total/' . $result['code']);
 
 						// We have to put the totals in an array so that they pass by reference.
-						$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
+						if (is_callable([$this->{'model_extension_total_' . $result['code']}, 'getTotal'])) {
+							$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
+						}
 					}
 				}
 

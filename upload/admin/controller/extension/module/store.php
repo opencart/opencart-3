@@ -11,6 +11,8 @@ class ControllerExtensionModuleStore extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -74,7 +76,12 @@ class ControllerExtensionModuleStore extends Controller {
 		$this->response->setOutput($this->load->view('extension/module/store', $data));
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 *
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/module/store')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

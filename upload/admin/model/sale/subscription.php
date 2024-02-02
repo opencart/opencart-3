@@ -6,10 +6,10 @@
  */
 class ModelSaleSubscription extends Model {
 	/**
-	 * editSubscription
+	 * Edit Subscription
 	 *
-	 * @param int   $subscription_id
-	 * @param array $data
+	 * @param int                  $subscription_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -18,7 +18,7 @@ class ModelSaleSubscription extends Model {
 	}
 
 	/**
-	 * editPaymentMethod
+	 * Edit Payment Method
 	 *
 	 * @param int $subscription_id
 	 * @param int $customer_payment_id
@@ -30,7 +30,7 @@ class ModelSaleSubscription extends Model {
 	}
 
 	/**
-	 * editSubscriptionPlan
+	 * Edit Subscription Plan
 	 *
 	 * @param int $subscription_id
 	 * @param int $subscription_plan_id
@@ -42,7 +42,7 @@ class ModelSaleSubscription extends Model {
 	}
 
 	/**
-	 * editRemaining
+	 * Edit Remaining
 	 *
 	 * @param int $subscription_id
 	 * @param int $remaining
@@ -54,7 +54,7 @@ class ModelSaleSubscription extends Model {
 	}
 
 	/**
-	 * editTrialRemaining
+	 * Edit Trial Remaining
 	 *
 	 * @param int $subscription_id
 	 * @param int $trial_remaining
@@ -66,7 +66,7 @@ class ModelSaleSubscription extends Model {
 	}
 
 	/**
-	 * editDateNext
+	 * Edit Date Next
 	 *
 	 * @param int    $subscription_id
 	 * @param string $date_next
@@ -78,11 +78,22 @@ class ModelSaleSubscription extends Model {
 	}
 
 	/**
-	 * getSubscription
+	 * Delete Subscription By Customer Payment ID
+	 *
+	 * @param int $customer_payment_id
+	 *
+	 * @return void
+	 */
+	public function deleteSubscriptionByCustomerPaymentId(int $customer_payment_id): void {
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "subscription` WHERE `customer_payment_id ` = '" . $customer_payment_id);
+	}
+
+	/**
+	 * Get Subscription
 	 *
 	 * @param int $subscription_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getSubscription(int $subscription_id): array {
 		$subscription_data = [];
@@ -101,12 +112,12 @@ class ModelSaleSubscription extends Model {
 	}
 
 	/**
-	 * getSubscriptionByOrderProductId
+	 * Get Subscription By Order Product ID
 	 *
 	 * @param int $order_id
 	 * @param int $order_product_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getSubscriptionByOrderProductId(int $order_id, int $order_product_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "subscription` WHERE `order_id` = '" . (int)$order_id . "' AND `order_product_id` = '" . (int)$order_product_id . "'");
@@ -115,11 +126,11 @@ class ModelSaleSubscription extends Model {
 	}
 
 	/**
-	 * getSubscriptions
+	 * Get Subscriptions
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getSubscriptions(array $data): array {
 		$sql = "SELECT `s`.`subscription_id`, `s`.*, CONCAT(`o`.`firstname`, ' ', `o`.`lastname`) AS customer, (SELECT `ss`.`name` FROM `" . DB_PREFIX . "subscription_status` `ss` WHERE `ss`.`subscription_status_id` = `s`.`subscription_status_id` AND `ss`.`language_id` = '" . (int)$this->config->get('config_language_id') . "') AS `subscription_status` FROM `" . DB_PREFIX . "subscription` `s` LEFT JOIN `" . DB_PREFIX . "order` `o` ON (`s`.`order_id` = `o`.`order_id`)";
@@ -136,6 +147,14 @@ class ModelSaleSubscription extends Model {
 
 		if (!empty($data['filter_order_product_id'])) {
 			$implode[] = "`s`.`order_product_id` = '" . (int)$data['filter_order_product_id'] . "'";
+		}
+
+		if (!empty($data['filter_customer_payment_id'])) {
+			$implode[] = "`s`.`customer_payment_id` = " . (int)$data['filter_customer_payment_id'];
+		}
+
+		if (!empty($data['filter_customer_id'])) {
+			$implode[] = "`s`.`customer_id` = " . (int)$data['filter_customer_id'];
 		}
 
 		if (!empty($data['filter_customer'])) {
@@ -201,9 +220,9 @@ class ModelSaleSubscription extends Model {
 	}
 
 	/**
-	 * getTotalSubscriptions
+	 * Get Total Subscriptions
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -218,6 +237,10 @@ class ModelSaleSubscription extends Model {
 
 		if (!empty($data['filter_order_id'])) {
 			$implode[] = "`s`.`order_id` = '" . (int)$data['filter_order_id'] . "'";
+		}
+
+		if (!empty($data['filter_customer_id'])) {
+			$implode[] = "`s`.`customer_id` = " . (int)$data['filter_customer_id'];
 		}
 
 		if (!empty($data['filter_customer'])) {
@@ -246,7 +269,7 @@ class ModelSaleSubscription extends Model {
 	}
 
 	/**
-	 * getTotalSubscriptionsByStoreId
+	 * Get Total Subscriptions By Store ID
 	 *
 	 * @param int $store_id
 	 *
@@ -259,7 +282,7 @@ class ModelSaleSubscription extends Model {
 	}
 
 	/**
-	 * getTotalSubscriptionsBySubscriptionStatusId
+	 * Get Total Subscriptions By Subscription Status ID
 	 *
 	 * @param int $subscription_status_id
 	 *
@@ -272,7 +295,7 @@ class ModelSaleSubscription extends Model {
 	}
 
 	/**
-	 * addHistory
+	 * Add History
 	 *
 	 * @param int    $subscription_id
 	 * @param int    $subscription_status_id
@@ -288,13 +311,13 @@ class ModelSaleSubscription extends Model {
 	}
 
 	/**
-	 * getHistories
+	 * Get Histories
 	 *
 	 * @param int $subscription_id
 	 * @param int $start
 	 * @param int $limit
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getHistories(int $subscription_id, int $start = 0, int $limit = 10): array {
 		if ($start < 0) {
@@ -311,7 +334,7 @@ class ModelSaleSubscription extends Model {
 	}
 
 	/**
-	 * getTotalHistories
+	 * Get Total Histories
 	 *
 	 * @param int $subscription_id
 	 *
@@ -324,7 +347,7 @@ class ModelSaleSubscription extends Model {
 	}
 
 	/**
-	 * getTotalHistoriesBySubscriptionStatusId
+	 * Get Total Histories By Subscription Status ID
 	 *
 	 * @param int $subscription_status_id
 	 *

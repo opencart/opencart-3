@@ -6,9 +6,9 @@
  */
 class ModelCheckoutOrder extends Model {
 	/**
-	 * addOrder
+	 * Add Order
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -66,10 +66,10 @@ class ModelCheckoutOrder extends Model {
 	}
 
 	/**
-	 * editOrder
+	 * Edit Order
 	 *
-	 * @param int   $order_id
-	 * @param array $data
+	 * @param int                  $order_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -129,7 +129,7 @@ class ModelCheckoutOrder extends Model {
 	}
 
 	/**
-	 * deleteOrder
+	 * Delete Order
 	 *
 	 * @param int $order_id
 	 *
@@ -147,7 +147,7 @@ class ModelCheckoutOrder extends Model {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "order_history` WHERE `order_id` = '" . (int)$order_id . "'");
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "order_subscription` WHERE `order_id` = '" . (int)$order_id . "'");
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "customer_transaction` WHERE `order_id` = '" . (int)$order_id . "'");
-		$this->db->query("DELETE `or`, `ort` FROM `" . DB_PREFIX . "order_recurring` `or`, `" . DB_PREFIX . "order_recurring_transaction` `ort` WHERE `order_id` = '" . (int)$order_id . "' AND `ort`.`order_recurring_id` = `or`.`order_recurring_id`");
+		$this->db->query("DELETE `or`, `ort`, `orh` FROM `" . DB_PREFIX . "order_recurring` `or`, `" . DB_PREFIX . "order_recurring_transaction` `ort`, `" . DB_PREFIX . "order_recurring_history` `orh` WHERE `order_id` = '" . (int)$order_id . "' AND `orh`.`order_recurring_id` = `ort`.`order_recurring_id` AND `ort`.`order_recurring_id` = `or`.`order_recurring_id`");
 
 		// Gift Voucher
 		$this->load->model('extension/total/voucher');
@@ -156,11 +156,11 @@ class ModelCheckoutOrder extends Model {
 	}
 
 	/**
-	 * getOrder
+	 * Get Order
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getOrder(int $order_id): array {
 		$order_query = $this->db->query("SELECT *, (SELECT `os`.`name` FROM `" . DB_PREFIX . "order_status` `os` WHERE `os`.`order_status_id` = `o`.`order_status_id` AND `os`.`language_id` = `o`.`language_id`) AS `order_status` FROM `" . DB_PREFIX . "order` `o` WHERE `o`.`order_id` = '" . (int)$order_id . "'");
@@ -286,11 +286,11 @@ class ModelCheckoutOrder extends Model {
 	}
 
 	/**
-	 * getProducts
+	 * Get Products
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getProducts(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_product` WHERE `order_id` = '" . (int)$order_id . "'");
@@ -299,12 +299,12 @@ class ModelCheckoutOrder extends Model {
 	}
 
 	/**
-	 * getOptions
+	 * Get Options
 	 *
 	 * @param int $order_id
 	 * @param int $order_product_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getOptions(int $order_id, int $order_product_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_option` WHERE `order_id` = '" . (int)$order_id . "' AND `order_product_id` = '" . (int)$order_product_id . "'");
@@ -313,12 +313,12 @@ class ModelCheckoutOrder extends Model {
 	}
 
 	/**
-	 * getSubscription
+	 * Get Subscription
 	 *
 	 * @param int $order_id
 	 * @param int $order_product_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getSubscription(int $order_id, int $order_product_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_subscription` WHERE `order_id` = '" . (int)$order_id . "' AND `order_product_id` = '" . (int)$order_product_id . "'");
@@ -327,11 +327,11 @@ class ModelCheckoutOrder extends Model {
 	}
 
 	/**
-	 * getSubscriptions
+	 * Get Subscriptions
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getSubscriptions(array $data): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "subscription`";
@@ -389,7 +389,7 @@ class ModelCheckoutOrder extends Model {
 	}
 
 	/**
-	 * getTotalOrdersBySubscriptionId
+	 * Get Total Orders By Subscription Id
 	 *
 	 * @param int $subscription_id
 	 *
@@ -402,11 +402,11 @@ class ModelCheckoutOrder extends Model {
 	}
 
 	/**
-	 * getVouchers
+	 * Get Vouchers
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getVouchers(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_voucher` WHERE `order_id` = '" . (int)$order_id . "'");
@@ -415,11 +415,11 @@ class ModelCheckoutOrder extends Model {
 	}
 
 	/**
-	 * getTotals
+	 * Get Totals
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getTotals(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_total` WHERE `order_id` = '" . (int)$order_id . "' ORDER BY `sort_order` ASC");
@@ -428,7 +428,7 @@ class ModelCheckoutOrder extends Model {
 	}
 
 	/**
-	 * addHistory
+	 * Add History
 	 *
 	 * @param int    $order_id
 	 * @param int    $order_status_id
@@ -464,7 +464,9 @@ class ModelCheckoutOrder extends Model {
 					if ($this->config->get('fraud_' . $extension['code'] . '_status')) {
 						$this->load->model('extension/fraud/' . $extension['code']);
 
-						if (isset($this->{'model_extension_fraud_' . $extension['code']}->check)) {
+						$callable = [$this->{'model_extension_fraud_' . $extension['code']}, 'check'];
+
+						if (is_callable($callable)) {
 							$fraud_status_id = $this->{'model_extension_fraud_' . $extension['code']}->check($order_info);
 
 							if ($fraud_status_id) {
@@ -483,7 +485,7 @@ class ModelCheckoutOrder extends Model {
 				foreach ($order_totals as $order_total) {
 					$this->load->model('extension/total/' . $order_total['code']);
 
-					if (isset($this->{'model_extension_total_' . $order_total['code']}->confirm)) {
+					if (is_callable([$this->{'model_extension_total_' . $order_total['code']}, 'confirm'])) {
 						// Confirm coupon, vouchers and reward points
 						$fraud_status_id = $this->{'model_extension_total_' . $order_total['code']}->confirm($order_info, $order_total);
 
@@ -579,7 +581,7 @@ class ModelCheckoutOrder extends Model {
 				foreach ($order_totals as $order_total) {
 					$this->load->model('extension/total/' . $order_total['code']);
 
-					if (isset($this->{'model_extension_total_' . $order_total['code']}->unconfirm)) {
+					if (is_callable([$this->{'model_extension_total_' . $order_total['code']}, 'unconfirm'])) {
 						$this->{'model_extension_total_' . $order_total['code']}->unconfirm($order_id);
 					}
 				}

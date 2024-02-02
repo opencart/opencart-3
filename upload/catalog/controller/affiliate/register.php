@@ -5,9 +5,14 @@
  * @package Catalog\Controller\Affiliate
  */
 class ControllerAffiliateRegister extends Controller {
+	/**
+	 * @var array<string, string>
+	 */
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -317,7 +322,12 @@ class ControllerAffiliateRegister extends Controller {
 		$this->response->setOutput($this->load->view('affiliate/register', $data));
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 *
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if ((oc_strlen($this->request->post['firstname']) < 1) || (oc_strlen($this->request->post['firstname']) > 32)) {
 			$this->error['firstname'] = $this->language->get('error_firstname');
 		}

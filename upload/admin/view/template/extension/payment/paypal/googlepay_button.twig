@@ -1,5 +1,5 @@
 {{ header }}{{ column_left }}
-<div id="content" class="payment-paypal">
+<div class="payment-paypal" id="content">
   <div class="page-header">
     <div class="container-fluid">
       <div class="pull-right">
@@ -62,10 +62,10 @@
                       </div>
                     </div>
                   </div>
-                  <div id="googlepay-button" class="googlepay-button">
-                    <div id="googlepay-button-container" class="googlepay-button-container paypal-spinner"></div>
+                  <div class="googlepay-button" id="googlepay-button">
+                    <div class="googlepay-button-container paypal-spinner" id="googlepay-button-container"></div>
                   </div>
-                  <br />
+                  <br/>
                 </div>
               </div>
               <div class="col col-lg-6">
@@ -76,9 +76,9 @@
                     </div>
                     <div class="col col-md-6">
                       <div class="form-group-status">
-                        <label class="control-label" for="input-googlepay-button-status"><span data-toggle="tooltip" title="{{ help_googlepay_button_status }}">{{ entry_status }}</span></label>
-                        <input type="hidden" name="payment_paypal_setting[googlepay_button][status]" value="0" />{% set setting_googleplay_button = setting.googlepay_button %}
-                        <input type="checkbox" name="payment_paypal_setting[googlepay_button][status]" value="1" class="switch" {% if setting_googlepay_button.status %}checked="checked"{% endif %} />
+                        <label class="control-label" for="input-googlepay-button-status"><span data-toggle="tooltip" title="{{ help_googlepay_button_status|escape('html') }}">{{ entry_status }}</span></label>
+                        <input type="hidden" name="payment_paypal_setting[googlepay_button][status]" value="0"/>{% set setting_googleplay_button = setting.googlepay_button %}
+                        <input type="checkbox" name="payment_paypal_setting[googlepay_button][status]" value="1" class="switch" {% if setting_googlepay_button.status %}checked="checked"{% endif %}/>
                       </div>
                     </div>
                   </div>
@@ -86,7 +86,7 @@
                     <div class="col col-md-6">
                       <div class="form-group">
                         <label class="control-label" for="input-googlepay-button-align">{{ entry_googlepay_button_align }}</label>
-                        <select name="payment_paypal_setting[googlepay_button][align]" id="input-googlepay-button-align" class="form-control control-googlepay-button">
+                        <select name="payment_paypal_setting[googlepay_button][align]" class="form-control control-googlepay-button" id="input-googlepay-button-align">
                           {% for googlepay_button_align in setting.googlepay_button_align %}
                             {% if googlepay_button_align.code == setting_googlepay_button.align %}
                               <option value="{{ googlepay_button_align.code }}" selected="selected">{{ attribute(_context, googlepay_button_align.name) }}</option>
@@ -98,7 +98,7 @@
                       </div>
                       <div class="form-group">
                         <label class="control-label" for="input-googlepay-button-size">{{ entry_googlepay_button_size }}</label>
-                        <select name="payment_paypal_setting[googlepay_button][size]" id="input-googlepay-button-size" class="form-control control-googlepay-button">
+                        <select name="payment_paypal_setting[googlepay_button][size]" class="form-control control-googlepay-button" id="input-googlepay-button-size">
                           {% for googlepay_button_size in setting.googlepay_button_size %}
                             {% if googlepay_button_size.code == setting_googlepay_button.size %}
                               <option value="{{ googlepay_button_size.code }}" selected="selected">{{ attribute(_context, googlepay_button_size.name) }}</option>
@@ -110,7 +110,7 @@
                       </div>
                       <div class="form-group">
                         <label class="control-label" for="input-googlepay-button-color">{{ entry_googlepay_button_color }}</label>
-                        <select name="payment_paypal_setting[googlepay_button][color]" id="input-googlepay-button-color" class="form-control control-googlepay-button">
+                        <select name="payment_paypal_setting[googlepay_button][color]" class="form-control control-googlepay-button" id="input-googlepay-button-color">
                           {% for googlepay_button_color in setting.googlepay_button_color %}
                             {% if googlepay_button_color.code == setting_googlepay_button.color %}
                               <option value="{{ googlepay_button_color.code }}" selected="selected">{{ attribute(_context, googlepay_button_color.name) }}</option>
@@ -124,7 +124,7 @@
                     <div class="col col-md-6">
                       <div class="form-group">
                         <label class="control-label" for="input-googlepay-button-shape">{{ entry_googlepay_button_shape }}</label>
-                        <select name="payment_paypal_setting[googlepay_button][shape]" id="input-googlepay-button-shape" class="form-control control-googlepay-button">
+                        <select name="payment_paypal_setting[googlepay_button][shape]" class="form-control control-googlepay-button" id="input-googlepay-button-shape">
                           {% for googlepay_button_shape in setting.googlepay_button_shape %}
                             {% if googlepay_button_shape.code == setting_googlepay_button.shape %}
                               <option value="{{ googlepay_button_shape.code }}" selected="selected">{{ attribute(_context, googlepay_button_shape.name) }}</option>
@@ -136,7 +136,7 @@
                       </div>
                       <div class="form-group">
                         <label class="control-label" for="input-googlepay-button-type">{{ entry_googlepay_button_type }}</label>
-                        <select name="payment_paypal_setting[googlepay_button][type]" id="input-googlepay-button-type" class="form-control control-googlepay-button">
+                        <select name="payment_paypal_setting[googlepay_button][type]" class="form-control control-googlepay-button" id="input-googlepay-button-type">
                           {% for googlepay_button_type in setting.googlepay_button_type %}
                             {% if googlepay_button_type.code == setting_googlepay_button.type %}
                               <option value="{{ googlepay_button_type.code }}" selected="selected">{{ attribute(_context, googlepay_button_type.name) }}</option>

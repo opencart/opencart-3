@@ -11,6 +11,8 @@ class ControllerExtensionPaymentFirstdata extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -122,25 +124,25 @@ class ControllerExtensionPaymentFirstdata extends Controller {
 		}
 
 		if (isset($this->request->post['payment_firstdata_sort_order'])) {
-			$data['payment_firstdata_sort_order'] = $this->request->post['payment_firstdata_sort_order'];
+			$data['payment_firstdata_sort_order'] = (int)$this->request->post['payment_firstdata_sort_order'];
 		} else {
 			$data['payment_firstdata_sort_order'] = $this->config->get('payment_firstdata_sort_order');
 		}
 
 		if (isset($this->request->post['payment_firstdata_status'])) {
-			$data['payment_firstdata_status'] = $this->request->post['payment_firstdata_status'];
+			$data['payment_firstdata_status'] = (int)$this->request->post['payment_firstdata_status'];
 		} else {
 			$data['payment_firstdata_status'] = $this->config->get('payment_firstdata_status');
 		}
 
 		if (isset($this->request->post['payment_firstdata_debug'])) {
-			$data['payment_firstdata_debug'] = $this->request->post['payment_firstdata_debug'];
+			$data['payment_firstdata_debug'] = (int)$this->request->post['payment_firstdata_debug'];
 		} else {
 			$data['payment_firstdata_debug'] = $this->config->get('payment_firstdata_debug');
 		}
 
 		if (isset($this->request->post['payment_firstdata_auto_settle'])) {
-			$data['payment_firstdata_auto_settle'] = $this->request->post['payment_firstdata_auto_settle'];
+			$data['payment_firstdata_auto_settle'] = (int)$this->request->post['payment_firstdata_auto_settle'];
 		} elseif (!isset($this->request->post['payment_firstdata_auto_settle']) && $this->config->get('payment_firstdata_auto_settle') != '') {
 			$data['payment_firstdata_auto_settle'] = $this->config->get('payment_firstdata_auto_settle');
 		} else {
@@ -356,7 +358,12 @@ class ControllerExtensionPaymentFirstdata extends Controller {
 		$this->response->redirect($this->url->link('sale/order/info', 'order_id=' . $this->request->post['order_id'] . '&user_token=' . $this->session->data['user_token'], true));
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 *
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/payment/firstdata')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

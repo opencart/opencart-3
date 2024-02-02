@@ -6,9 +6,9 @@
  */
 class ModelReportStatistics extends Model {
 	/**
-	 * getStatistics
+	 * Get Statistics
 	 *
-	 * @return array
+	 * @param array<string, mixed> $data
 	 */
 	public function getStatistics(): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "statistics`");
@@ -17,7 +17,7 @@ class ModelReportStatistics extends Model {
 	}
 
 	/**
-	 * getValue
+	 * Get Value
 	 *
 	 * @param string $code
 	 *
@@ -34,7 +34,7 @@ class ModelReportStatistics extends Model {
 	}
 
 	/**
-	 * addValue
+	 * Add Value
 	 *
 	 * @param string $code
 	 * @param float  $value
@@ -46,7 +46,7 @@ class ModelReportStatistics extends Model {
 	}
 
 	/**
-	 * removeValue
+	 * Remove Value
 	 *
 	 * @param string $code
 	 * @param float  $value
@@ -58,7 +58,7 @@ class ModelReportStatistics extends Model {
 	}
 
 	/**
-	 * editValue
+	 * Edit Value
 	 *
 	 * @param string $code
 	 * @param float  $value

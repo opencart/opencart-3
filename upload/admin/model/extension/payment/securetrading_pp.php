@@ -32,7 +32,7 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 			  `securetrading_pp_order_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
 			  `securetrading_pp_order_id` int(11) NOT NULL,
 			  `created` DATETIME NOT NULL,
-			  `type` enum('auth', 'payment', 'rebate', 'reversed') DEFAULT NULL,
+			  `type` enum(\'auth\',\'payment\',\'rebate\',\'reversed\') DEFAULT NULL,
 			  `amount` decimal(15,4) NOT NULL,
 			  PRIMARY KEY (`securetrading_pp_order_transaction_id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
@@ -230,20 +230,6 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 	}
 
 	/**
-	 * addHistory
-	 * 
-	 * @param int    $order_id
-	 * @param int    $order_status_id
-	 * @param string $comment
-	 * @param bool   $notify
-	 * 
-	 * @return void
-	 */
-	public function addHistory(int $order_id, int $order_status_id, string $comment = '', bool $notify = false): void {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "order_history` SET `order_id` = '" . (int)$order_id . "', `order_status_id` = '" . (int)$order_status_id . "', `comment` = '" . $this->db->escape($comment) . "', `notify` = '" . (bool)$notify . "', `date_added` = NOW()");
-	}
-
-	/**
 	 * addTransaction
 	 *
 	 * @param int    $securetrading_pp_order_id
@@ -297,7 +283,7 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 	/**
 	 * Call
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return array
 	 */

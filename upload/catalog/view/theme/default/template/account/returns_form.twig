@@ -1,5 +1,5 @@
 {{ header }}
-<div id="account-return" class="container">
+<div class="container" id="account-return">
   <ul class="breadcrumb">
     {% for breadcrumb in breadcrumbs %}
       <li><a href="{{ breadcrumb.href }}"> {{ breadcrumb.text }}</a></li>
@@ -16,7 +16,7 @@
     {% else %}
       {% set class = 'col-sm-12' %}
     {% endif %}
-    <div id="content" class="{{ class }}"> {{ content_top }}
+    <div class="{{ class }}" id="content"> {{ content_top }}
       <h1>{{ heading_title }}</h1>
       <p>{{ text_description }}</p>
       <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal">
@@ -25,7 +25,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-firstname">{{ entry_firstname }}</label>
             <div class="col-sm-10">
-              <input type="text" name="firstname" value="{{ firstname }}" placeholder="{{ entry_firstname }}" id="input-firstname" class="form-control"/>
+              <input type="text" name="firstname" value="{{ firstname }}" placeholder="{{ entry_firstname }}" class="form-control" id="input-firstname"/>
               {% if error_firstname %}
                 <div class="text-danger">{{ error_firstname }}</div>
               {% endif %}
@@ -34,7 +34,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-lastname">{{ entry_lastname }}</label>
             <div class="col-sm-10">
-              <input type="text" name="lastname" value="{{ lastname }}" placeholder="{{ entry_lastname }}" id="input-lastname" class="form-control"/>
+              <input type="text" name="lastname" value="{{ lastname }}" placeholder="{{ entry_lastname }}" class="form-control" id="input-lastname"/>
               {% if error_lastname %}
                 <div class="text-danger">{{ error_lastname }}</div>
               {% endif %}
@@ -43,7 +43,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-email">{{ entry_email }}</label>
             <div class="col-sm-10">
-              <input type="text" name="email" value="{{ email }}" placeholder="{{ entry_email }}" id="input-email" class="form-control"/>
+              <input type="text" name="email" value="{{ email }}" placeholder="{{ entry_email }}" class="form-control" id="input-email"/>
               {% if error_email %}
                 <div class="text-danger">{{ error_email }}</div>
               {% endif %}
@@ -52,7 +52,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-telephone">{{ entry_telephone }}</label>
             <div class="col-sm-10">
-              <input type="text" name="telephone" value="{{ telephone }}" placeholder="{{ entry_telephone }}" id="input-telephone" class="form-control"/>
+              <input type="text" name="telephone" value="{{ telephone }}" placeholder="{{ entry_telephone }}" class="form-control" id="input-telephone"/>
               {% if error_telephone %}
                 <div class="text-danger">{{ error_telephone }}</div>
               {% endif %}
@@ -61,7 +61,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-order-id">{{ entry_order_id }}</label>
             <div class="col-sm-10">
-              <input type="text" name="order_id" value="{{ order_id }}" placeholder="{{ entry_order_id }}" id="input-order-id" class="form-control"/>
+              <input type="text" name="order_id" value="{{ order_id }}" placeholder="{{ entry_order_id }}" class="form-control" id="input-order-id"/>
               {% if error_order_id %}
                 <div class="text-danger">{{ error_order_id }}</div>
               {% endif %}
@@ -71,7 +71,7 @@
             <label class="col-sm-2 control-label" for="input-date-ordered">{{ entry_date_ordered }}</label>
             <div class="col-sm-3">
               <div class="input-group date">
-                <input type="text" name="date_ordered" value="{{ date_ordered }}" placeholder="{{ entry_date_ordered }}" data-date-format="YYYY-MM-DD" id="input-date-ordered" class="form-control"/>
+                <input type="text" name="date_ordered" value="{{ date_ordered }}" placeholder="{{ entry_date_ordered }}" data-date-format="YYYY-MM-DD" class="form-control" id="input-date-ordered"/>
                 <span class="input-group-btn">
                   <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
                 </span>
@@ -84,7 +84,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-product">{{ entry_product }}</label>
             <div class="col-sm-10">
-              <input type="text" name="product" value="{{ product }}" placeholder="{{ entry_product }}" id="input-product" class="form-control"/>
+              <input type="text" name="product" value="{{ product }}" placeholder="{{ entry_product }}" class="form-control" id="input-product"/>
               <input type="hidden" name="product_id" value="{{ product_id }}"/>
               {% if error_product %}
                 <div class="text-danger">{{ error_product }}</div>
@@ -94,7 +94,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-model">{{ entry_model }}</label>
             <div class="col-sm-10">
-              <input type="text" name="model" value="{{ model }}" placeholder="{{ entry_model }}" id="input-model" class="form-control"/>
+              <input type="text" name="model" value="{{ model }}" placeholder="{{ entry_model }}" class="form-control" id="input-model"/>
               {% if error_model %}
                 <div class="text-danger">{{ error_model }}</div>
               {% endif %}
@@ -103,7 +103,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-quantity">{{ entry_quantity }}</label>
             <div class="col-sm-10">
-              <input type="text" name="quantity" value="{{ quantity }}" placeholder="{{ entry_quantity }}" id="input-quantity" class="form-control"/>
+              <input type="text" name="quantity" value="{{ quantity }}" placeholder="{{ entry_quantity }}" class="form-control" id="input-quantity"/>
             </div>
           </div>
           <div class="form-group required">
@@ -145,7 +145,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-comment">{{ entry_fault_detail }}</label>
             <div class="col-sm-10">
-              <textarea name="comment" rows="10" placeholder="{{ entry_fault_detail }}" id="input-comment" class="form-control">{{ comment }}</textarea>
+              <textarea name="comment" rows="10" placeholder="{{ entry_fault_detail }}" class="form-control" id="input-comment"/>{{ comment }}</textarea>
             </div>
           </div>
           {{ captcha }}

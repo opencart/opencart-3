@@ -57,7 +57,7 @@ class ControllerExtensionPaymentG2APay extends Controller {
 
 		foreach ($results as $result) {
 			if ($this->config->get('total_' . $result['code'] . '_status')) {
-				$callable = [$this->{'model_extension_total_' . $result['code']}->getTotal($total_data)];
+				$callable = [$this->{'model_extension_total_' . $result['code']}, 'getTotal'];
 
 				if (is_callable($callable)) {
 					$total_info = $this->{'model_extension_total_' . $result['code']}->getTotal();
@@ -79,7 +79,7 @@ class ControllerExtensionPaymentG2APay extends Controller {
 			}
 		}
 
-		$ordered_products = $this->model_account_order->getOrderProducts($this->session->data['order_id']);
+		$ordered_products = $this->model_account_order->getProducts($this->session->data['order_id']);
 
 		foreach ($ordered_products as $product) {
 			$item = new \stdClass();

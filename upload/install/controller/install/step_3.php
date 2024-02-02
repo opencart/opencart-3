@@ -1,7 +1,20 @@
 <?php
+/**
+ * Class Step 3
+ *
+ * @package Install\Controller\Install
+ */
 class ControllerInstallStep3 extends Controller {
-	private $error = [];
+	/**
+	 * @var array<string, string>
+	 */
+	private array $error = [];
 
+	/**
+	 * Index
+	 *
+	 * @return void
+	 */
 	public function index(): void {
 		$this->load->language('install/step_3');
 
@@ -266,7 +279,12 @@ class ControllerInstallStep3 extends Controller {
 		$this->response->setOutput($this->load->view('install/step_3', $data));
 	}
 
-	private function validate() {
+	/**
+	 * Validate
+	 *
+	 * @return bool
+	 */
+	private function validate(): bool {
 		if (!$this->request->post['db_hostname']) {
 			$this->error['db_hostname'] = $this->language->get('error_db_hostname');
 		}

@@ -243,7 +243,7 @@ class ModelExtensionPaymentPilibaba extends Model {
 	 * @return void
 	 */
 	public function log(string $data): void {
-		if ($this->config->has('payment_pilibaba_logging') && $this->config->get('payment_pilibaba_logging')) {
+		if ($this->config->has('payment_pilibaba_debug') && $this->config->get('payment_pilibaba_debug')) {
 			$log = new \Log('pilibaba.log');
 
 			$log->write($data);

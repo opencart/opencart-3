@@ -4,9 +4,9 @@
     <div class="container-fluid">
       <div class="pull-right">
         {% if not error_signature %}
-          <button type="button" id="button-opencart" data-toggle="tooltip" title="{{ button_opencart }}" class="btn btn-info"><i class="fa fa-cog"></i></button>
+          <button type="button" data-toggle="tooltip" title="{{ button_opencart }}" class="btn btn-info" id="button-opencart"><i class="fa fa-cog"></i></button>
         {% else %}
-          <button type="button" id="button-opencart" data-toggle="tooltip" title="{{ error_signature }}" data-placement="left" class="btn btn-danger"><i class="fa fa-exclamation-triangle"></i></button>
+          <button type="button" data-toggle="tooltip" title="{{ error_signature }}" data-placement="left" class="btn btn-danger" id="button-opencart"><i class="fa fa-exclamation-triangle"></i></button>
         {% endif %}
       </div>
       <h1>{{ heading_title }}</h1>
@@ -43,7 +43,7 @@
               <input type="hidden" name="filter_license" value="{{ filter_license }}" class="form-control"/>
               <input type="hidden" name="filter_partner" value="{{ filter_partner }}" class="form-control"/>
               <input type="hidden" name="sort" value="{{ sort }}" class="form-control"/>
-              <button type="button" id="button-filter" class="btn btn-primary"><i class="fa fa-filter"></i></button>
+              <button type="button" class="btn btn-primary" id="button-filter"><i class="fa fa-filter"></i></button>
             </div>
           </div>
         </div>
@@ -62,7 +62,7 @@
           <div class="col-sm-3 col-xs-5">
             <div class="input-group pull-right">
               <div class="input-group-addon"><i class="fa fa-sort-amount-asc"></i></div>
-              <select onchange="location = this.value;" class="form-control">
+              <select onchange="location = this.value;" class="form-control"/>
                 {% for sorts in sorts %}
                   {% if sorts.value == sort %}
                     <option value="{{ sorts.href }}" selected="selected">{{ sorts.text }}</option>
@@ -172,7 +172,7 @@
               $('#button-opencart').button('reset');
           },
           success: function (html) {
-              $('body').append('<div id="modal-opencart" class="modal">' + html + '</div>');
+              $('body').append('<div class="modal" id="modal-opencart">' + html + '</div>');
 
               $('#modal-opencart').modal('show');
           },

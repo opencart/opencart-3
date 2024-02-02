@@ -11,6 +11,8 @@ class ControllerCommonReset extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return \Action|object|null
 	 */
 	public function index(): ?object {
@@ -101,7 +103,12 @@ class ControllerCommonReset extends Controller {
 		return null;
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 *
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if ((oc_strlen(html_entity_decode($this->request->post['password'], ENT_QUOTES, 'UTF-8')) < 4) || (oc_strlen(html_entity_decode($this->request->post['password'], ENT_QUOTES, 'UTF-8')) > 255)) {
 			$this->error['password'] = $this->language->get('error_password');
 		}

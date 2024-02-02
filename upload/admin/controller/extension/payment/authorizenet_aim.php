@@ -11,6 +11,8 @@ class ControllerExtensionPaymentAuthorizenetAim extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -110,7 +112,7 @@ class ControllerExtensionPaymentAuthorizenetAim extends Controller {
 		}
 
 		if (isset($this->request->post['payment_authorizenet_aim_order_status_id'])) {
-			$data['payment_authorizenet_aim_order_status_id'] = $this->request->post['payment_authorizenet_aim_order_status_id'];
+			$data['payment_authorizenet_aim_order_status_id'] = (int)$this->request->post['payment_authorizenet_aim_order_status_id'];
 		} else {
 			$data['payment_authorizenet_aim_order_status_id'] = $this->config->get('payment_authorizenet_aim_order_status_id');
 		}
@@ -121,7 +123,7 @@ class ControllerExtensionPaymentAuthorizenetAim extends Controller {
 		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
 
 		if (isset($this->request->post['payment_authorizenet_aim_geo_zone_id'])) {
-			$data['payment_authorizenet_aim_geo_zone_id'] = $this->request->post['payment_authorizenet_aim_geo_zone_id'];
+			$data['payment_authorizenet_aim_geo_zone_id'] = (int)$this->request->post['payment_authorizenet_aim_geo_zone_id'];
 		} else {
 			$data['payment_authorizenet_aim_geo_zone_id'] = $this->config->get('payment_authorizenet_aim_geo_zone_id');
 		}
@@ -132,13 +134,13 @@ class ControllerExtensionPaymentAuthorizenetAim extends Controller {
 		$data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();
 
 		if (isset($this->request->post['payment_authorizenet_aim_status'])) {
-			$data['payment_authorizenet_aim_status'] = $this->request->post['payment_authorizenet_aim_status'];
+			$data['payment_authorizenet_aim_status'] = (int)$this->request->post['payment_authorizenet_aim_status'];
 		} else {
 			$data['payment_authorizenet_aim_status'] = $this->config->get('payment_authorizenet_aim_status');
 		}
 
 		if (isset($this->request->post['payment_authorizenet_aim_sort_order'])) {
-			$data['payment_authorizenet_aim_sort_order'] = $this->request->post['payment_authorizenet_aim_sort_order'];
+			$data['payment_authorizenet_aim_sort_order'] = (int)$this->request->post['payment_authorizenet_aim_sort_order'];
 		} else {
 			$data['payment_authorizenet_aim_sort_order'] = $this->config->get('payment_authorizenet_aim_sort_order');
 		}
@@ -150,7 +152,12 @@ class ControllerExtensionPaymentAuthorizenetAim extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/authorizenet_aim', $data));
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 *
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/payment/authorizenet_aim')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

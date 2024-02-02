@@ -302,8 +302,8 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	/**
 	 * getRequiredFieldsByFilter
 	 *
-	 * @param array $data
-	 * @param int   $store_id
+	 * @param array<string, mixed> $data
+	 * @param int                  $store_id
 	 *
 	 * @return array
 	 */
@@ -342,8 +342,8 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	/**
 	 * getTargetCountriesByFilter
 	 *
-	 * @param array $data
-	 * @param int   $store_id
+	 * @param array<string, mixed> $data
+	 * @param int                  $store_id
 	 *
 	 * @return array
 	 */
@@ -371,7 +371,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	/**
 	 * getProductOptionsByFilter
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return array
 	 */
@@ -446,9 +446,9 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	/**
 	 * setAdvertisingByFilter
 	 *
-	 * @param array $data
-	 * @param array $post_target_ids
-	 * @param int   $store_id
+	 * @param array<string, mixed> $data
+	 * @param array                $post_target_ids
+	 * @param int                  $store_id
 	 *
 	 * @return void
 	 */
@@ -504,7 +504,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	/**
 	 * updateSingleProductFields
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -523,8 +523,8 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	/**
 	 * updateMultipleProductFields
 	 *
-	 * @param array $filter_data
-	 * @param array $data
+	 * @param array                $filter_data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -572,8 +572,8 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	/**
 	 * getCategories
 	 *
-	 * @param array $data
-	 * @param int   $store_id
+	 * @param array<string, mixed> $data
+	 * @param int                  $store_id
 	 *
 	 * @return array
 	 */
@@ -720,9 +720,9 @@ class ModelExtensionAdvertiseGoogle extends Model {
 
 	/**
 	 * tableExists
-	 * 
+	 *
 	 * @param string $table
-	 * 
+	 *
 	 * @return int
 	 */
 	private function tableExists($table): int {
@@ -731,10 +731,10 @@ class ModelExtensionAdvertiseGoogle extends Model {
 
 	/**
 	 * tableColunsMatch
-	 * 
+	 *
 	 * @param string $table
 	 * @param string $columns
-	 * 
+	 *
 	 * @return bool
 	 */
 	private function tableColumnsMatch($table, $columns): bool {
@@ -745,6 +745,9 @@ class ModelExtensionAdvertiseGoogle extends Model {
 
 	/**
 	 * Wrap
+	 *
+	 * @param mixed $text
+	 * @param mixed $char
 	 */
 	private function wrap($text, $char) {
 		if (is_array($text)) {
@@ -769,22 +772,22 @@ class ModelExtensionAdvertiseGoogle extends Model {
             `product_id` int(11),
             `store_id` int(11) NOT NULL DEFAULT '0',
             `has_issues` tinyint(1),
-            `destination_status` enum('pending','approved','disapproved') NOT NULL DEFAULT 'pending',
+            `destination_status` enum(\'pending\',\'approved\',\'disapproved\') NOT NULL DEFAULT 'pending',
             `impressions` int(11) NOT NULL DEFAULT '0',
             `clicks` int(11) NOT NULL DEFAULT '0',
             `conversions` int(11) NOT NULL DEFAULT '0',
             `cost` decimal(15,4) NOT NULL DEFAULT '0.0000',
             `conversion_value` decimal(15,4) NOT NULL DEFAULT '0.0000',
             `google_product_category` VARCHAR(10),
-            `condition` enum('new','refurbished','used'),
+            `condition` enum(\'new\',\'refurbished\',\'used\'),
             `adult` tinyint(1),
             `multipack` int(11),
             `is_bundle` tinyint(1),
-            `age_group` enum('newborn','infant','toddler','kids','adult'),
+            `age_group` enum(\'newborn\',\'infant\',\'toddler\',\'kids\',\'adult\'),
             `color` int(11),
-            `gender` enum('male','female','unisex'),
-            `size_type` enum('regular','petite','plus','big and tall','maternity'),
-            `size_system` enum('AU','BR','CN','DE','EU','FR','IT','JP','MEX','UK','US'),
+            `gender` enum(\'male\',\'female\',\'unisex\'),
+            `size_type` enum(\'regular\',\'petite\',\'plus\',\'big and tall\',\'maternity\'),
+            `size_system` enum(\'AU\',\'BR\',\'CN\',\'DE\',\'EU\',\'FR\',\'IT\',\'JP\',\'MEX\',\'UK\',\'US\'),
             `size` int(11),
             `is_modified` tinyint(1) NOT NULL DEFAULT '0',
             PRIMARY KEY (`product_advertise_google_id`),
@@ -826,7 +829,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
             `feeds` text NOT NULL,
             `date_added` date,
             `roas` int(11) NOT NULL DEFAULT '0',
-            `status` enum('paused','active') NOT NULL DEFAULT 'paused',
+            `status` enum(\'paused\',\'active\') NOT NULL DEFAULT 'paused',
             INDEX `store_id` (`store_id`),
             PRIMARY KEY (`advertise_google_target_id`)
         ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci");

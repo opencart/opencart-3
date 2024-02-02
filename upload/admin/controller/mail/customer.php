@@ -10,9 +10,9 @@ class ControllerMailCustomer extends Controller {
 	 *
 	 * admin/model/customer/customer_approval/approveCustomer/after
 	 *
-	 * @param string $route
-	 * @param array  $args
-	 * @param mixed  $output
+	 * @param string            $route
+	 * @param array<int, mixed> $args
+	 * @param mixed             $output
 	 *
 	 * @return void
 	 */
@@ -83,6 +83,7 @@ class ControllerMailCustomer extends Controller {
 				];
 
 				$mail = new \Mail($this->config->get('config_mail_engine'), $mail_option);
+
 				$mail->setTo($customer_info['email']);
 				$mail->setFrom($this->config->get('config_email'));
 				$mail->setSender($store_name);
@@ -98,9 +99,9 @@ class ControllerMailCustomer extends Controller {
 	 *
 	 * admin/model/customer/customer_approval/denyCustomer/after
 	 *
-	 * @param string $route
-	 * @param array  $args
-	 * @param mixed  $output
+	 * @param string            $route
+	 * @param array<int, mixed> $args
+	 * @param mixed             $output
 	 *
 	 * @return void
 	 */
@@ -171,6 +172,7 @@ class ControllerMailCustomer extends Controller {
 				];
 
 				$mail = new \Mail($this->config->get('config_mail_engine'), $mail_option);
+
 				$mail->setTo($customer_info['email']);
 				$mail->setFrom($this->config->get('config_email'));
 				$mail->setSender($store_name);

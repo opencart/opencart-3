@@ -11,6 +11,8 @@ class ControllerExtensionPaymentSquareup extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -118,13 +120,13 @@ class ControllerExtensionPaymentSquareup extends Controller {
 		$data['payment_squareup_sandbox_locations'] = $this->getSettingValue('payment_squareup_sandbox_locations', $previous_config->get('payment_squareup_sandbox_locations'));
 		$data['payment_squareup_sandbox_location_id'] = $this->getSettingValue('payment_squareup_sandbox_location_id');
 		$data['payment_squareup_delay_capture'] = $this->getSettingValue('payment_squareup_delay_capture');
-		$data['payment_squareup_recurring_status'] = $this->getSettingValue('payment_squareup_recurring_status');
+		$data['payment_squareup_subscription_status'] = $this->getSettingValue('payment_squareup_subscription_status');
 		$data['payment_squareup_cron_email_status'] = $this->getSettingValue('payment_squareup_cron_email_status');
 		$data['payment_squareup_cron_email'] = $this->getSettingValue('payment_squareup_cron_email', $this->config->get('config_email'));
 		$data['payment_squareup_cron_token'] = $this->getSettingValue('payment_squareup_cron_token');
 		$data['payment_squareup_cron_acknowledge'] = $this->getSettingValue('payment_squareup_cron_acknowledge', null, true);
-		$data['payment_squareup_notify_recurring_success'] = $this->getSettingValue('payment_squareup_notify_recurring_success');
-		$data['payment_squareup_notify_recurring_fail'] = $this->getSettingValue('payment_squareup_notify_recurring_fail');
+		$data['payment_squareup_notify_subscription_success'] = $this->getSettingValue('payment_squareup_notify_subscription_success');
+		$data['payment_squareup_notify_subscription_fail'] = $this->getSettingValue('payment_squareup_notify_subscription_fail');
 		$data['payment_squareup_merchant_id'] = $this->getSettingValue('payment_squareup_merchant_id', $previous_config->get('payment_squareup_merchant_id'));
 		$data['payment_squareup_merchant_name'] = $this->getSettingValue('payment_squareup_merchant_name', $previous_config->get('payment_squareup_merchant_name'));
 
@@ -214,7 +216,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 		$tabs = [
 			'tab-transaction',
 			'tab-setting',
-			'tab-recurring',
+			'tab-subscription',
 			'tab-cron'
 		];
 
@@ -253,8 +255,6 @@ class ControllerExtensionPaymentSquareup extends Controller {
 		// Languages
 		$this->load->model('localisation/language');
 
-		$data['languages'] = [];
-
 		foreach ($this->model_localisation_language->getLanguages() as $language) {
 			$data['languages'][] = [
 				'language_id' => $language['language_id'],
@@ -279,7 +279,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 			$data['payment_squareup_cron_token'] = md5(mt_rand());
 		}
 
-		$data['payment_squareup_cron_url'] = 'https://' . parse_url($server, PHP_URL_HOST) . dirname(parse_url($server, PHP_URL_PATH)) . '/index.php?route=extension/subscription/squareup/recurring&cron_token={CRON_TOKEN}';
+		$data['payment_squareup_cron_url'] = 'https://' . parse_url($server, PHP_URL_HOST) . dirname(parse_url($server, PHP_URL_PATH)) . '/index.php?route=extension/subscription/squareup/subscription&cron_token={CRON_TOKEN}';
 
 		$data['catalog'] = $this->request->server['HTTPS'] ? HTTPS_CATALOG : HTTP_CATALOG;
 
@@ -315,6 +315,8 @@ class ControllerExtensionPaymentSquareup extends Controller {
 	}
 
 	/**
+	 * Transaction Info
+	 *
 	 * @return void
 	 */
 	public function transaction_info(): void {
@@ -457,7 +459,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 	}
 
 	/**
-	 * transactions
+	 * Transactions
 	 *
 	 * @return void
 	 */
@@ -533,6 +535,8 @@ class ControllerExtensionPaymentSquareup extends Controller {
 	}
 
 	/**
+	 * Refresh Token
+	 *
 	 * @return void
 	 */
 	public function refresh_token(): void {
@@ -589,6 +593,8 @@ class ControllerExtensionPaymentSquareup extends Controller {
 	}
 
 	/**
+	 * OAuth Callback
+	 *
 	 * @return void
 	 */
 	public function oauth_callback(): void {
@@ -768,6 +774,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 			}
 
 			$currency = $transaction_info['transaction_currency'];
+
 			$tenders = json_decode($transaction_info['tenders'], true);
 
 			$updated_transaction = $this->squareup->refundTransaction($transaction_info['location_id'], $transaction_info['transaction_id'], $reason, $amount, $currency, $tenders[0]['id']);
@@ -814,9 +821,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 		$data['url_list_transactions'] = html_entity_decode($this->url->link('extension/payment/squareup/transactions', 'user_token=' . $this->session->data['user_token'] . '&order_id=' . $this->request->get['order_id'] . '&page={PAGE}', true));
 
 		$data['user_token'] = $this->session->data['user_token'];
-
 		$data['order_id'] = (int)$this->request->get['order_id'];
-
 		$data['catalog'] = $this->request->server['HTTPS'] ? HTTPS_CATALOG : HTTP_CATALOG;
 
 		// API login
@@ -855,19 +860,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 	}
 
 	/**
-	 * Uninstall
-	 *
-	 * @return void
-	 */
-	public function uninstall(): void {
-		// Squareup
-		$this->load->model('extension/payment/squareup');
-
-		$this->model_extension_payment_squareup->dropTables();
-	}
-
-	/**
-	 * recurringButtons
+	 * Recurring Buttons
 	 *
 	 * @return string
 	 */
@@ -883,7 +876,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 			$order_recurring_id = 0;
 		}
 
-		// Recurring
+		// Subscription
 		$this->load->model('extension/other/recurring');
 
 		$order_recurring_info = $this->model_extension_other_recurring->getRecurring($order_recurring_id);
@@ -937,7 +930,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 	}
 
 	/**
-	 * recurringCancel
+	 * Recurring Cancel
 	 *
 	 * @return void
 	 */
@@ -946,7 +939,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
 		$json = [];
 
-		if (!$this->user->hasPermission('modify', 'extension/other/recurring')) {
+		if (!$this->user->hasPermission('modify', 'extension/payment/squareup')) {
 			$json['error'] = $this->language->get('error_permission_recurring');
 		} else {
 			if (isset($this->request->get['order_recurring_id'])) {
@@ -955,16 +948,16 @@ class ControllerExtensionPaymentSquareup extends Controller {
 				$order_recurring_id = 0;
 			}
 
-			// Recurring
+			// Subscription
 			$this->load->model('extension/other/recurring');
 
-			$recurring_order_info = $this->model_extension_other_recurring->getRecurring($order_recurring_id);
+			$order_recurring_info = $this->model_extension_other_recurring->getRecurring($order_recurring_id);
 
-			if ($recurring_order_info) {
+			if ($order_recurring_info) {
 				// Squareup
 				$this->load->model('extension/payment/squareup');
 
-				$this->model_extension_payment_squareup->editOrderRecurringStatus($order_recurring_id, ModelExtensionPaymentSquareup::RECURRING_CANCELLED);
+				$this->model_extension_payment_squareup->editOrderSubscriptionStatus($order_recurring_id, ModelExtensionPaymentSquareup::RECURRING_CANCELLED);
 
 				$json['success'] = $this->language->get('text_canceled_success');
 			} else {
@@ -976,7 +969,12 @@ class ControllerExtensionPaymentSquareup extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 *
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/payment/squareup')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
@@ -1032,6 +1030,11 @@ class ControllerExtensionPaymentSquareup extends Controller {
 		return !$this->error;
 	}
 
+	/**
+	 * Transaction Action
+	 *
+	 * @param mixed $callback
+	 */
 	protected function transactionAction($callback): void {
 		$this->load->language('extension/payment/squareup');
 
@@ -1086,11 +1089,23 @@ class ControllerExtensionPaymentSquareup extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
+	/**
+	 * Push Alert
+	 *
+	 * @param string $alert
+	 *
+	 * @return void
+	 */
 	protected function pushAlert($alert): void {
 		$this->session->data['payment_squareup_alerts'][] = $alert;
 	}
 
-	protected function pullAlerts() {
+	/**
+	 * Pull Alerts
+	 *
+	 * @return array
+	 */
+	protected function pullAlerts(): array {
 		if (isset($this->session->data['payment_squareup_alerts'])) {
 			return $this->session->data['payment_squareup_alerts'];
 		} else {
@@ -1098,11 +1113,25 @@ class ControllerExtensionPaymentSquareup extends Controller {
 		}
 	}
 
+	/**
+	 * Clear Alerts
+	 *
+	 * @return void
+	 */
 	protected function clearAlerts(): void {
 		unset($this->session->data['payment_squareup_alerts']);
 	}
 
-	protected function getSettingValue($key, $default = null, $checkbox = false) {
+	/**
+	 * Get Setting Value
+	 *
+	 * @param string $key
+	 * @param string $default
+	 * @param bool   $checkbox
+	 *
+	 * @return string
+	 */
+	protected function getSettingValue(string $key, ?string $default = null, bool $checkbox = false): string {
 		if ($checkbox) {
 			if ($this->request->server['REQUEST_METHOD'] == 'POST' && !isset($this->request->post[$key])) {
 				return $default;
@@ -1120,7 +1149,14 @@ class ControllerExtensionPaymentSquareup extends Controller {
 		}
 	}
 
-	protected function getValidationError($key) {
+	/**
+	 * Get Validation Error
+	 *
+	 * @param string $key
+	 *
+	 * @return string
+	 */
+	protected function getValidationError(string $key) {
 		if (isset($this->error[$key])) {
 			return $this->error[$key];
 		} else {

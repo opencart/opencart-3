@@ -1,6 +1,6 @@
 {% if comments %}
   {% for comment in comments %}
-    <div id="comment{{ comment.extension_comment_id }}" class="media">
+    <div class="media" id="comment{{ comment.extension_comment_id }}">
       <div class="media-left">
         <img src="{{ comment.image }}" alt="{{ comment.member }}" title="{{ comment.member }}" class="media-object"/>
       </div>
@@ -35,7 +35,7 @@
             <div class="media-body">
               <div class="form-group">
                 <label for="input-comment{{ comment.extension_comment_id }}">{{ text_comment_add }}</label>
-                <textarea name="comment" placeholder="Write your comment here..." id="input-comment{{ comment.extension_comment_id }}" class="form-control"></textarea>
+                <textarea name="comment" placeholder="Write your comment here..." class="form-control" id="input-comment{{ comment.extension_comment_id }}"/></textarea>
               </div>
               <div class="text-right">
                 <a href="{{ comment.add }}" class="btn btn-primary btn-sm">{{ button_comment }}</a></div>

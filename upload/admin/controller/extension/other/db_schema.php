@@ -11,6 +11,8 @@ class ControllerExtensionOtherDbSchema extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -74,7 +76,12 @@ class ControllerExtensionOtherDbSchema extends Controller {
 		$this->response->setOutput($this->load->view('extension/other/db_schema_form', $data));
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 *
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/other/db_schema')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
@@ -178,7 +185,7 @@ class ControllerExtensionOtherDbSchema extends Controller {
 	}
 
 	/**
-	 * getReport
+	 * Get Report
 	 *
 	 * @return ?object
 	 */
@@ -213,6 +220,8 @@ class ControllerExtensionOtherDbSchema extends Controller {
 
 			// Foreign
 			$foreign_extension_data = [];
+
+			$data['tables'] = [];
 
 			foreach ($tables as $table) {
 				if (in_array($table['name'], $selected)) {

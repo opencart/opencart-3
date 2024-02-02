@@ -1,5 +1,5 @@
 {{ header }}{{ column_left }}
-<div id="content" class="payment-paypal">
+<div class="payment-paypal" id="content">
   <div class="page-header">
     <div class="container-fluid">
       <div class="pull-right">
@@ -35,8 +35,8 @@
             <div class="col col-sm-6">
               <div class="form-group-status">
                 <label class="control-label" for="input-status">{{ entry_status }}</label>
-                <input type="hidden" name="payment_paypal_status" value="0" />
-                <input type="checkbox" name="payment_paypal_status" value="1" class="switch" {% if status %}checked="checked"{% endif %} />
+                <input type="hidden" name="payment_paypal_status" value="0"/>
+                <input type="checkbox" name="payment_paypal_status" value="1" class="switch" {% if status %}checked="checked"{% endif %}/>
               </div>
             </div>
           </div>
@@ -86,7 +86,7 @@
                 <div class="panel-heading">
                   <div class="pull-right">
                     <a href="#sale-analytics-range" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-calendar"></i> <i class="caret"></i></a>
-                    <div id="#sale-analytics-range" class="dropdown-menu dropdown-menu-right">{% set setting_general = setting.general %}
+                    <div class="dropdown-menu dropdown-menu-right" id="#sale-analytics-range">{% set setting_general = setting.general %}
                       {% for sale_analytics_range in setting.sale_analytics_range %}
                         {% if sale_analytics_range.code == setting_general.sale_analytics_range %}
                           <a href="{{ sale_analytics_range.code }}" class="dropdown-item active">{{ attribute(_context, sale_analytics_range.name) }}</a>
@@ -161,7 +161,7 @@ $('.payment-paypal .panel-sale-analytics').on('click', '.dropdown-item', functio
 				$('.tooltip').remove();
 			  
 				if (item) {
-					$('<div id="tooltip" class="tooltip top in"><div class="tooltip-arrow"></div><div class="tooltip-inner">' + item.datapoint[1].toFixed(2) + '</div></div>').prependTo('body');
+					$('<div class="tooltip top in" id="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner">' + item.datapoint[1].toFixed(2) + '</div></div>').prependTo('body');
 					
 					$('#tooltip').css({
 						position: 'absolute',

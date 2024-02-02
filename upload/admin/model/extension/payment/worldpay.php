@@ -29,16 +29,16 @@ class ModelExtensionPaymentWorldpay extends Model {
 			  `worldpay_order_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
 			  `worldpay_order_id` int(11) NOT NULL,
 			  `date_added` datetime NOT NULL,
-			  `type` enum('payment', 'refund') DEFAULT NULL,
+			  `type` enum(\'payment\',\'refund\') DEFAULT NULL,
 			  `amount` decimal(15,4) NOT NULL,
 			  PRIMARY KEY (`worldpay_order_transaction_id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
 
 		$this->db->query("
-			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "worldpay_order_recurring` (
-			  `worldpay_order_recurring_id` int(11) NOT NULL AUTO_INCREMENT,
+			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "worldpay_order_subscription` (
+			  `worldpay_order_subscription_id` int(11) NOT NULL AUTO_INCREMENT,
+			  `subscription_id` int(11) NOT NULL,
 			  `order_id` int(11) NOT NULL,
-			  `order_recurring_id` int(11) NOT NULL,
 			  `order_code` varchar(50),
 			  `token` varchar(50),
 			  `date_added` datetime NOT NULL,
@@ -48,7 +48,7 @@ class ModelExtensionPaymentWorldpay extends Model {
 			  `subscription_end` datetime DEFAULT NULL,
 			  `currency_code` varchar(3) NOT NULL,
 			  `total` decimal(15,4) NOT NULL,
-			  PRIMARY KEY (`worldpay_order_recurring_id`)
+			  PRIMARY KEY (`worldpay_order_subscription_id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
 
 		$this->db->query("
@@ -72,7 +72,7 @@ class ModelExtensionPaymentWorldpay extends Model {
 	public function uninstall(): void {
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "worldpay_order`");
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "worldpay_order_transaction`");
-		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "worldpay_order_recurring`");
+		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "worldpay_order_subscription`");
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "worldpay_card`");
 	}
 

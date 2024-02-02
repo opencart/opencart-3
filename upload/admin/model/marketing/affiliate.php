@@ -6,9 +6,9 @@
  */
 class ModelMarketingAffiliate extends Model {
 	/**
-	 * addAffiliate
+	 * Add Affiliate
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -17,10 +17,10 @@ class ModelMarketingAffiliate extends Model {
 	}
 
 	/**
-	 * editAffiliate
+	 * Edit Affiliate
 	 *
-	 * @param int   $customer_id
-	 * @param array $data
+	 * @param int                  $customer_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -29,7 +29,7 @@ class ModelMarketingAffiliate extends Model {
 	}
 
 	/**
-	 * deleteAffiliate
+	 * Delete Affiliate
 	 *
 	 * @param int $customer_id
 	 *
@@ -41,11 +41,11 @@ class ModelMarketingAffiliate extends Model {
 	}
 
 	/**
-	 * getAffiliate
+	 * Get Affiliate
 	 *
 	 * @param int $customer_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getAffiliate(int $customer_id): array {
 		$query = $this->db->query("SELECT DISTINCT *, CONCAT(`c`.`firstname`, ' ', `c`.`lastname`) AS `customer`, `ca`.`custom_field` FROM `" . DB_PREFIX . "customer_affiliate` `ca` LEFT JOIN `" . DB_PREFIX . "customer` `c` ON (`ca`.`customer_id` = `c`.`customer_id`) WHERE `ca`.`customer_id` = '" . (int)$customer_id . "'");
@@ -58,11 +58,11 @@ class ModelMarketingAffiliate extends Model {
 	}
 
 	/**
-	 * getAffiliateByTracking
+	 * Get Affiliate By Tracking
 	 *
 	 * @param string $tracking
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getAffiliateByTracking(string $tracking): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_affiliate` WHERE `tracking` = '" . $this->db->escape($tracking) . "'");
@@ -75,11 +75,11 @@ class ModelMarketingAffiliate extends Model {
 	}
 
 	/**
-	 * getAffiliates
+	 * Get Affiliates
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getAffiliates(array $data = []): array {
 		$sql = "SELECT *, CONCAT(`c`.`firstname`, ' ', `c`.`lastname`) AS `name`, `ca`.`status` FROM `" . DB_PREFIX . "customer_affiliate` `ca` LEFT JOIN `" . DB_PREFIX . "customer` `c` ON (`ca`.`customer_id` = `c`.`customer_id`)";
@@ -148,9 +148,9 @@ class ModelMarketingAffiliate extends Model {
 	}
 
 	/**
-	 * getTotalAffiliates
+	 * Get Total Affiliates
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -189,13 +189,13 @@ class ModelMarketingAffiliate extends Model {
 	}
 
 	/**
-	 * getReports
+	 * Get Reports
 	 *
 	 * @param int $customer_id
 	 * @param int $start
 	 * @param int $limit
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getReports(int $customer_id, int $start = 0, int $limit = 10): array {
 		if ($start < 0) {
@@ -212,7 +212,7 @@ class ModelMarketingAffiliate extends Model {
 	}
 
 	/**
-	 * getTotalReports
+	 * Get Total Reports
 	 *
 	 * @param int $customer_id
 	 *

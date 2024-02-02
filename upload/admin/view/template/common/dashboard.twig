@@ -3,7 +3,7 @@
   <div class="page-header">
     <div class="container-fluid">
       <div class="pull-right">
-        <button type="button" id="button-developer" title="{{ button_developer }}" data-loading-text="{{ text_loading }}" class="btn btn-info"><i class="fa fa-cog"></i></button>
+        <button type="button" title="{{ button_developer }}" data-loading-text="{{ text_loading }}" class="btn btn-info" id="button-developer"><i class="fa fa-cog"></i></button>
       </div>
       <h1>{{ heading_title }}</h1>
       <ul class="breadcrumb">
@@ -49,7 +49,7 @@
               success: function (html) {
                   $('#modal-developer').remove();
 
-                  $('body').prepend('<div id="modal-developer" class="modal">' + html + '</div>');
+                  $('body').prepend('<div class="modal" id="modal-developer">' + html + '</div>');
 
                   $('#modal-developer').modal('show');
               },

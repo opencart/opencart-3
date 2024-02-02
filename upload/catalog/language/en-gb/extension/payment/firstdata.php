@@ -32,6 +32,7 @@ $_['text_response_card']      = 'Card used: ';
 $_['text_response_card_type'] = 'Card type: ';
 $_['text_response_proc_code'] = 'Processor code: ';
 $_['text_response_ref']       = 'Ref number: ';
+$_['text_use_new_card']       = 'Use a new card';
 
 // Button
 $_['button_confirm']          = 'Continue';

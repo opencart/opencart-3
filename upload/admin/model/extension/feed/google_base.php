@@ -62,7 +62,7 @@ class ModelExtensionFeedGoogleBase extends Model {
 	/**
 	 * getGoogleBaseCategories
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return array
 	 */
@@ -89,7 +89,7 @@ class ModelExtensionFeedGoogleBase extends Model {
 	/**
 	 * addCategory
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -113,7 +113,7 @@ class ModelExtensionFeedGoogleBase extends Model {
 	/**
 	 * getCategories
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return array
 	 */

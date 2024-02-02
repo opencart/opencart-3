@@ -3,7 +3,7 @@
   <div class="page-header">
     <div class="container-fluid">
       <div class="pull-right">
-        <button type="submit" id="button-save" form="form-setting" data-toggle="tooltip" title="{{ button_save }}" disabled="disabled" class="btn btn-primary"><i class="fa fa-save"></i></button>
+        <button type="submit" form="form-setting" data-toggle="tooltip" title="{{ button_save }}" disabled="disabled" class="btn btn-primary" id="button-save"><i class="fa fa-save"></i></button>
         <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
       <h1>{{ heading_title }}</h1>
       <ul class="breadcrumb">
@@ -29,7 +29,7 @@
         <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3>
       </div>
       <div class="panel-body">
-        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-setting" class="form-horizontal">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal" id="form-setting">
           <ul class="nav nav-tabs">
             <li class="active"><a href="#tab-general" data-toggle="tab">{{ tab_general }}</a></li>
             <li><a href="#tab-store" data-toggle="tab">{{ tab_store }}</a></li>
@@ -44,7 +44,7 @@
               <div class="form-group required">
                 <label class="col-sm-2 control-label" for="input-meta-title">{{ entry_meta_title }}</label>
                 <div class="col-sm-10">
-                  <input type="text" name="config_meta_title" value="{{ config_meta_title }}" placeholder="{{ entry_meta_title }}" id="input-meta-title" class="form-control"/>
+                  <input type="text" name="config_meta_title" value="{{ config_meta_title }}" placeholder="{{ entry_meta_title }}" class="form-control" id="input-meta-title"/>
                   {% if error_meta_title %}
                     <div class="text-danger">{{ error_meta_title }}</div>
                   {% endif %}
@@ -53,19 +53,19 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-meta-description">{{ entry_meta_description }}</label>
                 <div class="col-sm-10">
-                  <textarea name="config_meta_description" rows="5" placeholder="{{ entry_meta_description }}" id="input-meta-description" class="form-control">{{ config_meta_description }}</textarea>
+                  <textarea name="config_meta_description" rows="5" placeholder="{{ entry_meta_description }}" class="form-control" id="input-meta-description"/>{{ config_meta_description }}</textarea>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-meta-keyword">{{ entry_meta_keyword }}</label>
                 <div class="col-sm-10">
-                  <textarea name="config_meta_keyword" rows="5" placeholder="{{ entry_meta_keyword }}" id="input-meta-keyword" class="form-control">{{ config_meta_keyword }}</textarea>
+                  <textarea name="config_meta_keyword" rows="5" placeholder="{{ entry_meta_keyword }}" class="form-control" id="input-meta-keyword"/>{{ config_meta_keyword }}</textarea>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-theme">{{ entry_theme }}</label>
                 <div class="col-sm-10">
-                  <select name="config_theme" id="input-theme" class="form-control">
+                  <select name="config_theme" class="form-control" id="input-theme"/>
                     {% for theme in themes %}
                       {% if theme.value == config_theme %}
                         <option value="{{ theme.value }}" selected="selected">{{ theme.text }}</option>
@@ -75,12 +75,12 @@
                     {% endfor %}
                   </select>
                   <br/>
-                  <img src="" alt="" id="theme" class="img-thumbnail"/></div>
+                  <img src="" alt="" class="img-thumbnail" id="theme"/></div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-layout">{{ entry_layout }}</label>
                 <div class="col-sm-10">
-                  <select name="config_layout_id" id="input-layout" class="form-control">
+                  <select name="config_layout_id" class="form-control" id="input-layout"/>
                     {% for layout in layouts %}
                       {% if layout.layout_id == config_layout_id %}
                         <option value="{{ layout.layout_id }}" selected="selected">{{ layout.name }}</option>
@@ -92,11 +92,11 @@
                 </div>
               </div>
             </div>
-            <div id="tab-store" class="tab-pane">
+            <div class="tab-pane" id="tab-store">
               <div class="form-group required">
                 <label class="col-sm-2 control-label" for="input-name">{{ entry_name }}</label>
                 <div class="col-sm-10">
-                  <input type="text" name="config_name" value="{{ config_name }}" placeholder="{{ entry_name }}" id="input-name" class="form-control"/>
+                  <input type="text" name="config_name" value="{{ config_name }}" placeholder="{{ entry_name }}" class="form-control" id="input-name"/>
                   {% if error_name %}
                     <div class="text-danger">{{ error_name }}</div>
                   {% endif %}
@@ -105,7 +105,7 @@
               <div class="form-group required">
                 <label class="col-sm-2 control-label" for="input-owner">{{ entry_owner }}</label>
                 <div class="col-sm-10">
-                  <input type="text" name="config_owner" value="{{ config_owner }}" placeholder="{{ entry_owner }}" id="input-owner" class="form-control"/>
+                  <input type="text" name="config_owner" value="{{ config_owner }}" placeholder="{{ entry_owner }}" class="form-control" id="input-owner"/>
                   {% if error_owner %}
                     <div class="text-danger">{{ error_owner }}</div>
                   {% endif %}
@@ -114,22 +114,22 @@
               <div class="form-group required">
                 <label class="col-sm-2 control-label" for="input-address">{{ entry_address }}</label>
                 <div class="col-sm-10">
-                  <textarea name="config_address" placeholder="{{ entry_address }}" rows="5" id="input-address" class="form-control">{{ config_address }}</textarea>
+                  <textarea name="config_address" placeholder="{{ entry_address }}" rows="5" class="form-control" id="input-address"/>{{ config_address }}</textarea>
                   {% if error_address %}
                     <div class="text-danger">{{ error_address }}</div>
                   {% endif %}
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-geocode"><span data-toggle="tooltip" data-container="#tab-general" title="{{ help_geocode }}">{{ entry_geocode }}</span></label>
+                <label class="col-sm-2 control-label" for="input-geocode"><span data-toggle="tooltip" data-container="#tab-general" title="{{ help_geocode|escape('html') }}">{{ entry_geocode }}</span></label>
                 <div class="col-sm-10">
-                  <input type="text" name="config_geocode" value="{{ config_geocode }}" placeholder="{{ entry_geocode }}" id="input-geocode" class="form-control"/>
+                  <input type="text" name="config_geocode" value="{{ config_geocode }}" placeholder="{{ entry_geocode }}" class="form-control" id="input-geocode"/>
                 </div>
               </div>
               <div class="form-group required">
                 <label class="col-sm-2 control-label" for="input-email">{{ entry_email }}</label>
                 <div class="col-sm-10">
-                  <input type="text" name="config_email" value="{{ config_email }}" placeholder="{{ entry_email }}" id="input-email" class="form-control"/>
+                  <input type="text" name="config_email" value="{{ config_email }}" placeholder="{{ entry_email }}" class="form-control" id="input-email"/>
                   {% if error_email %}
                     <div class="text-danger">{{ error_email }}</div>
                   {% endif %}
@@ -138,7 +138,7 @@
               <div class="form-group required">
                 <label class="col-sm-2 control-label" for="input-telephone">{{ entry_telephone }}</label>
                 <div class="col-sm-10">
-                  <input type="text" name="config_telephone" value="{{ config_telephone }}" placeholder="{{ entry_telephone }}" id="input-telephone" class="form-control"/>
+                  <input type="text" name="config_telephone" value="{{ config_telephone }}" placeholder="{{ entry_telephone }}" class="form-control" id="input-telephone"/>
                   {% if error_telephone %}
                     <div class="text-danger">{{ error_telephone }}</div>
                   {% endif %}
@@ -147,31 +147,31 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-fax">{{ entry_fax }}</label>
                 <div class="col-sm-10">
-                  <input type="text" name="config_fax" value="{{ config_fax }}" placeholder="{{ entry_fax }}" id="input-fax" class="form-control"/>
+                  <input type="text" name="config_fax" value="{{ config_fax }}" placeholder="{{ entry_fax }}" class="form-control" id="input-fax"/>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-image">{{ entry_image }}</label>
                 <div class="col-sm-10">
-                  <a href="" id="thumb-image" data-toggle="image" class="img-thumbnail"><img src="{{ thumb }}" alt="" title="" data-placeholder="{{ placeholder }}"/></a>
+                  <a href="" data-toggle="image" class="img-thumbnail" id="thumb-image"><img src="{{ thumb }}" alt="" title="" data-placeholder="{{ placeholder }}"/></a>
                   <input type="hidden" name="config_image" value="{{ config_image }}" id="input-image"/>
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-open"><span data-toggle="tooltip" data-container="#tab-general" title="{{ help_open }}">{{ entry_open }}</span></label>
+                <label class="col-sm-2 control-label" for="input-open"><span data-toggle="tooltip" data-container="#tab-general" title="{{ help_open|escape('html') }}">{{ entry_open }}</span></label>
                 <div class="col-sm-10">
-                  <textarea name="config_open" rows="5" placeholder="{{ entry_open }}" id="input-open" class="form-control">{{ config_open }}</textarea>
+                  <textarea name="config_open" rows="5" placeholder="{{ entry_open }}" class="form-control" id="input-open"/>{{ config_open }}</textarea>
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-comment"><span data-toggle="tooltip" data-container="#tab-general" title="{{ help_comment }}">{{ entry_comment }}</span></label>
+                <label class="col-sm-2 control-label" for="input-comment"><span data-toggle="tooltip" data-container="#tab-general" title="{{ help_comment|escape('html') }}">{{ entry_comment }}</span></label>
                 <div class="col-sm-10">
-                  <textarea name="config_comment" rows="5" placeholder="{{ entry_comment }}" id="input-comment" class="form-control">{{ config_comment }}</textarea>
+                  <textarea name="config_comment" rows="5" placeholder="{{ entry_comment }}" class="form-control" id="input-comment"/>{{ config_comment }}</textarea>
                 </div>
               </div>
               {% if locations %}
                 <div class="form-group">
-                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" data-container="#tab-general" title="{{ help_location }}">{{ entry_location }}</span></label>
+                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" data-container="#tab-general" title="{{ help_location|escape('html') }}">{{ entry_location }}</span></label>
                   <div class="col-sm-10">
                     {% for location in locations %}
                       <div class="checkbox">
@@ -188,11 +188,11 @@
                 </div>
               {% endif %}
             </div>
-            <div id="tab-local" class="tab-pane">
+            <div class="tab-pane" id="tab-local">
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-country">{{ entry_country }}</label>
                 <div class="col-sm-10">
-                  <select name="config_country_id" id="input-country" class="form-control">
+                  <select name="config_country_id" class="form-control" id="input-country"/>
                     {% for country in countries %}
                       {% if country.country_id == config_country_id %}
                         <option value="{{ country.country_id }}" selected="selected">{{ country.name }}</option>
@@ -206,14 +206,14 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-zone">{{ entry_zone }}</label>
                 <div class="col-sm-10">
-                  <select name="config_zone_id" id="input-zone" class="form-control">
+                  <select name="config_zone_id" class="form-control" id="input-zone"/>
                   </select>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-timezone">{{ entry_timezone }}</label>
                 <div class="col-sm-10">
-                  <select name="config_timezone" id="input-timezone" class="form-control">
+                  <select name="config_timezone" class="form-control" id="input-timezone"/>
                     {% for timezone in timezones %}
                       {% if timezone.value == config_timezone %}
                         <option value="{{ timezone.value }}" selected="selected">{{ timezone.text }}</option>
@@ -227,7 +227,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-language">{{ entry_language }}</label>
                 <div class="col-sm-10">
-                  <select name="config_language" id="input-language" class="form-control">
+                  <select name="config_language" class="form-control" id="input-language"/>
                     {% for language in languages %}
                       {% if language.code == config_language %}
                         <option value="{{ language.code }}" selected="selected">{{ language.name }}</option>
@@ -241,7 +241,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-admin-language">{{ entry_admin_language }}</label>
                 <div class="col-sm-10">
-                  <select name="config_admin_language" id="input-admin-language" class="form-control">
+                  <select name="config_admin_language" class="form-control" id="input-admin-language"/>
                     {% for language in languages %}
                       {% if language.code == config_admin_language %}
                         <option value="{{ language.code }}" selected="selected">{{ language.name }}</option>
@@ -253,9 +253,9 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-currency"><span data-toggle="tooltip" title="{{ help_currency }}">{{ entry_currency }}</span></label>
+                <label class="col-sm-2 control-label" for="input-currency"><span data-toggle="tooltip" title="{{ help_currency|escape('html') }}">{{ entry_currency }}</span></label>
                 <div class="col-sm-10">
-                  <select name="config_currency" id="input-currency" class="form-control">
+                  <select name="config_currency" class="form-control" id="input-currency"/>
                     {% for currency in currencies %}
                       {% if currency.code == config_currency %}
                         <option value="{{ currency.code }}" selected="selected">{{ currency.title }}</option>
@@ -269,7 +269,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-currency-engine">{{ entry_currency_engine }}</label>
                 <div class="col-sm-10">
-                  <select name="config_currency_engine" id="input-currency-engine" class="form-control">
+                  <select name="config_currency_engine" class="form-control" id="input-currency-engine"/>
                     <option value="0">{{ text_none }}</option>
                     {% for currency_engine in currency_engines %}
                       {% if currency_engine.value == config_currency_engine %}
@@ -282,7 +282,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_currency_auto }}">{{ entry_currency_auto }}</span></label>
+                <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_currency_auto|escape('html') }}">{{ entry_currency_auto }}</span></label>
                 <div class="col-sm-10">
                   <label class="radio-inline">{% if config_currency_auto %}
                       <input type="radio" name="config_currency_auto" value="1" checked="checked"/>
@@ -303,7 +303,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-length-class">{{ entry_length_class }}</label>
                 <div class="col-sm-10">
-                  <select name="config_length_class_id" id="input-length-class" class="form-control">
+                  <select name="config_length_class_id" class="form-control" id="input-length-class"/>
                     {% for length_class in length_classes %}
                       {% if length_class.length_class_id == config_length_class_id %}
                         <option value="{{ length_class.length_class_id }}" selected="selected">{{ length_class.title }}</option>
@@ -317,7 +317,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-weight-class">{{ entry_weight_class }}</label>
                 <div class="col-sm-10">
-                  <select name="config_weight_class_id" id="input-weight-class" class="form-control">
+                  <select name="config_weight_class_id" class="form-control" id="input-weight-class"/>
                     {% for weight_class in weight_classes %}
                       {% if weight_class.weight_class_id == config_weight_class_id %}
                         <option value="{{ weight_class.weight_class_id }}" selected="selected">{{ weight_class.title }}</option>
@@ -329,11 +329,11 @@
                 </div>
               </div>
             </div>
-            <div id="tab-option" class="tab-pane">
+            <div class="tab-pane" id="tab-option">
               <fieldset>
                 <legend>{{ text_product }}</legend>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_product_count }}">{{ entry_product_count }}</span></label>
+                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_product_count|escape('html') }}">{{ entry_product_count }}</span></label>
                   <div class="col-sm-10">
                     <label class="radio-inline">{% if config_product_count %}
                         <input type="radio" name="config_product_count" value="1" checked="checked"/>
@@ -352,9 +352,9 @@
                   </div>
                 </div>
                 <div class="form-group required">
-                  <label class="col-sm-2 control-label" for="input-admin-limit"><span data-toggle="tooltip" title="{{ help_limit_admin }}">{{ entry_limit_admin }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-admin-limit"><span data-toggle="tooltip" title="{{ help_limit_admin|escape('html') }}">{{ entry_limit_admin }}</span></label>
                   <div class="col-sm-10">
-                    <input type="text" name="config_limit_admin" value="{{ config_limit_admin }}" placeholder="{{ entry_limit_admin }}" id="input-admin-limit" class="form-control"/>
+                    <input type="text" name="config_limit_admin" value="{{ config_limit_admin }}" placeholder="{{ entry_limit_admin }}" class="form-control" id="input-admin-limit"/>
                     {% if error_limit_admin %}
                       <div class="text-danger">{{ error_limit_admin }}</div>
                     {% endif %}
@@ -364,7 +364,7 @@
               <fieldset>
                 <legend>{{ text_review }}</legend>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_review }}">{{ entry_review }}</span></label>
+                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_review|escape('html') }}">{{ entry_review }}</span></label>
                   <div class="col-sm-10">
                     <label class="radio-inline">{% if config_review_status %}
                         <input type="radio" name="config_review_status" value="1" checked="checked"/>
@@ -383,7 +383,7 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_review_guest }}">{{ entry_review_guest }}</span></label>
+                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_review_guest|escape('html') }}">{{ entry_review_guest }}</span></label>
                   <div class="col-sm-10">
                     <label class="radio-inline">{% if config_review_guest %}
                         <input type="radio" name="config_review_guest" value="1" checked="checked"/>
@@ -405,18 +405,18 @@
               <fieldset>
                 <legend>{{ text_voucher }}</legend>
                 <div class="form-group required">
-                  <label class="col-sm-2 control-label" for="input-voucher-min"><span data-toggle="tooltip" title="{{ help_voucher_min }}">{{ entry_voucher_min }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-voucher-min"><span data-toggle="tooltip" title="{{ help_voucher_min|escape('html') }}">{{ entry_voucher_min }}</span></label>
                   <div class="col-sm-10">
-                    <input type="text" name="config_voucher_min" value="{{ config_voucher_min }}" placeholder="{{ entry_voucher_min }}" id="input-voucher-min" class="form-control"/>
+                    <input type="text" name="config_voucher_min" value="{{ config_voucher_min }}" placeholder="{{ entry_voucher_min }}" class="form-control" id="input-voucher-min"/>
                     {% if error_voucher_min %}
                       <div class="text-danger">{{ error_voucher_min }}</div>
                     {% endif %}
                   </div>
                 </div>
                 <div class="form-group required">
-                  <label class="col-sm-2 control-label" for="input-voucher-max"><span data-toggle="tooltip" title="{{ help_voucher_max }}">{{ entry_voucher_max }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-voucher-max"><span data-toggle="tooltip" title="{{ help_voucher_max|escape('html') }}">{{ entry_voucher_max }}</span></label>
                   <div class="col-sm-10">
-                    <input type="text" name="config_voucher_max" value="{{ config_voucher_max }}" placeholder="{{ entry_voucher_max }}" id="input-voucher-max" class="form-control"/>
+                    <input type="text" name="config_voucher_max" value="{{ config_voucher_max }}" placeholder="{{ entry_voucher_max }}" class="form-control" id="input-voucher-max"/>
                     {% if error_voucher_max %}
                       <div class="text-danger">{{ error_voucher_max }}</div>
                     {% endif %}
@@ -426,9 +426,9 @@
               <fieldset>
                 <legend>{{ text_legal }}</legend>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-cookie"><span data-toggle="tooltip" title="{{ help_cookie }}">{{ entry_cookie }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-cookie"><span data-toggle="tooltip" title="{{ help_cookie|escape('html') }}">{{ entry_cookie }}</span></label>
                   <div class="col-sm-10">
-                    <select name="config_cookie_id" id="input-cookie" class="form-control"/>
+                    <select name="config_cookie_id" class="form-control" id="input-cookie"/>
                       <option value="0">{{ text_none }}</option>
                       {% for information in informations %}
                         <option value="{{ information.information_id }}"{% if information.information_id == config_cookie_id %} selected{% endif %}>{{ information.title }}</option>
@@ -437,9 +437,9 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-gdpr"><span data-toggle="tooltip" title="{{ help_gdpr }}">{{ entry_gdpr }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-gdpr"><span data-toggle="tooltip" title="{{ help_gdpr|escape('html') }}">{{ entry_gdpr }}</span></label>
                   <div class="col-sm-10">
-                    <select name="config_gdpr_id" id="input-gdpr" class="form-control"/>
+                    <select name="config_gdpr_id" class="form-control" id="input-gdpr"/>
                     <option value="0">{{ text_none }}</option>
                     {% for information in informations %}
                       <option value="{{ information.information_id }}"{% if information.information_id == config_gdpr_id %} selected{% endif %}>{{ information.title }}</option>
@@ -448,9 +448,9 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-gdpr-limit"><span data-toggle="tooltip" title="{{ help_gdpr_limit }}">{{ entry_gdpr_limit }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-gdpr-limit"><span data-toggle="tooltip" title="{{ help_gdpr_limit|escape('html') }}">{{ entry_gdpr_limit }}</span></label>
                   <div class="col-sm-10">
-                    <input type="text" name="config_gdpr_limit" value="{{ config_gdpr_limit }}" placeholder="{{ entry_gdpr_limit }}" id="input-gdpr-limit" class="form-control"/>
+                    <input type="text" name="config_gdpr_limit" value="{{ config_gdpr_limit }}" placeholder="{{ entry_gdpr_limit }}" class="form-control" id="input-gdpr-limit"/>
                   </div>
                 </div>
               </fieldset>
@@ -476,9 +476,9 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-tax-default"><span data-toggle="tooltip" title="{{ help_tax_default }}">{{ entry_tax_default }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-tax-default"><span data-toggle="tooltip" title="{{ help_tax_default|escape('html') }}">{{ entry_tax_default }}</span></label>
                   <div class="col-sm-10">
-                    <select name="config_tax_default" id="input-tax-default" class="form-control">
+                    <select name="config_tax_default" class="form-control" id="input-tax-default"/>
                       <option value="">{{ text_none }}</option>
                       {% if config_tax_default == 'shipping' %}
                         <option value="shipping" selected="selected">{{ text_shipping }}</option>
@@ -494,9 +494,9 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-tax-customer"><span data-toggle="tooltip" title="{{ help_tax_customer }}">{{ entry_tax_customer }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-tax-customer"><span data-toggle="tooltip" title="{{ help_tax_customer|escape('html') }}">{{ entry_tax_customer }}</span></label>
                   <div class="col-sm-10">
-                    <select name="config_tax_customer" id="input-tax-customer" class="form-control">
+                    <select name="config_tax_customer" class="form-control" id="input-tax-customer"/>
                       <option value="">{{ text_none }}</option>
                       {% if config_tax_customer == 'shipping' %}
                         <option value="shipping" selected="selected">{{ text_shipping }}</option>
@@ -515,7 +515,7 @@
               <fieldset>
                 <legend>{{ text_account }}</legend>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_customer_online }}">{{ entry_customer_online }}</span></label>
+                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_customer_online|escape('html') }}">{{ entry_customer_online }}</span></label>
                   <div class="col-sm-10">
                     <label class="radio-inline">{% if config_customer_online %}
                         <input type="radio" name="config_customer_online" value="1" checked="checked"/>
@@ -534,7 +534,7 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_customer_activity }}">{{ entry_customer_activity }}</span></label>
+                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_customer_activity|escape('html') }}">{{ entry_customer_activity }}</span></label>
                   <div class="col-sm-10">
                     <label class="radio-inline">{% if config_customer_activity %}
                         <input type="radio" name="config_customer_activity" value="1" checked="checked"/>
@@ -572,9 +572,9 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-customer-group"><span data-toggle="tooltip" title="{{ help_customer_group }}">{{ entry_customer_group }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-customer-group"><span data-toggle="tooltip" title="{{ help_customer_group|escape('html') }}">{{ entry_customer_group }}</span></label>
                   <div class="col-sm-10">
-                    <select name="config_customer_group_id" id="input-customer-group" class="form-control">
+                    <select name="config_customer_group_id" class="form-control" id="input-customer-group"/>
                       {% for customer_group in customer_groups %}
                         {% if customer_group.customer_group_id == config_customer_group_id %}
                           <option value="{{ customer_group.customer_group_id }}" selected="selected">{{ customer_group.name }}</option>
@@ -586,7 +586,7 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_customer_group_display }}">{{ entry_customer_group_display }}</span></label>
+                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_customer_group_display|escape('html') }}">{{ entry_customer_group_display }}</span></label>
                   <div class="col-sm-10">
                     {% for customer_group in customer_groups %}
                       <div class="checkbox">
@@ -605,7 +605,7 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_customer_price }}">{{ entry_customer_price }}</span></label>
+                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_customer_price|escape('html') }}">{{ entry_customer_price }}</span></label>
                   <div class="col-sm-10">
                     <label class="radio-inline">{% if config_customer_price %}
                         <input type="radio" name="config_customer_price" value="1" checked="checked"/>
@@ -624,7 +624,7 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-telephone-display"><span data-toggle="tooltip" title="{{ help_telephone_display }}">{{ entry_telephone_display }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-telephone-display"><span data-toggle="tooltip" title="{{ help_telephone_display|escape('html') }}">{{ entry_telephone_display }}</span></label>
                   <div class="col-sm-10">
                     <div class="checkbox">
                       <label>{% if config_telephone_display %}
@@ -636,7 +636,7 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-telephone-required"><span data-toggle="tooltip" title="{{ help_telephone_required }}">{{ entry_telephone_required }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-telephone-required"><span data-toggle="tooltip" title="{{ help_telephone_required|escape('html') }}">{{ entry_telephone_required }}</span></label>
                   <div class="col-sm-10">
                     <div class="checkbox">
                       <label>{% if config_telephone_required %}
@@ -648,18 +648,18 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-login-attempts"><span data-toggle="tooltip" title="{{ help_login_attempts }}">{{ entry_login_attempts }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-login-attempts"><span data-toggle="tooltip" title="{{ help_login_attempts|escape('html') }}">{{ entry_login_attempts }}</span></label>
                   <div class="col-sm-10">
-                    <input type="text" name="config_login_attempts" value="{{ config_login_attempts }}" placeholder="{{ entry_login_attempts }}" id="input-login-attempts" class="form-control"/>
+                    <input type="text" name="config_login_attempts" value="{{ config_login_attempts }}" placeholder="{{ entry_login_attempts }}" class="form-control" id="input-login-attempts"/>
                     {% if error_login_attempts %}
                       <div class="text-danger">{{ error_login_attempts }}</div>
                     {% endif %}
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-account"><span data-toggle="tooltip" title="{{ help_account }}">{{ entry_account }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-account"><span data-toggle="tooltip" title="{{ help_account|escape('html') }}">{{ entry_account }}</span></label>
                   <div class="col-sm-10">
-                    <select name="config_account_id" id="input-account" class="form-control">
+                    <select name="config_account_id" class="form-control" id="input-account"/>
                       <option value="0">{{ text_none }}</option>
                       {% for information in informations %}
                         {% if information.information_id == config_account_id %}
@@ -675,13 +675,13 @@
               <fieldset>
                 <legend>{{ text_checkout }}</legend>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-invoice-prefix"><span data-toggle="tooltip" title="{{ help_invoice_prefix }}">{{ entry_invoice_prefix }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-invoice-prefix"><span data-toggle="tooltip" title="{{ help_invoice_prefix|escape('html') }}">{{ entry_invoice_prefix }}</span></label>
                   <div class="col-sm-10">
-                    <input type="text" name="config_invoice_prefix" value="{{ config_invoice_prefix }}" placeholder="{{ entry_invoice_prefix }}" id="input-invoice-prefix" class="form-control"/>
+                    <input type="text" name="config_invoice_prefix" value="{{ config_invoice_prefix }}" placeholder="{{ entry_invoice_prefix }}" class="form-control" id="input-invoice-prefix"/>
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_cart_weight }}">{{ entry_cart_weight }}</span></label>
+                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_cart_weight|escape('html') }}">{{ entry_cart_weight }}</span></label>
                   <div class="col-sm-10">
                     <label class="radio-inline">{% if config_cart_weight %}
                         <input type="radio" name="config_cart_weight" value="1" checked="checked"/>
@@ -700,7 +700,7 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_checkout_guest }}">{{ entry_checkout_guest }}</span></label>
+                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_checkout_guest|escape('html') }}">{{ entry_checkout_guest }}</span></label>
                   <div class="col-sm-10">
                     <label class="radio-inline">{% if config_checkout_guest %}
                         <input type="radio" name="config_checkout_guest" value="1" checked="checked"/>
@@ -719,9 +719,9 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-checkout"><span data-toggle="tooltip" title="{{ help_checkout }}">{{ entry_checkout }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-checkout"><span data-toggle="tooltip" title="{{ help_checkout|escape('html') }}">{{ entry_checkout }}</span></label>
                   <div class="col-sm-10">
-                    <select name="config_checkout_id" id="input-checkout" class="form-control">
+                    <select name="config_checkout_id" class="form-control" id="input-checkout"/>
                       <option value="0">{{ text_none }}</option>
                       {% for information in informations %}
                         {% if information.information_id == config_checkout_id %}
@@ -734,9 +734,9 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-order-status"><span data-toggle="tooltip" title="{{ help_order_status }}">{{ entry_order_status }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-order-status"><span data-toggle="tooltip" title="{{ help_order_status|escape('html') }}">{{ entry_order_status }}</span></label>
                   <div class="col-sm-10">
-                    <select name="config_order_status_id" id="input-order-status" class="form-control">
+                    <select name="config_order_status_id" class="form-control" id="input-order-status"/>
                       {% for order_status in order_statuses %}
                         {% if order_status.order_status_id == config_order_status_id %}
                           <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
@@ -748,7 +748,7 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-process-status"><span data-toggle="tooltip" title="{{ help_processing_status }}">{{ entry_processing_status }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-process-status"><span data-toggle="tooltip" title="{{ help_processing_status|escape('html') }}">{{ entry_processing_status }}</span></label>
                   <div class="col-sm-10">
                     <div class="well well-sm" style="height: 150px; overflow: auto;">
                       {% for order_status in order_statuses %}
@@ -769,7 +769,7 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-complete-status"><span data-toggle="tooltip" title="{{ help_complete_status }}">{{ entry_complete_status }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-complete-status"><span data-toggle="tooltip" title="{{ help_complete_status|escape('html') }}">{{ entry_complete_status }}</span></label>
                   <div class="col-sm-10">
                     <div class="well well-sm" style="height: 150px; overflow: auto;">
                       {% for order_status in order_statuses %}
@@ -790,9 +790,9 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-fraud-status"><span data-toggle="tooltip" title="{{ help_fraud_status }}">{{ entry_fraud_status }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-fraud-status"><span data-toggle="tooltip" title="{{ help_fraud_status|escape('html') }}">{{ entry_fraud_status }}</span></label>
                   <div class="col-sm-10">
-                    <select name="config_fraud_status_id" id="input-fraud-status" class="form-control">
+                    <select name="config_fraud_status_id" class="form-control" id="input-fraud-status"/>
                       {% for order_status in order_statuses %}
                         {% if order_status.order_status_id == config_fraud_status_id %}
                           <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
@@ -804,9 +804,9 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-api"><span data-toggle="tooltip" title="{{ help_api }}">{{ entry_api }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-api"><span data-toggle="tooltip" title="{{ help_api|escape('html') }}">{{ entry_api }}</span></label>
                   <div class="col-sm-10">
-                    <select name="config_api_id" id="input-api" class="form-control">
+                    <select name="config_api_id" class="form-control" id="input-api"/>
                       <option value="0">{{ text_none }}</option>
                       {% for api in apis %}
                         {% if api.api_id == config_api_id %}
@@ -822,9 +822,9 @@
               <fieldset>
                 <legend>{{ text_subscription }}</legend>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-information-subscription"><span data-toggle="tooltip" title="{{ help_information_subscription }}">{{ entry_information_subscription }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-information-subscription"><span data-toggle="tooltip" title="{{ help_information_subscription|escape('html') }}">{{ entry_information_subscription }}</span></label>
                   <div class="col-sm-10">
-                    <select name="config_information_subscription_id" id="input-information-subscription" class="form-control">
+                    <select name="config_information_subscription_id" class="form-control" id="input-information-subscription"/>
                       <option value="0">{{ text_none }}</option>
                       {% for information in informations %}
                         {% if information.information_id == config_information_subscription_id %}
@@ -837,9 +837,9 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-subscription-status"><span data-toggle="tooltip" title="{{ help_subscription }}">{{ entry_order_status }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-subscription-status"><span data-toggle="tooltip" title="{{ help_subscription|escape('html') }}">{{ entry_order_status }}</span></label>
                   <div class="col-sm-10">
-                    <select name="config_subscription_status_id" id="input-subscription-status" class="form-control">
+                    <select name="config_subscription_status_id" class="form-control" id="input-subscription-status"/>
                       {% for subscription_status in subscription_statuses %}
                         {% if subscription_status.subscription_status_id == config_subscription_status_id %}
                           <option value="{{ subscription_status.subscription_status_id }}" selected="selected">{{ subscription_status.name }}</option>
@@ -853,7 +853,7 @@
                 <div class="form-group">
                   <label class="col-sm-2 control-label" for="input-subscription-active-status">{{ entry_subscription_active_status }}</label>
                   <div class="col-sm-10">
-                    <select name="config_subscription_active_status_id" id="input-subscription-active-status" class="form-control">
+                    <select name="config_subscription_active_status_id" class="form-control" id="input-subscription-active-status"/>
                       {% for subscription_status in subscription_statuses %}
                         {% if subscription_status.subscription_status_id == config_subscription_active_status_id %}
                           <option value="{{ subscription_status.subscription_status_id }}" selected="selected">{{ subscription_status.name }}</option>
@@ -867,7 +867,7 @@
                 <div class="form-group">
                   <label class="col-sm-2 control-label" for="input-subscription-expired-status">{{ entry_subscription_expired_status }}</label>
                   <div class="col-sm-10">
-                    <select name="config_subscription_expired_status_id" id="input-subscription-expired-status" class="form-control">
+                    <select name="config_subscription_expired_status_id" class="form-control" id="input-subscription-expired-status"/>
                       {% for subscription_status in subscription_statuses %}
                         {% if subscription_status.subscription_status_id == config_subscription_expired_status_id %}
                           <option value="{{ subscription_status.subscription_status_id }}" selected="selected">{{ subscription_status.name }}</option>
@@ -881,7 +881,7 @@
                 <div class="form-group">
                   <label class="col-sm-2 control-label" for="input-subscription-canceled-status">{{ entry_subscription_canceled_status }}</label>
                   <div class="col-sm-10">
-                    <select name="config_subscription_canceled_status_id" id="input-subscription-canceled-status" class="form-control">
+                    <select name="config_subscription_canceled_status_id" class="form-control" id="input-subscription-canceled-status"/>
                       {% for subscription_status in subscription_statuses %}
                         {% if subscription_status.subscription_status_id == config_subscription_canceled_status_id %}
                           <option value="{{ subscription_status.subscription_status_id }}" selected="selected">{{ subscription_status.name }}</option>
@@ -895,7 +895,7 @@
                 <div class="form-group">
                   <label class="col-sm-2 control-label" for="input-subscription-failed-status">{{ entry_subscription_failed_status }}</label>
                   <div class="col-sm-10">
-                    <select name="config_subscription_failed_status_id" id="input-subscription-failed-status" class="form-control">
+                    <select name="config_subscription_failed_status_id" class="form-control" id="input-subscription-failed-status"/>
                       {% for subscription_status in subscription_statuses %}
                         {% if subscription_status.subscription_status_id == config_subscription_failed_status_id %}
                           <option value="{{ subscription_status.subscription_status_id }}" selected="selected">{{ subscription_status.name }}</option>
@@ -909,7 +909,7 @@
                 <div class="form-group">
                   <label class="col-sm-2 control-label" for="input-subscription-denied-status">{{ entry_subscription_denied_status }}</label>
                   <div class="col-sm-10">
-                    <select name="config_subscription_denied_status_id" id="input-subscription-denied-status" class="form-control">
+                    <select name="config_subscription_denied_status_id" class="form-control" id="input-subscription-denied-status"/>
                       {% for subscription_status in subscription_statuses %}
                         {% if subscription_status.subscription_status_id == config_subscription_denied_status_id %}
                           <option value="{{ subscription_status.subscription_status_id }}" selected="selected">{{ subscription_status.name }}</option>
@@ -924,7 +924,7 @@
               <fieldset>
                 <legend>{{ text_stock }}</legend>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_stock_display }}">{{ entry_stock_display }}</span></label>
+                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_stock_display|escape('html') }}">{{ entry_stock_display }}</span></label>
                   <div class="col-sm-10">
                     <label class="radio-inline">
                       {% if config_stock_display %}
@@ -944,7 +944,7 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_stock_warning }}">{{ entry_stock_warning }}</span></label>
+                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_stock_warning|escape('html') }}">{{ entry_stock_warning }}</span></label>
                   <div class="col-sm-10">
                     <label class="radio-inline">{% if config_stock_warning %}
                         <input type="radio" name="config_stock_warning" value="1" checked="checked"/>
@@ -963,7 +963,7 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_stock_checkout }}">{{ entry_stock_checkout }}</span></label>
+                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_stock_checkout|escape('html') }}">{{ entry_stock_checkout }}</span></label>
                   <div class="col-sm-10">
                     <label class="radio-inline">{% if config_stock_checkout %}
                         <input type="radio" name="config_stock_checkout" value="1" checked="checked"/>
@@ -1004,15 +1004,15 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-affiliate-expire"><span data-toggle="tooltip" title="{{ help_affiliate_expire }}">{{ entry_affiliate_expire }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-affiliate-expire"><span data-toggle="tooltip" title="{{ help_affiliate_expire|escape('html') }}">{{ entry_affiliate_expire }}</span></label>
                   <div class="col-sm-10">
-                    <input type="text" name="config_affiliate_expire" value="{{ config_affiliate_expire }}" placeholder="{{ entry_affiliate_expire }}" id="input-affiliate-expire" class="form-control"/>
+                    <input type="text" name="config_affiliate_expire" value="{{ config_affiliate_expire }}" placeholder="{{ entry_affiliate_expire }}" class="form-control" id="input-affiliate-expire"/>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-2 control-label" for="input-affiliate-group">{{ entry_affiliate_group }}</label>
                   <div class="col-sm-10">
-                    <select name="config_affiliate_group_id" id="input-affiliate-group" class="form-control">
+                    <select name="config_affiliate_group_id" class="form-control" id="input-affiliate-group"/>
                       {% for customer_group in customer_groups %}
                         {% if customer_group.customer_group_id == config_affiliate_group_id %}
                           <option value="{{ customer_group.customer_group_id }}" selected="selected">{{ customer_group.name }}</option>
@@ -1024,7 +1024,7 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_affiliate_approval }}">{{ entry_affiliate_approval }}</span></label>
+                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_affiliate_approval|escape('html') }}">{{ entry_affiliate_approval }}</span></label>
                   <div class="col-sm-10">
                     <label class="radio-inline">{% if config_affiliate_approval %}
                         <input type="radio" name="config_affiliate_approval" value="1" checked="checked"/>
@@ -1043,7 +1043,7 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_affiliate_auto }}">{{ entry_affiliate_auto }}</span></label>
+                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_affiliate_auto|escape('html') }}">{{ entry_affiliate_auto }}</span></label>
                   <div class="col-sm-10">
                     <label class="radio-inline">{% if config_affiliate_auto %}
                         <input type="radio" name="config_affiliate_auto" value="1" checked="checked"/>
@@ -1062,15 +1062,15 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-affiliate-commission"><span data-toggle="tooltip" title="{{ help_affiliate_commission }}">{{ entry_affiliate_commission }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-affiliate-commission"><span data-toggle="tooltip" title="{{ help_affiliate_commission|escape('html') }}">{{ entry_affiliate_commission }}</span></label>
                   <div class="col-sm-10">
-                    <input type="text" name="config_affiliate_commission" value="{{ config_affiliate_commission }}" placeholder="{{ entry_affiliate_commission }}" id="input-affiliate-commission" class="form-control"/>
+                    <input type="text" name="config_affiliate_commission" value="{{ config_affiliate_commission }}" placeholder="{{ entry_affiliate_commission }}" class="form-control" id="input-affiliate-commission"/>
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-affiliate"><span data-toggle="tooltip" title="{{ help_affiliate }}">{{ entry_affiliate }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-affiliate"><span data-toggle="tooltip" title="{{ help_affiliate|escape('html') }}">{{ entry_affiliate }}</span></label>
                   <div class="col-sm-10">
-                    <select name="config_affiliate_id" id="input-affiliate" class="form-control">
+                    <select name="config_affiliate_id" class="form-control" id="input-affiliate"/>
                       <option value="0">{{ text_none }}</option>
                       {% for information in informations %}
                         {% if information.information_id == config_affiliate_id %}
@@ -1086,9 +1086,9 @@
               <fieldset>
                 <legend>{{ text_return }}</legend>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-return"><span data-toggle="tooltip" title="{{ help_return }}">{{ entry_return }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-return"><span data-toggle="tooltip" title="{{ help_return|escape('html') }}">{{ entry_return }}</span></label>
                   <div class="col-sm-10">
-                    <select name="config_return_id" id="input-return" class="form-control">
+                    <select name="config_return_id" class="form-control" id="input-return"/>
                       <option value="0">{{ text_none }}</option>
                       {% for information in informations %}
                         {% if information.information_id == config_return_id %}
@@ -1101,9 +1101,9 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-return-status"><span data-toggle="tooltip" title="{{ help_return_status }}">{{ entry_return_status }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-return-status"><span data-toggle="tooltip" title="{{ help_return_status|escape('html') }}">{{ entry_return_status }}</span></label>
                   <div class="col-sm-10">
-                    <select name="config_return_status_id" id="input-return-status" class="form-control">
+                    <select name="config_return_status_id" class="form-control" id="input-return-status"/>
                       {% for return_status in return_statuses %}
                         {% if return_status.return_status_id == config_return_status_id %}
                           <option value="{{ return_status.return_status_id }}" selected="selected">{{ return_status.name }}</option>
@@ -1118,9 +1118,9 @@
               <fieldset>
                 <legend>{{ text_captcha }}</legend>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_captcha }}">{{ entry_captcha }}</span></label>
+                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_captcha|escape('html') }}">{{ entry_captcha }}</span></label>
                   <div class="col-sm-10">
-                    <select name="config_captcha" id="input-captcha" class="form-control">
+                    <select name="config_captcha" class="form-control" id="input-captcha"/>
                       <option value="">{{ text_none }}</option>
                       {% for captcha in captchas %}
                         {% if captcha.value == config_captcha %}
@@ -1152,29 +1152,29 @@
                 </div>
               </fieldset>
             </div>
-            <div id="tab-image" class="tab-pane">
+            <div class="tab-pane" id="tab-image">
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-logo">{{ entry_logo }}</label>
                 <div class="col-sm-10">
-                  <a href="" id="thumb-logo" data-toggle="image" class="img-thumbnail"><img src="{{ logo }}" alt="" title="" data-placeholder="{{ placeholder }}"/></a>
+                  <a href="" data-toggle="image" class="img-thumbnail" id="thumb-logo"><img src="{{ logo }}" alt="" title="" data-placeholder="{{ placeholder }}"/></a>
                   <input type="hidden" name="config_logo" value="{{ config_logo }}" id="input-logo"/>
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-icon"><span data-toggle="tooltip" title="{{ help_icon }}">{{ entry_icon }}</span></label>
+                <label class="col-sm-2 control-label" for="input-icon"><span data-toggle="tooltip" title="{{ help_icon|escape('html') }}">{{ entry_icon }}</span></label>
                 <div class="col-sm-10">
-                  <a href="" id="thumb-icon" data-toggle="image" class="img-thumbnail"><img src="{{ icon }}" alt="" title="" data-placeholder="{{ placeholder }}"/></a>
+                  <a href="" data-toggle="image" class="img-thumbnail" id="thumb-icon"><img src="{{ icon }}" alt="" title="" data-placeholder="{{ placeholder }}"/></a>
                   <input type="hidden" name="config_icon" value="{{ config_icon }}" id="input-icon"/>
                 </div>
               </div>
             </div>
-            <div id="tab-mail" class="tab-pane">
+            <div class="tab-pane" id="tab-mail">
               <fieldset>
                 <legend>{{ text_general }}</legend>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-mail-engine"><span data-toggle="tooltip" title="{{ help_mail_engine }}">{{ entry_mail_engine }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-mail-engine"><span data-toggle="tooltip" title="{{ help_mail_engine|escape('html') }}">{{ entry_mail_engine }}</span></label>
                   <div class="col-sm-10">
-                    <select name="config_mail_engine" id="input-mail-engine" class="form-control">
+                    <select name="config_mail_engine" class="form-control" id="input-mail-engine"/>
                       <option value="">{{ text_none }}</option>
                       {% if config_mail_engine == 'mail' %}
                         <option value="mail" selected="selected">{{ text_mail }}</option>
@@ -1193,46 +1193,46 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-mail-parameter"><span data-toggle="tooltip" title="{{ help_mail_parameter }}">{{ entry_mail_parameter }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-mail-parameter"><span data-toggle="tooltip" title="{{ help_mail_parameter|escape('html') }}">{{ entry_mail_parameter }}</span></label>
                   <div class="col-sm-10">
-                    <input type="text" name="config_mail_parameter" value="{{ config_mail_parameter }}" placeholder="{{ entry_mail_parameter }}" id="input-mail-parameter" class="form-control"/>
+                    <input type="text" name="config_mail_parameter" value="{{ config_mail_parameter }}" placeholder="{{ entry_mail_parameter }}" class="form-control" id="input-mail-parameter"/>
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-mail-smtp-hostname"><span data-toggle="tooltip" title="{{ help_mail_smtp_hostname }}">{{ entry_mail_smtp_hostname }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-mail-smtp-hostname"><span data-toggle="tooltip" title="{{ help_mail_smtp_hostname|escape('html') }}">{{ entry_mail_smtp_hostname }}</span></label>
                   <div class="col-sm-10">
-                    <input type="text" name="config_mail_smtp_hostname" value="{{ config_mail_smtp_hostname }}" placeholder="{{ entry_mail_smtp_hostname }}" id="input-mail-smtp-hostname" class="form-control"/>
+                    <input type="text" name="config_mail_smtp_hostname" value="{{ config_mail_smtp_hostname }}" placeholder="{{ entry_mail_smtp_hostname }}" class="form-control" id="input-mail-smtp-hostname"/>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-2 control-label" for="input-mail-smtp-username">{{ entry_mail_smtp_username }}</label>
                   <div class="col-sm-10">
-                    <input type="text" name="config_mail_smtp_username" value="{{ config_mail_smtp_username }}" placeholder="{{ entry_mail_smtp_username }}" id="input-mail-smtp-username" class="form-control"/>
+                    <input type="text" name="config_mail_smtp_username" value="{{ config_mail_smtp_username }}" placeholder="{{ entry_mail_smtp_username }}" class="form-control" id="input-mail-smtp-username"/>
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-mail-smtp-password"><span data-toggle="tooltip" title="{{ help_mail_smtp_password }}">{{ entry_mail_smtp_password }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-mail-smtp-password"><span data-toggle="tooltip" title="{{ help_mail_smtp_password|escape('html') }}">{{ entry_mail_smtp_password }}</span></label>
                   <div class="col-sm-10">
-                    <input type="text" name="config_mail_smtp_password" value="{{ config_mail_smtp_password }}" placeholder="{{ entry_mail_smtp_password }}" id="input-mail-smtp-password" class="form-control"/>
+                    <input type="text" name="config_mail_smtp_password" value="{{ config_mail_smtp_password }}" placeholder="{{ entry_mail_smtp_password }}" class="form-control" id="input-mail-smtp-password"/>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-2 control-label" for="input-mail-smtp-port">{{ entry_mail_smtp_port }}</label>
                   <div class="col-sm-10">
-                    <input type="text" name="config_mail_smtp_port" value="{{ config_mail_smtp_port }}" placeholder="{{ entry_mail_smtp_port }}" id="input-mail-smtp-port" class="form-control"/>
+                    <input type="text" name="config_mail_smtp_port" value="{{ config_mail_smtp_port }}" placeholder="{{ entry_mail_smtp_port }}" class="form-control" id="input-mail-smtp-port"/>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-2 control-label" for="input-mail-smtp-timeout">{{ entry_mail_smtp_timeout }}</label>
                   <div class="col-sm-10">
-                    <input type="text" name="config_mail_smtp_timeout" value="{{ config_mail_smtp_timeout }}" placeholder="{{ entry_mail_smtp_timeout }}" id="input-mail-smtp-timeout" class="form-control"/>
+                    <input type="text" name="config_mail_smtp_timeout" value="{{ config_mail_smtp_timeout }}" placeholder="{{ entry_mail_smtp_timeout }}" class="form-control" id="input-mail-smtp-timeout"/>
                   </div>
                 </div>
               </fieldset>
               <fieldset>
                 <legend>{{ text_mail_alert }}</legend>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_mail_alert }}">{{ entry_mail_alert }}</span></label>
+                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_mail_alert|escape('html') }}">{{ entry_mail_alert }}</span></label>
                   <div class="col-sm-10">
                     <div class="well well-sm" style="height: 150px; overflow: auto;">
                       {% for mail_alert in mail_alerts %}
@@ -1250,18 +1250,18 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-mail-alert-email"><span data-toggle="tooltip" title="{{ help_mail_alert_email }}">{{ entry_mail_alert_email }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-mail-alert-email"><span data-toggle="tooltip" title="{{ help_mail_alert_email|escape('html') }}">{{ entry_mail_alert_email }}</span></label>
                   <div class="col-sm-10">
-                    <textarea name="config_mail_alert_email" rows="5" placeholder="{{ entry_mail_alert_email }}" id="input-alert-email" class="form-control">{{ config_mail_alert_email }}</textarea>
+                    <textarea name="config_mail_alert_email" rows="5" placeholder="{{ entry_mail_alert_email }}" class="form-control" id="input-alert-email"/>{{ config_mail_alert_email }}</textarea>
                   </div>
                 </div>
               </fieldset>
             </div>
-            <div id="tab-server" class="tab-pane">
+            <div class="tab-pane" id="tab-server">
               <fieldset>
                 <legend>{{ text_general }}</legend>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_maintenance }}">{{ entry_maintenance }}</span></label>
+                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_maintenance|escape('html') }}">{{ entry_maintenance }}</span></label>
                   <div class="col-sm-10">
                     <label class="radio-inline">{% if config_maintenance %}
                         <input type="radio" name="config_maintenance" value="1" checked="checked"/>
@@ -1280,15 +1280,15 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-compression"><span data-toggle="tooltip" title="{{ help_session_expire }}">{{ entry_session_expire }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-compression"><span data-toggle="tooltip" title="{{ help_session_expire|escape('html') }}">{{ entry_session_expire }}</span></label>
                   <div class="col-sm-10">
-                    <input type="text" name="config_session_expire" value="{{ config_session_expire }}" placeholder="{{ entry_session_expire }}" id="input-session-expire" class="form-control"/>
+                    <input type="text" name="config_session_expire" value="{{ config_session_expire }}" placeholder="{{ entry_session_expire }}" class="form-control" id="input-session-expire"/>
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-samesite"><span data-toggle="tooltip" title="{{ help_session_samesite }}">{{ entry_session_samesite }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-samesite"><span data-toggle="tooltip" title="{{ help_session_samesite|escape('html') }}">{{ entry_session_samesite }}</span></label>
                   <div class="col-sm-10">
-                    <select name="config_session_samesite" id="input-session-samesite" class="form-control">
+                    <select name="config_session_samesite" class="form-control" id="input-session-samesite"/>
                       <option value="None"{% if config_session_samesite == 'None' %} selected="selected"{% endif %}>{{ text_none }}</option>
                       <option value="Lax"{% if config_session_samesite == 'Lax' %} selected="selected"{% endif %}>{{ text_lax }}</option>
                       <option value="Strict"{% if config_session_samesite == 'Strict' %} selected="selected"{% endif %}>{{ text_strict }}</option>
@@ -1296,7 +1296,7 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_seo_url }}">{{ entry_seo_url }}</span></label>
+                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_seo_url|escape('html') }}">{{ entry_seo_url }}</span></label>
                   <div class="col-sm-10">
                     <label class="radio-inline">{% if config_seo_url %}
                         <input type="radio" name="config_seo_url" value="1" checked="checked"/>
@@ -1315,22 +1315,22 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-robots"><span data-toggle="tooltip" title="{{ help_robots }}">{{ entry_robots }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-robots"><span data-toggle="tooltip" title="{{ help_robots|escape('html') }}">{{ entry_robots }}</span></label>
                   <div class="col-sm-10">
-                    <textarea name="config_robots" rows="5" placeholder="{{ entry_robots }}" id="input-robots" class="form-control">{{ config_robots }}</textarea>
+                    <textarea name="config_robots" rows="5" placeholder="{{ entry_robots }}" class="form-control" id="input-robots"/>{{ config_robots }}</textarea>
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-compression"><span data-toggle="tooltip" title="{{ help_compression }}">{{ entry_compression }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-compression"><span data-toggle="tooltip" title="{{ help_compression|escape('html') }}">{{ entry_compression }}</span></label>
                   <div class="col-sm-10">
-                    <input type="text" name="config_compression" value="{{ config_compression }}" placeholder="{{ entry_compression }}" id="input-compression" class="form-control"/>
+                    <input type="text" name="config_compression" value="{{ config_compression }}" placeholder="{{ entry_compression }}" class="form-control" id="input-compression"/>
                   </div>
                 </div>
               </fieldset>
               <fieldset>
                 <legend>{{ text_security }}</legend>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_secure }}">{{ entry_secure }}</span></label>
+                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_secure|escape('html') }}">{{ entry_secure }}</span></label>
                   <div class="col-sm-10">
                     <label class="radio-inline">{% if config_secure %}
                         <input type="radio" name="config_secure" value="1" checked="checked"/>
@@ -1349,7 +1349,7 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_password }}">{{ entry_password }}</span></label>
+                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_password|escape('html') }}">{{ entry_password }}</span></label>
                   <div class="col-sm-10">
                     <label class="radio-inline">{% if config_password %}
                         <input type="radio" name="config_password" value="1" checked="checked"/>
@@ -1368,7 +1368,7 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_shared }}">{{ entry_shared }}</span></label>
+                  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_shared|escape('html') }}">{{ entry_shared }}</span></label>
                   <div class="col-sm-10">
                     <label class="radio-inline">{% if config_shared %}
                         <input type="radio" name="config_shared" value="1" checked="checked"/>
@@ -1387,9 +1387,9 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-encryption"><span data-toggle="tooltip" title="{{ help_encryption }}">{{ entry_encryption }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-encryption"><span data-toggle="tooltip" title="{{ help_encryption|escape('html') }}">{{ entry_encryption }}</span></label>
                   <div class="col-sm-10">
-                    <textarea name="config_encryption" rows="5" placeholder="{{ entry_encryption }}" id="input-encryption" class="form-control">{{ config_encryption }}</textarea>
+                    <textarea name="config_encryption" rows="5" placeholder="{{ entry_encryption }}" class="form-control" id="input-encryption"/>{{ config_encryption }}</textarea>
                     {% if error_encryption %}
                       <div class="text-danger">{{ error_encryption }}</div>
                     {% endif %}
@@ -1399,21 +1399,21 @@
               <fieldset>
                 <legend>{{ text_upload }}</legend>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-file-max-size"><span data-toggle="tooltip" title="{{ help_file_max_size }}">{{ entry_file_max_size }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-file-max-size"><span data-toggle="tooltip" title="{{ help_file_max_size|escape('html') }}">{{ entry_file_max_size }}</span></label>
                   <div class="col-sm-10">
-                    <input type="text" name="config_file_max_size" value="{{ config_file_max_size }}" placeholder="{{ entry_file_max_size }}" id="input-file-max-size" class="form-control"/>
+                    <input type="text" name="config_file_max_size" value="{{ config_file_max_size }}" placeholder="{{ entry_file_max_size }}" class="form-control" id="input-file-max-size"/>
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-file-ext-allowed"><span data-toggle="tooltip" title="{{ help_file_ext_allowed }}">{{ entry_file_ext_allowed }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-file-ext-allowed"><span data-toggle="tooltip" title="{{ help_file_ext_allowed|escape('html') }}">{{ entry_file_ext_allowed }}</span></label>
                   <div class="col-sm-10">
-                    <textarea name="config_file_ext_allowed" rows="5" placeholder="{{ entry_file_ext_allowed }}" id="input-file-ext-allowed" class="form-control">{{ config_file_ext_allowed }}</textarea>
+                    <textarea name="config_file_ext_allowed" rows="5" placeholder="{{ entry_file_ext_allowed }}" class="form-control" id="input-file-ext-allowed"/>{{ config_file_ext_allowed }}</textarea>
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-file-mime-allowed"><span data-toggle="tooltip" title="{{ help_file_mime_allowed }}">{{ entry_file_mime_allowed }}</span></label>
+                  <label class="col-sm-2 control-label" for="input-file-mime-allowed"><span data-toggle="tooltip" title="{{ help_file_mime_allowed|escape('html') }}">{{ entry_file_mime_allowed }}</span></label>
                   <div class="col-sm-10">
-                    <textarea name="config_file_mime_allowed" rows="5" placeholder="{{ entry_file_mime_allowed }}" id="input-file-mime-allowed" class="form-control">{{ config_file_mime_allowed }}</textarea>
+                    <textarea name="config_file_mime_allowed" rows="5" placeholder="{{ entry_file_mime_allowed }}" class="form-control" id="input-file-mime-allowed"/>{{ config_file_mime_allowed }}</textarea>
                   </div>
                 </div>
               </fieldset>
@@ -1460,7 +1460,7 @@
                 <div class="form-group required">
                   <label class="col-sm-2 control-label" for="input-error-filename">{{ entry_error_filename }}</label>
                   <div class="col-sm-10">
-                    <input type="text" name="config_error_filename" value="{{ config_error_filename }}" placeholder="{{ entry_error_filename }}" id="input-error-filename" class="form-control"/>
+                    <input type="text" name="config_error_filename" value="{{ config_error_filename }}" placeholder="{{ entry_error_filename }}" class="form-control" id="input-error-filename"/>
                     {% if error_log %}
                       <div class="text-danger">{{ error_log }}</div>
                     {% endif %}
@@ -1507,7 +1507,7 @@
               $('select[name=\'config_country_id\']').prop('disabled', false);
           },
           success: function (json) {
-              html = '<option value="">{{ text_select }}</option>';
+              html = '<option value="">{{ text_select|escape('js') }}</option>';
 
               if (json['zone'] && json['zone'] != '') {
                   for (i = 0; i < json['zone'].length; i++) {
@@ -1520,7 +1520,7 @@
                       html += '>' + json['zone'][i]['name'] + '</option>';
                   }
               } else {
-                  html += '<option value="0" selected="selected">{{ text_none }}</option>';
+                  html += '<option value="0" selected="selected">{{ text_none|escape('js') }}</option>';
               }
 
               $('select[name=\'config_zone_id\']').html(html);

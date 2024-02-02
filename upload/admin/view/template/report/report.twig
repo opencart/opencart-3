@@ -20,7 +20,7 @@
       <div class="panel-body">
         <div class="well">
           <div class="input-group">
-            <select name="report" onchange="location = this.value;" class="form-control">
+            <select name="report" onchange="location = this.value;" class="form-control"/>
               {% for report in reports %}
                 {% if code == report.code %}
                   <option value="{{ report.href }}" selected="selected">{{ report.text }}</option>

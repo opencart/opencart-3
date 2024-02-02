@@ -10,9 +10,9 @@ class ControllerMailAffiliate extends Controller {
 	 *
 	 * admin/model/customer/customer_approval/approveAffiliate/after
 	 *
-	 * @param string $route
-	 * @param array  $args
-	 * @param mixed  $output
+	 * @param string            $route
+	 * @param array<int, mixed> $args
+	 * @param mixed             $output
 	 *
 	 * @return void
 	 */
@@ -69,6 +69,7 @@ class ControllerMailAffiliate extends Controller {
 				];
 
 				$mail = new \Mail($this->config->get('config_mail_engine'), $mail_option);
+
 				$mail->setTo($customer_info['email']);
 				$mail->setFrom($this->config->get('config_email'));
 				$mail->setSender($store_name);
@@ -80,7 +81,7 @@ class ControllerMailAffiliate extends Controller {
 	}
 
 	/**
-	 * Denu
+	 * Deny
 	 *
 	 * admin/model/customer/customer_approval/denyAffiliate/after
 	 *
@@ -142,6 +143,7 @@ class ControllerMailAffiliate extends Controller {
 				];
 
 				$mail = new \Mail($this->config->get('config_mail_engine'), $mail_option);
+
 				$mail->setTo($customer_info['email']);
 				$mail->setFrom($this->config->get('config_email'));
 				$mail->setSender($store_name);

@@ -6,9 +6,9 @@
  */
 class ModelLocalisationCurrency extends Model {
 	/**
-	 * addCurrency
+	 * Add Currency
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -23,10 +23,10 @@ class ModelLocalisationCurrency extends Model {
 	}
 
 	/**
-	 * editCurrency
+	 * Edit Currency
 	 *
-	 * @param int   $currency_id
-	 * @param array $data
+	 * @param int                  $currency_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -37,7 +37,7 @@ class ModelLocalisationCurrency extends Model {
 	}
 
 	/**
-	 * editValueByCode
+	 * Edit Value By Code
 	 *
 	 * @param string $code
 	 * @param float  $value
@@ -51,7 +51,7 @@ class ModelLocalisationCurrency extends Model {
 	}
 
 	/**
-	 * deleteCurrency
+	 * Delete Currency
 	 *
 	 * @param int $currency_id
 	 *
@@ -64,11 +64,11 @@ class ModelLocalisationCurrency extends Model {
 	}
 
 	/**
-	 * getCurrency
+	 * Get Currency
 	 *
 	 * @param int $currency_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getCurrency(int $currency_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "currency` WHERE `currency_id` = '" . (int)$currency_id . "'");
@@ -77,11 +77,11 @@ class ModelLocalisationCurrency extends Model {
 	}
 
 	/**
-	 * getCurrencyByCode
+	 * Get Currency By Code
 	 *
 	 * @param string $currency
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getCurrencyByCode(string $currency): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "currency` WHERE `code` = '" . $this->db->escape($currency) . "'");
@@ -90,11 +90,11 @@ class ModelLocalisationCurrency extends Model {
 	}
 
 	/**
-	 * getCurrencies
+	 * Get Currencies
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<string, array<string, mixed>>
 	 */
 	public function getCurrencies(array $data = []): array {
 		if ($data) {
@@ -222,7 +222,7 @@ class ModelLocalisationCurrency extends Model {
 	}
 
 	/**
-	 * getTotalCurrencies
+	 * Get Total Currencies
 	 *
 	 * @return int
 	 */

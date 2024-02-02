@@ -1,0 +1,81 @@
+<div class="opayo-subscription" id="opayo-subscription">
+  {% if subscription_status == '2' or subscription_status == '3' %}
+    <button type="button" class="btn btn-primary button-enable-subscription">{{ button_enable_subscription }}</button>
+  {% else %}
+    <button type="button" class="btn btn-primary button-disable-subscription">{{ button_disable_subscription }}</button>
+  {% endif %}
+</div>
+<br/>
+<script type="text/javascript">
+
+$('#opayo-subscription').on('click', '.button-enable-subscription', function() {
+	$.ajax({
+		type: 'post',
+		url: '{{ enable_url }}',
+		data: { 'subscription_id' : '{{ subscription_id }}' },
+		dataType: 'json',
+		beforeSend: function() {
+			$('#opayo-subscription .btn').prop('disabled', true);
+		},
+		complete: function() {
+			$('#opayo-subscription .btn').prop('disabled', false);
+		},
+		success: function(json) {
+			$('.alert-dismissible').remove();
+			
+			if (json['error'] && json['error']['warning']) {
+				$('#content').parent().before('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error']['warning'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+				
+				$('html, body').animate({scrollTop: 0}, 'slow');
+			}
+			
+			if (json['success']) {
+				$('#content').parent().before('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+				
+				$('html, body').animate({scrollTop: 0}, 'slow');
+				
+				$('#opayo-subscription').load('{{ info_url }} #opayo-subscription >');
+			}
+		},
+		error: function(xhr, ajaxOptions, thrownError) {
+			console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+		}
+	});
+});
+
+$('#opayo-subscription').on('click', '.button-disable-subscription', function() {
+	$.ajax({
+		type: 'post',
+		url: '{{ disable_url }}',
+		data: {'subscription_id' : '{{ subscription_id }}'},
+		dataType: 'json',
+		beforeSend: function() {
+			$('#opayo-subscription .btn').prop('disabled', true);
+		},
+		complete: function() {
+			$('#opayo-subscription .btn').prop('disabled', false);
+		},
+		success: function(json) {
+			$('.alert-dismissible').remove();
+			
+			if (json['error'] && json['error']['warning']) {
+				$('#content').parent().before('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error']['warning'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+				
+				$('html, body').animate({scrollTop: 0}, 'slow');
+			}
+			
+			if (json['success']) {
+				$('#content').parent().before('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+				
+				$('html, body').animate({scrollTop: 0}, 'slow');
+				
+				$('#opayo-subscription').load('{{ info_url }} #opayo-subscription >');
+			}
+		},
+		error: function(xhr, ajaxOptions, thrownError) {
+			console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+		}
+	});
+});
+
+</script>

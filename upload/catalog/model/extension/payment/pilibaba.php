@@ -110,8 +110,8 @@ class ModelExtensionPaymentPilibaba extends Model {
 	/**
 	 * updateOrderInfo
 	 *
-	 * @param array $data
-	 * @param int   $order_id
+	 * @param array<string, mixed> $data
+	 * @param int                  $order_id
 	 *
 	 * @return void
 	 */
@@ -132,7 +132,7 @@ class ModelExtensionPaymentPilibaba extends Model {
 	 * @return void
 	 */
 	public function log(string $message): void {
-		if ($this->config->get('payment_pilibaba_logging')) {
+		if ($this->config->get('payment_pilibaba_debug')) {
 			// Log
 			$log = new \Log('pilibaba.log');
 			$log->write($message);

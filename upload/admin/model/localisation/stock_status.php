@@ -6,22 +6,22 @@
  */
 class ModelLocalisationStockStatus extends Model {
 	/**
-	 * addStockStatus
+	 * Add Stock Status
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return int
+	 * @return ?int
 	 */
-	public function addStockStatus(array $data): int {
-		$stock_status_id = null;
+	public function addStockStatus(array $data): ?int {
+		$stock_status_id = 0;
 
 		foreach ($data['stock_status'] as $language_id => $value) {
-			if (isset($stock_status_id)) {
-				$this->db->query("INSERT INTO `" . DB_PREFIX . "stock_status` SET `stock_status_id` = '" . (int)$stock_status_id . "', `language_id` = '" . (int)$language_id . "', `name` = '" . $this->db->escape($value['name']) . "'");
-			} else {
+			if (!$stock_status_id) {
 				$this->db->query("INSERT INTO `" . DB_PREFIX . "stock_status` SET `language_id` = '" . (int)$language_id . "', `name` = '" . $this->db->escape($value['name']) . "'");
 
 				$stock_status_id = $this->db->getLastId();
+			} else {
+				$this->db->query("INSERT INTO `" . DB_PREFIX . "stock_status` SET `stock_status_id` = '" . (int)$stock_status_id . "', `language_id` = '" . (int)$language_id . "', `name` = '" . $this->db->escape($value['name']) . "'");
 			}
 		}
 
@@ -31,10 +31,10 @@ class ModelLocalisationStockStatus extends Model {
 	}
 
 	/**
-	 * editStockStatus
+	 * Edit Stock Status
 	 *
-	 * @param int   $stock_status_id
-	 * @param array $data
+	 * @param int                  $stock_status_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -49,7 +49,7 @@ class ModelLocalisationStockStatus extends Model {
 	}
 
 	/**
-	 * deleteStockStatus
+	 * Delete Stock Status
 	 *
 	 * @param int $stock_status_id
 	 *
@@ -62,11 +62,11 @@ class ModelLocalisationStockStatus extends Model {
 	}
 
 	/**
-	 * getStockStatus
+	 * Get Stock Status
 	 *
 	 * @param int $stock_status_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getStockStatus(int $stock_status_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "stock_status` WHERE `stock_status_id` = '" . (int)$stock_status_id . "' AND `language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -75,11 +75,11 @@ class ModelLocalisationStockStatus extends Model {
 	}
 
 	/**
-	 * getStockStatuses
+	 * Get Stock Statuses
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getStockStatuses(array $data = []): array {
 		if ($data) {
@@ -124,11 +124,11 @@ class ModelLocalisationStockStatus extends Model {
 	}
 
 	/**
-	 * getDescriptions
+	 * Get Descriptions
 	 *
 	 * @param int $stock_status_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, string>>
 	 */
 	public function getDescriptions(int $stock_status_id): array {
 		$stock_status_data = [];
@@ -143,7 +143,7 @@ class ModelLocalisationStockStatus extends Model {
 	}
 
 	/**
-	 * getTotalStockStatuses
+	 * Get Total Stock Statuses
 	 *
 	 * @return int
 	 */

@@ -6,15 +6,17 @@
  */
 class ControllerMailGdpr extends Controller {
 	/**
+	 * Index
+	 *
 	 * admin/model/customer/gdpr/editStatus
 	 *
-	 * @param mixed $route
-	 * @param mixed $args
-	 * @param mixed $output
+	 * @param string            $route
+	 * @param array<int, mixed> $args
+	 * @param mixed             $output
 	 *
 	 * @return void
 	 */
-	public function index(&$route, &$args, &$output): void {
+	public function index(string &$route, array &$args, mixed &$output): void {
 		$this->load->model('customer/gdpr');
 
 		$gdpr_info = $this->model_customer_gdpr->getGdpr($args[0]);
@@ -189,6 +191,7 @@ class ControllerMailGdpr extends Controller {
 		];
 
 		$mail = new \Mail($this->config->get('config_mail_engine'), $mail_option);
+
 		$mail->setTo($gdpr_info['email']);
 		$mail->setFrom($this->config->get('config_email'));
 		$mail->setSender($store_name);
@@ -260,6 +263,7 @@ class ControllerMailGdpr extends Controller {
 		];
 
 		$mail = new \Mail($this->config->get('config_mail_engine'), $mail_option);
+
 		$mail->setTo($gdpr_info['email']);
 		$mail->setFrom($this->config->get('config_email'));
 		$mail->setSender($store_name);
@@ -334,6 +338,7 @@ class ControllerMailGdpr extends Controller {
 		];
 
 		$mail = new \Mail($this->config->get('config_mail_engine'), $mail_option);
+
 		$mail->setTo($gdpr_info['email']);
 		$mail->setFrom($this->config->get('config_email'));
 		$mail->setSender($store_name);
@@ -405,6 +410,7 @@ class ControllerMailGdpr extends Controller {
 		];
 
 		$mail = new \Mail($this->config->get('config_mail_engine'), $mail_option);
+
 		$mail->setTo($gdpr_info['email']);
 		$mail->setFrom($this->config->get('config_email'));
 		$mail->setSender($store_name);

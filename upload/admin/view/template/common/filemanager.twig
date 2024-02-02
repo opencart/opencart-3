@@ -1,4 +1,4 @@
-<div id="filemanager" class="modal-dialog modal-lg">
+<div class="modal-dialog modal-lg" id="filemanager">
   <div class="modal-content">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -7,15 +7,15 @@
     <div class="modal-body">
       <div class="row">
         <div class="col-sm-5">
-          <a href="{{ parent }}" data-toggle="tooltip" title="{{ button_parent }}" id="button-parent" class="btn btn-default"><i class="fa fa-level-up"></i></a>
-          <a href="{{ refresh }}" data-toggle="tooltip" title="{{ button_refresh }}" id="button-refresh" class="btn btn-default"><i class="fa fa-refresh"></i></a>
-          <button type="button" data-toggle="tooltip" title="{{ button_upload }}" id="button-upload" class="btn btn-primary"><i class="fa fa-upload"></i></button>
-          <button type="button" data-toggle="tooltip" title="{{ button_folder }}" id="button-folder" class="btn btn-default"><i class="fa fa-folder"></i></button>
-          <button type="button" data-toggle="tooltip" title="{{ button_delete }}" id="button-delete" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+          <a href="{{ parent }}" data-toggle="tooltip" title="{{ button_parent }}" class="btn btn-default" id="button-parent"><i class="fa fa-level-up"></i></a>
+          <a href="{{ refresh }}" data-toggle="tooltip" title="{{ button_refresh }}" class="btn btn-default" id="button-refresh"><i class="fa fa-refresh"></i></a>
+          <button type="button" data-toggle="tooltip" title="{{ button_upload }}" class="btn btn-primary" id="button-upload"><i class="fa fa-upload"></i></button>
+          <button type="button" data-toggle="tooltip" title="{{ button_folder }}" class="btn btn-default" id="button-folder"><i class="fa fa-folder"></i></button>
+          <button type="button" data-toggle="tooltip" title="{{ button_delete }}" class="btn btn-danger" id="button-delete"><i class="fa fa-trash-o"></i></button>
         </div>
         <div class="col-sm-7">
-          <div class="input-group"><input type="text" name="search" value="{{ filter_name }}" placeholder="{{ entry_search }}" class="form-control">
-            <span class="input-group-btn"><button type="button" data-toggle="tooltip" title="{{ button_search }}" id="button-search" class="btn btn-primary"><i class="fa fa-search"></i></button></span>
+          <div class="input-group"><input type="text" name="search" value="{{ filter_name }}" placeholder="{{ entry_search }}" class="form-control"/>
+            <span class="input-group-btn"><button type="button" data-toggle="tooltip" title="{{ button_search }}" class="btn btn-primary" id="button-search"><i class="fa fa-search"></i></button></span>
           </div>
         </div>
       </div>
@@ -112,7 +112,7 @@ $('#button-search').on('click', function (e) {
     $('#button-upload').on('click', function () {
         $('#form-upload').remove();
 
-        $('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="file[]" value="" multiple="multiple"/></form>');
+        $('body').prepend('<form enctype="multipart/form-data" style="display: none;" id="form-upload"><input type="file" name="file[]" value="" multiple="multiple"/></form>');
 
         $('#form-upload input[name=\'file[]\']').trigger('click');
 
@@ -167,8 +167,8 @@ $('#button-search').on('click', function (e) {
         title: '{{ entry_folder }}',
         content: function () {
             html = '<div class="input-group">';
-            html += '  <input type="text" name="folder" value="" placeholder="{{ entry_folder }}" class="form-control">';
-            html += '  <span class="input-group-btn"><button type="button" title="{{ button_folder }}" id="button-create" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></span>';
+            html += '  <input type="text" name="folder" value="" placeholder="{{ entry_folder|escape('js') }}" class="form-control"/>';
+            html += '  <span class="input-group-btn"><button type="button" title="{{ button_folder|escape('js') }}" class="btn btn-primary" id="button-create"><i class="fa fa-plus-circle"></i></button></span>';
             html += '</div>';
 
             return html;

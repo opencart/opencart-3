@@ -138,6 +138,11 @@ class ControllerCatalogAttribute extends Controller {
 		$this->getList();
 	}
 
+	/**
+	 * Get List
+	 *
+	 * @return void
+	 */
 	protected function getList(): void {
 		if (isset($this->request->get['sort'])) {
 			$sort = $this->request->get['sort'];
@@ -262,6 +267,7 @@ class ControllerCatalogAttribute extends Controller {
 		$pagination->url = $this->url->link('catalog/attribute', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
 
 		$data['pagination'] = $pagination->render();
+
 		$data['results'] = sprintf($this->language->get('text_pagination'), ($attribute_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($attribute_total - $this->config->get('config_limit_admin'))) ? $attribute_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $attribute_total, ceil($attribute_total / $this->config->get('config_limit_admin')));
 
 		$data['sort'] = $sort;
@@ -274,6 +280,11 @@ class ControllerCatalogAttribute extends Controller {
 		$this->response->setOutput($this->load->view('catalog/attribute_list', $data));
 	}
 
+	/**
+	 * Get Form
+	 *
+	 * @return void
+	 */
 	protected function getForm(): void {
 		$data['text_form'] = !isset($this->request->get['attribute_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 
@@ -346,7 +357,7 @@ class ControllerCatalogAttribute extends Controller {
 		}
 
 		if (isset($this->request->post['attribute_group_id'])) {
-			$data['attribute_group_id'] = $this->request->post['attribute_group_id'];
+			$data['attribute_group_id'] = (int)$this->request->post['attribute_group_id'];
 		} elseif (!empty($attribute_info)) {
 			$data['attribute_group_id'] = $attribute_info['attribute_group_id'];
 		} else {
@@ -358,7 +369,7 @@ class ControllerCatalogAttribute extends Controller {
 		$data['attribute_groups'] = $this->model_catalog_attribute_group->getAttributeGroups();
 
 		if (isset($this->request->post['sort_order'])) {
-			$data['sort_order'] = $this->request->post['sort_order'];
+			$data['sort_order'] = (int)$this->request->post['sort_order'];
 		} elseif (!empty($attribute_info)) {
 			$data['sort_order'] = $attribute_info['sort_order'];
 		} else {
@@ -372,7 +383,12 @@ class ControllerCatalogAttribute extends Controller {
 		$this->response->setOutput($this->load->view('catalog/attribute_form', $data));
 	}
 
-	protected function validateForm() {
+	/**
+	 * Validate Form
+	 *
+	 * @return bool
+	 */
+	protected function validateForm(): bool {
 		if (!$this->user->hasPermission('modify', 'catalog/attribute')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
@@ -390,7 +406,12 @@ class ControllerCatalogAttribute extends Controller {
 		return !$this->error;
 	}
 
-	protected function validateDelete() {
+	/**
+	 * Validate Delete
+	 *
+	 * @return bool
+	 */
+	protected function validateDelete(): bool {
 		if (!$this->user->hasPermission('modify', 'catalog/attribute')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

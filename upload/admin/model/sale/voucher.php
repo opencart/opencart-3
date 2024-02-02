@@ -6,9 +6,9 @@
  */
 class ModelSaleVoucher extends Model {
 	/**
-	 * addVoucher
+	 * Add Voucher
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -19,10 +19,10 @@ class ModelSaleVoucher extends Model {
 	}
 
 	/**
-	 * editVoucher
+	 * Edit Voucher
 	 *
-	 * @param int   $voucher_id
-	 * @param array $data
+	 * @param int                  $voucher_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -31,7 +31,7 @@ class ModelSaleVoucher extends Model {
 	}
 
 	/**
-	 * deleteVoucher
+	 * Delete Voucher
 	 *
 	 * @param int $voucher_id
 	 *
@@ -43,11 +43,11 @@ class ModelSaleVoucher extends Model {
 	}
 
 	/**
-	 * getVoucher
+	 * Get Voucher
 	 *
 	 * @param int $voucher_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getVoucher(int $voucher_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "voucher` WHERE `voucher_id` = '" . (int)$voucher_id . "'");
@@ -56,11 +56,11 @@ class ModelSaleVoucher extends Model {
 	}
 
 	/**
-	 * getVoucherByCode
+	 * Get Voucher By Code
 	 *
 	 * @param string $code
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getVoucherByCode(string $code): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "voucher` WHERE `code` = '" . $this->db->escape($code) . "'");
@@ -69,11 +69,11 @@ class ModelSaleVoucher extends Model {
 	}
 
 	/**
-	 * getVouchers
+	 * Get Vouchers
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getVouchers(array $data = []): array {
 		$sql = "SELECT `v`.`voucher_id`, `v`.`order_id`, `v`.`code`, `v`.`from_name`, `v`.`from_email`, `v`.`to_name`, `v`.`to_email`, (SELECT `vtd`.`name` FROM `" . DB_PREFIX . "voucher_theme_description` `vtd` WHERE `vtd`.`voucher_theme_id` = `v`.`voucher_theme_id` AND `vtd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "') AS `theme`, `v`.`amount`, `v`.`status`, `v`.`date_added` FROM `" . DB_PREFIX . "voucher` `v`";
@@ -118,7 +118,7 @@ class ModelSaleVoucher extends Model {
 	}
 
 	/**
-	 * getTotalVouchers
+	 * Get Total Vouchers
 	 *
 	 * @return int
 	 */
@@ -129,7 +129,7 @@ class ModelSaleVoucher extends Model {
 	}
 
 	/**
-	 * getTotalVouchersByVoucherThemeId
+	 * Get Total Vouchers By Voucher Theme ID
 	 *
 	 * @param int $voucher_theme_id
 	 *
@@ -142,13 +142,13 @@ class ModelSaleVoucher extends Model {
 	}
 
 	/**
-	 * getHistories
+	 * Get Histories
 	 *
 	 * @param int $voucher_id
 	 * @param int $start
 	 * @param int $limit
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getHistories(int $voucher_id, int $start = 0, int $limit = 10): array {
 		if ($start < 0) {
@@ -165,7 +165,7 @@ class ModelSaleVoucher extends Model {
 	}
 
 	/**
-	 * getTotalHistories
+	 * Get Total Histories
 	 *
 	 * @param int $voucher_id
 	 *

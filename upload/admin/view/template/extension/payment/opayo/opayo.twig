@@ -4,8 +4,7 @@
     <div class="container-fluid">
       <div class="pull-right">
         <button type="submit" form="form-payment" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
-        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a>
-      </div>
+        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
       <h1>{{ heading_title }}</h1>
       <ul class="breadcrumb">
         {% for breadcrumb in breadcrumbs %}
@@ -25,7 +24,7 @@
         <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3>
       </div>
       <div class="panel-body">
-        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-payment" class="form-horizontal">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal" id="form-payment">
           <ul class="nav nav-tabs">
             <li class="nav-tab active"><a href="#tab-general" data-toggle="tab">{{ text_tab_general }}</a></li>
             <li class="nav-tab"><a href="#tab-cron" data-toggle="tab">{{ text_tab_cron }}</a></li>
@@ -35,7 +34,7 @@
               <div class="form-group required">
                 <label class="col-sm-2 control-label" for="input-vendor">{{ entry_vendor }}</label>
                 <div class="col-sm-10">
-                  <input type="text" name="payment_opayo_vendor" value="{{ vendor }}" placeholder="{{ entry_vendor }}" id="input-vendor" class="form-control" />
+                  <input type="text" name="payment_opayo_vendor" value="{{ vendor }}" placeholder="{{ entry_vendor }}" class="form-control" id="input-vendor"/>
                   {% if error_vendor %}
                     <div class="text-danger">{{ error_vendor }}</div>
                   {% endif %}
@@ -44,7 +43,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
                 <div class="col-sm-10">
-                  <select name="payment_opayo_status" id="input-status" class="form-control">
+                  <select name="payment_opayo_status" class="form-control" id="input-status"/>
                     {% if status %}
                       <option value="1" selected="selected">{{ text_enabled }}</option>
                       <option value="0">{{ text_disabled }}</option>
@@ -58,7 +57,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-general-environment">{{ entry_environment }}</label>
                 <div class="col-sm-10">
-                  <select name="payment_opayo_setting[general][environment]" id="input-general-environment" class="form-control">{% set setting_general = setting.general %}
+                  <select name="payment_opayo_setting[general][environment]" class="form-control" id="input-general-environment"/>{% set setting_general = setting.general %}
                     {% for environment in setting.environment %}
                       {% if environment.code == setting_general.environment %}
                         <option value="{{ environment.code }}" selected="selected">{{ attribute(_context, environment.name) }}</option>
@@ -70,9 +69,9 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-general-transaction-method"><span data-toggle="tooltip" title="{{ help_transaction_method }}">{{ entry_transaction_method }}</span></label>
+                <label class="col-sm-2 control-label" for="input-general-transaction-method"><span data-toggle="tooltip" title="{{ help_transaction_method|escape('html') }}">{{ entry_transaction_method }}</span></label>
                 <div class="col-sm-10">
-                  <select name="payment_opayo_setting[general][transaction_method]" id="input-general-transaction-method" class="form-control">
+                  <select name="payment_opayo_setting[general][transaction_method]" class="form-control" id="input-general-transaction-method"/>
                     {% for transaction_method in setting.transaction_method %}
                       {% if transaction_method.code == setting_general.transaction_method %}
                         <option value="{{ transaction_method.code }}" selected="selected">{{ attribute(_context, transaction_method.name) }}</option>
@@ -87,7 +86,7 @@
                 <label class="col-sm-2 control-label" for="input-general-card-save">{{ entry_card_save }}</label>
                 <div class="col-sm-10">
                   <div class="alert alert-info"><i class="fa fa-exclamation-circle"></i> {{ help_card_save }}</div>
-                  <select name="payment_opayo_setting[general][card_save]" id="input-general-card-save" class="form-control">
+                  <select name="payment_opayo_setting[general][card_save]" class="form-control" id="input-general-card-save"/>
                     {% if setting_general.card_save %}
                       <option value="1" selected="selected">{{ text_enabled }}</option>
                       <option value="0">{{ text_disabled }}</option>
@@ -99,9 +98,9 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-general-debug"><span data-toggle="tooltip" title="{{ help_debug }}">{{ entry_debug }}</span></label>
+                <label class="col-sm-2 control-label" for="input-general-debug"><span data-toggle="tooltip" title="{{ help_debug|escape('html') }}">{{ entry_debug }}</span></label>
                 <div class="col-sm-10">
-                  <select name="payment_opayo_setting[general][debug]" id="input-general-debug" class="form-control">
+                  <select name="payment_opayo_setting[general][debug]" class="form-control" id="input-general-debug"/>
                     {% if setting_general.debug %}
                       <option value="1" selected="selected">{{ text_enabled }}</option>
                       <option value="0">{{ text_disabled }}</option>
@@ -115,7 +114,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-general-order-status">{{ entry_order_status }}</label>
                 <div class="col-sm-10">
-                  <select name="payment_opayo_setting[general][order_status_id]" id="input-general-order-status" class="form-control">
+                  <select name="payment_opayo_setting[general][order_status_id]" class="form-control" id="input-general-order-status"/>
                     {% for order_status in order_statuses %}
                       {% if order_status.order_status_id == setting_general.order_status_id %}
                         <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
@@ -127,15 +126,15 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-total"><span data-toggle="tooltip" title="{{ help_total }}">{{ entry_total }}</span></label>
+                <label class="col-sm-2 control-label" for="input-total"><span data-toggle="tooltip" title="{{ help_total|escape('html') }}">{{ entry_total }}</span></label>
                 <div class="col-sm-10">
-                  <input type="text" name="payment_opayo_total" value="{{ total }}" placeholder="{{ entry_total }}" id="input-total" class="form-control" />
+                  <input type="text" name="payment_opayo_total" value="{{ total }}" placeholder="{{ entry_total }}" class="form-control" id="input-total"/>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-geo-zone">{{ entry_geo_zone }}</label>
                 <div class="col-sm-10">
-                  <select name="payment_opayo_geo_zone_id" id="input-geo-zone" class="form-control">
+                  <select name="payment_opayo_geo_zone_id" class="form-control" id="input-geo-zone"/>
                     <option value="0">{{ text_all_zones }}</option>
                     {% for geo_zone in geo_zones %}
                       {% if geo_zone.geo_zone_id == geo_zone_id %}
@@ -150,21 +149,21 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-sort-order">{{ entry_sort_order }}</label>
                 <div class="col-sm-10">
-                  <input type="text" name="payment_opayo_sort_order" value="{{ sort_order }}" placeholder="{{ entry_sort_order }}" id="input-sort-order" class="form-control" />
+                  <input type="text" name="payment_opayo_sort_order" value="{{ sort_order }}" placeholder="{{ entry_sort_order }}" class="form-control" id="input-sort-order"/>
                 </div>
               </div>
             </div>
             <div class="tab-pane" id="tab-cron">
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-cron-token"><span data-toggle="tooltip" title="{{ help_cron_token }}">{{ entry_cron_token }}</span></label>
+                <label class="col-sm-2 control-label" for="input-cron-token"><span data-toggle="tooltip" title="{{ help_cron_token|escape('html') }}">{{ entry_cron_token }}</span></label>
                 <div class="col-sm-10">{% set setting_cron = setting.cron %}
-                  <input type="text" name="payment_opayo_setting[cron][token]" value="{{ setting_cron.token }}" placeholder="{{ entry_cron_token }}" id="input-cron-token" class="form-control" />
+                  <input type="text" name="payment_opayo_setting[cron][token]" value="{{ setting_cron.token }}" placeholder="{{ entry_cron_token }}" class="form-control" id="input-cron-token"/>
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-cron-url"><span data-toggle="tooltip" title="{{ help_cron_url }}">{{ entry_cron_url }}</span></label>
+                <label class="col-sm-2 control-label" for="input-cron-url"><span data-toggle="tooltip" title="{{ help_cron_url|escape('html') }}">{{ entry_cron_url }}</span></label>
                 <div class="col-sm-10">
-                  <input type="text" name="payment_opayo_setting[cron][url]" value="{{ setting_cron.url }}" placeholder="{{ entry_cron_url }}" id="input-cron-url" class="form-control" />
+                  <input type="text" name="payment_opayo_setting[cron][url]" value="{{ setting_cron.url }}" placeholder="{{ entry_cron_url }}" class="form-control" id="input-cron-url"/>
                 </div>
               </div>
               {% if setting_cron.last_run %}

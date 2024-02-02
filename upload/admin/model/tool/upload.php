@@ -6,7 +6,7 @@
  */
 class ModelToolUpload extends Model {
 	/**
-	 * addUpload
+	 * Add Upload
 	 *
 	 * @param string $name
 	 * @param string $filename
@@ -22,7 +22,7 @@ class ModelToolUpload extends Model {
 	}
 
 	/**
-	 * deleteUpload
+	 * Delete Upload
 	 *
 	 * @param int $upload_id
 	 *
@@ -33,11 +33,11 @@ class ModelToolUpload extends Model {
 	}
 
 	/**
-	 * getUpload
+	 * Get Upload
 	 *
 	 * @param int $upload_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getUpload(int $upload_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "upload` WHERE `upload_id` = '" . (int)$upload_id . "'");
@@ -46,11 +46,11 @@ class ModelToolUpload extends Model {
 	}
 
 	/**
-	 * getUploadByCode
+	 * Get Upload By Code
 	 *
 	 * @param string $code
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getUploadByCode(string $code): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "upload` WHERE `code` = '" . $this->db->escape($code) . "'");
@@ -59,11 +59,11 @@ class ModelToolUpload extends Model {
 	}
 
 	/**
-	 * getUploads
+	 * Get Uploads
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getUploads(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "upload`";
@@ -122,9 +122,9 @@ class ModelToolUpload extends Model {
 	}
 
 	/**
-	 * getTotalUploads
+	 * Get Total Uploads
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */

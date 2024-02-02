@@ -11,6 +11,8 @@ class ControllerDesignTranslation extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -140,6 +142,11 @@ class ControllerDesignTranslation extends Controller {
 		$this->getList();
 	}
 
+	/**
+	 * Get List
+	 *
+	 * @return void
+	 */
 	protected function getList(): void {
 		if (isset($this->request->get['sort'])) {
 			$sort = $this->request->get['sort'];
@@ -275,6 +282,11 @@ class ControllerDesignTranslation extends Controller {
 		$this->response->setOutput($this->load->view('design/translation_list', $data));
 	}
 
+	/**
+	 * Get Form
+	 *
+	 * @return void
+	 */
 	protected function getForm(): void {
 		$data['text_form'] = !isset($this->request->get['translation_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 
@@ -438,7 +450,12 @@ class ControllerDesignTranslation extends Controller {
 		$this->response->setOutput($this->load->view('design/translation_form', $data));
 	}
 
-	protected function validateForm() {
+	/**
+	 * Validate Form
+	 *
+	 * @return bool
+	 */
+	protected function validateForm(): bool {
 		if (!$this->user->hasPermission('modify', 'design/translation')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
@@ -450,7 +467,12 @@ class ControllerDesignTranslation extends Controller {
 		return !$this->error;
 	}
 
-	protected function validateDelete() {
+	/**
+	 * Validate Delete
+	 *
+	 * @return bool
+	 */
+	protected function validateDelete(): bool {
 		if (!$this->user->hasPermission('modify', 'design/translation')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

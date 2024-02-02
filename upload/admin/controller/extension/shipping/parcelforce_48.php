@@ -11,6 +11,8 @@ class ControllerExtensionShippingParcelforce48 extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -130,7 +132,12 @@ class ControllerExtensionShippingParcelforce48 extends Controller {
 		$this->response->setOutput($this->load->view('extension/shipping/parcelforce_48', $data));
 	}
 
-	protected function validate() {
+	/**
+	 * Validate
+	 *
+	 * @return bool
+	 */
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/shipping/parcelforce_48')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

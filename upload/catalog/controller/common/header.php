@@ -6,6 +6,8 @@
  */
 class ControllerCommonHeader extends Controller {
 	/**
+	 * Index
+	 *
 	 * @return string
 	 */
 	public function index(): string {
