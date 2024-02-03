@@ -30,11 +30,11 @@ class Config {
 	 * Set
 	 *
 	 * @param string $key
-	 * @param int    $value
+	 * @param string $value
 	 *
 	 * @return void
 	 */
-	public function set(string $key, int $value): void {
+	public function set(string $key, string $value): void {
 		$this->data[$key] = $value;
 	}
 
