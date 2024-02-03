@@ -1506,8 +1506,7 @@ $('#button-voucher-add').on('click', function() {
                 $('input[name=\'to_name\']').val('');
                 $('input[name=\'to_email\']').val('');
                 $('textarea[name=\'message\']').val('');
-                $('input[name=\'amount\']').val('{{ voucher_min|escape('
-                    js ') }}');
+                $('input[name=\'amount\']').val('{{ voucher_min|escape('js') }}');
 
                 // Refresh products, vouchers and totals
                 $('#button-refresh').trigger('click');
