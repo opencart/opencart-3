@@ -19,6 +19,7 @@ $_['column_type']      = 'Type';
 
 // Entry
 $_['entry_status']     = 'Status';
+$_['entry_sort_order'] = 'Sort Order';
 
 // Button
 $_['button_report']    = 'Report';
