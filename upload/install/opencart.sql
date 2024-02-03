@@ -3880,7 +3880,7 @@ DROP TABLE IF EXISTS `oc_subscription_plan`;
 CREATE TABLE `oc_subscription_plan` (
   `subscription_plan_id` int(11) NOT NULL AUTO_INCREMENT,
   `trial_price` decimal(10,4) NOT NULL,
-  `trial_frequency` enum\('day','week','semi_month','month','year') NOT NULL,
+  `trial_frequency` enum('day','week','semi_month','month','year') NOT NULL,
   `trial_duration` smallint(6) NOT NULL,
   `trial_cycle` smallint(6) NOT NULL,
   `trial_status` tinyint(1) NOT NULL,
