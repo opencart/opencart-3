@@ -87,7 +87,11 @@ class ModelCatalogCategory extends Model {
 	public function getLayoutId(int $category_id): int {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "category_to_layout` WHERE `category_id` = '" . (int)$category_id . "' AND `store_id` = '" . (int)$this->config->get('config_store_id') . "'");
 
-		return (int)$query->row['layout_id'];
+		if ($query->num_rows) {
+			return (int)$query->row['layout_id'];
+		} else {
+			return 0;
+		}
 	}
 
 	/**
