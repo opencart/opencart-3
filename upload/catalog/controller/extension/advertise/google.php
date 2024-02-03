@@ -323,7 +323,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 		$data = [];
 
 		$data['send_to'] = $this->googleshopping->getEventSnippetSendTo();
-		$data['description'] = str_replace('"', '\\"', $this->model_extension_advertise_google->getHumanReadableOpenCartCategory($category_id));
+		$data['description'] = str_replace('"', '\"', $this->model_extension_advertise_google->getHumanReadableOpenCartCategory($category_id));
 
 		$snippet = $this->load->view('extension/advertise/google_dynamic_remarketing_category', $data);
 
@@ -385,7 +385,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 		$data['option_map'] = json_encode($option_map);
 		$data['brand'] = $product_info['manufacturer'];
 		$data['name'] = $product_info['name'];
-		$data['category'] = str_replace('"', '\\"', $category_name);
+		$data['category'] = str_replace('"', '\"', $category_name);
 
 		$snippet = $this->load->view('extension/advertise/google_dynamic_remarketing_product', $data);
 

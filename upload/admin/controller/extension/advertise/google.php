@@ -13,6 +13,10 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	use LibraryLoader;
 	use StoreLoader;
 
+	/**
+	 * @var array<string, string>
+	 * @var int
+	 */
 	private array $error;
 	private int $store_id;
 

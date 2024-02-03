@@ -30,7 +30,7 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "bluepay_hosted_order_transaction` (
 			  `bluepay_hosted_order_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
 			  `bluepay_hosted_order_id` int(11) NOT NULL,
-			  `type` enum(\'auth\',\'payment\',\'rebate\',\'void\') DEFAULT NULL,
+			  `type` enum(\\'auth\\',\\'payment\\',\\'rebate\\',\\'void\\') DEFAULT NULL,
 			  `amount` decimal(15,4) NOT NULL,
 			  `date_added` datetime NOT NULL,
 			  PRIMARY KEY (`bluepay_hosted_order_transaction_id`)

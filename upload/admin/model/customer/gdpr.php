@@ -6,18 +6,6 @@
  */
 class ModelCustomerGdpr extends Model {
 	/**
-	 * Edit Status
-	 *
-	 * @param int $gdpr_id
-	 * @param int $status
-	 *
-	 * @return void
-	 */
-	public function editStatus(int $gdpr_id, int $status): void {
-		$this->db->query("UPDATE `" . DB_PREFIX . "gdpr` SET `status` = '" . (int)$status . "' WHERE `gdpr_id` = '" . (int)$gdpr_id . "'");
-	}
-
-	/**
 	 * Delete Gdpr
 	 *
 	 * @param int $gdpr_id
@@ -29,7 +17,7 @@ class ModelCustomerGdpr extends Model {
 	}
 
 	/**
-	 * Get Gdpr(s)
+	 * Get Gdprs
 	 *
 	 * @param array<string, mixed> $data
 	 *
@@ -86,14 +74,14 @@ class ModelCustomerGdpr extends Model {
 	 *
 	 * @return array<string, mixed>
 	 */
-	public function getGdpr(int $gdpr_id): array {
+	public function getGdpr(int $gdpr_id) {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "gdpr` WHERE `gdpr_id` = '" . (int)$gdpr_id . "'");
 
 		return $query->row;
 	}
 
 	/**
-	 * Get Total Gdpr(s)
+	 * Get Total Gdprs
 	 *
 	 * @param array<string, mixed> $data
 	 *
@@ -138,5 +126,17 @@ class ModelCustomerGdpr extends Model {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "gdpr` WHERE `status` = '2' AND DATE(`date_added`) <= DATE('" . $this->db->escape(date('Y-m-d', strtotime('+' . (int)$this->config->get('config_gdpr_limit') . ' days'))) . "') ORDER BY `date_added` DESC");
 
 		return $query->rows;
+	}
+
+	/**
+	 * Edit Status
+	 *
+	 * @param int $gdpr_id
+	 * @param int $status
+	 *
+	 * @return void
+	 */
+	public function editStatus($gdpr_id, $status): void {
+		$this->db->query("UPDATE `" . DB_PREFIX . "gdpr` SET `status` = '" . (int)$status . "' WHERE `gdpr_id` = '" . (int)$gdpr_id . "'");
 	}
 }

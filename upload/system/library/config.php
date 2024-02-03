@@ -29,8 +29,8 @@ class Config {
 	/**
 	 * Set
 	 *
-	 * @param string   $key
-	 * @param mixed    $value
+	 * @param string $key
+	 * @param mixed  $value
 	 *
 	 * @return void
 	 */

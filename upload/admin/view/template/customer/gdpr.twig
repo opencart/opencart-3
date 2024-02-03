@@ -4,9 +4,10 @@
     <div class="container-fluid">
       <div class="pull-right">
         <button type="button" data-toggle="tooltip" title="{{ button_filter }}" onclick="$('#filter-gdpr').toggleClass('hidden-sm hidden-xs');" class="btn btn-default hidden-md hidden-lg"><i class="fa fa-filter"></i></button>
-        <button type="button" formaction="{{ approve }}" data-toggle="tooltip" title="{{ text_approve }}" class="btn btn-success" id="button-approve"><i class="fa fa-check"></i></button>
-        <button type="button" formaction="{{ deny }}" data-toggle="tooltip" title="{{ text_deny }}" class="btn btn-warning" id="button-deny"><i class="fa fa-times"></i></button>
-        <button type="button" formaction="{{ delete }}" data-toggle="tooltip" title="{{ text_delete }}" class="btn btn-danger" id="button-delete"><i class="fa fa-trash"></i></button></div>
+        <button type="button" id="button-approve" formaction="{{ approve }}" data-toggle="tooltip" title="{{ text_approve }}" class="btn btn-success"><i class="fa fa-check"></i></button>
+        <button type="button" id="button-deny" formaction="{{ deny }}" data-toggle="tooltip" title="{{ text_deny }}" class="btn btn-warning"><i class="fa fa-times"></i></button>
+        <button type="button" id="button-delete" formaction="{{ delete }}" data-toggle="tooltip" title="{{ text_delete }}" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+      </div>
       <h1>{{ heading_title }}</h1>
       <ul class="breadcrumb">
         {% for breadcrumb in breadcrumbs %}
@@ -28,7 +29,7 @@
     {% endif %}
     <div class="alert alert-warning"><i class="fa fa-info-circle"></i> {{ text_info }}</div>
     <div class="row">
-      <div class="col-md-3 col-md-push-9 col-sm-12 hidden-sm hidden-xs" id="filter-gdpr">
+      <div id="filter-gdpr" class="col-md-3 col-md-push-9 col-sm-12 hidden-sm hidden-xs">
         <div class="panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title"><i class="fa fa-filter"></i> {{ text_filter }}</h3>
@@ -36,11 +37,11 @@
           <div class="panel-body">
             <div class="form-group">
               <label class="control-label">{{ entry_email }}</label>
-              <input type="text" name="filter_email" value="" placeholder="{{ entry_email }}" class="form-control" id="input-email"/>
+              <input type="text" name="filter_email" value="" placeholder="{{ entry_email }}" id="input-email" class="form-control"/>
             </div>
             <div class="form-group">
               <label class="control-label" for="input-action">{{ entry_action }}</label>
-              <select name="filter_action" class="form-control" id="input-action"/>
+              <select name="filter_action" id="input-action" class="form-control">
                 <option value=""></option>
                 <option value="export">{{ text_export }}</option>
                 <option value="remove">{{ text_remove }}</option>
@@ -48,7 +49,7 @@
             </div>
             <div class="form-group">
               <label class="control-label" for="input-status">{{ entry_status }}</label>
-              <select name="filter_status" class="form-control" id="input-status"/>
+              <select name="filter_status" id="input-status" class="form-control">
                 <option value=""></option>
                 <option value="0">{{ text_unverified }}</option>
                 <option value="1">{{ text_pending }}</option>
@@ -60,14 +61,14 @@
             <div class="form-group">
               <label class="control-label" for="input-date-added">{{ entry_date_added }}</label>
               <div class="input-group date">
-                <input type="text" name="filter_date_added" value="" placeholder="{{ entry_date_added }}" data-date-format="YYYY-MM-DD" class="form-control" id="input-date-added"/>
+                <input type="text" name="filter_date_added" value="" placeholder="{{ entry_date_added }}" data-date-format="YYYY-MM-DD" id="input-date-added" class="form-control" />
                 <span class="input-group-btn">
                 <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
                 </span>
               </div>
             </div>
             <div class="form-group text-right">
-              <button type="button" class="btn btn-default" id="button-filter"><i class="fa fa-filter"></i> {{ button_filter }}</button>
+              <button type="button" id="button-filter" class="btn btn-default"><i class="fa fa-filter"></i> {{ button_filter }}</button>
             </div>
           </div>
         </div>
