@@ -318,7 +318,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 
 		$payment_data['TxType'] = 'REPEAT';
 		$payment_data['Vendor'] = $this->config->get('payment_sagepay_direct_vendor');
-		$payment_data['VendorTxCode'] = $subscription_id . 'RSD' . date('YmdHis') . mt_rand(1, 999);
+		$payment_data['VendorTxCode'] = $subscription_id . 'RSD' . gmdate('YmdHis', time()) . mt_rand(1, 999);
 		$payment_data['Amount'] = $this->currency->format($price, $this->session->data['currency'], false, false);
 		$payment_data['Currency'] = $this->session->data['currency'];
 		$payment_data['Description'] = substr($name, 0, 100);

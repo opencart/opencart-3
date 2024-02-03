@@ -7,7 +7,7 @@
 class ControllerExtensionPaymentKlarnaInvoice extends Controller {
 	/**
 	 * @var array<string, string>
-	 * @var array
+	 * @var array<string, string>
 	 */
 	private array $error = [];
 	private array $pclasses = [];

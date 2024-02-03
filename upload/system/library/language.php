@@ -39,11 +39,11 @@ class Language {
 	 * Set
 	 *
 	 * @param string $key
-	 * @param string $value
+	 * @param mixed  $value
 	 *
 	 * @return void
 	 */
-	public function set(string $key, string $value): void {
+	public function set(string $key, $value): void {
 		$this->data[$key] = $value;
 	}
 

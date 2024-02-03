@@ -7,15 +7,15 @@ namespace Session;
  */
 class Redis {
 	private object $config;
-	private object $redis;
+	private \Redis $redis;
 	public string $prefix;
 
 	/**
 	 * Constructor
 	 *
-	 * @param object $registry
+	 * @param \Opencart\System\Engine\Registry $registry
 	 */
-	public function __construct(object $registry) {
+	public function __construct(\Opencart\System\Engine\Registry $registry) {
 		$this->config = $registry->get('config');
 
 		try {
@@ -31,7 +31,7 @@ class Redis {
 	 *
 	 * @param string $session_id
 	 *
-	 * @return array
+	 * @return array<mixed>
 	 */
 	public function read(string $session_id): array {
 		$data = $this->redis->get($this->prefix . $session_id);
@@ -46,8 +46,8 @@ class Redis {
 	/**
 	 * Write
 	 *
-	 * @param string $session_id
-	 * @param array  $data
+	 * @param string       $session_id
+	 * @param array<mixed> $data
 	 *
 	 * @return bool
 	 */

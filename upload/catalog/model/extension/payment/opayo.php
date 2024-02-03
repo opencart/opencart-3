@@ -409,7 +409,7 @@ class ModelExtensionPaymentOpayo extends Model {
 
 		$payment_data['TxType'] = 'REPEAT';
 		$payment_data['Vendor'] = $this->config->get('payment_opayo_vendor');
-		$payment_data['VendorTxCode'] = $subscription_id . 'SD' . date('YmdHis') . mt_rand(1, 999);
+		$payment_data['VendorTxCode'] = $subscription_id . 'SD' . gmdate('YmdHis', time()) . mt_rand(1, 999);
 		$payment_data['Amount'] = $this->currency->format($price, $this->session->data['currency'], false, false);
 		$payment_data['Currency'] = $this->session->data['currency'];
 		$payment_data['Description'] = substr($subscription_name, 0, 100);
