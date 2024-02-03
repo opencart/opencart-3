@@ -13,8 +13,17 @@
  * Session class
  */
 class Session {
+	/**
+	 * @var object
+	 */
 	protected object $adaptor;
-	protected string $session_id = '';
+	/**
+	 * @var string
+	 */
+	protected string $session_id;
+	/**
+	 * @var array<mixed>
+	 */
 	public array $data = [];
 
 	/**

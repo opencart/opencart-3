@@ -8,7 +8,7 @@ namespace Mail;
  */
 class Smtp {
 	/**
-	 * @var array
+	 * @var array<string, mixed>
 	 */
 	protected array $option = [];
 	/**
@@ -24,7 +24,7 @@ class Smtp {
 	/**
 	 * Constructor
 	 *
-	 * @param array $option
+	 * @param array<string, mixed> $option
 	 */
 	public function __construct(array &$option = []) {
 		foreach ($this->default as $key => $value) {

@@ -1,5 +1,4 @@
 <?php
-
 namespace Session;
 /**
  * Class File
@@ -12,7 +11,7 @@ class File {
 	/**
 	 * Constructor
 	 *
-	 * @param object $registry
+	 * @param Registry $registry
 	 */
 	public function __construct(object $registry) {
 		$this->config = $registry->get('config');
@@ -23,53 +22,28 @@ class File {
 	 *
 	 * @param string $session_id
 	 *
-	 * @return array
+	 * @return array<mixed>
 	 */
 	public function read(string $session_id): array {
 		$file = DIR_SESSION . 'sess_' . basename($session_id);
 
 		if (is_file($file)) {
-			$size = filesize($file);
-
-			if ($size) {
-				$handle = fopen($file, 'r');
-
-				flock($handle, LOCK_SH);
-
-				$data = fread($handle, $size);
-
-				flock($handle, LOCK_UN);
-
-				fclose($handle);
-
-				return json_decode($data, true);
-			} else {
-				return [];
-			}
+			return json_decode(file_get_contents($file), true);
+		} else {
+			return [];
 		}
-
-		return [];
 	}
 
 	/**
 	 * Write
 	 *
-	 * @param string $session_id
-	 * @param array  $data
+	 * @param string       $session_id
+	 * @param array<mixed> $data
 	 *
 	 * @return bool
 	 */
 	public function write(string $session_id, array $data): bool {
-		$file = DIR_SESSION . 'sess_' . basename($session_id);
-
-		$handle = fopen($file, 'c');
-
-		flock($handle, LOCK_EX);
-		fwrite($handle, json_encode($data));
-		ftruncate($handle, ftell($handle));
-		fflush($handle);
-		flock($handle, LOCK_UN);
-		fclose($handle);
+		file_put_contents(DIR_SESSION . 'sess_' . basename($session_id), json_encode($data));
 
 		return true;
 	}
