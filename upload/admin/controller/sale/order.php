@@ -402,7 +402,7 @@ class ControllerSaleOrder extends Controller {
 
 		$this->load->model('localisation/order_status');
 
-		$data['order_statuses'] = $this->model_localisation_order_status->getStatuses();
+		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
 
 		// API login
 		$data['catalog'] = $this->request->server['HTTPS'] ? HTTPS_CATALOG : HTTP_CATALOG;
@@ -736,7 +736,7 @@ class ControllerSaleOrder extends Controller {
 		// API login
 		$this->load->model('user/api');
 
-		$data['order_statuses'] = $this->model_localisation_order_status->getStatuses();
+		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
 
 		$data['countries'] = $this->model_localisation_country->getCountries();
 
