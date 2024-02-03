@@ -124,6 +124,18 @@ class ControllerSaleSubscription extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
+		$data['breadcrumbs'] = [];
+
+		$data['breadcrumbs'][] = [
+			'text' => $this->language->get('text_home'),
+			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
+		];
+
+		$data['breadcrumbs'][] = [
+			'text' => $this->language->get('heading_title'),
+			'href' => $this->url->link('sale/subscription', 'user_token=' . $this->session->data['user_token'] . $url, true)
+		];
+
 		$data['subscriptions'] = [];
 
 		$filter_data = [
