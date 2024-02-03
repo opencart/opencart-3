@@ -1,6 +1,6 @@
 <?php
 /**
- * Class GDPR
+ * Class Gdpr
  *
  * @package Admin\Controller\Customer
  */
@@ -15,18 +15,41 @@ class ControllerCustomerGdpr extends Controller {
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
-		// GDPR
-		$this->load->model('customer/gdpr');
+		$data['breadcrumbs'] = [];
 
-		$this->getList();
+		$data['breadcrumbs'][] = [
+			'text' => $this->language->get('text_home'),
+			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
+		];
+
+		$data['breadcrumbs'][] = [
+			'text' => $this->language->get('heading_title'),
+			'href' => $this->url->link('customer/gdpr', 'user_token=' . $this->session->data['user_token'], true)
+		];
+
+		$data['text_info'] = sprintf($this->language->get('text_info'), $this->config->get('config_gdpr_limit'));
+
+		$data['approve'] = $this->url->link('customer/gdpr/approve', 'user_token=' . $this->session->data['user_token'], true);
+		$data['deny'] = $this->url->link('customer/gdpr/deny', 'user_token=' . $this->session->data['user_token'], true);
+		$data['delete'] = $this->url->link('customer/gdpr/delete', 'user_token=' . $this->session->data['user_token'], true);
+
+		$data['user_token'] = $this->session->data['user_token'];
+
+		$data['header'] = $this->load->controller('common/header');
+		$data['column_left'] = $this->load->controller('common/column_left');
+		$data['footer'] = $this->load->controller('common/footer');
+
+		$this->response->setOutput($this->load->view('customer/gdpr', $data));
 	}
 
 	/**
-	 * Get List
+	 * Gdpr
 	 *
 	 * @return void
 	 */
-	public function getList(): void {
+	public function gdpr(): void {
+		$this->load->language('customer/gdpr');
+
 		if (isset($this->request->get['filter_email'])) {
 			$filter_email = $this->request->get['filter_email'];
 		} else {
@@ -45,22 +68,56 @@ class ControllerCustomerGdpr extends Controller {
 			$filter_status = '';
 		}
 
-		if (isset($this->request->get['filter_date_from'])) {
-			$filter_date_from = $this->request->get['filter_date_from'];
+		if (isset($this->request->get['filter_date_added'])) {
+			$filter_date_added = $this->request->get['filter_date_added'];
 		} else {
-			$filter_date_from = '';
-		}
-
-		if (isset($this->request->get['filter_date_to'])) {
-			$filter_date_to = $this->request->get['filter_date_to'];
-		} else {
-			$filter_date_to = '';
+			$filter_date_added = '';
 		}
 
 		if (isset($this->request->get['page'])) {
 			$page = (int)$this->request->get['page'];
 		} else {
 			$page = 1;
+		}
+
+		$data['gdprs'] = [];
+
+		$filter_data = [
+			'filter_email'      => $filter_email,
+			'filter_action'     => $filter_action,
+			'filter_status'     => $filter_status,
+			'filter_date_added' => $filter_date_added,
+			'start'             => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'             => $this->config->get('config_limit_admin')
+		];
+
+		$this->load->model('customer/gdpr');
+		$this->load->model('customer/customer');
+
+		$gdpr_total = $this->model_customer_gdpr->getTotalGdprs($filter_data);
+
+		$results = $this->model_customer_gdpr->getGdprs($filter_data);
+
+		foreach ($results as $result) {
+			$customer_info = $this->model_customer_customer->getCustomerByEmail($result['email']);
+
+			if ($customer_info) {
+				$edit = $this->url->link('customer/customer/edit', 'user_token=' . $this->session->data['user_token'] . '&customer_id=' . $customer_info['customer_id']);
+			} else {
+				$edit = '';
+			}
+
+			$data['gdprs'][] = [
+				'gdpr_id'    => $result['gdpr_id'],
+				'email'      => $result['email'],
+				'action'     => $this->language->get('text_' . $result['action']),
+				'status'     => $result['status'],
+				'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
+				'approve'    => $this->url->link('customer/gdpr/approve', 'user_token=' . $this->session->data['user_token'] . '&gdpr_id=' . $result['gdpr_id']),
+				'deny'       => $this->url->link('customer/gdpr/deny', 'user_token=' . $this->session->data['user_token'] . '&gdpr_id=' . $result['gdpr_id']),
+				'edit'       => $edit,
+				'delete'     => $this->url->link('customer/gdpr/delete', 'user_token=' . $this->session->data['user_token'] . '&gdpr_id=' . $result['gdpr_id'])
+			];
 		}
 
 		$url = '';
@@ -77,87 +134,21 @@ class ControllerCustomerGdpr extends Controller {
 			$url .= '&filter_status=' . $this->request->get['filter_status'];
 		}
 
-		if (isset($this->request->get['filter_date_from'])) {
-			$url .= '&filter_date_from=' . $this->request->get['filter_date_from'];
+		if (isset($this->request->get['filter_date_added'])) {
+			$url .= '&filter_date_added=' . $this->request->get['filter_date_added'];
 		}
 
-		if (isset($this->request->get['filter_date_to'])) {
-			$url .= '&filter_date_to=' . $this->request->get['filter_date_to'];
-		}
+		$pagination = new \Pagination();
+		$pagination->total = $gdpr_total;
+		$pagination->page = $page;
+		$pagination->limit = $this->config->get('config_limit_admin');
+		$pagination->url = $this->url->link('customer/gdpr/gdpr', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
 
-		if (isset($this->request->get['page'])) {
-			$url .= '&page=' . $this->request->get['page'];
-		}
+		$data['pagination'] = $pagination->render();
 
-		$data['breadcrumbs'] = [];
+		$data['results'] = sprintf($this->language->get('text_pagination'), ($gdpr_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($gdpr_total - $this->config->get('config_limit_admin'))) ? $gdpr_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $gdpr_total, ceil($gdpr_total / $this->config->get('config_limit_admin')));
 
-		$data['breadcrumbs'][] = [
-			'text' => $this->language->get('text_home'),
-			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
-
-		$data['breadcrumbs'][] = [
-			'text' => $this->language->get('heading_title'),
-			'href' => $this->url->link('customer/gdpr', 'user_token=' . $this->session->data['user_token'], true)
-		];
-
-		$data['text_info'] = sprintf($this->language->get('text_info'), $this->config->get('config_gdpr_limit'));
-
-		// GDPR
-		$data['gdprs'] = [];
-
-		$filter_data = [
-			'filter_email'     => $filter_email,
-			'filter_action'    => $filter_action,
-			'filter_status'    => $filter_status,
-			'filter_date_from' => $filter_date_from,
-			'filter_date_to'   => $filter_date_to,
-			'start'            => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit'            => $this->config->get('config_limit_admin')
-		];
-
-		// Customers
-		$this->load->model('customer/customer');
-
-		$gdpr_total = $this->model_customer_gdpr->getTotalGdprs($filter_data);
-
-		$results = $this->model_customer_gdpr->getGdprs($filter_data);
-
-		foreach ($results as $result) {
-			$customer_info = $this->model_customer_customer->getCustomerByEmail($result['email']);
-
-			if ($customer_info) {
-				$edit = $this->url->link('customer/customer/edit', 'user_token=' . $this->session->data['user_token'] . '&customer_id=' . $customer_info['customer_id'], true);
-			} else {
-				$edit = '';
-			}
-
-			$data['gdprs'][] = [
-				'gdpr_id'    => $result['gdpr_id'],
-				'email'      => $result['email'],
-				'action'     => $this->language->get('text_' . $result['action']),
-				'status'     => $result['status'],
-				'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
-				'approve'    => $this->url->link('customer/gdpr/approve', 'user_token=' . $this->session->data['user_token'] . '&gdpr_id=' . $result['gdpr_id'], true),
-				'deny'       => $this->url->link('customer/gdpr/deny', 'user_token=' . $this->session->data['user_token'] . '&gdpr_id=' . $result['gdpr_id'], true),
-				'edit'       => $edit,
-				'delete'     => $this->url->link('customer/gdpr/delete', 'user_token=' . $this->session->data['user_token'] . '&gdpr_id=' . $result['gdpr_id'], true)
-			];
-		}
-
-		$data['user_token'] = $this->session->data['user_token'];
-
-		$data['filter_email'] = $filter_email;
-		$data['filter_action'] = $filter_action;
-		$data['filter_status'] = $filter_status;
-		$data['filter_date_from'] = $filter_date_from;
-		$data['filter_date_to'] = $filter_date_to;
-
-		$data['header'] = $this->load->controller('common/header');
-		$data['column_left'] = $this->load->controller('common/column_left');
-		$data['footer'] = $this->load->controller('common/footer');
-
-		$this->response->setOutput($this->load->view('customer/gdpr', $data));
+		$this->response->setOutput($this->load->view('customer/gdpr_list', $data));
 	}
 
 	/**
@@ -194,9 +185,7 @@ class ControllerCustomerGdpr extends Controller {
 
 		if (!$this->user->hasPermission('modify', 'customer/gdpr')) {
 			$json['error'] = $this->language->get('error_permission');
-		}
-
-		if (!$json) {
+		} else {
 			$gdprs = [];
 
 			if (isset($this->request->post['selected'])) {
@@ -207,7 +196,6 @@ class ControllerCustomerGdpr extends Controller {
 				$gdprs[] = (int)$this->request->get['gdpr_id'];
 			}
 
-			// GDPR
 			$this->load->model('customer/gdpr');
 
 			foreach ($gdprs as $gdpr_id) {
@@ -243,9 +231,7 @@ class ControllerCustomerGdpr extends Controller {
 
 		if (!$this->user->hasPermission('modify', 'customer/gdpr')) {
 			$json['error'] = $this->language->get('error_permission');
-		}
-
-		if (!$json) {
+		} else {
 			$gdprs = [];
 
 			if (isset($this->request->post['selected'])) {
@@ -256,7 +242,6 @@ class ControllerCustomerGdpr extends Controller {
 				$gdprs[] = (int)$this->request->get['gdpr_id'];
 			}
 
-			// GDPR
 			$this->load->model('customer/gdpr');
 
 			foreach ($gdprs as $gdpr_id) {
@@ -282,9 +267,7 @@ class ControllerCustomerGdpr extends Controller {
 
 		if (!$this->user->hasPermission('modify', 'customer/gdpr')) {
 			$json['error'] = $this->language->get('error_permission');
-		}
-
-		if (!$json) {
+		} else {
 			$gdprs = [];
 
 			if (isset($this->request->post['selected'])) {
@@ -295,7 +278,6 @@ class ControllerCustomerGdpr extends Controller {
 				$gdprs[] = (int)$this->request->get['gdpr_id'];
 			}
 
-			// GDPR
 			$this->load->model('customer/gdpr');
 
 			foreach ($gdprs as $gdpr_id) {

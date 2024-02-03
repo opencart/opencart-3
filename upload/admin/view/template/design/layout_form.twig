@@ -379,7 +379,7 @@
   function addRoute() {
       html = '<tr id="route-row' + route_row + '">';
       html += '  <td class="text-left"><select name="layout_route[' + route_row + '][store_id]" class="form-control"/>';
-      html += '  <option value="0">{{ text_default('js') }}</option>';
+      html += '  <option value="0">{{ text_default|escape('js') }}</option>';
       {% for store in stores %}
           html += '<option value="{{ store.store_id }}">{{ store.name|escape('js') }}</option>';
       {% endfor %}
