@@ -43,7 +43,7 @@ class Language {
 	 *
 	 * @return void
 	 */
-	public function set(string $key, string $value): void {
+	public function set(string $key, $value): void {
 		$this->data[$key] = $value;
 	}
 
