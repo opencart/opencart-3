@@ -39,7 +39,7 @@ class Language {
 	 * Set
 	 *
 	 * @param string $key
-	 * @param string $value
+	 * @param mixed  $value
 	 *
 	 * @return void
 	 */
