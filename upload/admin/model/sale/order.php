@@ -288,6 +288,20 @@ class ModelSaleOrder extends Model {
 	}
 
 	/**
+	 * Get Subscription
+	 *
+	 * @param int $order_id
+	 * @param int $order_product_id
+	 *
+	 * @return array<string, mixed>
+	 */
+	public function getSubscription(int $order_id, int $order_product_id): array {
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_subscription` WHERE `order_id` = '" . (int)$order_id . "' AND `order_product_id` = '" . (int)$order_product_id . "'");
+
+		return $query->row;
+	}
+
+	/**
 	 * Get Vouchers
 	 *
 	 * @param int $order_id
