@@ -12,7 +12,7 @@
 /**
  * Class Loader
  *
- * @mixin System\Engine\Loader
+ * @mixin Loader
  */
 class Loader {
 	protected object $registry;
