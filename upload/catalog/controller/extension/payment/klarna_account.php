@@ -683,7 +683,7 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 	 * 
 	 * @param array<string, mixed>
 	 */
-	private function splitAddress(string $address) {
+	private function splitAddress(string $address): array {
 		$numbers = [
 			'0',
 			'1',

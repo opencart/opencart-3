@@ -118,8 +118,10 @@ class ControllerExtensionPaymentAuthorizeNetSim extends Controller {
 	 * 
 	 * @param array<string, mixed> $data
 	 * @param string               $signature_key
+	 * 
+	 * @return string
 	 */
-	private function generateResponseHash(array $post_fields, string $signature_key) {
+	private function generateResponseHash(array $post_fields, string $signature_key): string {
 		/**
 		 * The following array must not be reordered or elements removed, the hash requires ALL, even if empty/not set
 		 */

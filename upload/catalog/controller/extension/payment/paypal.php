@@ -3642,7 +3642,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	/**
 	 * Unserialize
 	 * 
-	 * @param string $string
+	 * @param string $str
 	 * 
 	 * @return array
 	 */

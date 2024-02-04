@@ -12,7 +12,7 @@
 /**
  * Class Loader
  *
- * @mixin System\Engine\Registry
+ * @mixin System\Engine\Loader
  */
 class Loader {
 	protected object $registry;
@@ -31,13 +31,13 @@ class Loader {
 	 *
 	 * @param string $route
 	 * @param array<string, mixed> $data
-	 *
-	 * @return mixed
+	 * 
+	 * @throws \Exception
 	 *
 	 * Removing the mixed output as a temporary workaround since admin extension
 	 * installers don't seem to like that really much
 	 */
-	public function controller(string $route, array $data = []): mixed {
+	public function controller(string $route, array $data = []) {
 		// Sanitize the call
 		$route = preg_replace('/[^a-zA-Z0-9_\/]/', '', $route);
 
