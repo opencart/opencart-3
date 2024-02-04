@@ -240,9 +240,9 @@ class ModelExtensionPaymentFirstdata extends Model {
 
 	/**
 	 * Get Transactions
-	 * 
+	 *
 	 * @param int $firstdata_order_id
-	 * 
+	 *
 	 * @return array<int, array<string, mixed>>
 	 */
 	private function getTransactions(int $firstdata_order_id): array {

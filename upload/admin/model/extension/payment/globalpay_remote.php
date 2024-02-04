@@ -315,9 +315,9 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 
 	/**
 	 * Get Transactions
-	 * 
+	 *
 	 * @param int $globalpay_remote_order_id
-	 * 
+	 *
 	 * @return array<int, array<string, mixed>>
 	 */
 	private function getTransactions(int $globalpay_remote_order_id): array {

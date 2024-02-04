@@ -79,9 +79,9 @@ class ControllerExtensionFeedGoogleSitemap extends Controller {
 
 	/**
 	 * Get Categories
-	 * 
+	 *
 	 * @param int $parent_id
-	 * 
+	 *
 	 * @return string
 	 */
 	protected function getCategories(int $parent_id): string {

@@ -52,11 +52,11 @@ class ControllerExtensionModuleFraudlabspro extends Controller {
 
 	/**
 	 * Get Status
-	 * 
+	 *
 	 * @param int  $order_id
 	 * @param int  $order_status_id
 	 * @param bool $notify
-	 * 
+	 *
 	 * @return void
 	 */
 	protected function getStatus(int $order_id, int $order_status_id, bool $notify): void {

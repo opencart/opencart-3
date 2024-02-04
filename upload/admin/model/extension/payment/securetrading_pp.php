@@ -221,9 +221,9 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 
 	/**
 	 * Get Transactions
-	 * 
+	 *
 	 * @param int $securetrading_pp_order_id
-	 * 
+	 *
 	 * @return array<int, array<string, mixed>>
 	 */
 	private function getTransactions(int $securetrading_pp_order_id): array {

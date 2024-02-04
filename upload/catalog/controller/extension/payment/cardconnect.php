@@ -313,7 +313,7 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return array<string, mixed>
 	 */
 	private function validate(): array {

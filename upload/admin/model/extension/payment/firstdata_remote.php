@@ -313,9 +313,9 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 
 	/**
 	 * Get Transactions
-	 * 
+	 *
 	 * @param int $firstdata_remote_order_id
-	 * 
+	 *
 	 * @return array<int, array<string, mixed>>
 	 */
 	private function getTransactions(int $firstdata_remote_order_id): array {

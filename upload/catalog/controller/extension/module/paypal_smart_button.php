@@ -1698,9 +1698,9 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 
 	/**
 	 * Validate Shipping
-	 * 
+	 *
 	 * @param string $code
-	 * 
+	 *
 	 * @return bool
 	 */
 	private function validateShipping(string $code): bool {
@@ -1729,7 +1729,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 
 	/**
 	 * Validate Payment Address
-	 * 
+	 *
 	 * @return bool
 	 */
 	private function validatePaymentAddress(): bool {
@@ -1799,7 +1799,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 
 	/**
 	 * Validate Shipping Address
-	 * 
+	 *
 	 * @return bool
 	 */
 	private function validateShippingAddress(): bool {
@@ -1863,7 +1863,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 
 	/**
 	 * Validate Coupon
-	 * 
+	 *
 	 * @return bool
 	 */
 	private function validateCoupon(): bool {
@@ -1883,7 +1883,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 
 	/**
 	 * Validate Voucher
-	 * 
+	 *
 	 * @return bool
 	 */
 	private function validateVoucher(): bool {
@@ -1903,7 +1903,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 
 	/**
 	 * Validate Reward
-	 * 
+	 *
 	 * @return bool
 	 */
 	private function validateReward(): bool {

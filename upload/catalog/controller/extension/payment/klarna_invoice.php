@@ -443,7 +443,9 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
 
 	/**
 	 * Construct Xmlrpc
-	 * 
+	 *
+	 * @param mixed $data
+	 *
 	 * @return string
 	 */
 	private function constructXmlrpc(mixed $data): string {
@@ -502,9 +504,9 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
 
 	/**
 	 * Split Address
-	 * 
+	 *
 	 * @param string $address
-	 * 
+	 *
 	 * @return array<string, mixed>
 	 */
 	private function splitAddress(string $address): array {
@@ -614,11 +616,11 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
 
 	/**
 	 * Strpos Arr
-	 * 
+	 *
 	 * @param string $haystack
 	 * @param string $needle
 	 * @param string $where
-	 * 
+	 *
 	 * @return int
 	 */
 	private function strposArr(string $haystack, string $needle, string $where): int {

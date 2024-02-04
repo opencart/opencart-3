@@ -187,9 +187,9 @@ class ModelExtensionFraudFraudLabsPro extends Model {
 
 	/**
 	 * Hash It
-	 * 
+	 *
 	 * @param string $s
-	 * 
+	 *
 	 * @return string
 	 */
 	private function hashIt(string $s) {

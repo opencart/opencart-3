@@ -278,9 +278,9 @@ class ModelExtensionPaymentSagepayDirect extends Model {
 
 	/**
 	 * Get Transactions
-	 * 
+	 *
 	 * @param int $sagepay_direct_order_id
-	 * 
+	 *
 	 * @return array<int, array<string, mixed>>
 	 */
 	private function getTransactions(int $sagepay_direct_order_id): array {
@@ -335,7 +335,7 @@ class ModelExtensionPaymentSagepayDirect extends Model {
 	/**
 	 * Send Curl
 	 *
-	 * @param string $url
+	 * @param string               $url
 	 * @param array<string, mixed> $payment_data
 	 *
 	 * @return array<int, array<string, mixed>>

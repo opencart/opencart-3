@@ -2,12 +2,12 @@
 namespace Cache;
 class Mem {
 	/**
-	 * @var int $expire
+	 * @var int
 	 */
 	private int $expire;
 
 	/**
-	 * @var object $memcache
+	 * @var object
 	 */
 	private object $memcache;
 
@@ -15,7 +15,7 @@ class Mem {
 
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param int $expire
 	 */
 	public function __construct(int $expire = 3600) {

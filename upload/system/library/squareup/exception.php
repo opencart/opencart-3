@@ -17,9 +17,10 @@ class Exception extends \Exception {
 
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @property Registry $registry
-	 * 
+	 *
+	 * @param mixed                $registry
 	 * @param array<string, mixed> $errors
 	 * @param bool                 $is_curl_error
 	 */
@@ -68,9 +69,9 @@ class Exception extends \Exception {
 
 	/**
 	 * Error Code Exists
-	 * 
+	 *
 	 * @param string $code
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function errorCodeExists(string $code): bool {
@@ -87,9 +88,9 @@ class Exception extends \Exception {
 
 	/**
 	 * Override Error
-	 * 
+	 *
 	 * @param string $field
-	 * 
+	 *
 	 * @return string
 	 */
 	protected function overrideError(string $field): string {
@@ -98,9 +99,9 @@ class Exception extends \Exception {
 
 	/**
 	 * Parse Error
-	 * 
+	 *
 	 * @param array<string, mixed> $error
-	 * 
+	 *
 	 * @return string
 	 */
 	protected function parseError(array $error): string {
@@ -119,7 +120,7 @@ class Exception extends \Exception {
 
 	/**
 	 * Concat Errors
-	 * 
+	 *
 	 * @return string
 	 */
 	protected function concatErrors(): string {

@@ -28,8 +28,10 @@ class Squareup {
 
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @property Registry $registry
+	 *
+	 * @param mixed $registry
 	 */
 	public function __construct($registry) {
 		$this->session = $registry->get('session');
@@ -556,9 +558,9 @@ class Squareup {
 
 	/**
 	 * Filter Location
-	 * 
+	 *
 	 * @param array<string, mixed> $location
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function filterLocation(array $location): bool {
@@ -571,10 +573,10 @@ class Squareup {
 
 	/**
 	 * Encode Parameters
-	 * 
+	 *
 	 * @param array<string, mixed> $params
 	 * @param string               $content_type
-	 * 
+	 *
 	 * @return array<int, array<string, mixed>>
 	 */
 	protected function encodeParameters(array $params, string $content_type): array {
@@ -592,7 +594,7 @@ class Squareup {
 
 	/**
 	 * Auth State
-	 * 
+	 *
 	 * @return string
 	 */
 	protected function authState(): string {

@@ -294,9 +294,9 @@ class ModelExtensionPaymentEway extends Model {
 
 	/**
 	 * Get Transactions
-	 * 
+	 *
 	 * @param int $eway_order_id
-	 * 
+	 *
 	 * @return array<int, array<string, mixed>>
 	 */
 	private function getTransactions(int $eway_order_id): array {

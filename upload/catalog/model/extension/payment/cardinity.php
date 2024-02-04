@@ -158,11 +158,13 @@ class ModelExtensionPaymentCardinity extends Model {
 
 	/**
 	 * Exception
-	 * 
+	 *
 	 * @property Exception $exception
-	 * 
+	 *
+	 * @param Exception $exception
+	 *
 	 * @throws Exception
-	 * 
+	 *
 	 * @return void
 	 */
 	private function exception(Exception $exception): void {

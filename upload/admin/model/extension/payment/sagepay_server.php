@@ -295,9 +295,9 @@ class ModelExtensionPaymentSagepayServer extends Model {
 
 	/**
 	 * Get Transactions
-	 * 
+	 *
 	 * @param int $sagepay_server_order_id
-	 * 
+	 *
 	 * @return array<int, array<string, mixed>>
 	 */
 	private function getTransactions(int $sagepay_server_order_id): array {

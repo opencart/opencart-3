@@ -198,9 +198,9 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 
 	/**
 	 * Get Transactions
-	 * 
+	 *
 	 * @param int $sagepay_direct_order_id
-	 * 
+	 *
 	 * @return array<int, array<string, mixed>>
 	 */
 	private function getTransactions(int $sagepay_direct_order_id): array {
@@ -308,14 +308,14 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 
 	/**
 	 * Set Payment Data
-	 * 
+	 *
 	 * @param array<string, mixed> $order_info
 	 * @param array<string, mixed> $sagepay_order_info
 	 * @param float                $price
 	 * @param int                  $subscription_id
 	 * @param string               $name
 	 * @param int                  $i
-	 * 
+	 *
 	 * @return array<int, array<string, mixed>>
 	 */
 	private function setPaymentData(array $order_info, array $sagepay_order_info, float $price, int $subscription_id, string $name, $i = null): array {
@@ -518,13 +518,13 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 
 	/**
 	 * Add Subscription Order
-	 * 
+	 *
 	 * @param int                  $order_id
 	 * @param array<string, mixed> $response_data
 	 * @param int                  $subscription_id
 	 * @param string               $trial_end
 	 * @param string               $subscription_end
-	 * 
+	 *
 	 * @return void
 	 */
 	private function addSubscriptionOrder(int $order_id, array $response_data, int $subscription_id, string $trial_end, string $subscription_end): void {
@@ -533,10 +533,10 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 
 	/**
 	 * Update Subscription Order
-	 * 
-	 * @param int      $subscription_id
-	 * @param string   $next_payment
-	 * 
+	 *
+	 * @param int    $subscription_id
+	 * @param string $next_payment
+	 *
 	 * @return void
 	 */
 	private function updateSubscriptionOrder(int $subscription_id, string $next_payment): void {
@@ -545,9 +545,9 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 
 	/**
 	 * Get Subscription Order
-	 * 
+	 *
 	 * @param int $subscription_id
-	 * 
+	 *
 	 * @return array<string, mixed>
 	 */
 	private function getSubscriptionOrder(int $subscription_id): array {
@@ -558,12 +558,12 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 
 	/**
 	 * Add Subscritpion Transaction
-	 * 
+	 *
 	 * @param int                  $subscription_id
 	 * @param array<string, mixed> $response_data
 	 * @param array<string, mixed> $transaction
 	 * @param int                  $type
-	 * 
+	 *
 	 * @return void
 	 */
 	private function addSubscriptionTransaction(int $subscription_id, array $response_data, array $transaction, int $type): void {
@@ -584,10 +584,10 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 
 	/**
 	 * Edit Status
-	 * 
+	 *
 	 * @param int $subscription_id
 	 * @param int $status
-	 * 
+	 *
 	 * @return void
 	 */
 	protected function editStatus(int $subscription_id, int $status): void {
@@ -596,10 +596,10 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 
 	/**
 	 * Edit Reference
-	 * 
+	 *
 	 * @param int    $subscription_id
 	 * @param string $reference
-	 * 
+	 *
 	 * @return void
 	 */
 	protected function editReference(int $subscription_id, string $reference): void {
@@ -608,7 +608,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 
 	/**
 	 * Get Profiles
-	 * 
+	 *
 	 * @return array<int, mixed>
 	 */
 	private function getProfiles(): array {

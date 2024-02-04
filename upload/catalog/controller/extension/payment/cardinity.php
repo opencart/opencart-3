@@ -244,9 +244,9 @@ class ControllerExtensionPaymentCardinity extends Controller {
 
 	/**
 	 * Finalize Order
-	 * 
+	 *
 	 * @param string $payment
-	 * 
+	 *
 	 * @return void
 	 */
 	private function finalizeOrder(string $payment): void {
@@ -263,10 +263,10 @@ class ControllerExtensionPaymentCardinity extends Controller {
 
 	/**
 	 * Failed Order
-	 * 
+	 *
 	 * @param ?string $log
 	 * @param ?string $alert
-	 * 
+	 *
 	 * @return void
 	 */
 	private function failedOrder(?string $log = null, ?string $alert = null): void {
@@ -287,7 +287,7 @@ class ControllerExtensionPaymentCardinity extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return array<string, mixed>
 	 */
 	private function validate(): array {

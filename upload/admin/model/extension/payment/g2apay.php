@@ -125,10 +125,10 @@ class ModelExtensionPaymentG2aPay extends Model {
 
 	/**
 	 * Get Transactions
-	 * 
+	 *
 	 * @param int    $g2apay_order_id
 	 * @param string $currency_code
-	 * 
+	 *
 	 * @return array<int, mixed>
 	 */
 	private function getTransactions(int $g2apay_order_id, string $currency_code): array {

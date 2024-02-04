@@ -2014,7 +2014,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 	/**
 	 * Complete Order
-	 * 
+	 *
 	 * @return void
 	 */
 	public function completeOrder(): void {
@@ -3380,9 +3380,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 	/**
 	 * Validate Shipping
-	 * 
+	 *
 	 * @param string $code
-	 * 
+	 *
 	 * @return bool
 	 */
 	private function validateShipping(string $code): bool {
@@ -3411,7 +3411,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 	/**
 	 * Validate Payment Address
-	 * 
+	 *
 	 * @return bool
 	 */
 	private function validatePaymentAddress(): bool {
@@ -3480,7 +3480,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 	/**
 	 * Validate Shipping Address
-	 * 
+	 *
 	 * @return bool
 	 */
 	private function validateShippingAddress(): bool {
@@ -3543,7 +3543,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 	/**
 	 * Validate Coupon
-	 * 
+	 *
 	 * @return bool
 	 */
 	private function validateCoupon(): bool {
@@ -3562,7 +3562,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 	/**
 	 * Validate Voucher
-	 * 
+	 *
 	 * @return bool
 	 */
 	private function validateVoucher(): bool {
@@ -3581,7 +3581,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 	/**
 	 * Validate Reward
-	 * 
+	 *
 	 * @return bool
 	 */
 	private function validateReward(): bool {
@@ -3620,7 +3620,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 	/**
 	 * Is Apple
-	 * 
+	 *
 	 * @return bool
 	 */
 	private function isApple() {
@@ -3641,9 +3641,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 	/**
 	 * Unserialize
-	 * 
+	 *
 	 * @param string $str
-	 * 
+	 *
 	 * @return array
 	 */
 	private function unserialize(string $str): array {

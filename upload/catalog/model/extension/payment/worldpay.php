@@ -384,7 +384,7 @@ class ModelExtensionPaymentWorldpay extends Model {
 
 	/**
 	 * Add Subscription Order
-	 * 
+	 *
 	 * @param array<string, mixed> $order_info
 	 * @param string               $order_code
 	 * @param string               $token
@@ -392,7 +392,7 @@ class ModelExtensionPaymentWorldpay extends Model {
 	 * @param int                  $subscription_id
 	 * @param string               $trial_end
 	 * @param string               $subscription_end
-	 * 
+	 *
 	 * @return void
 	 */
 	private function addSubscriptionOrder(array $order_info, string $order_code, string $token, float $price, int $subscription_id, string $trial_end, string $subscription_end): void {
@@ -401,10 +401,10 @@ class ModelExtensionPaymentWorldpay extends Model {
 
 	/**
 	 * Update Subscription Order
-	 * 
+	 *
 	 * @param int    $subscription_id
 	 * @param string $next_payment
-	 * 
+	 *
 	 * @return void
 	 */
 	private function updateSubscriptionOrder(int $subscription_id, string $next_payment): void {
@@ -413,9 +413,9 @@ class ModelExtensionPaymentWorldpay extends Model {
 
 	/**
 	 * Get Subscription Order
-	 * 
+	 *
 	 * @param int $subscription_id
-	 * 
+	 *
 	 * @return array<string, mixed>
 	 */
 	private function getSubscriptionOrder(int $subscription_id): array {
@@ -426,12 +426,12 @@ class ModelExtensionPaymentWorldpay extends Model {
 
 	/**
 	 * Add Profile Transaction
-	 * 
+	 *
 	 * @param int    $subscription_id
 	 * @param string $order_code
 	 * @param float  $price
 	 * @param int    $type
-	 * 
+	 *
 	 * @return void
 	 */
 	private function addProfileTransaction(int $subscription_id, string $order_code, float $price, int $type): void {
@@ -440,7 +440,7 @@ class ModelExtensionPaymentWorldpay extends Model {
 
 	/**
 	 * Get Profiles
-	 * 
+	 *
 	 * @return array<int, mixed>
 	 */
 	private function getProfiles() {
@@ -457,7 +457,7 @@ class ModelExtensionPaymentWorldpay extends Model {
 
 	/**
 	 * Get Profile
-	 * 
+	 *
 	 * @param int $order_recurring_id
 	 */
 	private function getProfile(int $order_recurring_id) {

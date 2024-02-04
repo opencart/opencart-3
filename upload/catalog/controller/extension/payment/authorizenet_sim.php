@@ -100,7 +100,10 @@ class ControllerExtensionPaymentAuthorizeNetSim extends Controller {
 
 	/**
 	 * Generate Hash
-	 * 
+	 *
+	 * @param mixed $to_hash
+	 * @param mixed $key
+	 *
 	 * @return string
 	 */
 	private function generateHash($to_hash, $key): string {
@@ -115,10 +118,11 @@ class ControllerExtensionPaymentAuthorizeNetSim extends Controller {
 
 	/**
 	 * Generate Response Hash
-	 * 
-	 * @param array<string, mixed> $data
+	 *
+	 * @param array                $post_fields
 	 * @param string               $signature_key
-	 * 
+	 * @param array<string, mixed> $data
+	 *
 	 * @return string
 	 */
 	private function generateResponseHash(array $post_fields, string $signature_key): string {

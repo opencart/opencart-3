@@ -173,10 +173,10 @@ class ModelUpgrade1006 extends Model {
 
 	/**
 	 * Recursive Move
-	 * 
+	 *
 	 * @param string $src
 	 * @param string $dest
-	 * 
+	 *
 	 * @return void
 	 */
 	private function recursive_move(string $src, string $dest): void {

@@ -547,9 +547,9 @@ class ModelExtensionAdvertiseGoogle extends Model {
 
 	/**
 	 * Make Insert Data
-	 * 
+	 *
 	 * @param array<string, mixed> $data
-	 * 
+	 *
 	 * @return array<string, mixed>
 	 */
 	protected function makeInsertData(array $data): array {
@@ -574,7 +574,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 
 	/**
 	 * Make On Duplicate Key Data
-	 * 
+	 *
 	 * @return string
 	 */
 	protected function makeOnDuplicateKeyData(): string {
@@ -953,9 +953,10 @@ class ModelExtensionAdvertiseGoogle extends Model {
 
 	/**
 	 * Country
-	 * 
+	 *
+	 * @param array $row
+	 *
 	 * @return array<string, mixed>
-	 * 
 	 * @return string
 	 */
 	protected function country(array $row): string {

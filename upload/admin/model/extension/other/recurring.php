@@ -202,9 +202,9 @@ class ModelExtensionOtherRecurring extends Model {
 
 	/**
 	 * Get Status
-	 * 
+	 *
 	 * @param int $status
-	 * 
+	 *
 	 * @return string
 	 */
 	private function getStatus(int $status): string {

@@ -56,11 +56,11 @@ class ModelExtensionPaymentAlipay extends Model {
 
 	/**
 	 * Set Params
-	 * 
+	 *
 	 * @param array<string, mixed> $alipay_config
-	 * 
+	 *
 	 * @throws \Exception
-	 * 
+	 *
 	 * @return void
 	 */
 	private function setParams(array $alipay_config): void {
@@ -99,7 +99,7 @@ class ModelExtensionPaymentAlipay extends Model {
 	 *
 	 * @param array<string, mixed> $builder
 	 * @param array<string, mixed> $config
-	 * 
+	 *
 	 * @return array<int, array<string, mixed>>
 	 */
 	public function pagePay(array $builder, array $config): array {
@@ -129,7 +129,7 @@ class ModelExtensionPaymentAlipay extends Model {
 	 *
 	 * @param array<string, mixed> $arr
 	 * @param array<string, mixed> $config
-	 * 
+	 *
 	 * @return array<int, array<string, mixed>>
 	 */
 	public function check(array $arr, array $config): array {
@@ -143,7 +143,7 @@ class ModelExtensionPaymentAlipay extends Model {
 	 *
 	 * @param mixed $request
 	 * @param mixed $httpmethod
-	 * 
+	 *
 	 * @return array<int, array<string, mixed>>
 	 */
 	public function pageExecute($request, $httpmethod = 'POST') {
@@ -191,7 +191,9 @@ class ModelExtensionPaymentAlipay extends Model {
 
 	/**
 	 * Check Empty
-	 * 
+	 *
+	 * @param mixed $value
+	 *
 	 * @return bool
 	 */
 	private function checkEmpty($value): bool {
@@ -208,10 +210,10 @@ class ModelExtensionPaymentAlipay extends Model {
 
 	/**
 	 * Rsa Check V1
-	 * 
+	 *
 	 * @param array<string, mixed> $params
-	 * @param string 			   $signType
-	 * 
+	 * @param string               $signType
+	 *
 	 * @return array<int, array<string, mixed>>
 	 */
 	public function rsaCheckV1($params, $signType = 'RSA'): array {
@@ -229,7 +231,7 @@ class ModelExtensionPaymentAlipay extends Model {
 	 * @param mixed $data
 	 * @param mixed $sign
 	 * @param mixed $signType
-	 * 
+	 *
 	 * return bool
 	 */
 	private function verify($data, $sign, $signType = 'RSA'): bool {
@@ -250,9 +252,9 @@ class ModelExtensionPaymentAlipay extends Model {
 
 	/**
 	 * Get Sign Content
-	 * 
+	 *
 	 * @param array<string, mixed> $params
-	 * 
+	 *
 	 * @return string
 	 */
 	private function getSignContent(array $params): string {
@@ -281,10 +283,10 @@ class ModelExtensionPaymentAlipay extends Model {
 
 	/**
 	 * Generate Sign
-	 * 
+	 *
 	 * @param array<string, mixed> $params
 	 * @param string               $signType
-	 * 
+	 *
 	 * @return array<string, mixed>
 	 */
 	private function generateSign(array $params, string $signType = 'RSA'): array {
@@ -293,10 +295,10 @@ class ModelExtensionPaymentAlipay extends Model {
 
 	/**
 	 * Sign
-	 * 
+	 *
 	 * @param array<string, mixed> $data
 	 * @param string               $signType
-	 * 
+	 *
 	 * @return string
 	 */
 	private function sign(array $data, string $signType = 'RSA'): string {
@@ -315,7 +317,7 @@ class ModelExtensionPaymentAlipay extends Model {
 
 	/**
 	 * Get Post Charset
-	 * 
+	 *
 	 * @return string
 	 */
 	public function getPostCharset(): string {

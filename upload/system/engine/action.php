@@ -16,16 +16,16 @@
  */
 class Action {
 	/**
-	 * @var string $id
+	 * @var string
 	 */
 	private string $id;
 	/**
-	 * @var string $route
+	 * @var string
 	 */
 	private string $route;
-	 /**
-	  * @var string $method
-	  */	
+	/**
+	 * @var string
+	 */
 	private string $method = 'index';
 
 	/**
@@ -53,7 +53,7 @@ class Action {
 
 	/**
 	 * Get Id
-	 * 
+	 *
 	 * @return string
 	 */
 	public function getId(): string {
@@ -62,10 +62,10 @@ class Action {
 
 	/**
 	 * Execute
-	 * 
+	 *
 	 * @param object $registry
 	 * @param array  $args
-	 * 
+	 *
 	 * @return mixed
 	 */
 	public function execute(object $registry, array $args = []): mixed {

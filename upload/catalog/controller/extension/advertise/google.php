@@ -484,7 +484,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
 	/**
 	 * Validate CRON
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function validateCRON() {

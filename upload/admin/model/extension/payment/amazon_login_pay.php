@@ -212,10 +212,10 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 	/**
 	 * Authorize
-	 * 
+	 *
 	 * @param array<string, mixed> $amazon_login_pay_order
-	 * @param float $amount
-	 * 
+	 * @param float                $amount
+	 *
 	 * @return array<int, array<string, mixed>>
 	 */
 	private function authorize(array $amazon_login_pay_order, float $amount): array {
@@ -267,7 +267,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	 * Refund
 	 *
 	 * @param array<string, mixed> $amazon_login_pay_order
-	 * @param float $amount
+	 * @param float                $amount
 	 *
 	 * @return array
 	 */
@@ -425,7 +425,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	/**
 	 * Is Order In State
 	 *
-	 * @param string $order_reference_id
+	 * @param string               $order_reference_id
 	 * @param array<string, mixed> $states
 	 *
 	 * @return bool
@@ -572,7 +572,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	 * @param mixed $action
 	 * @param mixed $details
 	 * @param mixed $skip_logger
-	 * 
+	 *
 	 * @return array<int, array<string, mixed>>
 	 */
 	private function validateResponse($action, $details, $skip_logger = false): array {
@@ -666,9 +666,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 	/**
 	 * Get Parameters As String
-	 * 
+	 *
 	 * @param array<string, mixed> $parameters
-	 * 
+	 *
 	 * @return string
 	 */
 	private function getParametersAsString(array $parameters): string {
@@ -683,10 +683,10 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 	/**
 	 * Calculate String To Sign V2
-	 * 
+	 *
 	 * @param array<string, mixed> $parameters
-	 * @param string 			   $url
-	 * 
+	 * @param string               $url
+	 *
 	 * @return string
 	 */
 	private function calculateStringToSignV2(array $parameters, string $url): string {
@@ -715,9 +715,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 	/**
 	 * Urlencode
-	 * 
+	 *
 	 * @param string $value
-	 * 
+	 *
 	 * @return string
 	 */
 	private function urlencode(string $value): string {

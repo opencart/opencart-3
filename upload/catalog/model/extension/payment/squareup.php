@@ -82,10 +82,10 @@ class ModelExtensionPaymentSquareup extends Model {
 
 	/**
 	 * Edit Status
-	 * 
+	 *
 	 * @param int $subscription_id
 	 * @param int $status
-	 * 
+	 *
 	 * @return void
 	 */
 	public function editStatus(int $subscription_id, int $status): void {

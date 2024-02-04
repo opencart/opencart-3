@@ -89,9 +89,9 @@ class ModelExtensionPaymentCardConnect extends Model {
 
 	/**
 	 * Get Transactions
-	 * 
+	 *
 	 * @param int $cardconnect_order_id
-	 * 
+	 *
 	 * @return array<int, array<string, mixed>>
 	 */
 	private function getTransactions(int $cardconnect_order_id): array {

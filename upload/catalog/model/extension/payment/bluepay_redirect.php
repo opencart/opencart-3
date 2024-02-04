@@ -134,9 +134,9 @@ class ModelExtensionPaymentBluePayRedirect extends Model {
 
 	/**
 	 * Get Transactions
-	 * 
+	 *
 	 * @param int $bluepay_redirect_order_id
-	 * 
+	 *
 	 * @return array<int, array<string, mixed>>
 	 */
 	private function getTransactions(int $bluepay_redirect_order_id) {

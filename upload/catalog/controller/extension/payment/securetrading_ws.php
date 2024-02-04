@@ -340,10 +340,10 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
 	/**
 	 * Process Auth Response
-	 * 
+	 *
 	 * @param string $response
 	 * @param int    $order_id
-	 * 
+	 *
 	 * @return array<string, mixed>
 	 */
 	private function processAuthResponse(string $response, int $order_id): array {

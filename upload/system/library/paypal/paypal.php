@@ -1,42 +1,42 @@
 <?php
 class PayPal {
 	/**
-	 * @var array<string, mixed> $server
+	 * @var array<string, mixed>
 	 */
 	private array $server = [
 		'sandbox'    => 'https: //api.sandbox.paypal.com',
 		'production' => 'https: //api.paypal.com'
 	];
 	/**
-	 * @var string $environment
+	 * @var string
 	 */
 	private string $environment = 'sandbox';
 	/**
-	 * @var string $partner_id
+	 * @var string
 	 */
 	private string $partner_id = '';
 	/**
-	 * @var string $client_id
+	 * @var string
 	 */
 	private string $client_id = '';
 	/**
-	 * @var string $secret
+	 * @var string
 	 */
 	private string $secret = '';
 	/**
-	 * @var string $partner_attribute_id
+	 * @var string
 	 */
 	private string $partner_attribution_id = '';
 	/**
-	 * @var string $access_token
+	 * @var string
 	 */
 	private string $access_token = '';
 	/**
-	 * @var array<string, mixed> $errors
+	 * @var array<string, mixed>
 	 */
 	private array $errors = [];
 	/**
-	 * @var array<string, mixed> $last_response
+	 * @var array<string, mixed>
 	 */
 	private array $last_response = [];
 
@@ -374,7 +374,7 @@ class PayPal {
 
 	/**
 	 * Execute
-	 * 
+	 *
 	 * @param string               $method
 	 * @param string               $command
 	 * @param array<string, mixed> $params
@@ -514,10 +514,10 @@ class PayPal {
 
 	/**
 	 * Build Query
-	 * 
-	 * @param array|string         $params
-	 * @param bool                 $json
-	 * 
+	 *
+	 * @param array|string $params
+	 * @param bool         $json
+	 *
 	 * @return mixed
 	 */
 	private function buildQuery($params, bool $json): mixed {
@@ -534,9 +534,9 @@ class PayPal {
 
 	/**
 	 * Token
-	 * 
+	 *
 	 * @param int $length
-	 * 
+	 *
 	 * @return string
 	 */
 	private function token(int $length = 32): string {

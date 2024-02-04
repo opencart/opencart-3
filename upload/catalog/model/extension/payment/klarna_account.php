@@ -20,9 +20,9 @@ class ModelExtensionPaymentKlarnaAccount extends Model {
 
 	/**
 	 * Get Lowest Payment Account
-	 * 
+	 *
 	 * @param string $country
-	 * 
+	 *
 	 * @return float
 	 */
 	private function getLowestPaymentAccount(string $country): float {

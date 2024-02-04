@@ -45,9 +45,9 @@ class ModelExtensionPaymentAlipayCross extends Model {
 
 	/**
 	 * Build Request Mysign
-	 * 
+	 *
 	 * @param array<string, mixed> $para_sort
-	 * 
+	 *
 	 * @return string
 	 */
 	private function buildRequestMysign(array $para_sort): string {
@@ -91,7 +91,7 @@ class ModelExtensionPaymentAlipayCross extends Model {
 	 * Verify Notify
 	 *
 	 * @param mixed $alipay_config
-	 * 
+	 *
 	 * @return bool
 	 */
 	public function verifyNotify($alipay_config): bool {
@@ -121,10 +121,10 @@ class ModelExtensionPaymentAlipayCross extends Model {
 
 	/**
 	 * Get Sign Verify
-	 * 
+	 *
 	 * @param array<string, mixed> $para_temp
 	 * @param string               $sign
-	 * 
+	 *
 	 * @return bool
 	 */
 	private function getSignVerify($para_temp, $sign): bool {
@@ -147,9 +147,9 @@ class ModelExtensionPaymentAlipayCross extends Model {
 
 	/**
 	 * Get Response
-	 * 
+	 *
 	 * @param string $notify_id
-	 * 
+	 *
 	 * @return mixed
 	 */
 	private function getResponse(string $notify_id): mixed {
@@ -163,7 +163,9 @@ class ModelExtensionPaymentAlipayCross extends Model {
 
 	/**
 	 * Create Linkstring
-	 * 
+	 *
+	 * @param array $para
+	 *
 	 * @return array<int, array<string, mixed>>
 	 */
 	private function createLinkstring(array $para): string {
@@ -172,9 +174,9 @@ class ModelExtensionPaymentAlipayCross extends Model {
 
 	/**
 	 * Para Filter
-	 * 
+	 *
 	 * @param array<string, mixed> $para
-	 * 
+	 *
 	 * @return array<int, array<string, mixed>>
 	 */
 	private function paraFilter(array $para): array {
@@ -193,9 +195,9 @@ class ModelExtensionPaymentAlipayCross extends Model {
 
 	/**
 	 * Arg Sort
-	 * 
+	 *
 	 * @param array<string, mixed> $para
-	 * 
+	 *
 	 * @return array<int, array<string, mixed>>
 	 */
 	private function argSort(array $para): array {
@@ -208,10 +210,10 @@ class ModelExtensionPaymentAlipayCross extends Model {
 
 	/**
 	 * Get Http Response GET
-	 * 
+	 *
 	 * @param string $url
 	 * @param string $cacert_url
-	 * 
+	 *
 	 * @return mixed
 	 */
 	private function getHttpResponseGET(string $url, string $cacert_url): mixed {
@@ -236,10 +238,9 @@ class ModelExtensionPaymentAlipayCross extends Model {
 
 	/**
 	 * Md5 Sign
-	 * 
+	 *
 	 * @param string $prestr
 	 * @param string $key
-	 * 
 	 * @param string
 	 */
 	private function md5Sign(string $prestr, string $key): string {
@@ -250,7 +251,7 @@ class ModelExtensionPaymentAlipayCross extends Model {
 
 	/**
 	 * Md5 Verify
-	 * 
+	 *
 	 * @param string $prestr
 	 * @param string $sign
 	 * @param string $key

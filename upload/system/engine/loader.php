@@ -21,6 +21,8 @@ class Loader {
 	 * Constructor
 	 *
 	 * @property Registry $registry
+	 *
+	 * @param mixed $registry
 	 */
 	public function __construct($registry) {
 		$this->registry = $registry;
@@ -29,9 +31,9 @@ class Loader {
 	/**
 	 * Controller
 	 *
-	 * @param string $route
+	 * @param string               $route
 	 * @param array<string, mixed> $data
-	 * 
+	 *
 	 * @throws \Exception
 	 *
 	 * Removing the mixed output as a temporary workaround since admin extension
@@ -109,9 +111,9 @@ class Loader {
 	/**
 	 * View
 	 *
-	 * @param string $route
+	 * @param string               $route
 	 * @param array<string, mixed> $data
-	 * @param string $code
+	 * @param string               $code
 	 *
 	 * @return string
 	 */
@@ -237,7 +239,10 @@ class Loader {
 
 	/**
 	 * Callback
-	 * 
+	 *
+	 * @param mixed $registry
+	 * @param mixed $route
+	 *
 	 * @return array<string, string>
 	 */
 	protected function callback($registry, $route): array {

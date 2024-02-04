@@ -320,9 +320,9 @@ class ModelExtensionPaymentRealex extends Model {
 
 	/**
 	 * Get Transactions
-	 * 
-	 * @param  int $realex_order_id
-	 * 
+	 *
+	 * @param int $realex_order_id
+	 *
 	 * @return array<int, array<string, mixed>>
 	 */
 	private function getTransactions(int $realex_order_id) {

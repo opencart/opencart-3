@@ -139,10 +139,10 @@ class ControllerExtensionFeedGoogleBase extends Controller {
 
 	/**
 	 * Get Path
-	 * 
+	 *
 	 * @param int    $parent_id
 	 * @param string $current_path
-	 * 
+	 *
 	 * @return string
 	 */
 	protected function getPath($parent_id, $current_path = ''): string {

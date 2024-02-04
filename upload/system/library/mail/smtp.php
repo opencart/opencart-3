@@ -273,7 +273,7 @@ class Smtp {
 
 	/**
 	 * Handle Reply
-	 * 
+	 *
 	 * @param resource     $handle
 	 * @param false|int    $status_code
 	 * @param false|string $error_text

@@ -222,9 +222,9 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 
 	/**
 	 * Get Transactions
-	 * 
+	 *
 	 * @param int $securetrading_ws_order_id
-	 * 
+	 *
 	 * @return array<int, array<string, mixed>>
 	 */
 	private function getTransactions(int $securetrading_ws_order_id): array {
@@ -420,9 +420,9 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 
 	/**
 	 * Encode Post
-	 * 
+	 *
 	 * @param array<string, mixed> $data
-	 * 
+	 *
 	 * @return string
 	 */
 	private function encodePost(array $data): string {
