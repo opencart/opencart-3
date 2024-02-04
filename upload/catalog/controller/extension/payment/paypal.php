@@ -3358,7 +3358,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	/**
 	 * Order Delete Order Before
 	 *
-	 * @param mixed                $route
+	 * @param string               $route
 	 * @param array<string, mixed> $data
 	 *
 	 * @return void
