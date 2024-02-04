@@ -13,7 +13,7 @@ class File {
 	 *
 	 * @param Registry $registry
 	 */
-	public function __construct(object $registry) {
+	public function __construct(\Registry $registry) {
 		$this->config = $registry->get('config');
 	}
 

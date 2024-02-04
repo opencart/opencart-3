@@ -8,7 +8,7 @@ class ModelReportStatistics extends Model {
 	/**
 	 * Get Statistics
 	 *
-	 * @param array<string, mixed> $data
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getStatistics(): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "statistics`");

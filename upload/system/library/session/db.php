@@ -22,7 +22,7 @@ class DB {
 	 *
 	 * @param Registry $registry
 	 */
-	public function __construct(object $registry) {
+	public function __construct(\Registry $registry) {
 		$this->db = $registry->get('db');
 		$this->config = $registry->get('config');
 	}
