@@ -36,7 +36,9 @@ class ControllerExtensionExtensionShipping extends Controller {
 		$this->load->model('setting/extension');
 
 		if ($this->validate()) {
-			if (is_callable([$this->{'model_setting_extension_shipping'}, 'install'])) {
+			$callable = [$this->{'model_setting_extension_shipping'}, 'install'];
+
+			if (is_callable($callable)) {
 				$this->model_setting_extension->install('shipping', $this->request->get['extension']);
 			}
 
@@ -67,7 +69,9 @@ class ControllerExtensionExtensionShipping extends Controller {
 		$this->load->model('setting/extension');
 
 		if ($this->validate()) {
-			if (is_callable([$this->{'model_setting_extension_shipping'}, 'uninstall'])) {
+			$callable = [$this->{'model_setting_extension_shipping'}, 'uninstall'];
+
+			if (is_callable($callable)) {
 				$this->model_setting_extension->uninstall('shipping', $this->request->get['extension']);
 			}
 
@@ -107,7 +111,9 @@ class ControllerExtensionExtensionShipping extends Controller {
 
 		foreach ($extensions as $key => $value) {
 			if (!is_file(DIR_APPLICATION . 'controller/extension/shipping/' . $value . '.php') && !is_file(DIR_APPLICATION . 'controller/shipping/' . $value . '.php')) {
-				if (is_callable([$this->{'model_setting_extension_shipping'}, 'uninstall'])) {
+				$callable = [$this->{'model_setting_extension_shipping'}, 'uninstall'];
+
+				if (is_callable($callable)) {
 					$this->model_setting_extension->uninstall('shipping', $value);
 				}
 

@@ -64,7 +64,9 @@ class ControllerAccountPaymentMethod extends Controller {
 		if (!$json && isset($payment_method_info)) {
 			$this->load->model('extension/payment/' . $payment_method_info['code']);
 
-			if (is_callable([$this->{'model_extension_payment_' . $payment_method_info['code']}, 'delete'])) {
+			$callable = [$this->{'model_extension_payment_' . $payment_method_info['code']}, 'delete'];
+
+			if (is_callable($callable)) {
 				$this->{'model_extension_payment_' . $payment_method_info['code']}->delete();
 			}
 
@@ -116,7 +118,9 @@ class ControllerAccountPaymentMethod extends Controller {
 			if ($this->config->get('payment_' . $result['code'] . '_status')) {
 				$this->load->model('extension/payment/' . $result['code']);
 
-				if (is_callable([$this->{'model_extension_payment_' . $result['code']}, 'getStored'])) {
+				$callable = [$this->{'model_extension_payment_' . $result['code']}, 'getStored'];
+
+				if (is_callable($callable)) {
 					$payment_method_info = $this->{'model_extension_payment_' . $result['code']}->getStored();
 
 					if ($payment_method_info) {

@@ -23,7 +23,9 @@ class ModelCheckoutPaymentMethod extends Model {
 			if ($this->config->get('payment_' . $result['code'] . '_status')) {
 				$this->load->model('extension/payment/' . $result['code']);
 
-				if (is_callable([$this->{'model_extension_payment_' . $result['code']}, 'getMethods'])) {
+				$callable = [$this->{'model_extension_payment_' . $result['code']}, 'getMethods'];
+
+				if (is_callable($callable)) {
 					$payment_methods = $this->{'model_extension_payment_' . $result['code']}->getMethods($payment_address);
 
 					if ($payment_methods) {

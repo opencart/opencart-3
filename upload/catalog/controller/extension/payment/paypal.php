@@ -1774,7 +1774,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
 						if ($this->config->get('shipping_' . $result['code'] . '_status')) {
 							$this->load->model('extension/shipping/' . $result['code']);
 
-							if (is_callable([$this->{'model_extension_shipping_' . $result['code']}, 'getQuote'])) {
+							$callable = [$this->{'model_extension_shipping_' . $result['code']}, 'getQuote'];
+
+							if (is_callable($callable)) {
 								$quote = $this->{'model_extension_shipping_' . $result['code']}->getQuote($data['shipping_address']);
 
 								if ($quote) {
@@ -1863,7 +1865,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
 					$this->load->model('extension/total/' . $result['code']);
 
 					// We have to put the totals in an array so that they pass by reference.
-					if (is_callable([$this->{'model_extension_total_' . $result['code']}, 'getTotal'])) {
+					$callable = [$this->{'model_extension_total_' . $result['code']}, 'getTotal'];
+
+					if (is_callable($callable)) {
 						$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
 					}
 				}
@@ -1889,7 +1893,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			if ($this->config->get('payment_' . $result['code'] . '_status')) {
 				$this->load->model('extension/payment/' . $result['code']);
 
-				if (is_callable([$this->{'model_extension_payment_' . $result['code']}, 'getMethod'])) {
+				$callable = [$this->{'model_extension_payment_' . $result['code']}, 'getMethod'];
+
+				if (is_callable($callable)) {
 					$method = $this->{'model_extension_payment_' . $result['code']}->getMethod($data['payment_address'], $total);
 
 					if ($method) {
@@ -1952,7 +1958,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
 					$this->load->model('extension/total/' . $result['code']);
 
 					// We have to put the totals in an array so that they pass by reference.
-					if (is_callable([$this->{'model_extension_total_' . $result['code']}, 'getTotal'])) {
+					$callable = [$this->{'model_extension_total_' . $result['code']}, 'getTotal'];
+
+					if (is_callable($callable)) {
 						$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
 					}
 				}
@@ -2083,7 +2091,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
 					$this->load->model('extension/total/' . $result['code']);
 
 					// We have to put the totals in an array so that they pass by reference.
-					if (is_callable([$this->{'model_extension_total_' . $result['code']}, 'getTotal'])) {
+					$callable = [$this->{'model_extension_total_' . $result['code']}, 'getTotal'];
+
+					if (is_callable($callable)) {
 						$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
 					}
 				}
