@@ -2,7 +2,7 @@
 /**
  * Class Gdpr
  *
- * @package Catalog\Model\Account
+ * @package Opencart\Catalog\Model\Account
  */
 class ModelAccountGdpr extends Model {
 	/**
@@ -31,6 +31,19 @@ class ModelAccountGdpr extends Model {
 	}
 
 	/**
+	 * Get Gdpr
+	 *
+	 * @param int $gdpr_id
+	 *
+	 * @return array<string, mixed>
+	 */
+	public function getGdpr(int $gdpr_id): array {
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "gdpr` WHERE `gdpr_id` = '" . (int)$gdpr_id . "'");
+
+		return $query->row;
+	}
+
+	/**
 	 * Get Gdpr By Code
 	 *
 	 * @param string $code
@@ -44,7 +57,7 @@ class ModelAccountGdpr extends Model {
 	}
 
 	/**
-	 * Get Gdprs By Email
+	 * Get Gdpr(s) By Email
 	 *
 	 * @param string $email
 	 *
@@ -52,6 +65,17 @@ class ModelAccountGdpr extends Model {
 	 */
 	public function getGdprsByEmail(string $email): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "gdpr` WHERE `email` = '" . $this->db->escape($email) . "'");
+
+		return $query->rows;
+	}
+
+	/**
+	 * Get Expires
+	 *
+	 * @return array<int, array<string, mixed>>
+	 */
+	public function getExpires(): array {
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "gdpr` WHERE `status` = '2' AND DATE(`date_added`) <= DATE('" . $this->db->escape(date('Y-m-d', strtotime('+' . (int)$this->config->get('config_gdpr_limit') . ' days'))) . "') ORDER BY `date_added` DESC");
 
 		return $query->rows;
 	}
