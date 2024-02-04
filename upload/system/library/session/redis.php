@@ -13,9 +13,9 @@ class Redis {
 	/**
 	 * Constructor
 	 *
-	 * @param Registry $registry
+	 * @property Registry $registry
 	 */
-	public function __construct(\Registry $registry) {
+	public function __construct($registry) {
 		$this->config = $registry->get('config');
 
 		try {
