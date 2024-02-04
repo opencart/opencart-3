@@ -25,7 +25,7 @@ class Action {
 	public function __construct(string $route) {
 		$this->id = $route;
 
-		$parts = explode('/', preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route));
+		$parts = explode('/', preg_replace('/[^a-zA-Z0-9_\/]/', '', $route));
 
 		// Break apart the route
 		while ($parts) {
