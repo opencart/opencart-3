@@ -99,7 +99,7 @@ class Exception extends \Exception {
 	/**
 	 * Parse Error
 	 * 
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $error
 	 * 
 	 * @return string
 	 */
