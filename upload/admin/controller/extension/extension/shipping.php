@@ -36,7 +36,9 @@ class ControllerExtensionExtensionShipping extends Controller {
 		$this->load->model('setting/extension');
 
 		if ($this->validate()) {
-			$this->model_setting_extension->install('shipping', $this->request->get['extension']);
+			if (is_callable([$this->{'model_setting_extension_shipping'}, 'install'])) {
+				$this->model_setting_extension->install('shipping', $this->request->get['extension']);
+			}
 
 			// User Groups
 			$this->load->model('user/user_group');
@@ -65,7 +67,9 @@ class ControllerExtensionExtensionShipping extends Controller {
 		$this->load->model('setting/extension');
 
 		if ($this->validate()) {
-			$this->model_setting_extension->uninstall('shipping', $this->request->get['extension']);
+			if (is_callable([$this->{'model_setting_extension_shipping'}, 'uninstall'])) {
+				$this->model_setting_extension->uninstall('shipping', $this->request->get['extension']);
+			}
 
 			// Call uninstall method if it exists
 			$this->load->controller('extension/shipping/' . $this->request->get['extension'] . '/uninstall');
@@ -103,7 +107,9 @@ class ControllerExtensionExtensionShipping extends Controller {
 
 		foreach ($extensions as $key => $value) {
 			if (!is_file(DIR_APPLICATION . 'controller/extension/shipping/' . $value . '.php') && !is_file(DIR_APPLICATION . 'controller/shipping/' . $value . '.php')) {
-				$this->model_setting_extension->uninstall('shipping', $value);
+				if (is_callable([$this->{'model_setting_extension_shipping'}, 'uninstall'])) {
+					$this->model_setting_extension->uninstall('shipping', $value);
+				}
 
 				unset($extensions[$key]);
 			}

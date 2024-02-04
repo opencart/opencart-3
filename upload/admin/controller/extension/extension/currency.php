@@ -36,7 +36,9 @@ class ControllerExtensionExtensionCurrency extends Controller {
 		$this->load->model('setting/extension');
 
 		if ($this->validate()) {
-			$this->model_setting_extension->install('currency', $this->request->get['extension']);
+			if (is_callable([$this->{'model_setting_extension_currency'}, 'install'])) {
+				$this->model_setting_extension->install('currency', $this->request->get['extension']);
+			}
 
 			$this->load->model('user/user_group');
 
@@ -64,7 +66,9 @@ class ControllerExtensionExtensionCurrency extends Controller {
 		$this->load->model('setting/extension');
 
 		if ($this->validate()) {
-			$this->model_setting_extension->uninstall('currency', $this->request->get['extension']);
+			if (is_callable([$this->{'model_setting_extension_currency'}, 'uninstall'])) {
+				$this->model_setting_extension->uninstall('currency', $this->request->get['extension']);
+			}
 
 			// Call uninstall method if it exsits
 			$this->load->controller('extension/currency/' . $this->request->get['extension'] . '/uninstall');
@@ -99,7 +103,9 @@ class ControllerExtensionExtensionCurrency extends Controller {
 
 		foreach ($extensions as $key => $value) {
 			if (!is_file(DIR_APPLICATION . 'controller/extension/currency/' . $value . '.php') && !is_file(DIR_APPLICATION . 'controller/currency/' . $value . '.php')) {
-				$this->model_setting_extension->uninstall('currency', $value);
+				if (is_callable([$this->{'model_setting_extension_currency'}, 'uninstall'])) {
+					$this->model_setting_extension->uninstall('currency', $value);
+				}
 
 				unset($extensions[$key]);
 			}

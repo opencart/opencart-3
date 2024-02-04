@@ -36,7 +36,9 @@ class ControllerExtensionExtensionFeed extends Controller {
 		$this->load->model('setting/extension');
 
 		if ($this->validate()) {
-			$this->model_setting_extension->install('feed', $this->request->get['extension']);
+			if (is_callable([$this->{'model_setting_extension_feed'}, 'install'])) {
+				$this->model_setting_extension->install('feed', $this->request->get['extension']);
+			}
 
 			// User Groups
 			$this->load->model('user/user_group');
@@ -65,7 +67,9 @@ class ControllerExtensionExtensionFeed extends Controller {
 		$this->load->model('setting/extension');
 
 		if ($this->validate()) {
-			$this->model_setting_extension->uninstall('feed', $this->request->get['extension']);
+			if (is_callable([$this->{'model_setting_extension_feed'}, 'uninstall'])) {
+				$this->model_setting_extension->uninstall('feed', $this->request->get['extension']);
+			}
 
 			// Call uninstall method if it exists
 			$this->load->controller('extension/feed/' . $this->request->get['extension'] . '/uninstall');
@@ -100,7 +104,9 @@ class ControllerExtensionExtensionFeed extends Controller {
 
 		foreach ($extensions as $key => $value) {
 			if (!is_file(DIR_APPLICATION . 'controller/extension/feed/' . $value . '.php') && !is_file(DIR_APPLICATION . 'controller/feed/' . $value . '.php')) {
-				$this->model_setting_extension->uninstall('feed', $value);
+				if (is_callable([$this->{'model_setting_extension_feed'}, 'uninstall'])) {
+					$this->model_setting_extension->uninstall('feed', $value);
+				}
 
 				unset($extensions[$key]);
 			}

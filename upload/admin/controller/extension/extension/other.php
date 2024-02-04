@@ -36,7 +36,9 @@ class ControllerExtensionExtensionOther extends Controller {
 		$this->load->model('setting/extension');
 
 		if ($this->validate()) {
-			$this->model_setting_extension->install('other', $this->request->get['extension']);
+			if (is_callable([$this->{'model_setting_extension_other'}, 'install'])) {
+				$this->model_setting_extension->install('other', $this->request->get['extension']);
+			}
 
 			// User Groups
 			$this->load->model('user/user_group');
@@ -65,7 +67,9 @@ class ControllerExtensionExtensionOther extends Controller {
 		$this->load->model('setting/extension');
 
 		if ($this->validate()) {
-			$this->model_setting_extension->uninstall('other', $this->request->get['extension']);
+			if (is_callable([$this->{'model_setting_extension_other'}, 'uninstall'])) {
+				$this->model_setting_extension->uninstall('other', $this->request->get['extension']);
+			}
 
 			// Call uninstall method if it exists
 			$this->load->controller('extension/other/' . $this->request->get['extension'] . '/uninstall');
@@ -100,7 +104,9 @@ class ControllerExtensionExtensionOther extends Controller {
 
 		foreach ($extensions as $key => $value) {
 			if (!is_file(DIR_APPLICATION . 'controller/extension/other/' . $value . '.php') && !is_file(DIR_APPLICATION . 'controller/other/' . $value . '.php')) {
-				$this->model_setting_extension->uninstall('other', $value);
+				if (is_callable([$this->{'model_setting_extension_other'}, 'uninstall'])) {
+					$this->model_setting_extension->uninstall('other', $value);
+				}
 
 				unset($extensions[$key]);
 			}

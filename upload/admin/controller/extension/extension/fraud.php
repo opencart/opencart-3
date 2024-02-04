@@ -36,7 +36,9 @@ class ControllerExtensionExtensionFraud extends Controller {
 		$this->load->model('setting/extension');
 
 		if ($this->validate()) {
-			$this->model_setting_extension->install('fraud', $this->request->get['extension']);
+			if (is_callable([$this->{'model_setting_extension_fraud'}, 'install'])) {
+				$this->model_setting_extension->install('fraud', $this->request->get['extension']);
+			}
 
 			// User Groups
 			$this->load->model('user/user_group');
@@ -65,7 +67,9 @@ class ControllerExtensionExtensionFraud extends Controller {
 		$this->load->model('setting/extension');
 
 		if ($this->validate()) {
-			$this->model_setting_extension->uninstall('fraud', $this->request->get['extension']);
+			if (is_callable([$this->{'model_setting_extension_fraud'}, 'uninstall'])) {
+				$this->model_setting_extension->uninstall('fraud', $this->request->get['extension']);
+			}
 
 			// Call uninstall method if it exists
 			$this->load->controller('extension/fraud/' . $this->request->get['extension'] . '/uninstall');
@@ -100,7 +104,9 @@ class ControllerExtensionExtensionFraud extends Controller {
 
 		foreach ($extensions as $key => $value) {
 			if (!is_file(DIR_APPLICATION . 'controller/extension/fraud/' . $value . '.php') && !is_file(DIR_APPLICATION . 'controller/fraud/' . $value . '.php')) {
-				$this->model_setting_extension->uninstall('fraud', $value);
+				if (is_callable([$this->{'model_setting_extension_fraud'}, 'uninstall'])) {
+					$this->model_setting_extension->uninstall('fraud', $value);
+				}
 
 				unset($extensions[$key]);
 			}

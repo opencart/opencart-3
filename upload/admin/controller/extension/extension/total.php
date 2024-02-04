@@ -36,7 +36,9 @@ class ControllerExtensionExtensionTotal extends Controller {
 		$this->load->model('setting/extension');
 
 		if ($this->validate()) {
-			$this->model_setting_extension->install('total', $this->request->get['extension']);
+			if (is_callable([$this->{'model_setting_extension_total'}, 'install'])) {
+				$this->model_setting_extension->install('total', $this->request->get['extension']);
+			}
 
 			// User Groups
 			$this->load->model('user/user_group');
@@ -64,7 +66,9 @@ class ControllerExtensionExtensionTotal extends Controller {
 		$this->load->model('setting/extension');
 
 		if ($this->validate()) {
-			$this->model_setting_extension->uninstall('total', $this->request->get['extension']);
+			if (is_callable([$this->{'model_setting_extension_total'}, 'uninstall'])) {
+				$this->model_setting_extension->uninstall('total', $this->request->get['extension']);
+			}
 
 			$this->load->controller('extension/total/' . $this->request->get['extension'] . '/uninstall');
 
@@ -101,7 +105,9 @@ class ControllerExtensionExtensionTotal extends Controller {
 
 		foreach ($extensions as $key => $value) {
 			if (!is_file(DIR_APPLICATION . 'controller/extension/total/' . $value . '.php') && !is_file(DIR_APPLICATION . 'controller/total/' . $value . '.php')) {
-				$this->model_setting_extension->uninstall('total', $value);
+				if (is_callable([$this->{'model_setting_extension_total'}, 'uninstall'])) {
+					$this->model_setting_extension->uninstall('total', $value);
+				}
 
 				unset($extensions[$key]);
 			}

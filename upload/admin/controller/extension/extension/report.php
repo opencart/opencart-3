@@ -36,7 +36,9 @@ class ControllerExtensionExtensionReport extends Controller {
 		$this->load->model('setting/extension');
 
 		if ($this->validate()) {
-			$this->model_setting_extension->install('report', $this->request->get['extension']);
+			if (is_callable([$this->{'model_setting_extension_report'}, 'install'])) {
+				$this->model_setting_extension->install('report', $this->request->get['extension']);
+			}
 
 			// User Groups
 			$this->load->model('user/user_group');
@@ -64,7 +66,9 @@ class ControllerExtensionExtensionReport extends Controller {
 		$this->load->model('setting/extension');
 
 		if ($this->validate()) {
-			$this->model_setting_extension->uninstall('report', $this->request->get['extension']);
+			if (is_callable([$this->{'model_setting_extension_report'}, 'uninstall'])) {
+				$this->model_setting_extension->uninstall('report', $this->request->get['extension']);
+			}
 
 			$this->load->controller('extension/report/' . $this->request->get['extension'] . '/uninstall');
 
@@ -101,7 +105,9 @@ class ControllerExtensionExtensionReport extends Controller {
 
 		foreach ($extensions as $key => $value) {
 			if (!is_file(DIR_APPLICATION . 'controller/extension/report/' . $value . '.php') && !is_file(DIR_APPLICATION . 'controller/report/' . $value . '.php')) {
-				$this->model_setting_extension->uninstall('report', $value);
+				if (is_callable([$this->{'model_setting_extension_report'}, 'uninstall'])) {
+					$this->model_setting_extension->uninstall('report', $value);
+				}
 
 				unset($extensions[$key]);
 			}
