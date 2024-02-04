@@ -133,7 +133,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	 * @return int
 	 */
 	public function addOrder(int $order_id, array $response_data, array $payment_data, int $card_id): int {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "sagepay_direct_order` SET `order_id` = '" . (int)$order_id . "', `vps_tx_id` = '" . $this->db->escape($response_data['VPSTxId']) . "', `vendor_tx_code` = '" . $this->db->escape($payment_data['VendorTxCode']) . "', `security_key` = '" . $this->db->escape($response_data['SecurityKey']) . "', `tx_auth_no` = '" . $this->db->escape($response_data['TxAuthNo']) . "', `date_added` = NOW(), `date_modified` = NOW(), `currency_code` = '" . $this->db->escape($payment_data['Currency']) . "', `total` = '" . $this->currency->format($payment_data['Amount'], $payment_data['Currency'], false, false) . "', `card_id` = '" . $this->db->escape($card_id) . "'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "sagepay_direct_order` SET `order_id` = '" . (int)$order_id . "', `vps_tx_id` = '" . $this->db->escape($response_data['VPSTxId']) . "', `vendor_tx_code` = '" . $this->db->escape($payment_data['VendorTxCode']) . "', `security_key` = '" . $this->db->escape($response_data['SecurityKey']) . "', `tx_auth_no` = '" . $this->db->escape($response_data['TxAuthNo']) . "', `currency_code` = '" . $this->db->escape($payment_data['Currency']) . "', `total` = '" . $this->currency->format($payment_data['Amount'], $payment_data['Currency'], false, false) . "', `card_id` = '" . $this->db->escape($card_id) . "', `date_added` = NOW(), `date_modified` = NOW()");
 
 		return $this->db->getLastId();
 	}
@@ -245,7 +245,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 
 		$item['subscription']['description'] = $subscription_description;
 
-		//$this->model_checkout_subscription->editReference($subscription_id, $vendor_tx_code);
+		$this->editReference($subscription_id, $vendor_tx_code);
 
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
@@ -521,12 +521,41 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 			// Subscriptions
 			$this->load->model('checkout/subscription');
 
-			//$this->model_checkout_subscription->editReference($subscription_id, $response_data['VendorTxCode']);
+			$this->editReference($subscription_id, $response_data['VendorTxCode']);
 
-			//$this->model_account_subscription->editStatus($subscription_id, $type);
+			$this->editStatus($subscription_id, $type);
 		}
 	}
 
+	/**
+	 * Edit Status
+	 * 
+	 * @param int $subscription_id
+	 * @param int $status
+	 * 
+	 * @return void
+	 */
+	protected function editStatus(int $subscription_id, int $status): void {
+		$this->db->query("UPDATE `" . DB_PREFIX . "sagepay_direct_order_subscription` SET `settle_type` = '" . (int)$status . "' WHERE `subscription_id` = '" . (int)$subscription_id . "'");
+	}
+
+	/**
+	 * Edit Reference
+	 * 
+	 * @param int    $subscription_id
+	 * @param string $reference
+	 * 
+	 * @return void
+	 */
+	protected function editReference(int $subscription_id, string $reference): void {
+		$this->db->query("UPDATE `" . DB_PREFIX . "sagepay_direct_order_subscription` SET `vendor_tx_code` = '" . $this->db->escape($reference) . "' WHERE `subscription_id` = '" . (int)$subscription_id . "'");
+	}
+
+	/**
+	 * Get Profiles
+	 * 
+	 * @return array<int, mixed>
+	 */
 	private function getProfiles(): array {
 		$subscriptions = [];
 

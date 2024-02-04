@@ -48,6 +48,7 @@ class ModelExtensionPaymentSagepayDirect extends Model {
 			  `order_id` int(11) NOT NULL,
 			  `vps_tx_id` varchar(50),
 			  `vendor_tx_code` varchar(50) NOT NULL,
+			  `settle_type` int(1) NOT NULL DEFAULT '0',
 			  `security_key` char(50) NOT NULL,
 			  `tx_auth_no` int(50),
 			  `date_added` datetime NOT NULL,
