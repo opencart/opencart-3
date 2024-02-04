@@ -535,7 +535,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	 * Update Subscription Order
 	 * 
 	 * @param int      $subscription_id
-	 * @param Datetime $next_payment
+	 * @param string   $next_payment
 	 * 
 	 * @return void
 	 */
@@ -550,7 +550,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	 * 
 	 * @return array<string, mixed>
 	 */
-	private function getSubscriptionOrder(int $subscription_id) {
+	private function getSubscriptionOrder(int $subscription_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "sagepay_direct_order_subscription` WHERE `subscription_id` = '" . (int)$subscription_id . "'");
 
 		return $query->row;

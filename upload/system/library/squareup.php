@@ -170,7 +170,7 @@ class Squareup {
 	 *
 	 * @throws \Squareup\Exception
 	 *
-	 * @return object|\Squareup\Exception|null
+	 * @return object
 	 */
 	public function verifyToken($access_token): ?object {
 		try {

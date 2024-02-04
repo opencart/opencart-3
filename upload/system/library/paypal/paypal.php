@@ -379,10 +379,8 @@ class PayPal {
 	 * @param string               $command
 	 * @param array<string, mixed> $params
 	 * @param bool                 $json
-	 * 
-	 * @return array<int, array<string, mixed>>
 	 */
-	private function execute($method, $command, $params = [], $json = false): array {
+	private function execute(string $method, string $command, array $params = [], bool $json = false) {
 		$this->errors = [];
 
 		if ($method && $command) {
@@ -417,24 +415,20 @@ class PayPal {
 				case 'get':
 					$curl_options[CURLOPT_HTTPGET] = true;
 					$curl_options[CURLOPT_URL] .= '?' . $this->buildQuery($params, $json);
-
 					break;
 				case 'post':
 					$curl_options[CURLOPT_POST] = true;
 					$curl_options[CURLOPT_POSTFIELDS] = $this->buildQuery($params, $json);
-
 					break;
 				case 'patch':
 					$curl_options[CURLOPT_POST] = true;
 					$curl_options[CURLOPT_POSTFIELDS] = $this->buildQuery($params, $json);
 					$curl_options[CURLOPT_CUSTOMREQUEST] = strtoupper($method);
-
 					break;
 				case 'delete':
 					$curl_options[CURLOPT_POST] = true;
 					$curl_options[CURLOPT_POSTFIELDS] = $this->buildQuery($params, $json);
 					$curl_options[CURLOPT_CUSTOMREQUEST] = strtoupper($method);
-
 					break;
 				case 'put':
 					$curl_options[CURLOPT_PUT] = true;
@@ -442,8 +436,10 @@ class PayPal {
 					if ($params) {
 						if ($buffer = fopen('php://memory', 'w+')) {
 							$params_string = $this->buildQuery($params, $json);
+
 							fwrite($buffer, $params_string);
 							fseek($buffer, 0);
+
 							$curl_options[CURLOPT_INFILE] = $buffer;
 							$curl_options[CURLOPT_INFILESIZE] = strlen($params_string);
 						} else {
@@ -453,11 +449,9 @@ class PayPal {
 							];
 						}
 					}
-
 					break;
 				case 'head':
 					$curl_options[CURLOPT_NOBODY] = true;
-
 					break;
 				default:
 					$curl_options[CURLOPT_CUSTOMREQUEST] = strtoupper($method);
@@ -493,6 +487,7 @@ class PayPal {
 			}
 
 			$response_headers = [];
+
 			$header_lines = explode("\r\n", $head);
 			array_shift($header_lines);
 

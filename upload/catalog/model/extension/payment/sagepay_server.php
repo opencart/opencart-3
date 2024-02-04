@@ -6,7 +6,7 @@
  */
 class ModelExtensionPaymentSagePayServer extends Model {
 	/**
-	 * getMethod
+	 * Get Method
 	 *
 	 * @param array $address
 	 *
@@ -40,7 +40,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
 	}
 
 	/**
-	 * getCards
+	 * Get Cards
 	 *
 	 * @param int $customer_id
 	 *
@@ -69,7 +69,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
 	}
 
 	/**
-	 * getCard
+	 * Get Card
 	 *
 	 * @param string $card_id
 	 * @param string $token
@@ -87,7 +87,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
 	}
 
 	/**
-	 * addCard
+	 * Add Card
 	 *
 	 * @param array<string, mixed> $data
 	 *
@@ -98,7 +98,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
 	}
 
 	/**
-	 * deleteCard
+	 * Delete Card
 	 *
 	 * @param int $card_id
 	 *
@@ -109,7 +109,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
 	}
 
 	/**
-	 * addOrder
+	 * Add Order
 	 *
 	 * @param array $order_info
 	 *
@@ -122,7 +122,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
 	}
 
 	/**
-	 * getOrder
+	 * Get Order
 	 *
 	 * @param int    $order_id
 	 * @param string $vpstx_id
@@ -143,7 +143,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
 	}
 
 	/**
-	 * updateOrder
+	 * Update Order
 	 *
 	 * @param array  $order_info
 	 * @param string $vps_txn_id
@@ -156,7 +156,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
 	}
 
 	/**
-	 * deleteOrder
+	 * Delete Order
 	 *
 	 * @param int $order_id
 	 *
@@ -168,7 +168,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
 	}
 
 	/**
-	 * addTransaction
+	 * Add Transaction
 	 *
 	 * @param int    $sagepay_server_order_id
 	 * @param string $type
@@ -546,9 +546,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
 
 		if ($frequency == 'semi_month') {
 			// https://stackoverflow.com/a/35473574
-			$day = date_create_from_format('j M, Y', $next_payment->date);
-			$day = date_create($day);
-			$day = date_format($day, 'd');
+			$day = $next_payment->format('d');
 			$value = 15 - $day;
 			$is_even = false;
 
