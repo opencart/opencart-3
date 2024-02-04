@@ -235,10 +235,10 @@
                           {% if quote.code == code or not code %}
                             {% set code = quote.code %}
                               <input type="radio" name="shipping_method" value="{{ quote.code }}" checked="checked" id="{{ quote.code }}"/>
-                            {% else %}
+                          {% else %}
                               <input type="radio" name="shipping_method" value="{{ quote.code }}" id="{{ quote.code }}"/>
-                            {% endif %}
-                            {{ quote.title }} - {{ quote.text }}
+                          {% endif %}
+                          {{ quote.title }} - {{ quote.text }}
                         </label>
                       </div>
                     {% endfor %}
