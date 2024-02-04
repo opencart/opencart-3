@@ -983,12 +983,12 @@ class ControllerSaleOrder extends Controller {
 
 		$data['products'] = [];
 
-		$products = $this->model_sale_order->getOrderProducts($this->request->get['order_id']);
+		$products = $this->model_sale_order->getProducts($this->request->get['order_id']);
 
 		foreach ($products as $product) {
 			$option_data = [];
 
-			$options = $this->model_sale_order->getOrderOptions($this->request->get['order_id'], $product['order_product_id']);
+			$options = $this->model_sale_order->getOptions($this->request->get['order_id'], $product['order_product_id']);
 
 			foreach ($options as $option) {
 				if ($option['type'] != 'file') {
@@ -1735,12 +1735,12 @@ class ControllerSaleOrder extends Controller {
 
 				$product_data = [];
 
-				$products = $this->model_sale_order->getOrderProducts($order_id);
+				$products = $this->model_sale_order->getProducts($order_id);
 
 				foreach ($products as $product) {
 					$option_data = [];
 
-					$options = $this->model_sale_order->getOrderOptions($order_id, $product['order_product_id']);
+					$options = $this->model_sale_order->getOptions($order_id, $product['order_product_id']);
 
 					foreach ($options as $option) {
 						if ($option['type'] != 'file') {
@@ -1943,7 +1943,7 @@ class ControllerSaleOrder extends Controller {
 
 				$product_data = [];
 
-				$products = $this->model_sale_order->getOrderProducts($order_id);
+				$products = $this->model_sale_order->getProducts($order_id);
 
 				foreach ($products as $product) {
 					$option_weight = 0;
@@ -1953,7 +1953,7 @@ class ControllerSaleOrder extends Controller {
 					if ($product_info) {
 						$option_data = [];
 
-						$options = $this->model_sale_order->getOrderOptions($order_id, $product['order_product_id']);
+						$options = $this->model_sale_order->getOptions($order_id, $product['order_product_id']);
 
 						foreach ($options as $option) {
 							if ($option['type'] != 'file') {

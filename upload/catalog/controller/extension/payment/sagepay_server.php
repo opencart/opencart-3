@@ -127,7 +127,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 		$cart_rows = 0;
 		$str_basket = '';
 
-		$order_products = $this->model_checkout_order->getOrderProducts($this->session->data['order_id']);
+		$order_products = $this->model_checkout_order->getProducts($this->session->data['order_id']);
 
 		foreach ($order_products as $product) {
 			$str_basket .= ':' . str_replace(':', ' ', $product['name'] . ' ' . $product['model']) . ':' . $product['quantity'] . ':' . $this->currency->format($product['price'], $order_info['currency_code'], false, false) . ':' . $this->currency->format($product['tax'], $order_info['currency_code'], false, false) . ':' . $this->currency->format(($product['price'] + $product['tax']), $order_info['currency_code'], false, false) . ':' . $this->currency->format(($product['price'] + $product['tax']) * $product['quantity'], $order_info['currency_code'], false, false);
