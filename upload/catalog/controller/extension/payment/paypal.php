@@ -1767,7 +1767,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 				// Shipping Methods
 				$quote_data = [];
 
-				$results = $this->model_setting_extension->getExtensions('shipping');
+				$results = $this->model_setting_extension->getExtensionsByType('shipping');
 
 				if (!empty($results)) {
 					foreach ($results as $result) {
@@ -1850,7 +1850,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
 			$sort_order = [];
 
-			$results = $this->model_setting_extension->getExtensions('total');
+			$results = $this->model_setting_extension->getExtensionsByType('total');
 
 			foreach ($results as $key => $value) {
 				$sort_order[$key] = $this->config->get('total_' . $value['code'] . '_sort_order');
@@ -1883,7 +1883,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		 */
 		$method_data = [];
 
-		$results = $this->model_setting_extension->getExtensions('payment');
+		$results = $this->model_setting_extension->getExtensionsByType('payment');
 
 		foreach ($results as $result) {
 			if ($this->config->get('payment_' . $result['code'] . '_status')) {
@@ -1939,7 +1939,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
 			$sort_order = [];
 
-			$results = $this->model_setting_extension->getExtensions('total');
+			$results = $this->model_setting_extension->getExtensionsByType('total');
 
 			foreach ($results as $key => $value) {
 				$sort_order[$key] = $this->config->get('total_' . $value['code'] . '_sort_order');
@@ -2070,7 +2070,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 			$sort_order = [];
 
-			$results = $this->model_setting_extension->getExtensions('total');
+			$results = $this->model_setting_extension->getExtensionsByType('total');
 
 			foreach ($results as $key => $value) {
 				$sort_order[$key] = $this->config->get('total_' . $value['code'] . '_sort_order');
