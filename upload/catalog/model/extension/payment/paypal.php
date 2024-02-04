@@ -184,7 +184,7 @@ class ModelExtensionPaymentPayPal extends Model {
 	 * 
 	 * @param int $order_id
 	 * 
-	 * @param array<string, mixed> $data
+	 * @return array<string, mixed>
 	 */
 	public function getPayPalOrder(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "paypal_checkout_integration_order` WHERE `order_id` = '" . (int)$order_id . "'");
@@ -289,7 +289,7 @@ class ModelExtensionPaymentPayPal extends Model {
 	/**
 	 * Get Order Subscriptions
 	 * 
-	 * @param array<string, mixed> $data
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getOrderSubscriptions(): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "paypal_checkout_integration_subscription` `os` INNER JOIN `" . DB_PREFIX . "order` `o` ON (`o`.`order_id` = `os`.`order_id`) WHERE `o`.`payment_code` = 'paypal' AND `o`.`customer_id` = '" . (int)$this->customer->getId() . "'");
