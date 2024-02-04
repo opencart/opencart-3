@@ -10,11 +10,22 @@
  */
 
 /**
- * Action class
+ * Class Action
+ *
+ * @package System\Engine
  */
 class Action {
+	/**
+	 * @var string $id
+	 */
 	private string $id;
+	/**
+	 * @var string $route
+	 */
 	private string $route;
+	 /**
+	  * @var string $method
+	  */	
 	private string $method = 'index';
 
 	/**
@@ -41,6 +52,8 @@ class Action {
 	}
 
 	/**
+	 * Get Id
+	 * 
 	 * @return string
 	 */
 	public function getId(): string {
@@ -48,8 +61,12 @@ class Action {
 	}
 
 	/**
+	 * Execute
+	 * 
 	 * @param object $registry
 	 * @param array  $args
+	 * 
+	 * @return mixed
 	 */
 	public function execute(object $registry, array $args = []): mixed {
 		// Stop any magical methods being called

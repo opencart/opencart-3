@@ -10,7 +10,9 @@
  */
 
 /**
- * Loader class
+ * Class Loader
+ *
+ * @mixin System\Engine\Registry
  */
 class Loader {
 	protected object $registry;
@@ -18,9 +20,9 @@ class Loader {
 	/**
 	 * Constructor
 	 *
-	 * @param object $registry
+	 * @property Registry $registry
 	 */
-	public function __construct(object $registry) {
+	public function __construct($registry) {
 		$this->registry = $registry;
 	}
 
@@ -28,14 +30,14 @@ class Loader {
 	 * Controller
 	 *
 	 * @param string $route
-	 * @param array  $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return mixed
 	 *
 	 * Removing the mixed output as a temporary workaround since admin extension
 	 * installers don't seem to like that really much
 	 */
-	public function controller(string $route, array $data = []) {
+	public function controller(string $route, array $data = []): mixed {
 		// Sanitize the call
 		$route = preg_replace('/[^a-zA-Z0-9_\/]/', '', $route);
 
@@ -108,7 +110,7 @@ class Loader {
 	 * View
 	 *
 	 * @param string $route
-	 * @param array  $data
+	 * @param array<string, mixed> $data
 	 * @param string $code
 	 *
 	 * @return string
