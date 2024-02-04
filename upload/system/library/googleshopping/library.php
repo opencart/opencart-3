@@ -2,8 +2,13 @@
 namespace googleshopping;
 
 abstract class Library {
-	protected $registry;
+	protected object $registry;
 
+	/**
+	 * Constructor
+	 * 
+	 * @property Registry $registry
+	 */
 	public function __construct($registry) {
 		$this->registry = $registry;
 	}
@@ -11,7 +16,7 @@ abstract class Library {
 	/**
 	 * Get
 	 *
-	 * @param $key
+	 * @param mixed $key
 	 *
 	 * @return mixed
 	 */
@@ -22,8 +27,8 @@ abstract class Library {
 	/**
 	 * Set
 	 *
-	 * @param $key
-	 * @param $value
+	 * @param mixed $key
+	 * @param mixed $value
 	 *
 	 * @return void
 	 */

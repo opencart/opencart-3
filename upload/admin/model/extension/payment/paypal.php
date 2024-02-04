@@ -1,5 +1,15 @@
 <?php
+/**
+ * Class PayPal
+ *
+ * @package Admin\Model\Extension\Payment
+ */
 class ModelExtensionPaymentPayPal extends Model {
+	/**
+	 * Get Total Sales
+	 * 
+	 * @return int
+	 */
 	public function getTotalSales(): int {
 		$implode = [];
 
@@ -16,6 +26,11 @@ class ModelExtensionPaymentPayPal extends Model {
 		}
 	}
 
+	/**
+	 * Get Total Sales By Day
+	 * 
+	 * @return array<int, array<string, int>>
+	 */
 	public function getTotalSalesByDay(): array {
 		$implode = [];
 
@@ -46,6 +61,11 @@ class ModelExtensionPaymentPayPal extends Model {
 		return $sale_data;
 	}
 
+	/**
+	 * Get Total Sales By Week
+	 * 
+	 * @return array<int, array<string, int>>
+	 */
 	public function getTotalSalesByWeek(): array {
 		$implode = [];
 
@@ -80,6 +100,11 @@ class ModelExtensionPaymentPayPal extends Model {
 		return $sale_data;
 	}
 
+	/**
+	 * Get Total Sales By Month
+	 * 
+	 * @return array<int, array<string, int>>
+	 */
 	public function getTotalSalesByMonth(): array {
 		$implode = [];
 
@@ -112,6 +137,11 @@ class ModelExtensionPaymentPayPal extends Model {
 		return $sale_data;
 	}
 
+	/**
+	 * Get Total Sales By Year
+	 * 
+	 * @return array<int, array<string, int>>
+	 */
 	public function getTotalSalesByYear(): array {
 		$implode = [];
 
@@ -142,12 +172,26 @@ class ModelExtensionPaymentPayPal extends Model {
 		return $sale_data;
 	}
 
+	/**
+	 * Get Country By Code
+	 * 
+	 * @param string $code
+	 * 
+	 * @return array<string, mixed>
+	 */
 	public function getCountryByCode(string $code): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "country` WHERE `iso_code_2` = '" . $this->db->escape($code) . "'");
 
 		return $query->row;
 	}
 
+	/**
+	 * Edit Paypal Order
+	 * 
+	 * @param array<string, mixed> $data
+	 * 
+	 * @return void
+	 */
 	public function editPayPalOrder(array $data): void {
 		$sql = "UPDATE `" . DB_PREFIX . "paypal_checkout_integration_order` SET";
 
@@ -186,10 +230,24 @@ class ModelExtensionPaymentPayPal extends Model {
 		$this->db->query($sql);
 	}
 
+	/**
+	 * Delete PayPal Order
+	 * 
+	 * @param int $order_id
+	 * 
+	 * @return void
+	 */
 	public function deletePayPalOrder(int $order_id): void {
 		$query = $this->db->query("DELETE FROM `" . DB_PREFIX . "paypal_checkout_integration_order` WHERE `order_id` = '" . (int)$order_id . "'");
 	}
 
+	/**
+	 * Get PayPal Order
+	 * 
+	 * @param int $order_id
+	 * 
+	 * @return array<string, mixed>
+	 */
 	public function getPayPalOrder(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "paypal_checkout_integration_order` WHERE `order_id` = '" . (int)$order_id . "'");
 
@@ -200,21 +258,46 @@ class ModelExtensionPaymentPayPal extends Model {
 		}
 	}
 
+	/**
+	 * Get PayPal Order Subscription
+	 * 
+	 * @param int $order_id
+	 * 
+	 * @return array<string, mixed>
+	 */
 	public function getPayPalOrderSubscription(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "paypal_checkout_integration_subscription` WHERE `order_id` = '" . (int)$order_id . "'");
 
 		return $query->row;
 	}
 
+	/**
+	 * Edit Order Subscription Status
+	 * 
+	 * @param int $order_id
+	 * @param int $status
+	 * 
+	 * @return void
+	 */
 	public function editOrderSubscriptionStatus(int $order_id, int $status): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "paypal_checkout_integration_order` SET `status` = '" . (int)$status . "' WHERE `order_id` = '" . (int)$order_id . "'");
 	}
 
+	/**
+	 * Set Agree Status
+	 * 
+	 * @return void
+	 */
 	public function setAgreeStatus(): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "country` SET `status` = '0' WHERE (`iso_code_2` = 'CU' OR `iso_code_2` = 'IR' OR `iso_code_2` = 'SY' OR `iso_code_2` = 'KP')");
 		$this->db->query("UPDATE `" . DB_PREFIX . "zone` SET `status` = '0' WHERE `country_id` = '220' AND (`code` = '43' OR `code` = '14' OR `code` = '09')");
 	}
 
+	/**
+	 * Get Agree Status
+	 * 
+	 * @return bool
+	 */
 	public function getAgreeStatus(): bool {
 		$agree_status = true;
 
@@ -233,6 +316,14 @@ class ModelExtensionPaymentPayPal extends Model {
 		return $agree_status;
 	}
 
+	/**
+	 * Check Version
+	 * 
+	 * @param string $opencart_version
+	 * @param string $paypal_version
+	 * 
+	 * @return array
+	 */
 	public function checkVersion(string $opencart_version, string $paypal_version): array {
 		$curl = curl_init();
 
@@ -258,6 +349,13 @@ class ModelExtensionPaymentPayPal extends Model {
 		}
 	}
 
+	/**
+	 * Send Contact
+	 * 
+	 * @param array<string, mixed> $data
+	 * 
+	 * @return void
+	 */
 	public function sendContact(array $data): void {
 		$curl = curl_init();
 
@@ -276,6 +374,14 @@ class ModelExtensionPaymentPayPal extends Model {
 		curl_close($curl);
 	}
 
+	/**
+	 * Log
+	 * 
+	 * @param array<string, mixed> $data
+	 * @param string 			   $title
+	 * 
+	 * @return void
+	 */
 	public function log(array $data, ?string $title = null): void {
 		$_config = new \Config();
 		$_config->load('paypal');
@@ -290,6 +396,11 @@ class ModelExtensionPaymentPayPal extends Model {
 		}
 	}
 
+	/**
+	 * Install
+	 * 
+	 * @return void
+	 */
 	public function install(): void {
 		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "paypal_checkout_integration_order` (
 			`order_id` int(11) NOT NULL,
@@ -319,8 +430,7 @@ class ModelExtensionPaymentPayPal extends Model {
 			KEY (`subscription_id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci");
 
-		$this->db->query("
-			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "paypal_checkout_integration_transaction` (
+		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "paypal_checkout_integration_transaction` (
 			  `paypal_checkout_integration_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
 			  `order_id` int(11) NOT NULL,
 			  `reference` varchar(255) NOT NULL,
@@ -352,6 +462,11 @@ class ModelExtensionPaymentPayPal extends Model {
 		$this->model_setting_event->addEvent('paypal_order_delete_order', 'catalog/model/checkout/order/deleteOrder/before', 'extension/payment/paypal/order_delete_order_before', 1, 0);
 	}
 
+	/**
+	 * Uninstall
+	 * 
+	 * @return void
+	 */
 	public function uninstall(): void {
 		// Events
 		$this->load->model('setting/event');

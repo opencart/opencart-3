@@ -26,6 +26,11 @@ class Squareup {
 	public const VIEW_TRANSACTION_URL = 'https://squareup.com/dashboard/sales/transactions/%s/by-unit/%s';
 	public const SQUARE_INTEGRATION_ID = 'sqi_65a5ac54459940e3600a8561829fd970';
 
+	/**
+	 * Constructor
+	 * 
+	 * @property Registry $registry
+	 */
 	public function __construct($registry) {
 		$this->session = $registry->get('session');
 		$this->url = $registry->get('url');

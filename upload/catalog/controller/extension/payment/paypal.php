@@ -2012,6 +2012,11 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/paypal/confirm', $data));
 	}
 
+	/**
+	 * Complete Order
+	 * 
+	 * @return void
+	 */
 	public function completeOrder(): void {
 		$this->load->language('extension/payment/paypal');
 

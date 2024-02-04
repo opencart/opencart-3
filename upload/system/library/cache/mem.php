@@ -1,11 +1,23 @@
 <?php
 namespace Cache;
 class Mem {
+	/**
+	 * @var int $expire
+	 */
 	private int $expire;
+
+	/**
+	 * @var object $memcache
+	 */
 	private object $memcache;
 
 	public const CACHEDUMP_LIMIT = 9999;
 
+	/**
+	 * Constructor
+	 * 
+	 * @param int $expire
+	 */
 	public function __construct(int $expire = 3600) {
 		$this->expire = $expire;
 
