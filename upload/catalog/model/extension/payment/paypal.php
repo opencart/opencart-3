@@ -176,7 +176,7 @@ class ModelExtensionPaymentPayPal extends Model {
 		$query = $this->db->query("SELECT `order_id` FROM `" . DB_PREFIX . "paypal_checkout_integration_subscription` WHERE `order_id` = '" . (int)$order_id . "'");
 
 		foreach ($query->rows as $order_subscription) {
-			$this->deleteOrderSubscriptionTransaction($order_subscription['order_id']);
+			$this->deleteSubscriptionTransaction($order_subscription['order_id']);
 		}
 
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "paypal_checkout_integration_subscription` WHERE `order_id` = '" . (int)$order_id . "'");
