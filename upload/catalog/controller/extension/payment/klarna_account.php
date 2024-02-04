@@ -579,7 +579,14 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	private function constructXmlrpc($data) {
+	/**
+	 * Construct Xmlrpc
+	 * 
+	 * @param mixed $data
+	 * 
+	 * @return string
+	 */
+	private function constructXmlrpc(mixed $data): string {
 		$type = gettype($data);
 
 		switch ($type) {
@@ -631,7 +638,14 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 		return $xml;
 	}
 
-	private function getLowestPaymentAccount($country) {
+	/**
+	 * Get Lowest Payment Account
+	 * 
+	 * @param string $country
+	 * 
+	 * @return float
+	 */
+	private function getLowestPaymentAccount(string $country): float {
 		switch ($country) {
 			case 'SWE':
 				$amount = 50.0;
@@ -662,7 +676,14 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 		return $amount;
 	}
 
-	private function splitAddress($address) {
+	/**
+	 * Split Address
+	 * 
+	 * @param string $address
+	 * 
+	 * @param array<string, mixed>
+	 */
+	private function splitAddress(string $address) {
 		$numbers = [
 			'0',
 			'1',
@@ -767,7 +788,16 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 		];
 	}
 
-	private function strposArr($haystack, $needle, $where) {
+	/**
+	 * Strpos Arr
+	 * 
+	 * @param string $haystack
+	 * @param string $needle
+	 * @param string $where
+	 * 
+	 * @return int
+	 */
+	private function strposArr(string $haystack, string $needle, string $where): int {
 		$defpos = 10000;
 
 		if (!is_array($needle)) {
