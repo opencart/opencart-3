@@ -580,10 +580,34 @@ class ModelExtensionPaymentSagePayServer extends Model {
 			// Subscriptions
 			$this->load->model('checkout/subscription');
 
-			//$this->model_checkout_subscription->editReference($subscription_id, $response_data['VendorTxCode']);
+			$this->editReference($subscription_id, $response_data['VendorTxCode']);
 
-			//$this->model_account_subscription->editStatus($subscription_id, $type);
+			$this->editStatus($subscription_id, $type);
 		}
+	}
+
+	/**
+	 * Edit Status
+	 * 
+	 * @param int $subscription_id
+	 * @param int $status
+	 * 
+	 * @return void
+	 */
+	protected function editStatus(int $subscription_id, int $status): void {
+		$this->db->query("UPDATE `" . DB_PREFIX . "sagepay_server_order_subscription` SET `settle_type` = '" . (int)$status . "' WHERE `subscription_id` = '" . (int)$subscription_id . "'");
+	}
+
+	/**
+	 * Edit Reference
+	 * 
+	 * @param int    $subscription_id
+	 * @param string $reference
+	 * 
+	 * @return void
+	 */
+	protected function editReference(int $subscription_id, string $reference): void {
+		$this->db->query("UPDATE `" . DB_PREFIX . "sagepay_server_order_subscription` SET `vendor_tx_code` = '" . $this->db->escape($reference) . "' WHERE `subscription_id` = '" . (int)$subscription_id . "'");
 	}
 
 	private function getProfiles() {

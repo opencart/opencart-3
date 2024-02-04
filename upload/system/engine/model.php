@@ -17,7 +17,12 @@
 abstract class Model {
 	protected object $registry;
 
-	public function __construct(object $registry) {
+	/**
+	 * Constructor
+	 * 
+	 * @property Registry $registry
+	 */
+	public function __construct($registry) {
 		$this->registry = $registry;
 	}
 

@@ -36,7 +36,9 @@ class ControllerExtensionExtensionAdvertise extends Controller {
 		$this->load->model('setting/extension');
 
 		if ($this->validate()) {
-			$this->model_setting_extension->install('advertise', $this->request->get['extension']);
+			if (is_callable([$this->{'model_setting_extension_advertise'}, 'install'])) {
+				$this->model_setting_extension->install('advertise', $this->request->get['extension']);
+			}
 
 			// User Groups
 			$this->load->model('user/user_group');
@@ -69,7 +71,9 @@ class ControllerExtensionExtensionAdvertise extends Controller {
 		$this->load->model('setting/extension');
 
 		if ($this->validate()) {
-			$this->model_setting_extension->uninstall('advertise', $this->request->get['extension']);
+			if (is_callable([$this->{'model_setting_extension_advertise'}, 'uninstall'])) {
+				$this->model_setting_extension->uninstall('advertise', $this->request->get['extension']);
+			}
 
 			// Call uninstall method if it exists
 			$this->load->controller('extension/advertise/' . $this->request->get['extension'] . '/uninstall');
@@ -104,7 +108,9 @@ class ControllerExtensionExtensionAdvertise extends Controller {
 
 		foreach ($extensions as $key => $value) {
 			if (!is_file(DIR_APPLICATION . 'controller/extension/advertise/' . $value . '.php') && !is_file(DIR_APPLICATION . 'controller/advertise/' . $value . '.php')) {
-				$this->model_setting_extension->uninstall('advertise', $value);
+				if (is_callable([$this->{'model_setting_extension_advertise'}, 'uninstall'])) {
+					$this->model_setting_extension->uninstall('advertise', $value);
+				}
 
 				unset($extensions[$key]);
 			}

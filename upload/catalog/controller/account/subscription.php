@@ -50,20 +50,17 @@ class ControllerAccountSubscription extends Controller {
 			$page = 1;
 		}
 
+		$limit = 10;
+
 		$data['subscriptions'] = [];
 
 		// Subscriptions
 		$this->load->model('account/subscription');
 		$this->load->model('localisation/subscription_status');
 
-		$filter_data = [
-			'start' => ($page - 1) * 10,
-			'limit' => 10
-		];
-
 		$subscription_total = $this->model_account_subscription->getTotalSubscriptions();
 
-		$results = $this->model_account_subscription->getSubscriptions($filter_data);
+		$results = $this->model_account_subscription->getSubscriptions(($page - 1) * $limit, $limit);
 
 		foreach ($results as $result) {
 			$subscription_status_info = $this->model_localisation_subscription_status->getSubscriptionStatus($result['subscription_status_id']);
@@ -88,7 +85,7 @@ class ControllerAccountSubscription extends Controller {
 		$pagination = new \Pagination();
 		$pagination->total = $subscription_total;
 		$pagination->page = $page;
-		$pagination->limit = 10;
+		$pagination->limit = $limit;
 		$pagination->url = $this->url->link('account/subscription', 'customer_token=' . $this->session->data['customer_token'] . '&page={page}', true);
 
 		$data['pagination'] = $pagination->render();

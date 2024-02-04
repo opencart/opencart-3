@@ -15,6 +15,14 @@ class Exception extends \Exception {
 		'phone_number'
 	];
 
+	/**
+	 * Constructor
+	 * 
+	 * @property Registry $registry
+	 * 
+	 * @param array<string, mixed> $errors
+	 * @param bool                 $is_curl_error
+	 */
 	public function __construct($registry, $errors, $is_curl_error = false) {
 		$this->errors = $errors;
 		$this->isCurlError = $is_curl_error;
@@ -32,7 +40,7 @@ class Exception extends \Exception {
 	}
 
 	/**
-	 * isCurlError
+	 * Is Curl Error
 	 *
 	 * @return bool
 	 */
@@ -41,7 +49,7 @@ class Exception extends \Exception {
 	}
 
 	/**
-	 * isAccessTokenRevoked
+	 * Is Access Token Revoked
 	 *
 	 * @return bool
 	 */
@@ -50,7 +58,7 @@ class Exception extends \Exception {
 	}
 
 	/**
-	 * isAccessTokenExpired
+	 * Is Access Token Expired
 	 *
 	 * @return bool
 	 */
@@ -58,6 +66,13 @@ class Exception extends \Exception {
 		return $this->errorCodeExists(self::ERR_CODE_ACCESS_TOKEN_EXPIRED);
 	}
 
+	/**
+	 * Error Code Exists
+	 * 
+	 * @param string $code
+	 * 
+	 * @return bool
+	 */
 	protected function errorCodeExists(string $code): bool {
 		if (!empty($this->errors) && is_array($this->errors)) {
 			foreach ($this->errors as $error) {
@@ -70,10 +85,24 @@ class Exception extends \Exception {
 		return false;
 	}
 
+	/**
+	 * Override Error
+	 * 
+	 * @param string $field
+	 * 
+	 * @return string
+	 */
 	protected function overrideError(string $field): string {
 		return $this->language->get('squareup_override_error_' . $field);
 	}
 
+	/**
+	 * Parse Error
+	 * 
+	 * @param array<string, mixed> $error
+	 * 
+	 * @return string
+	 */
 	protected function parseError(array $error): string {
 		if (!empty($error['field']) && in_array($error['field'], $this->overrideFields)) {
 			return $this->overrideError($error['field']);
@@ -88,6 +117,11 @@ class Exception extends \Exception {
 		return $message;
 	}
 
+	/**
+	 * Concat Errors
+	 * 
+	 * @return string
+	 */
 	protected function concatErrors(): string {
 		$messages = [];
 

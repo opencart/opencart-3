@@ -36,7 +36,9 @@ class ControllerExtensionExtensionPayment extends Controller {
 		$this->load->model('setting/extension');
 
 		if ($this->validate()) {
-			$this->model_setting_extension->install('payment', $this->request->get['extension']);
+			if (is_callable([$this->{'model_setting_extension_payment'}, 'install'])) {
+				$this->model_setting_extension->install('payment', $this->request->get['extension']);
+			}
 
 			// User Groups
 			$this->load->model('user/user_group');
@@ -65,7 +67,9 @@ class ControllerExtensionExtensionPayment extends Controller {
 		$this->load->model('setting/extension');
 
 		if ($this->validate()) {
-			$this->model_setting_extension->uninstall('payment', $this->request->get['extension']);
+			if (is_callable([$this->{'model_setting_extension_payment'}, 'uninstall'])) {
+				$this->model_setting_extension->uninstall('payment', $this->request->get['extension']);
+			}
 
 			// Call uninstall method if it exists
 			$this->load->controller('extension/payment/' . $this->request->get['extension'] . '/uninstall');
@@ -103,7 +107,9 @@ class ControllerExtensionExtensionPayment extends Controller {
 
 		foreach ($extensions as $key => $value) {
 			if (!is_file(DIR_APPLICATION . 'controller/extension/payment/' . $value . '.php') && !is_file(DIR_APPLICATION . 'controller/payment/' . $value . '.php')) {
-				$this->model_setting_extension->uninstall('payment', $value);
+				if (is_callable([$this->{'model_setting_extension_payment'}, 'uninstall'])) {
+					$this->model_setting_extension->uninstall('payment', $value);
+				}
 
 				unset($extensions[$key]);
 			}

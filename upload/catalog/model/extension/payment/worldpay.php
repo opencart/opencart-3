@@ -261,7 +261,7 @@ class ModelExtensionPaymentWorldpay extends Model {
 	 */
 	public function cronPayment(): array {
 		// Account Order
-		$this->load->model('account/order');
+		$this->load->model('account/subscription');
 
 		// Checkout Order
 		$this->load->model('checkout/order');
@@ -269,7 +269,7 @@ class ModelExtensionPaymentWorldpay extends Model {
 		$i = 1;
 		$cron_data = [];
 
-		$subscriptions = $this->model_account_order->getSubscriptions(0, $this->config->get('config_pagination'));
+		$subscriptions = $this->model_account_subscription->getSubscriptions(0, $this->config->get('config_pagination'));
 
 		foreach ($subscriptions as $subscription) {
 			$subscription_order = $this->getSubscriptionOrder($subscription['subscription_id']);

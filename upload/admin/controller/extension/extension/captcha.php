@@ -36,7 +36,9 @@ class ControllerExtensionExtensionCaptcha extends Controller {
 		$this->load->model('setting/extension');
 
 		if ($this->validate()) {
-			$this->model_setting_extension->install('captcha', $this->request->get['extension']);
+			if (is_callable([$this->{'model_setting_extension_captcha'}, 'install'])) {
+				$this->model_setting_extension->install('captcha', $this->request->get['extension']);
+			}
 
 			// User Groups
 			$this->load->model('user/user_group');
@@ -69,7 +71,9 @@ class ControllerExtensionExtensionCaptcha extends Controller {
 		$this->load->model('setting/extension');
 
 		if ($this->validate()) {
-			$this->model_setting_extension->uninstall('captcha', $this->request->get['extension']);
+			if (is_callable([$this->{'model_setting_extension_captcha'}, 'uninstall'])) {
+				$this->model_setting_extension->uninstall('captcha', $this->request->get['extension']);
+			}
 
 			// Call uninstall method if it exists
 			$this->load->controller('extension/captcha/' . $this->request->get['extension'] . '/uninstall');
@@ -104,7 +108,9 @@ class ControllerExtensionExtensionCaptcha extends Controller {
 
 		foreach ($extensions as $key => $value) {
 			if (!is_file(DIR_APPLICATION . 'controller/extension/captcha/' . $value . '.php') && !is_file(DIR_APPLICATION . 'controller/captcha/' . $value . '.php')) {
-				$this->model_setting_extension->uninstall('captcha', $value);
+				if (is_callable([$this->{'model_setting_extension_captcha'}, 'uninstall'])) {
+					$this->model_setting_extension->uninstall('captcha', $value);
+				}
 
 				unset($extensions[$key]);
 			}

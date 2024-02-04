@@ -54,11 +54,11 @@ class ControllerExtensionRecurringOpayo extends Controller {
 		if (!empty($this->request->post['subscription_id'])) {
 			$this->load->language('extension/subscription/opayo');
 
-			$this->load->model('extension/payment/opayo');
+			$this->load->model('checkout/subscription');
 
 			$subscription_id = (int)$this->request->post['subscription_id'];
 
-			$this->model_extension_payment_opayo->editSubscriptionStatus($subscription_id, 1);
+			$this->model_checkout_subscription->editSubscriptionStatus($subscription_id, 1);
 
 			$data['success'] = $this->language->get('success_enable_subscription');
 		}
@@ -78,11 +78,11 @@ class ControllerExtensionRecurringOpayo extends Controller {
 		if (!empty($this->request->post['subscription_id'])) {
 			$this->load->language('extension/subscription/opayo');
 
-			$this->load->model('extension/payment/opayo');
+			$this->load->model('checkout/subscription');
 
 			$subscription_id = (int)$this->request->post['subscription_id'];
 
-			$this->model_extension_payment_opayo->editSubscriptionStatus($subscription_id, 2);
+			$this->model_checkout_subscription->editSubscriptionStatus($subscription_id, 2);
 
 			$data['success'] = $this->language->get('success_disable_subscription');
 		}

@@ -18,7 +18,6 @@ $config = new \Config();
 $registry->set('config', $config);
 
 // Load the default config
-$config->addPath(DIR_CONFIG);
 $config->load('default');
 $config->load('catalog');
 
@@ -147,7 +146,7 @@ if ($config->get('config_currency_engine') == 'ecb' && $config->get('currency_ec
 				if ($currencies) {
 					$default = $config->get('config_currency');
 
-					$registry->get('load')->model('localisation/currency')->model_localisation_currency->getCurrencies();
+					$results = $registry->get('load')->model('localisation/currency')->model_localisation_currency->getCurrencies();
 
 					foreach ($results as $result) {
 						if (isset($currencies[$result['code']])) {

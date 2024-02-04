@@ -590,7 +590,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 						$option = [];
 					}
 
-					$product_options = $this->model_catalog_product->getProductOptions($product_id);
+					$product_options = $this->model_catalog_product->getOptions($product_id);
 
 					foreach ($product_options as $product_option) {
 						if ($product_option['required'] && empty($option[$product_option['product_option_id']])) {
@@ -1767,7 +1767,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 				// Shipping Methods
 				$quote_data = [];
 
-				$results = $this->model_setting_extension->getExtensions('shipping');
+				$results = $this->model_setting_extension->getExtensionsByType('shipping');
 
 				if (!empty($results)) {
 					foreach ($results as $result) {
@@ -1850,7 +1850,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
 			$sort_order = [];
 
-			$results = $this->model_setting_extension->getExtensions('total');
+			$results = $this->model_setting_extension->getExtensionsByType('total');
 
 			foreach ($results as $key => $value) {
 				$sort_order[$key] = $this->config->get('total_' . $value['code'] . '_sort_order');
@@ -1883,7 +1883,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		 */
 		$method_data = [];
 
-		$results = $this->model_setting_extension->getExtensions('payment');
+		$results = $this->model_setting_extension->getExtensionsByType('payment');
 
 		foreach ($results as $result) {
 			if ($this->config->get('payment_' . $result['code'] . '_status')) {
@@ -1939,7 +1939,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
 			$sort_order = [];
 
-			$results = $this->model_setting_extension->getExtensions('total');
+			$results = $this->model_setting_extension->getExtensionsByType('total');
 
 			foreach ($results as $key => $value) {
 				$sort_order[$key] = $this->config->get('total_' . $value['code'] . '_sort_order');
@@ -2012,6 +2012,11 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/paypal/confirm', $data));
 	}
 
+	/**
+	 * Complete Order
+	 * 
+	 * @return void
+	 */
 	public function completeOrder(): void {
 		$this->load->language('extension/payment/paypal');
 
@@ -2065,7 +2070,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 			$sort_order = [];
 
-			$results = $this->model_setting_extension->getExtensions('total');
+			$results = $this->model_setting_extension->getExtensionsByType('total');
 
 			foreach ($results as $key => $value) {
 				$sort_order[$key] = $this->config->get('total_' . $value['code'] . '_sort_order');
@@ -3358,7 +3363,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	/**
 	 * Order Delete Order Before
 	 *
-	 * @param mixed                $route
+	 * @param string               $route
 	 * @param array<string, mixed> $data
 	 *
 	 * @return void

@@ -373,7 +373,7 @@ class ControllerExtensionPaymentEway extends Controller {
 					$card_data['ExpiryDate'] = $expiry_month . '/' . $expiry_year;
 					$card_data['CardType'] = '';
 
-					$this->model_extension_payment_eway->addFullCard($this->session->data['order_id'], $card_data);
+					$this->model_extension_payment_eway->addCard($this->session->data['order_id'], $card_data);
 				}
 
 				$this->response->redirect($this->url->link('checkout/success', '', true));

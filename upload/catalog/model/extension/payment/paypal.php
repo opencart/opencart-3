@@ -34,24 +34,55 @@ class ModelExtensionPaymentPayPal extends Model {
 		return $method_data;
 	}
 
+	/**
+	 * Has Product In Cart
+	 * 
+	 * @param int 				   $product_id
+	 * @param array<string, mixed> $option
+	 * @param int 				   $subscription_plan_id
+	 * 
+	 * @return int
+	 */
 	public function hasProductInCart(int $product_id, array $option = [], int $subscription_plan_id = 0): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "cart` WHERE `api_id` = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND `customer_id` = '" . (int)$this->customer->getId() . "' AND `session_id` = '" . $this->db->escape($this->session->getId()) . "' AND `product_id` = '" . (int)$product_id . "' AND `subscription_plan_id` = '" . (int)$subscription_plan_id . "' AND `option` = '" . $this->db->escape(json_encode($option)) . "'");
 
 		return (int)$query->row['total'];
 	}
 
+	/**
+	 * Get Country By Code
+	 * 
+	 * @param string $code
+	 * 
+	 * @return array<int, array<string, mixed>>
+	 */
 	public function getCountryByCode(string $code): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "country` WHERE `iso_code_2` = '" . $this->db->escape($code) . "' AND `status` = '1'");
 
 		return $query->row;
 	}
 
+	/**
+	 * Get Zone By Code
+	 * 
+	 * @param int    $country_id
+	 * @param string $code
+	 * 
+	 * @return array<string, mixed>
+	 */
 	public function getZoneByCode(int $country_id, string $code): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone` WHERE `country_id` = '" . (int)$country_id . "' AND (`code` = '" . $this->db->escape($code) . "' OR `name` = '" . $this->db->escape($code) . "') AND `status` = '1'");
 
 		return $query->row;
 	}
 
+	/**
+	 * Add PayPal Order
+	 * 
+	 * @param array<string, mixed> $data
+	 * 
+	 * @return void
+	 */
 	public function addPayPalOrder(array $data): void {
 		$sql = "INSERT INTO `" . DB_PREFIX . "paypal_checkout_integration_order` SET";
 
@@ -92,6 +123,13 @@ class ModelExtensionPaymentPayPal extends Model {
 		$this->db->query($sql);
 	}
 
+	/**
+	 * Edit PayPal Order
+	 * 
+	 * @param array<string, mixed> $data
+	 * 
+	 * @return void
+	 */
 	public function editPayPalOrder(array $data): void {
 		$sql = "UPDATE `" . DB_PREFIX . "paypal_checkout_integration_order` SET";
 
@@ -130,10 +168,24 @@ class ModelExtensionPaymentPayPal extends Model {
 		$this->db->query($sql);
 	}
 
+	/**
+	 * Delete PayPal Order
+	 * 
+	 * @param int $order_id
+	 * 
+	 * @return void
+	 */
 	public function deletePayPalOrder(int $order_id): void {
 		$query = $this->db->query("DELETE FROM `" . DB_PREFIX . "paypal_checkout_integration_order` WHERE `order_id` = '" . (int)$order_id . "'");
 	}
 
+	/**
+	 * Get PayPal Order
+	 * 
+	 * @param int $order_id
+	 * 
+	 * @return array<string, mixed>
+	 */
 	public function getPayPalOrder(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "paypal_checkout_integration_order` WHERE `order_id` = '" . (int)$order_id . "'");
 
@@ -144,70 +196,148 @@ class ModelExtensionPaymentPayPal extends Model {
 		}
 	}
 
+	/**
+	 * Add PayPal Order Subscription
+	 * 
+	 * @param array<string, mixed> $data
+	 * 
+	 * @return void
+	 */
 	public function addPayPalOrderSubscription(array $data): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "paypal_checkout_integration_subscription` SET `subscription_id` = '" . (int)$data['subscription_id'] . "', `order_id` = '" . (int)$data['order_id'] . "', `next_payment` = NOW(), `trial_end` = '" . $data['trial_end'] . "', `subscription_end` = '" . $data['subscription_end'] . "', `currency_code` = '" . $this->db->escape($data['currency_code']) . "', `total` = '" . $this->currency->format($data['amount'], $data['currency_code'], false, false) . "', `date_added` = NOW(), `date_modified` = NOW()");
 	}
 
+	/**
+	 * Edit PayPal Order Subscription Next Payment
+	 * 
+	 * @param int    $order_id
+	 * @param string $next_payment
+	 * 
+	 * @return void
+	 */
 	public function editPayPalOrderSubscriptionNextPayment(int $order_id, string $next_payment): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "paypal_checkout_integration_subscription` SET `next_payment` = '" . $this->db->escape($next_payment) . "', `date_modified` = NOW() WHERE `order_id` = '" . (int)$order_id . "'");
 	}
 
+	/**
+	 * Delete PayPal Order Subscription
+	 * 
+	 * @param int $order_id
+	 * 
+	 * @return void
+	 */
 	public function deletePayPalOrderSubscription(int $order_id): void {
 		$query = $this->db->query("DELETE FROM `" . DB_PREFIX . "paypal_checkout_integration_order` WHERE `order_id` = '" . (int)$order_id . "'");
 	}
 
+	/**
+	 * Get PayPal Order Subscription
+	 * 
+	 * @param int $order_id
+	 * 
+	 * @return array<string, mixed>
+	 */
 	public function getPayPalOrderSubscription(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "paypal_checkout_integration_subscription` WHERE `order_id` = '" . (int)$order_id . "'");
 
 		return $query->row;
 	}
 
+	/**
+	 * Add Order Subscription
+	 * 
+	 * @param int $order_id
+	 * @param array<string, mixed> $data
+	 * 
+	 * @return int
+	 */
 	public function addOrderSubscription(int $order_id, array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "order_subscription` SET `order_id` = '" . (int)$order_id . "', `product_id` = '" . (int)$data['subscription']['product_id'] . "', `order_product_id` = '" . (int)$data['subscription']['order_product_id'] . "', `subscription_plan_id` = '" . (int)$data['subscription']['subscription_plan_id'] . "', `frequency` = '" . $this->db->escape($data['subscription']['frequency']) . "', `cycle` = '" . (int)$data['subscription']['cycle'] . "', `duration` = '" . (int)$data['subscription']['duration'] . "', `price` = '" . (float)$data['subscription']['price'] . "', `tax` = '" . (float)$data['subscription']['tax'] . "', `trial_frequency` = '" . $this->db->escape($data['subscription']['trial_frequency']) . "', `trial_cycle` = '" . (int)$data['subscription']['trial_cycle'] . "', `trial_duration` = '" . (int)$data['subscription']['trial_duration'] . "', `trial_price` = '" . (float)$data['subscription']['trial_price'] . "'");
 
 		return $this->db->getLastId();
 	}
 
+	/**
+	 * Edit Order Subscription Status
+	 * 
+	 * @param int $order_id
+	 * @param int $status
+	 * 
+	 * @return void
+	 */
 	public function editOrderSubscriptionStatus(int $order_id, int $status): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "paypal_checkout_integration_subscription` SET `status` = '" . (int)$status . "' WHERE `order_id` = '" . (int)$order_id . "'");
 	}
 
+	/**
+	 * Delete Order Subscription
+	 * 
+	 * @param int $order_id
+	 * 
+	 * @return void
+	 */
 	public function deleteOrderSubscription(int $order_id): void {
 		$query = $this->db->query("SELECT `order_id` FROM `" . DB_PREFIX . "paypal_checkout_integration_subscription` WHERE `order_id` = '" . (int)$order_id . "'");
 
 		foreach ($query->rows as $order_subscription) {
-			$this->deleteOrderSubscriptionTransaction($order_subscription['order_id']);
+			$this->deleteSubscriptionTransaction($order_subscription['order_id']);
 		}
 
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "paypal_checkout_integration_subscription` WHERE `order_id` = '" . (int)$order_id . "'");
 	}
 
+	/**
+	 * Get Order Subscriptions
+	 * 
+	 * @return array<int, array<string, mixed>>
+	 */
 	public function getOrderSubscriptions(): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "paypal_checkout_integration_subscription` `os` INNER JOIN `" . DB_PREFIX . "order` `o` ON (`o`.`order_id` = `os`.`order_id`) WHERE `o`.`payment_code` = 'paypal' AND `o`.`customer_id` = '" . (int)$this->customer->getId() . "'");
 
 		return $query->rows;
 	}
 
+	/**
+	 * Get Order Subscription
+	 * 
+	 * @param int $order_id
+	 * 
+	 * @return array<string, mixed>
+	 */
 	public function getOrderSubscription(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "paypal_checkout_integration_subscription` WHERE `order_id` = '" . (int)$order_id . "'");
 
 		return $query->row;
 	}
 
+	/**
+	 * Add Subscription Transaction
+	 * 
+	 * @param array<string, mixed> $data
+	 * 
+	 * @return void
+	 */
 	public function addSubscriptionTransaction(array $data): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "paypal_checkout_integration_transaction` SET `order_id` = '" . (int)$data['order_id'] . "', `reference` = '" . $this->db->escape($data['reference']) . "', `type` = '" . (int)$data['type'] . "', `amount` = '" . (float)$data['amount'] . "', `date_added` = NOW()");
 	}
 
+	/**
+	 * Delete Subscription Transaction
+	 * 
+	 * @param int $order_id
+	 * 
+	 * @return void
+	 */
 	public function deleteSubscriptionTransaction(int $order_id): void {
 		$query = $this->db->query("DELETE FROM `" . DB_PREFIX . "paypal_checkout_integration_transaction` WHERE `order_id` = '" . (int)$order_id . "'");
 	}
 
 	/**
-	 * subscriptionPayment
+	 * Subscription Payment
 	 *
-	 * @param array $item
-	 * @param array $order_info
-	 * @param array $paypal_order_data
+	 * @param array 			   $item
+	 * @param array<string, mixed> $order_info
+	 * @param array 			   $paypal_order_data
 	 *
 	 * @return void
 	 */
@@ -348,6 +478,11 @@ class ModelExtensionPaymentPayPal extends Model {
 		}
 	}
 
+	/**
+	 * Cron Payment
+	 * 
+	 * @return void
+	 */
 	public function cronPayment(): void {
 		$this->load->model('account/subscription');
 		$this->load->model('checkout/order');
@@ -450,6 +585,16 @@ class ModelExtensionPaymentPayPal extends Model {
 		}
 	}
 
+	/**
+	 * Create Payment
+	 * 
+	 * @param array<string, mixed> $order_data
+	 * @param array<string, mixed> $paypal_order_data
+	 * @param float 			   $price
+	 * @param string 			   $name
+	 * 
+	 * @return array<string, mixed>
+	 */
 	public function createPayment(array $order_data, array $paypal_order_data, float $price, string $name): array {
 		$this->load->language('extension/payment/paypal');
 
@@ -611,6 +756,11 @@ class ModelExtensionPaymentPayPal extends Model {
 		return $next_payment;
 	}
 
+	/**
+	 * Get Agree Status
+	 * 
+	 * @return bool
+	 */
 	public function getAgreeStatus(): bool {
 		$agree_status = true;
 
@@ -629,6 +779,14 @@ class ModelExtensionPaymentPayPal extends Model {
 		return $agree_status;
 	}
 
+	/**
+	 * Log
+	 * 
+	 * @param array<string, mixed> $data
+	 * @param ?string 			   $title
+	 * 
+	 * @return void
+	 */
 	public function log(array $data, ?string $title = ''): void {
 		// Setting
 		$_config = new \Config();

@@ -75,9 +75,21 @@ class ModelExtensionPaymentSquareup extends Model {
 	 * @return int
 	 */
 	public function createSubscription(int $order_id, array $data): int {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "squareup_subscription` SET `order_id` = '" . (int)$order_id . "', `subscription_id` = '" . (int)$data['subscription']['subscription_id'] . "', `date_added` = NOW()");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "squareup_subscription` SET `order_id` = '" . (int)$order_id . "', `subscription_id` = '" . (int)$data['subscription']['subscription_id'] . "', `reference` = '" . $this->db->escape($data['VendorTxCode']) . "', `status` = '" . self::RECURRING_ACTIVE . "', `date_added` = NOW()");
 
 		return $this->db->getLastId();
+	}
+
+	/**
+	 * Edit Status
+	 * 
+	 * @param int $subscription_id
+	 * @param int $status
+	 * 
+	 * @return void
+	 */
+	public function editStatus(int $subscription_id, int $status): void {
+		$this->db->query("UPDATE `" . DB_PREFIX . "squareup_subscription` SET `status` = '" . (int)$status . "' WHERE `subscription_id` = '" . (int)$subscription_id . "'");
 	}
 
 	/**
