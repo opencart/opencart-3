@@ -233,6 +233,13 @@ class ModelExtensionPaymentBluepayredirect extends Model {
 		}
 	}
 
+	/**
+	 * Get Transactions
+	 * 
+	 * @param int $bluepay_redirect_order_id
+	 * 
+	 * @return array<int, array<string, mixed>>
+	 */
 	private function getTransactions(int $bluepay_redirect_order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "bluepay_redirect_order_transaction` WHERE `bluepay_redirect_order_id` = '" . (int)$bluepay_redirect_order_id . "'");
 
@@ -244,7 +251,7 @@ class ModelExtensionPaymentBluepayredirect extends Model {
 	}
 
 	/**
-	 * addTransaction
+	 * Add Transaction
 	 *
 	 * @param int    $bluepay_redirect_order_id
 	 * @param string $type
@@ -257,7 +264,7 @@ class ModelExtensionPaymentBluepayredirect extends Model {
 	}
 
 	/**
-	 * getTotalReleased
+	 * Get Total Released
 	 *
 	 * @param int $bluepay_redirect_order_id
 	 *
@@ -270,7 +277,7 @@ class ModelExtensionPaymentBluepayredirect extends Model {
 	}
 
 	/**
-	 * getTotalRebated
+	 * Get Total Rebated
 	 *
 	 * @param int $bluepay_redirect_order_id
 	 *
@@ -283,12 +290,12 @@ class ModelExtensionPaymentBluepayredirect extends Model {
 	}
 
 	/**
-	 * sendCurl
+	 * Send Curl
 	 *
 	 * @param string $url
 	 * @param array  $post_data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function sendCurl(string $url, array $post_data): array {
 		$curl = curl_init($url);

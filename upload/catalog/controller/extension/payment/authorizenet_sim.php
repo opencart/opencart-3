@@ -98,17 +98,28 @@ class ControllerExtensionPaymentAuthorizeNetSim extends Controller {
 		}
 	}
 
-	private function generateHash($to_hash, $key) {
+	/**
+	 * Generate Hash
+	 * 
+	 * @return string
+	 */
+	private function generateHash($to_hash, $key): string {
 		if ($to_hash != null && $key != null) {
 			$sig = hash_hmac('sha512', $to_hash, hex2bin($key));
 
 			return strtoupper($sig);
 		} else {
-			return false;
+			return '';
 		}
 	}
 
-	private function generateResponseHash($post_fields, $signature_key) {
+	/**
+	 * Generate Response Hash
+	 * 
+	 * @param array<string, mixed> $data
+	 * @param string               $signature_key
+	 */
+	private function generateResponseHash(array $post_fields, string $signature_key) {
 		/**
 		 * The following array must not be reordered or elements removed, the hash requires ALL, even if empty/not set
 		 */

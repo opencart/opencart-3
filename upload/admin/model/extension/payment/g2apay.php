@@ -112,7 +112,7 @@ class ModelExtensionPaymentG2aPay extends Model {
 	}
 
 	/**
-	 * updatedRefundStatus
+	 * Updated Refund Status
 	 *
 	 * @param int $g2apay_order_id
 	 * @param int $status
@@ -123,6 +123,14 @@ class ModelExtensionPaymentG2aPay extends Model {
 		$this->db->query("UPDATE `" . DB_PREFIX . "g2apay_order` SET `refund_status` = '" . (int)$status . "' WHERE `g2apay_order_id` = '" . (int)$g2apay_order_id . "'");
 	}
 
+	/**
+	 * Get Transactions
+	 * 
+	 * @param int    $g2apay_order_id
+	 * @param string $currency_code
+	 * 
+	 * @return array<int, mixed>
+	 */
 	private function getTransactions(int $g2apay_order_id, string $currency_code): array {
 		$transactions = [];
 
@@ -138,7 +146,7 @@ class ModelExtensionPaymentG2aPay extends Model {
 	}
 
 	/**
-	 * addTransaction
+	 * Add Transaction
 	 *
 	 * @param int    $g2apay_order_id
 	 * @param string $type
@@ -151,7 +159,7 @@ class ModelExtensionPaymentG2aPay extends Model {
 	}
 
 	/**
-	 * getTotalRefunded
+	 * Get Total Refunded
 	 *
 	 * @param int $g2apay_order_id
 	 *
@@ -164,7 +172,7 @@ class ModelExtensionPaymentG2aPay extends Model {
 	}
 
 	/**
-	 * sendCurl
+	 * Send Curl
 	 *
 	 * @param string $url
 	 * @param array  $fields

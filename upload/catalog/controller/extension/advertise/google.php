@@ -11,6 +11,9 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	use LibraryLoader;
 	use StoreLoader;
 
+	/**
+	 * @var int
+	 */
 	private int $store_id = 0;
 
 	/**

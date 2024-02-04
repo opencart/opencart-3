@@ -220,7 +220,14 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 		}
 	}
 
-	private function getTransactions($securetrading_ws_order_id) {
+	/**
+	 * Get Transactions
+	 * 
+	 * @param int $securetrading_ws_order_id
+	 * 
+	 * @return array<int, array<string, mixed>>
+	 */
+	private function getTransactions(int $securetrading_ws_order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "securetrading_ws_order_transaction` WHERE `securetrading_ws_order_id` = '" . (int)$securetrading_ws_order_id . "'");
 
 		if ($query->num_rows) {
@@ -231,7 +238,7 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 	}
 
 	/**
-	 * addTransaction
+	 * Add Transaction
 	 *
 	 * @param int    $securetrading_ws_order_id
 	 * @param string $type
@@ -244,7 +251,7 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 	}
 
 	/**
-	 * getTotalReleased
+	 * Get Total Released
 	 *
 	 * @param int $securetrading_ws_order_id
 	 *
@@ -257,7 +264,7 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 	}
 
 	/**
-	 * getTotalRebated
+	 * Get Total Rebated
 	 *
 	 * @param int $securetrading_ws_order_id
 	 *
@@ -270,7 +277,7 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 	}
 
 	/**
-	 * increaseRefundedAmount
+	 * Increase Refunded Amount
 	 *
 	 * @param int   $order_id
 	 * @param float $amount
@@ -282,7 +289,7 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 	}
 
 	/**
-	 * getCsv
+	 * Get Csv
 	 *
 	 * @param array<string, mixed> $data
 	 *
@@ -411,7 +418,14 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 		}
 	}
 
-	private function encodePost($data) {
+	/**
+	 * Encode Post
+	 * 
+	 * @param array<string, mixed> $data
+	 * 
+	 * @return string
+	 */
+	private function encodePost(array $data): string {
 		$params = [];
 
 		foreach ($data as $key => $value) {
@@ -432,7 +446,7 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 	 *
 	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function call($data): array {
 		$ch = curl_init();

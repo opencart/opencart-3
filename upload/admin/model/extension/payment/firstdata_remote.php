@@ -311,6 +311,13 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 		}
 	}
 
+	/**
+	 * Get Transactions
+	 * 
+	 * @param int $firstdata_remote_order_id
+	 * 
+	 * @return array<int, array<string, mixed>>
+	 */
 	private function getTransactions(int $firstdata_remote_order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "firstdata_remote_order_transaction` WHERE `firstdata_remote_order_id` = '" . (int)$firstdata_remote_order_id . "'");
 
@@ -322,7 +329,7 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 	}
 
 	/**
-	 * addTransaction
+	 * Add Transaction
 	 *
 	 * @param int    $firstdata_remote_order_id
 	 * @param string $type
@@ -349,7 +356,7 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 	}
 
 	/**
-	 * getTotalCaptured
+	 * Get Total Captured
 	 *
 	 * @param int $firstdata_order_id
 	 *
@@ -362,7 +369,7 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 	}
 
 	/**
-	 * getTotalRefunded
+	 * Get Total Refunded
 	 *
 	 * @param int $firstdata_order_id
 	 *
@@ -375,7 +382,7 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 	}
 
 	/**
-	 * mapCurrency
+	 * Map Currency
 	 *
 	 * @param string $code
 	 *

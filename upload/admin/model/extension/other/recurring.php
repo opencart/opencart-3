@@ -200,7 +200,14 @@ class ModelExtensionOtherRecurring extends Model {
 		return (int)$query->row['total'];
 	}
 
-	private function getStatus($status) {
+	/**
+	 * Get Status
+	 * 
+	 * @param int $status
+	 * 
+	 * @return string
+	 */
+	private function getStatus(int $status): string {
 		switch ($status) {
 			case 1:
 				$result = $this->language->get('text_status_inactive');

@@ -441,7 +441,12 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	private function constructXmlrpc($data) {
+	/**
+	 * Construct Xmlrpc
+	 * 
+	 * @return string
+	 */
+	private function constructXmlrpc(mixed $data): string {
 		$type = gettype($data);
 
 		switch ($type) {
@@ -495,7 +500,14 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
 		return $xml;
 	}
 
-	private function splitAddress($address) {
+	/**
+	 * Split Address
+	 * 
+	 * @param string $address
+	 * 
+	 * @return array<string, mixed>
+	 */
+	private function splitAddress(string $address): array {
 		$numbers = [
 			'0',
 			'1',
@@ -600,7 +612,16 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
 		];
 	}
 
-	private function strposArr($haystack, $needle, $where) {
+	/**
+	 * Strpos Arr
+	 * 
+	 * @param string $haystack
+	 * @param string $needle
+	 * @param string $where
+	 * 
+	 * @return int
+	 */
+	private function strposArr(string $haystack, string $needle, string $where): int {
 		$defpos = 10000;
 
 		if (!is_array($needle)) {

@@ -311,7 +311,12 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 		}
 	}
 
-	private function validate() {
+	/**
+	 * Validate
+	 * 
+	 * @return array<string, mixed>
+	 */
+	private function validate(): array {
 		$this->load->language('extension/payment/cardconnect');
 
 		$error = [];

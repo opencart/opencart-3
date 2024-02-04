@@ -293,7 +293,14 @@ class ModelExtensionPaymentSagepayServer extends Model {
 		}
 	}
 
-	private function getTransactions($sagepay_server_order_id) {
+	/**
+	 * Get Transactions
+	 * 
+	 * @param int $sagepay_server_order_id
+	 * 
+	 * @return array<int, array<string, mixed>>
+	 */
+	private function getTransactions(int $sagepay_server_order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "sagepay_server_order_transaction` WHERE `sagepay_server_order_id` = '" . (int)$sagepay_server_order_id . "'");
 
 		if ($query->num_rows) {
@@ -304,7 +311,7 @@ class ModelExtensionPaymentSagepayServer extends Model {
 	}
 
 	/**
-	 * addTransaction
+	 * Add Transaction
 	 *
 	 * @param int    $sagepay_server_order_id
 	 * @param string $type
@@ -317,7 +324,7 @@ class ModelExtensionPaymentSagepayServer extends Model {
 	}
 
 	/**
-	 * getTotalReleased
+	 * Get Total Released
 	 *
 	 * @param int $sagepay_server_order_id
 	 *
@@ -330,7 +337,7 @@ class ModelExtensionPaymentSagepayServer extends Model {
 	}
 
 	/**
-	 * getTotalRebated
+	 * Get Total Rebated
 	 *
 	 * @param int $sagepay_server_order_id
 	 *
@@ -343,12 +350,12 @@ class ModelExtensionPaymentSagepayServer extends Model {
 	}
 
 	/**
-	 * sendCurl
+	 * Send Curl
 	 *
 	 * @param string $url
 	 * @param array  $payment_data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function sendCurl(string $url, array $payment_data): array {
 		$data = [];

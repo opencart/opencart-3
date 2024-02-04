@@ -7,10 +7,11 @@
 class ControllerExtensionPaymentAlipayCross extends Controller {
 	/**
 	 * @var array<string, string>
-	 * @var array<string, string>
 	 */
 	private array $error = [];
-
+	/**
+	 * @var array<string, string>
+	 */
 	private array $currencies = [
 		'GBP',
 		'HKD',

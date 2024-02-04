@@ -87,6 +87,13 @@ class ModelExtensionPaymentCardConnect extends Model {
 		}
 	}
 
+	/**
+	 * Get Transactions
+	 * 
+	 * @param int $cardconnect_order_id
+	 * 
+	 * @return array<int, array<string, mixed>>
+	 */
 	private function getTransactions(int $cardconnect_order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "cardconnect_order_transaction` WHERE `cardconnect_order_id` = '" . (int)$cardconnect_order_id . "'");
 
@@ -98,7 +105,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 	}
 
 	/**
-	 * getTotalCaptured
+	 * Get Total Captured
 	 *
 	 * @param int $cardconnect_order_id
 	 *
@@ -116,7 +123,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 	 * @param array  $order_info
 	 * @param string $retref
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function inquire(array $order_info, string $retref): array {
 		$this->log('Posting inquire to CardConnect');
@@ -162,7 +169,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 	 * @param array $order_info
 	 * @param float $amount
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function capture(array $order_info, float $amount): array {
 		// Orders
@@ -264,7 +271,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 	 * @param array $order_info
 	 * @param float $amount
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function refund(array $order_info, float $amount): array {
 		$this->log('Posting refund to CardConnect');
@@ -322,7 +329,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 	 * @param array  $order_info
 	 * @param string $retref
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function void(array $order_info, string $retref): array {
 		$this->log('Posting void to CardConnect');
@@ -375,7 +382,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 	}
 
 	/**
-	 * updateTransactionStatusByRetref
+	 * Update Transaction Status By Retref
 	 *
 	 * @param string $retref
 	 * @param string $status
@@ -387,7 +394,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 	}
 
 	/**
-	 * addTransaction
+	 * Add Transaction
 	 *
 	 * @param int    $cardconnect_order_id
 	 * @param string $type

@@ -219,7 +219,14 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 		}
 	}
 
-	private function getTransactions($securetrading_pp_order_id) {
+	/**
+	 * Get Transactions
+	 * 
+	 * @param int $securetrading_pp_order_id
+	 * 
+	 * @return array<int, array<string, mixed>>
+	 */
+	private function getTransactions(int $securetrading_pp_order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "securetrading_pp_order_transaction` WHERE `securetrading_pp_order_id` = '" . (int)$securetrading_pp_order_id . "'");
 
 		if ($query->num_rows) {
@@ -230,7 +237,7 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 	}
 
 	/**
-	 * addTransaction
+	 * Add Transaction
 	 *
 	 * @param int    $securetrading_pp_order_id
 	 * @param string $type
@@ -243,7 +250,7 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 	}
 
 	/**
-	 * getTotalReleased
+	 * Get Total Released
 	 *
 	 * @param int $securetrading_pp_order_id
 	 *
@@ -256,7 +263,7 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 	}
 
 	/**
-	 * getTotalRebated
+	 * Get Total Rebated
 	 *
 	 * @param int $securetrading_pp_order_id
 	 *
@@ -269,7 +276,7 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 	}
 
 	/**
-	 * increaseRefundedAmount
+	 * Increase Refunded Amount
 	 *
 	 * @param int   $order_id
 	 * @param float $amount
@@ -285,7 +292,7 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 	 *
 	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function call(array $data): array {
 		$ch = curl_init();

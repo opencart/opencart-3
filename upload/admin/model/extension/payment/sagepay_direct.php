@@ -276,7 +276,14 @@ class ModelExtensionPaymentSagepayDirect extends Model {
 		}
 	}
 
-	private function getTransactions($sagepay_direct_order_id) {
+	/**
+	 * Get Transactions
+	 * 
+	 * @param int $sagepay_direct_order_id
+	 * 
+	 * @return array<int, array<string, mixed>>
+	 */
+	private function getTransactions(int $sagepay_direct_order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "sagepay_direct_order_transaction` WHERE `sagepay_direct_order_id` = '" . (int)$sagepay_direct_order_id . "'");
 
 		if ($query->num_rows) {
@@ -287,7 +294,7 @@ class ModelExtensionPaymentSagepayDirect extends Model {
 	}
 
 	/**
-	 * addTransaction
+	 * Add Transaction
 	 *
 	 * @param int    $sagepay_direct_order_id
 	 * @param string $type
@@ -300,7 +307,7 @@ class ModelExtensionPaymentSagepayDirect extends Model {
 	}
 
 	/**
-	 * getTotalReleased
+	 * Get Total Released
 	 *
 	 * @param int $sagepay_direct_order_id
 	 *
@@ -313,7 +320,7 @@ class ModelExtensionPaymentSagepayDirect extends Model {
 	}
 
 	/**
-	 * getTotalRebated
+	 * Get Total Rebated
 	 *
 	 * @param int $sagepay_direct_order_id
 	 *
@@ -326,12 +333,12 @@ class ModelExtensionPaymentSagepayDirect extends Model {
 	}
 
 	/**
-	 * sendCurl
+	 * Send Curl
 	 *
 	 * @param string $url
-	 * @param array  $payment_data
+	 * @param array<string, mixed> $payment_data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function sendCurl(string $url, array $payment_data): array {
 		$data = [];
