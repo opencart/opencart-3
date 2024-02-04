@@ -374,25 +374,25 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 			}
 		} elseif ($response->result == '101') {
 			// Decline
-			$this->addHistory($order_id, $this->config->get('payment_globalpay_remote_order_status_decline_id'), $message);
+			$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_globalpay_remote_order_status_decline_id'), $message);
 		} elseif ($response->result == '102') {
 			// Referal B
-			$this->addHistory($order_id, $this->config->get('payment_globalpay_remote_order_status_decline_pending_id'), $message);
+			$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_globalpay_remote_order_status_decline_pending_id'), $message);
 		} elseif ($response->result == '103') {
 			// Referal A
-			$this->addHistory($order_id, $this->config->get('payment_globalpay_remote_order_status_decline_stolen_id'), $message);
+			$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_globalpay_remote_order_status_decline_stolen_id'), $message);
 		} elseif ($response->result == '200') {
 			// Error Connecting to Bank
-			$this->addHistory($order_id, $this->config->get('payment_globalpay_remote_order_status_decline_bank_id'), $message);
+			$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_globalpay_remote_order_status_decline_bank_id'), $message);
 		} elseif ($response->result == '204') {
 			// Error Connecting to Bank
-			$this->addHistory($order_id, $this->config->get('payment_globalpay_remote_order_status_decline_bank_id'), $message);
+			$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_globalpay_remote_order_status_decline_bank_id'), $message);
 		} elseif ($response->result == '205') {
 			// Comms Error
-			$this->addHistory($order_id, $this->config->get('payment_globalpay_remote_order_status_decline_bank_id'), $message);
+			$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_globalpay_remote_order_status_decline_bank_id'), $message);
 		} else {
 			// Other
-			$this->addHistory($order_id, $this->config->get('payment_globalpay_remote_order_status_decline_id'), $message);
+			$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_globalpay_remote_order_status_decline_id'), $message);
 		}
 
 		return $response;
