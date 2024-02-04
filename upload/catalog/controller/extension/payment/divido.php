@@ -49,7 +49,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 		$key_parts = explode('.', $api_key);
 		$js_key = strtolower(array_shift($key_parts));
 
-		[$total, $totals] = $this->model_extension_payment_divido->getOrderTotals();
+		[$total, $totals] = $this->model_extension_payment_divido->getTotals();
 
 		$this->model_extension_payment_divido->setMerchant($this->config->get('payment_divido_api_key'));
 
@@ -232,7 +232,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 		[
 			$total,
 			$totals
-		] = $this->model_extension_payment_divido->getOrderTotals();
+		] = $this->model_extension_payment_divido->getTotals();
 
 		$sub_total = $total;
 

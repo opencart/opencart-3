@@ -1075,7 +1075,7 @@ class ControllerSaleOrder extends Controller {
 
 		$data['totals'] = [];
 
-		$totals = $this->model_sale_order->getOrderTotals($this->request->get['order_id']);
+		$totals = $this->model_sale_order->getTotals($this->request->get['order_id']);
 
 		foreach ($totals as $total) {
 			$data['totals'][] = [
@@ -1812,7 +1812,7 @@ class ControllerSaleOrder extends Controller {
 
 				$total_data = [];
 
-				$totals = $this->model_sale_order->getOrderTotals($order_id);
+				$totals = $this->model_sale_order->getTotals($order_id);
 
 				foreach ($totals as $total) {
 					$total_data[] = [

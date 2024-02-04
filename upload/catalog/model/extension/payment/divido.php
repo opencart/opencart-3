@@ -243,11 +243,11 @@ class ModelExtensionPaymentDivido extends Model {
 	}
 
 	/**
-	 * getOrderTotals
+	 * getTotals
 	 *
 	 * @return array
 	 */
-	public function getOrderTotals(): array {
+	public function getTotals(): array {
 		$taxes = $this->cart->getTaxes();
 		$total = 0;
 		$totals = [];
