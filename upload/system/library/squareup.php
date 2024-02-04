@@ -44,13 +44,13 @@ class Squareup {
 	/**
 	 * Api
 	 *
-	 * @param $request_data
+	 * @param array<string, mixed> $request_data
 	 *
 	 * @throws \Squareup\Exception
 	 *
 	 * @return mixed
 	 */
-	public function api($request_data): mixed {
+	public function api(array $request_data): mixed {
 		$url = self::API_URL;
 
 		if (empty($request_data['no_version'])) {
