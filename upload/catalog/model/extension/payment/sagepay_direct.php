@@ -245,7 +245,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 
 		$item['subscription']['description'] = $subscription_description;
 
-		$this->editReference($subscription_id, $vendor_tx_code);
+		$this->editReference($item['subscription']['subscription_id'], $vendor_tx_code);
 
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
