@@ -184,7 +184,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	}
 
 	/**
-	 * addTransaction
+	 * Add Transaction
 	 *
 	 * @param int   $sagepay_direct_order_id
 	 * @param int   $type
@@ -196,6 +196,13 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "sagepay_direct_order_transaction` SET `sagepay_direct_order_id` = '" . (int)$sagepay_direct_order_id . "', `date_added` = NOW(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . $this->currency->format($order_info['total'], $order_info['currency_code'], false, false) . "'");
 	}
 
+	/**
+	 * Get Transactions
+	 * 
+	 * @param int $sagepay_direct_order_id
+	 * 
+	 * @return array<int, array<string, mixed>>
+	 */
 	private function getTransactions(int $sagepay_direct_order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "sagepay_direct_order_transaction` WHERE `sagepay_direct_order_id` = '" . (int)$sagepay_direct_order_id . "'");
 
@@ -207,7 +214,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	}
 
 	/**
-	 * subscriptionPayment
+	 * Subscription Payment
 	 *
 	 * @param array $item['subscription']
 	 * @param int   $vendor_tx_code
@@ -299,6 +306,18 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 		}
 	}
 
+	/**
+	 * Set Payment Data
+	 * 
+	 * @param array<string, mixed> $order_info
+	 * @param array<string, mixed> $sagepay_order_info
+	 * @param float                $price
+	 * @param int                  $subscription_id
+	 * @param string               $name
+	 * @param int                  $i
+	 * 
+	 * @return array<int, array<string, mixed>>
+	 */
 	private function setPaymentData(array $order_info, array $sagepay_order_info, float $price, int $subscription_id, string $name, $i = null): array {
 		$payment_data = [];
 
@@ -376,7 +395,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	}
 
 	/**
-	 * cronPayment
+	 * Cron Payment
 	 *
 	 * @return array
 	 */
@@ -497,20 +516,56 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 		return $next_payment;
 	}
 
+	/**
+	 * Add Subscription Order
+	 * 
+	 * @param int                  $order_id
+	 * @param array<string, mixed> $response_data
+	 * @param int                  $subscription_id
+	 * @param string               $trial_end
+	 * @param string               $subscription_end
+	 * 
+	 * @return void
+	 */
 	private function addSubscriptionOrder(int $order_id, array $response_data, int $subscription_id, string $trial_end, string $subscription_end): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "sagepay_direct_order_subscription` SET `order_id` = '" . (int)$order_id . "', `subscription_id` = '" . (int)$subscription_id . "', `vps_tx_id` = '" . $this->db->escape($response_data['VPSTxId']) . "', `vendor_tx_code` = '" . $this->db->escape($response_data['VendorTxCode']) . "', `security_key` = '" . $this->db->escape($response_data['SecurityKey']) . "', `tx_auth_no` = '" . $this->db->escape($response_data['TxAuthNo']) . "', `date_added` = NOW(), `date_modified` = NOW(), `next_payment` = NOW(), `trial_end` = '" . $this->db->escape($trial_end) . "', `subscription_end` = '" . $this->db->escape($subscription_end) . "', `currency_code` = '" . $this->db->escape($response_data['Currency']) . "', `total` = '" . $this->currency->format($response_data['Amount'], $response_data['Currency'], false, false) . "'");
 	}
 
+	/**
+	 * Update Subscription Order
+	 * 
+	 * @param int      $subscription_id
+	 * @param Datetime $next_payment
+	 * 
+	 * @return void
+	 */
 	private function updateSubscriptionOrder(int $subscription_id, string $next_payment): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "sagepay_direct_order_subscription` SET `next_payment` = '" . $this->db->escape($next_payment) . "', `date_modified` = NOW() WHERE `subscription_id` = '" . (int)$subscription_id . "'");
 	}
 
+	/**
+	 * Get Subscription Order
+	 * 
+	 * @param int $subscription_id
+	 * 
+	 * @return array<string, mixed>
+	 */
 	private function getSubscriptionOrder(int $subscription_id) {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "sagepay_direct_order_subscription` WHERE `subscription_id` = '" . (int)$subscription_id . "'");
 
 		return $query->row;
 	}
 
+	/**
+	 * Add Subscritpion Transaction
+	 * 
+	 * @param int                  $subscription_id
+	 * @param array<string, mixed> $response_data
+	 * @param array<string, mixed> $transaction
+	 * @param int                  $type
+	 * 
+	 * @return void
+	 */
 	private function addSubscriptionTransaction(int $subscription_id, array $response_data, array $transaction, int $type): void {
 		// Subscriptions
 		$this->load->model('account/subscription');
@@ -574,7 +629,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	}
 
 	/**
-	 * updateCronJobRunTime
+	 * Update Cron Job Run Time
 	 *
 	 * @return void
 	 */
@@ -585,7 +640,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	}
 
 	/**
-	 * sendCurl
+	 * Send Curl
 	 *
 	 * @param string $url
 	 * @param array  $payment_data

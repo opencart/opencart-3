@@ -271,7 +271,17 @@ class Smtp {
 		}
 	}
 
-	private function handleReply($handle, $status_code = false, $error_text = false, $counter = 0) {
+	/**
+	 * Handle Reply
+	 * 
+	 * @param resource     $handle
+	 * @param false|int    $status_code
+	 * @param false|string $error_text
+	 * @param int          $counter
+	 *
+	 * @return string
+	 */
+	private function handleReply($handle, $status_code = false, $error_text = false, int $counter = 0): string {
 		$reply = '';
 
 		while (($line = fgets($handle, 515)) !== false) {

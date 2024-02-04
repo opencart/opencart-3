@@ -545,7 +545,14 @@ class ModelExtensionAdvertiseGoogle extends Model {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "googleshopping_product` (" . implode(", ", $keys) . ") " . str_replace('{INSERT_DATA}', implode(", ", $insert_data), $insert_sql) . " ON DUPLICATE KEY UPDATE " . $this->makeOnDuplicateKeyData());
 	}
 
-	protected function makeInsertData($data) {
+	/**
+	 * Make Insert Data
+	 * 
+	 * @param array<string, mixed> $data
+	 * 
+	 * @return array<string, mixed>
+	 */
+	protected function makeInsertData(array $data): array {
 		$insert_data = [];
 
 		$insert_data['store_id'] = "'" . (int)$data['store_id'] . "'";
@@ -565,12 +572,17 @@ class ModelExtensionAdvertiseGoogle extends Model {
 		return $insert_data;
 	}
 
-	protected function makeOnDuplicateKeyData() {
+	/**
+	 * Make On Duplicate Key Data
+	 * 
+	 * @return string
+	 */
+	protected function makeOnDuplicateKeyData(): string {
 		return "`google_product_category`=VALUES(`google_product_category`), `condition`=VALUES(`condition`), `adult`=VALUES(`adult`), `multipack`=VALUES(`multipack`), `is_bundle`=VALUES(`is_bundle`), `age_group`=VALUES(`age_group`), `color`=VALUES(`color`), `gender`=VALUES(`gender`), `size_type`=VALUES(`size_type`), `size_system`=VALUES(`size_system`), `size`=VALUES(`size`), `is_modified`=VALUES(`is_modified`)";
 	}
 
 	/**
-	 * getCategories
+	 * Get Categories
 	 *
 	 * @param array<string, mixed> $data
 	 * @param int                  $store_id
@@ -939,7 +951,14 @@ class ModelExtensionAdvertiseGoogle extends Model {
 		return $result;
 	}
 
-	protected function country($row) {
+	/**
+	 * Country
+	 * 
+	 * @return array<string, mixed>
+	 * 
+	 * @return string
+	 */
+	protected function country(array $row): string {
 		return $row['country'];
 	}
 }

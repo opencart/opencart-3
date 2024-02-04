@@ -382,47 +382,93 @@ class ModelExtensionPaymentWorldpay extends Model {
 		return $next_payment;
 	}
 
-	private function addSubscriptionOrder($order_info, $order_code, $token, $price, $subscription_id, $trial_end, $subscription_end): void {
+	/**
+	 * Add Subscription Order
+	 * 
+	 * @param array<string, mixed> $order_info
+	 * @param string               $order_code
+	 * @param string               $token
+	 * @param float                $price
+	 * @param int                  $subscription_id
+	 * @param string               $trial_end
+	 * @param string               $subscription_end
+	 * 
+	 * @return void
+	 */
+	private function addSubscriptionOrder(array $order_info, string $order_code, string $token, float $price, int $subscription_id, string $trial_end, string $subscription_end): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "worldpay_order_subscription` SET `order_id` = '" . (int)$order_info['order_id'] . "', `subscription_id` = '" . (int)$subscription_id . "', `order_code` = '" . $this->db->escape($order_code) . "', `token` = '" . $this->db->escape($token) . "', `date_added` = NOW(), `date_modified` = NOW(), `next_payment` = NOW(), `trial_end` = '" . $trial_end . "', `subscription_end` = '" . $subscription_end . "', `currency_code` = '" . $this->db->escape($order_info['currency_code']) . "', `total` = '" . $this->currency->format($price, $order_info['currency_code'], false, false) . "'");
 	}
 
-	private function updateSubscriptionOrder($subscription_id, $next_payment): void {
+	/**
+	 * Update Subscription Order
+	 * 
+	 * @param int    $subscription_id
+	 * @param string $next_payment
+	 * 
+	 * @return void
+	 */
+	private function updateSubscriptionOrder(int $subscription_id, string $next_payment): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "worldpay_order_subscription` SET `next_payment` = '" . $next_payment . "', `date_modified` = NOW() WHERE `subscription_id` = '" . (int)$subscription_id . "'");
 	}
 
-	private function getSubscriptionOrder($subscription_id) {
+	/**
+	 * Get Subscription Order
+	 * 
+	 * @param int $subscription_id
+	 * 
+	 * @return array<string, mixed>
+	 */
+	private function getSubscriptionOrder(int $subscription_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "worldpay_order_subscription` WHERE `subscription_id` = '" . (int)$subscription_id . "'");
 
 		return $query->row;
 	}
 
-	private function addProfileTransaction($subscription_id, $order_code, $price, $type): void {
+	/**
+	 * Add Profile Transaction
+	 * 
+	 * @param int    $subscription_id
+	 * @param string $order_code
+	 * @param float  $price
+	 * @param int    $type
+	 * 
+	 * @return void
+	 */
+	private function addProfileTransaction(int $subscription_id, string $order_code, float $price, int $type): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "order_subscription_transaction` SET `subscription_id` = '" . (int)$subscription_id . "', `date_added` = NOW(), `amount` = '" . (float)$price . "', `type` = '" . (int)$type . "', `reference` = '" . $this->db->escape($order_code) . "'");
 	}
 
+	/**
+	 * Get Profiles
+	 * 
+	 * @return array<int, mixed>
+	 */
 	private function getProfiles() {
-		$order_subscription = [];
+		$order_recurring = [];
 
-		$sql = "SELECT `s`.`subscription_id` FROM `" . DB_PREFIX . "subscription` `s` JOIN `" . DB_PREFIX . "order` `o` USING(`order_id`) WHERE `o`.`payment_code` = 'worldpay'";
+		$query = $this->db->query("SELECT `or`.`order_recurring_id` FROM `" . DB_PREFIX . "order_recurring` `or` JOIN `" . DB_PREFIX . "order` `o` USING(`order_id`)");
 
-		$query = $this->db->query($sql);
-
-		foreach ($query->rows as $subscription) {
-			$order_subscription[] = $this->getProfile($subscription['subscription_id']);
+		foreach ($query->rows as $order_recurring) {
+			$order_recurring[] = $this->getProfile($order_recurring['recurring_id']);
 		}
 
-		return $order_subscription;
-	}
-
-	private function getProfile($subscription_id) {
-		// Subscriptions
-		$this->load->model('account/subscription');
-
-		return $this->model_account_subscription->getSubscription($subscription_id);
+		return $order_recurring;
 	}
 
 	/**
-	 * getWorldpayOrder
+	 * Get Profile
+	 * 
+	 * @param int $order_recurring_id
+	 */
+	private function getProfile(int $order_recurring_id) {
+		// Recurring
+		$this->load->model('account/recurring');
+
+		return $this->model_account_recurring->getRecurring($order_recurring_id);
+	}
+
+	/**
+	 * Get Worldpay Order
 	 *
 	 * @param int $worldpay_order_id
 	 *

@@ -1,20 +1,46 @@
 <?php
 class PayPal {
-	private $server = [
+	/**
+	 * @var array<string, mixed> $server
+	 */
+	private array $server = [
 		'sandbox'    => 'https: //api.sandbox.paypal.com',
 		'production' => 'https: //api.paypal.com'
 	];
+	/**
+	 * @var string $environment
+	 */
+	private string $environment = 'sandbox';
+	/**
+	 * @var string $partner_id
+	 */
+	private string $partner_id = '';
+	/**
+	 * @var string $client_id
+	 */
+	private string $client_id = '';
+	/**
+	 * @var string $secret
+	 */
+	private string $secret = '';
+	/**
+	 * @var string $partner_attribute_id
+	 */
+	private string $partner_attribution_id = '';
+	/**
+	 * @var string $access_token
+	 */
+	private string $access_token = '';
+	/**
+	 * @var array<string, mixed> $errors
+	 */
+	private array $errors = [];
+	/**
+	 * @var array<string, mixed> $last_response
+	 */
+	private array $last_response = [];
 
-	private $environment = 'sandbox';
-	private $partner_id = '';
-	private $client_id = '';
-	private $secret = '';
-	private $partner_attribution_id = '';
-	private $access_token = '';
-	private $errors = [];
-	private $last_response = [];
-
-	// IN:  paypal info
+	// IN: paypal info
 	public function __construct($paypal_info) {
 		if (!empty($paypal_info['partner_id'])) {
 			$this->partner_id = $paypal_info['partner_id'];
@@ -37,7 +63,7 @@ class PayPal {
 		}
 	}
 
-	// IN:  token info
+	// IN: token info
 	// OUT: access token, if no return - check errors
 	public function setAccessToken($token_info) {
 		$command = '/v1/oauth2/token';
@@ -90,7 +116,7 @@ class PayPal {
 		}
 	}
 
-	// IN:  partner id
+	// IN: partner id
 	// OUT: merchant info, if no return - check errors
 	public function getSellerCredentials($partner_id) {
 		$command = '/v1/customer/partners/' . $partner_id . '/merchant-integrations/credentials';
@@ -104,7 +130,7 @@ class PayPal {
 		}
 	}
 
-	// IN:  partner id, merchant id
+	// IN: partner id, merchant id
 	// OUT: merchant info, if no return - check errors
 	public function getSellerStatus($partner_id, $merchant_id) {
 		$command = '/v1/customer/partners/' . $partner_id . '/merchant-integrations/' . $merchant_id;
@@ -118,7 +144,7 @@ class PayPal {
 		}
 	}
 
-	// IN:  webhook info
+	// IN: webhook info
 	public function createWebhook($webhook_info) {
 		$command = '/v1/notifications/webhooks';
 
@@ -133,7 +159,7 @@ class PayPal {
 		}
 	}
 
-	// IN:  webhook id
+	// IN: webhook id
 	// OUT: webhook info, if no return - check errors
 	public function updateWebhook($webhook_id, $webhook_info) {
 		$command = '/v1/notifications/webhooks/' . $webhook_id;
@@ -149,7 +175,7 @@ class PayPal {
 		}
 	}
 
-	// IN:  webhook id
+	// IN: webhook id
 	public function deleteWebhook($webhook_id) {
 		$command = '/v1/notifications/webhooks/' . $webhook_id;
 
@@ -158,7 +184,7 @@ class PayPal {
 		return true;
 	}
 
-	// IN:  webhook id
+	// IN: webhook id
 	// OUT: webhook info, if no return - check errors
 	public function getWebhook($webhook_id) {
 		$command = '/v1/notifications/webhooks/' . $webhook_id;
@@ -185,7 +211,7 @@ class PayPal {
 		}
 	}
 
-	// IN:  webhook event id
+	// IN: webhook event id
 	// OUT: webhook event info, if no return - check errors
 	public function getWebhookEvent($webhook_event_id) {
 		$command = '/v1/notifications/webhooks-events/' . $webhook_event_id;
@@ -212,7 +238,7 @@ class PayPal {
 		}
 	}
 
-	// IN:  order info
+	// IN: order info
 	public function createOrder($order_info) {
 		$command = '/v2/checkout/orders';
 
@@ -227,7 +253,7 @@ class PayPal {
 		}
 	}
 
-	// IN:  order id
+	// IN: order id
 	// OUT: order info, if no return - check errors
 	public function updateOrder($order_id, $order_info) {
 		$command = '/v2/checkout/orders/' . $order_id;
@@ -239,7 +265,7 @@ class PayPal {
 		return true;
 	}
 
-	// IN:  order id
+	// IN: order id
 	// OUT: order info, if no return - check errors
 	public function getOrder($order_id) {
 		$command = '/v2/checkout/orders/' . $order_id;
@@ -253,7 +279,7 @@ class PayPal {
 		}
 	}
 
-	// IN:  order id
+	// IN: order id
 	public function setOrderAuthorize($order_id) {
 		$command = '/v2/checkout/orders/' . $order_id . '/authorize';
 
@@ -266,7 +292,7 @@ class PayPal {
 		}
 	}
 
-	// IN:  order id
+	// IN: order id
 	public function setOrderCapture($order_id) {
 		$command = '/v2/checkout/orders/' . $order_id . '/capture';
 
@@ -279,7 +305,7 @@ class PayPal {
 		}
 	}
 
-	// IN:  transaction id
+	// IN: transaction id
 	public function setPaymentCapture($transaction_id) {
 		$command = '/v2/payments/authorizations/' . $transaction_id . '/capture';
 
@@ -292,7 +318,7 @@ class PayPal {
 		}
 	}
 
-	// IN:  transaction id
+	// IN: transaction id
 	public function setPaymentReauthorize($transaction_id) {
 		$command = '/v2/payments/authorizations/' . $transaction_id . '/reauthorize';
 
@@ -305,7 +331,7 @@ class PayPal {
 		}
 	}
 
-	// IN:  transaction id
+	// IN: transaction id
 	public function setPaymentVoid($transaction_id) {
 		$command = '/v2/payments/authorizations/' . $transaction_id . '/void';
 
@@ -318,7 +344,7 @@ class PayPal {
 		}
 	}
 
-	// IN:  transaction id
+	// IN: transaction id
 	public function setPaymentRefund($transaction_id) {
 		$command = '/v2/payments/captures/' . $transaction_id . '/refund';
 
@@ -346,7 +372,17 @@ class PayPal {
 		return $this->last_response;
 	}
 
-	private function execute($method, $command, $params = [], $json = false) {
+	/**
+	 * Execute
+	 * 
+	 * @param string               $method
+	 * @param string               $command
+	 * @param array<string, mixed> $params
+	 * @param bool                 $json
+	 * 
+	 * @return array<int, array<string, mixed>>
+	 */
+	private function execute($method, $command, $params = [], $json = false): array {
 		$this->errors = [];
 
 		if ($method && $command) {
@@ -481,7 +517,15 @@ class PayPal {
 		}
 	}
 
-	private function buildQuery($params, $json) {
+	/**
+	 * Build Query
+	 * 
+	 * @param array|string         $params
+	 * @param bool                 $json
+	 * 
+	 * @return mixed
+	 */
+	private function buildQuery($params, bool $json): mixed {
 		if (is_string($params)) {
 			return $params;
 		}
@@ -493,7 +537,14 @@ class PayPal {
 		}
 	}
 
-	private function token($length = 32) {
+	/**
+	 * Token
+	 * 
+	 * @param int $length
+	 * 
+	 * @return string
+	 */
+	private function token(int $length = 32): string {
 		// Create random token
 		$string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
