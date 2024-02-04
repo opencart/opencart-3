@@ -700,7 +700,7 @@ class ControllerSaleOrder extends Controller {
 		foreach ($custom_fields as $custom_field) {
 			$data['custom_fields'][] = [
 				'custom_field_id'    => $custom_field['custom_field_id'],
-				'custom_field_value' => $this->model_customer_custom_field->getCustomFieldValues($custom_field['custom_field_id']),
+				'custom_field_value' => $this->model_customer_custom_field->getValues($custom_field['custom_field_id']),
 				'name'               => $custom_field['name'],
 				'value'              => $custom_field['value'],
 				'type'               => $custom_field['type'],
@@ -1063,7 +1063,7 @@ class ControllerSaleOrder extends Controller {
 
 		$data['vouchers'] = [];
 
-		$vouchers = $this->model_sale_order->getOrderVouchers($this->request->get['order_id']);
+		$vouchers = $this->model_sale_order->getVouchers($this->request->get['order_id']);
 
 		foreach ($vouchers as $voucher) {
 			$data['vouchers'][] = [
@@ -1136,7 +1136,7 @@ class ControllerSaleOrder extends Controller {
 		foreach ($custom_fields as $custom_field) {
 			if ($custom_field['location'] == 'account' && isset($order_info['custom_field'][$custom_field['custom_field_id']])) {
 				if ($custom_field['type'] == 'select' || $custom_field['type'] == 'radio') {
-					$custom_field_value_info = $this->model_customer_custom_field->getCustomFieldValue($order_info['custom_field'][$custom_field['custom_field_id']]);
+					$custom_field_value_info = $this->model_customer_custom_field->getValue($order_info['custom_field'][$custom_field['custom_field_id']]);
 
 					if ($custom_field_value_info) {
 						$data['account_custom_fields'][] = [
@@ -1148,7 +1148,7 @@ class ControllerSaleOrder extends Controller {
 
 				if ($custom_field['type'] == 'checkbox' && is_array($order_info['custom_field'][$custom_field['custom_field_id']])) {
 					foreach ($order_info['custom_field'][$custom_field['custom_field_id']] as $custom_field_value_id) {
-						$custom_field_value_info = $this->model_customer_custom_field->getCustomFieldValue($custom_field_value_id);
+						$custom_field_value_info = $this->model_customer_custom_field->getValue($custom_field_value_id);
 
 						if ($custom_field_value_info) {
 							$data['account_custom_fields'][] = [
@@ -1185,7 +1185,7 @@ class ControllerSaleOrder extends Controller {
 		foreach ($custom_fields as $custom_field) {
 			if ($custom_field['location'] == 'address' && isset($order_info['payment_custom_field'][$custom_field['custom_field_id']])) {
 				if ($custom_field['type'] == 'select' || $custom_field['type'] == 'radio') {
-					$custom_field_value_info = $this->model_customer_custom_field->getCustomFieldValue($order_info['payment_custom_field'][$custom_field['custom_field_id']]);
+					$custom_field_value_info = $this->model_customer_custom_field->getValue($order_info['payment_custom_field'][$custom_field['custom_field_id']]);
 
 					if ($custom_field_value_info) {
 						$data['payment_custom_fields'][] = [
@@ -1198,7 +1198,7 @@ class ControllerSaleOrder extends Controller {
 
 				if ($custom_field['type'] == 'checkbox' && is_array($order_info['payment_custom_field'][$custom_field['custom_field_id']])) {
 					foreach ($order_info['payment_custom_field'][$custom_field['custom_field_id']] as $custom_field_value_id) {
-						$custom_field_value_info = $this->model_customer_custom_field->getCustomFieldValue($custom_field_value_id);
+						$custom_field_value_info = $this->model_customer_custom_field->getValue($custom_field_value_id);
 
 						if ($custom_field_value_info) {
 							$data['payment_custom_fields'][] = [
@@ -1238,7 +1238,7 @@ class ControllerSaleOrder extends Controller {
 		foreach ($custom_fields as $custom_field) {
 			if ($custom_field['location'] == 'address' && isset($order_info['shipping_custom_field'][$custom_field['custom_field_id']])) {
 				if ($custom_field['type'] == 'select' || $custom_field['type'] == 'radio') {
-					$custom_field_value_info = $this->model_customer_custom_field->getCustomFieldValue($order_info['shipping_custom_field'][$custom_field['custom_field_id']]);
+					$custom_field_value_info = $this->model_customer_custom_field->getValue($order_info['shipping_custom_field'][$custom_field['custom_field_id']]);
 
 					if ($custom_field_value_info) {
 						$data['shipping_custom_fields'][] = [
@@ -1251,7 +1251,7 @@ class ControllerSaleOrder extends Controller {
 
 				if ($custom_field['type'] == 'checkbox' && is_array($order_info['shipping_custom_field'][$custom_field['custom_field_id']])) {
 					foreach ($order_info['shipping_custom_field'][$custom_field['custom_field_id']] as $custom_field_value_id) {
-						$custom_field_value_info = $this->model_customer_custom_field->getCustomFieldValue($custom_field_value_id);
+						$custom_field_value_info = $this->model_customer_custom_field->getValue($custom_field_value_id);
 
 						if ($custom_field_value_info) {
 							$data['shipping_custom_fields'][] = [
@@ -1313,7 +1313,7 @@ class ControllerSaleOrder extends Controller {
 
 		$this->load->model('setting/extension');
 
-		$extensions = $this->model_setting_extension->getInstalled('fraud');
+		$extensions = $this->model_setting_extension->getExtensionsByType('fraud');
 
 		foreach ($extensions as $extension) {
 			if ($this->config->get('fraud_' . $extension . '_status')) {
@@ -1343,8 +1343,8 @@ class ControllerSaleOrder extends Controller {
 			$session = new \Session($this->config->get('session_engine'), $this->registry);
 			$session->start();
 
-			$this->model_user_api->deleteApiSessionBySessionId($session->getId());
-			$this->model_user_api->addApiSession($api_info['api_id'], $session->getId(), $this->request->server['REMOTE_ADDR']);
+			$this->model_user_api->deleteSessionBySessionId($session->getId());
+			$this->model_user_api->addSession($api_info['api_id'], $session->getId(), $this->request->server['REMOTE_ADDR']);
 
 			$session->data['api_id'] = $api_info['api_id'];
 
@@ -1577,7 +1577,7 @@ class ControllerSaleOrder extends Controller {
 
 		$this->load->model('sale/order');
 
-		$results = $this->model_sale_order->getOrderHistories($this->request->get['order_id'], ($page - 1) * 10, 10);
+		$results = $this->model_sale_order->getHistories($this->request->get['order_id'], ($page - 1) * 10, 10);
 
 		foreach ($results as $result) {
 			$data['histories'][] = [
@@ -1588,7 +1588,7 @@ class ControllerSaleOrder extends Controller {
 			];
 		}
 
-		$history_total = $this->model_sale_order->getTotalOrderHistories($this->request->get['order_id']);
+		$history_total = $this->model_sale_order->getTotalHistories($this->request->get['order_id']);
 
 		$pagination = new \Pagination();
 		$pagination->total = $history_total;
@@ -1764,7 +1764,7 @@ class ControllerSaleOrder extends Controller {
 					// Subscription
 					$description = '';
 
-					$subscription_info = $this->model_sale_order->getSubscription($order_id, $product['order_product_id']);
+					$subscription_info = $this->model_sale_subscription->getSubscriptionByOrderProductId($order_id, $product['order_product_id']);
 
 					if ($subscription_info) {
 						if ($subscription_info['trial_status']) {
@@ -1801,7 +1801,7 @@ class ControllerSaleOrder extends Controller {
 
 				$voucher_data = [];
 
-				$vouchers = $this->model_sale_order->getOrderVouchers($order_id);
+				$vouchers = $this->model_sale_order->getVouchers($order_id);
 
 				foreach ($vouchers as $voucher) {
 					$voucher_data[] = [
@@ -1973,7 +1973,7 @@ class ControllerSaleOrder extends Controller {
 								'value' => $value
 							];
 
-							$product_option_value_info = $this->model_catalog_product->getProductOptionValue($product['product_id'], $option['product_option_value_id']);
+							$product_option_value_info = $this->model_catalog_product->getOptions($product['product_id'], $option['product_option_value_id']);
 
 							if (!empty($product_option_value_info['weight'])) {
 								if ($product_option_value_info['weight_prefix'] == '+') {

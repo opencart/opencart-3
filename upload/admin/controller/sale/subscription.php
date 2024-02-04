@@ -656,7 +656,7 @@ class ControllerSaleSubscription extends Controller {
 
 		$this->load->model('sale/order');
 
-		$results = $this->model_sale_order->getOrdersBySubscriptionId($subscription_id);
+		$results = $this->model_sale_order->getTotalOrdersBySubscriptionId($subscription_id);
 
 		foreach ($results as $result) {
 			$data['orders'][] = [
