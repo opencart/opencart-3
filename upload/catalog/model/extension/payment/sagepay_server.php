@@ -276,10 +276,10 @@ class ModelExtensionPaymentSagePayServer extends Model {
 					$subscription_end = new \DateTime('0000-00-00');
 				}
 
-				$this->addSubscriptionOrder($item['subscription']['order_id'], $response_data, $order_info, $item['subscription']['subscription_id'], date_format($trial_end, 'Y-m-d H:i:s'), date_format($subscription_end, 'Y-m-d H:i:s'));
+				$this->addSubscriptionOrder($this->session->data['order_id'], $response_data, $order_info, $item['subscription']['subscription_id'], date_format($trial_end, 'Y-m-d H:i:s'), date_format($subscription_end, 'Y-m-d H:i:s'));
 
 				$transaction = [
-					'order_id'       => $item['subscription']['order_id'],
+					'order_id'       => $this->session->data['order_id'],
 					'description'    => $response_data['Status'],
 					'amount'         => $price,
 					'payment_method' => $order_info['payment_method'],

@@ -413,7 +413,7 @@ class ModelExtensionPaymentPayPal extends Model {
 			$subscription_end = new \DateTime('0000-00-00');
 		}
 
-		$this->addOrderSubscription($item['subscription']['order_id'], $item);
+		$this->addOrderSubscription($this->session->data['order_id'], $item);
 
 		$result = $this->createPayment($order_info, $paypal_order_data, $price, $item['subscription']['name']);
 
@@ -443,7 +443,7 @@ class ModelExtensionPaymentPayPal extends Model {
 
 			$paypal_subscription_data = [
 				'subscription_id'  => $item['subscription']['subscription_id'],
-				'order_id'         => $item['subscription']['order_id'],
+				'order_id'         => $this->session->data['order_id'],
 				'trial_end'        => date_format($trial_end, 'Y-m-d H:i:s'),
 				'subscription_end' => date_format($subscription_end, 'Y-m-d H:i:s'),
 				'currency_code'    => $currency_code,
@@ -455,7 +455,7 @@ class ModelExtensionPaymentPayPal extends Model {
 			if (($transaction_status == 'CREATED') || ($transaction_status == 'COMPLETED') || ($transaction_status == 'PENDING')) {
 				$subscription_transaction_data = [
 					'subscription_id' => $item['subscription']['subscription_id'],
-					'order_id'        => $item['subscription']['order_id'],
+					'order_id'        => $this->session->data['order_id'],
 					'reference'       => $transaction_id,
 					'type'            => '1',
 					'amount'          => $amount
@@ -467,7 +467,7 @@ class ModelExtensionPaymentPayPal extends Model {
 			} else {
 				$subscription_transaction_data = [
 					'subscription_id' => $item['subscription']['subscription_id'],
-					'order_id'        => $item['subscription']['order_id'],
+					'order_id'        => $this->session->data['order_id'],
 					'reference'       => $transaction_id,
 					'type'            => '4',
 					'amount'          => $amount

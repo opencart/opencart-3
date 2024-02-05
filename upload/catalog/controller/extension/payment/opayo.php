@@ -384,7 +384,6 @@ class ControllerExtensionPaymentOpayo extends Controller {
 
 						if ($subscription_info && $order_product['product_id'] == $item['product_id'] && $item['product_id'] == $subscription_info['product_id']) {
 							$item['subscription']['subscription_id'] = $subscription_info['subscription_id'];
-							$item['subscription']['order_id'] = $this->session->data['order_id'];
 							$item['subscription']['order_product_id'] = $order_product['order_product_id'];
 							$item['subscription']['name'] = $item['name'];
 							$item['subscription']['product_id'] = $item['product_id'];
@@ -557,7 +556,6 @@ class ControllerExtensionPaymentOpayo extends Controller {
 
 							if ($subscription_info && $order_product['product_id'] == $item['product_id'] && $item['product_id'] == $subscription_info['product_id']) {
 								$item['subscription']['subscription_id'] = $subscription_info['subscription_id'];
-								$item['subscription']['order_id'] = $this->session->data['order_id'];
 								$item['subscription']['order_product_id'] = $order_product['order_product_id'];
 								$item['subscription']['name'] = $item['name'];
 								$item['subscription']['product_id'] = $item['product_id'];
