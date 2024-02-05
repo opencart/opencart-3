@@ -213,8 +213,8 @@ class ModelCheckoutOrder extends Model {
 				$language_code = $this->config->get('config_language');
 			}
 
-			$payment_method = json_decode($order_query->row['payment_method'], true);
-			$shipping_method = json_decode($order_query->row['shipping_method'], true);
+			$payment_method = ($query->row['payment_method'] ? json_decode($order_query->row['payment_method'], true) : '');
+			$shipping_method = ($query->row['shipping_method'] ? json_decode($order_query->row['shipping_method'], true) : '');
 
 			return [
 				'order_id'                => $order_query->row['order_id'],
@@ -324,9 +324,21 @@ class ModelCheckoutOrder extends Model {
 	 * @return array<string, mixed>
 	 */
 	public function getSubscription(int $order_id, int $order_product_id): array {
+		$subscription_data = [];
+
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_subscription` WHERE `order_id` = '" . (int)$order_id . "' AND `order_product_id` = '" . (int)$order_product_id . "'");
 
-		return $query->row;
+		if ($query->num_rows) {
+			$subscription_data = $query->row;
+
+			$subscription_data['option'] = ($query->row['option'] ? json_decode($query->row['option'], true) : '');
+			$subscription_data['payment_method'] = ($query->row['payment_method'] ? json_decode($query->row['payment_method'], true) : '');
+			$subscription_data['shipping_method'] = ($query->row['shipping_method'] ? json_decode($query->row['shipping_method'], true) : '');
+		} else {
+			return [];
+		}
+
+		return $subscription_data;
 	}
 
 	/**
@@ -337,6 +349,8 @@ class ModelCheckoutOrder extends Model {
 	 * @return array<int, array<string, mixed>>
 	 */
 	public function getSubscriptions(array $data): array {
+		$subscription_data = [];
+
 		$sql = "SELECT * FROM `" . DB_PREFIX . "subscription`";
 
 		$implode = [];
@@ -388,7 +402,15 @@ class ModelCheckoutOrder extends Model {
 
 		$query = $this->db->query($sql);
 
-		return $query->rows;
+		foreach ($query->rows as $subscription) {
+			$subscription_data[] = $subscription;
+
+			$subscription_data['option'][] = ($subscription['option'] ? json_decode($subscription['option'], true) : '');
+			$subscription_data['payment_method'][] = ($subscription['payment_method'] ? json_decode($subscription['payment_method'], true) : '');
+			$subscription_data['shipping_method'][] = ($subscription['shipping_method'] ? json_decode($subscription['shipping_method'], true) : '');
+		}
+
+		return $subscription_data;
 	}
 
 	/**

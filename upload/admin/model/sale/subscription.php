@@ -14,7 +14,7 @@ class ModelSaleSubscription extends Model {
 	 * @return void
 	 */
 	public function editSubscription(int $subscription_id, array $data): void {
-		$this->db->query("UPDATE `" . DB_PREFIX . "subscription` SET `subscription_plan_id` = '" . (int)$data['subscription_plan_id'] . "', `customer_payment_id` = '" . (int)$data['customer_payment_id'] . "' WHERE `subscription_id` = '" . (int)$subscription_id . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "subscription` SET `subscription_plan_id` = '" . (int)$data['subscription_plan_id'] . "' WHERE `subscription_id` = '" . (int)$subscription_id . "'");
 	}
 
 	/**
@@ -106,6 +106,8 @@ class ModelSaleSubscription extends Model {
 			$subscription_data['option'] = ($query->row['option'] ? json_decode($query->row['option'], true) : '');
 			$subscription_data['payment_method'] = ($query->row['payment_method'] ? json_decode($query->row['payment_method'], true) : '');
 			$subscription_data['shipping_method'] = ($query->row['shipping_method'] ? json_decode($query->row['shipping_method'], true) : '');
+		} else {
+			return [];
 		}
 
 		return $subscription_data;
@@ -122,7 +124,15 @@ class ModelSaleSubscription extends Model {
 	public function getSubscriptionByOrderProductId(int $order_id, int $order_product_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "subscription` WHERE `order_id` = '" . (int)$order_id . "' AND `order_product_id` = '" . (int)$order_product_id . "'");
 
-		return $query->row;
+		if ($query->num_rows) {
+			$query->row['option'] = ($query->row['option'] ? json_decode($query->row['option'], true) : '');
+			$query->row['payment_method'] = ($query->row['payment_method'] ? json_decode($query->row['payment_method'], true) : '');
+			$query->row['shipping_method'] = ($query->row['shipping_method'] ? json_decode($query->row['shipping_method'], true) : '');
+
+			return $query->row;
+		} else {
+			return [];
+		}
 	}
 
 	/**
@@ -147,10 +157,6 @@ class ModelSaleSubscription extends Model {
 
 		if (!empty($data['filter_order_product_id'])) {
 			$implode[] = "`s`.`order_product_id` = '" . (int)$data['filter_order_product_id'] . "'";
-		}
-
-		if (!empty($data['filter_customer_payment_id'])) {
-			$implode[] = "`s`.`customer_payment_id` = " . (int)$data['filter_customer_payment_id'];
 		}
 
 		if (!empty($data['filter_customer_id'])) {

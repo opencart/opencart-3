@@ -134,7 +134,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 			if ($order_info) {
 				$order_total = $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false);
 
-				if ($order_total == $this->request->post['mainamount'] && $order_info['currency_code'] == $this->request->post['currencyiso3a'] && $order_info['payment_method']['code'] == 'securetrading_pp') {
+				if ($order_total == $this->request->post['mainamount'] && $order_info['currency_code'] == $this->request->post['currencyiso3a'] && $order_info['payment_code'] == 'securetrading_pp') {
 					$status_code_mapping = [
 						0 => $this->language->get('text_not_given'),
 						1 => $this->language->get('text_not_checked'),
