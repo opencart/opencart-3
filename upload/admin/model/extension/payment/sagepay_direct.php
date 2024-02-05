@@ -57,6 +57,7 @@ class ModelExtensionPaymentSagepayDirect extends Model {
 			  `trial_end` datetime DEFAULT NULL,
 			  `subscription_end` datetime DEFAULT NULL,
 			  `currency_code` varchar(3) NOT NULL,
+			  `payment_code` varchar(128) NOT NULL,
 			  `total` decimal(15,4) NOT NULL,
 			  PRIMARY KEY (`sagepay_direct_subscription_id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");

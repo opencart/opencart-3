@@ -292,7 +292,7 @@ class ModelExtensionPaymentPayPal extends Model {
 	 * @return array<int, array<string, mixed>>
 	 */
 	public function getOrderSubscriptions(): array {
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "paypal_checkout_integration_subscription` `os` INNER JOIN `" . DB_PREFIX . "order` `o` ON (`o`.`order_id` = `os`.`order_id`) WHERE `o`.`payment_code` = 'paypal' AND `o`.`customer_id` = '" . (int)$this->customer->getId() . "'");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "paypal_checkout_integration_subscription` `pcis` INNER JOIN `" . DB_PREFIX . "order` `o` ON (`o`.`order_id` = `pcis`.`order_id`) WHERE `pcis`.`payment_code` = 'paypal' AND `o`.`customer_id` = '" . (int)$this->customer->getId() . "'");
 
 		return $query->rows;
 	}

@@ -423,6 +423,7 @@ class ModelExtensionPaymentPayPal extends Model {
 			`subscription_end` datetime DEFAULT NULL,
 			`currency_code` varchar(3) NOT NULL,
 			`total` decimal(15,4) NOT NULL,
+			`payment_code` varchar(128) NOT NULL,
 			`date_added` datetime NOT NULL,
 			`date_modified` datetime NOT NULL,
 			PRIMARY KEY (`paypal_checkout_integration_subscription_id`),

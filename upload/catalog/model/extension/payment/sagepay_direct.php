@@ -287,7 +287,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 			$subscription_end = new \DateTime('0000-00-00');
 		}
 
-		$this->addSubscriptionOrder($this->session->data['order_id'], $response_data, $item['subscription']['subscription_id'], date_format($trial_end, 'Y-m-d H:i:s'), date_format($subscription_end, 'Y-m-d H:i:s'));
+		$this->addSubscriptionOrder($this->session->data['order_id'], $response_data, $order_info, $item['subscription']['subscription_id'], date_format($trial_end, 'Y-m-d H:i:s'), date_format($subscription_end, 'Y-m-d H:i:s'));
 
 		$transaction = [
 			'order_id'       => $this->session->data['order_id'],
@@ -521,14 +521,15 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	 *
 	 * @param int                  $order_id
 	 * @param array<string, mixed> $response_data
+	 * @param array<string, mixed> $order_info
 	 * @param int                  $subscription_id
 	 * @param string               $trial_end
 	 * @param string               $subscription_end
 	 *
 	 * @return void
 	 */
-	private function addSubscriptionOrder(int $order_id, array $response_data, int $subscription_id, string $trial_end, string $subscription_end): void {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "sagepay_direct_order_subscription` SET `order_id` = '" . (int)$order_id . "', `subscription_id` = '" . (int)$subscription_id . "', `vps_tx_id` = '" . $this->db->escape($response_data['VPSTxId']) . "', `vendor_tx_code` = '" . $this->db->escape($response_data['VendorTxCode']) . "', `security_key` = '" . $this->db->escape($response_data['SecurityKey']) . "', `tx_auth_no` = '" . $this->db->escape($response_data['TxAuthNo']) . "', `date_added` = NOW(), `date_modified` = NOW(), `next_payment` = NOW(), `trial_end` = '" . $this->db->escape($trial_end) . "', `subscription_end` = '" . $this->db->escape($subscription_end) . "', `currency_code` = '" . $this->db->escape($response_data['Currency']) . "', `total` = '" . $this->currency->format($response_data['Amount'], $response_data['Currency'], false, false) . "'");
+	private function addSubscriptionOrder(int $order_id, array $response_data, array $order_info, int $subscription_id, string $trial_end, string $subscription_end): void {
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "sagepay_direct_order_subscription` SET `order_id` = '" . (int)$order_id . "', `subscription_id` = '" . (int)$subscription_id . "', `vps_tx_id` = '" . $this->db->escape($response_data['VPSTxId']) . "', `vendor_tx_code` = '" . $this->db->escape($response_data['VendorTxCode']) . "', `security_key` = '" . $this->db->escape($response_data['SecurityKey']) . "', `tx_auth_no` = '" . $this->db->escape($response_data['TxAuthNo']) . "', `next_payment` = NOW(), `trial_end` = '" . $this->db->escape($trial_end) . "', `subscription_end` = '" . $this->db->escape($subscription_end) . "', `currency_code` = '" . $this->db->escape($response_data['Currency']) . "', `total` = '" . $this->currency->format($response_data['Amount'], $response_data['Currency'], false, false) . "', `payment_code` = '" . $this->db->escape($order_info['payment_code']) . "', `date_added` = NOW(), `date_modified` = NOW()");
 	}
 
 	/**
@@ -609,23 +610,32 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	/**
 	 * Get Profiles
 	 *
-	 * @return array<int, mixed>
+	 * @return array<int, array<string, mixed>>
 	 */
-	private function getProfiles(): array {
-		$subscriptions = [];
+	public function getProfiles(): array {
+		$order_recurring_data = [];
 
-		// Subscriptions
-		$this->load->model('account/subscription');
+		$query = $this->db->query("SELECT `or`.`order_id`, `or`.`recurring_id` FROM (`" . DB_PREFIX . "order_recurring` `or`, `" . DB_PREFIX . "sagepay_direct_order_subscription` `sdos`) INNER JOIN `" . DB_PREFIX . "order_recurring_transaction` `ort` ON (`ort`.`order_recurring_id` = `or`.`order_recurring_id`) WHERE `sdos`.`payment_code` = 'opayo' AND `sdos`.`vendor_tx_code` = `ort`.`reference`");
 
-		$sql = "SELECT `s`.`subscription_id` FROM `" . DB_PREFIX . "subscription` `s` JOIN `" . DB_PREFIX . "order` `o` USING(`order_id`) WHERE `o`.`payment_code` = 'sagepay_direct'";
-
-		$query = $this->db->query($sql);
-
-		foreach ($query->rows as $subscription) {
-			$subscriptions[] = $this->model_account_subscription->getSubscription($subscription['subscription_id']);
+		foreach ($query->rows as $recurring) {
+			$order_recurring_data[] = $this->getProfile($recurring['order_id'], $recurring['recurring_id']);
 		}
 
-		return $subscriptions;
+		return $order_recurring_data;
+	}
+
+	/**
+	 * Get Profile
+	 *
+	 * @param int $order_id
+	 * @param int $recurring_id
+	 *
+	 * @return array<string, mixed>
+	 */
+	public function getProfile(int $order_id, int $recurring_id): array {
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_recurring` WHERE `order_id` = '" . (int)$order_id . "' AND `recurring_id` = '" . (int)$recurring_id . "'");
+
+		return $query->row;
 	}
 
 	/**
