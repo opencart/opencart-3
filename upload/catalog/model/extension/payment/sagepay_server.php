@@ -236,7 +236,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
 		$this->load->model('checkout/subscription');
 		$this->load->model('checkout/order');
 
-		$order_info = $this->model_checkout_order->getOrder($item['subscription']['order_id']);
+		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
 		if ($order_info) {
 			// Trial information
