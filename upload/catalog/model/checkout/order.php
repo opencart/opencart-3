@@ -513,7 +513,7 @@ class ModelCheckoutOrder extends Model {
 
 					if (is_callable($callable)) {
 						// Confirm coupon, vouchers and reward points
-						$fraud_status_id = $this->{'model_extension_total_' . $order_total['code']}->confirm($order_info, $order_total);
+						$fraud_status_id = $callable($order_info, $order_total);
 
 						// If the balance on the coupon, vouchers and reward points is not enough to cover the transaction or has already been used then the fraud order status is returned.
 						if ($fraud_status_id) {

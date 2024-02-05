@@ -79,14 +79,8 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 				if ($this->config->get('total_' . $result['code'] . '_status')) {
 					$this->load->model('extension/total/' . $result['code']);
 
-					$taxes = [];
-
 					// We have to put the totals in an array so that they pass by reference.
-					$callable = [$this->{'model_extension_total_' . $result['code']}, 'getTotal'];
-
-					if (is_callable($callable)) {
-						$callable($total_data);
-					}
+					$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
 
 					$amount = 0;
 

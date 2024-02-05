@@ -57,24 +57,20 @@ class ControllerExtensionPaymentG2APay extends Controller {
 
 		foreach ($results as $result) {
 			if ($this->config->get('total_' . $result['code'] . '_status')) {
-				$callable = [$this->{'model_extension_total_' . $result['code']}, 'getTotal'];
+				$total_info = $this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
 
-				if (is_callable($callable)) {
-					$total_info = $callable();
+				if ($total_info) {
+					$item = new \stdClass();
 
-					if ($total_info) {
-						$item = new \stdClass();
+					$item->sku = $total_info['totals']['code'];
+					$item->name = $total_info['totals']['title'];
+					$item->amount = number_format($total_info['totals']['value'], 2);
+					$item->qty = 1;
+					$item->id = $total_info['totals']['code'];
+					$item->price = $total_info['totals']['value'];
+					$item->url = $this->url->link('common/home', '', true);
 
-						$item->sku = $total_info['totals']['code'];
-						$item->name = $total_info['totals']['title'];
-						$item->amount = number_format($total_info['totals']['value'], 2);
-						$item->qty = 1;
-						$item->id = $total_info['totals']['code'];
-						$item->price = $total_info['totals']['value'];
-						$item->url = $this->url->link('common/home', '', true);
-
-						$items[] = $item;
-					}
+					$items[] = $item;				
 				}
 			}
 		}

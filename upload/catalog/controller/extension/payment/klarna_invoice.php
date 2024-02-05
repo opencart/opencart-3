@@ -44,9 +44,12 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
 				];
 			}
 
-			// Store Taxes to send to Klarna
-			$total = 0;
-			$total_data = [];
+			// Because __call can not keep var references, so we put them into an array.
+			$total_data = [
+				'totals' => &$totals,
+				'taxes'  => &$taxes,
+				'total'  => &$total
+			];
 
 			// Extensions
 			$this->load->model('setting/extension');
@@ -67,18 +70,8 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
 				if ($this->config->get($result['code'] . '_status')) {
 					$this->load->model('extension/total/' . $result['code']);
 
-					$taxes = [];
-
 					// We have to put the totals in an array so that they pass by reference.
-					$callable = [$this->{'model_extension_total_' . $result['code']}, 'getTotal'];
-
-					if (is_callable($callable)) {
-						$callable([
-							'totals' => $total_data,
-							'total'  => $total,
-							'taxes'  => $taxes
-						]);
-					}
+					$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
 
 					$amount = 0;
 
