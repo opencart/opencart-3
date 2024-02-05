@@ -213,8 +213,8 @@ class ModelCheckoutOrder extends Model {
 				$language_code = $this->config->get('config_language');
 			}
 
-			$payment_method = json_decode($order_query->row['payment_method'], true);
-			$shipping_method = json_decode($order_query->row['shipping_method'], true);
+			$payment_method = ($query->row['payment_method'] ? json_decode($order_query->row['payment_method'], true) : '');
+			$shipping_method = ($query->row['shipping_method'] ? json_decode($order_query->row['shipping_method'], true) : '');
 
 			return [
 				'order_id'                => $order_query->row['order_id'],
