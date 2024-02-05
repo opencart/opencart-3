@@ -403,7 +403,7 @@ class ModelCheckoutOrder extends Model {
 		$query = $this->db->query($sql);
 
 		foreach ($query->rows as $subscription) {
-			$subscription_data[] = $query->row;
+			$subscription_data[] = $subscription;
 
 			$subscription_data['option'][] = ($subscription['option'] ? json_decode($subscription['option'], true) : '');
 			$subscription_data['payment_method'][] = ($subscription['payment_method'] ? json_decode($subscription['payment_method'], true) : '');
