@@ -36,7 +36,7 @@ class ControllerExtensionExtensionDashboard extends Controller {
 		$this->load->model('setting/extension');
 
 		if ($this->validate()) {
-			$callable = [$this->{'model_setting_extension_dashboard'}, 'install'];
+			$callable = [$this->{'model_setting_extension'}, 'install'];
 
 			if (is_callable($callable)) {
 				$this->model_setting_extension->install('dashboard', $this->request->get['extension']);
@@ -69,7 +69,7 @@ class ControllerExtensionExtensionDashboard extends Controller {
 		$this->load->model('setting/extension');
 
 		if ($this->validate()) {
-			$callable = [$this->{'model_setting_extension_dashboard'}, 'uninstall'];
+			$callable = [$this->{'model_setting_extension'}, 'uninstall'];
 
 			if (is_callable($callable)) {
 				$this->model_setting_extension->uninstall('dashboard', $this->request->get['extension']);
@@ -108,7 +108,7 @@ class ControllerExtensionExtensionDashboard extends Controller {
 
 		foreach ($extensions as $key => $value) {
 			if (!is_file(DIR_APPLICATION . 'controller/extension/dashboard/' . $value . '.php')) {
-				$callable = [$this->{'model_setting_extension_dashboard'}, 'uninstall'];
+				$callable = [$this->{'model_setting_extension'}, 'uninstall'];
 
 				if (is_callable($callable)) {
 					$this->model_setting_extension->uninstall('dashboard', $value);

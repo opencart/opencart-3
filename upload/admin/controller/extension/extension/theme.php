@@ -36,7 +36,7 @@ class ControllerExtensionExtensionTheme extends Controller {
 		$this->load->model('setting/extension');
 
 		if ($this->validate()) {
-			$callable = [$this->{'model_setting_extension_theme'}, 'install'];
+			$callable = [$this->{'model_setting_extension'}, 'install'];
 
 			if (is_callable($callable)) {
 				$this->model_setting_extension->install('theme', $this->request->get['extension']);
@@ -69,7 +69,7 @@ class ControllerExtensionExtensionTheme extends Controller {
 		$this->load->model('setting/extension');
 
 		if ($this->validate()) {
-			$callable = [$this->{'model_setting_extension_theme'}, 'uninstall'];
+			$callable = [$this->{'model_setting_extension'}, 'uninstall'];
 
 			if (is_callable($callable)) {
 				$this->model_setting_extension->uninstall('theme', $this->request->get['extension']);
@@ -108,7 +108,7 @@ class ControllerExtensionExtensionTheme extends Controller {
 
 		foreach ($extensions as $key => $value) {
 			if (!is_file(DIR_APPLICATION . 'controller/extension/theme/' . $value . '.php') && !is_file(DIR_APPLICATION . 'controller/theme/' . $value . '.php')) {
-				$callable = [$this->{'model_setting_extension_theme'}, 'uninstall'];
+				$callable = [$this->{'model_setting_extension'}, 'uninstall'];
 
 				if (is_callable($callable)) {
 					$this->model_setting_extension->uninstall('theme', $value);
