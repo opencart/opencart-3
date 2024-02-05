@@ -589,7 +589,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
 	 *
 	 * @param int                  $order_id
 	 * @param array<string, mixed> $response_data
-	 * @param array<string, mixed> $$order_info
+	 * @param array<string, mixed> $order_info
 	 * @param int                  $subscription_id
 	 * @param string               $trial_end
 	 * @param string               $subscription_end
