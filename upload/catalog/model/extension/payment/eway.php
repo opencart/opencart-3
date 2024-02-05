@@ -12,7 +12,7 @@ class ModelExtensionPaymentEway extends Model {
 	 *
 	 * @return array
 	 */
-	public function getMethod(array $address): array {
+	public function getMethods(array $address): array {
 		$this->load->language('extension/payment/eway');
 
 		if ($this->config->get('payment_eway_status')) {

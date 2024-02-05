@@ -68,7 +68,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 	 *
 	 * @return array
 	 */
-	public function getMethod(array $address): array {
+	public function getMethods(array $address): array {
 		$this->load->language('extension/payment/laybuy');
 
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `geo_zone_id` = '" . (int)$this->config->get('payment_laybuy_geo_zone_id') . "' AND `country_id` = '" . (int)$address['country_id'] . "' AND (`zone_id` = '" . (int)$address['zone_id'] . "' OR `zone_id` = '0')");

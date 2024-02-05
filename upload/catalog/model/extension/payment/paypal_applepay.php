@@ -1,6 +1,6 @@
 <?php
 class ModelExtensionPaymentPaypalApplepay extends Model {
-	public function getMethod($address, $total) {
+	public function getMethods($address, $total) {
 		$method_data = [];
 
 		$this->load->model('extension/payment/paypal');

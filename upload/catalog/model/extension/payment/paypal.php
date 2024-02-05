@@ -1,7 +1,7 @@
 <?php
 
 class ModelExtensionPaymentPayPal extends Model {
-	public function getMethod(array $address, float $total): array {
+	public function getMethods(array $address, float $total): array {
 		$method_data = [];
 
 		$agree_status = $this->getAgreeStatus();

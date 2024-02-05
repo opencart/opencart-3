@@ -12,7 +12,7 @@ class ModelExtensionPaymentKlarnaInvoice extends Model {
 	 *
 	 * @return array
 	 */
-	public function getMethod(array $address): array {
+	public function getMethods(array $address): array {
 		$this->load->language('extension/payment/klarna_invoice');
 
 		$status = true;

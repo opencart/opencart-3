@@ -14,7 +14,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	 *
 	 * @return void
 	 */
-	public function getMethod(array $address): void {
+	public function getMethods(array $address): void {
 		// Do nothing, as Amazon Pay is a separate checkout flow, not a payment option in OpenCart.
 	}
 

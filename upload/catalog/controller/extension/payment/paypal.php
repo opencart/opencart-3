@@ -1893,7 +1893,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			if ($this->config->get('payment_' . $result['code'] . '_status')) {
 				$this->load->model('extension/payment/' . $result['code']);
 
-				$callable = [$this->{'model_extension_payment_' . $result['code']}, 'getMethod'];
+				$callable = [$this->{'model_extension_payment_' . $result['code']}, 'getMethods'];
 
 				if (is_callable($callable)) {
 					$method = $callable($data['payment_address'], $total);
