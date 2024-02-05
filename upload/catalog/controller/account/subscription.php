@@ -186,10 +186,10 @@ class ControllerAccountSubscription extends Controller {
 			// Extensions
 			$this->load->model('setting/extension');
 
-			$extension_info = $this->model_setting_extension->getExtensionByCode('payment', $subscription_info['payment_method']['code']);
+			$extension_info = $this->model_setting_extension->getExtensionByCode('payment', $subscription_info['payment_code']);
 
 			if ($extension_info) {
-				$data['subscription'] = $this->load->controller('extension/subscription/' . $subscription_info['payment_method']['code']);
+				$data['subscription'] = $this->load->controller('extension/subscription/' . $subscription_info['payment_code']);
 			} else {
 				$data['subscription'] = '';
 			}
@@ -282,11 +282,11 @@ class ControllerAccountSubscription extends Controller {
 		$order_info = $this->model_checkout_order->getOrder($order_id);
 
 		if ($order_info && $this->cart->hasSubscription()) {
-			$callable = [$this->{'model_extension_payment_' . $order_info['payment_method']['code']}, 'charge'];
+			$callable = [$this->{'model_extension_payment_' . $order_info['payment_code']}, 'charge'];
 
 			if (is_callable($callable)) {
 				// Process payment
-				$response_info = $callable($this->customer->getId(), $this->session->data['order_id'], $order_info['total'], $order_info['payment_method']['code']);
+				$response_info = $callable($this->customer->getId(), $this->session->data['order_id'], $order_info['total'], $order_info['payment_code']);
 
 				if (isset($response_info['order_status_id'])) {
 					$order_status_id = $response_info['order_status_id'];

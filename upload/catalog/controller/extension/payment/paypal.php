@@ -381,7 +381,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 						}
 					}
 
-					if (isset($this->session->data['payment_method']['code']) && ($this->session->data['payment_method']['code'] == 'paypal_paylater')) {
+					if (isset($this->session->data['payment_code']) && ($this->session->data['payment_code'] == 'paypal_paylater')) {
 						$json['button_funding_source'] = 'paylater';
 					}
 				}

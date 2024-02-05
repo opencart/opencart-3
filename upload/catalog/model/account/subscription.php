@@ -61,6 +61,8 @@ class ModelAccountSubscription extends Model {
 	 * @return array<int, array<string, mixed>>
 	 */
 	public function getSubscriptions(int $start = 0, int $limit = 20): array {
+		$subscription_data = [];
+
 		if ($start < 0) {
 			$start = 0;
 		}
@@ -71,7 +73,15 @@ class ModelAccountSubscription extends Model {
 
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "subscription` WHERE `customer_id` = '" . (int)$this->customer->getId() . "' AND `subscription_status_id` > '0' AND `store_id` = '" . (int)$this->config->get('config_store_id') . "' ORDER BY `subscription_id` DESC LIMIT " . (int)$start . "," . (int)$limit);
 
-		return $query->rows;
+		foreach ($query->rows as $subscription) {
+			$subscription_data[] = $subscription;
+
+			$subscription_data['option'][] = ($subscription['option'] ? json_decode($subscription['option'], true) : '');
+			$subscription_data['payment_method'][] = ($subscription['payment_method'] ? json_decode($subscription['payment_method'], true) : '');
+			$subscription_data['shipping_method'][] = ($subscription['shipping_method'] ? json_decode($subscription['shipping_method'], true) : '');
+		}
+
+		return $subscription_data;
 	}
 
 	/**

@@ -246,9 +246,9 @@ class ControllerMailSubscription extends Controller {
 					// the order ID needs to be identical
 					if ($order_info && $subscription['order_id'] == $order_info['order_id']) {
 						// Same for the payment method
-						if ($order_info['payment_method']['name'] == $subscription['payment_method']['name'] && $subscription['payment_method']['name'] == $payment_method) {
+						if ($order_info['payment_code'] == $subscription['payment_code'] && $subscription['payment_method'] == $payment_method) {
 							// Same for the payment code
-							if ($order_info['payment_method']['code'] == $subscription['payment_method']['code'] && $subscription['payment_method']['code'] == $payment_code) {
+							if ($order_info['payment_code'] == $subscription['payment_code'] && $subscription['payment_code'] == $payment_code) {
 								$this->load->language('mail/subscription');
 
 								// Store
@@ -267,8 +267,8 @@ class ControllerMailSubscription extends Controller {
 
 								$data['payment_method'] = [];
 
-								$data['payment_method']['name'] = $payment_method;
-								$data['payment_method']['code'] = $payment_code;
+								$data['payment_method'] = $payment_method;
+								$data['payment_code'] = $payment_code;
 
 								$data['date_added'] = date($this->language->get('date_format_short'), $subscription['date_added']);
 
