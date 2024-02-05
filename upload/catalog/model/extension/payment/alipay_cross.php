@@ -166,7 +166,7 @@ class ModelExtensionPaymentAlipayCross extends Model {
 	 *
 	 * @param array<string, mixed> $para
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return string
 	 */
 	private function createLinkstring(array $para): string {
 		return http_build_query($para, '', '&');
