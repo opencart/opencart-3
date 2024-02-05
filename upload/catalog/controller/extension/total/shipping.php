@@ -139,44 +139,19 @@ class ControllerExtensionTotalShipping extends Controller {
 
 			$quote_data = [];
 
-			// Extensions
-			$this->load->model('setting/extension');
+			// Shipping methods
+			$this->load->model('checkout/shipping_method');
 
-			$results = $this->model_setting_extension->getExtensionsByType('shipping');
+			$quote_data = $this->model_checkout_shipping_method->getMethods($this->session->data['shipping_address']);
 
-			foreach ($results as $result) {
-				if ($this->config->get('shipping_' . $result['code'] . '_status')) {
-					$this->load->model('extension/shipping/' . $result['code']);
+			if ($quote_data) {
+				$json['shipping_methods'] = $this->session->data['shipping_methods'] = $quote_data;			
 
-					$callable = [$this->{'model_extension_shipping_' . $result['code']}, 'getQuote'];
-
-					if (is_callable($callable)) {
-						$quote = $callable($this->session->data['shipping_address']);
-
-						if ($quote) {
-							$quote_data[$result['code']] = [
-								'title'      => $quote['title'],
-								'quote'      => $quote['quote'],
-								'sort_order' => $quote['sort_order'],
-								'error'      => $quote['error']
-							];
-						}
-					}
+				if ($this->session->data['shipping_methods']) {
+					$json['shipping_method'] = $this->session->data['shipping_methods'];
+				} else {
+					$json['error']['warning'] = sprintf($this->language->get('error_no_shipping'), $this->url->link('information/contact'));
 				}
-			}
-
-			$sort_order = [];
-
-			foreach ($quote_data as $key => $value) {
-				$sort_order[$key] = $value['sort_order'];
-			}
-
-			array_multisort($sort_order, SORT_ASC, $quote_data);
-
-			$this->session->data['shipping_methods'] = $quote_data;
-
-			if ($this->session->data['shipping_methods']) {
-				$json['shipping_method'] = $this->session->data['shipping_methods'];
 			} else {
 				$json['error']['warning'] = sprintf($this->language->get('error_no_shipping'), $this->url->link('information/contact'));
 			}

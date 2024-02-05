@@ -114,9 +114,6 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 		$json = [];
 
 		try {
-			// Extensions
-			$this->load->model('setting/extension');
-
 			// Amazon Login Pay
 			$this->load->model('extension/payment/amazon_login_pay');
 
@@ -128,55 +125,21 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
 			$address = $this->model_extension_payment_amazon_login_pay->getAddress($order_reference_id);
 
-			$results = $this->model_setting_extension->getExtensionsByType('shipping');
-
-			$quotes = [];
-
 			$this->session->data['apalwa']['pay']['order_reference_id'] = $order_reference_id;
 
-			foreach ($results as $result) {
-				if (isset($result['code'])) {
-					$code = $result['code'];
-				} else {
-					$code = $result['key'];
-				}
+			// Shipping methods
+			$this->load->model('checkout/shipping_method');
 
-				if ($this->config->get('shipping_' . $code . '_status')) {
-					$this->load->model('extension/shipping/' . $code);
+			$quote_data = $this->model_checkout_shipping_method->getMethods($address);
 
-					$callable = [$this->{'model_extension_shipping_' . $code}, 'getQuote'];
-
-					if (is_callable($callable)) {
-						$quote = $callable($address);
-
-						if ($quote && empty($quote['error'])) {
-							$quotes[$code] = [
-								'title'      => $quote['title'],
-								'quote'      => $quote['quote'],
-								'sort_order' => $quote['sort_order'],
-								'error'      => $quote['error']
-							];
-						}
-					}
-				}
-			}
-
-			if (!$quotes) {
+			if (!$quote_data) {
 				throw new \RuntimeException($this->language->get('error_no_shipping_methods'));
 			}
 
-			$sort_order = [];
-
-			foreach ($quotes as $key => $value) {
-				$sort_order[$key] = $value['sort_order'];
-			}
-
-			array_multisort($sort_order, SORT_ASC, $quotes);
-
-			$this->session->data['apalwa']['pay']['shipping_methods'] = $quotes;
+			$this->session->data['apalwa']['pay']['shipping_methods'] = $quote_data;
 			$this->session->data['apalwa']['pay']['address'] = $address;
 
-			$json['quotes'] = $quotes;
+			$json['quotes'] = $quote_data;
 
 			if (!empty($this->session->data['apalwa']['pay']['shipping_method']['code'])) {
 				$json['selected'] = $this->session->data['apalwa']['pay']['shipping_method']['code'];

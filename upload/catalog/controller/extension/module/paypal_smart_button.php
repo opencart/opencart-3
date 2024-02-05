@@ -778,43 +778,13 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 			$data['shipping_address'] = $this->session->data['shipping_address'] ?? [];
 
 			if ($data['shipping_address']) {
-				// Shipping Methods
-				$quote_data = [];
+				// Shipping methods
+				$this->load->model('checkout/shipping_method');
 
-				$results = $this->model_setting_extension->getExtensionsByType('shipping');
-
-				foreach ($results as $result) {
-					if ($this->config->get('shipping_' . $result['code'] . '_status')) {
-						$this->load->model('extension/shipping/' . $result['code']);
-
-						$callable = [$this->{'model_extension_shipping_' . $result['code']}, 'getQuote'];
-
-						if (is_callable($callable)) {
-							$quote = $callable($data['shipping_address']);
-
-							if ($quote) {
-								$quote_data[$result['code']] = [
-									'title'      => $quote['title'],
-									'quote'      => $quote['quote'],
-									'sort_order' => $quote['sort_order'],
-									'error'      => $quote['error']
-								];
-							}
-						}
-					}
-				}
+				$quote_data = $this->model_checkout_shipping_method->getMethods($this->session->data['shipping_address']);
 
 				if ($quote_data) {
-					$sort_order = [];
-
-					foreach ($quote_data as $key => $value) {
-						$sort_order[$key] = $value['sort_order'];
-					}
-
-					array_multisort($sort_order, SORT_ASC, $quote_data);
-
-					$this->session->data['shipping_methods'] = $quote_data;
-					$data['shipping_methods'] = $quote_data;
+					$data['shipping_methods'] = $this->session->data['shipping_methods'] = $quote_data;
 
 					if (!isset($this->session->data['shipping_method'])) {
 						// Default the shipping to the very first option.
@@ -825,6 +795,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 					}
 
 					$data['code'] = $this->session->data['shipping_method']['code'];
+
 					$data['action_shipping'] = $this->url->link('extension/module/paypal_smart_button/confirmShipping', '', true);
 				} else {
 					unset($this->session->data['shipping_methods']);
@@ -848,35 +819,11 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 		/**
 		 * Payment methods
 		 */
-		$method_data = [];
-
 		$results = $this->model_setting_extension->getExtensionsByType('payment');
 
-		if (isset($total)) {
-			foreach ($results as $result) {
-				if ($this->config->get('payment_' . $result['code'] . '_status')) {
-					$this->load->model('extension/payment/' . $result['code']);
+		$this->load->model('checkout/payment_method');
 
-					$callable = [$this->{'model_extension_payment_' . $result['code']}, 'getMethod'];
-
-					if (is_callable($callable)) {
-						$method = $callable($data['payment_address'], $total);
-
-						if ($method) {
-							$method_data[$result['code']] = $method;
-						}
-					}
-				}
-			}
-		}
-
-		$sort_order = [];
-
-		foreach ($method_data as $key => $value) {
-			$sort_order[$key] = $value['sort_order'];
-		}
-
-		array_multisort($sort_order, SORT_ASC, $method_data);
+		$method_data = $this->model_checkout_payment_method->getMethods($this->session->data['payment_address']);
 
 		$this->session->data['payment_methods'] = $method_data;
 

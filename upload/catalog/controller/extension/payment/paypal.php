@@ -1763,64 +1763,26 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 			$data['shipping_address'] = $this->session->data['shipping_address'] ?? [];
 
-			if (!empty($data['shipping_address'])) {
-				// Shipping Methods
-				$quote_data = [];
+			if ($data['shipping_address']) {
+				// Shipping methods
+				$this->load->model('checkout/shipping_method');
 
-				$results = $this->model_setting_extension->getExtensionsByType('shipping');
+				$quote_data = $this->model_checkout_shipping_method->getMethods($this->session->data['shipping_address']);
 
-				if (!empty($results)) {
-					foreach ($results as $result) {
-						if ($this->config->get('shipping_' . $result['code'] . '_status')) {
-							$this->load->model('extension/shipping/' . $result['code']);
+				if ($quote_data) {
+					$data['shipping_methods'] = $this->session->data['shipping_methods'] = $quote_data;
 
-							$callable = [$this->{'model_extension_shipping_' . $result['code']}, 'getQuote'];
+					if (!isset($this->session->data['shipping_method'])) {
+						// Default the shipping to the very first option.
+						$key1 = key($quote_data);
+						$key2 = key($quote_data[$key1]['quote']);
 
-							if (is_callable($callable)) {
-								$quote = $callable($data['shipping_address']);
-
-								if ($quote) {
-									$quote_data[$result['code']] = [
-										'title'      => $quote['title'],
-										'quote'      => $quote['quote'],
-										'sort_order' => $quote['sort_order'],
-										'error'      => $quote['error']
-									];
-								}
-							}
-						}
+						$this->session->data['shipping_method'] = $quote_data[$key1]['quote'][$key2];
 					}
 
-					if ($quote_data) {
-						$sort_order = [];
+					$data['code'] = $this->session->data['shipping_method']['code'];
 
-						foreach ($quote_data as $key => $value) {
-							$sort_order[$key] = $value['sort_order'];
-						}
-
-						array_multisort($sort_order, SORT_ASC, $quote_data);
-
-						$this->session->data['shipping_methods'] = $quote_data;
-
-						$data['shipping_methods'] = $quote_data;
-
-						if (!isset($this->session->data['shipping_method'])) {
-							//default the shipping to the very first option.
-							$key1 = key($quote_data);
-							$key2 = key($quote_data[$key1]['quote']);
-
-							$this->session->data['shipping_method'] = $quote_data[$key1]['quote'][$key2];
-						}
-
-						$data['code'] = $this->session->data['shipping_method']['code'];
-
-						$data['action_shipping'] = $this->url->link('extension/payment/paypal/confirmShipping', '', true);
-					} else {
-						unset($this->session->data['shipping_methods']);
-						unset($this->session->data['shipping_method']);
-
-						$data['error_no_shipping'] = $this->language->get('error_no_shipping');
-					}
+					$data['action_shipping'] = $this->url->link('extension/module/paypal_smart_button/confirmShipping', '', true);
 				} else {
 					unset($this->session->data['shipping_methods']);
 					unset($this->session->data['shipping_method']);
@@ -1881,35 +1843,14 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		/**
 		 * Payment methods
 		 */
-		$method_data = [];
-
 		$results = $this->model_setting_extension->getExtensionsByType('payment');
 
-		foreach ($results as $result) {
-			if ($this->config->get('payment_' . $result['code'] . '_status')) {
-				$this->load->model('extension/payment/' . $result['code']);
+		$this->load->model('checkout/payment_method');
 
-				$callable = [$this->{'model_extension_payment_' . $result['code']}, 'getMethod'];
-
-				if (is_callable($callable)) {
-					$method = $callable($data['payment_address'], $total);
-
-					if ($method) {
-						$method_data[$result['code']] = $method;
-					}
-				}
-			}
-		}
-
-		$sort_order = [];
-
-		foreach ($method_data as $key => $value) {
-			$sort_order[$key] = $value['sort_order'];
-		}
-
-		array_multisort($sort_order, SORT_ASC, $method_data);
+		$method_data = $this->model_checkout_payment_method->getMethods($this->session->data['payment_address']);
 
 		$this->session->data['payment_methods'] = $method_data;
+
 		$data['payment_methods'] = $method_data;
 
 		if (!isset($method_data['paypal'])) {
@@ -1918,6 +1859,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			$this->response->redirect($this->url->link('checkout/checkout', '', true));
 		}
 
+		$this->session->data['payment_methods'] = $method_data;
 		$this->session->data['payment_method'] = $method_data['paypal'];
 
 		// Custom Fields
