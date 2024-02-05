@@ -729,7 +729,7 @@ class ControllerSaleSubscription extends Controller {
 			$this->load->model('sale/subscription');
 
 			$filter_data = [
-				'filter_customer_id' 		 => $subscription_info['customer_id'], 
+				'filter_customer_id'         => $subscription_info['customer_id'],
 				'filter_customer_payment_id' => $this->request->post['customer_payment_id']
 			];
 

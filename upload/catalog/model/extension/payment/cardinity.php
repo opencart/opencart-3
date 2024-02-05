@@ -146,7 +146,7 @@ class ModelExtensionPaymentCardinity extends Model {
 	 *
 	 * @return void
 	 */
-	public function log($data, $class_step = 6, $function_step = 6): void {
+	public function log(string $data, int $class_step = 6, int $function_step = 6): void {
 		if ($this->config->get('payment_cardinity_debug')) {
 			$backtrace = debug_backtrace();
 
@@ -156,6 +156,17 @@ class ModelExtensionPaymentCardinity extends Model {
 		}
 	}
 
+	/**
+	 * Exception
+	 *
+	 * @property Exception $exception
+	 *
+	 * @param Exception $exception
+	 *
+	 * @throws Exception
+	 *
+	 * @return void
+	 */
 	private function exception(Exception $exception): void {
 		$this->log($exception->getMessage(), 1, 2);
 

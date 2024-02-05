@@ -10,11 +10,22 @@
  */
 
 /**
- * Action class
+ * Class Action
+ *
+ * @package System\Engine
  */
 class Action {
+	/**
+	 * @var string
+	 */
 	private string $id;
+	/**
+	 * @var string
+	 */
 	private string $route;
+	/**
+	 * @var string
+	 */
 	private string $method = 'index';
 
 	/**
@@ -25,7 +36,7 @@ class Action {
 	public function __construct(string $route) {
 		$this->id = $route;
 
-		$parts = explode('/', preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route));
+		$parts = explode('/', preg_replace('/[^a-zA-Z0-9_\/]/', '', $route));
 
 		// Break apart the route
 		while ($parts) {
@@ -41,6 +52,8 @@ class Action {
 	}
 
 	/**
+	 * Get Id
+	 *
 	 * @return string
 	 */
 	public function getId(): string {
@@ -48,8 +61,12 @@ class Action {
 	}
 
 	/**
+	 * Execute
+	 *
 	 * @param object $registry
 	 * @param array  $args
+	 *
+	 * @return mixed
 	 */
 	public function execute(object $registry, array $args = []): mixed {
 		// Stop any magical methods being called

@@ -82,7 +82,9 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 					$taxes = [];
 
 					// We have to put the totals in an array so that they pass by reference.
-					if (is_callable([$this->{'model_extension_total_' . $result['code']}, 'getTotal'])) {
+					$callable = [$this->{'model_extension_total_' . $result['code']}, 'getTotal'];
+
+					if (is_callable($callable)) {
 						$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
 					}
 
@@ -579,7 +581,14 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	private function constructXmlrpc($data) {
+	/**
+	 * Construct Xmlrpc
+	 *
+	 * @param mixed $data
+	 *
+	 * @return string
+	 */
+	private function constructXmlrpc(mixed $data): string {
 		$type = gettype($data);
 
 		switch ($type) {
@@ -631,7 +640,14 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 		return $xml;
 	}
 
-	private function getLowestPaymentAccount($country) {
+	/**
+	 * Get Lowest Payment Account
+	 *
+	 * @param string $country
+	 *
+	 * @return float
+	 */
+	private function getLowestPaymentAccount(string $country): float {
 		switch ($country) {
 			case 'SWE':
 				$amount = 50.0;
@@ -662,7 +678,13 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 		return $amount;
 	}
 
-	private function splitAddress($address) {
+	/**
+	 * Split Address
+	 *
+	 * @param string $address
+	 * @param array<string, mixed>
+	 */
+	private function splitAddress(string $address): array {
 		$numbers = [
 			'0',
 			'1',
@@ -767,7 +789,16 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 		];
 	}
 
-	private function strposArr($haystack, $needle, $where) {
+	/**
+	 * Strpos Arr
+	 *
+	 * @param string $haystack
+	 * @param string $needle
+	 * @param string $where
+	 *
+	 * @return int
+	 */
+	private function strposArr(string $haystack, string $needle, string $where): int {
 		$defpos = 10000;
 
 		if (!is_array($needle)) {

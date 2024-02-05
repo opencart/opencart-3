@@ -36,11 +36,11 @@ class ModelExtensionPaymentPayPal extends Model {
 
 	/**
 	 * Has Product In Cart
-	 * 
-	 * @param int 				   $product_id
+	 *
+	 * @param int                  $product_id
 	 * @param array<string, mixed> $option
-	 * @param int 				   $subscription_plan_id
-	 * 
+	 * @param int                  $subscription_plan_id
+	 *
 	 * @return int
 	 */
 	public function hasProductInCart(int $product_id, array $option = [], int $subscription_plan_id = 0): int {
@@ -51,9 +51,9 @@ class ModelExtensionPaymentPayPal extends Model {
 
 	/**
 	 * Get Country By Code
-	 * 
+	 *
 	 * @param string $code
-	 * 
+	 *
 	 * @return array<int, array<string, mixed>>
 	 */
 	public function getCountryByCode(string $code): array {
@@ -64,10 +64,10 @@ class ModelExtensionPaymentPayPal extends Model {
 
 	/**
 	 * Get Zone By Code
-	 * 
+	 *
 	 * @param int    $country_id
 	 * @param string $code
-	 * 
+	 *
 	 * @return array<string, mixed>
 	 */
 	public function getZoneByCode(int $country_id, string $code): array {
@@ -78,9 +78,9 @@ class ModelExtensionPaymentPayPal extends Model {
 
 	/**
 	 * Add PayPal Order
-	 * 
+	 *
 	 * @param array<string, mixed> $data
-	 * 
+	 *
 	 * @return void
 	 */
 	public function addPayPalOrder(array $data): void {
@@ -125,9 +125,9 @@ class ModelExtensionPaymentPayPal extends Model {
 
 	/**
 	 * Edit PayPal Order
-	 * 
+	 *
 	 * @param array<string, mixed> $data
-	 * 
+	 *
 	 * @return void
 	 */
 	public function editPayPalOrder(array $data): void {
@@ -170,9 +170,9 @@ class ModelExtensionPaymentPayPal extends Model {
 
 	/**
 	 * Delete PayPal Order
-	 * 
+	 *
 	 * @param int $order_id
-	 * 
+	 *
 	 * @return void
 	 */
 	public function deletePayPalOrder(int $order_id): void {
@@ -181,9 +181,9 @@ class ModelExtensionPaymentPayPal extends Model {
 
 	/**
 	 * Get PayPal Order
-	 * 
+	 *
 	 * @param int $order_id
-	 * 
+	 *
 	 * @return array<string, mixed>
 	 */
 	public function getPayPalOrder(int $order_id): array {
@@ -198,9 +198,9 @@ class ModelExtensionPaymentPayPal extends Model {
 
 	/**
 	 * Add PayPal Order Subscription
-	 * 
+	 *
 	 * @param array<string, mixed> $data
-	 * 
+	 *
 	 * @return void
 	 */
 	public function addPayPalOrderSubscription(array $data): void {
@@ -209,10 +209,10 @@ class ModelExtensionPaymentPayPal extends Model {
 
 	/**
 	 * Edit PayPal Order Subscription Next Payment
-	 * 
+	 *
 	 * @param int    $order_id
 	 * @param string $next_payment
-	 * 
+	 *
 	 * @return void
 	 */
 	public function editPayPalOrderSubscriptionNextPayment(int $order_id, string $next_payment): void {
@@ -221,9 +221,9 @@ class ModelExtensionPaymentPayPal extends Model {
 
 	/**
 	 * Delete PayPal Order Subscription
-	 * 
+	 *
 	 * @param int $order_id
-	 * 
+	 *
 	 * @return void
 	 */
 	public function deletePayPalOrderSubscription(int $order_id): void {
@@ -232,9 +232,9 @@ class ModelExtensionPaymentPayPal extends Model {
 
 	/**
 	 * Get PayPal Order Subscription
-	 * 
+	 *
 	 * @param int $order_id
-	 * 
+	 *
 	 * @return array<string, mixed>
 	 */
 	public function getPayPalOrderSubscription(int $order_id): array {
@@ -245,10 +245,10 @@ class ModelExtensionPaymentPayPal extends Model {
 
 	/**
 	 * Add Order Subscription
-	 * 
-	 * @param int $order_id
+	 *
+	 * @param int                  $order_id
 	 * @param array<string, mixed> $data
-	 * 
+	 *
 	 * @return int
 	 */
 	public function addOrderSubscription(int $order_id, array $data): int {
@@ -259,10 +259,10 @@ class ModelExtensionPaymentPayPal extends Model {
 
 	/**
 	 * Edit Order Subscription Status
-	 * 
+	 *
 	 * @param int $order_id
 	 * @param int $status
-	 * 
+	 *
 	 * @return void
 	 */
 	public function editOrderSubscriptionStatus(int $order_id, int $status): void {
@@ -271,9 +271,9 @@ class ModelExtensionPaymentPayPal extends Model {
 
 	/**
 	 * Delete Order Subscription
-	 * 
+	 *
 	 * @param int $order_id
-	 * 
+	 *
 	 * @return void
 	 */
 	public function deleteOrderSubscription(int $order_id): void {
@@ -288,7 +288,7 @@ class ModelExtensionPaymentPayPal extends Model {
 
 	/**
 	 * Get Order Subscriptions
-	 * 
+	 *
 	 * @return array<int, array<string, mixed>>
 	 */
 	public function getOrderSubscriptions(): array {
@@ -299,9 +299,9 @@ class ModelExtensionPaymentPayPal extends Model {
 
 	/**
 	 * Get Order Subscription
-	 * 
+	 *
 	 * @param int $order_id
-	 * 
+	 *
 	 * @return array<string, mixed>
 	 */
 	public function getOrderSubscription(int $order_id): array {
@@ -312,9 +312,9 @@ class ModelExtensionPaymentPayPal extends Model {
 
 	/**
 	 * Add Subscription Transaction
-	 * 
+	 *
 	 * @param array<string, mixed> $data
-	 * 
+	 *
 	 * @return void
 	 */
 	public function addSubscriptionTransaction(array $data): void {
@@ -323,9 +323,9 @@ class ModelExtensionPaymentPayPal extends Model {
 
 	/**
 	 * Delete Subscription Transaction
-	 * 
+	 *
 	 * @param int $order_id
-	 * 
+	 *
 	 * @return void
 	 */
 	public function deleteSubscriptionTransaction(int $order_id): void {
@@ -335,9 +335,9 @@ class ModelExtensionPaymentPayPal extends Model {
 	/**
 	 * Subscription Payment
 	 *
-	 * @param array 			   $item
+	 * @param array                $item
 	 * @param array<string, mixed> $order_info
-	 * @param array 			   $paypal_order_data
+	 * @param array                $paypal_order_data
 	 *
 	 * @return void
 	 */
@@ -480,7 +480,7 @@ class ModelExtensionPaymentPayPal extends Model {
 
 	/**
 	 * Cron Payment
-	 * 
+	 *
 	 * @return void
 	 */
 	public function cronPayment(): void {
@@ -587,12 +587,12 @@ class ModelExtensionPaymentPayPal extends Model {
 
 	/**
 	 * Create Payment
-	 * 
+	 *
 	 * @param array<string, mixed> $order_data
 	 * @param array<string, mixed> $paypal_order_data
-	 * @param float 			   $price
-	 * @param string 			   $name
-	 * 
+	 * @param float                $price
+	 * @param string               $name
+	 *
 	 * @return array<string, mixed>
 	 */
 	public function createPayment(array $order_data, array $paypal_order_data, float $price, string $name): array {
@@ -758,7 +758,7 @@ class ModelExtensionPaymentPayPal extends Model {
 
 	/**
 	 * Get Agree Status
-	 * 
+	 *
 	 * @return bool
 	 */
 	public function getAgreeStatus(): bool {
@@ -781,10 +781,10 @@ class ModelExtensionPaymentPayPal extends Model {
 
 	/**
 	 * Log
-	 * 
+	 *
 	 * @param array<string, mixed> $data
-	 * @param ?string 			   $title
-	 * 
+	 * @param ?string              $title
+	 *
 	 * @return void
 	 */
 	public function log(array $data, ?string $title = ''): void {

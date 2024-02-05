@@ -77,7 +77,14 @@ class ControllerExtensionFeedGoogleSitemap extends Controller {
 		}
 	}
 
-	protected function getCategories($parent_id) {
+	/**
+	 * Get Categories
+	 *
+	 * @param int $parent_id
+	 *
+	 * @return string
+	 */
+	protected function getCategories(int $parent_id): string {
 		$output = '';
 
 		$results = $this->model_catalog_category->getCategories($parent_id);

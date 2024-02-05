@@ -171,17 +171,25 @@ class ModelUpgrade1006 extends Model {
 		$this->db->query("UPDATE `" . DB_PREFIX . "information_description` SET `description` = REPLACE(description, 'data/', 'catalog/')");
 	}
 
-	private function recursive_move($src, $dest) {
+	/**
+	 * Recursive Move
+	 *
+	 * @param string $src
+	 * @param string $dest
+	 *
+	 * @return void
+	 */
+	private function recursive_move(string $src, string $dest): void {
 		// If source is not a directory stop processing
 		if (!is_dir($src)) {
-			return false;
+			return;
 		}
 
 		// If the destination directory does not exist create it
 		if (!is_dir($dest)) {
 			if (!@mkdir($dest)) {
 				// If the destination directory could not be created stop processing
-				return false;
+				return;
 			}
 		}
 

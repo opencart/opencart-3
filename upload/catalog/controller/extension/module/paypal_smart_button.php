@@ -787,7 +787,9 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 					if ($this->config->get('shipping_' . $result['code'] . '_status')) {
 						$this->load->model('extension/shipping/' . $result['code']);
 
-						if (is_callable([$this->{'model_extension_shipping_' . $result['code']}, 'getQuote'])) {
+						$callable = [$this->{'model_extension_shipping_' . $result['code']}, 'getQuote'];
+
+						if (is_callable($callable)) {
 							$quote = $this->{'model_extension_shipping_' . $result['code']}->getQuote($data['shipping_address']);
 
 							if ($quote) {
@@ -855,7 +857,9 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 				if ($this->config->get('payment_' . $result['code'] . '_status')) {
 					$this->load->model('extension/payment/' . $result['code']);
 
-					if (is_callable([$this->{'model_extension_payment_' . $result['code']}, 'getMethod'])) {
+					$callable = [$this->{'model_extension_payment_' . $result['code']}, 'getMethod'];
+
+					if (is_callable($callable)) {
 						$method = $this->{'model_extension_payment_' . $result['code']}->getMethod($data['payment_address'], $total);
 
 						if ($method) {
@@ -921,7 +925,9 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 					$this->load->model('extension/total/' . $result['code']);
 
 					// We have to put the totals in an array so that they pass by reference.
-					if (is_callable([$this->{'model_extension_total_' . $result['code']}, 'getTotal'])) {
+					$callable = [$this->{'model_extension_total_' . $result['code']}, 'getTotal'];
+
+					if (is_callable($callable)) {
 						$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
 					}
 				}
@@ -1055,7 +1061,9 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 					$this->load->model('extension/total/' . $result['code']);
 
 					// We have to put the totals in an array so that they pass by reference.
-					if (is_callable([$this->{'model_extension_total_' . $result['code']}, 'getTotal'])) {
+					$callable = [$this->{'model_extension_total_' . $result['code']}, 'getTotal'];
+
+					if (is_callable($callable)) {
 						$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
 					}
 				}
@@ -1696,7 +1704,14 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 		$this->response->setOutput(json_encode($data));
 	}
 
-	private function validateShipping($code) {
+	/**
+	 * Validate Shipping
+	 *
+	 * @param string $code
+	 *
+	 * @return bool
+	 */
+	private function validateShipping(string $code): bool {
 		$this->load->language('checkout/cart');
 		$this->load->language('extension/module/paypal_smart_button');
 
@@ -1720,7 +1735,12 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 		}
 	}
 
-	private function validatePaymentAddress() {
+	/**
+	 * Validate Payment Address
+	 *
+	 * @return bool
+	 */
+	private function validatePaymentAddress(): bool {
 		if ((oc_strlen($this->request->post['firstname']) < 1) || (oc_strlen($this->request->post['firstname']) > 32)) {
 			$this->error['firstname'] = $this->language->get('error_firstname');
 		}
@@ -1785,7 +1805,12 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 		return !$this->error;
 	}
 
-	private function validateShippingAddress() {
+	/**
+	 * Validate Shipping Address
+	 *
+	 * @return bool
+	 */
+	private function validateShippingAddress(): bool {
 		if ((oc_strlen($this->request->post['firstname']) < 1) || (oc_strlen($this->request->post['firstname']) > 32)) {
 			$this->error['firstname'] = $this->language->get('error_firstname');
 		}
@@ -1844,7 +1869,12 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 		return !$this->error;
 	}
 
-	private function validateCoupon() {
+	/**
+	 * Validate Coupon
+	 *
+	 * @return bool
+	 */
+	private function validateCoupon(): bool {
 		// Coupons
 		$this->load->model('extension/total/coupon');
 
@@ -1859,7 +1889,12 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 		}
 	}
 
-	private function validateVoucher() {
+	/**
+	 * Validate Voucher
+	 *
+	 * @return bool
+	 */
+	private function validateVoucher(): bool {
 		// Gift Voucher
 		$this->load->model('extension/total/voucher');
 
@@ -1874,7 +1909,12 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 		}
 	}
 
-	private function validateReward() {
+	/**
+	 * Validate Reward
+	 *
+	 * @return bool
+	 */
+	private function validateReward(): bool {
 		$points = $this->customer->getRewardPoints();
 
 		$points_total = 0;

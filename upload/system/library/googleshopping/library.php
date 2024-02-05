@@ -6,8 +6,10 @@ abstract class Library {
 
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @property Registry $registry
+	 *
+	 * @param mixed $registry
 	 */
 	public function __construct($registry) {
 		$this->registry = $registry;

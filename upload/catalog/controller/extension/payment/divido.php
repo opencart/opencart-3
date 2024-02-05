@@ -6,6 +6,10 @@
  */
 class ControllerExtensionPaymentDivido extends Controller {
 	public const STATUS_ACCEPTED = 'ACCEPTED', STATUS_ACTION_LENDER = 'ACTION-LENDER', STATUS_CANCELED = 'CANCELED', STATUS_COMPLETED = 'COMPLETED', STATUS_DEPOSIT_PAID = 'DEPOSIT-PAID', STATUS_DECLINED = 'DECLINED', STATUS_DEFERRED = 'DEFERRED', STATUS_REFERRED = 'REFERRED', STATUS_FULFILLED = 'FULFILLED', STATUS_SIGNED = 'SIGNED';
+
+	/**
+	 * @var array
+	 */
 	private array $status_id = [
 		self::STATUS_ACCEPTED      => 1,
 		self::STATUS_ACTION_LENDER => 2,
@@ -18,7 +22,9 @@ class ControllerExtensionPaymentDivido extends Controller {
 		self::STATUS_FULFILLED     => 1,
 		self::STATUS_SIGNED        => 2,
 	];
-
+	/**
+	 * @var array
+	 */
 	private array $history_messages = [
 		self::STATUS_ACCEPTED      => 'Credit request accepted',
 		self::STATUS_ACTION_LENDER => 'Lender notified',
@@ -33,6 +39,8 @@ class ControllerExtensionPaymentDivido extends Controller {
 	];
 
 	/**
+	 * Index
+	 *
 	 * @return string
 	 */
 	public function index(): string {

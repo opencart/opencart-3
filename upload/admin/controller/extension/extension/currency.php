@@ -36,7 +36,9 @@ class ControllerExtensionExtensionCurrency extends Controller {
 		$this->load->model('setting/extension');
 
 		if ($this->validate()) {
-			if (is_callable([$this->{'model_setting_extension_currency'}, 'install'])) {
+			$callable = [$this->{'model_setting_extension'}, 'install'];
+
+			if (is_callable($callable)) {
 				$this->model_setting_extension->install('currency', $this->request->get['extension']);
 			}
 
@@ -45,7 +47,7 @@ class ControllerExtensionExtensionCurrency extends Controller {
 			$this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/currency/' . $this->request->get['extension']);
 			$this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/currency/' . $this->request->get['extension']);
 
-			// Call install method if it exsits
+			// Call install method if it exists
 			$this->load->controller('extension/currency/' . $this->request->get['extension'] . '/install');
 
 			$this->session->data['success'] = $this->language->get('text_success');
@@ -66,7 +68,9 @@ class ControllerExtensionExtensionCurrency extends Controller {
 		$this->load->model('setting/extension');
 
 		if ($this->validate()) {
-			if (is_callable([$this->{'model_setting_extension_currency'}, 'uninstall'])) {
+			$callable = [$this->{'model_setting_extension'}, 'uninstall'];
+
+			if (is_callable($callable)) {
 				$this->model_setting_extension->uninstall('currency', $this->request->get['extension']);
 			}
 
@@ -103,7 +107,9 @@ class ControllerExtensionExtensionCurrency extends Controller {
 
 		foreach ($extensions as $key => $value) {
 			if (!is_file(DIR_APPLICATION . 'controller/extension/currency/' . $value . '.php') && !is_file(DIR_APPLICATION . 'controller/currency/' . $value . '.php')) {
-				if (is_callable([$this->{'model_setting_extension_currency'}, 'uninstall'])) {
+				$callable = [$this->{'model_setting_extension'}, 'uninstall'];
+
+				if (is_callable($callable)) {
 					$this->model_setting_extension->uninstall('currency', $value);
 				}
 

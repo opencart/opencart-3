@@ -10,7 +10,9 @@
  */
 
 /**
- * Loader class
+ * Class Loader
+ *
+ * @mixin Loader
  */
 class Loader {
 	protected object $registry;
@@ -18,26 +20,28 @@ class Loader {
 	/**
 	 * Constructor
 	 *
-	 * @param object $registry
+	 * @property Registry $registry
+	 *
+	 * @param mixed $registry
 	 */
-	public function __construct(object $registry) {
+	public function __construct($registry) {
 		$this->registry = $registry;
 	}
 
 	/**
 	 * Controller
 	 *
-	 * @param string $route
-	 * @param array  $data
+	 * @param string               $route
+	 * @param array<string, mixed> $data
 	 *
-	 * @return mixed
+	 * @throws \Exception
 	 *
 	 * Removing the mixed output as a temporary workaround since admin extension
 	 * installers don't seem to like that really much
 	 */
 	public function controller(string $route, array $data = []) {
 		// Sanitize the call
-		$route = preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route);
+		$route = preg_replace('/[^a-zA-Z0-9_\/]/', '', $route);
 
 		// Keep the original trigger
 		$trigger = $route;
@@ -78,7 +82,7 @@ class Loader {
 	 */
 	public function model(string $route): void {
 		// Sanitize the call
-		$route = preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route);
+		$route = preg_replace('/[^a-zA-Z0-9_\/]/', '', $route);
 
 		if (!$this->registry->has('model_' . str_replace('/', '_', $route))) {
 			$file = DIR_APPLICATION . 'model/' . $route . '.php';
@@ -97,7 +101,7 @@ class Loader {
 					}
 				}
 
-				$this->registry->set('model_' . str_replace('/', '_', (string)$route), $proxy);
+				$this->registry->set('model_' . str_replace('/', '_', $route), $proxy);
 			} else {
 				throw new \Exception('Error: Could not load model ' . $route . '!');
 			}
@@ -107,15 +111,15 @@ class Loader {
 	/**
 	 * View
 	 *
-	 * @param string $route
-	 * @param array  $data
-	 * @param string $code
+	 * @param string               $route
+	 * @param array<string, mixed> $data
+	 * @param string               $code
 	 *
 	 * @return string
 	 */
 	public function view(string $route, array $data = [], string $code = ''): string {
 		// Sanitize the call
-		$route = preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route);
+		$route = preg_replace('/[^a-zA-Z0-9_\/]/', '', $route);
 
 		// Keep the original trigger
 		$trigger = $route;
@@ -157,7 +161,7 @@ class Loader {
 	 */
 	public function library(string $route, array &...$args): void {
 		// Sanitize the call
-		$route = preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route);
+		$route = preg_replace('/[^a-zA-Z0-9_\/]/', '', $route);
 
 		$file  = DIR_SYSTEM . 'library/' . $route . '.php';
 		$class = str_replace('/', '\\', $route);
@@ -179,7 +183,7 @@ class Loader {
 	 * @return void
 	 */
 	public function helper(string $route): void {
-		$file = DIR_SYSTEM . 'helper/' . preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route) . '.php';
+		$file = DIR_SYSTEM . 'helper/' . preg_replace('/[^a-zA-Z0-9_\/]/', '', $route) . '.php';
 
 		if (is_file($file)) {
 			include_once($file);
@@ -211,7 +215,7 @@ class Loader {
 	 */
 	public function language(string $route, string $key = ''): array {
 		// Sanitize the call
-		$route = preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route);
+		$route = preg_replace('/[^a-zA-Z0-9_\/]/', '', $route);
 
 		// Keep the original trigger
 		$trigger = $route;
@@ -233,11 +237,19 @@ class Loader {
 		return $output;
 	}
 
-	protected function callback(object $registry, $route) {
+	/**
+	 * Callback
+	 *
+	 * @param mixed $registry
+	 * @param mixed $route
+	 *
+	 * @return array<string, string>
+	 */
+	protected function callback($registry, $route): array {
 		return function($args) use ($registry, $route) {
 			static $model;
 
-			$route = preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route);
+			$route = preg_replace('/[^a-zA-Z0-9_\/]/', '', $route);
 
 			// Keep the original trigger
 			$trigger = $route;

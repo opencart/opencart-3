@@ -21,11 +21,11 @@ class ModelExtensionPaymentAlipay extends Model {
 	private array $api_params = [];
 
 	/**
-	 * getMethod
+	 * Get Method
 	 *
-	 * @param array $address
+	 * @param array<string, mixed> $address
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getMethod(array $address): array {
 		$this->load->language('extension/payment/alipay');
@@ -54,7 +54,16 @@ class ModelExtensionPaymentAlipay extends Model {
 		return $method_data;
 	}
 
-	private function setParams($alipay_config): void {
+	/**
+	 * Set Params
+	 *
+	 * @param array<string, mixed> $alipay_config
+	 *
+	 * @throws \Exception
+	 *
+	 * @return void
+	 */
+	private function setParams(array $alipay_config): void {
 		$this->gateway_url = $alipay_config['gateway_url'];
 		$this->appid = $alipay_config['app_id'];
 		$this->private_key = $alipay_config['merchant_private_key'];
@@ -86,12 +95,14 @@ class ModelExtensionPaymentAlipay extends Model {
 	}
 
 	/**
-	 * pagePay
+	 * Page Pay
 	 *
-	 * @param mixed $builder
-	 * @param mixed $config
+	 * @param array<string, mixed> $builder
+	 * @param array<string, mixed> $config
+	 *
+	 * @return array<int, array<string, mixed>>
 	 */
-	public function pagePay($builder, $config) {
+	public function pagePay(array $builder, array $config): array {
 		$this->setParams($config);
 
 		$biz_content = null;
@@ -114,22 +125,26 @@ class ModelExtensionPaymentAlipay extends Model {
 	}
 
 	/**
-	 * check
+	 * Check
 	 *
-	 * @param mixed $arr
-	 * @param mixed $config
+	 * @param array<string, mixed> $arr
+	 * @param array<string, mixed> $config
+	 *
+	 * @return array<int, array<string, mixed>>
 	 */
-	public function check($arr, $config) {
+	public function check(array $arr, array $config): array {
 		$this->setParams($config);
 
 		return $this->rsaCheckV1($arr, $this->signtype);
 	}
 
 	/**
-	 * pageExecute
+	 * Page Execute
 	 *
 	 * @param mixed $request
 	 * @param mixed $httpmethod
+	 *
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function pageExecute($request, $httpmethod = 'POST') {
 		$iv = $this->api_version;
@@ -174,10 +189,18 @@ class ModelExtensionPaymentAlipay extends Model {
 		}
 	}
 
-	private function checkEmpty($value) {
+	/**
+	 * Check Empty
+	 *
+	 * @param mixed $value
+	 *
+	 * @return bool
+	 */
+	private function checkEmpty($value): bool {
 		if (!isset($value)) {
 			return true;
 		}
+
 		if ($value === null) {
 			return true;
 		}
@@ -186,12 +209,14 @@ class ModelExtensionPaymentAlipay extends Model {
 	}
 
 	/**
-	 * rsaCheckV1
+	 * Rsa Check V1
 	 *
-	 * @param mixed $params
-	 * @param mixed $signType
+	 * @param array<string, mixed> $params
+	 * @param string               $signType
+	 *
+	 * @return array<int, array<string, mixed>>
 	 */
-	public function rsaCheckV1($params, $signType = 'RSA') {
+	public function rsaCheckV1($params, $signType = 'RSA'): array {
 		$sign = $params['sign'];
 
 		$params['sign_type'] = null;
@@ -206,8 +231,10 @@ class ModelExtensionPaymentAlipay extends Model {
 	 * @param mixed $data
 	 * @param mixed $sign
 	 * @param mixed $signType
+	 *
+	 * return bool
 	 */
-	private function verify($data, $sign, $signType = 'RSA') {
+	private function verify($data, $sign, $signType = 'RSA'): bool {
 		$pub_key = $this->alipay_public_key;
 
 		$res = "-----BEGIN PUBLIC KEY-----\n" . wordwrap($pub_key, 64, "\n", true) . "\n-----END PUBLIC KEY-----";
@@ -223,7 +250,14 @@ class ModelExtensionPaymentAlipay extends Model {
 		return $result;
 	}
 
-	private function getSignContent($params) {
+	/**
+	 * Get Sign Content
+	 *
+	 * @param array<string, mixed> $params
+	 *
+	 * @return string
+	 */
+	private function getSignContent(array $params): string {
 		ksort($params);
 
 		$string_to_be_signed = '';
@@ -247,11 +281,27 @@ class ModelExtensionPaymentAlipay extends Model {
 		return $string_to_be_signed;
 	}
 
-	private function generateSign($params, $signType = "RSA") {
+	/**
+	 * Generate Sign
+	 *
+	 * @param array<string, mixed> $params
+	 * @param string               $signType
+	 *
+	 * @return array<string, mixed>
+	 */
+	private function generateSign(array $params, string $signType = 'RSA'): array {
 		return $this->sign($this->getSignContent($params), $signType);
 	}
 
-	private function sign($data, $signType = "RSA") {
+	/**
+	 * Sign
+	 *
+	 * @param array<string, mixed> $data
+	 * @param string               $signType
+	 *
+	 * @return string
+	 */
+	private function sign(array $data, string $signType = 'RSA'): string {
 		$pri_key = $this->private_key;
 
 		$res = "-----BEGIN RSA PRIVATE KEY-----\n" . wordwrap($pri_key, 64, "\n", true) . "\n-----END RSA PRIVATE KEY-----";
@@ -266,9 +316,11 @@ class ModelExtensionPaymentAlipay extends Model {
 	}
 
 	/**
-	 * getPostCharset
+	 * Get Post Charset
+	 *
+	 * @return string
 	 */
-	public function getPostCharset() {
+	public function getPostCharset(): string {
 		return trim($this->post_charset);
 	}
 }

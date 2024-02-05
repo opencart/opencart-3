@@ -43,7 +43,14 @@ class ModelExtensionPaymentAlipayCross extends Model {
 		return $method_data;
 	}
 
-	private function buildRequestMysign($para_sort) {
+	/**
+	 * Build Request Mysign
+	 *
+	 * @param array<string, mixed> $para_sort
+	 *
+	 * @return string
+	 */
+	private function buildRequestMysign(array $para_sort): string {
 		$prestr = $this->createLinkstring($para_sort);
 
 		$mysign = '';
@@ -60,7 +67,7 @@ class ModelExtensionPaymentAlipayCross extends Model {
 	}
 
 	/**
-	 * buildRequestPara
+	 * Build Request Para
 	 *
 	 * @param mixed $alipay_config
 	 * @param mixed $para_temp
@@ -81,17 +88,19 @@ class ModelExtensionPaymentAlipayCross extends Model {
 	}
 
 	/**
-	 * verifyNotify
+	 * Verify Notify
 	 *
 	 * @param mixed $alipay_config
+	 *
+	 * @return bool
 	 */
-	public function verifyNotify($alipay_config) {
+	public function verifyNotify($alipay_config): bool {
 		$this->alipay_config = $alipay_config;
 
 		if (empty($_POST)) {
 			return false;
 		} else {
-			$isSign = $this->getSignVeryfy($_POST, $_POST['sign']);
+			$isSign = $this->getSignVerify($_POST, $_POST['sign']);
 
 			$responseTxt = 'false';
 
@@ -110,7 +119,15 @@ class ModelExtensionPaymentAlipayCross extends Model {
 		}
 	}
 
-	private function getSignVeryfy($para_temp, $sign) {
+	/**
+	 * Get Sign Verify
+	 *
+	 * @param array<string, mixed> $para_temp
+	 * @param string               $sign
+	 *
+	 * @return bool
+	 */
+	private function getSignVerify($para_temp, $sign): bool {
 		$para_filter = $this->paraFilter($para_temp);
 
 		$para_sort = $this->argSort($para_filter);
@@ -128,26 +145,41 @@ class ModelExtensionPaymentAlipayCross extends Model {
 		return $isSgin;
 	}
 
-	private function getResponse($notify_id) {
+	/**
+	 * Get Response
+	 *
+	 * @param string $notify_id
+	 *
+	 * @return mixed
+	 */
+	private function getResponse(string $notify_id): mixed {
 		$partner = trim($this->alipay_config['partner']);
-		$veryfy_url = $this->config->get('payment_alipay_cross_test') == 'sandbox' ? $this->https_verify_url_test : $this->https_verify_url;
-		$veryfy_url .= 'partner=' . $partner . '&notify_id=' . $notify_id;
 
-		return $this->getHttpResponseGET($veryfy_url, $this->alipay_config['cacert']);
+		$verify_url = $this->config->get('payment_alipay_cross_test') == 'sandbox' ? $this->https_verify_url_test : $this->https_verify_url;
+		$verify_url .= 'partner=' . $partner . '&notify_id=' . $notify_id;
+
+		return $this->getHttpResponseGET($verify_url, $this->alipay_config['cacert']);
 	}
 
-	private function createLinkstring($para) {
-		$arg = '';
-
-		foreach ($para as $key => $val) {
-			$arg .= $key . '=' . $val . '&';
-		}
-
-		// Remove the last char '&'
-		return substr($arg, 0, count($arg) - 2);
+	/**
+	 * Create Linkstring
+	 *
+	 * @param array<string, mixed> $para
+	 *
+	 * @return string
+	 */
+	private function createLinkstring(array $para): string {
+		return http_build_query($para, '', '&');
 	}
 
-	private function paraFilter($para) {
+	/**
+	 * Para Filter
+	 *
+	 * @param array<string, mixed> $para
+	 *
+	 * @return array<int, array<string, mixed>>
+	 */
+	private function paraFilter(array $para): array {
 		$para_filter = [];
 
 		foreach ($para as $key => $val) {
@@ -161,7 +193,14 @@ class ModelExtensionPaymentAlipayCross extends Model {
 		return $para_filter;
 	}
 
-	private function argSort($para) {
+	/**
+	 * Arg Sort
+	 *
+	 * @param array<string, mixed> $para
+	 *
+	 * @return array<int, array<string, mixed>>
+	 */
+	private function argSort(array $para): array {
 		ksort($para);
 
 		reset($para);
@@ -169,7 +208,15 @@ class ModelExtensionPaymentAlipayCross extends Model {
 		return $para;
 	}
 
-	private function getHttpResponseGET($url, $cacert_url) {
+	/**
+	 * Get Http Response GET
+	 *
+	 * @param string $url
+	 * @param string $cacert_url
+	 *
+	 * @return mixed
+	 */
+	private function getHttpResponseGET(string $url, string $cacert_url): mixed {
 		$curl = curl_init($url);
 
 		curl_setopt($curl, CURLOPT_HEADER, 0);
@@ -189,13 +236,28 @@ class ModelExtensionPaymentAlipayCross extends Model {
 		return $responseText;
 	}
 
-	private function md5Sign($prestr, $key) {
+	/**
+	 * Md5 Sign
+	 *
+	 * @param string $prestr
+	 * @param string $key
+	 * 
+	 * @return string
+	 */
+	private function md5Sign(string $prestr, string $key): string {
 		$prestr .= $key;
 
 		return md5($prestr);
 	}
 
-	private function md5Verify($prestr, $sign, $key) {
+	/**
+	 * Md5 Verify
+	 *
+	 * @param string $prestr
+	 * @param string $sign
+	 * @param string $key
+	 */
+	private function md5Verify($prestr, $sign, $key): bool {
 		$prestr .= $key;
 		$mysgin = md5($prestr);
 

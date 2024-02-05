@@ -51,7 +51,9 @@ class ControllerUpgradeUpgrade extends Controller {
 				$this->load->model('upgrade/' . basename($files[$step - 1], '.php'));
 
 				// All upgrade methods require a upgrade method
-				if (is_callable([$this->{'model_upgrade_' . str_replace('.', '', basename($files[$step - 1], '.php'))}, 'upgrade'])) {
+				$callable = [$this->{'model_upgrade_' . str_replace('.', '', basename($files[$step - 1], '.php'))}, 'upgrade'];
+
+				if (is_callable($callable)) {
 					$this->{'model_upgrade_' . str_replace('.', '', basename($files[$step - 1], '.php'))}->upgrade();
 				}
 

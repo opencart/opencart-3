@@ -11,6 +11,9 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	use LibraryLoader;
 	use StoreLoader;
 
+	/**
+	 * @var int
+	 */
 	private int $store_id = 0;
 
 	/**
@@ -479,6 +482,11 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 		return null;
 	}
 
+	/**
+	 * Validate CRON
+	 *
+	 * @return bool
+	 */
 	protected function validateCRON() {
 		if (!$this->setting->get('advertise_google_status')) {
 			// In case the extension is disabled, do nothing

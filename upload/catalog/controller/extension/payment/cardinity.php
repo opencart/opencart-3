@@ -242,6 +242,13 @@ class ControllerExtensionPaymentCardinity extends Controller {
 		}
 	}
 
+	/**
+	 * Finalize Order
+	 *
+	 * @param string $payment
+	 *
+	 * @return void
+	 */
 	private function finalizeOrder(string $payment): void {
 		$this->load->language('extension/payment/cardinity');
 
@@ -254,6 +261,14 @@ class ControllerExtensionPaymentCardinity extends Controller {
 		$this->model_extension_payment_cardinity->log($payment);
 	}
 
+	/**
+	 * Failed Order
+	 *
+	 * @param ?string $log
+	 * @param ?string $alert
+	 *
+	 * @return void
+	 */
 	private function failedOrder(?string $log = null, ?string $alert = null): void {
 		$this->load->language('extension/payment/cardinity');
 
@@ -270,7 +285,12 @@ class ControllerExtensionPaymentCardinity extends Controller {
 		}
 	}
 
-	private function validate() {
+	/**
+	 * Validate
+	 *
+	 * @return array<string, mixed>
+	 */
+	private function validate(): array {
 		// Orders
 		$this->load->model('checkout/order');
 

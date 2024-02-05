@@ -18,7 +18,14 @@ class ModelExtensionPaymentKlarnaAccount extends Model {
 		return [];
 	}
 
-	private function getLowestPaymentAccount($country) {
+	/**
+	 * Get Lowest Payment Account
+	 *
+	 * @param string $country
+	 *
+	 * @return float
+	 */
+	private function getLowestPaymentAccount(string $country): float {
 		switch ($country) {
 			case 'SWE':
 				$amount = 50.0;

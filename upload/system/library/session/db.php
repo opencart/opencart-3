@@ -21,6 +21,8 @@ class DB {
 	 * Constructor
 	 *
 	 * @property Registry $registry
+	 *
+	 * @param mixed $registry
 	 */
 	public function __construct($registry) {
 		$this->db = $registry->get('db');

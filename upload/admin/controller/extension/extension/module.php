@@ -42,7 +42,9 @@ class ControllerExtensionExtensionModule extends Controller {
 		$this->load->model('setting/extension');
 
 		if ($this->validate()) {
-			if (is_callable([$this->{'model_setting_extension_module'}, 'install'])) {
+			$callable = [$this->{'model_setting_extension'}, 'install'];
+
+			if (is_callable($callable)) {
 				$this->model_setting_extension->install('module', $this->request->get['extension']);
 			}
 
@@ -78,7 +80,9 @@ class ControllerExtensionExtensionModule extends Controller {
 		$this->load->model('setting/extension');
 
 		if ($this->validate()) {
-			if (is_callable([$this->{'model_setting_extension_module'}, 'uninstall'])) {
+			$callable = [$this->{'model_setting_extension'}, 'uninstall'];
+
+			if (is_callable($callable)) {
 				$this->model_setting_extension->uninstall('module', $this->request->get['extension']);
 			}
 
@@ -167,7 +171,9 @@ class ControllerExtensionExtensionModule extends Controller {
 
 		foreach ($extensions as $key => $value) {
 			if (!is_file(DIR_APPLICATION . 'controller/extension/module/' . $value . '.php') && !is_file(DIR_APPLICATION . 'controller/module/' . $value . '.php')) {
-				if (is_callable([$this->{'model_setting_extension_module'}, 'uninstall'])) {
+				$callable = [$this->{'model_setting_extension'}, 'uninstall'];
+
+				if (is_callable($callable)) {
 					$this->model_setting_extension->uninstall('module', $value);
 				}
 

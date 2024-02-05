@@ -50,7 +50,16 @@ class ControllerExtensionModuleFraudlabspro extends Controller {
 		}
 	}
 
-	protected function getStatus($order_id, $order_status_id, $notify): void {
+	/**
+	 * Get Status
+	 *
+	 * @param int  $order_id
+	 * @param int  $order_status_id
+	 * @param bool $notify
+	 *
+	 * @return void
+	 */
+	protected function getStatus(int $order_id, int $order_status_id, bool $notify): void {
 		// Only pull the comment if we don't notify the customer and when there's an order status ID
 		// for service information security purposes between store owners and the customers.
 		if ($this->config->get('fraud_fraudlabspro_status')) {

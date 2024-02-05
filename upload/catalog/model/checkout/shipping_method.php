@@ -23,7 +23,9 @@ class ModelCheckoutShippingMethod extends Model {
 			if ($this->config->get('shipping_' . $result['code'] . '_status')) {
 				$this->load->model('extension/shipping/' . $result['code']);
 
-				if (is_callable([$this->{'model_extension_shipping_' . $result['code']}, 'getQuote'])) {
+				$callable = [$this->{'model_extension_shipping_' . $result['code']}, 'getQuote'];
+
+				if (is_callable($callable)) {
 					$quote = $this->{'model_extension_shipping_' . $result['code']}->getQuote($shipping_address);
 
 					if ($quote) {

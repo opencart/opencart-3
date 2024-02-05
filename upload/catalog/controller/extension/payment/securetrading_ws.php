@@ -338,7 +338,15 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 		}
 	}
 
-	private function processAuthResponse($response, $order_id) {
+	/**
+	 * Process Auth Response
+	 *
+	 * @param string $response
+	 * @param int    $order_id
+	 *
+	 * @return array<string, mixed>
+	 */
+	private function processAuthResponse(string $response, int $order_id): array {
 		$json = [];
 
 		if ($response !== false) {
@@ -372,21 +380,25 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 					$this->model_extension_payment_securetrading_ws->updateOrder($order_id, $this->config->get('payment_securetrading_ws_order_status_id'), $message);
 
 					$json['redirect'] = $this->url->link('checkout/success');
+
 					$json['status'] = 1;
 				} else {
 					$this->model_extension_payment_securetrading_ws->updateOrder($order_id, $this->config->get('payment_securetrading_ws_declined_order_status_id'));
 
 					$json['message'] = $this->language->get('text_transaction_declined');
+
 					$json['status'] = 0;
 				}
 			} else {
 				$this->model_extension_payment_securetrading_ws->updateOrder($order_id, $this->config->get('payment_securetrading_ws_failed_order_status_id'));
 
 				$json['message'] = $this->language->get('text_transaction_failed');
+
 				$json['status'] = 0;
 			}
 		} else {
 			$json['message'] = $this->language->get('text_connection_error');
+
 			$json['status'] = 0;
 		}
 

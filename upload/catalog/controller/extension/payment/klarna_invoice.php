@@ -70,7 +70,9 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
 					$taxes = [];
 
 					// We have to put the totals in an array so that they pass by reference.
-					if (is_callable([$this->{'model_extension_total_' . $result['code']}, 'getTotal'])) {
+					$callable = [$this->{'model_extension_total_' . $result['code']}, 'getTotal'];
+
+					if (is_callable($callable)) {
 						$this->{'model_extension_total_' . $result['code']}->getTotal([
 							'totals' => $total_data,
 							'total'  => $total,
@@ -441,7 +443,14 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	private function constructXmlrpc($data) {
+	/**
+	 * Construct Xmlrpc
+	 *
+	 * @param mixed $data
+	 *
+	 * @return string
+	 */
+	private function constructXmlrpc(mixed $data): string {
 		$type = gettype($data);
 
 		switch ($type) {
@@ -495,7 +504,14 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
 		return $xml;
 	}
 
-	private function splitAddress($address) {
+	/**
+	 * Split Address
+	 *
+	 * @param string $address
+	 *
+	 * @return array<string, mixed>
+	 */
+	private function splitAddress(string $address): array {
 		$numbers = [
 			'0',
 			'1',
@@ -600,7 +616,16 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
 		];
 	}
 
-	private function strposArr($haystack, $needle, $where) {
+	/**
+	 * Strpos Arr
+	 *
+	 * @param string $haystack
+	 * @param string $needle
+	 * @param string $where
+	 *
+	 * @return int
+	 */
+	private function strposArr(string $haystack, string $needle, string $where): int {
 		$defpos = 10000;
 
 		if (!is_array($needle)) {

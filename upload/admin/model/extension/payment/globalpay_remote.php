@@ -313,6 +313,13 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 		}
 	}
 
+	/**
+	 * Get Transactions
+	 *
+	 * @param int $globalpay_remote_order_id
+	 *
+	 * @return array<int, array<string, mixed>>
+	 */
 	private function getTransactions(int $globalpay_remote_order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "globalpay_remote_order_transaction` WHERE `globalpay_remote_order_id` = '" . (int)$globalpay_remote_order_id . "'");
 
@@ -324,7 +331,7 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 	}
 
 	/**
-	 * addTransaction
+	 * Add Transaction
 	 *
 	 * @param int    $globalpay_remote_order_id
 	 * @param string $type
@@ -351,7 +358,7 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 	}
 
 	/**
-	 * getTotalCaptured
+	 * Get Total Captured
 	 *
 	 * @param int $globalpay_order_id
 	 *
@@ -364,7 +371,7 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 	}
 
 	/**
-	 * getTotalRebated
+	 * Get Total Rebated
 	 *
 	 * @param int $globalpay_order_id
 	 *

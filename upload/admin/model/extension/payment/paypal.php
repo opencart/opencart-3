@@ -7,7 +7,7 @@
 class ModelExtensionPaymentPayPal extends Model {
 	/**
 	 * Get Total Sales
-	 * 
+	 *
 	 * @return int
 	 */
 	public function getTotalSales(): int {
@@ -28,7 +28,7 @@ class ModelExtensionPaymentPayPal extends Model {
 
 	/**
 	 * Get Total Sales By Day
-	 * 
+	 *
 	 * @return array<int, array<string, int>>
 	 */
 	public function getTotalSalesByDay(): array {
@@ -63,7 +63,7 @@ class ModelExtensionPaymentPayPal extends Model {
 
 	/**
 	 * Get Total Sales By Week
-	 * 
+	 *
 	 * @return array<int, array<string, int>>
 	 */
 	public function getTotalSalesByWeek(): array {
@@ -102,7 +102,7 @@ class ModelExtensionPaymentPayPal extends Model {
 
 	/**
 	 * Get Total Sales By Month
-	 * 
+	 *
 	 * @return array<int, array<string, int>>
 	 */
 	public function getTotalSalesByMonth(): array {
@@ -139,7 +139,7 @@ class ModelExtensionPaymentPayPal extends Model {
 
 	/**
 	 * Get Total Sales By Year
-	 * 
+	 *
 	 * @return array<int, array<string, int>>
 	 */
 	public function getTotalSalesByYear(): array {
@@ -174,9 +174,9 @@ class ModelExtensionPaymentPayPal extends Model {
 
 	/**
 	 * Get Country By Code
-	 * 
+	 *
 	 * @param string $code
-	 * 
+	 *
 	 * @return array<string, mixed>
 	 */
 	public function getCountryByCode(string $code): array {
@@ -187,9 +187,9 @@ class ModelExtensionPaymentPayPal extends Model {
 
 	/**
 	 * Edit Paypal Order
-	 * 
+	 *
 	 * @param array<string, mixed> $data
-	 * 
+	 *
 	 * @return void
 	 */
 	public function editPayPalOrder(array $data): void {
@@ -232,9 +232,9 @@ class ModelExtensionPaymentPayPal extends Model {
 
 	/**
 	 * Delete PayPal Order
-	 * 
+	 *
 	 * @param int $order_id
-	 * 
+	 *
 	 * @return void
 	 */
 	public function deletePayPalOrder(int $order_id): void {
@@ -243,9 +243,9 @@ class ModelExtensionPaymentPayPal extends Model {
 
 	/**
 	 * Get PayPal Order
-	 * 
+	 *
 	 * @param int $order_id
-	 * 
+	 *
 	 * @return array<string, mixed>
 	 */
 	public function getPayPalOrder(int $order_id): array {
@@ -260,9 +260,9 @@ class ModelExtensionPaymentPayPal extends Model {
 
 	/**
 	 * Get PayPal Order Subscription
-	 * 
+	 *
 	 * @param int $order_id
-	 * 
+	 *
 	 * @return array<string, mixed>
 	 */
 	public function getPayPalOrderSubscription(int $order_id): array {
@@ -273,10 +273,10 @@ class ModelExtensionPaymentPayPal extends Model {
 
 	/**
 	 * Edit Order Subscription Status
-	 * 
+	 *
 	 * @param int $order_id
 	 * @param int $status
-	 * 
+	 *
 	 * @return void
 	 */
 	public function editOrderSubscriptionStatus(int $order_id, int $status): void {
@@ -285,7 +285,7 @@ class ModelExtensionPaymentPayPal extends Model {
 
 	/**
 	 * Set Agree Status
-	 * 
+	 *
 	 * @return void
 	 */
 	public function setAgreeStatus(): void {
@@ -295,7 +295,7 @@ class ModelExtensionPaymentPayPal extends Model {
 
 	/**
 	 * Get Agree Status
-	 * 
+	 *
 	 * @return bool
 	 */
 	public function getAgreeStatus(): bool {
@@ -318,10 +318,10 @@ class ModelExtensionPaymentPayPal extends Model {
 
 	/**
 	 * Check Version
-	 * 
+	 *
 	 * @param string $opencart_version
 	 * @param string $paypal_version
-	 * 
+	 *
 	 * @return array
 	 */
 	public function checkVersion(string $opencart_version, string $paypal_version): array {
@@ -351,9 +351,9 @@ class ModelExtensionPaymentPayPal extends Model {
 
 	/**
 	 * Send Contact
-	 * 
+	 *
 	 * @param array<string, mixed> $data
-	 * 
+	 *
 	 * @return void
 	 */
 	public function sendContact(array $data): void {
@@ -376,10 +376,10 @@ class ModelExtensionPaymentPayPal extends Model {
 
 	/**
 	 * Log
-	 * 
+	 *
 	 * @param array<string, mixed> $data
-	 * @param string 			   $title
-	 * 
+	 * @param string               $title
+	 *
 	 * @return void
 	 */
 	public function log(array $data, ?string $title = null): void {
@@ -398,7 +398,7 @@ class ModelExtensionPaymentPayPal extends Model {
 
 	/**
 	 * Install
-	 * 
+	 *
 	 * @return void
 	 */
 	public function install(): void {
@@ -464,7 +464,7 @@ class ModelExtensionPaymentPayPal extends Model {
 
 	/**
 	 * Uninstall
-	 * 
+	 *
 	 * @return void
 	 */
 	public function uninstall(): void {

@@ -1774,7 +1774,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
 						if ($this->config->get('shipping_' . $result['code'] . '_status')) {
 							$this->load->model('extension/shipping/' . $result['code']);
 
-							if (is_callable([$this->{'model_extension_shipping_' . $result['code']}, 'getQuote'])) {
+							$callable = [$this->{'model_extension_shipping_' . $result['code']}, 'getQuote'];
+
+							if (is_callable($callable)) {
 								$quote = $this->{'model_extension_shipping_' . $result['code']}->getQuote($data['shipping_address']);
 
 								if ($quote) {
@@ -1863,7 +1865,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
 					$this->load->model('extension/total/' . $result['code']);
 
 					// We have to put the totals in an array so that they pass by reference.
-					if (is_callable([$this->{'model_extension_total_' . $result['code']}, 'getTotal'])) {
+					$callable = [$this->{'model_extension_total_' . $result['code']}, 'getTotal'];
+
+					if (is_callable($callable)) {
 						$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
 					}
 				}
@@ -1889,7 +1893,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			if ($this->config->get('payment_' . $result['code'] . '_status')) {
 				$this->load->model('extension/payment/' . $result['code']);
 
-				if (is_callable([$this->{'model_extension_payment_' . $result['code']}, 'getMethod'])) {
+				$callable = [$this->{'model_extension_payment_' . $result['code']}, 'getMethod'];
+
+				if (is_callable($callable)) {
 					$method = $this->{'model_extension_payment_' . $result['code']}->getMethod($data['payment_address'], $total);
 
 					if ($method) {
@@ -1952,7 +1958,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
 					$this->load->model('extension/total/' . $result['code']);
 
 					// We have to put the totals in an array so that they pass by reference.
-					if (is_callable([$this->{'model_extension_total_' . $result['code']}, 'getTotal'])) {
+					$callable = [$this->{'model_extension_total_' . $result['code']}, 'getTotal'];
+
+					if (is_callable($callable)) {
 						$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
 					}
 				}
@@ -2014,7 +2022,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 	/**
 	 * Complete Order
-	 * 
+	 *
 	 * @return void
 	 */
 	public function completeOrder(): void {
@@ -2083,7 +2091,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
 					$this->load->model('extension/total/' . $result['code']);
 
 					// We have to put the totals in an array so that they pass by reference.
-					if (is_callable([$this->{'model_extension_total_' . $result['code']}, 'getTotal'])) {
+					$callable = [$this->{'model_extension_total_' . $result['code']}, 'getTotal'];
+
+					if (is_callable($callable)) {
 						$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
 					}
 				}
@@ -3378,7 +3388,14 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		$this->model_extension_payment_paypal->deletePayPalOrderSubscription($order_id);
 	}
 
-	private function validateShipping($code) {
+	/**
+	 * Validate Shipping
+	 *
+	 * @param string $code
+	 *
+	 * @return bool
+	 */
+	private function validateShipping(string $code): bool {
 		$this->load->language('checkout/cart');
 		$this->load->language('extension/payment/paypal');
 
@@ -3402,7 +3419,12 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		}
 	}
 
-	private function validatePaymentAddress() {
+	/**
+	 * Validate Payment Address
+	 *
+	 * @return bool
+	 */
+	private function validatePaymentAddress(): bool {
 		if ((oc_strlen(trim($this->request->post['firstname'])) < 1) || (oc_strlen(trim($this->request->post['firstname'])) > 32)) {
 			$this->error['firstname'] = $this->language->get('error_firstname');
 		}
@@ -3466,7 +3488,12 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		return !$this->error;
 	}
 
-	private function validateShippingAddress() {
+	/**
+	 * Validate Shipping Address
+	 *
+	 * @return bool
+	 */
+	private function validateShippingAddress(): bool {
 		if ((oc_strlen(trim($this->request->post['firstname'])) < 1) || (oc_strlen(trim($this->request->post['firstname'])) > 32)) {
 			$this->error['firstname'] = $this->language->get('error_firstname');
 		}
@@ -3524,7 +3551,12 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		return !$this->error;
 	}
 
-	private function validateCoupon() {
+	/**
+	 * Validate Coupon
+	 *
+	 * @return bool
+	 */
+	private function validateCoupon(): bool {
 		$this->load->model('extension/total/coupon');
 
 		$coupon_info = $this->model_extension_total_coupon->getCoupon($this->request->post['coupon']);
@@ -3538,7 +3570,12 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		}
 	}
 
-	private function validateVoucher() {
+	/**
+	 * Validate Voucher
+	 *
+	 * @return bool
+	 */
+	private function validateVoucher(): bool {
 		$this->load->model('extension/total/voucher');
 
 		$voucher_info = $this->model_extension_total_voucher->getVoucher($this->request->post['voucher']);
@@ -3552,7 +3589,12 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		}
 	}
 
-	private function validateReward() {
+	/**
+	 * Validate Reward
+	 *
+	 * @return bool
+	 */
+	private function validateReward(): bool {
 		$points = $this->customer->getRewardPoints();
 
 		$points_total = 0;
@@ -3586,6 +3628,11 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		}
 	}
 
+	/**
+	 * Is Apple
+	 *
+	 * @return bool
+	 */
 	private function isApple() {
 		if (!empty($this->request->server['HTTP_USER_AGENT'])) {
 			$user_agent = $this->request->server['HTTP_USER_AGENT'];
@@ -3602,7 +3649,14 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		return false;
 	}
 
-	private function unserialize($str) {
+	/**
+	 * Unserialize
+	 *
+	 * @param string $str
+	 *
+	 * @return array
+	 */
+	private function unserialize(string $str): array {
 		$data = [];
 
 		$str = str_replace('&amp;', '&', $str);

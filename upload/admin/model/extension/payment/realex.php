@@ -318,7 +318,14 @@ class ModelExtensionPaymentRealex extends Model {
 		}
 	}
 
-	private function getTransactions($realex_order_id) {
+	/**
+	 * Get Transactions
+	 *
+	 * @param int $realex_order_id
+	 *
+	 * @return array<int, array<string, mixed>>
+	 */
+	private function getTransactions(int $realex_order_id) {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "realex_order_transaction` WHERE `realex_order_id` = '" . (int)$realex_order_id . "'");
 
 		if ($query->num_rows) {
@@ -329,7 +336,7 @@ class ModelExtensionPaymentRealex extends Model {
 	}
 
 	/**
-	 * addTransaction
+	 * Add Transaction
 	 *
 	 * @param int    $realex_order_id
 	 * @param string $type
@@ -356,7 +363,7 @@ class ModelExtensionPaymentRealex extends Model {
 	}
 
 	/**
-	 * getTotalCaptured
+	 * Get Total Captured
 	 *
 	 * @param int $realex_order_id
 	 *
@@ -369,7 +376,7 @@ class ModelExtensionPaymentRealex extends Model {
 	}
 
 	/**
-	 * getTotalRebated
+	 * Get Total Rebated
 	 *
 	 * @param int $realex_order_id
 	 *

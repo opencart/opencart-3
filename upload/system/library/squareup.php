@@ -28,8 +28,10 @@ class Squareup {
 
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @property Registry $registry
+	 *
+	 * @param mixed $registry
 	 */
 	public function __construct($registry) {
 		$this->session = $registry->get('session');
@@ -44,13 +46,13 @@ class Squareup {
 	/**
 	 * Api
 	 *
-	 * @param $request_data
+	 * @param array<string, mixed> $request_data
 	 *
 	 * @throws \Squareup\Exception
 	 *
 	 * @return mixed
 	 */
-	public function api($request_data): mixed {
+	public function api(array $request_data): mixed {
 		$url = self::API_URL;
 
 		if (empty($request_data['no_version'])) {
@@ -170,7 +172,7 @@ class Squareup {
 	 *
 	 * @throws \Squareup\Exception
 	 *
-	 * @return object|\Squareup\Exception|null
+	 * @return object
 	 */
 	public function verifyToken($access_token): ?object {
 		try {
@@ -554,7 +556,14 @@ class Squareup {
 		return (float)($value / 10 ** $power);
 	}
 
-	protected function filterLocation($location) {
+	/**
+	 * Filter Location
+	 *
+	 * @param array<string, mixed> $location
+	 *
+	 * @return bool
+	 */
+	protected function filterLocation(array $location): bool {
 		if (empty($location['capabilities'])) {
 			return false;
 		}
@@ -562,7 +571,15 @@ class Squareup {
 		return in_array('CREDIT_CARD_PROCESSING', (array)$location['capabilities']);
 	}
 
-	protected function encodeParameters($params, $content_type) {
+	/**
+	 * Encode Parameters
+	 *
+	 * @param array<string, mixed> $params
+	 * @param string               $content_type
+	 *
+	 * @return array<int, array<string, mixed>>
+	 */
+	protected function encodeParameters(array $params, string $content_type): array {
 		switch ($content_type) {
 			case 'application/json':
 				return json_encode($params);
@@ -575,7 +592,12 @@ class Squareup {
 		}
 	}
 
-	protected function authState() {
+	/**
+	 * Auth State
+	 *
+	 * @return string
+	 */
+	protected function authState(): string {
 		if (!isset($this->session->data['payment_squareup_oauth_state'])) {
 			$this->session->data['payment_squareup_oauth_state'] = bin2hex(openssl_random_pseudo_bytes(32));
 		}

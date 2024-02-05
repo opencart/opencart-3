@@ -292,6 +292,13 @@ class ModelExtensionPaymentEway extends Model {
 		return $response;
 	}
 
+	/**
+	 * Get Transactions
+	 *
+	 * @param int $eway_order_id
+	 *
+	 * @return array<int, array<string, mixed>>
+	 */
 	private function getTransactions(int $eway_order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "eway_transactions` WHERE `eway_order_id` = '" . (int)$eway_order_id . "'");
 
@@ -303,7 +310,7 @@ class ModelExtensionPaymentEway extends Model {
 	}
 
 	/**
-	 * addTransaction
+	 * Add Transaction
 	 *
 	 * @param int    $eway_order_id
 	 * @param string $transactionid
@@ -318,7 +325,7 @@ class ModelExtensionPaymentEway extends Model {
 	}
 
 	/**
-	 * getTotalCaptured
+	 * Get Total Captured
 	 *
 	 * @param int $eway_order_id
 	 *
@@ -331,7 +338,7 @@ class ModelExtensionPaymentEway extends Model {
 	}
 
 	/**
-	 * getTotalRefunded
+	 * Get Total Refunded
 	 *
 	 * @param int $eway_order_id
 	 *

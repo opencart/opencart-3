@@ -485,7 +485,9 @@ class ModelCheckoutOrder extends Model {
 				foreach ($order_totals as $order_total) {
 					$this->load->model('extension/total/' . $order_total['code']);
 
-					if (is_callable([$this->{'model_extension_total_' . $order_total['code']}, 'confirm'])) {
+					$callable = [$this->{'model_extension_total_' . $order_total['code']}, 'confirm'];
+
+					if (is_callable($callable)) {
 						// Confirm coupon, vouchers and reward points
 						$fraud_status_id = $this->{'model_extension_total_' . $order_total['code']}->confirm($order_info, $order_total);
 
@@ -581,7 +583,9 @@ class ModelCheckoutOrder extends Model {
 				foreach ($order_totals as $order_total) {
 					$this->load->model('extension/total/' . $order_total['code']);
 
-					if (is_callable([$this->{'model_extension_total_' . $order_total['code']}, 'unconfirm'])) {
+					$callable = [$this->{'model_extension_total_' . $order_total['code']}, 'unconfirm'];
+
+					if (is_callable($callable)) {
 						$this->{'model_extension_total_' . $order_total['code']}->unconfirm($order_id);
 					}
 				}

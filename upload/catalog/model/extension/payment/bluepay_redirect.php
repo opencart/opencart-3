@@ -132,7 +132,14 @@ class ModelExtensionPaymentBluePayRedirect extends Model {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "bluepay_redirect_order_transaction` SET `bluepay_redirect_order_id` = '" . (int)$bluepay_redirect_order_id . "', `date_added` = NOW(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . $this->currency->format($order_info['total'], $order_info['currency_code'], false, false) . "'");
 	}
 
-	private function getTransactions($bluepay_redirect_order_id) {
+	/**
+	 * Get Transactions
+	 *
+	 * @param int $bluepay_redirect_order_id
+	 *
+	 * @return array<int, array<string, mixed>>
+	 */
+	private function getTransactions(int $bluepay_redirect_order_id) {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "bluepay_redirect_order_transaction` WHERE `bluepay_redirect_order_id` = '" . (int)$bluepay_redirect_order_id . "'");
 
 		if ($query->num_rows) {

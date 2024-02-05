@@ -144,7 +144,9 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 				if ($this->config->get('shipping_' . $code . '_status')) {
 					$this->load->model('extension/shipping/' . $code);
 
-					if (is_callable([$this->{'model_extension_shipping_' . $code}, 'getQuote'])) {
+					$callable = [$this->{'model_extension_shipping_' . $code}, 'getQuote'];
+
+					if (is_callable($callable)) {
 						$quote = $this->{'model_extension_shipping_' . $code}->getQuote($address);
 
 						if ($quote && empty($quote['error'])) {
