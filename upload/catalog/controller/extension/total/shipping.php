@@ -151,7 +151,7 @@ class ControllerExtensionTotalShipping extends Controller {
 					$callable = [$this->{'model_extension_shipping_' . $result['code']}, 'getQuote'];
 
 					if (is_callable($callable)) {
-						$quote = $this->{'model_extension_shipping_' . $result['code']}->getQuote($this->session->data['shipping_address']);
+						$quote = $callable($this->session->data['shipping_address']);
 
 						if ($quote) {
 							$quote_data[$result['code']] = [

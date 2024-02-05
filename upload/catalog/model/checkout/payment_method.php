@@ -26,7 +26,7 @@ class ModelCheckoutPaymentMethod extends Model {
 				$callable = [$this->{'model_extension_payment_' . $result['code']}, 'getMethods'];
 
 				if (is_callable($callable)) {
-					$payment_methods = $this->{'model_extension_payment_' . $result['code']}->getMethods($payment_address);
+					$payment_methods = $callable($payment_address);
 
 					if ($payment_methods) {
 						$method_data[$result['code']] = $payment_methods;

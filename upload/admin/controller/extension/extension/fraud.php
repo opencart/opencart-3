@@ -39,7 +39,7 @@ class ControllerExtensionExtensionFraud extends Controller {
 			$callable = [$this->{'model_setting_extension'}, 'install'];
 
 			if (is_callable($callable)) {
-				$this->model_setting_extension->install('fraud', $this->request->get['extension']);
+				$callable('fraud', $this->request->get['extension']);
 			}
 
 			// User Groups
@@ -72,7 +72,7 @@ class ControllerExtensionExtensionFraud extends Controller {
 			$callable = [$this->{'model_setting_extension'}, 'uninstall'];
 
 			if (is_callable($callable)) {
-				$this->model_setting_extension->uninstall('fraud', $this->request->get['extension']);
+				$callable('fraud', $this->request->get['extension']);
 			}
 
 			// Call uninstall method if it exists
@@ -111,7 +111,7 @@ class ControllerExtensionExtensionFraud extends Controller {
 				$callable = [$this->{'model_setting_extension'}, 'uninstall'];
 
 				if (is_callable($callable)) {
-					$this->model_setting_extension->uninstall('fraud', $value);
+					$callable('fraud', $value);
 				}
 
 				unset($extensions[$key]);

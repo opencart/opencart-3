@@ -39,7 +39,7 @@ class ControllerExtensionExtensionFeed extends Controller {
 			$callable = [$this->{'model_setting_extension'}, 'install'];
 
 			if (is_callable($callable)) {
-				$this->model_setting_extension->install('feed', $this->request->get['extension']);
+				$callable('feed', $this->request->get['extension']);
 			}
 
 			// User Groups
@@ -72,7 +72,7 @@ class ControllerExtensionExtensionFeed extends Controller {
 			$callable = [$this->{'model_setting_extension'}, 'uninstall'];
 
 			if (is_callable($callable)) {
-				$this->model_setting_extension->uninstall('feed', $this->request->get['extension']);
+				$callable('feed', $this->request->get['extension']);
 			}
 
 			// Call uninstall method if it exists
@@ -111,7 +111,7 @@ class ControllerExtensionExtensionFeed extends Controller {
 				$callable = [$this->{'model_setting_extension'}, 'uninstall'];
 
 				if (is_callable($callable)) {
-					$this->model_setting_extension->uninstall('feed', $value);
+					$callable('feed', $value);
 				}
 
 				unset($extensions[$key]);

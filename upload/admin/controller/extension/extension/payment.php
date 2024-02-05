@@ -39,7 +39,7 @@ class ControllerExtensionExtensionPayment extends Controller {
 			$callable = [$this->{'model_setting_extension'}, 'install'];
 
 			if (is_callable($callable)) {
-				$this->model_setting_extension->install('payment', $this->request->get['extension']);
+				$callable('payment', $this->request->get['extension']);
 			}
 
 			// User Groups
@@ -72,7 +72,7 @@ class ControllerExtensionExtensionPayment extends Controller {
 			$callable = [$this->{'model_setting_extension'}, 'uninstall'];
 
 			if (is_callable($callable)) {
-				$this->model_setting_extension->uninstall('payment', $this->request->get['extension']);
+				$callable('payment', $this->request->get['extension']);
 			}
 
 			// Call uninstall method if it exists
@@ -114,7 +114,7 @@ class ControllerExtensionExtensionPayment extends Controller {
 				$callable = [$this->{'model_setting_extension'}, 'uninstall'];
 
 				if (is_callable($callable)) {
-					$this->model_setting_extension->uninstall('payment', $value);
+					$callable('payment', $value);
 				}
 
 				unset($extensions[$key]);

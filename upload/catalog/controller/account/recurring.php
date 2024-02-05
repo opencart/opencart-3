@@ -7,7 +7,7 @@
 class ControllerAccountRecurring extends Controller {
 	/**
 	 * Index
-	 *
+	 * 
 	 * @return void
 	 */
 	public function index(): void {
@@ -54,7 +54,6 @@ class ControllerAccountRecurring extends Controller {
 
 		$data['recurrings'] = [];
 
-		// Recurring
 		$this->load->model('account/recurring');
 
 		$recurring_total = $this->model_account_recurring->getTotalRecurrings();
@@ -85,7 +84,7 @@ class ControllerAccountRecurring extends Controller {
 
 		$data['pagination'] = $pagination->render();
 
-		$data['continue'] = $this->url->link('account/account', 'customer_token=' . $this->session->data['customer_token'], true);
+		$data['continue'] = $this->url->link('account/account', '', true);
 
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['column_right'] = $this->load->controller('common/column_right');
@@ -98,8 +97,8 @@ class ControllerAccountRecurring extends Controller {
 	}
 
 	/**
-	 * Info
-	 *
+	 * Void
+	 * 
 	 * @return void
 	 */
 	public function info(): void {
@@ -117,7 +116,6 @@ class ControllerAccountRecurring extends Controller {
 			$this->response->redirect($this->url->link('account/login', '', true));
 		}
 
-		// Recurring
 		$this->load->model('account/recurring');
 
 		$recurring_info = $this->model_account_recurring->getRecurring($order_recurring_id);
@@ -140,20 +138,20 @@ class ControllerAccountRecurring extends Controller {
 
 			$data['breadcrumbs'][] = [
 				'text' => $this->language->get('text_account'),
-				'href' => $this->url->link('account/account', 'customer_token=' . $this->session->data['customer_token'], true),
+				'href' => $this->url->link('account/account', 'customer_token=' . $this->session->data['customer_token'], true)
 			];
 
 			$data['breadcrumbs'][] = [
 				'text' => $this->language->get('heading_title'),
-				'href' => $this->url->link('account/recurring', 'customer_token=' . $this->session->data['customer_token'] . $url, true),
+				'href' => $this->url->link('account/recurring', 'customer_token=' . $this->session->data['customer_token'] . $url, true)
 			];
 
 			$data['breadcrumbs'][] = [
 				'text' => $this->language->get('text_recurring'),
-				'href' => $this->url->link('account/recurring/info', 'customer_token=' . $this->session->data['customer_token'] . '&order_recurring_id=' . $this->request->get['order_recurring_id'] . $url, true),
+				'href' => $this->url->link('account/recurring/info', 'order_recurring_id=' . $this->request->get['order_recurring_id'] . $url, true)
 			];
 
-			$data['order_recurring_id'] = $this->request->get['order_recurring_id'];
+			$data['order_recurring_id'] = (int)$this->request->get['order_recurring_id'];
 
 			$data['date_added'] = date($this->language->get('date_format_short'), strtotime($recurring_info['date_added']));
 

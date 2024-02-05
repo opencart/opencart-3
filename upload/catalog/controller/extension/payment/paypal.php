@@ -1777,7 +1777,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 							$callable = [$this->{'model_extension_shipping_' . $result['code']}, 'getQuote'];
 
 							if (is_callable($callable)) {
-								$quote = $this->{'model_extension_shipping_' . $result['code']}->getQuote($data['shipping_address']);
+								$quote = $callable($data['shipping_address']);
 
 								if ($quote) {
 									$quote_data[$result['code']] = [
@@ -1868,7 +1868,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 					$callable = [$this->{'model_extension_total_' . $result['code']}, 'getTotal'];
 
 					if (is_callable($callable)) {
-						$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
+						$callable($total_data);
 					}
 				}
 			}
@@ -1896,7 +1896,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 				$callable = [$this->{'model_extension_payment_' . $result['code']}, 'getMethod'];
 
 				if (is_callable($callable)) {
-					$method = $this->{'model_extension_payment_' . $result['code']}->getMethod($data['payment_address'], $total);
+					$method = $callable($data['payment_address'], $total);
 
 					if ($method) {
 						$method_data[$result['code']] = $method;
@@ -1961,7 +1961,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 					$callable = [$this->{'model_extension_total_' . $result['code']}, 'getTotal'];
 
 					if (is_callable($callable)) {
-						$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
+						$callable($total_data);
 					}
 				}
 			}
@@ -2094,7 +2094,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 					$callable = [$this->{'model_extension_total_' . $result['code']}, 'getTotal'];
 
 					if (is_callable($callable)) {
-						$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
+						$callable($total_data);
 					}
 				}
 			}

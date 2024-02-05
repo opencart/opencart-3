@@ -404,28 +404,6 @@ class ModelUpgrade1009 extends Model {
 					}
 				}
 			}
-
-			// Drop Fields
-			$remove = [];
-
-			$remove[] = [
-				'table' => 'order',
-				'field' => 'payment_code'
-			];
-
-			// custom_field
-			$remove[] = [
-				'table' => 'order',
-				'field' => 'shipping_code'
-			];
-
-			foreach ($remove as $result) {
-				$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . $result['table'] . "' AND COLUMN_NAME = '" . $result['field'] . "'");
-
-				if ($query->num_rows) {
-					$this->db->query("ALTER TABLE `" . DB_PREFIX . $result['table'] . "` DROP `" . $result['field'] . "`");
-				}
-			}
 		}
 
 		// Drop Fields
@@ -454,6 +432,22 @@ class ModelUpgrade1009 extends Model {
 		$remove[] = [
 			'table' => 'user_login',
 			'field' => 'status'
+		];
+
+		$remove[] = [
+			'table' => 'order',
+			'field' => 'payment_code'
+		];
+
+		// custom_field
+		$remove[] = [
+			'table' => 'order',
+			'field' => 'shipping_code'
+		];
+
+		$remove[] = [
+			'table' => 'subscription_plan_description',
+			'field' => 'description'
 		];
 
 		foreach ($remove as $result) {

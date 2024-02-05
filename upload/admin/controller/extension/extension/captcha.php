@@ -39,7 +39,7 @@ class ControllerExtensionExtensionCaptcha extends Controller {
 			$callable = [$this->{'model_setting_extension'}, 'install'];
 
 			if (is_callable($callable)) {
-				$this->model_setting_extension->install('captcha', $this->request->get['extension']);
+				$callable('captcha', $this->request->get['extension']);
 			}
 
 			// User Groups
@@ -76,7 +76,7 @@ class ControllerExtensionExtensionCaptcha extends Controller {
 			$callable = [$this->{'model_setting_extension'}, 'uninstall'];
 
 			if (is_callable($callable)) {
-				$this->model_setting_extension->uninstall('captcha', $this->request->get['extension']);
+				$callable('captcha', $this->request->get['extension']);
 			}
 
 			// Call uninstall method if it exists
@@ -115,7 +115,7 @@ class ControllerExtensionExtensionCaptcha extends Controller {
 				$callable = [$this->{'model_setting_extension'}, 'uninstall'];
 				
 				if (is_callable($callable)) {
-					$this->model_setting_extension->uninstall('captcha', $value);
+					$callable('captcha', $value);
 				}
 
 				unset($extensions[$key]);

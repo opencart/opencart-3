@@ -70,7 +70,7 @@ class ModelExtensionFraudFraudLabsPro extends Model {
 		$request['amount'] = $this->currency->format($data['total'], $data['currency_code'], $data['currency_value'], false);
 		$request['quantity'] = 1;
 		$request['currency'] = $data['currency_code'];
-		$request['payment_mode'] = $data['payment_code'];
+		$request['payment_mode'] = $data['payment_method']['code'];
 		$request['user_order_id'] = $data['order_id'];
 		$request['flp_checksum'] = $_COOKIE['flp_checksum'] ?? '';
 		$request['format'] = 'json';

@@ -39,7 +39,7 @@ class ControllerExtensionExtensionDashboard extends Controller {
 			$callable = [$this->{'model_setting_extension'}, 'install'];
 
 			if (is_callable($callable)) {
-				$this->model_setting_extension->install('dashboard', $this->request->get['extension']);
+				$callable('dashboard', $this->request->get['extension']);
 			}
 
 			// User Groups
@@ -72,7 +72,7 @@ class ControllerExtensionExtensionDashboard extends Controller {
 			$callable = [$this->{'model_setting_extension'}, 'uninstall'];
 
 			if (is_callable($callable)) {
-				$this->model_setting_extension->uninstall('dashboard', $this->request->get['extension']);
+				$callable('dashboard', $this->request->get['extension']);
 			}
 
 			// Call uninstall method if it exists
@@ -111,7 +111,7 @@ class ControllerExtensionExtensionDashboard extends Controller {
 				$callable = [$this->{'model_setting_extension'}, 'uninstall'];
 
 				if (is_callable($callable)) {
-					$this->model_setting_extension->uninstall('dashboard', $value);
+					$callable('dashboard', $value);
 				}
 
 				unset($extensions[$key]);
