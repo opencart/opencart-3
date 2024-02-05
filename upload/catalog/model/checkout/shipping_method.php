@@ -26,7 +26,7 @@ class ModelCheckoutShippingMethod extends Model {
 				$callable = [$this->{'model_extension_shipping_' . $result['code']}, 'getQuote'];
 
 				if (is_callable($callable)) {
-					$quote = $this->{'model_extension_shipping_' . $result['code']}->getQuote($shipping_address);
+					$quote = $callable($shipping_address);
 
 					if ($quote) {
 						$method_data[$result['code']] = $quote;

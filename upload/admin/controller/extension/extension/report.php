@@ -39,7 +39,7 @@ class ControllerExtensionExtensionReport extends Controller {
 			$callable = [$this->{'model_setting_extension'}, 'install'];
 
 			if (is_callable($callable)) {
-				$this->model_setting_extension->install('report', $this->request->get['extension']);
+				$callable('report', $this->request->get['extension']);
 			}
 
 			// User Groups
@@ -71,7 +71,7 @@ class ControllerExtensionExtensionReport extends Controller {
 			$callable = [$this->{'model_setting_extension'}, 'uninstall'];
 
 			if (is_callable($callable)) {
-				$this->model_setting_extension->uninstall('report', $this->request->get['extension']);
+				$callable('report', $this->request->get['extension']);
 			}
 
 			$this->load->controller('extension/report/' . $this->request->get['extension'] . '/uninstall');
@@ -112,7 +112,7 @@ class ControllerExtensionExtensionReport extends Controller {
 				$callable = [$this->{'model_setting_extension'}, 'uninstall'];
 
 				if (is_callable($callable)) {
-					$this->model_setting_extension->uninstall('report', $value);
+					$callable('report', $value);
 				}
 
 				unset($extensions[$key]);

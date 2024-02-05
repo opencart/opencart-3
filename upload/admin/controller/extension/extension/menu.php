@@ -39,7 +39,7 @@ class ControllerExtensionExtensionMenu extends Controller {
 			$callable = [$this->{'model_setting_extension'}, 'install'];
 
 			if (is_callable($callable)) {
-				$this->model_setting_extension->install('menu', $this->request->get['extension']);
+				$callable('menu', $this->request->get['extension']);
 			}
 
 			// User Groups
@@ -72,7 +72,7 @@ class ControllerExtensionExtensionMenu extends Controller {
 			$callable = [$this->{'model_setting_extension'}, 'uninstall'];
 
 			if (is_callable($callable)) {
-				$this->model_setting_extension->uninstall('menu', $this->request->get['extension']);
+				$callable('menu', $this->request->get['extension']);
 			}
 
 			// Call uninstall method if it exists
@@ -113,7 +113,7 @@ class ControllerExtensionExtensionMenu extends Controller {
 				$callable = [$this->{'model_setting_extension'}, 'uninstall'];
 				
 				if (is_callable($callable)) {
-					$this->model_setting_extension->uninstall('menu', $value);
+					$callable('menu', $value);
 				}
 
 				unset($extensions[$key]);

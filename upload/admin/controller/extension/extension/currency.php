@@ -39,7 +39,7 @@ class ControllerExtensionExtensionCurrency extends Controller {
 			$callable = [$this->{'model_setting_extension'}, 'install'];
 
 			if (is_callable($callable)) {
-				$this->model_setting_extension->install('currency', $this->request->get['extension']);
+				$callable('currency', $this->request->get['extension']);
 			}
 
 			$this->load->model('user/user_group');
@@ -71,7 +71,7 @@ class ControllerExtensionExtensionCurrency extends Controller {
 			$callable = [$this->{'model_setting_extension'}, 'uninstall'];
 
 			if (is_callable($callable)) {
-				$this->model_setting_extension->uninstall('currency', $this->request->get['extension']);
+				$callable('currency', $this->request->get['extension']);
 			}
 
 			// Call uninstall method if it exsits
@@ -110,7 +110,7 @@ class ControllerExtensionExtensionCurrency extends Controller {
 				$callable = [$this->{'model_setting_extension'}, 'uninstall'];
 
 				if (is_callable($callable)) {
-					$this->model_setting_extension->uninstall('currency', $value);
+					$callable('currency', $value);
 				}
 
 				unset($extensions[$key]);

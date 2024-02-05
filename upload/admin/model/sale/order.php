@@ -84,6 +84,9 @@ class ModelSaleOrder extends Model {
 				$language_code = $this->config->get('config_language');
 			}
 
+			$payment_method = json_decode($order_query->row['payment_method'], true);
+			$shipping_method = json_decode($order_query->row['shipping_method'], true);
+
 			return [
 				'order_id'                => $order_query->row['order_id'],
 				'invoice_no'              => $order_query->row['invoice_no'],
@@ -115,8 +118,8 @@ class ModelSaleOrder extends Model {
 				'payment_iso_code_3'      => $payment_iso_code_3,
 				'payment_address_format'  => $order_query->row['payment_address_format'],
 				'payment_custom_field'    => json_decode($order_query->row['payment_custom_field'], true),
-				'payment_method'          => $order_query->row['payment_method'],
-				'payment_code'            => $order_query->row['payment_code'],
+				'payment_method'          => $payment_method['name'],
+				'payment_code'            => $payment_method['code'],
 				'shipping_firstname'      => $order_query->row['shipping_firstname'],
 				'shipping_lastname'       => $order_query->row['shipping_lastname'],
 				'shipping_company'        => $order_query->row['shipping_company'],
@@ -133,7 +136,7 @@ class ModelSaleOrder extends Model {
 				'shipping_iso_code_3'     => $shipping_iso_code_3,
 				'shipping_address_format' => $order_query->row['shipping_address_format'],
 				'shipping_custom_field'   => json_decode($order_query->row['shipping_custom_field'], true),
-				'shipping_method'         => $order_query->row['shipping_method'],
+				'shipping_method'         => $shipping_method['name'],
 				'comment'                 => $order_query->row['comment'],
 				'total'                   => $order_query->row['total'],
 				'reward'                  => $reward,

@@ -85,7 +85,7 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 					$callable = [$this->{'model_extension_total_' . $result['code']}, 'getTotal'];
 
 					if (is_callable($callable)) {
-						$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
+						$callable($total_data);
 					}
 
 					$amount = 0;

@@ -45,7 +45,7 @@ class ControllerExtensionExtensionModule extends Controller {
 			$callable = [$this->{'model_setting_extension'}, 'install'];
 
 			if (is_callable($callable)) {
-				$this->model_setting_extension->install('module', $this->request->get['extension']);
+				$callable('module', $this->request->get['extension']);
 			}
 
 			// User Groups
@@ -83,7 +83,7 @@ class ControllerExtensionExtensionModule extends Controller {
 			$callable = [$this->{'model_setting_extension'}, 'uninstall'];
 
 			if (is_callable($callable)) {
-				$this->model_setting_extension->uninstall('module', $this->request->get['extension']);
+				$callable('module', $this->request->get['extension']);
 			}
 
 			$this->model_setting_module->deleteModulesByCode($this->request->get['extension']);
@@ -174,7 +174,7 @@ class ControllerExtensionExtensionModule extends Controller {
 				$callable = [$this->{'model_setting_extension'}, 'uninstall'];
 
 				if (is_callable($callable)) {
-					$this->model_setting_extension->uninstall('module', $value);
+					$callable('module', $value);
 				}
 
 				unset($extensions[$key]);

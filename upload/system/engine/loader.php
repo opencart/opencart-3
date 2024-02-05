@@ -243,9 +243,9 @@ class Loader {
 	 * @param mixed $registry
 	 * @param mixed $route
 	 *
-	 * @return array<string, string>
+	 * @return mixed
 	 */
-	protected function callback($registry, $route): array {
+	protected function callback($registry, $route): mixed {
 		return function($args) use ($registry, $route) {
 			static $model;
 

@@ -73,7 +73,7 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
 					$callable = [$this->{'model_extension_total_' . $result['code']}, 'getTotal'];
 
 					if (is_callable($callable)) {
-						$this->{'model_extension_total_' . $result['code']}->getTotal([
+						$callable([
 							'totals' => $total_data,
 							'total'  => $total,
 							'taxes'  => $taxes

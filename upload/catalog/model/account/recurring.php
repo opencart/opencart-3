@@ -25,9 +25,16 @@ class ModelAccountRecurring extends Model {
 	 * @return array<string, mixed>
 	 */
 	public function getRecurring(int $order_recurring_id): array {
-		$query = $this->db->query("SELECT `or`.*, `o`.`payment_method`, `o`.`payment_code`, `o`.`currency_code` FROM `" . DB_PREFIX . "order_recurring` `or` LEFT JOIN `" . DB_PREFIX . "order` `o` ON `or`.`order_id` = `o`.`order_id` WHERE `or`.`order_recurring_id` = '" . (int)$order_recurring_id . "' AND `o`.`customer_id` = '" . (int)$this->customer->getId() . "'");
+		$query = $this->db->query("SELECT `or`.*, `o`.`payment_method`, `o`.`currency_code` FROM `" . DB_PREFIX . "order_recurring` `or` LEFT JOIN `" . DB_PREFIX . "order` `o` ON `or`.`order_id` = `o`.`order_id` WHERE `or`.`order_recurring_id` = '" . (int)$order_recurring_id . "' AND `o`.`customer_id` = '" . (int)$this->customer->getId() . "'");
 
-		return $query->row;
+		if ($query->num_rows) {
+			$query->row['payment_method']['name'] = json_decode($query->row['payment_method']['name'], true);
+			$query->row['payment_method']['code'] = json_decode($query->row['payment_method']['code'], true);
+
+			return $query->row;
+		} else {
+			return [];
+		}
 	}
 
 	/**
