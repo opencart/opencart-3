@@ -441,7 +441,7 @@ class ModelExtensionPaymentSquareup extends Model {
 	}
 
 	/**
-	 * suspendSubscriptionProfile
+	 * Suspend Subscription Profile
 	 *
 	 * @param int $subscription_id
 	 *
@@ -452,7 +452,7 @@ class ModelExtensionPaymentSquareup extends Model {
 	}
 
 	/**
-	 * getLastSuccessfulSubscriptionPaymentDate
+	 * Get Last Successful Subscription Payment Date
 	 *
 	 * @param int $subscription_id
 	 *

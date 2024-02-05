@@ -164,7 +164,7 @@ class ModelExtensionPaymentAlipayCross extends Model {
 	/**
 	 * Create Linkstring
 	 *
-	 * @param array $para
+	 * @param array<string, mixed> $para
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */
@@ -241,7 +241,8 @@ class ModelExtensionPaymentAlipayCross extends Model {
 	 *
 	 * @param string $prestr
 	 * @param string $key
-	 * @param string
+	 * 
+	 * @return string
 	 */
 	private function md5Sign(string $prestr, string $key): string {
 		$prestr .= $key;
