@@ -766,9 +766,9 @@ class ModelExtensionPaymentSagePayServer extends Model {
 	}
 
 	/**
-	 * Subscription Payments
+	 * Charge
 	 */
-	public function subscriptionPayments() {
+	public function charge() {
 		/*
 		 * Used by the checkout to state the module
 		 * supports subscriptions.
