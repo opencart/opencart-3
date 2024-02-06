@@ -48,8 +48,6 @@ class PgSQL {
 	 * @return mixed
 	 */
 	public function query(string $sql) {
-		$sql = preg_replace(['/(`)([^`])([^"\'\(\)\s]*)(`)/', '/`/'], '$2$3', $sql);
-
 		$resource = pg_query($this->connection, $sql);
 
 		if ($resource) {
