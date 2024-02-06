@@ -145,7 +145,7 @@ class ControllerExtensionTotalShipping extends Controller {
 			$quote_data = $this->model_checkout_shipping_method->getMethods($this->session->data['shipping_address']);
 
 			if ($quote_data) {
-				$json['shipping_methods'] = $this->session->data['shipping_methods'] = $quote_data;			
+				$json['shipping_methods'] = $this->session->data['shipping_methods'] = $quote_data;
 
 				if ($this->session->data['shipping_methods']) {
 					$json['shipping_method'] = $this->session->data['shipping_methods'];

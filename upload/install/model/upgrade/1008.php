@@ -212,7 +212,7 @@ class ModelUpgrade1008 extends Model {
 		if ($query->num_rows) {
 			$this->db->query("ALTER TABLE `" . DB_PREFIX . "order` MODIFY `shipping_company` varchar(60) NOT NULL AFTER `shipping_lastname`");
 		}
-		
+
 		// Customer Affiliates
 		$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "customer_affiliate' AND COLUMN_NAME = 'company' AND COLUMN_TYPE = 'varchar(40)'");
 

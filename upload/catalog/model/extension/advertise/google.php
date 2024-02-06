@@ -145,15 +145,15 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	/**
 	 * Get Remarketing Product Id
 	 *
-	 * @param array                $product
-	 * @param int                  $store_id
+	 * @param array $product
+	 * @param int   $store_id
 	 *
 	 * @return mixed
 	 */
 	protected function getRemarketingProductId(array $product, int $store_id): mixed {
 		$found_color = '';
 		$found_size = '';
-		
+
 		$option_map = $this->getSizeAndColorOptionMap($product['product_id'], $store_id);
 
 		foreach ($product['option'] as $option) {

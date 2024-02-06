@@ -241,7 +241,7 @@ class ModelExtensionPaymentAlipayCross extends Model {
 	 *
 	 * @param string $prestr
 	 * @param string $key
-	 * 
+	 *
 	 * @return string
 	 */
 	private function md5Sign(string $prestr, string $key): string {

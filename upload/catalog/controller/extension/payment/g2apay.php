@@ -70,7 +70,7 @@ class ControllerExtensionPaymentG2APay extends Controller {
 					$item->price = $total_info['totals']['value'];
 					$item->url = $this->url->link('common/home', '', true);
 
-					$items[] = $item;				
+					$items[] = $item;
 				}
 			}
 		}

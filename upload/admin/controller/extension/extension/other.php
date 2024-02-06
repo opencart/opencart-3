@@ -70,7 +70,7 @@ class ControllerExtensionExtensionOther extends Controller {
 
 		if ($this->validate()) {
 			$callable = [$this->{'model_setting_extension'}, 'uninstall'];
-			
+
 			if (is_callable($callable)) {
 				$callable('other', $this->request->get['extension']);
 			}

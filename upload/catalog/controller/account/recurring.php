@@ -7,7 +7,7 @@
 class ControllerAccountRecurring extends Controller {
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -98,7 +98,7 @@ class ControllerAccountRecurring extends Controller {
 
 	/**
 	 * Void
-	 * 
+	 *
 	 * @return void
 	 */
 	public function info(): void {
