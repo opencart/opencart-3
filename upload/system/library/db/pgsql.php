@@ -48,6 +48,8 @@ class PgSQL {
 	 * @return mixed
 	 */
 	public function query(string $sql) {
+		$sql = preg_replace('/`([A-Za-z_0-9\.]+)*[\\\']([^\'\"\s]?)/', '$1', $sql);
+		
 		$resource = pg_query($this->connection, $sql);
 
 		if ($resource) {
