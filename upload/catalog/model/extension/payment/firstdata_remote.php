@@ -6,7 +6,7 @@
  */
 class ModelExtensionPaymentFirstdataRemote extends Model {
 	/**
-	 * getMethod
+	 * Get Method
 	 *
 	 * @param array $address
 	 *
@@ -40,7 +40,7 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 	}
 
 	/**
-	 * capturePayment
+	 * Capture Payment
 	 *
 	 * @param array<string, mixed> $data
 	 * @param int                  $order_id
@@ -257,7 +257,7 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 	}
 
 	/**
-	 * addOrder
+	 * Add Order
 	 *
 	 * @param array $order_info
 	 * @param array $capture_result
@@ -277,7 +277,7 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 	}
 
 	/**
-	 * addTransaction
+	 * Add Transaction
 	 *
 	 * @param int    $firstdata_remote_order_id
 	 * @param string $type
@@ -311,7 +311,7 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 	}
 
 	/**
-	 * addHistory
+	 * Add History
 	 *
 	 * @param int    $order_id
 	 * @param int    $order_status_id
@@ -324,7 +324,7 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 	}
 
 	/**
-	 * mapCurrency
+	 * Map Currency
 	 *
 	 * @param string $code
 	 *
@@ -345,7 +345,7 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 	}
 
 	/**
-	 * getStoredCards
+	 * Get Stored Cards
 	 *
 	 * @return array
 	 */
@@ -358,7 +358,7 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 	}
 
 	/**
-	 * storeCard
+	 * Store Card
 	 *
 	 * @param string $token
 	 * @param int    $customer_id

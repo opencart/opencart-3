@@ -6,7 +6,7 @@
  */
 class ModelExtensionOtherRecurring extends Model {
 	/**
-	 * getRecurring
+	 * Get Recurring
 	 *
 	 * @param int $order_recurring_id
 	 *
@@ -19,7 +19,7 @@ class ModelExtensionOtherRecurring extends Model {
 	}
 
 	/**
-	 * getRecurrings
+	 * Get Recurrings
 	 *
 	 * @param array<string, mixed> $data
 	 *
@@ -97,7 +97,7 @@ class ModelExtensionOtherRecurring extends Model {
 	}
 
 	/**
-	 * getRecurringTransactions
+	 * Get Recurring Transactions
 	 *
 	 * @param int $order_recurring_id
 	 *
@@ -156,7 +156,7 @@ class ModelExtensionOtherRecurring extends Model {
 	}
 
 	/**
-	 * getTotalRecurrings
+	 * Get Total Recurrings
 	 *
 	 * @param array<string, mixed> $data
 	 *
@@ -236,7 +236,7 @@ class ModelExtensionOtherRecurring extends Model {
 	}
 
 	/**
-	 * addHistory
+	 * Add History
 	 *
 	 * @param int    $order_recurring_id
 	 * @param string $comment
@@ -248,7 +248,7 @@ class ModelExtensionOtherRecurring extends Model {
 	}
 
 	/**
-	 * getHistories
+	 * Get Histories
 	 *
 	 * @param int $order_recurring_id
 	 * @param int $start
@@ -271,7 +271,7 @@ class ModelExtensionOtherRecurring extends Model {
 	}
 
 	/**
-	 * getTotalHistories
+	 * Get Total Histories
 	 *
 	 * @param int $order_recurring_id
 	 *

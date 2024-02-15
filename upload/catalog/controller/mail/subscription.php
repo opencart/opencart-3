@@ -14,7 +14,7 @@ class ControllerMailSubscription extends Controller {
 	 *
 	 * @return void
 	 *
-	 * addHistory
+	 * catalog/model/checkout/order/addHistory/after
 	 */
 	public function index(string &$route, array &$args, mixed &$output): void {
 		if (isset($args[0])) {

@@ -6,7 +6,7 @@
  */
 class ControllerExtensionModuleFraudlabspro extends Controller {
 	/**
-	 * addHistory
+	 * Add History
 	 *
 	 * @param string $route
 	 * @param array  $args

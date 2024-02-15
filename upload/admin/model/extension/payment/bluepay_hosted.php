@@ -60,7 +60,7 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 	}
 
 	/**
-	 * addOrder
+	 * Add Order
 	 *
 	 * @param array $order_info
 	 * @param array $response_data
@@ -109,7 +109,7 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 	}
 
 	/**
-	 * updateVoidStatus
+	 * Update Void Status
 	 *
 	 * @param int $bluepay_hosted_order_id
 	 * @param int $status
@@ -161,7 +161,7 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 	}
 
 	/**
-	 * updateReleaseStatus
+	 * Update Release Status
 	 *
 	 * @param int $bluepay_hosted_order_id
 	 * @param int $status
@@ -208,7 +208,7 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 	}
 
 	/**
-	 * updateRebateStatus
+	 * Update Rebate Status
 	 *
 	 * @param int $bluepay_hosted_order_id
 	 * @param int $status
@@ -220,7 +220,7 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 	}
 
 	/**
-	 * updateTransactionId
+	 * Update Transaction Id
 	 *
 	 * @param int $bluepay_hosted_order_id
 	 * @param int $transaction_id
@@ -232,7 +232,7 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 	}
 
 	/**
-	 * getOrder
+	 * Get Order
 	 *
 	 * @param int $order_id
 	 *
@@ -252,7 +252,7 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 	}
 
 	/**
-	 * getTransactions
+	 * Get Transactions
 	 *
 	 * @param int $bluepay_hosted_order_id
 	 *
@@ -269,7 +269,7 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 	}
 
 	/**
-	 * addHistory
+	 * Add History
 	 *
 	 * @param int    $order_id
 	 * @param int    $order_status_id
@@ -283,7 +283,7 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 	}
 
 	/**
-	 * addTransaction
+	 * Add Transaction
 	 *
 	 * @param int    $bluepay_hosted_order_id
 	 * @param string $type
@@ -299,7 +299,7 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 	}
 
 	/**
-	 * getTotalReleased
+	 * Get Total Released
 	 *
 	 * @param int $bluepay_hosted_order_id
 	 *
@@ -312,7 +312,7 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 	}
 
 	/**
-	 * getTotalRebated
+	 * Get Total Rebated
 	 *
 	 * @param int $bluepay_hosted_order_id
 	 *
@@ -325,7 +325,7 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 	}
 
 	/**
-	 * sendCurl
+	 * Send Curl
 	 *
 	 * @param string $url
 	 * @param array  $post_data
@@ -353,7 +353,7 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 	}
 
 	/**
-	 * adminCallback
+	 * Admin Callback
 	 *
 	 * @return void
 	 */
