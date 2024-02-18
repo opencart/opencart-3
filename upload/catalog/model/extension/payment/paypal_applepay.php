@@ -4,7 +4,6 @@ class ModelExtensionPaymentPaypalApplepay extends Model {
 	 * Get Method
 	 *
 	 * @param array<string, mixed> $address
-	 * @param float                $total
 	 *
 	 * @return array<string, mixed>
 	 */
