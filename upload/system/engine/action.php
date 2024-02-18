@@ -63,8 +63,8 @@ class Action {
 	/**
 	 * Execute
 	 *
-	 * @param object $registry
-	 * @param array  $args
+	 * @param object               $registry
+	 * @param array<string, mixed> $args
 	 *
 	 * @return mixed
 	 */

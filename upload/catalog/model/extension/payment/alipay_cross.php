@@ -12,7 +12,7 @@ class ModelExtensionPaymentAlipayCross extends Model {
 	/**
 	 * getMethod
 	 *
-	 * @param array $address
+	 * @param array<string, mixed> $address
 	 *
 	 * @return array<string, mixed>
 	 */

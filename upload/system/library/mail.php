@@ -19,8 +19,8 @@ class Mail {
 	/**
 	 * Constructor
 	 *
-	 * @param string $adaptor
-	 * @param array  $option
+	 * @param string               $adaptor
+	 * @param array<string, mixed> $option
 	 */
 	public function __construct(string $adaptor = 'mail', array $option = []) {
 		$class = 'Mail\\' . $adaptor;

@@ -111,7 +111,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
 	/**
 	 * Add Order
 	 *
-	 * @param array $order_info
+	 * @param array<string, mixed> $order_info
 	 *
 	 * @return void
 	 */
@@ -145,9 +145,9 @@ class ModelExtensionPaymentSagePayServer extends Model {
 	/**
 	 * Update Order
 	 *
-	 * @param array  $order_info
-	 * @param string $vps_txn_id
-	 * @param string $tx_auth_no
+	 * @param array<string, mixed> $order_info
+	 * @param string               $vps_txn_id
+	 * @param string               $tx_auth_no
 	 *
 	 * @return void
 	 */
@@ -387,7 +387,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */
-	private function setPaymentData(array $order_info, array $sagepay_order_info, float $price, int $subscription_id, string $name, int $i = null) {
+	private function setPaymentData(array $order_info, array $sagepay_order_info, float $price, int $subscription_id, string $name, ?int $i = null) {
 		$payment_data = [];
 
 		$url = '';
@@ -465,7 +465,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
 
 	/**
 	 * Cron Payment
-	 * 
+	 *
 	 * @return array<int, array<string, mixed>>
 	 */
 	public function cronPayment(): array {
@@ -710,7 +710,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
 
 	/**
 	 * Update Cron Job Run Time
-	 * 
+	 *
 	 * @return void
 	 */
 	public function updateCronJobRunTime(): void {
@@ -781,7 +781,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
 
 	/**
 	 * Charge
-	 * 
+	 *
 	 * @return bool
 	 */
 	public function charge(): bool {

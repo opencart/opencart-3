@@ -216,8 +216,8 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	/**
 	 * Subscription Payment
 	 *
-	 * @param array $item
-	 * @param int   $vendor_tx_code
+	 * @param array<string, mixed> $item
+	 * @param int                  $vendor_tx_code
 	 *
 	 * @return void
 	 */
@@ -652,9 +652,9 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	/**
 	 * Send Curl
 	 *
-	 * @param string $url
-	 * @param array  $payment_data
-	 * @param int    $i
+	 * @param string               $url
+	 * @param array<string, mixed> $payment_data
+	 * @param int                  $i
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */

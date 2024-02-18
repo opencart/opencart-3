@@ -63,9 +63,9 @@ class ControllerExtensionTotalVoucher extends Controller {
 	/**
 	 * Send
 	 *
-	 * @param string $route
-	 * @param array  $args
-	 * @param mixed  $output
+	 * @param string               $route
+	 * @param array<string, mixed> $args
+	 * @param mixed                $output
 	 *
 	 * @return void
 	 *

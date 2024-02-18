@@ -8,7 +8,7 @@ class ControllerExtensionCaptchaBasic extends Controller {
 	/**
 	 * Index
 	 *
-	 * @param array $error
+	 * @param array<string, mixed> $error
 	 *
 	 * @return string
 	 *

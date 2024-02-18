@@ -49,7 +49,7 @@ class ControllerMailGdpr extends Controller {
 	/**
 	 * Export
 	 *
-	 * @param array $gdpr_info
+	 * @param array<string, mixed> $gdpr_info
 	 *
 	 * @return void
 	 */
@@ -203,7 +203,7 @@ class ControllerMailGdpr extends Controller {
 	/**
 	 * Approve
 	 *
-	 * @param array $gdpr_info
+	 * @param array<string, mixed> $gdpr_info
 	 *
 	 * @return void
 	 */
@@ -275,7 +275,7 @@ class ControllerMailGdpr extends Controller {
 	/**
 	 * Deny
 	 *
-	 * @param array $gdpr_info
+	 * @param array<string, mixed> $gdpr_info
 	 *
 	 * @return void
 	 */
@@ -350,7 +350,7 @@ class ControllerMailGdpr extends Controller {
 	/**
 	 * Remove
 	 *
-	 * @param array $gdpr_info
+	 * @param array<string, mixed> $gdpr_info
 	 *
 	 * @return void
 	 */

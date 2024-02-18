@@ -43,8 +43,8 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 	 * Add Order
 	 *
 	 * @param array<string, mixed> $order_info
-	 * @param array<string, mixed> $response_dats
-	 * 
+	 * @param array<string, mixed> $response_data
+	 *
 	 * @return int
 	 */
 	public function addOrder(array $order_info, array $response_data): int {
@@ -62,9 +62,9 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 	/**
 	 * Add Transaction
 	 *
-	 * @param int    $bluepay_hosted_order_id
-	 * @param string $type
-	 * @param array  $order_info
+	 * @param int                  $bluepay_hosted_order_id
+	 * @param string               $type
+	 * @param array<string, mixed> $order_info
 	 *
 	 * @return void
 	 */

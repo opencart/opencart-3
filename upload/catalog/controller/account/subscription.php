@@ -243,8 +243,8 @@ class ControllerAccountSubscription extends Controller {
 	/**
 	 * Charge
 	 *
-	 * @param string $route
-	 * @param array  $args
+	 * @param string               $route
+	 * @param array<string, mixed> $args
 	 *
 	 * @return void
 	 *

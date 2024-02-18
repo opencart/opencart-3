@@ -8,8 +8,8 @@ class ModelExtensionOtherDbSchema extends Model {
 	/**
 	 * Get Table
 	 *
-	 * @param string $name
-	 * @param array  $data
+	 * @param string               $name
+	 * @param array<string, mixed> $data
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */
@@ -61,8 +61,8 @@ class ModelExtensionOtherDbSchema extends Model {
 	/**
 	 * Get Indexes
 	 *
-	 * @param string $name
-	 * @param array  $data
+	 * @param string               $name
+	 * @param array<string, mixed> $data
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */

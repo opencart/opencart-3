@@ -1876,9 +1876,9 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	/**
 	 * Admin Link
 	 *
-	 * @param string $route
-	 * @param array  $data
-	 * @param mixed  $template
+	 * @param string               $route
+	 * @param array<string, mixed> $data
+	 * @param mixed                $template
 	 *
 	 * @return void
 	 */
@@ -1922,9 +1922,9 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	/**
 	 * Add Product
 	 *
-	 * @param string $route
-	 * @param array  $args
-	 * @param mixed  $output
+	 * @param string               $route
+	 * @param array<string, mixed> $args
+	 * @param mixed                $output
 	 *
 	 * @return void
 	 *
@@ -1945,9 +1945,9 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	/**
 	 * Copy Product
 	 *
-	 * @param string $route
-	 * @param array  $args
-	 * @param mixed  $output
+	 * @param string               $route
+	 * @param array<string, mixed> $args
+	 * @param mixed                $output
 	 *
 	 * @return void
 	 *
@@ -1972,9 +1972,9 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	/**
 	 * Delete Product
 	 *
-	 * @param string $route
-	 * @param array  $args
-	 * @param mixed  $output
+	 * @param string               $route
+	 * @param array<string, mixed> $args
+	 * @param mixed                $output
 	 *
 	 * @return void
 	 *

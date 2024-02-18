@@ -1840,8 +1840,8 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	/**
 	 * Order Info Before
 	 *
-	 * @param string $route
-	 * @param array  $data
+	 * @param string               $route
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */

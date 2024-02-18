@@ -119,7 +119,7 @@ class ControllerExtensionPaymentAuthorizeNetSim extends Controller {
 	/**
 	 * Generate Response Hash
 	 *
-	 * @param array                $post_fields
+	 * @param array<string, mixed> $post_fields
 	 * @param string               $signature_key
 	 * @param array<string, mixed> $data
 	 *

@@ -42,9 +42,9 @@ class ModelExtensionPaymentFirstdata extends Model {
 	/**
 	 * Add Order
 	 *
-	 * @param array  $order_info
-	 * @param string $order_ref
-	 * @param string $transaction_date
+	 * @param array<string, mixed> $order_info
+	 * @param string               $order_ref
+	 * @param string               $transaction_date
 	 *
 	 * @return int
 	 */
@@ -173,7 +173,7 @@ class ModelExtensionPaymentFirstdata extends Model {
 	 * @param string $currency
 	 * @param string $txn_date
 	 * @param string $approval_code
-	 * 
+	 *
 	 * @return string
 	 */
 	public function responseHash(float $total, string $currency, string $txn_date, string $approval_code): string {

@@ -8,9 +8,9 @@ class ControllerMailSubscription extends Controller {
 	/**
 	 * Index
 	 *
-	 * @param string $route
-	 * @param array  $args
-	 * @param mixed  $output
+	 * @param string               $route
+	 * @param array<string, mixed> $args
+	 * @param mixed                $output
 	 *
 	 * @return void
 	 *
@@ -67,9 +67,9 @@ class ControllerMailSubscription extends Controller {
 	/**
 	 * Cancel
 	 *
-	 * @param string $route
-	 * @param array  $args
-	 * @param mixed  $output
+	 * @param string               $route
+	 * @param array<string, mixed> $args
+	 * @param mixed                $output
 	 *
 	 * @return void
 	 *

@@ -8,9 +8,9 @@ class ControllerMailRegister extends Controller {
 	/**
 	 * Index
 	 *
-	 * @param string $route
-	 * @param array  $args
-	 * @param mixed  $output
+	 * @param string               $route
+	 * @param array<string, mixed> $args
+	 * @param mixed                $output
 	 *
 	 * @throws \Exception
 	 *
@@ -70,9 +70,9 @@ class ControllerMailRegister extends Controller {
 	/**
 	 * Alert
 	 *
-	 * @param string $route
-	 * @param array  $args
-	 * @param mixed  $output
+	 * @param string               $route
+	 * @param array<string, mixed> $args
+	 * @param mixed                $output
 	 *
 	 * @throws \Exception
 	 *

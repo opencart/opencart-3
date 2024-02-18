@@ -73,7 +73,7 @@ class ModelToolBackup extends Model {
 	/**
 	 * Backup
 	 *
-	 * @param array $tables
+	 * @param array<string, mixed> $tables
 	 *
 	 * @return string
 	 */

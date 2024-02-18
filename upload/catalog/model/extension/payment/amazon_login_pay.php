@@ -1053,8 +1053,8 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	/**
 	 * Get Zone Info
 	 *
-	 * @param mixed $amazon_address
-	 * @param array $country_info
+	 * @param mixed                $amazon_address
+	 * @param array<string, mixed> $country_info
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */
@@ -1150,8 +1150,8 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	/**
 	 * Make Post
 	 *
-	 * @param string $url
-	 * @param mixed  $action
+	 * @param string               $url
+	 * @param mixed                $action
 	 * @param array<string, mixed> $extra
 	 *
 	 * @return string
@@ -1181,7 +1181,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	/**
 	 * Post Curl
 	 *
-	 * @param string $action
+	 * @param string               $action
 	 * @param array<string, mixed> $params
 	 *
 	 * @throws \Exception

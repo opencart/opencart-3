@@ -8,9 +8,9 @@ class ModelExtensionModulePayPalSmartButton extends Model {
 	/**
 	 * hasProductInCart
 	 *
-	 * @param int   $product_id
-	 * @param array $option
-	 * @param int   $subscription_plan_id
+	 * @param int                  $product_id
+	 * @param array<string, mixed> $option
+	 * @param int                  $subscription_plan_id
 	 *
 	 * @return int
 	 */
@@ -37,8 +37,8 @@ class ModelExtensionModulePayPalSmartButton extends Model {
 	/**
 	 * Log
 	 *
-	 * @param array  $data
-	 * @param string $title
+	 * @param array<string, mixed> $data
+	 * @param string               $title
 	 *
 	 * @return void
 	 */

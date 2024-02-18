@@ -10,8 +10,8 @@ class ControllerMailOrder extends Controller {
 	 *
 	 * Mail class for orders
 	 *
-	 * @param string $route
-	 * @param array  $args
+	 * @param string               $route
+	 * @param array<string, mixed> $args
 	 *
 	 * @return void
 	 *
@@ -61,10 +61,10 @@ class ControllerMailOrder extends Controller {
 	/**
 	 * Add
 	 *
-	 * @param array  $order_info
-	 * @param int    $order_status_id
-	 * @param string $comment
-	 * @param bool   $notify
+	 * @param array<string, mixed> $order_info
+	 * @param int                  $order_status_id
+	 * @param string               $comment
+	 * @param bool                 $notify
 	 *
 	 * @throws \Exception
 	 *
@@ -313,9 +313,9 @@ class ControllerMailOrder extends Controller {
 	/**
 	 * Edit
 	 *
-	 * @param array  $order_info
-	 * @param int    $order_status_id
-	 * @param string $comment
+	 * @param array<string, mixed> $order_info
+	 * @param int                  $order_status_id
+	 * @param string               $comment
 	 *
 	 * @throws \Exception
 	 *
@@ -384,8 +384,8 @@ class ControllerMailOrder extends Controller {
 	/**
 	 * Alert
 	 *
-	 * @param string $route
-	 * @param array  $args
+	 * @param string               $route
+	 * @param array<string, mixed> $args
 	 *
 	 * @throws \Exception
 	 *

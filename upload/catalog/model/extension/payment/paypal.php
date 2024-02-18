@@ -344,9 +344,9 @@ class ModelExtensionPaymentPayPal extends Model {
 	/**
 	 * Subscription Payment
 	 *
-	 * @param array                $item
+	 * @param array<string, mixed> $item
 	 * @param array<string, mixed> $order_info
-	 * @param array                $paypal_order_data
+	 * @param array<string, mixed> $paypal_order_data
 	 *
 	 * @return void
 	 */

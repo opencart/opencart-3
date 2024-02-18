@@ -85,9 +85,9 @@ class ControllerMailAffiliate extends Controller {
 	 *
 	 * admin/model/customer/customer_approval/denyAffiliate/after
 	 *
-	 * @param string $route
-	 * @param array  $args
-	 * @param mixed  $output
+	 * @param string               $route
+	 * @param array<string, mixed> $args
+	 * @param mixed                $output
 	 *
 	 * @return void
 	 */

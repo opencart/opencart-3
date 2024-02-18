@@ -9,9 +9,9 @@ class ControllerMailSubscription extends Controller {
 	/**
 	 * History
 	 *
-	 * @param string            $route
-	 * @param array<int, mixed> $args
-	 * @param mixed             $output
+	 * @param string               $route
+	 * @param array<string, mixed> $args
+	 * @param mixed                $output
 	 *
 	 * @throws \Exception
 	 *
@@ -166,9 +166,9 @@ class ControllerMailSubscription extends Controller {
 	/**
 	 * Transaction
 	 *
-	 * @param string            $route
-	 * @param array<int, mixed> $args
-	 * @param mixed             $output
+	 * @param string               $route
+	 * @param array<string, mixed> $args
+	 * @param mixed                $output
 	 *
 	 * @throws \Exception
 	 *

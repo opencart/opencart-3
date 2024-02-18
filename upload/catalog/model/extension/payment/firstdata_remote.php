@@ -259,8 +259,8 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 	/**
 	 * Add Order
 	 *
-	 * @param array $order_info
-	 * @param array $capture_result
+	 * @param array<string, mixed> $order_info
+	 * @param array<string, mixed> $capture_result
 	 *
 	 * @return int
 	 */
@@ -279,9 +279,9 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 	/**
 	 * Add Transaction
 	 *
-	 * @param int    $firstdata_remote_order_id
-	 * @param string $type
-	 * @param array  $order_info
+	 * @param int                  $firstdata_remote_order_id
+	 * @param string               $type
+	 * @param array<string, mixed> $order_info
 	 *
 	 * @return void
 	 */

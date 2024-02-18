@@ -429,9 +429,9 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 	/**
 	 * Add Transaction
 	 *
-	 * @param int    $globalpay_remote_order_id
-	 * @param string $type
-	 * @param array  $order_info
+	 * @param int                  $globalpay_remote_order_id
+	 * @param string               $type
+	 * @param array<string, mixed> $order_info
 	 *
 	 * @return void
 	 */

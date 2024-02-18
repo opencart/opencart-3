@@ -397,8 +397,8 @@ class ModelExtensionPaymentSagepayServer extends Model {
 	/**
 	 * Logger
 	 *
-	 * @param string       $title
-	 * @param array<mixed> $data
+	 * @param string               $title
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */

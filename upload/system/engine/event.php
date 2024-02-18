@@ -49,8 +49,8 @@ class Event {
 	}
 
 	/**
-	 * @param string $event
-	 * @param array  $args
+	 * @param string               $event
+	 * @param array<string, mixed> $args
 	 */
 	public function trigger(string $event, array $args = []) {
 		foreach ($this->data as $value) {

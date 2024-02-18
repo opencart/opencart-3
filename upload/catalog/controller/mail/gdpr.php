@@ -8,9 +8,9 @@ class ControllerMailGdpr extends Controller {
 	/**
 	 * Index
 	 *
-	 * @param string $route
-	 * @param array  $args
-	 * @param mixed  $output
+	 * @param string               $route
+	 * @param array<string, mixed> $args
+	 * @param mixed                $output
 	 *
 	 * @throws \Exception
 	 *
@@ -64,9 +64,9 @@ class ControllerMailGdpr extends Controller {
 	/**
 	 * Remove
 	 *
-	 * @param string $route
-	 * @param array  $args
-	 * @param mixed  $output
+	 * @param string               $route
+	 * @param array<string, mixed> $args
+	 * @param mixed                $output
 	 *
 	 * @throws \Exception
 	 *

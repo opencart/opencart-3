@@ -12,9 +12,9 @@ class ControllerEventCurrency extends Controller {
 	 * admin/model/localisation/currency/addCurrency
 	 * admin/model/localisation/currency/editCurrency
 	 *
-	 * @param string $route
-	 * @param array  $args
-	 * @param mixed  $output
+	 * @param string               $route
+	 * @param array<string, mixed> $args
+	 * @param mixed                $output
 	 *
 	 * @return void
 	 */

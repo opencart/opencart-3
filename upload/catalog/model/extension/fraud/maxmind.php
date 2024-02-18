@@ -8,7 +8,7 @@ class ModelExtensionFraudMaxMind extends Model {
 	/**
 	 * Check
 	 *
-	 * @param array $order_info
+	 * @param array<string, mixed> $order_info
 	 *
 	 * @return int
 	 */

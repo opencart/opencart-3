@@ -8,7 +8,7 @@ use googleshopping\Googleshopping;
 
 class ModelExtensionAdvertiseGoogle extends Model {
 	/**
-	 * @param array $events
+	 * @param array<string, mixed> $events
 	 */
 	private array $events = [
 		'admin/view/common/column_left/before' => [
@@ -50,7 +50,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	];
 
 	/**
-	 * @param array $rename_tables
+	 * @param array<string, mixed> $rename_tables
 	 */
 	private array $rename_tables = [
 		'advertise_google_target'             => 'googleshopping_target',
@@ -61,7 +61,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	];
 
 	/**
-	 * @param array $table_columns
+	 * @param array<string, mixed> $table_columns
 	 */
 	private array $table_columns = [
 		'googleshopping_target' => [
@@ -276,8 +276,8 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	/**
 	 * getRequiredFieldsByProductIds
 	 *
-	 * @param array $product_ids
-	 * @param int   $store_id
+	 * @param array<string, mixed> $product_ids
+	 * @param int                  $store_id
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */
@@ -328,8 +328,8 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	/**
 	 * getTargetCountriesByProductIds
 	 *
-	 * @param array $product_ids
-	 * @param int   $store_id
+	 * @param array<string, mixed> $product_ids
+	 * @param int                  $store_id
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */
@@ -358,7 +358,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	/**
 	 * getProductOptionsByProductIds
 	 *
-	 * @param array $product_ids
+	 * @param array<string, mixed> $product_ids
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */
@@ -386,8 +386,8 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	/**
 	 * addTarget
 	 *
-	 * @param array $target
-	 * @param int   $store_id
+	 * @param array<string, mixed> $target
+	 * @param int                  $store_id
 	 *
 	 * @return int
 	 */
@@ -400,7 +400,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	/**
 	 * deleteProducts
 	 *
-	 * @param array $product_ids
+	 * @param array<string, mixed> $product_ids
 	 *
 	 * @return void
 	 */
@@ -413,9 +413,9 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	/**
 	 * setAdvertisingBySelect
 	 *
-	 * @param array $post_product_ids
-	 * @param array $post_target_ids
-	 * @param int   $store_id
+	 * @param array<string, mixed> $post_product_ids
+	 * @param array<string, mixed> $post_target_ids
+	 * @param int                  $store_id
 	 *
 	 * @return void
 	 */
@@ -447,7 +447,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	 * setAdvertisingByFilter
 	 *
 	 * @param array<string, mixed> $data
-	 * @param array                $post_target_ids
+	 * @param array<string, mixed> $post_target_ids
 	 * @param int                  $store_id
 	 *
 	 * @return void
@@ -475,8 +475,8 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	/**
 	 * insertNewProducts
 	 *
-	 * @param array $product_ids
-	 * @param int   $store_id
+	 * @param array<string, mixed> $product_ids
+	 * @param int                  $store_id
 	 *
 	 * @return void
 	 */
@@ -954,9 +954,8 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	/**
 	 * Country
 	 *
-	 * @param array $row
+	 * @param array<string, mixed> $row
 	 *
-	 * @return array<string, mixed>
 	 * @return string
 	 */
 	protected function country(array $row): string {

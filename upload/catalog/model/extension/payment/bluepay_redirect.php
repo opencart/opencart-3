@@ -71,7 +71,7 @@ class ModelExtensionPaymentBluePayRedirect extends Model {
 	/**
 	 * addCard
 	 *
-	 * @param array $card_data
+	 * @param array<string, mixed> $card_data
 	 *
 	 * @return void
 	 */
@@ -82,8 +82,8 @@ class ModelExtensionPaymentBluePayRedirect extends Model {
 	/**
 	 * addOrder
 	 *
-	 * @param array $order_info
-	 * @param array $response_data
+	 * @param array<string, mixed> $order_info
+	 * @param array<string, mixed> $response_data
 	 *
 	 * @return int
 	 */
@@ -122,9 +122,9 @@ class ModelExtensionPaymentBluePayRedirect extends Model {
 	/**
 	 * addTransaction
 	 *
-	 * @param int    $bluepay_redirect_order_id
-	 * @param string $type
-	 * @param array  $order_info
+	 * @param int                  $bluepay_redirect_order_id
+	 * @param string               $type
+	 * @param array<string, mixed> $order_info
 	 *
 	 * @return void
 	 */
@@ -167,8 +167,8 @@ class ModelExtensionPaymentBluePayRedirect extends Model {
 	/**
 	 * sendCurl
 	 *
-	 * @param string $url
-	 * @param array  $post_data
+	 * @param string               $url
+	 * @param array<string, mixed> $post_data
 	 *
 	 * @return array<string, mixed>
 	 */

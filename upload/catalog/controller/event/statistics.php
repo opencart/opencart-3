@@ -8,9 +8,9 @@ class ControllerEventStatistics extends Controller {
 	/**
 	 * Add Review
 	 *
-	 * @param string $route
-	 * @param array  $args
-	 * @param mixed  $output
+	 * @param string               $route
+	 * @param array<string, mixed> $args
+	 * @param mixed                $output
 	 *
 	 * @return void
 	 *
@@ -26,9 +26,9 @@ class ControllerEventStatistics extends Controller {
 	/**
 	 * Add Return
 	 *
-	 * @param string $route
-	 * @param array  $args
-	 * @param mixed  $output
+	 * @param string               $route
+	 * @param array<string, mixed> $args
+	 * @param mixed                $output
 	 *
 	 * @return void
 	 *
@@ -44,9 +44,9 @@ class ControllerEventStatistics extends Controller {
 	/**
 	 * Add History
 	 *
-	 * @param string $route
-	 * @param array  $args
-	 * @param mixed  $output
+	 * @param string               $route
+	 * @param array<string, mixed> $args
+	 * @param mixed                $output
 	 *
 	 * @return void
 	 *

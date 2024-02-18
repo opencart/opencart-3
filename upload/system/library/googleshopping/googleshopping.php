@@ -195,8 +195,8 @@ class Googleshopping extends Library {
 	/**
 	 * Edit Target
 	 *
-	 * @param int   $target_id
-	 * @param array $target
+	 * @param int                  $target_id
+	 * @param array<string, mixed> $target
 	 *
 	 * @return array<string, mixed>
 	 */
@@ -221,7 +221,7 @@ class Googleshopping extends Library {
 	/**
 	 * Do Job
 	 *
-	 * @param array $job
+	 * @param array<string, mixed> $job
 	 *
 	 * @return int
 	 */
@@ -470,9 +470,7 @@ class Googleshopping extends Library {
 
 				do {
 					${'custom_label_' . ($i++)} = trim(strtolower(array_pop($campaigns)));
-				} 
-				
-				while ($campaigns);
+				} while ($campaigns);
 			}
 
 			$mpn = !empty($row['mpn']) ? $row['mpn'] : '';
@@ -610,8 +608,8 @@ class Googleshopping extends Library {
 	/**
 	 * Apply Filter
 	 *
-	 * @param string $sql
-	 * @param array  $data
+	 * @param string               $sql
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -739,8 +737,8 @@ class Googleshopping extends Library {
 	/**
 	 * Clear Product Statuses
 	 *
-	 * @param array $product_ids
-	 * @param int   $store_id
+	 * @param array<string, mixed> $product_ids
+	 * @param int                  $store_id
 	 *
 	 * @return void
 	 */
@@ -752,7 +750,7 @@ class Googleshopping extends Library {
 	/**
 	 * ProductIds To Integer Expression
 	 *
-	 * @param array $product_ids
+	 * @param array<string, mixed> $product_ids
 	 *
 	 * @return string
 	 */
@@ -959,7 +957,7 @@ class Googleshopping extends Library {
 	/**
 	 * Update Product Reports
 	 *
-	 * @param array $reports
+	 * @param array<string, mixed> $reports
 	 *
 	 * @return void
 	 */
@@ -986,7 +984,7 @@ class Googleshopping extends Library {
 	/**
 	 * Update Product Statuses
 	 *
-	 * @param array $statuses
+	 * @param array<string, mixed> $statuses
 	 *
 	 * @return void
 	 */
@@ -1194,7 +1192,7 @@ class Googleshopping extends Library {
 	/**
 	 * Send Email Report
 	 *
-	 * @param array $report
+	 * @param array<string, mixed> $report
 	 *
 	 * @throws \Exception
 	 *
@@ -1236,7 +1234,7 @@ class Googleshopping extends Library {
 	/**
 	 * Get Option Value Name
 	 *
-	 * @param array $row
+	 * @param array<string, mixed> $row
 	 *
 	 * @return string
 	 */
@@ -1893,8 +1891,8 @@ class Googleshopping extends Library {
 	/**
 	 * Access
 	 *
-	 * @param array  $data
-	 * @param string $code
+	 * @param array<string, mixed> $data
+	 * @param string               $code
 	 *
 	 * @return array<string, mixed>
 	 */
@@ -2305,9 +2303,9 @@ class Googleshopping extends Library {
 	/**
 	 * Curl Post Query
 	 *
-	 * @param array  $arrays
-	 * @param array  $new
-	 * @param string $prefix
+	 * @param array<string, mixed> $arrays
+	 * @param array<string, mixed> $new
+	 * @param string               $prefix
 	 *
 	 * @return void
 	 */

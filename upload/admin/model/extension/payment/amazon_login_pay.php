@@ -106,7 +106,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	/**
 	 * Cancel
 	 *
-	 * @param array $amazon_login_pay_order
+	 * @param array<string, mixed> $amazon_login_pay_order
 	 *
 	 * @return array<string, mixed>
 	 */

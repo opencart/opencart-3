@@ -53,10 +53,10 @@ class ModelExtensionPaymentG2APay extends Model {
 	/**
 	 * Update Order
 	 *
-	 * @param int    $g2apay_order_id
-	 * @param string $g2apay_transaction_id
-	 * @param string $type
-	 * @param array  $order_info
+	 * @param int                  $g2apay_order_id
+	 * @param string               $g2apay_transaction_id
+	 * @param string               $type
+	 * @param array<string, mixed> $order_info
 	 *
 	 * return void
 	 */
@@ -69,9 +69,9 @@ class ModelExtensionPaymentG2APay extends Model {
 	/**
 	 * Add Transaction
 	 *
-	 * @param int    $g2apay_order_id
-	 * @param string $type
-	 * @param array  $order_info
+	 * @param int                  $g2apay_order_id
+	 * @param string               $type
+	 * @param array<string, mixed> $order_info
 	 *
 	 * @return void
 	 */
@@ -99,8 +99,8 @@ class ModelExtensionPaymentG2APay extends Model {
 	/**
 	 * Send Curl
 	 *
-	 * @param string $url
-	 * @param array  $fields
+	 * @param string               $url
+	 * @param array<string, mixed> $fields
 	 *
 	 * @return ?object
 	 */

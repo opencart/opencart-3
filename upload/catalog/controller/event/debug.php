@@ -8,8 +8,8 @@ class ControllerEventDebug extends Controller {
 	/**
 	 * Index
 	 *
-	 * @param string $route
-	 * @param array  $args
+	 * @param string               $route
+	 * @param array<string, mixed> $args
 	 *
 	 * @return void
 	 */
@@ -20,8 +20,8 @@ class ControllerEventDebug extends Controller {
 	/**
 	 * Before
 	 *
-	 * @param string $route
-	 * @param array  $args
+	 * @param string               $route
+	 * @param array<string, mixed> $args
 	 *
 	 * @return void
 	 */
@@ -37,9 +37,9 @@ class ControllerEventDebug extends Controller {
 	/**
 	 * After
 	 *
-	 * @param string $route
-	 * @param array  $args
-	 * @param mixed  $output
+	 * @param string               $route
+	 * @param array<string, mixed> $args
+	 * @param mixed                $output
 	 *
 	 * @return void
 	 */

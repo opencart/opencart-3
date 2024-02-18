@@ -110,7 +110,7 @@ class ModelExtensionTotalCoupon extends Model {
 	/**
 	 * Get Total
 	 *
-	 * @param array $total
+	 * @param array<string, mixed> $total
 	 * 
 	 * @return void
 	 */

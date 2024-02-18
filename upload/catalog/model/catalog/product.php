@@ -674,8 +674,8 @@ class ModelCatalogProduct extends Model {
 	/**
 	 * Check Product Categories
 	 *
-	 * @param int   $product_id
-	 * @param array $category_ids
+	 * @param int                  $product_id
+	 * @param array<string, mixed> $category_ids
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */

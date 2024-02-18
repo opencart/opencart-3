@@ -8,9 +8,9 @@ class ControllerEventActivity extends Controller {
 	/**
 	 * Add Customer
 	 *
-	 * @param string $route
-	 * @param array  $args
-	 * @param mixed  $output
+	 * @param string               $route
+	 * @param array<string, mixed> $args
+	 * @param mixed                $output
 	 *
 	 * @return void
 	 *
@@ -33,9 +33,9 @@ class ControllerEventActivity extends Controller {
 	/**
 	 * Edit Customer
 	 *
-	 * @param string $route
-	 * @param array  $args
-	 * @param mixed  $output
+	 * @param string               $route
+	 * @param array<string, mixed> $args
+	 * @param mixed                $output
 	 *
 	 * @return void
 	 *
@@ -58,9 +58,9 @@ class ControllerEventActivity extends Controller {
 	/**
 	 * Edit Password
 	 *
-	 * @param string $route
-	 * @param array  $args
-	 * @param mixed  $output
+	 * @param string               $route
+	 * @param array<string, mixed> $args
+	 * @param mixed                $output
 	 *
 	 * @return void
 	 *
@@ -96,9 +96,9 @@ class ControllerEventActivity extends Controller {
 	/**
 	 * Login
 	 *
-	 * @param string $route
-	 * @param array  $args
-	 * @param mixed  $output
+	 * @param string               $route
+	 * @param array<string, mixed> $args
+	 * @param mixed                $output
 	 *
 	 * @return void
 	 *
@@ -125,9 +125,9 @@ class ControllerEventActivity extends Controller {
 	/**
 	 * Forgotten
 	 *
-	 * @param string $route
-	 * @param array  $args
-	 * @param mixed  $output
+	 * @param string               $route
+	 * @param array<string, mixed> $args
+	 * @param mixed                $output
 	 *
 	 * @return void
 	 *
@@ -157,9 +157,9 @@ class ControllerEventActivity extends Controller {
 	/**
 	 * Add Transaction
 	 *
-	 * @param string $route
-	 * @param array  $args
-	 * @param mixed  $output
+	 * @param string               $route
+	 * @param array<string, mixed> $args
+	 * @param mixed                $output
 	 *
 	 * @return void
 	 *
@@ -190,9 +190,9 @@ class ControllerEventActivity extends Controller {
 	/**
 	 * Add Affiliate
 	 *
-	 * @param string $route
-	 * @param array  $args
-	 * @param mixed  $output
+	 * @param string               $route
+	 * @param array<string, mixed> $args
+	 * @param mixed                $output
 	 *
 	 * @return void
 	 *
@@ -215,9 +215,9 @@ class ControllerEventActivity extends Controller {
 	/**
 	 * Edit Affiliate
 	 *
-	 * @param string $route
-	 * @param array  $args
-	 * @param mixed  $output
+	 * @param string               $route
+	 * @param array<string, mixed> $args
+	 * @param mixed                $output
 	 *
 	 * @return void
 	 *
@@ -240,9 +240,9 @@ class ControllerEventActivity extends Controller {
 	/**
 	 * Add Address
 	 *
-	 * @param string $route
-	 * @param array  $args
-	 * @param mixed  $output
+	 * @param string               $route
+	 * @param array<string, mixed> $args
+	 * @param mixed                $output
 	 *
 	 * @return void
 	 *
@@ -265,9 +265,9 @@ class ControllerEventActivity extends Controller {
 	/**
 	 * Edit Address
 	 *
-	 * @param string $route
-	 * @param array  $args
-	 * @param mixed  $output
+	 * @param string               $route
+	 * @param array<string, mixed> $args
+	 * @param mixed                $output
 	 *
 	 * @return void
 	 *
@@ -290,9 +290,9 @@ class ControllerEventActivity extends Controller {
 	/**
 	 * Delete Address
 	 *
-	 * @param string $route
-	 * @param array  $args
-	 * @param mixed  $output
+	 * @param string               $route
+	 * @param array<string, mixed> $args
+	 * @param mixed                $output
 	 *
 	 * @return void
 	 *
@@ -315,9 +315,9 @@ class ControllerEventActivity extends Controller {
 	/**
 	 * Add Return
 	 *
-	 * @param string $route
-	 * @param array  $args
-	 * @param mixed  $output
+	 * @param string               $route
+	 * @param array<string, mixed> $args
+	 * @param mixed                $output
 	 *
 	 * @return void
 	 *
@@ -350,8 +350,8 @@ class ControllerEventActivity extends Controller {
 	/**
 	 * Add History
 	 *
-	 * @param string $route
-	 * @param array  $args
+	 * @param string               $route
+	 * @param array<string, mixed> $args
 	 *
 	 * @return void
 	 *

@@ -128,8 +128,8 @@ class ModelExtensionPaymentEway extends Model {
 	/**
 	 * Add Card
 	 *
-	 * @param int   $order_id
-	 * @param array $card_data
+	 * @param int                  $order_id
+	 * @param array<string, mixed> $card_data
 	 *
 	 * @return void
 	 */
@@ -152,9 +152,9 @@ class ModelExtensionPaymentEway extends Model {
 	/**
 	 * Update Full Card
 	 *
-	 * @param int    $card_id
-	 * @param string $token
-	 * @param array  $card_data
+	 * @param int                  $card_id
+	 * @param string               $token
+	 * @param array<string, mixed> $card_data
 	 *
 	 * @return void
 	 */
@@ -233,9 +233,9 @@ class ModelExtensionPaymentEway extends Model {
 	/**
 	 * Send Curl
 	 *
-	 * @param string $url
-	 * @param array  $data
-	 * @param bool   $is_post
+	 * @param string               $url
+	 * @param array<string, mixed> $data
+	 * @param bool                 $is_post
 	 *
 	 * @return ?object
 	 */

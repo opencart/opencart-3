@@ -55,8 +55,8 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 	/**
 	 * Edit Order
 	 *
-	 * @param int   $order_id
-	 * @param array $order
+	 * @param int                  $order_id
+	 * @param array<string, mixed> $order
 	 *
 	 * @return void
 	 */

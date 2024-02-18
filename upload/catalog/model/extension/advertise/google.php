@@ -100,8 +100,8 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	/**
 	 * getRemarketingProductIds
 	 *
-	 * @param array $products
-	 * @param int   $store_id
+	 * @param array<string, mixed> $products
+	 * @param int                  $store_id
 	 *
 	 * @return array<int, int>
 	 */
@@ -120,8 +120,8 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	/**
 	 * getRemarketingItems
 	 *
-	 * @param array $products
-	 * @param int   $store_id
+	 * @param array<string, mixed> $products
+	 * @param int                  $store_id
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */
@@ -145,8 +145,8 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	/**
 	 * Get Remarketing Product Id
 	 *
-	 * @param array $product
-	 * @param int   $store_id
+	 * @param array<string, mixed> $product
+	 * @param int                  $store_id
 	 *
 	 * @return mixed
 	 */
@@ -189,7 +189,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	 * @param int $product_id
 	 * @param int $store_id
 	 * @param int $type
-	 * 
+	 *
 	 * @return int
 	 */
 	protected function getOptionId(int $product_id, int $store_id, int $type): int {

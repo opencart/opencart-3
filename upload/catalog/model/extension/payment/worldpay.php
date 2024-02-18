@@ -459,7 +459,7 @@ class ModelExtensionPaymentWorldpay extends Model {
 	 * Get Profile
 	 *
 	 * @param int $order_recurring_id
-	 * 
+	 *
 	 * @return array<string, mixed>
 	 */
 	private function getProfile(int $order_recurring_id): array {
@@ -496,8 +496,8 @@ class ModelExtensionPaymentWorldpay extends Model {
 	/**
 	 * SendCurl
 	 *
-	 * @param string $url
-	 * @param array  $order
+	 * @param string               $url
+	 * @param array<string, mixed> $order
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */
