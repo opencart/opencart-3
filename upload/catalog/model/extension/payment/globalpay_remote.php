@@ -6,11 +6,11 @@
  */
 class ModelExtensionPaymentGlobalpayRemote extends Model {
 	/**
-	 * getMethod
+	 * Get Method
 	 *
-	 * @param array $address
+	 * @param array<string, mixed> $address
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getMethod(array $address): array {
 		$this->load->language('extension/payment/globalpay_remote');
@@ -40,14 +40,16 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 	}
 
 	/**
-	 * checkEnrollment
+	 * Check Enrollment
 	 *
-	 * @param mixed $account
-	 * @param mixed $amount
-	 * @param mixed $currency
-	 * @param mixed $order_ref
+	 * @param string $account
+	 * @param float  $amount
+	 * @param string $currency
+	 * @param string $order_ref
+	 *
+	 * @return false|SimpleXMLElement
 	 */
-	public function checkEnrollment($account, $amount, $currency, $order_ref) {
+	public function checkEnrollment(string $account, float $amount, string $currency, string $order_ref): false|SimpleXMLElement {
 		$timestamp = date('YmdHis');
 		$merchant_id = $this->config->get('payment_globalpay_remote_merchant_id');
 		$secret = $this->config->get('payment_globalpay_remote_secret');
@@ -96,19 +98,21 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 	}
 
 	/**
-	 * enrollmentSignature
+	 * Enrollment Signature
 	 *
-	 * @param mixed $account
-	 * @param mixed $amount
-	 * @param mixed $currency
-	 * @param mixed $order_ref
-	 * @param mixed $card_number
-	 * @param mixed $card_expire
-	 * @param mixed $card_type
-	 * @param mixed $card_name
-	 * @param mixed $pares
+	 * @param string $account
+	 * @param float  $amount
+	 * @param string $currency
+	 * @param string $order_ref
+	 * @param int    $card_number
+	 * @param int    $card_expire
+	 * @param string $card_type
+	 * @param string $card_name
+	 * @param string $pares
+	 *
+	 * @return false|SimpleXMElement
 	 */
-	public function enrollmentSignature($account, $amount, $currency, $order_ref, $card_number, $card_expire, $card_type, $card_name, $pares) {
+	public function enrollmentSignature(string $account, float $amount, string $currency, string $order_ref, int $card_number, int $card_expire, string $card_type, string $card_name, string $pares): false|SimpleXMElement {
 		// Orders
 		$this->load->model('checkout/order');
 
@@ -162,25 +166,27 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 	}
 
 	/**
-	 * capturePayment
+	 * Capture Payment
 	 *
-	 * @param mixed $account
-	 * @param mixed $amount
-	 * @param mixed $currency
-	 * @param mixed $order_id
-	 * @param mixed $order_ref
-	 * @param mixed $card_number
-	 * @param mixed $expire
-	 * @param mixed $name
-	 * @param mixed $type
-	 * @param mixed $cvv
-	 * @param mixed $issue
-	 * @param mixed $eci_ref
-	 * @param mixed $eci
-	 * @param mixed $cavv
-	 * @param mixed $xid
+	 * @param string $account
+	 * @param float  $amount
+	 * @param string $currency
+	 * @param int    $order_id
+	 * @param string $order_ref
+	 * @param int    $card_number
+	 * @param int    $expire
+	 * @param string $name
+	 * @param string $type
+	 * @param int    $cvv
+	 * @param string $issue
+	 * @param string $eci_ref
+	 * @param mixed  $eci
+	 * @param mixed  $cavv
+	 * @param mixed  $xid
+	 *
+	 * @return false|SimpleXMLElement
 	 */
-	public function capturePayment($account, $amount, $currency, $order_id, $order_ref, $card_number, $expire, $name, $type, $cvv, $issue, $eci_ref, $eci = '', $cavv = '', $xid = '') {
+	public function capturePayment(string $account, float $amount, string $currency, int $order_id, string $order_ref, int $card_number, int $expire, string $name, string $type, int $cvv, string $issue, string $eci_ref, $eci = '', $cavv = '', $xid = ''): false|SimpleXMLElement {
 		$this->load->language('extension/payment/globalpay_remote');
 
 		// Orders
@@ -399,16 +405,16 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 	}
 
 	/**
-	 * addOrder
+	 * Add Order
 	 *
-	 * @param array  $order_info
-	 * @param object $response
-	 * @param string $account
-	 * @param string $order_ref
+	 * @param array<string, mixed> $order_info
+	 * @param mixed                $response
+	 * @param string               $account
+	 * @param string               $order_ref
 	 *
 	 * @return int
 	 */
-	public function addOrder(array $order_info, object $response, string $account, string $order_ref): int {
+	public function addOrder(array $order_info, $response, string $account, string $order_ref): int {
 		if ($this->config->get('payment_globalpay_remote_auto_settle') == 1) {
 			$settle_status = 1;
 		} else {
@@ -421,7 +427,7 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 	}
 
 	/**
-	 * addTransaction
+	 * Add Transaction
 	 *
 	 * @param int    $globalpay_remote_order_id
 	 * @param string $type

@@ -6,11 +6,11 @@
  */
 class ModelExtensionPaymentSagePayDirect extends Model {
 	/**
-	 * @param array $address
+	 * Get Method
 	 *
-	 * getMethod
+	 * @param array<string, mixed> $address
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getMethod(array $address): array {
 		$this->load->language('extension/payment/sagepay_direct');
@@ -40,11 +40,11 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	}
 
 	/**
-	 * getCards
+	 * Get Cards
 	 *
 	 * @param int $customer_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getCards(int $customer_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "sagepay_direct_card` WHERE `customer_id` = '" . (int)$customer_id . "' ORDER BY `card_id`");
@@ -69,9 +69,9 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	}
 
 	/**
-	 * addCard
+	 * Add Card
 	 *
-	 * @param array $card_data
+	 * @param array<string, mixed> $card_data
 	 *
 	 * @return int
 	 */
@@ -82,7 +82,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	}
 
 	/**
-	 * updateCard
+	 * Update Card
 	 *
 	 * @param int    $card_id
 	 * @param string $token
@@ -94,12 +94,12 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	}
 
 	/**
-	 * getCard
+	 * Get Card
 	 *
 	 * @param int    $card_id
 	 * @param string $token
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getCard(int $card_id, string $token): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "sagepay_direct_card` WHERE (`card_id` = '" . $this->db->escape($card_id) . "' OR `token` = '" . $this->db->escape($token) . "') AND `customer_id` = '" . (int)$this->customer->getId() . "'");
@@ -112,7 +112,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	}
 
 	/**
-	 * deleteCard
+	 * Delete Card
 	 *
 	 * @param int $card_id
 	 *
@@ -123,12 +123,12 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	}
 
 	/**
-	 * addOrder
+	 * Add Order
 	 *
-	 * @param int   $order_id
-	 * @param array $response_data
-	 * @param array $payment_data
-	 * @param int   $card_id
+	 * @param int                  $order_id
+	 * @param array<string, mixed> $response_data
+	 * @param array<string, mixed> $payment_data
+	 * @param int                  $card_id
 	 *
 	 * @return int
 	 */
@@ -143,7 +143,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getOrder(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "sagepay_direct_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
@@ -159,9 +159,9 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	}
 
 	/**
-	 * updateOrder
+	 * Update Order
 	 *
-	 * @param array                $order_info
+	 * @param array<string, mixed> $order_info
 	 * @param array<string, mixed> $data
 	 *
 	 * @return int
@@ -173,7 +173,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	}
 
 	/**
-	 * deleteOrder
+	 * Delete Order
 	 *
 	 * @param int $vendor_tx_code
 	 *
@@ -186,9 +186,9 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	/**
 	 * Add Transaction
 	 *
-	 * @param int   $sagepay_direct_order_id
-	 * @param int   $type
-	 * @param array $order_info
+	 * @param int                  $sagepay_direct_order_id
+	 * @param int                  $type
+	 * @param array<string, mixed> $order_info
 	 *
 	 * @return void
 	 */
@@ -314,7 +314,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	 * @param float                $price
 	 * @param int                  $subscription_id
 	 * @param string               $name
-	 * @param int                  $i
+	 * @param int|null             $i
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */
@@ -397,7 +397,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	/**
 	 * Cron Payment
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function cronPayment(): array {
 		// Orders
@@ -656,7 +656,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	 * @param array  $payment_data
 	 * @param int    $i
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function sendCurl(string $url, array $payment_data, ?int $i = null): array {
 		$post_data = [];

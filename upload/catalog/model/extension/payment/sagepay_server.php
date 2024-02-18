@@ -8,9 +8,9 @@ class ModelExtensionPaymentSagePayServer extends Model {
 	/**
 	 * Get Method
 	 *
-	 * @param array $address
+	 * @param array<string, mixed> $address
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getMethod(array $address): array {
 		$this->load->language('extension/payment/sagepay_server');
@@ -44,12 +44,12 @@ class ModelExtensionPaymentSagePayServer extends Model {
 	 *
 	 * @param int $customer_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getCards(int $customer_id): array {
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "sagepay_server_card` WHERE `customer_id` = '" . (int)$customer_id . "'");
-
 		$card_data = [];
+
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "sagepay_server_card` WHERE `customer_id` = '" . (int)$customer_id . "'");
 
 		// Addresses
 		$this->load->model('account/address');
@@ -74,7 +74,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
 	 * @param string $card_id
 	 * @param string $token
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getCard(string $card_id, string $token): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "sagepay_server_card` WHERE (`card_id` = '" . $this->db->escape($card_id) . "' OR `token` = '" . $this->db->escape($token) . "') AND `customer_id` = '" . (int)$this->customer->getId() . "'");
@@ -127,7 +127,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
 	 * @param int    $order_id
 	 * @param string $vpstx_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getOrder(int $order_id, ?string $vpstx_id = null): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "sagepay_server_order` WHERE `order_id` = '" . (int)$order_id . "' OR `vps_tx_id` = '" . $this->db->escape($vpstx_id) . "' LIMIT 1");
@@ -170,9 +170,9 @@ class ModelExtensionPaymentSagePayServer extends Model {
 	/**
 	 * Add Transaction
 	 *
-	 * @param int    $sagepay_server_order_id
-	 * @param string $type
-	 * @param array  $order_info
+	 * @param int                  $sagepay_server_order_id
+	 * @param string               $type
+	 * @param array<string, mixed> $order_info
 	 *
 	 * @return void
 	 */
@@ -226,8 +226,8 @@ class ModelExtensionPaymentSagePayServer extends Model {
 	/**
 	 * Subscription Payment
 	 *
-	 * @param array  $item
-	 * @param string $vendor_tx_code
+	 * @param array<string, mixed> $item
+	 * @param string               $vendor_tx_code
 	 *
 	 * @return void
 	 */
@@ -300,9 +300,9 @@ class ModelExtensionPaymentSagePayServer extends Model {
 	}
 
 	/**
-	 * updateSubscriptionPayment
+	 * Update Subscription Payment
 	 *
-	 * @param array                $item['subscription']
+	 * @param array<string, mixed> $item
 	 * @param array<string, mixed> $data
 	 *
 	 * @return void
@@ -383,11 +383,11 @@ class ModelExtensionPaymentSagePayServer extends Model {
 	 * @param float                $price
 	 * @param int                  $subscription_id
 	 * @param string               $name
-	 * @param int                  $i
+	 * @param int|null             $i
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */
-	private function setPaymentData(array $order_info, array $sagepay_order_info, float $price, int $subscription_id, string $name, ?int $i = null) {
+	private function setPaymentData(array $order_info, array $sagepay_order_info, float $price, int $subscription_id, string $name, int $i = null) {
 		$payment_data = [];
 
 		$url = '';
@@ -464,9 +464,11 @@ class ModelExtensionPaymentSagePayServer extends Model {
 	}
 
 	/**
-	 * cronPayment
+	 * Cron Payment
+	 * 
+	 * @return array<int, array<string, mixed>>
 	 */
-	public function cronPayment() {
+	public function cronPayment(): array {
 		// Orders
 		$this->load->model('account/order');
 
@@ -541,7 +543,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
 	 *
 	 * @return \Datetime
 	 */
-	private function calculateSchedule($frequency, \DateTime $next_payment, $cycle) {
+	private function calculateSchedule(string $frequency, \DateTime $next_payment, int $cycle) {
 		$next_payment = clone $next_payment;
 
 		if ($frequency == 'semi_month') {
@@ -708,6 +710,8 @@ class ModelExtensionPaymentSagePayServer extends Model {
 
 	/**
 	 * Update Cron Job Run Time
+	 * 
+	 * @return void
 	 */
 	public function updateCronJobRunTime(): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "setting` WHERE `code` = 'sagepay_server' AND `key` = 'payment_sagepay_server_last_cron_job_run'");
@@ -722,7 +726,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
 	 * @param array<string, mixed> $payment_data
 	 * @param int                  $i
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function sendCurl(string $url, array $payment_data, ?int $i = null): array {
 		$post_data = [];
@@ -777,8 +781,10 @@ class ModelExtensionPaymentSagePayServer extends Model {
 
 	/**
 	 * Charge
+	 * 
+	 * @return bool
 	 */
-	public function charge() {
+	public function charge(): bool {
 		/*
 		 * Used by the checkout to state the module
 		 * supports subscriptions.

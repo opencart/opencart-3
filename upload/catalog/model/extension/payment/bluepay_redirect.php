@@ -6,11 +6,11 @@
  */
 class ModelExtensionPaymentBluePayRedirect extends Model {
 	/**
-	 * getMethod
+	 * Get Method
 	 *
-	 * @param array $address
+	 * @param array<string, mixed> $address
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getMethod(array $address): array {
 		$this->load->language('extension/payment/bluepay_redirect');
@@ -40,11 +40,11 @@ class ModelExtensionPaymentBluePayRedirect extends Model {
 	}
 
 	/**
-	 * getCards
+	 * Get Cards
 	 *
 	 * @param int $customer_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getCards(int $customer_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "bluepay_redirect_card` WHERE `customer_id` = '" . (int)$customer_id . "'");

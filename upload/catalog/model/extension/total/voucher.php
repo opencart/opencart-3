@@ -6,7 +6,7 @@
  */
 class ModelExtensionTotalVoucher extends Model {
 	/**
-	 * addVoucher
+	 * Add Voucher
 	 *
 	 * @param int                  $order_id
 	 * @param array<string, mixed> $data
@@ -20,7 +20,7 @@ class ModelExtensionTotalVoucher extends Model {
 	}
 
 	/**
-	 * disableVoucher
+	 * Disable Voucher
 	 *
 	 * @param int $order_id
 	 *
@@ -31,7 +31,7 @@ class ModelExtensionTotalVoucher extends Model {
 	}
 
 	/**
-	 * getVoucher
+	 * Get Voucher
 	 *
 	 * @param string $code
 	 *
@@ -100,9 +100,9 @@ class ModelExtensionTotalVoucher extends Model {
 	}
 
 	/**
-	 * getTotal
+	 * Get Total
 	 *
-	 * @param array $total
+	 * @param array<string, mixed> $total
 	 *
 	 * @return void
 	 */
@@ -136,8 +136,8 @@ class ModelExtensionTotalVoucher extends Model {
 	/**
 	 * Confirm
 	 *
-	 * @param array $order_info
-	 * @param array $order_total
+	 * @param array<string, mixed> $order_info
+	 * @param array<string, mixed> $order_total
 	 *
 	 * @return int
 	 */

@@ -6,9 +6,11 @@
  */
 class ModelExtensionTotalShipping extends Model {
 	/**
-	 * getTotal
+	 * Get Total
 	 *
-	 * @param array $total
+	 * @param array<string, mixed> $total
+	 * 
+	 * @return void
 	 */
 	public function getTotal(array $total): void {
 		if ($this->cart->hasShipping() && isset($this->session->data['shipping_method'])) {

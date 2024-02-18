@@ -6,11 +6,11 @@
  */
 class ModelExtensionPaymentSecureTradingPp extends Model {
 	/**
-	 * getMethod
+	 * Get Method
 	 *
-	 * @param array $address
+	 * @param array<string, mixed> $address
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getMethod(array $address): array {
 		$this->load->language('extension/payment/securetrading_pp');
@@ -40,11 +40,11 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 	}
 
 	/**
-	 * getOrder
+	 * Get Order
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getOrder(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "securetrading_pp_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
@@ -53,7 +53,7 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 	}
 
 	/**
-	 * editOrder
+	 * Edit Order
 	 *
 	 * @param int   $order_id
 	 * @param array $order
@@ -65,7 +65,7 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 	}
 
 	/**
-	 * addReference
+	 * Add Reference
 	 *
 	 * @param int    $order_id
 	 * @param string $reference
@@ -77,7 +77,7 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 	}
 
 	/**
-	 * confirmOrder
+	 * Confirm Order
 	 *
 	 * @param int    $order_id
 	 * @param int    $order_status_id
@@ -129,7 +129,7 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 	}
 
 	/**
-	 * updateOrder
+	 * Update Order
 	 *
 	 * @param int    $order_id
 	 * @param int    $order_status_id

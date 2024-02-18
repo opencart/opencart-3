@@ -6,9 +6,11 @@
  */
 class ModelExtensionTotalVoucherTheme extends Model {
 	/**
-	 * getVoucherTheme
+	 * Get Voucher Theme
 	 *
 	 * @param int $voucher_theme_id
+	 * 
+	 * @return array<string, mixed>
 	 */
 	public function getVoucherTheme(int $voucher_theme_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "voucher_theme` `vt` LEFT JOIN `" . DB_PREFIX . "voucher_theme_description` `vtd` ON (`vt`.`voucher_theme_id` = `vtd`.`voucher_theme_id`) WHERE `vt`.`voucher_theme_id` = '" . (int)$voucher_theme_id . "' AND `vtd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -17,9 +19,11 @@ class ModelExtensionTotalVoucherTheme extends Model {
 	}
 
 	/**
-	 * getVoucherThemes
+	 * Get Voucher Themes
 	 *
 	 * @param array<string, mixed> $data
+	 * 
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getVoucherThemes(array $data = []): array {
 		if ($data) {

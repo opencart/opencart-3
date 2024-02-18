@@ -6,9 +6,11 @@
  */
 class ModelExtensionPaymentCheque extends Model {
 	/**
-	 * getMethod
+	 * Get Method
 	 *
-	 * @param array $address
+	 * @param array<string, mixed> $address
+	 * 
+	 * @return array<string, mixed>
 	 */
 	public function getMethod(array $address): array {
 		$this->load->language('extension/payment/cheque');

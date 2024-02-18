@@ -10,7 +10,7 @@ use Cardinity\Method\Payment;
 
 class ModelExtensionPaymentCardinity extends Model {
 	/**
-	 * addOrder
+	 * Add Order
 	 *
 	 * @param array<string, mixed> $data
 	 *
@@ -21,11 +21,11 @@ class ModelExtensionPaymentCardinity extends Model {
 	}
 
 	/**
-	 * getOrder
+	 * Get Order
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getOrder(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "cardinity_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
@@ -34,11 +34,11 @@ class ModelExtensionPaymentCardinity extends Model {
 	}
 
 	/**
-	 * createPayment
+	 * Create Payment
 	 *
-	 * @param string $key
-	 * @param string $secret
-	 * @param array  $payment_data
+	 * @param string               $key
+	 * @param string               $secret
+	 * @param array<string, mixed> $payment_data
 	 *
 	 * @return ?object
 	 *
@@ -62,12 +62,14 @@ class ModelExtensionPaymentCardinity extends Model {
 	}
 
 	/**
-	 * finalizePayment
+	 * Finalize Payment
 	 *
 	 * @param mixed $key
 	 * @param mixed $secret
 	 * @param mixed $payment_id
 	 * @param mixed $pares
+	 * 
+	 * @Throws \Exception
 	 */
 	public function finalizePayment($key, $secret, $payment_id, $pares) {
 		$client = Client::create([
@@ -87,11 +89,11 @@ class ModelExtensionPaymentCardinity extends Model {
 	}
 
 	/**
-	 * getMethod
+	 * Get Method
 	 *
-	 * @param array $address
+	 * @param array<string, mixed> $address
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getMethod(array $address): array {
 		$this->load->language('extension/payment/cardinity');
@@ -125,9 +127,9 @@ class ModelExtensionPaymentCardinity extends Model {
 	}
 
 	/**
-	 * getSupportedCountries
+	 * Get Supported Countries
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getSupportedCurrencies(): array {
 		return [

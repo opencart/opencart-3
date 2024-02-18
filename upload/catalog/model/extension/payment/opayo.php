@@ -9,11 +9,10 @@ class ModelExtensionPaymentOpayo extends Model {
 	 * Get Method
 	 *
 	 * @param array<string, mixed> $address
-	 * @param float                $total
 	 *
 	 * @return array<string, mixed>
 	 */
-	public function getMethod(array $address, float $total): array {
+	public function getMethod(array $address): array {
 		$this->load->language('extension/payment/opayo');
 
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `geo_zone_id` = '" . (int)$this->config->get('payment_opayo_geo_zone_id') . "' AND `country_id` = '" . (int)$address['country_id'] . "' AND (`zone_id` = '" . (int)$address['zone_id'] . "' OR `zone_id` = '0')");
@@ -86,6 +85,8 @@ class ModelExtensionPaymentOpayo extends Model {
 	 *
 	 * @param int    $card_id
 	 * @param string $token
+	 *
+	 * @return void
 	 */
 	public function updateCard(int $card_id, string $token): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "opayo_card` SET `token` = '" . $this->db->escape($token) . "' WHERE `card_id` = '" . (int)$card_id . "'");
@@ -97,7 +98,7 @@ class ModelExtensionPaymentOpayo extends Model {
 	 * @param int    $card_id
 	 * @param string $token
 	 *
-	 * @return array|bool
+	 * @return array<string, mixed>
 	 */
 	public function getCard(int $card_id, string $token): array|bool {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "opayo_card` WHERE (`card_id` = '" . $this->db->escape($card_id) . "' OR `token` = '" . $this->db->escape($token) . "') AND `customer_id` = '" . (int)$this->customer->getId() . "'");
@@ -105,7 +106,7 @@ class ModelExtensionPaymentOpayo extends Model {
 		if ($query->num_rows) {
 			return $query->row;
 		} else {
-			return false;
+			return [];
 		}
 	}
 
@@ -176,6 +177,8 @@ class ModelExtensionPaymentOpayo extends Model {
 	 *
 	 * @param int $subscription_id
 	 * @param int $status
+	 *
+	 * @return void
 	 */
 	public function editOrderSubscriptionStatus(int $subscription_id, int $status): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "opayo_subscription` SET `status` = '" . (int)$status . "' WHERE `subscription_id` = '" . (int)$subscription_id . "'");
@@ -186,7 +189,7 @@ class ModelExtensionPaymentOpayo extends Model {
 	 *
 	 * @param int $vendor_tx_code
 	 *
-	 * @ereturn void
+	 * @return void
 	 */
 	public function deleteOrder(int $vendor_tx_code): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "opayo_order` WHERE `order_id` = '" . (int)$vendor_tx_code . "'");
@@ -223,7 +226,7 @@ class ModelExtensionPaymentOpayo extends Model {
 	}
 
 	/**
-	 * subscriptionPayment
+	 * Subscription Payment
 	 *
 	 * @param array<string, mixed> $item
 	 * @param string               $vendor_tx_code
@@ -381,7 +384,7 @@ class ModelExtensionPaymentOpayo extends Model {
 	 * @param string               $subscription_name
 	 * @param string               $subscription_expiry
 	 * @param int                  $subscription_frequency
-	 * @param mixed|null           $i
+	 * @param ?int|null            $i
 	 *
 	 * @return array<string, mixed>
 	 */
@@ -555,7 +558,7 @@ class ModelExtensionPaymentOpayo extends Model {
 	 *
 	 * @param int $subscription_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	private function getSubscriptionOrder(int $subscription_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "opayo_subscription` WHERE `subscription_id` = '" . (int)$subscription_id . "'");
@@ -627,7 +630,7 @@ class ModelExtensionPaymentOpayo extends Model {
 	 *
 	 * @param string       $url
 	 * @param array<mixed> $payment_data
-	 * @param ?int         $i
+	 * @param ?int|null    $i
 	 *
 	 * @return array<string, string>
 	 */

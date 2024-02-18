@@ -6,11 +6,11 @@
  */
 class ModelExtensionPaymentG2APay extends Model {
 	/**
-	 * getMethod
+	 * Get Method
 	 *
-	 * @param array $address
+	 * @param array<string, mixed> $address
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getMethod(array $address): array {
 		$this->load->language('extension/payment/g2apay');
@@ -40,9 +40,9 @@ class ModelExtensionPaymentG2APay extends Model {
 	}
 
 	/**
-	 * addG2aOrder
+	 * Add G2 aOrder
 	 *
-	 * @param array $order_info
+	 * @param array<string, mixed> $order_info
 	 *
 	 * @return void
 	 */
@@ -51,7 +51,7 @@ class ModelExtensionPaymentG2APay extends Model {
 	}
 
 	/**
-	 * updateOrder
+	 * Update Order
 	 *
 	 * @param int    $g2apay_order_id
 	 * @param string $g2apay_transaction_id
@@ -67,7 +67,7 @@ class ModelExtensionPaymentG2APay extends Model {
 	}
 
 	/**
-	 * addTransaction
+	 * Add Transaction
 	 *
 	 * @param int    $g2apay_order_id
 	 * @param string $type
@@ -80,11 +80,11 @@ class ModelExtensionPaymentG2APay extends Model {
 	}
 
 	/**
-	 * getG2aOrder
+	 * Get G2a Order
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getG2aOrder(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "g2apay_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
@@ -97,7 +97,7 @@ class ModelExtensionPaymentG2APay extends Model {
 	}
 
 	/**
-	 * sendCurl
+	 * Send Curl
 	 *
 	 * @param string $url
 	 * @param array  $fields

@@ -6,9 +6,11 @@
  */
 class ModelExtensionTotalReward extends Model {
 	/**
-	 * getTotal
+	 * Get Total
 	 *
-	 * @param array $total
+	 * @param array<string, mixed> $total
+	 * 
+	 * @return void
 	 */
 	public function getTotal(array $total): void {
 		if (isset($this->session->data['reward'])) {
@@ -64,8 +66,10 @@ class ModelExtensionTotalReward extends Model {
 	/**
 	 * Confirm
 	 *
-	 * @param array $order_info
-	 * @param array $order_total
+	 * @param array<string, mixed> $order_info
+	 * @param array<string, mixed> $order_total
+	 * 
+	 * @return int
 	 */
 	public function confirm(array $order_info, array $order_total): int {
 		$this->load->language('extension/opencart/total/reward');
@@ -95,6 +99,8 @@ class ModelExtensionTotalReward extends Model {
 	 * Unconfirm
 	 *
 	 * @param int $order_id
+	 * 
+	 * @return void
 	 */
 	public function unconfirm(int $order_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "customer_reward` WHERE `order_id` = '" . (int)$order_id . "' AND `points` < '0'");

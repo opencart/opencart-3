@@ -6,11 +6,11 @@
  */
 class ModelExtensionPaymentFirstdata extends Model {
 	/**
-	 * getMethod
+	 * Get Method
 	 *
-	 * @param array $address
+	 * @param array<string, mixed> $address
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getMethod(array $address): array {
 		$this->load->language('extension/payment/firstdata');
@@ -40,7 +40,7 @@ class ModelExtensionPaymentFirstdata extends Model {
 	}
 
 	/**
-	 * addOrder
+	 * Add Order
 	 *
 	 * @param array  $order_info
 	 * @param string $order_ref
@@ -61,11 +61,11 @@ class ModelExtensionPaymentFirstdata extends Model {
 	}
 
 	/**
-	 * getOrder
+	 * Get Order
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getOrder(int $order_id): array {
 		$order = $this->db->query("SELECT * FROM `" . DB_PREFIX . "firstdata_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
@@ -74,7 +74,7 @@ class ModelExtensionPaymentFirstdata extends Model {
 	}
 
 	/**
-	 * addTransaction
+	 * Add Transaction
 	 *
 	 * @param int    $fd_order_id
 	 * @param string $type
@@ -110,7 +110,7 @@ class ModelExtensionPaymentFirstdata extends Model {
 	}
 
 	/**
-	 * mapCurrency
+	 * Map Currency
 	 *
 	 * @param string $code
 	 *
@@ -133,9 +133,9 @@ class ModelExtensionPaymentFirstdata extends Model {
 	}
 
 	/**
-	 * getScoredCards
+	 * Get Scored Cards
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getStoredCards(): array {
 		$customer_id = $this->customer->getId();
@@ -146,7 +146,7 @@ class ModelExtensionPaymentFirstdata extends Model {
 	}
 
 	/**
-	 * storeCard
+	 * Store Card
 	 *
 	 * @param string $token
 	 * @param int    $customer_id
@@ -167,14 +167,16 @@ class ModelExtensionPaymentFirstdata extends Model {
 	}
 
 	/**
-	 * responseHash
+	 * Response Hash
 	 *
 	 * @param float  $total
 	 * @param string $currency
 	 * @param string $txn_date
 	 * @param string $approval_code
+	 * 
+	 * @return string
 	 */
-	public function responseHash(float $total, string $currency, string $txn_date, string $approval_code) {
+	public function responseHash(float $total, string $currency, string $txn_date, string $approval_code): string {
 		$tmp = $total . $this->config->get('payment_firstdata_secret') . $currency . $txn_date . $this->config->get('payment_firstdata_merchant_id') . $approval_code;
 		$ascii = bin2hex($tmp);
 
@@ -182,7 +184,7 @@ class ModelExtensionPaymentFirstdata extends Model {
 	}
 
 	/**
-	 * updateVoidStatus
+	 * Update Void Status
 	 *
 	 * @param int $order_id
 	 * @param int $status
@@ -194,7 +196,7 @@ class ModelExtensionPaymentFirstdata extends Model {
 	}
 
 	/**
-	 * updateCaptureStatus
+	 * Update Capture Status
 	 *
 	 * @param int $order_id
 	 * @param int $status

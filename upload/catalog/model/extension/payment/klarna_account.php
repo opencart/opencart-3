@@ -6,13 +6,11 @@
  */
 class ModelExtensionPaymentKlarnaAccount extends Model {
 	/**
-	 * getMethod
+	 * Get Method
 	 *
-	 * @param array $address
+	 * @param array<string, mixed> $address
 	 *
-	 * @return array
-	 *
-	 * Requires $total
+	 * @return array<string, mixed>
 	 */
 	public function getMethod(array $address): array {
 		return [];

@@ -11,9 +11,11 @@
  */
 class ModelExtensionShippingAusPost extends Model {
 	/**
-	 * getQuote
+	 * Get Quote
 	 *
-	 * @param array $address
+	 * @param array<string, mixed> $address
+	 *
+	 * @return array<string, mixed>
 	 */
 	public function getQuote(array $address): array {
 		$this->load->language('extension/shipping/auspost');

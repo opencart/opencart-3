@@ -23,11 +23,11 @@ class ModelExtensionPaymentSquareup extends Model {
 	public const TRANSACTION_EXPIRED = 9;
 
 	/**
-	 * getMethod
+	 * Get Method
 	 *
-	 * @param array $address
+	 * @param array<string, mixed> $address
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getMethod(array $address): array {
 		$this->load->language('extension/payment/squareup');
@@ -43,6 +43,7 @@ class ModelExtensionPaymentSquareup extends Model {
 		}
 
 		$status = true;
+
 		$minimum_total = (float)$this->config->get('payment_squareup_total');
 		$squareup_geo_zone_id = $this->config->get('payment_squareup_geo_zone_id');
 
@@ -93,14 +94,14 @@ class ModelExtensionPaymentSquareup extends Model {
 	}
 
 	/**
-	 * addTransaction
+	 * Add Transaction
 	 *
-	 * @param array  $transaction
-	 * @param string $merchant_id
-	 * @param array  $address
-	 * @param int    $order_id
-	 * @param string $user_agent
-	 * @param string $ip
+	 * @param array<string, mixed> $transaction
+	 * @param string               $merchant_id
+	 * @param array<string, mixed> $address
+	 * @param int                  $order_id
+	 * @param string               $user_agent
+	 * @param string               $ip
 	 *
 	 * @return void
 	 */
@@ -111,7 +112,7 @@ class ModelExtensionPaymentSquareup extends Model {
 	}
 
 	/**
-	 * tokenExpiredEmail
+	 * Token Expired Email
 	 *
 	 * @throws \Exception
 	 *
@@ -136,6 +137,7 @@ class ModelExtensionPaymentSquareup extends Model {
 			];
 
 			$mail = new \Mail($this->config->get('config_mail_engine'), $mail_option);
+
 			$mail->setTo($this->config->get('config_email'));
 			$mail->setFrom($this->config->get('config_email'));
 			$mail->setSender($this->config->get('config_name'));
@@ -147,7 +149,7 @@ class ModelExtensionPaymentSquareup extends Model {
 	}
 
 	/**
-	 * tokenRevokedEmail
+	 * Token Revoked Email
 	 *
 	 * @throws \Exception
 	 *
@@ -172,6 +174,7 @@ class ModelExtensionPaymentSquareup extends Model {
 			];
 
 			$mail = new \Mail($this->config->get('config_mail_engine'), $mail_option);
+
 			$mail->setTo($this->config->get('config_email'));
 			$mail->setFrom($this->config->get('config_email'));
 			$mail->setSender($this->config->get('config_name'));
@@ -183,9 +186,9 @@ class ModelExtensionPaymentSquareup extends Model {
 	}
 
 	/**
-	 * cronEmail
+	 * Cron Email
 	 *
-	 * @param array $result
+	 * @param array<string, mixed> $result
 	 *
 	 * @throws \Exception
 	 *
@@ -236,6 +239,7 @@ class ModelExtensionPaymentSquareup extends Model {
 			];
 
 			$mail = new \Mail($this->config->get('config_mail_engine'), $mail_option);
+
 			$mail->setTo($this->config->get('payment_squareup_cron_email'));
 			$mail->setFrom($this->config->get('config_email'));
 			$mail->setSender($this->config->get('config_name'));
@@ -249,8 +253,8 @@ class ModelExtensionPaymentSquareup extends Model {
 	/**
 	 * Subscription Payment
 	 *
-	 * @param array $item
-	 * @param int   $order_id
+	 * @param array<string, mixed> $item
+	 * @param int                  $order_id
 	 *
 	 * @return void
 	 */
@@ -259,7 +263,7 @@ class ModelExtensionPaymentSquareup extends Model {
 	}
 
 	/**
-	 * validateCRON
+	 * Validate CRON
 	 *
 	 * @return bool
 	 */
@@ -276,7 +280,7 @@ class ModelExtensionPaymentSquareup extends Model {
 	}
 
 	/**
-	 * updateToken
+	 * Update Token
 	 */
 	public function updateToken() {
 		try {
@@ -298,9 +302,9 @@ class ModelExtensionPaymentSquareup extends Model {
 	}
 
 	/**
-	 * nextPayments
+	 * Next Payments
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function nextPayments(): array {
 		$payments = [];
@@ -362,10 +366,10 @@ class ModelExtensionPaymentSquareup extends Model {
 	}
 
 	/**
-	 * addSubscriptionTransaction
+	 * Add Subscription Transaction
 	 *
-	 * @param array  $transaction
-	 * @param string $status
+	 * @param array<string, mixed> $transaction
+	 * @param string               $status
 	 *
 	 * @return void
 	 */
@@ -382,7 +386,7 @@ class ModelExtensionPaymentSquareup extends Model {
 	}
 
 	/**
-	 * updateSubscriptionExpired
+	 * Update Subscription Expired
 	 *
 	 * @param int $subscription_id
 	 *
@@ -416,7 +420,7 @@ class ModelExtensionPaymentSquareup extends Model {
 	}
 
 	/**
-	 * updateSubscriptionTrial
+	 * Update Subscription Trial
 	 *
 	 * @param int $subscription_id
 	 *
@@ -465,11 +469,11 @@ class ModelExtensionPaymentSquareup extends Model {
 	}
 
 	/**
-	 * getSubscription
+	 * Get Subscription
 	 *
 	 * @param int $subscription_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	private function getSubscription(int $subscription_id): array {
 		// Subscriptions
@@ -479,7 +483,7 @@ class ModelExtensionPaymentSquareup extends Model {
 	}
 
 	/**
-	 * getTotalSuccessfulPayments
+	 * Get Total Successful Payments
 	 *
 	 * @param int $subscription_id
 	 *
@@ -492,7 +496,7 @@ class ModelExtensionPaymentSquareup extends Model {
 	}
 
 	/**
-	 * paymentIsDue
+	 * Payment Is Due
 	 *
 	 * @param int $subscription_id
 	 *
@@ -544,9 +548,9 @@ class ModelExtensionPaymentSquareup extends Model {
 	}
 
 	/**
-	 * editTokenSetting
+	 * Edit Token Setting
 	 *
-	 * @param array $settings
+	 * @param array<string, mixed> $settings
 	 *
 	 * @return void
 	 */
@@ -559,7 +563,7 @@ class ModelExtensionPaymentSquareup extends Model {
 	}
 
 	/**
-	 * mailResendPeriodExpired
+	 * Mail Resend Period Expired
 	 *
 	 * @param string $key
 	 *

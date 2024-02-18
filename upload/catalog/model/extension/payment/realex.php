@@ -6,11 +6,11 @@
  */
 class ModelExtensionPaymentRealex extends Model {
 	/**
-	 * getMethod
+	 * Get Method
 	 *
-	 * @param array $address
+	 * @param array<string, mixed> $address
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getMethod(array $address): array {
 		$this->load->language('extension/payment/realex');
@@ -40,13 +40,13 @@ class ModelExtensionPaymentRealex extends Model {
 	}
 
 	/**
-	 * addOrder
+	 * Add Order
 	 *
-	 * @param array  $order_info
-	 * @param string $pas_ref
-	 * @param string $auth_code
-	 * @param string $account
-	 * @param string $order_ref
+	 * @param array<string, mixed> $order_info
+	 * @param string               $pas_ref
+	 * @param string               $auth_code
+	 * @param string               $account
+	 * @param string               $order_ref
 	 *
 	 * @return int
 	 */
@@ -63,11 +63,11 @@ class ModelExtensionPaymentRealex extends Model {
 	}
 
 	/**
-	 * addTransaction
+	 * Add Transaction
 	 *
 	 * @param int    $realex_order_id
 	 * @param string $type
-	 * @param array  $order_info
+	 * @param array<string, mixed> $order_info
 	 *
 	 * @return void
 	 */

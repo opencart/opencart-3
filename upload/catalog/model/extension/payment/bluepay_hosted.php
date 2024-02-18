@@ -6,11 +6,11 @@
  */
 class ModelExtensionPaymentBluePayHosted extends Model {
 	/**
-	 * getMethod
+	 * Get Method
 	 *
-	 * @param array $address
+	 * @param array<string, mixed> $address
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getMethod(array $address): array {
 		$this->load->language('extension/payment/bluepay_hosted');
@@ -40,10 +40,12 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 	}
 
 	/**
-	 * addOrder
+	 * Add Order
 	 *
-	 * @param array $order_info
-	 * @param array $response_data
+	 * @param array<string, mixed> $order_info
+	 * @param array<string, mixed> $response_dats
+	 * 
+	 * @return int
 	 */
 	public function addOrder(array $order_info, array $response_data): int {
 		if ($this->config->get('payment_bluepay_hosted_transaction') == 'SALE') {
@@ -58,7 +60,7 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 	}
 
 	/**
-	 * addTransaction
+	 * Add Transaction
 	 *
 	 * @param int    $bluepay_hosted_order_id
 	 * @param string $type

@@ -6,11 +6,11 @@
  */
 class ModelExtensionPaymentGlobalpay extends Model {
 	/**
-	 * getMethod
+	 * Get Method
 	 *
-	 * @param array $address
+	 * @param array<string, mixed> $address
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getMethod(array $address): array {
 		$this->load->language('extension/payment/globalpay');
@@ -40,13 +40,13 @@ class ModelExtensionPaymentGlobalpay extends Model {
 	}
 
 	/**
-	 * addOrder
+	 * Add Order
 	 *
-	 * @param array  $order_info
-	 * @param string $pas_ref
-	 * @param string $auth_code
-	 * @param string $account
-	 * @param string $order_ref
+	 * @param array<string, mixed> $order_info
+	 * @param string               $pas_ref
+	 * @param string               $auth_code
+	 * @param string               $account
+	 * @param string               $order_ref
 	 *
 	 * @return int
 	 */
@@ -63,15 +63,15 @@ class ModelExtensionPaymentGlobalpay extends Model {
 	}
 
 	/**
-	 * addTransaction
+	 * Add Transaction
 	 *
-	 * @param int    $globalpay_order_id
-	 * @param string $type
-	 * @param array  $order_info
+	 * @param int                  $globalpay_order_id
+	 * @param string               $type
+	 * @param array<string, mixed> $order_info
 	 *
 	 * @return void
 	 */
-	public function addTransaction($globalpay_order_id, $type, $order_info): void {
+	public function addTransaction(int $globalpay_order_id, string $type, array $order_info): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "globalpay_order_transaction` SET `globalpay_order_id` = '" . (int)$globalpay_order_id . "', `date_added` = NOW(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false) . "'");
 	}
 

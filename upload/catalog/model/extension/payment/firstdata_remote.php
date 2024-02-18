@@ -8,9 +8,9 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 	/**
 	 * Get Method
 	 *
-	 * @param array $address
+	 * @param array<string, mixed> $address
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getMethod(array $address): array {
 		$this->load->language('extension/payment/firstdata_remote');
@@ -45,7 +45,7 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 	 * @param array<string, mixed> $data
 	 * @param int                  $order_id
 	 *
-	 * return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function capturePayment(array $data, int $order_id): array {
 		// Orders
@@ -347,7 +347,7 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 	/**
 	 * Get Stored Cards
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getStoredCards(): array {
 		$customer_id = $this->customer->getId();

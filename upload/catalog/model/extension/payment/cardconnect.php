@@ -6,11 +6,11 @@
  */
 class ModelExtensionPaymentCardConnect extends Model {
 	/**
-	 * getMethod
+	 * Get Method
 	 *
-	 * @param array $address
+	 * @param array<string, mixed> $address
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getMethod(array $address): array {
 		$this->load->language('extension/payment/cardconnect');
@@ -40,7 +40,9 @@ class ModelExtensionPaymentCardConnect extends Model {
 	}
 
 	/**
-	 * getCardTypes
+	 * Get Card Types
+	 * 
+	 * @return array<string, mixed>
 	 */
 	public function getCardTypes() {
 		$cards = [];
@@ -69,7 +71,9 @@ class ModelExtensionPaymentCardConnect extends Model {
 	}
 
 	/**
-	 * getMonths
+	 * Get Months
+	 * 
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getMonths() {
 		$months = [];
@@ -85,7 +89,9 @@ class ModelExtensionPaymentCardConnect extends Model {
 	}
 
 	/**
-	 * getYears
+	 * Get Years
+	 * 
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getYears() {
 		$years = [];
@@ -103,12 +109,12 @@ class ModelExtensionPaymentCardConnect extends Model {
 	}
 
 	/**
-	 * getCard
+	 * Get Card
 	 *
 	 * @param string $token
 	 * @param int    $customer_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getCard(string $token, int $customer_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "cardconnect_card` WHERE `token` = '" . $this->db->escape($token) . "' AND `customer_id` = '" . (int)$customer_id . "'");
@@ -121,11 +127,11 @@ class ModelExtensionPaymentCardConnect extends Model {
 	}
 
 	/**
-	 * getCards
+	 * Get Cards
 	 *
 	 * @param int $customer_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getCards(int $customer_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "cardconnect_card` WHERE `customer_id` = '" . (int)$customer_id . "'");
@@ -134,7 +140,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 	}
 
 	/**
-	 * addCard
+	 * Add Card
 	 *
 	 * @param int    $cardconnect_order_id
 	 * @param int    $customer_id
@@ -151,7 +157,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 	}
 
 	/**
-	 * deleteCard
+	 * Delete Card
 	 *
 	 * @param string $token
 	 * @param int    $customer_id
@@ -163,7 +169,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 	}
 
 	/**
-	 * addOrder
+	 * Add Order
 	 *
 	 * @param int    $order_id
 	 * @param int    $customer_id
@@ -182,7 +188,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 	}
 
 	/**
-	 * addTransaction
+	 * Add Transaction
 	 *
 	 * @param int    $cardconnect_order_id
 	 * @param string $type
@@ -198,12 +204,12 @@ class ModelExtensionPaymentCardConnect extends Model {
 	}
 
 	/**
-	 * getSettlementStatuses
+	 * Get Settlement Statuses
 	 *
 	 * @param string $merchant_id
 	 * @param string $date
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getSettlementStatuses(string $merchant_id, string $date): array {
 		$this->log('Getting settlement statuses from CardConnect');
@@ -243,7 +249,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 	}
 
 	/**
-	 * updateTransactionStatusByRetref
+	 * Update Transaction Status By Retref
 	 *
 	 * @param string $retref
 	 * @param string $status
@@ -255,7 +261,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 	}
 
 	/**
-	 * updateCronRunTime
+	 * Update Cron Run Time
 	 *
 	 * @return void
 	 */

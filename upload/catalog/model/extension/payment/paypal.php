@@ -1,6 +1,17 @@
 <?php
-
+/**
+ * Class PayPal
+ *
+ * @package Catalog\Model\Extension\Payment
+ */
 class ModelExtensionPaymentPayPal extends Model {
+	/**
+	 * Get Method
+	 *
+	 * @param array<string, mixed> $address
+	 *
+	 * @return array<string, mixed>
+	 */
 	public function getMethod(array $address, float $total): array {
 		$method_data = [];
 

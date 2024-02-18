@@ -6,11 +6,11 @@
  */
 class ModelExtensionPaymentSecureTradingWs extends Model {
 	/**
-	 * getMethod
+	 * Get Method
 	 *
-	 * @param array $address
+	 * @param array<string, mixed> $address
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getMethod(array $address): array {
 		$this->load->language('extension/payment/securetrading_ws');
@@ -86,8 +86,10 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 	 * @param mixed $currency
 	 * @param mixed $value
 	 * @param mixed $format
+	 *
+	 * @return float
 	 */
-	public function format($number, $currency, $value = '', $format = false) {
+	public function format($number, $currency, $value = '', $format = false): float {
 		$decimal_place = $this->currency->getDecimalPlace($currency);
 
 		if (!$value) {
@@ -103,11 +105,11 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 	}
 
 	/**
-	 * getOrder
+	 * Get Order
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getOrder(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "securetrading_ws_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
@@ -116,7 +118,7 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 	}
 
 	/**
-	 * addMd
+	 * Add Md
 	 *
 	 * @param int    $order_id
 	 * @param string $md
@@ -128,7 +130,7 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 	}
 
 	/**
-	 * removeMd
+	 * Remove Md
 	 *
 	 * @param string $md
 	 *
@@ -139,7 +141,7 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 	}
 
 	/**
-	 * updateReference
+	 * Update Reference
 	 *
 	 * @param int    $order_id
 	 * @param string $transaction_reference
@@ -155,7 +157,7 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 	}
 
 	/**
-	 * getOrderId
+	 * Get Order Id
 	 *
 	 * @param string $md
 	 *
@@ -172,7 +174,7 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 	}
 
 	/**
-	 * confirmOrder
+	 * Confirm Order
 	 *
 	 * @param int    $order_id
 	 * @param int    $order_status_id
@@ -222,12 +224,14 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 	}
 
 	/**
-	 * updateOrder
+	 * Update Order
 	 *
-	 * @param mixed $order_id
-	 * @param mixed $order_status_id
-	 * @param mixed $comment
-	 * @param mixed $notify
+	 * @param int    $order_id
+	 * @param int    $order_status_id
+	 * @param string $comment
+	 * @param bool   $notify
+	 *
+	 * @return void
 	 */
 	public function updateOrder($order_id, $order_status_id, $comment = '', $notify = false): void {
 		// Orders
@@ -242,6 +246,8 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 	 * Logger
 	 *
 	 * @param mixed $message
+	 * 
+	 * @return void
 	 */
 	public function logger($message): void {
 		// Log

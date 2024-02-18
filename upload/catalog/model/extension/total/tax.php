@@ -6,9 +6,11 @@
  */
 class ModelExtensionTotalTax extends Model {
 	/**
-	 * getTotal
+	 * Get Total
 	 *
-	 * @param array $total
+	 * @param array<string, mixed> $total
+	 * 
+	 * @return void
 	 */
 	public function getTotal(array $total): void {
 		foreach ($total['taxes'] as $key => $value) {

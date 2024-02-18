@@ -6,11 +6,11 @@
  */
 class ModelExtensionPaymentEway extends Model {
 	/**
-	 * getMethod
+	 * Get Method
 	 *
-	 * @param array $address
+	 * @param array<string, mixed> $address
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getMethod(array $address): array {
 		$this->load->language('extension/payment/eway');
@@ -44,9 +44,9 @@ class ModelExtensionPaymentEway extends Model {
 	}
 
 	/**
-	 * addOrder
+	 * Add Order
 	 *
-	 * @param array $order_data
+	 * @param array<string, mixed> $order_data
 	 *
 	 * @return int
 	 */
@@ -63,7 +63,7 @@ class ModelExtensionPaymentEway extends Model {
 	}
 
 	/**
-	 * addTransaction
+	 * Add Transaction
 	 *
 	 * @param int    $eway_order_id
 	 * @param string $type
@@ -80,11 +80,11 @@ class ModelExtensionPaymentEway extends Model {
 	}
 
 	/**
-	 * getCards
+	 * Get Cards
 	 *
 	 * @param int $customer_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getCards(int $customer_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "eway_card` WHERE `customer_id` = '" . (int)$customer_id . "'");
@@ -109,7 +109,7 @@ class ModelExtensionPaymentEway extends Model {
 	}
 
 	/**
-	 * checkToken
+	 * Check Token
 	 *
 	 * @param int $token_id
 	 *
@@ -126,7 +126,7 @@ class ModelExtensionPaymentEway extends Model {
 	}
 
 	/**
-	 * addCard
+	 * Add Card
 	 *
 	 * @param int   $order_id
 	 * @param array $card_data
@@ -138,7 +138,7 @@ class ModelExtensionPaymentEway extends Model {
 	}
 
 	/**
-	 * updateCard
+	 * Update Card
 	 *
 	 * @param int    $order_id
 	 * @param string $token
@@ -150,7 +150,7 @@ class ModelExtensionPaymentEway extends Model {
 	}
 
 	/**
-	 * updateFullCard
+	 * Update Full Card
 	 *
 	 * @param int    $card_id
 	 * @param string $token
@@ -163,7 +163,7 @@ class ModelExtensionPaymentEway extends Model {
 	}
 
 	/**
-	 * deleteCard
+	 * Delete Card
 	 *
 	 * @param int $order_id
 	 *
@@ -174,9 +174,9 @@ class ModelExtensionPaymentEway extends Model {
 	}
 
 	/**
-	 * getAccessCode
+	 * Get Access Code
 	 *
-	 * @param array $request
+	 * @param array<string, mixed> $request
 	 *
 	 * @return ?object
 	 */
@@ -193,9 +193,9 @@ class ModelExtensionPaymentEway extends Model {
 	}
 
 	/**
-	 * getSharedAccessCode
+	 * Get Shared Access Code
 	 *
-	 * @param array $request
+	 * @param array<string, mixed> $request
 	 *
 	 * @return ?object
 	 */
@@ -212,7 +212,7 @@ class ModelExtensionPaymentEway extends Model {
 	}
 
 	/**
-	 * getAccessCodeDefault
+	 * Get Access Code Default
 	 *
 	 * @param string $access_code
 	 *
@@ -231,7 +231,7 @@ class ModelExtensionPaymentEway extends Model {
 	}
 
 	/**
-	 * sendCurl
+	 * Send Curl
 	 *
 	 * @param string $url
 	 * @param array  $data

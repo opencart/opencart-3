@@ -6,11 +6,11 @@
  */
 class ModelExtensionPaymentWorldpay extends Model {
 	/**
-	 * getMethod
+	 * Get Method
 	 *
-	 * @param array $address
+	 * @param array<string, mixed> $address
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getMethod(array $address): array {
 		$this->load->language('extension/payment/worldpay');
@@ -40,11 +40,11 @@ class ModelExtensionPaymentWorldpay extends Model {
 	}
 
 	/**
-	 * getCards
+	 * Get Cards
 	 *
 	 * @param int $customer_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getCards(int $customer_id): array {
 		$card_data = [];
@@ -72,8 +72,8 @@ class ModelExtensionPaymentWorldpay extends Model {
 	/**
 	 * addCard
 	 *
-	 * @param int   $order_id
-	 * @param array $card_data
+	 * @param int                  $order_id
+	 * @param array<string, mixed> $card_data
 	 *
 	 * @return void
 	 */
@@ -82,7 +82,7 @@ class ModelExtensionPaymentWorldpay extends Model {
 	}
 
 	/**
-	 * deleteCard
+	 * Delete Card
 	 *
 	 * @param string $token
 	 *
@@ -99,10 +99,10 @@ class ModelExtensionPaymentWorldpay extends Model {
 	}
 
 	/**
-	 * addOrder
+	 * Add Order
 	 *
-	 * @param array  $order_info
-	 * @param string $order_code
+	 * @param array<string, mixed> $order_info
+	 * @param string               $order_code
 	 *
 	 * @return int
 	 */
@@ -113,11 +113,11 @@ class ModelExtensionPaymentWorldpay extends Model {
 	}
 
 	/**
-	 * getOrder
+	 * Get Order
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getOrder(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "worldpay_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
@@ -133,11 +133,11 @@ class ModelExtensionPaymentWorldpay extends Model {
 	}
 
 	/**
-	 * addTransaction
+	 * Add Transaction
 	 *
-	 * @param int    $worldpay_order_id
-	 * @param string $type
-	 * @param array  $order_info
+	 * @param int                  $worldpay_order_id
+	 * @param string               $type
+	 * @param array<string, mixed> $order_info
 	 *
 	 * @return void
 	 */
@@ -146,11 +146,11 @@ class ModelExtensionPaymentWorldpay extends Model {
 	}
 
 	/**
-	 * getTransactions
+	 * Get Transactions
 	 *
 	 * @param int $worldpay_order_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getTransactions(int $worldpay_order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "worldpay_order_transaction` WHERE `worldpay_order_id` = '" . (int)$worldpay_order_id . "'");
@@ -163,11 +163,11 @@ class ModelExtensionPaymentWorldpay extends Model {
 	}
 
 	/**
-	 * subscriptionPayment
+	 * Subscription Payment
 	 *
-	 * @param array  $item
-	 * @param string $order_id_rand
-	 * @param string $token
+	 * @param array<string, mixed> $item
+	 * @param string               $order_id_rand
+	 * @param string               $token
 	 *
 	 * @return void
 	 */
@@ -255,7 +255,7 @@ class ModelExtensionPaymentWorldpay extends Model {
 	}
 
 	/**
-	 * cronPayment
+	 * Cron Payment
 	 *
 	 * @return array
 	 */
@@ -408,7 +408,7 @@ class ModelExtensionPaymentWorldpay extends Model {
 	 * @return void
 	 */
 	private function updateSubscriptionOrder(int $subscription_id, string $next_payment): void {
-		$this->db->query("UPDATE `" . DB_PREFIX . "worldpay_order_subscription` SET `next_payment` = '" . $next_payment . "', `date_modified` = NOW() WHERE `subscription_id` = '" . (int)$subscription_id . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "worldpay_order_subscription` SET `next_payment` = '" . $this->db->escape($next_payment) . "', `date_modified` = NOW() WHERE `subscription_id` = '" . (int)$subscription_id . "'");
 	}
 
 	/**
@@ -459,8 +459,10 @@ class ModelExtensionPaymentWorldpay extends Model {
 	 * Get Profile
 	 *
 	 * @param int $order_recurring_id
+	 * 
+	 * @return array<string, mixed>
 	 */
-	private function getProfile(int $order_recurring_id) {
+	private function getProfile(int $order_recurring_id): array {
 		// Recurring
 		$this->load->model('account/recurring');
 
@@ -472,7 +474,7 @@ class ModelExtensionPaymentWorldpay extends Model {
 	 *
 	 * @param int $worldpay_order_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getWorldpayOrder(int $worldpay_order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "worldpay_order` WHERE `order_code` = '" . (int)$worldpay_order_id . "'");
@@ -481,7 +483,7 @@ class ModelExtensionPaymentWorldpay extends Model {
 	}
 
 	/**
-	 * updateCronJobRunTime
+	 * Update Cron Job Run Time
 	 *
 	 * @return void
 	 */
@@ -492,12 +494,12 @@ class ModelExtensionPaymentWorldpay extends Model {
 	}
 
 	/**
-	 * sendCurl
+	 * SendCurl
 	 *
 	 * @param string $url
 	 * @param array  $order
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function sendCurl(string $url, $order = []): array {
 		$curl = curl_init();

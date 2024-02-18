@@ -33,7 +33,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "amazon_login_pay_order_transaction` (
 			  `amazon_login_pay_order_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
-			  `amazon_login_pay_order_id` decimal(11) NOT NULL,
+			  `amazon_login_pay_order_id` int(11) NOT NULL,
 			  `amazon_authorization_id` varchar(255),
 			  `amazon_capture_id` varchar(255),
 			  `amazon_refund_id` varchar(255),
@@ -88,7 +88,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getOrder(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "amazon_login_pay_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
@@ -108,7 +108,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	 *
 	 * @param array $amazon_login_pay_order
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function cancel(array $amazon_login_pay_order): array {
 		$total_captured = $this->getTotalCaptured($amazon_login_pay_order['amazon_login_pay_order_id']);
@@ -140,12 +140,12 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	/**
 	 * updateCancelStatus
 	 *
-	 * @param int   $amazon_login_pay_order_id
-	 * @param mixed $status
+	 * @param int $amazon_login_pay_order_id
+	 * @param int $status
 	 *
 	 * @return void
 	 */
-	public function updateCancelStatus(int $amazon_login_pay_order_id, $status): void {
+	public function updateCancelStatus(int $amazon_login_pay_order_id, int $status): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "amazon_login_pay_order` SET `cancel_status` = '" . (int)$status . "' WHERE `amazon_login_pay_order_id` = '" . (int)$amazon_login_pay_order_id . "'");
 	}
 
@@ -172,7 +172,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	 * @param array $amazon_login_pay_order
 	 * @param float $amount
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function capture(array $amazon_login_pay_order, float $amount): array {
 		$total_captured = $this->getTotalCaptured($amazon_login_pay_order['amazon_login_pay_order_id']);
@@ -269,7 +269,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	 * @param array<string, mixed> $amazon_login_pay_order
 	 * @param float                $amount
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function refund(array $amazon_login_pay_order, float $amount): array {
 		if ($amazon_login_pay_order && $amazon_login_pay_order['refund_status'] != 1) {
@@ -510,13 +510,13 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	/**
 	 * Off Amazon
 	 *
-	 * @param string $Action
+	 * @param string $action
 	 * @param array  $parameter_data
 	 * @param array  $post_data
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */
-	public function offAmazon(string $Action, array $parameter_data, array $post_data = []): array {
+	public function offAmazon(string $action, array $parameter_data, array $post_data = []): array {
 		if (!empty($post_data)) {
 			$merchant_id = $post_data['payment_amazon_login_pay_merchant_id'];
 			$access_key = $post_data['payment_amazon_login_pay_access_key'];
@@ -549,7 +549,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 		$parameters['SignatureVersion'] = 2;
 		$parameters['AWSAccessKeyId'] = $access_key;
-		$parameters['Action'] = $Action;
+		$parameters['Action'] = $action;
 		$parameters['SellerId'] = $merchant_id;
 		$parameters['SignatureMethod'] = 'HmacSHA256';
 		$parameters['Timestamp'] = date('c', time());
@@ -569,13 +569,13 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	/**
 	 * Validate Response
 	 *
-	 * @param mixed $action
-	 * @param mixed $details
-	 * @param mixed $skip_logger
+	 * @param string $action
+	 * @param array  $details
+	 * @param bool   $skip_logger
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */
-	private function validateResponse($action, $details, $skip_logger = false): array {
+	private function validateResponse(string $action, array $details, bool $skip_logger = false): array {
 		$details_xml = simplexml_load_string($details['ResponseBody']);
 
 		if (!$skip_logger) {
@@ -628,8 +628,8 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	/**
 	 * Send Curl
 	 *
-	 * @param string $url
-	 * @param array  $parameters
+	 * @param string               $url
+	 * @param array<string, mixed> $parameters
 	 *
 	 * @return array<string, mixed>
 	 */

@@ -8,18 +8,18 @@ class ModelExtensionPaymentDivido extends Model {
 	public const CACHE_KEY_PLANS = 'divido_plans';
 
 	/**
-	 * setMerchant (Deprecated)
+	 * Set Merchant (Deprecated)
 	 *
 	 * @param mixed $api_key
 	 */
 	public function setMerchant($api_key): void {}
 
 	/**
-	 * findOCOrderId
+	 * Find OC OrderId
 	 *
-	 * @param array $address
+	 * @param array<string, mixed> $address
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 *
 	 * Requires $total
 	 */
@@ -28,11 +28,11 @@ class ModelExtensionPaymentDivido extends Model {
 	}
 
 	/**
-	 * getProductSettings
+	 * Get Product Settings
 	 *
 	 * @param int $product_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getProductSettings(int $product_id): array {
 		$query = $this->db->query("SELECT `display`, `plans` FROM `" . DB_PREFIX . "divido_product` WHERE `product_id` = '" . (int)$product_id . "'");
@@ -41,7 +41,7 @@ class ModelExtensionPaymentDivido extends Model {
 	}
 
 	/**
-	 * isEnabled
+	 * Is Enabled
 	 *
 	 * @return bool
 	 */
@@ -53,7 +53,7 @@ class ModelExtensionPaymentDivido extends Model {
 	}
 
 	/**
-	 * hasOrderId
+	 * Has Order Id
 	 *
 	 * @param int    $order_id
 	 * @param string $salt
@@ -65,7 +65,7 @@ class ModelExtensionPaymentDivido extends Model {
 	}
 
 	/**
-	 * saveLookup
+	 * Save Lookup
 	 *
 	 * @param int    $order_id
 	 * @param string $salt
@@ -106,11 +106,11 @@ class ModelExtensionPaymentDivido extends Model {
 	}
 
 	/**
-	 * getLookupByOrderId
+	 * Get Lookup By Order Id
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getLookupByOrderId(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "divido_lookup` WHERE `order_id` = '" . (int)$order_id . "'");
@@ -119,9 +119,9 @@ class ModelExtensionPaymentDivido extends Model {
 	}
 
 	/**
-	 * getGlobalSelectedPlans
+	 * Get Global Selected Plans
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getGlobalSelectedPlans(): array {
 		$all_plans = $this->getAllPlans();
@@ -150,9 +150,9 @@ class ModelExtensionPaymentDivido extends Model {
 	}
 
 	/**
-	 * getAllPlans
+	 * Get All Plans
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getAllPlans(): array {
 		if ($plans = $this->cache->get(self::CACHE_KEY_PLANS)) {
@@ -203,13 +203,13 @@ class ModelExtensionPaymentDivido extends Model {
 	}
 
 	/**
-	 * getCartPlans
+	 * Get Cart Plans
 	 *
-	 * @param object $cart
+	 * @param mixed $cart
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
-	public function getCartPlans(object $cart): array {
+	public function getCartPlans($cart): array {
 		$plans = [];
 
 		$products = $cart->getProducts();
@@ -226,11 +226,11 @@ class ModelExtensionPaymentDivido extends Model {
 	}
 
 	/**
-	 * getPlans
+	 * Get Plans
 	 *
 	 * @param mixed $default_plans
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getPlans($default_plans): array {
 		if ($default_plans) {
@@ -243,9 +243,9 @@ class ModelExtensionPaymentDivido extends Model {
 	}
 
 	/**
-	 * getTotals
+	 * Get Totals
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getTotals(): array {
 		$taxes = $this->cart->getTaxes();
@@ -296,11 +296,11 @@ class ModelExtensionPaymentDivido extends Model {
 	}
 
 	/**
-	 * getProductPlans
+	 * Get Product Plans
 	 *
 	 * @param int $product_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getProductPlans(int $product_id): array {
 		// Products

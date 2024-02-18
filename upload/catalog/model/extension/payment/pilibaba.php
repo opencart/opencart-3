@@ -6,11 +6,11 @@
  */
 class ModelExtensionPaymentPilibaba extends Model {
 	/**
-	 * getMethod
+	 * Get Method
 	 *
-	 * @param array $address
+	 * @param array<string, mixed> $address
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getMethod(array $address): array {
 		$this->load->language('extension/payment/pilibaba');
@@ -36,7 +36,7 @@ class ModelExtensionPaymentPilibaba extends Model {
 	}
 
 	/**
-	 * getOrderTaxAmount
+	 * Get Order Tax Amount
 	 *
 	 * @param int $order_id
 	 *
@@ -55,9 +55,9 @@ class ModelExtensionPaymentPilibaba extends Model {
 	}
 
 	/**
-	 * addPilibabaOrder
+	 * Add Pilibaba Order
 	 *
-	 * @param array $response_data
+	 * @param array<string, mixed> $response_data
 	 *
 	 * @return void
 	 */
@@ -66,11 +66,11 @@ class ModelExtensionPaymentPilibaba extends Model {
 	}
 
 	/**
-	 * getConsumerInfo
+	 * Get Consumer Info
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getConsumerInfo(int $order_id): array {
 		$sign_msg = strtoupper(md5($this->config->get('payment_pilibaba_merchant_number') . $order_id . 'MD5' . $this->config->get('payment_pilibaba_secret_key')));
@@ -108,7 +108,7 @@ class ModelExtensionPaymentPilibaba extends Model {
 	}
 
 	/**
-	 * updateOrderInfo
+	 * Update Order Info
 	 *
 	 * @param array<string, mixed> $data
 	 * @param int                  $order_id
