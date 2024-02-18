@@ -58,7 +58,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	}
 
 	/**
-	 * deleteEvents
+	 * Delete Events
 	 *
 	 * @return void
 	 */
@@ -71,7 +71,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	}
 
 	/**
-	 * addEvents
+	 * Add Events
 	 *
 	 * @return void
 	 */
@@ -84,7 +84,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	}
 
 	/**
-	 * getOrder
+	 * Get Order
 	 *
 	 * @param int $order_id
 	 *
@@ -138,7 +138,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	}
 
 	/**
-	 * updateCancelStatus
+	 * Update Cancel Status
 	 *
 	 * @param int $amazon_login_pay_order_id
 	 * @param int $status
@@ -150,9 +150,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	}
 
 	/**
-	 * hasOpenAuthorization
+	 * Has Open Authorization
 	 *
-	 * @param array $transactions
+	 * @param array<string, mixed> $transactions
 	 *
 	 * @return bool
 	 */
@@ -169,8 +169,8 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	/**
 	 * Capture
 	 *
-	 * @param array $amazon_login_pay_order
-	 * @param float $amount
+	 * @param array<string, mixed> $amazon_login_pay_order
+	 * @param float                $amount
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */
@@ -510,9 +510,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	/**
 	 * Off Amazon
 	 *
-	 * @param string $action
-	 * @param array  $parameter_data
-	 * @param array  $post_data
+	 * @param string               $action
+	 * @param array<string, mixed> $parameter_data
+	 * @param array<string, mixed> $post_data
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */
@@ -569,9 +569,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	/**
 	 * Validate Response
 	 *
-	 * @param string $action
-	 * @param array  $details
-	 * @param bool   $skip_logger
+	 * @param string               $action
+	 * @param array<string, mixed> $details
+	 * @param bool                 $skip_logger
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */

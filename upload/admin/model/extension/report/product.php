@@ -6,11 +6,11 @@
  */
 class ModelExtensionReportProduct extends Model {
 	/**
-	 * getProductsViewed
+	 * Get Products Viewed
 	 *
 	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getProductsViewed(array $data = []): array {
 		$sql = "SELECT `pd`.`name`, `p`.`model`, `p`.`viewed` FROM `" . DB_PREFIX . "product` `p` LEFT JOIN `" . DB_PREFIX . "product_description` `pd` ON (`p`.`product_id` = `pd`.`product_id`) WHERE `pd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "' AND `p`.`viewed` > '0' ORDER BY `p`.`viewed` DESC";
@@ -33,7 +33,7 @@ class ModelExtensionReportProduct extends Model {
 	}
 
 	/**
-	 * getTotalProductViews
+	 * Get Total Product Views
 	 *
 	 * @return int
 	 */
@@ -48,7 +48,7 @@ class ModelExtensionReportProduct extends Model {
 	}
 
 	/**
-	 * getTotalProductsViewed
+	 * Get Total Products Viewed
 	 *
 	 * @return int
 	 */
@@ -72,7 +72,7 @@ class ModelExtensionReportProduct extends Model {
 	 *
 	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getPurchased(array $data = []): array {
 		$implode = [];
@@ -117,7 +117,7 @@ class ModelExtensionReportProduct extends Model {
 	}
 
 	/**
-	 * getTotalPurchased
+	 * Get Total Purchased
 	 *
 	 * @param array<string, mixed> $data
 	 *

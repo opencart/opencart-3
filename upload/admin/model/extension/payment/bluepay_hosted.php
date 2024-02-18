@@ -62,8 +62,8 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 	/**
 	 * Add Order
 	 *
-	 * @param array $order_info
-	 * @param array $response_data
+	 * @param array<string, mixed> $order_info
+	 * @param array<string, mixed> $response_data
 	 *
 	 * @return int
 	 */
@@ -78,7 +78,7 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function void(int $order_id): array {
 		$bluepay_hosted_order = $this->getOrder($order_id);
@@ -129,7 +129,7 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 	 * @param int   $order_id
 	 * @param float $amount
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function release(int $order_id, float $amount): array {
 		$bluepay_hosted_order = $this->getOrder($order_id);
@@ -178,7 +178,7 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 	 * @param int   $order_id
 	 * @param float $amount
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function rebate(int $order_id, float $amount): array {
 		$bluepay_hosted_order = $this->getOrder($order_id);
@@ -236,7 +236,7 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getOrder(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "bluepay_hosted_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
@@ -256,7 +256,7 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 	 *
 	 * @param int $bluepay_hosted_order_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	private function getTransactions(int $bluepay_hosted_order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "bluepay_hosted_order_transaction` WHERE `bluepay_hosted_order_id` = '" . (int)$bluepay_hosted_order_id . "'");
@@ -328,9 +328,9 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 	 * Send Curl
 	 *
 	 * @param string $url
-	 * @param array  $post_data
+	 * @param array<string, mixed> $post_data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function sendCurl(string $url, array $post_data): array {
 		$curl = curl_init($url);

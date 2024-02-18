@@ -48,9 +48,9 @@ class ModelExtensionPaymentRealex extends Model {
 	 *
 	 * @param int $order_id
 	 *
-	 * @return object|null
+	 * @return array<int, array<string, mixed>>
 	 */
-	public function void(int $order_id): ?object {
+	public function void(int $order_id): array {
 		$realex_order = $this->getOrder($order_id);
 
 		if ($realex_order) {
@@ -95,12 +95,12 @@ class ModelExtensionPaymentRealex extends Model {
 
 			return json_decode($encode, true);
 		} else {
-			return null;
+			return [];
 		}
 	}
 
 	/**
-	 * updateVoidStatus
+	 * Update Void Status
 	 *
 	 * @param int $realex_order_id
 	 * @param int $status
@@ -117,9 +117,9 @@ class ModelExtensionPaymentRealex extends Model {
 	 * @param int   $order_id
 	 * @param float $amount
 	 *
-	 * @return object|null
+	 * @return array<int, array<string, mixed>>
 	 */
-	public function capture(int $order_id, float $amount): ?object {
+	public function capture(int $order_id, float $amount): array {
 		$realex_order = $this->getOrder($order_id);
 
 		if ($realex_order && $realex_order['capture_status'] == 0) {
@@ -180,12 +180,12 @@ class ModelExtensionPaymentRealex extends Model {
 
 			return json_decode($encode, true);
 		} else {
-			return null;
+			return [];
 		}
 	}
 
 	/**
-	 * updateCaptureStatus
+	 * Update Capture Status
 	 *
 	 * @param int $realex_order_id
 	 * @param int $status
@@ -197,7 +197,7 @@ class ModelExtensionPaymentRealex extends Model {
 	}
 
 	/**
-	 * updateForRebate
+	 * Update For Rebate
 	 *
 	 * @param int    $realex_order_id
 	 * @param string $pas_ref
@@ -215,9 +215,9 @@ class ModelExtensionPaymentRealex extends Model {
 	 * @param int   $order_id
 	 * @param float $amount
 	 *
-	 * @return object|null
+	 * @return array<int, array<string, mixed>>
 	 */
-	public function rebate(int $order_id, float $amount): ?object {
+	public function rebate(int $order_id, float $amount): array {
 		$realex_order = $this->getOrder($order_id);
 
 		if ($realex_order && $realex_order['rebate_status'] != 1) {
@@ -278,12 +278,12 @@ class ModelExtensionPaymentRealex extends Model {
 
 			return json_decode($encode, true);
 		} else {
-			return null;
+			return [];
 		}
 	}
 
 	/**
-	 * updateRebateStatus
+	 * Update Rebate Status
 	 *
 	 * @param int $realex_order_id
 	 * @param int $status
@@ -295,11 +295,11 @@ class ModelExtensionPaymentRealex extends Model {
 	}
 
 	/**
-	 * getOrder
+	 * Get Order
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array
+	 * @return array<string, string>
 	 */
 	public function getOrder(int $order_id): array {
 		$this->logger('getOrder - ' . $order_id);

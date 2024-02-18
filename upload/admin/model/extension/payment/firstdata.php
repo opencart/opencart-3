@@ -70,9 +70,9 @@ class ModelExtensionPaymentFirstdata extends Model {
 	 *
 	 * @param int $order_id
 	 *
-	 * @return object|null
+	 * @return SimpleXMLElement|false
 	 */
-	public function void(int $order_id): ?object {
+	public function void(int $order_id): SimpleXMLElement|false {
 		$firstdata_order = $this->getOrder($order_id);
 
 		if ($firstdata_order) {
@@ -114,12 +114,12 @@ class ModelExtensionPaymentFirstdata extends Model {
 
 			return simplexml_load_string($response);
 		} else {
-			return null;
+			return false;
 		}
 	}
 
 	/**
-	 * updateVoidStatus
+	 * Update Void Status
 	 *
 	 * @param int $firstdata_order_id
 	 * @param int $status
@@ -136,9 +136,9 @@ class ModelExtensionPaymentFirstdata extends Model {
 	 * @param int   $order_id
 	 * @param float $amount
 	 *
-	 * @return object|null
+	 * @return SimpleXMLElement|false
 	 */
-	public function capture(int $order_id, float $amount): ?object {
+	public function capture(int $order_id, float $amount): SimpleXMLElement|false {
 		$firstdata_order = $this->getOrder($order_id);
 
 		if ($firstdata_order && $firstdata_order['capture_status'] == 0) {
@@ -197,12 +197,12 @@ class ModelExtensionPaymentFirstdata extends Model {
 
 			return simplexml_load_string($response);
 		} else {
-			return null;
+			return false;
 		}
 	}
 
 	/**
-	 * updateCaptureStatus
+	 * Update Capture Status
 	 *
 	 * @param int $firstdata_order_id
 	 * @param int $status
@@ -214,11 +214,11 @@ class ModelExtensionPaymentFirstdata extends Model {
 	}
 
 	/**
-	 * getOrder
+	 * Get Order
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getOrder(int $order_id): array {
 		$this->logger('getOrder - ' . $order_id);

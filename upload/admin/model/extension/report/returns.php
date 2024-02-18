@@ -6,11 +6,11 @@
  */
 class ModelExtensionReportReturns extends Model {
 	/**
-	 * getReturns
+	 * Get Returns
 	 *
 	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getReturns(array $data = []): array {
 		$implode = [];
@@ -75,7 +75,7 @@ class ModelExtensionReportReturns extends Model {
 	}
 
 	/**
-	 * getTotalReturns
+	 * Get Total Returns
 	 *
 	 * @param array<string, mixed> $data
 	 *

@@ -6,7 +6,7 @@
  */
 class ModelExtensionReportSale extends Model {
 	/**
-	 * getTotalSales
+	 * Get Total Sales
 	 *
 	 * @param array<string, mixed> $data
 	 *
@@ -25,9 +25,9 @@ class ModelExtensionReportSale extends Model {
 	}
 
 	/**
-	 * getTotalOrdersByCountry
+	 * Get Total Orders By Country
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getTotalOrdersByCountry(): array {
 		$query = $this->db->query("SELECT COUNT(*) AS `total`, SUM(`o`.`total`) AS `amount`, `c`.`iso_code_2` FROM `" . DB_PREFIX . "order` `o` LEFT JOIN `" . DB_PREFIX . "country` `c` ON (`o`.`payment_country_id` = `c`.`country_id`) WHERE `o`.`order_status_id` > '0' GROUP BY `o`.`payment_country_id`");
@@ -36,9 +36,9 @@ class ModelExtensionReportSale extends Model {
 	}
 
 	/**
-	 * getTotalOrdersByDay
+	 * Get Total Orders By Day
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getTotalOrdersByDay(): array {
 		$implode = [];
@@ -69,9 +69,9 @@ class ModelExtensionReportSale extends Model {
 	}
 
 	/**
-	 * getTotalOrdersByWeek
+	 * Get Total Orders By Week
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getTotalOrdersByWeek(): array {
 		$implode = [];
@@ -105,9 +105,9 @@ class ModelExtensionReportSale extends Model {
 	}
 
 	/**
-	 * getTotalOrdersByMonth
+	 * Get Total Orders By Month
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getTotalOrdersByMonth(): array {
 		$implode = [];
@@ -140,9 +140,9 @@ class ModelExtensionReportSale extends Model {
 	}
 
 	/**
-	 * getTotalOrdersByYear
+	 * Get Total Orders By Year
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getTotalOrdersByYear(): array {
 		$implode = [];
@@ -173,11 +173,11 @@ class ModelExtensionReportSale extends Model {
 	}
 
 	/**
-	 * getOrders
+	 * Get Orders
 	 *
 	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getOrders(array $data = []): array {
 		$implode = [];
@@ -244,7 +244,7 @@ class ModelExtensionReportSale extends Model {
 	}
 
 	/**
-	 * getTotalOrders
+	 * Get Total Orders
 	 *
 	 * @param array<string, mixed> $data
 	 *
@@ -299,11 +299,11 @@ class ModelExtensionReportSale extends Model {
 	}
 
 	/**
-	 * getTaxes
+	 * Get Taxes
 	 *
 	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getTaxes(array $data = []): array {
 		$implode = [];
@@ -370,7 +370,7 @@ class ModelExtensionReportSale extends Model {
 	}
 
 	/**
-	 * getTotalTaxes
+	 * Get Total Taxes
 	 *
 	 * @param array<string, mixed> $data
 	 *
@@ -429,11 +429,11 @@ class ModelExtensionReportSale extends Model {
 	}
 
 	/**
-	 * getShipping
+	 * Get Shipping
 	 *
 	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getShipping(array $data = []): array {
 		$implode = [];
@@ -500,7 +500,7 @@ class ModelExtensionReportSale extends Model {
 	}
 
 	/**
-	 * getTotalShipping
+	 * Get Total Shipping
 	 *
 	 * @param array<string, mixed> $data
 	 *

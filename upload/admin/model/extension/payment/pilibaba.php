@@ -36,9 +36,9 @@ class ModelExtensionPaymentPilibaba extends Model {
 	}
 
 	/**
-	 * getCurrencies
+	 * Get Currencies
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getCurrencies(): array {
 		$ch = curl_init();
@@ -58,9 +58,9 @@ class ModelExtensionPaymentPilibaba extends Model {
 	}
 
 	/**
-	 * getWarehouses
+	 * Get Warehouses
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getWarehouses(): array {
 		$ch = curl_init();
@@ -80,11 +80,11 @@ class ModelExtensionPaymentPilibaba extends Model {
 	}
 
 	/**
-	 * getOrder
+	 * Get Order
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array
+	 * @return array<string, string>
 	 */
 	public function getOrder(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "pilibaba_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
@@ -106,7 +106,7 @@ class ModelExtensionPaymentPilibaba extends Model {
 	 * @param string $country
 	 * @param string $environment
 	 *
-	 * @return array
+	 * @return array<string, string>
 	 */
 	public function register(string $email, string $password, string $currency, string $warehouse, string $country, string $environment): array {
 		$this->log('Posting register');
@@ -170,7 +170,7 @@ class ModelExtensionPaymentPilibaba extends Model {
 	}
 
 	/**
-	 * updateTrackingNumber
+	 * Update Tracking Number
 	 *
 	 * @param int    $order_id
 	 * @param string $tracking_number
@@ -214,7 +214,7 @@ class ModelExtensionPaymentPilibaba extends Model {
 	}
 
 	/**
-	 * enablePiliExpress
+	 * Enable Pili Express
 	 *
 	 * @return void
 	 */
@@ -227,7 +227,7 @@ class ModelExtensionPaymentPilibaba extends Model {
 	}
 
 	/**
-	 * disablePiliExpress
+	 * Disable Pili Express
 	 *
 	 * @return void
 	 */

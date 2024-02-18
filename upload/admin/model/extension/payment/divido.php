@@ -8,16 +8,16 @@ class ModelExtensionPaymentDivido extends Model {
 	public const CACHE_KEY_PLANS = 'divido_plans';
 
 	/**
-	 * setMerchant (Deprecated)
+	 * Set Merchant (Deprecated)
 	 *
 	 * @param mixed $api_key
 	 */
 	public function setMerchant($api_key): void {}
 
 	/**
-	 * getAllPlans
+	 * Get All Plans
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getAllPlans(): array {
 		if ($plans = $this->cache->get(self::CACHE_KEY_PLANS)) {
@@ -56,6 +56,7 @@ class ModelExtensionPaymentDivido extends Model {
 			$plan_copy->interest_rate = $plan->interest_rate;
 			$plan_copy->deferral_period = $plan->deferral_period;
 			$plan_copy->agreement_duration = $plan->agreement_duration;
+
 			$plans_plain[] = $plan_copy;
 		}
 
@@ -65,7 +66,7 @@ class ModelExtensionPaymentDivido extends Model {
 	}
 
 	/**
-	 * getLookupByOrderId
+	 * Get Lookup By Order Id
 	 *
 	 * @param int $order_id
 	 *

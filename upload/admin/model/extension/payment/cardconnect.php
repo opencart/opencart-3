@@ -71,7 +71,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getOrder(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "cardconnect_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
@@ -120,8 +120,8 @@ class ModelExtensionPaymentCardConnect extends Model {
 	/**
 	 * Inquire
 	 *
-	 * @param array  $order_info
-	 * @param string $retref
+	 * @param array<string, mixed> $order_info
+	 * @param string               $retref
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */
@@ -166,8 +166,8 @@ class ModelExtensionPaymentCardConnect extends Model {
 	/**
 	 * Capture
 	 *
-	 * @param array $order_info
-	 * @param float $amount
+	 * @param array<string, mixed> $order_info
+	 * @param float                $amount
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */
@@ -268,8 +268,8 @@ class ModelExtensionPaymentCardConnect extends Model {
 	/**
 	 * Refund
 	 *
-	 * @param array $order_info
-	 * @param float $amount
+	 * @param array<string, mixed> $order_info
+	 * @param float                $amount
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */
@@ -326,8 +326,8 @@ class ModelExtensionPaymentCardConnect extends Model {
 	/**
 	 * Void
 	 *
-	 * @param array  $order_info
-	 * @param string $retref
+	 * @param array<string, mixed> $order_info
+	 * @param string               $retref
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */

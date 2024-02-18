@@ -322,7 +322,7 @@ class ModelExtensionPaymentPayPal extends Model {
 	 * @param string $opencart_version
 	 * @param string $paypal_version
 	 *
-	 * @return array
+	 * @return array<string, string>
 	 */
 	public function checkVersion(string $opencart_version, string $paypal_version): array {
 		$curl = curl_init();

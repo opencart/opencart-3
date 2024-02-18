@@ -48,9 +48,9 @@ class ModelExtensionPaymentRealexRemote extends Model {
 	 *
 	 * @param int $order_id
 	 *
-	 * @return object|null
+	 * @return array
 	 */
-	public function void(int $order_id): ?object {
+	public function void(int $order_id): array {
 		$realex_order = $this->getOrder($order_id);
 
 		if ($realex_order) {
@@ -95,12 +95,12 @@ class ModelExtensionPaymentRealexRemote extends Model {
 
 			return json_decode($encode, true);
 		} else {
-			return null;
+			return [];
 		}
 	}
 
 	/**
-	 * updateVoidStatus
+	 * Update Void Status
 	 *
 	 * @param int $realex_remote_order_id
 	 * @param int $status
@@ -117,9 +117,9 @@ class ModelExtensionPaymentRealexRemote extends Model {
 	 * @param int   $order_id
 	 * @param float $amount
 	 *
-	 * @return object|null
+	 * @return array
 	 */
-	public function capture(int $order_id, float $amount): ?object {
+	public function capture(int $order_id, float $amount): array {
 		$realex_order = $this->getOrder($order_id);
 
 		if ($realex_order && $realex_order['capture_status'] == 0) {
@@ -178,12 +178,12 @@ class ModelExtensionPaymentRealexRemote extends Model {
 
 			return json_decode($encode, true);
 		} else {
-			return null;
+			return [];
 		}
 	}
 
 	/**
-	 * updateCaptureStatus
+	 * Update Capture Status
 	 *
 	 * @param int $realex_remote_order_id
 	 * @param int $status
@@ -195,7 +195,7 @@ class ModelExtensionPaymentRealexRemote extends Model {
 	}
 
 	/**
-	 * updateForRebate
+	 * Update For Rebate
 	 *
 	 * @param int    $realex_remote_order_id
 	 * @param string $pas_ref
@@ -213,9 +213,9 @@ class ModelExtensionPaymentRealexRemote extends Model {
 	 * @param int   $order_id
 	 * @param float $amount
 	 *
-	 * @return object|null
+	 * @return array
 	 */
-	public function rebate(int $order_id, float $amount): ?object {
+	public function rebate(int $order_id, float $amount): array {
 		$realex_order = $this->getOrder($order_id);
 
 		if ($realex_order && $realex_order['rebate_status'] != 1) {
@@ -275,12 +275,12 @@ class ModelExtensionPaymentRealexRemote extends Model {
 
 			return json_decode($encode, true);
 		} else {
-			return null;
+			return [];
 		}
 	}
 
 	/**
-	 * updateRebateStatys
+	 * Update Rebate Status
 	 *
 	 * @param int $realex_remote_order_id
 	 * @param int $status
@@ -292,11 +292,11 @@ class ModelExtensionPaymentRealexRemote extends Model {
 	}
 
 	/**
-	 * getOrder
+	 * Get Order
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array
+	 * @return array<string, string>
 	 */
 	public function getOrder(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "realex_remote_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
@@ -313,11 +313,11 @@ class ModelExtensionPaymentRealexRemote extends Model {
 	}
 
 	/**
-	 * getTransactions
+	 * Get Transactions
 	 *
 	 * @param int $realex_remote_order_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	private function getTransactions(int $realex_remote_order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "realex_remote_order_transaction` WHERE `realex_remote_order_id` = '" . (int)$realex_remote_order_id . "'");
@@ -330,7 +330,7 @@ class ModelExtensionPaymentRealexRemote extends Model {
 	}
 
 	/**
-	 * addTransaction
+	 * Add Transaction
 	 *
 	 * @param int    $realex_remote_order_id
 	 * @param string $type
@@ -357,7 +357,7 @@ class ModelExtensionPaymentRealexRemote extends Model {
 	}
 
 	/**
-	 * getTotalCaptured
+	 * Get Total Captured
 	 *
 	 * @param int $realex_order_id
 	 *
@@ -370,7 +370,7 @@ class ModelExtensionPaymentRealexRemote extends Model {
 	}
 
 	/**
-	 * getTotalRebated
+	 * Get Total Rebated
 	 *
 	 * @param int $realex_order_id
 	 *

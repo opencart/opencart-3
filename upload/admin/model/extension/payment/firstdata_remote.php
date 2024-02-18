@@ -67,8 +67,10 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 	 * Call
 	 *
 	 * @param string $xml
+	 * 
+	 * @return SimpleXMLElement|false
 	 */
-	public function call(string $xml) {
+	public function call(string $xml): SimpleXMLElement|false {
 		$ch = curl_init();
 
 		curl_setopt($ch, CURLOPT_URL, 'https://test.ipg-online.com/ipgapi/services');
@@ -106,9 +108,11 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 	 * @param int    $order_ref
 	 * @param string $tdate
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function void(int $order_ref, string $tdate): array {
+		$response = [];
+
 		$xml = '<?xml version="1.0" encoding="UTF-8"?>';
 		$xml .= '<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">';
 		$xml .= '<SOAP-ENV:Header />';
@@ -150,7 +154,7 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 	}
 
 	/**
-	 * updateVoidStatus
+	 * Update Void Status
 	 *
 	 * @param int $firstdata_remote_order_id
 	 * @param int $status
@@ -168,9 +172,11 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 	 * @param float  $total
 	 * @param string $currency_code
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function capture(int $order_ref, float $total, string $currency_code): array {
+		$response = [];
+
 		$xml = '<?xml version="1.0" encoding="UTF-8"?>';
 		$xml .= '<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">';
 		$xml .= '<SOAP-ENV:Header />';
@@ -215,7 +221,7 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 	}
 
 	/**
-	 * updateCaptureStatus
+	 * Update Capture Status
 	 *
 	 * @param int $firstdata_remote_order_id
 	 * @param int $status
@@ -233,9 +239,11 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 	 * @param float  $total
 	 * @param string $currency_code
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function refund(int $order_ref, float $total, string $currency_code): array {
+		$response = [];
+		
 		$xml = '<?xml version="1.0" encoding="UTF-8"?>';
 		$xml .= '<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">';
 		$xml .= '<SOAP-ENV:Header />';
@@ -280,7 +288,7 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 	}
 
 	/**
-	 * updateRefundStatus
+	 * Update Refund Status
 	 *
 	 * @param int $firstdata_remote_order_id
 	 * @param int $status
@@ -296,7 +304,7 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getOrder(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "firstdata_remote_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");

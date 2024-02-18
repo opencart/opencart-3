@@ -48,9 +48,9 @@ class ModelExtensionPaymentGlobalpay extends Model {
 	 *
 	 * @param int $order_id
 	 *
-	 * @return object|null
+	 * @return array
 	 */
-	public function void(int $order_id): ?object {
+	public function void(int $order_id): array {
 		$globalpay_order = $this->getOrder($order_id);
 
 		if ($globalpay_order) {
@@ -95,12 +95,12 @@ class ModelExtensionPaymentGlobalpay extends Model {
 
 			return json_decode($encode, true);
 		} else {
-			return null;
+			return [];
 		}
 	}
 
 	/**
-	 * updateVoidStatus
+	 * Update Void Status
 	 *
 	 * @param int $globalpay_order_id
 	 * @param int $status
@@ -117,7 +117,7 @@ class ModelExtensionPaymentGlobalpay extends Model {
 	 * @param int   $order_id
 	 * @param float $amount
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function capture(int $order_id, float $amount): array {
 		$globalpay_order = $this->getOrder($order_id);
@@ -186,7 +186,7 @@ class ModelExtensionPaymentGlobalpay extends Model {
 	}
 
 	/**
-	 * updateCaptureStatus
+	 * Update Capture Status
 	 *
 	 * @param int $globalpay_order_id
 	 * @param int $status
@@ -198,7 +198,7 @@ class ModelExtensionPaymentGlobalpay extends Model {
 	}
 
 	/**
-	 * updateForRebate
+	 * Update For Rebate
 	 *
 	 * @param int    $globalpay_order_id
 	 * @param string $pas_ref
@@ -216,9 +216,9 @@ class ModelExtensionPaymentGlobalpay extends Model {
 	 * @param int   $order_id
 	 * @param float $amount
 	 *
-	 * @return object|null
+	 * @return SimpleXMLElement|false
 	 */
-	public function rebate(int $order_id, float $amount): ?object {
+	public function rebate(int $order_id, float $amount): SimpleXMLElement|false {
 		$globalpay_order = $this->getOrder($order_id);
 
 		if ($globalpay_order && $globalpay_order['rebate_status'] != 1) {
@@ -279,12 +279,12 @@ class ModelExtensionPaymentGlobalpay extends Model {
 
 			return json_decode($encode, true);
 		} else {
-			return null;
+			return [];
 		}
 	}
 
 	/**
-	 * updateRebateStatus
+	 * Update Rebate Status
 	 *
 	 * @param int $globalpay_order_id
 	 * @param int $status
@@ -296,11 +296,11 @@ class ModelExtensionPaymentGlobalpay extends Model {
 	}
 
 	/**
-	 * getOrder
+	 * Get Order
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getOrder(int $order_id): array {
 		$this->logger('getOrder - ' . $order_id);

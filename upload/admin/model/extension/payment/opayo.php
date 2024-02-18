@@ -275,7 +275,7 @@ class ModelExtensionPaymentOpayo extends Model {
 	}
 
 	/**
-	 * getOrder
+	 * Get Order
 	 *
 	 * @param int $order_id
 	 *
@@ -312,7 +312,7 @@ class ModelExtensionPaymentOpayo extends Model {
 	}
 
 	/**
-	 * addOrderTransaction
+	 * Add Order Transaction
 	 *
 	 * @param int    $opayo_order_id
 	 * @param string $type
@@ -325,7 +325,7 @@ class ModelExtensionPaymentOpayo extends Model {
 	}
 
 	/**
-	 * getTotalReleased
+	 * Get Total Released
 	 *
 	 * @param int $opayo_order_id
 	 *
@@ -338,7 +338,7 @@ class ModelExtensionPaymentOpayo extends Model {
 	}
 
 	/**
-	 * getTotalRebated
+	 * Get Total Rebated
 	 *
 	 * @param int $opayo_order_id
 	 *

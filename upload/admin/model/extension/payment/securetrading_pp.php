@@ -53,7 +53,7 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array
+	 * @return array<string, string>
 	 */
 	public function void(int $order_id): array {
 		$securetrading_pp_order = $this->getOrder($order_id);
@@ -79,7 +79,7 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 	}
 
 	/**
-	 * updateVoidStatus
+	 * Update Void Status
 	 *
 	 * @param int $securetrading_pp_order_id
 	 * @param int $status
@@ -96,9 +96,9 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 	 * @param int   $order_id
 	 * @param float $amount
 	 *
-	 * @return object|null
+	 * @return array<string, string>
 	 */
-	public function release(int $order_id, float $amount): ?object {
+	public function release(int $order_id, float $amount): array {
 		$securetrading_pp_order = $this->getOrder($order_id);
 
 		$total_released = $this->getTotalReleased($securetrading_pp_order['securetrading_pp_order_id']);
@@ -122,12 +122,12 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 
 			return $this->call($requestblock_xml->asXML());
 		} else {
-			return null;
+			return [];
 		}
 	}
 
 	/**
-	 * updateReleaseStatus
+	 * Update Release Status
 	 *
 	 * @param int $securetrading_pp_order_id
 	 * @param int $status
@@ -139,7 +139,7 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 	}
 
 	/**
-	 * updateRebateStatus
+	 * Update Rebate Status
 	 *
 	 * @param int $securetrading_pp_order_id
 	 * @param int $status
@@ -151,7 +151,7 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 	}
 
 	/**
-	 * updateForRebate
+	 * Update For Rebate
 	 *
 	 * @param int    $securetrading_pp_order_id
 	 * @param string $order_ref
@@ -168,7 +168,7 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 	 * @param int   $order_id
 	 * @param float $refunded_amount
 	 *
-	 * @return array
+	 * @return array<string, string>
 	 */
 	public function rebate(int $order_id, float $refunded_amount): array {
 		$securetrading_pp_order = $this->getOrder($order_id);
@@ -200,11 +200,11 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 	}
 
 	/**
-	 * getOrder
+	 * Get Order
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array
+	 * @return array<string, string>
 	 */
 	public function getOrder(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "securetrading_pp_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");

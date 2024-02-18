@@ -6,11 +6,11 @@
  */
 class ModelExtensionReportSubscription extends Model {
 	/**
-	 * getSubscriptions
+	 * Get Subscriptions
 	 *
 	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getSubscriptions(array $data = []): array {
 		$implode = [];
@@ -77,7 +77,7 @@ class ModelExtensionReportSubscription extends Model {
 	}
 
 	/**
-	 * getTotalSubscriptions
+	 * Get Total Subscriptions
 	 *
 	 * @param array<string, mixed> $data
 	 *

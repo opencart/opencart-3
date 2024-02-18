@@ -91,7 +91,7 @@ class ModelExtensionPaymentSagepayDirect extends Model {
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array
+	 * @return array<string, string>
 	 */
 	public function void(int $order_id): array {
 		$sagepay_direct_order = $this->getOrder($order_id);
@@ -127,7 +127,7 @@ class ModelExtensionPaymentSagepayDirect extends Model {
 	}
 
 	/**
-	 * updateVoidStatus
+	 * Update VoidS tatus
 	 *
 	 * @param int $sagepay_direct_order_id
 	 * @param int $status
@@ -144,7 +144,7 @@ class ModelExtensionPaymentSagepayDirect extends Model {
 	 * @param int   $order_id
 	 * @param float $amount
 	 *
-	 * @return array
+	 * @return array<string, string>
 	 */
 	public function release(int $order_id, float $amount): array {
 		$sagepay_direct_order = $this->getOrder($order_id);
@@ -186,7 +186,7 @@ class ModelExtensionPaymentSagepayDirect extends Model {
 	}
 
 	/**
-	 * updateReleaseStatus
+	 * Update Release Status
 	 *
 	 * @param int $sagepay_direct_order_id
 	 * @param int $status
@@ -203,7 +203,7 @@ class ModelExtensionPaymentSagepayDirect extends Model {
 	 * @param int   $order_id
 	 * @param float $amount
 	 *
-	 * @return array
+	 * @return array<string, string>
 	 */
 	public function rebate(int $order_id, float $amount): array {
 		$sagepay_direct_order = $this->getOrder($order_id);
@@ -246,7 +246,7 @@ class ModelExtensionPaymentSagepayDirect extends Model {
 	}
 
 	/**
-	 * updateRebateStatus
+	 * Update Rebate Status
 	 *
 	 * @param int $sagepay_direct_order_id
 	 * @param int $status
@@ -262,7 +262,7 @@ class ModelExtensionPaymentSagepayDirect extends Model {
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array
+	 * @return array<string, string>
 	 */
 	public function getOrder(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "sagepay_direct_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
@@ -381,7 +381,7 @@ class ModelExtensionPaymentSagepayDirect extends Model {
 	 * Logger
 	 *
 	 * @param string $title
-	 * @param array  $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */

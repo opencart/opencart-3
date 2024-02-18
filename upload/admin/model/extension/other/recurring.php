@@ -10,7 +10,7 @@ class ModelExtensionOtherRecurring extends Model {
 	 *
 	 * @param int $order_recurring_id
 	 *
-	 * @return array
+	 * @return array<string, string>
 	 */
 	public function getRecurring(int $order_recurring_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_recurring` WHERE `order_recurring_id` = '" . (int)$order_recurring_id . "'");
@@ -23,7 +23,7 @@ class ModelExtensionOtherRecurring extends Model {
 	 *
 	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getRecurrings(array $data): array {
 		$sql = "SELECT `or`.`order_recurring_id`, `or`.`order_id`, `or`.`reference`, `or`.`status`, `or`.`date_added`, CONCAT(`o`.`firstname`, ' ', `o`.`lastname`) AS customer FROM `" . DB_PREFIX . "order_recurring` `or` LEFT JOIN `" . DB_PREFIX . "order` `o` ON (`or`.`order_id` = `o`.`order_id`)";
@@ -101,7 +101,7 @@ class ModelExtensionOtherRecurring extends Model {
 	 *
 	 * @param int $order_recurring_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getRecurringTransactions(int $order_recurring_id): array {
 		$transactions = [];
@@ -254,7 +254,7 @@ class ModelExtensionOtherRecurring extends Model {
 	 * @param int $start
 	 * @param int $limit
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getHistories(int $order_recurring_id, int $start = 0, int $limit = 10): array {
 		if ($start < 0) {

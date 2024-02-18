@@ -51,7 +51,7 @@ class ModelExtensionPaymentG2aPay extends Model {
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getOrder(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "g2apay_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
@@ -67,7 +67,7 @@ class ModelExtensionPaymentG2aPay extends Model {
 	}
 
 	/**
-	 * getTotalReleased
+	 * Get Total Released
 	 *
 	 * @param int $g2apay_order_id
 	 *
@@ -82,10 +82,10 @@ class ModelExtensionPaymentG2aPay extends Model {
 	/**
 	 * Refund
 	 *
-	 * @param array $g2apay_order
-	 * @param float $amount
+	 * @param array<string, mixed> $g2apay_order
+	 * @param float                $amount
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function refund(array $g2apay_order, float $amount): array {
 		if ($g2apay_order && $g2apay_order['refund_status'] != 1) {
@@ -174,8 +174,8 @@ class ModelExtensionPaymentG2aPay extends Model {
 	/**
 	 * Send Curl
 	 *
-	 * @param string $url
-	 * @param array  $fields
+	 * @param string               $url
+	 * @param array<string, mixed> $fields
 	 *
 	 * @return string
 	 */

@@ -82,7 +82,7 @@ class ModelExtensionPaymentWorldpay extends Model {
 	 * @param int   $order_id
 	 * @param float $amount
 	 *
-	 * @return array
+	 * @return array<string, string>
 	 */
 	public function refund(int $order_id, float $amount): array {
 		$worldpay_order = $this->getOrder($order_id);
@@ -98,7 +98,7 @@ class ModelExtensionPaymentWorldpay extends Model {
 	}
 
 	/**
-	 * updateRefundStatus
+	 * Update Refund Status
 	 *
 	 * @param int $worldpay_order_id
 	 * @param int $status
@@ -114,7 +114,7 @@ class ModelExtensionPaymentWorldpay extends Model {
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array
+	 * @return array<string, string>
 	 */
 	public function getOrder(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "worldpay_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
@@ -138,7 +138,7 @@ class ModelExtensionPaymentWorldpay extends Model {
 	}
 
 	/**
-	 * addTransaction
+	 * Add Transaction
 	 *
 	 * @param int    $worldpay_order_id
 	 * @param string $type
@@ -151,7 +151,7 @@ class ModelExtensionPaymentWorldpay extends Model {
 	}
 
 	/**
-	 * getTotalReleased
+	 * Get Total Released
 	 *
 	 * @param int $worldpay_order_id
 	 *
@@ -164,7 +164,7 @@ class ModelExtensionPaymentWorldpay extends Model {
 	}
 
 	/**
-	 * getTotalRefunded
+	 * Get Total Refunded
 	 *
 	 * @param int $worldpay_order_id
 	 *
@@ -179,12 +179,14 @@ class ModelExtensionPaymentWorldpay extends Model {
 	/**
 	 * sendCurl
 	 *
-	 * @param string $url
-	 * @param array  $order
+	 * @param string               $url
+	 * @param array<string, mixed> $order
 	 *
-	 * @return array
+	 * @return array<string, string>
 	 */
 	public function sendCurl(string $url, array $order): array {
+		$response = [];
+		
 		$json = json_encode($order);
 
 		$curl = curl_init();
@@ -205,8 +207,6 @@ class ModelExtensionPaymentWorldpay extends Model {
 		$result = json_decode(curl_exec($curl));
 
 		curl_close($curl);
-
-		$response = [];
 
 		if (isset($result)) {
 			$response['status'] = $result->httpStatusCode;

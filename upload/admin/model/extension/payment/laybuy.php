@@ -6,7 +6,7 @@
  */
 class ModelExtensionPaymentLaybuy extends Model {
 	/**
-	 * addRevisedTransaction
+	 * Add Revised Transaction
 	 *
 	 * @param array<string, mixed> $data
 	 *
@@ -19,7 +19,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 	}
 
 	/**
-	 * getCustomerIdByOrderId
+	 * Get Customer Id By Order Id
 	 *
 	 * @param int $order_id
 	 *
@@ -36,9 +36,9 @@ class ModelExtensionPaymentLaybuy extends Model {
 	}
 
 	/**
-	 * getInitialPayments
+	 * Get Initial Payments
 	 *
-	 * @return array
+	 * @return array<int, int>
 	 */
 	public function getInitialPayments(): array {
 		$initial_payments = [];
@@ -54,9 +54,9 @@ class ModelExtensionPaymentLaybuy extends Model {
 	}
 
 	/**
-	 * getMonths
+	 * Get Months
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getMonths(): array {
 		$this->load->language('extension/payment/laybuy');
@@ -84,9 +84,9 @@ class ModelExtensionPaymentLaybuy extends Model {
 	}
 
 	/**
-	 * getPayPalProfileIds
+	 * Get PayPal Pro file Ids
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getPayPalProfileIds(): array {
 		$query = $this->db->query("SELECT `paypal_profile_id` FROM `" . DB_PREFIX . "laybuy_transaction` WHERE `status` = '1'");
@@ -95,11 +95,11 @@ class ModelExtensionPaymentLaybuy extends Model {
 	}
 
 	/**
-	 * getRevisedTransaction
+	 * Get Revised Transaction
 	 *
 	 * @param int $id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getRevisedTransaction(int $id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "laybuy_revise_request` WHERE `laybuy_revise_request_id` = '" . (int)$id . "'");
@@ -108,7 +108,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 	}
 
 	/**
-	 * getRemainingAmount
+	 * Get Remaining Amount
 	 *
 	 * @param float $amount
 	 * @param float $downpayment_amount
@@ -122,11 +122,11 @@ class ModelExtensionPaymentLaybuy extends Model {
 	}
 
 	/**
-	 * getRevisedTransactions
+	 * Get Revised Transactions
 	 *
 	 * @param int $id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getRevisedTransactions(int $id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "laybuy_revise_request` WHERE `laybuy_revise_request_id` = '" . (int)$id . "'");
@@ -135,7 +135,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 	}
 
 	/**
-	 * getStatusLabel
+	 * Get Status Label
 	 *
 	 * @param int $id
 	 *
@@ -155,11 +155,11 @@ class ModelExtensionPaymentLaybuy extends Model {
 	}
 
 	/**
-	 * getTransaction
+	 * Get Transaction
 	 *
 	 * @param int $id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getTransaction(int $id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "laybuy_transaction` WHERE `laybuy_transaction_id` = '" . (int)$id . "'");
@@ -168,11 +168,11 @@ class ModelExtensionPaymentLaybuy extends Model {
 	}
 
 	/**
-	 * getTransactions
+	 * Get Transactions
 	 *
 	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getTransactions(array $data = []): array {
 		$implode = [];
@@ -254,7 +254,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 	}
 
 	/**
-	 * getTotalTransactions
+	 * Get Total Transactions
 	 *
 	 * @param array<string, mixed> $data
 	 *
@@ -299,11 +299,11 @@ class ModelExtensionPaymentLaybuy extends Model {
 	}
 
 	/**
-	 * getTransactionByLayBuyRefId
+	 * Get Transaction By LayBuy Ref Id
 	 *
 	 * @param int $laybuy_ref_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getTransactionByLayBuyRefId(int $laybuy_ref_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "laybuy_transaction` WHERE `laybuy_ref_no` = '" . (int)$laybuy_ref_id . "'");
@@ -312,11 +312,11 @@ class ModelExtensionPaymentLaybuy extends Model {
 	}
 
 	/**
-	 * getTransactionByOrderId
+	 * Get Transaction By Order Id
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getTransactionByOrderId(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "laybuy_transaction` WHERE `order_id` = '" . (int)$order_id . "' ORDER BY `laybuy_ref_no` DESC LIMIT 1");
@@ -325,9 +325,9 @@ class ModelExtensionPaymentLaybuy extends Model {
 	}
 
 	/**
-	 * getTransactionStatuses
+	 * Get Transaction Statuses
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getTransactionStatuses(): array {
 		$this->load->language('extension/payment/laybuy');
@@ -463,7 +463,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 	}
 
 	/**
-	 * updateOrderStatus
+	 * Update Order Status
 	 *
 	 * @param int    $order_id
 	 * @param int    $order_status_id
@@ -478,7 +478,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 	}
 
 	/**
-	 * updateRevisedTransaction
+	 * Update Revised Transaction
 	 *
 	 * @param int                  $id
 	 * @param array<string, mixed> $data
@@ -490,7 +490,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 	}
 
 	/**
-	 * updateTransaction
+	 * Update Transaction
 	 *
 	 * @param int    $id
 	 * @param int    $status
@@ -504,7 +504,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 	}
 
 	/**
-	 * updateTransactionStatus
+	 * Update Transaction Status
 	 *
 	 * @param int $id
 	 * @param int $status

@@ -92,7 +92,7 @@ class ModelExtensionPaymentSagepayServer extends Model {
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array
+	 * @return array<string, string>
 	 */
 	public function void(int $order_id): array {
 		$sagepay_server_order = $this->getOrder($order_id);
@@ -131,7 +131,7 @@ class ModelExtensionPaymentSagepayServer extends Model {
 	}
 
 	/**
-	 * updateVoidStatus
+	 * Update Void Status
 	 *
 	 * @param int $sagepay_server_order_id
 	 * @param int $status
@@ -143,7 +143,7 @@ class ModelExtensionPaymentSagepayServer extends Model {
 	}
 
 	/**
-	 * updateReleaseStatus
+	 * Update Release Status
 	 *
 	 * @param int $sagepay_server_order_id
 	 * @param int $status
@@ -155,7 +155,7 @@ class ModelExtensionPaymentSagepayServer extends Model {
 	}
 
 	/**
-	 * updateRebateStatus
+	 * Update Rebate Status
 	 *
 	 * @param int $sagepay_server_order_id
 	 * @param int $status
@@ -172,7 +172,7 @@ class ModelExtensionPaymentSagepayServer extends Model {
 	 * @param int   $order_id
 	 * @param float $amount
 	 *
-	 * @return array
+	 * @return array<string, string>
 	 */
 	public function release(int $order_id, float $amount): array {
 		$sagepay_server_order = $this->getOrder($order_id);
@@ -214,7 +214,7 @@ class ModelExtensionPaymentSagepayServer extends Model {
 	}
 
 	/**
-	 * updateForRebate
+	 * Update For Rebate
 	 *
 	 * @param int    $sagepay_server_order_id
 	 * @param string $order_ref
@@ -231,7 +231,7 @@ class ModelExtensionPaymentSagepayServer extends Model {
 	 * @param int   $order_id
 	 * @param float $amount
 	 *
-	 * @return array
+	 * @return array<string, string>
 	 */
 	public function rebate(int $order_id, float $amount): array {
 		$sagepay_server_order = $this->getOrder($order_id);
@@ -274,11 +274,11 @@ class ModelExtensionPaymentSagepayServer extends Model {
 	}
 
 	/**
-	 * getOrder
+	 * Get Order
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array
+	 * @return array<string, string>
 	 */
 	public function getOrder(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "sagepay_server_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
@@ -353,8 +353,8 @@ class ModelExtensionPaymentSagepayServer extends Model {
 	/**
 	 * Send Curl
 	 *
-	 * @param string $url
-	 * @param array  $payment_data
+	 * @param string       $url
+	 * @param array<mixed> $payment_data
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */
@@ -397,8 +397,8 @@ class ModelExtensionPaymentSagepayServer extends Model {
 	/**
 	 * Logger
 	 *
-	 * @param string $title
-	 * @param array  $data
+	 * @param string       $title
+	 * @param array<mixed> $data
 	 *
 	 * @return void
 	 */

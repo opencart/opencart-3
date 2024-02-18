@@ -65,11 +65,11 @@ class ModelExtensionPaymentEway extends Model {
 	}
 
 	/**
-	 * getOrder
+	 * Get Order
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getOrder(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "eway_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
@@ -86,10 +86,10 @@ class ModelExtensionPaymentEway extends Model {
 	}
 
 	/**
-	 * addRefundRecord
+	 * Add Refund Record
 	 *
-	 * @param array  $order
-	 * @param object $result
+	 * @param array<string, mixed> $order
+	 * @param object               $result
 	 *
 	 * @return void
 	 */
@@ -114,7 +114,7 @@ class ModelExtensionPaymentEway extends Model {
 	 * @param float  $capture_amount
 	 * @param string $currency
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function capture(int $order_id, float $capture_amount, string $currency): array {
 		$eway_order = $this->getOrder($order_id);
@@ -141,7 +141,7 @@ class ModelExtensionPaymentEway extends Model {
 	}
 
 	/**
-	 * updateCaptureStatus
+	 * Update Capture Status
 	 *
 	 * @param int $eway_order_id
 	 * @param int $status
@@ -193,7 +193,7 @@ class ModelExtensionPaymentEway extends Model {
 	}
 
 	/**
-	 * updateVoidStatus
+	 * Update Void Status
 	 *
 	 * @param int $eway_order_id
 	 * @param int $status
@@ -210,7 +210,7 @@ class ModelExtensionPaymentEway extends Model {
 	 * @param int   $order_id
 	 * @param float $refund_amount
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function refund(int $order_id, float $refund_amount): array {
 		$eway_order = $this->getOrder($order_id);
@@ -237,7 +237,7 @@ class ModelExtensionPaymentEway extends Model {
 	}
 
 	/**
-	 * updateRefundStatus
+	 * Update Refund Status
 	 *
 	 * @param int $eway_order_id
 	 * @param int $status
@@ -249,10 +249,10 @@ class ModelExtensionPaymentEway extends Model {
 	}
 
 	/**
-	 * sendCurl
+	 * Send Curl
 	 *
-	 * @param string $url
-	 * @param array  $data
+	 * @param string               $url
+	 * @param array<string, mixed> $data
 	 *
 	 * @return object
 	 */

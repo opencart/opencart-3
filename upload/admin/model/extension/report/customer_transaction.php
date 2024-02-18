@@ -6,11 +6,11 @@
  */
 class ModelExtensionReportCustomerTransaction extends Model {
 	/**
-	 * getTransactions
+	 * Get Transactions
 	 *
 	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getTransactions(array $data = []): array {
 		$implode = [];
@@ -55,7 +55,7 @@ class ModelExtensionReportCustomerTransaction extends Model {
 	}
 
 	/**
-	 * getTotalTransactions
+	 * Get Total Transactions
 	 *
 	 * @param array<string, mixed> $data
 	 *

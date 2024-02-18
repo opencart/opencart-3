@@ -10,11 +10,11 @@ use Cardinity\Method\Refund;
 
 class ModelExtensionPaymentCardinity extends Model {
 	/**
-	 * getOrder
+	 * Get Order
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getOrder(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "cardinity_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
@@ -23,9 +23,9 @@ class ModelExtensionPaymentCardinity extends Model {
 	}
 
 	/**
-	 * createClient
+	 * Create Client
 	 *
-	 * @param array $credentials
+	 * @param array<string, mixed> $credentials
 	 *
 	 * @return ?object
 	 */
@@ -41,13 +41,13 @@ class ModelExtensionPaymentCardinity extends Model {
 	}
 
 	/**
-	 * verifyCredentials
+	 * Verify Credentials
 	 *
-	 * @param object $client
+	 * @param mixed $client
 	 *
-	 * @return object|null
+	 * @return Exception|object|null
 	 */
-	public function verifyCredentials(object $client): ?object {
+	public function verifyCredentials($client): ?object {
 		$method = new Payment\GetAll(10);
 
 		try {
@@ -62,14 +62,14 @@ class ModelExtensionPaymentCardinity extends Model {
 	}
 
 	/**
-	 * getPayment
+	 * Get Payment
 	 *
-	 * @param object $client
+	 * @param mixed  $client
 	 * @param string $payment_id
 	 *
-	 * @return object|null
+	 * @return Exception|object|null
 	 */
-	public function getPayment(object $client, string $payment_id): ?object {
+	public function getPayment($client, string $payment_id): ?object {
 		$method = new Payment\Get($payment_id);
 
 		try {
@@ -82,14 +82,14 @@ class ModelExtensionPaymentCardinity extends Model {
 	}
 
 	/**
-	 * getRefunds
+	 * Get Refunds
 	 *
-	 * @param object $client
+	 * @param mixed  $client
 	 * @param string $payment_id
 	 *
-	 * @return object|null
+	 * @return Exception|object|null
 	 */
-	public function getRefunds(object $client, string $payment_id): ?object {
+	public function getRefunds($client, string $payment_id): ?object {
 		$method = new Refund\GetAll($payment_id);
 
 		try {
@@ -102,16 +102,16 @@ class ModelExtensionPaymentCardinity extends Model {
 	}
 
 	/**
-	 * refundPayment
+	 * Refund Payment
 	 *
-	 * @param object $client
+	 * @param mixed  $client
 	 * @param string $payment_id
 	 * @param float  $amount
 	 * @param string $description
 	 *
-	 * @return object|null
+	 * @return Exception|object|null
 	 */
-	public function refundPayment(object $client, string $payment_id, float $amount, string $description): ?object {
+	public function refundPayment($client, string $payment_id, float $amount, string $description): ?object {
 		$method = new Refund\Create($payment_id, $amount, $description);
 
 		try {

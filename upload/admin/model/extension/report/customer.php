@@ -6,9 +6,9 @@
  */
 class ModelExtensionReportCustomer extends Model {
 	/**
-	 * getTotalCustomersByDay
+	 * Get Total Customers By Day
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getTotalCustomersByDay(): array {
 		$customer_data = [];
@@ -33,9 +33,9 @@ class ModelExtensionReportCustomer extends Model {
 	}
 
 	/**
-	 * getTotalCustomersByWeek
+	 * Get Total Customers By Week
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getTotalCustomersByWeek(): array {
 		$customer_data = [];
@@ -64,9 +64,9 @@ class ModelExtensionReportCustomer extends Model {
 	}
 
 	/**
-	 * getTotalCustomersByMonth
+	 * Get Total Customers By Month
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getTotalCustomersByMonth(): array {
 		$customer_data = [];
@@ -93,9 +93,9 @@ class ModelExtensionReportCustomer extends Model {
 	}
 
 	/**
-	 * getTotalCustomersByYear
+	 * Get Total Customers By Year
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getTotalCustomersByYear(): array {
 		$customer_data = [];
@@ -120,11 +120,11 @@ class ModelExtensionReportCustomer extends Model {
 	}
 
 	/**
-	 * getOrders
+	 * Get Orders
 	 *
 	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getOrders(array $data = []): array {
 		$implode = [];
@@ -178,7 +178,7 @@ class ModelExtensionReportCustomer extends Model {
 	}
 
 	/**
-	 * getTotalOrders
+	 * Get Total Orders
 	 *
 	 * @param array<string, mixed> $data
 	 *
@@ -211,11 +211,11 @@ class ModelExtensionReportCustomer extends Model {
 	}
 
 	/**
-	 * getRewardPoints
+	 * Get Reward Points
 	 *
 	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getRewardPoints(array $data = []): array {
 		$sql = "SELECT `cr`.`customer_id`, CONCAT(`c`.`firstname`, ' ', `c`.`lastname`) AS `customer`, `c`.`email`, `cgd`.`name` AS `customer_group`, `c`.`status`, SUM(`cr`.`points`) AS `points`, COUNT(`o`.`order_id`) AS `orders`, SUM(`o`.`total`) AS `total` FROM `" . DB_PREFIX . "customer_reward` `cr` LEFT JOIN `" . DB_PREFIX . "customer` `c` ON (`cr`.`customer_id` = `c`.`customer_id`) LEFT JOIN `" . DB_PREFIX . "customer_group_description` `cgd` ON (`c`.`customer_group_id` = `cgd`.`customer_group_id`) LEFT JOIN `" . DB_PREFIX . "order` `o` ON (`cr`.`order_id` = `o`.`order_id`) WHERE `cgd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
@@ -252,7 +252,7 @@ class ModelExtensionReportCustomer extends Model {
 	}
 
 	/**
-	 * getTotalRewardPoints
+	 * Get Total Reward Points
 	 *
 	 * @param array<string, mixed> $data
 	 *
@@ -285,11 +285,11 @@ class ModelExtensionReportCustomer extends Model {
 	}
 
 	/**
-	 * getCustomerActivities
+	 * Get Customer Activities
 	 *
 	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getCustomerActivities(array $data = []): array {
 		$sql = "SELECT `ca`.`customer_activity_id`, `ca`.`customer_id`, `ca`.`key`, `ca`.`data`, `ca`.`ip`, `ca`.`date_added` FROM `" . DB_PREFIX . "customer_activity` `ca` LEFT JOIN `" . DB_PREFIX . "customer` `c` ON (`ca`.`customer_id` = `c`.`customer_id`)";
@@ -336,7 +336,7 @@ class ModelExtensionReportCustomer extends Model {
 	}
 
 	/**
-	 * getTotalCustomerActivities
+	 * Get Total Customer Activities
 	 *
 	 * @param array<string, mixed> $data
 	 *
@@ -373,11 +373,11 @@ class ModelExtensionReportCustomer extends Model {
 	}
 
 	/**
-	 * getCustomerSearches
+	 * Get Customer Searches
 	 *
 	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getCustomerSearches(array $data = []): array {
 		$sql = "SELECT `cs`.`customer_id`, `cs`.`keyword`, `cs`.`category_id`, `cs`.`products`, `cs`.`ip`, `cs`.`date_added`, CONCAT(`c`.`firstname`, ' ', `c`.`lastname`) AS `customer` FROM `" . DB_PREFIX . "customer_search` `cs` LEFT JOIN `" . DB_PREFIX . "customer` `c` ON (`cs`.`customer_id` = `c`.`customer_id`)";
@@ -428,7 +428,7 @@ class ModelExtensionReportCustomer extends Model {
 	}
 
 	/**
-	 * getTotalCustomerSearches
+	 * Get Total Customer Searches
 	 *
 	 * @param array<string, mixed> $data
 	 *

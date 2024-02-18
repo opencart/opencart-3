@@ -13,11 +13,11 @@ class ModelExtensionPaymentSquareup extends Model {
 	public const RECURRING_PENDING = 6;
 
 	/**
-	 * getTransaction
+	 * Get Transaction
 	 *
 	 * @param int $squareup_transaction_id
 	 *
-	 * @return array
+	 * @return array<string, string>
 	 */
 	public function getTransaction(int $squareup_transaction_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "squareup_transaction` WHERE `squareup_transaction_id` = '" . (int)$squareup_transaction_id . "'");
@@ -26,11 +26,11 @@ class ModelExtensionPaymentSquareup extends Model {
 	}
 
 	/**
-	 * getTransactions
+	 * Get Transactions
 	 *
 	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getTransactions(array $data): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "squareup_transaction`";
@@ -59,7 +59,7 @@ class ModelExtensionPaymentSquareup extends Model {
 	}
 
 	/**
-	 * getTotalTransactions
+	 * Get Total Transactions
 	 *
 	 * @param array<string, mixed> $data
 	 *
@@ -78,11 +78,11 @@ class ModelExtensionPaymentSquareup extends Model {
 	}
 
 	/**
-	 * updateTransaction
+	 * Update Transaction
 	 *
-	 * @param int    $squareup_transaction_id
-	 * @param string $type
-	 * @param array  $refunds
+	 * @param int                  $squareup_transaction_id
+	 * @param string               $type
+	 * @param array<string, mixed> $refunds
 	 *
 	 * @return void
 	 */
@@ -91,7 +91,7 @@ class ModelExtensionPaymentSquareup extends Model {
 	}
 
 	/**
-	 * getOrderStatusId
+	 * Get Order Status Id
 	 *
 	 * @param int    $order_id
 	 * @param string $transaction_status
@@ -112,7 +112,7 @@ class ModelExtensionPaymentSquareup extends Model {
 	}
 
 	/**
-	 * editOrderSubscriptionStatus
+	 * Edit Order Subscription Status
 	 *
 	 * @param int $subscription_id
 	 * @param int $status
@@ -124,7 +124,7 @@ class ModelExtensionPaymentSquareup extends Model {
 	}
 
 	/**
-	 * createTables
+	 * Create Tables
 	 *
 	 * @return void
 	 */

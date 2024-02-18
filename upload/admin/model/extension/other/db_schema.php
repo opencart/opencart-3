@@ -6,12 +6,12 @@
  */
 class ModelExtensionOtherDbSchema extends Model {
 	/**
-	 * getTable
+	 * Get Table
 	 *
 	 * @param string $name
 	 * @param array  $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getTable(string $name, array $data = []): array {
 		$implode = [];
@@ -32,11 +32,11 @@ class ModelExtensionOtherDbSchema extends Model {
 	}
 
 	/**
-	 * getTables
+	 * Get Tables
 	 *
 	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getTables(array $data = []): array {
 		$sql = "SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "'";
@@ -59,12 +59,12 @@ class ModelExtensionOtherDbSchema extends Model {
 	}
 
 	/**
-	 * getIndexes
+	 * Get Indexes
 	 *
 	 * @param string $name
 	 * @param array  $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getIndexes(string $name, array $data): array {
 		$implode = [];
@@ -85,7 +85,7 @@ class ModelExtensionOtherDbSchema extends Model {
 	}
 
 	/**
-	 * getTotalTables
+	 * Get Total Tables
 	 *
 	 * @return int
 	 */
