@@ -120,9 +120,9 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 					$trans_type = 'default';
 			}
 
-			$this->db->query("UPDATE `" . DB_PREFIX . "securetrading_pp_order` SET `settle_type` = '" . $this->config->get('payment_securetrading_pp_settle_status') . "', `modified` = NOW(), `currency_code` = '" . $this->db->escape($order_info['currency_code']) . "', `total` = '" . $amount . "' WHERE `order_id` = '" . (int)$order_info['order_id'] . "'");
+			$this->db->query("UPDATE `" . DB_PREFIX . "securetrading_pp_order` SET `settle_type` = '" . $this->config->get('payment_securetrading_pp_settle_status') . "', `modified` = NOW(), `currency_code` = '" . $this->db->escape($order_info['currency_code']) . "', `total` = '" . (float)$amount . "' WHERE `order_id` = '" . (int)$order_info['order_id'] . "'");
 
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "securetrading_pp_order_transaction` SET `securetrading_pp_order_id` = '" . (int)$securetrading_pp_order['securetrading_pp_order_id'] . "', `amount` = '" . $amount . "', `type` = '" . $trans_type . "', `created` = NOW()");
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "securetrading_pp_order_transaction` SET `securetrading_pp_order_id` = '" . (int)$securetrading_pp_order['securetrading_pp_order_id'] . "', `amount` = '" . (float)$amount . "', `type` = '" . $this->db->escape($trans_type) . "', `created` = NOW()");
 		}
 
 		return 0;

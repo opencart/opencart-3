@@ -85,7 +85,7 @@ class ModelSaleSubscription extends Model {
 	 * @return void
 	 */
 	public function deleteSubscriptionByCustomerPaymentId(int $customer_payment_id): void {
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "subscription` WHERE `customer_payment_id ` = '" . $customer_payment_id);
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "subscription` WHERE `customer_payment_id ` = '" . (int)$customer_payment_id . "'");
 	}
 
 	/**

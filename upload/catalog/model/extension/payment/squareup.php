@@ -556,9 +556,9 @@ class ModelExtensionPaymentSquareup extends Model {
 	 */
 	private function editTokenSetting(array $settings): void {
 		foreach ($settings as $key => $value) {
-			$this->db->query("DELETE FROM `" . DB_PREFIX . "setting` WHERE `code` = 'payment_squareup' AND `key` = '" . $key . "'");
+			$this->db->query("DELETE FROM `" . DB_PREFIX . "setting` WHERE `code` = 'payment_squareup' AND `key` = '" . $this->db->escape($key) . "'");
 
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `code` = 'payment_squareup', `key` = '" . $key . "', `value` = '" . $this->db->escape($value) . "', `serialized` = '0', `store_id` = '0'");
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `code` = 'payment_squareup', `key` = '" . $this->db->escape($key) . "', `value` = '" . $this->db->escape($value) . "', `serialized` = '0', `store_id` = '0'");
 		}
 	}
 

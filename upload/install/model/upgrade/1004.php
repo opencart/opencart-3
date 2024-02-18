@@ -178,7 +178,7 @@ class ModelUpgrade1004 extends Model {
 
 							$module_id = $this->db->getLastId();
 
-							$this->db->query("DELETE FROM `" . DB_PREFIX . "setting` WHERE `store_id` = '" . $result['store_id'] . "' AND `code` = '" . $result['code'] . "'");
+							$this->db->query("DELETE FROM `" . DB_PREFIX . "setting` WHERE `store_id` = '" . (int)$result['store_id'] . "' AND `code` = '" . $this->db->escape($result['code']) . "'");
 
 							$this->db->query("INSERT INTO `" . DB_PREFIX . "layout_module` SET `layout_id` = '" . (int)$v['layout_id'] . "', `code` = '" . ($result['code'] . '.' . $module_id) . "', `position` = '" . $this->db->escape($v['position']) . "', `sort_order` = '" . (int)$v['sort_order'] . "'");
 						}
@@ -187,12 +187,12 @@ class ModelUpgrade1004 extends Model {
 					}
 				} elseif (in_array($result['code'], ['category', 'account', 'affiliate', 'filter'])) {
 					foreach ($value as $k => $v) {
-						$this->db->query("DELETE FROM `" . DB_PREFIX . "setting` WHERE `store_id` = '" . $result['store_id'] . "' AND `code` = '" . $result['code'] . "'");
+						$this->db->query("DELETE FROM `" . DB_PREFIX . "setting` WHERE `store_id` = '" . (int)$result['store_id'] . "' AND `code` = '" . $this->db->escape($result['code']) . "'");
 
-						$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '" . $result['store_id'] . "', `code` = '" . $result['code'] . "', `key` = '" . ($result['code'] . '_status') . "', `value` = '1'");
+						$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '" . (int)$result['store_id'] . "', `code` = '" . $this->db->escape($result['code']) . "', `key` = '" . ($result['code'] . '_status') . "', `value` = '1'");
 
 						if ($v['status']) {
-							$this->db->query("INSERT INTO `" . DB_PREFIX . "layout_module` SET `layout_id` = '" . (int)$v['layout_id'] . "', `code` = '" . ($result['code']) . "', `position` = '" . $this->db->escape($v['position']) . "', `sort_order` = '" . (int)$v['sort_order'] . "'");
+							$this->db->query("INSERT INTO `" . DB_PREFIX . "layout_module` SET `layout_id` = '" . (int)$v['layout_id'] . "', `code` = '" . $this->db->escape($result['code']) . "', `position` = '" . $this->db->escape($v['position']) . "', `sort_order` = '" . (int)$v['sort_order'] . "'");
 						}
 					}
 				} elseif (in_array($result['code'], ['banner', 'carousel', 'slideshow'])) {
@@ -224,7 +224,7 @@ class ModelUpgrade1004 extends Model {
 
 							$this->db->query("INSERT INTO `" . DB_PREFIX . "layout_module` SET `layout_id` = '" . (int)$v['layout_id'] . "', `code` = '" . ($result['code'] . '.' . $module_id) . "', `position` = '" . $this->db->escape($v['position']) . "', `sort_order` = '" . (int)$v['sort_order'] . "'");
 
-							$this->db->query("DELETE FROM `" . DB_PREFIX . "setting` WHERE `store_id` = '" . $result['store_id'] . "' AND `code` = '" . $result['code'] . "'");
+							$this->db->query("DELETE FROM `" . DB_PREFIX . "setting` WHERE `store_id` = '" . (int)$result['store_id'] . "' AND `code` = '" . $this->db->escape($result['code']) . "'");
 						}
 					} else {
 						$this->db->query("DELETE FROM `" . DB_PREFIX . "extension` WHERE `code` = '" . $this->db->escape($result['code']) . "'");
@@ -253,7 +253,7 @@ class ModelUpgrade1004 extends Model {
 
 							$module_id = $this->db->getLastId();
 
-							$this->db->query("DELETE FROM `" . DB_PREFIX . "setting` WHERE `store_id` = '" . $result['store_id'] . "' AND `code` = 'welcome'");
+							$this->db->query("DELETE FROM `" . DB_PREFIX . "setting` WHERE `store_id` = '" . (int)$result['store_id'] . "' AND `code` = 'welcome'");
 
 							$this->db->query("INSERT INTO `" . DB_PREFIX . "layout_module`  SET `layout_id` = '" . (int)$v['layout_id'] . "', `code` = '" . ($result['code'] . '.' . $module_id) . "', `position` = '" . $this->db->escape($v['position']) . "', `sort_order` = '" . (int)$v['sort_order'] . "'");
 						}

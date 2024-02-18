@@ -215,7 +215,7 @@ class ModelExtensionPaymentPayPal extends Model {
 	 * @return void
 	 */
 	public function addPayPalOrderSubscription(array $data): void {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "paypal_checkout_integration_subscription` SET `subscription_id` = '" . (int)$data['subscription_id'] . "', `order_id` = '" . (int)$data['order_id'] . "', `next_payment` = NOW(), `trial_end` = '" . $data['trial_end'] . "', `subscription_end` = '" . $data['subscription_end'] . "', `currency_code` = '" . $this->db->escape($data['currency_code']) . "', `total` = '" . $this->currency->format($data['amount'], $data['currency_code'], false, false) . "', `date_added` = NOW(), `date_modified` = NOW()");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "paypal_checkout_integration_subscription` SET `subscription_id` = '" . (int)$data['subscription_id'] . "', `order_id` = '" . (int)$data['order_id'] . "', `next_payment` = NOW(), `trial_end` = '" . $this->db->escape($data['trial_end']) . "', `subscription_end` = '" . $this->db->escape($data['subscription_end']) . "', `currency_code` = '" . $this->db->escape($data['currency_code']) . "', `total` = '" . $this->currency->format($data['amount'], $data['currency_code'], false, false) . "', `date_added` = NOW(), `date_modified` = NOW()");
 	}
 
 	/**

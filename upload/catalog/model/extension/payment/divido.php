@@ -75,31 +75,31 @@ class ModelExtensionPaymentDivido extends Model {
 	 *
 	 * @return void
 	 */
-	public function saveLookup(int $order_id, string $salt, ?string $proposal_id = null, ?string $application_id = null, ?float $deposit_amount = null): void {
-		$query = $this->db->query("SELECT `application_id` FROM `" . DB_PREFIX . "divido_lookup` WHERE `order_id` = '" . $order_id . "'");
+	public function saveLookup(int $order_id, string $salt, string $proposal_id = null, string $application_id = null, float $deposit_amount = null): void {
+		$query = $this->db->query("SELECT `application_id` FROM `" . DB_PREFIX . "divido_lookup` WHERE `order_id` = '" . (int)$order_id . "'");
 
 		if (!$query->num_rows) {
 			$proposal_id = ($proposal_id) ? "'" . $proposal_id . "'" : 'NULL';
 			$application_id = ($application_id) ? "'" . $application_id . "'" : 'NULL';
 			$deposit_amount = ($deposit_amount) ?: 'NULL';
 
-			$sql = "INSERT INTO `" . DB_PREFIX . "divido_lookup` SET `order_id` = '" . (int)$order_id . "', `salt` = '" . $this->db->escape($salt) . "', `proposal_id` = '" . $this->db->escape($proposal_id) . "', `application_id` = '" . $application_id . "', `deposit_amount` = '" . (float)$deposit_amount . "'";
+			$sql = "INSERT INTO `" . DB_PREFIX . "divido_lookup` SET `order_id` = '" . (int)$order_id . "', `salt` = '" . $this->db->escape($salt) . "', `proposal_id` = '" . $this->db->escape($proposal_id) . "', `application_id` = '" . $this->db->escape($application_id) . "', `deposit_amount` = '" . (float)$deposit_amount . "'";
 		} else {
-			$sql = "UPDATE `" . DB_PREFIX . "divido_lookup` SET `salt` = '" . $salt . "'";
+			$sql = "UPDATE `" . DB_PREFIX . "divido_lookup` SET `salt` = '" . $this->db->escape($salt) . "'";
 
 			if ($proposal_id) {
-				$sql .= ", `proposal_id` = '" . $proposal_id . "'";
+				$sql .= ", `proposal_id` = '" . $this->db->escape($proposal_id) . "'";
 			}
 
 			if ($application_id) {
-				$sql .= ", `application_id` = '" . $application_id . "'";
+				$sql .= ", `application_id` = '" . $this->db->escape($application_id) . "'";
 			}
 
 			if ($deposit_amount) {
-				$sql .= ", `deposit_amount` = '" . $deposit_amount . "'";
+				$sql .= ", `deposit_amount` = '" . (float)$deposit_amount . "'";
 			}
 
-			$sql .= " WHERE `order_id` = '" . $order_id . "'";
+			$sql .= " WHERE `order_id` = '" . (int)$order_id . "'";
 		}
 
 		$this->db->query($sql);
