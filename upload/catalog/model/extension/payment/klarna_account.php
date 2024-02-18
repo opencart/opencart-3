@@ -12,7 +12,7 @@ class ModelExtensionPaymentKlarnaAccount extends Model {
 	 *
 	 * @return array<string, mixed>
 	 */
-	public function getMethod(array $address): array {
+	public function getMethods(array $address): array {
 		return [];
 	}
 

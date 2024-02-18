@@ -23,7 +23,7 @@ class ModelExtensionPaymentDivido extends Model {
 	 *
 	 * Requires $total
 	 */
-	public function getMethod(array $address): array {
+	public function getMethods(array $address): array {
 		return [];
 	}
 

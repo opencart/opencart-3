@@ -12,7 +12,7 @@ class ModelExtensionPaymentPayPal extends Model {
 	 *
 	 * @return array<string, mixed>
 	 */
-	public function getMethod(array $address, float $total): array {
+	public function getMethods(array $address): array {
 		$method_data = [];
 
 		$agree_status = $this->getAgreeStatus();
@@ -22,9 +22,7 @@ class ModelExtensionPaymentPayPal extends Model {
 
 			$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `geo_zone_id` = '" . (int)$this->config->get('payment_paypal_geo_zone_id') . "' AND `country_id` = '" . (int)$address['country_id'] . "' AND (`zone_id` = '" . (int)$address['zone_id'] . "' OR `zone_id` = '0')");
 
-			if (($this->config->get('payment_paypal_total') > 0) && ($this->config->get('payment_paypal_total') > $total)) {
-				$status = false;
-			} elseif (!$this->config->get('payment_paypal_geo_zone_id')) {
+			if (!$this->config->get('payment_paypal_geo_zone_id')) {
 				$status = true;
 			} elseif ($query->num_rows) {
 				$status = true;
