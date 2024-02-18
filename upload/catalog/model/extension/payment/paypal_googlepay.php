@@ -4,10 +4,11 @@ class ModelExtensionPaymentPaypalGooglepay extends Model {
 	 * Get Method
 	 *
 	 * @param array<string, mixed> $address
+	 * @param float                $total
 	 *
 	 * @return array<string, mixed>
 	 */
-	public function getMethod($address) {
+	public function getMethod(array $address, float $total) {
 		$method_data = [];
 
 		$this->load->model('extension/payment/paypal');
@@ -17,7 +18,7 @@ class ModelExtensionPaymentPaypalGooglepay extends Model {
 		if ($this->config->get('payment_paypal_status') && $this->config->get('payment_paypal_client_id') && $this->config->get('payment_paypal_secret') && $agree_status) {
 			$this->load->language('extension/payment/paypal');
 
-			$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "zone_to_geo_zone WHERE geo_zone_id = '" . (int)$this->config->get('payment_paypal_geo_zone_id') . "' AND country_id = '" . (int)$address['country_id'] . "' AND (zone_id = '" . (int)$address['zone_id'] . "' OR zone_id = '0')");
+			$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `geo_zone_id` = '" . (int)$this->config->get('payment_paypal_geo_zone_id') . "' AND `country_id` = '" . (int)$address['country_id'] . "' AND (`zone_id` = '" . (int)$address['zone_id'] . "' OR `zone_id` = '0')");
 
 			if (($this->config->get('payment_paypal_total') > 0) && ($this->config->get('payment_paypal_total') > $total)) {
 				$status = false;
