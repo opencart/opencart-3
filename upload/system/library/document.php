@@ -96,7 +96,7 @@ class Document {
 	/**
 	 * getLinks
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getLinks(): array {
 		return $this->links;
@@ -145,7 +145,7 @@ class Document {
 	 *
 	 * @param string $position
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getScripts(string $position = 'header'): array {
 		if (isset($this->scripts[$position])) {

@@ -217,7 +217,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	 * @param string $google_product_category
 	 * @param int    $store_id
 	 *
-	 * @return array
+	 * @return array<string, string>
 	 */
 	public function getMappedCategory(string $google_product_category, int $store_id): array {
 		$query = $this->db->query("SELECT GROUP_CONCAT(`cd`.`name` ORDER BY `cp`.`level` SEPARATOR ' > ') AS `name`, `cp`.`category_id` FROM `" . DB_PREFIX . "category_path` `cp` LEFT JOIN `" . DB_PREFIX . "category_description` `cd` ON (`cp`.`path_id` = `cd`.`category_id`) LEFT JOIN `" . DB_PREFIX . "googleshopping_category` `c2gpc` ON (`c2gpc`.`category_id` = `cp`.`category_id`) WHERE `cd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "' AND `c2gpc`.`google_product_category` = '" . $this->db->escape($google_product_category) . "' AND `c2gpc`.`store_id` = '" . (int)$store_id . "'");
@@ -230,7 +230,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	 *
 	 * @param int $product_advertise_google_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getProductByProductAdvertiseGoogleId(int $product_advertise_google_id): array {
 		$sql = "SELECT `pag`.`product_id` FROM `" . DB_PREFIX . "googleshopping_product` `pag` WHERE `pag`.`product_advertise_google_id` = '" . (int)$product_advertise_google_id . "'";
@@ -252,7 +252,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	 *
 	 * @param int $product_advertise_google_id
 	 *
-	 * @return array
+	 * @return array<string, string>
 	 */
 	public function getProductAdvertiseGoogle(int $product_advertise_google_id): array {
 		$query = $this->db->query("SELECT `pag`.* FROM `" . DB_PREFIX . "googleshopping_product` `pag` WHERE `pag`.`product_advertise_google_id` = '" . (int)$product_advertise_google_id . "'");
@@ -279,7 +279,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	 * @param array $product_ids
 	 * @param int   $store_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getRequiredFieldsByProductIds(array $product_ids, int $store_id): array {
 		$this->load->config('googleshopping/googleshopping');
@@ -305,7 +305,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	 * @param array<string, mixed> $data
 	 * @param int                  $store_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getRequiredFieldsByFilter(array $data, int $store_id): array {
 		$this->load->config('googleshopping/googleshopping');
@@ -331,7 +331,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	 * @param array $product_ids
 	 * @param int   $store_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getTargetCountriesByProductIds(array $product_ids, int $store_id): array {
 		$sql = "SELECT DISTINCT `agt`.`country` FROM `" . DB_PREFIX . "googleshopping_product_target` `pagt` LEFT JOIN `" . DB_PREFIX . "googleshopping_target` `agt` ON (`agt`.`advertise_google_target_id` = `pagt`.`advertise_google_target_id` AND `agt`.`store_id` = `pagt`.`store_id`) WHERE `pagt`.`product_id` IN(" . $this->googleshopping->productIdsToIntegerExpression($product_ids) . ") AND `pagt`.`store_id` = '" . (int)$store_id . "'";
@@ -345,7 +345,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	 * @param array<string, mixed> $data
 	 * @param int                  $store_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getTargetCountriesByFilter(array $data, int $store_id): array {
 		$sql = "SELECT DISTINCT `agt`.`country` FROM `" . DB_PREFIX . "googleshopping_product_target` `pagt` LEFT JOIN `" . DB_PREFIX . "googleshopping_target` `agt` ON (`agt`.`advertise_google_target_id` = `pagt`.`advertise_google_target_id` AND `agt`.`store_id` = `pagt`.`store_id`) LEFT JOIN `" . DB_PREFIX . "product` `p` ON (`pagt`.`product_id` = `p`.`product_id`) LEFT JOIN `" . DB_PREFIX . "product_description` `pd` ON (`pd`.`product_id` = `pagt`.`product_id`) WHERE `pagt`.`store_id` = '" . (int)$store_id . "' AND `pd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
@@ -360,7 +360,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	 *
 	 * @param array $product_ids
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getProductOptionsByProductIds(array $product_ids): array {
 		$query = $this->db->query("SELECT `po`.`option_id`, `od`.`name` FROM `" . DB_PREFIX . "product_option` `po` LEFT JOIN `" . DB_PREFIX . "option_description` `od` ON (`od`.`option_id` = `po`.`option_id` AND `od`.`language_id` = '" . (int)$this->config->get('config_language_id') . "') LEFT JOIN `" . DB_PREFIX . "option` `o` ON (`o`.`option_id` = `po`.`option_id`) WHERE `o`.`type` IN('select', 'radio') AND `po`.`product_id` IN(" . $this->googleshopping->productIdsToIntegerExpression($product_ids) . ")");
@@ -373,7 +373,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	 *
 	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getProductOptionsByFilter(array $data): array {
 		$sql = "SELECT DISTINCT `po`.`option_id`, `od`.`name` FROM `" . DB_PREFIX . "product_option` `po` LEFT JOIN `" . DB_PREFIX . "option_description` `od` ON (`od`.`option_id` = `po`.`option_id` AND `od`.`language_id` = '" . (int)$this->config->get('config_language_id') . "') LEFT JOIN `" . DB_PREFIX . "option` `o` ON (`o`.`option_id` = `po`.`option_id`) LEFT JOIN `" . DB_PREFIX . "product` `p` ON (`po`.`product_id` = `p`.`product_id`) LEFT JOIN `" . DB_PREFIX . "product_description` `pd` ON (`pd`.`product_id` = `po`.`product_id`) WHERE `o`.`type` IN('select', 'radio') AND `pd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
@@ -523,7 +523,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	/**
 	 * updateMultipleProductFields
 	 *
-	 * @param array                $filter_data
+	 * @param array<string, mixed> $filter_data
 	 * @param array<string, mixed> $data
 	 *
 	 * @return void
@@ -587,7 +587,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	 * @param array<string, mixed> $data
 	 * @param int                  $store_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getCategories(array $data, int $store_id): array {
 		$sql = "SELECT `cp`.`category_id` AS `category_id`, GROUP_CONCAT(`cd1`.`name` ORDER BY `cp`.`level` SEPARATOR ' > ') AS `name`, `c1`.`parent_id`, `c1`.`sort_order` FROM `" . DB_PREFIX . "category_path` `cp` LEFT JOIN `" . DB_PREFIX . "category_to_store` `c2s` ON (`c2s`.`category_id` = `cp`.`category_id` AND `c2s`.`store_id` = '" . (int)$store_id . "') LEFT JOIN `" . DB_PREFIX . "category` `c1` ON (`cp`.`category_id` = `c1`.`category_id`) LEFT JOIN `" . DB_PREFIX . "category` `c2` ON (`cp`.`path_id` = `c2`.`category_id`) LEFT JOIN `" . DB_PREFIX . "category_description` `cd1` ON (`cp`.`path_id` = `cd1`.`category_id`) LEFT JOIN `" . DB_PREFIX . "category_description` `cd2` ON (`cp`.`category_id` = `cd2`.`category_id`) WHERE `c2s`.`store_id` IS NOT NULL AND `cd1`.`language_id` = '" . (int)$this->config->get('config_language_id') . "' AND `cd2`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
@@ -638,7 +638,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	 * @param int $product_id
 	 * @param int $store_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getProductCampaigns(int $product_id, int $store_id): array {
 		$query = $this->db->query("SELECT `agt`.`advertise_google_target_id`, `agt`.`campaign_name` FROM `" . DB_PREFIX . "googleshopping_product_target` `pagt` LEFT JOIN `" . DB_PREFIX . "googleshopping_target` `agt` ON (`pagt`.`advertise_google_target_id` = `agt`.`advertise_google_target_id`) WHERE `pagt`.`product_id` = '" . (int)$product_id . "' AND `pagt`.`store_id` = '" . (int)$store_id . "'");
@@ -652,7 +652,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	 * @param int $product_id
 	 * @param int $store_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getProductIssues(int $product_id, int $store_id): array {
 		$this->load->language('extension/advertise/google');
@@ -930,7 +930,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	/**
 	 * getAllowedTargets
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getAllowedTargets(): array {
 		$this->load->config('googleshopping/googleshopping');

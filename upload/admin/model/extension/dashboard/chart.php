@@ -8,7 +8,7 @@ class ModelExtensionDashboardChart extends Model {
 	/**
 	 * getTotalOrdersByDay
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getTotalOrdersByDay(): array {
 		$implode = [];
@@ -41,7 +41,7 @@ class ModelExtensionDashboardChart extends Model {
 	/**
 	 * getTotalOrdersByWeek
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getTotalOrdersByWeek(): array {
 		$implode = [];
@@ -78,7 +78,7 @@ class ModelExtensionDashboardChart extends Model {
 	/**
 	 * getTotalOrdersByMonth
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getTotalOrdersByMonth(): array {
 		$implode = [];
@@ -113,7 +113,7 @@ class ModelExtensionDashboardChart extends Model {
 	/**
 	 * getTotalOrdersByYear
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getTotalOrdersByYear(): array {
 		$implode = [];
@@ -146,7 +146,7 @@ class ModelExtensionDashboardChart extends Model {
 	/**
 	 * getTotalCustomersByDay
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getTotalCustomersByDay(): array {
 		$customer_data = [];
@@ -173,7 +173,7 @@ class ModelExtensionDashboardChart extends Model {
 	/**
 	 * getTotalCustomersByWeek
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getTotalCustomersByWeek(): array {
 		$customer_data = [];
@@ -204,7 +204,7 @@ class ModelExtensionDashboardChart extends Model {
 	/**
 	 * getTotalCustomersByMonth
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getTotalCustomersByMonth(): array {
 		$customer_data = [];
@@ -233,7 +233,7 @@ class ModelExtensionDashboardChart extends Model {
 	/**
 	 * getTotalCustomersByYear
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getTotalCustomersByYear(): array {
 		$customer_data = [];

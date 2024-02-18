@@ -22,7 +22,7 @@ class ModelExtensionCreditCardSquareup extends Model {
 	 * @param int $customer_id
 	 * @param int $sandbox
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getCustomer(int $customer_id, int $sandbox): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "squareup_customer` WHERE `customer_id` = '" . (int)$customer_id . "' AND `sandbox` = '" . (int)$sandbox . "'");
@@ -48,7 +48,7 @@ class ModelExtensionCreditCardSquareup extends Model {
 	 *
 	 * @param int $squareup_token_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getCard(int $squareup_token_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "squareup_token` WHERE `squareup_token_id` = '" . (int)$squareup_token_id . "'");
@@ -62,7 +62,7 @@ class ModelExtensionCreditCardSquareup extends Model {
 	 * @param int $customer_id
 	 * @param int $sandbox
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getCards(int $customer_id, int $sandbox): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "squareup_token` WHERE `customer_id` = '" . (int)$customer_id . "' AND `sandbox` = '" . (int)$sandbox . "'");

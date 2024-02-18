@@ -3580,7 +3580,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	 *
 	 * @param string $str
 	 *
-	 * @return array
+	 * @return array<string, string>
 	 */
 	private function unserialize(string $str): array {
 		$data = [];

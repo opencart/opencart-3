@@ -26,7 +26,7 @@ class ModelExtensionModulePayPalSmartButton extends Model {
 	 * @param int    $country_id
 	 * @param string $code
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getZoneByCode(int $country_id, string $code): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone` WHERE `country_id` = '" . (int)$country_id . "' AND (`code` = '" . $this->db->escape($code) . "' OR `name` = '" . $this->db->escape($code) . "') AND `status` = '1'");

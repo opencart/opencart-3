@@ -171,7 +171,7 @@ class Googleshopping extends Library {
 	 *
 	 * @param int $store_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getTargets(int $store_id): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "googleshopping_target` WHERE `store_id` = '" . $store_id . "'";
@@ -184,7 +184,7 @@ class Googleshopping extends Library {
 	 *
 	 * @param int $advertise_google_target_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getTarget($advertise_google_target_id): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "googleshopping_target` WHERE `advertise_google_target_id` = '" . (int)$advertise_google_target_id . "'";
@@ -198,7 +198,7 @@ class Googleshopping extends Library {
 	 * @param int   $target_id
 	 * @param array $target
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function editTarget(int $target_id, array $target): array {
 		$this->registry->get('db')->query("UPDATE `" . DB_PREFIX . "googleshopping_target` SET `campaign_name` = '" . $this->registry->get('db')->escape($target['campaign_name']) . "', `country` = '" . $this->registry->get('db')->escape($target['country']) . "', `budget` = '" . (float)$target['budget'] . "', `feeds` = '" . $this->registry->get('db')->escape(json_encode($target['feeds'])) . "', `roas` = '" . (int)$target['roas'] . "', `status` = '" . $this->registry->get('db')->escape($target['status']) . "' WHERE `advertise_google_target_id` = '" . (int)$target_id . "'");
@@ -292,7 +292,7 @@ class Googleshopping extends Library {
 	 *
 	 * @param int $page
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getProductVariationIds(int $page): array {
 		$this->registry->get('load')->config('googleshopping/googleshopping');
@@ -406,7 +406,7 @@ class Googleshopping extends Library {
 	 *
 	 * @Throws \RuntimeException|object
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	protected function getFeedProducts(int $page, int $language_id, string $currency): array {
 		$sql = $this->getFeedProductsQuery($page, $language_id);
@@ -470,7 +470,9 @@ class Googleshopping extends Library {
 
 				do {
 					${'custom_label_' . ($i++)} = trim(strtolower(array_pop($campaigns)));
-				} while ($campaigns);
+				} 
+				
+				while ($campaigns);
 			}
 
 			$mpn = !empty($row['mpn']) ? $row['mpn'] : '';
@@ -553,7 +555,7 @@ class Googleshopping extends Library {
 	 * @param     $color_id
 	 * @param     $size_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getGroups(int $product_id, int $language_id, $color_id, $size_id): array {
 		$options = [];
@@ -584,7 +586,7 @@ class Googleshopping extends Library {
 	 * @param int $language_id
 	 * @param int $option_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getProductOptionValueNames(int $product_id, int $language_id, int $option_id): array {
 		$return = [];
@@ -641,7 +643,7 @@ class Googleshopping extends Library {
 	 * @param array<string, mixed> $data
 	 * @param int                  $store_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getProducts(array $data, int $store_id): array {
 		$sql = "SELECT `pag`.*, `p`.`product_id`, `p`.`image`, `pd`.`name`, `p`.`model` FROM `" . DB_PREFIX . "product` `p` LEFT JOIN `" . DB_PREFIX . "product_description` `pd` ON (`p`.`product_id` = `pd`.`product_id`) LEFT JOIN `" . DB_PREFIX . "googleshopping_product` `pag` ON (`pag`.`product_id` = `p`.`product_id` AND `pag`.`store_id` = '" . (int)$store_id . "') WHERE `pag`.`store_id` IS NOT NULL AND `pd`.`language_id` = '" . (int)$this->registry->get('config')->get('config_language_id') . "'";
@@ -715,7 +717,7 @@ class Googleshopping extends Library {
 	 * @param array<string, mixed> $data
 	 * @param int                  $store_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getProductIds(array $data, int $store_id): array {
 		$result = [];
@@ -917,7 +919,7 @@ class Googleshopping extends Library {
 	 *
 	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getProductVariationTargetSpecificIds(array $data): array {
 		$result = [];
@@ -1142,7 +1144,7 @@ class Googleshopping extends Library {
 	/**
 	 * Get Jobs
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	protected function getJobs(): array {
 		$jobs = [];
@@ -1249,7 +1251,7 @@ class Googleshopping extends Library {
 	 *
 	 * @param array<string, mixed> $arrays
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	protected function combineOptions(array $arrays): array {
 		// Based on: https://gist.github.com/cecilemuller/4688876
@@ -1687,7 +1689,7 @@ class Googleshopping extends Library {
 	 *
 	 * @throws \Exception
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getProductReports(array $product_ids): array {
 		$cache = new \Cache($this->registry->get('config')->get('cache_engine'), self::CACHE_PRODUCT_REPORT);
@@ -1771,7 +1773,7 @@ class Googleshopping extends Library {
 	 *
 	 * @param array<string, mixed> $product_ids
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getProductStatuses(array $product_ids): array {
 		$post_data = [
@@ -1796,7 +1798,7 @@ class Googleshopping extends Library {
 	/**
 	 * Get Conversion Tracker
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getConversionTracker(): array {
 		$request = [
@@ -1894,7 +1896,7 @@ class Googleshopping extends Library {
 	 * @param array  $data
 	 * @param string $code
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function access(array $data, string $code): array {
 		$request = [
@@ -2122,7 +2124,7 @@ class Googleshopping extends Library {
 	/**
 	 * Get Available Carriers
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getAvailableCarriers(): array {
 		$request = [
@@ -2141,7 +2143,7 @@ class Googleshopping extends Library {
 	 *
 	 * @param array<string, mixed> $language_codes
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getLanguages(array $language_codes): array {
 		$result = [];
@@ -2188,7 +2190,7 @@ class Googleshopping extends Library {
 	 *
 	 * @param array<string, mixed> $currency_codes
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getCurrencies(array $currency_codes): array {
 		$result = [];
@@ -2237,7 +2239,7 @@ class Googleshopping extends Library {
 	 *
 	 * @param int $currency_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getCurrency(int $currency_id): array {
 		$query = $this->registry->get('db')->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "currency` WHERE `currency_id` = '" . (int)$currency_id . "'");
@@ -2263,7 +2265,7 @@ class Googleshopping extends Library {
 	 *
 	 * @param array<string, mixed> $target
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	protected function target(array $target): array {
 		$feeds_raw = json_decode($target['feeds'], true);

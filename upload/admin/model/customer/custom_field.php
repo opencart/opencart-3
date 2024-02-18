@@ -250,7 +250,7 @@ class ModelCustomerCustomField extends Model {
 	 *
 	 * @param int $custom_field_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getValueDescriptions(int $custom_field_id): array {
 		$custom_field_value_data = [];

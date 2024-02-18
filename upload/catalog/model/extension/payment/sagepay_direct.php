@@ -216,7 +216,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	/**
 	 * Subscription Payment
 	 *
-	 * @param array $item['subscription']
+	 * @param array $item
 	 * @param int   $vendor_tx_code
 	 *
 	 * @return void

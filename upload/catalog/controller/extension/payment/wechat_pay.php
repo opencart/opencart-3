@@ -127,7 +127,7 @@ class ControllerExtensionPaymentWechatPay extends Controller {
 	/**
 	 * Callback
 	 *
-	 * @return array
+	 * @return array<string, string>
 	 */
 	public function callback(): array {
 		$options = [

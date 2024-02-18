@@ -61,7 +61,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	 * @param int $product_id
 	 * @param int $store_id
 	 *
-	 * @return array
+	 * @return array<string, string>
 	 */
 	public function getSizeAndColorOptionMap(int $product_id, int $store_id): array {
 		$color_id = $this->getOptionId($product_id, $store_id, 'color');
@@ -103,7 +103,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	 * @param array $products
 	 * @param int   $store_id
 	 *
-	 * @return array
+	 * @return array<int, int>
 	 */
 	public function getRemarketingProductIds(array $products, int $store_id): array {
 		$ecomm_prodid = [];
@@ -123,7 +123,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	 * @param array $products
 	 * @param int   $store_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getRemarketingItems(array $products, int $store_id): array {
 		$items = [];
@@ -189,14 +189,16 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	 * @param int $product_id
 	 * @param int $store_id
 	 * @param int $type
+	 * 
+	 * @return int
 	 */
 	protected function getOptionId(int $product_id, int $store_id, int $type): int {
 		$query = $this->db->query("SELECT `pag`.`" . $type . "` FROM `" . DB_PREFIX . "googleshopping_product` `pag` WHERE `product_id` = '" . (int)$product_id . "' AND `store_id` = '" . (int)$store_id . "'");
 
 		if ($query->num_rows) {
 			return (int)$query->row[$type];
+		} else {
+			return 0;
 		}
-
-		return 0;
 	}
 }

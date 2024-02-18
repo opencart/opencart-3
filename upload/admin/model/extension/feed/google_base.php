@@ -64,7 +64,7 @@ class ModelExtensionFeedGoogleBase extends Model {
 	 *
 	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getGoogleBaseCategories(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "google_base_category` WHERE `name` LIKE '%" . $this->db->escape($data['filter_name']) . "%' ORDER BY `name` ASC";
@@ -115,7 +115,7 @@ class ModelExtensionFeedGoogleBase extends Model {
 	 *
 	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getCategories(array $data = []): array {
 		$sql = "SELECT `google_base_category_id`, (SELECT `name` FROM `" . DB_PREFIX . "google_base_category` `gbc` WHERE `gbc`.`google_base_category_id` = `gbc2c`.`google_base_category_id`) AS `google_base_category`, `category_id`, (SELECT `name` FROM `" . DB_PREFIX . "category_description` `cd` WHERE `cd`.`category_id` = `gbc2c`.`category_id` AND `cd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "') AS `category` FROM `" . DB_PREFIX . "google_base_category_to_category` `gbc2c` ORDER BY `google_base_category` ASC";

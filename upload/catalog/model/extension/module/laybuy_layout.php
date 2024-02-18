@@ -30,7 +30,7 @@ class ModelExtensionModuleLaybuyLayout extends Model {
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getTransactionByOrderId(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "laybuy_transaction` WHERE `order_id` = '" . (int)$order_id . "' ORDER BY `laybuy_ref_no` DESC LIMIT 1");
@@ -41,7 +41,7 @@ class ModelExtensionModuleLaybuyLayout extends Model {
 	/**
 	 * getTransactionStatuses
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getTransactionStatuses(): array {
 		$this->load->language('extension/payment/laybuy');

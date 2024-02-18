@@ -50,7 +50,7 @@ class Language {
 	/**
 	 * All
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function all(): array {
 		return $this->data;
@@ -62,7 +62,7 @@ class Language {
 	 * @param string $filename
 	 * @param string $key
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function load(string $filename, string $key = ''): array {
 		if (!$key) {

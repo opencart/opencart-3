@@ -1103,7 +1103,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 	/**
 	 * Pull Alerts
 	 *
-	 * @return array
+	 * @return array<string, string>
 	 */
 	protected function pullAlerts(): array {
 		if (isset($this->session->data['payment_squareup_alerts'])) {

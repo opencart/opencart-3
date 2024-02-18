@@ -48,7 +48,7 @@ class ModelExtensionPaymentRealexRemote extends Model {
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array
+	 * @return array<string, string>
 	 */
 	public function void(int $order_id): array {
 		$realex_order = $this->getOrder($order_id);
@@ -117,7 +117,7 @@ class ModelExtensionPaymentRealexRemote extends Model {
 	 * @param int   $order_id
 	 * @param float $amount
 	 *
-	 * @return array
+	 * @return array<string, string>
 	 */
 	public function capture(int $order_id, float $amount): array {
 		$realex_order = $this->getOrder($order_id);
@@ -213,7 +213,7 @@ class ModelExtensionPaymentRealexRemote extends Model {
 	 * @param int   $order_id
 	 * @param float $amount
 	 *
-	 * @return array
+	 * @return array<string, string>
 	 */
 	public function rebate(int $order_id, float $amount): array {
 		$realex_order = $this->getOrder($order_id);

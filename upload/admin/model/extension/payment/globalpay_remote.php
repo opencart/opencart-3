@@ -48,7 +48,7 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array
+	 * @return array<string, string>
 	 */
 	public function void(int $order_id): array {
 		$globalpay_order = $this->getOrder($order_id);
@@ -214,7 +214,7 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 	 * @param int   $order_id
 	 * @param float $amount
 	 *
-	 * @return array
+	 * @return array<string, string>
 	 */
 	public function rebate(int $order_id, float $amount): array {
 		$globalpay_order = $this->getOrder($order_id);

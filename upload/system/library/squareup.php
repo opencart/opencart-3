@@ -231,7 +231,7 @@ class Squareup {
 	 *
 	 * @throws \Squareup\Exception
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function fetchLocations($access_token, &$first_location_id): array {
 		$request_data = [
@@ -326,7 +326,7 @@ class Squareup {
 	 *
 	 * @throws \Squareup\Exception
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function addCard($square_customer_id, $card_data): array {
 		$request_data = [
@@ -370,7 +370,7 @@ class Squareup {
 	 *
 	 * @throws \Squareup\Exception
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function addLoggedInCustomer(): array {
 		$request_data = [
@@ -431,7 +431,7 @@ class Squareup {
 	 *
 	 * @throws \Squareup\Exception
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getTransaction($location_id, $transaction_id): array {
 		$request_data = [
@@ -453,7 +453,7 @@ class Squareup {
 	 *
 	 * @throws \Squareup\Exception
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function captureTransaction($location_id, $transaction_id): array {
 		$request_data = [
@@ -475,7 +475,7 @@ class Squareup {
 	 *
 	 * @throws \Squareup\Exception
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function voidTransaction($location_id, $transaction_id): array {
 		$request_data = [
@@ -501,7 +501,7 @@ class Squareup {
 	 *
 	 * @throws \Squareup\Exception
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function refundTransaction($location_id, $transaction_id, $reason, $amount, $currency, $tender_id): array {
 		$request_data = [

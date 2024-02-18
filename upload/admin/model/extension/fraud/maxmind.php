@@ -85,7 +85,7 @@ class ModelExtensionFraudMaxMind extends Model {
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array
+	 * @return array<string, string>
 	 */
 	public function getOrder(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "maxmind` WHERE `order_id` = '" . (int)$order_id . "'");

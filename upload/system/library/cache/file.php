@@ -17,7 +17,7 @@ class File {
 	 *
 	 * @param string $key
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function get(string $key): array {
 		$files = glob(DIR_CACHE . 'cache.' . preg_replace('/[^A-Z0-9\._-]/i', '', $key) . '.*');

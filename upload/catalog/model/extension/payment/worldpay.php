@@ -257,7 +257,7 @@ class ModelExtensionPaymentWorldpay extends Model {
 	/**
 	 * Cron Payment
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function cronPayment(): array {
 		// Account Order

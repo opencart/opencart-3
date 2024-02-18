@@ -97,7 +97,7 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 	 * @param int   $order_id
 	 * @param float $amount
 	 *
-	 * @return array
+	 * @return array<string, string>
 	 */
 	public function release(int $order_id, float $amount): array {
 		$securetrading_ws_order = $this->getOrder($order_id);

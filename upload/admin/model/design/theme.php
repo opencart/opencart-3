@@ -39,7 +39,7 @@ class ModelDesignTheme extends Model {
 	 * @param string $theme
 	 * @param string $route
 	 *
-	 * @return array
+	 * @return array<string, string>
 	 */
 	public function getTheme(int $store_id, string $theme, string $route): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "theme` WHERE `store_id` = '" . (int)$store_id . "' AND `theme` = '" . $this->db->escape($theme) . "' AND `route` = '" . $this->db->escape($route) . "'");
@@ -53,7 +53,7 @@ class ModelDesignTheme extends Model {
 	 * @param int $start
 	 * @param int $limit
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getThemes(int $start = 0, int $limit = 10): array {
 		if ($start < 0) {

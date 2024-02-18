@@ -14,7 +14,7 @@ class ModelExtensionPaymentAlipayCross extends Model {
 	 *
 	 * @param array $address
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getMethods(array $address): array {
 		$this->load->language('extension/payment/alipay_cross');

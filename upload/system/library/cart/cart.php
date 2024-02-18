@@ -44,7 +44,7 @@ class Cart {
 	/**
 	 * getProducts
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getProducts(): array {
 		$product_data = [];
@@ -60,6 +60,7 @@ class Cart {
 				$option_price = 0;
 				$option_points = 0;
 				$option_weight = 0;
+
 				$option_data = [];
 
 				foreach ((array)json_decode($cart['option'], true) as $product_option_id => $value) {
@@ -365,7 +366,7 @@ class Cart {
 	/**
 	 * getSubscriptions
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getSubscriptions(): array {
 		$product_data = [];
@@ -414,7 +415,7 @@ class Cart {
 	/**
 	 * getTaxes
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getTaxes(): array {
 		$tax_data = [];
