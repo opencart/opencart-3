@@ -6,7 +6,7 @@
  */
 class ModelExtensionFeedGoogleBase extends Model {
 	/**
-	 * getCategories
+	 * Get Categories
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */
@@ -17,7 +17,7 @@ class ModelExtensionFeedGoogleBase extends Model {
 	}
 
 	/**
-	 * getTotalCategories
+	 * Get Total Categories
 	 *
 	 * @return int
 	 */

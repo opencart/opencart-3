@@ -23,7 +23,7 @@ class ModelExtensionPaymentSquareup extends Model {
 	public const TRANSACTION_EXPIRED = 9;
 
 	/**
-	 * Get Method
+	 * Get Methods
 	 *
 	 * @param array<string, mixed> $address
 	 *

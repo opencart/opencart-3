@@ -67,10 +67,10 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 	 * Call
 	 *
 	 * @param string $xml
-	 * 
-	 * @return SimpleXMLElement|false
+	 *
+	 * @return false|SimpleXMLElement
 	 */
-	public function call(string $xml): SimpleXMLElement|false {
+	public function call(string $xml): false|SimpleXMLElement {
 		$ch = curl_init();
 
 		curl_setopt($ch, CURLOPT_URL, 'https://test.ipg-online.com/ipgapi/services');
@@ -243,7 +243,7 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 	 */
 	public function refund(int $order_ref, float $total, string $currency_code): array {
 		$response = [];
-		
+
 		$xml = '<?xml version="1.0" encoding="UTF-8"?>';
 		$xml .= '<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">';
 		$xml .= '<SOAP-ENV:Header />';

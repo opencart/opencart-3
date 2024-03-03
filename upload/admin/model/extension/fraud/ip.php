@@ -30,7 +30,7 @@ class ModelExtensionFraudIp extends Model {
 	}
 
 	/**
-	 * addIp
+	 * Add Ip
 	 *
 	 * @param string $ip
 	 *
@@ -41,7 +41,7 @@ class ModelExtensionFraudIp extends Model {
 	}
 
 	/**
-	 * removeIp
+	 * Remove Ip
 	 *
 	 * @param string $ip
 	 *
@@ -52,7 +52,7 @@ class ModelExtensionFraudIp extends Model {
 	}
 
 	/**
-	 * getIps
+	 * Get Ips
 	 *
 	 * @param int $start
 	 * @param int $limit
@@ -74,7 +74,7 @@ class ModelExtensionFraudIp extends Model {
 	}
 
 	/**
-	 * getTotalIps
+	 * Get Total Ips
 	 *
 	 * @return int
 	 */
@@ -85,7 +85,7 @@ class ModelExtensionFraudIp extends Model {
 	}
 
 	/**
-	 * getTotalIpsByIp
+	 * Get Total Ips By Ip
 	 *
 	 * @param string $ip
 	 *

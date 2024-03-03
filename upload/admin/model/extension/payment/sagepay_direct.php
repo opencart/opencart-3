@@ -380,7 +380,7 @@ class ModelExtensionPaymentSagepayDirect extends Model {
 	/**
 	 * Logger
 	 *
-	 * @param string $title
+	 * @param string               $title
 	 * @param array<string, mixed> $data
 	 *
 	 * @return void

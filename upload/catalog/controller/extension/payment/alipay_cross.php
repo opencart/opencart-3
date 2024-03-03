@@ -9,6 +9,8 @@ class ControllerExtensionPaymentAlipayCross extends Controller {
 	public $alipay_gateway_test = 'https://openapi.alipaydev.com/gateway.do?';
 
 	/**
+	 * Index
+	 *
 	 * @return string
 	 */
 	public function index(): string {
@@ -71,6 +73,8 @@ class ControllerExtensionPaymentAlipayCross extends Controller {
 	}
 
 	/**
+	 * Callback
+	 *
 	 * @return void
 	 */
 	public function callback(): void {

@@ -216,9 +216,9 @@ class ModelExtensionPaymentGlobalpay extends Model {
 	 * @param int   $order_id
 	 * @param float $amount
 	 *
-	 * @return SimpleXMLElement|false
+	 * @return false|SimpleXMLElement
 	 */
-	public function rebate(int $order_id, float $amount): SimpleXMLElement|false {
+	public function rebate(int $order_id, float $amount): false|SimpleXMLElement {
 		$globalpay_order = $this->getOrder($order_id);
 
 		if ($globalpay_order && $globalpay_order['rebate_status'] != 1) {

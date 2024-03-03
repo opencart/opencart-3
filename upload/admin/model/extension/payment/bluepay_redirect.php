@@ -292,7 +292,7 @@ class ModelExtensionPaymentBluepayredirect extends Model {
 	/**
 	 * Send Curl
 	 *
-	 * @param string $url
+	 * @param string               $url
 	 * @param array<string, mixed> $post_data
 	 *
 	 * @return array<string, mixed>

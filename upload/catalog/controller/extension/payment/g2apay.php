@@ -6,6 +6,8 @@
  */
 class ControllerExtensionPaymentG2APay extends Controller {
 	/**
+	 * Index
+	 *
 	 * @return string
 	 */
 	public function index(): string {

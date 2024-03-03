@@ -6,6 +6,8 @@
  */
 class ControllerExtensionPaymentWorldpay extends Controller {
 	/**
+	 * Index
+	 *
 	 * @return string
 	 */
 	public function index(): string {

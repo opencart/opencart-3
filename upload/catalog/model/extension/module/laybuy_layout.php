@@ -6,7 +6,7 @@
  */
 class ModelExtensionModuleLaybuyLayout extends Model {
 	/**
-	 * getStatusLabel
+	 * Get Status Label
 	 *
 	 * @param int $id
 	 *
@@ -26,7 +26,7 @@ class ModelExtensionModuleLaybuyLayout extends Model {
 	}
 
 	/**
-	 * getTransactionByOrderId
+	 * Get Transaction By Order Id
 	 *
 	 * @param int $order_id
 	 *
@@ -39,7 +39,7 @@ class ModelExtensionModuleLaybuyLayout extends Model {
 	}
 
 	/**
-	 * getTransactionStatuses
+	 * Get Transaction Statuses
 	 *
 	 * @return array<string, mixed>
 	 */
@@ -71,7 +71,7 @@ class ModelExtensionModuleLaybuyLayout extends Model {
 	}
 
 	/**
-	 * isLayBuyOrder
+	 * Is LayBuy Order
 	 *
 	 * @param int $order_id
 	 *

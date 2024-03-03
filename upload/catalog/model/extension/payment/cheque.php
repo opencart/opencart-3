@@ -6,10 +6,10 @@
  */
 class ModelExtensionPaymentCheque extends Model {
 	/**
-	 * Get Method
+	 * Get Methods
 	 *
 	 * @param array<string, mixed> $address
-	 * 
+	 *
 	 * @return array<string, mixed>
 	 */
 	public function getMethods(array $address): array {

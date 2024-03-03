@@ -9,7 +9,7 @@ class ModelExtensionTotalCoupon extends Model {
 	 * Get Coupon
 	 *
 	 * @param string $code
-	 * 
+	 *
 	 * @return array<string, mixed>
 	 */
 	public function getCoupon(string $code): array {
@@ -111,7 +111,7 @@ class ModelExtensionTotalCoupon extends Model {
 	 * Get Total
 	 *
 	 * @param array<string, mixed> $total
-	 * 
+	 *
 	 * @return void
 	 */
 	public function getTotal(array $total): void {
@@ -207,7 +207,7 @@ class ModelExtensionTotalCoupon extends Model {
 	 *
 	 * @param array<string, mixed> $order_info
 	 * @param array<string, mixed> $order_total
-	 * 
+	 *
 	 * @return int
 	 */
 	public function confirm(array $order_info, array $order_total): int {
@@ -258,7 +258,7 @@ class ModelExtensionTotalCoupon extends Model {
 	 * Unconfirm
 	 *
 	 * @param int $order_id
-	 * 
+	 *
 	 * @return void
 	 */
 	public function unconfirm(int $order_id): void {
@@ -269,7 +269,7 @@ class ModelExtensionTotalCoupon extends Model {
 	 * Get Total Coupon Histories By Coupon
 	 *
 	 * @param string $coupon
-	 * 
+	 *
 	 * @return int
 	 */
 	public function getTotalCouponHistoriesByCoupon(string $coupon): int {
@@ -283,7 +283,7 @@ class ModelExtensionTotalCoupon extends Model {
 	 *
 	 * @param string $coupon
 	 * @param int    $customer_id
-	 * 
+	 *
 	 * @return int
 	 */
 	public function getTotalCouponHistoriesByCustomerId(string $coupon, int $customer_id): int {

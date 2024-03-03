@@ -327,7 +327,7 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 	/**
 	 * Send Curl
 	 *
-	 * @param string $url
+	 * @param string               $url
 	 * @param array<string, mixed> $post_data
 	 *
 	 * @return array<int, array<string, mixed>>

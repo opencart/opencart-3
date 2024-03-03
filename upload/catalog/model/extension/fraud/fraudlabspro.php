@@ -169,7 +169,7 @@ class ModelExtensionFraudFraudLabsPro extends Model {
 	}
 
 	/**
-	 * getStatus
+	 * Get Status
 	 *
 	 * @param int $order_id
 	 *

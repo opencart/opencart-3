@@ -6,6 +6,8 @@
  */
 class ControllerExtensionPaymentBluePayRedirect extends Controller {
 	/**
+	 * Index
+	 *
 	 * @return string
 	 */
 	public function index(): string {

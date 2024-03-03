@@ -6,7 +6,7 @@
  */
 class ModelExtensionModulePayPalSmartButton extends Model {
 	/**
-	 * hasProductInCart
+	 * Has Product In Cart
 	 *
 	 * @param int                  $product_id
 	 * @param array<string, mixed> $option
@@ -21,7 +21,7 @@ class ModelExtensionModulePayPalSmartButton extends Model {
 	}
 
 	/**
-	 * getZoneByCode
+	 * Get Zone By Code
 	 *
 	 * @param int    $country_id
 	 * @param string $code

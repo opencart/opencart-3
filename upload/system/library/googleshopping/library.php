@@ -1,6 +1,9 @@
 <?php
 namespace googleshopping;
 
+/**
+ * Library Abstract Class
+ */
 abstract class Library {
 	protected object $registry;
 

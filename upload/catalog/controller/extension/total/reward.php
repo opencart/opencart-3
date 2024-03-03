@@ -6,6 +6,8 @@
  */
 class ControllerExtensionTotalReward extends Controller {
 	/**
+	 * Index
+	 *
 	 * @return string
 	 */
 	public function index() {

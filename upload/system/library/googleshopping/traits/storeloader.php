@@ -1,6 +1,9 @@
 <?php
 namespace googleshopping\traits;
 
+/**
+ * StoreLoader Trait
+ */
 trait StoreLoader {
 	protected function loadStore($store_id): void {
 		$this->registry->set('setting', new \Config());

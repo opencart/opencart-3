@@ -11,6 +11,8 @@ class ControllerExtensionPaymentPaypalApplepay extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return string
 	 */
 	public function index(): string {

@@ -11,6 +11,8 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	private array $error = [];
 
 	/**
+	 * Index
+	 *
 	 * @return string
 	 */
 	public function index(): string {
@@ -707,7 +709,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 					'partner_attribution_id' => $partner_attribution_id
 				];
 
-				$paypal = new PayPal($paypal_info);
+				$paypal = new \PayPal($paypal_info);
 
 				$token_info = [
 					'grant_type' => 'client_credentials'
@@ -966,7 +968,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 				}
 			}
 
-			$_config = new Config();
+			$_config = new \Config();
 			$_config->load('paypal');
 
 			$config_setting = $_config->get('paypal_setting');
@@ -990,7 +992,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 				'partner_attribution_id' => $partner_attribution_id
 			];
 
-			$paypal = new PayPal($paypal_info);
+			$paypal = new \PayPal($paypal_info);
 
 			$token_info = [
 				'grant_type' => 'client_credentials'

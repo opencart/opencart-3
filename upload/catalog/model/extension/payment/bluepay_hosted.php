@@ -6,7 +6,7 @@
  */
 class ModelExtensionPaymentBluePayHosted extends Model {
 	/**
-	 * Get Method
+	 * Get Methods
 	 *
 	 * @param array<string, mixed> $address
 	 *

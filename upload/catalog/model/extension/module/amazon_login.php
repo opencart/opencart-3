@@ -10,7 +10,7 @@ class ModelExtensionModuleAmazonLogin extends Model {
 	public const URL_TOKENINFO = "https://%s/auth/o2/tokeninfo?access_token=%s";
 
 	/**
-	 * fetchProfile
+	 * Fetch Profile
 	 *
 	 * @param mixed $access_token
 	 */
@@ -35,7 +35,7 @@ class ModelExtensionModuleAmazonLogin extends Model {
 	}
 
 	/**
-	 * verifyAccessToken
+	 * Verify Access Token
 	 *
 	 * @param mixed $access_token
 	 */
@@ -54,7 +54,7 @@ class ModelExtensionModuleAmazonLogin extends Model {
 	}
 
 	/**
-	 * loginProfile
+	 * Login Profile
 	 *
 	 * @param mixed $amazon_profile
 	 */
@@ -118,7 +118,7 @@ class ModelExtensionModuleAmazonLogin extends Model {
 	}
 
 	/**
-	 * persistAddress
+	 * Persist Address
 	 *
 	 * @param mixed $address
 	 */
@@ -138,7 +138,7 @@ class ModelExtensionModuleAmazonLogin extends Model {
 	}
 
 	/**
-	 * addressMatches
+	 * Address Matches
 	 *
 	 * @param mixed $new
 	 * @param mixed $addresses
@@ -154,7 +154,7 @@ class ModelExtensionModuleAmazonLogin extends Model {
 	}
 
 	/**
-	 * addressMatch
+	 * Address Match
 	 *
 	 * @param mixed $a1
 	 * @param mixed $a2
@@ -170,7 +170,7 @@ class ModelExtensionModuleAmazonLogin extends Model {
 	}
 
 	/**
-	 * forceLoginCustomer
+	 * Force Login Customer
 	 *
 	 * @param mixed $customer_info
 	 */
@@ -205,7 +205,7 @@ class ModelExtensionModuleAmazonLogin extends Model {
 	}
 
 	/**
-	 * getApiDomainName
+	 * Get Api Domain Name
 	 */
 	public function getApiDomainName() {
 		if ($this->config->get('payment_amazon_login_pay_test') == 'sandbox') {
@@ -230,7 +230,7 @@ class ModelExtensionModuleAmazonLogin extends Model {
 	}
 
 	/**
-	 * curlGet
+	 * Curl Get
 	 *
 	 * @param mixed $url
 	 * @param mixed $headers
@@ -276,7 +276,7 @@ class ModelExtensionModuleAmazonLogin extends Model {
 	}
 
 	/**
-	 * debugLog
+	 * Debug Log
 	 *
 	 * @param mixed $type
 	 * @param mixed $data

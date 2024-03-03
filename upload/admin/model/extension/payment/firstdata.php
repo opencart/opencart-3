@@ -70,9 +70,9 @@ class ModelExtensionPaymentFirstdata extends Model {
 	 *
 	 * @param int $order_id
 	 *
-	 * @return SimpleXMLElement|false
+	 * @return false|SimpleXMLElement
 	 */
-	public function void(int $order_id): SimpleXMLElement|false {
+	public function void(int $order_id): false|SimpleXMLElement {
 		$firstdata_order = $this->getOrder($order_id);
 
 		if ($firstdata_order) {
@@ -136,9 +136,9 @@ class ModelExtensionPaymentFirstdata extends Model {
 	 * @param int   $order_id
 	 * @param float $amount
 	 *
-	 * @return SimpleXMLElement|false
+	 * @return false|SimpleXMLElement
 	 */
-	public function capture(int $order_id, float $amount): SimpleXMLElement|false {
+	public function capture(int $order_id, float $amount): false|SimpleXMLElement {
 		$firstdata_order = $this->getOrder($order_id);
 
 		if ($firstdata_order && $firstdata_order['capture_status'] == 0) {

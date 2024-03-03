@@ -6,7 +6,7 @@
  */
 class ModelExtensionPaymentCardConnect extends Model {
 	/**
-	 * Get Method
+	 * Get Methods
 	 *
 	 * @param array<string, mixed> $address
 	 *
@@ -41,7 +41,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 
 	/**
 	 * Get Card Types
-	 * 
+	 *
 	 * @return array<string, mixed>
 	 */
 	public function getCardTypes() {
@@ -72,7 +72,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 
 	/**
 	 * Get Months
-	 * 
+	 *
 	 * @return array<int, array<string, mixed>>
 	 */
 	public function getMonths() {
@@ -90,7 +90,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 
 	/**
 	 * Get Years
-	 * 
+	 *
 	 * @return array<int, array<string, mixed>>
 	 */
 	public function getYears() {

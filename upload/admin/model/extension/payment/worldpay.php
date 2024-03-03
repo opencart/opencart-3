@@ -186,7 +186,7 @@ class ModelExtensionPaymentWorldpay extends Model {
 	 */
 	public function sendCurl(string $url, array $order): array {
 		$response = [];
-		
+
 		$json = json_encode($order);
 
 		$curl = curl_init();

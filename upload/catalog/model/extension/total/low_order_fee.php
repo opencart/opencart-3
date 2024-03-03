@@ -6,10 +6,10 @@
  */
 class ModelExtensionTotalLowOrderFee extends Model {
 	/**
-	 * GetTotal
+	 * Get Total
 	 *
 	 * @param array<string, mixed> $total
-	 * 
+	 *
 	 * @return void
 	 */
 	public function getTotal(array &$total): void {

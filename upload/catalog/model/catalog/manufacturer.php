@@ -19,7 +19,7 @@ class ModelCatalogManufacturer extends Model {
 	}
 
 	/**
-	 * getManufacturers
+	 * Get Manufacturers
 	 *
 	 * @param array<string, mixed> $data
 	 *

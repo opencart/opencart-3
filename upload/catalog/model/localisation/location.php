@@ -6,7 +6,7 @@
  */
 class ModelLocalisationLocation extends Model {
 	/**
-	 * get Location
+	 * Get Location
 	 *
 	 * @param int $location_id
 	 *

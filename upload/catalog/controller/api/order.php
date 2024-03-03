@@ -814,7 +814,7 @@ class ControllerApiOrder extends Controller {
 
 			if ($order_info) {
 				$json['order'] = $order_info;
-				
+
 				$json['success'] = $this->language->get('text_success');
 			} else {
 				$json['error'] = $this->language->get('error_not_found');

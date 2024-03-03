@@ -9,7 +9,7 @@ class ModelExtensionTotalVoucherTheme extends Model {
 	 * Get Voucher Theme
 	 *
 	 * @param int $voucher_theme_id
-	 * 
+	 *
 	 * @return array<string, mixed>
 	 */
 	public function getVoucherTheme(int $voucher_theme_id): array {
@@ -22,7 +22,7 @@ class ModelExtensionTotalVoucherTheme extends Model {
 	 * Get Voucher Themes
 	 *
 	 * @param array<string, mixed> $data
-	 * 
+	 *
 	 * @return array<int, array<string, mixed>>
 	 */
 	public function getVoucherThemes(array $data = []): array {

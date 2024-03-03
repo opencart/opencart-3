@@ -6,6 +6,8 @@
  */
 class ControllerExtensionPaymentKlarnaAccount extends Controller {
 	/**
+	 * Index
+	 *
 	 * @return string
 	 */
 	public function index(): string {
@@ -582,7 +584,7 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 	 *
 	 * @return string
 	 */
-	private function constructXmlrpc(mixed $data): string {
+	private function constructXmlrpc($data): string {
 		$type = gettype($data);
 
 		switch ($type) {

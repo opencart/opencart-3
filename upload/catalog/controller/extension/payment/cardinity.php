@@ -6,6 +6,8 @@
  */
 class ControllerExtensionPaymentCardinity extends Controller {
 	/**
+	 * Index
+	 *
 	 * @return string
 	 */
 	public function index(): string {

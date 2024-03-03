@@ -19,7 +19,7 @@ class ModelCatalogInformation extends Model {
 	}
 
 	/**
-	 * Get Informations
+	 * Get Information(s)
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */

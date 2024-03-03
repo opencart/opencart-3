@@ -9,7 +9,7 @@ class ModelExtensionTotalHandling extends Model {
 	 * Get Total
 	 *
 	 * @param array<string, mixed> $total
-	 * 
+	 *
 	 * @return void
 	 */
 	public function getTotal(array $total): void {

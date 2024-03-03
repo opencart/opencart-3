@@ -68,7 +68,7 @@ class ModelExtensionPaymentCardinity extends Model {
 	 * @param mixed $secret
 	 * @param mixed $payment_id
 	 * @param mixed $pares
-	 * 
+	 *
 	 * @Throws \Exception
 	 */
 	public function finalizePayment($key, $secret, $payment_id, $pares) {
@@ -89,7 +89,7 @@ class ModelExtensionPaymentCardinity extends Model {
 	}
 
 	/**
-	 * Get Method
+	 * Get Methods
 	 *
 	 * @param array<string, mixed> $address
 	 *

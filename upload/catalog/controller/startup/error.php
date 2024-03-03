@@ -14,14 +14,8 @@ class ControllerStartupError extends Controller {
 		// Log
 		$this->registry->set('log', new \Log($this->config->get('config_error_filename')));
 
-		set_error_handler([
-			$this,
-			'error'
-		]);
-		set_exception_handler([
-			$this,
-			'exception'
-		]);
+		set_error_handler([$this, 'error']);
+		set_exception_handler([$this, 'exception']);
 	}
 
 	/**

@@ -6,6 +6,8 @@
  */
 class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 	/**
+	 * Index
+	 *
 	 * @return string
 	 */
 	public function index(): string {

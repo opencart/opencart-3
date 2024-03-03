@@ -6,7 +6,7 @@
  */
 class ModelExtensionCurrencyEcb extends Model {
 	/**
-	 * editValueByCode
+	 * Edit Value By Code
 	 *
 	 * @param string $code
 	 * @param float  $value

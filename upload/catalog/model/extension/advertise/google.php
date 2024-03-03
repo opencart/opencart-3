@@ -6,7 +6,7 @@
  */
 class ModelExtensionAdvertiseGoogle extends Model {
 	/**
-	 * getHumanReadableCategory
+	 * Get Human Readable Category
 	 *
 	 * @param int $product_id
 	 * @param int $store_id
@@ -37,7 +37,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	}
 
 	/**
-	 * getHumanReadableOpenCartCategory
+	 * Get Human Readable OpenCart Category
 	 *
 	 * @param int $category_id
 	 *
@@ -56,7 +56,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	}
 
 	/**
-	 * getSizeAndColorOptionMap
+	 * Get Size And Color Option Map
 	 *
 	 * @param int $product_id
 	 * @param int $store_id
@@ -98,7 +98,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	}
 
 	/**
-	 * getRemarketingProductIds
+	 * Get Remarketing Product IDs
 	 *
 	 * @param array<string, mixed> $products
 	 * @param int                  $store_id
@@ -118,7 +118,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	}
 
 	/**
-	 * getRemarketingItems
+	 * Get Remarketing Items
 	 *
 	 * @param array<string, mixed> $products
 	 * @param int                  $store_id

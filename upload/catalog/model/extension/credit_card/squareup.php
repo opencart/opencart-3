@@ -6,7 +6,7 @@
  */
 class ModelExtensionCreditCardSquareup extends Model {
 	/**
-	 * addCustomer
+	 * Add Customer
 	 *
 	 * @param array<string, mixed> $data
 	 *
@@ -17,7 +17,7 @@ class ModelExtensionCreditCardSquareup extends Model {
 	}
 
 	/**
-	 * getCustomer
+	 * Get Customer
 	 *
 	 * @param int $customer_id
 	 * @param int $sandbox
@@ -31,7 +31,7 @@ class ModelExtensionCreditCardSquareup extends Model {
 	}
 
 	/**
-	 * addCard
+	 * Add Card
 	 *
 	 * @param int                  $customer_id
 	 * @param int                  $sandbox
@@ -44,7 +44,7 @@ class ModelExtensionCreditCardSquareup extends Model {
 	}
 
 	/**
-	 * getCard
+	 * Get Card
 	 *
 	 * @param int $squareup_token_id
 	 *
@@ -57,7 +57,7 @@ class ModelExtensionCreditCardSquareup extends Model {
 	}
 
 	/**
-	 * getCards
+	 * Get Cards
 	 *
 	 * @param int $customer_id
 	 * @param int $sandbox
@@ -71,7 +71,7 @@ class ModelExtensionCreditCardSquareup extends Model {
 	}
 
 	/**
-	 * cardExists
+	 * Card Exists
 	 *
 	 * @param int                  $customer_id
 	 * @param array<string, mixed> $data
@@ -89,7 +89,7 @@ class ModelExtensionCreditCardSquareup extends Model {
 	}
 
 	/**
-	 * verifyCardCustomer
+	 * Verify Card Customer
 	 *
 	 * @param int $squareup_token_id
 	 * @param int $customer_id
@@ -107,7 +107,7 @@ class ModelExtensionCreditCardSquareup extends Model {
 	}
 
 	/**
-	 * deleteCard
+	 * Delete Card
 	 *
 	 * @param int $squareup_token_id
 	 *

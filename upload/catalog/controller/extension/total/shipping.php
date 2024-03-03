@@ -6,6 +6,8 @@
  */
 class ControllerExtensionTotalShipping extends Controller {
 	/**
+	 * Index
+	 *
 	 * @return string
 	 */
 	public function index(): string {
