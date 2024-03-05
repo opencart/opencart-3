@@ -575,6 +575,12 @@ class ControllerUserUser extends Controller {
 			}
 		}
 
+		$total_users = $this->model_user_user->getTotalUsers();
+
+		if ($total_users <= 1 && $this->request->post['status'] == 0) {
+			$this->error['warning'] = $this->language->get('error_account');
+		}
+
 		return !$this->error;
 	}
 
