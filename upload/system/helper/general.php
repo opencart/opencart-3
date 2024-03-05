@@ -8,7 +8,7 @@ function oc_token($length = 32) {
 	$token = '';
 
 	for ($i = 0; $i < $length; $i++) {
-		$token .= $string[mt_rand(0, $max)];
+		$token .= $string[random_int(0, $max)];
 	}
 
 	return $token;
