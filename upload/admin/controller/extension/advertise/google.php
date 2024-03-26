@@ -214,7 +214,6 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 		}
 
 		$host_and_uri = parse_url($server, PHP_URL_HOST) . parse_url($server, PHP_URL_PATH);
-
 		$data['advertise_google_cron_url'] = 'https://' . rtrim($host_and_uri, '/') . '/index.php?route=extension/advertise/google/cron&cron_token={CRON_TOKEN}';
 
 		$data['reporting_intervals'] = [];

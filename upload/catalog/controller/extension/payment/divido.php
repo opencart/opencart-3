@@ -133,7 +133,6 @@ class ControllerExtensionPaymentDivido extends Controller {
 		$order_status_id = $order_info['order_status_id'];
 
 		$status = (string)$post_data['status'];
-
 		$message = 'Status: {$status}';
 
 		if (isset($this->history_messages[$status])) {
