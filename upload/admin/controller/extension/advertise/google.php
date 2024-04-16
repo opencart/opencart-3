@@ -1890,7 +1890,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 		$this->load->model('setting/store');
 
 		foreach ($data['menus'] as &$menu) {
-			if ($menu['id'] == 'menu-marketing') {
+			if (isset($menu['id']) && $menu['id'] == 'menu-marketing') {
 				$children = [];
 
 				$children[] = [
