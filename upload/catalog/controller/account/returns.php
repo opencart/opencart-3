@@ -17,7 +17,7 @@ class ControllerAccountReturns extends Controller {
 	 */
 	public function index(): void {
 		if (!$this->customer->isLogged()) {
-			$this->session->data['redirect'] = $this->url->link('account/returns', '', true);
+			$this->session->data['redirect'] = $this->url->link('account/returns', 'customer_token=' . $this->session->data['customer_token'], true);
 
 			$this->response->redirect($this->url->link('account/login', '', true));
 		}
@@ -182,7 +182,7 @@ class ControllerAccountReturns extends Controller {
 				];
 			}
 
-			$data['continue'] = $this->url->link('account/returns', $url, true);
+			$data['continue'] = $this->url->link('account/returns', 'customer_token=' . $this->session->data['customer_token'] . $url, true);
 
 			$data['column_left'] = $this->load->controller('common/column_left');
 			$data['column_right'] = $this->load->controller('common/column_right');
@@ -204,12 +204,12 @@ class ControllerAccountReturns extends Controller {
 
 			$data['breadcrumbs'][] = [
 				'text' => $this->language->get('text_account'),
-				'href' => $this->url->link('account/account', '', true)
+				'href' => $this->url->link('account/account', 'customer_token=' . $this->session->data['customer_token'], true)
 			];
 
 			$data['breadcrumbs'][] = [
 				'text' => $this->language->get('heading_title'),
-				'href' => $this->url->link('account/returns', '', true)
+				'href' => $this->url->link('account/returns', 'customer_token=' . $this->session->data['customer_token'], true)
 			];
 
 			$url = '';
@@ -220,10 +220,10 @@ class ControllerAccountReturns extends Controller {
 
 			$data['breadcrumbs'][] = [
 				'text' => $this->language->get('text_return'),
-				'href' => $this->url->link('account/returns/info', 'return_id=' . $return_id . $url, true)
+				'href' => $this->url->link('account/returns/info', 'customer_token=' . $this->session->data['customer_token'] . '&return_id=' . $return_id . $url, true)
 			];
 
-			$data['continue'] = $this->url->link('account/returns', '', true);
+			$data['continue'] = $this->url->link('account/returns', 'customer_token=' . $this->session->data['customer_token'], true);
 
 			$data['column_left'] = $this->load->controller('common/column_left');
 			$data['column_right'] = $this->load->controller('common/column_right');
@@ -269,12 +269,12 @@ class ControllerAccountReturns extends Controller {
 
 		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_account'),
-			'href' => $this->url->link('account/account', '', true)
+			'href' => $this->url->link('account/account', 'customer_token=' . $this->session->data['customer_token'], true)
 		];
 
 		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('heading_title'),
-			'href' => $this->url->link('account/returns/add', '', true)
+			'href' => $this->url->link('account/returns/add', 'customer_token=' . $this->session->data['customer_token'], true)
 		];
 
 		if (isset($this->error['warning'])) {
@@ -475,7 +475,7 @@ class ControllerAccountReturns extends Controller {
 			$data['agree'] = false;
 		}
 
-		$data['back'] = $this->url->link('account/account', '', true);
+		$data['back'] = $this->url->link('account/account', 'customer_token=' . $this->session->data['customer_token'], true);
 
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['column_right'] = $this->load->controller('common/column_right');
@@ -584,7 +584,7 @@ class ControllerAccountReturns extends Controller {
 
 		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('heading_title'),
-			'href' => $this->url->link('account/returns', '', true)
+			'href' => $this->url->link('account/returns', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''), true)
 		];
 
 		$data['continue'] = $this->url->link('common/home');
