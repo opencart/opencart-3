@@ -78,12 +78,12 @@ class ControllerInformationSitemap extends Controller {
 		}
 
 		$data['special'] = $this->url->link('product/special');
-		$data['account'] = $this->url->link('account/account', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''), true);
-		$data['edit'] = $this->url->link('account/edit', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''), true);
-		$data['password'] = $this->url->link('account/password', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''), true);
-		$data['address'] = $this->url->link('account/address', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''), true);
-		$data['history'] = $this->url->link('account/order', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''), true);
-		$data['download'] = $this->url->link('account/download', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''), true);
+		$data['account'] = $this->url->link('account/account', (isset($this->session->data['customer_token']) ? 'customer_token=' . $this->session->data['customer_token'] : ''), true);
+		$data['edit'] = $this->url->link('account/edit', (isset($this->session->data['customer_token']) ? 'customer_token=' . $this->session->data['customer_token'] : ''), true);
+		$data['password'] = $this->url->link('account/password', (isset($this->session->data['customer_token']) ? 'customer_token=' . $this->session->data['customer_token'] : ''), true);
+		$data['address'] = $this->url->link('account/address', (isset($this->session->data['customer_token']) ? 'customer_token=' . $this->session->data['customer_token'] : ''), true);
+		$data['history'] = $this->url->link('account/order', (isset($this->session->data['customer_token']) ? 'customer_token=' . $this->session->data['customer_token'] : ''), true);
+		$data['download'] = $this->url->link('account/download', (isset($this->session->data['customer_token']) ? 'customer_token=' . $this->session->data['customer_token'] : ''), true);
 		$data['cart'] = $this->url->link('checkout/cart');
 		$data['checkout'] = $this->url->link('checkout/checkout', '', true);
 		$data['search'] = $this->url->link('product/search');

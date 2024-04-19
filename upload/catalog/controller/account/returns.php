@@ -584,7 +584,7 @@ class ControllerAccountReturns extends Controller {
 
 		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('heading_title'),
-			'href' => $this->url->link('account/returns', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''), true)
+			'href' => $this->url->link('account/returns', (isset($this->session->data['customer_token']) ? 'customer_token=' . $this->session->data['customer_token'] : ''), true)
 		];
 
 		$data['continue'] = $this->url->link('common/home');
