@@ -16,8 +16,8 @@ class ControllerAccountReturns extends Controller {
 	 * @return void
 	 */
 	public function index(): void {
-		if (!$this->customer->isLogged()) {
-			$this->session->data['redirect'] = $this->url->link('account/returns', 'customer_token=' . $this->session->data['customer_token'], true);
+		if (!$this->customer->isLogged() || (!isset($this->request->get['customer_token']) || !isset($this->session->data['customer_token']) || ($this->request->get['customer_token'] != $this->session->data['customer_token']))) {
+			$this->session->data['redirect'] = $this->url->link('account/returns', '', true);
 
 			$this->response->redirect($this->url->link('account/login', '', true));
 		}
@@ -73,7 +73,7 @@ class ControllerAccountReturns extends Controller {
 				'name'       => $result['firstname'] . ' ' . $result['lastname'],
 				'status'     => $result['status'],
 				'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
-				'href'       => $this->url->link('account/returns/info', 'return_id=' . $result['return_id'] . $url, true)
+				'href'       => $this->url->link('account/returns/info', 'return_id=' . $result['return_id'] . '&customer_token=' . $this->session->data['customer_token'] . $url, true)
 			];
 		}
 
@@ -113,7 +113,7 @@ class ControllerAccountReturns extends Controller {
 		}
 
 		if (!$this->customer->isLogged() || (!isset($this->request->get['customer_token']) || !isset($this->session->data['customer_token']) || ($this->request->get['customer_token'] != $this->session->data['customer_token']))) {
-			$this->session->data['redirect'] = $this->url->link('account/returns/info', 'return_id=' . $return_id, true);
+			$this->session->data['redirect'] = $this->url->link('account/returns/info', 'customer_token=' . $this->session->data['customer_token'], true);
 
 			$this->response->redirect($this->url->link('account/login', '', true));
 		}
