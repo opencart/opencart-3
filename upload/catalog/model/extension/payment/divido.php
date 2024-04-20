@@ -75,7 +75,7 @@ class ModelExtensionPaymentDivido extends Model {
 	 *
 	 * @return void
 	 */
-	public function saveLookup(int $order_id, string $salt, string $proposal_id = null, string $application_id = null, float $deposit_amount = null): void {
+	public function saveLookup(int $order_id, string $salt, ?string $proposal_id = null, ?string $application_id = null, ?float $deposit_amount = null): void {
 		$query = $this->db->query("SELECT `application_id` FROM `" . DB_PREFIX . "divido_lookup` WHERE `order_id` = '" . (int)$order_id . "'");
 
 		if (!$query->num_rows) {

@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d58a377f3529a106c9b6d4c9a4e8b11a",
-    "packages": [        
+    "content-hash": "bb9c4f8ff8643ce5c69b8c7eb1e844b4",
+    "packages": [
         {
             "name": "cardinity/cardinity-sdk-php",
-            "version": "v3.2.1",
+            "version": "v3.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cardinity/cardinity-sdk-php.git",
-                "reference": "a2eb8507fadc6f5bde621a7fed30b00afb032681"
+                "reference": "c9c2999c9ec024f628aec305627808c672e90282"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cardinity/cardinity-sdk-php/zipball/a2eb8507fadc6f5bde621a7fed30b00afb032681",
-                "reference": "a2eb8507fadc6f5bde621a7fed30b00afb032681",
+                "url": "https://api.github.com/repos/cardinity/cardinity-sdk-php/zipball/c9c2999c9ec024f628aec305627808c672e90282",
+                "reference": "c9c2999c9ec024f628aec305627808c672e90282",
                 "shasum": ""
             },
             "require": {
@@ -46,16 +46,16 @@
             "homepage": "https://cardinity.com",
             "support": {
                 "issues": "https://github.com/cardinity/cardinity-sdk-php/issues",
-                "source": "https://github.com/cardinity/cardinity-sdk-php/tree/v3.2.1"
+                "source": "https://github.com/cardinity/cardinity-sdk-php/tree/v3.3.1"
             },
-            "time": "2023-05-09T06:45:15+00:00"
+            "time": "2024-02-20T08:09:59+00:00"
         },
         {
             "name": "divido/divido-php",
             "version": "v1.15-stable",
             "source": {
                 "type": "git",
-                "url": "git@github.com:DividoFinancialServices/divido-api-php.git",
+                "url": "https://github.com/DividoFinancialServices/divido-api-php.git",
                 "reference": "8edd902ec2be8151331985021107031292b41ca1"
             },
             "dist": {
@@ -93,6 +93,10 @@
                 "instalments",
                 "payment processing"
             ],
+            "support": {
+                "issues": "https://github.com/DividoFinancialServices/divido-api-php/issues",
+                "source": "https://github.com/DividoFinancialServices/divido-api-php/tree/v1.15-stable"
+            },
             "time": "2018-01-21T15:38:57+00:00"
         },
         {
@@ -685,16 +689,16 @@
         },
         {
             "name": "scssphp/scssphp",
-            "version": "v1.12.0",
+            "version": "v1.12.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/scssphp/scssphp.git",
-                "reference": "a6b20c170ddb95f116b3d148a466a7bed1e85c35"
+                "reference": "394ed1e960138710a60d035c1a85d43d0bf0faeb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/scssphp/scssphp/zipball/a6b20c170ddb95f116b3d148a466a7bed1e85c35",
-                "reference": "a6b20c170ddb95f116b3d148a466a7bed1e85c35",
+                "url": "https://api.github.com/repos/scssphp/scssphp/zipball/394ed1e960138710a60d035c1a85d43d0bf0faeb",
+                "reference": "394ed1e960138710a60d035c1a85d43d0bf0faeb",
                 "shasum": ""
             },
             "require": {
@@ -759,9 +763,9 @@
             ],
             "support": {
                 "issues": "https://github.com/scssphp/scssphp/issues",
-                "source": "https://github.com/scssphp/scssphp/tree/v1.12.0"
+                "source": "https://github.com/scssphp/scssphp/tree/v1.12.1"
             },
-            "time": "2023-11-14T14:56:09+00:00"
+            "time": "2024-01-13T12:36:40+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -832,16 +836,16 @@
         },
         {
             "name": "symfony/polyfill-ctype",
-            "version": "v1.28.0",
+            "version": "v1.29.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-ctype.git",
-                "reference": "ea208ce43cbb04af6867b4fdddb1bdbf84cc28cb"
+                "reference": "ef4d7e442ca910c4764bce785146269b30cb5fc4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/ea208ce43cbb04af6867b4fdddb1bdbf84cc28cb",
-                "reference": "ea208ce43cbb04af6867b4fdddb1bdbf84cc28cb",
+                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/ef4d7e442ca910c4764bce785146269b30cb5fc4",
+                "reference": "ef4d7e442ca910c4764bce785146269b30cb5fc4",
                 "shasum": ""
             },
             "require": {
@@ -855,9 +859,6 @@
             },
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-main": "1.28-dev"
-                },
                 "thanks": {
                     "name": "symfony/polyfill",
                     "url": "https://github.com/symfony/polyfill"
@@ -894,7 +895,7 @@
                 "portable"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.28.0"
+                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.29.0"
             },
             "funding": [
                 {
@@ -910,20 +911,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-01-26T09:26:14+00:00"
+            "time": "2024-01-29T20:11:03+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.28.0",
+            "version": "v1.29.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "42292d99c55abe617799667f454222c54c60e229"
+                "reference": "9773676c8a1bb1f8d4340a62efe641cf76eda7ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/42292d99c55abe617799667f454222c54c60e229",
-                "reference": "42292d99c55abe617799667f454222c54c60e229",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/9773676c8a1bb1f8d4340a62efe641cf76eda7ec",
+                "reference": "9773676c8a1bb1f8d4340a62efe641cf76eda7ec",
                 "shasum": ""
             },
             "require": {
@@ -937,9 +938,6 @@
             },
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-main": "1.28-dev"
-                },
                 "thanks": {
                     "name": "symfony/polyfill",
                     "url": "https://github.com/symfony/polyfill"
@@ -977,7 +975,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.28.0"
+                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.29.0"
             },
             "funding": [
                 {
@@ -993,20 +991,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-07-28T09:04:16+00:00"
+            "time": "2024-01-29T20:11:03+00:00"
         },
         {
             "name": "symfony/polyfill-php73",
-            "version": "v1.28.0",
+            "version": "v1.29.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php73.git",
-                "reference": "fe2f306d1d9d346a7fee353d0d5012e401e984b5"
+                "reference": "21bd091060673a1177ae842c0ef8fe30893114d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php73/zipball/fe2f306d1d9d346a7fee353d0d5012e401e984b5",
-                "reference": "fe2f306d1d9d346a7fee353d0d5012e401e984b5",
+                "url": "https://api.github.com/repos/symfony/polyfill-php73/zipball/21bd091060673a1177ae842c0ef8fe30893114d2",
+                "reference": "21bd091060673a1177ae842c0ef8fe30893114d2",
                 "shasum": ""
             },
             "require": {
@@ -1014,9 +1012,6 @@
             },
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-main": "1.28-dev"
-                },
                 "thanks": {
                     "name": "symfony/polyfill",
                     "url": "https://github.com/symfony/polyfill"
@@ -1056,7 +1051,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php73/tree/v1.28.0"
+                "source": "https://github.com/symfony/polyfill-php73/tree/v1.29.0"
             },
             "funding": [
                 {
@@ -1072,20 +1067,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-01-26T09:26:14+00:00"
+            "time": "2024-01-29T20:11:03+00:00"
         },
         {
             "name": "symfony/polyfill-php80",
-            "version": "v1.28.0",
+            "version": "v1.29.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php80.git",
-                "reference": "6caa57379c4aec19c0a12a38b59b26487dcfe4b5"
+                "reference": "87b68208d5c1188808dd7839ee1e6c8ec3b02f1b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php80/zipball/6caa57379c4aec19c0a12a38b59b26487dcfe4b5",
-                "reference": "6caa57379c4aec19c0a12a38b59b26487dcfe4b5",
+                "url": "https://api.github.com/repos/symfony/polyfill-php80/zipball/87b68208d5c1188808dd7839ee1e6c8ec3b02f1b",
+                "reference": "87b68208d5c1188808dd7839ee1e6c8ec3b02f1b",
                 "shasum": ""
             },
             "require": {
@@ -1093,9 +1088,6 @@
             },
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-main": "1.28-dev"
-                },
                 "thanks": {
                     "name": "symfony/polyfill",
                     "url": "https://github.com/symfony/polyfill"
@@ -1139,7 +1131,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php80/tree/v1.28.0"
+                "source": "https://github.com/symfony/polyfill-php80/tree/v1.29.0"
             },
             "funding": [
                 {
@@ -1155,20 +1147,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-01-26T09:26:14+00:00"
+            "time": "2024-01-29T20:11:03+00:00"
         },
         {
             "name": "symfony/polyfill-php81",
-            "version": "v1.28.0",
+            "version": "v1.29.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php81.git",
-                "reference": "7581cd600fa9fd681b797d00b02f068e2f13263b"
+                "reference": "c565ad1e63f30e7477fc40738343c62b40bc672d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php81/zipball/7581cd600fa9fd681b797d00b02f068e2f13263b",
-                "reference": "7581cd600fa9fd681b797d00b02f068e2f13263b",
+                "url": "https://api.github.com/repos/symfony/polyfill-php81/zipball/c565ad1e63f30e7477fc40738343c62b40bc672d",
+                "reference": "c565ad1e63f30e7477fc40738343c62b40bc672d",
                 "shasum": ""
             },
             "require": {
@@ -1176,9 +1168,6 @@
             },
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-main": "1.28-dev"
-                },
                 "thanks": {
                     "name": "symfony/polyfill",
                     "url": "https://github.com/symfony/polyfill"
@@ -1218,7 +1207,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php81/tree/v1.28.0"
+                "source": "https://github.com/symfony/polyfill-php81/tree/v1.29.0"
             },
             "funding": [
                 {
@@ -1234,20 +1223,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-01-26T09:26:14+00:00"
+            "time": "2024-01-29T20:11:03+00:00"
         },
         {
             "name": "symfony/translation-contracts",
-            "version": "v3.4.0",
+            "version": "v3.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation-contracts.git",
-                "reference": "dee0c6e5b4c07ce851b462530088e64b255ac9c5"
+                "reference": "43810bdb2ddb5400e5c5e778e27b210a0ca83b6b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation-contracts/zipball/dee0c6e5b4c07ce851b462530088e64b255ac9c5",
-                "reference": "dee0c6e5b4c07ce851b462530088e64b255ac9c5",
+                "url": "https://api.github.com/repos/symfony/translation-contracts/zipball/43810bdb2ddb5400e5c5e778e27b210a0ca83b6b",
+                "reference": "43810bdb2ddb5400e5c5e778e27b210a0ca83b6b",
                 "shasum": ""
             },
             "require": {
@@ -1296,7 +1285,7 @@
                 "standards"
             ],
             "support": {
-                "source": "https://github.com/symfony/translation-contracts/tree/v3.4.0"
+                "source": "https://github.com/symfony/translation-contracts/tree/v3.4.2"
             },
             "funding": [
                 {
@@ -1312,20 +1301,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-07-25T15:08:44+00:00"
+            "time": "2024-01-23T14:51:35+00:00"
         },
         {
             "name": "symfony/validator",
-            "version": "v5.4.32",
+            "version": "v5.4.38",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/validator.git",
-                "reference": "d205d071c4a7ef5b6b43349c7e41d47d1b227636"
+                "reference": "4d107c2d548111156cdc4a12d12d8561d619c3c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/validator/zipball/d205d071c4a7ef5b6b43349c7e41d47d1b227636",
-                "reference": "d205d071c4a7ef5b6b43349c7e41d47d1b227636",
+                "url": "https://api.github.com/repos/symfony/validator/zipball/4d107c2d548111156cdc4a12d12d8561d619c3c3",
+                "reference": "4d107c2d548111156cdc4a12d12d8561d619c3c3",
                 "shasum": ""
             },
             "require": {
@@ -1347,7 +1336,7 @@
                 "symfony/http-kernel": "<4.4",
                 "symfony/intl": "<4.4",
                 "symfony/property-info": "<5.3",
-                "symfony/translation": "<4.4",
+                "symfony/translation": "<5.4.35|>=6.0,<6.3.12|>=6.4,<6.4.3",
                 "symfony/yaml": "<4.4"
             },
             "require-dev": {
@@ -1367,7 +1356,7 @@
                 "symfony/mime": "^4.4|^5.0|^6.0",
                 "symfony/property-access": "^4.4|^5.0|^6.0",
                 "symfony/property-info": "^5.3|^6.0",
-                "symfony/translation": "^4.4|^5.0|^6.0",
+                "symfony/translation": "^5.4.35|~6.3.12|^6.4.3",
                 "symfony/yaml": "^4.4|^5.0|^6.0"
             },
             "suggest": {
@@ -1408,7 +1397,7 @@
             "description": "Provides tools to validate values",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/validator/tree/v5.4.32"
+                "source": "https://github.com/symfony/validator/tree/v5.4.38"
             },
             "funding": [
                 {
@@ -1424,7 +1413,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-11-29T07:42:18+00:00"
+            "time": "2024-03-18T16:56:51+00:00"
         },
         {
             "name": "twig/twig",
@@ -1500,16 +1489,16 @@
         },
         {
             "name": "zoujingli/wechat-developer",
-            "version": "v1.2.51",
+            "version": "v1.2.54",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zoujingli/WeChatDeveloper.git",
-                "reference": "b799247cd27ce5a49b6f7ae22cfe10ab7768cb4e"
+                "reference": "812aae37ffc5b6038b03163796f6eed97bb79730"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zoujingli/WeChatDeveloper/zipball/b799247cd27ce5a49b6f7ae22cfe10ab7768cb4e",
-                "reference": "b799247cd27ce5a49b6f7ae22cfe10ab7768cb4e",
+                "url": "https://api.github.com/repos/zoujingli/WeChatDeveloper/zipball/812aae37ffc5b6038b03163796f6eed97bb79730",
+                "reference": "812aae37ffc5b6038b03163796f6eed97bb79730",
                 "shasum": ""
             },
             "require": {
@@ -1558,9 +1547,51 @@
             ],
             "support": {
                 "issues": "https://github.com/zoujingli/WeChatDeveloper/issues",
-                "source": "https://github.com/zoujingli/WeChatDeveloper/tree/v1.2.51"
+                "source": "https://github.com/zoujingli/WeChatDeveloper/tree/v1.2.54"
             },
-            "time": "2023-12-18T06:24:51+00:00"
+            "time": "2024-01-16T13:13:59+00:00"
+        },
+        {
+            "name": "zoujingli/wechat-php-sdk",
+            "version": "v1.3.18",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zoujingli/wechat-php-sdk.git",
+                "reference": "d37d0c1919ede2ee54e65100ac3792e947b1e0ef"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zoujingli/wechat-php-sdk/zipball/d37d0c1919ede2ee54e65100ac3792e947b1e0ef",
+                "reference": "d37d0c1919ede2ee54e65100ac3792e947b1e0ef",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "ext-libxml": "*",
+                "ext-simplexml": "*",
+                "php": ">=5.3.3"
+            },
+            "type": "project",
+            "autoload": {
+                "psr-4": {
+                    "Wechat\\": "./Wechat"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "WeChat development of SDK",
+            "homepage": "http://www.kancloud.cn/zoujingli/wechat-php-sdk",
+            "keywords": [
+                "wechat-php-sdk"
+            ],
+            "support": {
+                "issues": "https://github.com/zoujingli/wechat-php-sdk/issues",
+                "source": "https://github.com/zoujingli/wechat-php-sdk/tree/v1.3.18"
+            },
+            "abandoned": "zoujingli/wechat-developer",
+            "time": "2019-10-10T09:42:15+00:00"
         }
     ],
     "packages-dev": [],

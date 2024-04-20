@@ -237,4 +237,25 @@ class PaymentTest extends ClientTestCase
         $this->assertSame('approved', $result->getStatus());
         $this->assertSame(true, $result->isApproved());
     }
+
+    public function testDeclinedWithMerchantAdviceCode()
+    {
+        $newPaymentParams = $this->paymentParams;
+
+        $newPaymentParams['payment_instrument']['pan'] = '4200000000000018';
+        $newPaymentParams['amount'] = 150.23;
+
+        $method = new Payment\Create($newPaymentParams);
+
+        try {
+            $result = $this->client->call($method);
+        } catch (\Cardinity\Exception\Declined $e){
+            $result = $e->getResult();
+            $this->assertInstanceOf('Cardinity\Method\Payment\Payment', $result);
+            $this->assertSame('declined', $result->getStatus());
+            $this->assertSame("03: Do not try again", $result->getMerchantAdviceCode());
+        }
+
+        return $result;
+    }
 }

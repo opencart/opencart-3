@@ -433,8 +433,8 @@ class ModelExtensionPaymentRealexRemote extends Model {
 	/**
 	 * Add Transaction
 	 *
-	 * @param int    $realex_remote_order_id
-	 * @param string $type
+	 * @param int                  $realex_remote_order_id
+	 * @param string               $type
 	 * @param array<string, mixed> $order_info
 	 *
 	 * @return void

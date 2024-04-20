@@ -21,7 +21,6 @@ class Chargeback extends ResultObject
     /**
       * @type string Three-letter ISO currency code representing the currency in
       * which the charge was made.
-      * Supported currencies: EUR, USD.
       */
     private $currency;
 

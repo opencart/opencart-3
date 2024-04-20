@@ -41,7 +41,7 @@ class ModelExtensionTotalCredit extends Model {
 	 *
 	 * @return void
 	 */
-	public function confirm(array $order_info, float $order_total): void {
+	public function confirm(array $order_info, array $order_total): void {
 		$this->load->language('extension/total/credit');
 
 		if ($order_info['customer_id']) {

@@ -82,14 +82,12 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 	/**
 	 * Format
 	 *
-	 * @param mixed $number
-	 * @param mixed $currency
-	 * @param mixed $value
-	 * @param mixed $format
-	 *
-	 * @return float
+	 * @param float  $number
+	 * @param string $currency
+	 * @param mixed  $value
+	 * @param bool   $format
 	 */
-	public function format($number, $currency, $value = '', $format = false): float {
+	public function format(float $number, string $currency, $value = '', bool $format = false) {
 		$decimal_place = $this->currency->getDecimalPlace($currency);
 
 		if (!$value) {
@@ -246,7 +244,7 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 	 * Logger
 	 *
 	 * @param mixed $message
-	 * 
+	 *
 	 * @return void
 	 */
 	public function logger($message): void {

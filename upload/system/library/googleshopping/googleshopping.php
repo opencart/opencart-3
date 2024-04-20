@@ -1774,6 +1774,8 @@ class Googleshopping extends Library {
 	 * @return array<int, array<string, mixed>>
 	 */
 	public function getProductStatuses(array $product_ids): array {
+		$post = [];
+
 		$post_data = [
 			'product_ids' => $product_ids
 		];

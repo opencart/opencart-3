@@ -3,7 +3,7 @@
 // +----------------------------------------------------------------------
 // | WeChatDeveloper
 // +----------------------------------------------------------------------
-// | 版权所有 2014~2023 ThinkAdmin [ thinkadmin.top ]
+// | 版权所有 2014~2024 ThinkAdmin [ thinkadmin.top ]
 // +----------------------------------------------------------------------
 // | 官方网站: https://thinkadmin.top
 // +----------------------------------------------------------------------
@@ -59,6 +59,7 @@ use WeChat\Exceptions\InvalidInstanceException;
  * ----- WeMini -----
  * @method \WeMini\Crypt WeMiniCrypt($options = []) static 小程序数据加密处理
  * @method \WeMini\Delivery WeMiniDelivery($options = []) static 小程序即时配送
+ * @method \WeMini\Shipping WeMiniShipping($options = []) satic 小程序发货信息
  * @method \WeMini\Guide WeMiniGuide($options = []) static 小程序导购助手
  * @method \WeMini\Image WeMiniImage($options = []) static 小程序图像处理
  * @method \WeMini\Live WeMiniLive($options = []) static 小程序直播接口
@@ -94,7 +95,7 @@ class We
      * 定义当前版本
      * @var string
      */
-    const VERSION = '1.2.51';
+    const VERSION = '1.2.54';
 
     /**
      * 静态配置

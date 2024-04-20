@@ -3,7 +3,7 @@
 // +----------------------------------------------------------------------
 // | WeChatDeveloper
 // +----------------------------------------------------------------------
-// | 版权所有 2014~2023 ThinkAdmin [ thinkadmin.top ]
+// | 版权所有 2014~2024 ThinkAdmin [ thinkadmin.top ]
 // +----------------------------------------------------------------------
 // | 官方网站: https://thinkadmin.top
 // +----------------------------------------------------------------------
@@ -109,6 +109,7 @@ class BasicPushEvent
             }
             $this->receive = new DataArray(Tools::xml2arr($this->postxml));
         } elseif ($_SERVER['REQUEST_METHOD'] == "GET" && $this->checkSignature()) {
+            $this->receive = new DataArray([]);
             if ($showEchoStr && ob_clean()) {
                 echo($this->input->get('echostr'));
             }

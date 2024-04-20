@@ -9,7 +9,7 @@ class ModelExtensionTotalReward extends Model {
 	 * Get Total
 	 *
 	 * @param array<string, mixed> $total
-	 * 
+	 *
 	 * @return void
 	 */
 	public function getTotal(array $total): void {
@@ -68,7 +68,7 @@ class ModelExtensionTotalReward extends Model {
 	 *
 	 * @param array<string, mixed> $order_info
 	 * @param array<string, mixed> $order_total
-	 * 
+	 *
 	 * @return int
 	 */
 	public function confirm(array $order_info, array $order_total): int {
@@ -99,7 +99,7 @@ class ModelExtensionTotalReward extends Model {
 	 * Unconfirm
 	 *
 	 * @param int $order_id
-	 * 
+	 *
 	 * @return void
 	 */
 	public function unconfirm(int $order_id): void {

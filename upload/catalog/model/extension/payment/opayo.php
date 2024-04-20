@@ -382,11 +382,11 @@ class ModelExtensionPaymentOpayo extends Model {
 	 * @param string               $subscription_name
 	 * @param string               $subscription_expiry
 	 * @param int                  $subscription_frequency
-	 * @param ?int|null            $i
+	 * @param int                  $i
 	 *
 	 * @return array<string, mixed>
 	 */
-	private function setPaymentData(array $order_info, array $opayo_order_info, float $price, int $subscription_id, string $subscription_name, string $subscription_expiry, int $subscription_frequency, $i = null): array {
+	private function setPaymentData(array $order_info, array $opayo_order_info, float $price, int $subscription_id, string $subscription_name, string $subscription_expiry, int $subscription_frequency, ?int $i = null): array {
 		$payment_data = [];
 
 		$url = '';
@@ -628,11 +628,11 @@ class ModelExtensionPaymentOpayo extends Model {
 	 *
 	 * @param string       $url
 	 * @param array<mixed> $payment_data
-	 * @param ?int|null    $i
+	 * @param int          $i
 	 *
 	 * @return array<string, string>
 	 */
-	public function sendCurl(string $url, array $payment_data, $i = null): array {
+	public function sendCurl(string $url, array $payment_data, ?int $i = null): array {
 		$post_data = [];
 
 		$curl = curl_init($url);

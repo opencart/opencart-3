@@ -47,7 +47,7 @@ abstract class ResultObject implements ResultObjectInterface
             $value = $this->$method();
 
             if (is_float($value)) {
-                $value = sprintf("%01.2f", $value);
+                $value = number_format($value, 2, '.', '');
             } elseif (is_object($value)) {
                 $value = $value->serialize(false);
             }

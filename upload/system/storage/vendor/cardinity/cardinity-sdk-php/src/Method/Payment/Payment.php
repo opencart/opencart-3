@@ -16,8 +16,7 @@ class Payment extends ResultObject
     private $amount;
 
     /** @type string Three-letter ISO currency code representing the currency in
-        which the charge was made.
-        Supported currencies: EUR, USD. */
+        which the charge was made. */
     private $currency;
 
     /** @type string Payment creation time as defined in RFC 3339 Section 5.6.
@@ -50,6 +49,12 @@ class Payment extends ResultObject
         Provides human readable information why the payment failed.
         Value assigned by Cardinity. */
     private $error;
+
+    /** @type string Optional. Merchant advice code for a transaction.
+        Returned only if status is declined.
+        Provides information about transaction or the reason why transaction was declined.
+        Value assigned by Cardinity. */
+    private $merchantAdviceCode;
 
     /** @type string Optional. Order ID provided by a merchant.
         Must be between 2 and 50 characters [A-Za-z0-9'.-]. */
@@ -258,6 +263,25 @@ class Payment extends ResultObject
     public function setError($error)
     {
         $this->error = $error;
+    }
+
+    /**
+     * Gets the value of merchantAdviceCode.
+     * @return mixed
+     */
+    public function getMerchantAdviceCode()
+    {
+        return $this->merchantAdviceCode;
+    }
+
+    /**
+     * Sets the value of merchantAdviceCode.
+     * @param string $merchantAdviceCode the code
+     * @return void
+     */
+    public function setMerchantAdviceCode(string $merchantAdviceCode): void
+    {
+        $this->merchantAdviceCode = $merchantAdviceCode;
     }
 
     /**

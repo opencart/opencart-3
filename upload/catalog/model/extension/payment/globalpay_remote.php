@@ -110,9 +110,9 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 	 * @param string $card_name
 	 * @param string $pares
 	 *
-	 * @return false|SimpleXMElement
+	 * @return SimpleXMElement
 	 */
-	public function enrollmentSignature(string $account, float $amount, string $currency, string $order_ref, int $card_number, int $card_expire, string $card_type, string $card_name, string $pares): false|SimpleXMElement {
+	public function enrollmentSignature(string $account, float $amount, string $currency, string $order_ref, int $card_number, int $card_expire, string $card_type, string $card_name, string $pares): SimpleXMElement {
 		// Orders
 		$this->load->model('checkout/order');
 
