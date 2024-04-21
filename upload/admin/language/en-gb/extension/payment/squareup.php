@@ -126,6 +126,7 @@ $_['text_void']                             = 'Void';
 $_['text_na']                               = 'N/A';
 $_['text_no_reason_provided']               = 'Reason not provided.';
 $_['text_transaction_success']              = 'Success: The subscription transaction has been successfully added!';
+$_['text_recurring_report_success']         = 'Success: The recurring report has been successfully created!';
 
 // Squareup
 $_['squareup_status_comment_authorized']    = 'The card transaction has been authorized but not yet captured.';
@@ -184,7 +185,7 @@ $_['button_cancel_recurring']               = 'Cancel Subscription';
 
 // Error
 $_['error_permission']                      = '<strong>Warning:</strong> You do not have permission to modify payment Square!';
-$_['error_permission_recurring']           = '<strong>Warning:</strong> You do not have permission to modify recurring payments!';
+$_['error_permission_recurring']            = '<strong>Warning:</strong> You do not have permission to modify recurring payments!';
 $_['error_transaction_missing']             = 'Transaction not found!';
 $_['error_no_ssl']                          = '<strong>Warning:</strong> SSL is not enabled on your admin panel. Please enable it to finish your configuration.';
 $_['error_user_rejected_connect_attempt']   = 'Connection attempt was canceled by the user.';
@@ -203,3 +204,4 @@ $_['error_no_refund']                       = 'Refund failed.';
 $_['error_subscription']                    = 'The specified subscription ID could not be found!';
 $_['error_order']                           = 'The order ID, with the specified subscription ID, could not be found!';
 $_['error_transaction_reference']           = 'The transaction reference, with this subscription ID, already exists in the transaction data!';
+$_['error_recurring_report']                = 'Unable to add recurring reports!';

@@ -6,6 +6,20 @@
  */
 class ModelExtensionOtherRecurring extends Model {
 	/**
+	 * Add Recurring Report
+	 *
+	 * @param int    $order_recurring_id
+	 * @param int    $store_id
+	 * @param string $ip
+	 * @param string $country
+	 *
+	 * @return void
+	 */
+	public function addRecurringReport(int $order_recurring_id, int $store_id, string $ip, string $country): void {
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "order_recurring_report` SET `order_recurring_id` = '" . (int)$order_recurring_id . "', `store_id` = '" . (int)$store_id . "', `ip` = '" . $this->db->escape($ip) . "', `country` = '" . $this->db->escape($country) . "', `date_added` = NOW()");
+	}
+
+	/**
 	 * Get Recurring
 	 *
 	 * @param int $order_recurring_id
@@ -153,6 +167,19 @@ class ModelExtensionOtherRecurring extends Model {
 		}
 
 		return $transactions;
+	}
+
+	/**
+	 * Get Recurring Report
+	 *
+	 * @param int $order_recurring_id
+	 *
+	 * @return array<string, string>
+	 */
+	public function getRecurringReport(int $order_recurring_id): array {
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_recurring_report` WHERE `order_recurring_id` = '" . (int)$order_recurring_id . "'");
+
+		return $query->row;
 	}
 
 	/**

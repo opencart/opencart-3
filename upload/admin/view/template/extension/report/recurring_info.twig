@@ -1,0 +1,116 @@
+<div class="row">
+  <div class="col-md-3 col-md-push-9 col-sm-12 hidden-sm hidden-xs" id="filter-report">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-filter"></i> {{ text_filter }}</h3>
+      </div>
+      <div class="panel-body">
+        <div class="form-group">
+          <label class="control-label" for="input-date-start">{{ entry_date_start }}</label>
+          <div class="input-group date">
+            <input type="text" name="filter_date_start" value="{{ filter_date_start }}" placeholder="{{ entry_date_start }}" data-date-format="YYYY-MM-DD" class="form-control" id="input-date-start"/>
+            <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="input-date-end">{{ entry_date_end }}</label>
+          <div class="input-group date">
+            <input type="text" name="filter_date_end" value="{{ filter_date_end }}" placeholder="{{ entry_date_end }}" data-date-format="YYYY-MM-DD" class="form-control" id="input-date-end"/>
+            <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="input-group">{{ entry_group }}</label>
+          <select name="filter_group" class="form-control" id="input-group"/>
+            {% for group in groups %}
+              {% if group.value == filter_group %}
+                <option value="{{ group.value }}" selected="selected">{{ group.text }}</option>
+              {% else %}
+                <option value="{{ group.value }}">{{ group.text }}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
+        </div>        
+        <div class="form-group text-right">
+          <button type="button" class="btn btn-default" id="button-filter"><i class="fa fa-filter"></i> {{ button_filter }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-9 col-md-pull-3 col-sm-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-bar-chart"></i> {{ heading_title }}</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <td class="text-left">{{ column_date_start }}</td>
+                <td class="text-left">{{ column_date_end }}</td>
+                <td class="text-right">{{ column_recurring }}</td>
+                <td class="text-right">{{ column_products }}</td>
+                <td class="text-right">{{ column_tax }}</td>
+                <td class="text-right">{{ column_total }}</td>
+              </tr>
+            </thead>
+            <tbody>
+              {% if recurrings %}
+                {% for recurring in recurrings %}
+                  <tr>
+                    <td class="text-left">{{ recurring.date_start }}</td>
+                    <td class="text-left">{{ recurring.date_end }}</td>
+                    <td class="text-right">{{ recurring.recurrings }}</td>
+                    <td class="text-right">{{ recurring.products }}</td>
+                    <td class="text-right">{{ recurring.tax }}</td>
+                    <td class="text-right">{{ recurring.total }}</td>
+                  </tr>
+                {% endfor %}
+              {% else %}
+                <tr>
+                  <td class="text-center" colspan="6">{{ text_no_results }}</td>
+                </tr>
+              {% endif %}
+            </tbody>
+          </table>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 text-left">{{ pagination }}</div>
+          <div class="col-sm-6 text-right">{{ results }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript"><!--
+$('#button-filter').on('click', function () {
+    var url = '';
+
+    var filter_date_start = $('input[name=\'filter_date_start\']').val();
+
+    if (filter_date_start) {
+        url += '&filter_date_start=' + encodeURIComponent(filter_date_start);
+    }
+
+    var filter_date_end = $('input[name=\'filter_date_end\']').val();
+
+    if (filter_date_end) {
+        url += '&filter_date_end=' + encodeURIComponent(filter_date_end);
+    }
+
+    var filter_group = $('select[name=\'filter_group\']').val();
+
+    if (filter_group) {
+        url += '&filter_group=' + encodeURIComponent(filter_group);
+    }
+
+    location = 'index.php?route=report/report&code=recurring&user_token={{ user_token }}' + url;
+});
+//--></script>
+<script type="text/javascript"><!--
+$('.date').datetimepicker({
+    language: '{{ datepicker }}',
+    pickTime: false
+});
+//--></script>

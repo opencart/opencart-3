@@ -4505,10 +4505,10 @@ function oc_db_schema() {
 	];
 
 	$tables[] = [
-		'name'  => 'order_recurring_history',
+		'name'  => 'order_recurring_report',
 		'field' => [
 			[
-				'name'           => 'order_recurring_history_id',
+				'name'           => 'order_recurring_report_id',
 				'type'           => 'int(11)',
 				'auto_increment' => true,
 				'not_null'       => true
@@ -4519,13 +4519,18 @@ function oc_db_schema() {
 				'not_null' => true
 			],
 			[
-				'name'     => 'notify',
-				'type'     => 'tinyint(1)',
+				'name'     => 'store_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name'     => 'comment',
-				'type'     => 'text',
+				'name'     => 'ip',
+				'type'     => 'varchar(40)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'country',
+				'type'     => 'varchar(40)',
 				'not_null' => true
 			],
 			[
@@ -4535,7 +4540,7 @@ function oc_db_schema() {
 			]
 		],
 		'primary' => [
-			'order_recurring_history_id'
+			'order_recurring_report_id'
 		],
 		'foreign' => [
 			[
@@ -4547,7 +4552,7 @@ function oc_db_schema() {
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
 		'collate' => 'utf8mb4_general_ci'
-	];
+	];	
 
 	$tables[] = [
 		'name'  => 'order_recurring_transaction',

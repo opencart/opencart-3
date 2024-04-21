@@ -889,6 +889,8 @@ class ControllerExtensionPaymentSquareup extends Controller {
 			$data['order_recurring_id'] = '';
 		}
 
+		$data['recurring_price'] = $this->currency->format($order_recurring_info['recurring_price'], $this->config->get('config_currency'), false, false);
+
 		// Orders
 		$this->load->model('sale/order');
 
@@ -899,7 +901,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 		$data['order_status_id'] = $order_info['order_status_id'];
 		$data['comment'] = $this->language->get('text_order_history_cancel');
 		$data['notify'] = 1;
-
+		
 		$data['catalog'] = $this->request->server['HTTPS'] ? HTTPS_CATALOG : HTTP_CATALOG;
 
 		// API login
@@ -963,6 +965,53 @@ class ControllerExtensionPaymentSquareup extends Controller {
 			} else {
 				$json['error'] = $this->language->get('error_not_found');
 			}
+		}
+
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
+	}
+
+	/**
+	 * Add Recurring Report
+	 */
+	public function addRecurringReport(): void {
+		$this->load->language('extension/payment/squareup');
+
+		$json = [];
+
+		if (isset($this->request->get['order_recurring_id'])) {
+			$order_recurring_id = (int)$this->request->get['order_recurring_id'];
+		} else {
+			$order_recurring_id = 0;
+		}
+
+		$this->load->model('extension/other/recurring');
+
+		$order_recurring_report_info = $this->model_extension_other_recurring->getRecurringReport($order_recurring_id);
+
+		if (!$order_recurring_report_info) {
+			$json['error'] = $this->language->get('error_recurring_report');
+		} else {
+			if (isset($this->request->server['REMOTE_ADDR'])) {
+				$ip = $this->request->server['REMOTE_ADDR'];
+			} else {
+				$ip = '';
+			}
+
+			// Countries
+			$this->load->model('localisation/country');
+
+			$country_info = $this->model_localisation_country->getCountry($this->config->get('config_country_id'));
+
+			if ($country_info) {
+				$country = $country_info['name'];
+			} else {
+				$country = '';
+			}
+
+			$this->model_extension_other_recurring->addRecurringReport($order_recurring_id, $this->request->post['store_id'], $ip, $country);
+
+			$json['success'] = $this->language->get('text_recurring_report_success');
 		}
 
 		$this->response->addHeader('Content-Type: application/json');
