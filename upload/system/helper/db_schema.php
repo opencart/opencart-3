@@ -4552,7 +4552,7 @@ function oc_db_schema() {
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
 		'collate' => 'utf8mb4_general_ci'
-	];	
+	];
 
 	$tables[] = [
 		'name'  => 'order_recurring_transaction',
