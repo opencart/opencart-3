@@ -901,7 +901,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 		$data['order_status_id'] = $order_info['order_status_id'];
 		$data['comment'] = $this->language->get('text_order_history_cancel');
 		$data['notify'] = 1;
-		
+
 		$data['catalog'] = $this->request->server['HTTPS'] ? HTTPS_CATALOG : HTTP_CATALOG;
 
 		// API login
