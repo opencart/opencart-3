@@ -889,8 +889,6 @@ class ControllerExtensionPaymentSquareup extends Controller {
 			$data['order_recurring_id'] = '';
 		}
 
-		$data['recurring_price'] = $this->currency->format($order_recurring_info['recurring_price'], $this->config->get('config_currency'), false, false);
-
 		// Orders
 		$this->load->model('sale/order');
 
