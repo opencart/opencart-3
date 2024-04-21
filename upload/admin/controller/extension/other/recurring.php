@@ -605,15 +605,6 @@ class ControllerExtensionOtherRecurring extends Controller {
 				$order_recurring_reports = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_recurring_report` `orr` INNER JOIN `" . DB_PREFIX . "order_recurring` `or` ON (`or`.`order_recurring_id` = `orr`.`order_recurring_id`) WHERE (" . implode(" AND ", $order_recurring_data) . ") AND (" . implode(" AND ", $gdpr_data) . ") GROUP BY `or`.`product_id`, `orr`.`store_id`");
 
 				foreach ($order_recurring_reports->rows as $result) {
-					// Recurring
-					$recurring = '';
-
-					if ($result['recurring_duration']) {
-						$recurring .= sprintf($this->language->get('text_payment_description'), $this->currency->format($this->tax->calculate($result['recurring_price'] * $result['product_quantity'], $product['tax_class_id'], $this->config->get('config_tax')), $this->config->get('config_currency')), $result['recurring_cycle'], $frequencies[$result['recurring_frequency']], $result['recurring_duration']);
-					} else {
-						$recurring .= sprintf($this->language->get('text_payment_cancel'), $this->currency->format($this->tax->calculate($result['recurring_price'] * $result['product_quantity'], $product['tax_class_id'], $this->config->get('config_tax')), $this->config->get('config_currency')), $result['recurring_cycle'], $frequencies[$result['recurring_frequency']], $result['recurring_duration']);
-					}
-
 					// Store
 					$store_info = $this->model_setting_store->getStore($result['store_id']);
 
@@ -630,6 +621,15 @@ class ControllerExtensionOtherRecurring extends Controller {
 						$product_name = html_entity_decode($product_info['name'], ENT_QUOTES, 'UTF-8');
 					} else {
 						$product_name = '';
+					}
+
+					// Recurring
+					$recurring = '';
+
+					if ($result['recurring_duration']) {
+						$recurring .= sprintf($this->language->get('text_payment_description'), $this->currency->format($this->tax->calculate($result['recurring_price'] * $result['product_quantity'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->config->get('config_currency')), $result['recurring_cycle'], $frequencies[$result['recurring_frequency']], $result['recurring_duration']);
+					} else {
+						$recurring .= sprintf($this->language->get('text_payment_cancel'), $this->currency->format($this->tax->calculate($result['recurring_price'] * $result['product_quantity'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->config->get('config_currency')), $result['recurring_cycle'], $frequencies[$result['recurring_frequency']], $result['recurring_duration']);
 					}
 
 					// Only pull unique order recurring
