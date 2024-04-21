@@ -602,7 +602,7 @@ class ControllerExtensionOtherRecurring extends Controller {
 
 			if ($order_recurring_data && $gdpr_data) {
 				// Only pull unique stores
-				$order_recurring_reports = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_recurring_report` `orr` INNER JOIN `" . DB_PREFIX . "order_recurring` `or` ON (`or`.`order_recurring_id` = `orr`.`order_recurring_id`) WHERE (" . implode(" AND ", $order_recurring_data) . ") AND (" . implode(" AND ", $gdpr_data) . ") GROUP BY `orr`.`store_id`");
+				$order_recurring_reports = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_recurring_report` `orr` INNER JOIN `" . DB_PREFIX . "order_recurring` `or` ON (`or`.`order_recurring_id` = `orr`.`order_recurring_id`) WHERE (" . implode(" AND ", $order_recurring_data) . ") AND (" . implode(" AND ", $gdpr_data) . ") GROUP BY `or`.`product_id`, `orr`.`store_id`");
 
 				foreach ($order_recurring_reports->rows as $result) {
 					// Recurring
