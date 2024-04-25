@@ -244,9 +244,7 @@
                         <label class="control-label" for="input-payment-custom-field{{ custom_field.custom_field_id }}">{{ custom_field.name }}</label>
                         <div class="input-group time">
                           <input type="text" name="custom_field[{{ custom_field.location }}][{{ custom_field.custom_field_id }}]" value="{% if payment_address.custom_field[custom_field.custom_field_id] %} {{ payment_address.custom_field[custom_field.custom_field_id] }} {% else %} {{ custom_field.value }} {% endif %}" placeholder="{{ custom_field.name }}" data-date-format="HH:mm" class="form-control" id="input-payment-custom-field{{ custom_field.custom_field_id }}"/>
-                          <span class="input-group-btn">
-                            <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
-                          </span>
+                          <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span>
                         </div>
                       </div>
                     {% endif %}
@@ -255,9 +253,7 @@
                         <label class="control-label" for="input-payment-custom-field{{ custom_field.custom_field_id }}">{{ custom_field.name }}</label>
                         <div class="input-group datetime">
                           <input type="text" name="custom_field[{{ custom_field.location }}][{{ custom_field.custom_field_id }}]" value="{% if payment_address.custom_field[custom_field.custom_field_id] %} {{ payment_address.custom_field[custom_field.custom_field_id] }} {% else %} {{ custom_field.value }} {% endif %}" placeholder="{{ custom_field.name }}" data-date-format="YYYY-MM-DD HH:mm" class="form-control" id="input-payment-custom-field{{ custom_field.custom_field_id }}"/>
-                          <span class="input-group-btn">
-                            <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
-                          </span>
+                          <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span>
                         </div>
                       </div>
                     {% endif %}

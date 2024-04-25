@@ -58,8 +58,7 @@
                       <label><input type="radio" name="custom_field[{{ custom_field.location }}][{{ custom_field.custom_field_id }}]" value="{{ custom_field_value.custom_field_value_id }}" checked="checked"/>{{ custom_field_value.name }}</label>
                     {% else %}
                       <label><input type="radio" name="custom_field[{{ custom_field.location }}][{{ custom_field.custom_field_id }}]" value="{{ custom_field_value.custom_field_value_id }}"/>{{ custom_field_value.name }}</label>
-                    {% endif %}
-                  </div>
+                    {% endif %}</div>
                 {% endfor %}
               </div>
             </div>
@@ -73,8 +72,7 @@
                       <label><input type="checkbox" name="custom_field[{{ custom_field.location }}][{{ custom_field.custom_field_id }}][]" value="{{ custom_field_value.custom_field_value_id }}" checked="checked"/>{{ custom_field_value.name }}</label>
                     {% else %}
                       <label><input type="checkbox" name="custom_field[{{ custom_field.location }}][{{ custom_field.custom_field_id }}][]" value="{{ custom_field_value.custom_field_value_id }}"/>{{ custom_field_value.name }}</label>
-                    {% endif %}
-                  </div>
+                    {% endif %}</div>
                 {% endfor %}
               </div>
             </div>
@@ -104,9 +102,7 @@
               <label class="control-label" for="input-payment-custom-field{{ custom_field.custom_field_id }}">{{ custom_field.name }}</label>
               <div class="input-group date">
                 <input type="text" name="custom_field[{{ custom_field.location }}][{{ custom_field.custom_field_id }}]" value="{% if guest_custom_field[custom_field.custom_field_id] %} {{ guest_custom_field[custom_field.custom_field_id] }} {% else %} {{ custom_field.value }} {% endif %}" placeholder="{{ custom_field.name }}" data-date-format="YYYY-MM-DD" class="form-control" id="input-payment-custom-field{{ custom_field.custom_field_id }}"/>
-                <span class="input-group-btn">
-                  <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
-                </span>
+                <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span>
               </div>
             </div>
           {% endif %}
@@ -200,8 +196,7 @@
                       <label><input type="radio" name="custom_field[{{ custom_field.location }}][{{ custom_field.custom_field_id }}]" value="{{ custom_field_value.custom_field_value_id }}" checked="checked"/>{{ custom_field_value.name }}</label>
                     {% else %}
                       <label><input type="radio" name="custom_field[{{ custom_field.location }}][{{ custom_field.custom_field_id }}]" value="{{ custom_field_value.custom_field_value_id }}"/>{{ custom_field_value.name }}</label>
-                    {% endif %}
-                  </div>
+                    {% endif %}</div>
                 {% endfor %}
               </div>
             </div>
@@ -215,8 +210,7 @@
                       <label><input type="checkbox" name="custom_field[{{ custom_field.location }}][{{ custom_field.custom_field_id }}][]" value="{{ custom_field_value.custom_field_value_id }}" checked="checked"/>{{ custom_field_value.name }}</label>
                     {% else %}
                       <label><input type="checkbox" name="custom_field[{{ custom_field.location }}][{{ custom_field.custom_field_id }}][]" value="{{ custom_field_value.custom_field_value_id }}"/>{{ custom_field_value.name }}</label>
-                    {% endif %}
-                  </div>
+                    {% endif %}</div>
                 {% endfor %}
               </div>
             </div>

@@ -130,8 +130,7 @@
                                 <label><input type="radio" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ custom_field_value.custom_field_value_id }}" checked="checked"/>{{ custom_field_value.name }}</label>
                               {% else %}
                                 <label><input type="radio" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ custom_field_value.custom_field_value_id }}"/>{{ custom_field_value.name }}</label>
-                              {% endif %}
-                            </div>
+                              {% endif %}</div>
                           {% endfor %}
                         </div>
                       </div>
@@ -148,8 +147,7 @@
                                 <label><input type="checkbox" name="custom_field[{{ custom_field.custom_field_id }}][]" value="{{ custom_field_value.custom_field_value_id }}" checked="checked"/>{{ custom_field_value.name }}</label>
                               {% else %}
                                 <label><input type="checkbox" name="custom_field[{{ custom_field.custom_field_id }}][]" value="{{ custom_field_value.custom_field_value_id }}"/>{{ custom_field_value.name }}</label>
-                              {% endif %}
-                            </div>
+                              {% endif %}</div>
                           {% endfor %}
                         </div>
                       </div>
@@ -187,9 +185,7 @@
                       <div class="col-sm-10">
                         <div class="input-group date">
                           <input type="text" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ account_custom_field[custom_field.custom_field_id] ? account_custom_field[custom_field.custom_field_id] : custom_field.value }}" placeholder="{{ custom_field.name }}" data-date-format="YYYY-MM-DD" class="form-control" id="input-custom-field{{ custom_field.custom_field_id }}"/>
-                          <span class="input-group-btn">
-                            <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
-                          </span>
+                          <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span>
                         </div>
                       </div>
                     </div>
@@ -200,9 +196,7 @@
                       <div class="col-sm-10">
                         <div class="input-group time">
                           <input type="text" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ account_custom_field[custom_field.custom_field_id] ? account_custom_field[custom_field.custom_field_id] : custom_field.value }}" placeholder="{{ custom_field.name }}" data-date-format="HH:mm" class="form-control" id="input-custom-field{{ custom_field.custom_field_id }}"/>
-                          <span class="input-group-btn">
-                            <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
-                          </span>
+                          <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span>
                         </div>
                       </div>
                     </div>
@@ -213,9 +207,7 @@
                       <div class="col-sm-10">
                         <div class="input-group datetime">
                           <input type="text" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ account_custom_field[custom_field.custom_field_id] ? account_custom_field[custom_field.custom_field_id] : custom_field.value }}" placeholder="{{ custom_field.name }}" data-date-format="YYYY-MM-DD HH:mm" class="form-control" id="input-custom-field{{ custom_field.custom_field_id }}"/>
-                          <span class="input-group-btn">
-                            <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
-                          </span>
+                          <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span>
                         </div>
                       </div>
                     </div>
@@ -497,8 +489,7 @@
                                 <label><input type="radio" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ custom_field_value.custom_field_value_id }}" checked="checked"/>{{ custom_field_value.name }}</label>
                               {% else %}
                                 <label><input type="radio" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ custom_field_value.custom_field_value_id }}"/>{{ custom_field_value.name }}</label>
-                              {% endif %}
-                            </div>
+                              {% endif %}</div>
                           {% endfor %}
                         </div>
                       </div>
@@ -515,8 +506,7 @@
                                 <label><input type="checkbox" name="custom_field[{{ custom_field.custom_field_id }}][]" value="{{ custom_field_value.custom_field_value_id }}" checked="checked"/>{{ custom_field_value.name }}</label>
                               {% else %}
                                 <label><input type="checkbox" name="custom_field[{{ custom_field.custom_field_id }}][]" value="{{ custom_field_value.custom_field_value_id }}"/>{{ custom_field_value.name }}</label>
-                              {% endif %}
-                            </div>
+                              {% endif %}</div>
                           {% endfor %}
                         </div>
                       </div>
@@ -554,9 +544,7 @@
                       <div class="col-sm-10">
                         <div class="input-group date">
                           <input type="text" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ payment_custom_field[custom_field.custom_field_id] ? payment_custom_field[custom_field.custom_field_id] : custom_field.value }}" placeholder="{{ custom_field.name }}" data-date-format="YYYY-MM-DD" class="form-control" id="input-payment-custom-field{{ custom_field.custom_field_id }}"/>
-                          <span class="input-group-btn">
-                            <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
-                          </span>
+                          <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span>
                         </div>
                       </div>
                     </div>
@@ -567,9 +555,7 @@
                       <div class="col-sm-10">
                         <div class="input-group time">
                           <input type="text" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ payment_custom_field[custom_field.custom_field_id] ? payment_custom_field[custom_field.custom_field_id] : custom_field.value }}" placeholder="{{ custom_field.name }}" data-date-format="HH:mm" class="form-control" id="input-payment-custom-field{{ custom_field.custom_field_id }}"/>
-                          <span class="input-group-btn">
-                            <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
-                          </span>
+                          <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span>
                         </div>
                       </div>
                     </div>
@@ -580,9 +566,7 @@
                       <div class="col-sm-10">
                         <div class="input-group datetime">
                           <input type="text" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ payment_custom_field[custom_field.custom_field_id] ? payment_custom_field[custom_field.custom_field_id] : custom_field.value }}" placeholder="{{ custom_field.name }}" data-date-format="YYYY-MM-DD HH:mm" class="form-control" id="input-payment-custom-field{{ custom_field.custom_field_id }}"/>
-                          <span class="input-group-btn">
-                            <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
-                          </span>
+                          <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span>
                         </div>
                       </div>
                     </div>
@@ -703,8 +687,7 @@
                                 <label><input type="radio" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ custom_field_value.custom_field_value_id }}" checked="checked"/>{{ custom_field_value.name }}</label>
                               {% else %}
                                 <label><input type="radio" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ custom_field_value.custom_field_value_id }}"/>{{ custom_field_value.name }}</label>
-                              {% endif %}
-                            </div>
+                              {% endif %}</div>
                           {% endfor %}
                         </div>
                       </div>
@@ -721,8 +704,7 @@
                                 <label><input type="checkbox" name="custom_field[{{ custom_field.custom_field_id }}][]" value="{{ custom_field_value.custom_field_value_id }}" checked="checked"/>{{ custom_field_value.name }}</label>
                               {% else %}
                                 <label><input type="checkbox" name="custom_field[{{ custom_field.custom_field_id }}][]" value="{{ custom_field_value.custom_field_value_id }}"/>{{ custom_field_value.name }}</label>
-                              {% endif %}
-                            </div>
+                              {% endif %}</div>
                           {% endfor %}
                         </div>
                       </div>
@@ -760,9 +742,7 @@
                       <div class="col-sm-10">
                         <div class="input-group date">
                           <input type="text" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ shipping_custom_field[custom_field.custom_field_id] ? shipping_custom_field[custom_field.custom_field_id] : custom_field.value }}" placeholder="{{ custom_field.name }}" data-date-format="YYYY-MM-DD" class="form-control" id="input-shipping-custom-field{{ custom_field.custom_field_id }}"/>
-                          <span class="input-group-btn">
-                            <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
-                          </span>
+                          <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span>
                         </div>
                       </div>
                     </div>
@@ -773,9 +753,7 @@
                       <div class="col-sm-10">
                         <div class="input-group time">
                           <input type="text" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ shipping_custom_field[custom_field.custom_field_id] ? shipping_custom_field[custom_field.custom_field_id] : custom_field.value }}" placeholder="{{ custom_field.name }}" data-date-format="HH:mm" class="form-control" id="input-shipping-custom-field{{ custom_field.custom_field_id }}"/>
-                          <span class="input-group-btn">
-                            <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
-                          </span>
+                          <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span>
                         </div>
                       </div>
                     </div>
@@ -786,9 +764,7 @@
                       <div class="col-sm-10">
                         <div class="input-group datetime">
                           <input type="text" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ shipping_custom_field[custom_field.custom_field_id] ? shipping_custom_field[custom_field.custom_field_id] : custom_field.value }}" placeholder="{{ custom_field.name }}" data-date-format="YYYY-MM-DD HH:mm" class="form-control" id="input-shipping-custom-field{{ custom_field.custom_field_id }}"/>
-                          <span class="input-group-btn">
-                            <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
-                          </span>
+                          <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span>
                         </div>
                       </div>
                     </div>
@@ -851,9 +827,7 @@
                           <option value="{{ payment_code }}" selected="selected">{{ payment_method }}</option>
                         {% endif %}
                       </select>
-                      <span class="input-group-btn">
-                        <button type="button" data-loading-text="{{ text_loading }}" class="btn btn-primary" id="button-payment-method">{{ button_apply }}</button>
-                      </span>
+                      <span class="input-group-btn"><button type="button" data-loading-text="{{ text_loading }}" class="btn btn-primary" id="button-payment-method">{{ button_apply }}</button></span>
                     </div>
                   </div>
                 </div>
@@ -862,9 +836,7 @@
                   <div class="col-sm-10">
                     <div class="input-group">
                       <input type="text" name="coupon" value="{{ coupon }}" class="form-control" id="input-coupon"/>
-                      <span class="input-group-btn">
-                        <button type="button" data-loading-text="{{ text_loading }}" class="btn btn-primary" id="button-coupon">{{ button_apply }}</button>
-                      </span>
+                      <span class="input-group-btn"><button type="button" data-loading-text="{{ text_loading }}" class="btn btn-primary" id="button-coupon">{{ button_apply }}</button></span>
                     </div>
                   </div>
                 </div>
@@ -873,9 +845,7 @@
                   <div class="col-sm-10">
                     <div class="input-group">
                       <input type="text" name="voucher" value="{{ voucher }}" data-loading-text="{{ text_loading }}" class="form-control" id="input-voucher"/>
-                      <span class="input-group-btn">
-                        <button type="button" data-loading-text="{{ text_loading }}" class="btn btn-primary" id="button-voucher">{{ button_apply }}</button>
-                      </span>
+                      <span class="input-group-btn"><button type="button" data-loading-text="{{ text_loading }}" class="btn btn-primary" id="button-voucher">{{ button_apply }}</button></span>
                     </div>
                   </div>
                 </div>
@@ -884,9 +854,7 @@
                   <div class="col-sm-10">
                     <div class="input-group">
                       <input type="text" name="reward" value="{{ reward }}" data-loading-text="{{ text_loading }}" class="form-control" id="input-reward"/>
-                      <span class="input-group-btn">
-                        <button type="button" data-loading-text="{{ text_loading }}" class="btn btn-primary" id="button-reward">{{ button_apply }}</button>
-                      </span>
+                      <span class="input-group-btn"><button type="button" data-loading-text="{{ text_loading }}" class="btn btn-primary" id="button-reward">{{ button_apply }}</button></span>
                     </div>
                   </div>
                 </div>

@@ -91,8 +91,7 @@
                           <label><input type="radio" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ custom_field_value.custom_field_value_id }}" checked="checked"/>{{ custom_field_value.name }}</label>
                         {% else %}
                           <label><input type="radio" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ custom_field_value.custom_field_value_id }}"/>{{ custom_field_value.name }}</label>
-                        {% endif %}
-                      </div>
+                        {% endif %}</div>
                     {% endfor %}
                   </div>
                   {% if error_custom_field[custom_field.custom_field_id] %}
@@ -112,8 +111,7 @@
                           <label><input type="checkbox" name="custom_field[{{ custom_field.custom_field_id }}][]" value="{{ custom_field_value.custom_field_value_id }}" checked="checked"/>{{ custom_field_value.name }}</label>
                         {% else %}
                           <label><input type="checkbox" name="custom_field[{{ custom_field.custom_field_id }}][]" value="{{ custom_field_value.custom_field_value_id }}"/>{{ custom_field_value.name }}</label>
-                        {% endif %}
-                      </div>
+                        {% endif %}</div>
                     {% endfor %}
                   </div>
                   {% if error_custom_field[custom_field.custom_field_id] %}
@@ -163,9 +161,7 @@
                 <div class="col-sm-10">
                   <div class="input-group date">
                     <input type="text" name="custom_field[{{ custom_field.custom_field_id }}]" value="{% if account_custom_field[custom_field.custom_field_id] %}{{ account_custom_field[custom_field.custom_field_id] }}{% else %}{{ custom_field.value }}{% endif %}" placeholder="{{ custom_field.name }}" data-date-format="YYYY-MM-DD" class="form-control" id="input-custom-field{{ custom_field.custom_field_id }}"/>
-                    <span class="input-group-btn">
-                      <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
-                    </span>
+                    <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span>
                   </div>
                   {% if error_custom_field[custom_field.custom_field_id] %}
                     <div class="text-danger">{{ error_custom_field[custom_field.custom_field_id] }}</div>
@@ -179,9 +175,7 @@
                 <div class="col-sm-10">
                   <div class="input-group time">
                     <input type="text" name="custom_field[{{ custom_field.custom_field_id }}]" value="{% if account_custom_field[custom_field.custom_field_id] %}{{ account_custom_field[custom_field.custom_field_id] }}{% else %}{{ custom_field.value }}{% endif %}" placeholder="{{ custom_field.name }}" data-date-format="HH:mm" class="form-control" id="input-custom-field{{ custom_field.custom_field_id }}"/>
-                    <span class="input-group-btn">
-                      <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
-                    </span>
+                    <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span>
                   </div>
                   {% if error_custom_field[custom_field.custom_field_id] %}
                     <div class="text-danger">{{ error_custom_field[custom_field.custom_field_id] }}</div>
@@ -195,9 +189,7 @@
                 <div class="col-sm-10">
                   <div class="input-group datetime">
                     <input type="text" name="custom_field[{{ custom_field.custom_field_id }}]" value="{% if account_custom_field[custom_field.custom_field_id] %}{{ account_custom_field[custom_field.custom_field_id] }}{% else %}{{ custom_field.value }}{% endif %}" placeholder="{{ custom_field.name }}" data-date-format="YYYY-MM-DD HH:mm" class="form-control" id="input-custom-field{{ custom_field.custom_field_id }}"/>
-                    <span class="input-group-btn">
-                      <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
-                    </span>
+                    <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span>
                   </div>
                   {% if error_custom_field[custom_field.custom_field_id] %}
                     <div class="text-danger">{{ error_custom_field[custom_field.custom_field_id] }}</div>
