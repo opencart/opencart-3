@@ -1067,6 +1067,12 @@ class ControllerSettingSetting extends Controller {
 			$data['config_gdpr_limit'] = $this->config->get('config_gdpr_limit');
 		}
 
+		if (isset($this->request->post['config_order_recurring_report_status'])) {
+			$data['config_order_recurring_report_status'] = $this->request->post['config_order_recurring_report_status'];
+		} else {
+			$data['config_order_recurring_report_status'] = $this->config->get('config_order_recurring_report_status');
+		}
+
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');

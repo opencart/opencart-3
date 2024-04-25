@@ -977,39 +977,43 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
 		$json = [];
 
-		if (isset($this->request->get['order_recurring_id'])) {
-			$order_recurring_id = (int)$this->request->get['order_recurring_id'];
+		if (!$this->user->hasPermission('modify', 'extension/payment/squareup') || !$this->config->get('config_order_recurring_report_status')) {
+			$json['error'] = $this->language->get('error_permission_recurring');
 		} else {
-			$order_recurring_id = 0;
-		}
-
-		$this->load->model('extension/other/recurring');
-
-		$order_recurring_report_info = $this->model_extension_other_recurring->getRecurringReport($order_recurring_id);
-
-		if (!$order_recurring_report_info) {
-			$json['error'] = $this->language->get('error_recurring_report');
-		} else {
-			if (isset($this->request->server['REMOTE_ADDR'])) {
-				$ip = $this->request->server['REMOTE_ADDR'];
+			if (isset($this->request->get['order_recurring_id'])) {
+				$order_recurring_id = (int)$this->request->get['order_recurring_id'];
 			} else {
-				$ip = '';
+				$order_recurring_id = 0;
 			}
 
-			// Countries
-			$this->load->model('localisation/country');
+			$this->load->model('extension/other/recurring');
 
-			$country_info = $this->model_localisation_country->getCountry($this->config->get('config_country_id'));
+			$order_recurring_report_info = $this->model_extension_other_recurring->getRecurringReport($order_recurring_id);
 
-			if ($country_info) {
-				$country = $country_info['name'];
+			if (!$order_recurring_report_info) {
+				$json['error'] = $this->language->get('error_recurring_report');
 			} else {
-				$country = '';
+				if (isset($this->request->server['REMOTE_ADDR'])) {
+					$ip = $this->request->server['REMOTE_ADDR'];
+				} else {
+					$ip = '';
+				}
+
+				// Countries
+				$this->load->model('localisation/country');
+
+				$country_info = $this->model_localisation_country->getCountry($this->config->get('config_country_id'));
+
+				if ($country_info) {
+					$country = $country_info['name'];
+				} else {
+					$country = '';
+				}
+
+				$this->model_extension_other_recurring->addRecurringReport($order_recurring_id, $this->request->post['store_id'], $ip, $country);
+
+				$json['success'] = $this->language->get('text_recurring_report_success');
 			}
-
-			$this->model_extension_other_recurring->addRecurringReport($order_recurring_id, $this->request->post['store_id'], $ip, $country);
-
-			$json['success'] = $this->language->get('text_recurring_report_success');
 		}
 
 		$this->response->addHeader('Content-Type: application/json');

@@ -558,7 +558,7 @@ class ControllerExtensionOtherRecurring extends Controller {
 			$selected = [];
 		}
 
-		if ($this->user->hasPermission('modify', 'extension/other/recurring')) {
+		if ($this->user->hasPermission('modify', 'extension/other/recurring') && $this->config->get('config_order_recurring_report_status')) {
 			// GDPR
 			$this->load->model('customer/gdpr');
 
@@ -602,7 +602,7 @@ class ControllerExtensionOtherRecurring extends Controller {
 
 			if ($order_recurring_data && $gdpr_data) {
 				// Only pull unique stores
-				$order_recurring_reports = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_recurring_report` `orr` INNER JOIN `" . DB_PREFIX . "order_recurring` `or` ON (`or`.`order_recurring_id` = `orr`.`order_recurring_id`) WHERE (" . implode(" AND ", $order_recurring_data) . ") AND (" . implode(" AND ", $gdpr_data) . ") GROUP BY `or`.`product_id`, `orr`.`store_id`");
+				$order_recurring_reports = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_recurring_report` `orr` INNER JOIN `" . DB_PREFIX . "order_recurring` `or` ON (`or`.`order_recurring_id` = `orr`.`order_recurring_id`) WHERE (" . implode(" AND ", $order_recurring_data) . ") AND (" . implode(" AND ", $gdpr_data) . ") AND `orr`.`store_id` = '" . (int)$this->config->get('config_store_id') . "' GROUP BY `or`.`product_id`");
 
 				foreach ($order_recurring_reports->rows as $result) {
 					// Store
