@@ -56,19 +56,19 @@
             <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_test|escape('html') }}">{{ entry_test }}</span></label>
             <div class="col-sm-10">
               <label class="radio-inline">{% if shipping_ec_ship_test %}
-                  <input type="radio" name="shipping_ec_ship_test" value="1" checked="checked"/>
-                  {{ text_yes }}
-                {% else %}
-                  <input type="radio" name="shipping_ec_ship_test" value="1"/>
-                  {{ text_yes }}
-                {% endif %}</label>
+                <input type="radio" name="shipping_ec_ship_test" value="1" checked="checked"/>
+                {{ text_yes }}
+              {% else %}
+                <input type="radio" name="shipping_ec_ship_test" value="1"/>
+                {{ text_yes }}
+              {% endif %}</label>
               <label class="radio-inline">{% if not shipping_ec_ship_test %}
-                  <input type="radio" name="shipping_ec_ship_test" value="0" checked="checked"/>
-                  {{ text_no }}
-                {% else %}
-                  <input type="radio" name="shipping_ec_ship_test" value="0"/>
-                  {{ text_no }}
-                {% endif %}</label>
+                <input type="radio" name="shipping_ec_ship_test" value="0" checked="checked"/>
+                {{ text_no }}
+              {% else %}
+                <input type="radio" name="shipping_ec_ship_test" value="0"/>
+                {{ text_no }}
+              {% endif %}</label>
             </div>
           </div>
           <div class="form-group">
@@ -77,111 +77,111 @@
               <div class="well well-sm" style="height: 150px; overflow: auto;" id="service">
                 <div class="checkbox">
                   <label>{% if shipping_ec_ship_air_registered_mail %}
-                      <input type="checkbox" name="shipping_ec_ship_air_registered_mail" value="1" checked="checked"/>
-                      {{ text_air_registered_mail }}
-                    {% else %}
-                      <input type="checkbox" name="shipping_ec_ship_air_registered_mail" value="1"/>
-                      {{ text_air_registered_mail }}
-                    {% endif %}</label>
+                    <input type="checkbox" name="shipping_ec_ship_air_registered_mail" value="1" checked="checked"/>
+                    {{ text_air_registered_mail }}
+                  {% else %}
+                    <input type="checkbox" name="shipping_ec_ship_air_registered_mail" value="1"/>
+                    {{ text_air_registered_mail }}
+                  {% endif %}</label>
                 </div>
                 <div class="checkbox">
                   <label>{% if shipping_ec_ship_air_parcel %}
-                      <input type="checkbox" name="shipping_ec_ship_air_parcel" value="1" checked="checked"/>
-                      {{ text_air_parcel }}
-                    {% else %}
-                      <input type="checkbox" name="shipping_ec_ship_air_parcel" value="1"/>
-                      {{ text_air_parcel }}
-                    {% endif %}</label>
+                    <input type="checkbox" name="shipping_ec_ship_air_parcel" value="1" checked="checked"/>
+                    {{ text_air_parcel }}
+                  {% else %}
+                    <input type="checkbox" name="shipping_ec_ship_air_parcel" value="1"/>
+                    {{ text_air_parcel }}
+                  {% endif %}</label>
                 </div>
                 <div class="checkbox">
                   <label>{% if shipping_ec_ship_e_express_service_to_us %}
-                      <input type="checkbox" name="shipping_ec_ship_e_express_service_to_us" value="1" checked="checked"/>
-                      {{ text_e_express_service_to_us }}
-                    {% else %}
-                      <input type="checkbox" name="shipping_ec_ship_e_express_service_to_us" value="1"/>
-                      {{ text_e_express_service_to_us }}
-                    {% endif %}</label>
+                    <input type="checkbox" name="shipping_ec_ship_e_express_service_to_us" value="1" checked="checked"/>
+                    {{ text_e_express_service_to_us }}
+                  {% else %}
+                    <input type="checkbox" name="shipping_ec_ship_e_express_service_to_us" value="1"/>
+                    {{ text_e_express_service_to_us }}
+                  {% endif %}</label>
                 </div>
                 <div class="checkbox">
                   <label>{% if shipping_ec_ship_e_express_service_to_canada %}
-                      <input type="checkbox" name="shipping_ec_ship_e_express_service_to_canada" value="1" checked="checked"/>
-                      {{ text_e_express_service_to_canada }}
-                    {% else %}
-                      <input type="checkbox" name="shipping_ec_ship_e_express_service_to_canada" value="1"/>
-                      {{ text_e_express_service_to_canada }}
-                    {% endif %}</label>
+                    <input type="checkbox" name="shipping_ec_ship_e_express_service_to_canada" value="1" checked="checked"/>
+                    {{ text_e_express_service_to_canada }}
+                  {% else %}
+                    <input type="checkbox" name="shipping_ec_ship_e_express_service_to_canada" value="1"/>
+                    {{ text_e_express_service_to_canada }}
+                  {% endif %}</label>
                 </div>
                 <div class="checkbox">
                   <label>{% if shipping_ec_ship_e_express_service_to_united_kingdom %}
-                      <input type="checkbox" name="shipping_ec_ship_e_express_service_to_united_kingdom" value="1" checked="checked"/>
-                      {{ text_e_express_service_to_united_kingdom }}
-                    {% else %}
-                      <input type="checkbox" name="shipping_ec_ship_e_express_service_to_united_kingdom" value="1"/>
-                      {{ text_e_express_service_to_united_kingdom }}
-                    {% endif %}</label>
+                    <input type="checkbox" name="shipping_ec_ship_e_express_service_to_united_kingdom" value="1" checked="checked"/>
+                    {{ text_e_express_service_to_united_kingdom }}
+                  {% else %}
+                    <input type="checkbox" name="shipping_ec_ship_e_express_service_to_united_kingdom" value="1"/>
+                    {{ text_e_express_service_to_united_kingdom }}
+                  {% endif %}</label>
                 </div>
                 <div class="checkbox">
                   <label>{% if shipping_ec_ship_e_express_service_to_russia %}
-                      <input type="checkbox" name="shipping_ec_ship_e_express_service_to_russia" value="1" checked="checked"/>
-                      {{ text_e_express_service_to_russia }}
-                    {% else %}
-                      <input type="checkbox" name="shipping_ec_ship_e_express_service_to_russia" value="1"/>
-                      {{ text_e_express_service_to_russia }}
-                    {% endif %}</label>
+                    <input type="checkbox" name="shipping_ec_ship_e_express_service_to_russia" value="1" checked="checked"/>
+                    {{ text_e_express_service_to_russia }}
+                  {% else %}
+                    <input type="checkbox" name="shipping_ec_ship_e_express_service_to_russia" value="1"/>
+                    {{ text_e_express_service_to_russia }}
+                  {% endif %}</label>
                 </div>
                 <div class="checkbox">
                   <label>{% if shipping_ec_ship_e_express_service_one %}
-                      <input type="checkbox" name="shipping_ec_ship_e_express_service_one" value="1" checked="checked"/>
-                      {{ text_e_express_service_one }}
-                    {% else %}
-                      <input type="checkbox" name="shipping_ec_ship_e_express_service_one" value="1"/>
-                      {{ text_e_express_service_one }}
-                    {% endif %}</label>
+                    <input type="checkbox" name="shipping_ec_ship_e_express_service_one" value="1" checked="checked"/>
+                    {{ text_e_express_service_one }}
+                  {% else %}
+                    <input type="checkbox" name="shipping_ec_ship_e_express_service_one" value="1"/>
+                    {{ text_e_express_service_one }}
+                  {% endif %}</label>
                 </div>
                 <div class="checkbox">
                   <label>{% if shipping_ec_ship_e_express_service_two %}
-                      <input type="checkbox" name="shipping_ec_ship_e_express_service_two" value="1" checked="checked"/>
-                      {{ text_e_express_service_two }}
-                    {% else %}
-                      <input type="checkbox" name="shipping_ec_ship_e_express_service_two" value="1"/>
-                      {{ text_e_express_service_two }}
-                    {% endif %}</label>
+                    <input type="checkbox" name="shipping_ec_ship_e_express_service_two" value="1" checked="checked"/>
+                    {{ text_e_express_service_two }}
+                  {% else %}
+                    <input type="checkbox" name="shipping_ec_ship_e_express_service_two" value="1"/>
+                    {{ text_e_express_service_two }}
+                  {% endif %}</label>
                 </div>
                 <div class="checkbox">
                   <label>{% if shipping_ec_ship_speed_post %}
-                      <input type="checkbox" name="shipping_ec_ship_speed_post" value="1" checked="checked"/>
-                      {{ text_speed_post }}
-                    {% else %}
-                      <input type="checkbox" name="shipping_ec_ship_speed_post" value="1"/>
-                      {{ text_speed_post }}
-                    {% endif %}</label>
+                    <input type="checkbox" name="shipping_ec_ship_speed_post" value="1" checked="checked"/>
+                    {{ text_speed_post }}
+                  {% else %}
+                    <input type="checkbox" name="shipping_ec_ship_speed_post" value="1"/>
+                    {{ text_speed_post }}
+                  {% endif %}</label>
                 </div>
                 <div class="checkbox">
                   <label>{% if shipping_ec_ship_smart_post %}
-                      <input type="checkbox" name="shipping_ec_ship_smart_post" value="1" checked="checked"/>
-                      {{ text_smart_post }}
-                    {% else %}
-                      <input type="checkbox" name="shipping_ec_ship_smart_post" value="1"/>
-                      {{ text_smart_post }}
-                    {% endif %}</label>
+                    <input type="checkbox" name="shipping_ec_ship_smart_post" value="1" checked="checked"/>
+                    {{ text_smart_post }}
+                  {% else %}
+                    <input type="checkbox" name="shipping_ec_ship_smart_post" value="1"/>
+                    {{ text_smart_post }}
+                  {% endif %}</label>
                 </div>
                 <div class="checkbox">
                   <label>{% if shipping_ec_ship_local_courier_post %}
-                      <input type="checkbox" name="shipping_ec_ship_local_courier_post" value="1" checked="checked"/>
-                      {{ text_local_courier_post }}
-                    {% else %}
-                      <input type="checkbox" name="shipping_ec_ship_local_courier_post" value="1"/>
-                      {{ text_local_courier_post }}
-                    {% endif %}</label>
+                    <input type="checkbox" name="shipping_ec_ship_local_courier_post" value="1" checked="checked"/>
+                    {{ text_local_courier_post }}
+                  {% else %}
+                    <input type="checkbox" name="shipping_ec_ship_local_courier_post" value="1"/>
+                    {{ text_local_courier_post }}
+                  {% endif %}</label>
                 </div>
                 <div class="checkbox">
                   <label>{% if shipping_ec_ship_local_parcel %}
-                      <input type="checkbox" name="shipping_ec_ship_local_parcel" value="1" checked="checked"/>
-                      {{ text_local_parcel }}
-                    {% else %}
-                      <input type="checkbox" name="shipping_ec_ship_local_parcel" value="1"/>
-                      {{ text_local_parcel }}
-                    {% endif %}</label>
+                    <input type="checkbox" name="shipping_ec_ship_local_parcel" value="1" checked="checked"/>
+                    {{ text_local_parcel }}
+                  {% else %}
+                    <input type="checkbox" name="shipping_ec_ship_local_parcel" value="1"/>
+                    {{ text_local_parcel }}
+                  {% endif %}</label>
                 </div>
               </div>
               <button type="button" onclick="$(this).parent().find(':checkbox').prop('checked', true);" class="btn btn-link">{{ text_select_all }}</button>

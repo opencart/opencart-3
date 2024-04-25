@@ -122,12 +122,8 @@
     <div class="form-group">
       <label class="col-xs-12 control-label control-label-left"><span data-toggle="tooltip" title="{{ help_adult|escape('html') }}">{{ entry_adult }}</span></label>
       <div class="col-xs-12">
-        <label class="radio-inline">
-          <input type="radio" name="adult" value="1" {{ adult ? "checked" }}/> {{ text_yes }}
-        </label>
-        <label class="radio-inline">
-          <input type="radio" name="adult" value="0" {{ not adult ? "checked" }}/> {{ text_no }}
-        </label>
+        <label class="radio-inline"><input type="radio" name="adult" value="1" {{ adult ? "checked" }}/> {{ text_yes }}</label>
+        <label class="radio-inline"><input type="radio" name="adult" value="0" {{ not adult ? "checked" }}/> {{ text_no }}</label>
         {% if error_adult %}
           <div class="text-danger">{{ error_adult }}</div>
         {% endif %}
