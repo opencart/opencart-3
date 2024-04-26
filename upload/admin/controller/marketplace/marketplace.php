@@ -167,12 +167,22 @@ class ControllerMarketplaceMarketplace extends Controller {
 		curl_setopt($curl, CURLOPT_POST, 1);
 
 		$response = curl_exec($curl);
+
 		$status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
 		curl_close($curl);
 
-		$response_info = json_decode($response, true);
-		$extension_total = $response_info['extension_total'] ?? 0;
+		if ($status == 200) {
+			$response_info = json_decode($response, true);
+		} else {
+			$response_info = [];
+		}
+
+		if (isset($response_info['extension_total'])) {
+			$extension_total = (int)$response_info['extension_total'];
+		} else {
+			$extension_total = 0;
+		}
 
 		$url = '';
 
@@ -553,11 +563,18 @@ class ControllerMarketplaceMarketplace extends Controller {
 		curl_setopt($curl, CURLOPT_POST, 1);
 
 		$response = curl_exec($curl);
+
 		$status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
 		curl_close($curl);
 
 		$response_info = json_decode($response, true);
+
+		if ($status == 200) {
+			$response_info = json_decode($response, true);
+		} else {
+			$response_info = [];
+		}
 
 		if ($response_info) {
 			$this->load->language('marketplace/marketplace');
@@ -734,6 +751,7 @@ class ControllerMarketplaceMarketplace extends Controller {
 			$url .= '&signature=' . rawurlencode($signature);
 
 			$curl = curl_init(OPENCART_SERVER . 'index.php?route=marketplace/api/purchase' . $url);
+
 			curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
 			curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 			curl_setopt($curl, CURLOPT_FORBID_REUSE, 1);
@@ -742,9 +760,15 @@ class ControllerMarketplaceMarketplace extends Controller {
 
 			$response = curl_exec($curl);
 
+			$status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
 			curl_close($curl);
 
-			$response_info = json_decode($response, true);
+			if ($status == 200) {
+				$response_info = json_decode($response, true);
+			} else {
+				$response_info = [];
+			}
 
 			if (isset($response_info['success'])) {
 				$json['success'] = $response_info['success'];
