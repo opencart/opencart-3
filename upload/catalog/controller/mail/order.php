@@ -527,7 +527,7 @@ class ControllerMailOrder extends Controller {
 				$mail->send();
 
 				// Send to additional alert emails
-				$emails = explode(',', $this->config->get('config_mail_alert_email'));
+				$emails = explode(',', (string)$this->config->get('config_mail_alert_email'));
 
 				foreach ($emails as $email) {
 					$email = trim($email);

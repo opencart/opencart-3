@@ -3455,7 +3455,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		}
 
 		// Customer Group
-		if (isset($this->request->post['customer_group_id']) && is_array($this->config->get('config_customer_group_display')) && in_array($this->request->post['customer_group_id'], $this->config->get('config_customer_group_display'))) {
+		if (isset($this->request->post['customer_group_id']) && is_array($this->config->get('config_customer_group_display')) && in_array($this->request->post['customer_group_id'], (array)$this->config->get('config_customer_group_display'))) {
 			$customer_group_id = (int)$this->request->post['customer_group_id'];
 		} else {
 			$customer_group_id = $this->config->get('config_customer_group_id');

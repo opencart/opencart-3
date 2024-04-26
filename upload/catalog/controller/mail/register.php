@@ -135,7 +135,7 @@ class ControllerMailRegister extends Controller {
 				$mail->send();
 
 				// Send to additional alert emails if new account email is enabled
-				$emails = explode(',', $this->config->get('config_mail_alert_email'));
+				$emails = explode(',', (string)$this->config->get('config_mail_alert_email'));
 
 				foreach ($emails as $email) {
 					if (oc_strlen($email) > 0 && filter_var($email, FILTER_VALIDATE_EMAIL)) {

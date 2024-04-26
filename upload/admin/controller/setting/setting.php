@@ -552,7 +552,7 @@ class ControllerSettingSetting extends Controller {
 		if (isset($this->request->post['config_customer_group_display'])) {
 			$data['config_customer_group_display'] = $this->request->post['config_customer_group_display'];
 		} elseif ($this->config->get('config_customer_group_display')) {
-			$data['config_customer_group_display'] = $this->config->get('config_customer_group_display');
+			$data['config_customer_group_display'] = (array)$this->config->get('config_customer_group_display');
 		} else {
 			$data['config_customer_group_display'] = [];
 		}
@@ -885,7 +885,7 @@ class ControllerSettingSetting extends Controller {
 		if (isset($this->request->post['config_mail_alert_email'])) {
 			$data['config_mail_alert_email'] = $this->request->post['config_mail_alert_email'];
 		} else {
-			$data['config_mail_alert_email'] = $this->config->get('config_mail_alert_email');
+			$data['config_mail_alert_email'] = (array)$this->config->get('config_mail_alert_email');
 		}
 
 		if (isset($this->request->post['config_secure'])) {
