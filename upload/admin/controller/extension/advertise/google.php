@@ -624,7 +624,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 			// Countries
 			$this->load->model('localisation/country');
 
-			$country_info = $this->model_localisation_country->getCountry($this->config->get('config_country_id'));
+			$country_info = $this->model_localisation_country->getCountry((int)$this->config->get('config_country_id'));
 
 			$data['advertise_google_shipping_taxes'] = [
 				'shipping_type'            => 'flat',

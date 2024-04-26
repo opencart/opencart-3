@@ -580,7 +580,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 
 		$this->model_extension_payment_securetrading_pp->logger('Getting API key');
 
-		$api_info = $this->model_user_api->getApi($this->config->get('config_api_id'));
+		$api_info = $this->model_user_api->getApi((int)$this->config->get('config_api_id'));
 
 		if ($api_info) {
 			$this->model_extension_payment_securetrading_pp->logger('API key: ' . $api_info['key']);

@@ -257,7 +257,7 @@ class ControllerAccountAffiliate extends Controller {
 			// Information
 			$this->load->model('catalog/information');
 
-			$information_info = $this->model_catalog_information->getInformation($this->config->get('config_affiliate_id'));
+			$information_info = $this->model_catalog_information->getInformation((int)$this->config->get('config_affiliate_id'));
 
 			if ($information_info) {
 				$data['text_agree'] = sprintf($this->language->get('text_agree'), $this->url->link('information/information/agree', 'information_id=' . $this->config->get('config_affiliate_id'), true), $information_info['title']);
@@ -325,7 +325,7 @@ class ControllerAccountAffiliate extends Controller {
 		// Custom field validation
 		$this->load->model('account/custom_field');
 
-		$custom_fields = $this->model_account_custom_field->getCustomFields($this->config->get('config_customer_group_id'));
+		$custom_fields = $this->model_account_custom_field->getCustomFields((int)$this->config->get('config_customer_group_id'));
 
 		foreach ($custom_fields as $custom_field) {
 			if ($custom_field['location'] == 'affiliate') {
@@ -344,7 +344,7 @@ class ControllerAccountAffiliate extends Controller {
 			// Information
 			$this->load->model('catalog/information');
 
-			$information_info = $this->model_catalog_information->getInformation($this->config->get('config_affiliate_id'));
+			$information_info = $this->model_catalog_information->getInformation((int)$this->config->get('config_affiliate_id'));
 
 			if ($information_info && !isset($this->request->post['agree'])) {
 				$this->error['warning'] = sprintf($this->language->get('error_agree'), $information_info['title']);

@@ -1170,7 +1170,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 
 		$this->model_extension_payment_laybuy->log('Getting API key');
 
-		$api_info = $this->model_user_api->getApi($this->config->get('config_api_id'));
+		$api_info = $this->model_user_api->getApi((int)$this->config->get('config_api_id'));
 
 		if ($api_info) {
 			$this->model_extension_payment_laybuy->log('API key: ' . $api_info['key']);

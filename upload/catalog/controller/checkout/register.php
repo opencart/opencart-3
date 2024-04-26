@@ -73,7 +73,7 @@ class ControllerCheckoutRegister extends Controller {
 			// Information
 			$this->load->model('catalog/information');
 
-			$information_info = $this->model_catalog_information->getInformation($this->config->get('config_account_id'));
+			$information_info = $this->model_catalog_information->getInformation((int)$this->config->get('config_account_id'));
 
 			if ($information_info) {
 				$data['text_agree'] = sprintf($this->language->get('text_agree'), $this->url->link('information/information/agree', 'information_id=' . $this->config->get('config_account_id'), true), $information_info['title']);
@@ -229,7 +229,7 @@ class ControllerCheckoutRegister extends Controller {
 				// Information
 				$this->load->model('catalog/information');
 
-				$information_info = $this->model_catalog_information->getInformation($this->config->get('config_account_id'));
+				$information_info = $this->model_catalog_information->getInformation((int)$this->config->get('config_account_id'));
 
 				if ($information_info && !isset($this->request->post['agree'])) {
 					$json['error']['warning'] = sprintf($this->language->get('error_agree'), $information_info['title']);

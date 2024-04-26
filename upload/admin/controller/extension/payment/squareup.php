@@ -286,7 +286,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 		// API login
 		$this->load->model('user/api');
 
-		$api_info = $this->model_user_api->getApi($this->config->get('config_api_id'));
+		$api_info = $this->model_user_api->getApi((int)$this->config->get('config_api_id'));
 
 		if ($api_info && $this->user->hasPermission('modify', 'sale/order')) {
 			// Session
@@ -434,7 +434,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 		// API login
 		$this->load->model('user/api');
 
-		$api_info = $this->model_user_api->getApi($this->config->get('config_api_id'));
+		$api_info = $this->model_user_api->getApi((int)$this->config->get('config_api_id'));
 
 		if ($api_info && $this->user->hasPermission('modify', 'sale/order')) {
 			// Session
@@ -827,7 +827,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 		// API login
 		$this->load->model('user/api');
 
-		$api_info = $this->model_user_api->getApi($this->config->get('config_api_id'));
+		$api_info = $this->model_user_api->getApi((int)$this->config->get('config_api_id'));
 
 		if ($api_info && $this->user->hasPermission('modify', 'sale/order')) {
 			// Session
@@ -905,7 +905,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 		// API login
 		$this->load->model('user/api');
 
-		$api_info = $this->model_user_api->getApi($this->config->get('config_api_id'));
+		$api_info = $this->model_user_api->getApi((int)$this->config->get('config_api_id'));
 
 		if ($api_info && $this->user->hasPermission('modify', 'sale/order')) {
 			// Session
@@ -1002,7 +1002,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 				// Countries
 				$this->load->model('localisation/country');
 
-				$country_info = $this->model_localisation_country->getCountry($this->config->get('config_country_id'));
+				$country_info = $this->model_localisation_country->getCountry((int)$this->config->get('config_country_id'));
 
 				if ($country_info) {
 					$country = $country_info['name'];

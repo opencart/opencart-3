@@ -147,7 +147,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 			$this->load->model('localisation/country');
 
-			$country = $this->model_localisation_country->getCountry($this->config->get('config_country_id'));
+			$country = $this->model_localisation_country->getCountry((int)$this->config->get('config_country_id'));
 
 			$setting['payment_paypal_setting']['general']['country_code'] = $country['iso_code_2'];
 

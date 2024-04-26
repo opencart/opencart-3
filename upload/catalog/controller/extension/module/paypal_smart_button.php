@@ -130,7 +130,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 				// Countries
 				$this->load->model('localisation/country');
 
-				$country = $this->model_localisation_country->getCountry($this->config->get('config_country_id'));
+				$country = $this->model_localisation_country->getCountry((int)$this->config->get('config_country_id'));
 
 				$data['client_id'] = $this->config->get('payment_paypal_client_id');
 				$data['merchant_id'] = $this->config->get('payment_paypal_merchant_id');

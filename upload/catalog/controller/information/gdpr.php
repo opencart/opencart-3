@@ -14,7 +14,7 @@ class ControllerInformationGdpr extends Controller {
 		// Information
 		$this->load->model('catalog/information');
 
-		$information_info = $this->model_catalog_information->getInformation($this->config->get('config_gdpr_id'));
+		$information_info = $this->model_catalog_information->getInformation((int)$this->config->get('config_gdpr_id'));
 
 		if ($information_info) {
 			$this->load->language('information/gdpr');

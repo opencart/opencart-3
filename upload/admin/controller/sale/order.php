@@ -410,7 +410,7 @@ class ControllerSaleOrder extends Controller {
 		// API login
 		$this->load->model('user/api');
 
-		$api_info = $this->model_user_api->getApi($this->config->get('config_api_id'));
+		$api_info = $this->model_user_api->getApi((int)$this->config->get('config_api_id'));
 
 		if ($api_info && $this->user->hasPermission('modify', 'sale/order')) {
 			$session = new \Session($this->config->get('session_engine'), $this->registry);
@@ -749,7 +749,7 @@ class ControllerSaleOrder extends Controller {
 		// API login
 		$data['catalog'] = $this->request->server['HTTPS'] ? HTTPS_CATALOG : HTTP_CATALOG;
 
-		$api_info = $this->model_user_api->getApi($this->config->get('config_api_id'));
+		$api_info = $this->model_user_api->getApi((int)$this->config->get('config_api_id'));
 
 		if ($api_info && $this->user->hasPermission('modify', 'sale/order')) {
 			$session = new \Session($this->config->get('session_engine'), $this->registry);
@@ -1337,7 +1337,7 @@ class ControllerSaleOrder extends Controller {
 		// API login
 		$this->load->model('user/api');
 
-		$api_info = $this->model_user_api->getApi($this->config->get('config_api_id'));
+		$api_info = $this->model_user_api->getApi((int)$this->config->get('config_api_id'));
 
 		if ($api_info && $this->user->hasPermission('modify', 'sale/order')) {
 			$session = new \Session($this->config->get('session_engine'), $this->registry);

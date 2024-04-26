@@ -53,12 +53,12 @@ class ModelExtensionShippingFedex extends Model {
 			// Countries
 			$this->load->model('localisation/country');
 
-			$country_info = $this->model_localisation_country->getCountry($this->config->get('config_country_id'));
+			$country_info = $this->model_localisation_country->getCountry((int)$this->config->get('config_country_id'));
 
 			// Zones
 			$this->load->model('localisation/zone');
 
-			$zone_info = $this->model_localisation_zone->getZone($this->config->get('config_zone_id'));
+			$zone_info = $this->model_localisation_zone->getZone((int)$this->config->get('config_zone_id'));
 
 			if (!$this->config->get('shipping_fedex_test')) {
 				$url = 'https://gateway.fedex.com/web-services/';
