@@ -43,7 +43,7 @@ class ControllerReportStatistics extends Controller {
 			// Orders
 			$this->load->model('sale/order');
 
-			$this->model_report_statistics->editValue('order_sale', $this->model_sale_order->getTotalSales(['filter_order_status' => implode(',', array_merge($this->config->get('config_complete_status'), $this->config->get('config_processing_status')))]));
+			$this->model_report_statistics->editValue('order_sale', $this->model_sale_order->getTotalSales(['filter_order_status' => implode(',', array_merge((array)$this->config->get('config_complete_status'), (array)$this->config->get('config_processing_status')))]));
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
@@ -69,7 +69,7 @@ class ControllerReportStatistics extends Controller {
 		if ($this->validate()) {
 			$this->load->model('sale/order');
 
-			$this->model_report_statistics->editValue('order_processing', $this->model_sale_order->getTotalOrders(['filter_order_status' => implode(',', $this->config->get('config_processing_status'))]));
+			$this->model_report_statistics->editValue('order_processing', $this->model_sale_order->getTotalOrders(['filter_order_status' => implode(',', (array)$this->config->get('config_processing_status'))]));
 
 			$this->session->data['success'] = $this->language->get('text_success');
 

@@ -615,7 +615,7 @@ class ControllerSettingSetting extends Controller {
 		if (isset($this->request->post['config_processing_status'])) {
 			$data['config_processing_status'] = $this->request->post['config_processing_status'];
 		} elseif ($this->config->get('config_processing_status')) {
-			$data['config_processing_status'] = $this->config->get('config_processing_status');
+			$data['config_processing_status'] = (array)$this->config->get('config_processing_status');
 		} else {
 			$data['config_processing_status'] = [];
 		}
@@ -623,7 +623,7 @@ class ControllerSettingSetting extends Controller {
 		if (isset($this->request->post['config_complete_status'])) {
 			$data['config_complete_status'] = $this->request->post['config_complete_status'];
 		} elseif ($this->config->get('config_complete_status')) {
-			$data['config_complete_status'] = $this->config->get('config_complete_status');
+			$data['config_complete_status'] = (array)$this->config->get('config_complete_status');
 		} else {
 			$data['config_complete_status'] = [];
 		}
