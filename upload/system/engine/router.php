@@ -27,6 +27,8 @@ class Router {
 	}
 
 	/**
+	 * Add Pre Action
+	 *
 	 * @param Action $pre_action
 	 *
 	 * @return void
@@ -36,8 +38,12 @@ class Router {
 	}
 
 	/**
+	 * Dispatch
+	 *
 	 * @param Action $action
 	 * @param Action $error
+	 *
+	 * @return void
 	 */
 	public function dispatch(Action $action, Action $error): void {
 		$this->error = $error;
@@ -57,6 +63,8 @@ class Router {
 	}
 
 	/**
+	 * Execute
+	 *
 	 * @param Action $action
 	 */
 	private function execute(Action $action) {

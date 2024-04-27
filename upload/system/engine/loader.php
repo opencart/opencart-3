@@ -158,6 +158,8 @@ class Loader {
 	 *
 	 * @param string  $route
 	 * @param array[] $args
+	 *
+	 * @return void
 	 */
 	public function library(string $route, array &...$args): void {
 		// Sanitize the call

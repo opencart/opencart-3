@@ -54,6 +54,8 @@ class Registry {
 	}
 
 	/**
+	 * Get
+	 *
 	 * @param string $key
 	 *
 	 * @return object|null
@@ -63,8 +65,12 @@ class Registry {
 	}
 
 	/**
+	 * Set
+	 *
 	 * @param string $key
 	 * @param object $value
+	 *
+	 * @return void
 	 */
 	public function set(string $key, object $value): void {
 		$this->data[$key] = $value;
@@ -77,7 +83,7 @@ class Registry {
 	 *
 	 * @return bool
 	 */
-	public function has($key) {
+	public function has($key): bool {
 		return isset($this->data[$key]);
 	}
 }

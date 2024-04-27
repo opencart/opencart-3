@@ -28,9 +28,13 @@ class Event {
 	}
 
 	/**
+	 * Register
+	 *
 	 * @param string $trigger
 	 * @param object $action
 	 * @param int    $priority
+	 *
+	 * @return void
 	 */
 	public function register(string $trigger, object $action, int $priority = 0): void {
 		$this->data[] = [
@@ -49,8 +53,12 @@ class Event {
 	}
 
 	/**
+	 * Trigger
+	 *
 	 * @param string               $event
 	 * @param array<string, mixed> $args
+	 *
+	 * @return mixed
 	 */
 	public function trigger(string $event, array $args = []) {
 		foreach ($this->data as $value) {
@@ -65,8 +73,12 @@ class Event {
 	}
 
 	/**
+	 * Unregister
+	 *
 	 * @param string $trigger
 	 * @param string $route
+	 *
+	 * @return void
 	 */
 	public function unregister(string $trigger, string $route): void {
 		foreach ($this->data as $key => $value) {
@@ -77,7 +89,11 @@ class Event {
 	}
 
 	/**
+	 * Clear
+	 *
 	 * @param string $trigger
+	 *
+	 * @return void
 	 */
 	public function clear(string $trigger): void {
 		foreach ($this->data as $key => $value) {
