@@ -18,7 +18,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	 * @var int
 	 */
 	private array $error;
-	private int $store_id;
+	private int   $store_id;
 
 	/**
 	 * Constructor
@@ -190,6 +190,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 		$data['url_popup'] = html_entity_decode($this->url->link('extension/advertise/google/popup_product', 'store_id=' . $this->store_id . '&user_token=' . $this->session->data['user_token'], true), ENT_QUOTES, 'UTF-8');
 		$data['url_category_autocomplete'] = html_entity_decode($this->url->link('extension/advertise/google/category_autocomplete', 'store_id=' . $this->store_id . '&user_token=' . $this->session->data['user_token'], true), ENT_QUOTES, 'UTF-8');
 		$data['url_debug_log_download'] = html_entity_decode($this->url->link('extension/advertise/google/debug_log_download', 'store_id=' . $this->store_id . '&user_token=' . $this->session->data['user_token'], true), ENT_QUOTES, 'UTF-8');
+
 		$data['advertise_google_status'] = $this->getSettingValue('advertise_google_status', 0);
 		$data['advertise_google_debug_log'] = $this->getSettingValue('advertise_google_debug_log', 0);
 		$data['advertise_google_cron_email_status'] = $this->getSettingValue('advertise_google_cron_email_status');
@@ -1645,12 +1646,10 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
 		if ($operand_info !== null) {
 			$json['title'] = $operand_info['title'];
-
+			$json['required_fields'] = $required_fields;
 			$json['success_message'] = $this->language->get('success_product');
 
 			$this->load->config('googleshopping/googleshopping');
-
-			$json['required_fields'] = $required_fields;
 
 			if ($this->request->post['action'] == 'submit' && $this->validateProduct($required_fields)) {
 				$form_data['store_id'] = (int)$this->store_id;
@@ -1835,7 +1834,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	}
 
 	/**
-	 * Popup issues
+	 * Popup Issues
 	 *
 	 * @return void
 	 */
@@ -2106,7 +2105,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	 *
 	 * @return array<string, mixed>
 	 */
-	protected function product(&$row) {
+	protected function product(&$row): array {
 		// Google Shopping
 		$this->load->config('googleshopping/googleshopping');
 
@@ -2281,7 +2280,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	 *
 	 * @return bool
 	 */
-	protected function validateProduct($required_fields): bool {
+	protected function validateProduct(array $required_fields): bool {
 		if (!$this->user->hasPermission('modify', 'extension/advertise/google')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
