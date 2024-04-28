@@ -2,10 +2,10 @@
 class ControllerInstallPromotion extends Controller {
 	/**
 	 * Index
-	 * 
-	 * @return mixed
+	 *
+	 * @return string
 	 */
-	public function index() {
+	public function index(): string {
 		$curl = curl_init();
 
 		curl_setopt($curl, CURLOPT_URL, 'https://www.opencart.com/index.php?route=api/install');
@@ -17,7 +17,9 @@ class ControllerInstallPromotion extends Controller {
 
 		$output = curl_exec($curl);
 
-		if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
+		$status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+		if ($status == 200) {
 			$response = $output;
 		} else {
 			$response = '';
