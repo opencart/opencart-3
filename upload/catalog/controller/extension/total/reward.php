@@ -10,7 +10,7 @@ class ControllerExtensionTotalReward extends Controller {
 	 *
 	 * @return string
 	 */
-	public function index() {
+	public function index(): string {
 		$points = $this->customer->getRewardPoints();
 		$points_total = 0;
 

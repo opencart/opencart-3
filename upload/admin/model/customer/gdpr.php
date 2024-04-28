@@ -74,7 +74,7 @@ class ModelCustomerGdpr extends Model {
 	 *
 	 * @return array<string, mixed>
 	 */
-	public function getGdpr(int $gdpr_id) {
+	public function getGdpr(int $gdpr_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "gdpr` WHERE `gdpr_id` = '" . (int)$gdpr_id . "'");
 
 		return $query->row;

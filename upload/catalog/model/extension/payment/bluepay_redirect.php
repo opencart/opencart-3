@@ -165,14 +165,14 @@ class ModelExtensionPaymentBluePayRedirect extends Model {
 	}
 
 	/**
-	 * sendCurl
+	 * Send Curl
 	 *
 	 * @param string               $url
 	 * @param array<string, mixed> $post_data
 	 *
 	 * @return array<string, mixed>
 	 */
-	public function sendCurl(string $url, array $post_data) {
+	public function sendCurl(string $url, array $post_data): array {
 		$curl = curl_init($url);
 
 		curl_setopt($curl, CURLOPT_PORT, 443);

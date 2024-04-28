@@ -30,8 +30,10 @@ class Language {
 	 * Get
 	 *
 	 * @param string $key
+	 * 
+	 * @return string
 	 */
-	public function get(string $key) {
+	public function get(string $key): string {
 		return $this->data[$key] ?? $key;
 	}
 

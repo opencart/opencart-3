@@ -33,7 +33,7 @@ class Squareup {
 	 *
 	 * @param mixed $registry
 	 */
-	public function __construct($registry) {
+	public function __construct(object $registry) {
 		$this->session = $registry->get('session');
 		$this->url = $registry->get('url');
 		$this->config = $registry->get('config');
@@ -172,7 +172,7 @@ class Squareup {
 	 *
 	 * @throws \Squareup\Exception
 	 *
-	 * @return object
+	 * @return object|null
 	 */
 	public function verifyToken($access_token): ?object {
 		try {

@@ -223,6 +223,8 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 	 * Call
 	 *
 	 * @param string $xml
+	 * 
+	 * @return mixed
 	 */
 	public function call(string $xml) {
 		$ch = curl_init();

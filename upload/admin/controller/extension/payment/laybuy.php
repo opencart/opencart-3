@@ -695,6 +695,8 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 	 * Transaction
 	 *
 	 * @param bool $order_page
+	 * 
+	 * @return mixed
 	 */
 	public function transaction(bool $order_page = false) {
 		$this->load->language('extension/payment/laybuy');

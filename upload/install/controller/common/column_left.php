@@ -1,6 +1,11 @@
 <?php
 class ControllerCommonColumnLeft extends Controller {
-	public function index() {
+	/**
+	 * Index
+	 * 
+	 * @return string
+	 */
+	public function index(): string {
 		$this->load->language('common/column_left');
 
 		// Step

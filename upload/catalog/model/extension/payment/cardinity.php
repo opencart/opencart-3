@@ -64,12 +64,14 @@ class ModelExtensionPaymentCardinity extends Model {
 	/**
 	 * Finalize Payment
 	 *
-	 * @param mixed $key
-	 * @param mixed $secret
+	 * @param string $key
+	 * @param string $secret
 	 * @param mixed $payment_id
 	 * @param mixed $pares
 	 *
 	 * @Throws \Exception
+	 * 
+	 * @return mixed
 	 */
 	public function finalizePayment($key, $secret, $payment_id, $pares) {
 		$client = Client::create([

@@ -69,10 +69,12 @@ class ModelExtensionPaymentAlipayCross extends Model {
 	/**
 	 * Build Request Para
 	 *
-	 * @param mixed $alipay_config
+	 * @param array $alipay_config
 	 * @param mixed $para_temp
+	 * 
+	 * @return array<string, string>
 	 */
-	public function buildRequestPara($alipay_config, $para_temp) {
+	public function buildRequestPara(array $alipay_config, $para_temp): array {
 		$this->alipay_config = $alipay_config;
 
 		$para_filter = $this->paraFilter($para_temp);
@@ -90,11 +92,11 @@ class ModelExtensionPaymentAlipayCross extends Model {
 	/**
 	 * Verify Notify
 	 *
-	 * @param mixed $alipay_config
+	 * @param string $alipay_config
 	 *
 	 * @return bool
 	 */
-	public function verifyNotify($alipay_config): bool {
+	public function verifyNotify(string $alipay_config): bool {
 		$this->alipay_config = $alipay_config;
 
 		if (empty($_POST)) {
@@ -127,7 +129,7 @@ class ModelExtensionPaymentAlipayCross extends Model {
 	 *
 	 * @return bool
 	 */
-	private function getSignVerify($para_temp, $sign): bool {
+	private function getSignVerify(array $para_temp, string $sign): bool {
 		$para_filter = $this->paraFilter($para_temp);
 
 		$para_sort = $this->argSort($para_filter);

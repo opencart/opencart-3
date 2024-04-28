@@ -144,7 +144,7 @@ class ModelExtensionPaymentAlipay extends Model {
 	 * @param mixed $request
 	 * @param mixed $httpmethod
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return mixed
 	 */
 	public function pageExecute($request, $httpmethod = 'POST') {
 		$iv = $this->api_version;
@@ -216,7 +216,7 @@ class ModelExtensionPaymentAlipay extends Model {
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */
-	public function rsaCheckV1($params, $signType = 'RSA'): array {
+	public function rsaCheckV1(array $params, string $signType = 'RSA'): array {
 		$sign = $params['sign'];
 
 		$params['sign_type'] = null;

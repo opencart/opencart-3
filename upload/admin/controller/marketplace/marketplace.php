@@ -526,9 +526,11 @@ class ControllerMarketplaceMarketplace extends Controller {
 	}
 
 	/**
-	 * info
+	 * Info
+	 *
+	 * @return \Action|null
 	 */
-	public function info() {
+	public function info(): ?\Action {
 		if (isset($this->request->get['extension_id'])) {
 			$extension_id = (int)$this->request->get['extension_id'];
 		} else {
@@ -696,6 +698,8 @@ class ControllerMarketplaceMarketplace extends Controller {
 			$data['footer'] = $this->load->controller('common/footer');
 
 			$this->response->setOutput($this->load->view('marketplace/marketplace_info', $data));
+
+			return null;
 		} else {
 			return new \Action('error/not_found');
 		}

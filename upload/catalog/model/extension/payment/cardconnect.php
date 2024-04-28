@@ -44,7 +44,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 	 *
 	 * @return array<string, mixed>
 	 */
-	public function getCardTypes() {
+	public function getCardTypes(): array {
 		$cards = [];
 
 		$cards[] = [
@@ -93,7 +93,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */
-	public function getYears() {
+	public function getYears(): array {
 		$years = [];
 
 		$today = getdate();

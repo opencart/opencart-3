@@ -142,8 +142,10 @@ class ModelExtensionModuleAmazonLogin extends Model {
 	 *
 	 * @param mixed $new
 	 * @param mixed $addresses
+	 * 
+	 * @return bool
 	 */
-	public function addressMatches($new, $addresses) {
+	public function addressMatches($new, $addresses): bool {
 		foreach ($addresses as $address) {
 			if ($this->addressMatch($new, $address, array_keys($address))) {
 				return true;
@@ -156,11 +158,13 @@ class ModelExtensionModuleAmazonLogin extends Model {
 	/**
 	 * Address Match
 	 *
-	 * @param mixed $a1
-	 * @param mixed $a2
-	 * @param mixed $keys
+	 * @param array $a1
+	 * @param array $a2
+	 * @param array $keys
+	 * 
+	 * @return bool
 	 */
-	public function addressMatch($a1, $a2, $keys) {
+	public function addressMatch(array $a1, array $a2, array $keys): bool {
 		// Skip comparison of custom_field. TODO introduce comparison for custom_field
 		unset($keys[array_search('custom_field', $keys)]);
 
@@ -172,9 +176,11 @@ class ModelExtensionModuleAmazonLogin extends Model {
 	/**
 	 * Force Login Customer
 	 *
-	 * @param mixed $customer_info
+	 * @param array $customer_info
+	 * 
+	 * @return void
 	 */
-	public function forceLoginCustomer($customer_info): void {
+	public function forceLoginCustomer(array $customer_info): void {
 		if (!$this->customer->login($customer_info['email'], '', true)) {
 			$this->model_account_customer->addLoginAttempt($customer_info['email']);
 
@@ -206,8 +212,10 @@ class ModelExtensionModuleAmazonLogin extends Model {
 
 	/**
 	 * Get Api Domain Name
+	 * 
+	 * @return string
 	 */
-	public function getApiDomainName() {
+	public function getApiDomainName(): string {
 		if ($this->config->get('payment_amazon_login_pay_test') == 'sandbox') {
 			switch ($this->config->get('payment_amazon_login_pay_payment_region')) {
 				case "GBP":
@@ -232,10 +240,12 @@ class ModelExtensionModuleAmazonLogin extends Model {
 	/**
 	 * Curl Get
 	 *
-	 * @param mixed $url
-	 * @param mixed $headers
+	 * @param string $url
+	 * @param array $headers
+	 * 
+	 * @return mixed
 	 */
-	public function curlGet($url, $headers = []) {
+	public function curlGet(string $url, array $headers = []) {
 		$this->debugLog('URL', $url);
 
 		$ch = curl_init($url);
@@ -280,6 +290,8 @@ class ModelExtensionModuleAmazonLogin extends Model {
 	 *
 	 * @param mixed $type
 	 * @param mixed $data
+	 * 
+	 * @return void
 	 */
 	public function debugLog($type, $data): void {
 		if (!$this->config->get('payment_amazon_login_pay_debug')) {

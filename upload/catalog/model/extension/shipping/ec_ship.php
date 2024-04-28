@@ -541,13 +541,15 @@ class api01Req {
 	/**
 	 * Constructor
 	 *
-	 * @param mixed $ecshipUsername
-	 * @param mixed $integratorUsername
-	 * @param mixed $countryCode
-	 * @param mixed $shipCode
-	 * @param mixed $weight
+	 * @param string $ecshipUsername
+	 * @param string $integratorUsername
+	 * @param string $countryCode
+	 * @param string $shipCode
+	 * @param float  $weight
+	 * 
+	 * @return mixed
 	 */
-	public function __construct($ecshipUsername, $integratorUsername, $countryCode, $shipCode, $weight) {
+	public function __construct(string $ecshipUsername, string $integratorUsername, string $countryCode, string $shipCode, float $weight) {
 		$this->ecshipUsername = $ecshipUsername;
 		$this->integratorUsername = $integratorUsername;
 		$this->countryCode = $countryCode;

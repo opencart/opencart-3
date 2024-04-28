@@ -1,5 +1,10 @@
 <?php
 class ControllerInstallPromotion extends Controller {
+	/**
+	 * Index
+	 * 
+	 * @return mixed
+	 */
 	public function index() {
 		$curl = curl_init();
 

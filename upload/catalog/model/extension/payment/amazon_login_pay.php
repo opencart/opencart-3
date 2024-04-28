@@ -223,7 +223,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	 *
 	 * @return array<string, mixed>
 	 */
-	public function makeOrder() {
+	public function makeOrder(): array {
 		$this->load->language('checkout/checkout');
 
 		$this->verifyOrderSessionData();
@@ -503,6 +503,8 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	 * Authorize Order
 	 *
 	 * @param mixed $order
+	 * 
+	 * @return mixed
 	 */
 	public function authorizeOrder($order) {
 		$capture_now = $this->config->get('payment_amazon_login_pay_mode') == 'payment';
@@ -521,6 +523,8 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	 * Fetch Order Id
 	 *
 	 * @param mixed $order_reference_id
+	 * 
+	 * @return mixed
 	 */
 	public function fetchOrderId($order_reference_id) {
 		return $this->postCurl('GetOrderReferenceDetails', [
@@ -532,6 +536,8 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	 * Fetch Order
 	 *
 	 * @param mixed $order_reference_id
+	 * 
+	 * @return mixed
 	 */
 	public function fetchOrder($order_reference_id) {
 		return $this->postCurl('GetOrderReferenceDetails', [
@@ -545,6 +551,8 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	 * @param mixed  $amazon_authorization_id
 	 * @param float  $total
 	 * @param string $currency
+	 * 
+	 * @return mixed
 	 */
 	public function captureOrder($amazon_authorization_id, float $total, string $currency) {
 		return $this->postCurl('Capture', [
@@ -590,8 +598,10 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	 *
 	 * @param mixed                $order_reference_id
 	 * @param array<string, mixed> $states
+	 * 
+	 * @return bool
 	 */
-	public function isOrderInState($order_reference_id, array $states = []) {
+	public function isOrderInState($order_reference_id, array $states = []): bool {
 		return in_array((string)$this->fetchOrder($order_reference_id)->OrderReferenceStatus->State, $states);
 	}
 
@@ -753,6 +763,8 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	 * @param mixed $json
 	 *
 	 * @throws \RuntimeException
+	 * 
+	 * @return mixed
 	 */
 	public function parseIpnBody($json) {
 		$data = $this->parseJson($json);
@@ -1185,6 +1197,8 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	 * @param array<string, mixed> $params
 	 *
 	 * @throws \Exception
+	 * 
+	 * @return mixed
 	 */
 	public function postCurl(string $action, array $params = []) {
 		$url = $this->getCurlUrl();
@@ -1232,7 +1246,6 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 		try {
 			$result->ResponseBody = simplexml_load_string($response);
-
 			$result->ResponseBody->registerXPathNamespace('m', 'http://mws.amazonservices.com/schema/OffAmazonPayments/2013-01-01');
 
 			if (isset($result->ResponseBody->Error)) {
@@ -1252,6 +1265,8 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	 * @param mixed $error_message
 	 *
 	 * @throws \RuntimeException
+	 * 
+	 * @return mixed
 	 */
 	public function loggedException($log_message, $error_message) {
 		$id = uniqid();
@@ -1268,10 +1283,12 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	 * @param mixed $message
 	 * @param mixed $file
 	 * @param mixed $line
+	 * 
+	 * @return void
 	 */
-	public function logHandler($code, $message, $file, $line) {
+	public function logHandler($code, $message, $file, $line): void {
 		if (!(error_reporting() & $code)) {
-			return false;
+			return;
 		}
 
 		switch ($code) {

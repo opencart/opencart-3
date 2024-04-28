@@ -1,6 +1,11 @@
 <?php
 class ControllerCommonHeader extends Controller {
-	public function index() {
+	/**
+	 * Index
+	 * 
+	 * @return string
+	 */
+	public function index(): string {
 		$this->load->language('common/header');
 
 		$data['title'] = $this->document->getTitle();
