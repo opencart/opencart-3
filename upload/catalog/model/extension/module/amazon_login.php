@@ -13,7 +13,7 @@ class ModelExtensionModuleAmazonLogin extends Model {
 	 * Fetch Profile
 	 *
 	 * @param mixed $access_token
-	 * 
+	 *
 	 * @return mixed
 	 */
 	public function fetchProfile($access_token) {
@@ -40,7 +40,7 @@ class ModelExtensionModuleAmazonLogin extends Model {
 	 * Verify Access Token
 	 *
 	 * @param mixed $access_token
-	 * 
+	 *
 	 * @return mixed
 	 */
 	public function verifyAccessToken($access_token) {
@@ -61,7 +61,7 @@ class ModelExtensionModuleAmazonLogin extends Model {
 	 * Login Profile
 	 *
 	 * @param mixed $amazon_profile
-	 * 
+	 *
 	 * @return array<int, array<string, mixed>>
 	 */
 	public function loginProfile($amazon_profile): array {
@@ -126,7 +126,7 @@ class ModelExtensionModuleAmazonLogin extends Model {
 	 * Persist Address
 	 *
 	 * @param mixed $address
-	 * 
+	 *
 	 * @return void
 	 */
 	public function persistAddress($address): void {
@@ -149,7 +149,7 @@ class ModelExtensionModuleAmazonLogin extends Model {
 	 *
 	 * @param mixed $new
 	 * @param mixed $addresses
-	 * 
+	 *
 	 * @return bool
 	 */
 	public function addressMatches($new, $addresses): bool {
@@ -168,7 +168,7 @@ class ModelExtensionModuleAmazonLogin extends Model {
 	 * @param array $a1
 	 * @param array $a2
 	 * @param array $keys
-	 * 
+	 *
 	 * @return bool
 	 */
 	public function addressMatch(array $a1, array $a2, array $keys): bool {
@@ -184,7 +184,7 @@ class ModelExtensionModuleAmazonLogin extends Model {
 	 * Force Login Customer
 	 *
 	 * @param array $customer_info
-	 * 
+	 *
 	 * @return void
 	 */
 	public function forceLoginCustomer(array $customer_info): void {
@@ -219,7 +219,7 @@ class ModelExtensionModuleAmazonLogin extends Model {
 
 	/**
 	 * Get Api Domain Name
-	 * 
+	 *
 	 * @return string
 	 */
 	public function getApiDomainName(): string {
@@ -247,9 +247,9 @@ class ModelExtensionModuleAmazonLogin extends Model {
 	/**
 	 * Curl Get
 	 *
-	 * @param string 			   $url
+	 * @param string               $url
 	 * @param array<string, mixed> $headers
-	 * 
+	 *
 	 * @return mixed
 	 */
 	public function curlGet(string $url, array $headers = []) {
@@ -297,7 +297,7 @@ class ModelExtensionModuleAmazonLogin extends Model {
 	 *
 	 * @param mixed $type
 	 * @param mixed $data
-	 * 
+	 *
 	 * @return void
 	 */
 	public function debugLog($type, $data): void {
