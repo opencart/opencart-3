@@ -13,6 +13,8 @@ class ModelExtensionModuleAmazonLogin extends Model {
 	 * Fetch Profile
 	 *
 	 * @param mixed $access_token
+	 * 
+	 * @return mixed
 	 */
 	public function fetchProfile($access_token) {
 		$url = sprintf(self::URL_PROFILE, $this->getApiDomainName());
@@ -38,6 +40,8 @@ class ModelExtensionModuleAmazonLogin extends Model {
 	 * Verify Access Token
 	 *
 	 * @param mixed $access_token
+	 * 
+	 * @return mixed
 	 */
 	public function verifyAccessToken($access_token) {
 		$url = sprintf(self::URL_TOKENINFO, $this->getApiDomainName(), urlencode($access_token));
@@ -57,8 +61,10 @@ class ModelExtensionModuleAmazonLogin extends Model {
 	 * Login Profile
 	 *
 	 * @param mixed $amazon_profile
+	 * 
+	 * @return array<int, array<string, mixed>>
 	 */
-	public function loginProfile($amazon_profile) {
+	public function loginProfile($amazon_profile): array {
 		// Addresses
 		$this->load->model('account/address');
 
@@ -73,7 +79,7 @@ class ModelExtensionModuleAmazonLogin extends Model {
 		// Create non-existing customer
 		if (empty($customer_info)) {
 			$data = [
-				'customer_group_id' => $this->config->get('config_customer_group_id'),
+				'customer_group_id' => (int)$this->config->get('config_customer_group_id'),
 				'firstname'         => (string)$amazon_profile->first_name,
 				'lastname'          => (string)$amazon_profile->last_name,
 				'email'             => (string)$amazon_profile->email,
@@ -82,7 +88,6 @@ class ModelExtensionModuleAmazonLogin extends Model {
 			];
 
 			$customer_id = $this->model_account_customer->addCustomer($data);
-
 			$customer_info = $this->model_account_customer->getCustomer($customer_id);
 
 			$this->debugLog("CREATED_CUSTOMER", $customer_info);
@@ -121,6 +126,8 @@ class ModelExtensionModuleAmazonLogin extends Model {
 	 * Persist Address
 	 *
 	 * @param mixed $address
+	 * 
+	 * @return void
 	 */
 	public function persistAddress($address): void {
 		if (!$this->customer->isLogged()) {
@@ -240,8 +247,8 @@ class ModelExtensionModuleAmazonLogin extends Model {
 	/**
 	 * Curl Get
 	 *
-	 * @param string $url
-	 * @param array $headers
+	 * @param string 			   $url
+	 * @param array<string, mixed> $headers
 	 * 
 	 * @return mixed
 	 */

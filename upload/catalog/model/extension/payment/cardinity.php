@@ -73,7 +73,7 @@ class ModelExtensionPaymentCardinity extends Model {
 	 * 
 	 * @return mixed
 	 */
-	public function finalizePayment($key, $secret, $payment_id, $pares) {
+	public function finalizePayment(string $key, string $secret, $payment_id, $pares) {
 		$client = Client::create([
 			'consumerKey'    => $key,
 			'consumerSecret' => $secret,
@@ -167,7 +167,7 @@ class ModelExtensionPaymentCardinity extends Model {
 	 *
 	 * @param Exception $exception
 	 *
-	 * @throws Exception
+	 * @throws \Exception
 	 *
 	 * @return void
 	 */

@@ -141,12 +141,12 @@ class ModelExtensionPaymentAlipay extends Model {
 	/**
 	 * Page Execute
 	 *
-	 * @param mixed $request
-	 * @param mixed $httpmethod
+	 * @param mixed  $request
+	 * @param string $httpmethod
 	 *
-	 * @return mixed
+	 * @return array<int, array<string, mixed>>
 	 */
-	public function pageExecute($request, $httpmethod = 'POST') {
+	public function pageExecute($request, string $httpmethod = 'POST') {
 		$iv = $this->api_version;
 
 		$sys_params = [];
@@ -164,8 +164,6 @@ class ModelExtensionPaymentAlipay extends Model {
 		$sys_params['gateway_url'] = $this->gateway_url;
 
 		$api_params = $this->api_params;
-
-		$total_params = [];
 
 		$total_params = array_merge($api_params, $sys_params);
 		$total_params['sign'] = $this->generateSign($total_params, $this->signtype);
@@ -192,11 +190,11 @@ class ModelExtensionPaymentAlipay extends Model {
 	/**
 	 * Check Empty
 	 *
-	 * @param mixed $value
+	 * @param string $value
 	 *
 	 * @return bool
 	 */
-	private function checkEmpty($value): bool {
+	private function checkEmpty(string $value): bool {
 		if (!isset($value)) {
 			return true;
 		}
@@ -228,9 +226,9 @@ class ModelExtensionPaymentAlipay extends Model {
 	/**
 	 * Verify
 	 *
-	 * @param mixed $data
-	 * @param mixed $sign
-	 * @param mixed $signType
+	 * @param mixed  $data
+	 * @param mixed  $sign
+	 * @param string $signType
 	 *
 	 * return bool
 	 */

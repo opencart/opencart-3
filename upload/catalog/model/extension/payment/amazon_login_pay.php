@@ -461,6 +461,8 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	 * @param int    $order_id
 	 * @param string $currency_code
 	 * @param string $text_version
+	 * 
+	 * @return mixed
 	 */
 	public function submitOrderDetails($order_reference_id, int $order_id, string $currency_code, string $text_version) {
 		// Orders
@@ -669,11 +671,11 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	 * Add Authorization
 	 *
 	 * @param int    $amazon_login_pay_order_id
-	 * @param object $authorization
+	 * @param mixed  $authorization
 	 *
 	 * @return void
 	 */
-	public function addAuthorization(int $amazon_login_pay_order_id, object $authorization): void {
+	public function addAuthorization(int $amazon_login_pay_order_id, $authorization): void {
 		$capture_id = (string)$authorization->IdList->member;
 		$type = (string)$authorization->CaptureNow == 'true' ? 'capture' : 'authorization';
 		$amount = $type == 'capture' ? (float)$authorization->CapturedAmount->Amount : (float)$authorization->AuthorizationAmount->Amount;

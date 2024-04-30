@@ -3203,7 +3203,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 			if (($route == 'product/product') && !empty($this->request->get['product_id']) && ($setting['button']['product']['status'] || $setting['message']['product']['status'])) {
 				$params['page_code'] = 'product';
-				$params['product_id'] = $this->request->get['product_id'];
+				$params['product_id'] = (int)$this->request->get['product_id'];
 			}
 
 			if (($route == 'checkout/cart') && ($setting['button']['cart']['status'] || $setting['message']['cart']['status'])) {

@@ -119,7 +119,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	];
 
 	/**
-	 * isAppIdUsed
+	 * Is App Id Used
 	 *
 	 * @param string $app_id
 	 * @param int    $store_id
@@ -145,7 +145,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	}
 
 	/**
-	 * getFinalProductId
+	 * Get Final Product Id
 	 *
 	 * @return int
 	 */
@@ -160,7 +160,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	}
 
 	/**
-	 * isAnyProductCategoryModified
+	 * Is Any Product Category Modified
 	 *
 	 * @param int $store_id
 	 *
@@ -173,7 +173,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	}
 
 	/**
-	 * getAdvertisedCount
+	 * Get Advertised Count
 	 *
 	 * @param int $store_id
 	 *
@@ -186,7 +186,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	}
 
 	/**
-	 * getMapping
+	 * Get Mapping
 	 *
 	 * @param int $store_id
 	 *
@@ -199,7 +199,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	}
 
 	/**
-	 * setCategoryMapping
+	 * Set Category Mapping
 	 *
 	 * @param string $google_product_category
 	 * @param int    $store_id
@@ -212,7 +212,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	}
 
 	/**
-	 * getMappedCategory
+	 * Get Mapped Category
 	 *
 	 * @param string $google_product_category
 	 * @param int    $store_id
@@ -226,7 +226,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	}
 
 	/**
-	 * getProductByProductAdvertiseGoogleId
+	 * Get Product By Product Advertise Google Id
 	 *
 	 * @param int $product_advertise_google_id
 	 *
@@ -248,7 +248,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	}
 
 	/**
-	 * getProductAdvertiseGoogle
+	 * Get Product Advertise Google
 	 *
 	 * @param int $product_advertise_google_id
 	 *
@@ -261,7 +261,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	}
 
 	/**
-	 * hasActiveTarget
+	 * Has Active Target
 	 *
 	 * @param int $store_id
 	 *
@@ -274,7 +274,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	}
 
 	/**
-	 * getRequiredFieldsByProductIds
+	 * Get Required Fields By Product Ids
 	 *
 	 * @param array<string, mixed> $product_ids
 	 * @param int                  $store_id
@@ -300,7 +300,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	}
 
 	/**
-	 * getRequiredFieldsByFilter
+	 * Get Required Fields By Filter
 	 *
 	 * @param array<string, mixed> $data
 	 * @param int                  $store_id
@@ -326,7 +326,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	}
 
 	/**
-	 * getTargetCountriesByProductIds
+	 * Get Target Countries By Product Ids
 	 *
 	 * @param array<string, mixed> $product_ids
 	 * @param int                  $store_id
@@ -340,7 +340,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	}
 
 	/**
-	 * getTargetCountriesByFilter
+	 * Get Target Countries By Filter
 	 *
 	 * @param array<string, mixed> $data
 	 * @param int                  $store_id
@@ -356,7 +356,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	}
 
 	/**
-	 * getProductOptionsByProductIds
+	 * Get Product Options By Product Ids
 	 *
 	 * @param array<string, mixed> $product_ids
 	 *
@@ -369,7 +369,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	}
 
 	/**
-	 * getProductOptionsByFilter
+	 * Get Product Options By Filter
 	 *
 	 * @param array<string, mixed> $data
 	 *
@@ -384,7 +384,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	}
 
 	/**
-	 * addTarget
+	 * Add Target
 	 *
 	 * @param array<string, mixed> $target
 	 * @param int                  $store_id
@@ -398,7 +398,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	}
 
 	/**
-	 * deleteProducts
+	 * Delete Products
 	 *
 	 * @param array<string, mixed> $product_ids
 	 *
@@ -411,7 +411,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	}
 
 	/**
-	 * setAdvertisingBySelect
+	 * Set Advertising By Select
 	 *
 	 * @param array<string, mixed> $post_product_ids
 	 * @param array<string, mixed> $post_target_ids
@@ -444,7 +444,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	}
 
 	/**
-	 * setAdvertisingByFilter
+	 * Set Advertising By Filter
 	 *
 	 * @param array<string, mixed> $data
 	 * @param array<string, mixed> $post_target_ids
@@ -473,7 +473,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	}
 
 	/**
-	 * insertNewProducts
+	 * Insert New Products
 	 *
 	 * @param array<string, mixed> $product_ids
 	 * @param int                  $store_id
@@ -491,7 +491,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	}
 
 	/**
-	 * updateGoogleProductCategoryMapping
+	 * Update Google Product Category Mapping
 	 *
 	 * @param int $store_id
 	 *
@@ -502,7 +502,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	}
 
 	/**
-	 * updateSingleProductFields
+	 * Update Single Product Fields
 	 *
 	 * @param array<string, mixed> $data
 	 *
@@ -521,7 +521,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	}
 
 	/**
-	 * updateMultipleProductFields
+	 * Update Multiple Product Fields
 	 *
 	 * @param array<string, mixed> $filter_data
 	 * @param array<string, mixed> $data
@@ -633,7 +633,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	}
 
 	/**
-	 * getProductCampaigns
+	 * Get Product Campaigns
 	 *
 	 * @param int $product_id
 	 * @param int $store_id
@@ -647,7 +647,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	}
 
 	/**
-	 * getProductIssues
+	 * Get Product Issues
 	 *
 	 * @param int $product_id
 	 * @param int $store_id
@@ -710,7 +710,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	}
 
 	/**
-	 * renameTables
+	 * Rename Tables
 	 *
 	 * @return void
 	 *
@@ -731,7 +731,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	}
 
 	/**
-	 * tableExists
+	 * Table Exists
 	 *
 	 * @param string $table
 	 *
@@ -742,7 +742,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	}
 
 	/**
-	 * tableColunsMatch
+	 * Table Columns Match
 	 *
 	 * @param string $table
 	 * @param string $columns
@@ -774,7 +774,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	}
 
 	/**
-	 * createTables
+	 * Create Tables
 	 *
 	 * @return void
 	 */
@@ -848,7 +848,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	}
 
 	/**
-	 * fixColumns
+	 * Fix Columns
 	 *
 	 * @return void
 	 */
@@ -887,7 +887,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	}
 
 	/**
-	 * dropTables
+	 * Drop Tables
 	 *
 	 * @return void
 	 */
@@ -900,7 +900,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	}
 
 	/**
-	 * deleteEvents
+	 * Delete Events
 	 *
 	 * @return void
 	 */
@@ -912,7 +912,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	}
 
 	/**
-	 * createEvents
+	 * Create Events
 	 *
 	 * @return void
 	 */
@@ -928,7 +928,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	}
 
 	/**
-	 * getAllowedTargets
+	 * Get Allowed Targets
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */
