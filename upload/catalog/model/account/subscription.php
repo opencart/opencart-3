@@ -2,7 +2,7 @@
 /**
  * Class Subscription
  *
- * @package Opencart\Catalog\Model\Account
+ * @package Catalog\Model\Account
  */
 class ModelAccountSubscription extends Model {
 	/**

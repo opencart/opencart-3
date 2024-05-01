@@ -38,20 +38,17 @@
                       <a href="{{ sort_name }}" class="{{ order|lower }}">{{ column_name }}</a>
                     {% else %}
                       <a href="{{ sort_name }}">{{ column_name }}</a>
-                    {% endif %}
-                  </td>
+                    {% endif %}</td>
                   <td class="text-left">{% if sort == 'attribute_group' %}
                       <a href="{{ sort_attribute_group }}" class="{{ order|lower }}">{{ column_attribute_group }}</a>
                     {% else %}
                       <a href="{{ sort_attribute_group }}">{{ column_attribute_group }}</a>
-                    {% endif %}
-                  </td>
+                    {% endif %}</td>
                   <td class="text-right">{% if sort == 'a.sort_order' %}
                       <a href="{{ sort_sort_order }}" class="{{ order|lower }}">{{ column_sort_order }}</a>
                     {% else %}
                       <a href="{{ sort_sort_order }}">{{ column_sort_order }}</a>
-                    {% endif %}
-                  </td>
+                    {% endif %}</td>
                   <td class="text-right">{{ column_action }}</td>
                 </tr>
               </thead>

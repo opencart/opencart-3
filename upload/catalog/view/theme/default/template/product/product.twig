@@ -411,6 +411,7 @@ $('#button-cart').on('click', function() {
         },
         success: function (json) {
             $('.alert-dismissible, .text-danger').remove();
+            
             $('.form-group').removeClass('has-error');
 
             if (json['error']) {

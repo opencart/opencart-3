@@ -2,7 +2,7 @@
 /**
  * Class Gdpr
  *
- * @package Opencart\Catalog\Model\Account
+ * @package Catalog\Model\Account
  */
 class ModelAccountGdpr extends Model {
 	/**

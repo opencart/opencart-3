@@ -238,8 +238,7 @@
                           {% else %}
                             <input type="radio" name="shipping_method" value="{{ quote.code }}" id="{{ quote.code }}"/>
                           {% endif %}
-                          {{ quote.title }} - {{ quote.text }}
-                        </label>
+                          {{ quote.title }} - {{ quote.text }}</label>
                       </div>
                     {% endfor %}
                   {% else %}
@@ -289,8 +288,7 @@
                   {% endfor %}
                   {% if product.subscription %}
                     <br/><span class="label label-info">{{ text_recurring_item }}</span> <small>{{ product.subscription }}</small>
-                  {% endif %}
-                </td>
+                  {% endif %}</td>
                 <td class="text-left">{{ product.model }}</td>
                 <td class="text-center">{{ product.quantity }}</td>
                 <td class="text-right">{{ product.price }}</td>

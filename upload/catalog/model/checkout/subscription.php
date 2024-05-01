@@ -2,7 +2,7 @@
 /**
  * Class Subscription
  *
- * @package Opencart\Catalog\Model\Checkout
+ * @package Catalog\Model\Checkout
  */
 class ModelCheckoutSubscription extends Model {
 	/**
