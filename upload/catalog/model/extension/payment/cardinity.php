@@ -66,11 +66,11 @@ class ModelExtensionPaymentCardinity extends Model {
 	 *
 	 * @param string $key
 	 * @param string $secret
-	 * @param mixed $payment_id
-	 * @param mixed $pares
+	 * @param mixed  $payment_id
+	 * @param mixed  $pares
 	 *
 	 * @Throws \Exception
-	 * 
+	 *
 	 * @return mixed
 	 */
 	public function finalizePayment(string $key, string $secret, $payment_id, $pares) {

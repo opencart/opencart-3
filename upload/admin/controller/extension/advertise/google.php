@@ -18,7 +18,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	 * @var int
 	 */
 	private array $error;
-	private int   $store_id;
+	private int $store_id;
 
 	/**
 	 * Constructor

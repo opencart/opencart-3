@@ -133,11 +133,11 @@ class ControllerExtensionReportRecurring extends Controller {
 		$data['recurrings'] = [];
 
 		$filter_data = [
-			'filter_date_start'             => $filter_date_start,
-			'filter_date_end'               => $filter_date_end,
-			'filter_group'                  => $filter_group,
-			'start'                         => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit'                         => $this->config->get('config_limit_admin')
+			'filter_date_start' => $filter_date_start,
+			'filter_date_end'   => $filter_date_end,
+			'filter_group'      => $filter_group,
+			'start'             => ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'             => $this->config->get('config_limit_admin')
 		];
 
 		$recurring_total = $this->model_extension_other_recurring->getTotalRecurringReports($filter_data);
@@ -146,12 +146,12 @@ class ControllerExtensionReportRecurring extends Controller {
 
 		foreach ($results as $result) {
 			$data['recurrings'][] = [
-				'date_start'    => date($this->language->get('date_format_short'), strtotime($result['date_start'])),
-				'date_end'      => date($this->language->get('date_format_short'), strtotime($result['date_end'])),
-				'recurrings'    => $result['recurrings'],
-				'products'      => $result['products'],
-				'tax'           => $this->currency->format((float)$result['tax'], $this->config->get('config_currency')),
-				'total'         => $this->currency->format((float)$result['total'], $this->config->get('config_currency'))
+				'date_start' => date($this->language->get('date_format_short'), strtotime($result['date_start'])),
+				'date_end'   => date($this->language->get('date_format_short'), strtotime($result['date_end'])),
+				'recurrings' => $result['recurrings'],
+				'products'   => $result['products'],
+				'tax'        => $this->currency->format((float)$result['tax'], $this->config->get('config_currency')),
+				'total'      => $this->currency->format((float)$result['total'], $this->config->get('config_currency'))
 			];
 		}
 

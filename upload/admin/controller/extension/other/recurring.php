@@ -634,9 +634,9 @@ class ControllerExtensionOtherRecurring extends Controller {
 
 					// Only pull unique order recurring
 					$data['recurrings'][] = [
-						'product_name'  => $product_name,
-						'store_name'    => $store_name,
-						'recurring'     => $recurring
+						'product_name' => $product_name,
+						'store_name'   => $store_name,
+						'recurring'    => $recurring
 					];
 				}
 			}

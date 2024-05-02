@@ -43,7 +43,7 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 	 * Call
 	 *
 	 * @param mixed $data
-	 * 
+	 *
 	 * @return mixed
 	 */
 	public function call($data) {
@@ -88,7 +88,7 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 	 * @param string $currency
 	 * @param mixed  $value
 	 * @param bool   $format
-	 * 
+	 *
 	 * @return float
 	 */
 	public function format(float $number, string $currency, $value = '', bool $format = false): float {

@@ -71,7 +71,7 @@ class ModelExtensionPaymentAlipayCross extends Model {
 	 *
 	 * @param array $alipay_config
 	 * @param mixed $para_temp
-	 * 
+	 *
 	 * @return array<string, string>
 	 */
 	public function buildRequestPara(array $alipay_config, $para_temp): array {

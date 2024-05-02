@@ -29,7 +29,7 @@ class ControllerExtensionCaptchaGoogle extends Controller {
 
 	/**
 	 * Validate
-	 * 
+	 *
 	 * @return array<string, string>
 	 */
 	public function validate(): string {

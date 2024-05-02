@@ -281,7 +281,7 @@ class ModelExtensionPaymentSquareup extends Model {
 
 	/**
 	 * Update Token
-	 * 
+	 *
 	 * @return mixed
 	 */
 	public function updateToken() {

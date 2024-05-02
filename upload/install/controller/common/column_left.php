@@ -2,7 +2,7 @@
 class ControllerCommonColumnLeft extends Controller {
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return string
 	 */
 	public function index(): string {

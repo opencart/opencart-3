@@ -2,7 +2,7 @@
 class ControllerStartupRouter extends Controller {
 	/**
 	 * Index
-	 * 
+	 *
 	 * @return \Action
 	 */
 	public function index(): \Action {

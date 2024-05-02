@@ -546,7 +546,7 @@ class api01Req {
 	 * @param string $countryCode
 	 * @param string $shipCode
 	 * @param float  $weight
-	 * 
+	 *
 	 * @return mixed
 	 */
 	public function __construct(string $ecshipUsername, string $integratorUsername, string $countryCode, string $shipCode, float $weight) {
