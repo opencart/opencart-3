@@ -195,10 +195,6 @@ class ModelExtensionPaymentAlipay extends Model {
 	 * @return bool
 	 */
 	private function checkEmpty(string $value): bool {
-		if (!isset($value)) {
-			return true;
-		}
-
 		if ($value === null) {
 			return true;
 		}

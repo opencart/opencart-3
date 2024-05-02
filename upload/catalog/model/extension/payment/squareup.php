@@ -451,7 +451,7 @@ class ModelExtensionPaymentSquareup extends Model {
 	 *
 	 * @param int $subscription_id
 	 *
-	 * @return void
+	 * @return int
 	 */
 	public function suspendSubscriptionProfile(int $subscription_id): int {
 		$this->db->query("UPDATE `" . DB_PREFIX . "squareup_subscription` SET `status` = '" . self::RECURRING_SUSPENDED . "' WHERE `subscription_id` = '" . (int)$subscription_id . "'");
