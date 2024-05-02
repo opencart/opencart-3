@@ -23,7 +23,7 @@ class Cart {
 		$this->weight = $registry->get('weight');
 
 		// Remove all the expired carts with no customer ID
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "cart` WHERE (`api_id` > '0' OR `customer_id` = '0') AND `date_added` < DATE_SUB(NOW(), INTERVAL 1 HOUR)");
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "cart` WHERE (`api_id` > '0' OR `customer_id` = '0') AND `date_added` < DATE_SUB(NOW(), INTERVAL " . (int)$this->config->get('config_session_expire') . " SECOND)");
 
 		if ($this->customer->getId()) {
 			// We want to change the session ID on all the old items in the customers cart
