@@ -360,6 +360,15 @@
                     {% endif %}
                   </div>
                 </div>
+                <div class="form-group required">
+                  <label class="col-sm-2 control-label" for="input-limit-autocomplete"><span data-toggle="tooltip" title="{{ help_limit_autocomplete|escape('html') }}">{{ entry_limit_autocomplete }}</span></label>
+                  <div class="col-sm-10">
+                    <input type="text" name="config_limit_autocomplete" value="{{ config_limit_autocomplete }}" placeholder="{{ entry_limit_autocomplete }}" class="form-control" id="input-limit-autocomplete"/>
+                    {% if error_limit_autocomplete %}
+                      <div class="text-danger">{{ error_limit_autocomplete }}</div>
+                    {% endif %}
+                  </div>
+                </div>
               </fieldset>
               <fieldset>
                 <legend>{{ text_review }}</legend>
