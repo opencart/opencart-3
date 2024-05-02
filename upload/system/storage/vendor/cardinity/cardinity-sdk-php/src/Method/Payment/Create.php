@@ -188,7 +188,9 @@ class Create implements MethodInterface
     {
         return new Assert\Collection([
             'email_address' => new Assert\Optional(
-                new Assert\Email(['mode' => 'loose'])
+                new Assert\Email([
+                    'mode' => Assert\Email::VALIDATION_MODE_HTML5
+                ])
             ),
             'mobile_phone_number' => new Assert\Optional($this->buildElement('string')),
             'work_phone_number' => new Assert\Optional($this->buildElement('string')),

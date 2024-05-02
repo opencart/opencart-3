@@ -15,9 +15,6 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Exception\InvalidArgumentException;
 
 /**
- * @Annotation
- * @Target({"PROPERTY", "METHOD", "ANNOTATION"})
- *
  * @author Mathieu Santostefano <msantostefano@protonmail.com>
  */
 #[\Attribute(\Attribute::TARGET_PROPERTY | \Attribute::TARGET_METHOD | \Attribute::IS_REPEATABLE)]
@@ -37,14 +34,14 @@ class CssColor extends Constraint
     public const HSLA = 'hsla';
     public const INVALID_FORMAT_ERROR = '454ab47b-aacf-4059-8f26-184b2dc9d48d';
 
-    protected static $errorNames = [
+    protected const ERROR_NAMES = [
         self::INVALID_FORMAT_ERROR => 'INVALID_FORMAT_ERROR',
     ];
 
     /**
      * @var string[]
      */
-    private static $validationModes = [
+    private static array $validationModes = [
         self::HEX_LONG,
         self::HEX_LONG_WITH_ALPHA,
         self::HEX_SHORT,
@@ -59,13 +56,13 @@ class CssColor extends Constraint
         self::HSLA,
     ];
 
-    public $message = 'This value is not a valid CSS color.';
-    public $formats;
+    public string $message = 'This value is not a valid CSS color.';
+    public array|string $formats;
 
     /**
      * @param array|string $formats The types of CSS colors allowed (e.g. hexadecimal only, RGB and HSL only, etc.).
      */
-    public function __construct($formats = [], ?string $message = null, ?array $groups = null, $payload = null, ?array $options = null)
+    public function __construct(array|string $formats = [], ?string $message = null, ?array $groups = null, $payload = null, ?array $options = null)
     {
         $validationModesAsString = implode(', ', self::$validationModes);
 

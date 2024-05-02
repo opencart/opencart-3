@@ -17,37 +17,30 @@ use Symfony\Component\Validator\Exception\InvalidArgumentException;
 use Symfony\Component\Validator\Exception\LogicException;
 
 /**
- * @Annotation
- * @Target({"PROPERTY", "METHOD", "ANNOTATION"})
- *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
 #[\Attribute(\Attribute::TARGET_PROPERTY | \Attribute::TARGET_METHOD | \Attribute::IS_REPEATABLE)]
 class Email extends Constraint
 {
+    public const VALIDATION_MODE_HTML5_ALLOW_NO_TLD = 'html5-allow-no-tld';
     public const VALIDATION_MODE_HTML5 = 'html5';
     public const VALIDATION_MODE_STRICT = 'strict';
-    public const VALIDATION_MODE_LOOSE = 'loose';
 
     public const INVALID_FORMAT_ERROR = 'bd79c0ab-ddba-46cc-a703-a7a4b08de310';
 
-    protected static $errorNames = [
+    public const VALIDATION_MODES = [
+        self::VALIDATION_MODE_HTML5_ALLOW_NO_TLD,
+        self::VALIDATION_MODE_HTML5,
+        self::VALIDATION_MODE_STRICT,
+    ];
+
+    protected const ERROR_NAMES = [
         self::INVALID_FORMAT_ERROR => 'INVALID_FORMAT_ERROR',
     ];
 
-    /**
-     * @var string[]
-     *
-     * @internal
-     */
-    public static $validationModes = [
-        self::VALIDATION_MODE_HTML5,
-        self::VALIDATION_MODE_STRICT,
-        self::VALIDATION_MODE_LOOSE,
-    ];
-
-    public $message = 'This value is not a valid email address.';
-    public $mode;
+    public string $message = 'This value is not a valid email address.';
+    public ?string $mode = null;
+    /** @var callable|null */
     public $normalizer;
 
     public function __construct(
@@ -56,9 +49,13 @@ class Email extends Constraint
         ?string $mode = null,
         ?callable $normalizer = null,
         ?array $groups = null,
-        $payload = null
+        mixed $payload = null
     ) {
-        if (\is_array($options) && \array_key_exists('mode', $options) && !\in_array($options['mode'], self::$validationModes, true)) {
+        if (\is_array($options) && \array_key_exists('mode', $options) && !\in_array($options['mode'], self::VALIDATION_MODES, true)) {
+            throw new InvalidArgumentException('The "mode" parameter value is not valid.');
+        }
+
+        if (null !== $mode && !\in_array($mode, self::VALIDATION_MODES, true)) {
             throw new InvalidArgumentException('The "mode" parameter value is not valid.');
         }
 
@@ -69,7 +66,7 @@ class Email extends Constraint
         $this->normalizer = $normalizer ?? $this->normalizer;
 
         if (self::VALIDATION_MODE_STRICT === $this->mode && !class_exists(StrictEmailValidator::class)) {
-            throw new LogicException(sprintf('The "egulias/email-validator" component is required to use the "%s" constraint in strict mode.', __CLASS__));
+            throw new LogicException(sprintf('The "egulias/email-validator" component is required to use the "%s" constraint in strict mode. Try running "composer require egulias/email-validator".', __CLASS__));
         }
 
         if (null !== $this->normalizer && !\is_callable($this->normalizer)) {

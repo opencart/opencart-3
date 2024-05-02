@@ -17,9 +17,6 @@ use Symfony\Component\Validator\Exception\ConstraintDefinitionException;
 /**
  * Validates that a value is a valid CIDR notation.
  *
- * @Annotation
- * @Target({"PROPERTY", "METHOD", "ANNOTATION"})
- *
  * @author Sorin Pop <popsorin15@gmail.com>
  * @author Calin Bolea <calin.bolea@gmail.com>
  */
@@ -29,7 +26,7 @@ class Cidr extends Constraint
     public const INVALID_CIDR_ERROR = '5649e53a-5afb-47c5-a360-ffbab3be8567';
     public const OUT_OF_RANGE_ERROR = 'b9f14a51-acbd-401a-a078-8c6b204ab32f';
 
-    protected static $errorNames = [
+    protected const ERROR_NAMES = [
         self::INVALID_CIDR_ERROR => 'INVALID_CIDR_ERROR',
         self::OUT_OF_RANGE_ERROR => 'OUT_OF_RANGE_VIOLATION',
     ];
@@ -40,15 +37,11 @@ class Cidr extends Constraint
         Ip::V6 => 128,
     ];
 
-    public $version = Ip::ALL;
-
-    public $message = 'This value is not a valid CIDR notation.';
-
-    public $netmaskRangeViolationMessage = 'The value of the netmask should be between {{ min }} and {{ max }}.';
-
-    public $netmaskMin = 0;
-
-    public $netmaskMax;
+    public string $version = Ip::ALL;
+    public string $message = 'This value is not a valid CIDR notation.';
+    public string $netmaskRangeViolationMessage = 'The value of the netmask should be between {{ min }} and {{ max }}.';
+    public int $netmaskMin = 0;
+    public int $netmaskMax;
 
     public function __construct(
         ?array $options = null,
@@ -61,7 +54,7 @@ class Cidr extends Constraint
     ) {
         $this->version = $version ?? $options['version'] ?? $this->version;
 
-        if (!\in_array($this->version, array_keys(self::NET_MAXES))) {
+        if (!\array_key_exists($this->version, self::NET_MAXES)) {
             throw new ConstraintDefinitionException(sprintf('The option "version" must be one of "%s".', implode('", "', array_keys(self::NET_MAXES))));
         }
 

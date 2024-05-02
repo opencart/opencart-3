@@ -12,9 +12,6 @@
 namespace Symfony\Component\Validator\Constraints;
 
 /**
- * @Annotation
- * @Target({"PROPERTY", "METHOD", "ANNOTATION"})
- *
  * @author Benjamin Dulau <benjamin.dulau@gmail.com>
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
@@ -37,12 +34,13 @@ class Image extends File
 
     // Include the mapping from the base class
 
-    protected static $errorNames = [
+    protected const ERROR_NAMES = [
         self::NOT_FOUND_ERROR => 'NOT_FOUND_ERROR',
         self::NOT_READABLE_ERROR => 'NOT_READABLE_ERROR',
         self::EMPTY_ERROR => 'EMPTY_ERROR',
         self::TOO_LARGE_ERROR => 'TOO_LARGE_ERROR',
         self::INVALID_MIME_TYPE_ERROR => 'INVALID_MIME_TYPE_ERROR',
+        self::FILENAME_TOO_LONG => 'FILENAME_TOO_LONG',
         self::SIZE_NOT_DETECTED_ERROR => 'SIZE_NOT_DETECTED_ERROR',
         self::TOO_WIDE_ERROR => 'TOO_WIDE_ERROR',
         self::TOO_NARROW_ERROR => 'TOO_NARROW_ERROR',
@@ -58,57 +56,50 @@ class Image extends File
         self::CORRUPTED_IMAGE_ERROR => 'CORRUPTED_IMAGE_ERROR',
     ];
 
-    public $mimeTypes = 'image/*';
-    public $minWidth;
-    public $maxWidth;
-    public $maxHeight;
-    public $minHeight;
-    public $maxRatio;
-    public $minRatio;
-    public $minPixels;
-    public $maxPixels;
-    public $allowSquare = true;
-    public $allowLandscape = true;
-    public $allowPortrait = true;
-    public $detectCorrupted = false;
+    public array|string $mimeTypes = 'image/*';
+    public ?int $minWidth = null;
+    public ?int $maxWidth = null;
+    public ?int $maxHeight = null;
+    public ?int $minHeight = null;
+    public int|float|null $maxRatio = null;
+    public int|float|null $minRatio = null;
+    public int|float|null $minPixels = null;
+    public int|float|null $maxPixels = null;
+    public bool $allowSquare = true;
+    public bool $allowLandscape = true;
+    public bool $allowPortrait = true;
+    public bool $detectCorrupted = false;
 
     // The constant for a wrong MIME type is taken from the parent class.
-    public $mimeTypesMessage = 'This file is not a valid image.';
-    public $sizeNotDetectedMessage = 'The size of the image could not be detected.';
-    public $maxWidthMessage = 'The image width is too big ({{ width }}px). Allowed maximum width is {{ max_width }}px.';
-    public $minWidthMessage = 'The image width is too small ({{ width }}px). Minimum width expected is {{ min_width }}px.';
-    public $maxHeightMessage = 'The image height is too big ({{ height }}px). Allowed maximum height is {{ max_height }}px.';
-    public $minHeightMessage = 'The image height is too small ({{ height }}px). Minimum height expected is {{ min_height }}px.';
-    public $minPixelsMessage = 'The image has too few pixels ({{ pixels }} pixels). Minimum amount expected is {{ min_pixels }} pixels.';
-    public $maxPixelsMessage = 'The image has too many pixels ({{ pixels }} pixels). Maximum amount expected is {{ max_pixels }} pixels.';
-    public $maxRatioMessage = 'The image ratio is too big ({{ ratio }}). Allowed maximum ratio is {{ max_ratio }}.';
-    public $minRatioMessage = 'The image ratio is too small ({{ ratio }}). Minimum ratio expected is {{ min_ratio }}.';
-    public $allowSquareMessage = 'The image is square ({{ width }}x{{ height }}px). Square images are not allowed.';
-    public $allowLandscapeMessage = 'The image is landscape oriented ({{ width }}x{{ height }}px). Landscape oriented images are not allowed.';
-    public $allowPortraitMessage = 'The image is portrait oriented ({{ width }}x{{ height }}px). Portrait oriented images are not allowed.';
-    public $corruptedMessage = 'The image file is corrupted.';
+    public string $mimeTypesMessage = 'This file is not a valid image.';
+    public string $sizeNotDetectedMessage = 'The size of the image could not be detected.';
+    public string $maxWidthMessage = 'The image width is too big ({{ width }}px). Allowed maximum width is {{ max_width }}px.';
+    public string $minWidthMessage = 'The image width is too small ({{ width }}px). Minimum width expected is {{ min_width }}px.';
+    public string $maxHeightMessage = 'The image height is too big ({{ height }}px). Allowed maximum height is {{ max_height }}px.';
+    public string $minHeightMessage = 'The image height is too small ({{ height }}px). Minimum height expected is {{ min_height }}px.';
+    public string $minPixelsMessage = 'The image has too few pixels ({{ pixels }} pixels). Minimum amount expected is {{ min_pixels }} pixels.';
+    public string $maxPixelsMessage = 'The image has too many pixels ({{ pixels }} pixels). Maximum amount expected is {{ max_pixels }} pixels.';
+    public string $maxRatioMessage = 'The image ratio is too big ({{ ratio }}). Allowed maximum ratio is {{ max_ratio }}.';
+    public string $minRatioMessage = 'The image ratio is too small ({{ ratio }}). Minimum ratio expected is {{ min_ratio }}.';
+    public string $allowSquareMessage = 'The image is square ({{ width }}x{{ height }}px). Square images are not allowed.';
+    public string $allowLandscapeMessage = 'The image is landscape oriented ({{ width }}x{{ height }}px). Landscape oriented images are not allowed.';
+    public string $allowPortraitMessage = 'The image is portrait oriented ({{ width }}x{{ height }}px). Portrait oriented images are not allowed.';
+    public string $corruptedMessage = 'The image file is corrupted.';
 
-    /**
-     * {@inheritdoc}
-     *
-     * @param int|float $maxRatio
-     * @param int|float $minRatio
-     * @param int|float $minPixels
-     * @param int|float $maxPixels
-     */
     public function __construct(
         ?array $options = null,
-        $maxSize = null,
+        int|string|null $maxSize = null,
         ?bool $binaryFormat = null,
         ?array $mimeTypes = null,
+        ?int $filenameMaxLength = null,
         ?int $minWidth = null,
         ?int $maxWidth = null,
         ?int $maxHeight = null,
         ?int $minHeight = null,
-        $maxRatio = null,
-        $minRatio = null,
-        $minPixels = null,
-        $maxPixels = null,
+        int|float|null $maxRatio = null,
+        int|float|null $minRatio = null,
+        int|float|null $minPixels = null,
+        int|float|null $maxPixels = null,
         ?bool $allowSquare = null,
         ?bool $allowLandscape = null,
         ?bool $allowPortrait = null,
@@ -118,6 +109,7 @@ class Image extends File
         ?string $maxSizeMessage = null,
         ?string $mimeTypesMessage = null,
         ?string $disallowEmptyMessage = null,
+        ?string $filenameTooLongMessage = null,
         ?string $uploadIniSizeErrorMessage = null,
         ?string $uploadFormSizeErrorMessage = null,
         ?string $uploadPartialErrorMessage = null,
@@ -140,18 +132,20 @@ class Image extends File
         ?string $allowPortraitMessage = null,
         ?string $corruptedMessage = null,
         ?array $groups = null,
-        $payload = null
+        mixed $payload = null
     ) {
         parent::__construct(
             $options,
             $maxSize,
             $binaryFormat,
             $mimeTypes,
+            $filenameMaxLength,
             $notFoundMessage,
             $notReadableMessage,
             $maxSizeMessage,
             $mimeTypesMessage,
             $disallowEmptyMessage,
+            $filenameTooLongMessage,
             $uploadIniSizeErrorMessage,
             $uploadFormSizeErrorMessage,
             $uploadPartialErrorMessage,
@@ -189,5 +183,9 @@ class Image extends File
         $this->allowLandscapeMessage = $allowLandscapeMessage ?? $this->allowLandscapeMessage;
         $this->allowPortraitMessage = $allowPortraitMessage ?? $this->allowPortraitMessage;
         $this->corruptedMessage = $corruptedMessage ?? $this->corruptedMessage;
+
+        if (!\in_array('image/*', (array) $this->mimeTypes, true) && !\array_key_exists('mimeTypesMessage', $options ?? []) && null === $mimeTypesMessage) {
+            $this->mimeTypesMessage = 'The mime type of the file is invalid ({{ type }}). Allowed mime types are {{ types }}.';
+        }
     }
 }

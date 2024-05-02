@@ -17,9 +17,6 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Exception\LogicException;
 
 /**
- * @Annotation
- * @Target({"CLASS", "PROPERTY", "METHOD", "ANNOTATION"})
- *
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
@@ -28,35 +25,30 @@ class Expression extends Constraint
 {
     public const EXPRESSION_FAILED_ERROR = '6b3befbc-2f01-4ddf-be21-b57898905284';
 
-    protected static $errorNames = [
+    protected const ERROR_NAMES = [
         self::EXPRESSION_FAILED_ERROR => 'EXPRESSION_FAILED_ERROR',
     ];
 
-    public $message = 'This value is not valid.';
-    public $expression;
-    public $values = [];
+    public string $message = 'This value is not valid.';
+    public string|ExpressionObject|null $expression = null;
+    public array $values = [];
+    public bool $negate = true;
 
-    /**
-     * {@inheritdoc}
-     *
-     * @param string|ExpressionObject|array $expression The expression to evaluate or an array of options
-     */
     public function __construct(
-        $expression,
+        string|ExpressionObject|array|null $expression,
         ?string $message = null,
         ?array $values = null,
         ?array $groups = null,
-        $payload = null,
-        array $options = []
+        mixed $payload = null,
+        array $options = [],
+        ?bool $negate = null,
     ) {
         if (!class_exists(ExpressionLanguage::class)) {
-            throw new LogicException(sprintf('The "symfony/expression-language" component is required to use the "%s" constraint.', __CLASS__));
+            throw new LogicException(sprintf('The "symfony/expression-language" component is required to use the "%s" constraint. Try running "composer require symfony/expression-language".', __CLASS__));
         }
 
         if (\is_array($expression)) {
             $options = array_merge($expression, $options);
-        } elseif (!\is_string($expression) && !$expression instanceof ExpressionObject) {
-            throw new \TypeError(sprintf('"%s": Expected argument $expression to be either a string, an instance of "%s" or an array, got "%s".', __METHOD__, ExpressionObject::class, get_debug_type($expression)));
         } else {
             $options['value'] = $expression;
         }
@@ -65,36 +57,25 @@ class Expression extends Constraint
 
         $this->message = $message ?? $this->message;
         $this->values = $values ?? $this->values;
+        $this->negate = $negate ?? $this->negate;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getDefaultOption()
+    public function getDefaultOption(): ?string
     {
         return 'expression';
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getRequiredOptions()
+    public function getRequiredOptions(): array
     {
         return ['expression'];
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getTargets()
+    public function getTargets(): string|array
     {
         return [self::CLASS_CONSTRAINT, self::PROPERTY_CONSTRAINT];
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function validatedBy()
+    public function validatedBy(): string
     {
         return 'validator.expression';
     }
