@@ -188,12 +188,12 @@ class ModelExtensionFraudFraudLabsPro extends Model {
 	/**
 	 * Hash It
 	 *
-	 * @param string $s
+	 * @param string $string
 	 *
 	 * @return string
 	 */
-	private function hashIt(string $s) {
-		$hash = 'fraudlabspro_' . $s;
+	private function hashIt(string $string): string {
+		$hash = 'fraudlabspro_' . $string;
 
 		for ($i = 0; $i < 65536; $i++) {
 			$hash = sha1('fraudlabspro_' . $hash);
