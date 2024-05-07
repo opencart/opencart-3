@@ -6,6 +6,8 @@
  */
 class ControllerExtensionModuleGoogleHangouts extends Controller {
 	/**
+     * Index
+	 *
 	 * @return string
 	 */
 	public function index(): string {
