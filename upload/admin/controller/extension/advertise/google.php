@@ -593,10 +593,12 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true),
 		];
+
 		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_extensions'),
 			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=advertise', true),
 		];
+
 		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('extension/advertise/google', 'store_id=' . $this->store_id . '&user_token=' . $this->session->data['user_token'], true),
@@ -1518,10 +1520,12 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true),
 		];
+
 		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_extensions'),
 			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=advertise', true),
 		];
+
 		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('extension/advertise/google', 'store_id=' . $this->store_id . '&user_token=' . $this->session->data['user_token'], true),
