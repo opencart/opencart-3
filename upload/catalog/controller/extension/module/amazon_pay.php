@@ -6,6 +6,8 @@
  */
 class ControllerExtensionModuleAmazonPay extends Controller {
 	/**
+     * Index
+	 *
 	 * @return string
 	 */
 	public function index(): string {
