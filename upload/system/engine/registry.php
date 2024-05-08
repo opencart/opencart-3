@@ -38,6 +38,9 @@
  * @property Mail                          $mail
  */
 class Registry {
+	/**
+	 * @var array<string, object>
+	 */
 	private array $data = [];
 
 	/**
@@ -79,11 +82,11 @@ class Registry {
 	/**
 	 * Has
 	 *
-	 * @param $key
+	 * @param string $key
 	 *
 	 * @return bool
 	 */
-	public function has($key): bool {
+	public function has(string $key): bool {
 		return isset($this->data[$key]);
 	}
 }
