@@ -1457,7 +1457,7 @@ class Googleshopping extends Library {
 	 *
 	 * @return mixed
 	 */
-	public function getPurchaseData(): mixed {
+	public function getPurchaseData() {
 		return $this->purchase_data;
 	}
 
@@ -1519,7 +1519,7 @@ class Googleshopping extends Library {
 	 *
 	 * @return mixed
 	 */
-	public function isStoreUrlClaimed(): mixed {
+	public function isStoreUrlClaimed() {
 		// No need to check the connection here - this method is called immediately after checking it
 
 		$request = [

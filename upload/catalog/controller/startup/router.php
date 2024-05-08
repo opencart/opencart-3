@@ -10,7 +10,7 @@ class ControllerStartupRouter extends Controller {
 	 *
 	 * @return mixed
 	 */
-	public function index(): mixed {
+	public function index() {
 		// Route
 		if (isset($this->request->get['route']) && $this->request->get['route'] != 'startup/router') {
 			$route = $this->request->get['route'];

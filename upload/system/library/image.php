@@ -14,12 +14,30 @@
  * Image class
  */
 class Image {
+	/**
+	 * @var string
+	 */
 	private string $file;
-	private object $image;
-	private int $width = 0;
-	private int $height = 0;
-	private string $bits = '';
-	private string $mime = '';
+	/**
+	 * @var mixed
+	 */
+	private $image;
+	/**
+	 * @var int
+	 */
+	private int $width;
+	/**
+	 * @var int
+	 */
+	private int $height;
+	/**
+	 * @var string
+	 */
+	private string $bits;
+	/**
+	 * @var string
+	 */
+	private string $mime;
 
 	/**
 	 * Constructor

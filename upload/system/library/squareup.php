@@ -1,29 +1,104 @@
 <?php
 class Squareup {
+	/**
+	 * @var object
+	 */
 	private object $session;
+	/**
+	 * @var object
+	 */
 	private object $url;
+	/**
+	 * @var object
+	 */
 	private object $config;
+	/**
+	 * @var object
+	 */
 	private object $log;
+	/**
+	 * @var object
+	 */
 	private object $customer;
+	/**
+	 * @var object
+	 */
 	private object $currency;
+	/**
+	 * @var object
+	 */
 	private object $registry;
+	/**
+	 * @var string
+	 */
 	public const API_URL = 'https://connect.squareup.com';
+	/**
+	 * @var string
+	 */
 	public const API_VERSION = 'v2';
+	/**
+	 * @var string
+	 */
 	public const ENDPOINT_ADD_CARD = 'customers/%s/cards';
+	/**
+	 * @var string
+	 */
 	public const ENDPOINT_AUTH = 'oauth2/authorize';
+	/**
+	 * @var string
+	 */
 	public const ENDPOINT_CAPTURE_TRANSACTION = 'locations/%s/transactions/%s/capture';
+	/**
+	 * @var string
+	 */
 	public const ENDPOINT_CUSTOMERS = 'customers';
+	/**
+	 * @var string
+	 */
 	public const ENDPOINT_DELETE_CARD = 'customers/%s/cards/%s';
+	/**
+	 * @var string
+	 */
 	public const ENDPOINT_GET_TRANSACTION = 'locations/%s/transactions/%s';
+	/**
+	 * @var string
+	 */
 	public const ENDPOINT_LOCATIONS = 'locations';
+	/**
+	 * @var string
+	 */
 	public const ENDPOINT_REFRESH_TOKEN = 'oauth2/clients/%s/access-token/renew';
+	/**
+	 * @var string
+	 */
 	public const ENDPOINT_REFUND_TRANSACTION = 'locations/%s/transactions/%s/refund';
+	/**
+	 * @var string
+	 */
 	public const ENDPOINT_TOKEN = 'oauth2/token';
+	/**
+	 * @var string
+	 */
 	public const ENDPOINT_TRANSACTIONS = 'locations/%s/transactions';
+	/**
+	 * @var string
+	 */
 	public const ENDPOINT_VOID_TRANSACTION = 'locations/%s/transactions/%s/void';
+	/**
+	 * @var string
+	 */
 	public const PAYMENT_FORM_URL = 'https://js.squareup.com/v2/paymentform';
+	/**
+	 * @var string
+	 */
 	public const SCOPE = 'MERCHANT_PROFILE_READ PAYMENTS_READ SETTLEMENTS_READ CUSTOMERS_READ CUSTOMERS_WRITE';
+	/**
+	 * @var string
+	 */
 	public const VIEW_TRANSACTION_URL = 'https://squareup.com/dashboard/sales/transactions/%s/by-unit/%s';
+	/**
+	 * @var string
+	 */
 	public const SQUARE_INTEGRATION_ID = 'sqi_65a5ac54459940e3600a8561829fd970';
 
 	/**
@@ -52,7 +127,7 @@ class Squareup {
 	 *
 	 * @return mixed
 	 */
-	public function api(array $request_data): mixed {
+	public function api(array $request_data) {
 		$url = self::API_URL;
 
 		if (empty($request_data['no_version'])) {
@@ -267,7 +342,7 @@ class Squareup {
 	 *
 	 * @return mixed
 	 */
-	public function exchangeCodeForAccessToken($code): mixed {
+	public function exchangeCodeForAccessToken($code) {
 		$request_data = [
 			'method'     => 'POST',
 			'endpoint'   => self::ENDPOINT_TOKEN,
@@ -303,7 +378,7 @@ class Squareup {
 	 *
 	 * @return mixed
 	 */
-	public function refreshToken(): mixed {
+	public function refreshToken() {
 		$request_data = [
 			'method'     => 'POST',
 			'endpoint'   => sprintf(self::ENDPOINT_REFRESH_TOKEN, $this->config->get('payment_squareup_client_id')),
@@ -348,14 +423,14 @@ class Squareup {
 	/**
 	 * deleteCard
 	 *
-	 * @param $square_customer_id
-	 * @param $card
+	 * @param mixed $square_customer_id
+	 * @param mixed $card
 	 *
 	 * @throws \Squareup\Exception
 	 *
 	 * @return mixed
 	 */
-	public function deleteCard($square_customer_id, $card): mixed {
+	public function deleteCard($square_customer_id, $card) {
 		$request_data = [
 			'method'    => 'DELETE',
 			'endpoint'  => sprintf(self::ENDPOINT_DELETE_CARD, $square_customer_id, $card),
@@ -398,13 +473,13 @@ class Squareup {
 	/**
 	 * addTransaction
 	 *
-	 * @param $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @throws \Squareup\Exception
 	 *
 	 * @return mixed
 	 */
-	public function addTransaction($data): mixed {
+	public function addTransaction(array $data) {
 		if ($this->config->get('payment_squareup_enable_sandbox')) {
 			$location_id = $this->config->get('payment_squareup_sandbox_location_id');
 		} else {

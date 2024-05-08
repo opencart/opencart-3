@@ -520,7 +520,7 @@ class PayPal {
 	 *
 	 * @return mixed
 	 */
-	private function buildQuery($params, bool $json): mixed {
+	private function buildQuery($params, bool $json) {
 		if (is_string($params)) {
 			return $params;
 		}

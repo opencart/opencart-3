@@ -150,7 +150,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	 *
 	 * @return mixed
 	 */
-	protected function getRemarketingProductId(array $product, int $store_id): mixed {
+	protected function getRemarketingProductId(array $product, int $store_id) {
 		$found_color = '';
 		$found_size = '';
 

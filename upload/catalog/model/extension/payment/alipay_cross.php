@@ -154,7 +154,7 @@ class ModelExtensionPaymentAlipayCross extends Model {
 	 *
 	 * @return mixed
 	 */
-	private function getResponse(string $notify_id): mixed {
+	private function getResponse(string $notify_id) {
 		$partner = trim($this->alipay_config['partner']);
 
 		$verify_url = $this->config->get('payment_alipay_cross_test') == 'sandbox' ? $this->https_verify_url_test : $this->https_verify_url;
@@ -218,7 +218,7 @@ class ModelExtensionPaymentAlipayCross extends Model {
 	 *
 	 * @return mixed
 	 */
-	private function getHttpResponseGET(string $url, string $cacert_url): mixed {
+	private function getHttpResponseGET(string $url, string $cacert_url) {
 		$curl = curl_init($url);
 
 		curl_setopt($curl, CURLOPT_HEADER, 0);

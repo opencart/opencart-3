@@ -13,6 +13,9 @@
  * Template class
  */
 class Template {
+	/**
+	 * @var object
+	 */
 	private object $adaptor;
 
 	/**

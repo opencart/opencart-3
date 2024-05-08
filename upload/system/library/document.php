@@ -13,11 +13,29 @@
  * Document class
  */
 class Document {
+	/**
+	 * @var string
+	 */
 	private string $title = '';
+	/**
+	 * @var string
+	 */
 	private string $description = '';
+	/**
+	 * @var string
+	 */
 	private string $keywords = '';
+	/**
+	 * @var array<string, array<string, string>>
+	 */
 	private array $links = [];
+	/**
+	 * @var array<string, array<string, string>>
+	 */
 	private array $styles = [];
+	/**
+	 * @var array<string, array<string, array<string, string>>>
+	 */
 	private array $scripts = [];
 
 	/**

@@ -13,8 +13,17 @@
  * URL class
  */
 class Url {
+	/**
+	 * @var string
+	 */
 	private string $url = '';
+	/**
+	 * @var string
+	 */
 	private string $ssl = '';
+	/**
+	 * @var array<string, mixed>
+	 */
 	private array $rewrite = [];
 
 	/**

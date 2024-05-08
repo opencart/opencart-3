@@ -13,10 +13,25 @@
  * Request class
  */
 class Request {
+	/**
+	 * @var array<string, mixed>
+	 */
 	public array $get = [];
+	/**
+	 * @var array<string, mixed>
+	 */
 	public array $post = [];
+	/**
+	 * @var array<string, mixed>
+	 */
 	public array $cookie = [];
+	/**
+	 * @var array<string, mixed>
+	 */
 	public array $files = [];
+	/**
+	 * @var array<string, mixed>
+	 */
 	public array $server = [];
 
 	/**

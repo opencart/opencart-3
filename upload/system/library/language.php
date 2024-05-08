@@ -13,9 +13,18 @@
  * Language class
  */
 class Language {
-	private $default = 'en-gb';
-	private $directory;
-	public $data = [];
+	/**
+	 * @var string
+	 */
+	protected string $default;
+	/**
+	 * @var string
+	 */
+	protected string $directory;
+	/**
+	 * @var array<string, string>
+	 */
+	public array     $data = [];	
 
 	/**
 	 * Constructor
