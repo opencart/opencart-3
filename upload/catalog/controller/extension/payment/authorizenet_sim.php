@@ -123,7 +123,6 @@ class ControllerExtensionPaymentAuthorizeNetSim extends Controller {
 	 *
 	 * @param array<string, mixed> $post_fields
 	 * @param string               $signature_key
-	 * @param array<string, mixed> $data
 	 *
 	 * @return string
 	 */
