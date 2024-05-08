@@ -8,9 +8,9 @@ class ControllerAccountReset extends Controller {
 	private array $error = [];
 
 	/**
-	 * @return \Action|object|null
+	 * @return \Action|null
 	 */
-	public function index(): ?object {
+	public function index(): ?\Action {
 		if ($this->customer->isLogged()) {
 			$this->response->redirect($this->url->link('account/account', '', true));
 		}

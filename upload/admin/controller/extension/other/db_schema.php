@@ -187,9 +187,9 @@ class ControllerExtensionOtherDbSchema extends Controller {
 	/**
 	 * Get Report
 	 *
-	 * @return ?object
+	 * @return \Action|null
 	 */
-	public function getReport(): ?object {
+	public function getReport(): ?\Action {
 		$this->load->language('extension/other/db_schema');
 
 		$data['title'] = $this->language->get('text_report');

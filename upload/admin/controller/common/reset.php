@@ -13,9 +13,9 @@ class ControllerCommonReset extends Controller {
 	/**
 	 * Index
 	 *
-	 * @return \Action|object|null
+	 * @return \Action|null
 	 */
-	public function index(): ?object {
+	public function index(): ?\Action {
 		if ($this->user->isLogged() && isset($this->request->get['user_token']) && ($this->request->get['user_token'] == $this->session->data['user_token'])) {
 			$this->response->redirect($this->url->link('common/dashboard', '', true));
 		}

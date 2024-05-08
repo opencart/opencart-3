@@ -1078,9 +1078,9 @@ class ControllerCustomerCustomer extends Controller {
 	/**
 	 * Login
 	 *
-	 * @return \Action|object|null
+	 * @return \Action|null
 	 */
-	public function login(): ?object {
+	public function login(): ?\Action {
 		if (isset($this->request->get['customer_id'])) {
 			$customer_id = (int)$this->request->get['customer_id'];
 		} else {

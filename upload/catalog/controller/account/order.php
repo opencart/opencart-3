@@ -100,9 +100,9 @@ class ControllerAccountOrder extends Controller {
 	/**
 	 * Info
 	 *
-	 * @return \Action|object|null
+	 * @return \Action|null
 	 */
-	public function info(): ?object {
+	public function info(): ?\Action {
 		$this->load->language('account/order');
 
 		if (isset($this->request->get['order_id'])) {

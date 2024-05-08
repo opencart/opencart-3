@@ -8,9 +8,9 @@ class ControllerStartupLogin extends Controller {
 	/**
 	 * Index
 	 *
-	 * @return \Action|object|null
+	 * @return \Action|null
 	 */
-	public function index(): ?object {
+	public function index(): ?\Action {
 		$route = $this->request->get['route'] ?? '';
 
 		$ignore = [

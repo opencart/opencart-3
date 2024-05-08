@@ -8,9 +8,9 @@ class ControllerInformationGdpr extends Controller {
 	/**
 	 * Index
 	 *
-	 * @return \Action|object|null
+	 * @return \System\Engine\Action|null
 	 */
-	public function index(): ?object {
+	public function index(): ?\Action {
 		// Information
 		$this->load->model('catalog/information');
 
@@ -49,11 +49,11 @@ class ControllerInformationGdpr extends Controller {
 			$data['header'] = $this->load->controller('common/header');
 
 			$this->response->setOutput($this->load->view('information/gdpr', $data));
+
+			return null;
 		} else {
 			return new \Action('error/not_found');
 		}
-
-		return null;
 	}
 
 	/**
@@ -145,9 +145,9 @@ class ControllerInformationGdpr extends Controller {
 	/**
 	 * Success
 	 *
-	 * @return \Action|object|null
+	 * @return \Action|null
 	 */
-	public function success(): ?object {
+	public function success(): ?\Action {
 		if (isset($this->request->get['code'])) {
 			$code = (string)$this->request->get['code'];
 		} else {

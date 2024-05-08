@@ -385,9 +385,9 @@ class ControllerExtensionOtherRecurring extends Controller {
 	/**
 	 * Info
 	 *
-	 * @return \Action|object|null
+	 * @return \Action|null
 	 */
-	public function info(): ?object {
+	public function info(): ?\Action {
 		$this->load->model('extension/other/recurring');
 
 		if (isset($this->request->get['order_recurring_id'])) {
@@ -536,9 +536,9 @@ class ControllerExtensionOtherRecurring extends Controller {
 	/**
 	 * Get Report
 	 *
-	 * @return ?object
+	 * @return \Action|null
 	 */
-	public function getReport(): ?object {
+	public function getReport(): ?\Action {
 		$this->load->language('extension/other/recurring');
 
 		$data['title'] = $this->language->get('text_report');

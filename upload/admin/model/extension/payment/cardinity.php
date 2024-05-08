@@ -27,7 +27,7 @@ class ModelExtensionPaymentCardinity extends Model {
 	 *
 	 * @param array<string, mixed> $credentials
 	 *
-	 * @return ?object
+	 * @return object
 	 */
 	public function createClient(array $credentials): ?object {
 		if ($credentials) {

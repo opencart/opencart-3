@@ -3,7 +3,7 @@ class ControllerExtensionRecurringOpayo extends Controller {
 	/**
 	 * @var array<string, string>
 	 */
-	private $error = [];
+	private array $error = [];
 
 	/**
 	 * Index

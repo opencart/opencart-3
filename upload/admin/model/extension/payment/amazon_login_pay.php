@@ -439,7 +439,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	 *
 	 * @param string $order_reference_id
 	 *
-	 * @return object
+	 * @return object|null
 	 */
 	public function fetchOrder(string $order_reference_id): ?object {
 		$order = $this->offAmazon('GetOrderReferenceDetails', [
