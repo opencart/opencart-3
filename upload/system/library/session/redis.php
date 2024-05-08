@@ -17,7 +17,7 @@ class Redis {
 	/**
 	 * @var object
 	 */
-	private \Redis $redis;
+	private object $redis;
 	/**
 	 * @var string
 	 */
