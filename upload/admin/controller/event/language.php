@@ -54,7 +54,7 @@ class ControllerEventLanguage extends Controller {
 	 *
 	 * controller/ * / * /after
 	 */
-	public function after(string &$route, array &$args, mixed &$output): void {
+	public function after(string &$route, array &$args, &$output): void {
 		$data = $this->language->get('backup');
 
 		if (is_array($data)) {

@@ -1058,7 +1058,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 	 * catalog/model/checkout/order/editOrder/after
 	 * catalog/model/checkout/order/addHistory/after
 	 */
-	public function capture(string &$route, array &$args, mixed &$output): void {
+	public function capture(string &$route, array &$args, &$output): void {
 		$this->load->language('extension/payment/amazon_login_pay');
 
 		// Amazon Login Pay

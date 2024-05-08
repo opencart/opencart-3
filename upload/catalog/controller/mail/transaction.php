@@ -16,7 +16,7 @@ class ControllerMailTransaction extends Controller {
 	 *
 	 * catalog/model/account/customer/addTransaction/after
 	 */
-	public function index(string &$route, array &$args, mixed &$output): void {
+	public function index(string &$route, array &$args, &$output): void {
 		$this->load->language('mail/transaction');
 
 		// Customers

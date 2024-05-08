@@ -16,7 +16,7 @@ class ControllerMailCustomer extends Controller {
 	 *
 	 * @return void
 	 */
-	public function allow(string &$route, array &$args, mixed &$output): void {
+	public function allow(string &$route, array &$args, &$output): void {
 		// Customers
 		$this->load->model('customer/customer');
 
@@ -105,7 +105,7 @@ class ControllerMailCustomer extends Controller {
 	 *
 	 * @return void
 	 */
-	public function deny(string &$route, array &$args, mixed &$output): void {
+	public function deny(string &$route, array &$args, &$output): void {
 		// Customers
 		$this->load->model('customer/customer');
 

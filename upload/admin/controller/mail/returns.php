@@ -16,7 +16,7 @@ class ControllerMailReturns extends Controller {
 	 *
 	 * admin/model/sale/returns/addHistory/after
 	 */
-	public function deny(string &$route, array &$args, mixed &$output): void {
+	public function deny(string &$route, array &$args, &$output): void {
 		if (isset($args[0])) {
 			$return_id = $args[0];
 		} else {

@@ -16,7 +16,7 @@ class ControllerEventStatistics extends Controller {
 	 *
 	 *  admin/model/catalog/review/addReview/after
 	 */
-	public function addReview(string &$route, array &$args, mixed &$output): void {
+	public function addReview(string &$route, array &$args, &$output): void {
 		// Statistics
 		$this->load->model('report/statistics');
 
@@ -34,7 +34,7 @@ class ControllerEventStatistics extends Controller {
 	 *
 	 *   admin/model/catalog/review/deleteReview/after
 	 */
-	public function deleteReview(string &$route, array &$args, mixed &$output): void {
+	public function deleteReview(string &$route, array &$args, &$output): void {
 		// Statistics
 		$this->load->model('report/statistics');
 
@@ -52,7 +52,7 @@ class ControllerEventStatistics extends Controller {
 	 *
 	 *  admin/model/sale/returns/addReturn/after
 	 */
-	public function addReturn(string &$route, array &$args, mixed &$output): void {
+	public function addReturn(string &$route, array &$args, &$output): void {
 		// Statistics
 		$this->load->model('report/statistics');
 
@@ -70,7 +70,7 @@ class ControllerEventStatistics extends Controller {
 	 *
 	 *  admin/model/sale/returns/deleteReturn/after
 	 */
-	public function deleteReturn(string &$route, array &$args, mixed &$output): void {
+	public function deleteReturn(string &$route, array &$args, &$output): void {
 		// Statistics
 		$this->load->model('report/statistics');
 

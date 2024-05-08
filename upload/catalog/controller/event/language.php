@@ -53,7 +53,7 @@ class ControllerEventLanguage extends Controller {
 	 *
 	 * 2. After controller load restore old language data
 	 */
-	public function after(string &$route, mixed &$args, mixed &$output): void {
+	public function after(string &$route, mixed &$args, &$output): void {
 		$data = $this->language->get('backup');
 
 		if (is_array($data)) {

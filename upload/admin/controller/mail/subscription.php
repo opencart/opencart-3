@@ -176,7 +176,7 @@ class ControllerMailSubscription extends Controller {
 	 *
 	 * admin/controller/sale/subscription/addTransaction/after
 	 */
-	public function transaction(string &$route, array &$args, mixed &$output): void {
+	public function transaction(string &$route, array &$args, &$output): void {
 		if (isset($args[0])) {
 			$subscription_id = $args[0];
 		} else {

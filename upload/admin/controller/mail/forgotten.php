@@ -16,7 +16,7 @@ class ControllerMailForgotten extends Controller {
 	 *
 	 * @return void
 	 */
-	public function deny(string &$route, array &$args, mixed &$output): void {
+	public function deny(string &$route, array &$args, &$output): void {
 		if (isset($args[0]) && isset($args[1]) && $args[0] && $args[1]) {
 			$this->load->language('mail/forgotten');
 

@@ -73,7 +73,7 @@ class ControllerExtensionTotalVoucher extends Controller {
 	 *
 	 * catalog/model/checkout/order/addHistory/after
 	 */
-	public function send(string &$route, array &$args, mixed &$output): void {
+	public function send(string &$route, array &$args, &$output): void {
 		// Orders
 		$this->load->model('checkout/order');
 

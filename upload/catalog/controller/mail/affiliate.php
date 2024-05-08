@@ -16,7 +16,7 @@ class ControllerMailAffiliate extends Controller {
 	 *
 	 * @return void
 	 */
-	public function index(string &$route, array &$args, mixed &$output): void {
+	public function index(string &$route, array &$args, &$output): void {
 		$this->load->language('mail/affiliate');
 
 		$store_name = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
@@ -82,7 +82,7 @@ class ControllerMailAffiliate extends Controller {
 	 *
 	 * @return void
 	 */
-	public function alert(string &$route, array &$args, mixed &$output): void {
+	public function alert(string &$route, array &$args, &$output): void {
 		// Send to main admin email if new affiliate email is enabled
 		if (in_array('affiliate', (array)$this->config->get('config_mail_alert'))) {
 			$this->load->language('mail/affiliate');

@@ -16,7 +16,7 @@ class ControllerMailSubscription extends Controller {
 	 *
 	 * catalog/model/checkout/order/addHistory/after
 	 */
-	public function index(string &$route, array &$args, mixed &$output): void {
+	public function index(string &$route, array &$args, &$output): void {
 		if (isset($args[0])) {
 			$subscription_id = $args[0];
 		} else {
@@ -75,7 +75,7 @@ class ControllerMailSubscription extends Controller {
 	 *
 	 * catalog/model/checkout/order/editOrder/after
 	 */
-	public function cancel(string &$route, array &$args, mixed &$output): void {
+	public function cancel(string &$route, array &$args, &$output): void {
 		if (isset($args[0])) {
 			$subscription_id = $args[0];
 		} else {

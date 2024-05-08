@@ -44,7 +44,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	 *
 	 * catalog/view/common/header/after
 	 */
-	public function google_global_site_tag(string &$route, array &$args, mixed &$output): string {
+	public function google_global_site_tag(string &$route, array &$args, &$output): string {
 		// In case the extension is disabled, do nothing
 		if (!$this->setting->get('advertise_google_status')) {
 			return '';
@@ -169,7 +169,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	 *
 	 * catalog/view/common/success/after
 	 */
-	public function google_dynamic_remarketing_purchase(string &$route, array &$data, mixed &$output): string {
+	public function google_dynamic_remarketing_purchase(string &$route, array &$data, &$output): string {
 		// In case the extension is disabled, do nothing
 		if (!$this->setting->get('advertise_google_status')) {
 			return '';
@@ -211,7 +211,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	 *
 	 * catalog/view/common/home/after
 	 */
-	public function google_dynamic_remarketing_home(string &$route, array &$data, mixed &$output): string {
+	public function google_dynamic_remarketing_home(string &$route, array &$data, &$output): string {
 		// In case the extension is disabled, do nothing
 		if (!$this->setting->get('advertise_google_status')) {
 			return '';
@@ -251,7 +251,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	 *
 	 * catalog/view/product/search/after
 	 */
-	public function google_dynamic_remarketing_searchresults(string &$route, array &$data, mixed &$output): string {
+	public function google_dynamic_remarketing_searchresults(string &$route, array &$data, &$output): string {
 		// In case the extension is disabled, do nothing
 		if (!$this->setting->get('advertise_google_status')) {
 			return '';
@@ -293,7 +293,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	 *
 	 * catalog/view/product/category/after
 	 */
-	public function google_dynamic_remarketing_category(string &$route, array &$data, mixed &$output): string {
+	public function google_dynamic_remarketing_category(string &$route, array &$data, &$output): string {
 		// In case the extension is disabled, do nothing
 		if (!$this->setting->get('advertise_google_status')) {
 			return '';
@@ -349,7 +349,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	 *
 	 * catalog/view/product/product/after
 	 */
-	public function google_dynamic_remarketing_product(string &$route, array &$data, mixed &$output): string {
+	public function google_dynamic_remarketing_product(string &$route, array &$data, &$output): string {
 		// In case the extension is disabled, do nothing
 		if (!$this->setting->get('advertise_google_status')) {
 			return '';
@@ -412,7 +412,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	 *
 	 * catalog/view/checkout/cart/after
 	 */
-	public function google_dynamic_remarketing_cart(string &$route, array &$data, mixed &$output): string {
+	public function google_dynamic_remarketing_cart(string &$route, array &$data, &$output): string {
 		// In case the extension is disabled, do nothing
 		if (!$this->setting->get('advertise_google_status')) {
 			return '';

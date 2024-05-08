@@ -3253,7 +3253,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	 * @param array<string, mixed> $data
 	 * @param mixed                $output
 	 */
-	public function extension_get_extensions_after(string &$route, array &$data, mixed &$output): void {
+	public function extension_get_extensions_after(string &$route, array &$data, &$output): void {
 		if ($this->config->get('payment_paypal_status') && $this->config->get('payment_paypal_client_id') && $this->config->get('payment_paypal_secret')) {
 			$type = $data[0];
 

@@ -16,7 +16,7 @@ class ControllerMailReward extends Controller {
 	 *
 	 * admin/model/customer/customer/addReward/after
 	 */
-	public function deny(string &$route, array &$args, mixed &$output): void {
+	public function deny(string &$route, array &$args, &$output): void {
 		if (isset($args[0])) {
 			$customer_id = $args[0];
 		} else {
