@@ -31,7 +31,7 @@ class Squareup {
 	 *
 	 * @property Registry $registry
 	 *
-	 * @param mixed $registry
+	 * @param object $registry
 	 */
 	public function __construct(object $registry) {
 		$this->session = $registry->get('session');
@@ -577,9 +577,9 @@ class Squareup {
 	 * @param array<string, mixed> $params
 	 * @param string               $content_type
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return mixed
 	 */
-	protected function encodeParameters(array $params, string $content_type): array {
+	protected function encodeParameters(array $params, string $content_type) {
 		switch ($content_type) {
 			case 'application/json':
 				return json_encode($params);
