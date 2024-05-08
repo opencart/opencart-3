@@ -16,11 +16,11 @@ class Response {
 	/**
 	 * @var array<string, mixed>
 	 */
-	private array  $headers = [];
+	private array $headers = [];
 	/**
 	 * @var int
 	 */
-	private int    $level = 0;
+	private int $level = 0;
 	/**
 	 * @var string
 	 */

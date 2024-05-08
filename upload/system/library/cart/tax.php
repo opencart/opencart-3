@@ -12,7 +12,7 @@ class Tax {
 	/**
 	 * @var array<int, array<int, array<string, mixed>>>
 	 */
-	private array  $tax_rates = [];
+	private array $tax_rates = [];
 
 	/**
 	 * Constructor

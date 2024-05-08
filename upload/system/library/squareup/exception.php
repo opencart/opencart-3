@@ -28,11 +28,11 @@ class Exception extends \Exception {
 	/**
 	 * @var bool
 	 */
-	private bool   $isCurlError = false;
+	private bool $isCurlError = false;
 	/**
 	 * @var array<string, mixed>
 	 */
-	private array  $overrideFields = [
+	private array $overrideFields = [
 		'billing_address.country',
 		'shipping_address.country',
 		'email_address',

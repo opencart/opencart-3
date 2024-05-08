@@ -28,7 +28,7 @@ class Cart {
 	/**
 	 * @var array<int, array<string, mixed>>
 	 */
-	private array  $data = [];
+	private array $data = [];
 
 	/**
 	 * Constructor

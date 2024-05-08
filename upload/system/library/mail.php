@@ -20,7 +20,7 @@ class Mail {
 	/**
 	 * @var array<string, mixed>
 	 */
-	private array  $option = [];
+	private array $option = [];
 
 	/**
 	 * Constructor

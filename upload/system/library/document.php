@@ -28,19 +28,19 @@ class Document {
 	/**
 	 * @var array<string, array<string, string>>
 	 */
-	private array  $links = [];
+	private array $links = [];
 	/**
 	 * @var array<string, array<string, string>>
 	 */
-	private array  $styles = [];
+	private array $styles = [];
 	/**
 	 * @var array<string, array<string, array<string, string>>>
 	 */
-	private array  $scripts = [];
+	private array $scripts = [];
 
 	/**
 	 * Set Title
-	 * 
+	 *
 	 * @param string $title
 	 *
 	 * @return void

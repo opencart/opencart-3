@@ -24,7 +24,7 @@ class Session {
 	/**
 	 * @var array<mixed>
 	 */
-	public array     $data = [];
+	public array $data = [];
 
 	/**
 	 * Constructor

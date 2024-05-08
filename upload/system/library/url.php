@@ -24,7 +24,7 @@ class Url {
 	/**
 	 * @var array<string, mixed>
 	 */
-	private array  $rewrite = [];
+	private array $rewrite = [];
 
 	/**
 	 * Constructor

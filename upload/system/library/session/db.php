@@ -22,7 +22,7 @@ class DB {
 	 * @var object
 	 */
 	private object $config;
-	
+
 	/**
 	 * Constructor
 	 *

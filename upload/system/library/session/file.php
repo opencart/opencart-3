@@ -10,7 +10,7 @@ class File {
 	 * @var object
 	 */
 	private object $config;
-	
+
 	/**
 	 * Constructor
 	 *

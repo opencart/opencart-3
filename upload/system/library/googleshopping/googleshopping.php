@@ -131,7 +131,7 @@ class Googleshopping extends Library {
 	/**
 	 * @var int
 	 */
-	private int $store_id = 0;	
+	private int $store_id = 0;
 	/**
 	 * @var object
 	 */

@@ -24,7 +24,7 @@ class Language {
 	/**
 	 * @var array<string, string>
 	 */
-	public array     $data = [];	
+	public array $data = [];
 
 	/**
 	 * Constructor

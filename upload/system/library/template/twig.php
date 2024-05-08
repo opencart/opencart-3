@@ -21,11 +21,11 @@ class Twig {
 	/**
 	 * @var array<string, string>
 	 */
-	protected array  $path = [];
+	protected array $path = [];
 	/**
 	 * @var array<string, string>
 	 */
-	protected array  $data = [];
+	protected array $data = [];
 
 	/**
 	 * Set
