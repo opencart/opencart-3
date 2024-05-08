@@ -6,7 +6,7 @@
  */
 class ControllerExtensionFeedGoogleSitemap extends Controller {
 	/**
-     * Index
+	 * Index
 	 *
 	 * @return void
 	 */

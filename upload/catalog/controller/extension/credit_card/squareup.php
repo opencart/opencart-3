@@ -6,7 +6,7 @@
  */
 class ControllerExtensionCreditCardSquareup extends Controller {
 	/**
-     * Index
+	 * Index
 	 *
 	 * @return void
 	 */

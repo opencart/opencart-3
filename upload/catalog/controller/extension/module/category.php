@@ -6,7 +6,7 @@
  */
 class ControllerExtensionModuleCategory extends Controller {
 	/**
-     * Index
+	 * Index
 	 *
 	 * @return string
 	 */

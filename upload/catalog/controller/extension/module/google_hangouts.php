@@ -6,7 +6,7 @@
  */
 class ControllerExtensionModuleGoogleHangouts extends Controller {
 	/**
-     * Index
+	 * Index
 	 *
 	 * @return string
 	 */

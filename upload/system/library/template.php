@@ -19,7 +19,7 @@ class Template {
 	 * Constructor
 	 *
 	 * @param string $adaptor
-	 * 
+	 *
 	 * @return mixed
 	 */
 	public function __construct(string $adaptor) {
@@ -37,7 +37,7 @@ class Template {
 	 *
 	 * @param string $key
 	 * @param mixed  $value
-	 * 
+	 *
 	 * @return void
 	 */
 	public function set(string $key, $value): void {

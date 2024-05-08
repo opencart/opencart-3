@@ -6,7 +6,7 @@
  */
 class ControllerExtensionModuleAccount extends Controller {
 	/**
-     * Index
+	 * Index
 	 *
 	 * @return string
 	 */

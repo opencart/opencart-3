@@ -6,7 +6,7 @@
  */
 class ControllerExtensionFeedGoogleBase extends Controller {
 	/**
-     * Index
+	 * Index
 	 *
 	 * @return void
 	 */

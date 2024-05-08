@@ -27,7 +27,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 	}
 
 	/**
-     * Index
+	 * Index
 	 *
 	 * @return string
 	 */

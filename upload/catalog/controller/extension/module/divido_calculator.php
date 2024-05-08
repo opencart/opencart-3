@@ -6,7 +6,7 @@
  */
 class ControllerExtensionModuleDividoCalculator extends Controller {
 	/**
-     * Index
+	 * Index
 	 *
 	 * @return string
 	 */

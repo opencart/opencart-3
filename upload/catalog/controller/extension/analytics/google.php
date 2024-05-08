@@ -6,7 +6,7 @@
  */
 class ControllerExtensionAnalyticsGoogle extends Controller {
 	/**
-     * Index
+	 * Index
 	 *
 	 * @return string
 	 */

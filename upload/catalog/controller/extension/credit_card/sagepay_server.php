@@ -6,7 +6,7 @@
  */
 class ControllerExtensionCreditCardSagepayServer extends Controller {
 	/**
-     * Index
+	 * Index
 	 *
 	 * @return void
 	 */

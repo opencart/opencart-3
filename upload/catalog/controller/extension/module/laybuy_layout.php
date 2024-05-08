@@ -6,7 +6,7 @@
  */
 class ControllerExtensionModuleLaybuyLayout extends Controller {
 	/**
-     * Index
+	 * Index
 	 *
 	 * @return string
 	 */

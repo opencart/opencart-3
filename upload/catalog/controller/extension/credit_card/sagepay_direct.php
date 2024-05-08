@@ -6,7 +6,7 @@
  */
 class ControllerExtensionCreditCardSagepayDirect extends Controller {
 	/**
-     * Index
+	 * Index
 	 *
 	 * @return void
 	 */

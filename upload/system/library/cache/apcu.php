@@ -18,7 +18,7 @@ class Apcu {
 	 * Get
 	 *
 	 * @param string $key
-	 * 
+	 *
 	 * @return mixed
 	 */
 	public function get(string $key) {

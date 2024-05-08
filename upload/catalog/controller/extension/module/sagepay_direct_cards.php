@@ -6,7 +6,7 @@
  */
 class ControllerExtensionModuleSagepayDirectCards extends Controller {
 	/**
-     * Index
+	 * Index
 	 *
 	 * @return string
 	 */

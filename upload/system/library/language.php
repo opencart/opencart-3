@@ -30,7 +30,7 @@ class Language {
 	 * Get
 	 *
 	 * @param string $key
-	 * 
+	 *
 	 * @return string
 	 */
 	public function get(string $key): string {

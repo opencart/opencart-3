@@ -6,7 +6,7 @@
  */
 class ControllerExtensionModuleFilter extends Controller {
 	/**
-     * Index
+	 * Index
 	 *
 	 * @return string
 	 */

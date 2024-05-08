@@ -6,8 +6,8 @@
  */
 class ControllerExtensionModulePilibabaButton extends Controller {
 	/**
-     * Index
-     *
+	 * Index
+	 *
 	 * @return string
 	 */
 	public function index(): string {
