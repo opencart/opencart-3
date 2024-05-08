@@ -1,14 +1,38 @@
 <?php
 namespace Squareup;
 class Exception extends \Exception {
+	/**
+	 * @var string
+	 */
 	public const ERR_CODE_ACCESS_TOKEN_REVOKED = 'ACCESS_TOKEN_REVOKED';
+	/**
+	 * @var string
+	 */
 	public const ERR_CODE_ACCESS_TOKEN_EXPIRED = 'ACCESS_TOKEN_EXPIRED';
+	/**
+	 * @var object
+	 */
 	private object $config;
+	/**
+	 * @var object
+	 */
 	private object $log;
+	/**
+	 * @var object
+	 */
 	private object $language;
+	/**
+	 * @var object
+	 */
 	private object $errors;
-	private bool $isCurlError = false;
-	private $overrideFields = [
+	/**
+	 * @var bool
+	 */
+	private bool   $isCurlError = false;
+	/**
+	 * @var array<string, mixed>
+	 */
+	private array  $overrideFields = [
 		'billing_address.country',
 		'shipping_address.country',
 		'email_address',

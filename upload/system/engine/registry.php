@@ -10,7 +10,7 @@
  */
 
 /**
- * Registry class
+ * Class Registry
  *
  * @property Autoloader                    $autoloader
  * @property Cache                         $cache

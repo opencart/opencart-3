@@ -1,9 +1,21 @@
 <?php
 namespace Cache;
 class Redis {
+	/**
+	 * @var object
+	 */
 	private object $config;
+	/**
+	 * @var object
+	 */
 	private object $redis;
+	/**
+	 * @var int
+	 */
 	private int $expire;
+	/**
+	 * @var object
+	 */
 	private object $cache;
 
 	/**

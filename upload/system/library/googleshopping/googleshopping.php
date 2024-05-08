@@ -8,41 +8,137 @@ use googleshopping\traits\StoreLoader;
 class Googleshopping extends Library {
 	use StoreLoader;
 
+	/**
+	 * @var string
+	 */
 	public const API_URL = 'https://campaigns.opencart.com/';
+	/**
+	 * @var int
+	 */
 	public const CACHE_CAMPAIGN_REPORT = 21600; // In seconds
+	/**
+	 * @var int
+	 */
 	public const CACHE_PRODUCT_REPORT = 21600;  // In seconds
+	/**
+	 * @var int
+	 */
 	public const ROAS_WAIT_INTERVAL = 1209600;  // In seconds
+	/**
+	 * @var int
+	 */
 	public const MICROAMOUNT = 1000000;
+	/**
+	 * @var string
+	 */
 	public const DEBUG_LOG_FILENAME = 'googleshopping.%s.log';
+	/**
+	 * @var string
+	 */
 	public const ENDPOINT_ACCESS_TOKEN = 'api/access_token';
+	/**
+	 * @var string
+	 */
 	public const ENDPOINT_ACCESS_TOKEN_TEST = 'api/access_token/test';
+	/**
+	 * @var string
+	 */
 	public const ENDPOINT_CAMPAIGN_DELETE = 'api/campaign/delete';
+	/**
+	 * @var string
+	 */
 	public const ENDPOINT_CAMPAIGN_STATUS = 'api/campaign/status';
+	/**
+	 * @var string
+	 */
 	public const ENDPOINT_CAMPAIGN_TEST = 'api/campaign/test';
+	/**
+	 * @var string
+	 */
 	public const ENDPOINT_CAMPAIGN_UPDATE = 'api/campaign/update';
+	/**
+	 * @var string
+	 */
 	public const ENDPOINT_CONVERSION_TRACKER = 'api/conversion_tracker';
+	/**
+	 * @var string
+	 */
 	public const ENDPOINT_DATAFEED_CLOSE = 'api/datafeed/close';
+	/**
+	 * @var string
+	 */
 	public const ENDPOINT_DATAFEED_INIT = 'api/datafeed/init';
+	/**
+	 * @var string
+	 */
 	public const ENDPOINT_DATAFEED_PUSH = 'api/datafeed/push';
+	/**
+	 * @var string
+	 */
 	public const ENDPOINT_MERCHANT_AUTH_URL = 'api/merchant/authorize_url';
+	/**
+	 * @var string
+	 */
 	public const ENDPOINT_MERCHANT_AVAILABLE_CARRIERS = 'api/merchant/available_carriers';
+	/**
+	 * @var string
+	 */
 	public const ENDPOINT_MERCHANT_DISCONNECT = 'api/merchant/disconnect';
+	/**
+	 * @var string
+	 */
 	public const ENDPOINT_MERCHANT_PRODUCT_STATUSES = 'api/merchant/product_statuses';
+	/**
+	 * @var string
+	 */
 	public const ENDPOINT_MERCHANT_SHIPPING_TAXES = 'api/merchant/shipping_taxes';
+	/**
+	 * @var string
+	 */
 	public const ENDPOINT_REPORT_AD = 'api/report/ad&interval=%s';
+	/**
+	 * @var string
+	 */
 	public const ENDPOINT_REPORT_CAMPAIGN = 'api/report/campaign&interval=%s';
+	/**
+	 * @var string
+	 */
 	public const ENDPOINT_VERIFY_IS_CLAIMED = 'api/verify/is_claimed';
+	/**
+	 * @var string
+	 */
 	public const ENDPOINT_VERIFY_SITE = 'api/verify/site';
+	/**
+	 * @var string
+	 */
 	public const ENDPOINT_VERIFY_TOKEN = 'api/verify/token';
+	/**
+	 * @var string
+	 */
 	public const SCOPES = 'OC_FEED REPORT ADVERTISE';
+	/**
+	 * @var string
+	 */
+	private string $store_url;
+	/**
+	 * @var string
+	 */
+	private string $store_name;
+	/**
+	 * @var string
+	 */
+	private string $endpoint_url;
+	/**
+	 * @var int
+	 */
+	private int $store_id = 0;	
+	/**
+	 * @var object
+	 */
+	protected object $registry;
 	private $event_snippet;
 	private $purchase_data;
-	private string $store_url;
-	private string $store_name;
-	private string $endpoint_url;
-	private int $store_id = 0;
 	private $debug_log;
-	protected object $registry;
 
 	/**
 	 * Constructor

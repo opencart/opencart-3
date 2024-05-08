@@ -1,7 +1,13 @@
 <?php
 namespace Cache;
 class Apcu {
+	/**
+	 * @var int
+	 */
 	private int $expire;
+	/**
+	 * @var bool
+	 */
 	private bool $active;
 
 	/**

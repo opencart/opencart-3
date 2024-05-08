@@ -6,6 +6,9 @@ namespace Mail;
  * Basic PHP mail class
  */
 class Mail {
+	/**
+	 * @var array<string, mixed>
+	 */
 	protected array $option = [];
 
 	/**

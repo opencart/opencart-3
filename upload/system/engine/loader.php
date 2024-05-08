@@ -15,6 +15,9 @@
  * @mixin Loader
  */
 class Loader {
+	/**
+	 * @var object
+	 */
 	protected object $registry;
 
 	/**

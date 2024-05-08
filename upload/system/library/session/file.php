@@ -6,8 +6,11 @@ namespace Session;
  * @package System\Library\Session
  */
 class File {
+	/**
+	 * @var object
+	 */
 	private object $config;
-
+	
 	/**
 	 * Constructor
 	 *

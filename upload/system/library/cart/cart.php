@@ -1,12 +1,33 @@
 <?php
 namespace Cart;
 class Cart {
+	/**
+	 * @var object
+	 */
 	private object $db;
+	/**
+	 * @var object
+	 */
 	private object $config;
+	/**
+	 * @var object
+	 */
 	private object $customer;
+	/**
+	 * @var object
+	 */
 	private object $session;
+	/**
+	 * @var object
+	 */
 	private object $tax;
+	/**
+	 * @var object
+	 */
 	private object $weight;
+	/**
+	 * @var array<int, array<string, mixed>>
+	 */
 	private array  $data = [];
 
 	/**

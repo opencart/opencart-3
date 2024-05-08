@@ -1,16 +1,49 @@
 <?php
 namespace Cart;
 class Customer {
+	/**
+	 * @var object
+	 */
 	private object $db;
+	/**
+	 * @var object
+	 */
 	private object $config;
-	private object $request;
+	/**
+	 * @var object
+	 */
+	private object $request; // Do not add namespace as it stops devs being able to extend classes
+	/**
+	 * @var object
+	 */
 	private object $session;
+	/**
+	 * @var int
+	 */
 	private int $customer_id = 0;
-	private int $customer_group_id = 0;
+	/**
+	 * @var string
+	 */
 	private string $firstname = '';
+	/**
+	 * @var string
+	 */
 	private string $lastname = '';
+	/**
+	 * @var int
+	 */
+	private int $customer_group_id = 0;
+	/**
+	 * @var string
+	 */
 	private string $email = '';
+	/**
+	 * @var string
+	 */
 	private string $telephone = '';
+	/**
+	 * @var bool
+	 */
 	private bool $newsletter = false;
 
 	/**

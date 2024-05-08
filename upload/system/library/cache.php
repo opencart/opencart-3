@@ -13,6 +13,9 @@
  * Cache class
  */
 class Cache {
+	/**
+	 * @var object
+	 */
 	private object $adaptor;
 
 	/**

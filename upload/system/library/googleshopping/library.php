@@ -5,6 +5,9 @@ namespace googleshopping;
  * Library Abstract Class
  */
 abstract class Library {
+	/**
+	 * @var object
+	 */
 	protected object $registry;
 
 	/**

@@ -21,15 +21,15 @@ class Image {
 	/**
 	 * @var mixed
 	 */
-	private $image;
+	private        $image;
 	/**
 	 * @var int
 	 */
-	private int $width;
+	private int    $width;
 	/**
 	 * @var int
 	 */
-	private int $height;
+	private int    $height;
 	/**
 	 * @var string
 	 */

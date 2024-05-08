@@ -6,10 +6,13 @@ namespace Template;
  * @package System\Library\Template
  */
 class Template {
+	/**
+	 * @var array<string, string>
+	 */
 	private array $data = [];
 
 	/**
-	 * addPath
+	 * Add Path
 	 *
 	 * @param string $key
 	 * @param string $value

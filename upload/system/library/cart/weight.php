@@ -1,8 +1,17 @@
 <?php
 namespace Cart;
 class Weight {
+	/**
+	 * @var object
+	 */
 	private object $db;
+	/**
+	 * @var object
+	 */
 	private object $config;
+	/**
+	 * @var array<int, array<string, mixed>>
+	 */
 	private array $weights = [];
 
 	/**

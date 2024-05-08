@@ -1,8 +1,17 @@
 <?php
 namespace Cart;
 class Currency {
+	/**
+	 * @var object
+	 */
 	private object $db;
+	/**
+	 * @var object
+	 */
 	private object $language;
+	/**
+	 * @var array<string, array<string, mixed>>
+	 */
 	private array $currencies = [];
 
 	/**

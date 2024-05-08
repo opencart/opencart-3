@@ -10,13 +10,16 @@
  */
 
 /**
- * Proxy class
+ * Class Proxy
  *
  * @template TWraps of Model
  *
  * @mixin TWraps
  */
 class Proxy {
+	/**
+	 * @var array<string, array<string, mixed>>
+	 */
 	protected array $data = [];
 
 	/**

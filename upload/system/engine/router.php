@@ -10,7 +10,7 @@
  */
 
 /**
- * Router class
+ * Class Router
  */
 class Router {
 	private object $registry;

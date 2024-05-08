@@ -6,8 +6,21 @@ namespace Session;
  * @package System\Library\Session
  */
 class Redis {
+	/**
+	 * @var object
+	 */
+	private object $db;
+	/**
+	 * @var object
+	 */
 	private object $config;
+	/**
+	 * @var object
+	 */
 	private \Redis $redis;
+	/**
+	 * @var string
+	 */
 	public string $prefix;
 
 	/**

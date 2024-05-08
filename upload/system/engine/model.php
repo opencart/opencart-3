@@ -10,11 +10,14 @@
  */
 
 /**
- * Model class
+ * Class Model
  *
  * @mixin Registry
  */
 abstract class Model {
+	/**
+	 * @var object
+	 */
 	protected object $registry;
 
 	/**

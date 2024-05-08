@@ -5,12 +5,14 @@ class Mem {
 	 * @var int
 	 */
 	private int $expire;
-
 	/**
 	 * @var object
 	 */
 	private object $memcache;
 
+	/**
+	 * @var int
+	 */
 	public const CACHEDUMP_LIMIT = 9999;
 
 	/**

@@ -1,9 +1,18 @@
 <?php
 namespace Cache;
 class Memcached {
+	/**
+	 * @var int
+	 */
 	private int $expire;
+	/**
+	 * @var object
+	 */
 	private object $memcached;
 
+	/**
+	 * @var int
+	 */
 	public const CACHEDUMP_LIMIT = 9999;
 
 	/**

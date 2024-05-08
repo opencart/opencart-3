@@ -5,7 +5,10 @@ namespace googleshopping;
  * Log class
  */
 class Log {
-	private $handle;
+	/**
+	 * @var mixed
+	 */
+	private mixed $handle;
 
 	/**
 	 * Constructor
@@ -13,17 +16,17 @@ class Log {
 	 * @param string $filename
 	 * @param mixed  $max_size
 	 */
-	public function __construct($filename, $max_size = 8388608) {
+	public function __construct(string $filename, $max_size = 8388608) {
 		$file = DIR_LOGS . $filename;
 
 		clearstatcache(true);
 
-		if ((!file_exists($file) && !is_writable(DIR_LOGS)) || (file_exists($file) && !is_writable($file))) {
+		if ((!is_file($file) && !is_writable(DIR_LOGS)) || (is_file($file) && !is_writable($file))) {
 			// Do nothing, as we have no permissions
 			return;
 		}
 
-		if (file_exists($file) && filesize($file) >= $max_size) {
+		if (is_file($file) && filesize($file) >= $max_size) {
 			$mode = 'wb';
 		} else {
 			$mode = 'ab';

@@ -13,6 +13,9 @@
  * DB Class
  */
 class DB {
+	/**
+	 * @var object
+	 */
 	private object $adaptor;
 
 	/**
@@ -58,7 +61,7 @@ class DB {
 	}
 
 	/**
-	 * countAffected
+	 * Count Affected
 	 *
 	 * Gets the total number of affected rows from the last query
 	 *
@@ -69,7 +72,7 @@ class DB {
 	}
 
 	/**
-	 * getLastId
+	 * Get Last Id
 	 *
 	 * Get the last ID gets the primary key that was returned after creating a row in a table.
 	 *
@@ -80,7 +83,7 @@ class DB {
 	}
 
 	/**
-	 * isConnected
+	 * Is Connected
 	 * Checks if a DB connection is active.
 	 *
 	 * @return bool

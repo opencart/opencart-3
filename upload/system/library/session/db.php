@@ -14,9 +14,15 @@ namespace Session;
  * @package System\Library\Session
  */
 class DB {
+	/**
+	 * @var object
+	 */
 	private object $db;
+	/**
+	 * @var object
+	 */
 	private object $config;
-
+	
 	/**
 	 * Constructor
 	 *

@@ -1,13 +1,37 @@
 <?php
 namespace Cart;
 class User {
+	/**
+	 * @var object
+	 */
 	private object $db;
+	/**
+	 * @var object
+	 */
 	private object $request;
+	/**
+	 * @var object
+	 */
 	private object $session;
+	/**
+	 * @var int
+	 */
 	private int $user_id = 0;
+	/**
+	 * @var string
+	 */
 	private string $username = '';
-	private int $user_group_id = 0;
+	/**
+	 * @var string
+	 */
 	private string $email = '';
+	/**
+	 * @var int
+	 */
+	private int $user_group_id = 0;
+	/**
+	 * @var array<string, array<int, string>>
+	 */
 	private array $permission = [];
 
 	/**

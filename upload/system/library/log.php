@@ -13,6 +13,9 @@
  * Log class
  */
 class Log {
+	/**
+	 * @var string
+	 */
 	private string $file;
 
 	/**

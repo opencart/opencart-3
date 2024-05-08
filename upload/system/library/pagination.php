@@ -16,19 +16,19 @@ class Pagination {
 	/**
 	 * @var int
 	 */
-	public int $total = 0;
+	public int    $total = 0;
 	/**
 	 * @var int
 	 */
-	public int $page = 1;
+	public int    $page = 1;
 	/**
 	 * @var int
 	 */
-	public int $limit = 20;
+	public int    $limit = 20;
 	/**
 	 * @var int
 	 */
-	public int $num_links = 8;
+	public int    $num_links = 8;
 	/**
 	 * @var string
 	 */

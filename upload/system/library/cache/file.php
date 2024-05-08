@@ -1,6 +1,9 @@
 <?php
 namespace Cache;
 class File {
+	/**
+	 * @var int
+	 */
 	private int $expire;
 
 	/**

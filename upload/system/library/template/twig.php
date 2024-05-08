@@ -6,10 +6,25 @@ namespace Template;
  * @package
  */
 class Twig {
+	/**
+	 * @var string
+	 */
 	protected string $root = '';
+	/**
+	 * @var string
+	 */
 	protected string $directory = '';
+	/**
+	 * @var object
+	 */
 	protected object $loader;
+	/**
+	 * @var array<string, string>
+	 */
 	protected array $path = [];
+	/**
+	 * @var array<string, string>
+	 */
 	protected array $data = [];
 
 	/**
@@ -28,7 +43,7 @@ class Twig {
 	 * Render
 	 *
 	 * @param string $filename
-	 * @param        $code
+	 * @param string $code
 	 *
 	 * @throws \Twig\Error\LoaderError
 	 * @throws \Twig\Error\RuntimeError
@@ -36,7 +51,7 @@ class Twig {
 	 *
 	 * @return string
 	 */
-	public function render(string $filename, $code = ''): string {
+	public function render(string $filename, string $code = ''): string {
 		if (!$code) {
 			$file = DIR_TEMPLATE . $filename . '.twig';
 

@@ -13,8 +13,14 @@
  * Mail class
  */
 class Mail {
+	/**
+	 * @var object
+	 */
 	private object $adaptor;
-	private array $option = [];
+	/**
+	 * @var array<string, mixed>
+	 */
+	private array  $option = [];
 
 	/**
 	 * Constructor

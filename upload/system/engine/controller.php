@@ -10,11 +10,14 @@
  */
 
 /**
- * Controller class
+ * Class Controller
  *
  * @mixin Registry
  */
 class Controller {
+	/**
+	 * @var object
+	 */
 	protected object $registry;
 
 	/**

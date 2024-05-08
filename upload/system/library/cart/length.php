@@ -1,8 +1,17 @@
 <?php
 namespace Cart;
 class Length {
+	/**
+	 * @var object
+	 */
 	private object $db;
+	/**
+	 * @var object
+	 */
 	private object $config;
+	/**
+	 * @var array<int, array<string, mixed>>
+	 */
 	private array $lengths = [];
 
 	/**
