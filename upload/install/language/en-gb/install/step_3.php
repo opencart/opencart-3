@@ -21,6 +21,7 @@ $_['entry_db_prefix']        = 'Prefix';
 $_['entry_db_ssl_key']       = 'SSL Key';
 $_['entry_db_ssl_cert']      = 'SSL Cert';
 $_['entry_db_ssl_ca']        = 'SSL CA';
+$_['entry_db_ssl_info']      = 'Certificate inputs should be added as a single line like: "MIIDrzCCApegAwIBAgIQ....=="';
 $_['entry_username']         = 'Username';
 $_['entry_password']         = 'Password';
 $_['entry_email']            = 'E-Mail';
