@@ -1,5 +1,15 @@
 <?php
+/**
+ * Class 1005
+ *
+ * @package \Install\Model\Upgrade
+ */
 class ModelUpgrade1005 extends Model {
+	/**
+	 * Upgrade
+	 *
+	 * @return void
+	 */
 	public function upgrade(): void {
 		// customer
 		$this->db->query("ALTER TABLE `" . DB_PREFIX . "customer` CHANGE `token` `token` text NOT NULL");

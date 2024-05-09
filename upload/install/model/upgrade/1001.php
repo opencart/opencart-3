@@ -1,5 +1,15 @@
 <?php
+/**
+ * Class 1001
+ *
+ * @package \Install\Model\Upgrade
+ */
 class ModelUpgrade1001 extends Model {
+	/**
+	 * Upgrade
+	 *
+	 * @return void
+	 */
 	public function upgrade(): void {
 		// address
 		$this->db->query("ALTER TABLE `" . DB_PREFIX . "address` CHANGE `company` `company` VARCHAR(40) NOT NULL");

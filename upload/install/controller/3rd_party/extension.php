@@ -1,5 +1,15 @@
 <?php
+/**
+ * Class 3rd Party Extension
+ *
+ * @package Install\Controller\3rd_Party
+ */
 class Controller3rdPartyExtension extends Controller {
+	/**
+	 * Index
+	 *
+	 * @return void
+	 */
 	public function index(): void {
 		$curl = curl_init();
 

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Column Left
+ *
+ * @package \Install\Controller\Common
+ */
 class ControllerCommonColumnLeft extends Controller {
 	/**
 	 * Index

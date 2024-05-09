@@ -1,5 +1,15 @@
 <?php
+/**
+ * Class Upgrade
+ *
+ * @package \Install\Controller\Startup
+ */
 class ControllerStartupUpgrade extends Controller {
+	/**
+	 * Index
+	 *
+	 * @return void
+	 */
 	public function index(): void {
 		$upgrade = false;
 

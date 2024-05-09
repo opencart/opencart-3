@@ -1,5 +1,15 @@
 <?php
+/**
+ * Class Upgrade
+ *
+ * @package \Install\Controller\Upgrade
+ */
 class ControllerUpgradeUpgrade extends Controller {
+	/**
+	 * Index
+	 *
+	 * @return void
+	 */
 	public function index(): void {
 		$this->load->language('upgrade/upgrade');
 
@@ -54,7 +64,7 @@ class ControllerUpgradeUpgrade extends Controller {
 				$callable = [$this->{'model_upgrade_' . str_replace('.', '', basename($files[$step - 1], '.php'))}, 'upgrade'];
 
 				if (is_callable($callable)) {
-					$this->{'model_upgrade_' . str_replace('.', '', basename($files[$step - 1], '.php'))}->upgrade();
+					$callable();
 				}
 
 				$json['success'] = sprintf($this->language->get('text_progress'), basename($files[$step - 1], '.php'), $step, count($files));

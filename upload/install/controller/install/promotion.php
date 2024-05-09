@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Promotion
+ *
+ * @package \Install\Controller\Install
+ */
 class ControllerInstallPromotion extends Controller {
 	/**
 	 * Index

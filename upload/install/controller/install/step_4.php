@@ -1,6 +1,15 @@
 <?php
-
+/**
+ * Class Step4
+ *
+ * @package \Install\Controller\Install
+ */
 class ControllerInstallStep4 extends Controller {
+	/**
+	 * Index
+	 *
+	 * @return void
+	 */
 	public function index(): void {
 		$this->load->language('install/step_4');
 

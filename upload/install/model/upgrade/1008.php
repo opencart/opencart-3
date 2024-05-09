@@ -1,5 +1,15 @@
 <?php
+/**
+ * Class 1008
+ *
+ * @package \Install\Model\Upgrade
+ */
 class ModelUpgrade1008 extends Model {
+	/**
+	 * Upgrade
+	 *
+	 * @return void
+	 */
 	public function upgrade(): void {
 		//  Option
 		$this->db->query("UPDATE `" . DB_PREFIX . "option` SET `type` = 'radio' WHERE `type` = 'image'");

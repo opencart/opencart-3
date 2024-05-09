@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Router
+ *
+ * @package \Install\Controller\Startup
+ */
 class ControllerStartupRouter extends Controller {
 	/**
 	 * Index

@@ -1,5 +1,15 @@
 <?php
+/**
+ * Class 1004
+ *
+ * @package \Install\Model\Upgrade
+ */
 class ModelUpgrade1004 extends Model {
+	/**
+	 * Upgrade
+	 *
+	 * @retun void
+	 */
 	public function upgrade(): void {
 		// custom_field
 		$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "custom_field' AND COLUMN_NAME = 'required'");

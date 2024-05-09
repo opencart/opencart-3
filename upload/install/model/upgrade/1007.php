@@ -1,5 +1,15 @@
 <?php
+/**
+ * Class 1007
+ *
+ * @package \Install\Model\Upgrade
+ */
 class ModelUpgrade1007 extends Model {
+	/**
+	 * Upgrade
+	 *
+	 * @return void
+	 */
 	public function upgrade(): void {
 		// Download
 		$this->db->query("ALTER TABLE `" . DB_PREFIX . "download` CHANGE `filename` `filename` varchar(140) NOT NULL");

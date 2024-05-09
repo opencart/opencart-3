@@ -1,5 +1,15 @@
 <?php
+/**
+ * Class 1000
+ *
+ * @package \Install\Model\Upgrade
+ */
 class ModelUpgrade1000 extends Model {
+	/**
+	 * Upgrade
+	 *
+	 * @return void
+	 */
 	public function upgrade(): void {
 		// This is a generic upgrade script.
 		// It makes mass changes to the DB by creating tables that are not in the current db, changes the charset and DB engine to the SQL schema.

@@ -56,6 +56,7 @@ function handleError($errno, $errstr, $errfile, $errline) {
 
 set_error_handler('handleError');
 
+// Usage
 function usage(): void {
 	echo "Usage:\n";
 	echo "======\n";
@@ -87,6 +88,7 @@ function usage(): void {
 	echo 'php cli_install.php install ' . $options . "\n\n";
 }
 
+// Get Options
 function get_options($argv) {
 	$defaults = [
 		'db_hostname' => 'localhost',
@@ -114,6 +116,7 @@ function get_options($argv) {
 	return array_merge($defaults, $options);
 }
 
+// Valid
 function valid($options) {
 	$required = [
 		'db_hostname',
@@ -148,6 +151,7 @@ function valid($options) {
 	];
 }
 
+// Install
 function install($options): void {
 	$check = check_requirements();
 
@@ -161,6 +165,7 @@ function install($options): void {
 	}
 }
 
+// Check Requirements
 function check_requirements() {
 	$error = null;
 
@@ -199,6 +204,7 @@ function check_requirements() {
 	return [$error === null, $error];
 }
 
+// Setup DB
 function setup_db($data): void {
 	$db = new \DB($data['db_driver'], htmlspecialchars_decode($data['db_hostname']), htmlspecialchars_decode($data['db_username']), htmlspecialchars_decode($data['db_password']), htmlspecialchars_decode($data['db_database']), $data['db_port']);
 
@@ -259,6 +265,7 @@ function setup_db($data): void {
 	}
 }
 
+// Write Config Files
 function write_config_files($options): void {
 	$output = '<?php' . "\n";
 	$output .= '// HTTP' . "\n";
@@ -339,6 +346,7 @@ function write_config_files($options): void {
 	fclose($file);
 }
 
+// Dir Permissions
 function dir_permissions(): void {
 	$dirs = [
 		DIR_OPENCART . 'image/',

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Footer
+ *
+ * @package \Install\Controller\Common
+ */
 class ControllerCommonFooter extends Controller {
 	/**
 	 * Index

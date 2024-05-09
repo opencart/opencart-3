@@ -1,5 +1,15 @@
 <?php
+/**
+ * Class Language
+ *
+ * @package \Install\Controller\Startup
+ */
 class ControllerStartupLanguage extends Controller {
+	/**
+	 * Index
+	 *
+	 * @return void
+	 */
 	public function index(): void {
 		// Default language code
 		$code = $this->config->get('language_default');

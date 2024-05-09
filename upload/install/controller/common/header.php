@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Header
+ *
+ * @package \Install\Controller\Common
+ */
 class ControllerCommonHeader extends Controller {
 	/**
 	 * Index

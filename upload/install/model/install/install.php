@@ -1,5 +1,17 @@
 <?php
+/**
+ * Class Install
+ *
+ * @package \Install\Model\Install
+ */
 class ModelInstallInstall extends Model {
+	/**
+	 * Database
+	 *
+	 * @param array<string, mixed> $data
+	 *
+	 * @return void
+	 */
 	public function database(array $data): void {
 		$db = new \DB($data['db_driver'], htmlspecialchars_decode($data['db_hostname']), htmlspecialchars_decode($data['db_username']), htmlspecialchars_decode($data['db_password']), htmlspecialchars_decode($data['db_database']), $data['db_port']);
 

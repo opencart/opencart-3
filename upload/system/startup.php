@@ -71,6 +71,7 @@ if (defined('DIR_STORAGE') && is_file(DIR_STORAGE . 'vendor/autoload.php')) {
 	require_once(DIR_STORAGE . 'vendor/autoload.php');
 }
 
+// Library
 function library($class) {
 	$file = DIR_SYSTEM . 'library/' . str_replace('\\', '/', strtolower($class)) . '.php';
 
@@ -103,6 +104,7 @@ require_once(DIR_SYSTEM . 'engine/autoloader.php');
 require_once(DIR_SYSTEM . 'helper/general.php');
 require_once(DIR_SYSTEM . 'helper/utf8.php');
 
+// Start
 function start($application_config): void {
 	require_once(DIR_SYSTEM . 'framework.php');
 }

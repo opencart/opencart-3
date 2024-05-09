@@ -1,5 +1,15 @@
 <?php
+/**
+ * Class Not Found
+ *
+ * @package \Install\Controller\Error
+ */
 class ControllerErrorNotFound extends Controller {
+	/**
+	 * Index
+	 *
+	 * @return void
+	 */
 	public function index(): void {
 		/*
 		$this->load->language('error/not_found');

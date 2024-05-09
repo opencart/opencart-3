@@ -1,5 +1,15 @@
 <?php
+/**
+ * Class 1006
+ *
+ * @package \Install\Model\Upgrade
+ */
 class ModelUpgrade1006 extends Model {
+	/**
+	 * Upgrade
+	 *
+	 * @return void
+	 */
 	public function upgrade(): void {
 		// Update some language settings
 		$this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `value` = 'en-gb' WHERE `key` = 'config_language' AND `value` = 'en'");
