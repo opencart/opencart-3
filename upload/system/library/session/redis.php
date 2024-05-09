@@ -15,9 +15,9 @@ class Redis {
 	 */
 	private object $config;
 	/**
-	 * @var object
+	 * @var ?\Redis
 	 */
-	private object $redis;
+	private ?\Redis $redis;
 	/**
 	 * @var string
 	 */
