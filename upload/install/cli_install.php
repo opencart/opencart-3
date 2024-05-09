@@ -14,6 +14,9 @@
 //                               --db_database opencart \
 //                               --db_driver mysqli \
 //								 --db_port 3306 \
+//								 --db_ssl_key
+//                               --db_ssl_cert
+//                               --db_ssl_ca
 //                               --username admin \
 //                               --password admin \
 //                               --email youremail@example.com \
@@ -96,7 +99,10 @@ function get_options($argv) {
 		'db_prefix'   => 'oc_',
 		'db_driver'   => 'mysqli',
 		'db_port'     => '3306',
-		'username'    => 'admin',
+		'db_ssl_key'  => '',
+		'db_ssl_cert' => '',
+		'db_ssl_ca'   => '',
+		'username'    => 'admin'
 	];
 
 	$options = [];
@@ -125,6 +131,9 @@ function valid($options) {
 		'db_database',
 		'db_prefix',
 		'db_port',
+		'db_ssl_key',
+		'db_ssl_cert',
+		'db_ssl_ca',
 		'username',
 		'password',
 		'email',
@@ -206,7 +215,7 @@ function check_requirements() {
 
 // Setup DB
 function setup_db($data): void {
-	$db = new \DB($data['db_driver'], htmlspecialchars_decode($data['db_hostname']), htmlspecialchars_decode($data['db_username']), htmlspecialchars_decode($data['db_password']), htmlspecialchars_decode($data['db_database']), $data['db_port']);
+	$db = new \DB($data['db_driver'], htmlspecialchars_decode($data['db_hostname']), htmlspecialchars_decode($data['db_username']), htmlspecialchars_decode($data['db_password']), htmlspecialchars_decode($data['db_database']), $data['db_port'], $data['db_ssl_key'], $data['db_ssl_cert'], $data['db_ssl_ca']);
 
 	$file = DIR_APPLICATION . 'opencart.sql';
 
@@ -297,6 +306,18 @@ function write_config_files($options): void {
 	$output .= 'define(\'DB_DATABASE\', \'' . addslashes($options['db_database']) . '\');' . "\n";
 	$output .= 'define(\'DB_PREFIX\', \'' . addslashes($options['db_prefix']) . '\');' . "\n";
 	$output .= 'define(\'DB_PORT\', \'' . addslashes($options['db_port']) . '\');' . "\n";
+
+	if ($options['db_ssl_key']) {
+		$output .= 'define(\'DB_SSL_KEY\', \'' . addslashes($options['db_ssl_key']) . '\');' . "\n";
+	}
+
+	if ($options['db_ssl_cert']) {
+		$output .= 'define(\'DB_SSL_CERT\', \'' . addslashes($options['db_ssl_cert']) . '\');' . "\n";
+	}
+
+	if ($options['db_ssl_ca']) {
+		$output .= 'define(\'DB_SSL_CA\', \'' . addslashes($options['db_ssl_ca']) . '\');' . "\n";
+	}
 
 	$file = fopen(DIR_OPENCART . 'config.php', 'w');
 

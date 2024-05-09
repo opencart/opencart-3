@@ -94,6 +94,24 @@
               {% endif %}
             </div>
           </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-db-ssl-key">{{ entry_db_ssl_key }}</label>
+            <div class="col-sm-10">
+              <textarea name="value" rows="8" placeholder="{{ entry_db_ssl_key }}" class="form-control" id="input-db-ssl-key"/>{{ db_ssl_key }}</textarea>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-db-ssl-cert">{{ entry_db_ssl_cert }}</label>
+            <div class="col-sm-10">
+              <textarea name="value" rows="8" placeholder="{{ entry_db_ssl_cert }}" class="form-control" id="input-db-ssl-cert"/>{{ db_ssl_cert }}</textarea>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-db-ssl-ca">{{ entry_db_ssl_ca }}</label>
+            <div class="col-sm-10">
+              <textarea name="value" rows="8" placeholder="{{ entry_db_ssl_ca }}" class="form-control" id="input-db-ssl-ca"/>{{ db_ssl_ca }}</textarea>
+            </div>
+          </div>
         </fieldset>
         <p>{{ text_db_administration }}</p>
         <fieldset>
