@@ -15,8 +15,8 @@ class ControllerStartupDatabase extends Controller {
 			$lines = file(DIR_OPENCART . 'config.php');
 
 			foreach ($lines as $line) {
-				if (str_contains(strtoupper($line), 'DB_') && preg_match('/define\(\'(.*)\',\s+["\'](.*)["\']\)/', $line, $match, PREG_OFFSET_CAPTURE)) {
-					define($match[1][0], $match[2][0]);
+				if (str_contains(strtoupper($line), 'DB_')) {
+					eval($line);
 				}
 			}
 
