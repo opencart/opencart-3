@@ -8,7 +8,7 @@ class ControllerInformationGdpr extends Controller {
 	/**
 	 * Index
 	 *
-	 * @return \System\Engine\Action|null
+	 * @return \Action|null
 	 */
 	public function index(): ?\Action {
 		// Information
