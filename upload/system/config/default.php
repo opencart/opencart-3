@@ -21,6 +21,9 @@ $_['db_password']          = '';
 $_['db_database']          = '';
 $_['db_port']              = 3306;
 $_['db_autostart']         = false;
+//$_['db_ssl_key']         = '';
+//$_['db_ssl_cert']        = '';
+//$_['db_ssl_ca']          = '';
 
 // Mail
 $_['mail_engine']          = 'mail'; // mail or smtp

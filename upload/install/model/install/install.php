@@ -13,7 +13,7 @@ class ModelInstallInstall extends Model {
 	 * @return void
 	 */
 	public function database(array $data): void {
-		$db = new \DB($data['db_driver'], htmlspecialchars_decode($data['db_hostname']), htmlspecialchars_decode($data['db_username']), htmlspecialchars_decode($data['db_password']), htmlspecialchars_decode($data['db_database']), $data['db_port']);
+		$db = new \DB($data['db_driver'], htmlspecialchars_decode($data['db_hostname']), htmlspecialchars_decode($data['db_username']), htmlspecialchars_decode($data['db_password']), htmlspecialchars_decode($data['db_database']), $data['db_port'], $data['db_ssl_key'], $data['db_ssl_cert'], $data['db_ssl_ca']);
 
 		$file = DIR_APPLICATION . 'opencart.sql';
 
