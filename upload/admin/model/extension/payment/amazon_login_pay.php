@@ -727,11 +727,11 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	/**
 	 * Logger
 	 *
-	 * @param string $message
+	 * @param mixed $message
 	 *
 	 * @return void
 	 */
-	public function logger(string $message): void {
+	public function logger($message): void {
 		if ($this->config->get('payment_amazon_login_pay_debug') == 1) {
 			$log = new \Log('amazon_login_pay_admin.log');
 
