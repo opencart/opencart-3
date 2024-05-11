@@ -35,6 +35,11 @@ if (is_file(DIR_STORAGE . 'vendor/ralouphie/getallheaders/src/getallheaders.php'
 // scssphp/scssphp
 $autoloader->register('ScssPhp\ScssPhp', DIR_STORAGE . 'vendor/scssphp/scssphp/src/', true);
 
+// symfony/deprecation-contracts
+if (is_file(DIR_STORAGE . 'vendor/symfony/deprecation-contracts/function.php')) {
+	require_once(DIR_STORAGE . 'vendor/symfony/deprecation-contracts/function.php');
+}
+
 // symfony/polyfill-ctype
 $autoloader->register('Symfony\Polyfill\Ctype', DIR_STORAGE . 'vendor/symfony/polyfill-ctype//', true);
 require_once(DIR_STORAGE . 'vendor/symfony/polyfill-ctype/bootstrap.php');
