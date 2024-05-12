@@ -9,7 +9,7 @@
         "vendor-dir": "./upload/system/storage/vendor/"
     },
     "require": {
-      "php": ">=8.3",
+      "php": ">=8.2",
 		"twig/twig": "^3.3",
 		"ralouphie/getallheaders": "^3.0",
 		"divido/divido-php": "^1.15",
