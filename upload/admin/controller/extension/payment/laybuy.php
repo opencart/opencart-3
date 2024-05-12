@@ -115,7 +115,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 			if ($category_info) {
 				$data['categories'][] = [
 					'category_id' => $category_info['category_id'],
-					'name'        => ($category_info['path']) ? $category_info['path'] . ' &gt; ' . $category_info['name'] : $category_info['name']
+					'name'        => ($category_info['path'] ? $category_info['path'] . ' &gt; ' . $category_info['name'] : $category_info['name'])
 				];
 			}
 		}
