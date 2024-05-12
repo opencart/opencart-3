@@ -373,7 +373,7 @@ class ControllerApiOrder extends Controller {
 				if (isset($this->request->post['order_status_id'])) {
 					$order_status_id = (int)$this->request->post['order_status_id'];
 				} else {
-					$order_status_id = $this->config->get('config_order_status_id');
+					$order_status_id = (int)$this->config->get('config_order_status_id');
 				}
 
 				$this->model_checkout_order->addHistory($json['order_id'], $order_status_id);
@@ -732,7 +732,7 @@ class ControllerApiOrder extends Controller {
 					if (isset($this->request->post['order_status_id'])) {
 						$order_status_id = (int)$this->request->post['order_status_id'];
 					} else {
-						$order_status_id = $this->config->get('config_order_status_id');
+						$order_status_id = (int)$this->config->get('config_order_status_id');
 					}
 
 					$this->model_checkout_order->addHistory($order_id, $order_status_id);
@@ -864,7 +864,7 @@ class ControllerApiOrder extends Controller {
 			$order_info = $this->model_checkout_order->getOrder($order_id);
 
 			if ($order_info) {
-				$this->model_checkout_order->addHistory($order_id, $this->request->post['order_status_id'], $this->request->post['comment'], $this->request->post['notify'], $this->request->post['override']);
+				$this->model_checkout_order->addHistory($order_id, (int)$this->request->post['order_status_id'], $this->request->post['comment'], $this->request->post['notify'], $this->request->post['override']);
 
 				$json['success'] = $this->language->get('text_success');
 			} else {
