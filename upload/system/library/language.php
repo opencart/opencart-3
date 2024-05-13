@@ -16,11 +16,11 @@ class Language {
 	/**
 	 * @var string
 	 */
-	protected string $default;
+	private string $default = 'en-gb';
 	/**
 	 * @var string
 	 */
-	protected string $directory;
+	private string $directory;
 	/**
 	 * @var array<string, string>
 	 */
