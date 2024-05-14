@@ -3,7 +3,7 @@
         'name' => 'opencart/opencart-3',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'ddccf79445f32010c18c63f2b2a037a41e34b99e',
+        'reference' => 'fb3356495459cd6a8e18d6b24484bfc35603aa5d',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../../../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'cardinity/cardinity-sdk-php' => array(
-            'pretty_version' => 'v3.3.2',
-            'version' => '3.3.2.0',
-            'reference' => '234f9decdde3214134c2678146df93601e170c82',
+            'pretty_version' => 'v3.3.3',
+            'version' => '3.3.3.0',
+            'reference' => '9b6075208c6678d4d5f7e5a9f015a5c94959097c',
             'type' => 'library',
             'install_path' => __DIR__ . '/../cardinity/cardinity-sdk-php',
             'aliases' => array(),
@@ -67,7 +67,7 @@
         'opencart/opencart-3' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'ddccf79445f32010c18c63f2b2a037a41e34b99e',
+            'reference' => 'fb3356495459cd6a8e18d6b24484bfc35603aa5d',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../../../../',
             'aliases' => array(),

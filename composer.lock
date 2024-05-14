@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "cardinity/cardinity-sdk-php",
-            "version": "v3.3.2",
+            "version": "v3.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cardinity/cardinity-sdk-php.git",
-                "reference": "234f9decdde3214134c2678146df93601e170c82"
+                "reference": "9b6075208c6678d4d5f7e5a9f015a5c94959097c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cardinity/cardinity-sdk-php/zipball/234f9decdde3214134c2678146df93601e170c82",
-                "reference": "234f9decdde3214134c2678146df93601e170c82",
+                "url": "https://api.github.com/repos/cardinity/cardinity-sdk-php/zipball/9b6075208c6678d4d5f7e5a9f015a5c94959097c",
+                "reference": "9b6075208c6678d4d5f7e5a9f015a5c94959097c",
                 "shasum": ""
             },
             "require": {
@@ -46,9 +46,9 @@
             "homepage": "https://cardinity.com",
             "support": {
                 "issues": "https://github.com/cardinity/cardinity-sdk-php/issues",
-                "source": "https://github.com/cardinity/cardinity-sdk-php/tree/v3.3.2"
+                "source": "https://github.com/cardinity/cardinity-sdk-php/tree/v3.3.3"
             },
-            "time": "2024-04-25T09:26:08+00:00"
+            "time": "2024-05-13T11:57:54+00:00"
         },
         {
             "name": "divido/divido-php",

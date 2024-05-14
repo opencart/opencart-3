@@ -242,7 +242,7 @@ class PaymentTest extends ClientTestCase
     {
         $newPaymentParams = $this->paymentParams;
 
-        $newPaymentParams['payment_instrument']['pan'] = '4200000000000018';
+        $newPaymentParams['payment_instrument']['pan'] = '5454545454540018';
         $newPaymentParams['amount'] = 150.23;
 
         $method = new Payment\Create($newPaymentParams);
@@ -254,6 +254,27 @@ class PaymentTest extends ClientTestCase
             $this->assertInstanceOf('Cardinity\Method\Payment\Payment', $result);
             $this->assertSame('declined', $result->getStatus());
             $this->assertSame("03: Do not try again", $result->getMerchantAdviceCode());
+        }
+
+        return $result;
+    }
+
+    public function test3dsStatusReason()
+    {
+        $newPaymentParams = $this->paymentParams;
+
+        $newPaymentParams['payment_instrument']['pan'] = '5454545454540109';
+        $newPaymentParams['amount'] = 150.23;
+
+        $method = new Payment\Create($newPaymentParams);
+
+        try {
+            $result = $this->client->call($method);
+        } catch (\Cardinity\Exception\Declined $e){
+            $result = $e->getResult();
+            $this->assertInstanceOf('Cardinity\Method\Payment\Payment', $result);
+            $this->assertSame('declined', $result->getStatus());
+            $this->assertSame('01: Card authentication failed', $result->getThreedsStatusReason());
         }
 
         return $result;

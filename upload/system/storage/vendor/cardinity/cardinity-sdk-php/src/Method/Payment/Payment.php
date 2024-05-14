@@ -44,6 +44,10 @@ class Payment extends ResultObject
         Value assigned by Cardinity. */
     private $status;
 
+    /** @type string Payment status reason.
+    Value assigned by Cardinity. */
+    private $threedsStatusReason;
+
     /** @type string Error message.
         Returned only if status is declined.
         Provides human readable information why the payment failed.
@@ -245,6 +249,26 @@ class Payment extends ResultObject
     {
         $this->status = $status;
     }
+
+    /**
+     * Gets the value of status.
+     * @return mixed
+     */
+    public function getThreedsStatusReason()
+    {
+        return $this->threedsStatusReason;
+    }
+
+    /**
+     * Sets the value of threeds status reason.
+     * @param mixed $threedsStatusReason the status reason
+     * @return void
+     */
+    public function setThreedsStatusReason($threedsStatusReason)
+    {
+        $this->threedsStatusReason = $threedsStatusReason;
+    }
+
 
     /**
      * Gets the value of error.
