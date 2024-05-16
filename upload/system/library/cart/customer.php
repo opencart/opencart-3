@@ -69,7 +69,7 @@ class Customer {
 				$this->telephone = $customer_query->row['telephone'];
 				$this->newsletter = $customer_query->row['newsletter'];
 
-				$this->db->query("UPDATE `" . DB_PREFIX . "customer` SET `language_id` = '" . (int)$this->config->get('config_language_id') . "', `ip` = '" . $this->db->escape($this->request->server['REMOTE_ADDR']) . "' WHERE `customer_id` = '" . (int)$this->customer_id . "'");
+				$this->db->query("UPDATE `" . DB_PREFIX . "customer` SET `language_id` = '" . (int)$this->config->get('config_language_id') . "', `ip` = '" . oc_get_ip() . "' WHERE `customer_id` = '" . (int)$this->customer_id . "'");
 			} else {
 				$this->logout();
 			}
@@ -115,7 +115,7 @@ class Customer {
 			$this->telephone = $customer_query->row['telephone'];
 			$this->newsletter = $customer_query->row['newsletter'];
 
-			$this->db->query("UPDATE `" . DB_PREFIX . "customer` SET `language_id` = '" . (int)$this->config->get('config_language_id') . "', `ip` = '" . $this->db->escape($this->request->server['REMOTE_ADDR']) . "' WHERE `customer_id` = '" . (int)$this->customer_id . "'");
+			$this->db->query("UPDATE `" . DB_PREFIX . "customer` SET `language_id` = '" . (int)$this->config->get('config_language_id') . "', `ip` = '" . oc_get_ip() . "' WHERE `customer_id` = '" . (int)$this->customer_id . "'");
 
 			return true;
 		} else {

@@ -128,7 +128,7 @@ class ControllerCommonLogin extends Controller {
 			$this->session->data['user_token'] = oc_token(32);
 
 			$login_data = [
-				'ip'         => $this->request->server['REMOTE_ADDR'],
+				'ip'         => oc_get_ip(),
 				'user_agent' => $this->request->server['HTTP_USER_AGENT']
 			];
 

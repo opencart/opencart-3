@@ -221,7 +221,7 @@ class ControllerExtensionPaymentOpayo extends Controller {
 		$payment_data['Basket'] = $str_basket;
 
 		$payment_data['CustomerEMail'] = substr($order_info['email'], 0, 255);
-		$payment_data['ClientIPAddress'] = $this->request->server['REMOTE_ADDR'];
+		$payment_data['ClientIPAddress'] = oc_get_ip();
 		$payment_data['ChallengeWindowSize'] = '01';
 		$payment_data['Apply3DSecure'] = '0';
 		$payment_data['ThreeDSNotificationURL'] = str_replace('&amp;', '&', $this->url->link('extension/payment/opayo/threeDSnotify', 'order_id=' . $this->session->data['order_id'], true));
@@ -352,8 +352,8 @@ class ControllerExtensionPaymentOpayo extends Controller {
 
 				if (isset($this->request->server['HTTP_X_REAL_IP'])) {
 					$ip = $this->request->server['HTTP_X_REAL_IP'];
-				} elseif (isset($this->request->server['REMOTE_ADDR'])) {
-					$ip = $this->request->server['REMOTE_ADDR'];
+				} elseif (oc_get_ip()) {
+					$ip = oc_get_ip();
 				} else {
 					$ip = '';
 				}
@@ -524,8 +524,8 @@ class ControllerExtensionPaymentOpayo extends Controller {
 
 					if (isset($this->request->server['HTTP_X_REAL_IP'])) {
 						$ip = $this->request->server['HTTP_X_REAL_IP'];
-					} elseif (isset($this->request->server['REMOTE_ADDR'])) {
-						$ip = $this->request->server['REMOTE_ADDR'];
+					} elseif (oc_get_ip()) {
+						$ip = oc_get_ip();
 					} else {
 						$ip = '';
 					}

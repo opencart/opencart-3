@@ -1344,8 +1344,8 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 									if (isset($this->request->server['HTTP_X_REAL_IP'])) {
 										$ip = $this->request->server['HTTP_X_REAL_IP'];
-									} elseif (isset($this->request->server['REMOTE_ADDR'])) {
-										$ip = $this->request->server['REMOTE_ADDR'];
+									} elseif (oc_get_ip()) {
+										$ip = oc_get_ip();
 									} else {
 										$ip = '';
 									}
@@ -1485,8 +1485,8 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 									if (isset($this->request->server['HTTP_X_REAL_IP'])) {
 										$ip = $this->request->server['HTTP_X_REAL_IP'];
-									} elseif (isset($this->request->server['REMOTE_ADDR'])) {
-										$ip = $this->request->server['REMOTE_ADDR'];
+									} elseif (oc_get_ip()) {
+										$ip = oc_get_ip();
 									} else {
 										$ip = '';
 									}
@@ -2224,7 +2224,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			$order_data['currency_id'] = $this->currency->getId($this->session->data['currency']);
 			$order_data['currency_code'] = $this->session->data['currency'];
 			$order_data['currency_value'] = $this->currency->getValue($this->session->data['currency']);
-			$order_data['ip'] = $this->request->server['REMOTE_ADDR'];
+			$order_data['ip'] = oc_get_ip();
 
 			if (!empty($this->request->server['HTTP_X_FORWARDED_FOR'])) {
 				$order_data['forwarded_ip'] = $this->request->server['HTTP_X_FORWARDED_FOR'];
@@ -2575,8 +2575,8 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 								if (isset($this->request->server['HTTP_X_REAL_IP'])) {
 									$ip = $this->request->server['HTTP_X_REAL_IP'];
-								} elseif (isset($this->request->server['REMOTE_ADDR'])) {
-									$ip = $this->request->server['REMOTE_ADDR'];
+								} elseif (oc_get_ip()) {
+									$ip = oc_get_ip();
 								} else {
 									$ip = '';
 								}
@@ -2720,8 +2720,8 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 								if (isset($this->request->server['HTTP_X_REAL_IP'])) {
 									$ip = $this->request->server['HTTP_X_REAL_IP'];
-								} elseif (isset($this->request->server['REMOTE_ADDR'])) {
-									$ip = $this->request->server['REMOTE_ADDR'];
+								} elseif (oc_get_ip()) {
+									$ip = oc_get_ip();
 								} else {
 									$ip = '';
 								}

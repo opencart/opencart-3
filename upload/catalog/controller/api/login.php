@@ -35,8 +35,8 @@ class ControllerApiLogin extends Controller {
 				$ip_data[] = trim($result['ip']);
 			}
 
-			if (!in_array($this->request->server['REMOTE_ADDR'], $ip_data)) {
-				$json['error']['ip'] = sprintf($this->language->get('error_ip'), $this->request->server['REMOTE_ADDR']);
+			if (!in_array(oc_get_ip(), $ip_data)) {
+				$json['error']['ip'] = sprintf($this->language->get('error_ip'), oc_get_ip());
 			}
 
 			if (!$json) {
@@ -46,7 +46,7 @@ class ControllerApiLogin extends Controller {
 				$session = new \Session($this->config->get('session_engine'), $this->registry);
 				$session->start();
 
-				$this->model_account_api->addSession($api_info['api_id'], $session->getId(), $this->request->server['REMOTE_ADDR']);
+				$this->model_account_api->addSession($api_info['api_id'], $session->getId(), oc_get_ip());
 
 				$session->data['api_id'] = $api_info['api_id'];
 

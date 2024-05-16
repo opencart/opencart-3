@@ -147,7 +147,7 @@ class ControllerExtensionPaymentEway extends Controller {
 
 		$request->TransactionType = 'Purchase';
 		$request->DeviceID = 'opencart-' . VERSION . ' eway-trans-2.1.2';
-		$request->CustomerIP = $this->request->server['REMOTE_ADDR'];
+		$request->CustomerIP = oc_get_ip();
 		$request->PartnerID = '0f1bec3642814f89a2ea06e7d2800b7f';
 
 		// Eway

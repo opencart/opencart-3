@@ -419,7 +419,7 @@ class ControllerSaleOrder extends Controller {
 
 			$this->model_user_api->deleteSessionBySessionId($session->getId());
 
-			$this->model_user_api->addSession($api_info['api_id'], $session->getId(), $this->request->server['REMOTE_ADDR']);
+			$this->model_user_api->addSession($api_info['api_id'], $session->getId(), oc_get_ip());
 
 			$session->data['api_id'] = $api_info['api_id'];
 
@@ -758,7 +758,7 @@ class ControllerSaleOrder extends Controller {
 
 			$this->model_user_api->deleteSessionBySessionId($session->getId());
 
-			$this->model_user_api->addSession($api_info['api_id'], $session->getId(), $this->request->server['REMOTE_ADDR']);
+			$this->model_user_api->addSession($api_info['api_id'], $session->getId(), oc_get_ip());
 
 			$session->data['api_id'] = $api_info['api_id'];
 
@@ -792,7 +792,7 @@ class ControllerSaleOrder extends Controller {
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
-		$data['text_ip_add'] = sprintf($this->language->get('text_ip_add'), $this->request->server['REMOTE_ADDR']);
+		$data['text_ip_add'] = sprintf($this->language->get('text_ip_add'), oc_get_ip());
 		$data['text_order'] = sprintf($this->language->get('text_order'), $this->request->get['order_id']);
 
 		$url = '';
@@ -1344,7 +1344,7 @@ class ControllerSaleOrder extends Controller {
 			$session->start();
 
 			$this->model_user_api->deleteSessionBySessionId($session->getId());
-			$this->model_user_api->addSession($api_info['api_id'], $session->getId(), $this->request->server['REMOTE_ADDR']);
+			$this->model_user_api->addSession($api_info['api_id'], $session->getId(), oc_get_ip());
 
 			$session->data['api_id'] = $api_info['api_id'];
 

@@ -46,7 +46,7 @@ class ControllerExtensionPaymentAuthorizeNetSim extends Controller {
 		$data['x_ship_to_state'] = $order_info['shipping_zone'];
 		$data['x_ship_to_zip'] = $order_info['shipping_postcode'];
 		$data['x_ship_to_country'] = $order_info['shipping_country'];
-		$data['x_customer_ip'] = $this->request->server['REMOTE_ADDR'];
+		$data['x_customer_ip'] = oc_get_ip();
 		$data['x_email'] = $order_info['email'];
 		$data['x_relay_response'] = 'true';
 

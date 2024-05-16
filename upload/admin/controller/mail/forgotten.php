@@ -25,7 +25,7 @@ class ControllerMailForgotten extends Controller {
 
 			$data['text_greeting'] = sprintf($this->language->get('text_greeting'), $store_name);
 			$data['reset'] = $this->url->link('common/reset', 'email=' . urlencode($args[0]) . '&code=' . $args[1], true);
-			$data['ip'] = $this->request->server['REMOTE_ADDR'];
+			$data['ip'] = oc_get_ip();
 			$data['store'] = $store_name;
 			$data['store_url'] = $this->config->get('config_store_url');
 

@@ -98,8 +98,8 @@ class ControllerExtensionPaymentBluePayRedirect extends Controller {
 		$post_data['DECLINED_URL'] = $this->url->link('extension/payment/bluepay_redirect/callback', '', true);
 		$post_data['MISSING_URL'] = $this->url->link('extension/payment/bluepay_redirect/callback', '', true);
 
-		if (isset($this->request->server['REMOTE_ADDR'])) {
-			$post_data['REMOTE_IP'] = $this->request->server['REMOTE_ADDR'];
+		if (oc_get_ip()) {
+			$post_data['REMOTE_IP'] = oc_get_ip();
 		}
 
 		$tamper_proof_data = $this->config->get('payment_bluepay_redirect_secret_key') . $post_data['MERCHANT'] . $post_data['TRANSACTION_TYPE'] . $post_data['AMOUNT'] . $post_data['RRNO'] . $post_data['MODE'];

@@ -53,7 +53,7 @@ class User {
 				$this->user_group_id = $user_query->row['user_group_id'];
 				$this->email = $user_query->row['email'];
 
-				$this->db->query("UPDATE `" . DB_PREFIX . "user` SET `ip` = '" . $this->db->escape($this->request->server['REMOTE_ADDR']) . "' WHERE `user_id` = '" . (int)$this->session->data['user_id'] . "'");
+				$this->db->query("UPDATE `" . DB_PREFIX . "user` SET `ip` = '" . oc_get_ip() . "' WHERE `user_id` = '" . (int)$this->session->data['user_id'] . "'");
 
 				$user_group_query = $this->db->query("SELECT `permission` FROM `" . DB_PREFIX . "user_group` WHERE `user_group_id` = '" . (int)$user_query->row['user_group_id'] . "'");
 

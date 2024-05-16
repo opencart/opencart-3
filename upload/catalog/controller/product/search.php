@@ -430,8 +430,8 @@ class ControllerProductSearch extends Controller {
 					$customer_id = 0;
 				}
 
-				if (isset($this->request->server['REMOTE_ADDR'])) {
-					$ip = $this->request->server['REMOTE_ADDR'];
+				if (oc_get_ip()) {
+					$ip = oc_get_ip();
 				} else {
 					$ip = '';
 				}

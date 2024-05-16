@@ -34,7 +34,7 @@ class ControllerMailGdpr extends Controller {
 		$data['text_request'] = $this->language->get('text_' . $args[2]);
 		$data['button_confirm'] = $this->language->get('button_' . $args[2]);
 		$data['confirm'] = $this->url->link('information/gdpr/success', 'code=' . $args[0]);
-		$data['ip'] = $this->request->server['REMOTE_ADDR'];
+		$data['ip'] = oc_get_ip();
 
 		$store_name = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
 		$data['store_name'] = $store_name;

@@ -1,4 +1,17 @@
 <?php
+/*
+ * @return string
+ */
+function oc_get_ip(): string {
+	if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+		return $_SERVER['HTTP_X_FORWARDED_FOR'];
+	} elseif (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+		return $_SERVER['HTTP_CLIENT_IP'];
+	} else {
+		return $_SERVER['REMOTE_ADDR'];
+	}
+}
+
 function oc_token($length = 32) {
 	// Create random token
 	$string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';

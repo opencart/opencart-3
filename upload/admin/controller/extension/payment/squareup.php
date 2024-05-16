@@ -294,7 +294,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 			$session->start();
 
 			$this->model_user_api->deleteSessionBySessionId($session->getId());
-			$this->model_user_api->addSession($api_info['api_id'], $session->getId(), $this->request->server['REMOTE_ADDR']);
+			$this->model_user_api->addSession($api_info['api_id'], $session->getId(), oc_get_ip());
 
 			$session->data['api_id'] = $api_info['api_id'];
 
@@ -442,7 +442,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 			$session->start();
 
 			$this->model_user_api->deleteSessionBySessionId($session->getId());
-			$this->model_user_api->addSession($api_info['api_id'], $session->getId(), $this->request->server['REMOTE_ADDR']);
+			$this->model_user_api->addSession($api_info['api_id'], $session->getId(), oc_get_ip());
 
 			$session->data['api_id'] = $api_info['api_id'];
 
@@ -835,7 +835,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 			$session->start();
 
 			$this->model_user_api->deleteSessionBySessionId($session->getId());
-			$this->model_user_api->addSession($api_info['api_id'], $session->getId(), $this->request->server['REMOTE_ADDR']);
+			$this->model_user_api->addSession($api_info['api_id'], $session->getId(), oc_get_ip());
 
 			$session->data['api_id'] = $api_info['api_id'];
 
@@ -913,7 +913,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 			$session->start();
 
 			$this->model_user_api->deleteSessionBySessionId($session->getId());
-			$this->model_user_api->addSession($api_info['api_id'], $session->getId(), $this->request->server['REMOTE_ADDR']);
+			$this->model_user_api->addSession($api_info['api_id'], $session->getId(), oc_get_ip());
 
 			$session->data['api_id'] = $api_info['api_id'];
 
@@ -993,8 +993,8 @@ class ControllerExtensionPaymentSquareup extends Controller {
 			if (!$order_recurring_report_info) {
 				$json['error'] = $this->language->get('error_recurring_report');
 			} else {
-				if (isset($this->request->server['REMOTE_ADDR'])) {
-					$ip = $this->request->server['REMOTE_ADDR'];
+				if (oc_get_ip()) {
+					$ip = oc_get_ip();
 				} else {
 					$ip = '';
 				}

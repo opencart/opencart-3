@@ -29,7 +29,7 @@ class ControllerStartupMarketing extends Controller {
 			$marketing_info = $this->model_checkout_marketing->getMarketingByCode($tracking);
 
 			if ($marketing_info) {
-				$this->model_checkout_marketing->addReport($marketing_info['marketing_id'], $this->request->server['REMOTE_ADDR']);
+				$this->model_checkout_marketing->addReport($marketing_info['marketing_id'], oc_get_ip());
 			}
 
 			if ($this->config->get('config_affiliate_status')) {
@@ -39,7 +39,7 @@ class ControllerStartupMarketing extends Controller {
 				$affiliate_info = $this->model_account_customer->getAffiliateByTracking($tracking);
 
 				if ($affiliate_info && $affiliate_info['status']) {
-					$this->model_account_customer->addReport($affiliate_info['customer_id'], $this->request->server['REMOTE_ADDR']);
+					$this->model_account_customer->addReport($affiliate_info['customer_id'], oc_get_ip());
 				}
 
 				if ($marketing_info || ($affiliate_info && $affiliate_info['status'])) {

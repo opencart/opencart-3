@@ -96,8 +96,8 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 			$tamper_proof_data = $this->config->get('payment_bluepay_hosted_secret_key') . $void_data['MERCHANT'] . $void_data['TRANSACTION_TYPE'] . $void_data['RRNO'] . $void_data['MODE'];
 			$void_data['TAMPER_PROOF_SEAL'] = md5($tamper_proof_data);
 
-			if (isset($this->request->server['REMOTE_ADDR'])) {
-				$void_data['REMOTE_IP'] = $this->request->server['REMOTE_ADDR'];
+			if (oc_get_ip()) {
+				$void_data['REMOTE_IP'] = oc_get_ip();
 			}
 
 			$this->logger('$void_data:\r\n' . print_r($void_data, 1));
@@ -150,8 +150,8 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 
 			$release_data['TAMPER_PROOF_SEAL'] = md5($tamper_proof_data);
 
-			if (isset($this->request->server['REMOTE_ADDR'])) {
-				$release_data['REMOTE_IP'] = $this->request->server['REMOTE_ADDR'];
+			if (oc_get_ip()) {
+				$release_data['REMOTE_IP'] = oc_get_ip();
 			}
 
 			return $this->sendCurl('https://secure.bluepay.com/interfaces/bp10emu', $release_data);
@@ -197,8 +197,8 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 			$tamper_proof_data = $this->config->get('payment_bluepay_hosted_secret_key') . $rebate_data['MERCHANT'] . $rebate_data['TRANSACTION_TYPE'] . $rebate_data['AMOUNT'] . $rebate_data['RRNO'] . $rebate_data['MODE'];
 			$rebate_data['TAMPER_PROOF_SEAL'] = md5($tamper_proof_data);
 
-			if (isset($this->request->server['REMOTE_ADDR'])) {
-				$rebate_data['REMOTE_IP'] = $this->request->server['REMOTE_ADDR'];
+			if (oc_get_ip()) {
+				$rebate_data['REMOTE_IP'] = oc_get_ip();
 			}
 
 			return $this->sendCurl('https://secure.bluepay.com/interfaces/bp10emu', $rebate_data);

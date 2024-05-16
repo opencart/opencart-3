@@ -85,7 +85,7 @@ class ControllerExtensionPaymentAuthorizeNetAim extends Controller {
 		$post_data['x_zip'] = $order_info['payment_postcode'];
 		$post_data['x_country'] = $order_info['payment_country'];
 		$post_data['x_phone'] = $order_info['telephone'];
-		$post_data['x_customer_ip'] = $this->request->server['REMOTE_ADDR'];
+		$post_data['x_customer_ip'] = oc_get_ip();
 		$post_data['x_email'] = $order_info['email'];
 		$post_data['x_description'] = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
 		$post_data['x_amount'] = $this->currency->format($order_info['total'], $order_info['currency_code'], 1.00000, false);

@@ -207,8 +207,8 @@ class ControllerExtensionPaymentSquareup extends Controller {
 				$user_agent = '';
 			}
 
-			if (isset($this->request->server['REMOTE_ADDR'])) {
-				$ip = $this->request->server['REMOTE_ADDR'];
+			if (oc_get_ip()) {
+				$ip = oc_get_ip();
 			} else {
 				$ip = '';
 			}
