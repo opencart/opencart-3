@@ -32,9 +32,10 @@ function oc_token($length = 32) {
  * http://php.net/manual/en/function.hash-equals.php
  */
 if (!function_exists('hash_equals')) {
-	function hash_equals($known_string, $user_string) {
-		$known_string = (string)$known_string;
-		$user_string = (string)$user_string;
+	function hash_equals($known_string, $user_string)
+	{
+		$known_string = (string) $known_string;
+		$user_string = (string) $user_string;
 
 		if (strlen($known_string) != strlen($user_string)) {
 			return false;
