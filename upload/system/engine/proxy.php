@@ -49,11 +49,11 @@ class Proxy {
 	 * Call
 	 *
 	 * @param string              $key
-	 * @param array<string mixed> $args
+	 * @param mixed               $args
 	 *
 	 * @return mixed
 	 */
-	public function __call(string $key, array $args) {
+	public function __call(string $key, $args) {
 		$arg_data = [];
 
 		$args = func_get_args();
