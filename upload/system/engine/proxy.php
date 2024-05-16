@@ -25,7 +25,7 @@ class Proxy {
 	/**
 	 * Get
 	 *
-	 * @param $key
+	 * @param mixed $key
 	 *
 	 * @return mixed
 	 */
@@ -36,24 +36,24 @@ class Proxy {
 	/**
 	 * Set
 	 *
-	 * @param $key
-	 * @param $value
+	 * @param string $key
+	 * @param object $value
 	 *
 	 * @return void
 	 */
-	public function __set($key, $value): void {
+	public function __set(string $key, object $value): void {
 		$this->data[$key] = $value;
 	}
 
 	/**
 	 * Call
 	 *
-	 * @param $key
-	 * @param $args
+	 * @param string              $key
+	 * @param array<string mixed> $args
 	 *
-	 * @return mixed|void
+	 * @return mixed
 	 */
-	public function __call($key, $args) {
+	public function __call(string $key, array $args) {
 		$arg_data = [];
 
 		$args = func_get_args();
