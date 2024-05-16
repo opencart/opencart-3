@@ -73,7 +73,7 @@ function modification($filename) {
 
 // Autoloader
 if (defined('DIR_STORAGE') && is_file(DIR_STORAGE . 'vendor/autoload.php')) {
-	require_once (DIR_STORAGE . 'vendor/autoload.php');
+	require_once(DIR_STORAGE . 'vendor/autoload.php');
 }
 
 // Library
@@ -81,7 +81,7 @@ function library($class) {
 	$file = DIR_SYSTEM . 'library/' . str_replace('\\', '/', strtolower($class)) . '.php';
 
 	if (is_file($file)) {
-		include_once (modification($file));
+		include_once(modification($file));
 
 		return true;
 	} else {
@@ -93,23 +93,23 @@ spl_autoload_register('library');
 spl_autoload_extensions('.php');
 
 // Engine
-require_once (modification(DIR_SYSTEM . 'engine/action.php'));
-require_once (modification(DIR_SYSTEM . 'engine/controller.php'));
-require_once (modification(DIR_SYSTEM . 'engine/event.php'));
-require_once (modification(DIR_SYSTEM . 'engine/router.php'));
-require_once (modification(DIR_SYSTEM . 'engine/loader.php'));
-require_once (modification(DIR_SYSTEM . 'engine/model.php'));
-require_once (modification(DIR_SYSTEM . 'engine/registry.php'));
-require_once (modification(DIR_SYSTEM . 'engine/proxy.php'));
+require_once(modification(DIR_SYSTEM . 'engine/action.php'));
+require_once(modification(DIR_SYSTEM . 'engine/controller.php'));
+require_once(modification(DIR_SYSTEM . 'engine/event.php'));
+require_once(modification(DIR_SYSTEM . 'engine/router.php'));
+require_once(modification(DIR_SYSTEM . 'engine/loader.php'));
+require_once(modification(DIR_SYSTEM . 'engine/model.php'));
+require_once(modification(DIR_SYSTEM . 'engine/registry.php'));
+require_once(modification(DIR_SYSTEM . 'engine/proxy.php'));
 
 // OpenCart Autoloader
-require_once (DIR_SYSTEM . 'engine/autoloader.php');
+require_once(DIR_SYSTEM . 'engine/autoloader.php');
 
 // Helper
-require_once (DIR_SYSTEM . 'helper/general.php');
-require_once (DIR_SYSTEM . 'helper/utf8.php');
+require_once(DIR_SYSTEM . 'helper/general.php');
+require_once(DIR_SYSTEM . 'helper/utf8.php');
 
 // Start
 function start($application_config): void {
-	require_once (DIR_SYSTEM . 'framework.php');
+	require_once(DIR_SYSTEM . 'framework.php');
 }
