@@ -158,16 +158,6 @@ class ComposerStaticInit723df5bcd9366cc0d09a11e95c1b3994
         ),
     );
 
-    public static $prefixesPsr0 = array (
-        'D' => 
-        array (
-            'Divido' => 
-            array (
-                0 => __DIR__ . '/..' . '/divido/divido-php/lib',
-            ),
-        ),
-    );
-
     public static $classMap = array (
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
@@ -194,7 +184,6 @@ class ComposerStaticInit723df5bcd9366cc0d09a11e95c1b3994
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit723df5bcd9366cc0d09a11e95c1b3994::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit723df5bcd9366cc0d09a11e95c1b3994::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit723df5bcd9366cc0d09a11e95c1b3994::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit723df5bcd9366cc0d09a11e95c1b3994::$classMap;
 
         }, null, ClassLoader::class);

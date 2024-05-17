@@ -6,5 +6,4 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname(dirname(dirname(dirname($vendorDir))));
 
 return array(
-    'Divido' => array($vendorDir . '/divido/divido-php/lib'),
 );

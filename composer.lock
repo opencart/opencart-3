@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bb9c4f8ff8643ce5c69b8c7eb1e844b4",
+    "content-hash": "008455ddc8cb9f556a12b8e0ee13f703",
     "packages": [
         {
             "name": "cardinity/cardinity-sdk-php",
@@ -49,55 +49,6 @@
                 "source": "https://github.com/cardinity/cardinity-sdk-php/tree/v3.3.3"
             },
             "time": "2024-05-13T11:57:54+00:00"
-        },
-        {
-            "name": "divido/divido-php",
-            "version": "v1.15-stable",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/DividoFinancialServices/divido-api-php.git",
-                "reference": "8edd902ec2be8151331985021107031292b41ca1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/DividoFinancialServices/divido-api-php/zipball/8edd902ec2be8151331985021107031292b41ca1",
-                "reference": "8edd902ec2be8151331985021107031292b41ca1",
-                "shasum": ""
-            },
-            "require": {
-                "ext-curl": "*",
-                "php": ">=5.2.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "master": "2.0-dev",
-                    "v1.1.1": "1.1.1-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Divido": "lib"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Divido PHP library",
-            "homepage": "https://www.divido.com/",
-            "keywords": [
-                "api",
-                "divido",
-                "finance",
-                "instalments",
-                "payment processing"
-            ],
-            "support": {
-                "issues": "https://github.com/DividoFinancialServices/divido-api-php/issues",
-                "source": "https://github.com/DividoFinancialServices/divido-api-php/tree/v1.15-stable"
-            },
-            "time": "2018-01-21T15:38:57+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
