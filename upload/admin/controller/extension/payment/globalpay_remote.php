@@ -158,16 +158,16 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 			$data['payment_globalpay_remote_liability'] = $this->config->get('payment_globalpay_remote_liability');
 		}
 
-		if (isset($this->request->post['payment_globalpay_remote_success_settled_id'])) {
-			$data['payment_globalpay_remote_success_settled_id'] = (int)$this->request->post['payment_globalpay_remote_success_settled_id'];
+		if (isset($this->request->post['payment_globalpay_remote_success_settled_status_id'])) {
+			$data['payment_globalpay_remote_success_settled_status_id'] = (int)$this->request->post['payment_globalpay_remote_success_settled_status_id'];
 		} else {
-			$data['payment_globalpay_remote_success_settled_id'] = (int)$this->config->get('payment_globalpay_remote_success_settled_id');
+			$data['payment_globalpay_remote_success_settled_status_id'] = (int)$this->config->get('payment_globalpay_remote_success_settled_status_id');
 		}
 
-		if (isset($this->request->post['payment_globalpay_remote_success_unsettled_id'])) {
-			$data['payment_globalpay_remote_success_unsettled_id'] = (int)$this->request->post['payment_globalpay_remote_success_unsettled_id'];
+		if (isset($this->request->post['payment_globalpay_remote_success_unsettled_status_id'])) {
+			$data['payment_globalpay_remote_success_unsettled_status_id'] = (int)$this->request->post['payment_globalpay_remote_success_unsettled_status_id'];
 		} else {
-			$data['payment_globalpay_remote_success_unsettled_id'] = (int)$this->config->get('payment_globalpay_remote_success_unsettled_id');
+			$data['payment_globalpay_remote_success_unsettled_status_id'] = (int)$this->config->get('payment_globalpay_remote_success_unsettled_status_id');
 		}
 
 		if (isset($this->request->post['payment_globalpay_remote_order_status_decline_id'])) {

@@ -521,7 +521,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 						$json['msg'] = $this->language->get('text_release_ok_order');
 
 						$json['order_id'] = (int)$this->request->post['order_id'];
-						$json['order_status_id'] = (int)$this->config->get('payment_securetrading_ws_success_settled_id');
+						$json['order_status_id'] = (int)$this->config->get('payment_securetrading_ws_success_settled_status_id');
 					} else {
 						$release_status = 0;
 
