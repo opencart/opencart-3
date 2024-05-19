@@ -376,30 +376,30 @@ class ModelExtensionPaymentRealexRemote extends Model {
 			if ($this->config->get('payment_realex_remote_auto_settle') == 1) {
 				$this->addTransaction($realex_order_id, 'payment', $order_info);
 
-				$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_realex_remote_order_status_success_settled_id'), $message);
+				$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_realex_remote_success_settled_id'), $message);
 			} else {
 				$this->addTransaction($realex_order_id, 'auth', 0);
 
-				$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_realex_remote_order_status_success_unsettled_id'), $message);
+				$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_realex_remote_success_unsettled_id'), $message);
 			}
 		} elseif ($response->result == '101') {
 			// Decline
 			$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_realex_remote_order_status_decline_id'), $message);
 		} elseif ($response->result == '102') {
 			// Referal B
-			$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_realex_remote_order_status_decline_pending_id'), $message);
+			$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_realex_remote_decline_pending_id'), $message);
 		} elseif ($response->result == '103') {
 			// Referal A
-			$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_realex_remote_order_status_decline_stolen_id'), $message);
+			$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_realex_remote_decline_stolen_id'), $message);
 		} elseif ($response->result == '200') {
 			// Error Connecting to Bank
-			$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_realex_remote_order_status_decline_bank_id'), $message);
+			$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_realex_remote_decline_bank_id'), $message);
 		} elseif ($response->result == '204') {
 			// Error Connecting to Bank
-			$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_realex_remote_order_status_decline_bank_id'), $message);
+			$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_realex_remote_decline_bank_id'), $message);
 		} elseif ($response->result == '205') {
 			// Comms Error
-			$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_realex_remote_order_status_decline_bank_id'), $message);
+			$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_realex_remote_decline_bank_id'), $message);
 		} else {
 			// Other
 			$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_realex_remote_order_status_decline_id'), $message);

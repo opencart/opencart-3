@@ -153,9 +153,9 @@
             </div>
             <div class="tab-pane" id="tab-order-status">
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-order-status-success-settled">{{ entry_status_success_settled }}</label>
+                <label class="col-sm-2 control-label" for="input-order-status-success-settled">{{ entry_status"payment_$1_$2_$3_id"_settled }}</label>
                 <div class="col-sm-10">
-                  <select name="payment_firstdata_remote_order_status_success_settled_id" class="form-control" id="input-order-status-success-settled"/>
+                  <select name="payment_firstdata_remote_success_settled_id" class="form-control" id="input-order-status-success-settled"/>
                     {% for order_status in order_statuses %}
                       {% if order_status.order_status_id == payment_firstdata_remote_order_status_success_settled_id %}
                         <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
@@ -169,7 +169,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-order-status-success-unsettled">{{ entry_status_success_unsettled }}</label>
                 <div class="col-sm-10">
-                  <select name="payment_firstdata_remote_order_status_success_unsettled_id" class="form-control" id="input-order-status-success-unsettled"/>
+                  <select name="payment_firstdata_remote_success_unsettled_id" class="form-control" id="input-order-status-success-unsettled"/>
                     {% for order_status in order_statuses %}
                       {% if order_status.order_status_id == payment_firstdata_remote_order_status_success_unsettled_id %}
                         <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>

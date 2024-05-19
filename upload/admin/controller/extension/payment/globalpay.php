@@ -166,40 +166,40 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
 			$data['payment_globalpay_tss_check'] = $this->config->get('payment_globalpay_tss_check');
 		}
 
-		if (isset($this->request->post['payment_globalpay_order_status_success_settled_id'])) {
-			$data['payment_globalpay_order_status_success_settled_id'] = (int)$this->request->post['payment_globalpay_order_status_success_settled_id'];
+		if (isset($this->request->post['payment_globalpay_success_settled_id'])) {
+			$data['payment_globalpay_success_settled_id'] = (int)$this->request->post['payment_globalpay_success_settled_id'];
 		} else {
-			$data['payment_globalpay_order_status_success_settled_id'] = (int)$this->config->get('payment_globalpay_order_status_success_settled_id');
+			$data['payment_globalpay_success_settled_id'] = (int)$this->config->get('payment_globalpay_success_settled_id');
 		}
 
-		if (isset($this->request->post['payment_globalpay_order_status_success_unsettled_id'])) {
-			$data['payment_globalpay_order_status_success_unsettled_id'] = (int)$this->request->post['payment_globalpay_order_status_success_unsettled_id'];
+		if (isset($this->request->post['payment_globalpay_success_unsettled_id'])) {
+			$data['payment_globalpay_success_unsettled_id'] = (int)$this->request->post['payment_globalpay_success_unsettled_id'];
 		} else {
-			$data['payment_globalpay_order_status_success_unsettled_id'] = (int)$this->config->get('payment_globalpay_order_status_success_unsettled_id');
+			$data['payment_globalpay_success_unsettled_id'] = (int)$this->config->get('payment_globalpay_success_unsettled_id');
 		}
 
 		if (isset($this->request->post['payment_globalpay_order_status_decline_id'])) {
-			$data['payment_globalpay_order_status_decline_id'] = (int)$this->request->post['payment_globalpay_order_status_decline_id'];
+			$data['payment_globalpay_decline_id'] = (int)$this->request->post['payment_globalpay_order_status_decline_id'];
 		} else {
-			$data['payment_globalpay_order_status_decline_id'] = (int)$this->config->get('payment_globalpay_order_status_decline_id');
+			$data['payment_globalpay_decline_id'] = (int)$this->config->get('payment_globalpay_order_status_decline_id');
 		}
 
-		if (isset($this->request->post['payment_globalpay_order_status_decline_pending_id'])) {
-			$data['payment_globalpay_order_status_decline_pending_id'] = (int)$this->request->post['payment_globalpay_order_status_decline_pending_id'];
+		if (isset($this->request->post['payment_globalpay_decline_pending_id'])) {
+			$data['payment_globalpay_decline_pending_id'] = (int)$this->request->post['payment_globalpay_decline_pending_id'];
 		} else {
-			$data['payment_globalpay_order_status_decline_pending_id'] = (int)$this->config->get('payment_globalpay_order_status_decline_pending_id');
+			$data['payment_globalpay_decline_pending_id'] = (int)$this->config->get('payment_globalpay_decline_pending_id');
 		}
 
-		if (isset($this->request->post['payment_globalpay_order_status_decline_stolen_id'])) {
-			$data['payment_globalpay_order_status_decline_stolen_id'] = (int)$this->request->post['payment_globalpay_order_status_decline_stolen_id'];
+		if (isset($this->request->post['payment_globalpay_decline_stolen_id'])) {
+			$data['payment_globalpay_decline_stolen_id'] = (int)$this->request->post['payment_globalpay_decline_stolen_id'];
 		} else {
-			$data['payment_globalpay_order_status_decline_stolen_id'] = (int)$this->config->get('payment_globalpay_order_status_decline_stolen_id');
+			$data['payment_globalpay_decline_stolen_id'] = (int)$this->config->get('payment_globalpay_decline_stolen_id');
 		}
 
-		if (isset($this->request->post['payment_globalpay_order_status_decline_bank_id'])) {
-			$data['payment_globalpay_order_status_decline_bank_id'] = (int)$this->request->post['payment_globalpay_order_status_decline_bank_id'];
+		if (isset($this->request->post['payment_globalpay_decline_bank_id'])) {
+			$data['payment_globalpay_decline_bank_id'] = (int)$this->request->post['payment_globalpay_decline_bank_id'];
 		} else {
-			$data['payment_globalpay_order_status_decline_bank_id'] = (int)$this->config->get('payment_globalpay_order_status_decline_bank_id');
+			$data['payment_globalpay_decline_bank_id'] = (int)$this->config->get('payment_globalpay_decline_bank_id');
 		}
 
 		// Order Statuses

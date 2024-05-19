@@ -166,40 +166,40 @@ class ControllerExtensionPaymentRealex extends Controller {
 			$data['payment_realex_tss_check'] = $this->config->get('payment_realex_tss_check');
 		}
 
-		if (isset($this->request->post['payment_realex_order_status_success_settled_id'])) {
-			$data['payment_realex_order_status_success_settled_id'] = (int)$this->request->post['payment_realex_order_status_success_settled_id'];
+		if (isset($this->request->post['payment_realex_success_settled_id'])) {
+			$data['payment_realex_success_settled_id'] = (int)$this->request->post['payment_realex_success_settled_id'];
 		} else {
-			$data['payment_realex_order_status_success_settled_id'] = (int)$this->config->get('payment_realex_order_status_success_settled_id');
+			$data['payment_realex_success_settled_id'] = (int)$this->config->get('payment_realex_success_settled_id');
 		}
 
-		if (isset($this->request->post['payment_realex_order_status_success_unsettled_id'])) {
-			$data['payment_realex_order_status_success_unsettled_id'] = (int)$this->request->post['payment_realex_order_status_success_unsettled_id'];
+		if (isset($this->request->post['payment_realex_success_unsettled_id'])) {
+			$data['payment_realex_success_unsettled_id'] = (int)$this->request->post['payment_realex_success_unsettled_id'];
 		} else {
-			$data['payment_realex_order_status_success_unsettled_id'] = (int)$this->config->get('payment_realex_order_status_success_unsettled_id');
+			$data['payment_realex_success_unsettled_id'] = (int)$this->config->get('payment_realex_success_unsettled_id');
 		}
 
 		if (isset($this->request->post['payment_realex_order_status_decline_id'])) {
-			$data['payment_realex_order_status_decline_id'] = (int)$this->request->post['payment_realex_order_status_decline_id'];
+			$data['payment_realex_decline_id'] = (int)$this->request->post['payment_realex_order_status_decline_id'];
 		} else {
-			$data['payment_realex_order_status_decline_id'] = (int)$this->config->get('payment_realex_order_status_decline_id');
+			$data['payment_realex_decline_id'] = (int)$this->config->get('payment_realex_order_status_decline_id');
 		}
 
-		if (isset($this->request->post['payment_realex_order_status_decline_pending_id'])) {
-			$data['payment_realex_order_status_decline_pending_id'] = (int)$this->request->post['payment_realex_order_status_decline_pending_id'];
+		if (isset($this->request->post['payment_realex_decline_pending_id'])) {
+			$data['payment_realex_decline_pending_id'] = (int)$this->request->post['payment_realex_decline_pending_id'];
 		} else {
-			$data['payment_realex_order_status_decline_pending_id'] = (int)$this->config->get('payment_realex_order_status_decline_pending_id');
+			$data['payment_realex_decline_pending_id'] = (int)$this->config->get('payment_realex_decline_pending_id');
 		}
 
-		if (isset($this->request->post['payment_realex_order_status_decline_stolen_id'])) {
-			$data['payment_realex_order_status_decline_stolen_id'] = (int)$this->request->post['payment_realex_order_status_decline_stolen_id'];
+		if (isset($this->request->post['payment_realex_decline_stolen_id'])) {
+			$data['payment_realex_decline_stolen_id'] = (int)$this->request->post['payment_realex_decline_stolen_id'];
 		} else {
-			$data['payment_realex_order_status_decline_stolen_id'] = (int)$this->config->get('payment_realex_order_status_decline_stolen_id');
+			$data['payment_realex_decline_stolen_id'] = (int)$this->config->get('payment_realex_decline_stolen_id');
 		}
 
-		if (isset($this->request->post['payment_realex_order_status_decline_bank_id'])) {
-			$data['payment_realex_order_status_decline_bank_id'] = (int)$this->request->post['payment_realex_order_status_decline_bank_id'];
+		if (isset($this->request->post['payment_realex_decline_bank_id'])) {
+			$data['payment_realex_decline_bank_id'] = (int)$this->request->post['payment_realex_decline_bank_id'];
 		} else {
-			$data['payment_realex_order_status_decline_bank_id'] = (int)$this->config->get('payment_realex_order_status_decline_bank_id');
+			$data['payment_realex_decline_bank_id'] = (int)$this->config->get('payment_realex_decline_bank_id');
 		}
 
 		// Order Statuses

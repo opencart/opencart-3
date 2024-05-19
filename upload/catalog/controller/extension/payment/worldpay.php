@@ -89,7 +89,7 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 		$order = [
 			'token'             => $this->request->post['token'],
 			'orderType'         => $order_type,
-			'amount'            => (float)$amount * 100,
+			'amount'            => (float)$price * 100,
 			'currencyCode'      => $order_info['currency_code'],
 			'name'              => $order_info['firstname'] . ' ' . $order_info['lastname'],
 			'orderDescription'  => $order_info['store_name'] . ' - ' . date('Y-m-d H:i:s'),
