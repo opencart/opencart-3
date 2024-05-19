@@ -97,36 +97,36 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 			$data['payment_securetrading_ws_order_status_id'] = 1;
 		}
 
-		if (isset($this->request->post['payment_securetrading_ws_failed_order_status_id'])) {
-			$data['payment_securetrading_ws_failed_id'] = (int)$this->request->post['payment_securetrading_ws_failed_order_status_id'];
-		} elseif ($this->config->get('payment_securetrading_ws_failed_order_status_id') != '') {
-			$data['payment_securetrading_ws_failed_id'] = (int)$this->config->get('payment_securetrading_ws_failed_order_status_id');
+		if (isset($this->request->post['payment_securetrading_ws_failed_status_id'])) {
+			$data['payment_securetrading_ws_failed_id'] = (int)$this->request->post['payment_securetrading_ws_failed_status_id'];
+		} elseif ($this->config->get('payment_securetrading_ws_failed_status_id') != '') {
+			$data['payment_securetrading_ws_failed_id'] = (int)$this->config->get('payment_securetrading_ws_failed_status_id');
 		} else {
-			$data['payment_securetrading_ws_failed_order_status_id'] = 10;
+			$data['payment_securetrading_ws_failed_status_id'] = 10;
 		}
 
-		if (isset($this->request->post['payment_securetrading_ws_declined_order_status_id'])) {
-			$data['payment_securetrading_ws_declined_id'] = (int)$this->request->post['payment_securetrading_ws_declined_order_status_id'];
-		} elseif ($this->config->get('payment_securetrading_ws_declined_order_status_id') != '') {
-			$data['payment_securetrading_ws_declined_id'] = (int)$this->config->get('payment_securetrading_ws_declined_order_status_id');
+		if (isset($this->request->post['payment_securetrading_ws_declined_status_id'])) {
+			$data['payment_securetrading_ws_declined_id'] = (int)$this->request->post['payment_securetrading_ws_declined_status_id'];
+		} elseif ($this->config->get('payment_securetrading_ws_declined_status_id') != '') {
+			$data['payment_securetrading_ws_declined_id'] = (int)$this->config->get('payment_securetrading_ws_declined_status_id');
 		} else {
-			$data['payment_securetrading_ws_declined_order_status_id'] = 8;
+			$data['payment_securetrading_ws_declined_status_id'] = 8;
 		}
 
-		if (isset($this->request->post['payment_securetrading_ws_refunded_order_status_id'])) {
-			$data['payment_securetrading_ws_refunded_id'] = (int)$this->request->post['payment_securetrading_ws_refunded_order_status_id'];
-		} elseif ($this->config->get('payment_securetrading_ws_refunded_order_status_id') != '') {
-			$data['payment_securetrading_ws_refunded_id'] = (int)$this->config->get('payment_securetrading_ws_refunded_order_status_id');
+		if (isset($this->request->post['payment_securetrading_ws_refunded_status_id'])) {
+			$data['payment_securetrading_ws_refunded_id'] = (int)$this->request->post['payment_securetrading_ws_refunded_status_id'];
+		} elseif ($this->config->get('payment_securetrading_ws_refunded_status_id') != '') {
+			$data['payment_securetrading_ws_refunded_id'] = (int)$this->config->get('payment_securetrading_ws_refunded_status_id');
 		} else {
-			$data['payment_securetrading_ws_refunded_order_status_id'] = 11;
+			$data['payment_securetrading_ws_refunded_status_id'] = 11;
 		}
 
-		if (isset($this->request->post['payment_securetrading_ws_authorisation_reversed_order_status_id'])) {
-			$data['payment_securetrading_ws_authorisation_reversed_id'] = (int)$this->request->post['payment_securetrading_ws_authorisation_reversed_order_status_id'];
-		} elseif ($this->config->get('payment_securetrading_ws_authorisation_reversed_order_status_id') != '') {
-			$data['payment_securetrading_ws_authorisation_reversed_id'] = (int)$this->config->get('payment_securetrading_ws_authorisation_reversed_order_status_id');
+		if (isset($this->request->post['payment_securetrading_ws_authorisation_reversed_status_id'])) {
+			$data['payment_securetrading_ws_authorisation_reversed_id'] = (int)$this->request->post['payment_securetrading_ws_authorisation_reversed_status_id'];
+		} elseif ($this->config->get('payment_securetrading_ws_authorisation_reversed_status_id') != '') {
+			$data['payment_securetrading_ws_authorisation_reversed_id'] = (int)$this->config->get('payment_securetrading_ws_authorisation_reversed_status_id');
 		} else {
-			$data['payment_securetrading_ws_authorisation_reversed_order_status_id'] = 12;
+			$data['payment_securetrading_ws_authorisation_reversed_status_id'] = 12;
 		}
 
 		if (isset($this->request->post['payment_securetrading_ws_settle_status'])) {
@@ -460,7 +460,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 					$json['data']['created'] = date('Y-m-d H:i:s');
 
 					$json['order_id'] = (int)$this->request->post['order_id'];
-					$json['order_status_id'] = (int)$this->config->get('payment_securetrading_ws_authorisation_reversed_order_status_id');
+					$json['order_status_id'] = (int)$this->config->get('payment_securetrading_ws_authorisation_reversed_status_id');
 
 					$json['error'] = false;
 				}
@@ -593,7 +593,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 						$json['msg'] = $this->language->get('text_rebate_ok_order');
 
 						$json['order_id'] = (int)$this->request->post['order_id'];
-						$json['order_status_id'] = $this->config->get('payment_securetrading_ws_refunded_order_status_id');
+						$json['order_status_id'] = $this->config->get('payment_securetrading_ws_refunded_status_id');
 					} else {
 						$rebate_status = 0;
 

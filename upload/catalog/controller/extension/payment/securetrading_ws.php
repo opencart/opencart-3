@@ -317,7 +317,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
 						$this->response->redirect($this->url->link('checkout/success', '', true));
 					} else {
-						$this->model_extension_payment_securetrading_ws->updateOrder($order_id, $this->config->get('payment_securetrading_ws_declined_order_status_id'));
+						$this->model_extension_payment_securetrading_ws->updateOrder($order_id, $this->config->get('payment_securetrading_ws_declined_status_id'));
 
 						$this->session->data['error'] = $this->language->get('text_transaction_declined');
 
@@ -385,14 +385,14 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
 					$json['status'] = 1;
 				} else {
-					$this->model_extension_payment_securetrading_ws->updateOrder($order_id, $this->config->get('payment_securetrading_ws_declined_order_status_id'));
+					$this->model_extension_payment_securetrading_ws->updateOrder($order_id, $this->config->get('payment_securetrading_ws_declined_status_id'));
 
 					$json['message'] = $this->language->get('text_transaction_declined');
 
 					$json['status'] = 0;
 				}
 			} else {
-				$this->model_extension_payment_securetrading_ws->updateOrder($order_id, $this->config->get('payment_securetrading_ws_failed_order_status_id'));
+				$this->model_extension_payment_securetrading_ws->updateOrder($order_id, $this->config->get('payment_securetrading_ws_failed_status_id'));
 
 				$json['message'] = $this->language->get('text_transaction_failed');
 
