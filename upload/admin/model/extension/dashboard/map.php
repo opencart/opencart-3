@@ -9,7 +9,7 @@ class ModelExtensionDashboardMap extends Model {
 		$implode = [];
 
 		foreach ((array)$this->config->get('config_complete_status') as $order_status_id) {
-			$implode[] = (int)$order_status_id;
+			$implode[] = "`o`.`order_status_id` = '" . (int)$order_status_id . "'";
 		}
 
 		if ($implode) {
