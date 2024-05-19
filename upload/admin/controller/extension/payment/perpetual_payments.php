@@ -96,7 +96,7 @@ class ControllerExtensionPaymentPerpetualPayments extends Controller {
 		if (isset($this->request->post['payment_perpetual_payments_order_status_id'])) {
 			$data['payment_perpetual_payments_order_status_id'] = (int)$this->request->post['payment_perpetual_payments_order_status_id'];
 		} else {
-			$data['payment_perpetual_payments_order_status_id'] = $this->config->get('payment_perpetual_payments_order_status_id');
+			$data['payment_perpetual_payments_order_status_id'] = (int)$this->config->get('payment_perpetual_payments_order_status_id');
 		}
 
 		// Order Statuses
@@ -107,7 +107,7 @@ class ControllerExtensionPaymentPerpetualPayments extends Controller {
 		if (isset($this->request->post['payment_perpetual_payments_geo_zone_id'])) {
 			$data['payment_perpetual_payments_geo_zone_id'] = (int)$this->request->post['payment_perpetual_payments_geo_zone_id'];
 		} else {
-			$data['payment_perpetual_payments_geo_zone_id'] = $this->config->get('payment_perpetual_payments_geo_zone_id');
+			$data['payment_perpetual_payments_geo_zone_id'] = (int)$this->config->get('payment_perpetual_payments_geo_zone_id');
 		}
 
 		// Geo Zones

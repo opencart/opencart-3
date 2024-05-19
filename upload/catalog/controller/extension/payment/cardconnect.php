@@ -99,12 +99,12 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 							$capture = 'Y';
 							$type = 'payment';
 							$status = 'New';
-							$order_status_id = $this->config->get('payment_cardconnect_processing_status_id');
+							$order_status_id = (int)$this->config->get('payment_cardconnect_processing_status_id');
 						} else {
 							$capture = 'N';
 							$type = 'auth';
 							$status = 'New';
-							$order_status_id = $this->config->get('payment_cardconnect_pending_status_id');
+							$order_status_id = (int)$this->config->get('payment_cardconnect_pending_status_id');
 						}
 
 						$post_data = [

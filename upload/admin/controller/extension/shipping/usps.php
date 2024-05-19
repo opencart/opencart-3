@@ -395,7 +395,7 @@ class ControllerExtensionShippingUsps extends Controller {
 		if (isset($this->request->post['shipping_usps_weight_class_id'])) {
 			$data['shipping_usps_weight_class_id'] = (int)$this->request->post['shipping_usps_weight_class_id'];
 		} else {
-			$data['shipping_usps_weight_class_id'] = $this->config->get('shipping_usps_weight_class_id');
+			$data['shipping_usps_weight_class_id'] = (int)$this->config->get('shipping_usps_weight_class_id');
 		}
 
 		// Weight Classes
@@ -406,7 +406,7 @@ class ControllerExtensionShippingUsps extends Controller {
 		if (isset($this->request->post['shipping_usps_tax_class_id'])) {
 			$data['shipping_usps_tax_class_id'] = (int)$this->request->post['shipping_usps_tax_class_id'];
 		} else {
-			$data['shipping_usps_tax_class_id'] = $this->config->get('shipping_usps_tax_class_id');
+			$data['shipping_usps_tax_class_id'] = (int)$this->config->get('shipping_usps_tax_class_id');
 		}
 
 		// Tax Classes
@@ -417,7 +417,7 @@ class ControllerExtensionShippingUsps extends Controller {
 		if (isset($this->request->post['shipping_usps_geo_zone_id'])) {
 			$data['shipping_usps_geo_zone_id'] = (int)$this->request->post['shipping_usps_geo_zone_id'];
 		} else {
-			$data['shipping_usps_geo_zone_id'] = $this->config->get('shipping_usps_geo_zone_id');
+			$data['shipping_usps_geo_zone_id'] = (int)$this->config->get('shipping_usps_geo_zone_id');
 		}
 
 		// Geo Zones

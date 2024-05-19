@@ -90,7 +90,7 @@ class ControllerExtensionPaymentSagepayUS extends Controller {
 		if (isset($this->request->post['payment_sagepay_us_order_status_id'])) {
 			$data['payment_sagepay_us_order_status_id'] = (int)$this->request->post['payment_sagepay_us_order_status_id'];
 		} else {
-			$data['payment_sagepay_us_order_status_id'] = $this->config->get('payment_sagepay_us_order_status_id');
+			$data['payment_sagepay_us_order_status_id'] = (int)$this->config->get('payment_sagepay_us_order_status_id');
 		}
 
 		// Order Statuses
@@ -101,7 +101,7 @@ class ControllerExtensionPaymentSagepayUS extends Controller {
 		if (isset($this->request->post['payment_sagepay_us_geo_zone_id'])) {
 			$data['payment_sagepay_us_geo_zone_id'] = (int)$this->request->post['payment_sagepay_us_geo_zone_id'];
 		} else {
-			$data['payment_sagepay_us_geo_zone_id'] = $this->config->get('payment_sagepay_us_geo_zone_id');
+			$data['payment_sagepay_us_geo_zone_id'] = (int)$this->config->get('payment_sagepay_us_geo_zone_id');
 		}
 
 		// Geo Zones

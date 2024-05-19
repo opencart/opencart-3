@@ -22,7 +22,7 @@ class ControllerExtensionModuleStore extends Controller {
 		if ($status) {
 			$this->load->language('extension/module/store');
 
-			$data['store_id'] = $this->config->get('config_store_id');
+			$data['store_id'] = (int)$this->config->get('config_store_id');
 
 			$data['stores'] = [];
 

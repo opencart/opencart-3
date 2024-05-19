@@ -35,7 +35,7 @@ class Twig {
 	 *
 	 * @return void
 	 */
-	public function set(string $key, mixed $value): void {
+	public function set(string $key, $value): void {
 		$this->data[$key] = $value;
 	}
 

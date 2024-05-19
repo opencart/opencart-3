@@ -30,7 +30,7 @@ class ControllerCheckoutRegister extends Controller {
 			}
 		}
 
-		$data['customer_group_id'] = $this->config->get('config_customer_group_id');
+		$data['customer_group_id'] = (int)$this->config->get('config_customer_group_id');
 
 		$data['config_checkout_guest'] = ($this->config->get('config_checkout_guest') && !$this->config->get('config_customer_price') && !$this->cart->hasDownload() && !$this->cart->hasSubscription());
 
@@ -43,7 +43,7 @@ class ControllerCheckoutRegister extends Controller {
 		if (isset($this->session->data['shipping_address']['country_id'])) {
 			$data['country_id'] = (int)$this->session->data['shipping_address']['country_id'];
 		} else {
-			$data['country_id'] = $this->config->get('config_country_id');
+			$data['country_id'] = (int)$this->config->get('config_country_id');
 		}
 
 		if (isset($this->session->data['shipping_address']['zone_id'])) {

@@ -224,7 +224,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 							$item['subscription']['product_id'] = $item['product_id'];
 							$item['subscription']['tax'] = $this->tax->getTax($item['price'], $item['tax_class_id']);
 							$item['subscription']['quantity'] = $item['quantity'];
-							$item['subscription']['store_id'] = $this->config->get('config_store_id');
+							$item['subscription']['store_id'] = (int)$this->config->get('config_store_id');
 							$item['subscription']['customer_id'] = $this->customer->getId();
 							$item['subscription']['payment_address_id'] = $subscription_info['payment_address_id'];
 							$item['subscription']['payment_method'] = $subscription_info['payment_method'];
@@ -558,7 +558,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 								$item['subscription']['product_id'] = $item['product_id'];
 								$item['subscription']['tax'] = $this->tax->getTax($item['price'], $item['tax_class_id']);
 								$item['subscription']['quantity'] = $item['quantity'];
-								$item['subscription']['store_id'] = $this->config->get('config_store_id');
+								$item['subscription']['store_id'] = (int)$this->config->get('config_store_id');
 								$item['subscription']['customer_id'] = $this->customer->getId();
 								$item['subscription']['payment_address_id'] = $subscription_info['payment_address_id'];
 								$item['subscription']['payment_method'] = $subscription_info['payment_method'];

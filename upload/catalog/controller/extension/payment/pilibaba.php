@@ -147,7 +147,7 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 
 				$order_data['totals'] = $totals;
 				$order_data['invoice_prefix'] = $this->config->get('config_invoice_prefix');
-				$order_data['store_id'] = $this->config->get('config_store_id');
+				$order_data['store_id'] = (int)$this->config->get('config_store_id');
 				$order_data['store_name'] = $this->config->get('config_name');
 
 				if ($order_data['store_id']) {
@@ -158,7 +158,7 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 
 				// Customer Details
 				$order_data['customer_id'] = 0;
-				$order_data['customer_group_id'] = $this->config->get('config_customer_group_id');
+				$order_data['customer_group_id'] = (int)$this->config->get('config_customer_group_id');
 				$order_data['firstname'] = '';
 				$order_data['lastname'] = '';
 				$order_data['email'] = '';
@@ -197,7 +197,7 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 				$order_data['shipping_method'] = $this->language->get('text_description');
 				$order_data['shipping_code'] = 'pilibaba.pilibaba';
 				// Guest Details
-				$this->session->data['guest']['customer_group_id'] = $this->config->get('config_customer_group_id');
+				$this->session->data['guest']['customer_group_id'] = (int)$this->config->get('config_customer_group_id');
 				$this->session->data['guest']['firstname'] = '';
 				$this->session->data['guest']['lastname'] = '';
 				$this->session->data['guest']['email'] = '';

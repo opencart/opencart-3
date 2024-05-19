@@ -558,7 +558,7 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 						} elseif ($klarna_order_status == '2') {
 							$order_status = $klarna_account[$order_info['payment_iso_code_3']]['pending_status_id'];
 						} else {
-							$order_status = $this->config->get('config_order_status_id');
+							$order_status = (int)$this->config->get('config_order_status_id');
 						}
 
 						$comment = sprintf($this->language->get('text_comment'), $invoice_number, $this->config->get('config_currency'), $country_to_currency[$order_info['payment_iso_code_3']], $this->currency->getValue($country_to_currency[$order_info['payment_iso_code_3']]));

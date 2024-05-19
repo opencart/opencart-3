@@ -84,31 +84,31 @@ class ControllerExtensionPaymentSkrill extends Controller {
 		if (isset($this->request->post['payment_skrill_order_status_id'])) {
 			$data['payment_skrill_order_status_id'] = (int)$this->request->post['payment_skrill_order_status_id'];
 		} else {
-			$data['payment_skrill_order_status_id'] = $this->config->get('payment_skrill_order_status_id');
+			$data['payment_skrill_order_status_id'] = (int)$this->config->get('payment_skrill_order_status_id');
 		}
 
 		if (isset($this->request->post['payment_skrill_pending_status_id'])) {
 			$data['payment_skrill_pending_status_id'] = (int)$this->request->post['payment_skrill_pending_status_id'];
 		} else {
-			$data['payment_skrill_pending_status_id'] = $this->config->get('payment_skrill_pending_status_id');
+			$data['payment_skrill_pending_status_id'] = (int)$this->config->get('payment_skrill_pending_status_id');
 		}
 
 		if (isset($this->request->post['payment_skrill_canceled_status_id'])) {
 			$data['payment_skrill_canceled_status_id'] = (int)$this->request->post['payment_skrill_canceled_status_id'];
 		} else {
-			$data['payment_skrill_canceled_status_id'] = $this->config->get('payment_skrill_canceled_status_id');
+			$data['payment_skrill_canceled_status_id'] = (int)$this->config->get('payment_skrill_canceled_status_id');
 		}
 
 		if (isset($this->request->post['payment_skrill_failed_status_id'])) {
 			$data['payment_skrill_failed_status_id'] = (int)$this->request->post['payment_skrill_failed_status_id'];
 		} else {
-			$data['payment_skrill_failed_status_id'] = $this->config->get('payment_skrill_failed_status_id');
+			$data['payment_skrill_failed_status_id'] = (int)$this->config->get('payment_skrill_failed_status_id');
 		}
 
 		if (isset($this->request->post['payment_skrill_chargeback_status_id'])) {
 			$data['payment_skrill_chargeback_status_id'] = (int)$this->request->post['payment_skrill_chargeback_status_id'];
 		} else {
-			$data['payment_skrill_chargeback_status_id'] = $this->config->get('payment_skrill_chargeback_status_id');
+			$data['payment_skrill_chargeback_status_id'] = (int)$this->config->get('payment_skrill_chargeback_status_id');
 		}
 
 		// Order Statuses
@@ -119,7 +119,7 @@ class ControllerExtensionPaymentSkrill extends Controller {
 		if (isset($this->request->post['payment_skrill_geo_zone_id'])) {
 			$data['payment_skrill_geo_zone_id'] = (int)$this->request->post['payment_skrill_geo_zone_id'];
 		} else {
-			$data['payment_skrill_geo_zone_id'] = $this->config->get('payment_skrill_geo_zone_id');
+			$data['payment_skrill_geo_zone_id'] = (int)$this->config->get('payment_skrill_geo_zone_id');
 		}
 
 		// Geo Zones

@@ -16,7 +16,7 @@ class ModelAccountCustomer extends Model {
 		if (isset($data['customer_group_id']) && in_array($data['customer_group_id'], (array)$this->config->get('config_customer_group_display'))) {
 			$customer_group_id = $data['customer_group_id'];
 		} else {
-			$customer_group_id = $this->config->get('config_customer_group_id');
+			$customer_group_id = (int)$this->config->get('config_customer_group_id');
 		}
 
 		// Customer Groups

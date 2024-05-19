@@ -81,7 +81,7 @@ class ControllerExtensionShippingWeight extends Controller {
 		if (isset($this->request->post['shipping_weight_tax_class_id'])) {
 			$data['shipping_weight_tax_class_id'] = (int)$this->request->post['shipping_weight_tax_class_id'];
 		} else {
-			$data['shipping_weight_tax_class_id'] = $this->config->get('shipping_weight_tax_class_id');
+			$data['shipping_weight_tax_class_id'] = (int)$this->config->get('shipping_weight_tax_class_id');
 		}
 
 		// Tax Classes

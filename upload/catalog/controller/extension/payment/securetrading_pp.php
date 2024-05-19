@@ -192,12 +192,12 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 					$this->model_extension_payment_securetrading_pp->addReference($order_info['order_id'], $transactionreference);
 
 					if ($this->request->post['errorcode'] == '0') {
-						$order_status_id = $this->config->get('payment_securetrading_pp_order_status_id');
+						$order_status_id = (int)$this->config->get('payment_securetrading_pp_order_status_id');
 
 						$this->model_extension_payment_securetrading_pp->confirmOrder($order_info['order_id'], $order_status_id);
 						$this->model_extension_payment_securetrading_pp->updateOrder($order_info['order_id'], $order_status_id, $message);
 					} elseif ($this->request->post['errorcode'] == '70000') {
-						$order_status_id = $this->config->get('payment_securetrading_pp_declined_order_status_id');
+						$order_status_id = (int)$this->config->get('payment_securetrading_pp_declined_order_status_id');
 
 						$this->model_extension_payment_securetrading_pp->updateOrder($order_info['order_id'], $order_status_id, $message);
 					}

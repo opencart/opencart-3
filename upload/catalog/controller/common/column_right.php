@@ -50,7 +50,7 @@ class ControllerCommonColumnRight extends Controller {
 		}
 
 		if (!$layout_id) {
-			$layout_id = $this->config->get('config_layout_id');
+			$layout_id = (int)$this->config->get('config_layout_id');
 		}
 
 		// Modules

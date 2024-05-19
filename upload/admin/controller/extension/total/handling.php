@@ -72,7 +72,7 @@ class ControllerExtensionTotalHandling extends Controller {
 		if (isset($this->request->post['total_handling_tax_class_id'])) {
 			$data['total_handling_tax_class_id'] = (int)$this->request->post['total_handling_tax_class_id'];
 		} else {
-			$data['total_handling_tax_class_id'] = $this->config->get('total_handling_tax_class_id');
+			$data['total_handling_tax_class_id'] = (int)$this->config->get('total_handling_tax_class_id');
 		}
 
 		// Tax Classes

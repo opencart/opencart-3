@@ -604,7 +604,7 @@ class ControllerSaleOrder extends Controller {
 
 			$data['customer'] = '';
 			$data['customer_id'] = '';
-			$data['customer_group_id'] = $this->config->get('config_customer_group_id');
+			$data['customer_group_id'] = (int)$this->config->get('config_customer_group_id');
 			$data['firstname'] = '';
 			$data['lastname'] = '';
 			$data['email'] = '';
@@ -643,7 +643,7 @@ class ControllerSaleOrder extends Controller {
 			$data['order_vouchers'] = [];
 			$data['order_totals'] = [];
 
-			$data['order_status_id'] = $this->config->get('config_order_status_id');
+			$data['order_status_id'] = (int)$this->config->get('config_order_status_id');
 			$data['comment'] = '';
 			$data['affiliate_id'] = '';
 			$data['affiliate'] = '';

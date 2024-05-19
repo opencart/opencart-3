@@ -360,7 +360,7 @@ class ControllerExtensionShippingRoyalMail extends Controller {
 		if (isset($this->request->post['shipping_royal_mail_weight_class_id'])) {
 			$data['shipping_royal_mail_weight_class_id'] = (int)$this->request->post['shipping_royal_mail_weight_class_id'];
 		} else {
-			$data['shipping_royal_mail_weight_class_id'] = $this->config->get('shipping_royal_mail_weight_class_id');
+			$data['shipping_royal_mail_weight_class_id'] = (int)$this->config->get('shipping_royal_mail_weight_class_id');
 		}
 
 		// Weight Classes
@@ -371,7 +371,7 @@ class ControllerExtensionShippingRoyalMail extends Controller {
 		if (isset($this->request->post['shipping_royal_mail_tax_class_id'])) {
 			$data['shipping_royal_mail_tax_class_id'] = (int)$this->request->post['shipping_royal_mail_tax_class_id'];
 		} else {
-			$data['shipping_royal_mail_tax_class_id'] = $this->config->get('shipping_royal_mail_tax_class_id');
+			$data['shipping_royal_mail_tax_class_id'] = (int)$this->config->get('shipping_royal_mail_tax_class_id');
 		}
 
 		// Tax Classes
@@ -382,7 +382,7 @@ class ControllerExtensionShippingRoyalMail extends Controller {
 		if (isset($this->request->post['shipping_royal_mail_geo_zone_id'])) {
 			$data['shipping_royal_mail_geo_zone_id'] = (int)$this->request->post['shipping_royal_mail_geo_zone_id'];
 		} else {
-			$data['shipping_royal_mail_geo_zone_id'] = $this->config->get('shipping_royal_mail_geo_zone_id');
+			$data['shipping_royal_mail_geo_zone_id'] = (int)$this->config->get('shipping_royal_mail_geo_zone_id');
 		}
 
 		// Geo Zones

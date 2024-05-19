@@ -102,7 +102,7 @@ class ControllerExtensionPaymentOpayo extends Controller {
 		if (isset($this->request->post['payment_opayo_geo_zone_id'])) {
 			$data['geo_zone_id'] = (int)$this->request->post['payment_opayo_geo_zone_id'];
 		} else {
-			$data['geo_zone_id'] = $this->config->get('payment_opayo_geo_zone_id');
+			$data['geo_zone_id'] = (int)$this->config->get('payment_opayo_geo_zone_id');
 		}
 
 		$this->load->model('localisation/geo_zone');

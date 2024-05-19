@@ -60,7 +60,7 @@ class ControllerExtensionShippingPickup extends Controller {
 		if (isset($this->request->post['shipping_pickup_geo_zone_id'])) {
 			$data['shipping_pickup_geo_zone_id'] = (int)$this->request->post['shipping_pickup_geo_zone_id'];
 		} else {
-			$data['shipping_pickup_geo_zone_id'] = $this->config->get('shipping_pickup_geo_zone_id');
+			$data['shipping_pickup_geo_zone_id'] = (int)$this->config->get('shipping_pickup_geo_zone_id');
 		}
 
 		// Geo Zones

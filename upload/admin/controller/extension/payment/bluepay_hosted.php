@@ -121,7 +121,7 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
 		if (isset($this->request->post['payment_bluepay_hosted_order_status_id'])) {
 			$data['payment_bluepay_hosted_order_status_id'] = (int)$this->request->post['payment_bluepay_hosted_order_status_id'];
 		} elseif ($this->config->get('payment_bluepay_hosted_order_status_id')) {
-			$data['payment_bluepay_hosted_order_status_id'] = $this->config->get('payment_bluepay_hosted_order_status_id');
+			$data['payment_bluepay_hosted_order_status_id'] = (int)$this->config->get('payment_bluepay_hosted_order_status_id');
 		} else {
 			$data['payment_bluepay_hosted_order_status_id'] = 2;
 		}
@@ -133,7 +133,7 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
 		if (isset($this->request->post['payment_bluepay_hosted_geo_zone_id'])) {
 			$data['payment_bluepay_hosted_geo_zone_id'] = (int)$this->request->post['payment_bluepay_hosted_geo_zone_id'];
 		} else {
-			$data['payment_bluepay_hosted_geo_zone_id'] = $this->config->get('payment_bluepay_hosted_geo_zone_id');
+			$data['payment_bluepay_hosted_geo_zone_id'] = (int)$this->config->get('payment_bluepay_hosted_geo_zone_id');
 		}
 
 		$this->load->model('localisation/geo_zone');

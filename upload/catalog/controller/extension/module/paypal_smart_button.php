@@ -482,7 +482,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 				$this->session->data['guest']['custom_field'] = $customer_info['custom_field'];
 			} else {
 				$this->session->data['guest']['customer_id'] = 0;
-				$this->session->data['guest']['customer_group_id'] = $this->config->get('config_customer_group_id');
+				$this->session->data['guest']['customer_group_id'] = (int)$this->config->get('config_customer_group_id');
 				$this->session->data['guest']['firstname'] = $order_info['payer']['name']['given_name'] ?? '';
 				$this->session->data['guest']['lastname'] = $order_info['payer']['name']['surname'] ?? '';
 				$this->session->data['guest']['email'] = $order_info['payer']['email_address'] ?? '';
@@ -1021,7 +1021,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 			$order_data = [];
 			$order_data['totals'] = $totals;
 			$order_data['invoice_prefix'] = $this->config->get('config_invoice_prefix');
-			$order_data['store_id'] = $this->config->get('config_store_id');
+			$order_data['store_id'] = (int)$this->config->get('config_store_id');
 			$order_data['store_name'] = $this->config->get('config_name');
 
 			if ($order_data['store_id']) {

@@ -33,7 +33,7 @@ class ControllerCheckoutShippingAddress extends Controller {
 		if (isset($this->session->data['shipping_address']['country_id'])) {
 			$data['country_id'] = (int)$this->session->data['shipping_address']['country_id'];
 		} else {
-			$data['country_id'] = $this->config->get('config_country_id');
+			$data['country_id'] = (int)$this->config->get('config_country_id');
 		}
 
 		if (isset($this->session->data['shipping_address']['zone_id'])) {

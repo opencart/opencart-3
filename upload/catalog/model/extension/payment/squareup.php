@@ -45,7 +45,7 @@ class ModelExtensionPaymentSquareup extends Model {
 		$status = true;
 
 		$minimum_total = (float)$this->config->get('payment_squareup_total');
-		$squareup_geo_zone_id = $this->config->get('payment_squareup_geo_zone_id');
+		$squareup_geo_zone_id = (int)$this->config->get('payment_squareup_geo_zone_id');
 
 		if (!$squareup_geo_zone_id) {
 			$status = true;

@@ -216,19 +216,19 @@ class ControllerExtensionPaymentG2APay extends Controller {
 
 				switch ($this->request->post['status']) {
 					case 'complete':
-						$order_status_id = $this->config->get('payment_g2apay_complete_status_id');
+						$order_status_id = (int)$this->config->get('payment_g2apay_complete_status_id');
 						break;
 					case 'rejected':
-						$order_status_id = $this->config->get('payment_g2apay_rejected_status_id');
+						$order_status_id = (int)$this->config->get('payment_g2apay_rejected_status_id');
 						break;
 					case 'canceled':
-						$order_status_id = $this->config->get('payment_g2apay_cancelled_status_id');
+						$order_status_id = (int)$this->config->get('payment_g2apay_cancelled_status_id');
 						break;
 					case 'partial_refunded':
-						$order_status_id = $this->config->get('payment_g2apay_partially_refunded_status_id');
+						$order_status_id = (int)$this->config->get('payment_g2apay_partially_refunded_status_id');
 						break;
 					case 'refunded':
-						$order_status_id = $this->config->get('payment_g2apay_refunded_status_id');
+						$order_status_id = (int)$this->config->get('payment_g2apay_refunded_status_id');
 						break;
 				}
 

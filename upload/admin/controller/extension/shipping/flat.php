@@ -66,7 +66,7 @@ class ControllerExtensionShippingFlat extends Controller {
 		if (isset($this->request->post['shipping_flat_tax_class_id'])) {
 			$data['shipping_flat_tax_class_id'] = (int)$this->request->post['shipping_flat_tax_class_id'];
 		} else {
-			$data['shipping_flat_tax_class_id'] = $this->config->get('shipping_flat_tax_class_id');
+			$data['shipping_flat_tax_class_id'] = (int)$this->config->get('shipping_flat_tax_class_id');
 		}
 
 		// Tax Classes
@@ -77,7 +77,7 @@ class ControllerExtensionShippingFlat extends Controller {
 		if (isset($this->request->post['shipping_flat_geo_zone_id'])) {
 			$data['shipping_flat_geo_zone_id'] = (int)$this->request->post['shipping_flat_geo_zone_id'];
 		} else {
-			$data['shipping_flat_geo_zone_id'] = $this->config->get('shipping_flat_geo_zone_id');
+			$data['shipping_flat_geo_zone_id'] = (int)$this->config->get('shipping_flat_geo_zone_id');
 		}
 
 		// Geo Zones

@@ -174,7 +174,7 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 						$item['subscription']['product_id'] = $item['product_id'];
 						$item['subscription']['tax'] = $this->tax->getTax($item['price'], $item['tax_class_id']);
 						$item['subscription']['quantity'] = $item['quantity'];
-						$item['subscription']['store_id'] = $this->config->get('config_store_id');
+						$item['subscription']['store_id'] = (int)$this->config->get('config_store_id');
 						$item['subscription']['customer_id'] = $this->customer->getId();
 						$item['subscription']['payment_address_id'] = $subscription_info['payment_address_id'];
 						$item['subscription']['payment_method'] = $subscription_info['payment_method'];
@@ -256,31 +256,31 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 
 				switch ($message['paymentStatus']) {
 					case 'SUCCESS':
-						$order_status_id = $this->config->get('payment_worldpay_success_status_id');
+						$order_status_id = (int)$this->config->get('payment_worldpay_success_status_id');
 						break;
 					case 'FAILED':
-						$order_status_id = $this->config->get('payment_worldpay_failed_status_id');
+						$order_status_id = (int)$this->config->get('payment_worldpay_failed_status_id');
 						break;
 					case 'SETTLED':
-						$order_status_id = $this->config->get('payment_worldpay_settled_status_id');
+						$order_status_id = (int)$this->config->get('payment_worldpay_settled_status_id');
 						break;
 					case 'REFUNDED':
-						$order_status_id = $this->config->get('payment_worldpay_refunded_status_id');
+						$order_status_id = (int)$this->config->get('payment_worldpay_refunded_status_id');
 						break;
 					case 'PARTIALLY_REFUNDED':
-						$order_status_id = $this->config->get('payment_worldpay_partially_refunded_status_id');
+						$order_status_id = (int)$this->config->get('payment_worldpay_partially_refunded_status_id');
 						break;
 					case 'CHARGED_BACK':
-						$order_status_id = $this->config->get('payment_worldpay_charged_back_status_id');
+						$order_status_id = (int)$this->config->get('payment_worldpay_charged_back_status_id');
 						break;
 					case 'INFORMATION_REQUESTED':
-						$order_status_id = $this->config->get('payment_worldpay_information_requested_status_id');
+						$order_status_id = (int)$this->config->get('payment_worldpay_information_requested_status_id');
 						break;
 					case 'INFORMATION_SUPPLIED':
-						$order_status_id = $this->config->get('payment_worldpay_information_supplied_status_id');
+						$order_status_id = (int)$this->config->get('payment_worldpay_information_supplied_status_id');
 						break;
 					case 'CHARGEBACK_REVERSED':
-						$order_status_id = $this->config->get('payment_worldpay_chargeback_reversed_status_id');
+						$order_status_id = (int)$this->config->get('payment_worldpay_chargeback_reversed_status_id');
 						break;
 				}
 

@@ -88,43 +88,43 @@ class ControllerExtensionPaymentG2APay extends Controller {
 		if (isset($this->request->post['payment_g2apay_order_status_id'])) {
 			$data['payment_g2apay_order_status_id'] = (int)$this->request->post['payment_g2apay_order_status_id'];
 		} else {
-			$data['payment_g2apay_order_status_id'] = $this->config->get('payment_g2apay_order_status_id');
+			$data['payment_g2apay_order_status_id'] = (int)$this->config->get('payment_g2apay_order_status_id');
 		}
 
 		if (isset($this->request->post['payment_g2apay_complete_status_id'])) {
 			$data['payment_g2apay_complete_status_id'] = (int)$this->request->post['payment_g2apay_complete_status_id'];
 		} else {
-			$data['payment_g2apay_complete_status_id'] = $this->config->get('payment_g2apay_complete_status_id');
+			$data['payment_g2apay_complete_status_id'] = (int)$this->config->get('payment_g2apay_complete_status_id');
 		}
 
 		if (isset($this->request->post['payment_g2apay_rejected_status_id'])) {
 			$data['payment_g2apay_rejected_status_id'] = (int)$this->request->post['payment_g2apay_rejected_status_id'];
 		} else {
-			$data['payment_g2apay_rejected_status_id'] = $this->config->get('payment_g2apay_rejected_status_id');
+			$data['payment_g2apay_rejected_status_id'] = (int)$this->config->get('payment_g2apay_rejected_status_id');
 		}
 
 		if (isset($this->request->post['payment_g2apay_cancelled_status_id'])) {
 			$data['payment_g2apay_cancelled_status_id'] = (int)$this->request->post['payment_g2apay_cancelled_status_id'];
 		} else {
-			$data['payment_g2apay_cancelled_status_id'] = $this->config->get('payment_g2apay_cancelled_status_id');
+			$data['payment_g2apay_cancelled_status_id'] = (int)$this->config->get('payment_g2apay_cancelled_status_id');
 		}
 
 		if (isset($this->request->post['payment_g2apay_pending_status_id'])) {
 			$data['payment_g2apay_pending_status_id'] = (int)$this->request->post['payment_g2apay_pending_status_id'];
 		} else {
-			$data['payment_g2apay_pending_status_id'] = $this->config->get('payment_g2apay_pending_status_id');
+			$data['payment_g2apay_pending_status_id'] = (int)$this->config->get('payment_g2apay_pending_status_id');
 		}
 
 		if (isset($this->request->post['payment_g2apay_refunded_status_id'])) {
 			$data['payment_g2apay_refunded_status_id'] = (int)$this->request->post['payment_g2apay_refunded_status_id'];
 		} else {
-			$data['payment_g2apay_refunded_status_id'] = $this->config->get('payment_g2apay_refunded_status_id');
+			$data['payment_g2apay_refunded_status_id'] = (int)$this->config->get('payment_g2apay_refunded_status_id');
 		}
 
 		if (isset($this->request->post['payment_g2apay_partially_refunded_status_id'])) {
 			$data['payment_g2apay_partially_refunded_status_id'] = (int)$this->request->post['payment_g2apay_partially_refunded_status_id'];
 		} else {
-			$data['payment_g2apay_partially_refunded_status_id'] = $this->config->get('payment_g2apay_partially_refunded_status_id');
+			$data['payment_g2apay_partially_refunded_status_id'] = (int)$this->config->get('payment_g2apay_partially_refunded_status_id');
 		}
 
 		if (isset($this->request->post['payment_g2apay_username'])) {
@@ -170,7 +170,7 @@ class ControllerExtensionPaymentG2APay extends Controller {
 		if (isset($this->request->post['payment_g2apay_geo_zone_id'])) {
 			$data['payment_g2apay_geo_zone_id'] = (int)$this->request->post['payment_g2apay_geo_zone_id'];
 		} else {
-			$data['payment_g2apay_geo_zone_id'] = $this->config->get('payment_g2apay_geo_zone_id');
+			$data['payment_g2apay_geo_zone_id'] = (int)$this->config->get('payment_g2apay_geo_zone_id');
 		}
 
 		if (isset($this->request->post['payment_g2apay_status'])) {

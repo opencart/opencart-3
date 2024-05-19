@@ -62,7 +62,7 @@ class ControllerExtensionFraudIp extends Controller {
 		if (isset($this->request->post['fraud_ip_order_status_id'])) {
 			$data['fraud_ip_order_status_id'] = (int)$this->request->post['fraud_ip_order_status_id'];
 		} else {
-			$data['fraud_ip_order_status_id'] = $this->config->get('fraud_ip_order_status_id');
+			$data['fraud_ip_order_status_id'] = (int)$this->config->get('fraud_ip_order_status_id');
 		}
 
 		// Order Statuses

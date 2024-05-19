@@ -700,7 +700,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	 *
 	 * @return void
 	 */
-	public function logger(string $title, mixed $data): void {
+	public function logger(string $title, $data): void {
 		if ($this->config->get('payment_sagepay_direct_debug')) {
 			// Log
 			$log = new \Log('sagepay_direct.log');

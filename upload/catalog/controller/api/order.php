@@ -108,7 +108,7 @@ class ControllerApiOrder extends Controller {
 				$order_data = [];
 				// Store Details
 				$order_data['invoice_prefix'] = $this->config->get('config_invoice_prefix');
-				$order_data['store_id'] = $this->config->get('config_store_id');
+				$order_data['store_id'] = (int)$this->config->get('config_store_id');
 				$order_data['store_name'] = $this->config->get('config_name');
 				$order_data['store_url'] = $this->config->get('config_url');
 
@@ -502,7 +502,7 @@ class ControllerApiOrder extends Controller {
 
 					// Store Details
 					$order_data['invoice_prefix'] = $this->config->get('config_invoice_prefix');
-					$order_data['store_id'] = $this->config->get('config_store_id');
+					$order_data['store_id'] = (int)$this->config->get('config_store_id');
 					$order_data['store_name'] = $this->config->get('config_name');
 					$order_data['store_url'] = $this->config->get('config_url');
 

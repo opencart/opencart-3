@@ -141,7 +141,7 @@ class User {
 	 *
 	 * @return bool
 	 */
-	public function hasPermission(string $key, mixed $value): bool {
+	public function hasPermission(string $key, $value): bool {
 		if (isset($this->permission[$key])) {
 			return in_array($value, $this->permission[$key]);
 		} else {

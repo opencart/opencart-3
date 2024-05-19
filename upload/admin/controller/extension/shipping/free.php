@@ -66,7 +66,7 @@ class ControllerExtensionShippingFree extends Controller {
 		if (isset($this->request->post['shipping_free_geo_zone_id'])) {
 			$data['shipping_free_geo_zone_id'] = (int)$this->request->post['shipping_free_geo_zone_id'];
 		} else {
-			$data['shipping_free_geo_zone_id'] = $this->config->get('shipping_free_geo_zone_id');
+			$data['shipping_free_geo_zone_id'] = (int)$this->config->get('shipping_free_geo_zone_id');
 		}
 
 		// Geo Zones

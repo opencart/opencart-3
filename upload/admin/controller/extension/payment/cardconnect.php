@@ -121,7 +121,7 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 		if (isset($this->request->post['payment_cardconnect_geo_zone_id'])) {
 			$data['payment_cardconnect_geo_zone_id'] = (int)$this->request->post['payment_cardconnect_geo_zone_id'];
 		} else {
-			$data['payment_cardconnect_geo_zone_id'] = $this->config->get('payment_cardconnect_geo_zone_id');
+			$data['payment_cardconnect_geo_zone_id'] = (int)$this->config->get('payment_cardconnect_geo_zone_id');
 		}
 
 		if (isset($this->request->post['payment_cardconnect_status'])) {
@@ -153,7 +153,7 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 		if (isset($this->request->post['payment_cardconnect_pending_status_id'])) {
 			$data['payment_cardconnect_pending_status_id'] = (int)$this->request->post['payment_cardconnect_pending_status_id'];
 		} elseif ($this->config->has('payment_cardconnect_pending_status_id')) {
-			$data['payment_cardconnect_pending_status_id'] = $this->config->get('payment_cardconnect_pending_status_id');
+			$data['payment_cardconnect_pending_status_id'] = (int)$this->config->get('payment_cardconnect_pending_status_id');
 		} else {
 			$data['payment_cardconnect_pending_status_id'] = 1;
 		}
@@ -161,7 +161,7 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 		if (isset($this->request->post['payment_cardconnect_processing_status_id'])) {
 			$data['payment_cardconnect_processing_status_id'] = (int)$this->request->post['payment_cardconnect_processing_status_id'];
 		} elseif ($this->config->has('payment_cardconnect_processing_status_id')) {
-			$data['payment_cardconnect_processing_status_id'] = $this->config->get('payment_cardconnect_processing_status_id');
+			$data['payment_cardconnect_processing_status_id'] = (int)$this->config->get('payment_cardconnect_processing_status_id');
 		} else {
 			$data['payment_cardconnect_processing_status_id'] = 2;
 		}

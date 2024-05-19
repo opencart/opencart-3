@@ -137,7 +137,7 @@ class ControllerExtensionModuleAmazonLogin extends Controller {
 				if ($this->config->get('payment_amazon_login_pay_checkout') == 'guest') {
 					$this->session->data['account'] = 'guest';
 
-					$this->session->data['guest']['customer_group_id'] = $this->config->get('config_customer_group_id');
+					$this->session->data['guest']['customer_group_id'] = (int)$this->config->get('config_customer_group_id');
 					$this->session->data['guest']['firstname'] = (string)$amazon_profile->first_name;
 					$this->session->data['guest']['lastname'] = (string)$amazon_profile->last_name;
 					$this->session->data['guest']['email'] = (string)$amazon_profile->email;

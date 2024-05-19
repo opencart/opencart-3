@@ -165,7 +165,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 		if (isset($this->request->post['payment_laybuy_pending_status_id'])) {
 			$data['payment_laybuy_pending_status_id'] = (int)$this->request->post['payment_laybuy_pending_status_id'];
 		} elseif ($this->config->get('payment_laybuy_pending_status_id')) {
-			$data['payment_laybuy_pending_status_id'] = $this->config->get('payment_laybuy_pending_status_id');
+			$data['payment_laybuy_pending_status_id'] = (int)$this->config->get('payment_laybuy_pending_status_id');
 		} else {
 			$data['payment_laybuy_pending_status_id'] = 1;
 		}
@@ -173,7 +173,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 		if (isset($this->request->post['payment_laybuy_canceled_status_id'])) {
 			$data['payment_laybuy_canceled_status_id'] = (int)$this->request->post['payment_laybuy_canceled_status_id'];
 		} elseif ($this->config->get('payment_laybuy_canceled_status_id')) {
-			$data['payment_laybuy_canceled_status_id'] = $this->config->get('payment_laybuy_canceled_status_id');
+			$data['payment_laybuy_canceled_status_id'] = (int)$this->config->get('payment_laybuy_canceled_status_id');
 		} else {
 			$data['payment_laybuy_canceled_status_id'] = 7;
 		}
@@ -181,7 +181,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 		if (isset($this->request->post['payment_laybuy_processing_status_id'])) {
 			$data['payment_laybuy_processing_status_id'] = (int)$this->request->post['payment_laybuy_processing_status_id'];
 		} elseif ($this->config->get('payment_laybuy_processing_status_id')) {
-			$data['payment_laybuy_processing_status_id'] = $this->config->get('payment_laybuy_processing_status_id');
+			$data['payment_laybuy_processing_status_id'] = (int)$this->config->get('payment_laybuy_processing_status_id');
 		} else {
 			$data['payment_laybuy_processing_status_id'] = 2;
 		}
@@ -205,7 +205,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 		if (isset($this->request->post['payment_laybuy_geo_zone_id'])) {
 			$data['payment_laybuy_geo_zone_id'] = (int)$this->request->post['payment_laybuy_geo_zone_id'];
 		} else {
-			$data['payment_laybuy_geo_zone_id'] = $this->config->get('payment_laybuy_geo_zone_id');
+			$data['payment_laybuy_geo_zone_id'] = (int)$this->config->get('payment_laybuy_geo_zone_id');
 		}
 
 		if (isset($this->request->post['payment_laybuy_status'])) {
@@ -913,7 +913,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 
 				$json['order_id'] = $transaction_info['order_id'];
 
-				$json['order_status_id'] = $this->config->get('payment_laybuy_canceled_status_id');
+				$json['order_status_id'] = (int)$this->config->get('payment_laybuy_canceled_status_id');
 
 				$json['comment'] = sprintf($this->language->get('text_comment_canceled'), $transaction_info['paypal_profile_id']);
 			} else {

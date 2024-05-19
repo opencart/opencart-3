@@ -501,7 +501,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		$data['text_connect'] = sprintf($this->language->get('text_connect'), $data['client_id'], $data['secret'], $data['merchant_id'], $data['webhook_id'], $data['environment']);
 
 		$data['total'] = $this->config->get('payment_paypal_total');
-		$data['geo_zone_id'] = $this->config->get('payment_paypal_geo_zone_id');
+		$data['geo_zone_id'] = (int)$this->config->get('payment_paypal_geo_zone_id');
 		$data['sort_order'] = $this->config->get('payment_paypal_sort_order');
 
 		$this->load->model('localisation/geo_zone');

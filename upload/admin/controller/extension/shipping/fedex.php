@@ -265,7 +265,7 @@ class ControllerExtensionShippingFedex extends Controller {
 		if (isset($this->request->post['shipping_fedex_length_class_id'])) {
 			$data['shipping_fedex_length_class_id'] = (int)$this->request->post['shipping_fedex_length_class_id'];
 		} else {
-			$data['shipping_fedex_length_class_id'] = $this->config->get('shipping_fedex_length_class_id');
+			$data['shipping_fedex_length_class_id'] = (int)$this->config->get('shipping_fedex_length_class_id');
 		}
 
 		// Length Classes
@@ -312,7 +312,7 @@ class ControllerExtensionShippingFedex extends Controller {
 		if (isset($this->request->post['shipping_fedex_weight_class_id'])) {
 			$data['shipping_fedex_weight_class_id'] = (int)$this->request->post['shipping_fedex_weight_class_id'];
 		} else {
-			$data['shipping_fedex_weight_class_id'] = $this->config->get('shipping_fedex_weight_class_id');
+			$data['shipping_fedex_weight_class_id'] = (int)$this->config->get('shipping_fedex_weight_class_id');
 		}
 
 		// Weight Classes
@@ -323,7 +323,7 @@ class ControllerExtensionShippingFedex extends Controller {
 		if (isset($this->request->post['shipping_fedex_tax_class_id'])) {
 			$data['shipping_fedex_tax_class_id'] = (int)$this->request->post['shipping_fedex_tax_class_id'];
 		} else {
-			$data['shipping_fedex_tax_class_id'] = $this->config->get('shipping_fedex_tax_class_id');
+			$data['shipping_fedex_tax_class_id'] = (int)$this->config->get('shipping_fedex_tax_class_id');
 		}
 
 		// Tax Classes
@@ -334,7 +334,7 @@ class ControllerExtensionShippingFedex extends Controller {
 		if (isset($this->request->post['shipping_fedex_geo_zone_id'])) {
 			$data['shipping_fedex_geo_zone_id'] = (int)$this->request->post['shipping_fedex_geo_zone_id'];
 		} else {
-			$data['shipping_fedex_geo_zone_id'] = $this->config->get('shipping_fedex_geo_zone_id');
+			$data['shipping_fedex_geo_zone_id'] = (int)$this->config->get('shipping_fedex_geo_zone_id');
 		}
 
 		// Geo Zones

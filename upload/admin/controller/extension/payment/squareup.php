@@ -112,7 +112,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 		$data['payment_squareup_debug'] = $this->getSettingValue('payment_squareup_debug');
 		$data['payment_squareup_sort_order'] = $this->getSettingValue('payment_squareup_sort_order');
 		$data['payment_squareup_total'] = $this->getSettingValue('payment_squareup_total');
-		$data['payment_squareup_geo_zone_id'] = $this->getSettingValue('payment_squareup_geo_zone_id');
+		$data['payment_squareup_geo_zone_id'] = (int)$this->getSettingValue('payment_squareup_geo_zone_id');
 		$data['payment_squareup_sandbox_client_id'] = $this->getSettingValue('payment_squareup_sandbox_client_id');
 		$data['payment_squareup_sandbox_token'] = $this->getSettingValue('payment_squareup_sandbox_token');
 		$data['payment_squareup_locations'] = $this->getSettingValue('payment_squareup_locations', $previous_config->get('payment_squareup_locations'));

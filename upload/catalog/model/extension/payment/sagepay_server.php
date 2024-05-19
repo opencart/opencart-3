@@ -770,12 +770,12 @@ class ModelExtensionPaymentSagePayServer extends Model {
 	 *
 	 * @return void
 	 */
-	public function logger(string $title, mixed $data): void {
+	public function logger(string $title, $data): void {
 		if ($this->config->get('payment_sagepay_server_debug')) {
 			// Log
 			$log = new \Log('sagepay_server.log');
 			$backtrace = debug_backtrace();
-			$log->write($backtrace[6]['class'] . '::' . $backtrace[6]['function'] . ' - ' . $title . ': ' . print_r($data, 1));
+			$log->write($backtrace[6]['class'] . '::' . $backtrace[6]['function'] . ' - ' . $title . ': ' . print_r($data, true));
 		}
 	}
 

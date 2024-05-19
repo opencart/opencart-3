@@ -404,7 +404,7 @@ class ModelExtensionPaymentOpayo extends Model {
 	 *
 	 * @return void
 	 */
-	public function log(string $title, mixed $data): void {
+	public function log(string $title, $data): void {
 		$_config = new \Config();
 		$_config->load('opayo');
 		$config_setting = $_config->get('opayo_setting');

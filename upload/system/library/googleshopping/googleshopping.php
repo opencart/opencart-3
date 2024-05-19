@@ -894,7 +894,7 @@ class Googleshopping extends Library {
 		}
 
 		$default_config_tax = $this->registry->get('config')->get('config_tax');
-		$default_config_store_id = $this->registry->get('config')->get('config_store_id');
+		$default_config_store_id = (int)$this->registry->get('config')->get('config_store_id');
 		$default_config_language_id = $this->registry->get('config')->get('config_language_id');
 		$default_config_seo_url = $this->registry->get('config')->get('config_seo_url');
 

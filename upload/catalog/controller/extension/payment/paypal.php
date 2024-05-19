@@ -1052,7 +1052,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 						$this->session->data['guest']['custom_field'] = json_decode($customer_info['custom_field'], true);
 					} else {
 						$this->session->data['guest']['customer_id'] = 0;
-						$this->session->data['guest']['customer_group_id'] = $this->config->get('config_customer_group_id');
+						$this->session->data['guest']['customer_group_id'] = (int)$this->config->get('config_customer_group_id');
 						$this->session->data['guest']['firstname'] = ($paypal_order_info['payer']['name']['given_name'] ?? '');
 						$this->session->data['guest']['lastname'] = ($paypal_order_info['payer']['name']['surname'] ?? '');
 						$this->session->data['guest']['email'] = ($paypal_order_info['payer']['email_address'] ?? '');
@@ -1381,7 +1381,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 												$item['subscription']['product_id'] = $item['product_id'];
 												$item['subscription']['tax'] = $this->tax->getTax($item['price'], $item['tax_class_id']);
 												$item['subscription']['quantity'] = $item['quantity'];
-												$item['subscription']['store_id'] = $this->config->get('config_store_id');
+												$item['subscription']['store_id'] = (int)$this->config->get('config_store_id');
 												$item['subscription']['customer_id'] = $this->customer->getId();
 												$item['subscription']['payment_address_id'] = $subscription_info['payment_address_id'];
 												$item['subscription']['payment_method'] = $subscription_info['payment_method'];
@@ -1522,7 +1522,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 												$item['subscription']['product_id'] = $item['product_id'];
 												$item['subscription']['tax'] = $this->tax->getTax($item['price'], $item['tax_class_id']);
 												$item['subscription']['quantity'] = $item['quantity'];
-												$item['subscription']['store_id'] = $this->config->get('config_store_id');
+												$item['subscription']['store_id'] = (int)$this->config->get('config_store_id');
 												$item['subscription']['customer_id'] = $this->customer->getId();
 												$item['subscription']['payment_address_id'] = $subscription_info['payment_address_id'];
 												$item['subscription']['payment_method'] = $subscription_info['payment_method'];
@@ -2040,7 +2040,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			$order_data['totals'] = $totals;
 
 			$order_data['invoice_prefix'] = $this->config->get('config_invoice_prefix');
-			$order_data['store_id'] = $this->config->get('config_store_id');
+			$order_data['store_id'] = (int)$this->config->get('config_store_id');
 			$order_data['store_name'] = $this->config->get('config_name');
 
 			if ($order_data['store_id']) {
@@ -2612,7 +2612,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 											$item['subscription']['product_id'] = $item['product_id'];
 											$item['subscription']['tax'] = $this->tax->getTax($item['price'], $item['tax_class_id']);
 											$item['subscription']['quantity'] = $item['quantity'];
-											$item['subscription']['store_id'] = $this->config->get('config_store_id');
+											$item['subscription']['store_id'] = (int)$this->config->get('config_store_id');
 											$item['subscription']['customer_id'] = $this->customer->getId();
 											$item['subscription']['payment_address_id'] = $subscription_info['payment_address_id'];
 											$item['subscription']['payment_method'] = $subscription_info['payment_method'];
@@ -2757,7 +2757,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 											$item['subscription']['product_id'] = $item['product_id'];
 											$item['subscription']['tax'] = $this->tax->getTax($item['price'], $item['tax_class_id']);
 											$item['subscription']['quantity'] = $item['quantity'];
-											$item['subscription']['store_id'] = $this->config->get('config_store_id');
+											$item['subscription']['store_id'] = (int)$this->config->get('config_store_id');
 											$item['subscription']['customer_id'] = $this->customer->getId();
 											$item['subscription']['payment_address_id'] = $subscription_info['payment_address_id'];
 											$item['subscription']['payment_method'] = $subscription_info['payment_method'];
@@ -3397,7 +3397,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		if (isset($this->request->post['customer_group_id']) && is_array($this->config->get('config_customer_group_display')) && in_array($this->request->post['customer_group_id'], (array)$this->config->get('config_customer_group_display'))) {
 			$customer_group_id = (int)$this->request->post['customer_group_id'];
 		} else {
-			$customer_group_id = $this->config->get('config_customer_group_id');
+			$customer_group_id = (int)$this->config->get('config_customer_group_id');
 		}
 
 		// Custom field validation
@@ -3458,7 +3458,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		if (isset($this->request->post['customer_group_id']) && is_array($this->config->get('config_customer_group_display')) && in_array($this->request->post['customer_group_id'], (array)$this->config->get('config_customer_group_display'))) {
 			$customer_group_id = (int)$this->request->post['customer_group_id'];
 		} else {
-			$customer_group_id = $this->config->get('config_customer_group_id');
+			$customer_group_id = (int)$this->config->get('config_customer_group_id');
 		}
 
 		// Custom field validation
