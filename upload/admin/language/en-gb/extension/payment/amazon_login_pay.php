@@ -1,5 +1,5 @@
 <?php
-//Headings
+// Heading
 $_['heading_title']                    = 'Amazon Pay and Login with Amazon';
 
 // Text
@@ -112,7 +112,7 @@ $_['help_declined_codes']              = 'This is for testing purposes only';
 $_['help_buyer_multi_currency']        = 'Enable this option if you would like the buyer to shop in any of the Amazon Pay supported currencies available in your on-line store: %s';
 $_['help_buyer_multi_no_currency']     = 'There are no <a href="https://pay.amazon.co.uk/help/5BDCWHCUC27485L"><b>Amazon Pay supported currencies</b></a> available in your on-line store, please add/enable such currencies in order to use this functionality.';
 
-// Tab
+// Tabs
 $_['tab_order_adjustment']             = 'Order Adjustment';
 
 // Buttons
