@@ -235,7 +235,7 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 	 *
 	 * @return void
 	 */
-	public function updateOrder($order_id, $order_status_id, $comment = '', $notify = false): void {
+	public function updateOrder(int $order_id, int $order_status_id, string $comment = '', bool $notify = false): void {
 		// Orders
 		$this->load->model('checkout/order');
 
