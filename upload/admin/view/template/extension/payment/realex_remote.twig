@@ -186,7 +186,7 @@
                 <div class="col-sm-10">
                   <select name="payment_realex_remote_success_settled_status_id" class="form-control" id="input-order-status-success-settled"/>
                     {% for order_status in order_statuses %}
-                      {% if order_status.order_status_id == payment_realex_remote_order_status_success_settled_status_id %}
+                      {% if order_status.order_status_id == payment_realex_remote_success_settled_status_id %}
                         <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
                       {% else %}
                         <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
@@ -200,7 +200,7 @@
                 <div class="col-sm-10">
                   <select name="payment_realex_remote_success_unsettled_status_id" class="form-control" id="input-order-status-success-unsettled"/>
                     {% for order_status in order_statuses %}
-                      {% if order_status.order_status_id == payment_realex_remote_order_status_success_unsettled_status_id %}
+                      {% if order_status.order_status_id == payment_realex_remote_success_unsettled_status_id %}
                         <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
                       {% else %}
                         <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
@@ -210,9 +210,9 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-order-status-decline">{{ entry_status_decline }}</label>
+                <label class="col-sm-2 control-label" for="input-order-status-declined">{{ entry_status_decline }}</label>
                 <div class="col-sm-10">
-                  <select name="payment_realex_remote_declined_status_id" class="form-control" id="input-order-status-decline"/>
+                  <select name="payment_realex_remote_declined_status_id" class="form-control" id="input-order-status-declined"/>
                     {% for order_status in order_statuses %}
                       {% if order_status.order_status_id == payment_realex_remote_declined_status_id %}
                         <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
@@ -224,11 +224,11 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-order-status-decline-pending">{{ entry_status_decline_pending }}</label>
+                <label class="col-sm-2 control-label" for="input-order-status-decline-pending">{{ entry_status_declined_pending }}</label>
                 <div class="col-sm-10">
-                  <select name="payment_realex_remote_decline_pending_id" class="form-control" id="input-order-status-decline-pending"/>
+                  <select name="payment_realex_remote_declined_pending_status_id" class="form-control" id="input-order-status-decline-pending"/>
                     {% for order_status in order_statuses %}
-                      {% if order_status.order_status_id == payment_realex_remote_order_status_decline_pending_id %}
+                      {% if order_status.order_status_id == payment_realex_remote_declined_pending_status_id %}
                         <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
                       {% else %}
                         <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
@@ -238,11 +238,11 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-order-status-decline-stolen">{{ entry_status_decline_stolen }}</label>
+                <label class="col-sm-2 control-label" for="input-order-status-decline-stolen">{{ entry_status_declined_stolen }}</label>
                 <div class="col-sm-10">
-                  <select name="payment_realex_remote_decline_stolen_id" class="form-control" id="input-order-status-decline-stolen"/>
+                  <select name="payment_realex_remote_declined_stolen_status_id" class="form-control" id="input-order-status-decline-stolen"/>
                     {% for order_status in order_statuses %}
-                      {% if order_status.order_status_id == payment_realex_remote_order_status_decline_stolen_id %}
+                      {% if order_status.order_status_id == payment_realex_remote_declined_stolen_status_id %}
                         <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
                       {% else %}
                         <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
@@ -252,11 +252,11 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-order-status-decline-bank">{{ entry_status_decline_bank }}</label>
+                <label class="col-sm-2 control-label" for="input-order-status-decline-bank">{{ entry_status_declined_bank }}</label>
                 <div class="col-sm-10">
-                  <select name="payment_realex_remote_decline_bank_id" class="form-control" id="input-order-status-decline-bank"/>
+                  <select name="payment_realex_remote_declined_bank_status_id" class="form-control" id="input-order-status-decline-bank"/>
                     {% for order_status in order_statuses %}
-                      {% if order_status.order_status_id == payment_realex_remote_order_status_decline_bank_id %}
+                      {% if order_status.order_status_id == payment_realex_remote_declined_bank_status_id %}
                         <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
                       {% else %}
                         <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>

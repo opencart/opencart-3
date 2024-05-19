@@ -225,7 +225,7 @@ class ControllerExtensionPaymentFirstdata extends Controller {
 
 						$this->model_extension_payment_firstdata->addTransaction($fd_order['firstdata_order_id'], 'void');
 
-						$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_firstdata_order_status_void_id'), $message, false);
+						$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_firstdata_void_status_id'), $message, false);
 					}
 				}
 

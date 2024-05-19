@@ -63,9 +63,9 @@ $_['entry_liability_shift']          = 'Accept non-liability shifting scenarios'
 $_['entry_status_success_settled']   = 'Success - settled';
 $_['entry_status_success_unsettled'] = 'Success - not settled';
 $_['entry_status_decline']           = 'Decline';
-$_['entry_status_decline_pending']   = 'Decline - offline auth';
-$_['entry_status_decline_stolen']    = 'Decline - lost or stolen card';
-$_['entry_status_decline_bank']      = 'Decline - bank error';
+$_['entry_status_declined_pending']   = 'Decline - offline auth';
+$_['entry_status_declined_stolen']    = 'Decline - lost or stolen card';
+$_['entry_status_declined_bank']      = 'Decline - bank error';
 $_['entry_status_void']              = 'Voided';
 $_['entry_status_rebate']            = 'Rebated';
 

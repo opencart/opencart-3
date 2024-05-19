@@ -429,7 +429,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 						$json['msg'] = $this->language->get('text_release_ok_order');
 
 						$json['order_id'] = (int)$this->request->post['order_id'];
-						$json['order_status_id'] = (int)$this->config->get('payment_securetrading_pp_order_status_success_settled_status_id');
+						$json['order_status_id'] = (int)$this->config->get('payment_securetrading_pp_success_settled_status_id');
 					} else {
 						$release_status = 0;
 

@@ -383,19 +383,19 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 			$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_globalpay_remote_declined_status_id'), $message);
 		} elseif ($response->result == '102') {
 			// Referal B
-			$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_globalpay_remote_decline_pending_id'), $message);
+			$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_globalpay_remote_declined_pending_status_id'), $message);
 		} elseif ($response->result == '103') {
 			// Referal A
-			$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_globalpay_remote_decline_stolen_id'), $message);
+			$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_globalpay_remote_declined_stolen_status_id'), $message);
 		} elseif ($response->result == '200') {
 			// Error Connecting to Bank
-			$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_globalpay_remote_decline_bank_id'), $message);
+			$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_globalpay_remote_declined_bank_status_id'), $message);
 		} elseif ($response->result == '204') {
 			// Error Connecting to Bank
-			$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_globalpay_remote_decline_bank_id'), $message);
+			$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_globalpay_remote_declined_bank_status_id'), $message);
 		} elseif ($response->result == '205') {
 			// Comms Error
-			$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_globalpay_remote_decline_bank_id'), $message);
+			$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_globalpay_remote_declined_bank_status_id'), $message);
 		} else {
 			// Other
 			$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_globalpay_remote_declined_status_id'), $message);

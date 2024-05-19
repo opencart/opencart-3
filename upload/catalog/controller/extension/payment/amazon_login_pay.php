@@ -668,7 +668,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
 				switch ($reason_code) {
 					case 'InvalidPaymentMethod':
-						$this->session->data['apalwa']['error'] = $this->language->get('error_decline_invalid_payment_method');
+						$this->session->data['apalwa']['error'] = $this->language->get('error_declined_invalid_payment_method');
 
 						$this->response->redirect($this->url->link('extension/payment/amazon_login_pay/payment', '', true));
 						break;
@@ -678,9 +678,9 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 						}
 
 						$cart_error_messages = [
-							'TransactionTimedOut' => $this->language->get('error_decline_transaction_timed_out'),
-							'AmazonRejected'      => $this->language->get('error_decline_amazon_rejected'),
-							'ProcessingFailure'   => $this->language->get('error_decline_processing_failure')
+							'TransactionTimedOut' => $this->language->get('error_declined_transaction_timed_out'),
+							'AmazonRejected'      => $this->language->get('error_declined_amazon_rejected'),
+							'ProcessingFailure'   => $this->language->get('error_declined_processing_failure')
 						];
 
 						if (in_array($reason_code, array_keys($cart_error_messages))) {
@@ -802,7 +802,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
 				switch ($reason_code) {
 					case 'InvalidPaymentMethod':
-						$this->session->data['apalwa']['error'] = $this->language->get('error_decline_invalid_payment_method');
+						$this->session->data['apalwa']['error'] = $this->language->get('error_declined_invalid_payment_method');
 
 						$this->response->redirect($this->url->link('extension/payment/amazon_login_pay/payment', '', true));
 						break;
@@ -812,9 +812,9 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 						}
 
 						$cart_error_messages = [
-							'TransactionTimedOut' => $this->language->get('error_decline_transaction_timed_out'),
-							'AmazonRejected'      => $this->language->get('error_decline_amazon_rejected'),
-							'ProcessingFailure'   => $this->language->get('error_decline_processing_failure')
+							'TransactionTimedOut' => $this->language->get('error_declined_transaction_timed_out'),
+							'AmazonRejected'      => $this->language->get('error_declined_amazon_rejected'),
+							'ProcessingFailure'   => $this->language->get('error_declined_processing_failure')
 						];
 
 						if (in_array($reason_code, array_keys($cart_error_messages))) {
