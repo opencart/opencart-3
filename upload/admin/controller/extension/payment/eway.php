@@ -121,22 +121,22 @@ class ControllerExtensionPaymentEway extends Controller {
 			$data['payment_eway_order_status_id'] = (int)$this->config->get('payment_eway_order_status_id');
 		}
 
-		if (isset($this->request->post['payment_eway_order_status_refunded_id'])) {
-			$data['payment_eway_order_status_refunded_id'] = (int)$this->request->post['payment_eway_order_status_refunded_id'];
+		if (isset($this->request->post['payment_eway_refunded_status_id'])) {
+			$data['payment_eway_refunded_status_id'] = (int)$this->request->post['payment_eway_refunded_status_id'];
 		} else {
-			$data['payment_eway_order_status_refunded_id'] = (int)$this->config->get('payment_eway_order_status_refunded_id');
+			$data['payment_eway_refunded_status_id'] = (int)$this->config->get('payment_eway_refunded_status_id');
 		}
 
-		if (isset($this->request->post['payment_eway_order_status_auth_id'])) {
-			$data['payment_eway_order_status_auth_id'] = (int)$this->request->post['payment_eway_order_status_auth_id'];
+		if (isset($this->request->post['payment_eway_auth_status_id'])) {
+			$data['payment_eway_auth_status_id'] = (int)$this->request->post['payment_eway_auth_status_id'];
 		} else {
-			$data['payment_eway_order_status_auth_id'] = (int)$this->config->get('payment_eway_order_status_auth_id');
+			$data['payment_eway_auth_status_id'] = (int)$this->config->get('payment_eway_auth_status_id');
 		}
 
-		if (isset($this->request->post['payment_eway_order_status_fraud_id'])) {
-			$data['payment_eway_order_status_fraud_id'] = (int)$this->request->post['payment_eway_order_status_fraud_id'];
+		if (isset($this->request->post['payment_eway_fraud_status_id'])) {
+			$data['payment_eway_fraud_status_id'] = (int)$this->request->post['payment_eway_fraud_status_id'];
 		} else {
-			$data['payment_eway_order_status_fraud_id'] = (int)$this->config->get('payment_eway_order_status_fraud_id');
+			$data['payment_eway_fraud_status_id'] = (int)$this->config->get('payment_eway_fraud_status_id');
 		}
 
 		if (isset($this->request->post['payment_eway_transaction_method'])) {

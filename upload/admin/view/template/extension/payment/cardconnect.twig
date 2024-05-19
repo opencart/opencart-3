@@ -213,9 +213,9 @@
             </div>
             <div class="tab-pane" id="tab-order-status">
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-cardconnect-order-status-pending"><span data-toggle="tooltip" title="{{ help_order_status_pending|escape('html') }}">{{ entry_order_status_pending }}</span></label>
+                <label class="col-sm-2 control-label" for="input-cardconnect-status-pending"><span data-toggle="tooltip" title="{{ help_order_status_pending|escape('html') }}">{{ entry_order_status_pending }}</span></label>
                 <div class="col-sm-10">
-                  <select name="payment_cardconnect_pending_status_id" class="form-control" id="input-cardconnect-order-status-pending"/>
+                  <select name="payment_cardconnect_pending_status_id" class="form-control" id="input-cardconnect-status-pending"/>
                     {% for order_status in order_statuses %}
                       {% if order_status.order_status_id == payment_cardconnect_pending_status_id %}
                         <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
@@ -227,9 +227,9 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-cardconnect-order-status-processing"><span data-toggle="tooltip" title="{{ help_order_status_processing|escape('html') }}">{{ entry_order_status_processing }}</span></label>
+                <label class="col-sm-2 control-label" for="input-cardconnect-status-processing"><span data-toggle="tooltip" title="{{ help_order_status_processing|escape('html') }}">{{ entry_order_status_processing }}</span></label>
                 <div class="col-sm-10">
-                  <select name="payment_cardconnect_processing_status_id" class="form-control" id="input-cardconnect-order-status-processing"/>
+                  <select name="payment_cardconnect_processing_status_id" class="form-control" id="input-cardconnect-status-processing"/>
                     {% for order_status in order_statuses %}
                       {% if order_status.order_status_id == payment_cardconnect_processing_status_id %}
                         <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>

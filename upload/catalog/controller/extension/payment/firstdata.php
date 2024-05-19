@@ -212,7 +212,7 @@ class ControllerExtensionPaymentFirstdata extends Controller {
 							$message = $this->request->post['fail_reason'] . '<br/>';
 							$message .= $this->language->get('text_response_code_full') . $this->request->post['approval_code'];
 
-							$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_firstdata_order_status_decline_id'), $message);
+							$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_firstdata_declined_status_id'), $message);
 						}
 					}
 				}

@@ -353,11 +353,11 @@ class ControllerExtensionPaymentEway extends Controller {
 				$message .= 'Card Response Code: ' . $response_code . "\n";
 
 				if ($fraud) {
-					$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_eway_order_status_fraud_id'), $message);
+					$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_eway_fraud_status_id'), $message);
 				} elseif ($this->config->get('payment_eway_transaction_method') == 'payment') {
 					$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_eway_order_status_id'), $message);
 				} else {
-					$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_eway_order_status_auth_id'), $message);
+					$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_eway_auth_status_id'), $message);
 				}
 
 				$token_customer_id = (string)$result->Customer->TokenCustomerID;

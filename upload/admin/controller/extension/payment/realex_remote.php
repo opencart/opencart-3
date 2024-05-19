@@ -170,10 +170,10 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 			$data['payment_realex_remote_success_unsettled_status_id'] = (int)$this->config->get('payment_realex_remote_success_unsettled_status_id');
 		}
 
-		if (isset($this->request->post['payment_realex_remote_order_status_decline_id'])) {
-			$data['payment_realex_remote_decline_id'] = (int)$this->request->post['payment_realex_remote_order_status_decline_id'];
+		if (isset($this->request->post['payment_realex_remote_declined_status_id'])) {
+			$data['payment_realex_remote_decline_id'] = (int)$this->request->post['payment_realex_remote_declined_status_id'];
 		} else {
-			$data['payment_realex_remote_decline_id'] = (int)$this->config->get('payment_realex_remote_order_status_decline_id');
+			$data['payment_realex_remote_decline_id'] = (int)$this->config->get('payment_realex_remote_declined_status_id');
 		}
 
 		if (isset($this->request->post['payment_realex_remote_decline_pending_id'])) {

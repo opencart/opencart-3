@@ -380,7 +380,7 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 			}
 		} elseif ($response->result == '101') {
 			// Decline
-			$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_globalpay_remote_order_status_decline_id'), $message);
+			$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_globalpay_remote_declined_status_id'), $message);
 		} elseif ($response->result == '102') {
 			// Referal B
 			$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_globalpay_remote_decline_pending_id'), $message);
@@ -398,7 +398,7 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 			$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_globalpay_remote_decline_bank_id'), $message);
 		} else {
 			// Other
-			$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_globalpay_remote_order_status_decline_id'), $message);
+			$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_globalpay_remote_declined_status_id'), $message);
 		}
 
 		return $response;

@@ -212,9 +212,9 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-order-status-decline">{{ entry_status_decline }}</label>
                 <div class="col-sm-10">
-                  <select name="payment_globalpay_remote_order_status_decline_id" class="form-control" id="input-order-status-decline"/>
+                  <select name="payment_globalpay_remote_declined_status_id" class="form-control" id="input-order-status-decline"/>
                     {% for order_status in order_statuses %}
-                      {% if order_status.order_status_id == payment_globalpay_remote_order_status_decline_id %}
+                      {% if order_status.order_status_id == payment_globalpay_remote_declined_status_id %}
                         <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
                       {% else %}
                         <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>

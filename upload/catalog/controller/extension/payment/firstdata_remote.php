@@ -152,7 +152,7 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 				$message .= $this->language->get('text_card_brand') . $capture_result['brand'] . '<br/>';
 				$message .= $this->language->get('text_card_number_ref') . $capture_result['card_number_ref'] . '<br/>';
 
-				$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_firstdata_remote_order_status_decline_id'), $message);
+				$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_firstdata_remote_declined_status_id'), $message);
 			}
 		}
 

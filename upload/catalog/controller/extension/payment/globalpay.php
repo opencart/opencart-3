@@ -239,7 +239,7 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
 				$data['text_link'] = sprintf($this->language->get('text_link'), $this->url->link('checkout/success', '', true));
 			} elseif ($this->request->post['RESULT'] == '101') {
 				// Decline
-				$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_globalpay_order_status_decline_id'), $message);
+				$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_globalpay_declined_status_id'), $message);
 
 				$data['text_response'] = $this->language->get('text_decline');
 				$data['text_link'] = sprintf($this->language->get('text_link'), $this->url->link('checkout/checkout', '', true));
@@ -275,7 +275,7 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
 				$data['text_link'] = sprintf($this->language->get('text_link'), $this->url->link('checkout/checkout', '', true));
 			} else {
 				// Other error
-				$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_globalpay_order_status_decline_id'), $message);
+				$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_globalpay_declined_status_id'), $message);
 
 				$data['text_response'] = $this->language->get('text_generic_error');
 				$data['text_link'] = sprintf($this->language->get('text_link'), $this->url->link('checkout/checkout', '', true));
