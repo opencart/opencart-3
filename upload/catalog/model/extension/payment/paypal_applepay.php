@@ -2,7 +2,7 @@
 class ModelExtensionPaymentPayPalApplePay extends Model {
 	
 	public function getMethod($address, $total) {
-		$method_data = array();
+		$method_data = [];
 		
 		$this->load->model('extension/payment/paypal');
 		
@@ -24,12 +24,12 @@ class ModelExtensionPaymentPayPalApplePay extends Model {
 			}
 
 			if ($status) {			
-				$method_data = array(
+				$method_data = [
 					'code'       => 'paypal_applepay',
 					'title'      => $this->language->get('text_paypal_applepay_title'),
 					'terms'      => '',
 					'sort_order' => $this->config->get('payment_paypal_sort_order')
-				);
+				];
 			}
 		}
 

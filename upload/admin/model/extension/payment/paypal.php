@@ -2,7 +2,7 @@
 class ModelExtensionPaymentPayPal extends Model {
 		
 	public function getTotalSales() {
-		$implode = array();
+		$implode = [];
 
 		foreach ($this->config->get('config_complete_status') as $order_status_id) {
 			$implode[] = "'" . (int)$order_status_id . "'";
@@ -14,126 +14,126 @@ class ModelExtensionPaymentPayPal extends Model {
 	}
 	
 	public function getTotalSalesByDay() {
-		$implode = array();
+		$implode = [];
 
 		foreach ($this->config->get('config_complete_status') as $order_status_id) {
 			$implode[] = "'" . (int)$order_status_id . "'";
 		}
 
-		$sale_data = array();
+		$sale_data = [];
 
 		for ($i = 0; $i < 24; $i++) {
-			$sale_data[$i] = array(
+			$sale_data[$i] = [
 				'hour'  		=> $i,
 				'total' 		=> 0,
 				'paypal_total' 	=> 0
-			);
+			];
 		}
 
 		$query = $this->db->query("SELECT SUM(total) AS total, SUM(IF (payment_code = 'paypal', total, 0)) AS paypal_total, HOUR(date_added) AS hour FROM `" . DB_PREFIX . "order` WHERE order_status_id IN(" . implode(',', $implode) . ") AND DATE(date_added) = DATE(NOW()) GROUP BY HOUR(date_added) ORDER BY date_added ASC");
 
 		foreach ($query->rows as $result) {
-			$sale_data[$result['hour']] = array(
+			$sale_data[$result['hour']] = [
 				'hour'  		=> $result['hour'],
 				'total' 		=> $result['total'],
 				'paypal_total'  => $result['paypal_total']
-			);
+			];
 		}
 
 		return $sale_data;
 	}
 
 	public function getTotalSalesByWeek() {
-		$implode = array();
+		$implode = [];
 
 		foreach ($this->config->get('config_complete_status') as $order_status_id) {
 			$implode[] = "'" . (int)$order_status_id . "'";
 		}
 
-		$sale_data = array();
+		$sale_data = [];
 
 		$date_start = strtotime('-' . date('w') . ' days');
 
 		for ($i = 0; $i < 7; $i++) {
 			$date = date('Y-m-d', $date_start + ($i * 86400));
 
-			$sale_data[date('w', strtotime($date))] = array(
+			$sale_data[date('w', strtotime($date))] = [
 				'day'   		=> date('D', strtotime($date)),
 				'total' 		=> 0,
 				'paypal_total' 	=> 0
-			);
+			];
 		}
 
 		$query = $this->db->query("SELECT SUM(total) AS total, SUM(IF (payment_code = 'paypal', total, 0)) AS paypal_total, date_added FROM `" . DB_PREFIX . "order` WHERE order_status_id IN(" . implode(',', $implode) . ") AND DATE(date_added) >= DATE('" . $this->db->escape(date('Y-m-d', $date_start)) . "') GROUP BY DAYNAME(date_added)");
 
 		foreach ($query->rows as $result) {
-			$sale_data[date('w', strtotime($result['date_added']))] = array(
+			$sale_data[date('w', strtotime($result['date_added']))] = [
 				'day'   		=> date('D', strtotime($result['date_added'])),
 				'total' 		=> $result['total'],
 				'paypal_total'  => $result['paypal_total']
-			);
+			];
 		}
 
 		return $sale_data;
 	}
 
 	public function getTotalSalesByMonth() {
-		$implode = array();
+		$implode = [];
 
 		foreach ($this->config->get('config_complete_status') as $order_status_id) {
 			$implode[] = "'" . (int)$order_status_id . "'";
 		}
 
-		$sale_data = array();
+		$sale_data = [];
 
 		for ($i = 1; $i <= date('t'); $i++) {
 			$date = date('Y') . '-' . date('m') . '-' . $i;
 
-			$sale_data[date('j', strtotime($date))] = array(
+			$sale_data[date('j', strtotime($date))] = [
 				'day'   		=> date('d', strtotime($date)),
 				'total' 		=> 0,
 				'paypal_total' 	=> 0
-			);
+			];
 		}
 
 		$query = $this->db->query("SELECT SUM(total) AS total, SUM(IF (payment_code = 'paypal', total, 0)) AS paypal_total, date_added FROM `" . DB_PREFIX . "order` WHERE order_status_id IN(" . implode(',', $implode) . ") AND DATE(date_added) >= '" . $this->db->escape(date('Y') . '-' . date('m') . '-1') . "' GROUP BY DATE(date_added)");
 
 		foreach ($query->rows as $result) {
-			$sale_data[date('j', strtotime($result['date_added']))] = array(
+			$sale_data[date('j', strtotime($result['date_added']))] = [
 				'day'   => date('d', strtotime($result['date_added'])),
 				'total' 		=> $result['total'],
 				'paypal_total'  => $result['paypal_total']
-			);
+			];
 		}
 
 		return $sale_data;
 	}
 
 	public function getTotalSalesByYear() {
-		$implode = array();
+		$implode = [];
 
 		foreach ($this->config->get('config_complete_status') as $order_status_id) {
 			$implode[] = "'" . (int)$order_status_id . "'";
 		}
 
-		$sale_data = array();
+		$sale_data = [];
 
 		for ($i = 1; $i <= 12; $i++) {
-			$sale_data[$i] = array(
+			$sale_data[$i] = [
 				'month' 		=> date('M', mktime(0, 0, 0, $i)),
 				'total' 		=> 0,
 				'paypal_total' 	=> 0
-			);
+			];
 		}
 
 		$query = $this->db->query("SELECT SUM(total) AS total, SUM(IF (payment_code = 'paypal', total, 0)) AS paypal_total, date_added FROM `" . DB_PREFIX . "order` WHERE order_status_id IN(" . implode(',', $implode) . ") AND YEAR(date_added) = YEAR(NOW()) GROUP BY MONTH(date_added)");
 
 		foreach ($query->rows as $result) {
-			$sale_data[date('n', strtotime($result['date_added']))] = array(
+			$sale_data[date('n', strtotime($result['date_added']))] = [
 				'month' => date('M', strtotime($result['date_added'])),
 				'total' 		=> $result['total'],
 				'paypal_total'  => $result['paypal_total']
-			);
+			];
 		}
 
 		return $sale_data;
@@ -152,7 +152,7 @@ class ModelExtensionPaymentPayPal extends Model {
 	public function editPayPalOrder($data) {
 		$sql = "UPDATE `" . DB_PREFIX . "paypal_checkout_integration_order` SET";
 
-		$implode = array();
+		$implode = [];
 		
 		if (!empty($data['paypal_order_id'])) {
 			$implode[] = "`paypal_order_id` = '" . $this->db->escape($data['paypal_order_id']) . "'";
@@ -233,7 +233,7 @@ class ModelExtensionPaymentPayPal extends Model {
 		if ($query->num_rows) {
 			return $query->row;
 		} else {
-			return array();
+			return [];
 		}
 	}
 	
@@ -271,10 +271,10 @@ class ModelExtensionPaymentPayPal extends Model {
 			$catalog = HTTP_CATALOG;
 		}
 		
-		$data = array(
+		$data = [
 			'order_id' => $order_id,
 			'order_status_id' => $order_status_id
-		);
+		];
 			
 		$curl = curl_init();
 			
