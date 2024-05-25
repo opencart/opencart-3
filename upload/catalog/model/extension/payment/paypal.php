@@ -708,7 +708,9 @@ class ModelExtensionPaymentPayPal extends Model {
 		return false;
 	}
 	
-	public function calculateSchedule($frequency, $next_payment, $cycle) {
+	private function calculateSchedule($frequency, \DateTime $next_payment, $cycle) {
+		$next_payment = clone $next_payment;
+		
 		if ($frequency == 'semi_month') {
 			$day = date_format($next_payment, 'd');
 			$value = 15 - $day;
