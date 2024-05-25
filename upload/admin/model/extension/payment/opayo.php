@@ -358,7 +358,7 @@ class ModelExtensionPaymentOpayo extends Model {
 	 *
 	 * @return array<string, string>
 	 */
-	public function sendCurl($url, $payment_data): array {
+	public function sendCurl(string $url, array $payment_data): array {
 		$data = [];
 
 		$curl = curl_init($url);
