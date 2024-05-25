@@ -35,29 +35,62 @@
 						<li class="nav-tab"><a href="{{ href_applepay_button }}" class="tab"><i class="tab-icon tab-icon-applepay-button"></i><span class="tab-title">{{ text_tab_applepay_button }}</span></a></li>
 						<li class="nav-tab"><a href="{{ href_card }}" class="tab"><i class="tab-icon tab-icon-card"></i><span class="tab-title">{{ text_tab_card }}</span></a></li>
 						<li class="nav-tab"><a href="{{ href_message_configurator }}" class="tab"><i class="tab-icon tab-icon-message-configurator"></i><span class="tab-title">{{ text_tab_message_configurator }}</span></a></li>
-						<li class="nav-tab"><a href="{{ href_message_setting }}" class="tab"><i class="tab-icon tab-icon-message-setting"></i><span class="tab-title">{{ text_tab_message_setting }}</span></a></li>
-						<li class="nav-tab active"><a href="{{ href_order_status }}" class="tab"><i class="tab-icon tab-icon-order-status"></i><span class="tab-title">{{ text_tab_order_status }}</span></a></li>
+						<li class="nav-tab active"><a href="{{ href_message_setting }}" class="tab"><i class="tab-icon tab-icon-message-setting"></i><span class="tab-title">{{ text_tab_message_setting }}</span></a></li>
+						<li class="nav-tab"><a href="{{ href_order_status }}" class="tab"><i class="tab-icon tab-icon-order-status"></i><span class="tab-title">{{ text_tab_order_status }}</span></a></li>
 						<li class="nav-tab"><a href="{{ href_contact }}" class="tab"><i class="tab-icon tab-icon-contact"></i><span class="tab-title">{{ text_tab_contact }}</span></a></li>
 					</ul>
 					<div class="section-content">
-						<div class="row">
-							{% for column_paypal_order_status in setting['order_status']|batch(setting['order_status']|length / 2|round(1, 'ceil')) %}
-							<div class="col col-md-6">
-								{% for paypal_order_status in column_paypal_order_status %}
-								<div class="form-group">
-									<label class="control-label" for="input_order_status_{{ paypal_order_status['code'] }}">{{ attribute(_context, paypal_order_status['name']) }}</label>
-									<select name="payment_paypal_setting[order_status][{{ paypal_order_status['code'] }}][id]" id="input_{{ paypal_order_status['code'] }}_status" class="form-control">
-										{% for order_status in order_statuses %}
-										{% if order_status['order_status_id'] == paypal_order_status['id'] %}
-										<option value="{{ order_status['order_status_id'] }}" selected="selected">{{ order_status['name'] }}</option>
-										{% else %}
-										<option value="{{ order_status['order_status_id'] }}">{{ order_status['name'] }}</option>
-										{% endif %}
-										{% endfor %}
-									</select>
+						<ul class="nav nav-pills">
+							{% for message in setting['message'] %}
+							{% if (message['page_code'] != 'checkout') %}
+							<li class="nav-pill {% if (message['page_code'] == 'cart') %}active{% endif %}"><a href="#pill_{{ message['page_code'] }}" class="pill" data-toggle="tab">{{ attribute(_context, message['page_name']) }}</a></li>
+							{% endif %}
+							{% endfor %}
+						</ul>
+						<hr class="hr" />
+						<div class="tab-content">
+							{% for message in setting['message'] %}
+							{% if (message['page_code'] != 'checkout') %}
+							<div id="pill_{{ message['page_code'] }}" class="tab-pane {% if (message['page_code'] == 'cart') %}active{% endif %}">
+								<div class="section-message-setting">
+									<div class="row">
+										<div class="col col-md-6">
+											<legend class="legend">{{ text_message_settings }}</legend>
+										</div>
+									</div>
+									{% if text_message_alert %}
+									{#<div class="form-group">
+										<p class="alert alert-info">{{ text_message_alert }}</p>
+									</div>
+									<div class="form-group">
+										<p class="footnote">{{ text_message_footnote }}</p>
+									</div>#}
+									{% endif %}
+									<div class="row">
+										<div class="col col-md-6">
+											<div class="form-group">
+												<label class="control-label" for="input_message_{{ message['page_code'] }}_insert_tag">{{ entry_message_insert_tag }}</label>
+												<input type="text" name="payment_paypal_setting[message][{{ message['page_code'] }}][insert_tag]" value="{{ message['insert_tag'] }}" id="input_message_{{ message['page_code'] }}_insert_tag" class="form-control" />
+											</div>
+										</div>
+										<div class="col col-md-6">
+											<div class="form-group">
+												<label class="control-label" for="input_message_{{ message['page_code'] }}_insert_type">{{ entry_message_insert_type }}</label>
+												<select name="payment_paypal_setting[message][{{ message['page_code'] }}][insert_type]" id="input_message_{{ message['page_code'] }}_insert_type" class="form-control">
+													{% for message_insert_type in setting['message_insert_type'] %}
+													{% if (message_insert_type['code'] == message['insert_type']) %}
+													<option value="{{ message_insert_type['code'] }}" selected="selected">{{ attribute(_context, message_insert_type['name']) }}</option>
+													{% else %}
+													<option value="{{ message_insert_type['code'] }}">{{ attribute(_context, message_insert_type['name']) }}</option>
+													{% endif %}
+													{% endfor %}
+												</select>
+											</div>
+										</div>									
+									</div>
 								</div>
-								{% endfor %}
 							</div>
+							{% endif %}
 							{% endfor %}
 						</div>
 					</div>

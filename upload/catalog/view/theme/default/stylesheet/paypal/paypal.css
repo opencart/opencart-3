@@ -1,5 +1,7 @@
 .paypal-button {
 	position: relative;
+	width: 100%;
+	margin: 1em 0;
 }
 @media (max-width: 476px) {
 	.paypal-button-container {
@@ -8,6 +10,8 @@
 }
 .googlepay-button {
 	position: relative;
+	width: 100%;
+	margin: 1em 0;
 }
 @media (max-width: 476px) {
 	.googlepay-button-container {
@@ -25,12 +29,25 @@
 }
 .applepay-button {
 	position: relative;
+	width: 100%;
+	margin: 1em 0;
 }
 @media (max-width: 476px) {
 	.applepay-button-container {
 		width: 100% !important;
 	}
 	.applepay-button #apple-pay-button {
+		width: 100% !important;
+	}
+}
+.paypal-card-tokens {
+	position: relative;
+}
+.paypal-card-tokens-container {
+	position: relative;
+}
+@media (max-width: 476px) {
+	.paypal-card-tokens-container {
 		width: 100% !important;
 	}
 }
@@ -47,6 +64,10 @@
 }
 .paypal-message {
 	position: relative;
+	margin-bottom: 10px;
+}
+.paypal-message [data-pp-message] > * {
+	max-width: none !important;
 }
 .paypal-spinner {
 	position: relative;

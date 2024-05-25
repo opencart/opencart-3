@@ -1,39 +1,43 @@
 {% if checkout_mode == 'multi_button' %}
-  <div id="paypal-form">
-    {% if button_status %}
-      <div class="paypal-button buttons clearfix" id="paypal-button">
-      <div class="paypal-button-container paypal-spinner" id="paypal-button-container"></div>
-    </div>
-    {% endif %}
-  </div>
-  <script type="text/javascript">
-  if (typeof PayPalAPI !== 'undefined') {
-  	  PayPalAPI.init();
-  }  	
-  </script>
+<div id="paypal_form">
+	{% if button_status %}
+	<div id="paypal_button" class="paypal-button clearfix">
+		<div id="paypal_button_container" class="paypal-button-container paypal-spinner"></div>
+	</div>
+	{% endif %}
+</div>
+<script type="text/javascript">
+
+if (typeof PayPalAPI !== 'undefined') {
+	PayPalAPI.init();
+}
+	
+</script>
 {% else %}
-  <div class="buttons">
-    <div class="pull-right">
-      <button type="button" class="btn btn-primary paypal-paylater-button-confirm" data-loading-text="{{ text_loading }}" id="button-confirm">{{ button_confirm }}</button>
-    </div>
-  </div>
-  <script type="text/javascript">
-  $(document).on('click', '.paypal-paylater-button-confirm', function(event) {
-	  $('.paypal-paylater-button-confirm').button('loading');
+<div class="buttons">
+	<div class="pull-right">
+		<button type="button" id="button-confirm" class="btn btn-primary paypal-paylater-button-confirm" data-loading-text="{{ text_loading }}">{{ button_confirm }}</button>
+	</div>
+</div>
+<script type="text/javascript">
+
+$(document).on('click', '.paypal-paylater-button-confirm', function(event) {
+	$('.paypal-paylater-button-confirm').button('loading');
 	
-	  $('#paypal-modal').remove();
+	$('#paypal_modal').remove();
 	
-	  $('body').append('<div class="modal fade" id="paypal-modal"></div>');
+	$('body').append('<div id="paypal_modal" class="modal fade"></div>');
 	
-	  $('#paypal-modal').load('index.php?route=extension/payment/paypal_paylater/modal #paypal-modal >', function() {		
-		  $('.paypal-paylater-button-confirm').button('reset');
+	$('#paypal_modal').load('index.php?route=extension/payment/paypal_paylater/modal #paypal_modal >', function() {		
+		$('.paypal-paylater-button-confirm').button('reset');
 		
-		  $('#paypal-modal').modal('show');
+		$('#paypal_modal').modal('show');
 		
-		  if (typeof PayPalAPI !== 'undefined') {
-			  PayPalAPI.init();
-		  }
-	  });
-  });
-  </script>
+		if (typeof PayPalAPI !== 'undefined') {
+			PayPalAPI.init();
+		}
+	});
+});
+
+</script>
 {% endif %}
