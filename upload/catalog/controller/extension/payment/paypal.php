@@ -4507,12 +4507,12 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	}
 	
 	private function unserialize($str) {
-		$data = [];
+		$str_data = [];
 				
 		$str = str_replace('&amp;', '&', $str);
 		
-		parse_str($str, $data);
+		parse_str($str, $str_data);
 		
-		return $data;
+		return $str_data;
 	}
 }
