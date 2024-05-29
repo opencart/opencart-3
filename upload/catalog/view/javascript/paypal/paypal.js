@@ -322,11 +322,10 @@ var PayPalAPI = (function () {
 						
 							if (json['url']) {
 								location = json['url'];
+							} else {
+								paypal_card_token.removeClass('paypal-spinner');
+								$('#paypal_card_tokens_container').removeClass('disabled');
 							}
-						},
-						complete: function() {
-							paypal_card_token.removeClass('paypal-spinner');
-							$('#paypal_card_tokens_container').removeClass('disabled');
 						},
 						error: function(xhr, ajaxOptions, thrownError) {
 							console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -356,14 +355,13 @@ var PayPalAPI = (function () {
 									
 							if (json['success']) {
 								paypal_card_token.remove();
+							} else {
+								paypal_card_token.removeClass('paypal-spinner');
+								$('#paypal_card_tokens_container').removeClass('disabled');
 							}
 						},
 						error: function(xhr, ajaxOptions, thrownError) {
 							console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-						},
-						complete: function() {
-							paypal_card_token.removeClass('paypal-spinner');
-							$('#paypal_card_tokens_container').removeClass('disabled');
 						}
 					});
 				}
@@ -430,14 +428,13 @@ var PayPalAPI = (function () {
 								
 								if (json['url']) {
 									location = json['url'];
+								} else {
+									$('#paypal_card_container').removeClass('paypal-spinner');
+									$('#paypal_card_button').prop('disabled', false).button('reset');
 								}
 							},
 							error: function(xhr, ajaxOptions, thrownError) {
 								console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-							},
-							complete: function() {
-								$('#paypal_card_container').removeClass('paypal-spinner');
-								$('#paypal_card_button').prop('disabled', false).button('reset');
 							}
 						});
 					},

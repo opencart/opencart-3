@@ -2,7 +2,7 @@
 class ModelExtensionPaymentPayPalPayLater extends Model {
 	
 	public function getMethod($address, $total) {
-		$method_data = [];
+		$method_data = array();
 		
 		$this->load->model('extension/payment/paypal');
 		
@@ -38,12 +38,12 @@ class ModelExtensionPaymentPayPalPayLater extends Model {
 					$message = '';
 				}
 			
-				$method_data = [
+				$method_data = array(
 					'code'       => 'paypal_paylater',
 					'title'      => $this->language->get('text_paypal_paylater_title') . $message,
 					'terms'      => '',
 					'sort_order' => $this->config->get('payment_paypal_sort_order')
-				];
+				);
 			}
 		}
 

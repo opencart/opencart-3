@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentPayPal extends Controller {
-	private $error = [];
+	private $error = array();
 	
 	public function __construct($registry) {
 		parent::__construct($registry);
@@ -37,19 +37,19 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			
 			require_once DIR_SYSTEM . 'library/paypal/paypal.php';
 			
-			$paypal_info = [
+			$paypal_info = array(
 				'client_id' => $cache_data['shared_id'],
 				'environment' => $environment,
 				'partner_attribution_id' => $config_setting['partner'][$environment]['partner_attribution_id']
-			];
+			);
 					
 			$paypal = new PayPal($paypal_info);
 			
-			$token_info = [
+			$token_info = array(
 				'grant_type' => 'authorization_code',
 				'code' => $cache_data['authorization_code'],
 				'code_verifier' => $cache_data['seller_nonce']
-			];
+			);
 			
 			$paypal->setAccessToken($token_info);
 							
@@ -63,19 +63,19 @@ class ControllerExtensionPaymentPayPal extends Controller {
 				$secret = $result['client_secret'];
 			}
 						
-			$paypal_info = [
+			$paypal_info = array(
 				'partner_id' => $config_setting['partner'][$environment]['partner_id'],
 				'client_id' => $client_id,
 				'secret' => $secret,
 				'environment' => $environment,
 				'partner_attribution_id' => $config_setting['partner'][$environment]['partner_attribution_id']
-			];
+			);
 		
 			$paypal = new PayPal($paypal_info);
 			
-			$token_info = [
+			$token_info = array(
 				'grant_type' => 'client_credentials'
-			];
+			);	
 		
 			$paypal->setAccessToken($token_info);
 			
@@ -84,20 +84,20 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			$webhook_token = sha1(uniqid(mt_rand(), 1));
 			$cron_token = sha1(uniqid(mt_rand(), 1));
 			
-			$webhook_info = [
+			$webhook_info = array(
 				'url' => $catalog . 'index.php?route=extension/payment/paypal&webhook_token=' . $webhook_token,
-				'event_types' => [
-					['name' => 'PAYMENT.AUTHORIZATION.CREATED'],
-					['name' => 'PAYMENT.AUTHORIZATION.VOIDED'],
-					['name' => 'PAYMENT.CAPTURE.COMPLETED'],
-					['name' => 'PAYMENT.CAPTURE.DENIED'],
-					['name' => 'PAYMENT.CAPTURE.PENDING'],
-					['name' => 'PAYMENT.CAPTURE.REFUNDED'],
-					['name' => 'PAYMENT.CAPTURE.REVERSED'],
-					['name' => 'CHECKOUT.ORDER.COMPLETED'],
-					['name' => 'VAULT.PAYMENT-TOKEN.CREATED']
-				]
-			];
+				'event_types' => array(
+					array('name' => 'PAYMENT.AUTHORIZATION.CREATED'),
+					array('name' => 'PAYMENT.AUTHORIZATION.VOIDED'),
+					array('name' => 'PAYMENT.CAPTURE.COMPLETED'),
+					array('name' => 'PAYMENT.CAPTURE.DENIED'),
+					array('name' => 'PAYMENT.CAPTURE.PENDING'),
+					array('name' => 'PAYMENT.CAPTURE.REFUNDED'),
+					array('name' => 'PAYMENT.CAPTURE.REVERSED'),
+					array('name' => 'CHECKOUT.ORDER.COMPLETED'),
+					array('name' => 'VAULT.PAYMENT-TOKEN.CREATED')
+				)
+			);
 			
 			$result = $paypal->createWebhook($webhook_info);
 						
@@ -108,8 +108,8 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			}
 			
 			if ($paypal->hasErrors()) {
-				$error_messages = [];
-
+				$error_messages = array();
+				
 				$errors = $paypal->getErrors();
 						
 				foreach ($errors as $error) {
@@ -193,22 +193,22 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		
 		$this->document->setTitle($this->language->get('heading_title_main'));
 				
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_extensions'),
 			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title_main'),
 			'href' => $this->url->link('extension/payment/paypal', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 								
 		$data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true);
 		$data['partner_url'] = str_replace('&amp;', '%26', $this->url->link('extension/payment/paypal', 'user_token=' . $this->session->data['user_token'], true));
@@ -234,16 +234,16 @@ class ControllerExtensionPaymentPayPal extends Controller {
 					
 		$data['seller_nonce'] = $this->token(50);
 		
-		$data['configure_url'] = [
-			'production' => [
+		$data['configure_url'] = array(
+			'production' => array(
 				'ppcp' => 'https://www.paypal.com/bizsignup/partner/entry?partnerId=' . $data['setting']['partner']['production']['partner_id'] . '&partnerClientId=' . $data['setting']['partner']['production']['client_id'] . '&features=PAYMENT,REFUND,ACCESS_MERCHANT_INFORMATION,VAULT,BILLING_AGREEMENT&product=PPCP,ADVANCED_VAULTING&capabilities=PAYPAL_WALLET_VAULTING_ADVANCED&integrationType=FO&returnToPartnerUrl=' . $data['partner_url'] . '&displayMode=minibrowser&sellerNonce=' . $data['seller_nonce'],
 				'express_checkout' => 'https://www.paypal.com/bizsignup/partner/entry?partnerId=' . $data['setting']['partner']['production']['partner_id'] . '&partnerClientId=' . $data['setting']['partner']['production']['client_id'] . '&features=PAYMENT,REFUND,ACCESS_MERCHANT_INFORMATION,VAULT,BILLING_AGREEMENT&product=EXPRESS_CHECKOUT,ADVANCED_VAULTING&capabilities=PAYPAL_WALLET_VAULTING_ADVANCED&integrationType=FO&returnToPartnerUrl=' . $data['partner_url'] . '&displayMode=minibrowser&sellerNonce=' . $data['seller_nonce']
-			],
-			'sandbox' => [
+			),
+			'sandbox' => array(
 				'ppcp' => 'https://www.sandbox.paypal.com/bizsignup/partner/entry?partnerId=' . $data['setting']['partner']['sandbox']['partner_id'] . '&partnerClientId=' . $data['setting']['partner']['sandbox']['client_id'] . '&features=PAYMENT,REFUND,ACCESS_MERCHANT_INFORMATION,VAULT,BILLING_AGREEMENT&product=PPCP,ADVANCED_VAULTING&capabilities=PAYPAL_WALLET_VAULTING_ADVANCED&integrationType=FO&returnToPartnerUrl=' . $data['partner_url'] . '&displayMode=minibrowser&sellerNonce=' . $data['seller_nonce'],
 				'express_checkout' => 'https://www.sandbox.paypal.com/bizsignup/partner/entry?partnerId=' . $data['setting']['partner']['sandbox']['partner_id'] . '&partnerClientId=' . $data['setting']['partner']['sandbox']['client_id'] . '&features=PAYMENT,REFUND,ACCESS_MERCHANT_INFORMATION,VAULT,BILLING_AGREEMENT&product=EXPRESS_CHECKOUT,ADVANCED_VAULTING&capabilities=PAYPAL_WALLET_VAULTING_ADVANCED&integrationType=FO&returnToPartnerUrl=' . $data['partner_url'] . '&displayMode=minibrowser&sellerNonce=' . $data['seller_nonce']
-			]
-		];
+			)
+		);
 		
 		$data['text_checkout_express'] = sprintf($this->language->get('text_checkout_express'), $data['configure_url'][$data['environment']]['express_checkout']);
 		$data['text_support'] = sprintf($this->language->get('text_support'), $this->request->server['HTTP_HOST']);
@@ -292,22 +292,22 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 		$this->document->setTitle($this->language->get('heading_title_main'));
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_extensions'),
 			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title_main'),
 			'href' => $this->url->link('extension/payment/paypal', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 		
 		$data['href_dashboard'] = $this->url->link('extension/payment/paypal/dashboard', 'user_token=' . $this->session->data['user_token'], true);
 		$data['href_general'] = $this->url->link('extension/payment/paypal/general', 'user_token=' . $this->session->data['user_token'], true);
@@ -423,22 +423,22 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 		$this->document->setTitle($this->language->get('heading_title_main'));
 						
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_extensions'),
 			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title_main'),
 			'href' => $this->url->link('extension/payment/paypal', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 		
 		// Action
 		$data['href_dashboard'] = $this->url->link('extension/payment/paypal/dashboard', 'user_token=' . $this->session->data['user_token'], true);
@@ -544,22 +544,22 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 		$this->document->setTitle($this->language->get('heading_title_main'));
 			
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_extensions'),
 			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title_main'),
 			'href' => $this->url->link('extension/payment/paypal', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 		
 		// Action
 		$data['href_dashboard'] = $this->url->link('extension/payment/paypal/dashboard', 'user_token=' . $this->session->data['user_token'], true);
@@ -611,25 +611,25 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		if ($data['client_id'] && $data['secret']) {										
 			require_once DIR_SYSTEM . 'library/paypal/paypal.php';
 			
-			$paypal_info = [
+			$paypal_info = array(
 				'client_id' => $data['client_id'],
 				'secret' => $data['secret'],
 				'environment' => $data['environment'],
 				'partner_attribution_id' => $data['setting']['partner'][$data['environment']]['partner_attribution_id']
-			];
+			);
 		
 			$paypal = new PayPal($paypal_info);
 			
-			$token_info = [
+			$token_info = array(
 				'grant_type' => 'client_credentials'
-			];	
+			);	
 				
 			$paypal->setAccessToken($token_info);
 					
 			$data['client_token'] = $paypal->getClientToken();
 																	
 			if ($paypal->hasErrors()) {
-				$error_messages = [];
+				$error_messages = array();
 				
 				$errors = $paypal->getErrors();
 								
@@ -696,22 +696,22 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 		$this->document->setTitle($this->language->get('heading_title_main'));
 				
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_extensions'),
 			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title_main'),
 			'href' => $this->url->link('extension/payment/paypal', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 		
 		// Action
 		$data['href_dashboard'] = $this->url->link('extension/payment/paypal/dashboard', 'user_token=' . $this->session->data['user_token'], true);
@@ -763,25 +763,25 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		if ($data['client_id'] && $data['secret']) {										
 			require_once DIR_SYSTEM . 'library/paypal/paypal.php';
 			
-			$paypal_info = [
+			$paypal_info = array(
 				'client_id' => $data['client_id'],
 				'secret' => $data['secret'],
 				'environment' => $data['environment'],
 				'partner_attribution_id' => $data['setting']['partner'][$data['environment']]['partner_attribution_id']
-			];
+			);
 		
 			$paypal = new PayPal($paypal_info);
 			
-			$token_info = [
+			$token_info = array(
 				'grant_type' => 'client_credentials'
-			];	
+			);	
 				
 			$paypal->setAccessToken($token_info);
 		
 			$data['client_token'] = $paypal->getClientToken();
 														
 			if ($paypal->hasErrors()) {
-				$error_messages = [];
+				$error_messages = array();
 				
 				$errors = $paypal->getErrors();
 								
@@ -848,22 +848,22 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 		$this->document->setTitle($this->language->get('heading_title_main'));
 				
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_extensions'),
 			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title_main'),
 			'href' => $this->url->link('extension/payment/paypal', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 		
 		// Action
 		$data['href_dashboard'] = $this->url->link('extension/payment/paypal/dashboard', 'user_token=' . $this->session->data['user_token'], true);
@@ -917,25 +917,25 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		if ($data['client_id'] && $data['secret']) {										
 			require_once DIR_SYSTEM . 'library/paypal/paypal.php';
 			
-			$paypal_info = [
+			$paypal_info = array(
 				'client_id' => $data['client_id'],
 				'secret' => $data['secret'],
 				'environment' => $data['environment'],
 				'partner_attribution_id' => $data['setting']['partner'][$data['environment']]['partner_attribution_id']
-			];
+			);
 		
 			$paypal = new PayPal($paypal_info);
 			
-			$token_info = [
+			$token_info = array(
 				'grant_type' => 'client_credentials'
-			];	
+			);	
 				
 			$paypal->setAccessToken($token_info);
 		
 			$data['client_token'] = $paypal->getClientToken();
 														
 			if ($paypal->hasErrors()) {
-				$error_messages = [];
+				$error_messages = array();
 				
 				$errors = $paypal->getErrors();
 								
@@ -1002,22 +1002,22 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 		$this->document->setTitle($this->language->get('heading_title_main'));
 				
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_extensions'),
 			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title_main'),
 			'href' => $this->url->link('extension/payment/paypal', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 		
 		// Action
 		$data['href_dashboard'] = $this->url->link('extension/payment/paypal/dashboard', 'user_token=' . $this->session->data['user_token'], true);
@@ -1069,25 +1069,25 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		if ($data['client_id'] && $data['secret']) {										
 			require_once DIR_SYSTEM . 'library/paypal/paypal.php';
 			
-			$paypal_info = [
+			$paypal_info = array(
 				'client_id' => $data['client_id'],
 				'secret' => $data['secret'],
 				'environment' => $data['environment'],
 				'partner_attribution_id' => $data['setting']['partner'][$data['environment']]['partner_attribution_id']
-			];
+			);
 		
 			$paypal = new PayPal($paypal_info);
 			
-			$token_info = [
+			$token_info = array(
 				'grant_type' => 'client_credentials'
-			];
+			);	
 				
 			$paypal->setAccessToken($token_info);
 		
 			$data['client_token'] = $paypal->getClientToken();
 														
 			if ($paypal->hasErrors()) {
-				$error_messages = [];
+				$error_messages = array();
 				
 				$errors = $paypal->getErrors();
 								
@@ -1154,22 +1154,22 @@ class ControllerExtensionPaymentPayPal extends Controller {
 				
 		$this->document->setTitle($this->language->get('heading_title_main'));
 				
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_extensions'),
 			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title_main'),
 			'href' => $this->url->link('extension/payment/paypal', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 		
 		// Action
 		$data['href_dashboard'] = $this->url->link('extension/payment/paypal/dashboard', 'user_token=' . $this->session->data['user_token'], true);
@@ -1222,25 +1222,25 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		if ($data['client_id'] && $data['secret']) {										
 			require_once DIR_SYSTEM . 'library/paypal/paypal.php';
 			
-			$paypal_info = [
+			$paypal_info = array(
 				'client_id' => $data['client_id'],
 				'secret' => $data['secret'],
 				'environment' => $data['environment'],
 				'partner_attribution_id' => $data['setting']['partner'][$data['environment']]['partner_attribution_id']
-			];
+			);
 		
 			$paypal = new PayPal($paypal_info);
 			
-			$token_info = [
+			$token_info = array(
 				'grant_type' => 'client_credentials'
-			];	
+			);	
 				
 			$paypal->setAccessToken($token_info);
 		
 			$data['client_token'] = $paypal->getClientToken();
 														
 			if ($paypal->hasErrors()) {
-				$error_messages = [];
+				$error_messages = array();
 				
 				$errors = $paypal->getErrors();
 								
@@ -1306,22 +1306,22 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		
 		$this->document->setTitle($this->language->get('heading_title_main'));
 				
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_extensions'),
 			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title_main'),
 			'href' => $this->url->link('extension/payment/paypal', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 		
 		// Action
 		$data['href_dashboard'] = $this->url->link('extension/payment/paypal/dashboard', 'user_token=' . $this->session->data['user_token'], true);
@@ -1382,25 +1382,25 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		if ($data['client_id'] && $data['secret']) {										
 			require_once DIR_SYSTEM . 'library/paypal/paypal.php';
 			
-			$paypal_info = [
+			$paypal_info = array(
 				'client_id' => $data['client_id'],
 				'secret' => $data['secret'],
 				'environment' => $data['environment'],
 				'partner_attribution_id' => $data['setting']['partner'][$data['environment']]['partner_attribution_id']
-			];
+			);
 		
 			$paypal = new PayPal($paypal_info);
 			
-			$token_info = [
+			$token_info = array(
 				'grant_type' => 'client_credentials'
-			];	
+			);	
 				
 			$paypal->setAccessToken($token_info);
 		
 			$data['client_token'] = $paypal->getClientToken();
 														
 			if ($paypal->hasErrors()) {
-				$error_messages = [];
+				$error_messages = array();
 				
 				$errors = $paypal->getErrors();
 								
@@ -1462,22 +1462,22 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 		$this->document->setTitle($this->language->get('heading_title_main'));
 				
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_extensions'),
 			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title_main'),
 			'href' => $this->url->link('extension/payment/paypal', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 		
 		// Action
 		$data['href_dashboard'] = $this->url->link('extension/payment/paypal/dashboard', 'user_token=' . $this->session->data['user_token'], true);
@@ -1554,22 +1554,22 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 		$this->document->setTitle($this->language->get('heading_title_main'));
 			
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_extensions'),
 			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true)
-		];
+		);
 
-		$data['breadcrumbs'][] = [
+		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title_main'),
 			'href' => $this->url->link('extension/payment/paypal', 'user_token=' . $this->session->data['user_token'], true)
-		];
+		);
 		
 		// Action
 		$data['href_dashboard'] = $this->url->link('extension/payment/paypal/dashboard', 'user_token=' . $this->session->data['user_token'], true);
@@ -1636,8 +1636,6 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	
 	public function save() {
 		$this->load->language('extension/payment/paypal');
-
-		$json = [];
 		
 		$this->load->model('setting/setting');
 						
@@ -1648,19 +1646,17 @@ class ControllerExtensionPaymentPayPal extends Controller {
 						
 			$this->model_setting_setting->editSetting('payment_paypal', $setting);
 														
-			$json['success'] = $this->language->get('success_save');
+			$data['success'] = $this->language->get('success_save');
 		}
 		
-		$json['error'] = $this->error;
+		$data['error'] = $this->error;
 		
 		$this->response->addHeader('Content-Type: application/json');
-		$this->response->setOutput(json_encode($json));	
+		$this->response->setOutput(json_encode($data));	
 	}
 	
 	public function connect() {
 		$this->load->language('extension/payment/paypal');
-
-		$json = [];
 		
 		if (isset($this->request->server['HTTPS']) && (($this->request->server['HTTPS'] == 'on') || ($this->request->server['HTTPS'] == '1'))) {
 			$server = HTTPS_SERVER;
@@ -1685,19 +1681,19 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			
 			require_once DIR_SYSTEM . 'library/paypal/paypal.php';
 									
-			$paypal_info = [
+			$paypal_info = array(
 				'partner_id' => $config_setting['partner'][$environment]['partner_id'],
 				'client_id' => $client_id,
 				'secret' => $secret,
 				'environment' => $environment,
 				'partner_attribution_id' => $config_setting['partner'][$environment]['partner_attribution_id']
-			];
+			);
 		
 			$paypal = new PayPal($paypal_info);
 			
-			$token_info = [
+			$token_info = array(
 				'grant_type' => 'client_credentials'
-			];	
+			);	
 		
 			$result = $paypal->setAccessToken($token_info);
 			
@@ -1707,20 +1703,20 @@ class ControllerExtensionPaymentPayPal extends Controller {
 				$webhook_token = sha1(uniqid(mt_rand(), 1));
 				$cron_token = sha1(uniqid(mt_rand(), 1));
 			
-				$webhook_info = [
+				$webhook_info = array(
 					'url' => $catalog . 'index.php?route=extension/payment/paypal&webhook_token=' . $webhook_token,
-					'event_types' => [
-						['name' => 'PAYMENT.AUTHORIZATION.CREATED'],
-						['name' => 'PAYMENT.AUTHORIZATION.VOIDED'],
-						['name' => 'PAYMENT.CAPTURE.COMPLETED'],
-						['name' => 'PAYMENT.CAPTURE.DENIED'],
-						['name' => 'PAYMENT.CAPTURE.PENDING'],
-						['name' => 'PAYMENT.CAPTURE.REFUNDED'],
-						['name' => 'PAYMENT.CAPTURE.REVERSED'],
-						['name' => 'CHECKOUT.ORDER.COMPLETED'],
-						['name' => 'VAULT.PAYMENT-TOKEN.CREATED']
-					]
-				];
+					'event_types' => array(
+						array('name' => 'PAYMENT.AUTHORIZATION.CREATED'),
+						array('name' => 'PAYMENT.AUTHORIZATION.VOIDED'),
+						array('name' => 'PAYMENT.CAPTURE.COMPLETED'),
+						array('name' => 'PAYMENT.CAPTURE.DENIED'),
+						array('name' => 'PAYMENT.CAPTURE.PENDING'),
+						array('name' => 'PAYMENT.CAPTURE.REFUNDED'),
+						array('name' => 'PAYMENT.CAPTURE.REVERSED'),
+						array('name' => 'CHECKOUT.ORDER.COMPLETED'),
+						array('name' => 'VAULT.PAYMENT-TOKEN.CREATED')
+					)
+				);
 			
 				$result = $paypal->createWebhook($webhook_info);
 						
@@ -1731,7 +1727,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 				}
 			
 				if ($paypal->hasErrors()) {
-					$error_messages = [];
+					$error_messages = array();
 				
 					$errors = $paypal->getErrors();
 						
@@ -1799,15 +1795,13 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			 $this->error['warning'] = $this->language->get('error_connect');
 		}
 		
-		$json['error'] = $this->error;
+		$data['error'] = $this->error;
 		
 		$this->response->addHeader('Content-Type: application/json');
-		$this->response->setOutput(json_encode($json));
+		$this->response->setOutput(json_encode($data));
 	}
 	
 	public function disconnect() {
-		$json = [];
-
 		$this->load->model('setting/setting');
 		
 		$setting = $this->model_setting_setting->getSetting('payment_paypal');
@@ -1819,15 +1813,13 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		
 		$this->model_setting_setting->editSetting('payment_paypal', $setting);
 		
-		$json['error'] = $this->error;
+		$data['error'] = $this->error;
 		
 		$this->response->addHeader('Content-Type: application/json');
-		$this->response->setOutput(json_encode($json));
+		$this->response->setOutput(json_encode($data));
 	}
 		
 	public function callback() {
-		$json = [];
-
 		if (isset($this->request->post['environment']) && isset($this->request->post['authorization_code']) && isset($this->request->post['shared_id']) && isset($this->request->post['seller_nonce'])) {
 			$cache_data['environment'] = $this->request->post['environment'];
 			$cache_data['authorization_code'] = $this->request->post['authorization_code'];
@@ -1837,27 +1829,27 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			$this->cache->set('paypal', $cache_data, 30);
 		}
 		
-		$json['error'] = $this->error;
+		$data['error'] = $this->error;
 				
 		$this->response->addHeader('Content-Type: application/json');
-		$this->response->setOutput(json_encode($json));
+		$this->response->setOutput(json_encode($data));
     }
 	
 	public function getSaleAnalytics() {
 		$this->load->language('extension/payment/paypal');
 
-		$json = [];
+		$data = array();
 
 		$this->load->model('extension/payment/paypal');
 
-		$json['all_sale'] = [];
-		$json['paypal_sale'] = [];
-		$json['xaxis'] = [];
+		$data['all_sale'] = array();
+		$data['paypal_sale'] = array();
+		$data['xaxis'] = array();
 		
-		$json['all_sale']['label'] = $this->language->get('text_all_sales');
-		$json['paypal_sale']['label'] = $this->language->get('text_paypal_sales');
-		$json['all_sale']['data'] = [];
-		$json['paypal_sale']['data'] = [];
+		$data['all_sale']['label'] = $this->language->get('text_all_sales');
+		$data['paypal_sale']['label'] = $this->language->get('text_paypal_sales');
+		$data['all_sale']['data'] = array();
+		$data['paypal_sale']['data'] = array();
 
 		if (isset($this->request->get['range'])) {
 			$range = $this->request->get['range'];
@@ -1871,12 +1863,12 @@ class ControllerExtensionPaymentPayPal extends Controller {
 				$results = $this->model_extension_payment_paypal->getTotalSalesByDay();
 
 				foreach ($results as $key => $value) {
-					$json['all_sale']['data'][] = [$key, $value['total']];
-					$json['paypal_sale']['data'][] = [$key, $value['paypal_total']];
+					$data['all_sale']['data'][] = array($key, $value['total']);
+					$data['paypal_sale']['data'][] = array($key, $value['paypal_total']);
 				}
 
 				for ($i = 0; $i < 24; $i++) {
-					$json['xaxis'][] = [$i, $i];
+					$data['xaxis'][] = array($i, $i);
 				}
 				
 				break;
@@ -1884,8 +1876,8 @@ class ControllerExtensionPaymentPayPal extends Controller {
 				$results = $this->model_extension_payment_paypal->getTotalSalesByWeek();
 
 				foreach ($results as $key => $value) {
-					$json['all_sale']['data'][] = [$key, $value['total']];
-					$json['paypal_sale']['data'][] = [$key, $value['paypal_total']];
+					$data['all_sale']['data'][] = array($key, $value['total']);
+					$data['paypal_sale']['data'][] = array($key, $value['paypal_total']);
 				}
 
 				$date_start = strtotime('-' . date('w') . ' days');
@@ -1893,7 +1885,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 				for ($i = 0; $i < 7; $i++) {
 					$date = date('Y-m-d', $date_start + ($i * 86400));
 
-					$json['xaxis'][] = [date('w', strtotime($date)), date('D', strtotime($date))];
+					$data['xaxis'][] = array(date('w', strtotime($date)), date('D', strtotime($date)));
 				}
 				
 				break;
@@ -1901,14 +1893,14 @@ class ControllerExtensionPaymentPayPal extends Controller {
 				$results = $this->model_extension_payment_paypal->getTotalSalesByMonth();
 
 				foreach ($results as $key => $value) {
-					$json['all_sale']['data'][] = [$key, $value['total']];
-					$json['paypal_sale']['data'][] = [$key, $value['paypal_total']];
+					$data['all_sale']['data'][] = array($key, $value['total']);
+					$data['paypal_sale']['data'][] = array($key, $value['paypal_total']);
 				}
 
 				for ($i = 1; $i <= date('t'); $i++) {
 					$date = date('Y') . '-' . date('m') . '-' . $i;
 
-					$json['xaxis'][] = [date('j', strtotime($date)), date('d', strtotime($date))];
+					$data['xaxis'][] = array(date('j', strtotime($date)), date('d', strtotime($date)));
 				}
 				
 				break;
@@ -1916,19 +1908,19 @@ class ControllerExtensionPaymentPayPal extends Controller {
 				$results = $this->model_extension_payment_paypal->getTotalSalesByYear();
 
 				foreach ($results as $key => $value) {
-					$json['all_sale']['data'][] = [$key, $value['total']];
-					$json['paypal_sale']['data'][] = [$key, $value['paypal_total']];
+					$data['all_sale']['data'][] = array($key, $value['total']);
+					$data['paypal_sale']['data'][] = array($key, $value['paypal_total']);
 				}
 
 				for ($i = 1; $i <= 12; $i++) {
-					$json['xaxis'][] = [$i, date('M', mktime(0, 0, 0, $i))];
+					$data['xaxis'][] = array($i, date('M', mktime(0, 0, 0, $i)));
 				}
 				
 				break;
 		}
 
 		$this->response->addHeader('Content-Type: application/json');
-		$this->response->setOutput(json_encode($json));
+		$this->response->setOutput(json_encode($data));
 	}
 	
 	public function downloadAssociationFile() {
@@ -2122,11 +2114,11 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			$content = $this->getPaymentDetails((int)$this->request->get['order_id']);
 			
 			if ($content) {												
-				$data['tabs'][] = [
+				$data['tabs'][] = array(
 					'code'    => 'paypal',
 					'title'   => $this->language->get('heading_title_main'),
 					'content' => $content
-				];
+				);
 			}	
 		}
 	}
@@ -2214,26 +2206,26 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			
 			require_once DIR_SYSTEM . 'library/paypal/paypal.php';
 		
-			$paypal_info = [
+			$paypal_info = array(
 				'partner_id' => $partner_id,
 				'client_id' => $client_id,
 				'secret' => $secret,
 				'environment' => $environment,
 				'partner_attribution_id' => $partner_attribution_id
-			];
+			);
 		
 			$paypal = new PayPal($paypal_info);
 		
-			$token_info = [
+			$token_info = array(
 				'grant_type' => 'client_credentials'
-			];	
+			);	
 						
 			$paypal->setAccessToken($token_info);
 			
 			$paypal_order_info = $paypal->getOrder($data['paypal_order_id']);
 				
 			if ($paypal->hasErrors()) {
-				$error_messages = [];
+				$error_messages = array();
 				
 				$errors = $paypal->getErrors();
 								
@@ -2331,7 +2323,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 					$this->model_extension_payment_paypal->addOrderHistory($setting['general']['order_history_token'], $order_id, $order_status_id);
 				}
 				
-				$paypal_order_data = [];
+				$paypal_order_data = array();
 							
 				$paypal_order_data['order_id'] = $order_id;
 				$paypal_order_data['transaction_status'] = $transaction_status;
@@ -2396,34 +2388,34 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			
 				require_once DIR_SYSTEM . 'library/paypal/paypal.php';
 		
-				$paypal_info = [
+				$paypal_info = array(
 					'partner_id' => $partner_id,
 					'client_id' => $client_id,
 					'secret' => $secret,
 					'environment' => $environment,
 					'partner_attribution_id' => $partner_attribution_id
-				];
+				);
 		
 				$paypal = new PayPal($paypal_info);
 		
-				$token_info = [
+				$token_info = array(
 					'grant_type' => 'client_credentials'
-				];
+				);	
 						
 				$paypal->setAccessToken($token_info);
 			
-				$transaction_info = [
-					'amount' => [
+				$transaction_info = array(
+					'amount' => array(
 						'value' => number_format($capture_amount, $decimal_place, '.', ''),
 						'currency_code' => $currency_code
-					],
+					),
 					'final_capture' => $final_capture
-				];
+				);
 
 				$result = $paypal->setPaymentCapture($transaction_id, $transaction_info);
 							
 				if ($paypal->hasErrors()) {
-					$error_messages = [];
+					$error_messages = array();
 				
 					$errors = $paypal->getErrors();
 								
@@ -2460,7 +2452,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 						$this->model_extension_payment_paypal->addOrderHistory($setting['general']['order_history_token'], $order_id, $order_status_id);
 					}
 				
-					$paypal_order_data = [];
+					$paypal_order_data = array();
 							
 					$paypal_order_data['order_id'] = $order_id;
 					$paypal_order_data['transaction_id'] = $transaction_id;	
@@ -2512,33 +2504,33 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			
 				require_once DIR_SYSTEM . 'library/paypal/paypal.php';
 		
-				$paypal_info = [
+				$paypal_info = array(
 					'partner_id' => $partner_id,
 					'client_id' => $client_id,
 					'secret' => $secret,
 					'environment' => $environment,
 					'partner_attribution_id' => $partner_attribution_id
-				];
+				);
 		
 				$paypal = new PayPal($paypal_info);
 		
-				$token_info = [
+				$token_info = array(
 					'grant_type' => 'client_credentials'
-				];	
+				);	
 						
 				$paypal->setAccessToken($token_info);
 			
-				$transaction_info = [
+				$transaction_info = array(
 					'amount' => array(
 						'value' => number_format($reauthorize_amount, $decimal_place, '.', ''),
 						'currency_code' => $currency_code
 					)
-				];
+				);
 
 				$result = $paypal->setPaymentReauthorize($transaction_id, $transaction_info);
 								
 				if ($paypal->hasErrors()) {
-					$error_messages = [];
+					$error_messages = array();
 				
 					$errors = $paypal->getErrors();
 					
@@ -2563,11 +2555,11 @@ class ControllerExtensionPaymentPayPal extends Controller {
 					$transaction_id = $result['id'];
 					$transaction_status = 'created';
 														
-					$paypal_order_data = [
+					$paypal_order_data = array(
 						'order_id' => $order_id,
 						'transaction_id' => $transaction_id,
 						'transaction_status' => $transaction_status
-					];
+					);
 	
 					$this->model_extension_payment_paypal->editPayPalOrder($paypal_order_data);
 								
@@ -2611,26 +2603,26 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			
 				require_once DIR_SYSTEM . 'library/paypal/paypal.php';
 		
-				$paypal_info = [
+				$paypal_info = array(
 					'partner_id' => $partner_id,
 					'client_id' => $client_id,
 					'secret' => $secret,
 					'environment' => $environment,
 					'partner_attribution_id' => $partner_attribution_id
-				];
+				);
 		
 				$paypal = new PayPal($paypal_info);
 		
-				$token_info = [
+				$token_info = array(
 					'grant_type' => 'client_credentials'
-				];	
+				);	
 						
 				$paypal->setAccessToken($token_info);
 		
 				$result = $paypal->setPaymentVoid($transaction_id);
 				
 				if ($paypal->hasErrors()) {
-					$error_messages = [];
+					$error_messages = array();
 				
 					$errors = $paypal->getErrors();
 							
@@ -2654,10 +2646,10 @@ class ControllerExtensionPaymentPayPal extends Controller {
 				if (!$this->error) {
 					$transaction_status = 'voided';
 														
-					$paypal_order_data = [
+					$paypal_order_data = array(
 						'order_id' => $order_id,
 						'transaction_status' => $transaction_status
-					];
+					);
 
 					$this->model_extension_payment_paypal->editPayPalOrder($paypal_order_data);
 								
@@ -2710,25 +2702,25 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			
 				require_once DIR_SYSTEM . 'library/paypal/paypal.php';
 		
-				$paypal_info = [
+				$paypal_info = array(
 					'partner_id' => $partner_id,
 					'client_id' => $client_id,
 					'secret' => $secret,
 					'environment' => $environment,
 					'partner_attribution_id' => $partner_attribution_id
-				];
+				);
 		
 				$paypal = new PayPal($paypal_info);
 		
-				$token_info = [
+				$token_info = array(
 					'grant_type' => 'client_credentials'
-				];	
+				);	
 						
 				$paypal->setAccessToken($token_info);
 				
 				$paypal_order_info = $paypal->getOrder($paypal_order_info['paypal_order_id']);
 				
-				$capture_refund_amount = [];
+				$capture_refund_amount = array();
 				$available_refund_amount = 0;
 				$final_capture_amount = 0;
 							
@@ -2776,12 +2768,12 @@ class ControllerExtensionPaymentPayPal extends Controller {
 					}
 					
 					if ($refund_amount > $available_refund_amount) {
-						$transaction_info = [
-							'amount' => [
+						$transaction_info = array(
+							'amount' => array(
 								'value' => number_format($refund_amount, $decimal_place, '.', ''),
 								'currency_code' => $currency_code
-							]
-						];
+							)
+						);
 
 						$result = $paypal->setPaymentRefund($transaction_id, $transaction_info);
 					} else {
@@ -2794,12 +2786,12 @@ class ControllerExtensionPaymentPayPal extends Controller {
 								$final_capture_first_amount = $final_capture_amount * 0.5;
 							}
 							
-							$transaction_info = [
-								'amount' => [
+							$transaction_info = array(
+								'amount' => array(
 									'value' => number_format($final_capture_first_amount * 0.5, $decimal_place, '.', ''),
 									'currency_code' => $currency_code
-								]
-							];
+								)
+							);
 
 							$result = $paypal->setPaymentRefund($transaction_id, $transaction_info);
 											
@@ -2811,23 +2803,23 @@ class ControllerExtensionPaymentPayPal extends Controller {
 								if ($refund_amount > 0) {
 									if (($capture['status'] == 'COMPLETED')) {
 										if ($refund_amount <= $capture['amount']['value']) {
-											$transaction_info = [
-												'amount' => [
+											$transaction_info = array(
+												'amount' => array(
 													'value' => number_format($refund_amount, $decimal_place, '.', ''),
 													'currency_code' => $currency_code
-												]
-											];
+												)
+											);
 
 											$result = $paypal->setPaymentRefund($capture['id'], $transaction_info);
 											
 											$refund_amount = 0;
 										} else {
-											$transaction_info = [
-												'amount' => [
+											$transaction_info = array(
+												'amount' => array(
 													'value' => number_format($capture['amount']['value'], $decimal_place, '.', ''),
 													'currency_code' => $currency_code
-												]
-											];
+												)
+											);
 
 											$result = $paypal->setPaymentRefund($capture['id'], $transaction_info);
 											
@@ -2838,23 +2830,23 @@ class ControllerExtensionPaymentPayPal extends Controller {
 									if ($capture['status'] == 'PARTIALLY_REFUNDED') {
 										if (!empty($capture_refund_amount[$capture['id']])) {
 											if ($refund_amount <= ($capture['amount']['value'] - $capture_refund_amount[$capture['id']])) {
-												$transaction_info = [
-													'amount' => [
+												$transaction_info = array(
+													'amount' => array(
 														'value' => number_format($refund_amount, $decimal_place, '.', ''),
 														'currency_code' => $currency_code
-													]
-												];
+													)
+												);
 
 												$result = $paypal->setPaymentRefund($capture['id'], $transaction_info);
 											
 												$refund_amount = 0;
 											} else {
-												$transaction_info = [
-													'amount' => [
+												$transaction_info = array(
+													'amount' => array(
 														'value' => number_format($capture['amount']['value'] - $capture_refund_amount[$capture['id']], $decimal_place, '.', ''),
 														'currency_code' => $currency_code
-													]
-												];
+													)
+												);
 
 												$result = $paypal->setPaymentRefund($capture['id'], $transaction_info);
 											
@@ -2869,7 +2861,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 				}
 											
 				if ($paypal->hasErrors()) {
-					$error_messages = [];
+					$error_messages = array();
 				
 					$errors = $paypal->getErrors();
 								
@@ -2905,7 +2897,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 						$this->model_extension_payment_paypal->addOrderHistory($setting['general']['order_history_token'], $order_id, $order_status_id);
 					}
 				
-					$paypal_order_data = [];
+					$paypal_order_data = array();
 							
 					$paypal_order_data['order_id'] = $order_id;	
 					$paypal_order_data['transaction_status'] = $transaction_status;
@@ -2926,7 +2918,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	public function autocompleteCarrier() {
 		$this->load->model('extension/payment/paypal');
 		
-		$json = [];
+		$data = array();
 		
 		if (!empty($this->request->post['filter_country_code']) && !empty($this->request->post['filter_carrier_name'])) {		
 			$filter_country_code = $this->request->post['filter_country_code'];
@@ -2937,7 +2929,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			
 			$config_carrier = $_config->get('paypal_carrier');
 			
-			$carriers = [];
+			$carriers = array();
 			
 			if (!empty($config_carrier[$filter_country_code])) {
 				$carriers = $config_carrier[$filter_country_code];
@@ -2947,21 +2939,19 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			
 			foreach ($carriers as $carrier_name => $carrier_code) {
 				if (strpos(strtolower($carrier_name), strtolower($filter_carrier_name)) !== false) {
-					$json[] = [
+					$data[] = array(
 						'name' => $carrier_name,
 						'code' => $carrier_code
-					];
+					);
 				}
 			}
 		}	
 			
 		$this->response->addHeader('Content-Type: application/json');
-		$this->response->setOutput(json_encode($json));
+		$this->response->setOutput(json_encode($data));
 	}
 	
 	public function createTracker() {						
-		$json = [];
-
 		if ($this->config->get('payment_paypal_status') && !empty($this->request->post['order_id']) && !empty($this->request->post['country_code']) && isset($this->request->post['tracking_number']) && isset($this->request->post['carrier_name'])) {
 			$this->load->language('extension/payment/paypal');
 			
@@ -2983,7 +2973,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			
 				$config_carrier = $_config->get('paypal_carrier');
 			
-				$carriers = [];
+				$carriers = array();
 			
 				if (!empty($config_carrier[$country_code])) {
 					$carriers = $config_carrier[$country_code];
@@ -3013,23 +3003,23 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			
 				require_once DIR_SYSTEM . 'library/paypal/paypal.php';
 		
-				$paypal_info = [
+				$paypal_info = array(
 					'partner_id' => $partner_id,
 					'client_id' => $client_id,
 					'secret' => $secret,
 					'environment' => $environment,
 					'partner_attribution_id' => $partner_attribution_id
-				];
+				);
 		
 				$paypal = new PayPal($paypal_info);
 		
-				$token_info = [
+				$token_info = array(
 					'grant_type' => 'client_credentials'
-				];	
+				);	
 						
 				$paypal->setAccessToken($token_info);
 			
-				$tracker_info = [];
+				$tracker_info = array();
 			
 				$tracker_info['capture_id'] = $transaction_id;
 				$tracker_info['tracking_number'] = $tracking_number;
@@ -3043,7 +3033,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 				$result = $paypal->createOrderTracker($paypal_order_id, $tracker_info);
 						
 				if ($paypal->hasErrors()) {
-					$error_messages = [];
+					$error_messages = array();
 				
 					$errors = $paypal->getErrors();
 								
@@ -3065,11 +3055,11 @@ class ControllerExtensionPaymentPayPal extends Controller {
 				}
 						
 				if (isset($result['id']) && isset($result['status']) && !$this->error) {					
-					$paypal_order_data = [
+					$paypal_order_data = array(
 						'order_id' => $order_id,
 						'tracking_number' => $tracking_number,
 						'carrier_name' => $carrier_name
-					];
+					);
 	
 					$this->model_extension_payment_paypal->editPayPalOrder($paypal_order_data);
 				
@@ -3085,15 +3075,15 @@ class ControllerExtensionPaymentPayPal extends Controller {
 						}
 					}
 												
-					$json['success'] = $this->language->get('success_create_tracker');
+					$data['success'] = $this->language->get('success_create_tracker');
 				}
 			}
 		}
 				
-		$json['error'] = $this->error;
+		$data['error'] = $this->error;
 				
 		$this->response->addHeader('Content-Type: application/json');
-		$this->response->setOutput(json_encode($json));
+		$this->response->setOutput(json_encode($data));
 	}
 	
 	public function cancelTracker() {						
@@ -3127,34 +3117,34 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			
 				require_once DIR_SYSTEM . 'library/paypal/paypal.php';
 		
-				$paypal_info = [
+				$paypal_info = array(
 					'partner_id' => $partner_id,
 					'client_id' => $client_id,
 					'secret' => $secret,
 					'environment' => $environment,
 					'partner_attribution_id' => $partner_attribution_id
-				];
+				);
 		
 				$paypal = new PayPal($paypal_info);
 		
-				$token_info = [
+				$token_info = array(
 					'grant_type' => 'client_credentials'
-				];	
+				);	
 						
 				$paypal->setAccessToken($token_info);
 			
-				$tracker_info = [];
+				$tracker_info = array();
 			
-				$tracker_info[] = [
+				$tracker_info[] = array(
 					'op' => 'replace',
 					'path' => '/status',
 					'value' => 'CANCELLED'
-				];
+				);
 								
 				$result = $paypal->updateOrderTracker($paypal_order_id, $transaction_id . '-' . $tracking_number, $tracker_info);
 						
 				if ($paypal->hasErrors()) {
-					$error_messages = [];
+					$error_messages = array();
 				
 					$errors = $paypal->getErrors();
 								
@@ -3176,11 +3166,11 @@ class ControllerExtensionPaymentPayPal extends Controller {
 				}
 						
 				if (!$this->error) {				
-					$paypal_order_data = [
+					$paypal_order_data = array(
 						'order_id' => $order_id,
 						'tracking_number' => '',
 						'carrier_name' => ''
-					];
+					);
 	
 					$this->model_extension_payment_paypal->editPayPalOrder($paypal_order_data);
 												

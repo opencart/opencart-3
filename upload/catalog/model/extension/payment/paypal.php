@@ -2,7 +2,7 @@
 class ModelExtensionPaymentPayPal extends Model {
 	
 	public function getMethod($address, $total) {
-		$method_data = [];
+		$method_data = array();
 		
 		$agree_status = $this->getAgreeStatus();
 		
@@ -22,19 +22,19 @@ class ModelExtensionPaymentPayPal extends Model {
 			}
 
 			if ($status) {			
-				$method_data = [
+				$method_data = array(
 					'code'       => 'paypal',
 					'title'      => $this->language->get('text_paypal_title'),
 					'terms'      => '',
 					'sort_order' => $this->config->get('payment_paypal_sort_order')
-				];
+				);
 			}
 		}
 
 		return $method_data;
 	}
 	
-	public function hasProductInCart($product_id, $option = [], $recurring_id = 0) {
+	public function hasProductInCart($product_id, $option = array(), $recurring_id = 0) {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "cart WHERE api_id = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND customer_id = '" . (int)$this->customer->getId() . "' AND session_id = '" . $this->db->escape($this->session->getId()) . "' AND product_id = '" . (int)$product_id . "' AND recurring_id = '" . (int)$recurring_id . "' AND `option` = '" . $this->db->escape(json_encode($option)) . "'");
 				
 		return $query->row['total'];
@@ -55,7 +55,7 @@ class ModelExtensionPaymentPayPal extends Model {
 	public function addPayPalCustomerToken($data) {
 		$sql = "INSERT INTO `" . DB_PREFIX . "paypal_checkout_integration_customer_token` SET";
 
-		$implode = [];
+		$implode = array();
 			
 		if (!empty($data['customer_id'])) {
 			$implode[] = "`customer_id` = '" . (int)$data['customer_id'] . "'";
@@ -111,7 +111,7 @@ class ModelExtensionPaymentPayPal extends Model {
 		if ($query->num_rows) {
 			return $query->row;
 		} else {
-			return [];
+			return array();
 		}
 	}
 	
@@ -121,7 +121,7 @@ class ModelExtensionPaymentPayPal extends Model {
 		if ($query->num_rows) {
 			return $query->row;
 		} else {
-			return [];
+			return array();
 		}
 	}
 	
@@ -135,14 +135,14 @@ class ModelExtensionPaymentPayPal extends Model {
 		if ($query->num_rows) {
 			return $query->rows;
 		} else {
-			return [];
+			return array();
 		}
 	}
 		
 	public function addPayPalOrder($data) {
 		$sql = "INSERT INTO `" . DB_PREFIX . "paypal_checkout_integration_order` SET";
 
-		$implode = [];
+		$implode = array();
 			
 		if (!empty($data['order_id'])) {
 			$implode[] = "`order_id` = '" . (int)$data['order_id'] . "'";
@@ -218,7 +218,7 @@ class ModelExtensionPaymentPayPal extends Model {
 	public function editPayPalOrder($data) {
 		$sql = "UPDATE `" . DB_PREFIX . "paypal_checkout_integration_order` SET";
 
-		$implode = [];
+		$implode = array();
 		
 		if (!empty($data['paypal_order_id'])) {
 			$implode[] = "`paypal_order_id` = '" . $this->db->escape($data['paypal_order_id']) . "'";
@@ -354,7 +354,7 @@ class ModelExtensionPaymentPayPal extends Model {
 	public function getOrderRecurrings() {
 		$query = $this->db->query("SELECT `or`.`order_recurring_id` FROM `" . DB_PREFIX . "order_recurring` `or` JOIN `" . DB_PREFIX . "order` `o` USING(`order_id`) WHERE `o`.`payment_code` = 'paypal' AND `or`.`status` = '1'");
 
-		$order_recurring_data = [];
+		$order_recurring_data = array();
 
 		foreach ($query->rows as $order_recurring) {
 			$order_recurring_data[] = $this->getOrderRecurring($order_recurring['order_recurring_id']);
@@ -459,35 +459,35 @@ class ModelExtensionPaymentPayPal extends Model {
 			}
 			
 			if ($transaction_id && $transaction_status && $currency_code && $amount) {			
-				$paypal_order_recurring_data = [
+				$paypal_order_recurring_data = array(
 					'order_recurring_id' => $order_recurring_id,
 					'order_id' => $order_data['order_id'],
 					'trial_end' => date_format($trial_end, 'Y-m-d H:i:s'),
 					'subscription_end' => date_format($subscription_end, 'Y-m-d H:i:s'),
 					'currency_code' => $currency_code,
 					'amount' => $amount
-				];
+				);
 		
 				$this->addPayPalOrderRecurring($paypal_order_recurring_data);
 			
 				if (($transaction_status == 'CREATED') || ($transaction_status == 'COMPLETED') || ($transaction_status == 'PENDING')) {
-					$order_recurring_transaction_data = [
+					$order_recurring_transaction_data = array(
 						'order_recurring_id' => $order_recurring_id,
 						'reference' => $transaction_id,
 						'type' => '1',
 						'amount' => $amount
-					];
+					);
 			
 					$this->addOrderRecurringTransaction($order_recurring_transaction_data);
 								
 					$this->editPayPalOrderRecurringNextPayment($order_recurring_id, date_format($next_payment, 'Y-m-d H:i:s'));
 				} else {
-					$order_recurring_transaction_data = [
+					$order_recurring_transaction_data = array(
 						'order_recurring_id' => $order_recurring_id,
 						'reference' => $transaction_id,
 						'type' => '4',
 						'amount' => $amount
-					];
+					);
 				
 					$this->addOrderRecurringTransaction($order_recurring_transaction_data);
 				}
@@ -564,23 +564,23 @@ class ModelExtensionPaymentPayPal extends Model {
 			
 						if ($transaction_id && $transaction_status && $currency_code && $amount) {						
 							if (($transaction_status == 'CREATED') || ($transaction_status == 'COMPLETED') || ($transaction_status == 'PENDING')) {
-								$order_recurring_transaction_data = [
+								$order_recurring_transaction_data = array(
 									'order_recurring_id' => $order_recurring['order_recurring_id'],
 									'reference' => $transaction_id,
 									'type' => '1',
 									'amount' => $amount
-								];
+								);
 				
 								$this->addOrderRecurringTransaction($order_recurring_transaction_data);
 								
 								$this->editPayPalOrderRecurringNextPayment($order_recurring['order_recurring_id'], date_format($next_payment, 'Y-m-d H:i:s'));
 							} else {
-								$order_recurring_transaction_data = [
+								$order_recurring_transaction_data = array(
 									'order_recurring_id' => $order_recurring['order_recurring_id'],
 									'reference' => $transaction_id,
 									'type' => '4',
 									'amount' => $amount
-								];
+								);
 				
 								$this->addOrderRecurringTransaction($order_recurring_transaction_data);
 							}
@@ -615,53 +615,53 @@ class ModelExtensionPaymentPayPal extends Model {
 				
 		require_once DIR_SYSTEM . 'library/paypal/paypal.php';
 		
-		$paypal_info = [
+		$paypal_info = array(
 			'partner_id' => $partner_id,
 			'client_id' => $client_id,
 			'secret' => $secret,
 			'environment' => $environment,
 			'partner_attribution_id' => $partner_attribution_id
-		];
+		);
 		
 		$paypal = new PayPal($paypal_info);
 			
-		$token_info = [
+		$token_info = array(
 			'grant_type' => 'client_credentials'
-		];	
+		);	
 				
 		$paypal->setAccessToken($token_info);
 										
-		$item_info = [];
+		$item_info = array();
 			
 		$item_total = 0;
 						
 		$product_price = number_format($price * $currency_value, $decimal_place, '.', '');
 				
-		$item_info[] = [
+		$item_info[] = array(
 			'name' => $recurring_name,
 			'quantity' => 1,
-			'unit_amount' => [
+			'unit_amount' => array(
 				'currency_code' => $currency_code,
 				'value' => $product_price
-			]
-		];
+			)
+		);
 				
 		$item_total += $product_price;
 				
 		$item_total = number_format($item_total, $decimal_place, '.', '');
 		$order_total = number_format($item_total, $decimal_place, '.', '');
 				
-		$amount_info = [];
+		$amount_info = array();
 				
 		$amount_info['currency_code'] = $currency_code;
 		$amount_info['value'] = $order_total;
 								
-		$amount_info['breakdown']['item_total'] = [
+		$amount_info['breakdown']['item_total'] = array(
 			'currency_code' => $currency_code,
 			'value' => $item_total
-		];
+		);
 				
-		$paypal_order_info = [];
+		$paypal_order_info = array();
 				
 		$paypal_order_info['intent'] = strtoupper($transaction_method);
 		$paypal_order_info['purchase_units'][0]['reference_id'] = 'default';
@@ -685,7 +685,7 @@ class ModelExtensionPaymentPayPal extends Model {
 		
 		$result = $paypal->createOrder($paypal_order_info);
 								
-		$errors = [];
+		$errors = array();
 		
 		if ($paypal->hasErrors()) {
 			$errors = $paypal->getErrors();
@@ -708,9 +708,7 @@ class ModelExtensionPaymentPayPal extends Model {
 		return false;
 	}
 	
-	private function calculateSchedule($frequency, \DateTime $next_payment, $cycle) {
-		$next_payment = clone $next_payment;
-		
+	public function calculateSchedule($frequency, $next_payment, $cycle) {
 		if ($frequency == 'semi_month') {
 			$day = date_format($next_payment, 'd');
 			$value = 15 - $day;
@@ -812,7 +810,7 @@ class ModelExtensionPaymentPayPal extends Model {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "event` SET `code` = 'paypal_customer_delete_customer', `trigger` = 'admin/model/customer/customer/deleteCustomer/before', `action` = 'extension/payment/paypal/customer_delete_customer_before', `sort_order` = '0', `status` = '1'");
 		
 		if ($this->config->get('paypal_version') < '3.1.0') {
-			$setting = [];
+			$setting = array();
 			
 			$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE store_id = '0' AND `key` = 'payment_paypal_setting'");
 			

@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentPayPalGooglePay extends Controller {
-	private $error = [];
+	private $error = array();
 			
 	public function index() {
 		$this->load->model('extension/payment/paypal');
@@ -32,26 +32,26 @@ class ControllerExtensionPaymentPayPalGooglePay extends Controller {
 											
 			require_once DIR_SYSTEM .'library/paypal/paypal.php';
 		
-			$paypal_info = [
+			$paypal_info = array(
 				'partner_id' => $data['partner_id'],
 				'client_id' => $data['client_id'],
 				'secret' => $data['secret'],
 				'environment' => $data['environment'],
 				'partner_attribution_id' => $data['partner_attribution_id']
-			];
+			);
 		
 			$paypal = new PayPal($paypal_info);
 		
-			$token_info = [
+			$token_info = array(
 				'grant_type' => 'client_credentials'
-			];	
+			);	
 				
 			$paypal->setAccessToken($token_info);
 		
 			$data['client_token'] = $paypal->getClientToken();
 						
 			if ($paypal->hasErrors()) {
-				$error_messages = [];
+				$error_messages = array();
 				
 				$errors = $paypal->getErrors();
 								
@@ -108,26 +108,26 @@ class ControllerExtensionPaymentPayPalGooglePay extends Controller {
 				
 		require_once DIR_SYSTEM .'library/paypal/paypal.php';
 		
-		$paypal_info = [
+		$paypal_info = array(
 			'partner_id' => $data['partner_id'],
 			'client_id' => $data['client_id'],
 			'secret' => $data['secret'],
 			'environment' => $data['environment'],
 			'partner_attribution_id' => $data['partner_attribution_id']
-		];
+		);
 		
 		$paypal = new PayPal($paypal_info);
 		
-		$token_info = [
+		$token_info = array(
 			'grant_type' => 'client_credentials'
-		];	
+		);	
 				
 		$paypal->setAccessToken($token_info);
 		
 		$data['client_token'] = $paypal->getClientToken();
 						
 		if ($paypal->hasErrors()) {
-			$error_messages = [];
+			$error_messages = array();
 				
 			$errors = $paypal->getErrors();
 								

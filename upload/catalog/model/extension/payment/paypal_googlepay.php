@@ -2,7 +2,7 @@
 class ModelExtensionPaymentPayPalGooglePay extends Model {
 	
 	public function getMethod($address, $total) {
-		$method_data = [];
+		$method_data = array();
 		
 		$this->load->model('extension/payment/paypal');
 		
@@ -24,12 +24,12 @@ class ModelExtensionPaymentPayPalGooglePay extends Model {
 			}
 
 			if ($status) {
-				$method_data = [
+				$method_data = array(
 					'code'       => 'paypal_googlepay',
 					'title'      => $this->language->get('text_paypal_googlepay_title'),
 					'terms'      => '',
 					'sort_order' => $this->config->get('payment_paypal_sort_order')
-				];
+				);
 			}
 		}
 

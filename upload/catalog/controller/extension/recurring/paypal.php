@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionRecurringPayPal extends Controller {
-	private $error = [];
+	private $error = array();
 			
 	public function index() {
 		$content = '';
