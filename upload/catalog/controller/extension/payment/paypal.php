@@ -1183,7 +1183,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			
 			if ($page_code != 'checkout') {
 				if (isset($this->request->post['paypal_order_id'])) {
-					$this->session->data['paypal_order_id'] = $this->request->post['paypal_order_id'];
+					$this->session->data['paypal_order_id'] = (int)$this->request->post['paypal_order_id'];
 				} else {	
 					$data['url'] = $this->url->link('checkout/cart', '', true);
 			
@@ -1504,7 +1504,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 				if (!$paypal_order_info) {
 					if (!empty($this->request->post['paypal_order_id'])) {
-						$paypal_order_id = $this->request->post['paypal_order_id'];
+						$paypal_order_id = (int)$this->request->post['paypal_order_id'];
 					}
 		
 					if (($payment_type == 'card') && !empty($paypal_order_id)) {
@@ -3281,12 +3281,12 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			$this->session->data['payment_address']['address_2'] = $this->request->post['address_2'];
 			$this->session->data['payment_address']['postcode'] = $this->request->post['postcode'];
 			$this->session->data['payment_address']['city'] = $this->request->post['city'];
-			$this->session->data['payment_address']['country_id'] = $this->request->post['country_id'];
-			$this->session->data['payment_address']['zone_id'] = $this->request->post['zone_id'];
+			$this->session->data['payment_address']['country_id'] = (int)$this->request->post['country_id'];
+			$this->session->data['payment_address']['zone_id'] = (int)$this->request->post['zone_id'];
 
 			$this->load->model('localisation/country');
 
-			$country_info = $this->model_localisation_country->getCountry($this->request->post['country_id']);
+			$country_info = $this->model_localisation_country->getCountry((int)$this->request->post['country_id']);
 
 			if ($country_info) {
 				$this->session->data['payment_address']['country'] = $country_info['name'];
@@ -3338,12 +3338,12 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			$this->session->data['shipping_address']['address_2'] = $this->request->post['address_2'];
 			$this->session->data['shipping_address']['postcode'] = $this->request->post['postcode'];
 			$this->session->data['shipping_address']['city'] = $this->request->post['city'];
-			$this->session->data['shipping_address']['country_id'] = $this->request->post['country_id'];
-			$this->session->data['shipping_address']['zone_id'] = $this->request->post['zone_id'];
+			$this->session->data['shipping_address']['country_id'] = (int)$this->request->post['country_id'];
+			$this->session->data['shipping_address']['zone_id'] = (int)$this->request->post['zone_id'];
 
 			$this->load->model('localisation/country');
 
-			$country_info = $this->model_localisation_country->getCountry($this->request->post['country_id']);
+			$country_info = $this->model_localisation_country->getCountry((int)$this->request->post['country_id']);
 
 			if ($country_info) {
 				$this->session->data['shipping_address']['country'] = $country_info['name'];
@@ -4407,9 +4407,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		
 		// Customer Group
 		if (isset($this->request->post['customer_group_id']) && is_array($this->config->get('config_customer_group_display')) && in_array($this->request->post['customer_group_id'], $this->config->get('config_customer_group_display'))) {
-			$customer_group_id = $this->request->post['customer_group_id'];
+			$customer_group_id = (int)$this->request->post['customer_group_id'];
 		} else {
-			$customer_group_id = $this->config->get('config_customer_group_id');
+			$customer_group_id = (int)$this->config->get('config_customer_group_id');
 		}
 		
 		// Custom field validation
@@ -4463,9 +4463,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		
 		// Customer Group
 		if (isset($this->request->post['customer_group_id']) && is_array($this->config->get('config_customer_group_display')) && in_array($this->request->post['customer_group_id'], $this->config->get('config_customer_group_display'))) {
-			$customer_group_id = $this->request->post['customer_group_id'];
+			$customer_group_id = (int)$this->request->post['customer_group_id'];
 		} else {
-			$customer_group_id = $this->config->get('config_customer_group_id');
+			$customer_group_id = (int)$this->config->get('config_customer_group_id');
 		}
 		
 		// Custom field validation

@@ -2957,7 +2957,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			
 			$this->load->model('extension/payment/paypal');
 			
-			$order_id = $this->request->post['order_id'];
+			$order_id = (int)$this->request->post['order_id'];
 			$country_code = $this->request->post['country_code'];
 			$tracking_number = $this->request->post['tracking_number'];
 			$carrier_name = $this->request->post['carrier_name'];
@@ -3092,7 +3092,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			
 			$this->load->model('extension/payment/paypal');
 			
-			$order_id = $this->request->post['order_id'];
+			$order_id = (int)$this->request->post['order_id'];
 			$tracking_number = $this->request->post['tracking_number'];
 						
 			$paypal_order_info = $this->model_extension_payment_paypal->getPayPalOrder($order_id);
