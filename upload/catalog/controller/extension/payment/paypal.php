@@ -4319,7 +4319,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			if ($recurring_info) {
 				$this->load->model('checkout/order');
 
-				$order_info = $this->model_checkout_order->getOrder($recurring_info['order_id']);
+				$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
 				if ($order_info) {
 					if (isset($this->request->server['HTTP_X_REAL_IP'])) {
@@ -4334,7 +4334,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 					$comment = $this->language->get('text_new_subscription');
 
-					$this->model_checkout_order->addHistory($recurring_info['order_id'], $order_info['order_status_id'], $comment, true);
+					$this->model_checkout_order->addHistory($this->session->data['order_id'], $order_info['order_status_id'], $comment, true);
 				}
 			}
 		}
