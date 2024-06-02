@@ -4303,6 +4303,8 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	 * catalog/model/extension/payment/paypal/addOrderRecurringTransaction/before
 	 */
 	public function addReport(&$route, &$args): void {
+		$this->load->language('checkout/recurring');
+
 		if (isset($args['order_recurring_id'])) {
 			$order_recurring_id = (int)$args['order_recurring_id'];
 		} else {
@@ -4312,15 +4314,29 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		if ($order_recurring_id) {
 			$this->load->model('checkout/recurring');
 
-			if (isset($this->request->server['HTTP_X_REAL_IP'])) {
-				$ip = $this->request->server['HTTP_X_REAL_IP'];
-			} elseif (oc_get_ip()) {
-				$ip = oc_get_ip();
-			} else {
-				$ip = '';
-			}
+			$recurring_info = $this->model_checkout_recurring->getOrderRecurring($order_recurring_id);
 
-			$this->model_checkout_recurring->addReport($order_recurring_id, $this->config->get('config_store_id'), $ip, $this->session->data['payment_address']['country']);
+			if ($recurring_info) {
+				$this->load->model('checkout/order');
+
+				$order_info = $this->model_checkout_order->getOrder($recurring_info['order_id']);
+
+				if ($order_info) {
+					if (isset($this->request->server['HTTP_X_REAL_IP'])) {
+						$ip = $this->request->server['HTTP_X_REAL_IP'];
+					} elseif (oc_get_ip()) {
+						$ip = oc_get_ip();
+					} else {
+						$ip = '';
+					}
+
+					$this->model_checkout_recurring->addReport($order_recurring_id, $this->config->get('config_store_id'), $ip, $this->session->data['payment_address']['country']);
+
+					$comment = $this->language->get('text_new_subscription');
+
+					$this->model_checkout_order->addHistory($recurring_info['order_id'], $order_info['order_status_id'], $comment, true);
+				}
+			}
 		}
 	}
 		
