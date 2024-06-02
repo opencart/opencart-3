@@ -8,7 +8,7 @@
 <script type="text/javascript"><!--
 $(document).ready(function() {
     var addHistory = function(success_callback) {
-        var request_1 = $.ajax({
+        $.ajax({
             url: '{{ catalog }}index.php?route=api/order/history&api_token={{ api_token }}&order_id={{ order_id }}',
             type: 'post',
             dataType: 'json',
@@ -19,31 +19,6 @@ $(document).ready(function() {
             error: function(xhr, ajaxOptions, thrownError) {
                 $('#squareup-buttons').before('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + thrownError + "<br/>" + xhr.statusText + "<br/>" + xhr.responseText + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
             }
-        });
-
-        var request_2 = request_1.then(function() {
-            $.ajax({
-                url: 'index.php?route=extension/payment/squareup/addRecurringReport&user_token={{ user_token }}&order_recurring_id={{ order_recurring_id }}',
-                type: 'post',
-                dataType: 'json',
-                data: 'store_id={{ store_id }}',
-                success: function(json) {
-                    if (json['error']) {
-                        $('#squareup-buttons').before('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-                    }
-
-                    if (json['success']) {
-                        success_callback();
-                    }
-                },
-                error: function(xhr, ajaxOptions, thrownError) {
-                    $('#squareup-buttons').before('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + thrownError + "<br/>" + xhr.statusText + "<br/>" + xhr.responseText + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-                }
-            });
-        });
-
-        request_2.done(function() {
-             
         });
     }
 

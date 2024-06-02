@@ -801,29 +801,33 @@ class ControllerExtensionPaymentPayPal extends Controller {
 						}
 					}
 				
-					if (isset($product['recurring_id'])) {
-						$recurring_id = $product['recurring_id'];
+					if (isset($product['subscription_plan_id'])) {
+						$subscription_plan_id = $product['subscription_plan_id'];
 					} else {
-						$recurring_id = 0;
+						$subscription_plan_id = 0;
 					}
 
-					$recurrings = $this->model_catalog_product->getProfiles($product_info['product_id']);
+					$subscription_plans = $this->model_catalog_subscription_plan->getSubscriptionPlans();
 
-					if ($recurrings) {
-						$recurring_ids = array();
+					if ($subscription_plans) {
+						$subscription_plan_ids = array();
 
-						foreach ($recurrings as $recurring) {
-							$recurring_ids[] = $recurring['recurring_id'];
+						foreach ($subscription_plans as $subscription) {
+							$subscription_plan = $this->model_catalog_subscription_plan->getSubscriptionPlan($subscription_plan_id);
+
+							if ($subscription_plan) {
+								$subscription_plan_ids[] = $subscription_plan['subscription_plan_id'];
+							}
 						}
 
-						if (!in_array($recurring_id, $recurring_ids)) {
+						if (!in_array($subscription_plan_id, $subscription_plan_ids)) {
 							$errors[] = $this->language->get('error_recurring_required');
 						}
 					}
 					
 					if (!$errors) {					
-						if (!$this->model_extension_payment_paypal->hasProductInCart($product_id, $option, $recurring_id)) {
-							$this->cart->add($product_id, $quantity, $option, $recurring_id);
+						if (!$this->model_extension_payment_paypal->hasProductInCart($product_id, $option, $subscription_plan_id)) {
+							$this->cart->add($product_id, $quantity, $option, $subscription_plan_id);
 						}
 																
 						// Unset all shipping and payment methods
@@ -1047,7 +1051,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 	
 				$paypal_order_info['application_context']['shipping_preference'] = $shipping_preference;
 				
-				if ($setting['general']['vault_status'] && ($this->customer->isLogged() || $this->cart->hasRecurringProducts())) {
+				if ($setting['general']['vault_status'] && ($this->customer->isLogged() || $this->cart->hasSubscription())) {
 					if ($payment_method == 'paypal') {
 						$paypal_customer_token = array();
 						
@@ -1078,12 +1082,12 @@ class ControllerExtensionPaymentPayPal extends Controller {
 								$paypal_order_info['payment_source'][$payment_method]['stored_credential']['usage'] = 'SUBSEQUENT';
 							}
 						} else {
-							if (!empty($this->request->post['card_save']) || $this->cart->hasRecurringProducts()) {
+							if (!empty($this->request->post['card_save']) || $this->cart->hasSubscription()) {
 								$paypal_order_info['payment_source'][$payment_method]['attributes']['vault']['store_in_vault'] = 'ON_SUCCESS';								
 								$paypal_order_info['payment_source'][$payment_method]['stored_credential']['payment_initiator'] = 'CUSTOMER';
 								$paypal_order_info['payment_source'][$payment_method]['stored_credential']['usage'] = 'FIRST';
 								
-								if ($this->cart->hasRecurringProducts()) {
+								if ($this->cart->hasSubscription()) {
 									$paypal_order_info['payment_source'][$payment_method]['stored_credential']['payment_type'] = 'UNSCHEDULED';
 								} else {
 									$paypal_order_info['payment_source'][$payment_method]['stored_credential']['payment_type'] = 'ONE_TIME';
@@ -1196,7 +1200,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 				}
 
 				// if user not logged in check that the guest checkout is allowed
-				if (!$this->customer->isLogged() && (!$this->config->get('config_checkout_guest') || $this->config->get('config_customer_price') || $this->cart->hasDownload() || $this->cart->hasRecurringProducts())) {
+				if (!$this->customer->isLogged() && (!$this->config->get('config_checkout_guest') || $this->config->get('config_customer_price') || $this->cart->hasDownload() || $this->cart->hasSubscription())) {
 					$data['url'] = $this->url->link('checkout/cart', '', true);
 			
 					$this->response->addHeader('Content-Type: application/json');
@@ -1739,7 +1743,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 									}
 								
 									if (($authorization_status == 'CREATED') || ($authorization_status == 'PENDING')) {
-										$recurring_products = $this->cart->getRecurringProducts();
+										$recurring_products = $this->cart->getSubscriptions();
 					
 										foreach ($recurring_products as $recurring_product) {
 											$this->model_extension_payment_paypal->recurringPayment($recurring_product, $order_info, $paypal_order_data);
@@ -1868,7 +1872,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 									}
 								
 									if (($capture_status == 'COMPLETED') || ($capture_status == 'PENDING')) {
-										$recurring_products = $this->cart->getRecurringProducts();
+										$recurring_products = $this->cart->getSubscriptions();
 					
 										foreach ($recurring_products as $recurring_product) {
 											$this->model_extension_payment_paypal->recurringPayment($recurring_product, $order_info, $paypal_order_data);
@@ -2038,25 +2042,31 @@ class ControllerExtensionPaymentPayPal extends Controller {
 				$total = false;
 			}
 			
-			$recurring = '';
+			$description = '';
 
-			if ($product['recurring']) {
-				$frequencies = array(
-					'day'        => $this->language->get('text_day'),
-					'week'       => $this->language->get('text_week'),
-					'semi_month' => $this->language->get('text_semi_month'),
-					'month'      => $this->language->get('text_month'),
-					'year'       => $this->language->get('text_year'),
-				);
+			if ($product['subscription']) {
+				// Subscriptions
+				if ($product['subscription']) {
+					if ($product['subscription']['trial_status']) {
+						$trial_price = $this->currency->format($this->tax->calculate($product['subscription']['trial_price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+						$trial_cycle = $product['subscription']['trial_cycle'];
+						$trial_frequency = $this->language->get('text_' . $product['subscription']['trial_frequency']);
+						$trial_duration = $product['subscription']['trial_duration'];
 
-				if ($product['recurring']['trial']) {
-					$recurring = sprintf($this->language->get('text_trial_description'), $this->currency->format($this->tax->calculate($product['recurring']['trial_price'] * $product['quantity'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']), $product['recurring']['trial_cycle'], $frequencies[$product['recurring']['trial_frequency']], $product['recurring']['trial_duration']) . ' ';
-				}
+						$description .= sprintf($this->language->get('text_subscription_trial'), $price ? $trial_price : '', $trial_cycle, $trial_frequency, $trial_duration);
+					}
 
-				if ($product['recurring']['duration']) {
-					$recurring .= sprintf($this->language->get('text_payment_description'), $this->currency->format($this->tax->calculate($product['recurring']['price'] * $product['quantity'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']), $product['recurring']['cycle'], $frequencies[$product['recurring']['frequency']], $product['recurring']['duration']);
-				} else {
-					$recurring .= sprintf($this->language->get('text_payment_cancel'), $this->currency->format($this->tax->calculate($product['recurring']['price'] * $product['quantity'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']), $product['recurring']['cycle'], $frequencies[$product['recurring']['frequency']], $product['recurring']['duration']);
+					$price = $this->currency->format($this->tax->calculate($product['subscription']['price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+
+					$cycle = $product['subscription']['cycle'];
+					$frequency = $this->language->get('text_' . $product['subscription']['frequency']);
+					$duration = $product['subscription']['duration'];
+
+					if ($duration) {
+						$description .= sprintf($this->language->get('text_subscription_duration'), $price ?: '', $cycle, $frequency, $duration);
+					} else {
+						$description .= sprintf($this->language->get('text_subscription_cancel'), $price ?: '', $cycle, $frequency);
+					}
 				}
 			}
 
@@ -2066,7 +2076,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 				'name'                  => $product['name'],
 				'model'                 => $product['model'],
 				'option'                => $option_data,
-				'recurring' 			=> $recurring,
+				'recurring' 			=> $description,
 				'quantity'              => $product['quantity'],
 				'stock'                 => $product['stock'] ? true : !(!$this->config->get('config_stock_checkout') || $this->config->get('config_stock_warning')),
 				'reward'                => ($product['reward'] ? sprintf($this->language->get('text_points'), $product['reward']) : ''),
@@ -3052,7 +3062,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 							}
 								
 							if (($authorization_status == 'CREATED') || ($authorization_status == 'PENDING')) {
-								$recurring_products = $this->cart->getRecurringProducts();
+								$recurring_products = $this->cart->getSubscriptions();
 					
 								foreach ($recurring_products as $recurring_product) {
 									$this->model_extension_payment_paypal->recurringPayment($recurring_product, $order_data, $paypal_order_data);
@@ -3181,7 +3191,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 							}
 								
 							if (($capture_status == 'COMPLETED') || ($capture_status == 'PENDING')) {
-								$recurring_products = $this->cart->getRecurringProducts();
+								$recurring_products = $this->cart->getSubscriptions();
 					
 								foreach ($recurring_products as $recurring_product) {
 									$this->model_extension_payment_paypal->recurringPayment($recurring_product, $order_data, $paypal_order_data);
@@ -3753,7 +3763,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 									}
 								
 									if (($authorization_status == 'CREATED') || ($authorization_status == 'PENDING')) {
-										$recurring_products = $this->cart->getRecurringProducts();
+										$recurring_products = $this->cart->getSubscriptions();
 					
 										foreach ($recurring_products as $recurring_product) {
 											$this->model_extension_payment_paypal->recurringPayment($recurring_product, $order_info, $paypal_order_data);
@@ -3854,7 +3864,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 									}
 								
 									if (($capture_status == 'COMPLETED') || ($capture_status == 'PENDING')) {
-										$recurring_products = $this->cart->getRecurringProducts();
+										$recurring_products = $this->cart->getSubscriptions();
 					
 										foreach ($recurring_products as $recurring_product) {
 											$this->model_extension_payment_paypal->recurringPayment($recurring_product, $order_info, $paypal_order_data);
@@ -4280,6 +4290,38 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		$this->model_extension_payment_paypal->deleteOrderRecurring($order_id);		
 		$this->model_extension_payment_paypal->deletePayPalOrder($order_id);
 		$this->model_extension_payment_paypal->deletePayPalOrderRecurring($order_id);
+	}
+
+	/**
+	 * Add Report
+	 * 
+	 * @param string 			   $route
+	 * @param array<string, mixed> $args
+	 * 
+	 * @return void
+	 * 
+	 * catalog/model/extension/payment/paypal/addOrderRecurringTransaction/before
+	 */
+	public function addReport(&$route, &$args): void {
+		if (isset($args['order_recurring_id'])) {
+			$order_recurring_id = (int)$args['order_recurring_id'];
+		} else {
+			$order_recurring_id = 0;
+		}
+
+		if ($order_recurring_id) {
+			$this->load->model('checkout/recurring');
+
+			if (isset($this->request->server['HTTP_X_REAL_IP'])) {
+				$ip = $this->request->server['HTTP_X_REAL_IP'];
+			} elseif (oc_get_ip()) {
+				$ip = oc_get_ip();
+			} else {
+				$ip = '';
+			}
+
+			$this->model_checkout_recurring->addReport($order_recurring_id, $this->config->get('config_store_id'), $ip, $this->session->data['payment_address']['country']);
+		}
 	}
 		
 	private function validateShipping($code) {

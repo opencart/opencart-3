@@ -970,57 +970,6 @@ class ControllerExtensionPaymentSquareup extends Controller {
 	}
 
 	/**
-	 * Add Recurring Report
-	 */
-	public function addRecurringReport(): void {
-		$this->load->language('extension/payment/squareup');
-
-		$json = [];
-
-		if (!$this->user->hasPermission('modify', 'extension/payment/squareup') || !$this->config->get('config_order_recurring_report_status')) {
-			$json['error'] = $this->language->get('error_permission_recurring');
-		} else {
-			if (isset($this->request->get['order_recurring_id'])) {
-				$order_recurring_id = (int)$this->request->get['order_recurring_id'];
-			} else {
-				$order_recurring_id = 0;
-			}
-
-			$this->load->model('extension/other/recurring');
-
-			$order_recurring_report_info = $this->model_extension_other_recurring->getRecurringReport($order_recurring_id);
-
-			if (!$order_recurring_report_info) {
-				$json['error'] = $this->language->get('error_recurring_report');
-			} else {
-				if (oc_get_ip()) {
-					$ip = oc_get_ip();
-				} else {
-					$ip = '';
-				}
-
-				// Countries
-				$this->load->model('localisation/country');
-
-				$country_info = $this->model_localisation_country->getCountry((int)$this->config->get('config_country_id'));
-
-				if ($country_info) {
-					$country = $country_info['name'];
-				} else {
-					$country = '';
-				}
-
-				$this->model_extension_other_recurring->addRecurringReport($order_recurring_id, $this->request->post['store_id'], $ip, $country);
-
-				$json['success'] = $this->language->get('text_recurring_report_success');
-			}
-		}
-
-		$this->response->addHeader('Content-Type: application/json');
-		$this->response->setOutput(json_encode($json));
-	}
-
-	/**
 	 * Validate
 	 *
 	 * @return bool

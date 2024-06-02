@@ -1507,6 +1507,8 @@ INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VAL
 ('mail_subscription_cancel', 'catalog/model/checkout/order/editOrder/after', 'mail/subscription/cancel', 1, 0);
 INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
 ('subscription_charge', 'catalog/model/checkout/order/addHistory/before', 'account/subscription/charge', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('recurring_report', 'catalog/model/extension/payment/paypal/addOrderRecurringTransaction/before', 'extension/payment/paypal/addReport', 0, 0);
 
 -----------------------------------------------------------
 
