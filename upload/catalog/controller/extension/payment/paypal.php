@@ -4335,7 +4335,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 				$this->model_checkout_order->addHistory($this->session->data['order_id'], $order_info['order_status_id'], $comment, true);				
 			}
-		}	
+		}
 	}
 		
 	private function validateShipping($code) {
