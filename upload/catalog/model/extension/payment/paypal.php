@@ -348,7 +348,7 @@ class ModelExtensionPaymentPayPal extends Model {
 	}
 	
 	public function getOrderRecurrings() {
-		$query = $this->db->query("SELECT `or`.`subscription_id` FROM `" . DB_PREFIX . "subscription` `or` JOIN `" . DB_PREFIX . "order` `o` USING(`order_id`) WHERE `o`.`payment_code` = 'paypal' AND `or`.`status` = '1'");
+		$query = $this->db->query("SELECT `or`.`subscription_id` FROM `" . DB_PREFIX . "subscription` `or` JOIN `" . DB_PREFIX . "order` `o` USING(`order_id`) WHERE `o`.`payment_code` = 'paypal'");
 
 		$order_recurring_data = array();
 
