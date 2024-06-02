@@ -4311,33 +4311,31 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			$order_recurring_id = 0;
 		}
 
-		if ($order_recurring_id) {
+		$this->load->model('checkout/order');
+
+		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
+
+		if ($order_recurring_id && $order_info) {
 			$this->load->model('checkout/recurring');
 
-			$recurring_info = $this->model_checkout_recurring->getOrderRecurring($order_recurring_id);
+			$order_recurring_info = $this->model_checkout_recurring->getOrderRecurring($order_recurring_id);
 
-			if ($recurring_info) {
-				$this->load->model('checkout/order');
-
-				$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
-
-				if ($order_info) {
-					if (isset($this->request->server['HTTP_X_REAL_IP'])) {
-						$ip = $this->request->server['HTTP_X_REAL_IP'];
-					} elseif (oc_get_ip()) {
-						$ip = oc_get_ip();
-					} else {
-						$ip = '';
-					}
-
-					$this->model_checkout_recurring->addReport($order_recurring_id, $this->config->get('config_store_id'), $ip, $this->session->data['payment_address']['country']);
-
-					$comment = $this->language->get('text_new_subscription');
-
-					$this->model_checkout_order->addHistory($this->session->data['order_id'], $order_info['order_status_id'], $comment, true);
+			if ($order_recurring_info && $order_recurring_info['order_id'] == $this->session->data['order_id']) {
+				if (isset($this->request->server['HTTP_X_REAL_IP'])) {
+					$ip = $this->request->server['HTTP_X_REAL_IP'];
+				} elseif (oc_get_ip()) {
+					$ip = oc_get_ip();
+				} else {
+					$ip = '';
 				}
+
+				$this->model_checkout_recurring->addReport($order_recurring_id, $this->config->get('config_store_id'), $ip, $this->session->data['payment_address']['country']);
+
+				$comment = $this->language->get('text_new_subscription');
+
+				$this->model_checkout_order->addHistory($this->session->data['order_id'], $order_info['order_status_id'], $comment, true);				
 			}
-		}
+		}	
 	}
 		
 	private function validateShipping($code) {
