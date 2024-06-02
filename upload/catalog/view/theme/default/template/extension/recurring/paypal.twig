@@ -12,7 +12,7 @@ $('#paypal_recurring').on('click', '.button-enable-recurring', function() {
 	$.ajax({
 		type: 'post',
 		url: '{{ enable_url }}',
-		data: {'order_recurring_id' : '{{ order_recurring_id }}'},
+		data: {'subscription_id' : '{{ subscription_id }}'},
 		dataType: 'json',
 		beforeSend: function() {
 			$('#paypal_recurring .btn').prop('disabled', true);
@@ -47,7 +47,7 @@ $('#paypal_recurring').on('click', '.button-disable-recurring', function() {
 	$.ajax({
 		type: 'post',
 		url: '{{ disable_url }}',
-		data: {'order_recurring_id' : '{{ order_recurring_id }}'},
+		data: {'subscription_id' : '{{ subscription_id }}'},
 		dataType: 'json',
 		beforeSend: function() {
 			$('#paypal_recurring .btn').prop('disabled', true);
