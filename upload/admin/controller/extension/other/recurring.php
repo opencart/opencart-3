@@ -724,6 +724,7 @@ class ControllerExtensionOtherRecurring extends Controller {
 	 * @return void
 	 */
 	public function install(): void {
+		// Database
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "order_recurring_history` (
 			`order_recurring_history_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -734,5 +735,25 @@ class ControllerExtensionOtherRecurring extends Controller {
 			PRIMARY KEY (`order_recurring_history_id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 		");
+
+		// Event
+		$this->load->model('setting/event');
+
+		$this->model_setting_event->addEvent('recurring_report', 'catalog/model/extension/payment/paypal/addOrderRecurringTransaction/before', 'extension/payment/paypal/addReport', 0, 0);
+	}
+
+	/**
+	 * Uninstall
+	 * 
+	 * @return void
+	 */
+	public function uninstall(): void {
+		// Database
+		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "order_recurring_history");
+
+		// Event
+		$this->load->model('setting/event');
+
+		$this->model_setting_event->deleteEventByCode('recurring_report');
 	}
 }
