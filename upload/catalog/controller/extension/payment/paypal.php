@@ -4320,7 +4320,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 			$order_recurring_info = $this->model_checkout_recurring->getOrderRecurring($order_recurring_id);
 
-			if ($order_recurring_info && $order_recurring_info['order_id'] == $this->session->data['order_id']) {
+			if ($order_recurring_info && $this->cart->hasSubscription()) {
 				if (isset($this->request->server['HTTP_X_REAL_IP'])) {
 					$ip = $this->request->server['HTTP_X_REAL_IP'];
 				} elseif (oc_get_ip()) {
