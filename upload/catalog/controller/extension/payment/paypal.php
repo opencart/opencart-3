@@ -1680,7 +1680,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 									if (($authorization_status == 'CREATED') || ($authorization_status == 'DENIED') || ($authorization_status == 'PENDING')) {
 										$message = sprintf($this->language->get('text_order_message'), $seller_protection_status);
 											
-										$this->model_checkout_order->addOrderHistory($this->session->data['order_id'], $order_status_id, $message);
+										$this->model_checkout_order->addHistory($this->session->data['order_id'], $order_status_id, $message);
 									}
 								
 									if (($authorization_status == 'CREATED') || ($authorization_status == 'DENIED') || ($authorization_status == 'PENDING')) {
@@ -1809,7 +1809,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 									if (($capture_status == 'COMPLETED') || ($capture_status == 'DECLINED') || ($capture_status == 'PENDING')) {
 										$message = sprintf($this->language->get('text_order_message'), $seller_protection_status);
 													
-										$this->model_checkout_order->addOrderHistory($this->session->data['order_id'], $order_status_id, $message);
+										$this->model_checkout_order->addHistory($this->session->data['order_id'], $order_status_id, $message);
 									}
 								
 									if (($capture_status == 'COMPLETED') || ($capture_status == 'DECLINED') || ($capture_status == 'PENDING')) {
@@ -2999,7 +2999,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 							if (($authorization_status == 'CREATED') || ($authorization_status == 'DENIED') || ($authorization_status == 'PENDING')) {
 								$message = sprintf($this->language->get('text_order_message'), $seller_protection_status);
 											
-								$this->model_checkout_order->addOrderHistory($this->session->data['order_id'], $order_status_id, $message);
+								$this->model_checkout_order->addHistory($this->session->data['order_id'], $order_status_id, $message);
 							}
 								
 							if (($authorization_status == 'CREATED') || ($authorization_status == 'DENIED') || ($authorization_status == 'PENDING')) {
@@ -3128,7 +3128,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 							if (($capture_status == 'COMPLETED') || ($capture_status == 'DECLINED') || ($capture_status == 'PENDING')) {
 								$message = sprintf($this->language->get('text_order_message'), $seller_protection_status);
 											
-								$this->model_checkout_order->addOrderHistory($this->session->data['order_id'], $order_status_id, $message);
+								$this->model_checkout_order->addHistory($this->session->data['order_id'], $order_status_id, $message);
 							}
 							
 							if (($capture_status == 'COMPLETED') || ($capture_status == 'DECLINED') || ($capture_status == 'PENDING')) {
@@ -3481,6 +3481,21 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			$this->load->language('extension/payment/paypal');
 		
 			$this->load->model('extension/payment/paypal');
+
+			$order_id = (int)$this->request->post['order_id'];
+			$order_status_id = (int)$this->request->post['order_status_id'];
+
+			if (!empty($this->request->post['comment'])) {
+				$comment = $this->request->post['comment'];
+			} else {
+				$comment = '';
+			}
+
+			if (!empty($this->request->post['notify'])) {
+				$notify = $this->request->post['notify'];
+			} else {
+				$notify = false;
+			}
 			
 			$_config = new Config();
 			$_config->load('paypal');
@@ -3492,7 +3507,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			if (hash_equals($setting['general']['order_history_token'], $this->request->get['order_history_token'])) {		
 				$this->load->model('checkout/order');
 
-				$this->model_checkout_order->addOrderHistory($this->request->post['order_id'], $this->request->post['order_status_id'], '', true);
+				$this->model_checkout_order->addHistory($order_id, $order_status_id, $comment, $notify);
 			
 				$data['success'] = $this->language->get('success_order');
 			}	
@@ -3713,7 +3728,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 									if (($authorization_status == 'CREATED') || ($authorization_status == 'DENIED') || ($authorization_status == 'PENDING')) {
 										$message = sprintf($this->language->get('text_order_message'), $seller_protection_status);
 											
-										$this->model_checkout_order->addOrderHistory($this->session->data['order_id'], $order_status_id, $message);
+										$this->model_checkout_order->addHistory($this->session->data['order_id'], $order_status_id, $message);
 									}
 								
 									if (($authorization_status == 'CREATED') || ($authorization_status == 'DENIED') || ($authorization_status == 'PENDING')) {
@@ -3814,7 +3829,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 									if (($capture_status == 'COMPLETED') || ($capture_status == 'DECLINED') || ($capture_status == 'PENDING')) {
 										$message = sprintf($this->language->get('text_order_message'), $seller_protection_status);
 													
-										$this->model_checkout_order->addOrderHistory($this->session->data['order_id'], $order_status_id, $message);
+										$this->model_checkout_order->addHistory($this->session->data['order_id'], $order_status_id, $message);
 									}
 								
 									if (($capture_status == 'COMPLETED') || ($capture_status == 'DECLINED') || ($capture_status == 'PENDING')) {
@@ -4058,7 +4073,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 						if ($order_status_id && ($order_info['order_status_id'] != $order_status_id)) {					
 							$this->load->model('checkout/order');
 
-							$this->model_checkout_order->addOrderHistory($order_id, $order_status_id, '', true);
+							$this->model_checkout_order->addHistory($order_id, $order_status_id, '', true);
 						}
 									
 						if (isset($webhook_event['resource']['id']) && $transaction_status) {

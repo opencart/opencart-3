@@ -260,7 +260,7 @@ class ModelExtensionPaymentPayPal extends Model {
 		return $agree_status;
 	}
 	
-	public function addOrderHistory($order_history_token, $order_id, $order_status_id) {
+	public function addOrderHistory(string $order_history_token, int $order_id, int $order_status_id, string $comment = '', bool $notify = false): bool {
 		if (isset($this->request->server['HTTPS']) && (($this->request->server['HTTPS'] == 'on') || ($this->request->server['HTTPS'] == '1'))) {
 			$catalog = HTTPS_CATALOG;
 		} else {
@@ -269,7 +269,9 @@ class ModelExtensionPaymentPayPal extends Model {
 		
 		$data = array(
 			'order_id' => $order_id,
-			'order_status_id' => $order_status_id
+			'order_status_id' => $order_status_id,
+			'notify' => $notify,
+			'comment' => $comment
 		);
 			
 		$curl = curl_init();
@@ -366,7 +368,7 @@ class ModelExtensionPaymentPayPal extends Model {
 	}
 	
 	public function update() {
-		if ($this->config->get('paypal_version') < '3.0.0') {
+		if ($this->config->get('paypal_version') < '3.1.0') {
 			$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "paypal_checkout_integration_customer_token`");
 			$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "paypal_checkout_integration_order`");
 			$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "paypal_checkout_integration_subscription`");
@@ -374,11 +376,6 @@ class ModelExtensionPaymentPayPal extends Model {
 			$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "paypal_checkout_integration_customer_token` (`customer_id` INT(11) NOT NULL, `payment_method` VARCHAR(20) NOT NULL, `vault_id` VARCHAR(50) NOT NULL, `vault_customer_id` VARCHAR(50) NOT NULL, `card_type` VARCHAR(40) NOT NULL, `card_nice_type` VARCHAR(40) NOT NULL, `card_last_digits` VARCHAR(4) NOT NULL, `card_expiry` VARCHAR(20) NOT NULL, `main_token_status` TINYINT(1) NOT NULL, PRIMARY KEY (`customer_id`, `payment_method`, `vault_id`), KEY `vault_customer_id` (`vault_customer_id`), KEY `main_token_status` (`main_token_status`)) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci");
 			$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "paypal_checkout_integration_order` (`order_id` INT(11) NOT NULL, `paypal_order_id` VARCHAR(20) NOT NULL, `transaction_id` VARCHAR(20) NOT NULL, `transaction_status` VARCHAR(20) NOT NULL, `payment_method` VARCHAR(20) NOT NULL, `vault_id` VARCHAR(50) NOT NULL, `vault_customer_id` VARCHAR(50) NOT NULL, `card_type` VARCHAR(40) NOT NULL, `card_nice_type` VARCHAR(40) NOT NULL, `card_last_digits` VARCHAR(4) NOT NULL, `card_expiry` VARCHAR(20) NOT NULL, `total` DECIMAL(15,2) NOT NULL, `currency_code` VARCHAR(3) NOT NULL, `environment` VARCHAR(20) NOT NULL, `tracking_number` VARCHAR(64) NOT NULL, `carrier_name` VARCHAR(64) NOT NULL, PRIMARY KEY (`order_id`), KEY `paypal_order_id` (`paypal_order_id`), KEY `transaction_id` (`transaction_id`)) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci");
 			$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "paypal_checkout_integration_subscription` (`paypal_subscription_id` INT(11) NOT NULL AUTO_INCREMENT, `order_id` INT(11) NOT NULL, `subscription_id` INT(11) NOT NULL, `date_added` DATETIME NOT NULL, `date_modified` DATETIME NOT NULL, `next_payment` DATETIME NOT NULL, `trial_end` DATETIME DEFAULT NULL, `subscription_end` DATETIME DEFAULT NULL, `currency_code` CHAR(3) NOT NULL, `total` DECIMAL(10, 2) NOT NULL, PRIMARY KEY (`paypal_subscription_id`), KEY (`order_id`), KEY (`subscription_id`)) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci");
-		} elseif ($this->config->get('paypal_version') < '3.1.0') {
-			$this->db->query("ALTER TABLE `" . DB_PREFIX . "paypal_checkout_integration_order` ADD COLUMN `total` DECIMAL(15,2) NOT NULL AFTER `card_expiry`");
-			$this->db->query("ALTER TABLE `" . DB_PREFIX . "paypal_checkout_integration_order` ADD COLUMN `currency_code` VARCHAR(3) NOT NULL AFTER `total`");
-			$this->db->query("ALTER TABLE `" . DB_PREFIX . "paypal_checkout_integration_order` ADD COLUMN `tracking_number` VARCHAR(64) NOT NULL AFTER `environment`");
-			$this->db->query("ALTER TABLE `" . DB_PREFIX . "paypal_checkout_integration_order` ADD COLUMN `carrier_name` VARCHAR(64) NOT NULL AFTER `tracking_number`");
 		}
 	}
 }

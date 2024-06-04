@@ -210,11 +210,15 @@ $_['text_transaction_pending']				= 'The state of a payment capture was changed 
 $_['text_transaction_refunded']				= 'A merchant refunded the payment capture.';
 $_['text_transaction_partially_refunded']	= 'A merchant partially refunded the payment capture.';
 $_['text_transaction_reversed']				= 'PayPal reversed the payment capture.';
+$_['text_transaction_comment']   			= 'Comment';
+$_['text_transaction_notify']   			= 'Notify Customer';
 $_['text_transaction_action']				= 'Action';
 $_['text_final_capture']		   			= 'Final Capture';
 $_['text_tracker_information']   			= 'Tracking Information';
 $_['text_tracking_number'] 					= 'Tracking Number';
 $_['text_carrier_name'] 					= 'Carrier';
+$_['text_tracker_comment']   				= 'Comment';
+$_['text_tracker_notify']   				= 'Notify Customer';
 $_['text_tracker_action']					= 'Action';
 $_['text_loading']          				= 'Loading...';
 
