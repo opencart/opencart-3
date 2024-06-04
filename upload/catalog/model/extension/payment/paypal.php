@@ -466,7 +466,7 @@ class ModelExtensionPaymentPayPal extends Model {
 			
 				if (($transaction_status == 'CREATED') || ($transaction_status == 'COMPLETED') || ($transaction_status == 'PENDING')) {
 					$order_recurring_transaction_data = array(
-						'subscription_id' => $subscription_id,
+						'order_recurring_id' => $subscription_id,
 						'reference' => $transaction_id,
 						'type' => '1',
 						'amount' => $amount
@@ -477,7 +477,7 @@ class ModelExtensionPaymentPayPal extends Model {
 					$this->editPayPalOrderRecurringNextPayment($subscription_id, date_format($next_payment, 'Y-m-d H:i:s'));
 				} else {
 					$order_recurring_transaction_data = array(
-						'subscription_id' => $subscription_id,
+						'order_recurring_id' => $subscription_id,
 						'reference' => $transaction_id,
 						'type' => '4',
 						'amount' => $amount
