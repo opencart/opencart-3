@@ -366,11 +366,11 @@ class ModelExtensionPaymentPayPal extends Model {
 	}
 
 	public function addOrderRecurringTransaction($data) {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "order_recurring_transaction` SET `subscription_id` = '" . (int)$data['subscription_id'] . "', `reference` = '" . $this->db->escape($data['reference']) . "', `type` = '" . (int)$data['type'] . "', `amount` = '" . (float)$data['amount'] . "', `date_added` = NOW()");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "order_recurring_transaction` SET `order_recurring_id` = '" . (int)$data['order_recurring_id'] . "', `reference` = '" . $this->db->escape($data['reference']) . "', `type` = '" . (int)$data['type'] . "', `amount` = '" . (float)$data['amount'] . "', `date_added` = NOW()");
 	}
 	
-	public function deleteOrderRecurringTransaction($subscription_id) {
-		$query = $this->db->query("DELETE FROM `" . DB_PREFIX . "order_recurring_transaction` WHERE `subscription_id` = '" . (int)$subscription_id . "'");
+	public function deleteOrderRecurringTransaction($order_recurring_id) {
+		$query = $this->db->query("DELETE FROM `" . DB_PREFIX . "order_recurring_transaction` WHERE `order_recurring_id` = '" . (int)$order_recurring_id . "'");
 	}
 		
 	public function recurringPayment($product_data, $order_data, $paypal_order_data) {
