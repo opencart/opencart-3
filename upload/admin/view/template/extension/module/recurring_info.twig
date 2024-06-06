@@ -19,32 +19,34 @@
             <h3 class="panel-title"><i class="fa fa-list"></i> {{ text_recurring_detail }}</h3>
           </div>
           <div class="panel-body">
-            <table class="table table-bordered">
-              <tr>
-                <td>{{ text_order_recurring_id }}</td>
-                <td>{{ order_recurring_id }}</td>
-              </tr>
-              <tr>
-                <td>{{ text_reference }}</td>
-                <td>{{ reference }}</td>
-              </tr>
-              <tr>
-                <td>{{ text_recurring_name }}</td>
-                <td>{{ recurring_name }}</td>
-              </tr>
-              <tr>
-                <td>{{ text_recurring_description }}</td>
-                <td>{{ recurring_description }}</td>
-              </tr>
-              <tr>
-                <td>{{ text_recurring_status }}</td>
-                <td>{{ recurring_status }}</td>
-              </tr>
-              <tr>
-                <td>{{ text_payment_method }}</td>
-                <td>{{ payment_method }}</td>
-              </tr>
-            </table>
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <tr>
+                  <td>{{ text_order_recurring_id }}</td>
+                  <td>{{ order_recurring_id }}</td>
+                </tr>
+                <tr>
+                  <td>{{ text_reference }}</td>
+                  <td>{{ reference }}</td>
+                </tr>
+                <tr>
+                  <td>{{ text_recurring_name }}</td>
+                  <td>{{ recurring_name }}</td>
+                </tr>
+                <tr>
+                  <td>{{ text_recurring_description }}</td>
+                  <td>{{ recurring_description }}</td>
+                </tr>
+                <tr>
+                  <td>{{ text_recurring_status }}</td>
+                  <td>{{ recurring_status }}</td>
+                </tr>
+                <tr>
+                  <td>{{ text_payment_method }}</td>
+                  <td>{{ payment_method }}</td>
+                </tr>
+              </table>
+            </div>
           </div>
         </div>
       </div>
@@ -54,33 +56,35 @@
             <h3 class="panel-title"><i class="fa fa-list"></i> {{ text_order_detail }}</h3>
           </div>
           <div class="panel-body">
-            <table class="table table-bordered">
-              <tr>
-                <td>{{ text_order_id }}</td>
-                <td><a href="{{ order }}">{{ order_id }}</a></td>
-              </tr>
-              <tr>
-                <td>{{ text_customer }}</td>
-                <td>
-                  {% if customer %}
-                    <a href="{{ customer }}">{{ firstname }} {{ lastname }}</a>
-                  {% else %}
-                    {{ firstname }} {{ lastname }}
-                  {% endif %}</td>
-              </tr>
-              <tr>
-                <td>{{ text_email }}</td>
-                <td>{{ email }}</td>
-              </tr>
-              <tr>
-                <td>{{ text_order_status }}</td>
-                <td>{{ order_status }}</td>
-              </tr>
-              <tr>
-                <td>{{ text_date_added }}</td>
-                <td>{{ date_added }}</td>
-              </tr>
-            </table>
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <tr>
+                  <td>{{ text_order_id }}</td>
+                  <td><a href="{{ order }}">{{ order_id }}</a></td>
+                </tr>
+                <tr>
+                  <td>{{ text_customer }}</td>
+                  <td>
+                    {% if customer %}
+                      <a href="{{ customer }}">{{ firstname }} {{ lastname }}</a>
+                    {% else %}
+                      {{ firstname }} {{ lastname }}
+                    {% endif %}</td>
+                </tr>
+                <tr>
+                  <td>{{ text_email }}</td>
+                  <td>{{ email }}</td>
+                </tr>
+                <tr>
+                  <td>{{ text_order_status }}</td>
+                  <td>{{ order_status }}</td>
+                </tr>
+                <tr>
+                  <td>{{ text_date_added }}</td>
+                  <td>{{ date_added }}</td>
+                </tr>
+              </table>
+            </div>
           </div>
         </div>
       </div>
@@ -90,20 +94,22 @@
         <h3 class="panel-title"><i class="fa fa-list"></i> {{ text_product_detail }}</h3>
       </div>
       <div class="panel-body">
-        <table class="table table-bordered">
-          <thead>
-          <tr>
-            <td>{{ text_product }}</td>
-            <td>{{ text_quantity }}</td>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td>{{ product }}</td>
-            <td>{{ quantity }}</td>
-          </tr>
-          </tbody>
-        </table>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <td>{{ text_product }}</td>
+                <td>{{ text_quantity }}</td>
+              </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>{{ product }}</td>
+              <td>{{ quantity }}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
     <div class="panel panel-default">
@@ -111,30 +117,32 @@
         <h3 class="panel-title"><i class="fa fa-list"></i> {{ text_transaction }}</h3>
       </div>
       <div class="panel-body"> {{ buttons }}
-        <table class="table table-bordered">
-          <thead>
-          <tr>
-            <td class="text-left">{{ column_date_added }}</td>
-            <td class="text-right">{{ column_amount }}</td>
-            <td class="text-left">{{ column_type }}</td>
-          </tr>
-          </thead>
-          <tbody>
-          {% if transactions %}
-            {% for transaction in transactions %}
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
               <tr>
-                <td class="text-left">{{ transaction.date_added }}</td>
-                <td class="text-right">{{ transaction.amount }}</td>
-                <td class="text-left">{{ transaction.type }}</td>
+                <td class="text-left">{{ column_date_added }}</td>
+                <td class="text-right">{{ column_amount }}</td>
+                <td class="text-left">{{ column_type }}</td>
               </tr>
-            {% endfor %}
-          {% else %}
-            <tr>
-              <td class="text-center" colspan="7">{{ text_no_results }}</td>
-            </tr>
-          {% endif %}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {% if transactions %}
+                {% for transaction in transactions %}
+                  <tr>
+                    <td class="text-left">{{ transaction.date_added }}</td>
+                    <td class="text-right">{{ transaction.amount }}</td>
+                    <td class="text-left">{{ transaction.type }}</td>
+                  </tr>
+                {% endfor %}
+              {% else %}
+                <tr>
+                  <td class="text-center" colspan="7">{{ text_no_results }}</td>
+                </tr>
+              {% endif %}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>

@@ -31,7 +31,7 @@
                 <div class="tab-pane active" id="tab-general">
                   <fieldset>
                     <legend>{{ text_product }}</legend>
-                    <div class="responsive">
+                    <div class="table-responsive">
                       <table class="table table-bordered">
                         <tr>
                           <td>{{ text_order_recurring_id }}</td>
@@ -116,35 +116,33 @@
             <h3 class="panel-title"><i class="fa fa-list"></i> {{ text_order_detail }}</h3>
           </div>
           <div class="panel-body">
-            <div class="responsive">
-              <table class="table table-bordered">
-                <tr>
-                  <td>{{ text_order_id }}</td>
-                  <td><a href="{{ order }}">{{ order_id }}</a></td>
-                </tr>
-                <tr>
-                  <td>{{ text_customer }}</td>
-                  <td>
-                    {% if customer %}
-                      <a href="{{ customer }}">{{ firstname }} {{ lastname }}</a>
-                    {% else %}
-                      {{ firstname }} {{ lastname }}
-                    {% endif %}</td>
-                </tr>
-                <tr>
-                  <td>{{ text_email }}</td>
-                  <td>{{ email }}</td>
-                </tr>
-                <tr>
-                  <td>{{ text_order_status }}</td>
-                  <td>{{ order_status }}</td>
-                </tr>
-                <tr>
-                  <td>{{ text_date_added }}</td>
-                  <td>{{ date_added }}</td>
-                </tr>
-              </table>
-            </div>
+            <table class="table table-bordered">
+              <tr>
+                <td>{{ text_order_id }}</td>
+                <td><a href="{{ order }}">{{ order_id }}</a></td>
+              </tr>
+              <tr>
+                <td>{{ text_customer }}</td>
+                <td>
+                  {% if customer %}
+                    <a href="{{ customer }}">{{ firstname }} {{ lastname }}</a>
+                  {% else %}
+                    {{ firstname }} {{ lastname }}
+                  {% endif %}</td>
+              </tr>
+              <tr>
+                <td>{{ text_email }}</td>
+                <td>{{ email }}</td>
+              </tr>
+              <tr>
+                <td>{{ text_order_status }}</td>
+                <td>{{ order_status }}</td>
+              </tr>
+              <tr>
+                <td>{{ text_date_added }}</td>
+                <td>{{ date_added }}</td>
+              </tr>
+            </table>
           </div>
         </div>
       </div>
@@ -175,7 +173,7 @@
         <h3 class="panel-title"><i class="fa fa-list"></i> {{ text_transaction }}</h3>
       </div>
       <div class="panel-body"> {{ buttons }}
-        <div class="responsive">
+        <div class="table-responsive">
           <table class="table table-bordered">
             <thead>
             <tr>
