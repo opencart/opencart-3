@@ -133,7 +133,7 @@ var PayPalAPI = (function () {
 		src_data['currency'] = paypal_data['currency_code'];
 		src_data['intent'] = paypal_data['transaction_method'];
 		src_data['locale'] = paypal_data['locale'];
-				
+
 		if (paypal_data['button_enable_funding'] && paypal_data['button_enable_funding'].length) {
 			src_data['enable-funding'] = paypal_data['button_enable_funding'].join(',');
 		}
@@ -831,10 +831,10 @@ var PayPalAPI = (function () {
 									
 		$('#applepay_button_container').removeClass('paypal-spinner');
 	};
-	
+
 	var init = async function(callback = '') {
 		await updatePayPalData();
-			
+
 		paypal_callback = callback;
 			
 		loadPayPalSDK();
