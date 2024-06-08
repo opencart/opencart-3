@@ -1223,17 +1223,17 @@
         },
         {
             "name": "symfony/validator",
-            "version": "v7.0.7",
-            "version_normalized": "7.0.7.0",
+            "version": "v7.0.8",
+            "version_normalized": "7.0.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/validator.git",
-                "reference": "ab4e75b9d23ba70e78480aecbe4d8da15adf10eb"
+                "reference": "23af65dff1f4dfee9aab3a0123a243e40fa3d9cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/validator/zipball/ab4e75b9d23ba70e78480aecbe4d8da15adf10eb",
-                "reference": "ab4e75b9d23ba70e78480aecbe4d8da15adf10eb",
+                "url": "https://api.github.com/repos/symfony/validator/zipball/23af65dff1f4dfee9aab3a0123a243e40fa3d9cf",
+                "reference": "23af65dff1f4dfee9aab3a0123a243e40fa3d9cf",
                 "shasum": ""
             },
             "require": {
@@ -1272,7 +1272,7 @@
                 "symfony/translation": "^6.4.3|^7.0.3",
                 "symfony/yaml": "^6.4|^7.0"
             },
-            "time": "2024-04-28T11:44:19+00:00",
+            "time": "2024-06-02T15:49:03+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -1280,7 +1280,8 @@
                     "Symfony\\Component\\Validator\\": ""
                 },
                 "exclude-from-classmap": [
-                    "/Tests/"
+                    "/Tests/",
+                    "/Resources/bin/"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1300,7 +1301,7 @@
             "description": "Provides tools to validate values",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/validator/tree/v7.0.7"
+                "source": "https://github.com/symfony/validator/tree/v7.0.8"
             },
             "funding": [
                 {
