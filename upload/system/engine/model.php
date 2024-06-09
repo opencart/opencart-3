@@ -16,14 +16,14 @@
  */
 abstract class Model {
 	/**
-	 * @var object
+	 * @var object $registry
 	 */
 	protected object $registry;
 
 	/**
 	 * Constructor
 	 *
-	 * @property Registry $registry
+	 * @property \Registry $registry
 	 *
 	 * @param mixed $registry
 	 */

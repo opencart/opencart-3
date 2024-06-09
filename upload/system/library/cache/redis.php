@@ -2,19 +2,19 @@
 namespace Cache;
 class Redis {
 	/**
-	 * @var object
+	 * @var object $config
 	 */
 	private object $config;
 	/**
-	 * @var object
+	 * @var object $redis
 	 */
 	private object $redis;
 	/**
-	 * @var int
+	 * @var int $expire
 	 */
 	private int $expire;
 	/**
-	 * @var object
+	 * @var object $cache
 	 */
 	private object $cache;
 

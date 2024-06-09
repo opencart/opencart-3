@@ -7,23 +7,23 @@ namespace Template;
  */
 class Twig {
 	/**
-	 * @var string
+	 * @var string $root
 	 */
 	protected string $root = '';
 	/**
-	 * @var string
+	 * @var string $directory
 	 */
 	protected string $directory = '';
 	/**
-	 * @var object
+	 * @var object $loader
 	 */
 	protected object $loader;
 	/**
-	 * @var array<string, string>
+	 * @var array<string, string> $path
 	 */
 	protected array $path = [];
 	/**
-	 * @var array<string, string>
+	 * @var array<string, string> $data
 	 */
 	protected array $data = [];
 

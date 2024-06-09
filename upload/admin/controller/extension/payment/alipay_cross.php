@@ -6,11 +6,11 @@
  */
 class ControllerExtensionPaymentAlipayCross extends Controller {
 	/**
-	 * @var array<string, string>
+	 * @var array<string, string> $error
 	 */
 	private array $error = [];
 	/**
-	 * @var array<string, string>
+	 * @var array<string, string> $currencies
 	 */
 	private array $currencies = [
 		'GBP',

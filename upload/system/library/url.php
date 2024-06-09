@@ -14,15 +14,15 @@
  */
 class Url {
 	/**
-	 * @var string
+	 * @var string $url
 	 */
 	private string $url = '';
 	/**
-	 * @var string
+	 * @var string $ssl
 	 */
 	private string $ssl = '';
 	/**
-	 * @var array<string, mixed>
+	 * @var array<string, mixed> $rewrite
 	 */
 	private array $rewrite = [];
 

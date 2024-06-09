@@ -14,15 +14,15 @@
  */
 class Session {
 	/**
-	 * @var object
+	 * @var object $ada[tpr]
 	 */
 	protected object $adaptor;
 	/**
-	 * @var string
+	 * @var string $session_id
 	 */
 	protected string $session_id;
 	/**
-	 * @var array<mixed>
+	 * @var array<mixed> $data
 	 */
 	public array $data = [];
 
@@ -32,7 +32,7 @@ class Session {
 	 * @param string $adaptor
 	 * @param mixed  $registry
 	 *
-	 * @property Registry $registry
+	 * @property \Registry $registry
 	 */
 	public function __construct(string $adaptor, $registry = '') {
 		$class = 'Session\\' . $adaptor;

@@ -7,14 +7,14 @@ namespace Session;
  */
 class File {
 	/**
-	 * @var object
+	 * @var object $config
 	 */
 	private object $config;
 
 	/**
 	 * Constructor
 	 *
-	 * @property Registry $registry
+	 * @property \Registry $registry
 	 *
 	 * @param mixed $registry
 	 */

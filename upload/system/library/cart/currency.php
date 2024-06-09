@@ -2,15 +2,15 @@
 namespace Cart;
 class Currency {
 	/**
-	 * @var object
+	 * @var object $db
 	 */
 	private object $db;
 	/**
-	 * @var object
+	 * @var object $language
 	 */
 	private object $language;
 	/**
-	 * @var array<string, array<string, mixed>>
+	 * @var array<string, array<string, mixed>> $currencies
 	 */
 	private array $currencies = [];
 

@@ -1,31 +1,31 @@
 <?php
 class Squareup {
 	/**
-	 * @var object
+	 * @var object $session
 	 */
 	private object $session;
 	/**
-	 * @var object
+	 * @var object $url
 	 */
 	private object $url;
 	/**
-	 * @var object
+	 * @var object $config
 	 */
 	private object $config;
 	/**
-	 * @var object
+	 * @var object $log
 	 */
 	private object $log;
 	/**
-	 * @var object
+	 * @var object $customer
 	 */
 	private object $customer;
 	/**
-	 * @var object
+	 * @var object $currency
 	 */
 	private object $currency;
 	/**
-	 * @var object
+	 * @property \Registry $registry
 	 */
 	private object $registry;
 	/**
@@ -104,7 +104,7 @@ class Squareup {
 	/**
 	 * Constructor
 	 *
-	 * @property Registry $registry
+	 * @property \Registry $registry
 	 *
 	 * @param object $registry
 	 */

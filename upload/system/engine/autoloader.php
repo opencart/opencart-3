@@ -14,7 +14,7 @@
  */
 class Autoloader {
 	/**
-	 * @var array<string, array<string, mixed>>
+	 * @var array<string, array<string, mixed>> $path
 	 */
 	private array $path = [];
 

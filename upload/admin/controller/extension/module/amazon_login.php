@@ -6,10 +6,13 @@
  */
 class ControllerExtensionModuleAmazonLogin extends Controller {
 	/**
-	 * @var string
-	 * @var array<string, string>
+	 * @var string $version
 	 */
 	private string $version = '3.2.1';
+
+	/**
+	 * @var array<string, string> $error
+	 */
 	private array $error = [];
 
 	/**

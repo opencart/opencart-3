@@ -14,11 +14,11 @@
  */
 class Mail {
 	/**
-	 * @var object
+	 * @var object $adaptor
 	 */
 	private object $adaptor;
 	/**
-	 * @var array<string, mixed>
+	 * @var array<string, mixed> $option
 	 */
 	private array $option = [];
 

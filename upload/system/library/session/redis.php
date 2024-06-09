@@ -7,26 +7,26 @@ namespace Session;
  */
 class Redis {
 	/**
-	 * @var object
+	 * @var object $db
 	 */
 	private object $db;
 	/**
-	 * @var object
+	 * @var object $config
 	 */
 	private object $config;
 	/**
-	 * @var ?\Redis
+	 * @var ?\Redis $redis
 	 */
 	private ?\Redis $redis;
 	/**
-	 * @var string
+	 * @var string $prefix
 	 */
 	public string $prefix;
 
 	/**
 	 * Constructor
 	 *
-	 * @property Registry $registry
+	 * @property \Registry $registry
 	 *
 	 * @param mixed $registry
 	 */

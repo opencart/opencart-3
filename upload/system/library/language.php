@@ -14,15 +14,15 @@
  */
 class Language {
 	/**
-	 * @var string
+	 * @var string $default
 	 */
 	private string $default = 'en-gb';
 	/**
-	 * @var string
+	 * @var string $directory
 	 */
 	private string $directory;
 	/**
-	 * @var array<string, string>
+	 * @var array<string, string> $data
 	 */
 	public array $data = [];
 

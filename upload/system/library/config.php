@@ -14,7 +14,7 @@
  */
 class Config {
 	/**
-	 * @var array<string, mixed>
+	 * @var array<string, mixed> $data
 	 */
 	private array $data = [];
 

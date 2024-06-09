@@ -2,11 +2,11 @@
 namespace Cache;
 class Memcached {
 	/**
-	 * @var int
+	 * @var int $expire
 	 */
 	private int $expire;
 	/**
-	 * @var object
+	 * @var object $memcached
 	 */
 	private object $memcached;
 

@@ -2,31 +2,31 @@
 namespace Cart;
 class Cart {
 	/**
-	 * @var object
+	 * @var object $db
 	 */
 	private object $db;
 	/**
-	 * @var object
+	 * @var object $config
 	 */
 	private object $config;
 	/**
-	 * @var object
+	 * @var object $customer
 	 */
 	private object $customer;
 	/**
-	 * @var object
+	 * @var object $session
 	 */
 	private object $session;
 	/**
-	 * @var object
+	 * @var object $tax
 	 */
 	private object $tax;
 	/**
-	 * @var object
+	 * @var object $weight
 	 */
 	private object $weight;
 	/**
-	 * @var array<int, array<string, mixed>>
+	 * @var array<int, array<string, mixed>> $data
 	 */
 	private array $data = [];
 

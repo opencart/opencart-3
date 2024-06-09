@@ -6,14 +6,14 @@ namespace googleshopping;
  */
 abstract class Library {
 	/**
-	 * @var object
+	 * @property \Registry $registry
 	 */
 	protected object $registry;
 
 	/**
 	 * Constructor
 	 *
-	 * @property Registry $registry
+	 * @property \Registry $registry
 	 *
 	 * @param mixed $registry
 	 */

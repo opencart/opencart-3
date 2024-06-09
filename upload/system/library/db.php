@@ -14,7 +14,7 @@
  */
 class DB {
 	/**
-	 * @var object
+	 * @var object $adaptor
 	 */
 	private object $adaptor;
 

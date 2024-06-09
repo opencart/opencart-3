@@ -6,7 +6,7 @@ namespace googleshopping;
  */
 class Log {
 	/**
-	 * @var mixed
+	 * @var mixed $handle
 	 */
 	private mixed $handle;
 

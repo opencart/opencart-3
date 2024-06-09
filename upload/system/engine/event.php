@@ -17,11 +17,11 @@
  */
 class Event {
 	/**
-	 * @var object
+	 * @var object $registry
 	 */
 	protected object $registry;
 	/**
-	 * @var array<string, array<string, mixed>>
+	 * @var array<string, array<string, mixed>> $data
 	 */
 	protected array $data = [];
 

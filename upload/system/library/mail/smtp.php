@@ -8,11 +8,11 @@ namespace Mail;
  */
 class Smtp {
 	/**
-	 * @var array<string, mixed>
+	 * @var array<string, mixed> $option
 	 */
 	protected array $option = [];
 	/**
-	 * @var array|int[]
+	 * @var array|int[] $default
 	 */
 	protected array $default = [
 		'smtp_port'    => 25,

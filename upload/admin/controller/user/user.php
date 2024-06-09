@@ -6,7 +6,7 @@
  */
 class ControllerUserUser extends Controller {
 	/**
-	 * @var array<string, string>
+	 * @var array<string, string> $error
 	 */
 	private array $error = [];
 

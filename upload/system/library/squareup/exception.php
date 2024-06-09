@@ -10,27 +10,27 @@ class Exception extends \Exception {
 	 */
 	public const ERR_CODE_ACCESS_TOKEN_EXPIRED = 'ACCESS_TOKEN_EXPIRED';
 	/**
-	 * @var object
+	 * @var object $config
 	 */
 	private object $config;
 	/**
-	 * @var object
+	 * @var object $log
 	 */
 	private object $log;
 	/**
-	 * @var object
+	 * @var object $language
 	 */
 	private object $language;
 	/**
-	 * @var object
+	 * @var object $errors
 	 */
 	private object $errors;
 	/**
-	 * @var bool
+	 * @var bool $isCurlError
 	 */
 	private bool $isCurlError = false;
 	/**
-	 * @var array<string, mixed>
+	 * @var array<string, mixed> $overrideFields
 	 */
 	private array $overrideFields = [
 		'billing_address.country',
@@ -42,7 +42,7 @@ class Exception extends \Exception {
 	/**
 	 * Constructor
 	 *
-	 * @property Registry $registry
+	 * @property \Registry $registry
 	 *
 	 * @param mixed                $registry
 	 * @param array<string, mixed> $errors

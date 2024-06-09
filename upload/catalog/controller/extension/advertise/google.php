@@ -12,7 +12,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 	use StoreLoader;
 
 	/**
-	 * @var int
+	 * @var int $store_id
 	 */
 	private int $store_id = 0;
 

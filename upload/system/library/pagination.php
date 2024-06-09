@@ -14,39 +14,39 @@
  */
 class Pagination {
 	/**
-	 * @var int
+	 * @var int $total
 	 */
 	public int $total = 0;
 	/**
-	 * @var int
+	 * @var int $page
 	 */
 	public int $page = 1;
 	/**
-	 * @var int
+	 * @var int $limit
 	 */
 	public int $limit = 20;
 	/**
-	 * @var int
+	 * @var int $num_links
 	 */
 	public int $num_links = 8;
 	/**
-	 * @var string
+	 * @var string $url
 	 */
 	public string $url = '';
 	/**
-	 * @var string
+	 * @var string $text_first
 	 */
 	public string $text_first = '|&lt;';
 	/**
-	 * @var string
+	 * @var string $text_last
 	 */
 	public string $text_last = '&gt;|';
 	/**
-	 * @var string
+	 * @var string $text_next
 	 */
 	public string $text_next = '&gt;';
 	/**
-	 * @var string
+	 * @var string $text_prev
 	 */
 	public string $text_prev = '&lt;';
 

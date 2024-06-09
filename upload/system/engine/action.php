@@ -16,15 +16,15 @@
  */
 class Action {
 	/**
-	 * @var string
+	 * @var string $id
 	 */
 	private string $id;
 	/**
-	 * @var string
+	 * @var string $route
 	 */
 	private string $route;
 	/**
-	 * @var string
+	 * @var string $method
 	 */
 	private string $method = 'index';
 
