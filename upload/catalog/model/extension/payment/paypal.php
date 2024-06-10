@@ -790,12 +790,13 @@ class ModelExtensionPaymentPayPal extends Model {
 		
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "event` WHERE `code` = 'paypal_order_info'");
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "event` WHERE `code` = 'paypal_header'");
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "event` WHERE `code` = 'paypal_content_top'");
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "event` WHERE `code` = 'paypal_extension_get_extensions'");
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "event` WHERE `code` = 'paypal_order_delete_order'");
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "event` WHERE `code` = 'paypal_customer_delete_customer'");
 		
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "event` SET `code` = 'paypal_order_info', `trigger` = 'admin/view/sale/order_info/before', `action` = 'extension/payment/paypal/order_info_before', `sort_order` = '0', `status` = '1'");
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "event` SET `code` = 'paypal_header', `trigger` = 'catalog/controller/common/header/before', `action` = 'extension/payment/paypal/header_before', `sort_order` = '0', `status` = '1'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "event` SET `code` = 'paypal_content_top', `trigger` = 'catalog/controller/common/content_top/before', `action` = 'extension/payment/paypal.content_top_before', `sort_order` = '0', `status` = '1'");
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "event` SET `code` = 'paypal_extension_get_extensions', `trigger` = 'catalog/model/setting/extension/getExtensions/after', `action` = 'extension/payment/paypal/extension_get_extensions_after', `sort_order` = '0', `status` = '1'");
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "event` SET `code` = 'paypal_order_delete_order', `trigger` = 'catalog/model/checkout/order/deleteOrder/before', `action` = 'extension/payment/paypal/order_delete_order_before', `sort_order` = '0', `status` = '1'");
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "event` SET `code` = 'paypal_customer_delete_customer', `trigger` = 'admin/model/customer/customer/deleteCustomer/before', `action` = 'extension/payment/paypal/customer_delete_customer_before', `sort_order` = '0', `status` = '1'");

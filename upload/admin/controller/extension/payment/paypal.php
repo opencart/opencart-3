@@ -2018,12 +2018,13 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		
 		$this->model_setting_event->deleteEventByCode('paypal_order_info');
 		$this->model_setting_event->deleteEventByCode('paypal_header');
+		$this->model_setting_event->deleteEventByCode('paypal_content_top');
 		$this->model_setting_event->deleteEventByCode('paypal_extension_get_extensions');
 		$this->model_setting_event->deleteEventByCode('paypal_order_delete_order');
 		$this->model_setting_event->deleteEventByCode('paypal_customer_delete_customer');
 		
 		$this->model_setting_event->addEvent('paypal_order_info', 'admin/view/sale/order_info/before', 'extension/payment/paypal/order_info_before');
-		$this->model_setting_event->addEvent('paypal_header', 'catalog/controller/common/header/before', 'extension/payment/paypal/header_before');
+		$this->model_setting_event->addEvent('paypal_content_top', 'catalog/controller/common/content_top/before', 'extension/payment/paypal/content_top_before');
 		$this->model_setting_event->addEvent('paypal_extension_get_extensions', 'catalog/model/setting/extension/getExtensions/after', 'extension/payment/paypal/extension_get_extensions_after');
 		$this->model_setting_event->addEvent('paypal_order_delete_order', 'catalog/model/checkout/order/deleteOrder/before', 'extension/payment/paypal/order_delete_order_before');
 		$this->model_setting_event->addEvent('paypal_customer_delete_customer', 'admin/model/customer/customer/deleteCustomer/before', 'extension/payment/paypal/customer_delete_customer_before');
@@ -2049,6 +2050,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		
 		$this->model_setting_event->deleteEventByCode('paypal_order_info');
 		$this->model_setting_event->deleteEventByCode('paypal_header');
+		$this->model_setting_event->deleteEventByCode('paypal_content_top');
 		$this->model_setting_event->deleteEventByCode('paypal_extension_get_extensions');
 		$this->model_setting_event->deleteEventByCode('paypal_order_delete_order');
 		$this->model_setting_event->deleteEventByCode('paypal_customer_delete_customer');
@@ -2067,12 +2069,13 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		
 		$this->model_setting_event->deleteEventByCode('paypal_order_info');
 		$this->model_setting_event->deleteEventByCode('paypal_header');
+		$this->model_setting_event->deleteEventByCode('paypal_content_top');
 		$this->model_setting_event->deleteEventByCode('paypal_extension_get_extensions');
 		$this->model_setting_event->deleteEventByCode('paypal_order_delete_order');
 		$this->model_setting_event->deleteEventByCode('paypal_customer_delete_customer');
 		
 		$this->model_setting_event->addEvent('paypal_order_info', 'admin/view/sale/order_info/before', 'extension/payment/paypal/order_info_before');
-		$this->model_setting_event->addEvent('paypal_header', 'catalog/controller/common/header/before', 'extension/payment/paypal/header_before');
+		$this->model_setting_event->addEvent('paypal_content_top', 'catalog/controller/common/content_top/before', 'extension/payment/paypal/content_top_before');
 		$this->model_setting_event->addEvent('paypal_extension_get_extensions', 'catalog/model/setting/extension/getExtensions/after', 'extension/payment/paypal/extension_get_extensions_after');
 		$this->model_setting_event->addEvent('paypal_order_delete_order', 'catalog/model/checkout/order/deleteOrder/before', 'extension/payment/paypal/order_delete_order_before');
 		$this->model_setting_event->addEvent('paypal_customer_delete_customer', 'admin/model/customer/customer/deleteCustomer/before', 'extension/payment/paypal/customer_delete_customer_before');
