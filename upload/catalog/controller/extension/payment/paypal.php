@@ -10,7 +10,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			ini_set('serialize_precision', 14);
 		}
 		
-		if (empty($this->config->get('paypal_version')) || (!empty($this->config->get('paypal_version')) && ($this->config->get('paypal_version') < '3.1.0'))) {
+		if (empty($this->config->get('paypal_version')) || (!empty($this->config->get('paypal_version')) && ($this->config->get('paypal_version') < '3.1.4'))) {
 			$this->update();
 		}
 	}
@@ -1439,7 +1439,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 						
 						$this->session->data['payment_address']['firstname'] = (isset($payment_data['billingContact']['givenName']) ? $payment_data['billingContact']['givenName'] : '');
 						$this->session->data['payment_address']['lastname'] = (isset($payment_data['billingContact']['familyName']) ? $payment_data['billingContact']['familyName'] : '');
-						$this->session->data['payment_address']['address_1'] = (isset($payment_data['billingContact']['addressLines']) ? $payment_data['billingContact']['addressLines'] : '');
+						$this->session->data['payment_address']['address_1'] = (isset($payment_data['billingContact']['addressLines']) ? implode(', ', $payment_data['billingContact']['addressLines']) : '');
 						$this->session->data['payment_address']['city'] = (isset($payment_data['billingContact']['locality']) ? $payment_data['billingContact']['locality'] : '');
 						$this->session->data['payment_address']['postcode'] = (isset($payment_data['billingContact']['postalCode']) ? $payment_data['billingContact']['postalCode'] : '');
 							
@@ -1455,7 +1455,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 						if ($this->cart->hasShipping()) {						
 							$this->session->data['shipping_address']['firstname'] = (isset($payment_data['shippingContact']['givenName']) ? $payment_data['shippingContact']['givenName'] : '');
 							$this->session->data['shipping_address']['lastname'] = (isset($payment_data['shippingContact']['familyName']) ? $payment_data['shippingContact']['familyName'] : '');
-							$this->session->data['shipping_address']['address_1'] = (isset($payment_data['shippingContact']['addressLines']) ? $payment_data['shippingContact']['addressLines'] : '');
+							$this->session->data['shipping_address']['address_1'] = (isset($payment_data['shippingContact']['addressLines']) ? implode(', ', $payment_data['shippingContact']['addressLines']) : '');
 							$this->session->data['shipping_address']['city'] = (isset($payment_data['shippingContact']['locality']) ? $payment_data['shippingContact']['locality'] : '');
 							$this->session->data['shipping_address']['postcode'] = (isset($payment_data['shippingContact']['postalCode']) ? $payment_data['shippingContact']['postalCode'] : '');
 							
