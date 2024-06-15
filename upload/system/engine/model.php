@@ -12,7 +12,7 @@
 /**
  * Class Model
  *
- * @mixin Registry
+ * @mixin \Registry
  */
 abstract class Model {
 	/**
