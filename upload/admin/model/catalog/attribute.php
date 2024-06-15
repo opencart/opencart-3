@@ -12,7 +12,7 @@ class ModelCatalogAttribute extends Model {
 	 *
 	 * @param array<string, mixed> $data
 	 *
-	 * @return int returns the primary key of the new attribute record
+	 * @return int Returns the primary key of the new attribute record
 	 */
 	public function addAttribute(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "attribute` SET `attribute_group_id` = '" . (int)$data['attribute_group_id'] . "', `sort_order` = '" . (int)$data['sort_order'] . "'");
@@ -31,8 +31,8 @@ class ModelCatalogAttribute extends Model {
 	 *
 	 *	Edit attribute record in the database.
 	 *
-	 * @param int                  $attribute_id primary key of the attribute record to edit
-	 * @param array<string, mixed> $data         array of data
+	 * @param int                  $attribute_id Primary key of the attribute record to edit
+	 * @param array<string, mixed> $data         Array of data
 	 *
 	 * @return void
 	 */
@@ -51,7 +51,7 @@ class ModelCatalogAttribute extends Model {
 	 *
 	 *	Delete attribute record in the database.
 	 *
-	 * @param int $attribute_id primary key of the attribute record to be deleted
+	 * @param int $attribute_id Primary key of the attribute record to be deleted
 	 *
 	 * @return void
 	 */
@@ -65,7 +65,7 @@ class ModelCatalogAttribute extends Model {
 	 *
 	 *	Get the record of the attribute record in the database.
 	 *
-	 * @param int $attribute_id primary key of the attribute record to be fetched
+	 * @param int $attribute_id Primary key of the attribute record to be fetched
 	 *
 	 * @return array<string, mixed>
 	 */
@@ -135,9 +135,9 @@ class ModelCatalogAttribute extends Model {
 	 *
 	 *	Get the record of the attribute record in the database.
 	 *
-	 * @param int $attribute_id primary key of the attribute record to be fetched
+	 * @param int $attribute_id Primary key of the attribute record to be fetched
 	 *
-	 * @return array<int, array<string, string>> Descriptions sorted by language_id
+	 * @return array<int, array<string, string>> Returns the descriptions sorted by language_id
 	 */
 	public function getDescriptions(int $attribute_id): array {
 		$attribute_data = [];
@@ -156,7 +156,7 @@ class ModelCatalogAttribute extends Model {
 	 *
 	 *	Get the total number of attribute records in the database.
 	 *
-	 * @return int total number of attribute records
+	 * @return int Returns the total number of attribute records
 	 */
 	public function getTotalAttributes(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "attribute`");
@@ -169,9 +169,9 @@ class ModelCatalogAttribute extends Model {
 	 *
 	 *	Get the total number of attribute records with group ID in the database.
 	 *
-	 * @param int $attribute_group_id foreign key of the attribute record to be fetched
+	 * @param int $attribute_group_id Foreign key of the attribute record to be fetched
 	 *
-	 * @return int total number of attribute records that have attribute group ID
+	 * @return int Returns the total number of attribute records that have attribute group ID
 	 */
 	public function getTotalAttributesByAttributeGroupId(int $attribute_group_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "attribute` WHERE `attribute_group_id` = '" . (int)$attribute_group_id . "'");

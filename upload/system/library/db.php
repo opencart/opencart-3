@@ -68,7 +68,7 @@ class DB {
 	 *
 	 * Gets the total number of affected rows from the last query
 	 *
-	 * @return int returns the total number of affected rows
+	 * @return int Returns the total number of affected rows
 	 */
 	public function countAffected(): int {
 		return $this->adaptor->countAffected();
@@ -87,6 +87,7 @@ class DB {
 
 	/**
 	 * Is Connected
+	 * 
 	 * Checks if a DB connection is active.
 	 *
 	 * @return bool
