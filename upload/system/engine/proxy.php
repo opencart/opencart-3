@@ -12,7 +12,7 @@
 /**
  * Class Proxy
  *
- * @template TWraps of Model
+ * @template TWraps of \Model
  *
  * @mixin TWraps
  */
@@ -23,7 +23,7 @@ class Proxy {
 	protected array $data = [];
 
 	/**
-	 * Get
+	 * __get
 	 *
 	 * @param mixed $key
 	 *
@@ -34,7 +34,7 @@ class Proxy {
 	}
 
 	/**
-	 * Set
+	 * __set
 	 *
 	 * @param string $key
 	 * @param object $value
@@ -46,10 +46,10 @@ class Proxy {
 	}
 
 	/**
-	 * Call
+	 * __call
 	 *
 	 * @param string              $key
-	 * @param mixed               $args
+	 * @param array               $args
 	 *
 	 * @return mixed
 	 */
@@ -67,7 +67,7 @@ class Proxy {
 		} else {
 			$trace = debug_backtrace();
 
-			exit('<b>Notice</b>:  Undefined property: Proxy::' . $key . ' in <b>' . $trace[1]['file'] . '</b> on line <b>' . $trace[1]['line'] . '</b>');
+			throw new \Exception('<b>Notice</b>:  Undefined property: Proxy::' . $key . ' in <b>' . $trace[1]['file'] . '</b> on line <b>' . $trace[1]['line'] . '</b>');
 		}
 	}
 }

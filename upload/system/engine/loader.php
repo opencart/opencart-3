@@ -16,7 +16,7 @@
  */
 class Loader {
 	/**
-	 * @var object
+	 * @var object $registry
 	 */
 	protected object $registry;
 

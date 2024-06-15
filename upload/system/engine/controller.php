@@ -12,7 +12,7 @@
 /**
  * Class Controller
  *
- * @mixin Registry
+ * @mixin \Registry
  */
 class Controller {
 	/**
