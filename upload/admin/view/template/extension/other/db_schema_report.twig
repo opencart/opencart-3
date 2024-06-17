@@ -13,7 +13,7 @@
 <body>
 <div class="container">
   {% for title, results in tables %}
-    {% set titles = title|split('|') %}
+    {% set titles = title|split('.') %}
     <div style="page-break-after: always;">
       <h1>{{ title[0] }}</h1>
       <table class="table table-bordered">

@@ -233,7 +233,7 @@ class ControllerExtensionOtherDbSchema extends Controller {
 						foreach ($table['field'] as $field) {
 							// Core
 							if ($result['Column_name'] == $field['name']) {
-								$data['tables'][$result['TABLE_NAME'] . '|parent'][] = [
+								$data['tables'][$result['TABLE_NAME'] . '.parent'][] = [
 									'name'          => $result['Column_name'],
 									'previous_type' => $result['COLUMN_TYPE'],
 									'type'          => $field['type'],
@@ -277,7 +277,7 @@ class ControllerExtensionOtherDbSchema extends Controller {
 													$type = $val;
 												}
 
-												$data['tables'][$result['TABLE_NAME'] . '|child'][] = [
+												$data['tables'][$result['TABLE_NAME'] . '.child'][] = [
 													'name'          => $result['Column_name'],
 													'previous_type' => $result['COLUMN_TYPE'],
 													'type'          => $type,
@@ -330,7 +330,7 @@ class ControllerExtensionOtherDbSchema extends Controller {
 									foreach ($table['field'] as $field) {
 										// Core
 										if ($field['name'] == $result['Column_name']) {
-											$data['tables'][$result['TABLE_NAME'] . '|index'][] = [
+											$data['tables'][$result['TABLE_NAME'] . '.index'][] = [
 												'name'          => $result['Column_name'],
 												'previous_type' => $result['COLUMN_TYPE'],
 												'type'          => $field['type'],
@@ -359,7 +359,7 @@ class ControllerExtensionOtherDbSchema extends Controller {
 						if (json_validate($key)) {
 							$key_data = json_decode($key, true);
 
-							$data['tables'][$key_data['table'] . '|extension'][] = [
+							$data['tables'][$key_data['table'] . '.extension'][] = [
 								'name'          => $key_data['field'],
 								'previous_type' => $key_data['previous_type'],
 								'key'           => $key_data['key'],
@@ -379,7 +379,7 @@ class ControllerExtensionOtherDbSchema extends Controller {
 								// Core
 								if ($key_data['table'] == $result['TABLE_NAME']) {
 									if ($key_data['field'] != $result['Column_name']) {
-										$data['tables'][$result['TABLE_NAME'] . '|extension'][] = [
+										$data['tables'][$result['TABLE_NAME'] . '.extension'][] = [
 											'name'          => $result['Column_name'],
 											'previous_type' => $result['COLUMN_TYPE'],
 											'type'          => $result['COLUMN_TYPE'],
@@ -389,7 +389,7 @@ class ControllerExtensionOtherDbSchema extends Controller {
 								}
 								// Extensions
 								else {
-									$data['tables'][$result['TABLE_NAME'] . '|extension'][] = [
+									$data['tables'][$result['TABLE_NAME'] . '.extension'][] = [
 										'name'          => $result['Column_name'],
 										'previous_type' => $result['COLUMN_TYPE'],
 										'type'          => $result['COLUMN_TYPE'],
@@ -411,7 +411,7 @@ class ControllerExtensionOtherDbSchema extends Controller {
 
 					foreach ($fields as $result) {
 						if ($result['Column_name'] == $key_data['field']) {
-							$data['tables'][$result['TABLE_NAME'] . '|extension'][] = [
+							$data['tables'][$result['TABLE_NAME'] . '.extension'][] = [
 								'name'          => $result['Column_name'],
 								'previous_type' => $result['COLUMN_TYPE'],
 								'type'          => $result['COLUMN_TYPE'],
