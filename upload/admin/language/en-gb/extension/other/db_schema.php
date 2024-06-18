@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']    = 'Database Schema (developers)';
+$_['heading_title']    = 'Database Schema - Developers';
 
 // Text
 $_['text_extension']   = 'Extensions';
@@ -10,7 +10,7 @@ $_['text_report']      = 'Report';
 $_['text_parent']      = 'Parent Table';
 $_['text_child']       = 'Table Relationships';
 $_['text_index']	   = 'Index';
-$_['text_unverified']  = 'Extensions or Unverified';
+$_['text_unverified']  = 'Extensions (unsupported)';
 
 // Column
 $_['column_table']     = 'Table';
