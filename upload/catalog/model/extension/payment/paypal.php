@@ -373,7 +373,7 @@ class ModelExtensionPaymentPayPal extends Model {
 		$query = $this->db->query("DELETE FROM `" . DB_PREFIX . "order_recurring_transaction` WHERE `order_recurring_id` = '" . (int)$order_recurring_id . "'");
 	}
 		
-	public function recurringPayment($product_data, $order_data, $paypal_order_data) {
+	public function subscriptionPayment($product_data, $order_data, $paypal_order_data) {
 		$_config = new Config();
 		$_config->load('paypal');
 			

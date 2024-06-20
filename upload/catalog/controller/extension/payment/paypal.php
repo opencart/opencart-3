@@ -3061,7 +3061,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 								$recurring_products = $this->cart->getSubscriptions();
 					
 								foreach ($recurring_products as $recurring_product) {
-									$this->model_extension_payment_paypal->recurringPayment($recurring_product, $order_data, $paypal_order_data);
+									$this->model_extension_payment_paypal->subscriptionPayment($recurring_product, $order_data, $paypal_order_data);
 								} 
 							}
 
@@ -3190,7 +3190,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 								$recurring_products = $this->cart->getSubscriptions();
 					
 								foreach ($recurring_products as $recurring_product) {
-									$this->model_extension_payment_paypal->recurringPayment($recurring_product, $order_data, $paypal_order_data);
+									$this->model_extension_payment_paypal->subscriptionPayment($recurring_product, $order_data, $paypal_order_data);
 								} 
 							}
 														
@@ -3777,7 +3777,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 										$recurring_products = $this->cart->getSubscriptions();
 					
 										foreach ($recurring_products as $recurring_product) {
-											$this->model_extension_payment_paypal->recurringPayment($recurring_product, $order_info, $paypal_order_data);
+											$this->model_extension_payment_paypal->subscriptionPayment($recurring_product, $order_info, $paypal_order_data);
 										} 
 									}
 													
@@ -3878,7 +3878,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 										$recurring_products = $this->cart->getSubscriptions();
 					
 										foreach ($recurring_products as $recurring_product) {
-											$this->model_extension_payment_paypal->recurringPayment($recurring_product, $order_info, $paypal_order_data);
+											$this->model_extension_payment_paypal->subscriptionPayment($recurring_product, $order_info, $paypal_order_data);
 										} 
 									}
 						
