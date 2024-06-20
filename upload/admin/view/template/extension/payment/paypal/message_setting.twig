@@ -43,7 +43,7 @@
 						<ul class="nav nav-pills">
 							{% for message in setting['message'] %}
 							{% if (message['page_code'] != 'checkout') %}
-							<li class="nav-pill {% if (message['page_code'] == 'cart') %}active{% endif %}"><a href="#pill_{{ message['page_code'] }}" class="pill" data-toggle="tab">{{ attribute(_context, message['page_name']) }}</a></li>
+							<li class="nav-pill"><a href="#pill_{{ message['page_code'] }}" class="pill {% if (message['page_code'] == 'cart') %} active {% endif %}" data-bs-toggle="tab">{{ attribute(_context, message['page_name']) }}</a></li>
 							{% endif %}
 							{% endfor %}
 						</ul>
@@ -51,7 +51,7 @@
 						<div class="tab-content">
 							{% for message in setting['message'] %}
 							{% if (message['page_code'] != 'checkout') %}
-							<div id="pill_{{ message['page_code'] }}" class="tab-pane {% if (message['page_code'] == 'cart') %}active{% endif %}">
+							<div id="pill_{{ message['page_code'] }}" class="tab-pane {% if (message['page_code'] == 'cart') %} active {% endif %}">
 								<div class="section-message-setting">
 									<div class="row">
 										<div class="col col-md-6">

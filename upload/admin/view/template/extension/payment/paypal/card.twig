@@ -99,7 +99,7 @@
 											<div class="form-group-status">
 												<label class="control-label" for="input_card_status"><span data-toggle="tooltip" title="{{ help_card_status }}">{{ entry_status }}</span></label>
 												<input type="hidden" name="payment_paypal_setting[card][status]" value="0" />
-												<input type="checkbox" name="payment_paypal_setting[card][status]" value="1" class="switch" {% if setting['card']['status'] %}checked="checked"{% endif %} />
+												<input type="checkbox" name="payment_paypal_setting[card][status]" value="1" class="switch" {% if setting['card']['status'] %} checked="checked" {% endif %} />
 											</div>
 										</div>
 									</div>
@@ -150,8 +150,8 @@
 										<div class="form-group">
 											<label class="control-label" for="input_card_secure_scenario_{{ card_secure_scenario['code'] }}">{{ attribute(_context, card_secure_scenario['name']) }}</label>	
 											<select name="payment_paypal_setting[card][secure_scenario][{{ card_secure_scenario['code'] }}]" id="input_card_secure_scenario_{{ card_secure_scenario['code'] }}" class="form-control">
-												<option value="1" {% if setting['card']['secure_scenario'][card_secure_scenario['code']] %}selected="selected"{% endif %}>{{ text_accept }}{% if card_secure_scenario['recommended'] %} {{ text_recommended }}{% endif %}</option>
-												<option value="0" {% if not setting['card']['secure_scenario'][card_secure_scenario['code']] %}selected="selected"{% endif %}>{{ text_decline }}{% if not card_secure_scenario['recommended'] %} {{ text_recommended }}{% endif %}</option>
+												<option value="1" {% if setting['card']['secure_scenario'][card_secure_scenario['code']] %} selected="selected" {% endif %}>{{ text_accept }}{% if card_secure_scenario['recommended'] %} {{ text_recommended }}{% endif %}</option>
+												<option value="0" {% if not setting['card']['secure_scenario'][card_secure_scenario['code']] %} selected="selected" {% endif %}>{{ text_decline }}{% if not card_secure_scenario['recommended'] %} {{ text_recommended }}{% endif %}</option>
 											</select>
 										</div>
 										{% endfor %}

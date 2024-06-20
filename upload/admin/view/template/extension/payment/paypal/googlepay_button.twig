@@ -42,13 +42,13 @@
 					<div class="section-content">
 						<ul class="nav nav-pills">
 							{% for googlepay_button in setting['googlepay_button'] %}
-							<li class="nav-pill {% if loop.first %}active{% endif %}"><a href="#pill_{{ googlepay_button['page_code'] }}" class="pill" data-toggle="tab">{{ attribute(_context, googlepay_button['page_name']) }}</a></li>
+							<li class="nav-pill"><a href="#pill_{{ googlepay_button['page_code'] }}" class="pill {% if loop.first %} active {% endif %}" data-bs-toggle="tab">{{ attribute(_context, googlepay_button['page_name']) }}</a></li>
 							{% endfor %}
 						</ul>
 						<hr class="hr" />
 						<div class="tab-content">
 							{% for googlepay_button in setting['googlepay_button'] %}
-							<div id="pill_{{ googlepay_button['page_code'] }}" class="tab-pane {% if loop.first %}active{% endif %}">
+							<div id="pill_{{ googlepay_button['page_code'] }}" class="tab-pane {% if loop.first %} active {% endif %}">
 								<div class="row">
 									<div class="col col-lg-6">
 										{% if (googlepay_button['page_code'] == 'checkout') %}
