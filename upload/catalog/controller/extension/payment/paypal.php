@@ -1522,7 +1522,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 							} elseif (isset($error['message'])) {
 								$error_messages[] = $error['message'];
 							}
-					
+
 							$this->model_extension_payment_paypal->log($error, $error['message']);
 						}
 		
@@ -1602,7 +1602,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 							} elseif (isset($error['message'])) {
 								$error_messages[] = $error['message'];
 							}
-					
+
 							$this->model_extension_payment_paypal->log($error, $error['message']);
 						}
 				
