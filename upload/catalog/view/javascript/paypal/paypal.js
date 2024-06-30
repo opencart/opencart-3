@@ -60,6 +60,10 @@ var PayPalAPI = (function () {
 		}
 		
 		paypal_data = params;
+
+		if (window.ApplePaySession && window.ApplePaySession?.supportsVersion(4) && ApplePaySession.canMakePayments()) {
+			paypal_data['applepay'] = true;
+		}
 		
 		if (paypal_data['page_code'] == 'product') {
 			paypal_data['product'] = $('#product input[type=\'text\'], #product input[type=\'hidden\'], #product input[type=\'radio\']:checked, #product input[type=\'checkbox\']:checked, #product select, #product textarea').serialize();

@@ -44,7 +44,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			$data['googlepay_button_status'] = $setting['googlepay_button']['checkout']['status'];
 			$data['card_status'] = $setting['card']['status'];
 			
-			if ($setting['applepay_button']['checkout']['status'] && $this->isApple()) {
+			if ($setting['applepay_button']['checkout']['status'] && !empty($this->session->data['paypal']['applepay'])) {
 				$data['applepay_button_status'] = $setting['applepay_button']['checkout']['status'];
 			} else {
 				$data['applepay_button_status'] = false;
@@ -127,7 +127,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		$data['googlepay_button_status'] = $setting['googlepay_button']['checkout']['status'];
 		$data['card_status'] = $setting['card']['status'];
 		
-		if ($setting['applepay_button']['checkout']['status'] && $this->isApple()) {
+		if ($setting['applepay_button']['checkout']['status'] && !empty($this->session->data['paypal']['applepay'])) {
 			$data['applepay_button_status'] = $setting['applepay_button']['checkout']['status'];
 		} else {
 			$data['applepay_button_status'] = false;
@@ -226,6 +226,10 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			}
 		
 			$data['decimal_place'] = $setting['currency'][$data['currency_code']]['decimal_place'];
+
+			if (!empty($this->request->post['applepay'])) {
+				$this->session->data['paypal']['applepay'] = true;
+			}
 			
 			$data['components'] = array();
 			
@@ -375,7 +379,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 					}
 				}
 				
-				if ($setting['applepay_button']['product']['status'] && $this->isApple()) {
+				if ($setting['applepay_button']['product']['status'] && !empty($this->session->data['paypal']['applepay'])) {
 					$data['components'][] = 'applepay';
 					$data['applepay_button_status'] = $setting['applepay_button']['product']['status'];
 					$data['applepay_button_insert_tag'] = html_entity_decode($setting['applepay_button']['product']['insert_tag']);
@@ -467,7 +471,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 					$data['googlepay_amount'] = number_format($item_total * $data['currency_value'], $data['decimal_place'], '.', '');
 				}
 				
-				if ($setting['applepay_button']['cart']['status'] && $this->isApple()) {
+				if ($setting['applepay_button']['cart']['status'] && !empty($this->session->data['paypal']['applepay'])) {
 					$data['components'][] = 'applepay';
 					$data['applepay_button_status'] = $setting['applepay_button']['cart']['status'];
 					$data['applepay_button_insert_tag'] = html_entity_decode($setting['applepay_button']['cart']['insert_tag']);
@@ -592,7 +596,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 					}
 				}
 				
-				if ($setting['applepay_button']['checkout']['status'] && $this->isApple()) {
+				if ($setting['applepay_button']['checkout']['status'] && !empty($this->session->data['paypal']['applepay'])) {
 					$data['components'][] = 'applepay';
 					$data['applepay_button_status'] = $setting['applepay_button']['checkout']['status'];
 					$data['applepay_button_align'] = $setting['applepay_button']['checkout']['align'];
@@ -4233,7 +4237,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 					$this->document->addScript('https://pay.google.com/gp/p/js/pay.js');
 				}
 				
-				if (!empty($setting['applepay_button'][$params['page_code']]['status']) && $this->isApple()) {
+				if (!empty($setting['applepay_button'][$params['page_code']]['status'])) {
 					$this->document->addScript('https://applepay.cdn-apple.com/jsapi/v1/apple-pay-sdk.js');
 				}
 				
@@ -4286,7 +4290,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 					);
 				}
 				
-				if ($setting['applepay_button']['checkout']['status'] && $this->isApple()) {
+				if ($setting['applepay_button']['checkout']['status'] && !empty($this->session->data['paypal']['applepay'])) {
 					$this->config->set('payment_paypal_applepay_status', 1);
 					
 					$output[] = array(
@@ -4561,22 +4565,6 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			
 			return false;
 		}
-	}
-	
-	private function isApple() {
-		if (!empty($this->request->server['HTTP_USER_AGENT'])) {
-			$user_agent = strtolower($this->request->server['HTTP_USER_AGENT']);
-			
-			$apple_agents = array('ipod', 'iphone', 'ipad', 'apple');
-
-            foreach ($apple_agents as $apple_agent){
-                if (stripos($user_agent, $apple_agent)) {
-                    return true;
-                }
-			}
-        }
-		
-		return false;
 	}
 	
 	private function unserialize($str) {
