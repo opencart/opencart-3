@@ -14,9 +14,9 @@
  */
 class Mail {
 	/**
-	 * @var object $adaptor
+	 * @var string $adaptor
 	 */
-	private object $adaptor;
+	private string $adaptor;
 	/**
 	 * @var array<string, mixed> $option
 	 */
