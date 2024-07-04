@@ -3,20 +3,20 @@
  * @package		OpenCart
  *
  * @author		Daniel Kerr
- * @copyright	Copyright (c) 2005 - 2022, OpenCart, Ltd. (https://www.opencart.com/)
+ * @copyright	Copyright (c) 2005 - 2017, OpenCart, Ltd. (https://www.opencart.com/)
  * @license		https://opensource.org/licenses/GPL-3.0
  *
  * @see		https://www.opencart.com
  */
 
 /**
- * Mail class
+ * Class Mail
  */
 class Mail {
 	/**
-	 * @var string $adaptor
+	 * @var object $class
 	 */
-	private string $adaptor;
+	private string $class;
 	/**
 	 * @var array<string, mixed> $option
 	 */
@@ -32,9 +32,8 @@ class Mail {
 		$class = 'Mail\\' . $adaptor;
 
 		if (class_exists($class)) {
-			$this->adaptor = new $class($option);
-
-			$this->option = &$option;
+			$this->class = $class;
+			$this->option = $option;
 		} else {
 			throw new \Exception('Error: Could not load mail adaptor ' . $adaptor . '!');
 		}
@@ -43,7 +42,7 @@ class Mail {
 	/**
 	 * Set To
 	 *
-	 * @param string $to
+	 * @param array<string>|string $to
 	 *
 	 * @return void
 	 */
@@ -154,6 +153,8 @@ class Mail {
 			throw new \Exception('Error: E-Mail message required!');
 		}
 
-		return $this->adaptor->send();
+		$mail = new $this->class($this->option);
+
+		return $mail->send();
 	}
 }

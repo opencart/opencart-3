@@ -16,8 +16,8 @@ class Mail {
 	 *
 	 * @param array<string, mixed> $option
 	 */
-	public function __construct(array &$option = []) {
-		$this->option = &$option;
+	public function __construct(array $option = []) {
+		$this->option = $option;
 	}
 
 	/**
@@ -32,15 +32,15 @@ class Mail {
 			$to = $this->option['to'];
 		}
 
-		if (version_compare(PHP_VERSION, '8.3', '>=') || substr(PHP_OS, 0, 3) == 'WIN') {
+		if (version_compare(PHP_VERSION, '8.3', '>=')) {
 			$eol = "\r\n";
 		} else {
 			$eol = PHP_EOL;
 		}
 
-		$boundary = '----=_NextPart_' . md5(time());
+		$boundary = '----=_NextPart_' . md5((string)time());
 
-		$header = 'MIME-Version: 1.0' . $eol;
+		$header  = 'MIME-Version: 1.0' . $eol;
 		$header .= 'Date: ' . date('D, d M Y H:i:s O') . $eol;
 		$header .= 'From: =?UTF-8?B?' . base64_encode($this->option['sender']) . '?= <' . $this->option['from'] . '>' . $eol;
 
