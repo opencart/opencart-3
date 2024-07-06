@@ -16,8 +16,7 @@
 		"psr/http-message": "^2.0",
 		"cardinity/cardinity-sdk-php": "^3.2",
 		"scssphp/scssphp": "^1.12",
-		"zoujingli/wechat-developer": "^1.2",
-		"zoujingli/wechat-php-sdk": "^1.3"
+		"zoujingli/wechat-developer": "^1.2"
     },
     "autoload-dev": {
         "psr-4": {
