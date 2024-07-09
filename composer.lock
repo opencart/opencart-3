@@ -1181,16 +1181,16 @@
         },
         {
             "name": "symfony/validator",
-            "version": "v7.0.8",
+            "version": "v7.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/validator.git",
-                "reference": "23af65dff1f4dfee9aab3a0123a243e40fa3d9cf"
+                "reference": "04266058fb2b936ad71ce726ab021b791b896f86"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/validator/zipball/23af65dff1f4dfee9aab3a0123a243e40fa3d9cf",
-                "reference": "23af65dff1f4dfee9aab3a0123a243e40fa3d9cf",
+                "url": "https://api.github.com/repos/symfony/validator/zipball/04266058fb2b936ad71ce726ab021b791b896f86",
+                "reference": "04266058fb2b936ad71ce726ab021b791b896f86",
                 "shasum": ""
             },
             "require": {
@@ -1256,7 +1256,7 @@
             "description": "Provides tools to validate values",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/validator/tree/v7.0.8"
+                "source": "https://github.com/symfony/validator/tree/v7.0.9"
             },
             "funding": [
                 {
@@ -1272,7 +1272,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-06-02T15:49:03+00:00"
+            "time": "2024-06-22T11:38:48+00:00"
         },
         {
             "name": "twig/twig",
