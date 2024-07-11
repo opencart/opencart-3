@@ -166,7 +166,7 @@
 </div>
 <script type="text/javascript">
 
-var card_width = JSON.parse('{{ setting['card_width ']|json_encode() }}');
+var card_width = JSON.parse('{{ setting['card_width']|json_encode() }}');
 
 updatePayPalCard();
 
@@ -235,7 +235,7 @@ function updatePayPalCard() {
     paypal_data['currency_value'] = '{{ currency_value }}';
     paypal_data['decimal_place'] = '{{ decimal_place }}';
     paypal_data['client_token'] = '{{ client_token }}';
-    paypal_data['transaction_method'] = '{{ setting['general ']['transaction_method '] }}';
+    paypal_data['transaction_method'] = '{{ setting['general']['transaction_method'] }}';
     paypal_data['components'] = ['card-fields'];
     paypal_data['card_align'] = $('.payment-paypal #input_card_align').val();
     paypal_data['card_size'] = $('.payment-paypal #input_card_size').val();

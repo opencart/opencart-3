@@ -290,7 +290,7 @@
 </div>
 <script type="text/javascript">
 
-var button_width = JSON.parse('{{ setting['button_width ']|json_encode() }}');
+var button_width = JSON.parse('{{ setting['button_width']|json_encode() }}');
 
 updatePayPalButton('checkout', function() {
     updatePayPalButton('cart', function() {
@@ -379,7 +379,7 @@ paypal_data['currency_code'] = '{{ currency_code }}';
 paypal_data['currency_value'] = '{{ currency_value }}';
 paypal_data['decimal_place'] = '{{ decimal_place }}';
 paypal_data['client_token'] = '{{ client_token }}';
-paypal_data['transaction_method'] = '{{ setting['general ']['transaction_method '] }}';
+paypal_data['transaction_method'] = '{{ setting['general']['transaction_method'] }}';
 paypal_data['components'] = ['buttons'];
 paypal_data['button_align'] = $('.payment-paypal #input_button_' + button_page_code + '_align').val();
 paypal_data['button_size'] = $('.payment-paypal #input_button_' + button_page_code + '_size').val();

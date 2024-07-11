@@ -270,7 +270,7 @@
 </div>
 <script type="text/javascript">
 
-var googlepay_button_width = JSON.parse('{{ setting['googlepay_button_width ']|json_encode() }}');
+var googlepay_button_width = JSON.parse('{{ setting['googlepay_button_width']|json_encode() }}');
 
 updateGooglePayButton('checkout', function() {
     setTimeout(function() {
@@ -350,7 +350,7 @@ function updateGooglePayButton(googlepay_button_page_code, paypal_callback = '')
     paypal_data['currency_value'] = '{{ currency_value }}';
     paypal_data['decimal_place'] = '{{ decimal_place }}';
     paypal_data['client_token'] = '{{ client_token }}';
-    paypal_data['transaction_method'] = '{{ setting['general ']['transaction_method '] }}';
+    paypal_data['transaction_method'] = '{{ setting['general']['transaction_method'] }}';
     paypal_data['components'] = ['googlepay'];
     paypal_data['googlepay_button_align'] = $('.payment-paypal #input_googlepay_button_' + googlepay_button_page_code + '_align').val();
     paypal_data['googlepay_button_size'] = $('.payment-paypal #input_googlepay_button_' + googlepay_button_page_code + '_size').val();

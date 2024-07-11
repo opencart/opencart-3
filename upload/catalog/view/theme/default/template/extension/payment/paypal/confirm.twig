@@ -425,7 +425,7 @@ function onLoadPaymentAddress() {
                     for (i = 0; i < json['zone'].length; i++) {
                         html += '<option value="' + json['zone'][i]['zone_id'] + '"';
 
-                        if (json['zone'][i]['zone_id'] == '{{ payment_address['zone_id '] }}') {
+                        if (json['zone'][i]['zone_id'] == '{{ payment_address['zone_id'] }}') {
                             html += ' selected="selected"';
                         }
 
@@ -591,7 +591,7 @@ function onLoadShippingAddress() {
                     for (i = 0; i < json['zone'].length; i++) {
                         html += '<option value="' + json['zone'][i]['zone_id'] + '"';
 
-                        if (json['zone'][i]['zone_id'] == '{{ shipping_address['zone_id '] }}') {
+                        if (json['zone'][i]['zone_id'] == '{{ shipping_address['zone_id'] }}') {
                             html += ' selected="selected"';
                         }
 

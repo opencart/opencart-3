@@ -289,7 +289,7 @@
 </div>
 <script type="text/javascript">
 
-var applepay_button_width = JSON.parse('{{ setting['applepay_button_width ']|json_encode() }}');
+var applepay_button_width = JSON.parse('{{ setting['applepay_button_width']|json_encode() }}');
 
 updateApplePayButton('checkout', function() {
     updateApplePayButton('cart', function() {
@@ -386,7 +386,7 @@ function updateApplePayButton(applepay_button_page_code, paypal_callback = '') {
     paypal_data['currency_value'] = '{{ currency_value }}';
     paypal_data['decimal_place'] = '{{ decimal_place }}';
     paypal_data['client_token'] = '{{ client_token }}';
-    paypal_data['transaction_method'] = '{{ setting['general ']['transaction_method '] }}';
+    paypal_data['transaction_method'] = '{{ setting['general']['transaction_method'] }}';
     paypal_data['components'] = ['applepay'];
     paypal_data['applepay_button_align'] = $('.payment-paypal #input_applepay_button_' + applepay_button_page_code + '_align').val();
     paypal_data['applepay_button_size'] = $('.payment-paypal #input_applepay_button_' + applepay_button_page_code + '_size').val();

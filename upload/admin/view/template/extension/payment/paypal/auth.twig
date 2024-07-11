@@ -108,19 +108,11 @@ $('#input_environment').on('change', function() {
     var environment = $(this).val();
 
     if (environment == 'production') {
-        $('.button-connect-ppcp').attr('href', '{{ configure_url['
-            production ']['
-            ppcp '] }}');
-        $('.button-connect-express-checkout').attr('href', '{{ configure_url['
-            production ']['
-            express_checkout '] }}');
+        $('.button-connect-ppcp').attr('href', '{{ configure_url['production']['pcp'] }}');
+        $('.button-connect-express-checkout').attr('href', '{{ configure_url['production'][express_checkout'] }}');
     } else {
-        $('.button-connect-ppcp').attr('href', '{{ configure_url['
-            sandbox ']['
-            ppcp '] }}');
-        $('.button-connect-express_checkout').attr('href', '{{ configure_url['
-            sandbox ']['
-            express_checkout '] }}');
+        $('.button-connect-ppcp').attr('href', '{{ configure_url['sandbox']['ppcp'] }}');
+        $('.button-connect-express_checkout').attr('href', '{{ configure_url['sandbox']['express_checkout'] }}');
     }
 });
 
