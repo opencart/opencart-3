@@ -356,7 +356,7 @@ function updatePayPalButton(button_page_code, paypal_callback = '') {
     var button_enable_funding = [];
     var button_disable_funding = [];
 
-    $('.payment-paypal [id^=input_button_' + button_page_code + '_funding']).each(function() {
+    $('.payment-paypal [id^=input_button_' + button_page_code + '_funding]').each(function() {
     if ($(this).val() == 1) {
         button_enable_funding.push($(this).attr('funding_code'));
     }
