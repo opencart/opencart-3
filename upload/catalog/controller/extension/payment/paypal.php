@@ -1743,7 +1743,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 									$this->model_checkout_order->addHistory($this->session->data['order_id'], $order_status_id, $message);
 								}
 								
-								if (($authorization_status == 'CREATED') || ($authorization_status == 'PENDING')) {
+								if ($order_status_id) {
 									$subscriptions = $this->model_extension_payment_paypal->getSubscriptionsByOrderId($this->session->data['order_id']);
 					
 									foreach ($subscriptions as $subscription) {
@@ -1872,7 +1872,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 									$this->model_checkout_order->addHistory($this->session->data['order_id'], $order_status_id, $message);
 								}
 								
-								if (($capture_status == 'COMPLETED') || ($capture_status == 'PENDING')) {
+								if ($order_status_id) {
 									$subscriptions = $this->model_extension_payment_paypal->getSubscriptionsByOrderId($this->session->data['order_id']);
 					
 									foreach ($subscriptions as $subscription) {
@@ -3061,7 +3061,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 								}
 							}
 								
-							if (($authorization_status == 'CREATED') || ($authorization_status == 'PENDING')) {
+							if ($order_status_id) {
 								$recurring_products = $this->cart->getSubscriptions();
 					
 								foreach ($recurring_products as $recurring_product) {
@@ -3725,13 +3725,13 @@ class ControllerExtensionPaymentPayPal extends Controller {
 										$transaction_status = 'pending';
 									}
 						
-									if (($authorization_status == 'CREATED') || ($authorization_status == 'DENIED') || ($authorization_status == 'PENDING')) {
+									if ($order_status_id) {
 										$message = sprintf($this->language->get('text_order_message'), $seller_protection_status);
 											
 										$this->model_checkout_order->addHistory($this->session->data['order_id'], $order_status_id, $message);
 									}
 								
-									if (($authorization_status == 'CREATED') || ($authorization_status == 'DENIED') || ($authorization_status == 'PENDING')) {
+									if ($authorization_status == 'CREATED' || $authorization_status == 'PENDING') {
 										$this->model_extension_payment_paypal->deletePayPalOrder($this->session->data['order_id']);
 									
 										$paypal_order_data = array(
@@ -3777,7 +3777,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 										}
 									}
 								
-									if (($authorization_status == 'CREATED') || ($authorization_status == 'PENDING')) {
+									if ($order_status_id) {
 										$recurring_products = $this->cart->getSubscriptions();
 					
 										foreach ($recurring_products as $recurring_product) {
@@ -3826,13 +3826,13 @@ class ControllerExtensionPaymentPayPal extends Controller {
 										$transaction_status = 'pending';
 									}
 						
-									if (($capture_status == 'COMPLETED') || ($capture_status == 'DECLINED') || ($capture_status == 'PENDING')) {
+									if ($order_status_id) {
 										$message = sprintf($this->language->get('text_order_message'), $seller_protection_status);
 													
 										$this->model_checkout_order->addHistory($this->session->data['order_id'], $order_status_id, $message);
 									}
 								
-									if (($capture_status == 'COMPLETED') || ($capture_status == 'DECLINED') || ($capture_status == 'PENDING')) {
+									if ($capture_status == 'COMPLETED' || $capture_status == 'PENDING') {
 										$this->model_extension_payment_paypal->deletePayPalOrder($this->session->data['order_id']);
 									
 										$paypal_order_data = array(
@@ -4070,7 +4070,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 							$order_status_id = $setting['order_status']['completed']['id'];
 						}
 					
-						if ($order_status_id && ($order_info['order_status_id'] != $order_status_id)) {					
+						if ($order_status_id && ($order_info['order_status_id'] != $order_status_id) && !in_array($order_info['order_status_id'], $setting['final_order_status'])) {					
 							$this->load->model('checkout/order');
 
 							$this->model_checkout_order->addHistory($order_id, $order_status_id, '', true);

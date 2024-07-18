@@ -276,6 +276,7 @@ $_['entry_expiration_date']					= 'Expiration Date';
 $_['entry_cvv']								= 'CVV';
 $_['entry_message_insert_tag']     			= 'Message Insert Tag';
 $_['entry_message_insert_type']     		= 'Message Insert Type';
+$_['entry_final_order_status']				= 'Final Order Status';
 $_['entry_contact_company'] 				= 'Company';
 $_['entry_contact_first_name'] 				= 'First Name';
 $_['entry_contact_last_name'] 				= 'Last Name';
@@ -308,6 +309,7 @@ $_['help_card_currency_value']		 		= 'Set to 1.00000 if this is your default cur
 $_['help_cron_url']		  					= 'Set a cron to call this URL. This integration is typically used for subscription/recurring product purchase.';
 $_['help_card_secure_method'] 				= '3D Secure enables you to authenticate card holders through card issuers. \'SCA Always\' method trigger 3D Secure for every transaction, regardless of SCA requirements. \'SCA When Required\' method returns a 3D Secure contingency when it is a mandate in the region where you operate.';
 $_['help_card_secure_scenario'] 			= '3D Secure authentication is performed only if the card is enrolled for the service. In scenarios where the 3D Secure authentication has not been successful, you have the option to complete the payment at your own risk, meaning that you -the merchant- will be liable in case of a chargeback.';
+$_['help_final_order_status']				= 'Set the order status to final and PayPal will not be able to change it.';
 
 // Button
 $_['button_connect'] 						= 'Connect';

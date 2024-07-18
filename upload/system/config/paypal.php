@@ -304,6 +304,7 @@ $_['paypal_setting'] = array(
 			'id' => 3
 		)
 	),
+	'final_order_status' => [],
 	'contact' => array(
 		'oid' => '00D300000000LaY',
 		'retURL' => 'https://www.opencart.com/',
