@@ -415,7 +415,7 @@ class ControllerUserApi extends Controller {
 	 * @return bool
 	 */
 	protected function validateForm(): bool {
-		if (!$this->user->hasPermission('modify', 'user/user')) {
+		if (!$this->user->hasPermission('modify', 'user/api')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
 
