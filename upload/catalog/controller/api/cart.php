@@ -51,7 +51,7 @@ class ControllerApiCart extends Controller {
 					}
 
 					if (isset($this->request->post['option'])) {
-						$option = array_filter($this->request->post['option']);
+						$option = array_filter((array)$this->request->post['option']);
 					} else {
 						$option = [];
 					}
