@@ -22,13 +22,13 @@ $config->load('default');
 $config->load('catalog');
 
 // Set the default time zone
-date_default_timezone_set($config->get('date_timezone'));
+date_default_timezone_set($registry->get('config')->get('date_timezone'));
 
 // Store
 $config->set('config_store_id', 0);
 
 // Logging
-$log = new \Log($config->get('error_filename'));
+$log = new \Log($registry->get('config')->get('error_filename'));
 $registry->set('log', $log);
 
 // Error Handler
@@ -97,23 +97,23 @@ $response = new \Response();
 $registry->set('response', $response);
 
 // Database
-if ($config->get('db_autostart')) {
-	$db = new \DB($config->get('db_engine'), $config->get('db_hostname'), $config->get('db_username'), $config->get('db_password'), $config->get('db_database'), $config->get('db_port'));
+if ($registry->get('config')->get('db_autostart')) {
+	$db = new \DB($registry->get('config')->get('db_engine'), $registry->get('config')->get('db_hostname'), $registry->get('config')->get('db_username'), $registry->get('config')->get('db_password'), $registry->get('config')->get('db_database'), $registry->get('config')->get('db_port'));
 	$registry->set('db', $db);
 
 	// Sync PHP and DB time zones
-	$db->query("SET `time_zone` = '" . $db->escape(date('P')) . "'");
+	$registry->get('db')->query("SET `time_zone` = '" . $registry->get('db')->escape(date('P')) . "'");
 }
 
 // Pre Actions
-foreach ($config->get('action_pre_action') as $pre_action) {
-	$loader->controller($pre_action);
+foreach ($registry->get('config')->get('action_pre_action') as $pre_action) {
+	$registry->get('load')->controller($pre_action);
 }
 
 // Currency - Suggested to run every 6 hours
-if ($config->get('config_currency_engine') == 'ecb' && $config->get('currency_ecb_status')) {
-	if ($config->get('currency_ecb_ip')) {
-		if ($request->server['REMOTE_ADDR'] == $config->get('currency_ecb_ip')) {
+if ($registry->get('config')->get('config_currency_engine') == 'ecb' && $registry->get('config')->get('currency_ecb_status')) {
+	if ($registry->get('config')->get('currency_ecb_ip')) {
+		if ($registry->get('request')->server['REMOTE_ADDR'] == $registry->get('config')->get('currency_ecb_ip')) {
 			$curl = curl_init();
 
 			curl_setopt($curl, CURLOPT_URL, 'https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml');
@@ -144,7 +144,7 @@ if ($config->get('config_currency_engine') == 'ecb' && $config->get('currency_ec
 				}
 
 				if ($currencies) {
-					$default = $config->get('config_currency');
+					$default = $registry->get('config')->get('config_currency');
 
 					$results = $registry->get('load')->model('localisation/currency')->model_localisation_currency->getCurrencies();
 
