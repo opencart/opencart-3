@@ -129,11 +129,6 @@ a:hover, a:focus {
     padding-right: 10px;
 }
 
-#header .nav > li.dropdown > a {
-    padding-left: 10px;
-    padding-right: 10px;
-}
-
 /* Desktop */
 @media (min-width: 768px) {
     #header .navbar-header {
