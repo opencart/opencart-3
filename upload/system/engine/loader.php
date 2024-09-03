@@ -41,6 +41,8 @@ class Loader {
 	 *
 	 * Removing the mixed output as a temporary workaround since admin extension
 	 * installers don't seem to like that really much
+	 * 
+	 * @return mixed
 	 */
 	public function controller(string $route, array $data = []) {
 		// Sanitize the call
@@ -201,6 +203,8 @@ class Loader {
 	 * Config
 	 *
 	 * @param string $route
+	 * 
+	 * @return void
 	 */
 	public function config(string $route): void {
 		$this->registry->get('event')->trigger('config/' . $route . '/before', [&$route]);
@@ -216,7 +220,7 @@ class Loader {
 	 * @param string $route
 	 * @param string $key
 	 *
-	 * @return array
+	 * @return array<string, string>
 	 */
 	public function language(string $route, string $key = ''): array {
 		// Sanitize the call
@@ -250,7 +254,7 @@ class Loader {
 	 *
 	 * @return mixed
 	 */
-	protected function callback($registry, $route): mixed {
+	protected function callback($registry, $route) {
 		return function($args) use ($registry, $route) {
 			static $model;
 
