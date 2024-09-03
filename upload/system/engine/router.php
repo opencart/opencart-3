@@ -80,7 +80,7 @@ class Router {
 			return $result;
 		}
 
-		if ($result instanceof Exception) {
+		if ($result instanceof \Exception) {
 			$action = $this->error;
 
 			$this->error = null;
