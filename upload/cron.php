@@ -143,9 +143,9 @@ if ($registry->get('config')->get('config_currency_engine') == 'ecb' && $registr
 					}
 				}
 
-				if ($currencies) {
-					$default = $registry->get('config')->get('config_currency');
+				$default = $registry->get('config')->get('config_currency');
 
+				if (isset($currencies[$default])) {
 					$results = $registry->get('load')->model('localisation/currency')->model_localisation_currency->getCurrencies();
 
 					foreach ($results as $result) {
