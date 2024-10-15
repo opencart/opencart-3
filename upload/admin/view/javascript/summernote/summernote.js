@@ -682,10 +682,10 @@
 
       if (len === 0) {
         return true;
-      } else if (!isText(node) && len === 1 && node.innerHTML === blankHTML) {
+      } else if (!isText(node) && len === 1 && node.innerText === blankHTML) {
         // ex) <p><br></p>, <span><br></span>
         return true;
-      } else if (list.all(node.childNodes, isText) && node.innerHTML === '') {
+      } else if (list.all(node.childNodes, isText) && node.innerText === '') {
         // ex) <p></p>, <span></span>
         return true;
       }
