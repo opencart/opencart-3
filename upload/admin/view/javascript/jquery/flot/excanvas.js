@@ -1320,7 +1320,7 @@ if (!document.createElement('canvas').getContext) {
       this.textMeasureEl_ = this.element_.lastChild;
     }
     var doc = this.element_.ownerDocument;
-    this.textMeasureEl_.innerHTML = '';
+    this.textMeasureEl_.innerText = '';
     this.textMeasureEl_.style.font = this.font;
     // Don't use innerHTML or innerText because they allow markup/whitespace.
     this.textMeasureEl_.appendChild(doc.createTextNode(text));
