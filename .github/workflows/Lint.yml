@@ -52,7 +52,7 @@ jobs:
 
       - name: PHPStan
         run: |
-          composer require --dev phpstan/phpstan 2.01
+          composer require --dev phpstan/phpstan 2.02
           ./upload/system/storage/vendor/bin/phpstan analyze --no-progress
 
       - name: Code style
