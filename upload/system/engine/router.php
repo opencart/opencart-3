@@ -14,11 +14,11 @@
  */
 class Router {
 	/**
-	 * @var object $registry
+	 * @var object
 	 */
 	private object $registry;
 	/**
-	 * @var array<string, mixed> $pre_action
+	 * @var array<string, mixed>
 	 */
 	private array $pre_action = [];
 	private $error;

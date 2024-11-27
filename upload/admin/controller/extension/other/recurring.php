@@ -6,7 +6,7 @@
  */
 class ControllerExtensionOtherRecurring extends Controller {
 	/**
-	 * @var array<string, string> $error
+	 * @var array<string, string>
 	 */
 	private array $error = [];
 
@@ -628,9 +628,9 @@ class ControllerExtensionOtherRecurring extends Controller {
 
 					// Only pull unique order recurring
 					$data['recurrings'][] = [
-						'name' 		   => $name,
-						'store_name'   => $store_name,
-						'recurring'    => $recurring
+						'name'       => $name,
+						'store_name' => $store_name,
+						'recurring'  => $recurring
 					];
 				}
 			}
@@ -738,7 +738,7 @@ class ControllerExtensionOtherRecurring extends Controller {
 
 	/**
 	 * Uninstall
-	 * 
+	 *
 	 * @return void
 	 */
 	public function uninstall(): void {

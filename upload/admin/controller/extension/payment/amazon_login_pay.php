@@ -6,12 +6,12 @@
  */
 class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 	/**
-	 * @var string $version
+	 * @var string
 	 */
 	private string $version = '3.2.1';
 
 	/**
-	 * @var array<string, string> $error
+	 * @var array<string, string>
 	 */
 	private array $error = [];
 

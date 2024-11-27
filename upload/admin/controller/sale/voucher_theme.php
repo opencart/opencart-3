@@ -6,7 +6,7 @@
  */
 class ControllerSaleVoucherTheme extends Controller {
 	/**
-	 * @var array<string, string> $error
+	 * @var array<string, string>
 	 */
 	private array $error = [];
 

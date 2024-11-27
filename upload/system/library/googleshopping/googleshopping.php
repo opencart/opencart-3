@@ -117,23 +117,23 @@ class Googleshopping extends Library {
 	 */
 	public const SCOPES = 'OC_FEED REPORT ADVERTISE';
 	/**
-	 * @var string $store_url
+	 * @var string
 	 */
 	private string $store_url;
 	/**
-	 * @var string $store_name
+	 * @var string
 	 */
 	private string $store_name;
 	/**
-	 * @var string $endpoint_url
+	 * @var string
 	 */
 	private string $endpoint_url;
 	/**
-	 * @var int $store_id
+	 * @var int
 	 */
 	private int $store_id = 0;
 	/**
-	 * @var object $registry
+	 * @var object
 	 */
 	protected object $registry;
 	private $event_snippet;

@@ -21,9 +21,9 @@ class ModelCheckoutRecurring extends Model {
 
 	/**
 	 * Get Order Recurring
-	 * 
+	 *
 	 * @param int $order_recurring_id
-	 * 
+	 *
 	 * @return array<string, mixed>
 	 */
 	public function getOrderRecurring(int $order_recurring_id): array {

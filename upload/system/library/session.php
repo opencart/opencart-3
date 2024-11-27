@@ -14,7 +14,7 @@
  */
 class Session {
 	/**
-	 * @var object $ada[tpr]
+	 * @var object $adaptor
 	 */
 	protected object $adaptor;
 	/**
