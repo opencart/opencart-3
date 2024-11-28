@@ -53,6 +53,6 @@ jobs:
 
       - name: Check Code style
         run: |
-            composer require --dev friendsofphp/php-cs-fixer v3.64.0
+            composer require --dev friendsofphp/php-cs-fixer v3.65.0
             ./upload/system/storage/vendor/bin/php-cs-fixer fix --dry-run --diff --ansi || true
             ./upload/system/storage/vendor/bin/php-cs-fixer fix --dry-run --format=checkstyle | cs2pr
