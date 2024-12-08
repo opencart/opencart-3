@@ -55,11 +55,11 @@ class ControllerDesignSeoUrl extends Controller {
 			}
 
 			if (isset($this->request->get['filter_store_id'])) {
-				$url .= '&filter_store_id=' . $this->request->get['filter_store_id'];
+				$url .= '&filter_store_id=' . (int)$this->request->get['filter_store_id'];
 			}
 
 			if (isset($this->request->get['filter_language_id'])) {
-				$url .= '&filter_language_id=' . $this->request->get['filter_language_id'];
+				$url .= '&filter_language_id=' . (int)$this->request->get['filter_language_id'];
 			}
 
 			if (isset($this->request->get['sort'])) {
@@ -109,11 +109,11 @@ class ControllerDesignSeoUrl extends Controller {
 			}
 
 			if (isset($this->request->get['filter_store_id'])) {
-				$url .= '&filter_store_id=' . $this->request->get['filter_store_id'];
+				$url .= '&filter_store_id=' . (int)$this->request->get['filter_store_id'];
 			}
 
 			if (isset($this->request->get['filter_language_id'])) {
-				$url .= '&filter_language_id=' . $this->request->get['filter_language_id'];
+				$url .= '&filter_language_id=' . (int)$this->request->get['filter_language_id'];
 			}
 
 			if (isset($this->request->get['sort'])) {
@@ -165,11 +165,11 @@ class ControllerDesignSeoUrl extends Controller {
 			}
 
 			if (isset($this->request->get['filter_store_id'])) {
-				$url .= '&filter_store_id=' . $this->request->get['filter_store_id'];
+				$url .= '&filter_store_id=' . (int)$this->request->get['filter_store_id'];
 			}
 
 			if (isset($this->request->get['filter_language_id'])) {
-				$url .= '&filter_language_id=' . $this->request->get['filter_language_id'];
+				$url .= '&filter_language_id=' . (int)$this->request->get['filter_language_id'];
 			}
 
 			if (isset($this->request->get['sort'])) {
@@ -249,11 +249,11 @@ class ControllerDesignSeoUrl extends Controller {
 		}
 
 		if (isset($this->request->get['filter_store_id'])) {
-			$url .= '&filter_store_id=' . $this->request->get['filter_store_id'];
+			$url .= '&filter_store_id=' . (int)$this->request->get['filter_store_id'];
 		}
 
 		if (isset($this->request->get['filter_language_id'])) {
-			$url .= '&filter_language_id=' . $this->request->get['filter_language_id'];
+			$url .= '&filter_language_id=' . (int)$this->request->get['filter_language_id'];
 		}
 
 		if (isset($this->request->get['sort'])) {
@@ -344,11 +344,11 @@ class ControllerDesignSeoUrl extends Controller {
 		}
 
 		if (isset($this->request->get['filter_store_id'])) {
-			$url .= '&filter_store_id=' . $this->request->get['filter_store_id'];
+			$url .= '&filter_store_id=' . (int)$this->request->get['filter_store_id'];
 		}
 
 		if (isset($this->request->get['filter_language_id'])) {
-			$url .= '&filter_language_id=' . $this->request->get['filter_language_id'];
+			$url .= '&filter_language_id=' . (int)$this->request->get['filter_language_id'];
 		}
 
 		if ($order == 'ASC') {
@@ -377,11 +377,11 @@ class ControllerDesignSeoUrl extends Controller {
 		}
 
 		if (isset($this->request->get['filter_store_id'])) {
-			$url .= '&filter_store_id=' . $this->request->get['filter_store_id'];
+			$url .= '&filter_store_id=' . (int)$this->request->get['filter_store_id'];
 		}
 
 		if (isset($this->request->get['filter_language_id'])) {
-			$url .= '&filter_language_id=' . $this->request->get['filter_language_id'];
+			$url .= '&filter_language_id=' . (int)$this->request->get['filter_language_id'];
 		}
 
 		if (isset($this->request->get['sort'])) {
