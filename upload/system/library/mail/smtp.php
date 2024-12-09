@@ -247,13 +247,9 @@ class Smtp {
 				}
 			}
 
-			fwrite($handle, '.' . "\r\n");
+			fwrite($handle, data: '.' . "\r\n");
 
 			$this->handleReply($handle, 250, 'Error: DATA not accepted from server!');
-
-			fwrite($handle, 'QUIT' . "\r\n");
-
-			$this->handleReply($handle, 221, 'Error: QUIT not accepted from server!');
 
 			fclose($handle);
 
