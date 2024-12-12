@@ -804,7 +804,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
             `is_modified` tinyint(1) NOT NULL DEFAULT '0',
             PRIMARY KEY (`product_advertise_google_id`),
             UNIQUE `product_id_store_id` (`product_id`, `store_id`)
-        ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci");
+        ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
 
 		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "googleshopping_product_status` (
             `product_id` int(11),
@@ -815,14 +815,14 @@ class ModelExtensionAdvertiseGoogle extends Model {
             `item_level_issues` text NOT NULL,
             `google_expiration_date` int(11) NOT NULL DEFAULT '0',
             PRIMARY KEY (`product_id`, `store_id`, `product_variation_id`)
-        ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci");
+        ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
 
 		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "googleshopping_product_target` (
             `product_id` int(11) NOT NULL,
             `store_id` int(11) NOT NULL DEFAULT '0',
             `advertise_google_target_id` int(11) UNSIGNED NOT NULL,
             PRIMARY KEY (`product_id`, `advertise_google_target_id`)
-        ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci");
+        ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
 
 		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "googleshopping_category` (
             `google_product_category` varchar(10) NOT NULL,
@@ -830,7 +830,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
             `category_id` int(11) NOT NULL,
             INDEX `category_id_store_id` (`category_id`, `store_id`),
             PRIMARY KEY (`google_product_category`, `store_id`)
-        ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci");
+        ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
 
 		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "googleshopping_target` (
             `advertise_google_target_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -844,7 +844,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
             `status` enum('paused','active') NOT NULL DEFAULT 'paused',
             INDEX `store_id` (`store_id`),
             PRIMARY KEY (`advertise_google_target_id`)
-        ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci");
+        ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
 	}
 
 	/**

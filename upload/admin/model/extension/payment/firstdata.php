@@ -29,7 +29,7 @@ class ModelExtensionPaymentFirstdata extends Model {
 			  `account` varchar(30) NOT NULL,
 			  `total` decimal(15,4) NOT NULL,
 			  PRIMARY KEY (`firstdata_order_id`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;");
 
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "firstdata_order_transaction` (
@@ -39,7 +39,7 @@ class ModelExtensionPaymentFirstdata extends Model {
 			  `type` enum(\\'auth\\',\\'payment\\',\\'void\\') DEFAULT NULL,
 			  `amount` decimal(15,4) NOT NULL,
 			  PRIMARY KEY (`firstdata_order_transaction_id`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;");
 
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "firstdata_card` (
@@ -51,7 +51,7 @@ class ModelExtensionPaymentFirstdata extends Model {
 			  `expire_year` int(2) NOT NULL,
 			  `token` varchar(64) NOT NULL,
 			  PRIMARY KEY (`firstdata_card_id`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;");
 	}
 
 	/**

@@ -30,7 +30,7 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 			  `account` varchar(30) NOT NULL,
 			  `total` decimal(15,4) NOT NULL,
 			  PRIMARY KEY (`globalpay_remote_order_id`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;");
 
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "globalpay_remote_order_transaction` (
@@ -40,7 +40,7 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 			  `type` enum(\\'auth\\',\\'payment\\',\\'rebate\\',\\'void\\') DEFAULT NULL,
 			  `amount` decimal(15,4) NOT NULL,
 			  PRIMARY KEY (`globalpay_remote_order_transaction_id`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;");
 	}
 
 	/**

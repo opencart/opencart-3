@@ -25,7 +25,7 @@ class ModelExtensionPaymentEway extends Model {
 			  `void_status` int(1) NOT NULL DEFAULT '0',
 			  `refund_status` int(1) NOT NULL DEFAULT '0',
 			  PRIMARY KEY (`eway_order_id`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;");
 
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "eway_transactions` (
@@ -36,7 +36,7 @@ class ModelExtensionPaymentEway extends Model {
 			  `type` enum(\\'auth\\',\\'payment\\',\\'refund\\',\\'void\\') DEFAULT NULL,
 			  `amount` decimal(15,4) NOT NULL,
 			  PRIMARY KEY (`eway_order_transaction_id`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;");
 
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "eway_card` (
@@ -48,7 +48,7 @@ class ModelExtensionPaymentEway extends Model {
 			  `expiry` varchar(5) NOT NULL,
 			  `type` varchar(50) NOT NULL,
 			  PRIMARY KEY (`card_id`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;");
 	}
 
 	/**

@@ -22,7 +22,7 @@ class ModelExtensionPaymentOpayo extends Model {
 			  PRIMARY KEY (`card_id`),
 			  KEY (`customer_id`),
 			  KEY (`token`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;");
 
 		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "opayo_order` (
 			  `opayo_order_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -42,7 +42,7 @@ class ModelExtensionPaymentOpayo extends Model {
 			  `date_modified` datetime NOT NULL,
 			  PRIMARY KEY (`opayo_order_id`),
 			  KEY (`order_id`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;");
 
 		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "opayo_subscription` (
 			  `opayo_subscription_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -63,7 +63,7 @@ class ModelExtensionPaymentOpayo extends Model {
 			  PRIMARY KEY (`opayo_subscription_id`),
 			  KEY (`order_id`),
 			  KEY (`subscription_id`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;");
 
 		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "opayo_subscription_transaction` (
 				`opayo_subscription_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -73,7 +73,7 @@ class ModelExtensionPaymentOpayo extends Model {
 				`date_added` datetime NOT NULL,
 				PRIMARY KEY (`opayo_subscription_transaction_id`),
 				KEY (`opayo_order_id`)
-			  ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
+			  ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;");
 	}
 
 	/**

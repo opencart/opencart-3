@@ -23,7 +23,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 			  `expiry` varchar(4) NOT NULL DEFAULT '',
 			  `date_added` datetime NOT NULL,
 			  PRIMARY KEY (`cardconnect_card_id`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci");
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
 
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "cardconnect_order` (
@@ -37,7 +37,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 			  `total` decimal(15,4) NOT NULL DEFAULT '0.0000',
 			  `date_added` datetime NOT NULL,
 			  PRIMARY KEY (`cardconnect_order_id`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci");
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
 
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "cardconnect_order_transaction` (
@@ -50,7 +50,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 			  `date_modified` datetime NOT NULL,
 			  `date_added` datetime NOT NULL,
 			  PRIMARY KEY (`cardconnect_order_transaction_id`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci");
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
 	}
 
 	/**

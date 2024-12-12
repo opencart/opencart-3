@@ -23,7 +23,7 @@ class ModelExtensionPaymentG2aPay extends Model {
 				`total` decimal(15,4) NOT NULL,
 				KEY `g2apay_transaction_id` (`g2apay_transaction_id`),
 				PRIMARY KEY `g2apay_order_id` (`g2apay_order_id`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;");
 
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "g2apay_order_transaction` (
@@ -33,7 +33,7 @@ class ModelExtensionPaymentG2aPay extends Model {
 			  `type` enum(\\'payment\\',\\'refund\\') DEFAULT NULL,
 			  `amount` decimal(15,4) NOT NULL,
 			  PRIMARY KEY (`g2apay_order_transaction_id`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;");
 	}
 
 	/**

@@ -26,7 +26,7 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 			  `authcode` varchar(30) NOT NULL,
 			  `total` decimal(15,4) NOT NULL,
 			  PRIMARY KEY (`firstdata_remote_order_id`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;");
 
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "firstdata_remote_order_transaction` (
@@ -36,7 +36,7 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 			  `type` enum(\\'auth\\',\\'payment\\',\\'refund\\',\\'void\\') DEFAULT NULL,
 			  `amount` DECIMAL(15,4) NOT NULL,
 			  PRIMARY KEY (`firstdata_remote_order_transaction_id`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;");
 
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "firstdata_remote_card` (
@@ -49,7 +49,7 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 			  `card_type` varchar(15) NOT NULL,
 			  `token` varchar(64) NOT NULL,
 			  PRIMARY KEY (`firstdata_remote_card_id`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;");
 	}
 
 	/**

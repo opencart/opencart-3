@@ -134,7 +134,7 @@ class ModelExtensionPaymentSquareup extends Model {
 			`sandbox` tinyint(1) NOT NULL,
 			`square_customer_id` varchar(32) NOT NULL,
 			PRIMARY KEY (`customer_id`, `sandbox`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;");
 
 		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "squareup_subscription` (
 			`squareup_subscription_id` int(11) NOT NULL,
@@ -145,7 +145,7 @@ class ModelExtensionPaymentSquareup extends Model {
 			`date_added` datetime NOT NULL,
 			PRIMARY KEY (`squareup_subscription_id`),
 			KEY (`order_id`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;");
 
 		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "squareup_token` (
 			`squareup_token_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -159,7 +159,7 @@ class ModelExtensionPaymentSquareup extends Model {
 			KEY `get_cards` (`customer_id`, `sandbox`),
 			KEY `verify_card_customer` (`squareup_token_id`, `customer_id`),
 			KEY `card_exists` (`customer_id`, `brand`, `ends_in`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;");
 
 		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "squareup_transaction` (
             `squareup_transaction_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -187,6 +187,6 @@ class ModelExtensionPaymentSquareup extends Model {
             PRIMARY KEY (`squareup_transaction_id`),
             KEY `order_id` (`order_id`),
             KEY `transaction_id` (`transaction_id`)
-		    ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
+		    ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;");
 	}
 }
