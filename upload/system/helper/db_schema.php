@@ -94,7 +94,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -122,7 +122,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -165,7 +165,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -200,7 +200,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -250,7 +250,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -285,7 +285,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -325,7 +325,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -348,7 +348,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -388,7 +388,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -416,7 +416,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -476,7 +476,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -571,7 +571,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -629,7 +629,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -684,7 +684,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -719,7 +719,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -754,7 +754,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -799,7 +799,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -834,7 +834,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -882,7 +882,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -965,7 +965,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -1000,7 +1000,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -1060,7 +1060,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -1100,7 +1100,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -1158,7 +1158,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -1293,7 +1293,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -1343,7 +1343,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -1447,7 +1447,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -1502,7 +1502,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -1542,7 +1542,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -1570,7 +1570,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -1615,7 +1615,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -1648,7 +1648,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -1703,7 +1703,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -1746,7 +1746,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -1783,7 +1783,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -1838,7 +1838,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -1928,7 +1928,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -1983,7 +1983,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -2023,7 +2023,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -2071,7 +2071,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -2111,7 +2111,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -2151,7 +2151,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -2186,7 +2186,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -2231,7 +2231,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -2264,7 +2264,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -2299,7 +2299,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -2342,7 +2342,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -2375,7 +2375,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -2415,7 +2415,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -2455,7 +2455,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -2490,7 +2490,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -2535,7 +2535,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -2558,7 +2558,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -2598,7 +2598,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -2663,7 +2663,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -2701,7 +2701,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -2729,7 +2729,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -2847,7 +2847,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -2896,7 +2896,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -2924,7 +2924,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -2981,7 +2981,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -3014,7 +3014,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -3069,7 +3069,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -3114,7 +3114,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -3149,7 +3149,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -3197,7 +3197,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -3220,7 +3220,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -3265,7 +3265,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -3310,7 +3310,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -3333,7 +3333,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -3378,7 +3378,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -3431,7 +3431,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -3464,7 +3464,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -3499,7 +3499,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -3542,7 +3542,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -3605,7 +3605,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -3638,7 +3638,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -3666,7 +3666,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -3701,7 +3701,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -3741,7 +3741,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -3786,7 +3786,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -4166,7 +4166,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -4221,7 +4221,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -4296,7 +4296,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -4376,7 +4376,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -4501,7 +4501,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -4551,7 +4551,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -4601,7 +4601,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -4646,7 +4646,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -4674,7 +4674,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -4710,7 +4710,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -4830,7 +4830,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'InnoDB',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -4880,7 +4880,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -4965,7 +4965,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -5160,7 +5160,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -5211,7 +5211,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -5276,7 +5276,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -5341,7 +5341,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -5376,7 +5376,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -5416,7 +5416,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -5466,7 +5466,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -5566,7 +5566,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -5613,7 +5613,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -5648,7 +5648,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -5693,7 +5693,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -5753,7 +5753,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -5788,7 +5788,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -5823,7 +5823,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -5868,7 +5868,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -5903,7 +5903,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -6110,7 +6110,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -6146,7 +6146,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -6201,7 +6201,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -6237,7 +6237,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -6273,7 +6273,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -6343,7 +6343,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -6393,7 +6393,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -6420,7 +6420,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -6470,7 +6470,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -6498,7 +6498,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -6534,7 +6534,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -6567,7 +6567,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -6605,7 +6605,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -6660,7 +6660,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -6695,7 +6695,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -6745,7 +6745,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -6790,7 +6790,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -6850,7 +6850,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -6888,7 +6888,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -6968,7 +6968,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -6996,7 +6996,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -7041,7 +7041,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -7121,7 +7121,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -7171,7 +7171,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -7194,7 +7194,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -7229,7 +7229,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -7252,7 +7252,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -7293,7 +7293,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -7338,7 +7338,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	$tables[] = [
@@ -7398,7 +7398,7 @@ function oc_db_schema() {
 		],
 		'engine'  => 'MyISAM',
 		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
+		'collate' => 'utf8mb4_unicode_ci'
 	];
 
 	return $tables;
