@@ -2,13 +2,17 @@
 /**
  * Class Subscription Status
  *
+ * @example $subscription_status_model = $this->model_localisation_subscription_status;
+ *
+ * Can be called from $this->load->model('localisation/subscription_status');
+ *
  * @package Admin\Model\Localisation
  */
 class ModelLocalisationSubscriptionStatus extends Model {
 	/**
 	 * Add Subscription Status
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of data
 	 *
 	 * @return ?int
 	 */
@@ -35,8 +39,8 @@ class ModelLocalisationSubscriptionStatus extends Model {
 	/**
 	 * Edit Subscription Status
 	 *
-	 * @param int                  $subscription_status_id
-	 * @param array<string, mixed> $data
+	 * @param int                  $subscription_status_id primary key of the subscription status record
+	 * @param array<string, mixed> $data                   array of data
 	 *
 	 * @return void
 	 */
@@ -53,7 +57,7 @@ class ModelLocalisationSubscriptionStatus extends Model {
 	/**
 	 * Delete Subscription Status
 	 *
-	 * @param int $subscription_status_id
+	 * @param int $subscription_status_id primary key of the subscription status record
 	 *
 	 * @return void
 	 */
@@ -66,9 +70,9 @@ class ModelLocalisationSubscriptionStatus extends Model {
 	/**
 	 * Get Subscription Status
 	 *
-	 * @param int $subscription_status_id
+	 * @param int $subscription_status_id primary key of the subscription status record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> subscription status record that has subscription status ID
 	 */
 	public function getSubscriptionStatus(int $subscription_status_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "subscription_status` WHERE `subscription_status_id` = '" . (int)$subscription_status_id . "' AND `language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -79,9 +83,9 @@ class ModelLocalisationSubscriptionStatus extends Model {
 	/**
 	 * Get Subscription Statuses
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> subscription status records
 	 */
 	public function getSubscriptionStatuses(array $data = []): array {
 		if ($data) {
@@ -128,9 +132,9 @@ class ModelLocalisationSubscriptionStatus extends Model {
 	/**
 	 * Get Descriptions
 	 *
-	 * @param int $subscription_status_id
+	 * @param int $subscription_status_id primary key of the subscription status record
 	 *
-	 * @return array<int, array<string, string>>
+	 * @return array<int, array<string, string>> description records that have subscription status ID
 	 */
 	public function getDescriptions(int $subscription_status_id): array {
 		$subscription_status_data = [];
@@ -147,7 +151,7 @@ class ModelLocalisationSubscriptionStatus extends Model {
 	/**
 	 * Get Total Subscription Statuses
 	 *
-	 * @return int
+	 * @return int total number of subscription status records
 	 */
 	public function getTotalSubscriptionStatuses(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "subscription_status` WHERE `language_id` = '" . (int)$this->config->get('config_language_id') . "'");

@@ -2,13 +2,17 @@
 /**
  * Class Returns Reason
  *
+ * @example $return_reason_model = $this->model_localisation_return_reason;
+ *
+ * Can be called from $this->load->model('localisation/return_reason');
+ *
  * @package Admin\Model\Localisation
  */
 class ModelLocalisationReturnsReason extends Model {
 	/**
 	 * Add Return Reason
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of data
 	 *
 	 * @return ?int
 	 */
@@ -33,8 +37,8 @@ class ModelLocalisationReturnsReason extends Model {
 	/**
 	 * Edit Return Reason
 	 *
-	 * @param int                  $return_reason_id
-	 * @param array<string, mixed> $data
+	 * @param int                  $return_reason_id primary key of the return reason record
+	 * @param array<string, mixed> $data             array of data
 	 *
 	 * @return void
 	 */
@@ -51,7 +55,7 @@ class ModelLocalisationReturnsReason extends Model {
 	/**
 	 * Delete Return Reason
 	 *
-	 * @param int $return_reason_id
+	 * @param int $return_reason_id primary key of the return reason record
 	 *
 	 * @return void
 	 */
@@ -64,9 +68,9 @@ class ModelLocalisationReturnsReason extends Model {
 	/**
 	 * Get Return Reason
 	 *
-	 * @param int $return_reason_id
+	 * @param int $return_reason_id primary key of the return reason record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> return reason record that has return reason ID
 	 */
 	public function getReturnReason(int $return_reason_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "return_reason` WHERE `return_reason_id` = '" . (int)$return_reason_id . "' AND `language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -77,9 +81,9 @@ class ModelLocalisationReturnsReason extends Model {
 	/**
 	 * Get Return Reasons
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> return reason records
 	 */
 	public function getReturnReasons(array $data = []): array {
 		if ($data) {
@@ -126,9 +130,9 @@ class ModelLocalisationReturnsReason extends Model {
 	/**
 	 * Get Descriptions
 	 *
-	 * @param int $return_reason_id
+	 * @param int $return_reason_id primary key of the return reason record
 	 *
-	 * @return array<int, array<string, string>>
+	 * @return array<int, array<string, string>> description records that have return reason ID
 	 */
 	public function getDescriptions(int $return_reason_id): array {
 		$return_reason_data = [];
@@ -145,7 +149,7 @@ class ModelLocalisationReturnsReason extends Model {
 	/**
 	 * Get Total Return Reasons
 	 *
-	 * @return int
+	 * @return int total number of return reason records
 	 */
 	public function getTotalReturnReasons(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "return_reason` WHERE `language_id` = '" . (int)$this->config->get('config_language_id') . "'");

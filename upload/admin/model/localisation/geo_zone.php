@@ -2,15 +2,19 @@
 /**
  * Class Geo Zone
  *
+ * @example $geo_zone_model = $this->model_localisation_geo_zone;
+ *
+ * Can be called from $this->load->model('localisation/geo_zone');
+ *
  * @package Admin\Model\Localisation
  */
 class ModelLocalisationGeoZone extends Model {
 	/**
 	 * Add Geo Zone
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of data
 	 *
-	 * @return int
+	 * @return int returns the primary key of the new geo zone record
 	 */
 	public function addGeoZone(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "geo_zone` SET `name` = '" . $this->db->escape($data['name']) . "', `description` = '" . $this->db->escape($data['description']) . "', `date_added` = NOW()");
@@ -33,8 +37,8 @@ class ModelLocalisationGeoZone extends Model {
 	/**
 	 * Edit Geo Zone
 	 *
-	 * @param int                  $geo_zone_id
-	 * @param array<string, mixed> $data
+	 * @param int                  $geo_zone_id primary key of the geo zone record
+	 * @param array<string, mixed> $data        array of data
 	 *
 	 * @return void
 	 */
@@ -57,7 +61,7 @@ class ModelLocalisationGeoZone extends Model {
 	/**
 	 * Delete Geo Zone
 	 *
-	 * @param int $geo_zone_id
+	 * @param int $geo_zone_id primary key of the geo zone record
 	 *
 	 * @return void
 	 */
@@ -71,9 +75,9 @@ class ModelLocalisationGeoZone extends Model {
 	/**
 	 * Get Geo Zone
 	 *
-	 * @param int $geo_zone_id
+	 * @param int $geo_zone_id primary key of the geo zone record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> geo zone record that has geo zone ID
 	 */
 	public function getGeoZone(int $geo_zone_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "geo_zone` WHERE `geo_zone_id` = '" . (int)$geo_zone_id . "'");
@@ -84,9 +88,9 @@ class ModelLocalisationGeoZone extends Model {
 	/**
 	 * Get Geo Zones
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> geo zone records
 	 */
 	public function getGeoZones(array $data = []): array {
 		if ($data) {
@@ -142,7 +146,7 @@ class ModelLocalisationGeoZone extends Model {
 	/**
 	 * Get Total Geo Zones
 	 *
-	 * @return int
+	 * @return int total number of geo zone records
 	 */
 	public function getTotalGeoZones(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "geo_zone`");
@@ -153,9 +157,9 @@ class ModelLocalisationGeoZone extends Model {
 	/**
 	 * Get Zone To Geo Zones
 	 *
-	 * @param int $geo_zone_id
+	 * @param int $geo_zone_id primary key of the geo zone record
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> geo zone records that have geo zone ID
 	 */
 	public function getZoneToGeoZones(int $geo_zone_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `geo_zone_id` = '" . (int)$geo_zone_id . "'");
@@ -166,9 +170,9 @@ class ModelLocalisationGeoZone extends Model {
 	/**
 	 * Get Total Zone To Geo Zone By Geo Zone Id
 	 *
-	 * @param int $geo_zone_id
+	 * @param int $geo_zone_id primary key of the geo zone record
 	 *
-	 * @return int
+	 * @return int total number of geo zone records that have geo zone ID
 	 */
 	public function getTotalZoneToGeoZoneByGeoZoneId(int $geo_zone_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `geo_zone_id` = '" . (int)$geo_zone_id . "'");
@@ -179,9 +183,9 @@ class ModelLocalisationGeoZone extends Model {
 	/**
 	 * Get Total Zone To Geo Zone By Country Id
 	 *
-	 * @param int $country_id
+	 * @param int $country_id primary key of the country record
 	 *
-	 * @return int
+	 * @return int total number of geo zone records that have country ID
 	 */
 	public function getTotalZoneToGeoZoneByCountryId(int $country_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `country_id` = '" . (int)$country_id . "'");
@@ -192,9 +196,9 @@ class ModelLocalisationGeoZone extends Model {
 	/**
 	 * Get Total Zone To Geo Zone By Zone Id
 	 *
-	 * @param int $zone_id
+	 * @param int $zone_id primary key of the zone record
 	 *
-	 * @return int
+	 * @return int total number of geo zone records that have zone ID
 	 */
 	public function getTotalZoneToGeoZoneByZoneId(int $zone_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `zone_id` = '" . (int)$zone_id . "'");

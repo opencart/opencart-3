@@ -2,15 +2,19 @@
 /**
  * Class Country
  *
+ * @example $country_model = $this->model_localisation_country;
+ *
+ * Can be called from $this->load->model('localisation/country');
+ *
  * @package Admin\Model\Localisation
  */
 class ModelLocalisationCountry extends Model {
 	/**
 	 * Add Country
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of data
 	 *
-	 * @return int
+	 * @return int returns the primary key of the new country record
 	 */
 	public function addCountry(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "country` SET `name` = '" . $this->db->escape($data['name']) . "', `iso_code_2` = '" . $this->db->escape($data['iso_code_2']) . "', `iso_code_3` = '" . $this->db->escape($data['iso_code_3']) . "', `address_format_id` = '" . (int)$data['address_format_id'] . "', `postcode_required` = '" . (int)$data['postcode_required'] . "', `status` = '" . (bool)$data['status'] . "'");
@@ -23,8 +27,8 @@ class ModelLocalisationCountry extends Model {
 	/**
 	 * Edit Country
 	 *
-	 * @param int                  $country_id
-	 * @param array<string, mixed> $data
+	 * @param int                  $country_id primary key of the country record
+	 * @param array<string, mixed> $data       array of data
 	 *
 	 * @return void
 	 */
@@ -37,7 +41,7 @@ class ModelLocalisationCountry extends Model {
 	/**
 	 * Delete Country
 	 *
-	 * @param int $country_id
+	 * @param int $country_id primary key of the country record
 	 *
 	 * @return void
 	 */
@@ -50,9 +54,9 @@ class ModelLocalisationCountry extends Model {
 	/**
 	 * Get Country
 	 *
-	 * @param int $country_id
+	 * @param int $country_id primary key of the country record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> country record that has country ID
 	 */
 	public function getCountry(int $country_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "country` WHERE `country_id` = '" . (int)$country_id . "'");
@@ -89,9 +93,9 @@ class ModelLocalisationCountry extends Model {
 	/**
 	 * Get Countries
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> country records
 	 */
 	public function getCountries(array $data = []): array {
 		if ($data) {
@@ -166,9 +170,9 @@ class ModelLocalisationCountry extends Model {
 	/**
 	 * Get Total Countries
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return int
+	 * @return int total number of country records
 	 */
 	public function getTotalCountries(array $data = []): int {
 		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "country`";
@@ -199,9 +203,9 @@ class ModelLocalisationCountry extends Model {
 	/**
 	 * Get Total Countries By Address Format ID
 	 *
-	 * @param int $address_format_id
+	 * @param int $address_format_id primary key of the address format record
 	 *
-	 * @return int
+	 * @return int total number of country records that have address format ID
 	 */
 	public function getTotalCountriesByAddressFormatId(int $address_format_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "country` WHERE `address_format_id` = '" . (int)$address_format_id . "'");

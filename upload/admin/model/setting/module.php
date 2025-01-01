@@ -2,6 +2,10 @@
 /**
  * Class Module
  *
+ * @example $modification_model = $this->model_setting_module;
+ *
+ * Can be called from $this->load->model('setting/module');
+ *
  * @package Admin\Model\Setting
  */
 class ModelSettingModule extends Model {
@@ -9,7 +13,7 @@ class ModelSettingModule extends Model {
 	 * Add Module
 	 *
 	 * @param string               $code
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of data
 	 *
 	 * @return void
 	 */
@@ -20,7 +24,7 @@ class ModelSettingModule extends Model {
 	/**
 	 * Edit Module
 	 *
-	 * @param int                  $module_id
+	 * @param int                  $module_id primary key of the module record
 	 * @param array<string, mixed> $data
 	 *
 	 * @return void
@@ -32,7 +36,7 @@ class ModelSettingModule extends Model {
 	/**
 	 * Delete Module
 	 *
-	 * @param int $module_id
+	 * @param int $module_id primary key of the module record
 	 *
 	 * @return void
 	 */
@@ -44,9 +48,9 @@ class ModelSettingModule extends Model {
 	/**
 	 * Get Module
 	 *
-	 * @param int $module_id
+	 * @param int $module_id primary key of the module record
 	 *
-	 * @return array<mixed>
+	 * @return array<mixed> module record that has the module ID
 	 */
 	public function getModule(int $module_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "module` WHERE `module_id` = '" . (int)$module_id . "'");
@@ -61,7 +65,7 @@ class ModelSettingModule extends Model {
 	/**
 	 * Get Modules
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> module records
 	 */
 	public function getModules(): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "module` ORDER BY `code`");

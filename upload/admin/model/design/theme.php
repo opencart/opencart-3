@@ -2,6 +2,10 @@
 /**
  * Class Theme
  *
+ * @example $theme_model = $this->model_design_theme;
+ *
+ * Can be called from $this->load->model('design/theme');
+ *
  * @package Admin\Model\Design
  */
 class ModelDesignTheme extends Model {
@@ -24,7 +28,7 @@ class ModelDesignTheme extends Model {
 	/**
 	 * Delete Theme
 	 *
-	 * @param int $theme_id
+	 * @param int $theme_id primary key of the theme record
 	 *
 	 * @return void
 	 */
@@ -72,7 +76,7 @@ class ModelDesignTheme extends Model {
 	/**
 	 * Get Total Themes
 	 *
-	 * @return int
+	 * @return int total number of theme records
 	 */
 	public function getTotalThemes(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "theme`");

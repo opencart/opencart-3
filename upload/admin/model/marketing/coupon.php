@@ -2,15 +2,19 @@
 /**
  * Class Coupon
  *
+ * @example $coupon_model = $this->model_marketing_coupon;
+ *
+ * Can be called from $this->load->model('marketing/coupon');
+ *
  * @package Admin\Model\Marketing
  */
 class ModelMarketingCoupon extends Model {
 	/**
 	 * Add Coupon
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of data
 	 *
-	 * @return int
+	 * @return int returns the primary key of the new coupon record
 	 */
 	public function addCoupon(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "coupon` SET `name` = '" . $this->db->escape($data['name']) . "', `code` = '" . $this->db->escape($data['code']) . "', `discount` = '" . (float)$data['discount'] . "', `type` = '" . $this->db->escape($data['type']) . "', `total` = '" . (float)$data['total'] . "', `logged` = '" . (int)$data['logged'] . "', `shipping` = '" . (int)$data['shipping'] . "', `date_start` = '" . $this->db->escape($data['date_start']) . "', `date_end` = '" . $this->db->escape($data['date_end']) . "', `uses_total` = '" . (int)$data['uses_total'] . "', `uses_customer` = '" . (int)$data['uses_customer'] . "', `status` = '" . (int)$data['status'] . "', `date_added` = NOW()");
@@ -35,8 +39,8 @@ class ModelMarketingCoupon extends Model {
 	/**
 	 * Edit Coupon
 	 *
-	 * @param int                  $coupon_id
-	 * @param array<string, mixed> $data
+	 * @param int                  $coupon_id primary key of the coupon record
+	 * @param array<string, mixed> $data      array of data
 	 *
 	 * @return void
 	 */
@@ -63,7 +67,7 @@ class ModelMarketingCoupon extends Model {
 	/**
 	 * Delete Coupon
 	 *
-	 * @param int $coupon_id
+	 * @param int $coupon_id primary key of the coupon record
 	 *
 	 * @return void
 	 */
@@ -77,9 +81,9 @@ class ModelMarketingCoupon extends Model {
 	/**
 	 * Get Coupon
 	 *
-	 * @param int $coupon_id
+	 * @param int $coupon_id primary key of the coupon record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> coupon record that has coupon ID
 	 */
 	public function getCoupon(int $coupon_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "coupon` WHERE `coupon_id` = '" . (int)$coupon_id . "'");
@@ -103,9 +107,9 @@ class ModelMarketingCoupon extends Model {
 	/**
 	 * Get Coupons
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> coupon records
 	 */
 	public function getCoupons(array $data = []): array {
 		$sql = "SELECT `coupon_id`, `name`, `code`, `discount`, `date_start`, `date_end`, `status` FROM `" . DB_PREFIX . "coupon`";
@@ -151,9 +155,9 @@ class ModelMarketingCoupon extends Model {
 	/**
 	 * Get Products
 	 *
-	 * @param int $coupon_id
+	 * @param int $coupon_id primary key of the coupon record
 	 *
-	 * @return array<int, int>
+	 * @return array<int, int> product records that have coupon ID
 	 */
 	public function getProducts(int $coupon_id): array {
 		$coupon_product_data = [];
@@ -170,9 +174,9 @@ class ModelMarketingCoupon extends Model {
 	/**
 	 * Get Categories
 	 *
-	 * @param int $coupon_id
+	 * @param int $coupon_id primary key of the coupon record
 	 *
-	 * @return array<int, int>
+	 * @return array<int, int> category records that have coupon ID
 	 */
 	public function getCategories(int $coupon_id): array {
 		$coupon_category_data = [];
@@ -189,7 +193,7 @@ class ModelMarketingCoupon extends Model {
 	/**
 	 * Get Total Coupons
 	 *
-	 * @return int
+	 * @return int total number of coupon records
 	 */
 	public function getTotalCoupons(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "coupon`");
@@ -200,11 +204,11 @@ class ModelMarketingCoupon extends Model {
 	/**
 	 * Get Histories
 	 *
-	 * @param int $coupon_id
+	 * @param int $coupon_id primary key of the coupon record
 	 * @param int $start
 	 * @param int $limit
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> history records that have coupon ID
 	 */
 	public function getHistories(int $coupon_id, int $start = 0, int $limit = 10): array {
 		if ($start < 0) {
@@ -223,9 +227,9 @@ class ModelMarketingCoupon extends Model {
 	/**
 	 * Get Total Histories
 	 *
-	 * @param int $coupon_id
+	 * @param int $coupon_id primary key of the coupon record
 	 *
-	 * @return int
+	 * @return int total number of history records that have coupon ID
 	 */
 	public function getTotalHistories(int $coupon_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "coupon_history` WHERE `coupon_id` = '" . (int)$coupon_id . "'");

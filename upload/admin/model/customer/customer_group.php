@@ -2,15 +2,19 @@
 /**
  * Class Customer Group
  *
+ * @example $customer_group_model = $this->model_customer_customer_group;
+ *
+ * Can be called from $this->load->model('customer/customer_group');
+ *
  * @package Admin\Model\Customer
  */
 class ModelCustomerCustomerGroup extends Model {
 	/**
 	 * Add Customer Group
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of data
 	 *
-	 * @return int
+	 * @return int returns the primary key of the new customer group record
 	 */
 	public function addCustomerGroup(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "customer_group` SET `approval` = '" . (int)$data['approval'] . "', `sort_order` = '" . (int)$data['sort_order'] . "'");
@@ -27,8 +31,8 @@ class ModelCustomerCustomerGroup extends Model {
 	/**
 	 * Edit Customer Group
 	 *
-	 * @param int                  $customer_group_id
-	 * @param array<string, mixed> $data
+	 * @param int                  $customer_group_id primary key of the customer group record
+	 * @param array<string, mixed> $data              array of data
 	 *
 	 * @return void
 	 */
@@ -45,7 +49,7 @@ class ModelCustomerCustomerGroup extends Model {
 	/**
 	 * Delete Customer Group
 	 *
-	 * @param int $customer_group_id
+	 * @param int $customer_group_id primary key of the customer group record
 	 *
 	 * @return void
 	 */
@@ -61,9 +65,9 @@ class ModelCustomerCustomerGroup extends Model {
 	/**
 	 * Get Customer Group
 	 *
-	 * @param int $customer_group_id
+	 * @param int $customer_group_id primary key of the customer group record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> customer group record that has customer group ID
 	 */
 	public function getCustomerGroup(int $customer_group_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "customer_group` `cg` LEFT JOIN `" . DB_PREFIX . "customer_group_description` `cgd` ON (`cg`.`customer_group_id` = `cgd`.`customer_group_id`) WHERE `cg`.`customer_group_id` = '" . (int)$customer_group_id . "' AND `cgd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -74,9 +78,9 @@ class ModelCustomerCustomerGroup extends Model {
 	/**
 	 * Get Customer Groups
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> customer group records
 	 */
 	public function getCustomerGroups(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "customer_group` `cg` LEFT JOIN `" . DB_PREFIX . "customer_group_description` `cgd` ON (`cg`.`customer_group_id` = `cgd`.`customer_group_id`) WHERE `cgd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
@@ -118,9 +122,9 @@ class ModelCustomerCustomerGroup extends Model {
 	/**
 	 * Get Descriptions
 	 *
-	 * @param int $customer_group_id
+	 * @param int $customer_group_id primary key of the customer group record
 	 *
-	 * @return array<int, array<string, string>>
+	 * @return array<int, array<string, string>> description records that have customer group ID
 	 */
 	public function getDescriptions(int $customer_group_id): array {
 		$customer_group_data = [];
@@ -140,7 +144,7 @@ class ModelCustomerCustomerGroup extends Model {
 	/**
 	 * Get Total Customer Groups
 	 *
-	 * @return int
+	 * @return int total number of customer group records
 	 */
 	public function getTotalCustomerGroups(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer_group`");

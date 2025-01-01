@@ -2,15 +2,19 @@
 /**
  * Class Currency
  *
+ * @example $currency_model = $this->model_localisation_currency;
+ *
+ * Can be called from $this->load->model('localisation/currency');
+ *
  * @package Admin\Model\Localisation
  */
 class ModelLocalisationCurrency extends Model {
 	/**
 	 * Add Currency
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of data
 	 *
-	 * @return int
+	 * @return int returns the primary key of the new currency record
 	 */
 	public function addCurrency(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "currency` SET `title` = '" . $this->db->escape($data['title']) . "', `code` = '" . $this->db->escape($data['code']) . "', `symbol_left` = '" . $this->db->escape($data['symbol_left']) . "', `symbol_right` = '" . $this->db->escape($data['symbol_right']) . "', `decimal_place` = '" . $this->db->escape($data['decimal_place']) . "', `value` = '" . $this->db->escape($data['value']) . "', `status` = '" . (int)$data['status'] . "', `date_modified` = NOW()");
@@ -25,8 +29,8 @@ class ModelLocalisationCurrency extends Model {
 	/**
 	 * Edit Currency
 	 *
-	 * @param int                  $currency_id
-	 * @param array<string, mixed> $data
+	 * @param int                  $currency_id primary key of the currency record
+	 * @param array<string, mixed> $data        array of data
 	 *
 	 * @return void
 	 */
@@ -53,7 +57,7 @@ class ModelLocalisationCurrency extends Model {
 	/**
 	 * Delete Currency
 	 *
-	 * @param int $currency_id
+	 * @param int $currency_id primary key of the currency record
 	 *
 	 * @return void
 	 */
@@ -66,9 +70,9 @@ class ModelLocalisationCurrency extends Model {
 	/**
 	 * Get Currency
 	 *
-	 * @param int $currency_id
+	 * @param int $currency_id primary key of the currency record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> currency record that has currency ID
 	 */
 	public function getCurrency(int $currency_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "currency` WHERE `currency_id` = '" . (int)$currency_id . "'");
@@ -92,9 +96,9 @@ class ModelLocalisationCurrency extends Model {
 	/**
 	 * Get Currencies
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<string, array<string, mixed>>
+	 * @return array<string, array<string, mixed>> currency records
 	 */
 	public function getCurrencies(array $data = []): array {
 		if ($data) {
@@ -218,7 +222,7 @@ class ModelLocalisationCurrency extends Model {
 	/**
 	 * Get Total Currencies
 	 *
-	 * @return int
+	 * @return int total number of currency records
 	 */
 	public function getTotalCurrencies(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "currency`");

@@ -2,15 +2,19 @@
 /**
  * Class Marketing
  *
+ * @example $marketing_model = $this->model_marketing_marketing;
+ *
+ * Can be called from $this->load->model('marketing/marketing');
+ *
  * @package Admin\Model\Marketing
  */
 class ModelMarketingMarketing extends Model {
 	/**
 	 * Add Marketing
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of data
 	 *
-	 * @return int
+	 * @return int returns the primary key of the new marketing record
 	 */
 	public function addMarketing(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "marketing` SET `name` = '" . $this->db->escape($data['name']) . "', `description` = '" . $this->db->escape($data['description']) . "', `code` = '" . $this->db->escape($data['code']) . "', `date_added` = NOW()");
@@ -21,8 +25,8 @@ class ModelMarketingMarketing extends Model {
 	/**
 	 * Edit Marketing
 	 *
-	 * @param int                  $marketing_id
-	 * @param array<string, mixed> $data
+	 * @param int                  $marketing_id primary key of the marketing record
+	 * @param array<string, mixed> $data         array of data
 	 *
 	 * @return void
 	 */
@@ -33,7 +37,7 @@ class ModelMarketingMarketing extends Model {
 	/**
 	 * Delete Marketing
 	 *
-	 * @param int $marketing_id
+	 * @param int $marketing_id primary key of the marketing record
 	 *
 	 * @return void
 	 */
@@ -44,9 +48,9 @@ class ModelMarketingMarketing extends Model {
 	/**
 	 * Get Marketing
 	 *
-	 * @param int $marketing_id
+	 * @param int $marketing_id primary key of the marketing record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> marketing record that has marketing ID
 	 */
 	public function getMarketing(int $marketing_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "marketing` WHERE `marketing_id` = '" . (int)$marketing_id . "'");
@@ -70,9 +74,9 @@ class ModelMarketingMarketing extends Model {
 	/**
 	 * Get Marketing(s)
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> marketing records
 	 */
 	public function getMarketings(array $data = []): array {
 		$implode = [];
@@ -141,9 +145,9 @@ class ModelMarketingMarketing extends Model {
 	/**
 	 * Get Total Marketing(s)
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return int
+	 * @return int total number of marketing records
 	 */
 	public function getTotalMarketings(array $data = []): int {
 		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "marketing`";

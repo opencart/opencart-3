@@ -2,13 +2,17 @@
 /**
  * Class Returns Status
  *
+ * @example $return_status_model = $this->model_localisation_return_status;
+ *
+ * Can be called from $this->load->model('localisation/return_status');
+ *
  * @package Admin\Model\Localisation
  */
 class ModelLocalisationReturnsStatus extends Model {
 	/**
 	 * Add Return Status
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of data
 	 *
 	 * @return ?int
 	 */
@@ -33,8 +37,8 @@ class ModelLocalisationReturnsStatus extends Model {
 	/**
 	 * Edit Return Status
 	 *
-	 * @param int                  $return_status_id
-	 * @param array<string, mixed> $data
+	 * @param int                  $return_status_id primary key of the return status record
+	 * @param array<string, mixed> $data             array of data
 	 *
 	 * @return void
 	 */
@@ -51,7 +55,7 @@ class ModelLocalisationReturnsStatus extends Model {
 	/**
 	 * Delete Return Status
 	 *
-	 * @param int $return_status_id
+	 * @param int $return_status_id primary key of the return status record
 	 *
 	 * @return void
 	 */
@@ -64,9 +68,9 @@ class ModelLocalisationReturnsStatus extends Model {
 	/**
 	 * Get Return Status
 	 *
-	 * @param int $return_status_id
+	 * @param int $return_status_id primary key of the return status record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> return status record that has return status ID
 	 */
 	public function getReturnStatus(int $return_status_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "return_status` WHERE `return_status_id` = '" . (int)$return_status_id . "' AND `language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -77,9 +81,9 @@ class ModelLocalisationReturnsStatus extends Model {
 	/**
 	 * Get Return Statuses
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> return status records
 	 */
 	public function getReturnStatuses(array $data = []): array {
 		if ($data) {
@@ -126,9 +130,9 @@ class ModelLocalisationReturnsStatus extends Model {
 	/**
 	 * Get Descriptions
 	 *
-	 * @param int $return_status_id
+	 * @param int $return_status_id primary key of the return status record
 	 *
-	 * @return array<int, array<string, string>>
+	 * @return array<int, array<string, string>> description records that have return status ID
 	 */
 	public function getDescriptions(int $return_status_id): array {
 		$return_status_data = [];
@@ -145,7 +149,7 @@ class ModelLocalisationReturnsStatus extends Model {
 	/**
 	 * Get Total Return Statuses
 	 *
-	 * @return int
+	 * @return int total number of return status records
 	 */
 	public function getTotalReturnStatuses(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "return_status` WHERE `language_id` = '" . (int)$this->config->get('config_language_id') . "'");

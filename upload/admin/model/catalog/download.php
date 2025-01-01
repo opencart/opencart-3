@@ -2,15 +2,19 @@
 /**
  * Class Download
  *
+ * @example $download_model = $this->model_catalog_download;
+ *
+ * Can be called from $this->load->model('catalog/download');
+ *
  * @package Admin\Model\Catalog
  */
 class ModelCatalogDownload extends Model {
 	/**
 	 * Add Download
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of data
 	 *
-	 * @return int
+	 * @return int returns the primary key of the new download record
 	 */
 	public function addDownload(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "download` SET `filename` = '" . $this->db->escape($data['filename']) . "', `mask` = '" . $this->db->escape($data['mask']) . "', `date_added` = NOW()");
@@ -27,8 +31,8 @@ class ModelCatalogDownload extends Model {
 	/**
 	 * Edit Download
 	 *
-	 * @param int                  $download_id
-	 * @param array<string, mixed> $data
+	 * @param int                  $download_id primary key of the download record
+	 * @param array<string, mixed> $data        array of data
 	 *
 	 * @return void
 	 */
@@ -45,7 +49,7 @@ class ModelCatalogDownload extends Model {
 	/**
 	 * Delete Download
 	 *
-	 * @param int $download_id
+	 * @param int $download_id primary key of the download record
 	 *
 	 * @return void
 	 */
@@ -57,9 +61,9 @@ class ModelCatalogDownload extends Model {
 	/**
 	 * Get Download
 	 *
-	 * @param int $download_id
+	 * @param int $download_id primary key of the download record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> download record that has download ID
 	 */
 	public function getDownload(int $download_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "download` `d` LEFT JOIN `" . DB_PREFIX . "download_description` `dd` ON (`d`.`download_id` = `dd`.`download_id`) WHERE `d`.`download_id` = '" . (int)$download_id . "' AND `dd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -70,9 +74,9 @@ class ModelCatalogDownload extends Model {
 	/**
 	 * Get Downloads
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> download records
 	 */
 	public function getDownloads(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "download` `d` LEFT JOIN `" . DB_PREFIX . "download_description` `dd` ON (`d`.`download_id` = `dd`.`download_id`) WHERE `dd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
@@ -118,9 +122,9 @@ class ModelCatalogDownload extends Model {
 	/**
 	 * Get Descriptions
 	 *
-	 * @param int $download_id
+	 * @param int $download_id primary key of the download record
 	 *
-	 * @return array<int, array<string, string>>
+	 * @return array<int, array<string, string>> description records that have download ID
 	 */
 	public function getDescriptions(int $download_id): array {
 		$download_description_data = [];
@@ -137,7 +141,7 @@ class ModelCatalogDownload extends Model {
 	/**
 	 * Get Total Downloads
 	 *
-	 * @return int
+	 * @return int total number of download records
 	 */
 	public function getTotalDownloads(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "download`");

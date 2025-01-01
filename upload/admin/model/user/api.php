@@ -2,15 +2,19 @@
 /**
  * Class Api
  *
+ * @example $api_model = $this->model_user_api;
+ *
+ * Can be called from $this->load->model('user/api');
+ *
  * @package Admin\Model\User
  */
 class ModelUserApi extends Model {
 	/**
 	 * Add Api
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of data
 	 *
-	 * @return int
+	 * @return int returns the primary key of the new api record
 	 */
 	public function addApi(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "api` SET `username` = '" . $this->db->escape($data['username']) . "', `key` = '" . $this->db->escape($data['key']) . "', `status` = '" . (int)$data['status'] . "', `date_added` = NOW(), `date_modified` = NOW()");
@@ -31,8 +35,8 @@ class ModelUserApi extends Model {
 	/**
 	 * Edit Api
 	 *
-	 * @param int                  $api_id
-	 * @param array<string, mixed> $data
+	 * @param int                  $api_id primary key of the api record
+	 * @param array<string, mixed> $data   array of data
 	 *
 	 * @return void
 	 */
@@ -53,7 +57,7 @@ class ModelUserApi extends Model {
 	/**
 	 * Delete Api
 	 *
-	 * @param int $api_id
+	 * @param int $api_id primary key of the api record
 	 *
 	 * @return void
 	 */
@@ -64,9 +68,9 @@ class ModelUserApi extends Model {
 	/**
 	 * Get Api
 	 *
-	 * @param int $api_id
+	 * @param int $api_id primary key of the api record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> api record that has api ID
 	 */
 	public function getApi(int $api_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "api` WHERE `api_id` = '" . (int)$api_id . "'");
@@ -77,9 +81,9 @@ class ModelUserApi extends Model {
 	/**
 	 * Get Apis
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> api records
 	 */
 	public function getApis(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "api`";
@@ -123,7 +127,7 @@ class ModelUserApi extends Model {
 	/**
 	 * Get Total Apis
 	 *
-	 * @return int
+	 * @return int total number of api records
 	 */
 	public function getTotalApis(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "api`");
@@ -134,7 +138,7 @@ class ModelUserApi extends Model {
 	/**
 	 * Add Ip
 	 *
-	 * @param int    $api_id
+	 * @param int    $api_id primary key of the api record
 	 * @param string $ip
 	 *
 	 * @return void
@@ -146,9 +150,9 @@ class ModelUserApi extends Model {
 	/**
 	 * Get Ips
 	 *
-	 * @param int $api_id
+	 * @param int $api_id primary key of the api record
 	 *
-	 * @return array<int, string>
+	 * @return array<int, string> ip records that have api ID
 	 */
 	public function getIps(int $api_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "api_ip` WHERE `api_id` = '" . (int)$api_id . "'");
@@ -159,11 +163,11 @@ class ModelUserApi extends Model {
 	/**
 	 * Add Session
 	 *
-	 * @param int    $api_id
+	 * @param int    $api_id     primary key of the api record
 	 * @param string $session_id
 	 * @param string $ip
 	 *
-	 * @return int
+	 * @return int returns the primary key of the new api session record
 	 */
 	public function addSession(int $api_id, string $session_id, string $ip): int {
 		$api_ip_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "api_ip` WHERE `ip` = '" . $this->db->escape($ip) . "'");
@@ -180,9 +184,9 @@ class ModelUserApi extends Model {
 	/**
 	 * Get Sessions
 	 *
-	 * @param int $api_id
+	 * @param int $api_id primary key of the api record
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> session records that have api ID
 	 */
 	public function getSessions(int $api_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "api_session` WHERE `api_id` = '" . (int)$api_id . "'");
@@ -193,7 +197,7 @@ class ModelUserApi extends Model {
 	/**
 	 * Delete Session
 	 *
-	 * @param int $api_session_id
+	 * @param int $api_session_id primary key of the api session record
 	 *
 	 * @return void
 	 */

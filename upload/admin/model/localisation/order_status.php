@@ -2,13 +2,17 @@
 /**
  * Class Order Status
  *
+ * @example $order_status_model = $this->model_localisation_order_status;
+ *
+ * Can be called from $this->load->model('localisation/order_status');
+ *
  * @package Admin\Model\Localisation
  */
 class ModelLocalisationOrderStatus extends Model {
 	/**
 	 * Add Order Status
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of data
 	 *
 	 * @return ?int
 	 */
@@ -33,8 +37,8 @@ class ModelLocalisationOrderStatus extends Model {
 	/**
 	 * Edit Order Status
 	 *
-	 * @param int                  $order_status_id
-	 * @param array<string, mixed> $data
+	 * @param int                  $order_status_id primary key of the order status record
+	 * @param array<string, mixed> $data            array of data
 	 *
 	 * @return void
 	 */
@@ -51,7 +55,7 @@ class ModelLocalisationOrderStatus extends Model {
 	/**
 	 * Delete Order Status
 	 *
-	 * @param int $order_status_id
+	 * @param int $order_status_id primary key of the order status record
 	 *
 	 * @return void
 	 */
@@ -64,9 +68,9 @@ class ModelLocalisationOrderStatus extends Model {
 	/**
 	 * Get Order Status
 	 *
-	 * @param int $order_status_id
+	 * @param int $order_status_id primary key of the order status record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> order status record that has order status ID
 	 */
 	public function getOrderStatus(int $order_status_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_status` WHERE `order_status_id` = '" . (int)$order_status_id . "' AND `language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -77,9 +81,9 @@ class ModelLocalisationOrderStatus extends Model {
 	/**
 	 * Get Order Statuses
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> order status records
 	 */
 	public function getOrderStatuses(array $data = []): array {
 		if ($data) {
@@ -126,9 +130,9 @@ class ModelLocalisationOrderStatus extends Model {
 	/**
 	 * Get Descriptions
 	 *
-	 * @param int $order_status_id
+	 * @param int $order_status_id primary key of the order status record
 	 *
-	 * @return array<int, array<string, string>>
+	 * @return array<int, array<string, string>> description records that have order status ID
 	 */
 	public function getDescriptions(int $order_status_id): array {
 		$order_status_data = [];
@@ -145,7 +149,7 @@ class ModelLocalisationOrderStatus extends Model {
 	/**
 	 * Get Total Order Statuses
 	 *
-	 * @return int
+	 * @return int total number of order status records
 	 */
 	public function getTotalOrderStatuses(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order_status` WHERE `language_id` = '" . (int)$this->config->get('config_language_id') . "'");

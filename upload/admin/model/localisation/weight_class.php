@@ -2,15 +2,19 @@
 /**
  * Class Weight Class
  *
+ * @example $weight_class_model = $this->model_localisation_weight_class;
+ *
+ * Can be called from $this->load->model('localisation/weight_class');
+ *
  * @package Admin\Model\Localisation
  */
 class ModelLocalisationWeightClass extends Model {
 	/**
 	 * Add Weight Class
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of data
 	 *
-	 * @return int
+	 * @return int returns the primary key of the new weight class record
 	 */
 	public function addWeightClass(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "weight_class` SET `value` = '" . (float)$data['value'] . "'");
@@ -29,8 +33,8 @@ class ModelLocalisationWeightClass extends Model {
 	/**
 	 * Edit Weight Class
 	 *
-	 * @param int                  $weight_class_id
-	 * @param array<string, mixed> $data
+	 * @param int                  $weight_class_id primary key of the weight class record
+	 * @param array<string, mixed> $data            array of data
 	 *
 	 * @return void
 	 */
@@ -49,7 +53,7 @@ class ModelLocalisationWeightClass extends Model {
 	/**
 	 * Delete Weight Class
 	 *
-	 * @param int $weight_class_id
+	 * @param int $weight_class_id primary key of the weight class record
 	 *
 	 * @return void
 	 */
@@ -63,9 +67,9 @@ class ModelLocalisationWeightClass extends Model {
 	/**
 	 * Get Weight Classes
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> weight class records
 	 */
 	public function getWeightClasses(array $data = []): array {
 		if ($data) {
@@ -122,9 +126,9 @@ class ModelLocalisationWeightClass extends Model {
 	/**
 	 * Get Weight Class
 	 *
-	 * @param int $weight_class_id
+	 * @param int $weight_class_id primary key of the weight class record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> weight class record that has weight class ID
 	 */
 	public function getWeightClass(int $weight_class_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "weight_class` `wc` LEFT JOIN `" . DB_PREFIX . "weight_class_description` `wcd` ON (`wc`.`weight_class_id` = `wcd`.`weight_class_id`) WHERE `wc`.`weight_class_id` = '" . (int)$weight_class_id . "' AND `wcd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -148,9 +152,9 @@ class ModelLocalisationWeightClass extends Model {
 	/**
 	 * Get Descriptions
 	 *
-	 * @param int $weight_class_id
+	 * @param int $weight_class_id primary key of the weight class record
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> description records that have weight class ID
 	 */
 	public function getDescriptions(int $weight_class_id): array {
 		$weight_class_data = [];
@@ -170,7 +174,7 @@ class ModelLocalisationWeightClass extends Model {
 	/**
 	 * Get Total Weight Classes
 	 *
-	 * @return int
+	 * @return int total number of weight class records
 	 */
 	public function getTotalWeightClasses(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "weight_class`");

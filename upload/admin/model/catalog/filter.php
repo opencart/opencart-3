@@ -2,15 +2,19 @@
 /**
  * Class Filter
  *
+ * @example $filter_model = $this->model_catalog_filter;
+ *
+ * Can be called from $this->load->model('catalog/filter');
+ *
  * @package Admin\Model\Catalog
  */
 class ModelCatalogFilter extends Model {
 	/**
 	 * Add Filter
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of data
 	 *
-	 * @return int
+	 * @return int returns the primary key of the new filter record
 	 */
 	public function addFilter(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "filter_group` SET `sort_order` = '" . (int)$data['sort_order'] . "'");
@@ -39,8 +43,8 @@ class ModelCatalogFilter extends Model {
 	/**
 	 * Edit Filter
 	 *
-	 * @param int                  $filter_group_id
-	 * @param array<string, mixed> $data
+	 * @param int                  $filter_group_id primary key of the filter group record
+	 * @param array<string, mixed> $data            array of data
 	 *
 	 * @return void
 	 */
@@ -76,7 +80,7 @@ class ModelCatalogFilter extends Model {
 	/**
 	 * Delete Filter
 	 *
-	 * @param int $filter_group_id
+	 * @param int $filter_group_id primary key of the filter group record
 	 *
 	 * @return void
 	 */
@@ -90,9 +94,9 @@ class ModelCatalogFilter extends Model {
 	/**
 	 * Get Group
 	 *
-	 * @param int $filter_group_id
+	 * @param int $filter_group_id primary key of the filter group record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> filter group record that has filter group ID
 	 */
 	public function getGroup(int $filter_group_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "filter_group` `fg` LEFT JOIN `" . DB_PREFIX . "filter_group_description` `fgd` ON (`fg`.`filter_group_id` = `fgd`.`filter_group_id`) WHERE `fg`.`filter_group_id` = '" . (int)$filter_group_id . "' AND `fgd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -103,9 +107,9 @@ class ModelCatalogFilter extends Model {
 	/**
 	 * getGroups
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> filter group records
 	 */
 	public function getGroups(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "filter_group` `fg` LEFT JOIN `" . DB_PREFIX . "filter_group_description` `fgd` ON (`fg`.`filter_group_id` = `fgd`.`filter_group_id`) WHERE `fgd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
@@ -147,9 +151,9 @@ class ModelCatalogFilter extends Model {
 	/**
 	 * Get Group Descriptions
 	 *
-	 * @param int $filter_group_id
+	 * @param int $filter_group_id primary key of the filter group record
 	 *
-	 * @return array<int, array<string, string>>
+	 * @return array<int, array<string, string>> description records that have filter group ID
 	 */
 	public function getGroupDescriptions(int $filter_group_id): array {
 		$filter_group_data = [];
@@ -166,9 +170,9 @@ class ModelCatalogFilter extends Model {
 	/**
 	 * Get Filter
 	 *
-	 * @param int $filter_id
+	 * @param int $filter_id primary key of the filter record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> filter record that has filter ID
 	 */
 	public function getFilter(int $filter_id): array {
 		$query = $this->db->query("SELECT *, (SELECT `name` FROM `" . DB_PREFIX . "filter_group_description` `fgd` WHERE `f`.`filter_group_id` = `fgd`.`filter_group_id` AND `fgd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "') AS `group` FROM `" . DB_PREFIX . "filter` `f` LEFT JOIN `" . DB_PREFIX . "filter_description` `fd` ON (`f`.`filter_id` = `fd`.`filter_id`) WHERE `f`.`filter_id` = '" . (int)$filter_id . "' AND `fd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -179,9 +183,9 @@ class ModelCatalogFilter extends Model {
 	/**
 	 * Get Filters
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> filter records
 	 */
 	public function getFilters(array $data): array {
 		$sql = "SELECT *, (SELECT `name` FROM `" . DB_PREFIX . "filter_group_description` `fgd` WHERE `f`.`filter_group_id` = `fgd`.`filter_group_id` AND `fgd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "') AS `group` FROM `" . DB_PREFIX . "filter` `f` LEFT JOIN `" . DB_PREFIX . "filter_description` `fd` ON (`f`.`filter_id` = `fd`.`filter_id`) WHERE `fd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
@@ -212,9 +216,9 @@ class ModelCatalogFilter extends Model {
 	/**
 	 * Get Descriptions
 	 *
-	 * @param int $filter_group_id
+	 * @param int $filter_group_id primary key of the filter group record
 	 *
-	 * @return array<int, array<string, string>>
+	 * @return array<int, array<string, string>> description records that have filter group ID
 	 */
 	public function getDescriptions(int $filter_group_id): array {
 		$filter_data = [];
@@ -243,7 +247,7 @@ class ModelCatalogFilter extends Model {
 	/**
 	 * Get Total Groups
 	 *
-	 * @return int
+	 * @return int total number of filter group records
 	 */
 	public function getTotalGroups(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "filter_group`");

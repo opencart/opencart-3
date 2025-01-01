@@ -2,15 +2,19 @@
 /**
  * Class Customer Approval
  *
+ * @example $customer_approval_model = $this->model_customer_customer_approval;
+ *
+ * Can be called from $this->load->model('customer/customer_approval');
+ *
  * @package Admin\Model\Customer
  */
 class ModelCustomerCustomerApproval extends Model {
 	/**
 	 * Get Customer Approvals
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> customer approval records
 	 */
 	public function getCustomerApprovals(array $data = []): array {
 		$sql = "SELECT *, CONCAT(`c`.`firstname`, ' ', `c`.`lastname`) AS `name`, `cgd`.`name` AS `customer_group`, `ca`.`type` FROM `" . DB_PREFIX . "customer_approval` `ca` LEFT JOIN `" . DB_PREFIX . "customer` `c` ON (`ca`.`customer_id` = `c`.`customer_id`) LEFT JOIN `" . DB_PREFIX . "customer_group_description` `cgd` ON (`c`.`customer_group_id` = `cgd`.`customer_group_id`) WHERE `cgd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
@@ -57,9 +61,9 @@ class ModelCustomerCustomerApproval extends Model {
 	/**
 	 * Get Customer Approval
 	 *
-	 * @param int $customer_approval_id
+	 * @param int $customer_approval_id primary key of the customer approval record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> customer approval record that has customer approval ID
 	 */
 	public function getCustomerApproval(int $customer_approval_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_approval` WHERE `customer_approval_id` = '" . (int)$customer_approval_id . "'");
@@ -70,9 +74,9 @@ class ModelCustomerCustomerApproval extends Model {
 	/**
 	 * Get Total Customer Approvals
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return int
+	 * @return int total number of customer approval records
 	 */
 	public function getTotalCustomerApprovals(array $data = []): int {
 		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer_approval` `ca` LEFT JOIN `" . DB_PREFIX . "customer` `c` ON (`ca`.`customer_id` = `c`.`customer_id`)";
@@ -111,7 +115,7 @@ class ModelCustomerCustomerApproval extends Model {
 	/**
 	 * Approve Customer
 	 *
-	 * @param int $customer_id
+	 * @param int $customer_id primary key of the customer record
 	 *
 	 * @return void
 	 */
@@ -124,7 +128,7 @@ class ModelCustomerCustomerApproval extends Model {
 	/**
 	 * Deny Customer
 	 *
-	 * @param int $customer_id
+	 * @param int $customer_id primary key of the customer record
 	 *
 	 * @return void
 	 */
@@ -135,7 +139,7 @@ class ModelCustomerCustomerApproval extends Model {
 	/**
 	 * Approve Affiliate
 	 *
-	 * @param int $customer_id
+	 * @param int $customer_id primary key of the customer record
 	 *
 	 * @return void
 	 */
@@ -148,7 +152,7 @@ class ModelCustomerCustomerApproval extends Model {
 	/**
 	 * Deny Affiliate
 	 *
-	 * @param int $customer_id
+	 * @param int $customer_id primary key of the customer record
 	 *
 	 * @return void
 	 */

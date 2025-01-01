@@ -2,15 +2,19 @@
 /**
  * Class Tax Class
  *
+ * @example $tax_class_model = $this->model_localisation_tax_class;
+ *
+ * Can be called from $this->load->model('localisation/tax_class');
+ *
  * @package Admin\Model\Localisation
  */
 class ModelLocalisationTaxClass extends Model {
 	/**
 	 * Add Tax Class
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of data
 	 *
-	 * @return int
+	 * @return int returns the primary key of the new tax class record
 	 */
 	public function addTaxClass(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "tax_class` SET `title` = '" . $this->db->escape($data['title']) . "', `description` = '" . $this->db->escape($data['description']) . "', `date_added` = NOW()");
@@ -31,8 +35,8 @@ class ModelLocalisationTaxClass extends Model {
 	/**
 	 * Edit Tax Class
 	 *
-	 * @param int                  $tax_class_id
-	 * @param array<string, mixed> $data
+	 * @param int                  $tax_class_id primary key of the tax class record
+	 * @param array<string, mixed> $data         array of data
 	 *
 	 * @return void
 	 */
@@ -53,7 +57,7 @@ class ModelLocalisationTaxClass extends Model {
 	/**
 	 * Delete Tax Class
 	 *
-	 * @param int $tax_class_id
+	 * @param int $tax_class_id primary key of the tax class record
 	 *
 	 * @return void
 	 */
@@ -67,9 +71,9 @@ class ModelLocalisationTaxClass extends Model {
 	/**
 	 * Get Tax Class
 	 *
-	 * @param int $tax_class_id
+	 * @param int $tax_class_id primary key of the tax class record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> tax class record that has tax class ID
 	 */
 	public function getTaxClass(int $tax_class_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "tax_class` WHERE `tax_class_id` = '" . (int)$tax_class_id . "'");
@@ -80,9 +84,9 @@ class ModelLocalisationTaxClass extends Model {
 	/**
 	 * Get Tax Classes
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> tax class records
 	 */
 	public function getTaxClasses(array $data = []): array {
 		if ($data) {
@@ -129,7 +133,7 @@ class ModelLocalisationTaxClass extends Model {
 	/**
 	 * Get Total Tax Classes
 	 *
-	 * @return int
+	 * @return int total number of tax class records
 	 */
 	public function getTotalTaxClasses(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "tax_class`");
@@ -140,9 +144,9 @@ class ModelLocalisationTaxClass extends Model {
 	/**
 	 * Get Tax Rules
 	 *
-	 * @param int $tax_class_id
+	 * @param int $tax_class_id primary key of the tax class record
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> tax rule records that have tax class ID
 	 */
 	public function getTaxRules(int $tax_class_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "tax_rule` WHERE `tax_class_id` = '" . (int)$tax_class_id . "' ORDER BY `priority` ASC");
@@ -153,9 +157,9 @@ class ModelLocalisationTaxClass extends Model {
 	/**
 	 * Get Total Tax Rules By Tax Rate ID
 	 *
-	 * @param int $tax_rate_id
+	 * @param int $tax_rate_id primary key of the tax rate record
 	 *
-	 * @return int
+	 * @return int total number of tax rule records that have tax rate ID
 	 */
 	public function getTotalTaxRulesByTaxRateId(int $tax_rate_id): int {
 		$query = $this->db->query("SELECT COUNT(DISTINCT `tax_class_id`) AS `total` FROM `" . DB_PREFIX . "tax_rule` WHERE `tax_rate_id` = '" . (int)$tax_rate_id . "'");

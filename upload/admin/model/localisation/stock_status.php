@@ -2,13 +2,17 @@
 /**
  * Class Stock Status
  *
+ * @example $stock_status_model = $this->model_localisation_stock_status;
+ *
+ * Can be called from $this->load->model('localisation/stock_status');
+ *
  * @package Admin\Model\Localisation
  */
 class ModelLocalisationStockStatus extends Model {
 	/**
 	 * Add Stock Status
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of data
 	 *
 	 * @return ?int
 	 */
@@ -33,8 +37,8 @@ class ModelLocalisationStockStatus extends Model {
 	/**
 	 * Edit Stock Status
 	 *
-	 * @param int                  $stock_status_id
-	 * @param array<string, mixed> $data
+	 * @param int                  $stock_status_id primary key of the stock status record
+	 * @param array<string, mixed> $data            array of data
 	 *
 	 * @return void
 	 */
@@ -51,7 +55,7 @@ class ModelLocalisationStockStatus extends Model {
 	/**
 	 * Delete Stock Status
 	 *
-	 * @param int $stock_status_id
+	 * @param int $stock_status_id primary key of the stock status record
 	 *
 	 * @return void
 	 */
@@ -64,9 +68,9 @@ class ModelLocalisationStockStatus extends Model {
 	/**
 	 * Get Stock Status
 	 *
-	 * @param int $stock_status_id
+	 * @param int $stock_status_id primary key of the stock status record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> stock status record that has stock status ID
 	 */
 	public function getStockStatus(int $stock_status_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "stock_status` WHERE `stock_status_id` = '" . (int)$stock_status_id . "' AND `language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -77,9 +81,9 @@ class ModelLocalisationStockStatus extends Model {
 	/**
 	 * Get Stock Statuses
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> stock status records
 	 */
 	public function getStockStatuses(array $data = []): array {
 		if ($data) {
@@ -126,9 +130,9 @@ class ModelLocalisationStockStatus extends Model {
 	/**
 	 * Get Descriptions
 	 *
-	 * @param int $stock_status_id
+	 * @param int $stock_status_id primary key of the stock status record
 	 *
-	 * @return array<int, array<string, string>>
+	 * @return array<int, array<string, string>> description records that have stock status ID
 	 */
 	public function getDescriptions(int $stock_status_id): array {
 		$stock_status_data = [];
@@ -145,7 +149,7 @@ class ModelLocalisationStockStatus extends Model {
 	/**
 	 * Get Total Stock Statuses
 	 *
-	 * @return int
+	 * @return int total number of stock status records
 	 */
 	public function getTotalStockStatuses(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "stock_status` WHERE `language_id` = '" . (int)$this->config->get('config_language_id') . "'");

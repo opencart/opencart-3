@@ -8,9 +8,9 @@ class ModelSaleVoucher extends Model {
 	/**
 	 * Add Voucher
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of data
 	 *
-	 * @return int
+	 * @return int returns the primary key of the new voucher record
 	 */
 	public function addVoucher(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "voucher` SET `code` = '" . $this->db->escape($data['code']) . "', `from_name` = '" . $this->db->escape($data['from_name']) . "', `from_email` = '" . $this->db->escape($data['from_email']) . "', `to_name` = '" . $this->db->escape($data['to_name']) . "', `to_email` = '" . $this->db->escape($data['to_email']) . "', `voucher_theme_id` = '" . (int)$data['voucher_theme_id'] . "', `message` = '" . $this->db->escape($data['message']) . "', `amount` = '" . (float)$data['amount'] . "', `status` = '" . (int)$data['status'] . "', `date_added` = NOW()");
@@ -21,8 +21,8 @@ class ModelSaleVoucher extends Model {
 	/**
 	 * Edit Voucher
 	 *
-	 * @param int                  $voucher_id
-	 * @param array<string, mixed> $data
+	 * @param int                  $voucher_id primary key of the voucher record
+	 * @param array<string, mixed> $data       array of data
 	 *
 	 * @return void
 	 */
@@ -33,7 +33,7 @@ class ModelSaleVoucher extends Model {
 	/**
 	 * Delete Voucher
 	 *
-	 * @param int $voucher_id
+	 * @param int $voucher_id primary key of the voucher record
 	 *
 	 * @return void
 	 */
@@ -45,9 +45,9 @@ class ModelSaleVoucher extends Model {
 	/**
 	 * Get Voucher
 	 *
-	 * @param int $voucher_id
+	 * @param int $voucher_id primary key of the voucher record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> voucher record that has voucher ID
 	 */
 	public function getVoucher(int $voucher_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "voucher` WHERE `voucher_id` = '" . (int)$voucher_id . "'");
@@ -71,9 +71,9 @@ class ModelSaleVoucher extends Model {
 	/**
 	 * Get Vouchers
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> voucher records
 	 */
 	public function getVouchers(array $data = []): array {
 		$sql = "SELECT `v`.`voucher_id`, `v`.`order_id`, `v`.`code`, `v`.`from_name`, `v`.`from_email`, `v`.`to_name`, `v`.`to_email`, (SELECT `vtd`.`name` FROM `" . DB_PREFIX . "voucher_theme_description` `vtd` WHERE `vtd`.`voucher_theme_id` = `v`.`voucher_theme_id` AND `vtd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "') AS `theme`, `v`.`amount`, `v`.`status`, `v`.`date_added` FROM `" . DB_PREFIX . "voucher` `v`";
@@ -120,7 +120,7 @@ class ModelSaleVoucher extends Model {
 	/**
 	 * Get Total Vouchers
 	 *
-	 * @return int
+	 * @return int total number of voucher records
 	 */
 	public function getTotalVouchers(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "voucher`");
@@ -131,9 +131,9 @@ class ModelSaleVoucher extends Model {
 	/**
 	 * Get Total Vouchers By Voucher Theme ID
 	 *
-	 * @param int $voucher_theme_id
+	 * @param int $voucher_theme_id primary key of the voucher record
 	 *
-	 * @return int
+	 * @return int total number of voucher records that have voucher theme ID
 	 */
 	public function getTotalVouchersByVoucherThemeId(int $voucher_theme_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "voucher` WHERE `voucher_theme_id` = '" . (int)$voucher_theme_id . "'");
@@ -144,11 +144,11 @@ class ModelSaleVoucher extends Model {
 	/**
 	 * Get Histories
 	 *
-	 * @param int $voucher_id
+	 * @param int $voucher_id primary key of the voucher record
 	 * @param int $start
 	 * @param int $limit
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> history records that have voucher ID
 	 */
 	public function getHistories(int $voucher_id, int $start = 0, int $limit = 10): array {
 		if ($start < 0) {
@@ -167,9 +167,9 @@ class ModelSaleVoucher extends Model {
 	/**
 	 * Get Total Histories
 	 *
-	 * @param int $voucher_id
+	 * @param int $voucher_id primary key of the voucher record
 	 *
-	 * @return int
+	 * @return int total number of history records that have voucher ID
 	 */
 	public function getTotalHistories(int $voucher_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "voucher_history` WHERE `voucher_id` = '" . (int)$voucher_id . "'");

@@ -2,15 +2,19 @@
 /**
  * Class Manufacturer
  *
+ * @example $manufacturer_model = $this->model_catalog_manufacturer;
+ *
+ * Can be called from $this->load->model('catalog/manufacturer');
+ *
  * @package Admin\Model\Catalog
  */
 class ModelCatalogManufacturer extends Model {
 	/**
 	 * Add Manufacturer
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of data
 	 *
-	 * @return int
+	 * @return int returns the primary key of the new manufacturer record
 	 */
 	public function addManufacturer(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "manufacturer` SET `name` = '" . $this->db->escape($data['name']) . "', `sort_order` = '" . (int)$data['sort_order'] . "'");
@@ -46,8 +50,8 @@ class ModelCatalogManufacturer extends Model {
 	/**
 	 * Edit Manufacturer
 	 *
-	 * @param int                  $manufacturer_id
-	 * @param array<string, mixed> $data
+	 * @param int                  $manufacturer_id primary key of the manufacturer record
+	 * @param array<string, mixed> $data            array of data
 	 *
 	 * @return void
 	 */
@@ -84,7 +88,7 @@ class ModelCatalogManufacturer extends Model {
 	/**
 	 * Delete Manufacturer
 	 *
-	 * @param int $manufacturer_id
+	 * @param int $manufacturer_id primary key of the manufacturer record
 	 *
 	 * @return void
 	 */
@@ -99,9 +103,9 @@ class ModelCatalogManufacturer extends Model {
 	/**
 	 * Get Manufacturer
 	 *
-	 * @param int $manufacturer_id
+	 * @param int $manufacturer_id primary key of the manufacturer record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> manufacturer record that has manufacturer ID
 	 */
 	public function getManufacturer(int $manufacturer_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "manufacturer` WHERE `manufacturer_id` = '" . (int)$manufacturer_id . "'");
@@ -112,9 +116,9 @@ class ModelCatalogManufacturer extends Model {
 	/**
 	 * Get Manufacturers
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> manufacturer records
 	 */
 	public function getManufacturers(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "manufacturer`";
@@ -160,9 +164,9 @@ class ModelCatalogManufacturer extends Model {
 	/**
 	 * Get Stores
 	 *
-	 * @param int $manufacturer_id
+	 * @param int $manufacturer_id primary key of the manufacturer record
 	 *
-	 * @return array<int, int>
+	 * @return array<int, int> store records that have manufacturer ID
 	 */
 	public function getStores(int $manufacturer_id): array {
 		$manufacturer_store_data = [];
@@ -179,9 +183,9 @@ class ModelCatalogManufacturer extends Model {
 	/**
 	 * Get Seo Urls
 	 *
-	 * @param int $manufacturer_id
+	 * @param int $manufacturer_id primary key of the manufacturer record
 	 *
-	 * @return array<int, array<string, string>>
+	 * @return array<int, array<string, string>> SEO URL records that have manufacturer ID
 	 */
 	public function getSeoUrls(int $manufacturer_id): array {
 		$manufacturer_seo_url_data = [];
@@ -198,7 +202,7 @@ class ModelCatalogManufacturer extends Model {
 	/**
 	 * Get Total Manufacturers
 	 *
-	 * @return int
+	 * @return int total number of manufacturer records
 	 */
 	public function getTotalManufacturers(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "manufacturer`");

@@ -2,15 +2,19 @@
 /**
  * Class User Group
  *
+ * @example $user_group_model = $this->model_user_user_group;
+ *
+ * Can be called from $this->load->model('user/user_group');
+ *
  * @package Admin\Model\User
  */
 class ModelUserUserGroup extends Model {
 	/**
 	 * Add User Group
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of data
 	 *
-	 * @return int
+	 * @return int returns the primary key of the new user group record
 	 */
 	public function addUserGroup(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "user_group` SET `name` = '" . $this->db->escape($data['name']) . "', `permission` = '" . $this->db->escape(isset($data['permission']) ? json_encode($data['permission']) : '') . "'");
@@ -21,8 +25,8 @@ class ModelUserUserGroup extends Model {
 	/**
 	 * Edit User Group
 	 *
-	 * @param int                  $user_group_id
-	 * @param array<string, mixed> $data
+	 * @param int                  $user_group_id primary key of the user group record
+	 * @param array<string, mixed> $data          array of data
 	 *
 	 * @return void
 	 */
@@ -33,7 +37,7 @@ class ModelUserUserGroup extends Model {
 	/**
 	 * Delete User Group
 	 *
-	 * @param int $user_group_id
+	 * @param int $user_group_id primary key of the user group record
 	 *
 	 * @return void
 	 */
@@ -44,9 +48,9 @@ class ModelUserUserGroup extends Model {
 	/**
 	 * Get User Group
 	 *
-	 * @param int $user_group_id
+	 * @param int $user_group_id primary key of the user group record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> user group that has user group ID
 	 */
 	public function getUserGroup(int $user_group_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "user_group` WHERE `user_group_id` = '" . (int)$user_group_id . "'");
@@ -60,9 +64,9 @@ class ModelUserUserGroup extends Model {
 	/**
 	 * Get User Groups
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> user group records
 	 */
 	public function getUserGroups(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "user_group`";
@@ -95,7 +99,7 @@ class ModelUserUserGroup extends Model {
 	/**
 	 * Get Total User Groups
 	 *
-	 * @return int
+	 * @return int total number of user group records
 	 */
 	public function getTotalUserGroups(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "user_group`");
@@ -106,7 +110,7 @@ class ModelUserUserGroup extends Model {
 	/**
 	 * Add Permission
 	 *
-	 * @param int    $user_group_id
+	 * @param int    $user_group_id primary key of the user group record
 	 * @param string $type
 	 * @param string $route
 	 *
@@ -126,7 +130,7 @@ class ModelUserUserGroup extends Model {
 	/**
 	 * Remove Permission
 	 *
-	 * @param int    $user_group_id
+	 * @param int    $user_group_id primary key of the user group record
 	 * @param string $type
 	 * @param string $route
 	 *

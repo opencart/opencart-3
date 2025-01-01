@@ -2,15 +2,19 @@
 /**
  * Class User
  *
+ * @example $user_model = $this->model_user_user;
+ *
+ * Can be called from $this->load->model('user/user');
+ *
  * @package Admin\Model\User
  */
 class ModelUserUser extends Model {
 	/**
 	 * Add User
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of data
 	 *
-	 * @return int
+	 * @return int returns the primary key of the new user record
 	 */
 	public function addUser(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "user` SET `username` = '" . $this->db->escape((string)$data['username']) . "', `user_group_id` = '" . (int)$data['user_group_id'] . "', `password` = '" . $this->db->escape(password_hash(html_entity_decode($data['password'], ENT_QUOTES, 'UTF-8'), PASSWORD_DEFAULT)) . "', `firstname` = '" . $this->db->escape((string)$data['firstname']) . "', `lastname` = '" . $this->db->escape((string)$data['lastname']) . "', `email` = '" . $this->db->escape((string)$data['email']) . "', `image` = '" . $this->db->escape((string)$data['image']) . "', `status` = '" . (bool)($data['status'] ?? 0) . "', `date_added` = NOW()");
@@ -21,8 +25,8 @@ class ModelUserUser extends Model {
 	/**
 	 * Edit User
 	 *
-	 * @param int                  $user_id
-	 * @param array<string, mixed> $data
+	 * @param int                  $user_id primary key of the user record
+	 * @param array<string, mixed> $data    array of data
 	 *
 	 * @return void
 	 */
@@ -37,7 +41,7 @@ class ModelUserUser extends Model {
 	/**
 	 * Edit Password
 	 *
-	 * @param int    $user_id
+	 * @param int    $user_id  primary key of the user record
 	 * @param string $password
 	 *
 	 * @return void
@@ -61,7 +65,7 @@ class ModelUserUser extends Model {
 	/**
 	 * Delete User
 	 *
-	 * @param int $user_id
+	 * @param int $user_id primary key of the user record
 	 *
 	 * @return void
 	 */
@@ -72,9 +76,9 @@ class ModelUserUser extends Model {
 	/**
 	 * Get User
 	 *
-	 * @param int $user_id
+	 * @param int $user_id primary key of the user record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> user record that has user ID
 	 */
 	public function getUser(int $user_id): array {
 		$query = $this->db->query("SELECT *, (SELECT `ug`.`name` FROM `" . DB_PREFIX . "user_group` `ug` WHERE `ug`.`user_group_id` = `u`.`user_group_id`) AS `user_group` FROM `" . DB_PREFIX . "user` `u` WHERE `u`.`user_id` = '" . (int)$user_id . "'");
@@ -124,9 +128,9 @@ class ModelUserUser extends Model {
 	/**
 	 * Get Users
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> user records
 	 */
 	public function getUsers(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "user`";
@@ -169,7 +173,7 @@ class ModelUserUser extends Model {
 	/**
 	 * Get Total Users
 	 *
-	 * @return int
+	 * @return int total number of user records
 	 */
 	public function getTotalUsers(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "user`");
@@ -180,9 +184,9 @@ class ModelUserUser extends Model {
 	/**
 	 * Get Total Users By Group ID
 	 *
-	 * @param int $user_group_id
+	 * @param int $user_group_id primary key of the user group record
 	 *
-	 * @return int
+	 * @return int total number of user records that have user group ID
 	 */
 	public function getTotalUsersByGroupId(int $user_group_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "user` WHERE `user_group_id` = '" . (int)$user_group_id . "'");
@@ -206,8 +210,8 @@ class ModelUserUser extends Model {
 	/**
 	 * Add Login
 	 *
-	 * @param int                  $user_id
-	 * @param array<string, mixed> $data
+	 * @param int                  $user_id primary key of the user record
+	 * @param array<string, mixed> $data    array of data
 	 *
 	 * @return void
 	 */
@@ -218,11 +222,11 @@ class ModelUserUser extends Model {
 	/**
 	 * Get Logins
 	 *
-	 * @param int $user_id
+	 * @param int $user_id primary key of the user record
 	 * @param int $start
 	 * @param int $limit
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> login records that have user ID
 	 */
 	public function getLogins(int $user_id, int $start = 0, int $limit = 10): array {
 		if ($start < 0) {
@@ -245,9 +249,9 @@ class ModelUserUser extends Model {
 	/**
 	 * Get Total Logins
 	 *
-	 * @param int $user_id
+	 * @param int $user_id primary key of the user record
 	 *
-	 * @return int
+	 * @return int total number of login records that have user ID
 	 */
 	public function getTotalLogins(int $user_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "user_login` WHERE `user_id` = '" . (int)$user_id . "'");

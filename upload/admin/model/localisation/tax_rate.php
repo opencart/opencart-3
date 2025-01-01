@@ -2,15 +2,19 @@
 /**
  * Class Tax Rate
  *
+ * @example $tax_rate_model = $this->model_localisation_tax_rate;
+ *
+ * Can be called from $this->load->model('localisation/tax_rate');
+ *
  * @package Admin\Model\Localisation
  */
 class ModelLocalisationTaxRate extends Model {
 	/**
 	 * Add Tax Rate
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of data
 	 *
-	 * @return int
+	 * @return int returns the primary key of the new tax rate record
 	 */
 	public function addTaxRate(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "tax_rate` SET `name` = '" . $this->db->escape($data['name']) . "', `rate` = '" . (float)$data['rate'] . "', `type` = '" . $this->db->escape($data['type']) . "', `geo_zone_id` = '" . (int)$data['geo_zone_id'] . "', `date_added` = NOW(), `date_modified` = NOW()");
@@ -29,8 +33,8 @@ class ModelLocalisationTaxRate extends Model {
 	/**
 	 * Edit Tax Rate
 	 *
-	 * @param int                  $tax_rate_id
-	 * @param array<string, mixed> $data
+	 * @param int                  $tax_rate_id primary key of the tax rate record
+	 * @param array<string, mixed> $data        array of data
 	 *
 	 * @return void
 	 */
@@ -49,7 +53,7 @@ class ModelLocalisationTaxRate extends Model {
 	/**
 	 * Delete Tax Rate
 	 *
-	 * @param int $tax_rate_id
+	 * @param int $tax_rate_id primary key of the tax rate record
 	 *
 	 * @return void
 	 */
@@ -61,9 +65,9 @@ class ModelLocalisationTaxRate extends Model {
 	/**
 	 * Get Tax Rate
 	 *
-	 * @param int $tax_rate_id
+	 * @param int $tax_rate_id primary key of the tax rate record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> tax rate record that has tax rate ID
 	 */
 	public function getTaxRate(int $tax_rate_id): array {
 		$query = $this->db->query("SELECT `tr`.`tax_rate_id`, `tr`.`name` AS `name`, `tr`.`rate`, `tr`.`type`, `tr`.`geo_zone_id`, `gz`.`name` AS `geo_zone`, `tr`.`date_added`, `tr`.`date_modified` FROM `" . DB_PREFIX . "tax_rate` `tr` LEFT JOIN `" . DB_PREFIX . "geo_zone` `gz` ON (`tr`.`geo_zone_id` = `gz`.`geo_zone_id`) WHERE `tr`.`tax_rate_id` = '" . (int)$tax_rate_id . "'");
@@ -74,9 +78,9 @@ class ModelLocalisationTaxRate extends Model {
 	/**
 	 * Get Tax Rates
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> tax rate records
 	 */
 	public function getTaxRates(array $data = []): array {
 		$sql = "SELECT `tr`.`tax_rate_id`, `tr`.`name` AS `name`, `tr`.`rate`, `tr`.`type`, `gz`.`name` AS `geo_zone`, `tr`.`date_added`, `tr`.`date_modified` FROM `" . DB_PREFIX . "tax_rate` `tr` LEFT JOIN `" . DB_PREFIX . "geo_zone` `gz` ON (`tr`.`geo_zone_id` = `gz`.`geo_zone_id`)";
@@ -122,9 +126,9 @@ class ModelLocalisationTaxRate extends Model {
 	/**
 	 * Get Customer Groups
 	 *
-	 * @param int $tax_rate_id
+	 * @param int $tax_rate_id primary key of the tax rate record
 	 *
-	 * @return array<int, int>
+	 * @return array<int, int> customer group records that have tax rate ID
 	 */
 	public function getCustomerGroups(int $tax_rate_id): array {
 		$tax_customer_group_data = [];
@@ -141,7 +145,7 @@ class ModelLocalisationTaxRate extends Model {
 	/**
 	 * Get Total Tax Rates
 	 *
-	 * @return int
+	 * @return int total number of tax rate records
 	 */
 	public function getTotalTaxRates(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "tax_rate`");
@@ -152,9 +156,9 @@ class ModelLocalisationTaxRate extends Model {
 	/**
 	 * Get Total Tax Rates By Geo Zone Id
 	 *
-	 * @param int $geo_zone_id
+	 * @param int $geo_zone_id primary key of the geo zone record
 	 *
-	 * @return int
+	 * @return int total number of tax rate records that have geo zone ID
 	 */
 	public function getTotalTaxRatesByGeoZoneId(int $geo_zone_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "tax_rate` WHERE `geo_zone_id` = '" . (int)$geo_zone_id . "'");

@@ -2,15 +2,19 @@
 /**
  * Class Customer
  *
+ * @example $customer_model = $this->model_customer_customer;
+ *
+ * Can be called from $this->load->model('customer/customer');
+ *
  * @package Admin\Model\Customer
  */
 class ModelCustomerCustomer extends Model {
 	/**
 	 * Add Customer
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of data
 	 *
-	 * @return int
+	 * @return int returns the primary key of the new customer record
 	 */
 	public function addCustomer(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "customer` SET `customer_group_id` = '" . (int)$data['customer_group_id'] . "', `firstname` = '" . $this->db->escape($data['firstname']) . "', `lastname` = '" . $this->db->escape($data['lastname']) . "', `email` = '" . $this->db->escape($data['email']) . "', `telephone` = '" . $this->db->escape($data['telephone']) . "', `custom_field` = '" . $this->db->escape(isset($data['custom_field']) ? json_encode($data['custom_field']) : '') . "', `newsletter` = '" . (int)$data['newsletter'] . "', `password` = '" . $this->db->escape(password_hash(html_entity_decode($data['password'], ENT_QUOTES, 'UTF-8'), PASSWORD_DEFAULT)) . "', `status` = '" . (int)$data['status'] . "', `safe` = '" . (int)$data['safe'] . "', `date_added` = NOW()");
@@ -35,8 +39,8 @@ class ModelCustomerCustomer extends Model {
 	/**
 	 * Edit Customer
 	 *
-	 * @param int                  $customer_id
-	 * @param array<string, mixed> $data
+	 * @param int                  $customer_id primary key of the customer record
+	 * @param array<string, mixed> $data        array of data
 	 *
 	 * @return void
 	 */
@@ -65,7 +69,7 @@ class ModelCustomerCustomer extends Model {
 	/**
 	 * Edit Token
 	 *
-	 * @param int    $customer_id
+	 * @param int    $customer_id primary key of the customer record
 	 * @param string $token
 	 *
 	 * @return void
@@ -77,7 +81,7 @@ class ModelCustomerCustomer extends Model {
 	/**
 	 * Delete Customer
 	 *
-	 * @param int $customer_id
+	 * @param int $customer_id primary key of the customer record
 	 *
 	 * @return void
 	 */
@@ -97,9 +101,9 @@ class ModelCustomerCustomer extends Model {
 	/**
 	 * Get Customer
 	 *
-	 * @param int $customer_id
+	 * @param int $customer_id primary key of the customer record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> customer record that has customer ID
 	 */
 	public function getCustomer(int $customer_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "customer` WHERE `customer_id` = '" . (int)$customer_id . "'");
@@ -131,9 +135,9 @@ class ModelCustomerCustomer extends Model {
 	/**
 	 * Get Customers
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> customer records
 	 */
 	public function getCustomers(array $data = []): array {
 		$sql = "SELECT *, CONCAT(`c`.`firstname`, ' ', `c`.`lastname`) AS `name`, `cgd`.`name` AS `customer_group` FROM `" . DB_PREFIX . "customer` `c` LEFT JOIN `" . DB_PREFIX . "customer_group_description` `cgd` ON (`c`.`customer_group_id` = `cgd`.`customer_group_id`)";
@@ -209,9 +213,9 @@ class ModelCustomerCustomer extends Model {
 	/**
 	 * Get Address
 	 *
-	 * @param int $address_id
+	 * @param int $address_id primary key of the address record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> address record that has address ID
 	 */
 	public function getAddress(int $address_id): array {
 		$address_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "address` WHERE `address_id` = '" . (int)$address_id . "'");
@@ -270,9 +274,9 @@ class ModelCustomerCustomer extends Model {
 	/**
 	 * Get Addresses
 	 *
-	 * @param int $customer_id
+	 * @param int $customer_id primary key of the customer record
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> address records that have customer ID
 	 */
 	public function getAddresses(int $customer_id): array {
 		$address_data = [];
@@ -295,7 +299,7 @@ class ModelCustomerCustomer extends Model {
 	 *
 	 * @param array<string, mixed> $data
 	 *
-	 * @return int
+	 * @return int total number of address records
 	 */
 	public function getTotalCustomers(array $data = []): int {
 		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer` `c`";
@@ -355,9 +359,9 @@ class ModelCustomerCustomer extends Model {
 	/**
 	 * Get Affiliate
 	 *
-	 * @param int $customer_id
+	 * @param int $customer_id primary key of the customer record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> affiliate record that has customer ID
 	 */
 	public function getAffiliate(int $customer_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_affiliate` WHERE `customer_id` = '" . (int)$customer_id . "'");
@@ -368,9 +372,9 @@ class ModelCustomerCustomer extends Model {
 	/**
 	 * Get Affiliates
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> affiliate records
 	 */
 	public function getAffiliates(array $data = []): array {
 		$sql = "SELECT DISTINCT *, CONCAT(`c`.`firstname`, ' ', `c`.`lastname`) AS `name` FROM `" . DB_PREFIX . "customer_affiliate` `ca` LEFT JOIN `" . DB_PREFIX . "customer` `c` ON (`ca`.`customer_id` = `c`.`customer_id`)";
@@ -405,9 +409,9 @@ class ModelCustomerCustomer extends Model {
 	/**
 	 * Get Total Affiliates
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return int
+	 * @return int total number of affiliate records
 	 */
 	public function getTotalAffiliates($data = []): int {
 		$sql = "SELECT DISTINCT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer_affiliate` `ca` LEFT JOIN `" . DB_PREFIX . "customer` `c` ON (`ca`.`customer_id` = `c`.`customer_id`)";
@@ -430,9 +434,9 @@ class ModelCustomerCustomer extends Model {
 	/**
 	 * Get Total Addresses By Customer Id
 	 *
-	 * @param int $customer_id
+	 * @param int $customer_id primary key of the customer record
 	 *
-	 * @return int
+	 * @return int total number of address records that have customer ID
 	 */
 	public function getTotalAddressesByCustomerId(int $customer_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "address` WHERE `customer_id` = '" . (int)$customer_id . "'");
@@ -443,9 +447,9 @@ class ModelCustomerCustomer extends Model {
 	/**
 	 * Get Total Addresses By Country Id
 	 *
-	 * @param int $country_id
+	 * @param int $country_id primary key of the country record
 	 *
-	 * @return int
+	 * @return int total number of address records that have country ID
 	 */
 	public function getTotalAddressesByCountryId(int $country_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "address` WHERE `country_id` = '" . (int)$country_id . "'");
@@ -456,9 +460,9 @@ class ModelCustomerCustomer extends Model {
 	/**
 	 * Get Total Addresses By Zone Id
 	 *
-	 * @param int $zone_id
+	 * @param int $zone_id primary key of the zone record
 	 *
-	 * @return int
+	 * @return int total number of address records that have zone ID
 	 */
 	public function getTotalAddressesByZoneId(int $zone_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "address` WHERE `zone_id` = '" . (int)$zone_id . "'");
@@ -469,9 +473,9 @@ class ModelCustomerCustomer extends Model {
 	/**
 	 * Get Total Customers By Customer Group Id
 	 *
-	 * @param int $customer_group_id
+	 * @param int $customer_group_id primary key of the customer group record
 	 *
-	 * @return int
+	 * @return int total number of customer group records that have customer group ID
 	 */
 	public function getTotalCustomersByCustomerGroupId(int $customer_group_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer` WHERE `customer_group_id` = '" . (int)$customer_group_id . "'");
@@ -482,7 +486,7 @@ class ModelCustomerCustomer extends Model {
 	/**
 	 * Add History
 	 *
-	 * @param int    $customer_id
+	 * @param int    $customer_id primary key of the customer record
 	 * @param string $comment
 	 *
 	 * @return void
@@ -494,7 +498,7 @@ class ModelCustomerCustomer extends Model {
 	/**
 	 * Get Histories
 	 *
-	 * @param int $customer_id
+	 * @param int $customer_id primary key of the customer record
 	 * @param int $start
 	 * @param int $limit
 	 *
@@ -517,7 +521,7 @@ class ModelCustomerCustomer extends Model {
 	/**
 	 * Get Total Histories
 	 *
-	 * @param int $customer_id
+	 * @param int $customer_id primary key of the customer record
 	 *
 	 * @return int
 	 */
@@ -530,10 +534,10 @@ class ModelCustomerCustomer extends Model {
 	/**
 	 * Add Transaction
 	 *
-	 * @param int    $customer_id
+	 * @param int    $customer_id primary key of the customer record
 	 * @param string $description
 	 * @param float  $amount
-	 * @param int    $order_id
+	 * @param int    $order_id    primary key of the order record
 	 *
 	 * @return void
 	 */
@@ -544,7 +548,7 @@ class ModelCustomerCustomer extends Model {
 	/**
 	 * Delete Transaction By Order Id
 	 *
-	 * @param int $order_id
+	 * @param int $order_id primary key of the order record
 	 *
 	 * @return void
 	 */
@@ -555,11 +559,11 @@ class ModelCustomerCustomer extends Model {
 	/**
 	 * Get Transactions
 	 *
-	 * @param int $customer_id
+	 * @param int $customer_id primary key of the customer record
 	 * @param int $start
 	 * @param int $limit
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> transaction records that have customer ID
 	 */
 	public function getTransactions(int $customer_id, int $start = 0, int $limit = 10): array {
 		if ($start < 0) {
@@ -578,9 +582,9 @@ class ModelCustomerCustomer extends Model {
 	/**
 	 * Get Total Transactions
 	 *
-	 * @param int $customer_id
+	 * @param int $customer_id primary key of the customer record
 	 *
-	 * @return int
+	 * @return int total number of transaction records that have customer ID
 	 */
 	public function getTotalTransactions(int $customer_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer_transaction` WHERE `customer_id` = '" . (int)$customer_id . "'");
@@ -591,7 +595,7 @@ class ModelCustomerCustomer extends Model {
 	/**
 	 * Get Transaction Total
 	 *
-	 * @param int $customer_id
+	 * @param int $customer_id primary key of the customer record
 	 *
 	 * @return float
 	 */
@@ -604,9 +608,9 @@ class ModelCustomerCustomer extends Model {
 	/**
 	 * Get Total Transactions By Order Id
 	 *
-	 * @param int $order_id
+	 * @param int $order_id primary key of the order record
 	 *
-	 * @return int
+	 * @return int total number of transaction records that have order ID
 	 */
 	public function getTotalTransactionsByOrderId(int $order_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer_transaction` WHERE `order_id` = '" . (int)$order_id . "'");
@@ -617,10 +621,10 @@ class ModelCustomerCustomer extends Model {
 	/**
 	 * Add Reward
 	 *
-	 * @param int    $customer_id
+	 * @param int    $customer_id primary key of the customer record
 	 * @param string $description
 	 * @param int    $points
-	 * @param int    $order_id
+	 * @param int    $order_id    primary key of the order record
 	 *
 	 * @return void
 	 */
@@ -631,7 +635,7 @@ class ModelCustomerCustomer extends Model {
 	/**
 	 * Delete Reward
 	 *
-	 * @param int $order_id
+	 * @param int $order_id primary key of the order record
 	 *
 	 * @return void
 	 */
@@ -642,11 +646,11 @@ class ModelCustomerCustomer extends Model {
 	/**
 	 * Get Rewards
 	 *
-	 * @param int $customer_id
+	 * @param int $customer_id primary key of the customer record
 	 * @param int $start
 	 * @param int $limit
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> reward records that have customer ID
 	 */
 	public function getRewards(int $customer_id, int $start = 0, int $limit = 10): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_reward` WHERE `customer_id` = '" . (int)$customer_id . "' ORDER BY `date_added` DESC LIMIT " . (int)$start . "," . (int)$limit);
@@ -657,9 +661,9 @@ class ModelCustomerCustomer extends Model {
 	/**
 	 * Get Total Rewards
 	 *
-	 * @param int $customer_id
+	 * @param int $customer_id primary key of the customer record
 	 *
-	 * @return int
+	 * @return int total number of reward records that have customer ID
 	 */
 	public function getTotalRewards(int $customer_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer_reward` WHERE `customer_id` = '" . (int)$customer_id . "'");
@@ -670,7 +674,7 @@ class ModelCustomerCustomer extends Model {
 	/**
 	 * Get Reward Total
 	 *
-	 * @param int $customer_id
+	 * @param int $customer_id primary key of the customer record
 	 *
 	 * @return int
 	 */
@@ -687,9 +691,9 @@ class ModelCustomerCustomer extends Model {
 	/**
 	 * Get Total Customer Rewards By Order Id
 	 *
-	 * @param int $order_id
+	 * @param int $order_id primary key of the order record
 	 *
-	 * @return int
+	 * @return int total number of customer reward records that have order ID
 	 */
 	public function getTotalCustomerRewardsByOrderId(int $order_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer_reward` WHERE `order_id` = '" . (int)$order_id . "' AND `points` > '0'");
@@ -700,11 +704,11 @@ class ModelCustomerCustomer extends Model {
 	/**
 	 * Get Ips
 	 *
-	 * @param int $customer_id
+	 * @param int $customer_id primary key of the customer record
 	 * @param int $start
 	 * @param int $limit
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> ip records that have customer ID
 	 */
 	public function getIps(int $customer_id, int $start = 0, int $limit = 10): array {
 		if ($start < 0) {
@@ -723,9 +727,9 @@ class ModelCustomerCustomer extends Model {
 	/**
 	 * Get Total Ips
 	 *
-	 * @param int $customer_id
+	 * @param int $customer_id primary key of the customer record
 	 *
-	 * @return int
+	 * @return int total number of ip records that have customer ID
 	 */
 	public function getTotalIps(int $customer_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer_ip` WHERE `customer_id` = '" . (int)$customer_id . "'");

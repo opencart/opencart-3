@@ -2,15 +2,19 @@
 /**
  * Class Store
  *
+ * @example $store_model = $this->model_setting_store;
+ *
+ * Can be called from $this->load->model('setting/store');
+ *
  * @package Admin\Model\Setting
  */
 class ModelSettingStore extends Model {
 	/**
 	 * Add Store
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of data
 	 *
-	 * @return int
+	 * @return int returns the primary key of the new store record
 	 */
 	public function addStore(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "store` SET `name` = '" . $this->db->escape($data['config_name']) . "', `url` = '" . $this->db->escape($data['config_url']) . "', `ssl` = '" . $this->db->escape($data['config_ssl']) . "'");
@@ -33,7 +37,7 @@ class ModelSettingStore extends Model {
 	 * Edit Store
 	 *
 	 * @param int                  $store_id
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data     array of data
 	 *
 	 * @return void
 	 */
@@ -51,8 +55,6 @@ class ModelSettingStore extends Model {
 	 * @return void
 	 */
 	public function deleteStore(int $store_id): void {
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "store` WHERE `store_id` = '" . (int)$store_id . "'");
-
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "category_to_layout` WHERE `store_id` = '" . (int)$store_id . "'");
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "category_to_store` WHERE `store_id` = '" . (int)$store_id . "'");
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "customer` WHERE `store_id` = '" . (int)$store_id . "'");
@@ -70,6 +72,7 @@ class ModelSettingStore extends Model {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "product_to_store` WHERE `store_id` = '" . (int)$store_id . "'");
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "seo_url` WHERE `store_id` = '" . (int)$store_id . "'");
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "setting` WHERE `store_id` = '" . (int)$store_id . "'");
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "store` WHERE `store_id` = '" . (int)$store_id . "'");
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "subscription` WHERE `store_id` = '" . (int)$store_id . "'");
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "theme` WHERE `store_id` = '" . (int)$store_id . "'");
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "translation` WHERE `store_id` = '" . (int)$store_id . "'");
@@ -82,7 +85,7 @@ class ModelSettingStore extends Model {
 	 *
 	 * @param int $store_id
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> store record that has store ID
 	 */
 	public function getStore(int $store_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "store` WHERE `store_id` = '" . (int)$store_id . "'");
@@ -93,9 +96,9 @@ class ModelSettingStore extends Model {
 	/**
 	 * Get Stores
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> store records
 	 */
 	public function getStores(array $data = []): array {
 		$store_data = $this->cache->get('store');
@@ -114,7 +117,7 @@ class ModelSettingStore extends Model {
 	/**
 	 * Get Total Stores
 	 *
-	 * @return int
+	 * @return int total number of store records
 	 */
 	public function getTotalStores(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "store`");
@@ -125,7 +128,7 @@ class ModelSettingStore extends Model {
 	/**
 	 * Get Total Stores By Layout ID
 	 *
-	 * @param int $layout_id
+	 * @param int $layout_id total number of store records that have layout ID
 	 *
 	 * @return int
 	 */
@@ -164,9 +167,9 @@ class ModelSettingStore extends Model {
 	/**
 	 * Get Total Stores By Country ID
 	 *
-	 * @param int $country_id
+	 * @param int $country_id primary key of the country record
 	 *
-	 * @return int
+	 * @return int total number of store records that have country ID
 	 */
 	public function getTotalStoresByCountryId(int $country_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "setting` WHERE `key` = 'config_country_id' AND `value` = '" . (int)$country_id . "' AND `store_id` != '0'");
@@ -177,9 +180,9 @@ class ModelSettingStore extends Model {
 	/**
 	 * Get Total Stores By Zone ID
 	 *
-	 * @param int $zone_id
+	 * @param int $zone_id primary key of the zone record
 	 *
-	 * @return int
+	 * @return int total number of store records that have zone ID
 	 */
 	public function getTotalStoresByZoneId(int $zone_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "setting` WHERE `key` = 'config_zone_id' AND `value` = '" . (int)$zone_id . "' AND `store_id` != '0'");
@@ -190,9 +193,9 @@ class ModelSettingStore extends Model {
 	/**
 	 * Get Total Stores By Customer Group ID
 	 *
-	 * @param int $customer_group_id
+	 * @param int $customer_group_id primary key of the customer group record
 	 *
-	 * @return int
+	 * @return int total number of store records that have customer group ID
 	 */
 	public function getTotalStoresByCustomerGroupId(int $customer_group_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "setting` WHERE `key` = 'config_customer_group_id' AND `value` = '" . (int)$customer_group_id . "' AND `store_id` != '0'");
@@ -203,9 +206,9 @@ class ModelSettingStore extends Model {
 	/**
 	 * Get Total Stores By Information ID
 	 *
-	 * @param int $information_id
+	 * @param int $information_id primary key of the information record
 	 *
-	 * @return int
+	 * @return int total number of store records that have information ID
 	 */
 	public function getTotalStoresByInformationId(int $information_id): int {
 		$account_query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "setting` WHERE `key` = 'config_account_id' AND `value` = '" . (int)$information_id . "' AND `store_id` != '0'");
@@ -217,9 +220,9 @@ class ModelSettingStore extends Model {
 	/**
 	 * Get Total Stores By Order Status ID
 	 *
-	 * @param int $order_status_id
+	 * @param int $order_status_id primary key of the order status record
 	 *
-	 * @return int
+	 * @return int total number of store records that have order status ID
 	 */
 	public function getTotalStoresByOrderStatusId(int $order_status_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "setting` WHERE `key` = 'config_order_status_id' AND `value` = '" . (int)$order_status_id . "' AND `store_id` != '0'");

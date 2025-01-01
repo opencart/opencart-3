@@ -2,15 +2,19 @@
 /**
  * Class Zone
  *
+ * @example $zone_model = $this->model_localisation_zone;
+ *
+ * Can be called from $this->load->model('localisation/zone');
+ *
  * @package Admin\Model\Localisation
  */
 class ModelLocalisationZone extends Model {
 	/**
 	 * Add Zone
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of data
 	 *
-	 * @return int
+	 * @return int returns the primary key of the new zone record
 	 */
 	public function addZone(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "zone` SET `status` = '" . (int)$data['status'] . "', `name` = '" . $this->db->escape($data['name']) . "', `code` = '" . $this->db->escape($data['code']) . "', `country_id` = '" . (int)$data['country_id'] . "'");
@@ -23,8 +27,8 @@ class ModelLocalisationZone extends Model {
 	/**
 	 * Edit Zone
 	 *
-	 * @param int                  $zone_id
-	 * @param array<string, mixed> $data
+	 * @param int                  $zone_id primary key of the zone record
+	 * @param array<string, mixed> $data    array of data
 	 *
 	 * @return void
 	 */
@@ -37,7 +41,7 @@ class ModelLocalisationZone extends Model {
 	/**
 	 * Delete Zone
 	 *
-	 * @param int $zone_id
+	 * @param int $zone_id primary key of the zone record
 	 *
 	 * @return void
 	 */
@@ -50,9 +54,9 @@ class ModelLocalisationZone extends Model {
 	/**
 	 * Get Zone
 	 *
-	 * @param int $zone_id
+	 * @param int $zone_id primary key of the zone record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> zone record that has zone ID
 	 */
 	public function getZone(int $zone_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "zone` WHERE `zone_id` = '" . (int)$zone_id . "'");
@@ -63,9 +67,9 @@ class ModelLocalisationZone extends Model {
 	/**
 	 * Get Zones
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> zone records
 	 */
 	public function getZones(array $data = []): array {
 		$sql = "SELECT *, `z`.`name`, `c`.`name` AS `country` FROM `" . DB_PREFIX . "zone` `z` LEFT JOIN `" . DB_PREFIX . "country` `c` ON (`z`.`country_id` = `c`.`country_id`)";
@@ -108,9 +112,9 @@ class ModelLocalisationZone extends Model {
 	/**
 	 * Get Zones By Country ID
 	 *
-	 * @param int $country_id
+	 * @param int $country_id primary key of the country record
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> zone records that have country ID
 	 */
 	public function getZonesByCountryId(int $country_id): array {
 		$zone_data = $this->cache->get('zone.' . (int)$country_id);
@@ -129,7 +133,7 @@ class ModelLocalisationZone extends Model {
 	/**
 	 * Get Total Zones
 	 *
-	 * @return int
+	 * @return int total number of zone records
 	 */
 	public function getTotalZones(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "zone`");
@@ -140,9 +144,9 @@ class ModelLocalisationZone extends Model {
 	/**
 	 * Get Total Zones By Country ID
 	 *
-	 * @param int $country_id
+	 * @param int $country_id primary key of the country record
 	 *
-	 * @return int
+	 * @return int total number of zone records that have country ID
 	 */
 	public function getTotalZonesByCountryId(int $country_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "zone` WHERE `country_id` = '" . (int)$country_id . "'");

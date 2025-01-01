@@ -2,6 +2,10 @@
 /**
  * Class Setting
  *
+ * @example $setting_model = $this->model_setting_setting;
+ *
+ * Can be called from $this->load->model('setting/setting');
+ *
  * @package Admin\Model\Setting
  */
 class ModelSettingSetting extends Model {
@@ -10,7 +14,7 @@ class ModelSettingSetting extends Model {
 	 *
 	 * @param int $store_id
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> setting records that have store ID
 	 */
 	public function getSettings(int $store_id = 0): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `store_id` = '" . (int)$store_id . "' OR `store_id` = '0' ORDER BY `store_id` ASC");

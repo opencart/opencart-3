@@ -2,15 +2,19 @@
 /**
  * Class Option
  *
+ * @example $option_model = $this->model_catalog_option;
+ *
+ * Can be called from $this->load->model('catalog/option');
+ *
  * @package Admin\Model\Catalog
  */
 class ModelCatalogOption extends Model {
 	/**
 	 * Add Option
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of data
 	 *
-	 * @return int
+	 * @return int returns the primary key of the new option record
 	 */
 	public function addOption(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "option` SET `type` = '" . $this->db->escape($data['type']) . "', `sort_order` = '" . (int)$data['sort_order'] . "'");
@@ -39,8 +43,8 @@ class ModelCatalogOption extends Model {
 	/**
 	 * Edit Option
 	 *
-	 * @param int                  $option_id
-	 * @param array<string, mixed> $data
+	 * @param int                  $option_id primary key of the option record
+	 * @param array<string, mixed> $data      array of data
 	 *
 	 * @return void
 	 */
@@ -76,7 +80,7 @@ class ModelCatalogOption extends Model {
 	/**
 	 * Delete Option
 	 *
-	 * @param int $option_id
+	 * @param int $option_id primary key of the option record
 	 *
 	 * @return void
 	 */
@@ -90,9 +94,9 @@ class ModelCatalogOption extends Model {
 	/**
 	 * Get Option
 	 *
-	 * @param int $option_id
+	 * @param int $option_id primary key of the option record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> option record that has option ID
 	 */
 	public function getOption(int $option_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "option` `o` LEFT JOIN `" . DB_PREFIX . "option_description` `od` ON (`o`.`option_id` = `od`.`option_id`) WHERE `o`.`option_id` = '" . (int)$option_id . "' AND `od`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -103,9 +107,9 @@ class ModelCatalogOption extends Model {
 	/**
 	 * Get Options
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> option records
 	 */
 	public function getOptions(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "option` `o` LEFT JOIN `" . DB_PREFIX . "option_description` `od` ON (`o`.`option_id` = `od`.`option_id`) WHERE `od`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
@@ -152,9 +156,9 @@ class ModelCatalogOption extends Model {
 	/**
 	 * Get Descriptions
 	 *
-	 * @param int $option_id
+	 * @param int $option_id primary key of the option record
 	 *
-	 * @return array<int, array<string, string>>
+	 * @return array<int, array<string, string>> description records that have option ID
 	 */
 	public function getDescriptions(int $option_id): array {
 		$option_data = [];
@@ -171,9 +175,9 @@ class ModelCatalogOption extends Model {
 	/**
 	 * Get Value
 	 *
-	 * @param int $option_value_id
+	 * @param int $option_value_id primary key of the option value record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> value record that has option value ID
 	 */
 	public function getValue(int $option_value_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "option_value` `ov` LEFT JOIN `" . DB_PREFIX . "option_value_description` `ovd` ON (`ov`.`option_value_id` = `ovd`.`option_value_id`) WHERE `ov`.`option_value_id` = '" . (int)$option_value_id . "' AND `ovd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -184,9 +188,9 @@ class ModelCatalogOption extends Model {
 	/**
 	 * Get Values
 	 *
-	 * @param int $option_id
+	 * @param int $option_id primary key of the option record
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> value records that have option ID
 	 */
 	public function getValues(int $option_id): array {
 		$option_value_data = [];
@@ -208,9 +212,9 @@ class ModelCatalogOption extends Model {
 	/**
 	 * Get Value Descriptions
 	 *
-	 * @param int $option_id
+	 * @param int $option_id primary key of the option record
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> value description records that have option ID
 	 */
 	public function getValueDescriptions(int $option_id): array {
 		$option_value_data = [];
@@ -240,7 +244,7 @@ class ModelCatalogOption extends Model {
 	/**
 	 * Get Total Options
 	 *
-	 * @return int
+	 * @return int total number of option records
 	 */
 	public function getTotalOptions(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "option`");

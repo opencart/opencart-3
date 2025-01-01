@@ -2,15 +2,19 @@
 /**
  * Class Language
  *
+ * @example $language_model = $this->model_localisation_language;
+ *
+ * Can be called from $this->load->model('localisation/language');
+ *
  * @package Admin\Model\Localisation
  */
 class ModelLocalisationLanguage extends Model {
 	/**
 	 * Add Language
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of data
 	 *
-	 * @return int
+	 * @return int returns the primary key of the new language record
 	 */
 	public function addLanguage(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "language` SET `name` = '" . $this->db->escape($data['name']) . "', `code` = '" . $this->db->escape($data['code']) . "', `locale` = '" . $this->db->escape($data['locale']) . "', `sort_order` = '" . (int)$data['sort_order'] . "', `status` = '" . (int)$data['status'] . "'");
@@ -207,8 +211,8 @@ class ModelLocalisationLanguage extends Model {
 	/**
 	 * Edit Language
 	 *
-	 * @param int                  $language_id
-	 * @param array<string, mixed> $data
+	 * @param int                  $language_id primary key of the language record
+	 * @param array<string, mixed> $data        array of data
 	 *
 	 * @return void
 	 */
@@ -229,7 +233,7 @@ class ModelLocalisationLanguage extends Model {
 	/**
 	 * Delete Language
 	 *
-	 * @param int $language_id
+	 * @param int $language_id primary key of the language record
 	 *
 	 * @return void
 	 */
@@ -244,9 +248,9 @@ class ModelLocalisationLanguage extends Model {
 	/**
 	 * Get Language
 	 *
-	 * @param int $language_id
+	 * @param int $language_id primary key of the language record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> language record that has language ID
 	 */
 	public function getLanguage(int $language_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "language` WHERE `language_id` = '" . (int)$language_id . "'");
@@ -257,9 +261,9 @@ class ModelLocalisationLanguage extends Model {
 	/**
 	 * Get Languages
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<string, array<string, mixed>>
+	 * @return array<string, array<string, mixed>> language records
 	 */
 	public function getLanguages(array $data = []): array {
 		if ($data) {
@@ -342,7 +346,7 @@ class ModelLocalisationLanguage extends Model {
 	/**
 	 * Get Total Languages
 	 *
-	 * @return int
+	 * @return int total number of language records
 	 */
 	public function getTotalLanguages(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "language`");

@@ -2,15 +2,19 @@
 /**
  * Class Returns
  *
+ * @example $returns_model = $this->model_sale_returns;
+ *
+ * Can be called from $this->load->model('sale/returns');
+ *
  * @package Admin\Model\Sale
  */
 class ModelSaleReturns extends Model {
 	/**
 	 * Add Return
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of data
 	 *
-	 * @return int
+	 * @return int returns the primary key of the new return record
 	 */
 	public function addReturn(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "return` SET `order_id` = '" . (int)$data['order_id'] . "', `product_id` = '" . (int)$data['product_id'] . "', `customer_id` = '" . (int)$data['customer_id'] . "', `firstname` = '" . $this->db->escape($data['firstname']) . "', `lastname` = '" . $this->db->escape($data['lastname']) . "', `email` = '" . $this->db->escape($data['email']) . "', `telephone` = '" . $this->db->escape($data['telephone']) . "', `product` = '" . $this->db->escape($data['product']) . "', `model` = '" . $this->db->escape($data['model']) . "', `quantity` = '" . (int)$data['quantity'] . "', `opened` = '" . (int)$data['opened'] . "', `return_reason_id` = '" . (int)$data['return_reason_id'] . "', `return_action_id` = '" . (int)$data['return_action_id'] . "', `return_status_id` = '" . (int)$data['return_status_id'] . "', `comment` = '" . $this->db->escape($data['comment']) . "', `date_ordered` = '" . $this->db->escape($data['date_ordered']) . "', `date_added` = NOW(), `date_modified` = NOW()");
@@ -21,8 +25,8 @@ class ModelSaleReturns extends Model {
 	/**
 	 * Edit Return
 	 *
-	 * @param int                  $return_id
-	 * @param array<string, mixed> $data
+	 * @param int                  $return_id primary key of the return record
+	 * @param array<string, mixed> $data      array of data
 	 *
 	 * @return void
 	 */
@@ -33,7 +37,7 @@ class ModelSaleReturns extends Model {
 	/**
 	 * Delete Return
 	 *
-	 * @param int $return_id
+	 * @param int $return_id primary key of the return record
 	 *
 	 * @return void
 	 */
@@ -45,9 +49,9 @@ class ModelSaleReturns extends Model {
 	/**
 	 * Get Return
 	 *
-	 * @param int $return_id
+	 * @param int $return_id primary key of the return record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> return record that has return ID
 	 */
 	public function getReturn(int $return_id): array {
 		$query = $this->db->query("SELECT DISTINCT *, (SELECT CONCAT(`c`.`firstname`, ' ', `c`.`lastname`) FROM `" . DB_PREFIX . "customer` `c` WHERE `c`.`customer_id` = `r`.`customer_id`) AS `customer`, (SELECT `rs`.`name` FROM `" . DB_PREFIX . "return_status` `rs` WHERE `rs`.`return_status_id` = `r`.`return_status_id` AND `rs`.`language_id` = '" . (int)$this->config->get('config_language_id') . "') AS `return_status` FROM `" . DB_PREFIX . "return` `r` WHERE `r`.`return_id` = '" . (int)$return_id . "'");
@@ -58,9 +62,9 @@ class ModelSaleReturns extends Model {
 	/**
 	 * Get Returns
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> return records
 	 */
 	public function getReturns(array $data = []): array {
 		$sql = "SELECT *, CONCAT(`r`.`firstname`, ' ', `r`.`lastname`) AS `customer`, (SELECT `rs`.`name` FROM `" . DB_PREFIX . "return_status` `rs` WHERE `rs`.`return_status_id` = `r`.`return_status_id` AND `rs`.`language_id` = '" . (int)$this->config->get('config_language_id') . "') AS `return_status` FROM `" . DB_PREFIX . "return` `r`";
@@ -146,9 +150,9 @@ class ModelSaleReturns extends Model {
 	/**
 	 * Get Total Returns
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return int
+	 * @return int total number of return records
 	 */
 	public function getTotalReturns(array $data = []): int {
 		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "return` r";
@@ -199,9 +203,9 @@ class ModelSaleReturns extends Model {
 	/**
 	 * Get Total Returns By Return Status ID
 	 *
-	 * @param int $return_status_id
+	 * @param int $return_status_id primary key of the return status record
 	 *
-	 * @return int
+	 * @return int total number of return status records that have return status ID
 	 */
 	public function getTotalReturnsByReturnStatusId(int $return_status_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "return` WHERE `return_status_id` = '" . (int)$return_status_id . "'");
@@ -212,9 +216,9 @@ class ModelSaleReturns extends Model {
 	/**
 	 * Get Total Returns By Return Reason ID
 	 *
-	 * @param int $return_reason_id
+	 * @param int $return_reason_id primary key of the return reason record
 	 *
-	 * @return int
+	 * @return int total number of return reason records that have return reason ID
 	 */
 	public function getTotalReturnsByReturnReasonId(int $return_reason_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "return` WHERE `return_reason_id` = '" . (int)$return_reason_id . "'");
@@ -225,9 +229,9 @@ class ModelSaleReturns extends Model {
 	/**
 	 * Get Total Returns By Return Action ID
 	 *
-	 * @param int $return_action_id
+	 * @param int $return_action_id primary key of the return reason record
 	 *
-	 * @return int
+	 * @return int total number of return action records that have return action ID
 	 */
 	public function getTotalReturnsByReturnActionId(int $return_action_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "return` WHERE `return_action_id` = '" . (int)$return_action_id . "'");
@@ -238,8 +242,8 @@ class ModelSaleReturns extends Model {
 	/**
 	 * Add History
 	 *
-	 * @param int    $return_id
-	 * @param int    $return_status_id
+	 * @param int    $return_id        primary key of the return record
+	 * @param int    $return_status_id primary key of the return status record
 	 * @param string $comment
 	 * @param bool   $notify
 	 *
@@ -254,11 +258,11 @@ class ModelSaleReturns extends Model {
 	/**
 	 * Get Histories
 	 *
-	 * @param int $return_id
+	 * @param int $return_id primary key of the return record
 	 * @param int $start
 	 * @param int $limit
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> history records that have return ID
 	 */
 	public function getHistories(int $return_id, int $start = 0, int $limit = 10): array {
 		if ($start < 0) {
@@ -277,9 +281,9 @@ class ModelSaleReturns extends Model {
 	/**
 	 * Get Total Histories
 	 *
-	 * @param int $return_id
+	 * @param int $return_id primary key of the return record
 	 *
-	 * @return int
+	 * @return int total number of history records that have return ID
 	 */
 	public function getTotalHistories(int $return_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "return_history` WHERE `return_id` = '" . (int)$return_id . "'");
@@ -290,9 +294,9 @@ class ModelSaleReturns extends Model {
 	/**
 	 * Get Total Histories By Return Status ID
 	 *
-	 * @param int $return_status_id
+	 * @param int $return_status_id primary key of the return status record
 	 *
-	 * @return int
+	 * @return int total number of history records that have return status ID
 	 */
 	public function getTotalReturnHistoriesByReturnStatusId(int $return_status_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "return_history` WHERE `return_status_id` = '" . (int)$return_status_id . "'");

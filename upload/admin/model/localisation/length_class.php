@@ -2,15 +2,19 @@
 /**
  * Class Length Class
  *
+ * @example $length_class_model = $this->model_localisation_length_class;
+ *
+ * Can be called from $this->load->model('localisation/length_class');
+ *
  * @package Admin\Model\Localisation
  */
 class ModelLocalisationLengthClass extends Model {
 	/**
 	 * Add Length Class
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of data
 	 *
-	 * @return int
+	 * @return int returns the primary key of the new length class record
 	 */
 	public function addLengthClass(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "length_class` SET `value` = '" . (float)$data['value'] . "'");
@@ -29,8 +33,8 @@ class ModelLocalisationLengthClass extends Model {
 	/**
 	 * Edit Length Class
 	 *
-	 * @param int                  $length_class_id
-	 * @param array<string, mixed> $data
+	 * @param int                  $length_class_id primary key of the length class record
+	 * @param array<string, mixed> $data            array of data
 	 *
 	 * @return void
 	 */
@@ -49,7 +53,7 @@ class ModelLocalisationLengthClass extends Model {
 	/**
 	 * Delete Length Class
 	 *
-	 * @param int $length_class_id
+	 * @param int $length_class_id primary key of the length class record
 	 *
 	 * @return void
 	 */
@@ -63,9 +67,9 @@ class ModelLocalisationLengthClass extends Model {
 	/**
 	 * Get Length Classes
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> length class records
 	 */
 	public function getLengthClasses(array $data = []): array {
 		if ($data) {
@@ -122,9 +126,9 @@ class ModelLocalisationLengthClass extends Model {
 	/**
 	 * Get Length Class
 	 *
-	 * @param int $length_class_id
+	 * @param int $length_class_id primary key of the length class record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> length class record that has length class ID
 	 */
 	public function getLengthClass(int $length_class_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "length_class` `lc` LEFT JOIN `" . DB_PREFIX . "length_class_description` `lcd` ON (`lc`.`length_class_id` = `lcd`.`length_class_id`) WHERE `lc`.`length_class_id` = '" . (int)$length_class_id . "' AND `lcd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -148,9 +152,9 @@ class ModelLocalisationLengthClass extends Model {
 	/**
 	 * Get Descriptions
 	 *
-	 * @param int $length_class_id
+	 * @param int $length_class_id primary key of the length class record
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> description records that have length class ID
 	 */
 	public function getDescriptions(int $length_class_id): array {
 		$length_class_data = [];
@@ -170,7 +174,7 @@ class ModelLocalisationLengthClass extends Model {
 	/**
 	 * Get Total Length Classes
 	 *
-	 * @return int
+	 * @return int total number of length class records
 	 */
 	public function getTotalLengthClasses(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "length_class`");

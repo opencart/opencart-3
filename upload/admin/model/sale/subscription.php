@@ -2,14 +2,18 @@
 /**
  * Class Subscription
  *
+ * @example $subscription_model = $this->model_sale_subscription;
+ *
+ * Can be called from $this->load->model('sale/subscription');
+ *
  * @package Admin\Model\Sale
  */
 class ModelSaleSubscription extends Model {
 	/**
 	 * Edit Subscription
 	 *
-	 * @param int                  $subscription_id
-	 * @param array<string, mixed> $data
+	 * @param int                  $subscription_id primary key of the subscription record
+	 * @param array<string, mixed> $data            array of data
 	 *
 	 * @return void
 	 */
@@ -20,8 +24,8 @@ class ModelSaleSubscription extends Model {
 	/**
 	 * Edit Payment Method
 	 *
-	 * @param int $subscription_id
-	 * @param int $customer_payment_id
+	 * @param int $subscription_id     primary key of the subscription record
+	 * @param int $customer_payment_id primary key of the customer payment record
 	 *
 	 * @return void
 	 */
@@ -32,8 +36,8 @@ class ModelSaleSubscription extends Model {
 	/**
 	 * Edit Subscription Plan
 	 *
-	 * @param int $subscription_id
-	 * @param int $subscription_plan_id
+	 * @param int $subscription_id      primary key of the subscription record
+	 * @param int $subscription_plan_id primary key of the subscription plan record
 	 *
 	 * @return void
 	 */
@@ -44,7 +48,7 @@ class ModelSaleSubscription extends Model {
 	/**
 	 * Edit Remaining
 	 *
-	 * @param int $subscription_id
+	 * @param int $subscription_id primary key of the subscription record
 	 * @param int $remaining
 	 *
 	 * @return void
@@ -56,7 +60,7 @@ class ModelSaleSubscription extends Model {
 	/**
 	 * Edit Trial Remaining
 	 *
-	 * @param int $subscription_id
+	 * @param int $subscription_id primary key of the subscription record
 	 * @param int $trial_remaining
 	 *
 	 * @return void
@@ -68,7 +72,7 @@ class ModelSaleSubscription extends Model {
 	/**
 	 * Edit Date Next
 	 *
-	 * @param int    $subscription_id
+	 * @param int    $subscription_id primary key of the subscription record
 	 * @param string $date_next
 	 *
 	 * @return void
@@ -80,7 +84,7 @@ class ModelSaleSubscription extends Model {
 	/**
 	 * Delete Subscription By Customer Payment ID
 	 *
-	 * @param int $customer_payment_id
+	 * @param int $customer_payment_id primary key of the customer payment record
 	 *
 	 * @return void
 	 */
@@ -91,9 +95,9 @@ class ModelSaleSubscription extends Model {
 	/**
 	 * Get Subscription
 	 *
-	 * @param int $subscription_id
+	 * @param int $subscription_id primary key of the subscription record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> subscription record that has subscription ID
 	 */
 	public function getSubscription(int $subscription_id): array {
 		$subscription_data = [];
@@ -116,10 +120,10 @@ class ModelSaleSubscription extends Model {
 	/**
 	 * Get Subscription By Order Product ID
 	 *
-	 * @param int $order_id
-	 * @param int $order_product_id
+	 * @param int $order_id         primary key of the order record
+	 * @param int $order_product_id primary key of the order product record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> subscription record that has order ID
 	 */
 	public function getSubscriptionByOrderProductId(int $order_id, int $order_product_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "subscription` WHERE `order_id` = '" . (int)$order_id . "' AND `order_product_id` = '" . (int)$order_product_id . "'");
@@ -138,9 +142,9 @@ class ModelSaleSubscription extends Model {
 	/**
 	 * Get Subscriptions
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> subscription records
 	 */
 	public function getSubscriptions(array $data): array {
 		$sql = "SELECT `s`.`subscription_id`, `s`.*, CONCAT(`o`.`firstname`, ' ', `o`.`lastname`) AS customer, (SELECT `ss`.`name` FROM `" . DB_PREFIX . "subscription_status` `ss` WHERE `ss`.`subscription_status_id` = `s`.`subscription_status_id` AND `ss`.`language_id` = '" . (int)$this->config->get('config_language_id') . "') AS `subscription_status` FROM `" . DB_PREFIX . "subscription` `s` LEFT JOIN `" . DB_PREFIX . "order` `o` ON (`s`.`order_id` = `o`.`order_id`)";
@@ -228,9 +232,9 @@ class ModelSaleSubscription extends Model {
 	/**
 	 * Get Total Subscriptions
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return int
+	 * @return int total number of subscription records
 	 */
 	public function getTotalSubscriptions(array $data = []): int {
 		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "subscription` `s` LEFT JOIN `" . DB_PREFIX . "order` `o` ON (`s`.`order_id` = `o`.`order_id`)";
@@ -279,7 +283,7 @@ class ModelSaleSubscription extends Model {
 	 *
 	 * @param int $store_id
 	 *
-	 * @return int
+	 * @return int total number of subscription records that have store ID
 	 */
 	public function getTotalSubscriptionsByStoreId(int $store_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "subscription` WHERE `store_id` = '" . (int)$store_id . "'");
@@ -290,9 +294,9 @@ class ModelSaleSubscription extends Model {
 	/**
 	 * Get Total Subscriptions By Subscription Status ID
 	 *
-	 * @param int $subscription_status_id
+	 * @param int $subscription_status_id primary key of the subscription status record
 	 *
-	 * @return int
+	 * @return int total number of subscription records that have subscription status ID
 	 */
 	public function getTotalSubscriptionsBySubscriptionStatusId(int $subscription_status_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "subscription` WHERE `subscription_status_id` = '" . (int)$subscription_status_id . "'");
@@ -303,8 +307,8 @@ class ModelSaleSubscription extends Model {
 	/**
 	 * Add History
 	 *
-	 * @param int    $subscription_id
-	 * @param int    $subscription_status_id
+	 * @param int    $subscription_id        primary key of the subscription record
+	 * @param int    $subscription_status_id primary key of the subscription status record
 	 * @param string $comment
 	 * @param bool   $notify
 	 *
@@ -319,11 +323,11 @@ class ModelSaleSubscription extends Model {
 	/**
 	 * Get Histories
 	 *
-	 * @param int $subscription_id
+	 * @param int $subscription_id primary key of the subscription record
 	 * @param int $start
 	 * @param int $limit
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> history records that have subscription ID
 	 */
 	public function getHistories(int $subscription_id, int $start = 0, int $limit = 10): array {
 		if ($start < 0) {
@@ -342,9 +346,9 @@ class ModelSaleSubscription extends Model {
 	/**
 	 * Get Total Histories
 	 *
-	 * @param int $subscription_id
+	 * @param int $subscription_id primary key of the subscription record
 	 *
-	 * @return int
+	 * @return int total number of history records that have subscription ID
 	 */
 	public function getTotalHistories(int $subscription_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "subscription_history` WHERE `subscription_id` = '" . (int)$subscription_id . "'");
@@ -355,9 +359,9 @@ class ModelSaleSubscription extends Model {
 	/**
 	 * Get Total Histories By Subscription Status ID
 	 *
-	 * @param int $subscription_status_id
+	 * @param int $subscription_status_id primary key of the subscription status record
 	 *
-	 * @return int
+	 * @return int total number of subscription status records that have subscription status ID
 	 */
 	public function getTotalHistoriesBySubscriptionStatusId(int $subscription_status_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "subscription_history` WHERE `subscription_status_id` = '" . (int)$subscription_status_id . "'");

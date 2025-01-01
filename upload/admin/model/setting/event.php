@@ -2,6 +2,10 @@
 /**
  * Class Event
  *
+ * @example $event_model = $this->model_setting_event;
+ *
+ * Can be called from $this->load->model('setting/event');
+ *
  * @package Admin\Model\Setting
  */
 class ModelSettingEvent extends Model {
@@ -14,7 +18,7 @@ class ModelSettingEvent extends Model {
 	 * @param int    $status
 	 * @param int    $sort_order
 	 *
-	 * @return int
+	 * @return int returns the primary key of the new event record
 	 */
 	public function addEvent(string $code, string $trigger, string $action, int $status = 1, int $sort_order = 0): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "event` SET `code` = '" . $this->db->escape($code) . "', `trigger` = '" . $this->db->escape($trigger) . "', `action` = '" . $this->db->escape($action) . "', `sort_order` = '" . (int)$sort_order . "', `status` = '" . (int)$status . "'");
@@ -25,7 +29,7 @@ class ModelSettingEvent extends Model {
 	/**
 	 * Delete Event
 	 *
-	 * @param int $event_id
+	 * @param int $event_id primary key of the event record
 	 *
 	 * @return void
 	 */
@@ -47,7 +51,7 @@ class ModelSettingEvent extends Model {
 	/**
 	 * Enable Event
 	 *
-	 * @param int $event_id
+	 * @param int $event_id primary key of the event record
 	 *
 	 * @return void
 	 */
@@ -58,7 +62,7 @@ class ModelSettingEvent extends Model {
 	/**
 	 * Disable Event
 	 *
-	 * @param int $event_id
+	 * @param int $event_id primary key of the event record
 	 *
 	 * @return void
 	 */
@@ -82,9 +86,9 @@ class ModelSettingEvent extends Model {
 	/**
 	 * Get Event
 	 *
-	 * @param int $event_id
+	 * @param int $event_id primary key of the event record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> event record that has event ID
 	 */
 	public function getEvent(int $event_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "event` WHERE `event_id` = '" . (int)$event_id . "' LIMIT 1");
@@ -108,9 +112,9 @@ class ModelSettingEvent extends Model {
 	/**
 	 * Get Events
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> event records
 	 */
 	public function getEvents(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "event`";
@@ -156,7 +160,7 @@ class ModelSettingEvent extends Model {
 	/**
 	 * Get Total Events
 	 *
-	 * @return int
+	 * @return int total number of event records
 	 */
 	public function getTotalEvents(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "event`");

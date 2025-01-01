@@ -2,6 +2,10 @@
 /**
  * Class Backup
  *
+ * @example $backup_model = $this->model_tool_backup;
+ *
+ * Can be called from $this->load->model('tool/backup');
+ *
  * @package Admin\Model\Tool
  */
 class ModelToolBackup extends Model {

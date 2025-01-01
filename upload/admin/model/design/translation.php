@@ -2,13 +2,17 @@
 /**
  * Class Translation
  *
+ * @example $translation_model = $this->model_design_translation;
+ *
+ * Can be called from $this->load->model('design/translation');
+ *
  * @package Admin\Model\Design
  */
 class ModelDesignTranslation extends Model {
 	/**
 	 * Add Translation
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of data
 	 *
 	 * @return void
 	 */
@@ -19,8 +23,8 @@ class ModelDesignTranslation extends Model {
 	/**
 	 * Edit Translation
 	 *
-	 * @param int                  $translation_id
-	 * @param array<string, mixed> $data
+	 * @param int                  $translation_id primary key of the translation record
+	 * @param array<string, mixed> $data           array of data
 	 *
 	 * @return void
 	 */
@@ -31,7 +35,7 @@ class ModelDesignTranslation extends Model {
 	/**
 	 * Delete Translation
 	 *
-	 * @param int $translation_id
+	 * @param int $translation_id primary key of the translation record
 	 *
 	 * @return void
 	 */
@@ -42,9 +46,9 @@ class ModelDesignTranslation extends Model {
 	/**
 	 * Get Translation
 	 *
-	 * @param int $translation_id
+	 * @param int $translation_id primary key of the translation record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> translation record that has translation ID
 	 */
 	public function getTranslation(int $translation_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "translation` WHERE `translation_id` = '" . (int)$translation_id . "'");
@@ -55,9 +59,9 @@ class ModelDesignTranslation extends Model {
 	/**
 	 * Get Translations
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> translation records
 	 */
 	public function getTranslations(array $data = []): array {
 		$sql = "SELECT *, (SELECT `s`.`name` FROM `" . DB_PREFIX . "store` `s` WHERE `s`.`store_id` = `t`.`store_id`) AS `store`, (SELECT `l`.`name` FROM `" . DB_PREFIX . "language` `l` WHERE `l`.`language_id` = `t`.`language_id`) AS `language` FROM `" . DB_PREFIX . "translation` `t`";
@@ -102,7 +106,7 @@ class ModelDesignTranslation extends Model {
 	/**
 	 * Get Total Translations
 	 *
-	 * @return int
+	 * @return int total number of translation records
 	 */
 	public function getTotalTranslations(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "translation`");

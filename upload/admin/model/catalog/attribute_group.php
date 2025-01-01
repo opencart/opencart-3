@@ -2,15 +2,19 @@
 /**
  * Class Attribute Group
  *
+ * @example $attribute_group_model = $this->model_catalog_attribute_group;
+ *
+ * Can be called from $this->load->model('catalog/attribute_group');
+ *
  * @package Admin\Model\Catalog
  */
 class ModelCatalogAttributeGroup extends Model {
 	/**
 	 * Add Attribute Group
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of data
 	 *
-	 * @return int
+	 * @return int returns the primary key of the new attribute group record
 	 */
 	public function addAttributeGroup(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "attribute_group` SET `sort_order` = '" . (int)$data['sort_order'] . "'");
@@ -27,8 +31,8 @@ class ModelCatalogAttributeGroup extends Model {
 	/**
 	 * Edit Attribute Group
 	 *
-	 * @param int                  $attribute_group_id
-	 * @param array<string, mixed> $data
+	 * @param int                  $attribute_group_id primary key of the attribute group record
+	 * @param array<string, mixed> $data               array of data
 	 *
 	 * @return void
 	 */
@@ -45,7 +49,7 @@ class ModelCatalogAttributeGroup extends Model {
 	/**
 	 * Delete Attribute Group
 	 *
-	 * @param int $attribute_group_id
+	 * @param int $attribute_group_id primary key of the attribute group record
 	 *
 	 * @return void
 	 */
@@ -57,9 +61,9 @@ class ModelCatalogAttributeGroup extends Model {
 	/**
 	 * Get Attribute Group
 	 *
-	 * @param int $attribute_group_id
+	 * @param int $attribute_group_id primary key of the attribute group record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> attribute group record that has attribute group ID
 	 */
 	public function getAttributeGroup(int $attribute_group_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "attribute_group` WHERE `attribute_group_id` = '" . (int)$attribute_group_id . "'");
@@ -70,9 +74,9 @@ class ModelCatalogAttributeGroup extends Model {
 	/**
 	 * Get Attribute Groups
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> attribute group records
 	 */
 	public function getAttributeGroups(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "attribute_group` `ag` LEFT JOIN `" . DB_PREFIX . "attribute_group_description` `agd` ON (`ag`.`attribute_group_id` = `agd`.`attribute_group_id`) WHERE `agd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
@@ -114,9 +118,9 @@ class ModelCatalogAttributeGroup extends Model {
 	/**
 	 * Get Descriptions
 	 *
-	 * @param int $attribute_group_id
+	 * @param int $attribute_group_id primary key of the attribute group record
 	 *
-	 * @return array<int, array<string, string>>
+	 * @return array<int, array<string, string>> description records that have attribute group ID
 	 */
 	public function getDescriptions(int $attribute_group_id): array {
 		$attribute_group_data = [];
@@ -133,7 +137,7 @@ class ModelCatalogAttributeGroup extends Model {
 	/**
 	 * Get Total Attribute Groups
 	 *
-	 * @return int
+	 * @return int total number of attribute group records
 	 */
 	public function getTotalAttributeGroups(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "attribute_group`");

@@ -2,13 +2,17 @@
 /**
  * Class Modification
  *
+ * @example $modification_model = $this->model_setting_modification;
+ *
+ * Can be called from $this->load->model('setting/modification');
+ *
  * @package Admin\Model\Setting
  */
 class ModelSettingModification extends Model {
 	/**
 	 * Add Modification
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of data
 	 *
 	 * @return void
 	 */
@@ -19,7 +23,7 @@ class ModelSettingModification extends Model {
 	/**
 	 * Delete Modification
 	 *
-	 * @param int $modification_id
+	 * @param int $modification_id primary key of the modification record
 	 *
 	 * @return void
 	 */
@@ -30,7 +34,7 @@ class ModelSettingModification extends Model {
 	/**
 	 * Delete Modification By Extension Install ID
 	 *
-	 * @param int $extension_install_id
+	 * @param int $extension_install_id primary key of the extension install record
 	 *
 	 * @return void
 	 */
@@ -41,7 +45,7 @@ class ModelSettingModification extends Model {
 	/**
 	 * Enable Modification
 	 *
-	 * @param int $modification_id
+	 * @param int $modification_id primary key of the modification record
 	 *
 	 * @return void
 	 */
@@ -52,7 +56,7 @@ class ModelSettingModification extends Model {
 	/**
 	 * Disable Modification
 	 *
-	 * @param int $modification_id
+	 * @param int $modification_id primary key of the modification record
 	 *
 	 * @return void
 	 */
@@ -63,9 +67,9 @@ class ModelSettingModification extends Model {
 	/**
 	 * Get Modification
 	 *
-	 * @param int $modification_id
+	 * @param int $modification_id primary key of the modification record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> modification record that has modification ID
 	 */
 	public function getModification(int $modification_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "modification` WHERE `modification_id` = '" . (int)$modification_id . "'");
@@ -76,9 +80,9 @@ class ModelSettingModification extends Model {
 	/**
 	 * Get Modifications
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> modification records
 	 */
 	public function getModifications(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "modification`";
@@ -123,7 +127,7 @@ class ModelSettingModification extends Model {
 	/**
 	 * Get Total Modifications
 	 *
-	 * @return int
+	 * @return int total number of modification records
 	 */
 	public function getTotalModifications(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "modification`");
