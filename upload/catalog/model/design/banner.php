@@ -1,9 +1,9 @@
 <?php
 /**
  * Class Banner
- * 
+ *
  * @example $banner_model = $this->model_design_banner;
- * 
+ *
  * Can be called from $this->load->model('design/banner');
  *
  * @package Catalog\Model\Design

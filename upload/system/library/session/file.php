@@ -7,7 +7,7 @@ namespace Session;
  */
 class File {
 	/**
-	 * @var object $config
+	 * @var object
 	 */
 	private object $config;
 

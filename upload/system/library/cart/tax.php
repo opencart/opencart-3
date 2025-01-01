@@ -2,15 +2,15 @@
 namespace Cart;
 class Tax {
 	/**
-	 * @var object $db
+	 * @var object
 	 */
 	private object $db;
 	/**
-	 * @var object $config
+	 * @var object
 	 */
 	private object $config;
 	/**
-	 * @var array<int, array<int, array<string, mixed>>> $tax_rates
+	 * @var array<int, array<int, array<string, mixed>>>
 	 */
 	private array $tax_rates = [];
 

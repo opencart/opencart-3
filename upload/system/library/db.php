@@ -14,7 +14,7 @@
  */
 class DB {
 	/**
-	 * @var object $adaptor
+	 * @var object
 	 */
 	private object $adaptor;
 
@@ -87,7 +87,7 @@ class DB {
 
 	/**
 	 * Is Connected
-	 * 
+	 *
 	 * Checks if a DB connection is active.
 	 *
 	 * @return bool

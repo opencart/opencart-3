@@ -7,7 +7,7 @@ namespace Mail;
  */
 class Mail {
 	/**
-	 * @var array<string, mixed> $option
+	 * @var array<string, mixed>
 	 */
 	protected array $option = [];
 

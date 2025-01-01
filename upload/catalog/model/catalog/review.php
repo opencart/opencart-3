@@ -1,9 +1,9 @@
 <?php
 /**
  * Class Review
- * 
+ *
  * @example $review_model = $this->model_catalog_review;
- * 
+ *
  * Can be called from $this->load->model('catalog/review');
  *
  * @package Catalog\Model\Catalog
@@ -13,7 +13,7 @@ class ModelCatalogReview extends Model {
 	 * Add Review
 	 *
 	 * @param int                  $product_id primary key of the product record
-	 * @param array<string, mixed> $data array of data
+	 * @param array<string, mixed> $data       array of data
 	 *
 	 * @throws \Exception
 	 *

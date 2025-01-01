@@ -2,15 +2,15 @@
 namespace Cart;
 class Weight {
 	/**
-	 * @var object $db
+	 * @var object
 	 */
 	private object $db;
 	/**
-	 * @var object $config
+	 * @var object
 	 */
 	private object $config;
 	/**
-	 * @var array<int, array<string, mixed>> $weights
+	 * @var array<int, array<string, mixed>>
 	 */
 	private array $weights = [];
 

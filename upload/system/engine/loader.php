@@ -16,7 +16,7 @@
  */
 class Loader {
 	/**
-	 * @var object $registry
+	 * @var object
 	 */
 	protected object $registry;
 
@@ -41,7 +41,7 @@ class Loader {
 	 *
 	 * Removing the mixed output as a temporary workaround since admin extension
 	 * installers don't seem to like that really much
-	 * 
+	 *
 	 * @return mixed
 	 */
 	public function controller(string $route, array $data = []) {
@@ -203,7 +203,7 @@ class Loader {
 	 * Config
 	 *
 	 * @param string $route
-	 * 
+	 *
 	 * @return void
 	 */
 	public function config(string $route): void {

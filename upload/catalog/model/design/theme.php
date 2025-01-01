@@ -1,9 +1,9 @@
 <?php
 /**
  * Class Theme
- * 
+ *
  * @example $theme_model = $this->model_design_theme;
- * 
+ *
  * Can be called from $this->load->model('design/theme');
  *
  * @package Catalog\Model\Design

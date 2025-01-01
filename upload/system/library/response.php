@@ -14,15 +14,15 @@
  */
 class Response {
 	/**
-	 * @var array<string, mixed> $headers
+	 * @var array<string, mixed>
 	 */
 	private array $headers = [];
 	/**
-	 * @var int $level
+	 * @var int
 	 */
 	private int $level = 0;
 	/**
-	 * @var string $output
+	 * @var string
 	 */
 	private string $output = '';
 

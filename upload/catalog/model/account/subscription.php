@@ -1,9 +1,9 @@
 <?php
 /**
  * Class Subscription
- * 
+ *
  * @example $subscription_model = $this->model_account_subscription;
- * 
+ *
  * Can be called from $this->load->model('account/subscription');
  *
  * @package Catalog\Model\Account
@@ -35,7 +35,7 @@ class ModelAccountSubscription extends Model {
 	/**
 	 * Get Subscription By Order Product ID
 	 *
-	 * @param int $order_id primary key of the order record
+	 * @param int $order_id         primary key of the order record
 	 * @param int $order_product_id primary key of the order product record
 	 *
 	 * @return array<string, mixed> subscription record that has order ID, order product ID

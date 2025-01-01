@@ -1,9 +1,9 @@
 <?php
 /**
  * Class Layout
- * 
+ *
  * @example $layout_model = $this->model_design_layout;
- * 
+ *
  * Can be called from $this->load->model('design/layout');
  *
  * @package Catalog\Model\Design

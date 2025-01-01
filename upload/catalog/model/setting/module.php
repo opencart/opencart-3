@@ -1,9 +1,9 @@
 <?php
 /**
  * Class Module
- * 
+ *
  * @example $module_model = $this->model_setting_module;
- * 
+ *
  * Can be called from $this->load->model('setting/module');
  *
  * @package Catalog\Model\Setting

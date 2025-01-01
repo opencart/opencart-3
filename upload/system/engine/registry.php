@@ -39,7 +39,7 @@
  */
 class Registry {
 	/**
-	 * @var array<string, object> $data
+	 * @var array<string, object>
 	 */
 	private array $data = [];
 

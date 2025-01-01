@@ -1,9 +1,9 @@
 <?php
 /**
  * Class Subscription
- * 
+ *
  * @example $subscription_model = $this->model_checkout_subscription;
- * 
+ *
  * Can be called from $this->load->model('checkout/subscription');
  *
  * @package Catalog\Model\Checkout

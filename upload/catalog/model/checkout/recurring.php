@@ -1,9 +1,9 @@
 <?php
 /**
  * Class Recurring
- * 
+ *
  * @example $recurring_model = $this->model_checkout_recurring;
- * 
+ *
  * Can be called from $this->load->model('checkout/recurring');
  *
  * @package Catalog\Model\Checkout

@@ -1,9 +1,9 @@
 <?php
 /**
  * Class Product
- * 
+ *
  * @example $product_model = $this->model_catalog_product;
- * 
+ *
  * Can be called from $this->load->model('catalog/product');
  *
  * @package Catalog\Model\Catalog
@@ -636,7 +636,7 @@ class ModelCatalogProduct extends Model {
 	/**
 	 * Get Subscription
 	 *
-	 * @param int $product_id primary key of the product record
+	 * @param int $product_id           primary key of the product record
 	 * @param int $subscription_plan_id primary key of the subscription plan record
 	 *
 	 * @return array<string, mixed> subscription record that has product ID, subscription plan ID
@@ -678,7 +678,7 @@ class ModelCatalogProduct extends Model {
 	/**
 	 * Check Product Categories
 	 *
-	 * @param int                  $product_id primary key of the product record
+	 * @param int                  $product_id   primary key of the product record
 	 * @param array<string, mixed> $category_ids
 	 *
 	 * @return array<int, array<string, mixed>>

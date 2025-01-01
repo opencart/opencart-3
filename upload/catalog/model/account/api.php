@@ -1,9 +1,9 @@
 <?php
 /**
  * Class Api
- * 
+ *
  * @example $api_model = $this->model_account_api;
- * 
+ *
  * Can be called from $this->load->model('account/api');
  *
  * @package Catalog\Model\Account
@@ -26,7 +26,7 @@ class ModelAccountApi extends Model {
 	/**
 	 * Add Session
 	 *
-	 * @param int    $api_id primary key of the api record
+	 * @param int    $api_id     primary key of the api record
 	 * @param string $session_id
 	 * @param string $ip
 	 *

@@ -14,7 +14,7 @@
  */
 class Log {
 	/**
-	 * @var string $file
+	 * @var string
 	 */
 	private string $file;
 

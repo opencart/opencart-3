@@ -1,9 +1,9 @@
 <?php
 /**
  * Class Reward
- * 
+ *
  * @example $reward_model = $this->model_account_reward;
- * 
+ *
  * Can be called from $this->load->model('account/reward');
  *
  * @package Catalog\Model\Account

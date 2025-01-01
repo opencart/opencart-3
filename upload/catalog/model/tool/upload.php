@@ -7,9 +7,9 @@
 class ModelToolUpload extends Model {
 	/**
 	 * Add Upload
-	 * 
+	 *
 	 * @example $upload_model = $this->model_tool_upload;
-	 * 
+	 *
 	 * Can be called from $this->load->model('tool/upload');
 	 *
 	 * @param string $name

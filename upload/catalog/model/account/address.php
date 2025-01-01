@@ -1,9 +1,9 @@
 <?php
 /**
  * Class Address
- * 
+ *
  * @example $address_model = $this->model_account_address;
- * 
+ *
  * Can be called from $this->load->model('account/address');
  *
  * @package Catalog\Model\Account
@@ -13,7 +13,7 @@ class ModelAccountAddress extends Model {
 	 * Add Address
 	 *
 	 * @param int                  $customer_id primary key of the customer record
-	 * @param array<string, mixed> $data array of data
+	 * @param array<string, mixed> $data        array of data
 	 *
 	 * @return int returns the primary key of the new address record
 	 */
@@ -33,7 +33,7 @@ class ModelAccountAddress extends Model {
 	 * Edit Address
 	 *
 	 * @param int                  $address_id primary key of the address record
-	 * @param array<string, mixed> $data array of data
+	 * @param array<string, mixed> $data       array of data
 	 *
 	 * @return void
 	 */

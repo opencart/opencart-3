@@ -1,9 +1,9 @@
 <?php
 /**
  * Class Event
- * 
+ *
  * @example $event_model = $this->model_setting_event;
- * 
+ *
  * Can be called from $this->load->model('setting/event');
  *
  * @package Catalog\Model\Setting

@@ -2,7 +2,7 @@
 namespace Cache;
 class File {
 	/**
-	 * @var int $expire
+	 * @var int
 	 */
 	private int $expire;
 

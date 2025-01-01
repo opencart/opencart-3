@@ -1,9 +1,9 @@
 <?php
 /**
  * Class Custom Field
- * 
+ *
  * @example $custom_field_model = $this->model_account_custom_field;
- * 
+ *
  * Can be called from $this->load->model('account/custom_field');
  *
  * @package Catalog\Model\Account

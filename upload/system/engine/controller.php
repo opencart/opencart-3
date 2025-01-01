@@ -16,7 +16,7 @@
  */
 class Controller {
 	/**
-	 * @var object $registry
+	 * @var object
 	 */
 	protected object $registry;
 

@@ -1,9 +1,9 @@
 <?php
 /**
  * Class Zone
- * 
+ *
  * @example $zone_model = $this->model_localisation_zone;
- * 
+ *
  * Can be called from $this->load->model('localisation/zone');
  *
  * @package Catalog\Model\Localisation

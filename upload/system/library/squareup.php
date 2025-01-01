@@ -1,27 +1,27 @@
 <?php
 class Squareup {
 	/**
-	 * @var object $session
+	 * @var object
 	 */
 	private object $session;
 	/**
-	 * @var object $url
+	 * @var object
 	 */
 	private object $url;
 	/**
-	 * @var object $config
+	 * @var object
 	 */
 	private object $config;
 	/**
-	 * @var object $log
+	 * @var object
 	 */
 	private object $log;
 	/**
-	 * @var object $customer
+	 * @var object
 	 */
 	private object $customer;
 	/**
-	 * @var object $currency
+	 * @var object
 	 */
 	private object $currency;
 	/**

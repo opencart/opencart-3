@@ -1,9 +1,9 @@
 <?php
 /**
  * Class Wishlist
- * 
+ *
  * @example $wishlist_model = $this->model_account_wishlist;
- * 
+ *
  * Can be called from $this->load->model('account/wishlist');
  *
  * @package Catalog\Model\Account

@@ -1,9 +1,9 @@
 <?php
 /**
  * Class Order
- * 
+ *
  * @example $order_model = $this->model_account_order;
- * 
+ *
  * Can be called from $this->load->model('account/order');
  *
  * @package Catalog\Model\Account
@@ -141,7 +141,7 @@ class ModelAccountOrder extends Model {
 	/**
 	 * Get Product
 	 *
-	 * @param int $order_id primary key of the order record
+	 * @param int $order_id         primary key of the order record
 	 * @param int $order_product_id primary key of the order product record
 	 *
 	 * @return array<string, mixed> product record that has order ID, order product ID
@@ -168,7 +168,7 @@ class ModelAccountOrder extends Model {
 	/**
 	 * Get Options
 	 *
-	 * @param int $order_id primary key of the order record
+	 * @param int $order_id         primary key of the order record
 	 * @param int $order_product_id primary key of the order product record
 	 *
 	 * @return array<int, array<string, mixed>>

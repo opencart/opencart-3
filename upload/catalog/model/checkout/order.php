@@ -1,9 +1,9 @@
 <?php
 /**
  * Class Order
- * 
+ *
  * @example $order_model = $this->model_checkout_order;
- * 
+ *
  * Can be called from $this->load->model('checkout/order');
  *
  * @package Catalog\Model\Checkout
@@ -73,7 +73,7 @@ class ModelCheckoutOrder extends Model {
 	 * Edit Order
 	 *
 	 * @param int                  $order_id primary key of the order record
-	 * @param array<string, mixed> $data array of data
+	 * @param array<string, mixed> $data     array of data
 	 *
 	 * @return void
 	 */
@@ -308,7 +308,7 @@ class ModelCheckoutOrder extends Model {
 	/**
 	 * Get Options
 	 *
-	 * @param int $order_id primary key of the order record
+	 * @param int $order_id         primary key of the order record
 	 * @param int $order_product_id primary key of the order product record
 	 *
 	 * @return array<int, array<string, mixed>> option records that have order ID, order product ID
@@ -322,7 +322,7 @@ class ModelCheckoutOrder extends Model {
 	/**
 	 * Get Subscription
 	 *
-	 * @param int $order_id primary key of the order record
+	 * @param int $order_id         primary key of the order record
 	 * @param int $order_product_id primary key of the order product record
 	 *
 	 * @return array<string, mixed> subscription records that have order ID, order product ID
@@ -459,7 +459,7 @@ class ModelCheckoutOrder extends Model {
 	/**
 	 * Add History
 	 *
-	 * @param int    $order_id primary key of the order record
+	 * @param int    $order_id        primary key of the order record
 	 * @param int    $order_status_id primary key of the order status record
 	 * @param string $comment
 	 * @param bool   $notify

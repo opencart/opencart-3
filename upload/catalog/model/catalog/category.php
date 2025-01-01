@@ -1,9 +1,9 @@
 <?php
 /**
  * Class Category
- * 
+ *
  * @example $category_model = $this->model_catalog_category;
- * 
+ *
  * Can be called from $this->load->model('catalog/category');
  *
  * @package Catalog\Model\Catalog

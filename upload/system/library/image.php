@@ -15,27 +15,27 @@
  */
 class Image {
 	/**
-	 * @var string $file
+	 * @var string
 	 */
 	private string $file;
 	/**
-	 * @var mixed $image
+	 * @var mixed
 	 */
 	private $image;
 	/**
-	 * @var int $width
+	 * @var int
 	 */
 	private int $width;
 	/**
-	 * @var int $height
+	 * @var int
 	 */
 	private int $height;
 	/**
-	 * @var string $bits
+	 * @var string
 	 */
 	private string $bits;
 	/**
-	 * @var string $mime
+	 * @var string
 	 */
 	private string $mime;
 

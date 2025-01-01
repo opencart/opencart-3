@@ -16,7 +16,7 @@
  */
 abstract class Model {
 	/**
-	 * @var object $registry
+	 * @var object
 	 */
 	protected object $registry;
 

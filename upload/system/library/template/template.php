@@ -7,7 +7,7 @@ namespace Template;
  */
 class Template {
 	/**
-	 * @var array<string, string> $data
+	 * @var array<string, string>
 	 */
 	private array $data = [];
 

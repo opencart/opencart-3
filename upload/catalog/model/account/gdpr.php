@@ -1,9 +1,9 @@
 <?php
 /**
  * Class Gdpr
- * 
+ *
  * @example $gdpr_model = $this->model_account_gdpr;
- * 
+ *
  * Can be called from $this->load->model('account/gdpr');
  *
  * @package Catalog\Model\Account

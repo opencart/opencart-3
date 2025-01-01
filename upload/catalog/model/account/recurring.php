@@ -1,9 +1,9 @@
 <?php
 /**
  * Class Recurring
- * 
+ *
  * @example $recurring_model = $this->model_account_recurring;
- * 
+ *
  * Can be called from $this->load->model('account/recurring');
  *
  * @package Catalog\Model\Account

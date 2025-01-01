@@ -14,16 +14,16 @@
  *
  * Event System Userguide
  * https://github.com/opencart/opencart/wiki/Events-(script-notifications)-2.2.x.x
- * 
+ *
  * @mixin \Registry
  */
 class Event {
 	/**
-	 * @var object $registry
+	 * @var object
 	 */
 	protected object $registry;
 	/**
-	 * @var array<string, array<string, mixed>> $data
+	 * @var array<string, array<string, mixed>>
 	 */
 	protected array $data = [];
 

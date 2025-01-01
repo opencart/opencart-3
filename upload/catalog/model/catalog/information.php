@@ -1,9 +1,9 @@
 <?php
 /**
  * Class Information
- * 
+ *
  * @example $information_model = $this->model_catalog_information;
- * 
+ *
  * Can be called from $this->load->model('catalog/information');
  *
  * @package Catalog\Model\Catalog

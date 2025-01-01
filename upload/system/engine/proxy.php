@@ -18,7 +18,7 @@
  */
 class Proxy {
 	/**
-	 * @var array<string, array<string, mixed>> $data
+	 * @var array<string, array<string, mixed>>
 	 */
 	protected array $data = [];
 

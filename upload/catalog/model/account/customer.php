@@ -1,9 +1,9 @@
 <?php
 /**
  * Class Customer
- * 
+ *
  * @example $customer_model = $this->model_account_customer;
- * 
+ *
  * Can be called from $this->load->model('account/customer');
  *
  * @package Catalog\Model\Account
@@ -43,7 +43,7 @@ class ModelAccountCustomer extends Model {
 	 * Edit Customer
 	 *
 	 * @param int                  $customer_id primary key of the customer record
-	 * @param array<string, mixed> $data array of data
+	 * @param array<string, mixed> $data        array of data
 	 *
 	 * @return void
 	 */
@@ -67,7 +67,7 @@ class ModelAccountCustomer extends Model {
 	 * Edit Address ID
 	 *
 	 * @param int $customer_id primary key of the customer record
-	 * @param int $address_id primary key of the address record
+	 * @param int $address_id  primary key of the address record
 	 *
 	 * @return void
 	 */
@@ -184,7 +184,7 @@ class ModelAccountCustomer extends Model {
 	 * @param int    $customer_id primary key of the customer record
 	 * @param string $description
 	 * @param float  $amount
-	 * @param int    $order_id primary key of the order record
+	 * @param int    $order_id    primary key of the order record
 	 *
 	 * @return void
 	 */
@@ -317,7 +317,7 @@ class ModelAccountCustomer extends Model {
 	 * Add Affiliate
 	 *
 	 * @param int                  $customer_id primary key of the customer record
-	 * @param array<string, mixed> $data array of data
+	 * @param array<string, mixed> $data        array of data
 	 *
 	 * @return void
 	 */
@@ -333,7 +333,7 @@ class ModelAccountCustomer extends Model {
 	 * Edit Affiliate
 	 *
 	 * @param int                  $customer_id primary key of the customer record
-	 * @param array<string, mixed> $data array of data
+	 * @param array<string, mixed> $data        array of data
 	 *
 	 * @return void
 	 */

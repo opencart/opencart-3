@@ -7,7 +7,7 @@ namespace DB;
  */
 class PgSQL {
 	/**
-	 * @var mixed $connection
+	 * @var mixed
 	 */
 	private $connection;
 
