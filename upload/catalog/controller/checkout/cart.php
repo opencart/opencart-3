@@ -443,11 +443,21 @@ class ControllerCheckoutCart extends Controller {
 
 		$json = [];
 
-		// Remove
 		if (isset($this->request->post['key'])) {
-			$this->cart->remove($this->request->post['key']);
+			$key = (int)$this->request->post['key'];
+		} else {
+			$key = 0;
+		}
 
-			unset($this->session->data['vouchers'][$this->request->post['key']]);
+		if (!$this->cart->has($key)) {
+			$json['error'] = $this->language->get('error_product');
+		}
+
+		// Remove
+		if (!$json) {
+			$this->cart->remove($key);
+
+			unset($this->session->data['vouchers'][$key]);
 
 			$json['success'] = $this->language->get('text_remove');
 

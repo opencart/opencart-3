@@ -361,6 +361,17 @@ class Cart {
 	}
 
 	/**
+	 * Has
+	 *
+	 * @param int $cart_id primary key of the cart record
+	 *
+	 * @return bool
+	 */
+	public function has(int $cart_id): bool {
+		return isset($this->data[$cart_id]);
+	}
+
+	/**
 	 * Remove
 	 *
 	 * @param int $cart_id primary key of the cart record
