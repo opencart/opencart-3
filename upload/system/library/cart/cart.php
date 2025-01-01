@@ -63,9 +63,9 @@ class Cart {
 	}
 
 	/**
-	 * getProducts
+	 * Get Products
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> product records
 	 */
 	public function getProducts(): array {
 		$product_data = [];
@@ -317,10 +317,10 @@ class Cart {
 	/**
 	 * Add
 	 *
-	 * @param int          $product_id
+	 * @param int          $product_id           primary key of the product record
 	 * @param int          $quantity
 	 * @param array<mixed> $option
-	 * @param int          $subscription_plan_id
+	 * @param int          $subscription_plan_id primary key of the subscription plan record
 	 * @param bool         $override
 	 * @param float        $price
 	 *
@@ -345,7 +345,7 @@ class Cart {
 	/**
 	 * Update
 	 *
-	 * @param int $cart_id
+	 * @param int $cart_id  primary key of the cart record
 	 * @param int $quantity
 	 *
 	 * @return void
@@ -363,7 +363,7 @@ class Cart {
 	/**
 	 * Remove
 	 *
-	 * @param int $cart_id
+	 * @param int $cart_id primary key of the cart record
 	 *
 	 * @return void
 	 */
@@ -385,9 +385,9 @@ class Cart {
 	}
 
 	/**
-	 * getSubscriptions
+	 * Get Subscriptions
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> subscription records
 	 */
 	public function getSubscriptions(): array {
 		$product_data = [];
@@ -402,7 +402,7 @@ class Cart {
 	}
 
 	/**
-	 * getWeight
+	 * Get Weight
 	 *
 	 * @return float
 	 */
@@ -419,7 +419,7 @@ class Cart {
 	}
 
 	/**
-	 * getSubtotal
+	 * Get Sub Total
 	 *
 	 * @return float
 	 */
@@ -434,9 +434,9 @@ class Cart {
 	}
 
 	/**
-	 * getTaxes
+	 * Get Taxes
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, float>
 	 */
 	public function getTaxes(): array {
 		$tax_data = [];
@@ -459,7 +459,7 @@ class Cart {
 	}
 
 	/**
-	 * getTotal
+	 * Get Total
 	 *
 	 * @return float
 	 */
@@ -474,7 +474,7 @@ class Cart {
 	}
 
 	/**
-	 * countProducts
+	 * Count Products
 	 *
 	 * @return int
 	 */
@@ -491,7 +491,7 @@ class Cart {
 	}
 
 	/**
-	 * hasProducts
+	 * Has Products
 	 *
 	 * @return bool
 	 */
@@ -500,7 +500,7 @@ class Cart {
 	}
 
 	/**
-	 * hasSubscription
+	 * Has Subscription
 	 *
 	 * @return bool
 	 */
@@ -509,7 +509,7 @@ class Cart {
 	}
 
 	/**
-	 * hasStock
+	 * Has Stock
 	 *
 	 * @return bool
 	 */
@@ -524,7 +524,7 @@ class Cart {
 	}
 
 	/**
-	 * hasShipping
+	 * Has Shipping
 	 *
 	 * @return bool
 	 */
@@ -539,7 +539,7 @@ class Cart {
 	}
 
 	/**
-	 * hasDownload
+	 * Has Download
 	 *
 	 * @return bool
 	 */

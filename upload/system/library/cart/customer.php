@@ -141,7 +141,7 @@ class Customer {
 	}
 
 	/**
-	 * isLogged
+	 * Is Logged
 	 *
 	 * @return bool
 	 */
@@ -150,7 +150,7 @@ class Customer {
 	}
 
 	/**
-	 * getId
+	 * Get ID
 	 *
 	 * @return int
 	 */
@@ -159,7 +159,7 @@ class Customer {
 	}
 
 	/**
-	 * getFirstName
+	 * Get First Name
 	 *
 	 * @return string
 	 */
@@ -168,7 +168,7 @@ class Customer {
 	}
 
 	/**
-	 * getLastName
+	 * Get Last Name
 	 *
 	 * @return string
 	 */
@@ -177,7 +177,7 @@ class Customer {
 	}
 
 	/**
-	 * getGroupId
+	 * Get Group ID
 	 *
 	 * @return int
 	 */
@@ -186,7 +186,7 @@ class Customer {
 	}
 
 	/**
-	 * getEmail
+	 * Get Email
 	 *
 	 * @return string
 	 */
@@ -195,7 +195,7 @@ class Customer {
 	}
 
 	/**
-	 * getTelephone
+	 * Get Telephone
 	 *
 	 * @return string
 	 */
@@ -204,7 +204,7 @@ class Customer {
 	}
 
 	/**
-	 * getNewsletter
+	 * Get Newsletter
 	 *
 	 * @return bool
 	 */
@@ -213,7 +213,7 @@ class Customer {
 	}
 
 	/**
-	 * getAddressId
+	 * Get Address ID
 	 *
 	 * @return int
 	 */
@@ -228,7 +228,7 @@ class Customer {
 	}
 
 	/**
-	 * getBalance
+	 * Get Balance
 	 *
 	 * @return float
 	 */
@@ -239,7 +239,7 @@ class Customer {
 	}
 
 	/**
-	 * getRewardPoints
+	 * Get Reward Points
 	 *
 	 * @return float
 	 */

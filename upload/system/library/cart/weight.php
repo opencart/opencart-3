@@ -68,7 +68,7 @@ class Weight {
 	 * Format
 	 *
 	 * @param float  $value
-	 * @param string $weight_class_id
+	 * @param string $weight_class_id primary key of the weight class record
 	 * @param string $decimal_point
 	 * @param string $thousand_point
 	 *
@@ -83,9 +83,9 @@ class Weight {
 	}
 
 	/**
-	 * getUnit
+	 * Get Unit
 	 *
-	 * @param int $weight_class_id
+	 * @param int $weight_class_id primary key of the weight class record
 	 *
 	 * @return string
 	 */

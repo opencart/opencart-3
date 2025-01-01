@@ -25,10 +25,10 @@ class Tax {
 	}
 
 	/**
-	 * setShippingAddress
+	 * Set Shipping Address
 	 *
-	 * @param int $country_id
-	 * @param int $zone_id
+	 * @param int $country_id primary key of the country record
+	 * @param int $zone_id    primary key of the zone record
 	 *
 	 * @return void
 	 */
@@ -47,10 +47,10 @@ class Tax {
 	}
 
 	/**
-	 * setPaymentAddress
+	 * Set Payment Address
 	 *
-	 * @param int $country_id
-	 * @param int $zone_id
+	 * @param int $country_id primary key of the country record
+	 * @param int $zone_id    primary key of the zone record
 	 *
 	 * @return void
 	 */
@@ -69,10 +69,10 @@ class Tax {
 	}
 
 	/**
-	 * setStoreAddress
+	 * Set Store Address
 	 *
-	 * @param int $country_id
-	 * @param int $zone_id
+	 * @param int $country_id primary key of the country record
+	 * @param int $zone_id    primary key of the zone record
 	 *
 	 * @return void
 	 */
@@ -94,7 +94,7 @@ class Tax {
 	 * Calculate
 	 *
 	 * @param float $value
-	 * @param int   $tax_class_id
+	 * @param int   $tax_class_id primary key of the tax class record
 	 * @param bool  $calculate
 	 *
 	 * @return float
@@ -120,10 +120,10 @@ class Tax {
 	}
 
 	/**
-	 * getTax
+	 * Get Tax
 	 *
 	 * @param float $value
-	 * @param int   $tax_class_id
+	 * @param int   $tax_class_id primary key of the tax class record
 	 *
 	 * @return float
 	 */
@@ -140,9 +140,9 @@ class Tax {
 	}
 
 	/**
-	 * getRateName
+	 * Get Rate Name
 	 *
-	 * @param int $tax_rate_id
+	 * @param int $tax_rate_id primary key of the tax rate record
 	 *
 	 * @return string
 	 */
@@ -160,7 +160,7 @@ class Tax {
 	 * getRates
 	 *
 	 * @param float $value
-	 * @param int   $tax_class_id
+	 * @param int   $tax_class_id primary key of the tax class record
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */
