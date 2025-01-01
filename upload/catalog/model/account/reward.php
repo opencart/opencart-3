@@ -68,7 +68,7 @@ class ModelAccountReward extends Model {
 	/**
 	 * Get Total Points
 	 *
-	 * @return int total number of point records
+	 * @return int total number of reward point records
 	 */
 	public function getTotalPoints(): int {
 		$query = $this->db->query("SELECT SUM(`points`) AS `total` FROM `" . DB_PREFIX . "customer_reward` WHERE `customer_id` = '" . (int)$this->customer->getId() . "' GROUP BY `customer_id`");
