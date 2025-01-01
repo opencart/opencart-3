@@ -450,7 +450,7 @@ class ControllerCheckoutCart extends Controller {
 		}
 
 		if (!$this->cart->has($key)) {
-			$json['error'] = $this->language->get('error_product');
+			$json['error'] = $this->language->get('error_product_not_found');
 		}
 
 		// Remove
