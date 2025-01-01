@@ -1,6 +1,10 @@
 <?php
 /**
  * Class Search
+ * 
+ * @example $search_model = $this->model_account_search;
+ * 
+ * Can be called from $this->load->model('account/search');
  *
  * @package Catalog\Model\Account
  */
@@ -8,7 +12,7 @@ class ModelAccountSearch extends Model {
 	/**
 	 * Add Search
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of data
 	 *
 	 * @return void
 	 */

@@ -1,6 +1,10 @@
 <?php
 /**
  * Class Customer Group
+ * 
+ * @example $customer_group_model = $this->model_account_customer_group;
+ * 
+ * Can be called from $this->load->model('account/customer_group');
  *
  * @package Catalog\Model\Account
  */
@@ -8,9 +12,9 @@ class ModelAccountCustomerGroup extends Model {
 	/**
 	 * Get Customer Group
 	 *
-	 * @param int $customer_group_id
+	 * @param int $customer_group_id primary key of the customer group record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> customer group record that has customer group ID
 	 */
 	public function getCustomerGroup(int $customer_group_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "customer_group` `cg` LEFT JOIN `" . DB_PREFIX . "customer_group_description` `cgd` ON (`cg`.`customer_group_id` = `cgd`.`customer_group_id`) WHERE `cg`.`customer_group_id` = '" . (int)$customer_group_id . "' AND `cgd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -21,7 +25,7 @@ class ModelAccountCustomerGroup extends Model {
 	/**
 	 * Get Customer Groups
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> customer group records
 	 */
 	public function getCustomerGroups(): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_group` `cg` LEFT JOIN `" . DB_PREFIX . "customer_group_description` `cgd` ON (`cg`.`customer_group_id` = `cgd`.`customer_group_id`) WHERE `cgd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "' ORDER BY `cg`.`sort_order` ASC, `cgd`.`name` ASC");

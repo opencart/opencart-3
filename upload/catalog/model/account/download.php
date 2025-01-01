@@ -1,6 +1,10 @@
 <?php
 /**
  * Class Download
+ * 
+ * @example $download_model = $this->model_account_download;
+ * 
+ * Can be called from $this->load->model('account/download');
  *
  * @package Catalog\Model\Account
  */
@@ -8,9 +12,9 @@ class ModelAccountDownload extends Model {
 	/**
 	 * Get Download
 	 *
-	 * @param int $download_id
+	 * @param int $download_id primary key of the download record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> download record that has download ID
 	 */
 	public function getDownload(int $download_id): array {
 		$implode = [];
@@ -36,7 +40,7 @@ class ModelAccountDownload extends Model {
 	 * @param int $start
 	 * @param int $limit
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> download records
 	 */
 	public function getDownloads(int $start = 0, int $limit = 20): array {
 		if ($start < 0) {
@@ -67,7 +71,7 @@ class ModelAccountDownload extends Model {
 	/**
 	 * Get Total Downloads
 	 *
-	 * @return int
+	 * @return int total number of download records
 	 */
 	public function getTotalDownloads(): int {
 		$implode = [];

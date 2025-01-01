@@ -1,6 +1,10 @@
 <?php
 /**
  * Class Zone
+ * 
+ * @example $zone_model = $this->model_localisation_zone;
+ * 
+ * Can be called from $this->load->model('localisation/zone');
  *
  * @package Catalog\Model\Localisation
  */
@@ -8,9 +12,9 @@ class ModelLocalisationZone extends Model {
 	/**
 	 * Get Zone
 	 *
-	 * @param int $zone_id
+	 * @param int $zone_id primary key of the zone record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> zone record that has zone ID
 	 */
 	public function getZone(int $zone_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone` WHERE `zone_id` = '" . (int)$zone_id . "' AND `status` = '1'");
@@ -19,11 +23,11 @@ class ModelLocalisationZone extends Model {
 	}
 
 	/**
-	 * Get Zones By Country Id
+	 * Get Zones By Country ID
 	 *
-	 * @param int $country_id
+	 * @param int $country_id primary key of the country record
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> zone records that have country ID
 	 */
 	public function getZonesByCountryId(int $country_id): array {
 		$zone_data = $this->cache->get('zone.' . (int)$country_id);

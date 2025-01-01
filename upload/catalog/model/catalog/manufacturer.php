@@ -1,6 +1,10 @@
 <?php
 /**
  * Class Manufacturer
+ * 
+ * @example $manufacturer_model = $this->model_catalog_manufacturer;
+ * 
+ * Can be called from $this->load->model('catalog/manufacturer');
  *
  * @package Catalog\Model\Catalog
  */
@@ -8,9 +12,9 @@ class ModelCatalogManufacturer extends Model {
 	/**
 	 * Get Manufacturer
 	 *
-	 * @param int $manufacturer_id
+	 * @param int $manufacturer_id primary key of the manufacturer record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> manufacturer record that has manufacturer ID
 	 */
 	public function getManufacturer(int $manufacturer_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "manufacturer` `m` LEFT JOIN `" . DB_PREFIX . "manufacturer_to_store` `m2s` ON (`m`.`manufacturer_id` = `m2s`.`manufacturer_id`) WHERE `m`.`manufacturer_id` = '" . (int)$manufacturer_id . "' AND `m2s`.`store_id` = '" . (int)$this->config->get('config_store_id') . "'");
@@ -21,9 +25,9 @@ class ModelCatalogManufacturer extends Model {
 	/**
 	 * Get Manufacturers
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> manufacturer records
 	 */
 	public function getManufacturers(array $data = []): array {
 		if ($data) {

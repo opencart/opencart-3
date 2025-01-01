@@ -1,6 +1,10 @@
 <?php
 /**
  * Class Recurring
+ * 
+ * @example $recurring_model = $this->model_checkout_recurring;
+ * 
+ * Can be called from $this->load->model('checkout/recurring');
  *
  * @package Catalog\Model\Checkout
  */
@@ -8,7 +12,7 @@ class ModelCheckoutRecurring extends Model {
 	/**
 	 * Add Recurring Report
 	 *
-	 * @param int    $order_recurring_id
+	 * @param int    $order_recurring_id primary key of the order recurring record
 	 * @param int    $store_id
 	 * @param string $ip
 	 * @param string $country
@@ -22,9 +26,9 @@ class ModelCheckoutRecurring extends Model {
 	/**
 	 * Get Order Recurring
 	 *
-	 * @param int $order_recurring_id
+	 * @param int $order_recurring_id primary key of the order recurring record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> recurring record that has order recurring ID
 	 */
 	public function getOrderRecurring(int $order_recurring_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_recurring` WHERE `order_recurring_id` = '" . (int)$order_recurring_id . "'");

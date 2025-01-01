@@ -522,7 +522,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	}
 
 	/**
-	 * Fetch Order Id
+	 * Fetch Order ID
 	 *
 	 * @param mixed $order_reference_id
 	 *
@@ -649,7 +649,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	}
 
 	/**
-	 * Get Order By Order Id
+	 * Get Order By Order ID
 	 *
 	 * @param int $order_id
 	 *
@@ -747,7 +747,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	}
 
 	/**
-	 * Get Platform Id
+	 * Get Platform ID
 	 *
 	 * @return string
 	 */
@@ -820,7 +820,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	}
 
 	/**
-	 * Find OC Order Id
+	 * Find OC Order ID
 	 *
 	 * @param string $amazon_authorization_id
 	 *
@@ -839,7 +839,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	}
 
 	/**
-	 * Find A Order Id
+	 * Find A Order ID
 	 *
 	 * @param string $amazon_authorization_id
 	 *

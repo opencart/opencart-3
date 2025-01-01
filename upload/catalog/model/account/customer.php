@@ -1,6 +1,10 @@
 <?php
 /**
  * Class Customer
+ * 
+ * @example $customer_model = $this->model_account_customer;
+ * 
+ * Can be called from $this->load->model('account/customer');
  *
  * @package Catalog\Model\Account
  */
@@ -8,9 +12,9 @@ class ModelAccountCustomer extends Model {
 	/**
 	 * Add Customer
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of data
 	 *
-	 * @return int
+	 * @return int returns the primary key of the new customer record
 	 */
 	public function addCustomer(array $data): int {
 		if (isset($data['customer_group_id']) && in_array($data['customer_group_id'], (array)$this->config->get('config_customer_group_display'))) {
@@ -38,8 +42,8 @@ class ModelAccountCustomer extends Model {
 	/**
 	 * Edit Customer
 	 *
-	 * @param int                  $customer_id
-	 * @param array<string, mixed> $data
+	 * @param int                  $customer_id primary key of the customer record
+	 * @param array<string, mixed> $data array of data
 	 *
 	 * @return void
 	 */
@@ -60,10 +64,10 @@ class ModelAccountCustomer extends Model {
 	}
 
 	/**
-	 * Edit Address Id
+	 * Edit Address ID
 	 *
-	 * @param int $customer_id
-	 * @param int $address_id
+	 * @param int $customer_id primary key of the customer record
+	 * @param int $address_id primary key of the address record
 	 *
 	 * @return void
 	 */
@@ -98,9 +102,9 @@ class ModelAccountCustomer extends Model {
 	/**
 	 * Get Customer
 	 *
-	 * @param int $customer_id
+	 * @param int $customer_id primary key of the customer record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> customer record that has customer ID
 	 */
 	public function getCustomer(int $customer_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer` WHERE `customer_id` = '" . (int)$customer_id . "'");
@@ -177,10 +181,10 @@ class ModelAccountCustomer extends Model {
 	/**
 	 * Add Transaction
 	 *
-	 * @param int    $customer_id
+	 * @param int    $customer_id primary key of the customer record
 	 * @param string $description
 	 * @param float  $amount
-	 * @param int    $order_id
+	 * @param int    $order_id primary key of the order record
 	 *
 	 * @return void
 	 */
@@ -191,7 +195,7 @@ class ModelAccountCustomer extends Model {
 	/**
 	 * Delete Transaction By Order ID
 	 *
-	 * @param int $order_id
+	 * @param int $order_id primary key of the order record
 	 *
 	 * @return void
 	 */
@@ -202,7 +206,7 @@ class ModelAccountCustomer extends Model {
 	/**
 	 * Get Transaction Total
 	 *
-	 * @param int $customer_id
+	 * @param int $customer_id primary key of the customer record
 	 *
 	 * @return float
 	 */
@@ -215,9 +219,9 @@ class ModelAccountCustomer extends Model {
 	/**
 	 * Get Total Transactions By Order ID
 	 *
-	 * @param int $order_id
+	 * @param int $order_id primary key of the order record
 	 *
-	 * @return int
+	 * @return int transaction records that have order ID
 	 */
 	public function getTotalTransactionsByOrderId(int $order_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer_transaction` WHERE `order_id` = '" . (int)$order_id . "'");
@@ -228,7 +232,7 @@ class ModelAccountCustomer extends Model {
 	/**
 	 * Get Reward Total
 	 *
-	 * @param int $customer_id
+	 * @param int $customer_id primary key of the customer record
 	 *
 	 * @return int
 	 */
@@ -245,9 +249,9 @@ class ModelAccountCustomer extends Model {
 	/**
 	 * Get Ips
 	 *
-	 * @param int $customer_id
+	 * @param int $customer_id primary key of the customer record
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> ip records that have customer ID
 	 */
 	public function getIps(int $customer_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_ip` WHERE `customer_id` = '" . (int)$customer_id . "'");
@@ -258,7 +262,7 @@ class ModelAccountCustomer extends Model {
 	/**
 	 * Add Login
 	 *
-	 * @param int    $customer_id
+	 * @param int    $customer_id primary key of the customer record
 	 * @param string $ip
 	 * @param string $country
 	 *
@@ -312,8 +316,8 @@ class ModelAccountCustomer extends Model {
 	/**
 	 * Add Affiliate
 	 *
-	 * @param int                  $customer_id
-	 * @param array<string, mixed> $data
+	 * @param int                  $customer_id primary key of the customer record
+	 * @param array<string, mixed> $data array of data
 	 *
 	 * @return void
 	 */
@@ -328,8 +332,8 @@ class ModelAccountCustomer extends Model {
 	/**
 	 * Edit Affiliate
 	 *
-	 * @param int                  $customer_id
-	 * @param array<string, mixed> $data
+	 * @param int                  $customer_id primary key of the customer record
+	 * @param array<string, mixed> $data array of data
 	 *
 	 * @return void
 	 */
@@ -340,9 +344,9 @@ class ModelAccountCustomer extends Model {
 	/**
 	 * Get Affiliate
 	 *
-	 * @param int $customer_id
+	 * @param int $customer_id primary key of the customer record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> affiliate record that has customer ID
 	 */
 	public function getAffiliate(int $customer_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_affiliate` WHERE `customer_id` = '" . (int)$customer_id . "'");
@@ -374,7 +378,7 @@ class ModelAccountCustomer extends Model {
 	/**
 	 * Add Report
 	 *
-	 * @param int    $customer_id
+	 * @param int    $customer_id primary key of the customer record
 	 * @param string $ip
 	 * @param string $country
 	 *

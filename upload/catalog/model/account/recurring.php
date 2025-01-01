@@ -1,6 +1,10 @@
 <?php
 /**
  * Class Recurring
+ * 
+ * @example $recurring_model = $this->model_account_recurring;
+ * 
+ * Can be called from $this->load->model('account/recurring');
  *
  * @package Catalog\Model\Account
  */
@@ -8,7 +12,7 @@ class ModelAccountRecurring extends Model {
 	/**
 	 * Edit Status
 	 *
-	 * @param int $order_recurring_id
+	 * @param int $order_recurring_id primary key of the order recurring record
 	 * @param int $status
 	 *
 	 * @return void
@@ -20,9 +24,9 @@ class ModelAccountRecurring extends Model {
 	/**
 	 * Get Recurring
 	 *
-	 * @param int $order_recurring_id
+	 * @param int $order_recurring_id primary key of the order recurring record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> recurring record that has order recurring ID
 	 */
 	public function getRecurring(int $order_recurring_id): array {
 		$query = $this->db->query("SELECT `or`.*, `o`.`payment_method`, `o`.`currency_code` FROM `" . DB_PREFIX . "order_recurring` `or` LEFT JOIN `" . DB_PREFIX . "order` `o` ON `or`.`order_id` = `o`.`order_id` WHERE `or`.`order_recurring_id` = '" . (int)$order_recurring_id . "' AND `o`.`customer_id` = '" . (int)$this->customer->getId() . "'");
@@ -43,7 +47,7 @@ class ModelAccountRecurring extends Model {
 	 * @param int $start
 	 * @param int $limit
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> recurring records
 	 */
 	public function getRecurrings(int $start = 0, int $limit = 20): array {
 		if ($start < 0) {
@@ -75,9 +79,9 @@ class ModelAccountRecurring extends Model {
 	/**
 	 * Get Recurring Transactions
 	 *
-	 * @param int $order_recurring_id
+	 * @param int $order_recurring_id primary key of the order recurring record
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> recurring transaction records that have order recurring ID
 	 */
 	public function getRecurringTransactions(int $order_recurring_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_recurring_transaction` WHERE `order_recurring_id` = '" . (int)$order_recurring_id . "'");
@@ -88,7 +92,7 @@ class ModelAccountRecurring extends Model {
 	/**
 	 * Get Total Recurrings
 	 *
-	 * @return int
+	 * @return int total number of recurring records
 	 */
 	public function getTotalRecurrings(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order_recurring` `or` LEFT JOIN `" . DB_PREFIX . "order` `o` ON `or`.`order_id` = `o`.`order_id` WHERE `o`.`customer_id` = '" . (int)$this->customer->getId() . "'");

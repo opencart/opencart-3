@@ -1,6 +1,10 @@
 <?php
 /**
  * Class Country
+ * 
+ * @example $country_model = $this->model_localisation_country;
+ * 
+ * Can be called from $this->load->model('localisation/country');
  *
  * @package Catalog\Model\Localisation
  */
@@ -8,9 +12,9 @@ class ModelLocalisationCountry extends Model {
 	/**
 	 * Get Country
 	 *
-	 * @param int $country_id
+	 * @param int $country_id primary key of the country record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> country record that has country ID
 	 */
 	public function getCountry(int $country_id): array {
 		$query = $this->db->query("SELECT *, `c`.`name` FROM `" . DB_PREFIX . "country` `c` LEFT JOIN `" . DB_PREFIX . "address_format` `af` ON (`c`.`address_format_id` = `af`.`address_format_id`) WHERE `c`.`country_id` = '" . (int)$country_id . "' AND `c`.`status` = '1'");
@@ -47,7 +51,7 @@ class ModelLocalisationCountry extends Model {
 	/**
 	 * Get Countries
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> country records
 	 */
 	public function getCountries(): array {
 		$country_data = $this->cache->get('country.catalog');

@@ -1,6 +1,10 @@
 <?php
 /**
  * Class Online
+ * 
+ * @example $online_model = $this->model_tool_online;
+ * 
+ * Can be called from $this->load->model('tool/online');
  *
  * @package Catalog\Model\Tool
  */
@@ -9,7 +13,7 @@ class ModelToolOnline extends Model {
 	 * Add Online
 	 *
 	 * @param string $ip
-	 * @param int    $customer_id
+	 * @param int    $customer_id primary key of the customer record
 	 * @param string $url
 	 * @param string $referer
 	 *

@@ -32,7 +32,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 	}
 
 	/**
-	 * Delete Transaction ByOrder Id
+	 * Delete Transaction By Order ID
 	 *
 	 * @param int $order_id
 	 *
@@ -175,7 +175,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 	}
 
 	/**
-	 * Get PayPal Profile Ids
+	 * Get PayPal Profile IDs
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */
@@ -212,7 +212,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 	}
 
 	/**
-	 * Get Transaction By LayBuy Ref Id
+	 * Get Transaction By LayBuy Ref ID
 	 *
 	 * @param int $laybuy_ref_id
 	 *

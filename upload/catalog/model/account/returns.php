@@ -1,6 +1,10 @@
 <?php
 /**
  * Class Returns
+ * 
+ * @example $returns_model = $this->model_account_returns;
+ * 
+ * Can be called from $this->load->model('account/returns');
  *
  * @package Catalog\Model\Account
  */
@@ -8,9 +12,9 @@ class ModelAccountReturns extends Model {
 	/**
 	 * Add Return
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of data
 	 *
-	 * @return int
+	 * @return int returns the primary key of the new return record
 	 */
 	public function addReturn(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "return` SET `order_id` = '" . (int)$data['order_id'] . "', `product_id` = '" . (int)$data['product_id'] . "', `customer_id` = '" . (int)$this->customer->getId() . "', `firstname` = '" . $this->db->escape($data['firstname']) . "', `lastname` = '" . $this->db->escape($data['lastname']) . "', `email` = '" . $this->db->escape($data['email']) . "', `telephone` = '" . $this->db->escape($data['telephone']) . "', `product` = '" . $this->db->escape($data['product']) . "', `model` = '" . $this->db->escape($data['model']) . "', `quantity` = '" . (int)$data['quantity'] . "', `opened` = '" . (int)$data['opened'] . "', `return_reason_id` = '" . (int)$data['return_reason_id'] . "', `return_status_id` = '" . (int)$this->config->get('config_return_status_id') . "', `comment` = '" . $this->db->escape($data['comment']) . "', `date_ordered` = '" . $this->db->escape($data['date_ordered']) . "', `date_added` = NOW(), `date_modified` = NOW()");
@@ -21,9 +25,9 @@ class ModelAccountReturns extends Model {
 	/**
 	 * Get Return
 	 *
-	 * @param int $return_id
+	 * @param int $return_id primary key of the return record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> return record that has return ID
 	 */
 	public function getReturn(int $return_id): array {
 		$query = $this->db->query("SELECT `r`.`return_id`, `r`.`order_id`, `r`.`firstname`, `r`.`lastname`, `r`.`email`, `r`.`telephone`, `r`.`product`, `r`.`model`, `r`.`quantity`, `r`.`opened`, (SELECT `rr`.`name` FROM `" . DB_PREFIX . "return_reason` `rr` WHERE `rr`.`return_reason_id` = `r`.`return_reason_id` AND `rr`.`language_id` = '" . (int)$this->config->get('config_language_id') . "') AS `reason`, (SELECT `ra`.`name` FROM `" . DB_PREFIX . "return_action` `ra` WHERE `ra`.`return_action_id` = `r`.`return_action_id` AND `ra`.`language_id` = '" . (int)$this->config->get('config_language_id') . "') AS `action`, (SELECT `rs`.`name` FROM `" . DB_PREFIX . "return_status` `rs` WHERE `rs`.`return_status_id` = `r`.`return_status_id` AND `rs`.`language_id` = '" . (int)$this->config->get('config_language_id') . "') AS `status`, `r`.`comment`, `r`.`date_ordered`, `r`.`date_added`, `r`.`date_modified` FROM `" . DB_PREFIX . "return` `r` WHERE `r`.`return_id` = '" . (int)$return_id . "' AND `r`.`customer_id` = '" . $this->customer->getId() . "'");
@@ -37,7 +41,7 @@ class ModelAccountReturns extends Model {
 	 * @param int $start
 	 * @param int $limit
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> return records
 	 */
 	public function getReturns(int $start = 0, int $limit = 20): array {
 		if ($start < 0) {
@@ -56,7 +60,7 @@ class ModelAccountReturns extends Model {
 	/**
 	 * Get Total Returns
 	 *
-	 * @return int
+	 * @return int total number of return records
 	 */
 	public function getTotalReturns(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "return` WHERE `customer_id` = '" . $this->customer->getId() . "'");
@@ -67,9 +71,9 @@ class ModelAccountReturns extends Model {
 	/**
 	 * Get Histories
 	 *
-	 * @param int $return_id
+	 * @param int $return_id primary key of the return record
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> history records that have return ID
 	 */
 	public function getHistories(int $return_id): array {
 		$query = $this->db->query("SELECT `rh`.`date_added`, `rs`.`name` AS `status`, `rh`.`comment` FROM `" . DB_PREFIX . "return_history` `rh` LEFT JOIN `" . DB_PREFIX . "return_status` `rs` ON `rh`.`return_status_id` = `rs`.`return_status_id` WHERE `rh`.`return_id` = '" . (int)$return_id . "' AND `rs`.`language_id` = '" . (int)$this->config->get('config_language_id') . "' ORDER BY `rh`.`date_added` ASC");

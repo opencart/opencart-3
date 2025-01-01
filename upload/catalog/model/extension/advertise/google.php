@@ -143,7 +143,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	}
 
 	/**
-	 * Get Remarketing Product Id
+	 * Get Remarketing Product ID
 	 *
 	 * @param array<string, mixed> $product
 	 * @param int                  $store_id
@@ -184,7 +184,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 	}
 
 	/**
-	 * Get Option Id
+	 * Get Option ID
 	 *
 	 * @param int $product_id
 	 * @param int $store_id

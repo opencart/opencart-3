@@ -1,6 +1,10 @@
 <?php
 /**
  * Class Api
+ * 
+ * @example $api_model = $this->model_setting_api;
+ * 
+ * Can be called from $this->load->model('setting/api');
  *
  * @package Catalog\Model\Setting
  */
@@ -35,7 +39,7 @@ class ModelSettingApi extends Model {
 	/**
 	 * Update Session
 	 *
-	 * @param int $api_session_id
+	 * @param int $api_session_id primary key of the api session record
 	 *
 	 * @return void
 	 */

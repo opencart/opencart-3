@@ -1,6 +1,10 @@
 <?php
 /**
  * Class Product
+ * 
+ * @example $product_model = $this->model_catalog_product;
+ * 
+ * Can be called from $this->load->model('catalog/product');
  *
  * @package Catalog\Model\Catalog
  */
@@ -8,7 +12,7 @@ class ModelCatalogProduct extends Model {
 	/**
 	 * Update Viewed
 	 *
-	 * @param int $product_id
+	 * @param int $product_id primary key of the product record
 	 *
 	 * @return void
 	 */
@@ -19,9 +23,9 @@ class ModelCatalogProduct extends Model {
 	/**
 	 * Get Product
 	 *
-	 * @param int $product_id
+	 * @param int $product_id primary key of the product record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> product record that has product ID
 	 */
 	public function getProduct(int $product_id): array {
 		$query = $this->db->query("SELECT DISTINCT *, `pd`.`name` AS name, `p`.`image`, `m`.`name` AS `manufacturer`, (SELECT `price` FROM `" . DB_PREFIX . "product_discount` `pd2` WHERE `pd2`.`product_id` = `p`.`product_id` AND `pd2`.`customer_group_id` = '" . (int)$this->config->get('config_customer_group_id') . "' AND `pd2`.`quantity` = '1' AND ((`pd2`.`date_start` = '0000-00-00' OR `pd2`.`date_start` < NOW()) AND (`pd2`.`date_end` = '0000-00-00' OR `pd2`.`date_end` > NOW())) ORDER BY `pd2`.`priority` ASC, `pd2`.`price` ASC LIMIT 1) AS `discount`, (SELECT `price` FROM `" . DB_PREFIX . "product_special` `ps` WHERE `ps`.`product_id` = `p`.`product_id` AND `ps`.`customer_group_id` = '" . (int)$this->config->get('config_customer_group_id') . "' AND ((`ps`.`date_start` = '0000-00-00' OR `ps`.`date_start` < NOW()) AND (`ps`.`date_end` = '0000-00-00' OR `ps`.`date_end` > NOW())) ORDER BY `ps`.`priority` ASC, `ps`.`price` ASC LIMIT 1) AS `special`, (SELECT `points` FROM `" . DB_PREFIX . "product_reward` `pr` WHERE `pr`.`product_id` = `p`.`product_id` AND `pr`.`customer_group_id` = '" . (int)$this->config->get('config_customer_group_id') . "') AS `reward`, (SELECT `ss`.`name` FROM `" . DB_PREFIX . "stock_status` `ss` WHERE `ss`.`stock_status_id` = `p`.`stock_status_id` AND `ss`.`language_id` = '" . (int)$this->config->get('config_language_id') . "') AS `stock_status`, (SELECT `wcd`.`unit` FROM `" . DB_PREFIX . "weight_class_description` `wcd` WHERE `p`.`weight_class_id` = `wcd`.`weight_class_id` AND `wcd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "') AS `weight_class`, (SELECT `lcd`.`unit` FROM `" . DB_PREFIX . "length_class_description` `lcd` WHERE `p`.`length_class_id` = `lcd`.`length_class_id` AND `lcd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "') AS `length_class`, (SELECT AVG(`rating`) AS `total` FROM `" . DB_PREFIX . "review` `r1` WHERE `r1`.`product_id` = `p`.`product_id` AND `r1`.`status` = '1' GROUP BY `r1`.`product_id`) AS `rating`, (SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "review` `r2` WHERE `r2`.`product_id` = `p`.`product_id` AND `r2`.`status` = '1' GROUP BY `r2`.`product_id`) AS `reviews`, `p`.`sort_order` FROM `" . DB_PREFIX . "product` `p` LEFT JOIN `" . DB_PREFIX . "product_description` `pd` ON (`p`.`product_id` = `pd`.`product_id`) LEFT JOIN `" . DB_PREFIX . "product_to_store` `p2s` ON (`p`.`product_id` = `p2s`.`product_id`) LEFT JOIN `" . DB_PREFIX . "manufacturer` `m` ON (`p`.`manufacturer_id` = `m`.`manufacturer_id`) WHERE `p`.`product_id` = '" . (int)$product_id . "' AND `pd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "' AND `p`.`status` = '1' AND `p`.`date_available` <= NOW() AND `p2s`.`store_id` = '" . (int)$this->config->get('config_store_id') . "'");
@@ -78,9 +82,9 @@ class ModelCatalogProduct extends Model {
 	/**
 	 * Get Products
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> product records
 	 */
 	public function getProducts(array $data = []): array {
 		$sql = "SELECT `p`.`product_id`, (SELECT AVG(`rating`) AS `total` FROM `" . DB_PREFIX . "review` `r1` WHERE `r1`.`product_id` = `p`.`product_id` AND `r1`.`status` = '1' GROUP BY `r1`.`product_id`) AS `rating`, (SELECT `price` FROM `" . DB_PREFIX . "product_discount` `pd2` WHERE `pd2`.`product_id` = `p`.`product_id` AND `pd2`.`customer_group_id` = '" . (int)$this->config->get('config_customer_group_id') . "' AND `pd2`.`quantity` = '1' AND ((`pd2`.`date_start` = '0000-00-00' OR `pd2`.`date_start` < NOW()) AND (`pd2`.`date_end` = '0000-00-00' OR `pd2`.`date_end` > NOW())) ORDER BY `pd2`.`priority` ASC, `pd2`.`price` ASC LIMIT 1) AS `discount`, (SELECT `price` FROM `" . DB_PREFIX . "product_special` `ps` WHERE `ps`.`product_id` = `p`.`product_id` AND `ps`.`customer_group_id` = '" . (int)$this->config->get('config_customer_group_id') . "' AND ((`ps`.`date_start` = '0000-00-00' OR `ps`.`date_start` < NOW()) AND (`ps`.`date_end` = '0000-00-00' OR `ps`.`date_end` > NOW())) ORDER BY `ps`.`priority` ASC, `ps`.`price` ASC LIMIT 1) AS `special`";
@@ -235,9 +239,9 @@ class ModelCatalogProduct extends Model {
 	/**
 	 * Get Specials
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filter
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> special records
 	 */
 	public function getSpecials(array $data = []): array {
 		$sql = "SELECT DISTINCT `ps`.`product_id`, (SELECT AVG(`rating`) FROM `" . DB_PREFIX . "review` `r1` WHERE `r1`.`product_id` = `ps`.`product_id` AND `r1`.`status` = '1' GROUP BY `r1`.`product_id`) AS `rating` FROM `" . DB_PREFIX . "product_special` `ps` LEFT JOIN `" . DB_PREFIX . "product` `p` ON (`ps`.`product_id` = `p`.`product_id`) LEFT JOIN `" . DB_PREFIX . "product_description` `pd` ON (`p`.`product_id` = `pd`.`product_id`) LEFT JOIN `" . DB_PREFIX . "product_to_store` `p2s` ON (`p`.`product_id` = `p2s`.`product_id`) WHERE `p`.`status` = '1' AND `p`.`date_available` <= NOW() AND `p2s`.`store_id` = '" . (int)$this->config->get('config_store_id') . "' AND `ps`.`customer_group_id` = '" . (int)$this->config->get('config_customer_group_id') . "' AND ((`ps`.`date_start` = '0000-00-00' OR `ps`.`date_start` < NOW()) AND (`ps`.`date_end` = '0000-00-00' OR `ps`.`date_end` > NOW())) GROUP BY `ps`.`product_id`";
@@ -367,9 +371,9 @@ class ModelCatalogProduct extends Model {
 	/**
 	 * Get Attributes
 	 *
-	 * @param int $product_id
+	 * @param int $product_id primary key of the product record
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> attribute records that have product ID
 	 */
 	public function getAttributes(int $product_id): array {
 		$product_attribute_group_data = [];
@@ -402,9 +406,9 @@ class ModelCatalogProduct extends Model {
 	/**
 	 * Get Options
 	 *
-	 * @param int $product_id
+	 * @param int $product_id primary key of the product record
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> option records that have product ID
 	 */
 	public function getOptions(int $product_id): array {
 		$product_option_data = [];
@@ -448,9 +452,9 @@ class ModelCatalogProduct extends Model {
 	/**
 	 * Get Discounts
 	 *
-	 * @param int $product_id
+	 * @param int $product_id primary key of the product record
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> discount records that have product ID
 	 */
 	public function getDiscounts(int $product_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "product_discount` WHERE `product_id` = '" . (int)$product_id . "' AND `customer_group_id` = '" . (int)$this->config->get('config_customer_group_id') . "' AND `quantity` > '1' AND ((`date_start` = '0000-00-00' OR `date_start` < NOW()) AND (`date_end` = '0000-00-00' OR `date_end` > NOW())) ORDER BY `quantity` ASC, `priority` ASC, `price` ASC");
@@ -461,9 +465,9 @@ class ModelCatalogProduct extends Model {
 	/**
 	 * Get Images
 	 *
-	 * @param int $product_id
+	 * @param int $product_id primary key of the product record
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> image records that have product ID
 	 */
 	public function getImages(int $product_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "product_image` WHERE `product_id` = '" . (int)$product_id . "' ORDER BY `sort_order` ASC");
@@ -474,9 +478,9 @@ class ModelCatalogProduct extends Model {
 	/**
 	 * Get Related
 	 *
-	 * @param int $product_id
+	 * @param int $product_id primary key of the product record
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> related records that have product ID
 	 */
 	public function getRelated(int $product_id): array {
 		$product_data = [];
@@ -491,11 +495,11 @@ class ModelCatalogProduct extends Model {
 	}
 
 	/**
-	 * Get Layout Id
+	 * Get Layout ID
 	 *
-	 * @param int $product_id
+	 * @param int $product_id primary key of the product record
 	 *
-	 * @return int
+	 * @return int layout record that has product ID
 	 */
 	public function getLayoutId(int $product_id): int {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "product_to_layout` WHERE `product_id` = '" . (int)$product_id . "' AND `store_id` = '" . (int)$this->config->get('config_store_id') . "'");
@@ -510,9 +514,9 @@ class ModelCatalogProduct extends Model {
 	/**
 	 * Get Categories
 	 *
-	 * @param int $product_id
+	 * @param int $product_id primary key of the product record
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> category records that have product ID
 	 */
 	public function getCategories(int $product_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "product_to_category` WHERE `product_id` = '" . (int)$product_id . "'");
@@ -523,9 +527,9 @@ class ModelCatalogProduct extends Model {
 	/**
 	 * getTotalProducts
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return int
+	 * @return int total number of product records
 	 */
 	public function getTotalProducts(array $data = []): int {
 		$sql = "SELECT COUNT(DISTINCT `p`.`product_id`) AS `total`";
@@ -632,10 +636,10 @@ class ModelCatalogProduct extends Model {
 	/**
 	 * Get Subscription
 	 *
-	 * @param int $product_id
-	 * @param int $subscription_plan_id
+	 * @param int $product_id primary key of the product record
+	 * @param int $subscription_plan_id primary key of the subscription plan record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> subscription record that has product ID, subscription plan ID
 	 */
 	public function getSubscription(int $product_id, int $subscription_plan_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "product_subscription` `ps` LEFT JOIN `" . DB_PREFIX . "subscription_plan` `sp` ON (`ps`.`subscription_plan_id` = `sp`.`subscription_plan_id`) WHERE `ps`.`product_id` = '" . (int)$product_id . "' AND `ps`.`subscription_plan_id` = '" . (int)$subscription_plan_id . "' AND `ps`.`customer_group_id` = '" . (int)$this->config->get('config_customer_group_id') . "' AND `sp`.`status` = '1'");
@@ -646,9 +650,9 @@ class ModelCatalogProduct extends Model {
 	/**
 	 * Get Subscriptions
 	 *
-	 * @param int $product_id
+	 * @param int $product_id primary key of the product record
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> subscription records that have product ID
 	 */
 	public function getSubscriptions(int $product_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "product_subscription` `ps` LEFT JOIN `" . DB_PREFIX . "subscription_plan` `sp` ON (`ps`.`subscription_plan_id` = `sp`.`subscription_plan_id`) LEFT JOIN `" . DB_PREFIX . "subscription_plan_description` `spd` ON (`sp`.`subscription_plan_id` = `spd`.`subscription_plan_id`) WHERE `ps`.`product_id` = '" . (int)$product_id . "' AND `ps`.`customer_group_id` = '" . (int)$this->config->get('config_customer_group_id') . "' AND `spd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "' AND `sp`.`status` = '1' ORDER BY `sp`.`sort_order` ASC");
@@ -659,7 +663,7 @@ class ModelCatalogProduct extends Model {
 	/**
 	 * Get Total Specials
 	 *
-	 * @return int
+	 * @return int total number of special records
 	 */
 	public function getTotalSpecials(): int {
 		$query = $this->db->query("SELECT COUNT(DISTINCT `ps`.`product_id`) AS `total` FROM `" . DB_PREFIX . "product_special` `ps` LEFT JOIN `" . DB_PREFIX . "product` `p` ON (`ps`.`product_id` = `p`.`product_id`) LEFT JOIN `" . DB_PREFIX . "product_to_store` `p2s` ON (`p`.`product_id` = `p2s`.`product_id`) WHERE `p`.`status` = '1' AND `p`.`date_available` <= NOW() AND `p2s`.`store_id` = '" . (int)$this->config->get('config_store_id') . "' AND `ps`.`customer_group_id` = '" . (int)$this->config->get('config_customer_group_id') . "' AND ((`ps`.`date_start` = '0000-00-00' OR `ps`.`date_start` < NOW()) AND (`ps`.`date_end` = '0000-00-00' OR `ps`.`date_end` > NOW()))");
@@ -674,7 +678,7 @@ class ModelCatalogProduct extends Model {
 	/**
 	 * Check Product Categories
 	 *
-	 * @param int                  $product_id
+	 * @param int                  $product_id primary key of the product record
 	 * @param array<string, mixed> $category_ids
 	 *
 	 * @return array<int, array<string, mixed>>

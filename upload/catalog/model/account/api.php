@@ -1,6 +1,10 @@
 <?php
 /**
  * Class Api
+ * 
+ * @example $api_model = $this->model_account_api;
+ * 
+ * Can be called from $this->load->model('account/api');
  *
  * @package Catalog\Model\Account
  */
@@ -22,11 +26,11 @@ class ModelAccountApi extends Model {
 	/**
 	 * Add Session
 	 *
-	 * @param int    $api_id
+	 * @param int    $api_id primary key of the api record
 	 * @param string $session_id
 	 * @param string $ip
 	 *
-	 * @return int
+	 * @return int returns the primary key of the new api session record
 	 */
 	public function addSession(int $api_id, string $session_id, string $ip): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "api_session` SET `api_id` = '" . (int)$api_id . "', `session_id` = '" . $this->db->escape($session_id) . "', `ip` = '" . $this->db->escape($ip) . "', `date_added` = NOW(), `date_modified` = NOW()");
@@ -37,9 +41,9 @@ class ModelAccountApi extends Model {
 	/**
 	 * Get Ips
 	 *
-	 * @param int $api_id
+	 * @param int $api_id primary key of the address record
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> ip records that have api ID
 	 */
 	public function getIps(int $api_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "api_ip` WHERE `api_id` = '" . (int)$api_id . "'");

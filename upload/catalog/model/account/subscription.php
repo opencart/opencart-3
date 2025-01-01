@@ -1,6 +1,10 @@
 <?php
 /**
  * Class Subscription
+ * 
+ * @example $subscription_model = $this->model_account_subscription;
+ * 
+ * Can be called from $this->load->model('account/subscription');
  *
  * @package Catalog\Model\Account
  */
@@ -8,9 +12,9 @@ class ModelAccountSubscription extends Model {
 	/**
 	 * Get Subscription
 	 *
-	 * @param int $subscription_id
+	 * @param int $subscription_id primary key of the subscription record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> subscription record that has subscription ID
 	 */
 	public function getSubscription(int $subscription_id): array {
 		$subscription_data = [];
@@ -31,10 +35,10 @@ class ModelAccountSubscription extends Model {
 	/**
 	 * Get Subscription By Order Product ID
 	 *
-	 * @param int $order_id
-	 * @param int $order_product_id
+	 * @param int $order_id primary key of the order record
+	 * @param int $order_product_id primary key of the order product record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> subscription record that has order ID, order product ID
 	 */
 	public function getSubscriptionByOrderProductId(int $order_id, int $order_product_id): array {
 		$subscription_data = [];
@@ -58,7 +62,7 @@ class ModelAccountSubscription extends Model {
 	 * @param int $start
 	 * @param int $limit
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> subscription records
 	 */
 	public function getSubscriptions(int $start = 0, int $limit = 20): array {
 		$subscription_data = [];
@@ -87,7 +91,7 @@ class ModelAccountSubscription extends Model {
 	/**
 	 * Get Total Subscriptions
 	 *
-	 * @return int
+	 * @return int total number of subscription records
 	 */
 	public function getTotalSubscriptions(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "subscription` WHERE `customer_id` = '" . (int)$this->customer->getId() . "' AND `subscription_status_id` > '0' AND `store_id` = '" . (int)$this->config->get('config_store_id') . "'");
@@ -102,9 +106,9 @@ class ModelAccountSubscription extends Model {
 	/**
 	 * Get Total Subscription By Shipping Address ID
 	 *
-	 * @param int $address_id
+	 * @param int $address_id primary key of the address record
 	 *
-	 * @return int
+	 * @return int total number of subscription records that have address ID
 	 */
 	public function getTotalSubscriptionByShippingAddressId(int $address_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "subscription` WHERE `customer_id` = '" . (int)$this->customer->getId() . "' AND `shipping_address_id` = '" . (int)$address_id . "'");
@@ -115,9 +119,9 @@ class ModelAccountSubscription extends Model {
 	/**
 	 * Get Total Subscription By Payment Address ID
 	 *
-	 * @param int $address_id
+	 * @param int $address_id primary key of the address record
 	 *
-	 * @return int
+	 * @return int total number of subscription records that have address ID
 	 */
 	public function getTotalSubscriptionByPaymentAddressId(int $address_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "subscription` WHERE `customer_id` = '" . (int)$this->customer->getId() . "' AND `payment_address_id` = '" . (int)$address_id . "'");
@@ -128,11 +132,11 @@ class ModelAccountSubscription extends Model {
 	/**
 	 * Get Histories
 	 *
-	 * @param int $subscription_id
+	 * @param int $subscription_id primary key of the subscription record
 	 * @param int $start
 	 * @param int $limit
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> history records that have subscription ID
 	 */
 	public function getHistories(int $subscription_id, int $start = 0, int $limit = 10): array {
 		if ($start < 0) {
@@ -151,9 +155,9 @@ class ModelAccountSubscription extends Model {
 	/**
 	 * Get Total Histories
 	 *
-	 * @param int $subscription_id
+	 * @param int $subscription_id primary key of the subscription record
 	 *
-	 * @return int
+	 * @return int total number of history records that have subscription ID
 	 */
 	public function getTotalHistories(int $subscription_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "subscription_history` WHERE `subscription_id` = '" . (int)$subscription_id . "'");
@@ -164,7 +168,7 @@ class ModelAccountSubscription extends Model {
 	/**
 	 * Edit Remaining
 	 *
-	 * @param int $subscription_id
+	 * @param int $subscription_id primary key of the subscription record
 	 * @param int $remaining
 	 *
 	 * @return void
@@ -176,7 +180,7 @@ class ModelAccountSubscription extends Model {
 	/**
 	 * Edit Trial Remaining
 	 *
-	 * @param int $subscription_id
+	 * @param int $subscription_id primary key of the subscription record
 	 * @param int $trial_remaining
 	 *
 	 * @return void

@@ -21,7 +21,7 @@ class ModelCheckoutMarketing extends Model {
 	/**
 	 * Add Report
 	 *
-	 * @param int    $marketing_id
+	 * @param int    $marketing_id primary key of the marketing record
 	 * @param string $ip
 	 * @param string $country
 	 *

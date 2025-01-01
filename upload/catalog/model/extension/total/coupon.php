@@ -279,7 +279,7 @@ class ModelExtensionTotalCoupon extends Model {
 	}
 
 	/**
-	 * Get Total Coupon Histories By Customer Id
+	 * Get Total Coupon Histories By Customer ID
 	 *
 	 * @param string $coupon
 	 * @param int    $customer_id

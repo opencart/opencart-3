@@ -1,6 +1,10 @@
 <?php
 /**
  * Class Review
+ * 
+ * @example $review_model = $this->model_catalog_review;
+ * 
+ * Can be called from $this->load->model('catalog/review');
  *
  * @package Catalog\Model\Catalog
  */
@@ -8,8 +12,8 @@ class ModelCatalogReview extends Model {
 	/**
 	 * Add Review
 	 *
-	 * @param int                  $product_id
-	 * @param array<string, mixed> $data
+	 * @param int                  $product_id primary key of the product record
+	 * @param array<string, mixed> $data array of data
 	 *
 	 * @throws \Exception
 	 *
@@ -70,13 +74,13 @@ class ModelCatalogReview extends Model {
 	}
 
 	/**
-	 * Get Reviews By Product Id
+	 * Get Reviews By Product ID
 	 *
-	 * @param int $product_id
+	 * @param int $product_id primary key of the product record
 	 * @param int $start
 	 * @param int $limit
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> review records that have product ID
 	 */
 	public function getReviewsByProductId(int $product_id, int $start = 0, int $limit = 20): array {
 		if ($start < 0) {
@@ -93,11 +97,11 @@ class ModelCatalogReview extends Model {
 	}
 
 	/**
-	 * Get Total Reviews By Product Id
+	 * Get Total Reviews By Product ID
 	 *
-	 * @param int $product_id
+	 * @param int $product_id primary key of the product record
 	 *
-	 * @return int
+	 * @return int total number of review records that have product ID
 	 */
 	public function getTotalReviewsByProductId(int $product_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "review` `r` LEFT JOIN `" . DB_PREFIX . "product` `p` ON (`r`.`product_id` = `p`.`product_id`) LEFT JOIN `" . DB_PREFIX . "product_description` `pd` ON (`p`.`product_id` = `pd`.`product_id`) WHERE `p`.`product_id` = '" . (int)$product_id . "' AND `p`.`date_available` <= NOW() AND `p`.`status` = '1' AND `r`.`status` = '1' AND `pd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");

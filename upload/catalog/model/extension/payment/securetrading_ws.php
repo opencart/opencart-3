@@ -159,7 +159,7 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 	}
 
 	/**
-	 * Get Order Id
+	 * Get Order ID
 	 *
 	 * @param string $md
 	 *

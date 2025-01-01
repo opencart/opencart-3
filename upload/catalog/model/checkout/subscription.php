@@ -1,6 +1,10 @@
 <?php
 /**
  * Class Subscription
+ * 
+ * @example $subscription_model = $this->model_checkout_subscription;
+ * 
+ * Can be called from $this->load->model('checkout/subscription');
  *
  * @package Catalog\Model\Checkout
  */
@@ -8,9 +12,9 @@ class ModelCheckoutSubscription extends Model {
 	/**
 	 * Add Subscription
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of data
 	 *
-	 * @return int
+	 * @return int returns the primary key of the new subscription record
 	 */
 	public function addSubscription(array $data): int {
 		if ($data['trial_status'] && $data['trial_duration']) {

@@ -26,7 +26,7 @@ class ModelExtensionModuleLaybuyLayout extends Model {
 	}
 
 	/**
-	 * Get Transaction By Order Id
+	 * Get Transaction By Order ID
 	 *
 	 * @param int $order_id
 	 *

@@ -1,6 +1,10 @@
 <?php
 /**
  * Class Currency
+ * 
+ * @example $currency_model = $this->model_localisation_currency;
+ * 
+ * Can be called from $this->load->model('localisation/currency');
  *
  * @package Catalog\Model\Localisation
  */
@@ -21,7 +25,7 @@ class ModelLocalisationCurrency extends Model {
 	/**
 	 * Get Currencies
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> currency records
 	 */
 	public function getCurrencies(): array {
 		$currency_data = $this->cache->get('currency');

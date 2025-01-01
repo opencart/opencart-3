@@ -1,6 +1,10 @@
 <?php
 /**
  * Class Layout
+ * 
+ * @example $layout_model = $this->model_design_layout;
+ * 
+ * Can be called from $this->load->model('design/layout');
  *
  * @package Catalog\Model\Design
  */
@@ -25,7 +29,7 @@ class ModelDesignLayout extends Model {
 	/**
 	 * Get Modules
 	 *
-	 * @param int    $layout_id
+	 * @param int    $layout_id primary key of the layout record
 	 * @param string $position
 	 *
 	 * @return array<int, array<string, mixed>>

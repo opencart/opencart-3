@@ -1,6 +1,10 @@
 <?php
 /**
  * Class Statistics
+ * 
+ * @example $statistics_model = $this->model_report_statistics;
+ * 
+ * Can be called from $this->load->model('report/statistics');
  *
  * @package Catalog\Model\Report
  */
@@ -8,7 +12,7 @@ class ModelReportStatistics extends Model {
 	/**
 	 * Get Statistics
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> statistic records
 	 */
 	public function getStatistics(): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "statistics`");

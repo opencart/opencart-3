@@ -1,6 +1,10 @@
 <?php
 /**
  * Class Extension
+ * 
+ * @example $extension_model = $this->model_setting_extension;
+ * 
+ * Can be called from $this->load->model('setting/extension');
  *
  * @package Catalog\Model\Setting
  */

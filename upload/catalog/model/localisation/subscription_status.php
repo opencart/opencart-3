@@ -1,6 +1,10 @@
 <?php
 /**
  * Class Subscription Status
+ * 
+ * @example $subscription_status_model = $this->model_localisation_subscription_status;
+ * 
+ * Can be called from $this->load->model('localisation/subscription_status');
  *
  * @package Catalog\Model\Localisation
  */
@@ -8,9 +12,9 @@ class ModelLocalisationSubscriptionStatus extends Model {
 	/**
 	 * Get Subscription Status
 	 *
-	 * @param int $subscription_status_id
+	 * @param int $subscription_status_id primary key of the subscription status record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> subscription status that has subscription status ID
 	 */
 	public function getSubscriptionStatus(int $subscription_status_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "subscription_status` WHERE `subscription_status_id` = '" . (int)$subscription_status_id . "' AND `language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -21,7 +25,7 @@ class ModelLocalisationSubscriptionStatus extends Model {
 	/**
 	 * Get Subscription Statuses
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> subscription status records
 	 */
 	public function getSubscriptionStatuses(): array {
 		$sql = "SELECT `subscription_status_id`, `name` FROM `" . DB_PREFIX . "subscription_status` WHERE `language_id` = '" . (int)$this->config->get('config_language_id') . "' ORDER BY `name`";

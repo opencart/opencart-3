@@ -1,6 +1,10 @@
 <?php
 /**
  * Class Activity
+ * 
+ * @example $activity_model = $this->model_account_activity;
+ * 
+ * Can be called from $this->load->model('account/activity');
  *
  * @package Catalog\Model\Account
  */
@@ -9,7 +13,7 @@ class ModelAccountActivity extends Model {
 	 * Add Activity
 	 *
 	 * @param string               $key
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of data
 	 *
 	 * @return void
 	 */

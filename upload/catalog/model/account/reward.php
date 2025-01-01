@@ -1,6 +1,10 @@
 <?php
 /**
  * Class Reward
+ * 
+ * @example $reward_model = $this->model_account_reward;
+ * 
+ * Can be called from $this->load->model('account/reward');
  *
  * @package Catalog\Model\Account
  */
@@ -8,9 +12,9 @@ class ModelAccountReward extends Model {
 	/**
 	 * Get Rewards
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> reward records
 	 */
 	public function getRewards(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "customer_reward` WHERE `customer_id` = '" . (int)$this->customer->getId() . "'";
@@ -53,7 +57,7 @@ class ModelAccountReward extends Model {
 	/**
 	 * Get Total Rewards
 	 *
-	 * @return int
+	 * @return int total number of reward records
 	 */
 	public function getTotalRewards(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer_reward` WHERE `customer_id` = '" . (int)$this->customer->getId() . "'");
@@ -64,7 +68,7 @@ class ModelAccountReward extends Model {
 	/**
 	 * Get Total Points
 	 *
-	 * @return int
+	 * @return int total number of point records
 	 */
 	public function getTotalPoints(): int {
 		$query = $this->db->query("SELECT SUM(`points`) AS `total` FROM `" . DB_PREFIX . "customer_reward` WHERE `customer_id` = '" . (int)$this->customer->getId() . "' GROUP BY `customer_id`");
