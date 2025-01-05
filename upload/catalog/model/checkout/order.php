@@ -2,8 +2,6 @@
 /**
  * Class Order
  *
- * @example $order_model = $this->model_checkout_order;
- *
  * Can be called from $this->load->model('checkout/order');
  *
  * @package Catalog\Model\Checkout
@@ -15,6 +13,10 @@ class ModelCheckoutOrder extends Model {
 	 * @param array<string, mixed> $data array of data
 	 *
 	 * @return int returns the primary key of the new order record
+	 *
+	 * @example
+	 *
+	 * $order_id = $this->model_checkout_order->getOrder($data);
 	 */
 	public function addOrder(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "order` SET `invoice_prefix` = '" . $this->db->escape($data['invoice_prefix']) . "', `store_id` = '" . (int)$data['store_id'] . "', `store_name` = '" . $this->db->escape($data['store_name']) . "', `store_url` = '" . $this->db->escape($data['store_url']) . "', `customer_id` = '" . (int)$data['customer_id'] . "', `customer_group_id` = '" . (int)$data['customer_group_id'] . "', `firstname` = '" . $this->db->escape($data['firstname']) . "', `lastname` = '" . $this->db->escape($data['lastname']) . "', `email` = '" . $this->db->escape($data['email']) . "', `telephone` = '" . $this->db->escape($data['telephone']) . "', `custom_field` = '" . $this->db->escape(isset($data['custom_field']) ? json_encode($data['custom_field']) : '') . "', `payment_firstname` = '" . $this->db->escape($data['payment_firstname']) . "', `payment_lastname` = '" . $this->db->escape($data['payment_lastname']) . "', `payment_company` = '" . $this->db->escape($data['payment_company']) . "', `payment_address_1` = '" . $this->db->escape($data['payment_address_1']) . "', `payment_address_2` = '" . $this->db->escape($data['payment_address_2']) . "', `payment_city` = '" . $this->db->escape($data['payment_city']) . "', `payment_postcode` = '" . $this->db->escape($data['payment_postcode']) . "', `payment_country` = '" . $this->db->escape($data['payment_country']) . "', `payment_country_id` = '" . (int)$data['payment_country_id'] . "', `payment_zone` = '" . $this->db->escape($data['payment_zone']) . "', `payment_zone_id` = '" . (int)$data['payment_zone_id'] . "', `payment_address_format` = '" . $this->db->escape($data['payment_address_format']) . "', `payment_custom_field` = '" . $this->db->escape(isset($data['payment_custom_field']) ? json_encode($data['payment_custom_field']) : '') . "', `payment_method` = '" . $this->db->escape($data['payment_method'] ? json_encode($data['payment_method']) : '') . "', `shipping_firstname` = '" . $this->db->escape($data['shipping_firstname']) . "', `shipping_lastname` = '" . $this->db->escape($data['shipping_lastname']) . "', `shipping_company` = '" . $this->db->escape($data['shipping_company']) . "', `shipping_address_1` = '" . $this->db->escape($data['shipping_address_1']) . "', `shipping_address_2` = '" . $this->db->escape($data['shipping_address_2']) . "', `shipping_city` = '" . $this->db->escape($data['shipping_city']) . "', `shipping_postcode` = '" . $this->db->escape($data['shipping_postcode']) . "', `shipping_country` = '" . $this->db->escape($data['shipping_country']) . "', `shipping_country_id` = '" . (int)$data['shipping_country_id'] . "', `shipping_zone` = '" . $this->db->escape($data['shipping_zone']) . "', `shipping_zone_id` = '" . (int)$data['shipping_zone_id'] . "', `shipping_address_format` = '" . $this->db->escape($data['shipping_address_format']) . "', `shipping_custom_field` = '" . $this->db->escape(isset($data['shipping_custom_field']) ? json_encode($data['shipping_custom_field']) : '') . "', `shipping_method` = '" . $this->db->escape($data['shipping_method']) . "', `shipping_code` = '" . $this->db->escape($data['shipping_code']) . "', `comment` = '" . $this->db->escape($data['comment']) . "', `total` = '" . (float)$data['total'] . "', `affiliate_id` = '" . (int)$data['affiliate_id'] . "', `commission` = '" . (float)$data['commission'] . "', `marketing_id` = '" . (int)$data['marketing_id'] . "', `tracking` = '" . $this->db->escape($data['tracking']) . "', `language_id` = '" . (int)$data['language_id'] . "', `currency_id` = '" . (int)$data['currency_id'] . "', `currency_code` = '" . $this->db->escape($data['currency_code']) . "', `currency_value` = '" . (float)$data['currency_value'] . "', `ip` = '" . $this->db->escape($data['ip']) . "', `forwarded_ip` = '" . $this->db->escape($data['forwarded_ip']) . "', `user_agent` = '" . $this->db->escape($data['user_agent']) . "', `accept_language` = '" . $this->db->escape($data['accept_language']) . "', `date_added` = NOW(), `date_modified` = NOW()");
@@ -76,6 +78,10 @@ class ModelCheckoutOrder extends Model {
 	 * @param array<string, mixed> $data     array of data
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_checkout_order->editOrder($order_id, $data);
 	 */
 	public function editOrder(int $order_id, array $data): void {
 		// Void the order first
@@ -138,6 +144,10 @@ class ModelCheckoutOrder extends Model {
 	 * @param int $order_id primary key of the order record
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_checkout_order->deleteOrder($order_id);
 	 */
 	public function deleteOrder(int $order_id): void {
 		// Void the order first
@@ -166,6 +176,10 @@ class ModelCheckoutOrder extends Model {
 	 * @param int $order_id primary key of the order record
 	 *
 	 * @return array<string, mixed> order record that has order ID
+	 *
+	 * @example
+	 *
+	 * $order_info = $this->model_checkout_order->getOrder($order_id);
 	 */
 	public function getOrder(int $order_id): array {
 		$order_query = $this->db->query("SELECT *, (SELECT `os`.`name` FROM `" . DB_PREFIX . "order_status` `os` WHERE `os`.`order_status_id` = `o`.`order_status_id` AND `os`.`language_id` = `o`.`language_id`) AS `order_status` FROM `" . DB_PREFIX . "order` `o` WHERE `o`.`order_id` = '" . (int)$order_id . "'");
@@ -298,6 +312,10 @@ class ModelCheckoutOrder extends Model {
 	 * @param int $order_id primary key of the order record
 	 *
 	 * @return array<int, array<string, mixed>> product records that have order ID
+	 *
+	 * @example
+	 *
+	 * $order_products = $this->model_checkout_order->getProducts($order_id);
 	 */
 	public function getProducts(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_product` WHERE `order_id` = '" . (int)$order_id . "'");
@@ -312,6 +330,10 @@ class ModelCheckoutOrder extends Model {
 	 * @param int $order_product_id primary key of the order product record
 	 *
 	 * @return array<int, array<string, mixed>> option records that have order ID, order product ID
+	 *
+	 * @example
+	 *
+	 * $order_options = $this->model_checkout_order->getOptions($order_id, $order_product_id);
 	 */
 	public function getOptions(int $order_id, int $order_product_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_option` WHERE `order_id` = '" . (int)$order_id . "' AND `order_product_id` = '" . (int)$order_product_id . "'");
@@ -326,6 +348,10 @@ class ModelCheckoutOrder extends Model {
 	 * @param int $order_product_id primary key of the order product record
 	 *
 	 * @return array<string, mixed> subscription records that have order ID, order product ID
+	 *
+	 * @example
+	 *
+	 * $order_subscription_info = $this->model_checkout_order->getSubscription($order_id, $order_product_id);
 	 */
 	public function getSubscription(int $order_id, int $order_product_id): array {
 		$subscription_data = [];
@@ -351,6 +377,10 @@ class ModelCheckoutOrder extends Model {
 	 * @param array<string, mixed> $data array of filters
 	 *
 	 * @return array<int, array<string, mixed>> subscription records
+	 *
+	 * @example
+	 *
+	 * $subscriptions = $this->model_checkout_order->getSubscriptions($data);
 	 */
 	public function getSubscriptions(array $data): array {
 		$subscription_data = [];
@@ -423,6 +453,10 @@ class ModelCheckoutOrder extends Model {
 	 * @param int $subscription_id primary key of the subscription record
 	 *
 	 * @return int total number of subscription records that have subscription ID
+	 *
+	 * @example
+	 *
+	 * $order_total = $this->model_checkout_order->getTotalOrdersBySubscriptionId($subscription_id);
 	 */
 	public function getTotalOrdersBySubscriptionId(int $subscription_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order` WHERE `subscription_id` = '" . (int)$subscription_id . "' AND `customer_id` = '" . (int)$this->customer->getId() . "'");
@@ -436,6 +470,10 @@ class ModelCheckoutOrder extends Model {
 	 * @param int $order_id primary key of the order record
 	 *
 	 * @return array<int, array<string, mixed>> voucher record that has order ID
+	 *
+	 * @example
+	 *
+	 * $vouchers = $this->model_checkout_order->getVouchers($order_id);
 	 */
 	public function getVouchers(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_voucher` WHERE `order_id` = '" . (int)$order_id . "'");
@@ -449,6 +487,10 @@ class ModelCheckoutOrder extends Model {
 	 * @param int $order_id primary key of the order record
 	 *
 	 * @return array<int, array<string, mixed>> total records that have order ID
+	 *
+	 * @example
+	 *
+	 * $totals = $this->model_checkout_order->getTotals($order_id);
 	 */
 	public function getTotals(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_total` WHERE `order_id` = '" . (int)$order_id . "' ORDER BY `sort_order` ASC");
@@ -466,6 +508,10 @@ class ModelCheckoutOrder extends Model {
 	 * @param bool   $override
 	 *
 	 * @return int
+	 *
+	 * @example
+	 *
+	 * $this->model_checkout_order->addHistory($order_id, $order_status_id, $comment, $notify, $override);
 	 */
 	public function addHistory(int $order_id, int $order_status_id, string $comment = '', bool $notify = false, bool $override = false): int {
 		$order_info = $this->getOrder($order_id);

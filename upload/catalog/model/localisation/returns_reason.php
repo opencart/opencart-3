@@ -2,8 +2,6 @@
 /**
  * Class Returns Reason
  *
- * @example $return_reason_model = $this->model_localisation_return_reason;
- *
  * Can be called from $this->load->model('localisation/return_reason');
  *
  * @package Catalog\Model\Localisation
@@ -15,6 +13,10 @@ class ModelLocalisationReturnsReason extends Model {
 	 * @param array<string, mixed> $data array of filters
 	 *
 	 * @return array<int, array<string, mixed>> return reason records
+	 *
+	 * @example
+	 *
+	 * $return_reasons = $this->model_localisation_return_reasons->getReturnReasons();
 	 */
 	public function getReturnReasons(array $data = []): array {
 		if ($data) {

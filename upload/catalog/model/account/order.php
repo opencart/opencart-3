@@ -2,8 +2,6 @@
 /**
  * Class Order
  *
- * @example $order_model = $this->model_account_order;
- *
  * Can be called from $this->load->model('account/order');
  *
  * @package Catalog\Model\Account
@@ -15,6 +13,10 @@ class ModelAccountOrder extends Model {
 	 * @param int $order_id primary key of the order record
 	 *
 	 * @return array<string, mixed> order record that has order ID
+	 *
+	 * @example
+	 *
+	 * $order_info = $this->model_account_order->getOrder($order_id);
 	 */
 	public function getOrder(int $order_id): array {
 		$order_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order` WHERE `order_id` = '" . (int)$order_id . "' AND `customer_id` = '" . (int)$this->customer->getId() . "' AND `customer_id` != '0' AND `order_status_id` > '0'");
@@ -123,6 +125,10 @@ class ModelAccountOrder extends Model {
 	 * @param int $limit
 	 *
 	 * @return array<int, array<string, mixed>> order records
+	 *
+	 * @example
+	 *
+	 * $results = $this->model_account_order->getOrders();
 	 */
 	public function getOrders(int $start = 0, int $limit = 20): array {
 		if ($start < 0) {
@@ -145,6 +151,10 @@ class ModelAccountOrder extends Model {
 	 * @param int $order_product_id primary key of the order product record
 	 *
 	 * @return array<string, mixed> product record that has order ID, order product ID
+	 *
+	 * @example
+	 *
+	 * $order_product = $this->model_account_order->getOrder($order_id, $order_product_id);
 	 */
 	public function getProduct(int $order_id, int $order_product_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_product` WHERE `order_id` = '" . (int)$order_id . "' AND `order_product_id` = '" . (int)$order_product_id . "'");
@@ -158,6 +168,10 @@ class ModelAccountOrder extends Model {
 	 * @param int $order_id primary key of the order record
 	 *
 	 * @return array<int, array<string, mixed>> product records that have order ID
+	 *
+	 * @example
+	 *
+	 * $order_products = $this->model_account_order->getProducts($order_id);
 	 */
 	public function getProducts(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_product` WHERE `order_id` = '" . (int)$order_id . "'");
@@ -172,6 +186,10 @@ class ModelAccountOrder extends Model {
 	 * @param int $order_product_id primary key of the order product record
 	 *
 	 * @return array<int, array<string, mixed>>
+	 *
+	 * @example
+	 *
+	 * $order_options = $this->model_account_order->getOptions($order_id, $order_product_id);
 	 */
 	public function getOptions(int $order_id, int $order_product_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_option` WHERE `order_id` = '" . (int)$order_id . "' AND `order_product_id` = '" . (int)$order_product_id . "'");
@@ -185,6 +203,10 @@ class ModelAccountOrder extends Model {
 	 * @param int $order_id primary key of the order record
 	 *
 	 * @return array<int, array<string, mixed>> voucher records that have order ID
+	 *
+	 * @example
+	 *
+	 * $vouchers = $this->model_account_order->getVouchers($order_id);
 	 */
 	public function getVouchers(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_voucher` WHERE `order_id` = '" . (int)$order_id . "'");
@@ -198,6 +220,10 @@ class ModelAccountOrder extends Model {
 	 * @param int $order_id primary key of the order record
 	 *
 	 * @return array<int, array<string, mixed>> total records that have order ID
+	 *
+	 * @example
+	 *
+	 * $order_total = $this->model_account_order->getTotals($order_id);
 	 */
 	public function getTotals(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_total` WHERE `order_id` = '" . (int)$order_id . "' ORDER BY `sort_order`");
@@ -211,6 +237,10 @@ class ModelAccountOrder extends Model {
 	 * @param int $order_id primary key of the order record
 	 *
 	 * @return array<int, array<string, mixed>> history records that have order ID
+	 *
+	 * @example
+	 *
+	 * $results = $this->model_account_order->getHistories($order_id);
 	 */
 	public function getHistories(int $order_id): array {
 		$query = $this->db->query("SELECT `date_added`, `os`.`name` AS `status`, `oh`.`comment`, `oh`.`notify` FROM `" . DB_PREFIX . "order_history` `oh` LEFT JOIN `" . DB_PREFIX . "order_status` `os` ON `oh`.`order_status_id` = `os`.`order_status_id` WHERE `oh`.`order_id` = '" . (int)$order_id . "' AND `os`.`language_id` = '" . (int)$this->config->get('config_language_id') . "' ORDER BY `oh`.`date_added`");
@@ -222,6 +252,10 @@ class ModelAccountOrder extends Model {
 	 * Get Total Orders
 	 *
 	 * @return int total number of order records
+	 *
+	 * @example
+	 *
+	 * $order_total = $this->model_account_order->getTotalOrders();
 	 */
 	public function getTotalOrders(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order` `o` WHERE `customer_id` = '" . (int)$this->customer->getId() . "' AND `o`.`order_status_id` > '0' AND `o`.`store_id` = '" . (int)$this->config->get('config_store_id') . "'");
@@ -235,6 +269,10 @@ class ModelAccountOrder extends Model {
 	 * @param int $order_id primary key of the order record
 	 *
 	 * @return int total number of product records that have order ID
+	 *
+	 * @example
+	 *
+	 * $order_total = $this->model_account_order->getTotalOrderProductsByOrderId($order_id);
 	 */
 	public function getTotalOrderProductsByOrderId(int $order_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order_product` WHERE `order_id` = '" . (int)$order_id . "'");
@@ -248,6 +286,10 @@ class ModelAccountOrder extends Model {
 	 * @param int $order_id total number of voucher records that have order ID
 	 *
 	 * @return int
+	 *
+	 * @example
+	 *
+	 * $order_total = $this->model_account_order->getTotalOrderVouchersByOrderId($order_id);
 	 */
 	public function getTotalOrderVouchersByOrderId(int $order_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order_voucher` WHERE `order_id` = '" . (int)$order_id . "'");

@@ -2,8 +2,6 @@
 /**
  * Class Image
  *
- * @example $image_model = $this->model_tool_image;
- *
  * Can be called from $this->load->model('tool/image');
  *
  * @package Catalog\Model\Tool
@@ -20,6 +18,10 @@ class ModelToolImage extends Model {
 	 * @throws \Exception
 	 *
 	 * @return string
+	 *
+	 * @example
+	 *
+	 * $placeholder = $this->model_tool_image->resize($filename, $width, $height, $default);
 	 */
 	public function resize(string $filename, int $width, int $height, string $default = ''): string {
 		if (!is_file(DIR_IMAGE . $filename) || substr(str_replace('\\', '/', realpath(DIR_IMAGE . $filename)), 0, strlen(DIR_IMAGE)) != str_replace('\\', '/', DIR_IMAGE)) {

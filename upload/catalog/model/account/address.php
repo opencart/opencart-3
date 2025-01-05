@@ -2,8 +2,6 @@
 /**
  * Class Address
  *
- * @example $address_model = $this->model_account_address;
- *
  * Can be called from $this->load->model('account/address');
  *
  * @package Catalog\Model\Account
@@ -16,6 +14,10 @@ class ModelAccountAddress extends Model {
 	 * @param array<string, mixed> $data        array of data
 	 *
 	 * @return int returns the primary key of the new address record
+	 *
+	 * @example
+	 *
+	 * $address_id = $this->model_account_address->addAddress($customer_id, $data);
 	 */
 	public function addAddress(int $customer_id, array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "address` SET `customer_id` = '" . (int)$customer_id . "', `firstname` = '" . $this->db->escape($data['firstname']) . "', `lastname` = '" . $this->db->escape($data['lastname']) . "', `company` = '" . $this->db->escape($data['company']) . "', `address_1` = '" . $this->db->escape($data['address_1']) . "', `address_2` = '" . $this->db->escape($data['address_2']) . "', `postcode` = '" . $this->db->escape($data['postcode']) . "', `city` = '" . $this->db->escape($data['city']) . "', `zone_id` = '" . (int)$data['zone_id'] . "', `country_id` = '" . (int)$data['country_id'] . "', `custom_field` = '" . $this->db->escape(isset($data['custom_field']) ? json_encode($data['custom_field']) : '') . "', `default` = '" . (isset($data['default']) ? (int)$data['default'] : 0) . "'");
@@ -36,6 +38,10 @@ class ModelAccountAddress extends Model {
 	 * @param array<string, mixed> $data       array of data
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_account_address->editAddress($address_id, $data);
 	 */
 	public function editAddress(int $address_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "address` SET `firstname` = '" . $this->db->escape($data['firstname']) . "', `lastname` = '" . $this->db->escape($data['lastname']) . "', `company` = '" . $this->db->escape($data['company']) . "', `address_1` = '" . $this->db->escape($data['address_1']) . "', `address_2` = '" . $this->db->escape($data['address_2']) . "', `postcode` = '" . $this->db->escape($data['postcode']) . "', `city` = '" . $this->db->escape($data['city']) . "', `zone_id` = '" . (int)$data['zone_id'] . "', `country_id` = '" . (int)$data['country_id'] . "', `custom_field` = '" . $this->db->escape(isset($data['custom_field']) ? json_encode($data['custom_field']) : '') . "', `default` = '" . (isset($data['default']) ? (int)$data['default'] : 0) . "' WHERE `address_id` = '" . (int)$address_id . "' AND `customer_id` = '" . (int)$this->customer->getId() . "'");
@@ -51,6 +57,10 @@ class ModelAccountAddress extends Model {
 	 * @param int $address_id primary key of the address record
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_account_address->deleteAddress($address_id);
 	 */
 	public function deleteAddress(int $address_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "address` WHERE `address_id` = '" . (int)$address_id . "' AND `customer_id` = '" . (int)$this->customer->getId() . "'");
@@ -68,6 +78,10 @@ class ModelAccountAddress extends Model {
 	 * @param int $address_id primary key of the address record
 	 *
 	 * @return array<string, mixed> address record that has address ID
+	 *
+	 * @example
+	 *
+	 * $address_info = $this->model_account_address->getAddress($address_id);
 	 */
 	public function getAddress(int $address_id): array {
 		$address_query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "address` WHERE `address_id` = '" . (int)$address_id . "' AND `customer_id` = '" . (int)$this->customer->getId() . "'");
@@ -160,6 +174,10 @@ class ModelAccountAddress extends Model {
 	 * Get Addresses
 	 *
 	 * @return array<int, array<string, mixed>> address records
+	 *
+	 * @example
+	 *
+	 * $results = $this->model_account_address->getAddresses();
 	 */
 	public function getAddresses(): array {
 		$address_data = [];
@@ -181,6 +199,10 @@ class ModelAccountAddress extends Model {
 	 * Get Total Addresses
 	 *
 	 * @return int total number of address records
+	 *
+	 * @example
+	 *
+	 * $address_total = $this->model_account_address->getTotalAddresses();
 	 */
 	public function getTotalAddresses(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "address` WHERE `customer_id` = '" . (int)$this->customer->getId() . "'");

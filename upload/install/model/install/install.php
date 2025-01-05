@@ -8,9 +8,13 @@ class ModelInstallInstall extends Model {
 	/**
 	 * Database
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of data
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_install_install->database();
 	 */
 	public function database(array $data): void {
 		$db = new \DB($data['db_driver'], htmlspecialchars_decode($data['db_hostname']), htmlspecialchars_decode($data['db_username']), htmlspecialchars_decode($data['db_password']), htmlspecialchars_decode($data['db_database']), htmlspecialchars_decode($data['db_port']), htmlspecialchars_decode($data['db_ssl_key']), htmlspecialchars_decode($data['db_ssl_cert']), htmlspecialchars_decode($data['db_ssl_ca']));

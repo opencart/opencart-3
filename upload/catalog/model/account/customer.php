@@ -2,8 +2,6 @@
 /**
  * Class Customer
  *
- * @example $customer_model = $this->model_account_customer;
- *
  * Can be called from $this->load->model('account/customer');
  *
  * @package Catalog\Model\Account
@@ -15,6 +13,10 @@ class ModelAccountCustomer extends Model {
 	 * @param array<string, mixed> $data array of data
 	 *
 	 * @return int returns the primary key of the new customer record
+	 *
+	 * @example
+	 *
+	 * $customer_id = $this->model_account_customer->addCustomer($data);
 	 */
 	public function addCustomer(array $data): int {
 		if (isset($data['customer_group_id']) && in_array($data['customer_group_id'], (array)$this->config->get('config_customer_group_display'))) {
@@ -46,6 +48,10 @@ class ModelAccountCustomer extends Model {
 	 * @param array<string, mixed> $data        array of data
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_account_customer->editCustomer($customer_id, $data);
 	 */
 	public function editCustomer(int $customer_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "customer` SET `firstname` = '" . $this->db->escape($data['firstname']) . "', `lastname` = '" . $this->db->escape($data['lastname']) . "', `email` = '" . $this->db->escape($data['email']) . "', `telephone` = '" . $this->db->escape($data['telephone']) . "', `custom_field` = '" . $this->db->escape(isset($data['custom_field']) ? json_encode($data['custom_field']) : '') . "' WHERE `customer_id` = '" . (int)$customer_id . "'");
@@ -58,6 +64,10 @@ class ModelAccountCustomer extends Model {
 	 * @param string $password
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_account_customer->editPassword($email, $password);
 	 */
 	public function editPassword(string $email, string $password): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "customer` SET `password` = '" . $this->db->escape(password_hash(html_entity_decode($password, ENT_QUOTES, 'UTF-8'), PASSWORD_DEFAULT)) . "', `code` = '' WHERE LCASE(`email`) = '" . $this->db->escape(oc_strtolower($email)) . "'");
@@ -70,6 +80,10 @@ class ModelAccountCustomer extends Model {
 	 * @param int $address_id  primary key of the address record
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_account_customer->editAddressId($customer_id, $address_id);
 	 */
 	public function editAddressId(int $customer_id, int $address_id): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "customer` SET `address_id` = '" . (int)$address_id . "' WHERE `customer_id` = '" . (int)$customer_id . "'");
@@ -83,6 +97,10 @@ class ModelAccountCustomer extends Model {
 	 * @param string $code
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_account_customer->editCode($email, $code);
 	 */
 	public function editCode(string $email, string $code): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "customer` SET `code` = '" . $this->db->escape($code) . "' WHERE LCASE(`email`) = '" . $this->db->escape(oc_strtolower($email)) . "'");
@@ -94,6 +112,10 @@ class ModelAccountCustomer extends Model {
 	 * @param int $newsletter
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_account_customer->editNewsletter($newsletter);
 	 */
 	public function editNewsletter(int $newsletter): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "customer` SET `newsletter` = '" . (int)$newsletter . "' WHERE `customer_id` = '" . (int)$this->customer->getId() . "'");
@@ -105,6 +127,10 @@ class ModelAccountCustomer extends Model {
 	 * @param int $customer_id primary key of the customer record
 	 *
 	 * @return array<string, mixed> customer record that has customer ID
+	 *
+	 * @example
+	 *
+	 * $customer_info = $this->model_account_customer->getCustomer($customer_id);
 	 */
 	public function getCustomer(int $customer_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer` WHERE `customer_id` = '" . (int)$customer_id . "'");
@@ -122,6 +148,10 @@ class ModelAccountCustomer extends Model {
 	 * @param string $email
 	 *
 	 * @return array<string, mixed>
+	 *
+	 * @example
+	 *
+	 * $customer_info = $this->model_account_customer->getCustomerByEmail($email);
 	 */
 	public function getCustomerByEmail(string $email): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer` WHERE LCASE(`email`) = '" . $this->db->escape(oc_strtolower($email)) . "'");
@@ -139,6 +169,10 @@ class ModelAccountCustomer extends Model {
 	 * @param string $code
 	 *
 	 * @return array<string, mixed>
+	 *
+	 * @example
+	 *
+	 * $customer_info = $this->model_account_customer->getCustomerByCode($code);
 	 */
 	public function getCustomerByCode(string $code): array {
 		$query = $this->db->query("SELECT `customer_id`, `firstname`, `lastname`, `email` FROM `" . DB_PREFIX . "customer` WHERE `code` = '" . $this->db->escape($code) . "' AND `code` != ''");
@@ -152,6 +186,10 @@ class ModelAccountCustomer extends Model {
 	 * @param string $token
 	 *
 	 * @return array<string, mixed>
+	 *
+	 * @example
+	 *
+	 * $customer_info = $this->model_account_customer->getCustomerByToken($token);
 	 */
 	public function getCustomerByToken(string $token): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer` WHERE `token` = '" . $this->db->escape($token) . "' AND `token` != ''");
@@ -171,6 +209,10 @@ class ModelAccountCustomer extends Model {
 	 * @param string $email
 	 *
 	 * @return int
+	 *
+	 * @example
+	 *
+	 * $customer_total = $this->model_account_customer->getTotalCustomersByEmail($email);
 	 */
 	public function getTotalCustomersByEmail(string $email): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer` WHERE LCASE(`email`) = '" . $this->db->escape(oc_strtolower($email)) . "'");
@@ -187,6 +229,10 @@ class ModelAccountCustomer extends Model {
 	 * @param int    $order_id    primary key of the order record
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_account_customer->addTransaction($customer_id, $description, $amount, $order_id);
 	 */
 	public function addTransaction(int $customer_id, string $description, float $amount = 0, int $order_id = 0): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "customer_transaction` SET `customer_id` = '" . (int)$customer_id . "', `order_id` = '" . (float)$order_id . "', `description` = '" . $this->db->escape($description) . "', `amount` = '" . (float)$amount . "', `date_added` = NOW()");
@@ -198,6 +244,10 @@ class ModelAccountCustomer extends Model {
 	 * @param int $order_id primary key of the order record
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_account_customer->deleteTransactionByOrderId($order_id);
 	 */
 	public function deleteTransactionByOrderId(int $order_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "customer_transaction` WHERE `order_id` = '" . (int)$order_id . "'");
@@ -209,6 +259,10 @@ class ModelAccountCustomer extends Model {
 	 * @param int $customer_id primary key of the customer record
 	 *
 	 * @return float
+	 *
+	 * @example
+	 *
+	 * $transaction_total = $this->model_account_customer->getTransactionTotal($customer_id);
 	 */
 	public function getTransactionTotal(int $customer_id): float {
 		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "customer_transaction` WHERE `customer_id` = '" . (int)$customer_id . "'");
@@ -222,6 +276,10 @@ class ModelAccountCustomer extends Model {
 	 * @param int $order_id primary key of the order record
 	 *
 	 * @return int transaction records that have order ID
+	 *
+	 * @example
+	 *
+	 * $transaction_total = $this->model_account_customer->getTotalTransactionsByOrderId($order_id);
 	 */
 	public function getTotalTransactionsByOrderId(int $order_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer_transaction` WHERE `order_id` = '" . (int)$order_id . "'");
@@ -235,6 +293,10 @@ class ModelAccountCustomer extends Model {
 	 * @param int $customer_id primary key of the customer record
 	 *
 	 * @return int
+	 *
+	 * @example
+	 *
+	 * $reward_total = $this->model_account_customer->getRewardTotal($customer_id);
 	 */
 	public function getRewardTotal(int $customer_id): int {
 		$query = $this->db->query("SELECT SUM(`points`) AS `total` FROM `" . DB_PREFIX . "customer_reward` WHERE `customer_id` = '" . (int)$customer_id . "'");
@@ -252,6 +314,10 @@ class ModelAccountCustomer extends Model {
 	 * @param int $customer_id primary key of the customer record
 	 *
 	 * @return array<int, array<string, mixed>> ip records that have customer ID
+	 *
+	 * @example
+	 *
+	 * $results = $this->model_account_customer->getIps($customer_id);
 	 */
 	public function getIps(int $customer_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_ip` WHERE `customer_id` = '" . (int)$customer_id . "'");
@@ -267,6 +333,10 @@ class ModelAccountCustomer extends Model {
 	 * @param string $country
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_account_customer->addLogin($customer_id, $ip, $country);
 	 */
 	public function addLogin(int $customer_id, string $ip, string $country = ''): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "customer_ip` SET `customer_id` = '" . (int)$customer_id . "', `store_id` = '" . (int)$this->config->get('config_store_id') . "', `ip` = '" . $this->db->escape($ip) . "', `country` = '" . $this->db->escape($country) . "', `date_added` = NOW()");
@@ -278,6 +348,10 @@ class ModelAccountCustomer extends Model {
 	 * @param string $email
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_account_customer->addLoginAttempt($email);
 	 */
 	public function addLoginAttempt(string $email): void {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_login` WHERE LCASE(`email`) = '" . $this->db->escape(oc_strtolower((string)$email)) . "' AND `ip` = '" . oc_get_ip() . "'");
@@ -295,6 +369,10 @@ class ModelAccountCustomer extends Model {
 	 * @param string $email
 	 *
 	 * @return array<string, mixed>
+	 *
+	 * @example
+	 *
+	 * $login_info = $this->model_account_customer->getLoginAttempts($email);
 	 */
 	public function getLoginAttempts(string $email): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_login` WHERE LCASE(`email`) = '" . $this->db->escape(oc_strtolower($email)) . "'");
@@ -308,6 +386,10 @@ class ModelAccountCustomer extends Model {
 	 * @param string $email
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_account_customer->deleteLoginAttempts($email);
 	 */
 	public function deleteLoginAttempts(string $email): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "customer_login` WHERE LCASE(`email`) = '" . $this->db->escape(oc_strtolower($email)) . "'");
@@ -320,6 +402,10 @@ class ModelAccountCustomer extends Model {
 	 * @param array<string, mixed> $data        array of data
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_account_customer->addAffiliate($customer_id, $data);
 	 */
 	public function addAffiliate(int $customer_id, array $data): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "customer_affiliate` SET `customer_id` = '" . (int)$customer_id . "', `company` = '" . $this->db->escape($data['company']) . "', `website` = '" . $this->db->escape($data['website']) . "', `tracking` = '" . $this->db->escape(oc_token(10)) . "', `commission` = '" . (float)$this->config->get('config_affiliate_commission') . "', `tax` = '" . $this->db->escape($data['tax']) . "', `payment` = '" . $this->db->escape($data['payment']) . "', `cheque` = '" . $this->db->escape($data['cheque']) . "', `paypal` = '" . $this->db->escape($data['paypal']) . "', `bank_name` = '" . $this->db->escape($data['bank_name']) . "', `bank_branch_number` = '" . $this->db->escape($data['bank_branch_number']) . "', `bank_swift_code` = '" . $this->db->escape($data['bank_swift_code']) . "', `bank_account_name` = '" . $this->db->escape($data['bank_account_name']) . "', `bank_account_number` = '" . $this->db->escape($data['bank_account_number']) . "', `custom_field` = '" . $this->db->escape(isset($data['custom_field']) ? json_encode($data['custom_field']) : '') . "', `status` = '" . (int)!$this->config->get('config_affiliate_approval') . "'");
@@ -336,6 +422,10 @@ class ModelAccountCustomer extends Model {
 	 * @param array<string, mixed> $data        array of data
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_account_customer->editAffiliate($customer_id, $data);
 	 */
 	public function editAffiliate(int $customer_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "customer_affiliate` SET `company` = '" . $this->db->escape($data['company']) . "', `website` = '" . $this->db->escape($data['website']) . "', `commission` = '" . (float)$this->config->get('config_affiliate_commission') . "', `tax` = '" . $this->db->escape($data['tax']) . "', `payment` = '" . $this->db->escape($data['payment']) . "', `cheque` = '" . $this->db->escape($data['cheque']) . "', `paypal` = '" . $this->db->escape($data['paypal']) . "', `bank_name` = '" . $this->db->escape($data['bank_name']) . "', `bank_branch_number` = '" . $this->db->escape($data['bank_branch_number']) . "', `bank_swift_code` = '" . $this->db->escape($data['bank_swift_code']) . "', `bank_account_name` = '" . $this->db->escape($data['bank_account_name']) . "', `bank_account_number` = '" . $this->db->escape($data['bank_account_number']) . "',  `custom_field` = '" . $this->db->escape(isset($data['custom_field']) ? json_encode($data['custom_field']) : '') . "' WHERE `customer_id` = '" . (int)$customer_id . "'");
@@ -347,6 +437,10 @@ class ModelAccountCustomer extends Model {
 	 * @param int $customer_id primary key of the customer record
 	 *
 	 * @return array<string, mixed> affiliate record that has customer ID
+	 *
+	 * @example
+	 *
+	 * $customer_info = $this->model_account_customer->getAffiliate($customer_id);
 	 */
 	public function getAffiliate(int $customer_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_affiliate` WHERE `customer_id` = '" . (int)$customer_id . "'");
@@ -364,6 +458,10 @@ class ModelAccountCustomer extends Model {
 	 * @param string $tracking
 	 *
 	 * @return array<string, mixed>
+	 *
+	 * @example
+	 *
+	 * $customer_info = $this->model_account_customer->getAffiliateByTracking($tracking);
 	 */
 	public function getAffiliateByTracking(string $tracking): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_affiliate` WHERE `tracking` = '" . $this->db->escape($tracking) . "'");
@@ -383,6 +481,10 @@ class ModelAccountCustomer extends Model {
 	 * @param string $country
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_account_customer->addReport($customer_id, $ip, $country);
 	 */
 	public function addReport(int $customer_id, string $ip, string $country = ''): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "customer_affiliate_report` SET `customer_id` = '" . (int)$customer_id . "', `store_id` = '" . (int)$this->config->get('config_store_id') . "', `ip` = '" . $this->db->escape($ip) . "', `country` = '" . $this->db->escape($country) . "', `date_added` = NOW()");

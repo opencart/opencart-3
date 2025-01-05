@@ -2,8 +2,6 @@
 /**
  * Class Online
  *
- * @example $online_model = $this->model_tool_online;
- *
  * Can be called from $this->load->model('tool/online');
  *
  * @package Catalog\Model\Tool
@@ -18,6 +16,10 @@ class ModelToolOnline extends Model {
 	 * @param string $referer
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_tool_online->addOnline($ip, $customer_id, $url, $referer);
 	 */
 	public function addOnline(string $ip, int $customer_id, string $url, string $referer): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "customer_online` WHERE `date_added` < '" . date('Y-m-d H:i:s', strtotime('-1 hour')) . "'");

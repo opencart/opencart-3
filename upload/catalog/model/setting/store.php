@@ -2,8 +2,6 @@
 /**
  * Class Store
  *
- * @example $store_model = $this->model_setting_store;
- *
  * Can be called from $this->load->model('setting/store');
  *
  * @package Catalog\Model\Setting
@@ -15,6 +13,10 @@ class ModelSettingStore extends Model {
 	 * @param int $store_id primary key of the store record
 	 *
 	 * @return array<string, mixed> store record that has store ID
+	 *
+	 * @example
+	 *
+	 * $store_info = $this->model_setting_store->getStore($store_id);
 	 */
 	public function getStore(int $store_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "store` WHERE `store_id` = '" . (int)$store_id . "'");
@@ -26,6 +28,10 @@ class ModelSettingStore extends Model {
 	 * Get Stores
 	 *
 	 * @return array<int, array<string, mixed>> store records
+	 *
+	 * @example
+	 *
+	 * $stores = $this->model_setting_store->getStores();
 	 */
 	public function getStores(): array {
 		$store_data = $this->cache->get('store');
@@ -47,6 +53,10 @@ class ModelSettingStore extends Model {
 	 * @param string $url
 	 *
 	 * @return array<string, mixed>
+	 *
+	 * @example
+	 *
+	 * $store_info = $this->model_setting_store->getStoreByHostname($url);
 	 */
 	public function getStoreByHostname(string $url): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "store` WHERE REPLACE(`url`, 'www.', '') = '" . $this->db->escape($url) . "'");

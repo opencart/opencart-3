@@ -2,8 +2,6 @@
 /**
  * Class Statistics
  *
- * @example $statistics_model = $this->model_report_statistics;
- *
  * Can be called from $this->load->model('report/statistics');
  *
  * @package Catalog\Model\Report
@@ -13,6 +11,10 @@ class ModelReportStatistics extends Model {
 	 * Get Statistics
 	 *
 	 * @return array<int, array<string, mixed>> statistic records
+	 *
+	 * @example
+	 *
+	 * $results = $this->model_report_statistics->getStatistics();
 	 */
 	public function getStatistics(): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "statistics`");
@@ -26,6 +28,10 @@ class ModelReportStatistics extends Model {
 	 * @param string $code
 	 *
 	 * @return float
+	 *
+	 * @example
+	 *
+	 * $value = $this->model_report_statistics->getValue($code);
 	 */
 	public function getValue(string $code): float {
 		$query = $this->db->query("SELECT `value` FROM `" . DB_PREFIX . "statistics` WHERE `code` = '" . $this->db->escape($code) . "'");
@@ -44,6 +50,10 @@ class ModelReportStatistics extends Model {
 	 * @param float  $value
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_report_statistics->addValue($code, $value);
 	 */
 	public function addValue(string $code, float $value): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "statistics` SET `value` = (`value` + '" . (float)$value . "') WHERE `code` = '" . $this->db->escape($code) . "'");
@@ -56,6 +66,10 @@ class ModelReportStatistics extends Model {
 	 * @param float  $value
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_report_statistics->removeValue($code, $value);
 	 */
 	public function removeValue(string $code, float $value): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "statistics` SET `value` = (`value` - '" . (float)$value . "') WHERE `code` = '" . $this->db->escape($code) . "'");
@@ -68,6 +82,10 @@ class ModelReportStatistics extends Model {
 	 * @param float  $value
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_report_statistics->editValue($code, $value);
 	 */
 	public function editValue(string $code, float $value): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "statistics` SET `value` = '" . (float)$value . "' WHERE `code` = '" . $this->db->escape($code) . "'");

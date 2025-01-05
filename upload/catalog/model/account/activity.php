@@ -2,8 +2,6 @@
 /**
  * Class Activity
  *
- * @example $activity_model = $this->model_account_activity;
- *
  * Can be called from $this->load->model('account/activity');
  *
  * @package Catalog\Model\Account
@@ -16,6 +14,10 @@ class ModelAccountActivity extends Model {
 	 * @param array<string, mixed> $data array of data
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_account_activity->addActivity($key, $data);
 	 */
 	public function addActivity(string $key, array $data): void {
 		if (isset($data['customer_id'])) {

@@ -2,8 +2,6 @@
 /**
  * Class Language
  *
- * @example $language_model = $this->model_localisation_language;
- *
  * Can be called from $this->load->model('localisation/language');
  *
  * @package Catalog\Model\Localisation
@@ -17,6 +15,10 @@ class ModelLocalisationLanguage extends Model {
 	 * @param int $language_id primary key of the language record
 	 *
 	 * @return array<string, mixed> language record that has language ID
+	 *
+	 * @example
+	 *
+	 * $language_info = $this->model_localisation_language->getLanguage($language_id);
 	 */
 	public function getLanguage(int $language_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "language` WHERE `language_id` = '" . (int)$language_id . "'");
@@ -30,6 +32,10 @@ class ModelLocalisationLanguage extends Model {
 	 * @param string $code
 	 *
 	 * @return array<string, mixed>
+	 *
+	 * @example
+	 *
+	 * $language_info = $this->model_localisation_language->getLanguageByCode($code);
 	 */
 	public function getLanguageByCode(string $code): array {
 		if (isset($this->data[$code])) {
@@ -61,6 +67,10 @@ class ModelLocalisationLanguage extends Model {
 	 * Get Languages
 	 *
 	 * @return array<int, array<string, mixed>> language records
+	 *
+	 * @example
+	 *
+	 * $languages = $this->model_localisation_language->getLanguages();
 	 */
 	public function getLanguages(): array {
 		$language_data = $this->cache->get('catalog.language');

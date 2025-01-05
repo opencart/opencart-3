@@ -2,8 +2,6 @@
 /**
  * Class Review
  *
- * @example $review_model = $this->model_catalog_review;
- *
  * Can be called from $this->load->model('catalog/review');
  *
  * @package Catalog\Model\Catalog
@@ -18,6 +16,10 @@ class ModelCatalogReview extends Model {
 	 * @throws \Exception
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_catalog_review->addReview($product_id, $data);
 	 */
 	public function addReview(int $product_id, array $data): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "review` SET `author` = '" . $this->db->escape($data['name']) . "', `customer_id` = '" . (int)$this->customer->getId() . "', `product_id` = '" . (int)$product_id . "', `text` = '" . $this->db->escape($data['text']) . "', `rating` = '" . (int)$data['rating'] . "', `date_added` = NOW(), `date_modified` = NOW()");
@@ -81,6 +83,10 @@ class ModelCatalogReview extends Model {
 	 * @param int $limit
 	 *
 	 * @return array<int, array<string, mixed>> review records that have product ID
+	 *
+	 * @example
+	 *
+	 * $reviews = $this->model_catalog_product->getReviewsByProductId($product_id, $start, $limit);
 	 */
 	public function getReviewsByProductId(int $product_id, int $start = 0, int $limit = 20): array {
 		if ($start < 0) {
@@ -102,6 +108,10 @@ class ModelCatalogReview extends Model {
 	 * @param int $product_id primary key of the product record
 	 *
 	 * @return int total number of review records that have product ID
+	 *
+	 * @example
+	 *
+	 * $review_total = $this->model_catalog_review->getTotalReviewsByProductId($product_id);
 	 */
 	public function getTotalReviewsByProductId(int $product_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "review` `r` LEFT JOIN `" . DB_PREFIX . "product` `p` ON (`r`.`product_id` = `p`.`product_id`) LEFT JOIN `" . DB_PREFIX . "product_description` `pd` ON (`p`.`product_id` = `pd`.`product_id`) WHERE `p`.`product_id` = '" . (int)$product_id . "' AND `p`.`date_available` <= NOW() AND `p`.`status` = '1' AND `r`.`status` = '1' AND `pd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");

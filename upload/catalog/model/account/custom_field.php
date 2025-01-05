@@ -2,8 +2,6 @@
 /**
  * Class Custom Field
  *
- * @example $custom_field_model = $this->model_account_custom_field;
- *
  * Can be called from $this->load->model('account/custom_field');
  *
  * @package Catalog\Model\Account
@@ -15,6 +13,10 @@ class ModelAccountCustomField extends Model {
 	 * @param int $custom_field_id primary key of the custom field record
 	 *
 	 * @return array<string, mixed> custom field record that has custom field ID
+	 *
+	 * @example
+	 *
+	 * $custom_field_info = $this->model_account_custom_field->getCustomField($custom_field_id);
 	 */
 	public function getCustomField(int $custom_field_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "custom_field` `cf` LEFT JOIN `" . DB_PREFIX . "custom_field_description` `cfd` ON (`cf`.`custom_field_id` = `cfd`.`custom_field_id`) WHERE `cf`.`status` = '1' AND `cf`.`custom_field_id` = '" . (int)$custom_field_id . "' AND `cfd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -28,6 +30,10 @@ class ModelAccountCustomField extends Model {
 	 * @param int $customer_group_id primary key of the customer group record
 	 *
 	 * @return array<int, array<string, mixed>> custom field records that have customer group ID
+	 *
+	 * @example
+	 *
+	 * $results = $this->model_account_custom_field->getCustomFields();
 	 */
 	public function getCustomFields(int $customer_group_id = 0): array {
 		$custom_field_data = [];

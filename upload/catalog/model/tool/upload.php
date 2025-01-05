@@ -2,20 +2,22 @@
 /**
  * Class Upload
  *
+ * Can be called from $this->load->model('tool/upload');
+ *
  * @package Catalog\Model\Tool
  */
 class ModelToolUpload extends Model {
 	/**
 	 * Add Upload
 	 *
-	 * @example $upload_model = $this->model_tool_upload;
-	 *
-	 * Can be called from $this->load->model('tool/upload');
-	 *
 	 * @param string $name
 	 * @param string $filename
 	 *
 	 * @return string
+	 *
+	 * @example
+	 *
+	 * $upload_id = $this->model_tool_upload->addUpload($name, $filename);
 	 */
 	public function addUpload(string $name, string $filename): string {
 		$code = sha1(uniqid(mt_rand(), true));
@@ -31,6 +33,10 @@ class ModelToolUpload extends Model {
 	 * @param string $code
 	 *
 	 * @return array<string, mixed>
+	 *
+	 * @example
+	 *
+	 * $upload_info = $this->model_tool_upload->getUploadByCode($code);
 	 */
 	public function getUploadByCode(string $code): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "upload` WHERE code = '" . $this->db->escape($code) . "'");

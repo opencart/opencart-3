@@ -77,6 +77,10 @@ class User {
 	 * @param string $password
 	 *
 	 * @return bool
+	 *
+	 * @example
+	 *
+	 * $this->user->login($username, $password);
 	 */
 	public function login(string $username, string $password): bool {
 		$user_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "user` WHERE `username` = '" . $this->db->escape($username) . "' AND `status` = '1'");
@@ -123,6 +127,10 @@ class User {
 	 * Logout
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->user->logout();
 	 */
 	public function logout(): void {
 		unset($this->session->data['user_id']);
@@ -140,6 +148,10 @@ class User {
 	 * @param mixed  $value
 	 *
 	 * @return bool
+	 *
+	 * @example
+	 *
+	 * $permission = $this->user->hasPermission($key, $value);
 	 */
 	public function hasPermission(string $key, $value): bool {
 		if (isset($this->permission[$key])) {
@@ -153,6 +165,10 @@ class User {
 	 * Is Logged
 	 *
 	 * @return bool
+	 *
+	 * @example
+	 *
+	 * $logged = $this->user->isLogged();
 	 */
 	public function isLogged(): bool {
 		return $this->user_id ? true : false;
@@ -162,6 +178,10 @@ class User {
 	 * Get Id
 	 *
 	 * @return int
+	 *
+	 * @example
+	 *
+	 * $user_id = $this->user->getId();
 	 */
 	public function getId(): int {
 		return $this->user_id;
@@ -171,6 +191,10 @@ class User {
 	 * Get User Name
 	 *
 	 * @return string
+	 *
+	 * @example
+	 *
+	 * $username = $this->user->getUserName();
 	 */
 	public function getUserName(): string {
 		return $this->username;
@@ -180,6 +204,10 @@ class User {
 	 * Get Group Id
 	 *
 	 * @return int
+	 *
+	 * @example
+	 *
+	 * $group_id = $this->user->getGroupId();
 	 */
 	public function getGroupId(): int {
 		return $this->user_group_id;
@@ -189,6 +217,10 @@ class User {
 	 * Get Email
 	 *
 	 * @return string
+	 *
+	 * @example
+	 *
+	 * $email = $this->user->getEmail();
 	 */
 	public function getEmail(): string {
 		return $this->email;

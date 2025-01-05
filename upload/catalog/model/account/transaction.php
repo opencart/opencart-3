@@ -2,8 +2,6 @@
 /**
  * Class Transaction
  *
- * @example $transaction_model = $this->model_account_transaction;
- *
  * Can be called from $this->load->model('account/transaction');
  *
  * @package Catalog\Model\Account
@@ -15,6 +13,10 @@ class ModelAccountTransaction extends Model {
 	 * @param array<string, mixed> $data array of filters
 	 *
 	 * @return array<int, array<string, mixed>> transaction records
+	 *
+	 * @example
+	 *
+	 * $results = $this->model_account_transaction->getTransactions();
 	 */
 	public function getTransactions(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "customer_transaction` WHERE `customer_id` = '" . (int)$this->customer->getId() . "'";
@@ -58,6 +60,10 @@ class ModelAccountTransaction extends Model {
 	 * Get Total Transactions
 	 *
 	 * @return int total number of transaction records
+	 *
+	 * @example
+	 *
+	 * $transaction_total = $this->model_account_transaction->getTotalTransactions();
 	 */
 	public function getTotalTransactions(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer_transaction` WHERE `customer_id` = '" . (int)$this->customer->getId() . "'");
@@ -69,6 +75,10 @@ class ModelAccountTransaction extends Model {
 	 * Get Total Amount
 	 *
 	 * @return int total number of transaction amount records
+	 *
+	 * @example
+	 *
+	 * $amount_total = $this->model_account_transaction->getTotalAmount();
 	 */
 	public function getTotalAmount(): int {
 		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "customer_transaction` WHERE `customer_id` = '" . (int)$this->customer->getId() . "' GROUP BY `customer_id`");

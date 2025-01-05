@@ -66,6 +66,10 @@ class Cart {
 	 * Get Products
 	 *
 	 * @return array<int, array<string, mixed>> product records
+	 *
+	 * @example
+	 *
+	 * $cart = $this->cart->getProducts();
 	 */
 	public function getProducts(): array {
 		$product_data = [];
@@ -325,6 +329,10 @@ class Cart {
 	 * @param float        $price
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->cart->add($product_id, $quantity, $option, $subscription_plan_id, $override, $price);
 	 */
 	public function add(int $product_id, int $quantity = 1, array $option = [], int $subscription_plan_id = 0, bool $override = false, float $price = 0): void {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "cart` WHERE `api_id` = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND `customer_id` = '" . (int)$this->customer->getId() . "' AND `session_id` = '" . $this->db->escape($this->session->getId()) . "' AND `product_id` = '" . (int)$product_id . "' AND `subscription_plan_id` = '" . (int)$subscription_plan_id . "' AND `option` = '" . $this->db->escape(json_encode($option)) . "'");
@@ -349,6 +357,10 @@ class Cart {
 	 * @param int $quantity
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->cart->update($cart_id, $quantity);
 	 */
 	public function update(int $cart_id, int $quantity): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "cart` SET `quantity` = '" . (int)$quantity . "' WHERE `cart_id` = '" . (int)$cart_id . "' AND `api_id` = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND `customer_id` = '" . (int)$this->customer->getId() . "' AND `session_id` = '" . $this->db->escape($this->session->getId()) . "'");
@@ -366,6 +378,10 @@ class Cart {
 	 * @param int $cart_id primary key of the cart record
 	 *
 	 * @return bool
+	 *
+	 * @example
+	 *
+	 * $has = $this->cart->has($cart_id);
 	 */
 	public function has(int $cart_id): bool {
 		return isset($this->data[$cart_id]);
@@ -377,6 +393,10 @@ class Cart {
 	 * @param int $cart_id primary key of the cart record
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->cart->remove($cart_id);
 	 */
 	public function remove(int $cart_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "cart` WHERE `cart_id` = '" . (int)$cart_id . "' AND `api_id` = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND `customer_id` = '" . (int)$this->customer->getId() . "' AND `session_id` = '" . $this->db->escape($this->session->getId()) . "'");
@@ -388,6 +408,10 @@ class Cart {
 	 * Clear
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->cart->clear();
 	 */
 	public function clear(): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "cart` WHERE `api_id` = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND `customer_id` = '" . (int)$this->customer->getId() . "' AND `session_id` = '" . $this->db->escape($this->session->getId()) . "'");
@@ -399,6 +423,10 @@ class Cart {
 	 * Get Subscriptions
 	 *
 	 * @return array<int, array<string, mixed>> subscription records
+	 *
+	 * @example
+	 *
+	 * $subscriptions = $this->cart->getSubscriptions();
 	 */
 	public function getSubscriptions(): array {
 		$product_data = [];
@@ -416,6 +444,10 @@ class Cart {
 	 * Get Weight
 	 *
 	 * @return float
+	 *
+	 * @example
+	 *
+	 * $weight = $this->cart->getWeight();
 	 */
 	public function getWeight(): float {
 		$weight = 0;
@@ -433,6 +465,10 @@ class Cart {
 	 * Get Sub Total
 	 *
 	 * @return float
+	 *
+	 * @example
+	 *
+	 * $sub_total = $this->cart->getSubTotal();
 	 */
 	public function getSubTotal(): float {
 		$total = 0;
@@ -448,6 +484,10 @@ class Cart {
 	 * Get Taxes
 	 *
 	 * @return array<int, float>
+	 *
+	 * @example
+	 *
+	 * $taxes = $this->cart->getTaxes();
 	 */
 	public function getTaxes(): array {
 		$tax_data = [];
@@ -473,6 +513,10 @@ class Cart {
 	 * Get Total
 	 *
 	 * @return float
+	 *
+	 * @example
+	 *
+	 * $total = $this->cart->getTotal();
 	 */
 	public function getTotal(): float {
 		$total = 0;
@@ -488,6 +532,10 @@ class Cart {
 	 * Count Products
 	 *
 	 * @return int
+	 *
+	 * @example
+	 *
+	 * $count_products = $this->cart->countProducts();
 	 */
 	public function countProducts(): int {
 		$product_total = 0;
@@ -505,6 +553,10 @@ class Cart {
 	 * Has Products
 	 *
 	 * @return bool
+	 *
+	 * @example
+	 *
+	 * $has_products = $this->cart->hasProducts();
 	 */
 	public function hasProducts(): bool {
 		return count($this->getProducts());
@@ -514,6 +566,10 @@ class Cart {
 	 * Has Subscription
 	 *
 	 * @return bool
+	 *
+	 * @example
+	 *
+	 * $has_subscription = $this->cart->hasSubscription();
 	 */
 	public function hasSubscription(): bool {
 		return count($this->getSubscriptions());
@@ -523,6 +579,10 @@ class Cart {
 	 * Has Stock
 	 *
 	 * @return bool
+	 *
+	 * @example
+	 *
+	 * $has_stock = $this->cart->hasStock();
 	 */
 	public function hasStock(): bool {
 		foreach ($this->getProducts() as $product) {
@@ -538,6 +598,10 @@ class Cart {
 	 * Has Shipping
 	 *
 	 * @return bool
+	 *
+	 * @example
+	 *
+	 * $has_shipping = $this->cart->hasShipping();
 	 */
 	public function hasShipping(): bool {
 		foreach ($this->getProducts() as $product) {
@@ -553,6 +617,10 @@ class Cart {
 	 * Has Download
 	 *
 	 * @return bool
+	 *
+	 * @example
+	 *
+	 * $has_download = $this->cart->hasDownload();
 	 */
 	public function hasDownload(): bool {
 		foreach ($this->getProducts() as $product) {

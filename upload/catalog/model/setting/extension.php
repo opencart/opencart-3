@@ -2,8 +2,6 @@
 /**
  * Class Extension
  *
- * @example $extension_model = $this->model_setting_extension;
- *
  * Can be called from $this->load->model('setting/extension');
  *
  * @package Catalog\Model\Setting
@@ -15,6 +13,10 @@ class ModelSettingExtension extends Model {
 	 * @param string $type
 	 *
 	 * @return array<int, array<string, mixed>>
+	 *
+	 * @example
+	 *
+	 * $extensions = $this->model_setting_extension->getExtensionsByType($type);
 	 */
 	public function getExtensionsByType(string $type): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "extension` WHERE `type` = '" . $this->db->escape($type) . "'");
@@ -29,6 +31,10 @@ class ModelSettingExtension extends Model {
 	 * @param string $code
 	 *
 	 * @return array<string, mixed>
+	 *
+	 * @example
+	 *
+	 * $extension_info = $this->model_setting_extension->getExtensionByCode($type, $code);
 	 */
 	public function getExtensionByCode(string $type, string $code): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "extension` WHERE `type` = '" . $this->db->escape($type) . "' AND `code` = '" . $this->db->escape($code) . "'");
