@@ -13,9 +13,9 @@ class ModelSettingModification extends Model {
 	 * @param array<string, mixed> $data array of data
 	 *
 	 * @return void
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $this->model_setting_modification->addModification($data);
 	 */
 	public function addModification(array $data): void {
@@ -28,9 +28,9 @@ class ModelSettingModification extends Model {
 	 * @param int $modification_id primary key of the modification record
 	 *
 	 * @return void
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $this->model_setting_modification->deleteModification($modification_id);
 	 */
 	public function deleteModification(int $modification_id): void {
@@ -43,9 +43,9 @@ class ModelSettingModification extends Model {
 	 * @param int $extension_install_id primary key of the extension install record
 	 *
 	 * @return void
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $this->model_setting_modification->deleteModificationsByExtensionInstallId($extension_install_id);
 	 */
 	public function deleteModificationsByExtensionInstallId(int $extension_install_id): void {
@@ -58,9 +58,9 @@ class ModelSettingModification extends Model {
 	 * @param int $modification_id primary key of the modification record
 	 *
 	 * @return void
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $this->model_setting_modification->enableModification($modification_id);
 	 */
 	public function enableModification(int $modification_id): void {
@@ -73,9 +73,9 @@ class ModelSettingModification extends Model {
 	 * @param int $modification_id primary key of the modification record
 	 *
 	 * @return void
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $this->model_setting_modification->disableModification($modification_id);
 	 */
 	public function disableModification(int $modification_id): void {
@@ -88,9 +88,9 @@ class ModelSettingModification extends Model {
 	 * @param int $modification_id primary key of the modification record
 	 *
 	 * @return array<string, mixed> modification record that has modification ID
-	 * 
+	 *
 	 * @example
-	 * 
+	 *
 	 * $modification_info = $this->model_setting_modification->getModification($modification_id);
 	 */
 	public function getModification(int $modification_id): array {
@@ -105,9 +105,9 @@ class ModelSettingModification extends Model {
 	 * @param array<string, mixed> $data array of filters
 	 *
 	 * @return array<int, array<string, mixed>> modification records
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $results = $this->model_setting_modification->getModifications();
 	 */
 	public function getModifications(array $data = []): array {
@@ -154,9 +154,9 @@ class ModelSettingModification extends Model {
 	 * Get Total Modifications
 	 *
 	 * @return int total number of modification records
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $modification_total = $this->model_setting_modification->getTotalModifications();
 	 */
 	public function getTotalModifications(): int {
@@ -171,9 +171,9 @@ class ModelSettingModification extends Model {
 	 * @param string $code
 	 *
 	 * @return array<string, mixed>
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $modification_info = $this->model_setting_modification->getModificationByCode($code);
 	 */
 	public function getModificationByCode(string $code): array {

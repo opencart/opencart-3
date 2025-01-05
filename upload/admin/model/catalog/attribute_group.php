@@ -160,9 +160,9 @@ class ModelCatalogAttributeGroup extends Model {
 	 * Get Total Attribute Groups
 	 *
 	 * @return int total number of attribute group records
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $attribute_group_total = $this->model_catalog_attribute_group->getTotalAttributeGroups();
 	 */
 	public function getTotalAttributeGroups(): int {

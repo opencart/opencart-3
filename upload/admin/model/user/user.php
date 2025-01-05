@@ -13,9 +13,9 @@ class ModelUserUser extends Model {
 	 * @param array<string, mixed> $data array of data
 	 *
 	 * @return int returns the primary key of the new user record
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $user_id = $this->model_user_user->addUser($data);
 	 */
 	public function addUser(array $data): int {
@@ -31,9 +31,9 @@ class ModelUserUser extends Model {
 	 * @param array<string, mixed> $data    array of data
 	 *
 	 * @return void
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $this->model_user_user->editUser($user_id, $data);
 	 */
 	public function editUser(int $user_id, array $data): void {
@@ -51,9 +51,9 @@ class ModelUserUser extends Model {
 	 * @param string $password
 	 *
 	 * @return void
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $this->model_user_user->editPassword($user_id, $password);
 	 */
 	public function editPassword(int $user_id, $password): void {
@@ -67,9 +67,9 @@ class ModelUserUser extends Model {
 	 * @param string $code
 	 *
 	 * @return void
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $this->model_user_user->editCode($email, $code);
 	 */
 	public function editCode(string $email, string $code): void {
@@ -82,9 +82,9 @@ class ModelUserUser extends Model {
 	 * @param int $user_id primary key of the user record
 	 *
 	 * @return void
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $this->model_user_user->deleteUser($user_id);
 	 */
 	public function deleteUser(int $user_id): void {
@@ -97,9 +97,9 @@ class ModelUserUser extends Model {
 	 * @param int $user_id primary key of the user record
 	 *
 	 * @return array<string, mixed> user record that has user ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $user_info = $this->model_user_user->getUser($user_id);
 	 */
 	public function getUser(int $user_id): array {
@@ -114,9 +114,9 @@ class ModelUserUser extends Model {
 	 * @param string $username
 	 *
 	 * @return array<string, mixed>
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $user_info = $this->model_user_user->getUserByUsername($username);
 	 */
 	public function getUserByUsername(string $username): array {
@@ -131,9 +131,9 @@ class ModelUserUser extends Model {
 	 * @param string $email
 	 *
 	 * @return array<string, mixed>
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $user_info = $this->model_user_user->getUserByEmail($email);
 	 */
 	public function getUserByEmail(string $email): array {
@@ -148,9 +148,9 @@ class ModelUserUser extends Model {
 	 * @param string $code
 	 *
 	 * @return array<string, mixed>
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $user_info = $this->model_user_user->getUserByCode($code);
 	 */
 	public function getUserByCode(string $code): array {
@@ -165,9 +165,9 @@ class ModelUserUser extends Model {
 	 * @param array<string, mixed> $data array of filters
 	 *
 	 * @return array<int, array<string, mixed>> user records
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $results = $this->model_user_user->getUsers();
 	 */
 	public function getUsers(array $data = []): array {
@@ -212,9 +212,9 @@ class ModelUserUser extends Model {
 	 * Get Total Users
 	 *
 	 * @return int total number of user records
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $user_total = $this->model_user_user->getTotalUsers();
 	 */
 	public function getTotalUsers(): int {
@@ -229,9 +229,9 @@ class ModelUserUser extends Model {
 	 * @param int $user_group_id primary key of the user group record
 	 *
 	 * @return int total number of user records that have user group ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $user_total = $this->model_user_user->getTotalUsersByGroupId($user_group_id);
 	 */
 	public function getTotalUsersByGroupId(int $user_group_id): int {
@@ -246,9 +246,9 @@ class ModelUserUser extends Model {
 	 * @param string $email
 	 *
 	 * @return int
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $user_total = $this->model_user_user->getTotalUsersByEmail($email);
 	 */
 	public function getTotalUsersByEmail(string $email): int {
@@ -264,9 +264,9 @@ class ModelUserUser extends Model {
 	 * @param array<string, mixed> $data    array of data
 	 *
 	 * @return void
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $this->model_user_user->addLogin($user_id, $data);
 	 */
 	public function addLogin(int $user_id, array $data): void {
@@ -281,9 +281,9 @@ class ModelUserUser extends Model {
 	 * @param int $limit
 	 *
 	 * @return array<int, array<string, mixed>> login records that have user ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $results = $this->model_user_user->getLogins($user_id, $start, $limit);
 	 */
 	public function getLogins(int $user_id, int $start = 0, int $limit = 10): array {
@@ -310,9 +310,9 @@ class ModelUserUser extends Model {
 	 * @param int $user_id primary key of the user record
 	 *
 	 * @return int total number of login records that have user ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $login_total = $this->model_user_user->getTotalLogins($user_id);
 	 */
 	public function getTotalLogins(int $user_id): int {

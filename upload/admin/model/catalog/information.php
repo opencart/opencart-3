@@ -213,9 +213,9 @@ class ModelCatalogInformation extends Model {
 	 * @param int $information_id primary key of the information record
 	 *
 	 * @return array<int, array<string, string>> information description records that have information ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $results = $this->model_catalog_information->getDescriptions($information_id);
 	 */
 	public function getDescriptions(int $information_id): array {
@@ -265,9 +265,9 @@ class ModelCatalogInformation extends Model {
 	 * @param int $information_id primary key of the information record
 	 *
 	 * @return array<int, array<string, string>> SEO URL records that have information ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $results = $this->model_catalog_information->getInformationSeoUrls($information_id);
 	 */
 	public function getInformationSeoUrls(int $information_id): array {
@@ -288,9 +288,9 @@ class ModelCatalogInformation extends Model {
 	 * @param int $information_id primary key of the information record
 	 *
 	 * @return array<int, array<string, string>> layout records that have information ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $results = $this->model_catalog_information->getInformationLayouts($information_id);
 	 */
 	public function getInformationLayouts(int $information_id): array {
@@ -309,9 +309,9 @@ class ModelCatalogInformation extends Model {
 	 * Get Total Information(s)
 	 *
 	 * @return int total number of information records
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $information_total = $this->model_catalog_information->getTotalInformations();
 	 */
 	public function getTotalInformations(): int {
@@ -326,9 +326,9 @@ class ModelCatalogInformation extends Model {
 	 * @param int $layout_id primary key of the information record
 	 *
 	 * @return int total number of layout records that have layout ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $information_total = $this->model_catalog_information->getTotalInformationsByLayoutId($layout_id);
 	 */
 	public function getTotalInformationsByLayoutId(int $layout_id): int {

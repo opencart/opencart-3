@@ -200,9 +200,9 @@ class ModelCatalogOption extends Model {
 	 * @param int $option_value_id primary key of the option value record
 	 *
 	 * @return array<string, mixed> value record that has option value ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $option_value_info = $this->model_catalog_option->getValue($option_value_id);
 	 */
 	public function getValue(int $option_value_id): array {
@@ -217,9 +217,9 @@ class ModelCatalogOption extends Model {
 	 * @param int $option_id primary key of the option record
 	 *
 	 * @return array<int, array<string, mixed>> value records that have option ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $option_values = $this->model_catalog_option->getValues($option_id);
 	 */
 	public function getValues(int $option_id): array {
@@ -245,9 +245,9 @@ class ModelCatalogOption extends Model {
 	 * @param int $option_id primary key of the option record
 	 *
 	 * @return array<int, array<string, mixed>> value description records that have option ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $option_value_description = $this->model_catalog_option->getValueDescriptions($option_id);
 	 */
 	public function getValueDescriptions(int $option_id): array {

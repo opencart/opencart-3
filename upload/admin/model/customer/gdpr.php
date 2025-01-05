@@ -157,9 +157,9 @@ class ModelCustomerGdpr extends Model {
 	 * @param int $status
 	 *
 	 * @return void
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $this->model_customer_gdpr->editStatus($gdpr_id, $status);
 	 */
 	public function editStatus($gdpr_id, $status): void {

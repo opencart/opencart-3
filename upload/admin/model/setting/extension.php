@@ -13,9 +13,9 @@ class ModelSettingExtension extends Model {
 	 * @param string $type
 	 *
 	 * @return array<int, array<string, mixed>>
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $extensions = $this->model_setting_extension->getExtensionsByType($type);
 	 */
 	public function getExtensionsByType(string $type): array {
@@ -37,9 +37,9 @@ class ModelSettingExtension extends Model {
 	 * @param string $code
 	 *
 	 * @return array<string, mixed>
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $extension_info = $this->model_setting_extension->getExtensionByCode($type, $code);
 	 */
 	public function getExtensionByCode(string $type, string $code): array {
@@ -55,9 +55,9 @@ class ModelSettingExtension extends Model {
 	 * @param string $code
 	 *
 	 * @return void
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $this->model_setting_extension->install($type, $code);
 	 */
 	public function install(string $type, string $code): void {
@@ -75,9 +75,9 @@ class ModelSettingExtension extends Model {
 	 * @param string $code
 	 *
 	 * @return void
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $this->model_setting_extension->uninstall($type, $code);
 	 */
 	public function uninstall(string $type, string $code): void {
@@ -92,9 +92,9 @@ class ModelSettingExtension extends Model {
 	 * @param int    $extension_download_id primary key of the extension download record
 	 *
 	 * @return int install record that has extension download ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $this->model_setting_extension->addExtensionInstall($filename, $extension_download_id);
 	 */
 	public function addExtensionInstall(string $filename, int $extension_download_id = 0): int {
@@ -109,9 +109,9 @@ class ModelSettingExtension extends Model {
 	 * @param int $extension_install_id primary key of the extension install record
 	 *
 	 * @return void
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $this->model_setting_extension->deleteExtensionInstall($extension_download_id);
 	 */
 	public function deleteExtensionInstall(int $extension_install_id): void {
@@ -125,9 +125,9 @@ class ModelSettingExtension extends Model {
 	 * @param int $limit
 	 *
 	 * @return array<int, array<string, mixed>> install records
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $results = $this->model_setting_extension->getInstalls();
 	 */
 	public function getInstalls(int $start = 0, int $limit = 10): array {
@@ -150,9 +150,9 @@ class ModelSettingExtension extends Model {
 	 * @param int $extension_download_id primary key of the extension download record
 	 *
 	 * @return array<string, mixed> install record that has extension download ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $extension_install_info = $this->model_setting_extension->getInstallByExtensionDownloadId($extension_download_id);
 	 */
 	public function getInstallByExtensionDownloadId(int $extension_download_id): array {
@@ -167,9 +167,9 @@ class ModelSettingExtension extends Model {
 	 * @param string $code
 	 *
 	 * @return array<string, mixed>
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $extension_install_info = $this->model_setting_extension->getExtensionInstallByCode($code);
 	 */
 	public function getExtensionInstallByCode(string $code): array {
@@ -182,9 +182,9 @@ class ModelSettingExtension extends Model {
 	 * Get Total Installs
 	 *
 	 * @return int total number of install records
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $install_total = $this->model_setting_extension->getTotalInstalls();
 	 */
 	public function getTotalInstalls(): int {
@@ -200,9 +200,9 @@ class ModelSettingExtension extends Model {
 	 * @param string $path
 	 *
 	 * @return void
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $this->model_setting_extension->addPath($extension_install_id, $path);
 	 */
 	public function addPath(int $extension_install_id, string $path): void {
@@ -215,9 +215,9 @@ class ModelSettingExtension extends Model {
 	 * @param int $extension_path_id primary key of the extension path record
 	 *
 	 * @return void
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $this->model_setting_extension->deletePath($extension_path_id);
 	 */
 	public function deletePath(int $extension_path_id): void {
@@ -230,9 +230,9 @@ class ModelSettingExtension extends Model {
 	 * @param int $extension_install_id primary key of the extension install record
 	 *
 	 * @return array<int, array<string, mixed>>
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $paths = $this->model_setting_extension->getPathsByExtensionInstallId($extension_install_id);
 	 */
 	public function getPathsByExtensionInstallId(int $extension_install_id): array {
@@ -247,9 +247,9 @@ class ModelSettingExtension extends Model {
 	 * @param string $path
 	 *
 	 * @return array<int, array<string, mixed>>
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $paths = $this->model_setting_extension->getPaths($path);
 	 */
 	public function getPaths(string $path): array {
@@ -264,9 +264,9 @@ class ModelSettingExtension extends Model {
 	 * @param string $path
 	 *
 	 * @return int
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $path_total = $this->model_setting_extension->getTotalPaths($path);
 	 */
 	public function getTotalPaths(string $path): int {

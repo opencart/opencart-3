@@ -1,7 +1,7 @@
 <?php
 /**
  * Class Voucher
- * 
+ *
  * Can be called from $this->load->model('sale/voucher');
  *
  * @package Admin\Model\Sale
@@ -13,9 +13,9 @@ class ModelSaleVoucher extends Model {
 	 * @param array<string, mixed> $data array of data
 	 *
 	 * @return int returns the primary key of the new voucher record
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $voucher_id = $this->model_sale_voucher->addVoucher($data);
 	 */
 	public function addVoucher(array $data): int {
@@ -31,9 +31,9 @@ class ModelSaleVoucher extends Model {
 	 * @param array<string, mixed> $data       array of data
 	 *
 	 * @return void
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $this->model_sale_voucher->editVoucher($voucher_id, $data);
 	 */
 	public function editVoucher(int $voucher_id, array $data): void {
@@ -46,9 +46,9 @@ class ModelSaleVoucher extends Model {
 	 * @param int $voucher_id primary key of the voucher record
 	 *
 	 * @return void
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $this->model_sale_voucher->deleteVoucher($voucher_id);
 	 */
 	public function deleteVoucher(int $voucher_id): void {
@@ -62,9 +62,9 @@ class ModelSaleVoucher extends Model {
 	 * @param int $voucher_id primary key of the voucher record
 	 *
 	 * @return array<string, mixed> voucher record that has voucher ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $voucher_info = $this->model_sale_voucher->getVoucher($voucher_id);
 	 */
 	public function getVoucher(int $voucher_id): array {
@@ -79,9 +79,9 @@ class ModelSaleVoucher extends Model {
 	 * @param string $code
 	 *
 	 * @return array<string, mixed>
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $voucher_info = $this->model_sale_voucher->getVoucherByCode($code);
 	 */
 	public function getVoucherByCode(string $code): array {
@@ -96,9 +96,9 @@ class ModelSaleVoucher extends Model {
 	 * @param array<string, mixed> $data array of filters
 	 *
 	 * @return array<int, array<string, mixed>> voucher records
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $results = $this->model_sale_order->getVouchers();
 	 */
 	public function getVouchers(array $data = []): array {
@@ -147,9 +147,9 @@ class ModelSaleVoucher extends Model {
 	 * Get Total Vouchers
 	 *
 	 * @return int total number of voucher records
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $voucher_total = $this->model_sale_voucher->getTotalVouchers();
 	 */
 	public function getTotalVouchers(): int {
@@ -164,9 +164,9 @@ class ModelSaleVoucher extends Model {
 	 * @param int $voucher_theme_id primary key of the voucher record
 	 *
 	 * @return int total number of voucher records that have voucher theme ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $voucher_total = $this->model_sale_voucher->getTotalVouchersByVoucherThemeId($voucher_theme_id);
 	 */
 	public function getTotalVouchersByVoucherThemeId(int $voucher_theme_id): int {
@@ -183,9 +183,9 @@ class ModelSaleVoucher extends Model {
 	 * @param int $limit
 	 *
 	 * @return array<int, array<string, mixed>> history records that have voucher ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $results = $this->model_sale_voucher->getHistories($voucher_id, $start, $limit);
 	 */
 	public function getHistories(int $voucher_id, int $start = 0, int $limit = 10): array {
@@ -208,9 +208,9 @@ class ModelSaleVoucher extends Model {
 	 * @param int $voucher_id primary key of the voucher record
 	 *
 	 * @return int total number of history records that have voucher ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $history_total = $this->model_sale_voucher->getTotalHistories($voucher_id);
 	 */
 	public function getTotalHistories(int $voucher_id): int {

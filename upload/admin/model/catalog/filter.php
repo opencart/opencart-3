@@ -46,7 +46,7 @@ class ModelCatalogFilter extends Model {
 	 * Edit Filter
 	 *
 	 * @param int                  $filter_group_id primary key of the filter group record
-	 * @param array<string, mixed> $data      array of data
+	 * @param array<string, mixed> $data            array of data
 	 *
 	 * @example
 	 *
@@ -105,9 +105,9 @@ class ModelCatalogFilter extends Model {
 	 * @param int $filter_group_id primary key of the filter group record
 	 *
 	 * @return array<string, mixed> filter group record that has filter group ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $filter_group_info = $this->model_catalog_filter->getGroup($filter_group_id);
 	 */
 	public function getGroup(int $filter_group_id): array {
@@ -122,9 +122,9 @@ class ModelCatalogFilter extends Model {
 	 * @param array<string, mixed> $data array of filters
 	 *
 	 * @return array<int, array<string, mixed>> filter group records
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $results = $this->model_catalog_filter->getGroups();
 	 */
 	public function getGroups(array $data = []): array {
@@ -170,9 +170,9 @@ class ModelCatalogFilter extends Model {
 	 * @param int $filter_group_id primary key of the filter group record
 	 *
 	 * @return array<int, array<string, string>> description records that have filter group ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $filter_group_description = $this->model_catalog_filter->getGroupDescriptions($filter_group_id);
 	 */
 	public function getGroupDescriptions(int $filter_group_id): array {
@@ -247,9 +247,9 @@ class ModelCatalogFilter extends Model {
 	 * @param int $filter_group_id primary key of the filter group record
 	 *
 	 * @return array<int, array<string, string>> description records that have filter group ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $results = $this->model_catalog_filter->getDescriptions($filter_group_id);
 	 */
 	public function getDescriptions(int $filter_group_id): array {
@@ -280,9 +280,9 @@ class ModelCatalogFilter extends Model {
 	 * Get Total Groups
 	 *
 	 * @return int total number of filter group records
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $filter_group_total = $this->model_catalog_filter->getTotalGroups();
 	 */
 	public function getTotalGroups(): int {

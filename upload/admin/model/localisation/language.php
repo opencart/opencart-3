@@ -354,9 +354,9 @@ class ModelLocalisationLanguage extends Model {
 	 * @param string $code
 	 *
 	 * @return array<string, mixed>
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $language_info = $this->model_localisation_language->getLanguageByCode($code);
 	 */
 	public function getLanguageByCode(string $code): array {
@@ -369,9 +369,9 @@ class ModelLocalisationLanguage extends Model {
 	 * Get Total Languages
 	 *
 	 * @return int total number of language records
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $language_total = $this->model_localisation_language->getTotalLanguages();
 	 */
 	public function getTotalLanguages(): int {

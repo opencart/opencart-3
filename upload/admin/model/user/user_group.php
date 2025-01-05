@@ -13,9 +13,9 @@ class ModelUserUserGroup extends Model {
 	 * @param array<string, mixed> $data array of data
 	 *
 	 * @return int returns the primary key of the new user group record
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $user_group_id = $this->model_user_user_group->addUserGroup($data);
 	 */
 	public function addUserGroup(array $data): int {
@@ -31,9 +31,9 @@ class ModelUserUserGroup extends Model {
 	 * @param array<string, mixed> $data          array of data
 	 *
 	 * @return void
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $this->model_user_user_group->editUserGroup($user_group_id, $data);
 	 */
 	public function editUserGroup(int $user_group_id, array $data): void {
@@ -46,9 +46,9 @@ class ModelUserUserGroup extends Model {
 	 * @param int $user_group_id primary key of the user group record
 	 *
 	 * @return void
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $this->model_user_user_group->deleteUserGroup($user_group_id);
 	 */
 	public function deleteUserGroup(int $user_group_id): void {
@@ -61,9 +61,9 @@ class ModelUserUserGroup extends Model {
 	 * @param int $user_group_id primary key of the user group record
 	 *
 	 * @return array<string, mixed> user group that has user group ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $usergroup_info = $this->model_user_user_group->getUserGroup($user_group_id);
 	 */
 	public function getUserGroup(int $user_group_id): array {
@@ -81,9 +81,9 @@ class ModelUserUserGroup extends Model {
 	 * @param array<string, mixed> $data array of filters
 	 *
 	 * @return array<int, array<string, mixed>> user group records
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $results = $this->model_user_user_group->getUserGroups();
 	 */
 	public function getUserGroups(array $data = []): array {
@@ -118,9 +118,9 @@ class ModelUserUserGroup extends Model {
 	 * Get Total User Groups
 	 *
 	 * @return int total number of user group records
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $usergroup_total = $this->model_user_user_group->getTotalUserGroups();
 	 */
 	public function getTotalUserGroups(): int {
@@ -137,9 +137,9 @@ class ModelUserUserGroup extends Model {
 	 * @param string $route
 	 *
 	 * @return void
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $this->model_user_user_group->addPermission($user_group_id, $type, $route);
 	 */
 	public function addPermission(int $user_group_id, string $type, string $route): void {
@@ -161,9 +161,9 @@ class ModelUserUserGroup extends Model {
 	 * @param string $route
 	 *
 	 * @return void
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $this->model_user_user_group->removePermission($user_group_id, $type, $route);
 	 */
 	public function removePermission(int $user_group_id, string $type, string $route): void {

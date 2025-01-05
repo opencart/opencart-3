@@ -331,7 +331,8 @@ class ModelCustomerCustomer extends Model {
 	/**
 	 * Get Total Addresses
 	 *
-	 * @param int $customer_id primary key of the customer record
+	 * @param array $data
+	 * @param int   $customer_id primary key of the customer record
 	 *
 	 * @return int total number of address records that have customer ID
 	 *
@@ -387,9 +388,9 @@ class ModelCustomerCustomer extends Model {
 	 * @param string $tracking
 	 *
 	 * @return array<string, mixed>
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $affiliate_info = $this->model_customer_customer->getAffiliateByTracking($tracking);
 	 */
 	public function getAffiliateByTracking(string $tracking): array {
@@ -404,9 +405,9 @@ class ModelCustomerCustomer extends Model {
 	 * @param int $customer_id primary key of the customer record
 	 *
 	 * @return array<string, mixed> affiliate record that has customer ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $affiliate_info = $this->model_customer_customer->getAffiliate($customer_id);
 	 */
 	public function getAffiliate(int $customer_id): array {
@@ -421,9 +422,9 @@ class ModelCustomerCustomer extends Model {
 	 * @param array<string, mixed> $data array of filters
 	 *
 	 * @return array<int, array<string, mixed>> affiliate records
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $results = $this->model_customer_customer->getAffiliates();
 	 */
 	public function getAffiliates(array $data = []): array {
@@ -462,9 +463,9 @@ class ModelCustomerCustomer extends Model {
 	 * @param array<string, mixed> $data array of filters
 	 *
 	 * @return int total number of affiliate records
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $affiliate_total = $this->model_customer_customer->getTotalAffiliates();
 	 */
 	public function getTotalAffiliates($data = []): int {
@@ -491,9 +492,9 @@ class ModelCustomerCustomer extends Model {
 	 * @param int $customer_id primary key of the customer record
 	 *
 	 * @return int total number of address records that have customer ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $address_total = $this->model_customer_customer->getTotalAddressesByCustomerId($customer_id);
 	 */
 	public function getTotalAddressesByCustomerId(int $customer_id): int {
@@ -542,9 +543,9 @@ class ModelCustomerCustomer extends Model {
 	 * @param int $customer_group_id primary key of the customer group record
 	 *
 	 * @return int total number of customer group records that have customer group ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $customer_group_total = $this->model_customer_customer->getTotalCustomersByCustomerGroupId($customer_group_id);
 	 */
 	public function getTotalCustomersByCustomerGroupId(int $customer_group_id): int {
@@ -637,9 +638,9 @@ class ModelCustomerCustomer extends Model {
 	 * @param int $order_id primary key of the order record
 	 *
 	 * @return void
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $this->model_customer_customer->deleteTransactionByOrderId($order_id);
 	 */
 	public function deleteTransactionByOrderId(int $order_id): void {
@@ -713,9 +714,9 @@ class ModelCustomerCustomer extends Model {
 	 * @param int $order_id primary key of the order record
 	 *
 	 * @return int total number of transaction records that have order ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $transaction_total = $this->model_customer_customer->getTotalTransactionsByOrderId($order_id);
 	 */
 	public function getTotalTransactionsByOrderId(int $order_id): int {
@@ -748,9 +749,9 @@ class ModelCustomerCustomer extends Model {
 	 * @param int $order_id primary key of the order record
 	 *
 	 * @return void
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $this->model_customer_customer->deleteReward($order_id);
 	 */
 	public function deleteReward(int $order_id): void {
@@ -820,9 +821,9 @@ class ModelCustomerCustomer extends Model {
 	 * @param int $order_id primary key of the order record
 	 *
 	 * @return int total number of customer reward records that have order ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $reward_total = $this->model_customer_customer->getTotalCustomerRewardsByOrderId($order_id);
 	 */
 	public function getTotalCustomerRewardsByOrderId(int $order_id): int {
@@ -881,9 +882,9 @@ class ModelCustomerCustomer extends Model {
 	 * @param string $ip
 	 *
 	 * @return int
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $customer_total = $this->model_customer_customer->getTotalCustomersByIp($ip);
 	 */
 	public function getTotalCustomersByIp(string $ip): int {
@@ -898,9 +899,9 @@ class ModelCustomerCustomer extends Model {
 	 * @param string $email
 	 *
 	 * @return array<string, mixed>
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $login_total = $this->model_customer_customer->getTotalLoginAttempts($email);
 	 */
 	public function getTotalLoginAttempts(string $email): array {
@@ -915,9 +916,9 @@ class ModelCustomerCustomer extends Model {
 	 * @param string $email
 	 *
 	 * @return void
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $this->model_customer_customer->deleteLoginAttempts($email);
 	 */
 	public function deleteLoginAttempts(string $email): void {

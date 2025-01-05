@@ -13,9 +13,9 @@ class ModelSaleOrder extends Model {
 	 * @param int $order_id primary key of the order record
 	 *
 	 * @return array<string, mixed> order record that has order ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $order_info = $this->model_sale_order->getOrder($order_id);
 	 */
 	public function getOrder(int $order_id): array {
@@ -175,9 +175,9 @@ class ModelSaleOrder extends Model {
 	 * @param array<string, mixed> $data array of filters
 	 *
 	 * @return array<int, array<string, mixed>> order records
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $results = $this->model_sale_order->getOrders();
 	 */
 	public function getOrders(array $data = []): array {
@@ -265,9 +265,9 @@ class ModelSaleOrder extends Model {
 	 * @param int $order_id primary key of the order record
 	 *
 	 * @return array<int, array<string, mixed>> product records that have order ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $order_products = $this->model_sale_order->getProducts($order_id);
 	 */
 	public function getProducts(int $order_id): array {
@@ -283,9 +283,9 @@ class ModelSaleOrder extends Model {
 	 * @param int $order_product_id primary key of the order product record
 	 *
 	 * @return array<string, mixed> product records that have order ID, order product ID
-	 * 
+	 *
 	 * @example
-	 * 
+	 *
 	 * $order_product = $this->model_sale_order->getProductByOrderProductId($order_id, $order_product_id);
 	 */
 	public function getProductByOrderProductId(int $order_id, int $order_product_id): array {
@@ -301,9 +301,9 @@ class ModelSaleOrder extends Model {
 	 * @param int $order_product_id primary key of the order product record
 	 *
 	 * @return array<int, array<string, mixed>> option records that have order ID, order product ID
-	 * 
+	 *
 	 * @example
-	 * 
+	 *
 	 * $order_options = $this->model_sale_order->getOptions($order_id, $order_product_id);
 	 */
 	public function getOptions(int $order_id, int $order_product_id): array {
@@ -319,9 +319,9 @@ class ModelSaleOrder extends Model {
 	 * @param int $order_product_id primary key of the order product record
 	 *
 	 * @return array<string, mixed> subscription records that have order ID
-	 * 
+	 *
 	 * @example
-	 * 
+	 *
 	 * $order_subscription_info = $this->model_sale_order->getSubscription($order_id, $order_product_id);
 	 */
 	public function getSubscription(int $order_id, int $order_product_id): array {
@@ -336,9 +336,9 @@ class ModelSaleOrder extends Model {
 	 * @param int $order_id primary key of the order record
 	 *
 	 * @return array<int, array<string, mixed>> voucher records that have order ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $order_vouchers = $this->model_sale_order->getVouchers($order_id);
 	 */
 	public function getVouchers(int $order_id): array {
@@ -353,9 +353,9 @@ class ModelSaleOrder extends Model {
 	 * @param int $voucher_id voucher record that has voucher ID
 	 *
 	 * @return array<string, mixed>
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $order_voucher_info = $this->model_sale_order->getOrderVoucherByVoucherId($voucher_id);
 	 */
 	public function getOrderVoucherByVoucherId(int $voucher_id): array {
@@ -370,9 +370,9 @@ class ModelSaleOrder extends Model {
 	 * @param int $order_id primary key of the order record
 	 *
 	 * @return array<int, array<string, mixed>> total records that have order ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $order_totals = $this->model_sale_order->getTotals($order_id);
 	 */
 	public function getTotals(int $order_id): array {
@@ -387,9 +387,9 @@ class ModelSaleOrder extends Model {
 	 * @param array<string, mixed> $data array of filters
 	 *
 	 * @return int total number of order records
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $order_total = $this->model_sale_order->getTotalOrders();
 	 */
 	public function getTotalOrders(array $data = []): int {
@@ -444,9 +444,9 @@ class ModelSaleOrder extends Model {
 	 * @param int $store_id
 	 *
 	 * @return int
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $order_total = $this->model_sale_order->getTotalOrdersByStoreId($store_id);
 	 */
 	public function getTotalOrdersByStoreId(int $store_id): int {
@@ -461,9 +461,9 @@ class ModelSaleOrder extends Model {
 	 * @param int $order_status_id primary key of the order status record
 	 *
 	 * @return int total number of order records that have order status ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $order_total = $this->model_sale_order->getTotalOrdersByOrderStatusId($order_status_id);
 	 */
 	public function getTotalOrdersByOrderStatusId(int $order_status_id): int {
@@ -476,9 +476,9 @@ class ModelSaleOrder extends Model {
 	 * Get Total Orders By Processing Status
 	 *
 	 * @return int total number of order processing status records
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $order_total = $this->model_sale_order->getTotalOrdersByProcessingStatus();
 	 */
 	public function getTotalOrdersByProcessingStatus(): int {
@@ -503,9 +503,9 @@ class ModelSaleOrder extends Model {
 	 * Get Total Orders By Complete Status
 	 *
 	 * @return int total number of order complete status records
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $order_total = $this->model_sale_order->getTotalOrdersByCompleteStatus();
 	 */
 	public function getTotalOrdersByCompleteStatus(): int {
@@ -532,9 +532,9 @@ class ModelSaleOrder extends Model {
 	 * @param int $language_id primary key of the language record
 	 *
 	 * @return int total number of order records that have language ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $order_total = $this->model_sale_order->getTotalOrdersByLanguageId($language_id);
 	 */
 	public function getTotalOrdersByLanguageId(int $language_id): int {
@@ -549,9 +549,9 @@ class ModelSaleOrder extends Model {
 	 * @param int $currency_id primary key of the currency record
 	 *
 	 * @return int total number of order records that have currency ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $order_total = $this->model_sale_order->getTotalOrdersByCurrencyId($currency_id);
 	 */
 	public function getTotalOrdersByCurrencyId(int $currency_id): int {
@@ -566,9 +566,9 @@ class ModelSaleOrder extends Model {
 	 * @param array<string, mixed> $data array of filters
 	 *
 	 * @return int total number of sale records
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $sale_total = $this->model_sale_order->getTotalSales();
 	 */
 	public function getTotalSales(array $data = []): int {
@@ -623,9 +623,9 @@ class ModelSaleOrder extends Model {
 	 * @param int $order_id primary key of the order record
 	 *
 	 * @return string
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $invoice_no = $this->model_sale_order->createInvoiceNo($order_id);
 	 */
 	public function createInvoiceNo(int $order_id): string {
@@ -656,9 +656,9 @@ class ModelSaleOrder extends Model {
 	 * @param int $limit
 	 *
 	 * @return array<int, array<string, mixed>> history records that have order ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $results = $this->model_sale_order->getHistories($order_id, $start, $limit);
 	 */
 	public function getHistories(int $order_id, int $start = 0, int $limit = 10): array {
@@ -681,9 +681,9 @@ class ModelSaleOrder extends Model {
 	 * @param int $order_id primary key of the order record
 	 *
 	 * @return int total number of history records that have order ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $history_total = $this->model_sale_order->getTotalHistories($order_id);
 	 */
 	public function getTotalHistories(int $order_id): int {
@@ -698,9 +698,9 @@ class ModelSaleOrder extends Model {
 	 * @param int $order_status_id primary key of the order status record
 	 *
 	 * @return int total number of history records that have order status ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $history_total = $this->model_sale_order->getTotalHistoriesByOrderStatusId($order_status_id);
 	 */
 	public function getTotalHistoriesByOrderStatusId(int $order_status_id): int {
@@ -717,9 +717,9 @@ class ModelSaleOrder extends Model {
 	 * @param int        $end
 	 *
 	 * @return array<int, array<string, mixed>>
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $results = $this->model_sale_order->getEmailsByProductsOrdered($products, $start, $end);
 	 */
 	public function getEmailsByProductsOrdered(array $products, int $start, int $end): array {
@@ -740,9 +740,9 @@ class ModelSaleOrder extends Model {
 	 * @param array<int> $products
 	 *
 	 * @return int
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $product_total = $this->model_sale_order->getTotalEmailsByProductsOrdered($products);
 	 */
 	public function getTotalEmailsByProductsOrdered(array $products): int {

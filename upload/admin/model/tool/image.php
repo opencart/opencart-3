@@ -18,9 +18,9 @@ class ModelToolImage extends Model {
 	 * @throws \Exception
 	 *
 	 * @return string
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $placeholder = $this->model_tool_image->resize($filename, $width, $height, $default);
 	 */
 	public function resize(string $filename, int $width, int $height, string $default = ''): string {

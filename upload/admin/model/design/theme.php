@@ -16,9 +16,9 @@ class ModelDesignTheme extends Model {
 	 * @param string $code
 	 *
 	 * @return void
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $this->model_design_theme->editTheme($store_id, $theme, $route, $code);
 	 */
 	public function editTheme(int $store_id, string $theme, string $route, string $code): void {
@@ -49,9 +49,9 @@ class ModelDesignTheme extends Model {
 	 * @param string $route
 	 *
 	 * @return array<string, string>
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $theme_info = $this->model_design_theme->getTheme($store_id, $theme, $route);
 	 */
 	public function getTheme(int $store_id, string $theme, string $route): array {

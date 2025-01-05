@@ -508,9 +508,9 @@ class ModelCatalogProduct extends Model {
 	 * @param int $category_id primary key of the category record
 	 *
 	 * @return array<int, array<string, mixed>> product records that have category ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $results = $this->model_catalog_product->getProductsByCategoryId($category_id);
 	 */
 	public function getProductsByCategoryId(int $category_id): array {
@@ -555,9 +555,9 @@ class ModelCatalogProduct extends Model {
 	 * @param int $product_id primary key of the product record
 	 *
 	 * @return array<int, int> category records that have product ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $results = $this->model_catalog_product->getCategories($product_id);
 	 */
 	public function getCategories(int $product_id): array {
@@ -720,9 +720,9 @@ class ModelCatalogProduct extends Model {
 	 * @param int $product_id primary key of the product record
 	 *
 	 * @return array<int, array<string, mixed>> discount records that have product ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $results = $this->model_catalog_product->getDiscounts($product_id);
 	 */
 	public function getDiscounts(int $product_id): array {
@@ -737,9 +737,9 @@ class ModelCatalogProduct extends Model {
 	 * @param int $product_id primary key of the product record
 	 *
 	 * @return array<int, array<string, mixed>> special records that have product ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $results = $this->model_catalog_product->getSpecials($product_id);
 	 */
 	public function getSpecials(int $product_id): array {
@@ -909,9 +909,9 @@ class ModelCatalogProduct extends Model {
 	 * @param array<string, mixed> $data
 	 *
 	 * @return int total number of product records
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $product_total = $this->model_catalog_product->getTotalProducts();
 	 */
 	public function getTotalProducts(array $data = []): int {
@@ -1024,9 +1024,9 @@ class ModelCatalogProduct extends Model {
 	 * @param int $download_id primary key of the download record
 	 *
 	 * @return int total number of product records that have download ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $product_total = $this->model_catalog_product->getTotalProductsByDownloadId($download_id);
 	 */
 	public function getTotalProductsByDownloadId(int $download_id): int {
@@ -1058,9 +1058,9 @@ class ModelCatalogProduct extends Model {
 	 * @param int $attribute_id primary key of the attribute record
 	 *
 	 * @return int total number of product records that have attribute ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $product_total = $this->model_catalog_product->getTotalProductsByAttributeId($attribute_id);
 	 */
 	public function getTotalProductsByAttributeId(int $attribute_id): int {
@@ -1075,9 +1075,9 @@ class ModelCatalogProduct extends Model {
 	 * @param int $subscription_plan_id primary key of the subscription plan record
 	 *
 	 * @return int total number of product records that have subscription plan ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $product_total = $this->model_catalog_product->getTotalProductsBySubscriptionPlanId($subscription_plan_id);
 	 */
 	public function getTotalProductsBySubscriptionPlanId(int $subscription_plan_id): int {
@@ -1092,9 +1092,9 @@ class ModelCatalogProduct extends Model {
 	 * @param int $option_id primary key of the option record
 	 *
 	 * @return int total number of option records that have option ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $product_total = $this->model_catalog_product->getTotalProductsByOptionId($option_id);
 	 */
 	public function getTotalProductsByOptionId(int $option_id): int {
@@ -1109,9 +1109,9 @@ class ModelCatalogProduct extends Model {
 	 * @param int $layout_id primary key of the layout record
 	 *
 	 * @return int total number of layout records that have layout ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $product_total = $this->model_catalog_product->getTotalProductsByLayoutId($layout_id);
 	 */
 	public function getTotalProductsByLayoutId(int $layout_id): int {

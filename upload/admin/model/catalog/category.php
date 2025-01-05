@@ -407,9 +407,9 @@ class ModelCatalogCategory extends Model {
 	 * @param int $category_id primary key of the category record
 	 *
 	 * @return array<int, int> store records that have category ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $results = $this->model_catalog_category->getCategoryStores($category_id);
 	 */
 	public function getCategoryStores(int $category_id): array {
@@ -430,9 +430,9 @@ class ModelCatalogCategory extends Model {
 	 * @param int $category_id primary key of the category record
 	 *
 	 * @return array<int, array<string, string>> SEO URL records that have category ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $results = $this->model_catalog_category->getCategorySeoUrls($category_id);
 	 */
 	public function getCategorySeoUrls(int $category_id): array {
@@ -493,9 +493,9 @@ class ModelCatalogCategory extends Model {
 	 * @param int $layout_id primary key of the layout record
 	 *
 	 * @return int total number of layout records that have layout ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $category_total = $this->model_catalog_category->getTotalCategoriesByLayoutId($layout_id);
 	 */
 	public function getTotalCategoriesByLayoutId(int $layout_id): int {

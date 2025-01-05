@@ -1,7 +1,7 @@
 <?php
 /**
  * Class Voucher Theme
- * 
+ *
  * Can be called from $this->load->model('sale/voucher_theme');
  *
  * @package Admin\Model\Sale
@@ -13,9 +13,9 @@ class ModelSaleVoucherTheme extends Model {
 	 * @param array<string, mixed> $data array of data
 	 *
 	 * @return int returns the primary key of the new voucher theme record
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $voucher_theme_id = $this->model_sale_voucher_theme->addVoucherTheme($data);
 	 */
 	public function addVoucherTheme(array $data): int {
@@ -39,9 +39,9 @@ class ModelSaleVoucherTheme extends Model {
 	 * @param array<string, mixed> $data             array of data
 	 *
 	 * @return void
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $this->model_sale_voucher_theme->editVoucherTheme($voucher_theme_id, $data);
 	 */
 	public function editVoucherTheme(int $voucher_theme_id, array $data): void {
@@ -62,9 +62,9 @@ class ModelSaleVoucherTheme extends Model {
 	 * @param int $voucher_theme_id primary key of the voucher theme record
 	 *
 	 * @return void
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $this->model_sale_voucher_theme->deleteVoucherTheme($voucher_theme_id);
 	 */
 	public function deleteVoucherTheme(int $voucher_theme_id): void {
@@ -80,9 +80,9 @@ class ModelSaleVoucherTheme extends Model {
 	 * @param int $voucher_theme_id primary key of the voucher theme record
 	 *
 	 * @return array<string, mixed> voucher theme record that has voucher theme ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $voucher_theme_info = $this->model_sale_voucher_theme->getVoucherTheme($voucher_theme_id);
 	 */
 	public function getVoucherTheme(int $voucher_theme_id): array {
@@ -97,9 +97,9 @@ class ModelSaleVoucherTheme extends Model {
 	 * @param array<string, mixed> $data array of filters
 	 *
 	 * @return array<int, array<string, mixed>> voucher theme records
-	 * 
+	 *
 	 * @example
-	 * 
+	 *
 	 * $results = $this->model_sale_voucher_themes = $this->model_sale_voucher_theme->getVoucherThemes();
 	 */
 	public function getVoucherThemes(array $data = []): array {
@@ -148,9 +148,9 @@ class ModelSaleVoucherTheme extends Model {
 	 * @param int $voucher_theme_id primary key of the voucher theme record
 	 *
 	 * @return array<int, array<string, string>> description records that have voucher theme ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $voucher_theme_description = $this->model_sale_voucher_theme->getDescriptions($voucher_theme_id);
 	 */
 	public function getDescriptions(int $voucher_theme_id): array {
@@ -169,9 +169,9 @@ class ModelSaleVoucherTheme extends Model {
 	 * Get Total Voucher Themes
 	 *
 	 * @return int total number of voucher theme records
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $voucher_total = $this->model_sale_voucher_theme->getTotalVoucherThemes();
 	 */
 	public function getTotalVoucherThemes(): int {

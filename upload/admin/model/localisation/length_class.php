@@ -160,9 +160,9 @@ class ModelLocalisationLengthClass extends Model {
 	 * @param string $unit
 	 *
 	 * @return array<string, mixed>
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $length_class_info = $this->model_localisation_length_class->getDescriptionByUnit($unit);
 	 */
 	public function getDescriptionByUnit(string $unit): array {

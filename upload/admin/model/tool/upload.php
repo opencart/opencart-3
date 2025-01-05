@@ -14,9 +14,9 @@ class ModelToolUpload extends Model {
 	 * @param string $filename
 	 *
 	 * @return string
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $code = $this->model_tool_upload->addUpload($name, $filename);
 	 */
 	public function addUpload(string $name, string $filename): string {
@@ -33,9 +33,9 @@ class ModelToolUpload extends Model {
 	 * @param int $upload_id primary key of the upload record
 	 *
 	 * @return void
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $this->model_tool_upload->deleteUpload($upload_id);
 	 */
 	public function deleteUpload(int $upload_id): void {
@@ -48,9 +48,9 @@ class ModelToolUpload extends Model {
 	 * @param int $upload_id primary key of the upload record
 	 *
 	 * @return array<string, mixed> upload record that has upload ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $upload_info = $this->model_tool_upload->getUpload($upload_id);
 	 */
 	public function getUpload(int $upload_id): array {
@@ -65,9 +65,9 @@ class ModelToolUpload extends Model {
 	 * @param string $code
 	 *
 	 * @return array<string, mixed>
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $upload_info = $this->model_tool_upload->getUploadByCode($code);
 	 */
 	public function getUploadByCode(string $code): array {
@@ -82,9 +82,9 @@ class ModelToolUpload extends Model {
 	 * @param array<string, mixed> $data array of filters
 	 *
 	 * @return array<int, array<string, mixed>> upload records
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $results = $this->model_tool_upload->getUploads();
 	 */
 	public function getUploads(array $data = []): array {
@@ -149,9 +149,9 @@ class ModelToolUpload extends Model {
 	 * @param array<string, mixed> $data array of filters
 	 *
 	 * @return int total number of upload records
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $upload_total = $this->model_tool_upload->getTotalUploads();
 	 */
 	public function getTotalUploads($data = []): int {

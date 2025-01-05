@@ -13,9 +13,9 @@ class ModelSaleReturns extends Model {
 	 * @param array<string, mixed> $data array of data
 	 *
 	 * @return int returns the primary key of the new return record
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $return_id = $this->model_sale_returns->addReturn($data);
 	 */
 	public function addReturn(array $data): int {
@@ -31,9 +31,9 @@ class ModelSaleReturns extends Model {
 	 * @param array<string, mixed> $data      array of data
 	 *
 	 * @return void
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $this->model_sale_returns->editReturn($return_id, $data);
 	 */
 	public function editReturn(int $return_id, array $data): void {
@@ -46,9 +46,9 @@ class ModelSaleReturns extends Model {
 	 * @param int $return_id primary key of the return record
 	 *
 	 * @return void
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $this->model_sale_returns->deleteReturn($return_id);
 	 */
 	public function deleteReturn(int $return_id): void {
@@ -62,9 +62,9 @@ class ModelSaleReturns extends Model {
 	 * @param int $return_id primary key of the return record
 	 *
 	 * @return array<string, mixed> return record that has return ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $return_info = $this->model_sale_returns->getReturn($return_id);
 	 */
 	public function getReturn(int $return_id): array {
@@ -79,9 +79,9 @@ class ModelSaleReturns extends Model {
 	 * @param array<string, mixed> $data array of filters
 	 *
 	 * @return array<int, array<string, mixed>> return records
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $returns = $this->model_sale_returns->getReturns();
 	 */
 	public function getReturns(array $data = []): array {
@@ -171,9 +171,9 @@ class ModelSaleReturns extends Model {
 	 * @param array<string, mixed> $data array of filters
 	 *
 	 * @return int total number of return records
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $return_total = $this->model_sale_returns->getTotalReturns();
 	 */
 	public function getTotalReturns(array $data = []): int {
@@ -228,9 +228,9 @@ class ModelSaleReturns extends Model {
 	 * @param int $return_status_id primary key of the return status record
 	 *
 	 * @return int total number of return status records that have return status ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $return_total = $this->model_sale_returns->getTotalReturnsByReturnStatusId($return_status_id);
 	 */
 	public function getTotalReturnsByReturnStatusId(int $return_status_id): int {
@@ -245,9 +245,9 @@ class ModelSaleReturns extends Model {
 	 * @param int $return_reason_id primary key of the return reason record
 	 *
 	 * @return int total number of return reason records that have return reason ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $return_total = $this->model_sale_returns->getTotalReturnsByReturnReasonId($return_reason_id);
 	 */
 	public function getTotalReturnsByReturnReasonId(int $return_reason_id): int {
@@ -262,9 +262,9 @@ class ModelSaleReturns extends Model {
 	 * @param int $return_action_id primary key of the return reason record
 	 *
 	 * @return int total number of return action records that have return action ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $return_total = $this->model_sale_returns->getTotalReturnsByReturnActionId($return_action_id);
 	 */
 	public function getTotalReturnsByReturnActionId(int $return_action_id): int {
@@ -282,9 +282,9 @@ class ModelSaleReturns extends Model {
 	 * @param bool   $notify
 	 *
 	 * @return void
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $this->model_sale_returns->addHistory($return_id, $return_status_id, $comment, $notify);
 	 */
 	public function addHistory(int $return_id, int $return_status_id, string $comment, bool $notify): void {
@@ -301,9 +301,9 @@ class ModelSaleReturns extends Model {
 	 * @param int $limit
 	 *
 	 * @return array<int, array<string, mixed>> history records that have return ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $results = $this->model_sale_returns->getHistories($return_id, $start, $limit);
 	 */
 	public function getHistories(int $return_id, int $start = 0, int $limit = 10): array {
@@ -326,9 +326,9 @@ class ModelSaleReturns extends Model {
 	 * @param int $return_id primary key of the return record
 	 *
 	 * @return int total number of history records that have return ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $history_total = $this->model_sale_returns->getTotalHistories($return_id);
 	 */
 	public function getTotalHistories(int $return_id): int {
@@ -343,9 +343,9 @@ class ModelSaleReturns extends Model {
 	 * @param int $return_status_id primary key of the return status record
 	 *
 	 * @return int total number of history records that have return status ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $history_total = $this->model_sale_returns->getTotalReturnHistoriesByReturnStatusId($return_status_id);
 	 */
 	public function getTotalReturnHistoriesByReturnStatusId(int $return_status_id): int {

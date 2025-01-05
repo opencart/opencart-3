@@ -147,9 +147,9 @@ class ModelLocalisationTaxRate extends Model {
 	 * @param int $tax_rate_id primary key of the tax rate record
 	 *
 	 * @return array<int, int> customer group records that have tax rate ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $results = $this->model_localisation_tax_rate->getCustomerGroups($tax_rate_id);
 	 */
 	public function getCustomerGroups(int $tax_rate_id): array {
@@ -185,9 +185,9 @@ class ModelLocalisationTaxRate extends Model {
 	 * @param int $geo_zone_id primary key of the geo zone record
 	 *
 	 * @return int total number of tax rate records that have geo zone ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $tax_rate_total = $this->model_localisation_tax_rate->getTotalTaxRatesByGeoZoneId($geo_zone_id);
 	 */
 	public function getTotalTaxRatesByGeoZoneId(int $geo_zone_id): int {

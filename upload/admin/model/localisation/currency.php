@@ -191,9 +191,9 @@ class ModelLocalisationCurrency extends Model {
 	 * Refresh
 	 *
 	 * @return void
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $this->model_localisation_currency->refresh();
 	 */
 	public function refresh(): void {

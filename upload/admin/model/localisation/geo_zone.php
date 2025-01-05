@@ -182,9 +182,9 @@ class ModelLocalisationGeoZone extends Model {
 	 * @param int $geo_zone_id primary key of the geo zone record
 	 *
 	 * @return array<int, array<string, mixed>> geo zone records that have geo zone ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $zone_to_geo_zones = $this->model_localisation_geo_zone->geoZoneToGeoZones($geo_zone_id);
 	 */
 	public function getZoneToGeoZones(int $geo_zone_id): array {
@@ -199,9 +199,9 @@ class ModelLocalisationGeoZone extends Model {
 	 * @param int $geo_zone_id primary key of the geo zone record
 	 *
 	 * @return int total number of geo zone records that have geo zone ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $zone_to_geo_zones = $this->model_localisation_geo_zone->getTotalZoneToGeoZoneByGeoZoneId($geo_zone_id);
 	 */
 	public function getTotalZoneToGeoZoneByGeoZoneId(int $geo_zone_id): int {
@@ -216,9 +216,9 @@ class ModelLocalisationGeoZone extends Model {
 	 * @param int $country_id primary key of the country record
 	 *
 	 * @return int total number of geo zone records that have country ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $geo_zone_total = $this->model_localisation_geo_zone->getTotalZoneToGeoZoneByCountryId($country_id);
 	 */
 	public function getTotalZoneToGeoZoneByCountryId(int $country_id): int {
@@ -233,9 +233,9 @@ class ModelLocalisationGeoZone extends Model {
 	 * @param int $zone_id primary key of the zone record
 	 *
 	 * @return int total number of geo zone records that have zone ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $geo_zone_total = $this->model_localisation_geo_zone->getTotalZoneToGeoZoneByZoneId($zone_id);
 	 */
 	public function getTotalZoneToGeoZoneByZoneId(int $zone_id): int {

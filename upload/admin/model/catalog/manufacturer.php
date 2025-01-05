@@ -208,9 +208,9 @@ class ModelCatalogManufacturer extends Model {
 	 * @param int $manufacturer_id primary key of the manufacturer record
 	 *
 	 * @return array<int, array<string, string>> SEO URL records that have manufacturer ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $results = $this->model_catalog_manufacturer->getSeoUrls($manufacturer_id);
 	 */
 	public function getSeoUrls(int $manufacturer_id): array {
@@ -229,9 +229,9 @@ class ModelCatalogManufacturer extends Model {
 	 * Get Total Manufacturers
 	 *
 	 * @return int total number of manufacturer records
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $manufacturer_total = $this->model_catalog_manufacturer->getTotalManufacturers();
 	 */
 	public function getTotalManufacturers(): int {

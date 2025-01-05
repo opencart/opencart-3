@@ -13,9 +13,9 @@ class ModelSettingStore extends Model {
 	 * @param array<string, mixed> $data array of data
 	 *
 	 * @return int returns the primary key of the new store record
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $store_id = $this->model_setting_store->addStore($data);
 	 */
 	public function addStore(array $data): int {
@@ -42,9 +42,9 @@ class ModelSettingStore extends Model {
 	 * @param array<string, mixed> $data     array of data
 	 *
 	 * @return void
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $this->model_setting_store->editStore($store_id, $data);
 	 */
 	public function editStore(int $store_id, array $data): void {
@@ -59,9 +59,9 @@ class ModelSettingStore extends Model {
 	 * @param int $store_id
 	 *
 	 * @return void
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $this->model_setting_store->deleteStore($store_id);
 	 */
 	public function deleteStore(int $store_id): void {
@@ -96,9 +96,9 @@ class ModelSettingStore extends Model {
 	 * @param int $store_id
 	 *
 	 * @return array<string, mixed> store record that has store ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $store_info = $this->model_setting_store->getStore($store_id);
 	 */
 	public function getStore(int $store_id): array {
@@ -113,9 +113,9 @@ class ModelSettingStore extends Model {
 	 * @param array<string, mixed> $data array of filters
 	 *
 	 * @return array<int, array<string, mixed>> store records
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $stores = $this->model_setting_store->getStores();
 	 */
 	public function getStores(array $data = []): array {
@@ -136,9 +136,9 @@ class ModelSettingStore extends Model {
 	 * Get Total Stores
 	 *
 	 * @return int total number of store records
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $store_total = $this->model_setting_store->getTotalStores();
 	 */
 	public function getTotalStores(): int {
@@ -153,9 +153,9 @@ class ModelSettingStore extends Model {
 	 * @param int $layout_id total number of store records that have layout ID
 	 *
 	 * @return int
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $store_total = $this->model_setting_store->getTotalStoresByLayoutId($layout_id);
 	 */
 	public function getTotalStoresByLayoutId(int $layout_id): int {
@@ -170,9 +170,9 @@ class ModelSettingStore extends Model {
 	 * @param string $language
 	 *
 	 * @return int
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $store_total = $this->model_setting_store->getTotalStoresByLanguage($language);
 	 */
 	public function getTotalStoresByLanguage(string $language): int {
@@ -187,9 +187,9 @@ class ModelSettingStore extends Model {
 	 * @param string $currency
 	 *
 	 * @return int
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $store_total = $this->model_setting_store->getTotalStoresByCurrency($currency);
 	 */
 	public function getTotalStoresByCurrency(string $currency): int {
@@ -204,9 +204,9 @@ class ModelSettingStore extends Model {
 	 * @param int $country_id primary key of the country record
 	 *
 	 * @return int total number of store records that have country ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $store_total = $this->model_setting_store->getTotalStoresByCountryId($country_id);
 	 */
 	public function getTotalStoresByCountryId(int $country_id): int {
@@ -221,9 +221,9 @@ class ModelSettingStore extends Model {
 	 * @param int $zone_id primary key of the zone record
 	 *
 	 * @return int total number of store records that have zone ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $store_total = $this->model_setting_store->getTotalStoresByZoneId($zone_id);
 	 */
 	public function getTotalStoresByZoneId(int $zone_id): int {
@@ -238,9 +238,9 @@ class ModelSettingStore extends Model {
 	 * @param int $customer_group_id primary key of the customer group record
 	 *
 	 * @return int total number of store records that have customer group ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $store_total = $this->model_setting_store->getTotalStoresByCustomerGroupId($customer_group_id);
 	 */
 	public function getTotalStoresByCustomerGroupId(int $customer_group_id): int {
@@ -255,9 +255,9 @@ class ModelSettingStore extends Model {
 	 * @param int $information_id primary key of the information record
 	 *
 	 * @return int total number of store records that have information ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $store_total = $this->model_setting_store->getTotalStoresByInformationId($information_id);
 	 */
 	public function getTotalStoresByInformationId(int $information_id): int {
@@ -273,9 +273,9 @@ class ModelSettingStore extends Model {
 	 * @param int $order_status_id primary key of the order status record
 	 *
 	 * @return int total number of store records that have order status ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $store_total = $this->model_setting_store->getTotalStoresByOrderStatusId($order_status_id);
 	 */
 	public function getTotalStoresByOrderStatusId(int $order_status_id): int {

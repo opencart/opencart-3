@@ -13,9 +13,9 @@ class ModelDesignSeoUrl extends Model {
 	 * @param array<string, mixed> $data array of data
 	 *
 	 * @return void
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $seo_url_id = $this->model_design_seo_url->addSeoUrl($data);
 	 */
 	public function addSeoUrl(array $data): void {
@@ -29,9 +29,9 @@ class ModelDesignSeoUrl extends Model {
 	 * @param array<string, mixed> $data       array of data
 	 *
 	 * @return void
-	 * 
+	 *
 	 * @example
-	 * 
+	 *
 	 * $this->model_design_seo_url->editSeoUrl($seo_url_id, $data);
 	 */
 	public function editSeoUrl(int $seo_url_id, array $data): void {
@@ -189,9 +189,9 @@ class ModelDesignSeoUrl extends Model {
 	 * @param string $keyword
 	 *
 	 * @return array<int, array<string, mixed>>
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $seo_urls = $this->model_design_seo_url->getSeoUrlsByKeyword($keyword);
 	 */
 	public function getSeoUrlsByKeyword(string $keyword): array {
@@ -206,9 +206,9 @@ class ModelDesignSeoUrl extends Model {
 	 * @param string $query
 	 *
 	 * @return array<int, array<string, mixed>>
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $seo_urls = $this->model_design_seo_url->getSeoUrlsByQuery($query);
 	 */
 	public function getSeoUrlsByQuery(string $query): array {
@@ -224,9 +224,9 @@ class ModelDesignSeoUrl extends Model {
 	 * @param string $query
 	 *
 	 * @return array<int, array<string, mixed>> seo url records that have seo url ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $seo_urls = $this->model_design_seo_url->getSeoUrlsByQueryId($seo_url_id, $query);
 	 */
 	public function getSeoUrlsByQueryId(int $seo_url_id, string $query): array {
@@ -242,9 +242,9 @@ class ModelDesignSeoUrl extends Model {
 	 * @param string $keyword
 	 *
 	 * @return array<int, array<string, mixed>> seo url records that have seo url ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $seo_urls = $this->model_design_seo_url->getSeoUrlsByKeywordId($seo_url_id, $keyword);
 	 */
 	public function getSeoUrlsByKeywordId(int $seo_url_id, string $keyword): array {

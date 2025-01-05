@@ -14,9 +14,9 @@ class ModelSettingModule extends Model {
 	 * @param array<string, mixed> $data array of data
 	 *
 	 * @return void
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $this->model_setting_module->addModule($code, $data);
 	 */
 	public function addModule(string $code, array $data): void {
@@ -30,9 +30,9 @@ class ModelSettingModule extends Model {
 	 * @param array<string, mixed> $data
 	 *
 	 * @return void
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $this->model_setting_module->editModule($module_id, $data);
 	 */
 	public function editModule(int $module_id, array $data): void {
@@ -45,9 +45,9 @@ class ModelSettingModule extends Model {
 	 * @param int $module_id primary key of the module record
 	 *
 	 * @return void
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $this->model_setting_module->deleteModule($module_id);
 	 */
 	public function deleteModule(int $module_id): void {
@@ -61,9 +61,9 @@ class ModelSettingModule extends Model {
 	 * @param int $module_id primary key of the module record
 	 *
 	 * @return array<mixed> module record that has the module ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $module_info = $this->model_setting_module->getModule($module_id);
 	 */
 	public function getModule(int $module_id): array {
@@ -80,9 +80,9 @@ class ModelSettingModule extends Model {
 	 * Get Modules
 	 *
 	 * @return array<int, array<string, mixed>> module records
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $results = $this->model_setting_module->getModules();
 	 */
 	public function getModules(): array {
@@ -97,9 +97,9 @@ class ModelSettingModule extends Model {
 	 * @param string $code
 	 *
 	 * @return array<int, array<string, mixed>>
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $results = $this->model_setting_module->getModulesByCode($code);
 	 */
 	public function getModulesByCode(string $code): array {
@@ -114,9 +114,9 @@ class ModelSettingModule extends Model {
 	 * @param string $code
 	 *
 	 * @return void
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $this->model_setting_module->deleteModulesByCode($code);
 	 */
 	public function deleteModulesByCode(string $code): void {

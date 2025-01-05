@@ -179,13 +179,13 @@ class ModelCatalogAttribute extends Model {
 
 	/**
 	 * Get Total Attributes
-	 * 
+	 *
 	 * Get the total number of attribute records in the database.
-	 * 
+	 *
 	 * @return int
-	 * 
+	 *
 	 * @example
-	 * 
+	 *
 	 * $attribute_total = $this->model_catalog_attribute->getTotalAttributes();
 	 */
 	public function getTotalAttributes(): int {
@@ -196,15 +196,15 @@ class ModelCatalogAttribute extends Model {
 
 	/**
 	 * Get Total Attributes By Attribute Group ID
-	 * 
+	 *
 	 * Get the total number of attribute records with group ID in the database.
-	 * 
+	 *
 	 * @param int $attribute_group_id
-	 * 
+	 *
 	 * @return int
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $attribute_total = $this->model_catalog_attribute->getTotalAttributesByAttributeGroupId($attribute_group_id);
 	 */
 	public function getTotalAttributesByAttributeGroupId(int $attribute_group_id): int {

@@ -113,9 +113,9 @@ class ModelCatalogSubscriptionPlan extends Model {
 	 * @param int $subscription_plan_id primary key of the subscription plan record
 	 *
 	 * @return array<int, array<string, string>> description records that have subscription plan ID
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * $subscription_plan_description = $this->model_catalog_subscription_plan->getSubscriptionPlanDescription($subscription_plan_id);
 	 */
 	public function getSubscriptionPlanDescription(int $subscription_plan_id): array {
