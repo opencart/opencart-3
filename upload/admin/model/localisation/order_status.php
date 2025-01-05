@@ -2,8 +2,6 @@
 /**
  * Class Order Status
  *
- * @example $order_status_model = $this->model_localisation_order_status;
- *
  * Can be called from $this->load->model('localisation/order_status');
  *
  * @package Admin\Model\Localisation
@@ -15,6 +13,10 @@ class ModelLocalisationOrderStatus extends Model {
 	 * @param array<string, mixed> $data array of data
 	 *
 	 * @return ?int
+	 *
+	 * @example
+	 *
+	 * $order_status_id = $this->model_localisation_order_status->addOrderStatus($data);
 	 */
 	public function addOrderStatus(array $data): ?int {
 		$order_status_id = 0;
@@ -41,6 +43,10 @@ class ModelLocalisationOrderStatus extends Model {
 	 * @param array<string, mixed> $data            array of data
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_localisation_order_status->editOrderStatus($order_status_id, $data);
 	 */
 	public function editOrderStatus(int $order_status_id, array $data): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "order_status` WHERE `order_status_id` = '" . (int)$order_status_id . "'");
@@ -58,6 +64,10 @@ class ModelLocalisationOrderStatus extends Model {
 	 * @param int $order_status_id primary key of the order status record
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_localisation_order_status->deleteOrderStatus($order_status_id);
 	 */
 	public function deleteOrderStatus(int $order_status_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "order_status` WHERE `order_status_id` = '" . (int)$order_status_id . "'");
@@ -71,6 +81,10 @@ class ModelLocalisationOrderStatus extends Model {
 	 * @param int $order_status_id primary key of the order status record
 	 *
 	 * @return array<string, mixed> order status record that has order status ID
+	 *
+	 * @example
+	 *
+	 * $order_status_info = $this->model_localisation_order_status->getOrderStatus($order_status_id);
 	 */
 	public function getOrderStatus(int $order_status_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_status` WHERE `order_status_id` = '" . (int)$order_status_id . "' AND `language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -84,6 +98,10 @@ class ModelLocalisationOrderStatus extends Model {
 	 * @param array<string, mixed> $data array of filters
 	 *
 	 * @return array<int, array<string, mixed>> order status records
+	 *
+	 * @example
+	 *
+	 * $results = $this->model_localisation_order_status->getOrderStatuses();
 	 */
 	public function getOrderStatuses(array $data = []): array {
 		if ($data) {
@@ -133,6 +151,10 @@ class ModelLocalisationOrderStatus extends Model {
 	 * @param int $order_status_id primary key of the order status record
 	 *
 	 * @return array<int, array<string, string>> description records that have order status ID
+	 *
+	 * @example
+	 *
+	 * $order_status = $this->model_localisation_order_status->getDescriptions($order_status_id);
 	 */
 	public function getDescriptions(int $order_status_id): array {
 		$order_status_data = [];
@@ -150,6 +172,10 @@ class ModelLocalisationOrderStatus extends Model {
 	 * Get Total Order Statuses
 	 *
 	 * @return int total number of order status records
+	 *
+	 * @example
+	 *
+	 * $order_status_total = $this->model_localisation_order_status->getTotalOrderStatuses();
 	 */
 	public function getTotalOrderStatuses(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order_status` WHERE `language_id` = '" . (int)$this->config->get('config_language_id') . "'");

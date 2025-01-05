@@ -2,8 +2,6 @@
 /**
  * Class Layout
  *
- * @example $layout_model = $this->model_design_layout;
- *
  * Can be called from $this->load->model('design/layout');
  *
  * @package Admin\Model\Design
@@ -15,6 +13,10 @@ class ModelDesignLayout extends Model {
 	 * @param array<string, mixed> $data array of data
 	 *
 	 * @return int returns the primary key of the new layout record
+	 *
+	 * @example
+	 *
+	 * $layout_id = $this->model_design_layout->addLayout($data);
 	 */
 	public function addLayout(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "layout` SET `name` = '" . $this->db->escape($data['name']) . "'");
@@ -43,6 +45,10 @@ class ModelDesignLayout extends Model {
 	 * @param array<string, mixed> $data      array of data
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_design_layout->editLayout($layout_id, $data);
 	 */
 	public function editLayout(int $layout_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "layout` SET `name` = '" . $this->db->escape($data['name']) . "' WHERE `layout_id` = '" . (int)$layout_id . "'");
@@ -70,6 +76,10 @@ class ModelDesignLayout extends Model {
 	 * @param int $layout_id primary key of the layout record
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_design_layout->deleteLayout($layout_id);
 	 */
 	public function deleteLayout(int $layout_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "layout` WHERE `layout_id` = '" . (int)$layout_id . "'");
@@ -86,6 +96,10 @@ class ModelDesignLayout extends Model {
 	 * @param int $layout_id primary key of the layout record
 	 *
 	 * @return array<string, mixed> layout record that has layout ID
+	 *
+	 * @example
+	 *
+	 * $layout_info = $this->model_design_layout->getLayout($layout_id);
 	 */
 	public function getLayout(int $layout_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "layout` WHERE `layout_id` = '" . (int)$layout_id . "'");
@@ -99,6 +113,10 @@ class ModelDesignLayout extends Model {
 	 * @param array<string, mixed> $data array of filters
 	 *
 	 * @return array<int, array<string, mixed>> layout records
+	 *
+	 * @example
+	 *
+	 * $results = $this->model_design_layout->getLayouts();
 	 */
 	public function getLayouts(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "layout`";
@@ -140,6 +158,10 @@ class ModelDesignLayout extends Model {
 	 * @param int $layout_id primary key of the layout record
 	 *
 	 * @return array<int, array<string, mixed>> route records that have layout ID
+	 *
+	 * @example
+	 *
+	 * $layout_routes = $this->model_design_layout->getRoutes($layout_id);
 	 */
 	public function getRoutes(int $layout_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "layout_route` WHERE `layout_id` = '" . (int)$layout_id . "'");
@@ -153,6 +175,10 @@ class ModelDesignLayout extends Model {
 	 * @param int $layout_id primary key of the layout record
 	 *
 	 * @return array<int, array<string, mixed>> module records that have layout ID
+	 *
+	 * @example
+	 *
+	 * $layout_modules = $this->model_design_layout->getModules($layout_id);
 	 */
 	public function getModules(int $layout_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "layout_module` WHERE `layout_id` = '" . (int)$layout_id . "' ORDER BY `position` ASC, `sort_order` ASC");
@@ -164,6 +190,10 @@ class ModelDesignLayout extends Model {
 	 * Get Total Layouts
 	 *
 	 * @return int total number of layout records
+	 *
+	 * @example
+	 *
+	 * $layout_total = $this->model_design_layout->getTotalLayouts();
 	 */
 	public function getTotalLayouts(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "layout`");

@@ -1,6 +1,8 @@
 <?php
 /**
  * Class Voucher Theme
+ * 
+ * Can be called from $this->load->model('sale/voucher_theme');
  *
  * @package Admin\Model\Sale
  */
@@ -11,6 +13,10 @@ class ModelSaleVoucherTheme extends Model {
 	 * @param array<string, mixed> $data array of data
 	 *
 	 * @return int returns the primary key of the new voucher theme record
+	 * 
+	 * @example 
+	 * 
+	 * $voucher_theme_id = $this->model_sale_voucher_theme->addVoucherTheme($data);
 	 */
 	public function addVoucherTheme(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "voucher_theme` SET `image` = '" . $this->db->escape($data['image']) . "'");
@@ -33,6 +39,10 @@ class ModelSaleVoucherTheme extends Model {
 	 * @param array<string, mixed> $data             array of data
 	 *
 	 * @return void
+	 * 
+	 * @example 
+	 * 
+	 * $this->model_sale_voucher_theme->editVoucherTheme($voucher_theme_id, $data);
 	 */
 	public function editVoucherTheme(int $voucher_theme_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "voucher_theme` SET `image` = '" . $this->db->escape($data['image']) . "' WHERE `voucher_theme_id` = '" . (int)$voucher_theme_id . "'");
@@ -52,6 +62,10 @@ class ModelSaleVoucherTheme extends Model {
 	 * @param int $voucher_theme_id primary key of the voucher theme record
 	 *
 	 * @return void
+	 * 
+	 * @example 
+	 * 
+	 * $this->model_sale_voucher_theme->deleteVoucherTheme($voucher_theme_id);
 	 */
 	public function deleteVoucherTheme(int $voucher_theme_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "voucher_theme` WHERE `voucher_theme_id` = '" . (int)$voucher_theme_id . "'");
@@ -66,6 +80,10 @@ class ModelSaleVoucherTheme extends Model {
 	 * @param int $voucher_theme_id primary key of the voucher theme record
 	 *
 	 * @return array<string, mixed> voucher theme record that has voucher theme ID
+	 * 
+	 * @example 
+	 * 
+	 * $voucher_theme_info = $this->model_sale_voucher_theme->getVoucherTheme($voucher_theme_id);
 	 */
 	public function getVoucherTheme(int $voucher_theme_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "voucher_theme` `vt` LEFT JOIN `" . DB_PREFIX . "voucher_theme_description` `vtd` ON (`vt`.`voucher_theme_id` = `vtd`.`voucher_theme_id`) WHERE `vt`.`voucher_theme_id` = '" . (int)$voucher_theme_id . "' AND `vtd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -79,6 +97,10 @@ class ModelSaleVoucherTheme extends Model {
 	 * @param array<string, mixed> $data array of filters
 	 *
 	 * @return array<int, array<string, mixed>> voucher theme records
+	 * 
+	 * @example
+	 * 
+	 * $results = $this->model_sale_voucher_themes = $this->model_sale_voucher_theme->getVoucherThemes();
 	 */
 	public function getVoucherThemes(array $data = []): array {
 		if ($data) {
@@ -126,6 +148,10 @@ class ModelSaleVoucherTheme extends Model {
 	 * @param int $voucher_theme_id primary key of the voucher theme record
 	 *
 	 * @return array<int, array<string, string>> description records that have voucher theme ID
+	 * 
+	 * @example 
+	 * 
+	 * $voucher_theme_description = $this->model_sale_voucher_theme->getDescriptions($voucher_theme_id);
 	 */
 	public function getDescriptions(int $voucher_theme_id): array {
 		$voucher_theme_data = [];
@@ -143,6 +169,10 @@ class ModelSaleVoucherTheme extends Model {
 	 * Get Total Voucher Themes
 	 *
 	 * @return int total number of voucher theme records
+	 * 
+	 * @example 
+	 * 
+	 * $voucher_total = $this->model_sale_voucher_theme->getTotalVoucherThemes();
 	 */
 	public function getTotalVoucherThemes(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "voucher_theme`");

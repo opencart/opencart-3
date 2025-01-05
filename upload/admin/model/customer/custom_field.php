@@ -2,8 +2,6 @@
 /**
  * Class Custom Field
  *
- * @example $custom_field_model = $this->model_customer_custom_field;
- *
  * Can be called from $this->load->model('customer/custom_field');
  *
  * @package Admin\Model\Customer
@@ -15,6 +13,10 @@ class ModelCustomerCustomField extends Model {
 	 * @param array<string, mixed> $data array of data
 	 *
 	 * @return int returns the primary key of the new custom field record
+	 *
+	 * @example
+	 *
+	 * $custom_field_id = $this->model_customer_custom_field->addCustomField($data);
 	 */
 	public function addCustomField(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "custom_field` SET `type` = '" . $this->db->escape($data['type']) . "', `value` = '" . $this->db->escape($data['value']) . "', `validation` = '" . $this->db->escape($data['validation']) . "', `location` = '" . $this->db->escape($data['location']) . "', `status` = '" . (int)$data['status'] . "', `sort_order` = '" . (int)$data['sort_order'] . "'");
@@ -55,6 +57,10 @@ class ModelCustomerCustomField extends Model {
 	 * @param array<string, mixed> $data            array of data
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_customer_custom_field->editCustomField($custom_field_id, $data);
 	 */
 	public function editCustomField(int $custom_field_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "custom_field` SET `type` = '" . $this->db->escape($data['type']) . "', `value` = '" . $this->db->escape($data['value']) . "', `validation` = '" . $this->db->escape($data['validation']) . "', `location` = '" . $this->db->escape($data['location']) . "', `status` = '" . (int)$data['status'] . "', `sort_order` = '" . (int)$data['sort_order'] . "' WHERE `custom_field_id` = '" . (int)$custom_field_id . "'");
@@ -101,6 +107,10 @@ class ModelCustomerCustomField extends Model {
 	 * @param int $custom_field_id primary key of the custom field record
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_customer_custom_field->deleteCustomField($custom_field_id);
 	 */
 	public function deleteCustomField(int $custom_field_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "custom_field` WHERE `custom_field_id` = '" . (int)$custom_field_id . "'");
@@ -116,6 +126,10 @@ class ModelCustomerCustomField extends Model {
 	 * @param int $custom_field_id primary key of the custom field record
 	 *
 	 * @return array<string, mixed> custom field record that has custom field ID
+	 *
+	 * @example
+	 *
+	 * $custom_field_info = $this->model_customer_custom_field->getCustomField($custom_field_id);
 	 */
 	public function getCustomField(int $custom_field_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "custom_field` `cf` LEFT JOIN `" . DB_PREFIX . "custom_field_description` `cfd` ON (`cf`.`custom_field_id` = `cfd`.`custom_field_id`) WHERE `cf`.`custom_field_id` = '" . (int)$custom_field_id . "' AND `cfd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -129,6 +143,10 @@ class ModelCustomerCustomField extends Model {
 	 * @param array<string, mixed> $data array of filters
 	 *
 	 * @return array<int, array<string, mixed>> custom field records
+	 *
+	 * @example
+	 *
+	 * $custom_fields = $this->model_customer_custom_field->getCustomFields();
 	 */
 	public function getCustomFields(array $data = []): array {
 		if (empty($data['filter_customer_group_id'])) {
@@ -188,6 +206,10 @@ class ModelCustomerCustomField extends Model {
 	 * @param int $custom_field_id primary key of the custom field record
 	 *
 	 * @return array<int, array<string, string>> description records that have custom field ID
+	 *
+	 * @example
+	 *
+	 * $custom_field_description = $this->model_customer_custom_field->getDescriptions($custom_field_id);
 	 */
 	public function getDescriptions(int $custom_field_id): array {
 		$custom_field_data = [];
@@ -207,6 +229,10 @@ class ModelCustomerCustomField extends Model {
 	 * @param int $custom_field_value_id primary key of the custom field value record
 	 *
 	 * @return array<string, mixed> value record that has custom field value ID
+	 *
+	 * @example
+	 *
+	 * $custom_field_value = $this->model_customer_custom_field->getValue($custom_field_value_id);
 	 */
 	public function getValue(int $custom_field_value_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "custom_field_value` `cfv` LEFT JOIN `" . DB_PREFIX . "custom_field_value_description` `cfvd` ON (`cfv`.`custom_field_value_id` = `cfvd`.`custom_field_value_id`) WHERE `cfv`.`custom_field_value_id` = '" . (int)$custom_field_value_id . "' AND `cfvd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -220,6 +246,10 @@ class ModelCustomerCustomField extends Model {
 	 * @param int $custom_field_id primary key of the custom field record
 	 *
 	 * @return array<int, array<string, mixed>> value records that have custom field ID
+	 *
+	 * @example
+	 *
+	 * $custom_field_value = $this->model_customer_custom_field->getValues($custom_field_id);
 	 */
 	public function getValues(int $custom_field_id): array {
 		$custom_field_value_data = [];
@@ -242,6 +272,10 @@ class ModelCustomerCustomField extends Model {
 	 * @param int $custom_field_id primary key of the custom field record
 	 *
 	 * @return array<int, array<string, mixed>> customer group records that have custom field ID
+	 *
+	 * @example
+	 *
+	 * $custom_field_customer_groups = $this->model_customer_custom_field->getCustomerGroups($custom_field_id);
 	 */
 	public function getCustomerGroups(int $custom_field_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "custom_field_customer_group` WHERE `custom_field_id` = '" . (int)$custom_field_id . "'");
@@ -252,9 +286,13 @@ class ModelCustomerCustomField extends Model {
 	/**
 	 * Get Value Descriptions
 	 *
-	 * @param int $custom_field_id primary key of the custom field ID
+	 * @param int $custom_field_id primary key of the custom field record
 	 *
-	 * @return array<int, array<string, mixed>> description records that have custom field ID
+	 * @return array<int, array<string, mixed>> value description records that have custom field ID
+	 *
+	 * @example
+	 *
+	 * $custom_field_values = $this->model_customer_custom_field->getValueDescriptions($custom_field_id);
 	 */
 	public function getValueDescriptions(int $custom_field_id): array {
 		$custom_field_value_data = [];
@@ -284,6 +322,10 @@ class ModelCustomerCustomField extends Model {
 	 * Get Total Custom Fields
 	 *
 	 * @return int total number of custom field records
+	 *
+	 * @example
+	 *
+	 * $custom_field_total = $this->model_customer_custom_field->getTotalCustomFields();
 	 */
 	public function getTotalCustomFields(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "custom_field`");

@@ -2,21 +2,23 @@
 /**
  * Class Attribute
  *
- * @example $attribute_model = $this->model_catalog_attribute;
- *
  * Can be called from $this->load->model('catalog/attribute');
  *
  * @package Admin\Model\Catalog
  */
 class ModelCatalogAttribute extends Model {
 	/**
-	 *	Add Attribute
+	 * Add Attribute
 	 *
-	 *	Create a new attribute record in the database.
+	 * Create a new attribute record in the database.
 	 *
 	 * @param array<string, mixed> $data array of data
 	 *
 	 * @return int returns the primary key of the new attribute record
+	 *
+	 * @example
+	 *
+	 * $attribute_id = $this->model_catalog_attribute->addAttribute($data);
 	 */
 	public function addAttribute(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "attribute` SET `attribute_group_id` = '" . (int)$data['attribute_group_id'] . "', `sort_order` = '" . (int)$data['sort_order'] . "'");
@@ -31,14 +33,18 @@ class ModelCatalogAttribute extends Model {
 	}
 
 	/**
-	 *	Edit Attribute
+	 * Edit Attribute
 	 *
-	 *	Edit attribute record in the database.
+	 * Edit attribute record in the database.
 	 *
-	 * @param int                  $attribute_id primary key of the attribute record to edit
+	 * @param int                  $attribute_id primary key of the attribute record
 	 * @param array<string, mixed> $data         array of data
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_catalog_attribute->editAttribute($attribute_id, $data);
 	 */
 	public function editAttribute(int $attribute_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "attribute` SET `attribute_group_id` = '" . (int)$data['attribute_group_id'] . "', `sort_order` = '" . (int)$data['sort_order'] . "' WHERE `attribute_id` = '" . (int)$attribute_id . "'");
@@ -51,13 +57,17 @@ class ModelCatalogAttribute extends Model {
 	}
 
 	/**
-	 *	Delete Attribute
+	 * Delete Attribute
 	 *
-	 *	Delete attribute record in the database.
+	 * Delete attribute record in the database.
 	 *
-	 * @param int $attribute_id primary key of the attribute record to be deleted
+	 * @param int $attribute_id primary key of the attribute record
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_catalog_attribute->deleteAttribute($attribute_id);
 	 */
 	public function deleteAttribute(int $attribute_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "attribute` WHERE `attribute_id` = '" . (int)$attribute_id . "'");
@@ -65,13 +75,17 @@ class ModelCatalogAttribute extends Model {
 	}
 
 	/**
-	 *	Get Attribute
+	 * Get Attribute
 	 *
-	 *	Get the record of the attribute record in the database.
+	 * Get the record of the attribute record in the database.
 	 *
-	 * @param int $attribute_id primary key of the attribute record to be fetched
+	 * @param int $attribute_id primary key of the attribute record
 	 *
 	 * @return array<string, mixed> attribute record that has attribute ID
+	 *
+	 * @example
+	 *
+	 * $attribute_info = $this->model_catalog_attribute->getAttribute($attribute_id);
 	 */
 	public function getAttribute(int $attribute_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "attribute` `a` LEFT JOIN `" . DB_PREFIX . "attribute_description` `ad` ON (`a`.`attribute_id` = `ad`.`attribute_id`) WHERE `a`.`attribute_id` = '" . (int)$attribute_id . "' AND `ad`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -80,13 +94,17 @@ class ModelCatalogAttribute extends Model {
 	}
 
 	/**
-	 *	Get Attributes
+	 * Get Attributes
 	 *
-	 *	Get the record of the attribute record in the database.
+	 * Get the record of the attribute record in the database.
 	 *
 	 * @param array<string, mixed> $data array of filters
 	 *
 	 * @return array<int, array<string, mixed>> attribute records
+	 *
+	 * @example
+	 *
+	 * $results = $this->model_catalog_attribute->getAttributes();
 	 */
 	public function getAttributes(array $data = []): array {
 		$sql = "SELECT *, (SELECT `agd`.`name` FROM `" . DB_PREFIX . "attribute_group_description` `agd` WHERE `agd`.`attribute_group_id` = `a`.`attribute_group_id` AND `agd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "') AS `attribute_group` FROM `" . DB_PREFIX . "attribute` `a` LEFT JOIN `" . DB_PREFIX . "attribute_description` `ad` ON (`a`.`attribute_id` = `ad`.`attribute_id`) WHERE `ad`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
@@ -135,13 +153,17 @@ class ModelCatalogAttribute extends Model {
 	}
 
 	/**
-	 *	Get Descriptions
+	 * Get Descriptions
 	 *
-	 *	Get the record of the attribute record in the database.
+	 * Get the record of the attribute record in the database.
 	 *
-	 * @param int $attribute_id primary key of the attribute record to be fetched
+	 * @param int $attribute_id primary key of the attribute record
 	 *
-	 * @return array<int, array<string, string>> rdescription records that have attribute ID
+	 * @return array<int, array<string, string>> description records that have attribute ID
+	 *
+	 * @example
+	 *
+	 * $attribute_description = $this->model_catalog_attribute->getDescriptions($attribute_id);
 	 */
 	public function getDescriptions(int $attribute_id): array {
 		$attribute_data = [];
@@ -156,11 +178,15 @@ class ModelCatalogAttribute extends Model {
 	}
 
 	/**
-	 *	Get Total Attributes
-	 *
-	 *	Get the total number of attribute records in the database.
-	 *
-	 * @return int total number of attribute records
+	 * Get Total Attributes
+	 * 
+	 * Get the total number of attribute records in the database.
+	 * 
+	 * @return int
+	 * 
+	 * @example
+	 * 
+	 * $attribute_total = $this->model_catalog_attribute->getTotalAttributes();
 	 */
 	public function getTotalAttributes(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "attribute`");
@@ -169,13 +195,17 @@ class ModelCatalogAttribute extends Model {
 	}
 
 	/**
-	 *	Get Total Attributes By Attribute Group ID
-	 *
-	 *	Get the total number of attribute records with group ID in the database.
-	 *
-	 * @param int $attribute_group_id Foreign key of the attribute record to be fetched
-	 *
-	 * @return int total number of attribute records that have attribute group ID
+	 * Get Total Attributes By Attribute Group ID
+	 * 
+	 * Get the total number of attribute records with group ID in the database.
+	 * 
+	 * @param int $attribute_group_id
+	 * 
+	 * @return int
+	 * 
+	 * @example 
+	 * 
+	 * $attribute_total = $this->model_catalog_attribute->getTotalAttributesByAttributeGroupId($attribute_group_id);
 	 */
 	public function getTotalAttributesByAttributeGroupId(int $attribute_group_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "attribute` WHERE `attribute_group_id` = '" . (int)$attribute_group_id . "'");

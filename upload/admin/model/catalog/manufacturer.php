@@ -2,8 +2,6 @@
 /**
  * Class Manufacturer
  *
- * @example $manufacturer_model = $this->model_catalog_manufacturer;
- *
  * Can be called from $this->load->model('catalog/manufacturer');
  *
  * @package Admin\Model\Catalog
@@ -15,6 +13,10 @@ class ModelCatalogManufacturer extends Model {
 	 * @param array<string, mixed> $data array of data
 	 *
 	 * @return int returns the primary key of the new manufacturer record
+	 *
+	 * @example
+	 *
+	 * $manufacturer_id = $this->model_catalog_manufacturer->addManufacturer($data);
 	 */
 	public function addManufacturer(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "manufacturer` SET `name` = '" . $this->db->escape($data['name']) . "', `sort_order` = '" . (int)$data['sort_order'] . "'");
@@ -54,6 +56,10 @@ class ModelCatalogManufacturer extends Model {
 	 * @param array<string, mixed> $data            array of data
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_catalog_manufacturer->editManufacturer($manufacturer_id, $data);
 	 */
 	public function editManufacturer(int $manufacturer_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "manufacturer` SET `name` = '" . $this->db->escape($data['name']) . "', `sort_order` = '" . (int)$data['sort_order'] . "' WHERE `manufacturer_id` = '" . (int)$manufacturer_id . "'");
@@ -91,6 +97,10 @@ class ModelCatalogManufacturer extends Model {
 	 * @param int $manufacturer_id primary key of the manufacturer record
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_catalog_manufacturer->deleteManufacturer($manufacturer_id);
 	 */
 	public function deleteManufacturer(int $manufacturer_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "manufacturer` WHERE `manufacturer_id` = '" . (int)$manufacturer_id . "'");
@@ -106,6 +116,10 @@ class ModelCatalogManufacturer extends Model {
 	 * @param int $manufacturer_id primary key of the manufacturer record
 	 *
 	 * @return array<string, mixed> manufacturer record that has manufacturer ID
+	 *
+	 * @example
+	 *
+	 * $manufacturer_info = $this->model_catalog_manufacturer->getManufacturer($manufacturer_id);
 	 */
 	public function getManufacturer(int $manufacturer_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "manufacturer` WHERE `manufacturer_id` = '" . (int)$manufacturer_id . "'");
@@ -119,6 +133,10 @@ class ModelCatalogManufacturer extends Model {
 	 * @param array<string, mixed> $data array of filters
 	 *
 	 * @return array<int, array<string, mixed>> manufacturer records
+	 *
+	 * @example
+	 *
+	 * $results = $this->model_catalog_manufacturer->getManufacturers();
 	 */
 	public function getManufacturers(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "manufacturer`";
@@ -167,6 +185,10 @@ class ModelCatalogManufacturer extends Model {
 	 * @param int $manufacturer_id primary key of the manufacturer record
 	 *
 	 * @return array<int, int> store records that have manufacturer ID
+	 *
+	 * @example
+	 *
+	 * $manufacturer_store = $this->model_catalog_manufacturer->getStores($manufacturer_id);
 	 */
 	public function getStores(int $manufacturer_id): array {
 		$manufacturer_store_data = [];
@@ -186,6 +208,10 @@ class ModelCatalogManufacturer extends Model {
 	 * @param int $manufacturer_id primary key of the manufacturer record
 	 *
 	 * @return array<int, array<string, string>> SEO URL records that have manufacturer ID
+	 * 
+	 * @example 
+	 * 
+	 * $results = $this->model_catalog_manufacturer->getSeoUrls($manufacturer_id);
 	 */
 	public function getSeoUrls(int $manufacturer_id): array {
 		$manufacturer_seo_url_data = [];
@@ -203,6 +229,10 @@ class ModelCatalogManufacturer extends Model {
 	 * Get Total Manufacturers
 	 *
 	 * @return int total number of manufacturer records
+	 * 
+	 * @example 
+	 * 
+	 * $manufacturer_total = $this->model_catalog_manufacturer->getTotalManufacturers();
 	 */
 	public function getTotalManufacturers(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "manufacturer`");

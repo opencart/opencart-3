@@ -2,8 +2,6 @@
 /**
  * Class Information
  *
- * @example $information_model = $this->model_catalog_information;
- *
  * Can be called from $this->load->model('catalog/information');
  *
  * @package Admin\Model\Catalog
@@ -15,6 +13,10 @@ class ModelCatalogInformation extends Model {
 	 * @param array<string, mixed> $data array of data
 	 *
 	 * @return int returns the primary key of the new information record
+	 *
+	 * @example
+	 *
+	 * $information_id = $this->model_catalog_information->addInformation($data);
 	 */
 	public function addInformation(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "information` SET `sort_order` = '" . (int)$data['sort_order'] . "', `bottom` = '" . (isset($data['bottom']) ? (int)$data['bottom'] : 0) . "', `status` = '" . (int)$data['status'] . "'");
@@ -60,6 +62,10 @@ class ModelCatalogInformation extends Model {
 	 * @param array<string, mixed> $data           array of data
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_catalog_information->editInformation($information_id, $data);
 	 */
 	public function editInformation(int $information_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "information` SET `sort_order` = '" . (int)$data['sort_order'] . "', `bottom` = '" . (isset($data['bottom']) ? (int)$data['bottom'] : 0) . "', `status` = '" . (int)$data['status'] . "' WHERE `information_id` = '" . (int)$information_id . "'");
@@ -107,6 +113,10 @@ class ModelCatalogInformation extends Model {
 	 * @param int $information_id primary key of the information record
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_catalog_information->deleteInformation($information_id);
 	 */
 	public function deleteInformation(int $information_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "information` WHERE `information_id` = '" . (int)$information_id . "'");
@@ -124,6 +134,10 @@ class ModelCatalogInformation extends Model {
 	 * @param int $information_id primary key of the information record
 	 *
 	 * @return array<string, mixed> information record that has information ID
+	 *
+	 * @example
+	 *
+	 * $information_info = $this->model_catalog_information->getInformation($information_id);
 	 */
 	public function getInformation(int $information_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "information` WHERE `information_id` = '" . (int)$information_id . "'");
@@ -137,6 +151,10 @@ class ModelCatalogInformation extends Model {
 	 * @param array<string, mixed> $data array of filters
 	 *
 	 * @return array<int, array<string, mixed>> information records
+	 *
+	 * @example
+	 *
+	 * $results = $this->model_catalog_information->getInformations();
 	 */
 	public function getInformations(array $data = []): array {
 		if ($data) {
@@ -195,6 +213,10 @@ class ModelCatalogInformation extends Model {
 	 * @param int $information_id primary key of the information record
 	 *
 	 * @return array<int, array<string, string>> information description records that have information ID
+	 * 
+	 * @example 
+	 * 
+	 * $results = $this->model_catalog_information->getDescriptions($information_id);
 	 */
 	public function getDescriptions(int $information_id): array {
 		$information_description_data = [];
@@ -220,6 +242,10 @@ class ModelCatalogInformation extends Model {
 	 * @param int $information_id primary key of the information record
 	 *
 	 * @return array<int, int> store records that have information ID
+	 *
+	 * @example
+	 *
+	 * $information_store = $this->model_catalog_information->getStores($information_id);
 	 */
 	public function getStores(int $information_id): array {
 		$information_store_data = [];
@@ -239,6 +265,10 @@ class ModelCatalogInformation extends Model {
 	 * @param int $information_id primary key of the information record
 	 *
 	 * @return array<int, array<string, string>> SEO URL records that have information ID
+	 * 
+	 * @example 
+	 * 
+	 * $results = $this->model_catalog_information->getInformationSeoUrls($information_id);
 	 */
 	public function getInformationSeoUrls(int $information_id): array {
 		$information_seo_url_data = [];
@@ -258,6 +288,10 @@ class ModelCatalogInformation extends Model {
 	 * @param int $information_id primary key of the information record
 	 *
 	 * @return array<int, array<string, string>> layout records that have information ID
+	 * 
+	 * @example 
+	 * 
+	 * $results = $this->model_catalog_information->getInformationLayouts($information_id);
 	 */
 	public function getInformationLayouts(int $information_id): array {
 		$information_layout_data = [];
@@ -275,6 +309,10 @@ class ModelCatalogInformation extends Model {
 	 * Get Total Information(s)
 	 *
 	 * @return int total number of information records
+	 * 
+	 * @example 
+	 * 
+	 * $information_total = $this->model_catalog_information->getTotalInformations();
 	 */
 	public function getTotalInformations(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "information`");
@@ -288,6 +326,10 @@ class ModelCatalogInformation extends Model {
 	 * @param int $layout_id primary key of the information record
 	 *
 	 * @return int total number of layout records that have layout ID
+	 * 
+	 * @example 
+	 * 
+	 * $information_total = $this->model_catalog_information->getTotalInformationsByLayoutId($layout_id);
 	 */
 	public function getTotalInformationsByLayoutId(int $layout_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "information_to_layout` WHERE `layout_id` = '" . (int)$layout_id . "'");

@@ -2,8 +2,6 @@
 /**
  * Class Event
  *
- * @example $event_model = $this->model_setting_event;
- *
  * Can be called from $this->load->model('setting/event');
  *
  * @package Admin\Model\Setting
@@ -19,6 +17,10 @@ class ModelSettingEvent extends Model {
 	 * @param int    $sort_order
 	 *
 	 * @return int returns the primary key of the new event record
+	 * 
+	 * @example 
+	 * 
+	 * $event_id = $this->model_setting_event->addEvent($code, $trigger, $action, $status, $sort_order);
 	 */
 	public function addEvent(string $code, string $trigger, string $action, int $status = 1, int $sort_order = 0): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "event` SET `code` = '" . $this->db->escape($code) . "', `trigger` = '" . $this->db->escape($trigger) . "', `action` = '" . $this->db->escape($action) . "', `sort_order` = '" . (int)$sort_order . "', `status` = '" . (int)$status . "'");
@@ -32,6 +34,10 @@ class ModelSettingEvent extends Model {
 	 * @param int $event_id primary key of the event record
 	 *
 	 * @return void
+	 * 
+	 * @example
+	 * 
+	 * $this->model_setting_event->deleteEvent($event_id);
 	 */
 	public function deleteEvent(int $event_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "event` WHERE `event_id` = '" . (int)$event_id . "'");
@@ -43,6 +49,10 @@ class ModelSettingEvent extends Model {
 	 * @param string $code
 	 *
 	 * @return void
+	 * 
+	 * @example 
+	 * 
+	 * $this->model_setting_event->deleteEventByCode($code);
 	 */
 	public function deleteEventByCode(string $code): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "event` WHERE `code` = '" . $this->db->escape($code) . "'");
@@ -54,6 +64,10 @@ class ModelSettingEvent extends Model {
 	 * @param int $event_id primary key of the event record
 	 *
 	 * @return void
+	 * 
+	 * @example 
+	 * 
+	 * $this->model_setting_event->enableEvent($event_id);
 	 */
 	public function enableEvent(int $event_id): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "event` SET `status` = '1' WHERE `event_id` = '" . (int)$event_id . "'");
@@ -65,6 +79,10 @@ class ModelSettingEvent extends Model {
 	 * @param int $event_id primary key of the event record
 	 *
 	 * @return void
+	 * 
+	 * @example 
+	 * 
+	 * $this->model_setting_event->disableEvent($event_id);
 	 */
 	public function disableEvent(int $event_id): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "event` SET `status` = '0' WHERE `event_id` = '" . (int)$event_id . "'");
@@ -77,6 +95,10 @@ class ModelSettingEvent extends Model {
 	 * @param string $code
 	 *
 	 * @return void
+	 * 
+	 * @example 
+	 * 
+	 * $this->model_setting_event->uninstall($type, $code);
 	 */
 	public function uninstall(string $type, string $code): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "extension` WHERE `type` = '" . $this->db->escape($type) . "' AND `code` = '" . $this->db->escape($code) . "'");
@@ -89,6 +111,10 @@ class ModelSettingEvent extends Model {
 	 * @param int $event_id primary key of the event record
 	 *
 	 * @return array<string, mixed> event record that has event ID
+	 * 
+	 * @example 
+	 * 
+	 * $event_info = $this->model_setting_event->getEvent($event_id);
 	 */
 	public function getEvent(int $event_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "event` WHERE `event_id` = '" . (int)$event_id . "' LIMIT 1");
@@ -102,6 +128,10 @@ class ModelSettingEvent extends Model {
 	 * @param string $code
 	 *
 	 * @return array<string, mixed>
+	 * 
+	 * @example 
+	 * 
+	 * $event_info = $this->model_setting_event->getEventByCode($code);
 	 */
 	public function getEventByCode(string $code): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "event` WHERE `code` = '" . $this->db->escape($code) . "' LIMIT 1");
@@ -115,6 +145,10 @@ class ModelSettingEvent extends Model {
 	 * @param array<string, mixed> $data array of filters
 	 *
 	 * @return array<int, array<string, mixed>> event records
+	 * 
+	 * @example 
+	 * 
+	 * $results = $this->model_setting_event->getEvents();
 	 */
 	public function getEvents(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "event`";
@@ -161,6 +195,10 @@ class ModelSettingEvent extends Model {
 	 * Get Total Events
 	 *
 	 * @return int total number of event records
+	 * 
+	 * @example 
+	 * 
+	 * $event_total = $this->model_setting_event->getTotalEvents();
 	 */
 	public function getTotalEvents(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "event`");

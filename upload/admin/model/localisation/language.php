@@ -2,8 +2,6 @@
 /**
  * Class Language
  *
- * @example $language_model = $this->model_localisation_language;
- *
  * Can be called from $this->load->model('localisation/language');
  *
  * @package Admin\Model\Localisation
@@ -15,6 +13,10 @@ class ModelLocalisationLanguage extends Model {
 	 * @param array<string, mixed> $data array of data
 	 *
 	 * @return int returns the primary key of the new language record
+	 *
+	 * @example
+	 *
+	 * $language_id = $this->model_localisation_language->addLanguage($data);
 	 */
 	public function addLanguage(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "language` SET `name` = '" . $this->db->escape($data['name']) . "', `code` = '" . $this->db->escape($data['code']) . "', `locale` = '" . $this->db->escape($data['locale']) . "', `sort_order` = '" . (int)$data['sort_order'] . "', `status` = '" . (int)$data['status'] . "'");
@@ -215,6 +217,10 @@ class ModelLocalisationLanguage extends Model {
 	 * @param array<string, mixed> $data        array of data
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_localisation_language->editLanguage($language_id, $data);
 	 */
 	public function editLanguage(int $language_id, array $data): void {
 		$language_query = $this->db->query("SELECT `code` FROM `" . DB_PREFIX . "language` WHERE `language_id` = '" . (int)$language_id . "'");
@@ -236,6 +242,10 @@ class ModelLocalisationLanguage extends Model {
 	 * @param int $language_id primary key of the language record
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_localisation_language->deleteLanguage($language_id);
 	 */
 	public function deleteLanguage(int $language_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "language` WHERE `language_id` = '" . (int)$language_id . "'");
@@ -251,6 +261,10 @@ class ModelLocalisationLanguage extends Model {
 	 * @param int $language_id primary key of the language record
 	 *
 	 * @return array<string, mixed> language record that has language ID
+	 *
+	 * @example
+	 *
+	 * $language_info = $this->model_localisation_language->getLanguage($language_id);
 	 */
 	public function getLanguage(int $language_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "language` WHERE `language_id` = '" . (int)$language_id . "'");
@@ -264,6 +278,10 @@ class ModelLocalisationLanguage extends Model {
 	 * @param array<string, mixed> $data array of filters
 	 *
 	 * @return array<string, array<string, mixed>> language records
+	 *
+	 * @example
+	 *
+	 * $languages = $this->model_localisation_language->getLanguages();
 	 */
 	public function getLanguages(array $data = []): array {
 		if ($data) {
@@ -336,6 +354,10 @@ class ModelLocalisationLanguage extends Model {
 	 * @param string $code
 	 *
 	 * @return array<string, mixed>
+	 * 
+	 * @example 
+	 * 
+	 * $language_info = $this->model_localisation_language->getLanguageByCode($code);
 	 */
 	public function getLanguageByCode(string $code): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "language` WHERE `code` = '" . $this->db->escape($code) . "'");
@@ -347,6 +369,10 @@ class ModelLocalisationLanguage extends Model {
 	 * Get Total Languages
 	 *
 	 * @return int total number of language records
+	 * 
+	 * @example 
+	 * 
+	 * $language_total = $this->model_localisation_language->getTotalLanguages();
 	 */
 	public function getTotalLanguages(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "language`");

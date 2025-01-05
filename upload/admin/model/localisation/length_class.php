@@ -2,8 +2,6 @@
 /**
  * Class Length Class
  *
- * @example $length_class_model = $this->model_localisation_length_class;
- *
  * Can be called from $this->load->model('localisation/length_class');
  *
  * @package Admin\Model\Localisation
@@ -15,6 +13,10 @@ class ModelLocalisationLengthClass extends Model {
 	 * @param array<string, mixed> $data array of data
 	 *
 	 * @return int returns the primary key of the new length class record
+	 *
+	 * @example
+	 *
+	 * $length_class_id = $this->model_localisation_length_class->addLengthClass($data);
 	 */
 	public function addLengthClass(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "length_class` SET `value` = '" . (float)$data['value'] . "'");
@@ -37,6 +39,10 @@ class ModelLocalisationLengthClass extends Model {
 	 * @param array<string, mixed> $data            array of data
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_localisation_length_class->editLengthClass($length_class_id, $data);
 	 */
 	public function editLengthClass(int $length_class_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "length_class` SET `value` = '" . (float)$data['value'] . "' WHERE `length_class_id` = '" . (int)$length_class_id . "'");
@@ -56,6 +62,10 @@ class ModelLocalisationLengthClass extends Model {
 	 * @param int $length_class_id primary key of the length class record
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_localisation_length_class->deleteLengthClass($length_class_id);
 	 */
 	public function deleteLengthClass(int $length_class_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "length_class` WHERE `length_class_id` = '" . (int)$length_class_id . "'");
@@ -70,6 +80,10 @@ class ModelLocalisationLengthClass extends Model {
 	 * @param array<string, mixed> $data array of filters
 	 *
 	 * @return array<int, array<string, mixed>> length class records
+	 *
+	 * @example
+	 *
+	 * $length_classes = $this->model_localisation_length_class->getLengthClasses();
 	 */
 	public function getLengthClasses(array $data = []): array {
 		if ($data) {
@@ -129,6 +143,10 @@ class ModelLocalisationLengthClass extends Model {
 	 * @param int $length_class_id primary key of the length class record
 	 *
 	 * @return array<string, mixed> length class record that has length class ID
+	 *
+	 * @example
+	 *
+	 * $length_class_info = $this->model_localisation_length_class->getLengthClass($length_class_id);
 	 */
 	public function getLengthClass(int $length_class_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "length_class` `lc` LEFT JOIN `" . DB_PREFIX . "length_class_description` `lcd` ON (`lc`.`length_class_id` = `lcd`.`length_class_id`) WHERE `lc`.`length_class_id` = '" . (int)$length_class_id . "' AND `lcd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -142,6 +160,10 @@ class ModelLocalisationLengthClass extends Model {
 	 * @param string $unit
 	 *
 	 * @return array<string, mixed>
+	 * 
+	 * @example 
+	 * 
+	 * $length_class_info = $this->model_localisation_length_class->getDescriptionByUnit($unit);
 	 */
 	public function getDescriptionByUnit(string $unit): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "length_class_description` WHERE `unit` = '" . $this->db->escape($unit) . "' AND `language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -155,6 +177,10 @@ class ModelLocalisationLengthClass extends Model {
 	 * @param int $length_class_id primary key of the length class record
 	 *
 	 * @return array<int, array<string, mixed>> description records that have length class ID
+	 *
+	 * @example
+	 *
+	 * $length_class_description = $this->model_localisation_length_class->getDescriptions($length_class_id);
 	 */
 	public function getDescriptions(int $length_class_id): array {
 		$length_class_data = [];
@@ -175,6 +201,10 @@ class ModelLocalisationLengthClass extends Model {
 	 * Get Total Length Classes
 	 *
 	 * @return int total number of length class records
+	 *
+	 * @example
+	 *
+	 * $length_class_total = $this->model_localisation_length_class->getTotalLengthClasses();
 	 */
 	public function getTotalLengthClasses(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "length_class`");

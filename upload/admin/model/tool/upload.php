@@ -2,8 +2,6 @@
 /**
  * Class Upload
  *
- * @example $upload_model = $this->model_tool_upload;
- *
  * Can be called from $this->load->model('tool/upload');
  *
  * @package Admin\Model\Tool
@@ -16,6 +14,10 @@ class ModelToolUpload extends Model {
 	 * @param string $filename
 	 *
 	 * @return string
+	 * 
+	 * @example 
+	 * 
+	 * $code = $this->model_tool_upload->addUpload($name, $filename);
 	 */
 	public function addUpload(string $name, string $filename): string {
 		$code = sha1(uniqid(mt_rand(), true));
@@ -31,6 +33,10 @@ class ModelToolUpload extends Model {
 	 * @param int $upload_id primary key of the upload record
 	 *
 	 * @return void
+	 * 
+	 * @example 
+	 * 
+	 * $this->model_tool_upload->deleteUpload($upload_id);
 	 */
 	public function deleteUpload(int $upload_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "upload` WHERE `upload_id` = '" . (int)$upload_id . "'");
@@ -42,6 +48,10 @@ class ModelToolUpload extends Model {
 	 * @param int $upload_id primary key of the upload record
 	 *
 	 * @return array<string, mixed> upload record that has upload ID
+	 * 
+	 * @example 
+	 * 
+	 * $upload_info = $this->model_tool_upload->getUpload($upload_id);
 	 */
 	public function getUpload(int $upload_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "upload` WHERE `upload_id` = '" . (int)$upload_id . "'");
@@ -55,6 +65,10 @@ class ModelToolUpload extends Model {
 	 * @param string $code
 	 *
 	 * @return array<string, mixed>
+	 * 
+	 * @example 
+	 * 
+	 * $upload_info = $this->model_tool_upload->getUploadByCode($code);
 	 */
 	public function getUploadByCode(string $code): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "upload` WHERE `code` = '" . $this->db->escape($code) . "'");
@@ -68,6 +82,10 @@ class ModelToolUpload extends Model {
 	 * @param array<string, mixed> $data array of filters
 	 *
 	 * @return array<int, array<string, mixed>> upload records
+	 * 
+	 * @example 
+	 * 
+	 * $results = $this->model_tool_upload->getUploads();
 	 */
 	public function getUploads(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "upload`";
@@ -131,6 +149,10 @@ class ModelToolUpload extends Model {
 	 * @param array<string, mixed> $data array of filters
 	 *
 	 * @return int total number of upload records
+	 * 
+	 * @example 
+	 * 
+	 * $upload_total = $this->model_tool_upload->getTotalUploads();
 	 */
 	public function getTotalUploads($data = []): int {
 		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "upload`";

@@ -2,8 +2,6 @@
 /**
  * Class Review
  *
- * @example $review_model = $this->model_catalog_review;
- *
  * Can be called from $this->load->model('catalog/review');
  *
  * @package Admin\Model\Catalog
@@ -15,6 +13,10 @@ class ModelCatalogReview extends Model {
 	 * @param array<string, mixed> $data array of data
 	 *
 	 * @return int returns the primary key of the new review record
+	 *
+	 * @example
+	 *
+	 * $review_id = $this->model_catalog_review->addReview($data);
 	 */
 	public function addReview(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "review` SET `author` = '" . $this->db->escape((string)$data['author']) . "', `product_id` = '" . (int)$data['product_id'] . "', `text` = '" . $this->db->escape(strip_tags((string)$data['text'])) . "', `rating` = '" . (int)$data['rating'] . "', `status` = '" . (bool)($data['status'] ?? 0) . "', `date_added` = '" . $this->db->escape((string)$data['date_added']) . "'");
@@ -33,6 +35,10 @@ class ModelCatalogReview extends Model {
 	 * @param array<string, mixed> $data      array of data
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_catalog_review->editReview($review_id, $data);
 	 */
 	public function editReview(int $review_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "review` SET `author` = '" . $this->db->escape((string)$data['author']) . "', `product_id` = '" . (int)$data['product_id'] . "', `text` = '" . $this->db->escape(strip_tags((string)$data['text'])) . "', `rating` = '" . (int)$data['rating'] . "', `status` = '" . (bool)($data['status'] ?? 0) . "', `date_added` = '" . $this->db->escape((string)$data['date_added']) . "', `date_modified` = NOW() WHERE `review_id` = '" . (int)$review_id . "'");
@@ -46,6 +52,10 @@ class ModelCatalogReview extends Model {
 	 * @param int $review_id primary key of the review record
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_catalog_review->deleteReview($review_id);
 	 */
 	public function deleteReview(int $review_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "review` WHERE `review_id` = '" . (int)$review_id . "'");
@@ -59,6 +69,10 @@ class ModelCatalogReview extends Model {
 	 * @param int $review_id primary key of the review record
 	 *
 	 * @return array<string, mixed> review record that has review ID
+	 *
+	 * @example
+	 *
+	 * $review_info = $this->model_catalog_review->getReview($review_id);
 	 */
 	public function getReview(int $review_id): array {
 		$query = $this->db->query("SELECT DISTINCT *, (SELECT `pd`.`name` FROM `" . DB_PREFIX . "product_description` `pd` WHERE `pd`.`product_id` = `r`.`product_id` AND `pd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "') AS `product` FROM `" . DB_PREFIX . "review` `r` WHERE `r`.`review_id` = '" . (int)$review_id . "'");
@@ -72,6 +86,10 @@ class ModelCatalogReview extends Model {
 	 * @param array<string, mixed> $data array of filters
 	 *
 	 * @return array<int, array<string, mixed>> review records
+	 *
+	 * @example
+	 *
+	 * $results = $this->model_catalog_review->getReviews();
 	 */
 	public function getReviews(array $data = []): array {
 		$sql = "SELECT `r`.`review_id`, `pd`.`name`, `r`.`author`, `r`.`rating`, `r`.`status`, `r`.`date_added` FROM `" . DB_PREFIX . "review` `r` LEFT JOIN `" . DB_PREFIX . "product_description` `pd` ON (`r`.`product_id` = `pd`.`product_id`) WHERE `pd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
@@ -139,6 +157,10 @@ class ModelCatalogReview extends Model {
 	 * @param array<string, mixed> $data array of filters
 	 *
 	 * @return int total number of review records
+	 *
+	 * @example
+	 *
+	 * $review_total = $this->model_catalog_review->getTotalReviews($filter_data);
 	 */
 	public function getTotalReviews(array $data = []): int {
 		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "review` `r` LEFT JOIN `" . DB_PREFIX . "product_description` `pd` ON (`r`.`product_id` = `pd`.`product_id`) WHERE `pd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
@@ -172,6 +194,10 @@ class ModelCatalogReview extends Model {
 	 * Get Total Reviews Awaiting Approval
 	 *
 	 * @return int total number of reviews awaiting approval records
+	 *
+	 * @example
+	 *
+	 * $review_total = $this->model_catalog_review->getTotalReviewsAwaitingApproval());
 	 */
 	public function getTotalReviewsAwaitingApproval(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "review` WHERE `status` = '0'");

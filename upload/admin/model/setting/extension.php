@@ -2,8 +2,6 @@
 /**
  * Class Extension
  *
- * @example $extension_model = $this->model_setting_extension;
- *
  * Can be called from $this->load->model('setting/extension');
  *
  * @package Admin\Model\Setting
@@ -15,6 +13,10 @@ class ModelSettingExtension extends Model {
 	 * @param string $type
 	 *
 	 * @return array<int, array<string, mixed>>
+	 * 
+	 * @example 
+	 * 
+	 * $extensions = $this->model_setting_extension->getExtensionsByType($type);
 	 */
 	public function getExtensionsByType(string $type): array {
 		$extension_data = [];
@@ -35,6 +37,10 @@ class ModelSettingExtension extends Model {
 	 * @param string $code
 	 *
 	 * @return array<string, mixed>
+	 * 
+	 * @example 
+	 * 
+	 * $extension_info = $this->model_setting_extension->getExtensionByCode($type, $code);
 	 */
 	public function getExtensionByCode(string $type, string $code): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "extension` WHERE `type` = '" . $this->db->escape($type) . "' AND `code` = '" . $this->db->escape($code) . "'");
@@ -49,6 +55,10 @@ class ModelSettingExtension extends Model {
 	 * @param string $code
 	 *
 	 * @return void
+	 * 
+	 * @example 
+	 * 
+	 * $this->model_setting_extension->install($type, $code);
 	 */
 	public function install(string $type, string $code): void {
 		$extensions = $this->getExtensionsByType($type);
@@ -65,6 +75,10 @@ class ModelSettingExtension extends Model {
 	 * @param string $code
 	 *
 	 * @return void
+	 * 
+	 * @example 
+	 * 
+	 * $this->model_setting_extension->uninstall($type, $code);
 	 */
 	public function uninstall(string $type, string $code): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "extension` WHERE `type` = '" . $this->db->escape($type) . "' AND `code` = '" . $this->db->escape($code) . "'");
@@ -78,6 +92,10 @@ class ModelSettingExtension extends Model {
 	 * @param int    $extension_download_id primary key of the extension download record
 	 *
 	 * @return int install record that has extension download ID
+	 * 
+	 * @example 
+	 * 
+	 * $this->model_setting_extension->addExtensionInstall($filename, $extension_download_id);
 	 */
 	public function addExtensionInstall(string $filename, int $extension_download_id = 0): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "extension_install` SET `filename` = '" . $this->db->escape($filename) . "', `extension_download_id` = '" . (int)$extension_download_id . "', `date_added` = NOW()");
@@ -91,6 +109,10 @@ class ModelSettingExtension extends Model {
 	 * @param int $extension_install_id primary key of the extension install record
 	 *
 	 * @return void
+	 * 
+	 * @example 
+	 * 
+	 * $this->model_setting_extension->deleteExtensionInstall($extension_download_id);
 	 */
 	public function deleteExtensionInstall(int $extension_install_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "extension_install` WHERE `extension_install_id` = '" . (int)$extension_install_id . "'");
@@ -103,6 +125,10 @@ class ModelSettingExtension extends Model {
 	 * @param int $limit
 	 *
 	 * @return array<int, array<string, mixed>> install records
+	 * 
+	 * @example 
+	 * 
+	 * $results = $this->model_setting_extension->getInstalls();
 	 */
 	public function getInstalls(int $start = 0, int $limit = 10): array {
 		if ($start < 0) {
@@ -124,6 +150,10 @@ class ModelSettingExtension extends Model {
 	 * @param int $extension_download_id primary key of the extension download record
 	 *
 	 * @return array<string, mixed> install record that has extension download ID
+	 * 
+	 * @example 
+	 * 
+	 * $extension_install_info = $this->model_setting_extension->getInstallByExtensionDownloadId($extension_download_id);
 	 */
 	public function getInstallByExtensionDownloadId(int $extension_download_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "extension_install` WHERE `extension_download_id` = '" . (int)$extension_download_id . "'");
@@ -137,6 +167,10 @@ class ModelSettingExtension extends Model {
 	 * @param string $code
 	 *
 	 * @return array<string, mixed>
+	 * 
+	 * @example 
+	 * 
+	 * $extension_install_info = $this->model_setting_extension->getExtensionInstallByCode($code);
 	 */
 	public function getExtensionInstallByCode(string $code): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "extension_install` WHERE `code` = '" . $this->db->escape($code) . "'");
@@ -148,6 +182,10 @@ class ModelSettingExtension extends Model {
 	 * Get Total Installs
 	 *
 	 * @return int total number of install records
+	 * 
+	 * @example 
+	 * 
+	 * $install_total = $this->model_setting_extension->getTotalInstalls();
 	 */
 	public function getTotalInstalls(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "extension_install`");
@@ -162,6 +200,10 @@ class ModelSettingExtension extends Model {
 	 * @param string $path
 	 *
 	 * @return void
+	 * 
+	 * @example 
+	 * 
+	 * $this->model_setting_extension->addPath($extension_install_id, $path);
 	 */
 	public function addPath(int $extension_install_id, string $path): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "extension_path` SET `extension_install_id` = '" . (int)$extension_install_id . "', `path` = '" . $this->db->escape($path) . "', `date_added` = NOW()");
@@ -173,6 +215,10 @@ class ModelSettingExtension extends Model {
 	 * @param int $extension_path_id primary key of the extension path record
 	 *
 	 * @return void
+	 * 
+	 * @example 
+	 * 
+	 * $this->model_setting_extension->deletePath($extension_path_id);
 	 */
 	public function deletePath(int $extension_path_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "extension_path` WHERE `extension_path_id` = '" . (int)$extension_path_id . "'");
@@ -184,6 +230,10 @@ class ModelSettingExtension extends Model {
 	 * @param int $extension_install_id primary key of the extension install record
 	 *
 	 * @return array<int, array<string, mixed>>
+	 * 
+	 * @example 
+	 * 
+	 * $paths = $this->model_setting_extension->getPathsByExtensionInstallId($extension_install_id);
 	 */
 	public function getPathsByExtensionInstallId(int $extension_install_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "extension_path` WHERE `extension_install_id` = '" . (int)$extension_install_id . "' ORDER BY `date_added` ASC");
@@ -197,6 +247,10 @@ class ModelSettingExtension extends Model {
 	 * @param string $path
 	 *
 	 * @return array<int, array<string, mixed>>
+	 * 
+	 * @example 
+	 * 
+	 * $paths = $this->model_setting_extension->getPaths($path);
 	 */
 	public function getPaths(string $path): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "extension_path` WHERE `path` LIKE '" . $this->db->escape($path) . "' ORDER BY `path` ASC");
@@ -210,6 +264,10 @@ class ModelSettingExtension extends Model {
 	 * @param string $path
 	 *
 	 * @return int
+	 * 
+	 * @example 
+	 * 
+	 * $path_total = $this->model_setting_extension->getTotalPaths($path);
 	 */
 	public function getTotalPaths(string $path): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "extension_path` WHERE `path` LIKE '" . $this->db->escape($path) . "'");

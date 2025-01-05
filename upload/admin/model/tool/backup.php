@@ -2,8 +2,6 @@
 /**
  * Class Backup
  *
- * @example $backup_model = $this->model_tool_backup;
- *
  * Can be called from $this->load->model('tool/backup');
  *
  * @package Admin\Model\Tool
@@ -13,6 +11,10 @@ class ModelToolBackup extends Model {
 	 * Get Tables
 	 *
 	 * @return array<int, string>
+	 * 
+	 * @example 
+	 * 
+	 * $results = $this->model_tool_backup->getTables();
 	 */
 	public function getTables(): array {
 		$table_data = [];
@@ -38,6 +40,10 @@ class ModelToolBackup extends Model {
 	 * @param int    $limit
 	 *
 	 * @return array<int, array<string, mixed>>
+	 * 
+	 * @example 
+	 * 
+	 * $results = $this->model_tool_backup->getRecords($table, $start, $limit);
 	 */
 	public function getRecords(string $table, int $start = 0, int $limit = 100): array {
 		if ($start < 0) {
@@ -63,6 +69,10 @@ class ModelToolBackup extends Model {
 	 * @param string $table
 	 *
 	 * @return int
+	 * 
+	 * @example 
+	 * 
+	 * $record_total = $this->model_tool_backup->getTotalRecords($table);
 	 */
 	public function getTotalRecords(string $table): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . $table . "`");
@@ -80,6 +90,10 @@ class ModelToolBackup extends Model {
 	 * @param array<string, mixed> $tables
 	 *
 	 * @return string
+	 * 
+	 * @example 
+	 * 
+	 * $this->response->setOutput($this->model_tool_backup->backup($tables));
 	 */
 	public function backup(array $tables): string {
 		$output = '';

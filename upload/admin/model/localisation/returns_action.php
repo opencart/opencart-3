@@ -2,8 +2,6 @@
 /**
  * Class Returns Action
  *
- * @example $return_action_model = $this->model_localisation_return_action;
- *
  * Can be called from $this->load->model('localisation/return_action');
  *
  * @package Admin\Model\Localisation
@@ -15,6 +13,10 @@ class ModelLocalisationReturnsAction extends Model {
 	 * @param array<string, mixed> $data array of data
 	 *
 	 * @return ?int
+	 *
+	 * @example
+	 *
+	 * $return_action_id = $this->model_localisation_return_action->addReturnAction($data);
 	 */
 	public function addReturnAction(array $data): ?int {
 		$return_action_id = 0;
@@ -41,6 +43,10 @@ class ModelLocalisationReturnsAction extends Model {
 	 * @param array<string, mixed> $data             array of data
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_localisation_return_action->editReturnAction($return_action_id, $data);
 	 */
 	public function editReturnAction(int $return_action_id, array $data): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "return_action` WHERE `return_action_id` = '" . (int)$return_action_id . "'");
@@ -58,6 +64,10 @@ class ModelLocalisationReturnsAction extends Model {
 	 * @param int $return_action_id primary key of the return action record
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_localisation_return_action->deleteReturnAction($return_action_id);
 	 */
 	public function deleteReturnAction(int $return_action_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "return_action` WHERE `return_action_id` = '" . (int)$return_action_id . "'");
@@ -71,6 +81,10 @@ class ModelLocalisationReturnsAction extends Model {
 	 * @param int $return_action_id primary key of the return action record
 	 *
 	 * @return array<string, mixed> return action record that has return action ID
+	 *
+	 * @example
+	 *
+	 * $return_action_info = $this->model_localisation_return_action->getReturnAction($return_action_id);
 	 */
 	public function getReturnAction(int $return_action_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "return_action` WHERE `return_action_id` = '" . (int)$return_action_id . "' AND `language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -84,6 +98,10 @@ class ModelLocalisationReturnsAction extends Model {
 	 * @param array<string, mixed> $data array of filters
 	 *
 	 * @return array<int, array<string, mixed>> return action records
+	 *
+	 * @example
+	 *
+	 * $results = $this->model_localisation_return_action->getReturnActions();
 	 */
 	public function getReturnActions(array $data = []): array {
 		if ($data) {
@@ -133,6 +151,10 @@ class ModelLocalisationReturnsAction extends Model {
 	 * @param int $return_action_id primary key of the return action record
 	 *
 	 * @return array<int, array<string, string>> description records that have return action ID
+	 *
+	 * @example
+	 *
+	 * $return_action = $this->model_localisation_return_action->getDescriptions($return_action_id);
 	 */
 	public function getDescriptions(int $return_action_id): array {
 		$return_action_data = [];
@@ -150,6 +172,10 @@ class ModelLocalisationReturnsAction extends Model {
 	 * Get Total Return Actions
 	 *
 	 * @return int total number of return action records
+	 *
+	 * @example
+	 *
+	 * $return_action_total = $this->model_localisation_return_action->getTotalReturnActions();
 	 */
 	public function getTotalReturnActions(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "return_action` WHERE `language_id` = '" . (int)$this->config->get('config_language_id') . "'");

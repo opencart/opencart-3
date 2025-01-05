@@ -2,8 +2,6 @@
 /**
  * Class Online
  *
- * @example $online_model = $this->model_report_online;
- *
  * Can be called from $this->load->model('report/online');
  *
  * @package Admin\Model\Report
@@ -15,6 +13,10 @@ class ModelReportOnline extends Model {
 	 * @param array<string, mixed> $data array of filters
 	 *
 	 * @return array<int, array<string, mixed>> online records
+	 *
+	 * @example
+	 *
+	 * $results = $this->model_report_online->getOnline($data);
 	 */
 	public function getOnline(array $data = []): array {
 		$sql = "SELECT `co`.`ip`, `co`.`customer_id`, `co`.`url`, `co`.`referer`, `co`.`date_added` FROM `" . DB_PREFIX . "customer_online` `co` LEFT JOIN `" . DB_PREFIX . "customer` `c` ON (`co`.`customer_id` = `c`.`customer_id`)";
@@ -58,6 +60,10 @@ class ModelReportOnline extends Model {
 	 * @param array<string, mixed> $data array of filters
 	 *
 	 * @return int total number of online records
+	 *
+	 * @example
+	 *
+	 * $online_total = $this->model_report_online->getTotalOnline();
 	 */
 	public function getTotalOnline(array $data = []): int {
 		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer_online` `co` LEFT JOIN `" . DB_PREFIX . "customer` `c` ON (`co`.`customer_id` = `c`.`customer_id`)";

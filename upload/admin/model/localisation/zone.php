@@ -2,8 +2,6 @@
 /**
  * Class Zone
  *
- * @example $zone_model = $this->model_localisation_zone;
- *
  * Can be called from $this->load->model('localisation/zone');
  *
  * @package Admin\Model\Localisation
@@ -14,7 +12,11 @@ class ModelLocalisationZone extends Model {
 	 *
 	 * @param array<string, mixed> $data array of data
 	 *
-	 * @return int returns the primary key of the new zone record
+	 * @return int
+	 *
+	 * @example
+	 *
+	 * $zone_id = $this->model_localisation_zone->addZone($data);
 	 */
 	public function addZone(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "zone` SET `status` = '" . (int)$data['status'] . "', `name` = '" . $this->db->escape($data['name']) . "', `code` = '" . $this->db->escape($data['code']) . "', `country_id` = '" . (int)$data['country_id'] . "'");
@@ -31,6 +33,10 @@ class ModelLocalisationZone extends Model {
 	 * @param array<string, mixed> $data    array of data
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_localisation_zone->editZone($zone_id, $data);
 	 */
 	public function editZone(int $zone_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "zone` SET `status` = '" . (int)$data['status'] . "', `name` = '" . $this->db->escape($data['name']) . "', `code` = '" . $this->db->escape($data['code']) . "', `country_id` = '" . (int)$data['country_id'] . "' WHERE `zone_id` = '" . (int)$zone_id . "'");
@@ -44,6 +50,10 @@ class ModelLocalisationZone extends Model {
 	 * @param int $zone_id primary key of the zone record
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_localisation_zone->deleteZone($zone_id);
 	 */
 	public function deleteZone(int $zone_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "zone` WHERE `zone_id` = '" . (int)$zone_id . "'");
@@ -57,6 +67,10 @@ class ModelLocalisationZone extends Model {
 	 * @param int $zone_id primary key of the zone record
 	 *
 	 * @return array<string, mixed> zone record that has zone ID
+	 *
+	 * @example
+	 *
+	 * $zone_info = $this->model_localisation_zone->getZone($zone_id);
 	 */
 	public function getZone(int $zone_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "zone` WHERE `zone_id` = '" . (int)$zone_id . "'");
@@ -70,6 +84,10 @@ class ModelLocalisationZone extends Model {
 	 * @param array<string, mixed> $data array of filters
 	 *
 	 * @return array<int, array<string, mixed>> zone records
+	 *
+	 * @example
+	 *
+	 * $results = $this->model_localisation_zone->getZones();
 	 */
 	public function getZones(array $data = []): array {
 		$sql = "SELECT *, `z`.`name`, `c`.`name` AS `country` FROM `" . DB_PREFIX . "zone` `z` LEFT JOIN `" . DB_PREFIX . "country` `c` ON (`z`.`country_id` = `c`.`country_id`)";
@@ -115,6 +133,10 @@ class ModelLocalisationZone extends Model {
 	 * @param int $country_id primary key of the country record
 	 *
 	 * @return array<int, array<string, mixed>> zone records that have country ID
+	 *
+	 * @example
+	 *
+	 * $zones = $this->model_localisation_zone->getZonesByCountryId($country_id);
 	 */
 	public function getZonesByCountryId(int $country_id): array {
 		$zone_data = $this->cache->get('zone.' . (int)$country_id);
@@ -133,7 +155,13 @@ class ModelLocalisationZone extends Model {
 	/**
 	 * Get Total Zones
 	 *
+	 * @param array<string, mixed> $data array of filters
+	 *
 	 * @return int total number of zone records
+	 *
+	 * @example
+	 *
+	 * $zone_total = $this->model_localisation_zone->getTotalZones();
 	 */
 	public function getTotalZones(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "zone`");
@@ -147,6 +175,10 @@ class ModelLocalisationZone extends Model {
 	 * @param int $country_id primary key of the country record
 	 *
 	 * @return int total number of zone records that have country ID
+	 *
+	 * @example
+	 *
+	 * $zone_total = $this->model_localisation_zone->getTotalZonesByCountryId($country_id);
 	 */
 	public function getTotalZonesByCountryId(int $country_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "zone` WHERE `country_id` = '" . (int)$country_id . "'");

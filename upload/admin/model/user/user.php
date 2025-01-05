@@ -2,8 +2,6 @@
 /**
  * Class User
  *
- * @example $user_model = $this->model_user_user;
- *
  * Can be called from $this->load->model('user/user');
  *
  * @package Admin\Model\User
@@ -15,6 +13,10 @@ class ModelUserUser extends Model {
 	 * @param array<string, mixed> $data array of data
 	 *
 	 * @return int returns the primary key of the new user record
+	 * 
+	 * @example 
+	 * 
+	 * $user_id = $this->model_user_user->addUser($data);
 	 */
 	public function addUser(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "user` SET `username` = '" . $this->db->escape((string)$data['username']) . "', `user_group_id` = '" . (int)$data['user_group_id'] . "', `password` = '" . $this->db->escape(password_hash(html_entity_decode($data['password'], ENT_QUOTES, 'UTF-8'), PASSWORD_DEFAULT)) . "', `firstname` = '" . $this->db->escape((string)$data['firstname']) . "', `lastname` = '" . $this->db->escape((string)$data['lastname']) . "', `email` = '" . $this->db->escape((string)$data['email']) . "', `image` = '" . $this->db->escape((string)$data['image']) . "', `status` = '" . (bool)($data['status'] ?? 0) . "', `date_added` = NOW()");
@@ -29,6 +31,10 @@ class ModelUserUser extends Model {
 	 * @param array<string, mixed> $data    array of data
 	 *
 	 * @return void
+	 * 
+	 * @example 
+	 * 
+	 * $this->model_user_user->editUser($user_id, $data);
 	 */
 	public function editUser(int $user_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "user` SET `username` = '" . $this->db->escape((string)$data['username']) . "', `user_group_id` = '" . (int)$data['user_group_id'] . "', `firstname` = '" . $this->db->escape((string)$data['firstname']) . "', `lastname` = '" . $this->db->escape((string)$data['lastname']) . "', `email` = '" . $this->db->escape((string)$data['email']) . "', `image` = '" . $this->db->escape((string)$data['image']) . "', `status` = '" . (bool)($data['status'] ?? 0) . "' WHERE `user_id` = '" . (int)$user_id . "'");
@@ -45,6 +51,10 @@ class ModelUserUser extends Model {
 	 * @param string $password
 	 *
 	 * @return void
+	 * 
+	 * @example 
+	 * 
+	 * $this->model_user_user->editPassword($user_id, $password);
 	 */
 	public function editPassword(int $user_id, $password): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "user` SET `password` = '" . $this->db->escape(password_hash(html_entity_decode($password, ENT_QUOTES, 'UTF-8'), PASSWORD_DEFAULT)) . "', `code` = '' WHERE `user_id` = '" . (int)$user_id . "'");
@@ -57,6 +67,10 @@ class ModelUserUser extends Model {
 	 * @param string $code
 	 *
 	 * @return void
+	 * 
+	 * @example 
+	 * 
+	 * $this->model_user_user->editCode($email, $code);
 	 */
 	public function editCode(string $email, string $code): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "user` SET `code` = '" . $this->db->escape($code) . "' WHERE LCASE(`email`) = '" . $this->db->escape(oc_strtolower($email)) . "'");
@@ -68,6 +82,10 @@ class ModelUserUser extends Model {
 	 * @param int $user_id primary key of the user record
 	 *
 	 * @return void
+	 * 
+	 * @example 
+	 * 
+	 * $this->model_user_user->deleteUser($user_id);
 	 */
 	public function deleteUser(int $user_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "user` WHERE `user_id` = '" . (int)$user_id . "'");
@@ -79,6 +97,10 @@ class ModelUserUser extends Model {
 	 * @param int $user_id primary key of the user record
 	 *
 	 * @return array<string, mixed> user record that has user ID
+	 * 
+	 * @example 
+	 * 
+	 * $user_info = $this->model_user_user->getUser($user_id);
 	 */
 	public function getUser(int $user_id): array {
 		$query = $this->db->query("SELECT *, (SELECT `ug`.`name` FROM `" . DB_PREFIX . "user_group` `ug` WHERE `ug`.`user_group_id` = `u`.`user_group_id`) AS `user_group` FROM `" . DB_PREFIX . "user` `u` WHERE `u`.`user_id` = '" . (int)$user_id . "'");
@@ -92,6 +114,10 @@ class ModelUserUser extends Model {
 	 * @param string $username
 	 *
 	 * @return array<string, mixed>
+	 * 
+	 * @example 
+	 * 
+	 * $user_info = $this->model_user_user->getUserByUsername($username);
 	 */
 	public function getUserByUsername(string $username): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "user` WHERE `username` = '" . $this->db->escape($username) . "'");
@@ -105,6 +131,10 @@ class ModelUserUser extends Model {
 	 * @param string $email
 	 *
 	 * @return array<string, mixed>
+	 * 
+	 * @example 
+	 * 
+	 * $user_info = $this->model_user_user->getUserByEmail($email);
 	 */
 	public function getUserByEmail(string $email): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "user` WHERE LCASE(`email`) = '" . $this->db->escape(oc_strtolower($email)) . "'");
@@ -118,6 +148,10 @@ class ModelUserUser extends Model {
 	 * @param string $code
 	 *
 	 * @return array<string, mixed>
+	 * 
+	 * @example 
+	 * 
+	 * $user_info = $this->model_user_user->getUserByCode($code);
 	 */
 	public function getUserByCode(string $code): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "user` WHERE `code` = '" . $this->db->escape($code) . "' AND `code` != ''");
@@ -131,6 +165,10 @@ class ModelUserUser extends Model {
 	 * @param array<string, mixed> $data array of filters
 	 *
 	 * @return array<int, array<string, mixed>> user records
+	 * 
+	 * @example 
+	 * 
+	 * $results = $this->model_user_user->getUsers();
 	 */
 	public function getUsers(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "user`";
@@ -174,6 +212,10 @@ class ModelUserUser extends Model {
 	 * Get Total Users
 	 *
 	 * @return int total number of user records
+	 * 
+	 * @example 
+	 * 
+	 * $user_total = $this->model_user_user->getTotalUsers();
 	 */
 	public function getTotalUsers(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "user`");
@@ -187,6 +229,10 @@ class ModelUserUser extends Model {
 	 * @param int $user_group_id primary key of the user group record
 	 *
 	 * @return int total number of user records that have user group ID
+	 * 
+	 * @example 
+	 * 
+	 * $user_total = $this->model_user_user->getTotalUsersByGroupId($user_group_id);
 	 */
 	public function getTotalUsersByGroupId(int $user_group_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "user` WHERE `user_group_id` = '" . (int)$user_group_id . "'");
@@ -200,6 +246,10 @@ class ModelUserUser extends Model {
 	 * @param string $email
 	 *
 	 * @return int
+	 * 
+	 * @example 
+	 * 
+	 * $user_total = $this->model_user_user->getTotalUsersByEmail($email);
 	 */
 	public function getTotalUsersByEmail(string $email): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "user` WHERE LCASE(`email`) = '" . $this->db->escape(oc_strtolower($email)) . "'");
@@ -214,6 +264,10 @@ class ModelUserUser extends Model {
 	 * @param array<string, mixed> $data    array of data
 	 *
 	 * @return void
+	 * 
+	 * @example 
+	 * 
+	 * $this->model_user_user->addLogin($user_id, $data);
 	 */
 	public function addLogin(int $user_id, array $data): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "user_login` SET `user_id` = '" . (int)$user_id . "', `ip` = '" . $this->db->escape($data['ip']) . "', `user_agent` = '" . $this->db->escape($data['user_agent']) . "', `date_added` = NOW()");
@@ -227,6 +281,10 @@ class ModelUserUser extends Model {
 	 * @param int $limit
 	 *
 	 * @return array<int, array<string, mixed>> login records that have user ID
+	 * 
+	 * @example 
+	 * 
+	 * $results = $this->model_user_user->getLogins($user_id, $start, $limit);
 	 */
 	public function getLogins(int $user_id, int $start = 0, int $limit = 10): array {
 		if ($start < 0) {
@@ -252,6 +310,10 @@ class ModelUserUser extends Model {
 	 * @param int $user_id primary key of the user record
 	 *
 	 * @return int total number of login records that have user ID
+	 * 
+	 * @example 
+	 * 
+	 * $login_total = $this->model_user_user->getTotalLogins($user_id);
 	 */
 	public function getTotalLogins(int $user_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "user_login` WHERE `user_id` = '" . (int)$user_id . "'");

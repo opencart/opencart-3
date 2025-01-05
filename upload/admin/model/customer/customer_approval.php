@@ -2,8 +2,6 @@
 /**
  * Class Customer Approval
  *
- * @example $customer_approval_model = $this->model_customer_customer_approval;
- *
  * Can be called from $this->load->model('customer/customer_approval');
  *
  * @package Admin\Model\Customer
@@ -15,6 +13,10 @@ class ModelCustomerCustomerApproval extends Model {
 	 * @param array<string, mixed> $data array of filters
 	 *
 	 * @return array<int, array<string, mixed>> customer approval records
+	 *
+	 * @example
+	 *
+	 * $results = $this->model_customer_customer_approval->getCustomerApprovals();
 	 */
 	public function getCustomerApprovals(array $data = []): array {
 		$sql = "SELECT *, CONCAT(`c`.`firstname`, ' ', `c`.`lastname`) AS `name`, `cgd`.`name` AS `customer_group`, `ca`.`type` FROM `" . DB_PREFIX . "customer_approval` `ca` LEFT JOIN `" . DB_PREFIX . "customer` `c` ON (`ca`.`customer_id` = `c`.`customer_id`) LEFT JOIN `" . DB_PREFIX . "customer_group_description` `cgd` ON (`c`.`customer_group_id` = `cgd`.`customer_group_id`) WHERE `cgd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
@@ -64,6 +66,10 @@ class ModelCustomerCustomerApproval extends Model {
 	 * @param int $customer_approval_id primary key of the customer approval record
 	 *
 	 * @return array<string, mixed> customer approval record that has customer approval ID
+	 *
+	 * @example
+	 *
+	 * $customer_approval_info = $this->model_customer_customer_approval->getCustomerApproval($customer_approval_id);
 	 */
 	public function getCustomerApproval(int $customer_approval_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_approval` WHERE `customer_approval_id` = '" . (int)$customer_approval_id . "'");
@@ -77,6 +83,10 @@ class ModelCustomerCustomerApproval extends Model {
 	 * @param array<string, mixed> $data array of filters
 	 *
 	 * @return int total number of customer approval records
+	 *
+	 * @example
+	 *
+	 * $customer_approval_total = $this->model_customer_customer_approval->getTotalCustomerApprovals();
 	 */
 	public function getTotalCustomerApprovals(array $data = []): int {
 		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer_approval` `ca` LEFT JOIN `" . DB_PREFIX . "customer` `c` ON (`ca`.`customer_id` = `c`.`customer_id`)";
@@ -118,6 +128,10 @@ class ModelCustomerCustomerApproval extends Model {
 	 * @param int $customer_id primary key of the customer record
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_customer_customer_approval->approveCustomer($customer_id);
 	 */
 	public function approveCustomer(int $customer_id): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "customer` SET status = '1' WHERE `customer_id` = '" . (int)$customer_id . "'");
@@ -131,6 +145,10 @@ class ModelCustomerCustomerApproval extends Model {
 	 * @param int $customer_id primary key of the customer record
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_customer_customer_approval->denyCustomer($customer_id);
 	 */
 	public function denyCustomer(int $customer_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "customer_approval` WHERE `customer_id` = '" . (int)$customer_id . "' AND `type` = 'customer'");
@@ -142,6 +160,10 @@ class ModelCustomerCustomerApproval extends Model {
 	 * @param int $customer_id primary key of the customer record
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_customer_customer_approval->approveAffiliate($customer_id);
 	 */
 	public function approveAffiliate(int $customer_id): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "customer_affiliate` SET `status` = '1' WHERE `customer_id` = '" . (int)$customer_id . "'");
@@ -155,6 +177,10 @@ class ModelCustomerCustomerApproval extends Model {
 	 * @param int $customer_id primary key of the customer record
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->model_customer_customer_approval->denyAffiliate($customer_id);
 	 */
 	public function denyAffiliate(int $customer_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "customer_approval` WHERE `customer_id` = '" . (int)$customer_id . "' AND `type` = 'affiliate'");

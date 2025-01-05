@@ -2,8 +2,6 @@
 /**
  * Class Api
  *
- * @example $api_model = $this->model_user_api;
- *
  * Can be called from $this->load->model('user/api');
  *
  * @package Admin\Model\User
@@ -15,6 +13,10 @@ class ModelUserApi extends Model {
 	 * @param array<string, mixed> $data array of data
 	 *
 	 * @return int returns the primary key of the new api record
+	 * 
+	 * @example 
+	 * 
+	 * $api_id = $this->model_user_api->addApi($data);
 	 */
 	public function addApi(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "api` SET `username` = '" . $this->db->escape($data['username']) . "', `key` = '" . $this->db->escape($data['key']) . "', `status` = '" . (int)$data['status'] . "', `date_added` = NOW(), `date_modified` = NOW()");
@@ -39,6 +41,10 @@ class ModelUserApi extends Model {
 	 * @param array<string, mixed> $data   array of data
 	 *
 	 * @return void
+	 * 
+	 * @example 
+	 * 
+	 * $this->model_user_api->editApi($api_id, $data);
 	 */
 	public function editApi(int $api_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "api` SET `username` = '" . $this->db->escape($data['username']) . "', `key` = '" . $this->db->escape($data['key']) . "', `status` = '" . (int)$data['status'] . "', `date_modified` = NOW() WHERE `api_id` = '" . (int)$api_id . "'");
@@ -60,6 +66,10 @@ class ModelUserApi extends Model {
 	 * @param int $api_id primary key of the api record
 	 *
 	 * @return void
+	 * 
+	 * @example 
+	 * 
+	 * $this->model_user_spi->deleteApi($api_id);
 	 */
 	public function deleteApi(int $api_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "api` WHERE `api_id` = '" . (int)$api_id . "'");
@@ -71,6 +81,10 @@ class ModelUserApi extends Model {
 	 * @param int $api_id primary key of the api record
 	 *
 	 * @return array<string, mixed> api record that has api ID
+	 * 
+	 * @example 
+	 * 
+	 * $api_info = $this->model_user_api->getApi($api_id);
 	 */
 	public function getApi(int $api_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "api` WHERE `api_id` = '" . (int)$api_id . "'");
@@ -84,6 +98,10 @@ class ModelUserApi extends Model {
 	 * @param array<string, mixed> $data array of filters
 	 *
 	 * @return array<int, array<string, mixed>> api records
+	 * 
+	 * @example 
+	 * 
+	 * $results = $this->model_user_api->getApis();
 	 */
 	public function getApis(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "api`";
@@ -128,6 +146,10 @@ class ModelUserApi extends Model {
 	 * Get Total Apis
 	 *
 	 * @return int total number of api records
+	 * 
+	 * @example 
+	 * 
+	 * $api_total = $this->model_user_api->getTotalApis();
 	 */
 	public function getTotalApis(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "api`");
@@ -142,6 +164,10 @@ class ModelUserApi extends Model {
 	 * @param string $ip
 	 *
 	 * @return void
+	 * 
+	 * @example 
+	 * 
+	 * $this->model_user_api->addIp($api_id, $ip);
 	 */
 	public function addIp(int $api_id, string $ip): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "api_ip` SET `api_id` = '" . (int)$api_id . "', `ip` = '" . $this->db->escape($ip) . "'");
@@ -153,6 +179,10 @@ class ModelUserApi extends Model {
 	 * @param int $api_id primary key of the api record
 	 *
 	 * @return array<int, string> ip records that have api ID
+	 * 
+	 * @example 
+	 * 
+	 * $results = $this->model_user_api->getIps($api_id);
 	 */
 	public function getIps(int $api_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "api_ip` WHERE `api_id` = '" . (int)$api_id . "'");
@@ -168,6 +198,10 @@ class ModelUserApi extends Model {
 	 * @param string $ip
 	 *
 	 * @return int returns the primary key of the new api session record
+	 * 
+	 * @example 
+	 * 
+	 * $api_session_id = $this->model_user_api->addSession($api_id, $session_id, $ip);
 	 */
 	public function addSession(int $api_id, string $session_id, string $ip): int {
 		$api_ip_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "api_ip` WHERE `ip` = '" . $this->db->escape($ip) . "'");
@@ -187,6 +221,10 @@ class ModelUserApi extends Model {
 	 * @param int $api_id primary key of the api record
 	 *
 	 * @return array<int, array<string, mixed>> session records that have api ID
+	 * 
+	 * @example 
+	 * 
+	 * $results = $this->model_user_api->getSessions($api_id);
 	 */
 	public function getSessions(int $api_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "api_session` WHERE `api_id` = '" . (int)$api_id . "'");
@@ -200,6 +238,10 @@ class ModelUserApi extends Model {
 	 * @param int $api_session_id primary key of the api session record
 	 *
 	 * @return void
+	 * 
+	 * @example 
+	 * 
+	 * $this->model_user_api->deleteSession($api_session_id);
 	 */
 	public function deleteSession(int $api_session_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "api_session` WHERE `api_session_id` = '" . (int)$api_session_id . "'");
@@ -211,6 +253,10 @@ class ModelUserApi extends Model {
 	 * @param string $session_id
 	 *
 	 * @return void
+	 * 
+	 * @example 
+	 * 
+	 * $this->model_user_api->deleteSessionBySessionId($session_id);
 	 */
 	public function deleteSessionBySessionId(string $session_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "api_session` WHERE `session_id` = '" . $this->db->escape($session_id) . "'");
