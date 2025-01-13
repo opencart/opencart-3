@@ -2,7 +2,7 @@
 /**
  * Class Payment Method
  *
- * Can be called from $this->load->model('checkout/payment_method');
+ * Can be called using $this->load->model('checkout/payment_method');
  *
  * @package Catalog\Model\Checkout
  */

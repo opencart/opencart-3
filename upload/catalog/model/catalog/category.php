@@ -2,7 +2,7 @@
 /**
  * Class Category
  *
- * Can be called from $this->load->model('catalog/category');
+ * Can be called using $this->load->model('catalog/category');
  *
  * @package Catalog\Model\Catalog
  */
@@ -15,6 +15,8 @@ class ModelCatalogCategory extends Model {
 	 * @return array<string, mixed> category record that has category ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('catalog/category');
 	 *
 	 * $category_info = $this->model_catalog_category->getCategory($category_id);
 	 */
@@ -33,6 +35,8 @@ class ModelCatalogCategory extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('catalog/category');
+	 *
 	 * $categories = $this->model_catalog_category->getCategories();
 	 */
 	public function getCategories(int $parent_id = 0): array {
@@ -49,6 +53,8 @@ class ModelCatalogCategory extends Model {
 	 * @return array<int, array<string, mixed>> filter records that have category ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('catalog/category');
 	 *
 	 * $filters = $this->model_account_category->getFilters($category_id);
 	 */
@@ -100,7 +106,9 @@ class ModelCatalogCategory extends Model {
 	 *
 	 * @example
 	 *
-	 * $category_info = $this->model_catalog_category->getLayoutId($category_id);
+	 * $this->load->model('catalog/category');
+	 *
+	 * $layout_id = $this->model_catalog_category->getLayoutId($category_id);
 	 */
 	public function getLayoutId(int $category_id): int {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "category_to_layout` WHERE `category_id` = '" . (int)$category_id . "' AND `store_id` = '" . (int)$this->config->get('config_store_id') . "'");

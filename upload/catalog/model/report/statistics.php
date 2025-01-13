@@ -2,7 +2,7 @@
 /**
  * Class Statistics
  *
- * Can be called from $this->load->model('report/statistics');
+ * Can be called using $this->load->model('report/statistics');
  *
  * @package Catalog\Model\Report
  */
@@ -13,6 +13,8 @@ class ModelReportStatistics extends Model {
 	 * @return array<int, array<string, mixed>> statistic records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('report/statistics');
 	 *
 	 * $results = $this->model_report_statistics->getStatistics();
 	 */
@@ -30,6 +32,8 @@ class ModelReportStatistics extends Model {
 	 * @return float
 	 *
 	 * @example
+	 *
+	 * $this->load->model('report/statistics');
 	 *
 	 * $value = $this->model_report_statistics->getValue($code);
 	 */
@@ -53,6 +57,8 @@ class ModelReportStatistics extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('report/statistics');
+	 *
 	 * $this->model_report_statistics->addValue($code, $value);
 	 */
 	public function addValue(string $code, float $value): void {
@@ -69,6 +75,8 @@ class ModelReportStatistics extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('report/statistics');
+	 *
 	 * $this->model_report_statistics->removeValue($code, $value);
 	 */
 	public function removeValue(string $code, float $value): void {
@@ -84,6 +92,8 @@ class ModelReportStatistics extends Model {
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('report/statistics');
 	 *
 	 * $this->model_report_statistics->editValue($code, $value);
 	 */

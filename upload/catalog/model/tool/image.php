@@ -2,7 +2,7 @@
 /**
  * Class Image
  *
- * Can be called from $this->load->model('tool/image');
+ * Can be called using $this->load->model('tool/image');
  *
  * @package Catalog\Model\Tool
  */
@@ -20,6 +20,8 @@ class ModelToolImage extends Model {
 	 * @return string
 	 *
 	 * @example
+	 *
+	 * $this->load->model('tool/image');
 	 *
 	 * $placeholder = $this->model_tool_image->resize($filename, $width, $height, $default);
 	 */

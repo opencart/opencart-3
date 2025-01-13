@@ -2,7 +2,7 @@
 /**
  * Class Event
  *
- * Can be called from $this->load->model('setting/event');
+ * Can be called using $this->load->model('setting/event');
  *
  * @package Admin\Model\Setting
  */
@@ -19,6 +19,16 @@ class ModelSettingEvent extends Model {
 	 * @return int returns the primary key of the new event record
 	 *
 	 * @example
+	 *
+	 * $event_data = [
+	 *     'code'        => 'Event Code',
+	 *     'trigger'     => 'Event Trigger',
+	 *     'action'      => 'Event Action',
+	 *     'status'      => 0,
+	 *     'sort_order'  => 0
+	 * ];
+	 *
+	 * $this->load->model('setting/event');
 	 *
 	 * $event_id = $this->model_setting_event->addEvent($code, $trigger, $action, $status, $sort_order);
 	 */
@@ -37,6 +47,8 @@ class ModelSettingEvent extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('setting/event');
+	 *
 	 * $this->model_setting_event->deleteEvent($event_id);
 	 */
 	public function deleteEvent(int $event_id): void {
@@ -51,6 +63,8 @@ class ModelSettingEvent extends Model {
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/event');
 	 *
 	 * $this->model_setting_event->deleteEventByCode($code);
 	 */
@@ -114,6 +128,8 @@ class ModelSettingEvent extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('setting/event');
+	 *
 	 * $event_info = $this->model_setting_event->getEvent($event_id);
 	 */
 	public function getEvent(int $event_id): array {
@@ -130,6 +146,8 @@ class ModelSettingEvent extends Model {
 	 * @return array<string, mixed>
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/event');
 	 *
 	 * $event_info = $this->model_setting_event->getEventByCode($code);
 	 */
@@ -148,7 +166,16 @@ class ModelSettingEvent extends Model {
 	 *
 	 * @example
 	 *
-	 * $results = $this->model_setting_event->getEvents();
+	 * $filter_data = [
+	 *     'sort'  => 'code',
+	 *     'order' => 'DESC',
+	 *     'start' => 0,
+	 *     'limit' => 10
+	 * ];
+	 *
+	 * $this->load->model('setting/event');
+	 *
+	 * $results = $this->model_setting_event->getEvents($filter_data);
 	 */
 	public function getEvents(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "event`";
@@ -197,6 +224,8 @@ class ModelSettingEvent extends Model {
 	 * @return int total number of event records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/event');
 	 *
 	 * $event_total = $this->model_setting_event->getTotalEvents();
 	 */

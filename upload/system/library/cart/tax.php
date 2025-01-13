@@ -1,5 +1,10 @@
 <?php
 namespace Cart;
+/**
+ * Class Tax
+ *
+ * @package System\Library\Tax
+ */
 class Tax {
 	/**
 	 * @var object

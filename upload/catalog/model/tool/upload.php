@@ -2,7 +2,7 @@
 /**
  * Class Upload
  *
- * Can be called from $this->load->model('tool/upload');
+ * Can be called using $this->load->model('tool/upload');
  *
  * @package Catalog\Model\Tool
  */
@@ -16,6 +16,8 @@ class ModelToolUpload extends Model {
 	 * @return string
 	 *
 	 * @example
+	 *
+	 * $this->load->model('tool/upload');
 	 *
 	 * $upload_id = $this->model_tool_upload->addUpload($name, $filename);
 	 */
@@ -35,6 +37,8 @@ class ModelToolUpload extends Model {
 	 * @return array<string, mixed>
 	 *
 	 * @example
+	 *
+	 * $this->load->model('tool/upload');
 	 *
 	 * $upload_info = $this->model_tool_upload->getUploadByCode($code);
 	 */

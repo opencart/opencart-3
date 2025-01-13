@@ -2,7 +2,7 @@
 /**
  * Class Subscription Plan
  *
- * Can be called from $this->load->model('catalog/subscription_plan');
+ * Can be called using $this->load->model('catalog/subscription_plan');
  *
  * @package Catalog\Model\Catalog
  */
@@ -15,6 +15,8 @@ class ModelCatalogSubscriptionPlan extends Model {
 	 * @return array<string, mixed> subscription plan record that has subscription plan ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('catalog/product');
 	 *
 	 * $subscription_plan_info = $this->model_catalog_subscription_plan->getSubscriptionPlan($subscription_plan_id);
 	 */
@@ -32,6 +34,8 @@ class ModelCatalogSubscriptionPlan extends Model {
 	 * @return array<int, array<string, mixed>> subscription plan records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('catalog/product');
 	 *
 	 * $subscription_plans = $this->model_catalog_subscription_plan->getSubscriptionPlans();
 	 */
@@ -82,6 +86,8 @@ class ModelCatalogSubscriptionPlan extends Model {
 	 * @return int total number of subscription plan records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('catalog/product');
 	 *
 	 * $subscription_total = $this->model_catalog_subscription_plan->getTotalSubscriptionPlans();
 	 */

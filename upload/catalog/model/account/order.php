@@ -2,7 +2,7 @@
 /**
  * Class Order
  *
- * Can be called from $this->load->model('account/order');
+ * Can be called using $this->load->model('account/order');
  *
  * @package Catalog\Model\Account
  */
@@ -15,6 +15,8 @@ class ModelAccountOrder extends Model {
 	 * @return array<string, mixed> order record that has order ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('account/order');
 	 *
 	 * $order_info = $this->model_account_order->getOrder($order_id);
 	 */
@@ -128,6 +130,8 @@ class ModelAccountOrder extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('account/order');
+	 *
 	 * $results = $this->model_account_order->getOrders();
 	 */
 	public function getOrders(int $start = 0, int $limit = 20): array {
@@ -154,6 +158,8 @@ class ModelAccountOrder extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('account/order');
+	 *
 	 * $order_product = $this->model_account_order->getOrder($order_id, $order_product_id);
 	 */
 	public function getProduct(int $order_id, int $order_product_id): array {
@@ -170,6 +176,8 @@ class ModelAccountOrder extends Model {
 	 * @return array<int, array<string, mixed>> product records that have order ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('account/order');
 	 *
 	 * $order_products = $this->model_account_order->getProducts($order_id);
 	 */
@@ -188,6 +196,8 @@ class ModelAccountOrder extends Model {
 	 * @return array<int, array<string, mixed>>
 	 *
 	 * @example
+	 *
+	 * $this->load->model('account/order');
 	 *
 	 * $order_options = $this->model_account_order->getOptions($order_id, $order_product_id);
 	 */
@@ -223,6 +233,8 @@ class ModelAccountOrder extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('account/order');
+	 *
 	 * $order_total = $this->model_account_order->getTotals($order_id);
 	 */
 	public function getTotals(int $order_id): array {
@@ -240,6 +252,8 @@ class ModelAccountOrder extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('account/order');
+	 *
 	 * $results = $this->model_account_order->getHistories($order_id);
 	 */
 	public function getHistories(int $order_id): array {
@@ -254,6 +268,8 @@ class ModelAccountOrder extends Model {
 	 * @return int total number of order records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('account/order');
 	 *
 	 * $order_total = $this->model_account_order->getTotalOrders();
 	 */
@@ -271,6 +287,8 @@ class ModelAccountOrder extends Model {
 	 * @return int total number of product records that have order ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('account/order');
 	 *
 	 * $order_total = $this->model_account_order->getTotalOrderProductsByOrderId($order_id);
 	 */

@@ -1,5 +1,10 @@
 <?php
 namespace Cart;
+/**
+ * Class Cart
+ *
+ * @package System\Library\Cart
+ */
 class Cart {
 	/**
 	 * @var object
@@ -381,7 +386,7 @@ class Cart {
 	 *
 	 * @example
 	 *
-	 * $has = $this->cart->has($cart_id);
+	 * $cart = $this->cart->has($cart_id);
 	 */
 	public function has(int $cart_id): bool {
 		return isset($this->data[$cart_id]);
@@ -556,7 +561,7 @@ class Cart {
 	 *
 	 * @example
 	 *
-	 * $has_products = $this->cart->hasProducts();
+	 * $cart = $this->cart->hasProducts();
 	 */
 	public function hasProducts(): bool {
 		return count($this->getProducts());
@@ -569,7 +574,7 @@ class Cart {
 	 *
 	 * @example
 	 *
-	 * $has_subscription = $this->cart->hasSubscription();
+	 * $cart = $this->cart->hasSubscription();
 	 */
 	public function hasSubscription(): bool {
 		return count($this->getSubscriptions());
@@ -582,7 +587,7 @@ class Cart {
 	 *
 	 * @example
 	 *
-	 * $has_stock = $this->cart->hasStock();
+	 * $cart = $this->cart->hasStock();
 	 */
 	public function hasStock(): bool {
 		foreach ($this->getProducts() as $product) {
@@ -601,7 +606,7 @@ class Cart {
 	 *
 	 * @example
 	 *
-	 * $has_shipping = $this->cart->hasShipping();
+	 * $cart = $this->cart->hasShipping();
 	 */
 	public function hasShipping(): bool {
 		foreach ($this->getProducts() as $product) {
@@ -620,7 +625,7 @@ class Cart {
 	 *
 	 * @example
 	 *
-	 * $has_download = $this->cart->hasDownload();
+	 * $cart = $this->cart->hasDownload();
 	 */
 	public function hasDownload(): bool {
 		foreach ($this->getProducts() as $product) {

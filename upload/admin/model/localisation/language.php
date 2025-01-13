@@ -2,7 +2,7 @@
 /**
  * Class Language
  *
- * Can be called from $this->load->model('localisation/language');
+ * Can be called using $this->load->model('localisation/language');
  *
  * @package Admin\Model\Localisation
  */
@@ -16,7 +16,17 @@ class ModelLocalisationLanguage extends Model {
 	 *
 	 * @example
 	 *
-	 * $language_id = $this->model_localisation_language->addLanguage($data);
+	 * $language_data = [
+	 *     'name'       => 'Language Name',
+	 *     'code'       => 'Language Code',
+	 *     'locale'     => 'Language Locale',
+	 *     'sort_order' => 0,
+	 *     'status'     => 0
+	 * ];
+	 *
+	 * $this->load->model('localisation/language');
+	 *
+	 * $language_id = $this->model_localisation_language->addLanguage($language_data);
 	 */
 	public function addLanguage(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "language` SET `name` = '" . $this->db->escape($data['name']) . "', `code` = '" . $this->db->escape($data['code']) . "', `locale` = '" . $this->db->escape($data['locale']) . "', `sort_order` = '" . (int)$data['sort_order'] . "', `status` = '" . (int)$data['status'] . "'");
@@ -220,7 +230,17 @@ class ModelLocalisationLanguage extends Model {
 	 *
 	 * @example
 	 *
-	 * $this->model_localisation_language->editLanguage($language_id, $data);
+	 * $language_data = [
+	 *     'name'       => 'Language Name',
+	 *     'code'       => 'Language Code',
+	 *     'locale'     => 'Language Locale',
+	 *     'sort_order' => 0,
+	 *     'status'     => 0
+	 * ];
+	 *
+	 * $this->load->model('localisation/language');
+	 *
+	 * $this->model_localisation_language->editLanguage($language_id, $language_data);
 	 */
 	public function editLanguage(int $language_id, array $data): void {
 		$language_query = $this->db->query("SELECT `code` FROM `" . DB_PREFIX . "language` WHERE `language_id` = '" . (int)$language_id . "'");
@@ -245,6 +265,8 @@ class ModelLocalisationLanguage extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('localisation/language');
+	 *
 	 * $this->model_localisation_language->deleteLanguage($language_id);
 	 */
 	public function deleteLanguage(int $language_id): void {
@@ -264,6 +286,8 @@ class ModelLocalisationLanguage extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('localisation/language');
+	 *
 	 * $language_info = $this->model_localisation_language->getLanguage($language_id);
 	 */
 	public function getLanguage(int $language_id): array {
@@ -281,7 +305,16 @@ class ModelLocalisationLanguage extends Model {
 	 *
 	 * @example
 	 *
-	 * $languages = $this->model_localisation_language->getLanguages();
+	 * $filter_data = [
+	 *     'sort'  => 'name',
+	 *     'order' => 'DESC',
+	 *     'start' => 0,
+	 *     'limit' => 10
+	 * ];
+	 *
+	 * $this->load->model('localisation/language');
+	 *
+	 * $languages = $this->model_localisation_language->getLanguages($filter_data);
 	 */
 	public function getLanguages(array $data = []): array {
 		if ($data) {
@@ -357,6 +390,8 @@ class ModelLocalisationLanguage extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('localisation/language');
+	 *
 	 * $language_info = $this->model_localisation_language->getLanguageByCode($code);
 	 */
 	public function getLanguageByCode(string $code): array {
@@ -371,6 +406,8 @@ class ModelLocalisationLanguage extends Model {
 	 * @return int total number of language records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('localisation/language');
 	 *
 	 * $language_total = $this->model_localisation_language->getTotalLanguages();
 	 */

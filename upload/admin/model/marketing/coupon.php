@@ -2,7 +2,7 @@
 /**
  * Class Coupon
  *
- * Can be called from $this->load->model('marketing/coupon');
+ * Can be called using $this->load->model('marketing/coupon');
  *
  * @package Admin\Model\Marketing
  */
@@ -16,7 +16,21 @@ class ModelMarketingCoupon extends Model {
 	 *
 	 * @example
 	 *
-	 * $coupon_id = $this->model_marketing_coupon->addCoupon($data);
+	 * $coupon_data = [
+	 *     'name'       => 'Coupon Name',
+	 *     'code'       => 'Coupon Code',
+	 *     'discount'   => 0.0000,
+	 *     'type'       => 'F',
+	 *     'total'      => 0.0000,
+	 *     'logged'     => 0,
+	 *     'shipping'   => 0,
+	 *     'date_start' => '2021-01-01',
+	 *     'date_end'   => '2021-01-31'
+	 * ];
+	 *
+	 * $this->load->model('marketing/coupon');
+	 *
+	 * $coupon_id = $this->model_marketing_coupon->addCoupon($coupon_data);
 	 */
 	public function addCoupon(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "coupon` SET `name` = '" . $this->db->escape($data['name']) . "', `code` = '" . $this->db->escape($data['code']) . "', `discount` = '" . (float)$data['discount'] . "', `type` = '" . $this->db->escape($data['type']) . "', `total` = '" . (float)$data['total'] . "', `logged` = '" . (int)$data['logged'] . "', `shipping` = '" . (int)$data['shipping'] . "', `date_start` = '" . $this->db->escape($data['date_start']) . "', `date_end` = '" . $this->db->escape($data['date_end']) . "', `uses_total` = '" . (int)$data['uses_total'] . "', `uses_customer` = '" . (int)$data['uses_customer'] . "', `status` = '" . (int)$data['status'] . "', `date_added` = NOW()");
@@ -48,7 +62,21 @@ class ModelMarketingCoupon extends Model {
 	 *
 	 * @example
 	 *
-	 * $this->model_marketing_coupon->editCoupon($coupon_id, $data);
+	 * $coupon_data = [
+	 *     'name'       => 'Coupon Name',
+	 *     'code'       => 'Coupon Code',
+	 *     'discount'   => 0.0000,
+	 *     'type'       => 'F',
+	 *     'total'      => 0.0000,
+	 *     'logged'     => 0,
+	 *     'shipping'   => 0,
+	 *     'date_start' => '2021-01-01',
+	 *     'date_end'   => '2021-01-31'
+	 * ];
+	 *
+	 * $this->load->model('marketing/coupon');
+	 *
+	 * $this->model_marketing_coupon->editCoupon($coupon_id, $coupon_data);
 	 */
 	public function editCoupon(int $coupon_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "coupon` SET `name` = '" . $this->db->escape($data['name']) . "', `code` = '" . $this->db->escape($data['code']) . "', `discount` = '" . (float)$data['discount'] . "', `type` = '" . $this->db->escape($data['type']) . "', `total` = '" . (float)$data['total'] . "', `logged` = '" . (int)$data['logged'] . "', `shipping` = '" . (int)$data['shipping'] . "', `date_start` = '" . $this->db->escape($data['date_start']) . "', `date_end` = '" . $this->db->escape($data['date_end']) . "', `uses_total` = '" . (int)$data['uses_total'] . "', `uses_customer` = '" . (int)$data['uses_customer'] . "', `status` = '" . (int)$data['status'] . "' WHERE `coupon_id` = '" . (int)$coupon_id . "'");
@@ -79,6 +107,8 @@ class ModelMarketingCoupon extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('marketing/coupon');
+	 *
 	 * $this->model_marketing_coupon->deleteCoupon($coupon_id);
 	 */
 	public function deleteCoupon(int $coupon_id): void {
@@ -97,6 +127,8 @@ class ModelMarketingCoupon extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('marketing/coupon');
+	 *
 	 * $coupon_info = $this->model_marketing_coupon->getCoupon($coupon_id);
 	 */
 	public function getCoupon(int $coupon_id): array {
@@ -113,6 +145,8 @@ class ModelMarketingCoupon extends Model {
 	 * @return array<string, mixed>
 	 *
 	 * @example
+	 *
+	 * $this->load->model('marketing/coupon');
 	 *
 	 * $coupon_info = $this->model_marketing_coupon->getCouponByCode($code);
 	 */
@@ -131,7 +165,16 @@ class ModelMarketingCoupon extends Model {
 	 *
 	 * @example
 	 *
-	 * $results = $this->model_marketing_coupon->getCoupons();
+	 * $filter_data = [
+	 *     'sort'  => 'name',
+	 *     'order' => 'DESC',
+	 *     'start' => 0,
+	 *     'limit' => 10
+	 * ];
+	 *
+	 * $this->load->model('marketing/coupon');
+	 *
+	 * $results = $this->model_marketing_coupon->getCoupons($filter_data);
 	 */
 	public function getCoupons(array $data = []): array {
 		$sql = "SELECT `coupon_id`, `name`, `code`, `discount`, `date_start`, `date_end`, `status` FROM `" . DB_PREFIX . "coupon`";
@@ -183,6 +226,8 @@ class ModelMarketingCoupon extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('marketing/coupon');
+	 *
 	 * $products = $this->model_marketing_coupon->getProducts($coupon_id);
 	 */
 	public function getProducts(int $coupon_id): array {
@@ -206,6 +251,8 @@ class ModelMarketingCoupon extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('marketing/coupon');
+	 *
 	 * $categories = $this->model_marketing_coupon->getCategories($coupon_id);
 	 */
 	public function getCategories(int $coupon_id): array {
@@ -227,6 +274,8 @@ class ModelMarketingCoupon extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('marketing/coupon');
+	 *
 	 * $coupon_total = $this->model_marketing_coupon->getTotalCoupons();
 	 */
 	public function getTotalCoupons(): int {
@@ -245,6 +294,8 @@ class ModelMarketingCoupon extends Model {
 	 * @return array<int, array<string, mixed>> history records that have coupon ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('marketing/coupon');
 	 *
 	 * $results = $this->model_marketing_coupon->getHistories($coupon_id, $start, $limit);
 	 */
@@ -270,6 +321,8 @@ class ModelMarketingCoupon extends Model {
 	 * @return int total number of history records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('marketing/coupon');
 	 *
 	 * $history_total = $this->model_marketing_coupon->getTotalHistories($coupon_id);
 	 */

@@ -2,7 +2,7 @@
 /**
  * Class Zone
  *
- * Can be called from $this->load->model('localisation/zone');
+ * Can be called using $this->load->model('localisation/zone');
  *
  * @package Catalog\Model\Localisation
  */
@@ -15,6 +15,8 @@ class ModelLocalisationZone extends Model {
 	 * @return array<string, mixed> zone record that has zone ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('localisation/zone');
 	 *
 	 * $zone_info = $this->model_localisation_zone->getZone($zone_id);
 	 */
@@ -32,6 +34,8 @@ class ModelLocalisationZone extends Model {
 	 * @return array<int, array<string, mixed>> zone records that have country ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('localisation/zone');
 	 *
 	 * $results = $this->model_localisation_zone->getZonesByCountryId($country_id);
 	 */

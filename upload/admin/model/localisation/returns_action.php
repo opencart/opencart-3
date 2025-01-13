@@ -2,7 +2,7 @@
 /**
  * Class Returns Action
  *
- * Can be called from $this->load->model('localisation/return_action');
+ * Can be called using $this->load->model('localisation/return_action');
  *
  * @package Admin\Model\Localisation
  */
@@ -16,7 +16,13 @@ class ModelLocalisationReturnsAction extends Model {
 	 *
 	 * @example
 	 *
-	 * $return_action_id = $this->model_localisation_return_action->addReturnAction($data);
+	 * $return_action_data['return_action'][1] = [
+	 *     'name' => 'Return Action Name'
+	 * ];
+	 *
+	 * $this->load->model('localisation/return_action');
+	 *
+	 * $return_action_id = $this->model_localisation_return_action->addReturnAction($return_action_data);
 	 */
 	public function addReturnAction(array $data): ?int {
 		$return_action_id = 0;
@@ -46,7 +52,13 @@ class ModelLocalisationReturnsAction extends Model {
 	 *
 	 * @example
 	 *
-	 * $this->model_localisation_return_action->editReturnAction($return_action_id, $data);
+	 * $return_action_data['return_action'][1] = [
+	 *     'name' => 'Return Action Name'
+	 * ];
+	 *
+	 * $this->load->model('localisation/return_action');
+	 *
+	 * $this->model_localisation_return_action->editReturnAction($return_action_id, $return_action_data);
 	 */
 	public function editReturnAction(int $return_action_id, array $data): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "return_action` WHERE `return_action_id` = '" . (int)$return_action_id . "'");
@@ -67,6 +79,8 @@ class ModelLocalisationReturnsAction extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('localisation/return_action');
+	 *
 	 * $this->model_localisation_return_action->deleteReturnAction($return_action_id);
 	 */
 	public function deleteReturnAction(int $return_action_id): void {
@@ -83,6 +97,8 @@ class ModelLocalisationReturnsAction extends Model {
 	 * @return array<string, mixed> return action record that has return action ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('localisation/return_action');
 	 *
 	 * $return_action_info = $this->model_localisation_return_action->getReturnAction($return_action_id);
 	 */
@@ -101,7 +117,16 @@ class ModelLocalisationReturnsAction extends Model {
 	 *
 	 * @example
 	 *
-	 * $results = $this->model_localisation_return_action->getReturnActions();
+	 * $filter_data = [
+	 *     'sort'  => 'name',
+	 *     'order' => 'DESC',
+	 *     'start' => 0,
+	 *     'limit' => 10
+	 * ];
+	 *
+	 * $this->load->model('localisation/return_action');
+	 *
+	 * $results = $this->model_localisation_return_action->getReturnActions($filter_data);
 	 */
 	public function getReturnActions(array $data = []): array {
 		if ($data) {
@@ -154,6 +179,8 @@ class ModelLocalisationReturnsAction extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('localisation/return_action');
+	 *
 	 * $return_action = $this->model_localisation_return_action->getDescriptions($return_action_id);
 	 */
 	public function getDescriptions(int $return_action_id): array {
@@ -174,6 +201,8 @@ class ModelLocalisationReturnsAction extends Model {
 	 * @return int total number of return action records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('localisation/return_action');
 	 *
 	 * $return_action_total = $this->model_localisation_return_action->getTotalReturnActions();
 	 */

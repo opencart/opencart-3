@@ -1,5 +1,10 @@
 <?php
 namespace Cart;
+/**
+ * Class Length
+ *
+ * @package System\Library\Length
+ */
 class Length {
 	/**
 	 * @var object

@@ -2,7 +2,7 @@
 /**
  * Class Event
  *
- * Can be called from $this->load->model('setting/event');
+ * Can be called using $this->load->model('setting/event');
  *
  * @package Catalog\Model\Setting
  */
@@ -13,6 +13,8 @@ class ModelSettingEvent extends Model {
 	 * @return array<int, array<string, mixed>> event records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/event');
 	 *
 	 * $events = $this->model_setting_event->getEvents();
 	 */

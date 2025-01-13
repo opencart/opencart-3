@@ -2,7 +2,7 @@
 /**
  * Class Extension
  *
- * Can be called from $this->load->model('setting/extension');
+ * Can be called using $this->load->model('setting/extension');
  *
  * @package Catalog\Model\Setting
  */
@@ -15,6 +15,8 @@ class ModelSettingExtension extends Model {
 	 * @return array<int, array<string, mixed>>
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/extension');
 	 *
 	 * $extensions = $this->model_setting_extension->getExtensionsByType($type);
 	 */
@@ -33,6 +35,8 @@ class ModelSettingExtension extends Model {
 	 * @return array<string, mixed>
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/extension');
 	 *
 	 * $extension_info = $this->model_setting_extension->getExtensionByCode($type, $code);
 	 */

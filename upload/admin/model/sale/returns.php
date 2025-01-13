@@ -2,7 +2,7 @@
 /**
  * Class Returns
  *
- * Can be called from $this->load->model('sale/returns');
+ * Can be called using $this->load->model('sale/returns');
  *
  * @package Admin\Model\Sale
  */
@@ -10,13 +10,34 @@ class ModelSaleReturns extends Model {
 	/**
 	 * Add Return
 	 *
-	 * @param array<string, mixed> $data array of data
+	 * @param array<string, mixed> $data array of data to be inserted
 	 *
-	 * @return int returns the primary key of the new return record
+	 * @return int
 	 *
 	 * @example
 	 *
-	 * $return_id = $this->model_sale_returns->addReturn($data);
+	 * $return_data = [
+	 *   'order_id'         => 1,
+	 *   'product_id'       => 1,
+	 *   'customer_id'      => 1,
+	 *   'firstname'        => 'John',
+	 *   'lastname'         => 'Doe',
+	 *   'email'            => 'demo@opencart.com'
+	 *   'telephone'        => '1234567890',
+	 *   'product'          => 'Product Name',
+	 *   'model'            => 'Product Model',
+	 *   'quantity'         => 1,
+	 *   'opened'           => 1,
+	 *   'return_reason_id' => 1,
+	 *   'return_action_id' => 1,
+	 *   'return_status_id' => 1,
+	 *   'comment'          => 'Comment',
+	 *   'date_ordered'     => '2021-01-01'
+	 * ];
+	 *
+	 * $this->load->model('sale/returns');
+	 *
+	 * $return_id = $this->model_sale_returns->addReturn($return_data);
 	 */
 	public function addReturn(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "return` SET `order_id` = '" . (int)$data['order_id'] . "', `product_id` = '" . (int)$data['product_id'] . "', `customer_id` = '" . (int)$data['customer_id'] . "', `firstname` = '" . $this->db->escape($data['firstname']) . "', `lastname` = '" . $this->db->escape($data['lastname']) . "', `email` = '" . $this->db->escape($data['email']) . "', `telephone` = '" . $this->db->escape($data['telephone']) . "', `product` = '" . $this->db->escape($data['product']) . "', `model` = '" . $this->db->escape($data['model']) . "', `quantity` = '" . (int)$data['quantity'] . "', `opened` = '" . (int)$data['opened'] . "', `return_reason_id` = '" . (int)$data['return_reason_id'] . "', `return_action_id` = '" . (int)$data['return_action_id'] . "', `return_status_id` = '" . (int)$data['return_status_id'] . "', `comment` = '" . $this->db->escape($data['comment']) . "', `date_ordered` = '" . $this->db->escape($data['date_ordered']) . "', `date_added` = NOW(), `date_modified` = NOW()");
@@ -34,6 +55,27 @@ class ModelSaleReturns extends Model {
 	 *
 	 * @example
 	 *
+	 * $return_data = [
+	 *   'order_id'         => 1,
+	 *   'product_id'       => 1,
+	 *   'customer_id'      => 1,
+	 *   'firstname'        => 'John',
+	 *   'lastname'         => 'Doe',
+	 *   'email'            => 'demo@opencart.com'
+	 *   'telephone'        => '1234567890',
+	 *   'product'          => 'Product Name',
+	 *   'model'            => 'Product Model',
+	 *   'quantity'         => 1,
+	 *   'opened'           => 1,
+	 *   'return_reason_id' => 1,
+	 *   'return_action_id' => 1,
+	 *   'return_status_id' => 1,
+	 *   'comment'          => 'Comment',
+	 *   'date_ordered'     => '2021-01-01'
+	 * ];
+	 *
+	 * $this->load->model('sale/returns');
+	 *
 	 * $this->model_sale_returns->editReturn($return_id, $data);
 	 */
 	public function editReturn(int $return_id, array $data): void {
@@ -48,6 +90,8 @@ class ModelSaleReturns extends Model {
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('sale/returns');
 	 *
 	 * $this->model_sale_returns->deleteReturn($return_id);
 	 */
@@ -64,6 +108,8 @@ class ModelSaleReturns extends Model {
 	 * @return array<string, mixed> return record that has return ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('sale/returns');
 	 *
 	 * $return_info = $this->model_sale_returns->getReturn($return_id);
 	 */
@@ -82,7 +128,20 @@ class ModelSaleReturns extends Model {
 	 *
 	 * @example
 	 *
-	 * $returns = $this->model_sale_returns->getReturns();
+	 * $filter_data = [
+	 *   'filter_return_id'        => 1,
+	 *   'filter_customer'         => 'John Doe',
+	 *   'filter_order_id'         => 1,
+	 *   'filter_product'          => 'Product Name',
+	 *   'filter_model'            => 'Product Model',
+	 *   'filter_return_status_id' => 1,
+	 *   'filter_date_from'        => '2021-01-01',
+	 *   'filter_date_to'          => '2021-01-31'
+	 * ];
+	 *
+	 * $this->load->model('sale/returns');
+	 *
+	 * $results = $this->model_sale_returns->getReturns();
 	 */
 	public function getReturns(array $data = []): array {
 		$sql = "SELECT *, CONCAT(`r`.`firstname`, ' ', `r`.`lastname`) AS `customer`, (SELECT `rs`.`name` FROM `" . DB_PREFIX . "return_status` `rs` WHERE `rs`.`return_status_id` = `r`.`return_status_id` AND `rs`.`language_id` = '" . (int)$this->config->get('config_language_id') . "') AS `return_status` FROM `" . DB_PREFIX . "return` `r`";
@@ -174,7 +233,20 @@ class ModelSaleReturns extends Model {
 	 *
 	 * @example
 	 *
-	 * $return_total = $this->model_sale_returns->getTotalReturns();
+	 * $filter_data = [
+	 *   'filter_return_id'        => 1,
+	 *   'filter_customer'         => 'John Doe',
+	 *   'filter_order_id'         => 1,
+	 *   'filter_product'          => 'Product Name',
+	 *   'filter_model'            => 'Product Model',
+	 *   'filter_return_status_id' => 1,
+	 *   'filter_date_from'        => '2021-01-01',
+	 *   'filter_date_to'          => '2021-01-31'
+	 * ];
+	 *
+	 * $this->load->model('sale/returns');
+	 *
+	 * $total_returns = $this->model_sale_returns->getTotalReturns($filter_data);
 	 */
 	public function getTotalReturns(array $data = []): int {
 		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "return` r";
@@ -227,9 +299,11 @@ class ModelSaleReturns extends Model {
 	 *
 	 * @param int $return_status_id primary key of the return status record
 	 *
-	 * @return int total number of return status records that have return status ID
+	 * @return int total number of return records that have return status ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('sale/returns');
 	 *
 	 * $return_total = $this->model_sale_returns->getTotalReturnsByReturnStatusId($return_status_id);
 	 */
@@ -248,6 +322,8 @@ class ModelSaleReturns extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('sale/returns');
+	 *
 	 * $return_total = $this->model_sale_returns->getTotalReturnsByReturnReasonId($return_reason_id);
 	 */
 	public function getTotalReturnsByReturnReasonId(int $return_reason_id): int {
@@ -259,11 +335,13 @@ class ModelSaleReturns extends Model {
 	/**
 	 * Get Total Returns By Return Action ID
 	 *
-	 * @param int $return_action_id primary key of the return reason record
+	 * @param int $return_action_id primary key of the return action record
 	 *
-	 * @return int total number of return action records that have return action ID
+	 * @return int total number of return records that have return action ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('sale/returns');
 	 *
 	 * $return_total = $this->model_sale_returns->getTotalReturnsByReturnActionId($return_action_id);
 	 */
@@ -285,6 +363,8 @@ class ModelSaleReturns extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('sale/returns');
+	 *
 	 * $this->model_sale_returns->addHistory($return_id, $return_status_id, $comment, $notify);
 	 */
 	public function addHistory(int $return_id, int $return_status_id, string $comment, bool $notify): void {
@@ -303,6 +383,8 @@ class ModelSaleReturns extends Model {
 	 * @return array<int, array<string, mixed>> history records that have return ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('sale/returns');
 	 *
 	 * $results = $this->model_sale_returns->getHistories($return_id, $start, $limit);
 	 */
@@ -329,6 +411,8 @@ class ModelSaleReturns extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('sale/returns');
+	 *
 	 * $history_total = $this->model_sale_returns->getTotalHistories($return_id);
 	 */
 	public function getTotalHistories(int $return_id): int {
@@ -345,6 +429,8 @@ class ModelSaleReturns extends Model {
 	 * @return int total number of history records that have return status ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('sale/returns');
 	 *
 	 * $history_total = $this->model_sale_returns->getTotalReturnHistoriesByReturnStatusId($return_status_id);
 	 */

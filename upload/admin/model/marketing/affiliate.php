@@ -2,7 +2,7 @@
 /**
  * Class Affiliate
  *
- * Can be called from $this->load->model('marketing/affiliate');
+ * Can be called using $this->load->model('marketing/affiliate');
  *
  * @package Admin\Model\Marketing
  */
@@ -16,7 +16,28 @@ class ModelMarketingAffiliate extends Model {
 	 *
 	 * @example
 	 *
-	 * $this->model_marketing_affiliate->addAffiliate($data);
+	 * $affiliate_data = [
+	 *     'customer_id'         => 1,
+	 *     'company'             => '',
+	 *     'website'             => '',
+	 *     'tracking'            => '',
+	 *     'commission'          => 0.00,
+	 *     'tax'                 => '',
+	 *     'payment_method'      => '',
+	 *     'cheque'              => '',
+	 *     'paypal'              => '',
+	 *     'bank_name'           => 'Bank Name',
+	 *     'bank_branch_number'  => '',
+	 *     'bank_swift_code'     => '',
+	 *     'bank_account_name'   => 'Bank Account Name',
+	 *     'bank_account_number' => '',
+	 *     'custom_field'        => [],
+	 *     'status'              => 0
+	 * ];
+	 *
+	 * $this->load->model('marketing/affiliate');
+	 *
+	 * $this->model_marketing_affiliate->addAffiliate($affiliate_data);
 	 */
 	public function addAffiliate(array $data): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "customer_affiliate` SET `customer_id` = '" . (int)$data['customer_id'] . "', `company` = '" . $this->db->escape($data['company']) . "', `website` = '" . $this->db->escape($data['website']) . "', `tracking` = '" . $this->db->escape($data['tracking']) . "', commission = '" . (float)$data['commission'] . "', `tax` = '" . $this->db->escape($data['tax']) . "', `payment` = '" . $this->db->escape($data['payment']) . "', `cheque` = '" . $this->db->escape($data['cheque']) . "', `paypal` = '" . $this->db->escape($data['paypal']) . "', `bank_name` = '" . $this->db->escape($data['bank_name']) . "', `bank_branch_number` = '" . $this->db->escape($data['bank_branch_number']) . "', `bank_swift_code` = '" . $this->db->escape($data['bank_swift_code']) . "', `bank_account_name` = '" . $this->db->escape($data['bank_account_name']) . "', `bank_account_number` = '" . $this->db->escape($data['bank_account_number']) . "', `custom_field` = '" . $this->db->escape(isset($data['custom_field']) ? json_encode($data['custom_field']) : json_encode([])) . "', status = '" . (int)$data['status'] . "', `date_added` = NOW()");
@@ -32,7 +53,28 @@ class ModelMarketingAffiliate extends Model {
 	 *
 	 * @example
 	 *
-	 * $this->model_marketing_affiliate->editAffiliate($customer_id, $data);
+	 * $affiliate_data = [
+	 *     'customer_id'         => 1,
+	 *     'company'             => '',
+	 *     'website'             => '',
+	 *     'tracking'            => '',
+	 *     'commission'          => 0.00,
+	 *     'tax'                 => '',
+	 *     'payment_method'      => '',
+	 *     'cheque'              => '',
+	 *     'paypal'              => '',
+	 *     'bank_name'           => 'Bank Name',
+	 *     'bank_branch_number'  => '',
+	 *     'bank_swift_code'     => '',
+	 *     'bank_account_name'   => 'Bank Account Name',
+	 *     'bank_account_number' => '',
+	 *     'custom_field'        => [],
+	 *     'status'              => 1
+	 * ];
+	 *
+	 * $this->load->model('marketing/affiliate');
+	 *
+	 * $this->model_marketing_affiliate->editAffiliate($customer_id, $affiliate_data);
 	 */
 	public function editAffiliate(int $customer_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "customer_affiliate` SET `company` = '" . $this->db->escape($data['company']) . "', `website` = '" . $this->db->escape($data['website']) . "', `tracking` = '" . $this->db->escape($data['tracking']) . "', `commission` = '" . (float)$data['commission'] . "', `tax` = '" . $this->db->escape($data['tax']) . "', `payment` = '" . $this->db->escape($data['payment']) . "', `cheque` = '" . $this->db->escape($data['cheque']) . "', paypal = '" . $this->db->escape($data['paypal']) . "', `bank_name` = '" . $this->db->escape($data['bank_name']) . "', `bank_branch_number` = '" . $this->db->escape($data['bank_branch_number']) . "', `bank_swift_code` = '" . $this->db->escape($data['bank_swift_code']) . "', `bank_account_name` = '" . $this->db->escape($data['bank_account_name']) . "', bank_account_number = '" . $this->db->escape($data['bank_account_number']) . "', `custom_field` = '" . $this->db->escape(isset($data['custom_field']) ? json_encode($data['custom_field']) : json_encode([])) . "', `status` = '" . (int)$data['status'] . "' WHERE `customer_id` = '" . (int)$customer_id . "'");
@@ -46,6 +88,8 @@ class ModelMarketingAffiliate extends Model {
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('marketing/affiliate');
 	 *
 	 * $this->model_marketing_affiliate->deleteAffiliate($customer_id);
 	 */
@@ -62,6 +106,8 @@ class ModelMarketingAffiliate extends Model {
 	 * @return array<string, mixed> affiliate record that has customer ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('marketing/affiliate');
 	 *
 	 * $affiliate_info = $this->model_marketing_affiliate->getAffiliate($customer_id);
 	 */
@@ -84,6 +130,8 @@ class ModelMarketingAffiliate extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('marketing/affiliate');
+	 *
 	 * $affiliate_info = $this->model_marketing_affiliate->getAffiliateByTracking($tracking);
 	 */
 	public function getAffiliateByTracking(string $tracking): array {
@@ -105,7 +153,23 @@ class ModelMarketingAffiliate extends Model {
 	 *
 	 * @example
 	 *
-	 * $results = $this->model_marketing_affiliate->getAffiliates();
+	 * $filter_data = [
+	 *     'filter_name'           => 'John Doe',
+	 *     'filter_tracking'       => '',
+	 *     'filter_payment_method' => '',
+	 *     'filter_commission'     => 0.00,
+	 *     'filter_date_from'      => '2021-01-01',
+	 *     'filter_date_to'        => '2021-01-31',
+	 *     'filter_status'         => 1,
+	 *     'sort'                  => 'name',
+	 *     'order'                 => 'DESC',
+	 *     'start'                 => 0,
+	 *     'limit'                 => 10
+	 * ];
+	 *
+	 * $this->load->model('marketing/affiliate');
+	 *
+	 * $results = $this->model_marketing_affiliate->getAffiliates($filter_data);
 	 */
 	public function getAffiliates(array $data = []): array {
 		$sql = "SELECT *, CONCAT(`c`.`firstname`, ' ', `c`.`lastname`) AS `name`, `ca`.`status` FROM `" . DB_PREFIX . "customer_affiliate` `ca` LEFT JOIN `" . DB_PREFIX . "customer` `c` ON (`ca`.`customer_id` = `c`.`customer_id`)";
@@ -182,7 +246,23 @@ class ModelMarketingAffiliate extends Model {
 	 *
 	 * @example
 	 *
-	 * $affiliate_total = $this->model_marketing_affiliate->getTotalAffiliates();
+	 * $filter_data = [
+	 *     'filter_name'           => 'John Doe',
+	 *     'filter_tracking'       => '',
+	 *     'filter_payment_method' => '',
+	 *     'filter_commission'     => 0.00,
+	 *     'filter_date_from'      => '2021-01-01',
+	 *     'filter_date_to'        => '2021-01-31',
+	 *     'filter_status'         => 1,
+	 *     'sort'                  => 'name',
+	 *     'order'                 => 'DESC',
+	 *     'start'                 => 0,
+	 *     'limit'                 => 10
+	 * ];
+	 *
+	 * $this->load->model('marketing/affiliate');
+	 *
+	 * $affiliate_total = $this->model_marketing_affiliate->getTotalAffiliates($filter_data);
 	 */
 	public function getTotalAffiliates(array $data = []): int {
 		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer_affiliate` `ca` LEFT JOIN `" . DB_PREFIX . "customer` `c` ON (`ca`.`customer_id` = `c`.`customer_id`)";
@@ -229,6 +309,8 @@ class ModelMarketingAffiliate extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('marketing/affiliate');
+	 *
 	 * $results = $this->model_marketing_affiliate->getReports($customer_id, $start, $limit);
 	 */
 	public function getReports(int $customer_id, int $start = 0, int $limit = 10): array {
@@ -253,6 +335,8 @@ class ModelMarketingAffiliate extends Model {
 	 * @return int total number of report records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('marketing/affiliate');
 	 *
 	 * $report_total = $this->model_marketing_affiliate->getTotalReports($customer_id);
 	 */

@@ -2,7 +2,7 @@
 /**
  * Class Layout
  *
- * Can be called from $this->load->model('design/layout');
+ * Can be called using $this->load->model('design/layout');
  *
  * @package Catalog\Model\Design
  */
@@ -15,6 +15,8 @@ class ModelDesignLayout extends Model {
 	 * @return int
 	 *
 	 * @example
+	 *
+	 * $this->load->model('design/layout');
 	 *
 	 * $layout_id = $this->model_design_layout->getLayout($route);
 	 */

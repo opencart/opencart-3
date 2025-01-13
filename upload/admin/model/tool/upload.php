@@ -2,7 +2,7 @@
 /**
  * Class Upload
  *
- * Can be called from $this->load->model('tool/upload');
+ * Can be called using $this->load->model('tool/upload');
  *
  * @package Admin\Model\Tool
  */
@@ -16,6 +16,8 @@ class ModelToolUpload extends Model {
 	 * @return string
 	 *
 	 * @example
+	 *
+	 * $this->load->model('tool/upload');
 	 *
 	 * $code = $this->model_tool_upload->addUpload($name, $filename);
 	 */
@@ -36,6 +38,8 @@ class ModelToolUpload extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('tool/upload');
+	 *
 	 * $this->model_tool_upload->deleteUpload($upload_id);
 	 */
 	public function deleteUpload(int $upload_id): void {
@@ -50,6 +54,8 @@ class ModelToolUpload extends Model {
 	 * @return array<string, mixed> upload record that has upload ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('tool/upload');
 	 *
 	 * $upload_info = $this->model_tool_upload->getUpload($upload_id);
 	 */
@@ -68,6 +74,8 @@ class ModelToolUpload extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('tool/upload');
+	 *
 	 * $upload_info = $this->model_tool_upload->getUploadByCode($code);
 	 */
 	public function getUploadByCode(string $code): array {
@@ -84,6 +92,8 @@ class ModelToolUpload extends Model {
 	 * @return array<int, array<string, mixed>> upload records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('tool/upload');
 	 *
 	 * $results = $this->model_tool_upload->getUploads();
 	 */
@@ -151,6 +161,8 @@ class ModelToolUpload extends Model {
 	 * @return int total number of upload records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('tool/upload');
 	 *
 	 * $upload_total = $this->model_tool_upload->getTotalUploads();
 	 */

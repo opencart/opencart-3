@@ -2,7 +2,7 @@
 /**
  * Class Custom Field
  *
- * Can be called from $this->load->model('account/custom_field');
+ * Can be called using $this->load->model('account/custom_field');
  *
  * @package Catalog\Model\Account
  */
@@ -15,6 +15,8 @@ class ModelAccountCustomField extends Model {
 	 * @return array<string, mixed> custom field record that has custom field ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('account/custom_field');
 	 *
 	 * $custom_field_info = $this->model_account_custom_field->getCustomField($custom_field_id);
 	 */
@@ -32,6 +34,8 @@ class ModelAccountCustomField extends Model {
 	 * @return array<int, array<string, mixed>> custom field records that have customer group ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('account/custom_field');
 	 *
 	 * $results = $this->model_account_custom_field->getCustomFields();
 	 */

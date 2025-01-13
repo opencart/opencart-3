@@ -2,7 +2,7 @@
 /**
  * Class Order
  *
- * Can be called from $this->load->model('sale/order');
+ * Can be called using $this->load->model('sale/order');
  *
  * @package Admin\Model\Sale
  */
@@ -15,6 +15,8 @@ class ModelSaleOrder extends Model {
 	 * @return array<string, mixed> order record that has order ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('sale/order');
 	 *
 	 * $order_info = $this->model_sale_order->getOrder($order_id);
 	 */
@@ -178,7 +180,25 @@ class ModelSaleOrder extends Model {
 	 *
 	 * @example
 	 *
-	 * $results = $this->model_sale_order->getOrders();
+	 * $filter_data = [
+	 *     'filter_order_id'        => 1,
+	 *     'filter_customer_id'     => 1,
+	 *     'filter_customer'        => 'John Doe',
+	 *     'filter_store_id'        => 1,
+	 *     'filter_order_status'    => 'Pending',
+	 *     'filter_order_status_id' => 1,
+	 *     'filter_total'           => 0.0000,
+	 *     'filter_date_from'       => '2021-01-01',
+	 *     'filter_date_to'         => '2021-01-31',
+	 *     'sort'                   => 'o.order_id',
+	 *     'order'                  => 'DESC',
+	 *     'start'                  => 0,
+	 *     'limit'                  => 10
+	 * ];
+	 *
+	 * $this->load->model('sale/order');
+	 *
+	 * $results = $this->model_sale_order->getOrders($filter_data);
 	 */
 	public function getOrders(array $data = []): array {
 		$sql = "SELECT `o`.`order_id`, CONCAT(`o`.`firstname`, ' ', `o`.`lastname`) AS `customer`, (SELECT `os`.`name` FROM `" . DB_PREFIX . "order_status` `os` WHERE `os`.`order_status_id` = `o`.`order_status_id` AND `os`.`language_id` = '" . (int)$this->config->get('config_language_id') . "') AS `order_status`, `o`.`total`, `o`.`currency_code`, `o`.`currency_value`, `o`.`date_added`, `o`.`date_modified` FROM `" . DB_PREFIX . "order` `o`";
@@ -268,7 +288,9 @@ class ModelSaleOrder extends Model {
 	 *
 	 * @example
 	 *
-	 * $order_products = $this->model_sale_order->getProducts($order_id);
+	 * $this->load->model('sale/order');
+	 *
+	 * $products = $this->model_sale_order->getProducts($order_id);
 	 */
 	public function getProducts(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_product` WHERE `order_id` = '" . (int)$order_id . "'");
@@ -285,6 +307,8 @@ class ModelSaleOrder extends Model {
 	 * @return array<string, mixed> product records that have order ID, order product ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('sale/order');
 	 *
 	 * $order_product = $this->model_sale_order->getProductByOrderProductId($order_id, $order_product_id);
 	 */
@@ -304,6 +328,8 @@ class ModelSaleOrder extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('sale/order');
+	 *
 	 * $order_options = $this->model_sale_order->getOptions($order_id, $order_product_id);
 	 */
 	public function getOptions(int $order_id, int $order_product_id): array {
@@ -322,6 +348,8 @@ class ModelSaleOrder extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('sale/order');
+	 *
 	 * $order_subscription_info = $this->model_sale_order->getSubscription($order_id, $order_product_id);
 	 */
 	public function getSubscription(int $order_id, int $order_product_id): array {
@@ -338,6 +366,8 @@ class ModelSaleOrder extends Model {
 	 * @return array<int, array<string, mixed>> voucher records that have order ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('sale/order');
 	 *
 	 * $order_vouchers = $this->model_sale_order->getVouchers($order_id);
 	 */
@@ -356,6 +386,8 @@ class ModelSaleOrder extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('sale/order');
+	 *
 	 * $order_voucher_info = $this->model_sale_order->getOrderVoucherByVoucherId($voucher_id);
 	 */
 	public function getOrderVoucherByVoucherId(int $voucher_id): array {
@@ -373,6 +405,8 @@ class ModelSaleOrder extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('sale/order');
+	 *
 	 * $order_totals = $this->model_sale_order->getTotals($order_id);
 	 */
 	public function getTotals(int $order_id): array {
@@ -389,6 +423,8 @@ class ModelSaleOrder extends Model {
 	 * @return int total number of order records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('sale/order');
 	 *
 	 * $order_total = $this->model_sale_order->getTotalOrders();
 	 */
@@ -441,11 +477,13 @@ class ModelSaleOrder extends Model {
 	/**
 	 * Get Total Orders By Store ID
 	 *
-	 * @param int $store_id
+	 * @param int $store_id primary key of the store record
 	 *
 	 * @return int
 	 *
 	 * @example
+	 *
+	 * $this->load->model('sale/order');
 	 *
 	 * $order_total = $this->model_sale_order->getTotalOrdersByStoreId($store_id);
 	 */
@@ -464,6 +502,8 @@ class ModelSaleOrder extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('sale/order');
+	 *
 	 * $order_total = $this->model_sale_order->getTotalOrdersByOrderStatusId($order_status_id);
 	 */
 	public function getTotalOrdersByOrderStatusId(int $order_status_id): int {
@@ -478,6 +518,8 @@ class ModelSaleOrder extends Model {
 	 * @return int total number of order processing status records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('sale/order');
 	 *
 	 * $order_total = $this->model_sale_order->getTotalOrdersByProcessingStatus();
 	 */
@@ -505,6 +547,8 @@ class ModelSaleOrder extends Model {
 	 * @return int total number of order complete status records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('sale/order');
 	 *
 	 * $order_total = $this->model_sale_order->getTotalOrdersByCompleteStatus();
 	 */
@@ -535,6 +579,8 @@ class ModelSaleOrder extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('sale/order');
+	 *
 	 * $order_total = $this->model_sale_order->getTotalOrdersByLanguageId($language_id);
 	 */
 	public function getTotalOrdersByLanguageId(int $language_id): int {
@@ -552,6 +598,8 @@ class ModelSaleOrder extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('sale/order');
+	 *
 	 * $order_total = $this->model_sale_order->getTotalOrdersByCurrencyId($currency_id);
 	 */
 	public function getTotalOrdersByCurrencyId(int $currency_id): int {
@@ -568,6 +616,24 @@ class ModelSaleOrder extends Model {
 	 * @return int total number of sale records
 	 *
 	 * @example
+	 *
+	 * $filter_data = [
+	 *     'filter_order_id'        => 1,
+	 *     'filter_customer_id'     => 1,
+	 *     'filter_customer'        => 'John Doe',
+	 *     'filter_store_id'        => 1,
+	 *     'filter_order_status'    => 'Pending',
+	 *     'filter_order_status_id' => 1,
+	 *     'filter_total'           => 0.0000,
+	 *     'filter_date_from'       => '2021-01-01',
+	 *     'filter_date_to'         => '2021-01-31',
+	 *     'sort'                   => 'o.order_id',
+	 *     'order'                  => 'DESC',
+	 *     'start'                  => 0,
+	 *     'limit'                  => 10
+	 * ];
+	 *
+	 * $this->load->model('sale/order');
 	 *
 	 * $sale_total = $this->model_sale_order->getTotalSales();
 	 */
@@ -626,6 +692,8 @@ class ModelSaleOrder extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('sale/order');
+	 *
 	 * $invoice_no = $this->model_sale_order->createInvoiceNo($order_id);
 	 */
 	public function createInvoiceNo(int $order_id): string {
@@ -659,6 +727,8 @@ class ModelSaleOrder extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('sale/order');
+	 *
 	 * $results = $this->model_sale_order->getHistories($order_id, $start, $limit);
 	 */
 	public function getHistories(int $order_id, int $start = 0, int $limit = 10): array {
@@ -684,6 +754,8 @@ class ModelSaleOrder extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('sale/order');
+	 *
 	 * $history_total = $this->model_sale_order->getTotalHistories($order_id);
 	 */
 	public function getTotalHistories(int $order_id): int {
@@ -700,6 +772,8 @@ class ModelSaleOrder extends Model {
 	 * @return int total number of history records that have order status ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('sale/order');
 	 *
 	 * $history_total = $this->model_sale_order->getTotalHistoriesByOrderStatusId($order_status_id);
 	 */
@@ -719,6 +793,8 @@ class ModelSaleOrder extends Model {
 	 * @return array<int, array<string, mixed>>
 	 *
 	 * @example
+	 *
+	 * $this->load->model('sale/order');
 	 *
 	 * $results = $this->model_sale_order->getEmailsByProductsOrdered($products, $start, $end);
 	 */
@@ -742,6 +818,8 @@ class ModelSaleOrder extends Model {
 	 * @return int
 	 *
 	 * @example
+	 *
+	 * $this->load->model('sale/order');
 	 *
 	 * $product_total = $this->model_sale_order->getTotalEmailsByProductsOrdered($products);
 	 */

@@ -2,7 +2,7 @@
 /**
  * Class Location
  *
- * Can be called from $this->load->model('localisation/location');
+ * Can be called using $this->load->model('localisation/location');
  *
  * @package Catalog\Model\Localisation
  */
@@ -15,6 +15,8 @@ class ModelLocalisationLocation extends Model {
 	 * @return array<string, mixed> location record
 	 *
 	 * @example
+	 *
+	 * $this->load->model('localisation/location');
 	 *
 	 * $location_info = $this->model_localisation_location->getLocation($location_id);
 	 */

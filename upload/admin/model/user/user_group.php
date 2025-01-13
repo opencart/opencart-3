@@ -2,7 +2,7 @@
 /**
  * Class User Group
  *
- * Can be called from $this->load->model('user/user_group');
+ * Can be called using $this->load->model('user/user_group');
  *
  * @package Admin\Model\User
  */
@@ -16,7 +16,14 @@ class ModelUserUserGroup extends Model {
 	 *
 	 * @example
 	 *
-	 * $user_group_id = $this->model_user_user_group->addUserGroup($data);
+	 * $user_group_data = [
+	 *     'name'       => 'User Group Name',
+	 *     'permission' => ''
+	 * ];
+	 *
+	 * $this->load->model('user/user_group');
+	 *
+	 * $user_group_id = $this->model_user_user_group->addUserGroup($user_group_data);
 	 */
 	public function addUserGroup(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "user_group` SET `name` = '" . $this->db->escape($data['name']) . "', `permission` = '" . $this->db->escape(isset($data['permission']) ? json_encode($data['permission']) : '') . "'");
@@ -34,7 +41,14 @@ class ModelUserUserGroup extends Model {
 	 *
 	 * @example
 	 *
-	 * $this->model_user_user_group->editUserGroup($user_group_id, $data);
+	 * $user_group_data = [
+	 *     'name'       => 'User Group Name',
+	 *     'permission' => ''
+	 * ];
+	 *
+	 * $this->load->model('user/user_group');
+	 *
+	 * $this->model_user_user_group->editUserGroup($user_group_id, $user_group_data);
 	 */
 	public function editUserGroup(int $user_group_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "user_group` SET `name` = '" . $this->db->escape($data['name']) . "', `permission` = '" . $this->db->escape(isset($data['permission']) ? json_encode($data['permission']) : '') . "' WHERE `user_group_id` = '" . (int)$user_group_id . "'");
@@ -48,6 +62,8 @@ class ModelUserUserGroup extends Model {
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('user/user_group');
 	 *
 	 * $this->model_user_user_group->deleteUserGroup($user_group_id);
 	 */
@@ -63,6 +79,8 @@ class ModelUserUserGroup extends Model {
 	 * @return array<string, mixed> user group that has user group ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('user/user_group');
 	 *
 	 * $usergroup_info = $this->model_user_user_group->getUserGroup($user_group_id);
 	 */
@@ -83,6 +101,8 @@ class ModelUserUserGroup extends Model {
 	 * @return array<int, array<string, mixed>> user group records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('user/user_group');
 	 *
 	 * $results = $this->model_user_user_group->getUserGroups();
 	 */
@@ -121,6 +141,8 @@ class ModelUserUserGroup extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('user/user_group');
+	 *
 	 * $usergroup_total = $this->model_user_user_group->getTotalUserGroups();
 	 */
 	public function getTotalUserGroups(): int {
@@ -139,6 +161,8 @@ class ModelUserUserGroup extends Model {
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('user/user_group');
 	 *
 	 * $this->model_user_user_group->addPermission($user_group_id, $type, $route);
 	 */
@@ -163,6 +187,8 @@ class ModelUserUserGroup extends Model {
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('user/user_group');
 	 *
 	 * $this->model_user_user_group->removePermission($user_group_id, $type, $route);
 	 */

@@ -2,6 +2,8 @@
 /**
  * Class Install
  *
+ * Can be called using $this->load->model('install/install');
+ *
  * @package \Install\Model\Install
  */
 class ModelInstallInstall extends Model {
@@ -13,6 +15,8 @@ class ModelInstallInstall extends Model {
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('install/install');
 	 *
 	 * $this->model_install_install->database();
 	 */

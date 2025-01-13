@@ -2,7 +2,7 @@
 /**
  * Class Length Class
  *
- * Can be called from $this->load->model('localisation/length_class');
+ * Can be called using $this->load->model('localisation/length_class');
  *
  * @package Admin\Model\Localisation
  */
@@ -16,7 +16,13 @@ class ModelLocalisationLengthClass extends Model {
 	 *
 	 * @example
 	 *
-	 * $length_class_id = $this->model_localisation_length_class->addLengthClass($data);
+	 * $length_class_data = [
+	 *     'value' => 0.00000000
+	 * ];
+	 *
+	 * $this->load->model('localisation/length_class');
+	 *
+	 * $length_class_id = $this->model_localisation_length_class->addLengthClass($length_class_data);
 	 */
 	public function addLengthClass(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "length_class` SET `value` = '" . (float)$data['value'] . "'");
@@ -42,7 +48,13 @@ class ModelLocalisationLengthClass extends Model {
 	 *
 	 * @example
 	 *
-	 * $this->model_localisation_length_class->editLengthClass($length_class_id, $data);
+	 * $length_class_data = [
+	 *     'value' => 0.00000000
+	 * ];
+	 *
+	 * $this->load->model('localisation/length_class');
+	 *
+	 * $this->model_localisation_length_class->editLengthClass($length_class_id, $length_class_data);
 	 */
 	public function editLengthClass(int $length_class_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "length_class` SET `value` = '" . (float)$data['value'] . "' WHERE `length_class_id` = '" . (int)$length_class_id . "'");
@@ -65,6 +77,8 @@ class ModelLocalisationLengthClass extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('localisation/length_class');
+	 *
 	 * $this->model_localisation_length_class->deleteLengthClass($length_class_id);
 	 */
 	public function deleteLengthClass(int $length_class_id): void {
@@ -83,7 +97,16 @@ class ModelLocalisationLengthClass extends Model {
 	 *
 	 * @example
 	 *
-	 * $length_classes = $this->model_localisation_length_class->getLengthClasses();
+	 * $filter_data = [
+	 *     'sort'  => 'title',
+	 *     'order' => 'DESC',
+	 *     'start' => 0,
+	 *     'limit' => 10
+	 * ];
+	 *
+	 * $this->load->model('localisation/length_class');
+	 *
+	 * $length_classes = $this->model_localisation_length_class->getLengthClasses($filter_data);
 	 */
 	public function getLengthClasses(array $data = []): array {
 		if ($data) {
@@ -146,6 +169,8 @@ class ModelLocalisationLengthClass extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('localisation/length_class');
+	 *
 	 * $length_class_info = $this->model_localisation_length_class->getLengthClass($length_class_id);
 	 */
 	public function getLengthClass(int $length_class_id): array {
@@ -163,6 +188,8 @@ class ModelLocalisationLengthClass extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('localisation/length_class');
+	 *
 	 * $length_class_info = $this->model_localisation_length_class->getDescriptionByUnit($unit);
 	 */
 	public function getDescriptionByUnit(string $unit): array {
@@ -179,6 +206,8 @@ class ModelLocalisationLengthClass extends Model {
 	 * @return array<int, array<string, mixed>> description records that have length class ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('localisation/length_class');
 	 *
 	 * $length_class_description = $this->model_localisation_length_class->getDescriptions($length_class_id);
 	 */
@@ -203,6 +232,8 @@ class ModelLocalisationLengthClass extends Model {
 	 * @return int total number of length class records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('localisation/length_class');
 	 *
 	 * $length_class_total = $this->model_localisation_length_class->getTotalLengthClasses();
 	 */

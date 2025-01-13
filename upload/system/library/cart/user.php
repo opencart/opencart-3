@@ -1,5 +1,10 @@
 <?php
 namespace Cart;
+/**
+ * Class User
+ *
+ * @package System\Library\User
+ */
 class User {
 	/**
 	 * @var object

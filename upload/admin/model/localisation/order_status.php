@@ -2,7 +2,7 @@
 /**
  * Class Order Status
  *
- * Can be called from $this->load->model('localisation/order_status');
+ * Can be called using $this->load->model('localisation/order_status');
  *
  * @package Admin\Model\Localisation
  */
@@ -16,7 +16,13 @@ class ModelLocalisationOrderStatus extends Model {
 	 *
 	 * @example
 	 *
-	 * $order_status_id = $this->model_localisation_order_status->addOrderStatus($data);
+	 * $order_status_data['order_status'][1] = [
+	 *     'name'        => 'Order Status Name'
+	 * ];
+	 *
+	 * $this->load->model('localisation/order_status');
+	 *
+	 * $order_status_id = $this->model_localisation_order_status->addOrderStatus($order_status_data);
 	 */
 	public function addOrderStatus(array $data): ?int {
 		$order_status_id = 0;
@@ -46,7 +52,13 @@ class ModelLocalisationOrderStatus extends Model {
 	 *
 	 * @example
 	 *
-	 * $this->model_localisation_order_status->editOrderStatus($order_status_id, $data);
+	 * $order_status_data['order_status'][1] = [
+	 *     'name'        => 'Order Status Name'
+	 * ];
+	 *
+	 * $this->load->model('localisation/order_status');
+	 *
+	 * $this->model_localisation_order_status->editOrderStatus($order_status_id, $order_status_data);
 	 */
 	public function editOrderStatus(int $order_status_id, array $data): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "order_status` WHERE `order_status_id` = '" . (int)$order_status_id . "'");
@@ -67,6 +79,8 @@ class ModelLocalisationOrderStatus extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('localisation/order_status');
+	 *
 	 * $this->model_localisation_order_status->deleteOrderStatus($order_status_id);
 	 */
 	public function deleteOrderStatus(int $order_status_id): void {
@@ -83,6 +97,8 @@ class ModelLocalisationOrderStatus extends Model {
 	 * @return array<string, mixed> order status record that has order status ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('localisation/order_status');
 	 *
 	 * $order_status_info = $this->model_localisation_order_status->getOrderStatus($order_status_id);
 	 */
@@ -101,7 +117,16 @@ class ModelLocalisationOrderStatus extends Model {
 	 *
 	 * @example
 	 *
-	 * $results = $this->model_localisation_order_status->getOrderStatuses();
+	 * $filter_data = [
+	 *     'sort'  => 'name',
+	 *     'order' => 'DESC',
+	 *     'start' => 0,
+	 *     'limit' => 10
+	 * ];
+	 *
+	 * $this->load->model('localisation/order_status');
+	 *
+	 * $results = $this->model_localisation_order_status->getOrderStatuses($filter_data);
 	 */
 	public function getOrderStatuses(array $data = []): array {
 		if ($data) {
@@ -154,6 +179,8 @@ class ModelLocalisationOrderStatus extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('localisation/order_status');
+	 *
 	 * $order_status = $this->model_localisation_order_status->getDescriptions($order_status_id);
 	 */
 	public function getDescriptions(int $order_status_id): array {
@@ -174,6 +201,8 @@ class ModelLocalisationOrderStatus extends Model {
 	 * @return int total number of order status records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('localisation/order_status');
 	 *
 	 * $order_status_total = $this->model_localisation_order_status->getTotalOrderStatuses();
 	 */

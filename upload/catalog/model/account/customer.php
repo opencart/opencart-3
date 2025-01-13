@@ -2,7 +2,7 @@
 /**
  * Class Customer
  *
- * Can be called from $this->load->model('account/customer');
+ * Can be called using $this->load->model('account/customer');
  *
  * @package Catalog\Model\Account
  */
@@ -16,7 +16,23 @@ class ModelAccountCustomer extends Model {
 	 *
 	 * @example
 	 *
-	 * $customer_id = $this->model_account_customer->addCustomer($data);
+	 * $customer_data = [
+	 *     'store_id'     => 1,
+	 *     'language_id'  => 1,
+	 *     'firstname'    => 'John',
+	 *     'lastname'     => 'Doe',
+	 *     'email'        => 'demo@opencart.com',
+	 *     'telephone'    => '1234567890',
+	 *     'custom_field' => [],
+	 *     'password'     => '',
+	 *     'newsletter'   => 0,
+	 *     'ip'           => '',
+	 *     'status'       => 0
+	 * ];
+	 *
+	 * $this->load->model('account/customer');
+	 *
+	 * $customer_id = $this->model_account_customer->addCustomer($customer_data);
 	 */
 	public function addCustomer(array $data): int {
 		if (isset($data['customer_group_id']) && in_array($data['customer_group_id'], (array)$this->config->get('config_customer_group_display'))) {
@@ -30,7 +46,7 @@ class ModelAccountCustomer extends Model {
 
 		$customer_group_info = $this->model_account_customer_group->getCustomerGroup($customer_group_id);
 
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "customer` SET `customer_group_id` = '" . (int)$customer_group_id . "', `store_id` = '" . (int)$this->config->get('config_store_id') . "', `language_id` = '" . (int)$this->config->get('config_language_id') . "', `firstname` = '" . $this->db->escape($data['firstname']) . "', `lastname` = '" . $this->db->escape($data['lastname']) . "', `email` = '" . $this->db->escape($data['email']) . "', `telephone` = '" . $this->db->escape($data['telephone']) . "', `custom_field` = '" . $this->db->escape(isset($data['custom_field']) ? json_encode($data['custom_field']) : '') . "', `password` = '" . $this->db->escape(password_hash(html_entity_decode($data['password'], ENT_QUOTES, 'UTF-8'), PASSWORD_DEFAULT)) . "', `newsletter` = '" . (isset($data['newsletter']) ? (int)$data['newsletter'] : 0) . "', `ip` = '" . oc_get_ip() . "', `status` = '" . (int)!$customer_group_info['approval'] . "', `date_added` = NOW()");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "customer` SET `customer_group_id` = '" . (int)$customer_group_id . "', `store_id` = '" . (int)$this->config->get('config_store_id') . "', `language_id` = '" . (int)$this->config->get('config_language_id') . "', `firstname` = '" . $this->db->escape($data['firstname']) . "', `lastname` = '" . $this->db->escape($data['lastname']) . "', `email` = '" . $this->db->escape($data['email']) . "', `telephone` = '" . $this->db->escape($data['telephone']) . "', `custom_field` = '" . $this->db->escape(isset($data['custom_field']) ? json_encode($data['custom_field']) : '') . "', `password` = '" . $this->db->escape(password_hash(html_entity_decode($data['password'], ENT_QUOTES, 'UTF-8'), PASSWORD_DEFAULT)) . "', `newsletter` = '" . (isset($data['newsletter']) ? (int)$data['newsletter'] : 0) . "', `ip` = '" . $this->db->escape(oc_get_ip()) . "', `status` = '" . (int)!$customer_group_info['approval'] . "', `date_added` = NOW()");
 
 		$customer_id = $this->db->getLastId();
 
@@ -51,6 +67,16 @@ class ModelAccountCustomer extends Model {
 	 *
 	 * @example
 	 *
+	 * $customer_data = [
+	 *     'firstname'    => 'John',
+	 *     'lastname'     => 'Doe',
+	 *     'email'        => 'demo@opencart.com',
+	 *     'telephone'    => '1234567890',
+	 *     'custom_field' => []
+	 * ];
+	 *
+	 * $this->load->model('account/customer');
+	 *
 	 * $this->model_account_customer->editCustomer($customer_id, $data);
 	 */
 	public function editCustomer(int $customer_id, array $data): void {
@@ -66,6 +92,8 @@ class ModelAccountCustomer extends Model {
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('account/customer');
 	 *
 	 * $this->model_account_customer->editPassword($email, $password);
 	 */
@@ -100,6 +128,8 @@ class ModelAccountCustomer extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('account/customer');
+	 *
 	 * $this->model_account_customer->editCode($email, $code);
 	 */
 	public function editCode(string $email, string $code): void {
@@ -115,6 +145,8 @@ class ModelAccountCustomer extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('account/customer');
+	 *
 	 * $this->model_account_customer->editNewsletter($newsletter);
 	 */
 	public function editNewsletter(int $newsletter): void {
@@ -129,6 +161,8 @@ class ModelAccountCustomer extends Model {
 	 * @return array<string, mixed> customer record that has customer ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('account/customer');
 	 *
 	 * $customer_info = $this->model_account_customer->getCustomer($customer_id);
 	 */
@@ -151,6 +185,8 @@ class ModelAccountCustomer extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('account/customer');
+	 *
 	 * $customer_info = $this->model_account_customer->getCustomerByEmail($email);
 	 */
 	public function getCustomerByEmail(string $email): array {
@@ -172,6 +208,8 @@ class ModelAccountCustomer extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('account/customer');
+	 *
 	 * $customer_info = $this->model_account_customer->getCustomerByCode($code);
 	 */
 	public function getCustomerByCode(string $code): array {
@@ -188,6 +226,8 @@ class ModelAccountCustomer extends Model {
 	 * @return array<string, mixed>
 	 *
 	 * @example
+	 *
+	 * $this->load->model('account/customer');
 	 *
 	 * $customer_info = $this->model_account_customer->getCustomerByToken($token);
 	 */
@@ -211,6 +251,8 @@ class ModelAccountCustomer extends Model {
 	 * @return int
 	 *
 	 * @example
+	 *
+	 * $this->load->model('account/customer');
 	 *
 	 * $customer_total = $this->model_account_customer->getTotalCustomersByEmail($email);
 	 */
@@ -317,6 +359,8 @@ class ModelAccountCustomer extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('account/customer');
+	 *
 	 * $results = $this->model_account_customer->getIps($customer_id);
 	 */
 	public function getIps(int $customer_id): array {
@@ -336,6 +380,8 @@ class ModelAccountCustomer extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('account/customer');
+	 *
 	 * $this->model_account_customer->addLogin($customer_id, $ip, $country);
 	 */
 	public function addLogin(int $customer_id, string $ip, string $country = ''): void {
@@ -350,6 +396,8 @@ class ModelAccountCustomer extends Model {
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('account/customer');
 	 *
 	 * $this->model_account_customer->addLoginAttempt($email);
 	 */
@@ -372,6 +420,8 @@ class ModelAccountCustomer extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('account/customer');
+	 *
 	 * $login_info = $this->model_account_customer->getLoginAttempts($email);
 	 */
 	public function getLoginAttempts(string $email): array {
@@ -381,13 +431,15 @@ class ModelAccountCustomer extends Model {
 	}
 
 	/**
-	 * Delete Login Attempts
+	 * Delete Customer Login Attempts
 	 *
 	 * @param string $email
 	 *
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('account/customer');
 	 *
 	 * $this->model_account_customer->deleteLoginAttempts($email);
 	 */

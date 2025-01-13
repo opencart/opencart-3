@@ -2,7 +2,7 @@
 /**
  * Class Marketing
  *
- * Can be called from $this->load->model('checkout/marketing');
+ * Can be called using $this->load->model('checkout/marketing');
  *
  * @package Catalog\Model\Checkout
  */

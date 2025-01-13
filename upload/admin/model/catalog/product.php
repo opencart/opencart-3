@@ -2,7 +2,7 @@
 /**
  * Class Product
  *
- * Can be called from $this->load->model('catalog/product');
+ * Can be called using $this->load->model('catalog/product');
  *
  * @package Admin\Model\Catalog
  */
@@ -16,7 +16,38 @@ class ModelCatalogProduct extends Model {
 	 *
 	 * @example
 	 *
-	 * $product_id = $this->model_catalog_product->addProduct($data);
+	 * $product_data = [
+	 *     'model'           => 'Product Model',
+	 *     'sku'             => 'Product Sku',
+	 *     'upc'             => 'Product Upc',
+	 *     'ean'             => 'Product Ean',
+	 *     'jan'             => 'Product Jan',
+	 *     'isbn'            => 'Product Isbn',
+	 *     'mpn'             => 'Product Mpn',
+	 *     'location'        => 'Location',
+	 *     'quantity'        => 1,
+	 *     'minimum'         => 1,
+	 *     'subtract'        => 0,
+	 *     'stock_status_id' => 1,
+	 *     'date_available'  => '2021-01-01',
+	 *     'manufacturer_id' => 0,
+	 *     'shipping'        => 0,
+	 *     'price'           => 1.00,
+	 *     'points'          => 0,
+	 *     'weight'          => 0.00000000,
+	 *     'weight_class_id' => 0,
+	 *     'length'          => 0.00000000,
+	 *     'length_class_id' => 0,
+	 *     'status'          => 0,
+	 *     'tax_class_id'    => 0,
+	 *     'sort_order'      => 0,
+	 *     'date_added'      => '2021-01-01',
+	 *     'date_modified'   => '2021-01-31'
+	 * ];
+	 *
+	 * $this->load->model('catalog/product');
+	 *
+	 * $product_id = $this->model_catalog_product->addProduct($product_data);
 	 */
 	public function addProduct(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "product` SET `model` = '" . $this->db->escape($data['model']) . "', `sku` = '" . $this->db->escape($data['sku']) . "', `upc` = '" . $this->db->escape($data['upc']) . "', `ean` = '" . $this->db->escape($data['ean']) . "', `jan` = '" . $this->db->escape($data['jan']) . "', `isbn` = '" . $this->db->escape($data['isbn']) . "', `mpn` = '" . $this->db->escape($data['mpn']) . "', `location` = '" . $this->db->escape($data['location']) . "', `quantity` = '" . (int)$data['quantity'] . "', `minimum` = '" . (int)$data['minimum'] . "', `subtract` = '" . (int)$data['subtract'] . "', `stock_status_id` = '" . (int)$data['stock_status_id'] . "', `date_available` = '" . $this->db->escape($data['date_available']) . "', `manufacturer_id` = '" . (int)$data['manufacturer_id'] . "', `shipping` = '" . (int)$data['shipping'] . "', `price` = '" . (float)$data['price'] . "', `points` = '" . (int)$data['points'] . "', `weight` = '" . (float)$data['weight'] . "', `weight_class_id` = '" . (int)$data['weight_class_id'] . "', `length` = '" . (float)$data['length'] . "', `width` = '" . (float)$data['width'] . "', `height` = '" . (float)$data['height'] . "', `length_class_id` = '" . (int)$data['length_class_id'] . "', `status` = '" . (int)$data['status'] . "', `tax_class_id` = '" . (int)$data['tax_class_id'] . "', `sort_order` = '" . (int)$data['sort_order'] . "', `date_added` = NOW(), `date_modified` = NOW()");
@@ -167,7 +198,38 @@ class ModelCatalogProduct extends Model {
 	 *
 	 * @example
 	 *
-	 * $this->model_catalog_product->editProduct($product_id, $data);
+	 * $product_data = [
+	 *     'model'           => 'Product Model',
+	 *     'sku'             => 'Product Sku',
+	 *     'upc'             => 'Product Upc',
+	 *     'ean'             => 'Product Ean',
+	 *     'jan'             => 'Product Jan',
+	 *     'isbn'            => 'Product Isbn',
+	 *     'mpn'             => 'Product Mpn',
+	 *     'location'        => 'Location',
+	 *     'quantity'        => 1,
+	 *     'minimum'         => 1,
+	 *     'subtract'        => 0,
+	 *     'stock_status_id' => 1,
+	 *     'date_available'  => '2021-01-01',
+	 *     'manufacturer_id' => 0,
+	 *     'shipping'        => 0,
+	 *     'price'           => 1.00,
+	 *     'points'          => 0,
+	 *     'weight'          => 0.00000000,
+	 *     'weight_class_id' => 0,
+	 *     'length'          => 0.00000000,
+	 *     'length_class_id' => 0,
+	 *     'status'          => 0,
+	 *     'tax_class_id'    => 0,
+	 *     'sort_order'      => 0,
+	 *     'date_added'      => '2021-01-01',
+	 *     'date_modified'   => '2021-01-31'
+	 * ];
+	 *
+	 * $this->load->model('catalog/product');
+	 *
+	 * $this->model_catalog_product->editProduct($product_id, $product_data);
 	 */
 	public function editProduct(int $product_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "product` SET `model` = '" . $this->db->escape($data['model']) . "', `sku` = '" . $this->db->escape($data['sku']) . "', `upc` = '" . $this->db->escape($data['upc']) . "', `ean` = '" . $this->db->escape($data['ean']) . "', `jan` = '" . $this->db->escape($data['jan']) . "', `isbn` = '" . $this->db->escape($data['isbn']) . "', `mpn` = '" . $this->db->escape($data['mpn']) . "', `location` = '" . $this->db->escape($data['location']) . "', `quantity` = '" . (int)$data['quantity'] . "', `minimum` = '" . (int)$data['minimum'] . "', `subtract` = '" . (int)$data['subtract'] . "', `stock_status_id` = '" . (int)$data['stock_status_id'] . "', `date_available` = '" . $this->db->escape($data['date_available']) . "', `manufacturer_id` = '" . (int)$data['manufacturer_id'] . "', `shipping` = '" . (int)$data['shipping'] . "', `price` = '" . (float)$data['price'] . "', `points` = '" . (int)$data['points'] . "', `weight` = '" . (float)$data['weight'] . "', `weight_class_id` = '" . (int)$data['weight_class_id'] . "', `length` = '" . (float)$data['length'] . "', `width` = '" . (float)$data['width'] . "', `height` = '" . (float)$data['height'] . "', `length_class_id` = '" . (int)$data['length_class_id'] . "', `status` = '" . (int)$data['status'] . "', `tax_class_id` = '" . (int)$data['tax_class_id'] . "', `sort_order` = '" . (int)$data['sort_order'] . "', `date_modified` = NOW() WHERE `product_id` = '" . (int)$product_id . "'");
@@ -343,6 +405,8 @@ class ModelCatalogProduct extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('catalog/product');
+	 *
 	 * $this->model_catalog_product->copyProduct($product_id);
 	 */
 	public function copyProduct(int $product_id): void {
@@ -384,6 +448,8 @@ class ModelCatalogProduct extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('catalog/product');
+	 *
 	 * $this->model_catalog_product->deleteProduct($product_id);
 	 */
 	public function deleteProduct(int $product_id): void {
@@ -420,6 +486,8 @@ class ModelCatalogProduct extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('catalog/product');
+	 *
 	 * $product_info = $this->model_catalog_product->getProduct($product_id);
 	 */
 	public function getProduct(int $product_id): array {
@@ -437,7 +505,23 @@ class ModelCatalogProduct extends Model {
 	 *
 	 * @example
 	 *
-	 * $results = $this->model_catalog_product->getProducts();
+	 * $filter_data = [
+	 *     'filter_name'            => 'Product Name',
+	 *     'filter_model'           => 'Product Model',
+	 *     'filter_category_id'     => 0,
+	 *     'filter_manufacturer_id' => 0,
+	 *     'filter_price_from'      => '0.0000',
+	 *     'filter_price_to'        => '100.0000',
+	 *     'filter_quantity_from'   => 1,
+	 *     'filter_quantity_to'     => 100,
+	 *     'filter_status'          => 1,
+	 *     'start'                  => 0,
+	 *     'limit'                  => 10
+	 * ];
+	 *
+	 * $this->load->model('catalog/product');
+	 *
+	 * $results = $this->model_catalog_product->getProducts($filter_data);
 	 */
 	public function getProducts(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "product` `p` LEFT JOIN `" . DB_PREFIX . "product_description` `pd` ON (`p`.`product_id` = `pd`.`product_id`) WHERE `pd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
@@ -528,6 +612,8 @@ class ModelCatalogProduct extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('catalog/product');
+	 *
 	 * $product_description = $this->model_catalog_product->getDescriptions($product_id);
 	 */
 	public function getDescriptions(int $product_id): array {
@@ -554,11 +640,13 @@ class ModelCatalogProduct extends Model {
 	 *
 	 * @param int $product_id primary key of the product record
 	 *
-	 * @return array<int, int> category records that have product ID
+	 * @return array<int, int> category records that have category ID
 	 *
 	 * @example
 	 *
-	 * $results = $this->model_catalog_product->getCategories($product_id);
+	 * $this->load->model('catalog/product');
+	 *
+	 * $categories = $this->model_catalog_product->getCategories($product_id);
 	 */
 	public function getCategories(int $product_id): array {
 		$product_category_data = [];
@@ -580,6 +668,8 @@ class ModelCatalogProduct extends Model {
 	 * @return array<int, int> filter records that have product ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('catalog/product');
 	 *
 	 * $filters = $this->model_catalog_product->getFilters($product_id);
 	 */
@@ -603,6 +693,8 @@ class ModelCatalogProduct extends Model {
 	 * @return array<int, array<string, mixed>> attribute records that have product ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('catalog/product');
 	 *
 	 * $product_attributes = $this->model_catalog_product->getAttributes($product_id);
 	 */
@@ -637,6 +729,8 @@ class ModelCatalogProduct extends Model {
 	 * @return array<int, array<string, mixed>> option records that have product ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('catalog/product');
 	 *
 	 * $product_options = $this->model_catalog_product->getOptions($product_id);
 	 */
@@ -689,6 +783,8 @@ class ModelCatalogProduct extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('catalog/product');
+	 *
 	 * $product_option_value_info = $this->model_catalog_product->getOptionValue($product_id, $product_option_value_id);
 	 */
 	public function getOptionValue(int $product_id, int $product_option_value_id): array {
@@ -705,6 +801,8 @@ class ModelCatalogProduct extends Model {
 	 * @return array<int, array<string, mixed>> image records that have product ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('catalog/product');
 	 *
 	 * $product_images = $this->model_catalog_product->getImages($product_id);
 	 */
@@ -723,7 +821,9 @@ class ModelCatalogProduct extends Model {
 	 *
 	 * @example
 	 *
-	 * $results = $this->model_catalog_product->getDiscounts($product_id);
+	 * $this->load->model('catalog/product');
+	 *
+	 * $product_discounts = $this->model_catalog_product->getDiscounts($product_id);
 	 */
 	public function getDiscounts(int $product_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "product_discount` WHERE `product_id` = '" . (int)$product_id . "' ORDER BY `quantity`, `priority`, `price`");
@@ -757,6 +857,8 @@ class ModelCatalogProduct extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('catalog/product');
+	 *
 	 * $product_reward = $this->model_catalog_product->getRewards($product_id);
 	 */
 	public function getRewards(int $product_id): array {
@@ -780,7 +882,9 @@ class ModelCatalogProduct extends Model {
 	 *
 	 * @example
 	 *
-	 * $product_downloads = $this->model_catalog_product->getDownloads($product_id);
+	 * $this->load->model('catalog/product');
+	 *
+	 * $product_download = $this->model_catalog_product->getDownloads($product_id);
 	 */
 	public function getDownloads(int $product_id): array {
 		$product_download_data = [];
@@ -802,6 +906,8 @@ class ModelCatalogProduct extends Model {
 	 * @return array<int, int> store records that have product ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('catalog/product');
 	 *
 	 * $product_store = $this->model_catalog_product->getStores($product_id);
 	 */
@@ -826,6 +932,8 @@ class ModelCatalogProduct extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('catalog/product');
+	 *
 	 * $product_seo_url = $this->model_catalog_product->getSeoUrls($product_id);
 	 */
 	public function getSeoUrls(int $product_id): array {
@@ -848,6 +956,8 @@ class ModelCatalogProduct extends Model {
 	 * @return array<int, int> layout records that have product ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('catalog/product');
 	 *
 	 * $product_layout = $this->model_catalog_product->getLayouts($product_id);
 	 */
@@ -872,6 +982,8 @@ class ModelCatalogProduct extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('catalog/product');
+	 *
 	 * $product_relateds = $this->model_catalog_product->getRelated($product_id);
 	 */
 	public function getRelated(int $product_id): array {
@@ -895,6 +1007,8 @@ class ModelCatalogProduct extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('catalog/product');
+	 *
 	 * $product_subscriptions = $this->model_catalog_product->getSubscriptions($product_id);
 	 */
 	public function getSubscriptions(int $product_id): array {
@@ -906,11 +1020,27 @@ class ModelCatalogProduct extends Model {
 	/**
 	 * Get Total Products
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
 	 * @return int total number of product records
 	 *
 	 * @example
+	 *
+	 * $filter_data = [
+	 *     'filter_name'            => 'Product Name',
+	 *     'filter_model'           => 'Product Model',
+	 *     'filter_category_id'     => 0,
+	 *     'filter_manufacturer_id' => 0,
+	 *     'filter_price_from'      => '0.0000',
+	 *     'filter_price_to'        => '100.0000',
+	 *     'filter_quantity_from'   => 1,
+	 *     'filter_quantity_to'     => 100,
+	 *     'filter_status'          => 1,
+	 *     'start'                  => 0,
+	 *     'limit'                  => 10
+	 * ];
+	 *
+	 * $this->load->model('catalog/product');
 	 *
 	 * $product_total = $this->model_catalog_product->getTotalProducts();
 	 */
@@ -959,6 +1089,8 @@ class ModelCatalogProduct extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('catalog/product');
+	 *
 	 * $product_total = $this->model_catalog_product->getTotalProductsByTaxClassId($tax_class_id);
 	 */
 	public function getTotalProductsByTaxClassId(int $tax_class_id): int {
@@ -975,6 +1107,8 @@ class ModelCatalogProduct extends Model {
 	 * @return int total number of product records that have stock status ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('catalog/product');
 	 *
 	 * $product_total = $this->model_catalog_product->getTotalProductsByStockStatusId($stock_status_id);
 	 */
@@ -993,6 +1127,8 @@ class ModelCatalogProduct extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('catalog/product');
+	 *
 	 * $product_total = $this->model_catalog_product->getTotalProductsByWeightClassId($weight_class_id);
 	 */
 	public function getTotalProductsByWeightClassId(int $weight_class_id): int {
@@ -1010,6 +1146,8 @@ class ModelCatalogProduct extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('catalog/product');
+	 *
 	 * $product_total = $this->model_catalog_product->getTotalProductsByLengthClassId($length_class_id);
 	 */
 	public function getTotalProductsByLengthClassId(int $length_class_id): int {
@@ -1019,15 +1157,17 @@ class ModelCatalogProduct extends Model {
 	}
 
 	/**
-	 * Get Total Products By Download ID
+	 * Get Total Downloads By Download ID
 	 *
 	 * @param int $download_id primary key of the download record
 	 *
-	 * @return int total number of product records that have download ID
+	 * @return int total number of download records that have download ID
 	 *
 	 * @example
 	 *
-	 * $product_total = $this->model_catalog_product->getTotalProductsByDownloadId($download_id);
+	 * $this->load->model('catalog/product');
+	 *
+	 * $product_total = $this->model_catalog_product->getTotalDownloadsByDownloadId($download_id);
 	 */
 	public function getTotalProductsByDownloadId(int $download_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "product_to_download` WHERE `download_id` = '" . (int)$download_id . "'");
@@ -1044,6 +1184,8 @@ class ModelCatalogProduct extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('catalog/product');
+	 *
 	 * $product_total = $this->model_catalog_product->getTotalProductsByManufacturerId($manufacturer_id);
 	 */
 	public function getTotalProductsByManufacturerId(int $manufacturer_id): int {
@@ -1053,15 +1195,17 @@ class ModelCatalogProduct extends Model {
 	}
 
 	/**
-	 * Get Total Products By Attribute ID
+	 * Get Total Attributes By Attribute ID
 	 *
 	 * @param int $attribute_id primary key of the attribute record
 	 *
-	 * @return int total number of product records that have attribute ID
+	 * @return int total number of attribute records that have attribute ID
 	 *
 	 * @example
 	 *
-	 * $product_total = $this->model_catalog_product->getTotalProductsByAttributeId($attribute_id);
+	 * $this->load->model('catalog/product');
+	 *
+	 * $product_total = $this->model_catalog_product->getTotalAttributesByAttributeId($attribute_id);
 	 */
 	public function getTotalProductsByAttributeId(int $attribute_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "product_attribute` WHERE `attribute_id` = '" . (int)$attribute_id . "'");

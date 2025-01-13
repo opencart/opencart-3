@@ -2,7 +2,7 @@
 /**
  * Class Order Status
  *
- * Can be called from $this->load->model('localisation/order_status');
+ * Can be called using $this->load->model('localisation/order_status');
  *
  * @package Catalog\Model\Localisation
  */
@@ -15,6 +15,8 @@ class ModelLocalisationOrderStatus extends Model {
 	 * @return array<string, mixed> order status record that has order status ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('localisation/order_status');
 	 *
 	 * $order_status_info = $this->model_localisation_order_status->getOrderStatus($order_status_id);
 	 */
@@ -30,6 +32,8 @@ class ModelLocalisationOrderStatus extends Model {
 	 * @return array<int, array<string, mixed>> order status records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('localisation/order_status');
 	 *
 	 * $order_statuses = $this->model_localisation_order_status->getOrderStatuses();
 	 */

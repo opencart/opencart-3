@@ -2,7 +2,7 @@
 /**
  * Class Transaction
  *
- * Can be called from $this->load->model('account/transaction');
+ * Can be called using $this->load->model('account/transaction');
  *
  * @package Catalog\Model\Account
  */
@@ -15,6 +15,8 @@ class ModelAccountTransaction extends Model {
 	 * @return array<int, array<string, mixed>> transaction records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('account/transaction');
 	 *
 	 * $results = $this->model_account_transaction->getTransactions();
 	 */
@@ -62,6 +64,8 @@ class ModelAccountTransaction extends Model {
 	 * @return int total number of transaction records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('account/transaction');
 	 *
 	 * $transaction_total = $this->model_account_transaction->getTotalTransactions();
 	 */

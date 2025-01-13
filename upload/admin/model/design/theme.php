@@ -2,7 +2,7 @@
 /**
  * Class Theme
  *
- * Can be called from $this->load->model('design/theme');
+ * Can be called using $this->load->model('design/theme');
  *
  * @package Admin\Model\Design
  */
@@ -10,7 +10,7 @@ class ModelDesignTheme extends Model {
 	/**
 	 * Edit Theme
 	 *
-	 * @param int    $store_id
+	 * @param int    $store_id primary key of the store record
 	 * @param string $theme
 	 * @param string $route
 	 * @param string $code
@@ -18,6 +18,8 @@ class ModelDesignTheme extends Model {
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('design/theme);
 	 *
 	 * $this->model_design_theme->editTheme($store_id, $theme, $route, $code);
 	 */
@@ -35,6 +37,8 @@ class ModelDesignTheme extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('design/theme);
+	 *
 	 * $this->model_design_theme->deleteTheme($theme_id);
 	 */
 	public function deleteTheme(int $theme_id): void {
@@ -44,13 +48,15 @@ class ModelDesignTheme extends Model {
 	/**
 	 * Get Theme
 	 *
-	 * @param int    $store_id
+	 * @param int    $store_id primary key of the store record
 	 * @param string $theme
 	 * @param string $route
 	 *
 	 * @return array<string, string>
 	 *
 	 * @example
+	 *
+	 * $this->load->model('design/theme);
 	 *
 	 * $theme_info = $this->model_design_theme->getTheme($store_id, $theme, $route);
 	 */
@@ -69,6 +75,8 @@ class ModelDesignTheme extends Model {
 	 * @return array<int, array<string, mixed>> theme records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('design/theme');
 	 *
 	 * $results = $this->model_design_theme->getThemes();
 	 */
@@ -92,6 +100,8 @@ class ModelDesignTheme extends Model {
 	 * @return int total number of theme records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('design/theme');
 	 *
 	 * $theme_total = $this->model_design_theme->getTotalThemes();
 	 */

@@ -2,7 +2,7 @@
 /**
  * Class Customer Approval
  *
- * Can be called from $this->load->model('customer/customer_approval');
+ * Can be called using $this->load->model('customer/customer_approval');
  *
  * @package Admin\Model\Customer
  */
@@ -16,7 +16,20 @@ class ModelCustomerCustomerApproval extends Model {
 	 *
 	 * @example
 	 *
-	 * $results = $this->model_customer_customer_approval->getCustomerApprovals();
+	 * $filter_data = [
+	 *     'filter_customer'          => 'John Doe',
+	 *     'filter_email'             => 'demo@opencart.com',
+	 *     'filter_customer_group_id' => 1,
+	 *     'filter_type'              => 'customer',
+	 *     'filter_date_from'         => '2021-01-01',
+	 *     'filter_date_to'           => '2021-01-31',
+	 *     'start'                    => 0,
+	 *     'limit'                    => 10
+	 * ];
+	 *
+	 * $this->load->model('customer/customer_approval');
+	 *
+	 * $results = $this->model_customer_customer_approval->getCustomerApprovals($filter_data);
 	 */
 	public function getCustomerApprovals(array $data = []): array {
 		$sql = "SELECT *, CONCAT(`c`.`firstname`, ' ', `c`.`lastname`) AS `name`, `cgd`.`name` AS `customer_group`, `ca`.`type` FROM `" . DB_PREFIX . "customer_approval` `ca` LEFT JOIN `" . DB_PREFIX . "customer` `c` ON (`ca`.`customer_id` = `c`.`customer_id`) LEFT JOIN `" . DB_PREFIX . "customer_group_description` `cgd` ON (`c`.`customer_group_id` = `cgd`.`customer_group_id`) WHERE `cgd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
@@ -69,6 +82,8 @@ class ModelCustomerCustomerApproval extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('customer/customer_approval');
+	 *
 	 * $customer_approval_info = $this->model_customer_customer_approval->getCustomerApproval($customer_approval_id);
 	 */
 	public function getCustomerApproval(int $customer_approval_id): array {
@@ -86,7 +101,20 @@ class ModelCustomerCustomerApproval extends Model {
 	 *
 	 * @example
 	 *
-	 * $customer_approval_total = $this->model_customer_customer_approval->getTotalCustomerApprovals();
+	 * $filter_data = [
+	 *     'filter_customer'          => 'John Doe',
+	 *     'filter_email'             => 'demo@opencart.com',
+	 *     'filter_customer_group_id' => 1,
+	 *     'filter_type'              => 'customer',
+	 *     'filter_date_from'         => '2021-01-01',
+	 *     'filter_date_to'           => '2021-01-31',
+	 *     'start'                    => 0,
+	 *     'limit'                    => 10
+	 * ];
+	 *
+	 * $this->load->model('customer/customer_approval');
+	 *
+	 * $customer_approval_total = $this->model_customer_customer_approval->getTotalCustomerApprovals($filter_data);
 	 */
 	public function getTotalCustomerApprovals(array $data = []): int {
 		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer_approval` `ca` LEFT JOIN `" . DB_PREFIX . "customer` `c` ON (`ca`.`customer_id` = `c`.`customer_id`)";
@@ -131,6 +159,8 @@ class ModelCustomerCustomerApproval extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('customer/customer_approval');
+	 *
 	 * $this->model_customer_customer_approval->approveCustomer($customer_id);
 	 */
 	public function approveCustomer(int $customer_id): void {
@@ -148,6 +178,8 @@ class ModelCustomerCustomerApproval extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('customer/customer_approval');
+	 *
 	 * $this->model_customer_customer_approval->denyCustomer($customer_id);
 	 */
 	public function denyCustomer(int $customer_id): void {
@@ -162,6 +194,8 @@ class ModelCustomerCustomerApproval extends Model {
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('customer/customer_approval');
 	 *
 	 * $this->model_customer_customer_approval->approveAffiliate($customer_id);
 	 */
@@ -179,6 +213,8 @@ class ModelCustomerCustomerApproval extends Model {
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('customer/customer_approval');
 	 *
 	 * $this->model_customer_customer_approval->denyAffiliate($customer_id);
 	 */

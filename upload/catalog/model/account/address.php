@@ -2,7 +2,7 @@
 /**
  * Class Address
  *
- * Can be called from $this->load->model('account/address');
+ * Can be called using $this->load->model('account/address');
  *
  * @package Catalog\Model\Account
  */
@@ -16,6 +16,22 @@ class ModelAccountAddress extends Model {
 	 * @return int returns the primary key of the new address record
 	 *
 	 * @example
+	 *
+	 * $address_data = [
+	 *     'firstname'    => 'John',
+	 *     'lastname'     => 'Doe',
+	 *     'company'      => '',
+	 *     'address_1'    => 'Address 1',
+	 *     'address_2'    => 'Address 2',
+	 *     'postcode'     => '',
+	 *     'city'         => '',
+	 *     'zone_id'      => 1,
+	 *     'country_id'   => 1,
+	 *     'custom_field' => [],
+	 *     'default'      => 0
+	 * ];
+	 *
+	 * $this->load->model('account/address');
 	 *
 	 * $address_id = $this->model_account_address->addAddress($customer_id, $data);
 	 */
@@ -41,6 +57,22 @@ class ModelAccountAddress extends Model {
 	 *
 	 * @example
 	 *
+	 * $address_data = [
+	 *     'firstname'    => 'John',
+	 *     'lastname'     => 'Doe',
+	 *     'company'      => '',
+	 *     'address_1'    => 'Address 1',
+	 *     'address_2'    => 'Address 2',
+	 *     'postcode'     => '',
+	 *     'city'         => '',
+	 *     'zone_id'      => 1,
+	 *     'country_id'   => 1,
+	 *     'custom_field' => [],
+	 *     'default'      => 0
+	 * ];
+	 *
+	 * $this->load->model('account/address');
+	 *
 	 * $this->model_account_address->editAddress($address_id, $data);
 	 */
 	public function editAddress(int $address_id, array $data): void {
@@ -59,6 +91,8 @@ class ModelAccountAddress extends Model {
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('account/address');
 	 *
 	 * $this->model_account_address->deleteAddress($address_id);
 	 */
@@ -80,6 +114,8 @@ class ModelAccountAddress extends Model {
 	 * @return array<string, mixed> address record that has address ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('account/address');
 	 *
 	 * $address_info = $this->model_account_address->getAddress($address_id);
 	 */
@@ -177,6 +213,8 @@ class ModelAccountAddress extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('account/address');
+	 *
 	 * $results = $this->model_account_address->getAddresses();
 	 */
 	public function getAddresses(): array {
@@ -201,6 +239,8 @@ class ModelAccountAddress extends Model {
 	 * @return int total number of address records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('account/address');
 	 *
 	 * $address_total = $this->model_account_address->getTotalAddresses();
 	 */

@@ -2,7 +2,7 @@
 /**
  * Class Returns Status
  *
- * Can be called from $this->load->model('localisation/return_status');
+ * Can be called using $this->load->model('localisation/return_status');
  *
  * @package Admin\Model\Localisation
  */
@@ -16,7 +16,13 @@ class ModelLocalisationReturnsStatus extends Model {
 	 *
 	 * @example
 	 *
-	 * $return_status_id = $this->model_localisation_return_status->addReturnStatus($data);
+	 * $return_status_data['return_status'][1] = [
+	 *     'name' => 'Return Status Name'
+	 * ];
+	 *
+	 * $this->load->model('localisation/return_status');
+	 *
+	 * $return_status_id = $this->model_localisation_return_status->addReturnStatus($return_status_data);
 	 */
 	public function addReturnStatus(array $data): ?int {
 		$return_status_id = 0;
@@ -46,7 +52,13 @@ class ModelLocalisationReturnsStatus extends Model {
 	 *
 	 * @example
 	 *
-	 * $this->model_localisation_return_status->editReturnStatus($return_status_id, $data);
+	 * $return_status_data['return_status'][1] = [
+	 *     'name' => 'Return Status Name'
+	 * ];
+	 *
+	 * $this->load->model('localisation/return_status');
+	 *
+	 * $this->model_localisation_return_status->editReturnStatus($return_status_id, $return_status_data);
 	 */
 	public function editReturnStatus(int $return_status_id, array $data): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "return_status` WHERE `return_status_id` = '" . (int)$return_status_id . "'");
@@ -67,6 +79,8 @@ class ModelLocalisationReturnsStatus extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('localisation/return_status');
+	 *
 	 * $this->model_localisation_return_status->deleteReturnStatus($return_status_id);
 	 */
 	public function deleteReturnStatus(int $return_status_id): void {
@@ -83,6 +97,8 @@ class ModelLocalisationReturnsStatus extends Model {
 	 * @return array<string, mixed> return status record that has return status ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('localisation/return_status');
 	 *
 	 * $return_status_info = $this->model_localisation_return_status->getReturnStatus($return_status_id);
 	 */
@@ -101,7 +117,16 @@ class ModelLocalisationReturnsStatus extends Model {
 	 *
 	 * @example
 	 *
-	 * $return_statuses = $this->model_localisation_return_status->getReturnStatuses();
+	 * $filter_data = [
+	 *     'sort'  => 'name',
+	 *     'order' => 'DESC',
+	 *     'start' => 0,
+	 *     'limit' => 10
+	 * ];
+	 *
+	 * $this->load->model('localisation/return_status');
+	 *
+	 * $return_statuses = $this->model_localisation_return_status->getReturnStatuses($filter_data);
 	 */
 	public function getReturnStatuses(array $data = []): array {
 		if ($data) {
@@ -154,6 +179,8 @@ class ModelLocalisationReturnsStatus extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('localisation/return_status');
+	 *
 	 * $return_status = $this->model_localisation_return_status->getDescriptions($return_status_id);
 	 */
 	public function getDescriptions(int $return_status_id): array {
@@ -174,6 +201,8 @@ class ModelLocalisationReturnsStatus extends Model {
 	 * @return int total number of return status records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('localisation/return_status');
 	 *
 	 * $return_status_total = $this->model_localisation_return_status->getTotalReturnStatuses();
 	 */

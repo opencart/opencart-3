@@ -2,7 +2,7 @@
 /**
  * Class Online
  *
- * Can be called from $this->load->model('tool/online');
+ * Can be called using $this->load->model('tool/online');
  *
  * @package Catalog\Model\Tool
  */
@@ -18,6 +18,8 @@ class ModelToolOnline extends Model {
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('tool/online');
 	 *
 	 * $this->model_tool_online->addOnline($ip, $customer_id, $url, $referer);
 	 */

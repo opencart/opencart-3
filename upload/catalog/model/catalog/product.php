@@ -2,7 +2,7 @@
 /**
  * Class Product
  *
- * Can be called from $this->load->model('catalog/product');
+ * Can be called using $this->load->model('catalog/product');
  *
  * @package Catalog\Model\Catalog
  */
@@ -30,6 +30,8 @@ class ModelCatalogProduct extends Model {
 	 * @return array<string, mixed> product record that has product ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('catalog/product');
 	 *
 	 * $product_info = $this->model_catalog_product->getProduct($product_id);
 	 */
@@ -93,6 +95,8 @@ class ModelCatalogProduct extends Model {
 	 * @return array<int, array<string, mixed>> product records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('catalog/product');
 	 *
 	 * $products = $this->model_catalog_product->getProducts();
 	 */
@@ -255,6 +259,8 @@ class ModelCatalogProduct extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('catalog/product');
+	 *
 	 * $product_specials = $this->model_catalog_product->getSpecials();
 	 */
 	public function getSpecials(array $data = []): array {
@@ -403,6 +409,8 @@ class ModelCatalogProduct extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('catalog/product');
+	 *
 	 * $product_attributes = $this->model_catalog_product->getAttributes($product_id);
 	 */
 	public function getAttributes(int $product_id): array {
@@ -441,6 +449,8 @@ class ModelCatalogProduct extends Model {
 	 * @return array<int, array<string, mixed>> option records that have product ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('catalog/product');
 	 *
 	 * $product_options = $this->model_catalog_product->getOptions($product_id);
 	 */
@@ -492,6 +502,8 @@ class ModelCatalogProduct extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('catalog/product');
+	 *
 	 * $product_discounts = $this->model_catalog_product->getDiscounts($product_id);
 	 */
 	public function getDiscounts(int $product_id): array {
@@ -509,6 +521,8 @@ class ModelCatalogProduct extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('catalog/product');
+	 *
 	 * $product_images = $this->model_catalog_product->getImages($product_id);
 	 */
 	public function getImages(int $product_id): array {
@@ -525,6 +539,8 @@ class ModelCatalogProduct extends Model {
 	 * @return array<int, array<string, mixed>> related records that have product ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('catalog/product');
 	 *
 	 * $results = $this->model_catalog_product->getRelated($product_id);
 	 */
@@ -549,6 +565,8 @@ class ModelCatalogProduct extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('catalog/product');
+	 *
 	 * $layout_id = $this->model_catalog_product->getLayoutId();
 	 */
 	public function getLayoutId(int $product_id): int {
@@ -570,6 +588,8 @@ class ModelCatalogProduct extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('catalog/product');
+	 *
 	 * $product_to_categories = $this->model_catalog_product->getCategories($product_id);
 	 */
 	public function getCategories(int $product_id): array {
@@ -579,13 +599,15 @@ class ModelCatalogProduct extends Model {
 	}
 
 	/**
-	 * getTotalProducts
+	 * Get Total Products
 	 *
 	 * @param array<string, mixed> $data array of filters
 	 *
 	 * @return int total number of product records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('catalog/product');
 	 *
 	 * $product_total = $this->model_catalog_product->getTotalProducts();
 	 */
@@ -701,6 +723,8 @@ class ModelCatalogProduct extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('catalog/product');
+	 *
 	 * $product_subscription_info = $this->model_catalog_product->getSubscription($product_id, $subscription_plan_id);
 	 */
 	public function getSubscription(int $product_id, int $subscription_plan_id): array {
@@ -718,6 +742,8 @@ class ModelCatalogProduct extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('catalog/product');
+	 *
 	 * $product_subscriptions = $this->model_catalog_product->getSubscriptions($product_id);
 	 */
 	public function getSubscriptions(int $product_id): array {
@@ -732,6 +758,8 @@ class ModelCatalogProduct extends Model {
 	 * @return int total number of special records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('catalog/product');
 	 *
 	 * $special_total = $this->model_catalog_product->getTotalSpecials();
 	 */

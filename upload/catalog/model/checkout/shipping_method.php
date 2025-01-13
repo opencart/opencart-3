@@ -2,7 +2,7 @@
 /**
  * Class Shipping Method
  *
- * Can be called from $this->load->model('checkout/shipping_method');
+ * Can be called using $this->load->model('checkout/shipping_method');
  *
  * @package Catalog\Model\Checkout
  */

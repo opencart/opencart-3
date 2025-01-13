@@ -2,7 +2,7 @@
 /**
  * Class Banner
  *
- * Can be called from $this->load->model('design/banner');
+ * Can be called using $this->load->model('design/banner');
  *
  * @package Catalog\Model\Design
  */
@@ -15,6 +15,8 @@ class ModelDesignBanner extends Model {
 	 * @return array<int, array<string, mixed>> banner record that has banner ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('design/banner');
 	 *
 	 * $banner_info = $this->model_design_banner->getBanner($banner_id);
 	 */

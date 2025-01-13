@@ -2,7 +2,7 @@
 /**
  * Class Module
  *
- * Can be called from $this->load->model('setting/module');
+ * Can be called using $this->load->model('setting/module');
  *
  * @package Catalog\Model\Setting
  */
@@ -15,6 +15,8 @@ class ModelSettingModule extends Model {
 	 * @return array<string, mixed> module record that has module ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/module');
 	 *
 	 * $module_info = $this->model_setting_module->getModule($module_id);
 	 */

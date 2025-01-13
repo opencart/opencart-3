@@ -2,7 +2,7 @@
 /**
  * Class User
  *
- * Can be called from $this->load->model('user/user');
+ * Can be called using $this->load->model('user/user');
  *
  * @package Admin\Model\User
  */
@@ -16,7 +16,20 @@ class ModelUserUser extends Model {
 	 *
 	 * @example
 	 *
-	 * $user_id = $this->model_user_user->addUser($data);
+	 * $user_data = [
+	 *     'username'      => 'Username',
+	 *     'user_group_id' => 1,
+	 *     'password'      => '',
+	 *     'firstname'     => 'John',
+	 *     'lastname'      => 'Doe',
+	 *     'email'         => 'demo@opencart.com',
+	 *     'image'         => 'user_image',
+	 *     'status'        => 0
+	 * ];
+	 *
+	 * $this->load->model('user/user');
+	 *
+	 * $user_id = $this->model_user_user->addUser($user_data);
 	 */
 	public function addUser(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "user` SET `username` = '" . $this->db->escape((string)$data['username']) . "', `user_group_id` = '" . (int)$data['user_group_id'] . "', `password` = '" . $this->db->escape(password_hash(html_entity_decode($data['password'], ENT_QUOTES, 'UTF-8'), PASSWORD_DEFAULT)) . "', `firstname` = '" . $this->db->escape((string)$data['firstname']) . "', `lastname` = '" . $this->db->escape((string)$data['lastname']) . "', `email` = '" . $this->db->escape((string)$data['email']) . "', `image` = '" . $this->db->escape((string)$data['image']) . "', `status` = '" . (bool)($data['status'] ?? 0) . "', `date_added` = NOW()");
@@ -34,7 +47,20 @@ class ModelUserUser extends Model {
 	 *
 	 * @example
 	 *
-	 * $this->model_user_user->editUser($user_id, $data);
+	 * $user_data = [
+	 *     'username'      => 'Username',
+	 *     'user_group_id' => 1,
+	 *     'password'      => '',
+	 *     'firstname'     => 'John',
+	 *     'lastname'      => 'Doe',
+	 *     'email'         => 'demo@opencart.com',
+	 *     'image'         => 'user_image',
+	 *     'status'        => 1
+	 * ];
+	 *
+	 * $this->load->model('user/user');
+	 *
+	 * $user_id = $this->model_user_user->editUser($user_data);
 	 */
 	public function editUser(int $user_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "user` SET `username` = '" . $this->db->escape((string)$data['username']) . "', `user_group_id` = '" . (int)$data['user_group_id'] . "', `firstname` = '" . $this->db->escape((string)$data['firstname']) . "', `lastname` = '" . $this->db->escape((string)$data['lastname']) . "', `email` = '" . $this->db->escape((string)$data['email']) . "', `image` = '" . $this->db->escape((string)$data['image']) . "', `status` = '" . (bool)($data['status'] ?? 0) . "' WHERE `user_id` = '" . (int)$user_id . "'");
@@ -54,6 +80,8 @@ class ModelUserUser extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('user/user');
+	 *
 	 * $this->model_user_user->editPassword($user_id, $password);
 	 */
 	public function editPassword(int $user_id, $password): void {
@@ -70,6 +98,8 @@ class ModelUserUser extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('user/user');
+	 *
 	 * $this->model_user_user->editCode($email, $code);
 	 */
 	public function editCode(string $email, string $code): void {
@@ -85,6 +115,8 @@ class ModelUserUser extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('user/user');
+	 *
 	 * $this->model_user_user->deleteUser($user_id);
 	 */
 	public function deleteUser(int $user_id): void {
@@ -99,6 +131,8 @@ class ModelUserUser extends Model {
 	 * @return array<string, mixed> user record that has user ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('user/user');
 	 *
 	 * $user_info = $this->model_user_user->getUser($user_id);
 	 */
@@ -117,6 +151,8 @@ class ModelUserUser extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('user/user');
+	 *
 	 * $user_info = $this->model_user_user->getUserByUsername($username);
 	 */
 	public function getUserByUsername(string $username): array {
@@ -133,6 +169,8 @@ class ModelUserUser extends Model {
 	 * @return array<string, mixed>
 	 *
 	 * @example
+	 *
+	 * $this->load->model('user/user');
 	 *
 	 * $user_info = $this->model_user_user->getUserByEmail($email);
 	 */
@@ -151,6 +189,8 @@ class ModelUserUser extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('user/user');
+	 *
 	 * $user_info = $this->model_user_user->getUserByCode($code);
 	 */
 	public function getUserByCode(string $code): array {
@@ -167,6 +207,8 @@ class ModelUserUser extends Model {
 	 * @return array<int, array<string, mixed>> user records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('user/user');
 	 *
 	 * $results = $this->model_user_user->getUsers();
 	 */
@@ -215,6 +257,8 @@ class ModelUserUser extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('user/user');
+	 *
 	 * $user_total = $this->model_user_user->getTotalUsers();
 	 */
 	public function getTotalUsers(): int {
@@ -232,6 +276,8 @@ class ModelUserUser extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('user/user');
+	 *
 	 * $user_total = $this->model_user_user->getTotalUsersByGroupId($user_group_id);
 	 */
 	public function getTotalUsersByGroupId(int $user_group_id): int {
@@ -248,6 +294,8 @@ class ModelUserUser extends Model {
 	 * @return int
 	 *
 	 * @example
+	 *
+	 * $this->load->model('user/user');
 	 *
 	 * $user_total = $this->model_user_user->getTotalUsersByEmail($email);
 	 */
@@ -267,6 +315,8 @@ class ModelUserUser extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('user/user');
+	 *
 	 * $this->model_user_user->addLogin($user_id, $data);
 	 */
 	public function addLogin(int $user_id, array $data): void {
@@ -283,6 +333,8 @@ class ModelUserUser extends Model {
 	 * @return array<int, array<string, mixed>> login records that have user ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('user/user');
 	 *
 	 * $results = $this->model_user_user->getLogins($user_id, $start, $limit);
 	 */
@@ -312,6 +364,8 @@ class ModelUserUser extends Model {
 	 * @return int total number of login records that have user ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('user/user');
 	 *
 	 * $login_total = $this->model_user_user->getTotalLogins($user_id);
 	 */

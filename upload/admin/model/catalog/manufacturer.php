@@ -2,7 +2,7 @@
 /**
  * Class Manufacturer
  *
- * Can be called from $this->load->model('catalog/manufacturer');
+ * Can be called using $this->load->model('catalog/manufacturer');
  *
  * @package Admin\Model\Catalog
  */
@@ -16,7 +16,15 @@ class ModelCatalogManufacturer extends Model {
 	 *
 	 * @example
 	 *
-	 * $manufacturer_id = $this->model_catalog_manufacturer->addManufacturer($data);
+	 * $manufacturer_data = [
+	 *     'name'       => 'Manufacturer Name',
+	 *     'image'      => 'manufacturer_image',
+	 *     'sort_order' => 'DESC'
+	 * ];
+	 *
+	 * $this->load->model('catalog/manufacturer');
+	 *
+	 * $manufacturer_id = $this->model_catalog_manufacturer->addManufacturer($manufacturer_data);
 	 */
 	public function addManufacturer(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "manufacturer` SET `name` = '" . $this->db->escape($data['name']) . "', `sort_order` = '" . (int)$data['sort_order'] . "'");
@@ -59,7 +67,15 @@ class ModelCatalogManufacturer extends Model {
 	 *
 	 * @example
 	 *
-	 * $this->model_catalog_manufacturer->editManufacturer($manufacturer_id, $data);
+	 * $manufacturer_data = [
+	 *     'name'       => 'Manufacturer Name',
+	 *     'image'      => 'manufacturer_image',
+	 *     'sort_order' => 'DESC'
+	 * ];
+	 *
+	 * $this->load->model('catalog/manufacturer');
+	 *
+	 * $this->model_catalog_manufacturer->editManufacturer($manufacturer_id, $manufacturer_data);
 	 */
 	public function editManufacturer(int $manufacturer_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "manufacturer` SET `name` = '" . $this->db->escape($data['name']) . "', `sort_order` = '" . (int)$data['sort_order'] . "' WHERE `manufacturer_id` = '" . (int)$manufacturer_id . "'");
@@ -100,6 +116,8 @@ class ModelCatalogManufacturer extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('catalog/manufacturer');
+	 *
 	 * $this->model_catalog_manufacturer->deleteManufacturer($manufacturer_id);
 	 */
 	public function deleteManufacturer(int $manufacturer_id): void {
@@ -119,6 +137,8 @@ class ModelCatalogManufacturer extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('catalog/manufacturer');
+	 *
 	 * $manufacturer_info = $this->model_catalog_manufacturer->getManufacturer($manufacturer_id);
 	 */
 	public function getManufacturer(int $manufacturer_id): array {
@@ -136,7 +156,16 @@ class ModelCatalogManufacturer extends Model {
 	 *
 	 * @example
 	 *
-	 * $results = $this->model_catalog_manufacturer->getManufacturers();
+	 * $filter_data = [
+	 *     'sort'  => 'name',
+	 *     'order' => 'DESC',
+	 *     'start' => 0,
+	 *     'limit' => 10
+	 * ];
+	 *
+	 * $this->load->model('catalog/manufacturer');
+	 *
+	 * $results = $this->model_catalog_manufacturer->getManufacturers($filter_data);
 	 */
 	public function getManufacturers(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "manufacturer`";
@@ -188,6 +217,8 @@ class ModelCatalogManufacturer extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('catalog/manufacturer');
+	 *
 	 * $manufacturer_store = $this->model_catalog_manufacturer->getStores($manufacturer_id);
 	 */
 	public function getStores(int $manufacturer_id): array {
@@ -231,6 +262,8 @@ class ModelCatalogManufacturer extends Model {
 	 * @return int total number of manufacturer records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('catalog/manufacturer');
 	 *
 	 * $manufacturer_total = $this->model_catalog_manufacturer->getTotalManufacturers();
 	 */

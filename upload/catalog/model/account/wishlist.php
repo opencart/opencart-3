@@ -2,7 +2,7 @@
 /**
  * Class Wishlist
  *
- * Can be called from $this->load->model('account/wishlist');
+ * Can be called using $this->load->model('account/wishlist');
  *
  * @package Catalog\Model\Account
  */
@@ -15,6 +15,8 @@ class ModelAccountWishlist extends Model {
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('account/wishlist');
 	 *
 	 * $this->model_account_wishlist->addWishlist($product_id);
 	 */
@@ -32,6 +34,8 @@ class ModelAccountWishlist extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('account/wishlist');
+	 *
 	 * $this->model_account_wishlist->deleteWishlist($product_id);
 	 */
 	public function deleteWishlist(int $product_id): void {
@@ -44,6 +48,8 @@ class ModelAccountWishlist extends Model {
 	 * @return array<int, array<string, mixed>> wishlist records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('account/wishlist');
 	 *
 	 * $results = $this->model_account_wishlist->getWishlist();
 	 */
@@ -59,6 +65,8 @@ class ModelAccountWishlist extends Model {
 	 * @return int total number of wishlist records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('account/wishlist');
 	 *
 	 * $wishlist_total = $this->model_account_wishlist->getTotalWishlist();
 	 */

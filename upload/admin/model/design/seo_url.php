@@ -2,7 +2,7 @@
 /**
  * Class Seo Url
  *
- * Can be called from $this->load->model('design/seo_url');
+ * Can be called using $this->load->model('design/seo_url');
  *
  * @package Admin\Model\Design
  */
@@ -15,6 +15,8 @@ class ModelDesignSeoUrl extends Model {
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('design/seo_url');
 	 *
 	 * $seo_url_id = $this->model_design_seo_url->addSeoUrl($data);
 	 */
@@ -32,6 +34,8 @@ class ModelDesignSeoUrl extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('design/seo_url');
+	 *
 	 * $this->model_design_seo_url->editSeoUrl($seo_url_id, $data);
 	 */
 	public function editSeoUrl(int $seo_url_id, array $data): void {
@@ -47,6 +51,8 @@ class ModelDesignSeoUrl extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('design/seo_url');
+	 *
 	 * $this->model_design_seo_url->deleteSeoUrl($seo_url_id);
 	 */
 	public function deleteSeoUrl(int $seo_url_id): void {
@@ -61,6 +67,8 @@ class ModelDesignSeoUrl extends Model {
 	 * @return array<string, mixed> seo url record that has seo url ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('design/seo_url');
 	 *
 	 * $seo_url_info = $this->model_design_seo_url->getSeoUrl($seo_url_id);
 	 */
@@ -78,6 +86,8 @@ class ModelDesignSeoUrl extends Model {
 	 * @return array<int, array<string, mixed>> seo url records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('design/seo_url');
 	 *
 	 * $results = $this->model_design_seo_url->getSeoUrls();
 	 */
@@ -150,6 +160,8 @@ class ModelDesignSeoUrl extends Model {
 	 * @return int total number of seo url records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('design/seo_url');
 	 *
 	 * $seo_url_total = $this->model_design_seo_url->getTotalSeoUrls();
 	 */

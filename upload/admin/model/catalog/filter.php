@@ -2,7 +2,7 @@
 /**
  * Class Filter
  *
- * Can be called from $this->load->model('catalog/filter');
+ * Can be called using $this->load->model('catalog/filter');
  *
  * @package Admin\Model\Catalog
  */
@@ -16,7 +16,13 @@ class ModelCatalogFilter extends Model {
 	 *
 	 * @example
 	 *
-	 * $filter_group_id = $this->model_catalog_filter->addFilter($data);
+	 * $filter_data = [
+	 *     'sort_order' => 0
+	 * ];
+	 *
+	 * $this->load->model('catalog/filter');
+	 *
+	 * $filter_id = $this->model_catalog_filter->addFilter($filter_data);
 	 */
 	public function addFilter(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "filter_group` SET `sort_order` = '" . (int)$data['sort_order'] . "'");
@@ -45,12 +51,19 @@ class ModelCatalogFilter extends Model {
 	/**
 	 * Edit Filter
 	 *
-	 * @param int                  $filter_group_id primary key of the filter group record
+	 * @param int                  $filter_group_id
 	 * @param array<string, mixed> $data            array of data
+	 * @param int                  $filter_id       primary key of the filter record
 	 *
 	 * @example
 	 *
-	 * $this->model_catalog_filter->editFilter($filter_group_id, $data);
+	 * $filter_data = [
+	 *     'sort_order' => 0
+	 * ];
+	 *
+	 * $this->load->model('catalog/filter');
+	 *
+	 * $this->model_catalog_filter->editFilter($filter_id, $filter_data);
 	 */
 	public function editFilter(int $filter_group_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "filter_group` SET `sort_order` = '" . (int)$data['sort_order'] . "' WHERE `filter_group_id` = '" . (int)$filter_group_id . "'");
@@ -84,13 +97,16 @@ class ModelCatalogFilter extends Model {
 	/**
 	 * Delete Filter
 	 *
-	 * @param int $filter_group_id primary key of the filter group record
+	 * @param int $filter_group_id
+	 * @param int $filter_id       primary key of the filter record
 	 *
 	 * @return void
 	 *
 	 * @example
 	 *
-	 * $this->model_catalog_filter->deleteFilter($filter_group_id);
+	 * $this->load->model('catalog/filter');
+	 *
+	 * $this->model_catalog_filter->deleteFilter($filter_id);
 	 */
 	public function deleteFilter(int $filter_group_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "filter_group` WHERE `filter_group_id` = '" . (int)$filter_group_id . "'");
@@ -107,6 +123,8 @@ class ModelCatalogFilter extends Model {
 	 * @return array<string, mixed> filter group record that has filter group ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('catalog/filter');
 	 *
 	 * $filter_group_info = $this->model_catalog_filter->getGroup($filter_group_id);
 	 */
@@ -125,7 +143,16 @@ class ModelCatalogFilter extends Model {
 	 *
 	 * @example
 	 *
-	 * $results = $this->model_catalog_filter->getGroups();
+	 * $filter_data = [
+	 *     'sort'  => 'fgd.name',
+	 *     'order' => 'DESC',
+	 *     'start' => 0,
+	 *     'limit' => 10
+	 * ];
+	 *
+	 * $this->load->model('catalog/filter');
+	 *
+	 * $results = $this->model_catalog_filter->getGroups($filter_data);
 	 */
 	public function getGroups(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "filter_group` `fg` LEFT JOIN `" . DB_PREFIX . "filter_group_description` `fgd` ON (`fg`.`filter_group_id` = `fgd`.`filter_group_id`) WHERE `fgd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
@@ -173,6 +200,8 @@ class ModelCatalogFilter extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('catalog/filter');
+	 *
 	 * $filter_group_description = $this->model_catalog_filter->getGroupDescriptions($filter_group_id);
 	 */
 	public function getGroupDescriptions(int $filter_group_id): array {
@@ -196,6 +225,8 @@ class ModelCatalogFilter extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('catalog/filter');
+	 *
 	 * $filter_info = $this->model_catalog_filter->getFilter($filter_id);
 	 */
 	public function getFilter(int $filter_id): array {
@@ -213,7 +244,16 @@ class ModelCatalogFilter extends Model {
 	 *
 	 * @example
 	 *
-	 * $results = $this->model_catalog_filter->getFilters();
+	 * $filter_data = [
+	 *     'sort'  => 'fgd.name',
+	 *     'order' => 'DESC',
+	 *     'start' => 0,
+	 *     'limit' => 10
+	 * ];
+	 *
+	 * $this->load->model('catalog/filter');
+	 *
+	 * $results = $this->model_catalog_filter->getFilters($filter_data);
 	 */
 	public function getFilters(array $data): array {
 		$sql = "SELECT *, (SELECT `name` FROM `" . DB_PREFIX . "filter_group_description` `fgd` WHERE `f`.`filter_group_id` = `fgd`.`filter_group_id` AND `fgd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "') AS `group` FROM `" . DB_PREFIX . "filter` `f` LEFT JOIN `" . DB_PREFIX . "filter_description` `fd` ON (`f`.`filter_id` = `fd`.`filter_id`) WHERE `fd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
@@ -244,13 +284,16 @@ class ModelCatalogFilter extends Model {
 	/**
 	 * Get Descriptions
 	 *
-	 * @param int $filter_group_id primary key of the filter group record
+	 * @param int $filter_group_id
+	 * @param int $filter_id       primary key of the filter record
 	 *
-	 * @return array<int, array<string, string>> description records that have filter group ID
+	 * @return array<int, array<string, string>> description records that have filter ID
 	 *
 	 * @example
 	 *
-	 * $results = $this->model_catalog_filter->getDescriptions($filter_group_id);
+	 * $this->load->model('catalog/filter');
+	 *
+	 * $filter_description = $this->model_catalog_filter->getDescriptions($filter_group_id);
 	 */
 	public function getDescriptions(int $filter_group_id): array {
 		$filter_data = [];
@@ -282,6 +325,8 @@ class ModelCatalogFilter extends Model {
 	 * @return int total number of filter group records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('catalog/filter');
 	 *
 	 * $filter_group_total = $this->model_catalog_filter->getTotalGroups();
 	 */

@@ -2,7 +2,7 @@
 /**
  * Class Layout
  *
- * Can be called from $this->load->model('design/layout');
+ * Can be called using $this->load->model('design/layout');
  *
  * @package Admin\Model\Design
  */
@@ -16,7 +16,13 @@ class ModelDesignLayout extends Model {
 	 *
 	 * @example
 	 *
-	 * $layout_id = $this->model_design_layout->addLayout($data);
+	 * $layout_data = [
+	 *     'name' => 'Layout Name'
+	 * ];
+	 *
+	 * $this->load->model('design/layout');
+	 *
+	 * $layout_id = $this->model_design_layout->addLayout($layout_data);
 	 */
 	public function addLayout(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "layout` SET `name` = '" . $this->db->escape($data['name']) . "'");
@@ -48,7 +54,13 @@ class ModelDesignLayout extends Model {
 	 *
 	 * @example
 	 *
-	 * $this->model_design_layout->editLayout($layout_id, $data);
+	 * $layout_data = [
+	 *     'name' => 'Layout Name'
+	 * ];
+	 *
+	 * $this->load->model('design/layout');
+	 *
+	 * $this->model_design_layout->editLayout($layout_id, $layout_data);
 	 */
 	public function editLayout(int $layout_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "layout` SET `name` = '" . $this->db->escape($data['name']) . "' WHERE `layout_id` = '" . (int)$layout_id . "'");
@@ -79,6 +91,8 @@ class ModelDesignLayout extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('design/layout');
+	 *
 	 * $this->model_design_layout->deleteLayout($layout_id);
 	 */
 	public function deleteLayout(int $layout_id): void {
@@ -99,6 +113,8 @@ class ModelDesignLayout extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('design/layout');
+	 *
 	 * $layout_info = $this->model_design_layout->getLayout($layout_id);
 	 */
 	public function getLayout(int $layout_id): array {
@@ -116,7 +132,16 @@ class ModelDesignLayout extends Model {
 	 *
 	 * @example
 	 *
-	 * $results = $this->model_design_layout->getLayouts();
+	 * $filter_data = [
+	 *     'sort'  => 'name',
+	 *     'order' => 'DESC',
+	 *     'start' => 0,
+	 *     'limit' => 10
+	 * ];
+	 *
+	 * $this->load->model('design/layout');
+	 *
+	 * $results = $this->model_design_layout->getLayouts($filter_data);
 	 */
 	public function getLayouts(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "layout`";
@@ -161,6 +186,8 @@ class ModelDesignLayout extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('design/layout');
+	 *
 	 * $layout_routes = $this->model_design_layout->getRoutes($layout_id);
 	 */
 	public function getRoutes(int $layout_id): array {
@@ -178,6 +205,8 @@ class ModelDesignLayout extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('design/layout');
+	 *
 	 * $layout_modules = $this->model_design_layout->getModules($layout_id);
 	 */
 	public function getModules(int $layout_id): array {
@@ -193,7 +222,16 @@ class ModelDesignLayout extends Model {
 	 *
 	 * @example
 	 *
-	 * $layout_total = $this->model_design_layout->getTotalLayouts();
+	 * $filter_data = [
+	 *     'sort'  => 'name',
+	 *     'order' => 'DESC',
+	 *     'start' => 0,
+	 *     'limit' => 10
+	 * ];
+	 *
+	 * $this->load->model('design/layout');
+	 *
+	 * $layout_total = $this->model_design_layout->getTotalLayouts($filter_data);
 	 */
 	public function getTotalLayouts(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "layout`");

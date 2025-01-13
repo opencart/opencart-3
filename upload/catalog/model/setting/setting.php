@@ -2,7 +2,7 @@
 /**
  * Class Setting
  *
- * Can be called from $this->load->model('setting/setting');
+ * Can be called using $this->load->model('setting/setting');
  *
  * @package Catalog\Model\Setting
  */
@@ -15,6 +15,8 @@ class ModelSettingSetting extends Model {
 	 * @return array<int, array<string, mixed>>
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/setting');
 	 *
 	 * $settings = $this->model_setting_setting->getSettings($store_id);
 	 */
@@ -33,6 +35,8 @@ class ModelSettingSetting extends Model {
 	 * @return array<string, mixed>
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/setting');
 	 *
 	 * $setting_info = $this->model_setting_setting->getSetting($code, $store_id);
 	 */
@@ -61,6 +65,8 @@ class ModelSettingSetting extends Model {
 	 * @return string
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/setting');
 	 *
 	 * $value = $this->model_setting_setting->getValue($key, $store_id);
 	 */

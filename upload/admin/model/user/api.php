@@ -2,7 +2,7 @@
 /**
  * Class Api
  *
- * Can be called from $this->load->model('user/api');
+ * Can be called using $this->load->model('user/api');
  *
  * @package Admin\Model\User
  */
@@ -16,7 +16,15 @@ class ModelUserApi extends Model {
 	 *
 	 * @example
 	 *
-	 * $api_id = $this->model_user_api->addApi($data);
+	 * $api_data = [
+	 *     'username' => 'Api Username',
+	 *     'key'      => '',
+	 *     'status'   => 0
+	 * ];
+	 *
+	 * $this->load->model('user/api');
+	 *
+	 * $api_id = $this->model_user_api->addApi($api_data);
 	 */
 	public function addApi(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "api` SET `username` = '" . $this->db->escape($data['username']) . "', `key` = '" . $this->db->escape($data['key']) . "', `status` = '" . (int)$data['status'] . "', `date_added` = NOW(), `date_modified` = NOW()");
@@ -44,7 +52,15 @@ class ModelUserApi extends Model {
 	 *
 	 * @example
 	 *
-	 * $this->model_user_api->editApi($api_id, $data);
+	 * $api_data = [
+	 *     'username' => 'Api Username',
+	 *     'key'      => '',
+	 *     'status'   => 1
+	 * ];
+	 *
+	 * $this->load->model('user/api');
+	 *
+	 * $this->model_user_api->editApi($api_id, $api_data);
 	 */
 	public function editApi(int $api_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "api` SET `username` = '" . $this->db->escape($data['username']) . "', `key` = '" . $this->db->escape($data['key']) . "', `status` = '" . (int)$data['status'] . "', `date_modified` = NOW() WHERE `api_id` = '" . (int)$api_id . "'");
@@ -69,6 +85,8 @@ class ModelUserApi extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('user/api');
+	 *
 	 * $this->model_user_spi->deleteApi($api_id);
 	 */
 	public function deleteApi(int $api_id): void {
@@ -83,6 +101,8 @@ class ModelUserApi extends Model {
 	 * @return array<string, mixed> api record that has api ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('user/api');
 	 *
 	 * $api_info = $this->model_user_api->getApi($api_id);
 	 */
@@ -100,6 +120,8 @@ class ModelUserApi extends Model {
 	 * @return array<int, array<string, mixed>> api records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('user/api');
 	 *
 	 * $results = $this->model_user_api->getApis();
 	 */

@@ -2,7 +2,7 @@
 /**
  * Class Store
  *
- * Can be called from $this->load->model('setting/store');
+ * Can be called using $this->load->model('setting/store');
  *
  * @package Admin\Model\Setting
  */
@@ -16,7 +16,15 @@ class ModelSettingStore extends Model {
 	 *
 	 * @example
 	 *
-	 * $store_id = $this->model_setting_store->addStore($data);
+	 * $store_data = [
+	 *     'name' => 'Store Name',
+	 *	   'url'  => '',
+	 *     'ssl'  => ''
+	 * ];
+	 *
+	 * $this->load->model('setting/store');
+	 *
+	 * $store_id = $this->model_setting_store->addStore($store_data);
 	 */
 	public function addStore(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "store` SET `name` = '" . $this->db->escape($data['config_name']) . "', `url` = '" . $this->db->escape($data['config_url']) . "', `ssl` = '" . $this->db->escape($data['config_ssl']) . "'");
@@ -38,12 +46,20 @@ class ModelSettingStore extends Model {
 	/**
 	 * Edit Store
 	 *
-	 * @param int                  $store_id
+	 * @param int                  $store_id primary key of the store record
 	 * @param array<string, mixed> $data     array of data
 	 *
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $store_data = [
+	 *     'name' => 'Store Name',
+	 *	   'url'  => '',
+	 *     'ssl'  => ''
+	 * ];
+	 *
+	 * $this->load->model('setting/store');
 	 *
 	 * $this->model_setting_store->editStore($store_id, $data);
 	 */
@@ -56,11 +72,13 @@ class ModelSettingStore extends Model {
 	/**
 	 * Delete Store
 	 *
-	 * @param int $store_id
+	 * @param int $store_id primary key of the store record
 	 *
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/store');
 	 *
 	 * $this->model_setting_store->deleteStore($store_id);
 	 */
@@ -93,11 +111,13 @@ class ModelSettingStore extends Model {
 	/**
 	 * Get Store
 	 *
-	 * @param int $store_id
+	 * @param int $store_id primary key of the store record
 	 *
 	 * @return array<string, mixed> store record that has store ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/store');
 	 *
 	 * $store_info = $this->model_setting_store->getStore($store_id);
 	 */
@@ -115,6 +135,10 @@ class ModelSettingStore extends Model {
 	 * @return array<int, array<string, mixed>> store records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/store');
+	 *
+	 * $this->load->model('setting/store');
 	 *
 	 * $stores = $this->model_setting_store->getStores();
 	 */
@@ -139,6 +163,8 @@ class ModelSettingStore extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('setting/store');
+	 *
 	 * $store_total = $this->model_setting_store->getTotalStores();
 	 */
 	public function getTotalStores(): int {
@@ -150,11 +176,13 @@ class ModelSettingStore extends Model {
 	/**
 	 * Get Total Stores By Layout ID
 	 *
-	 * @param int $layout_id total number of store records that have layout ID
+	 * @param int $layout_id primary key of the layout record
 	 *
-	 * @return int
+	 * @return int total number of store records that have layout ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/store');
 	 *
 	 * $store_total = $this->model_setting_store->getTotalStoresByLayoutId($layout_id);
 	 */
@@ -173,6 +201,8 @@ class ModelSettingStore extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('setting/store');
+	 *
 	 * $store_total = $this->model_setting_store->getTotalStoresByLanguage($language);
 	 */
 	public function getTotalStoresByLanguage(string $language): int {
@@ -189,6 +219,8 @@ class ModelSettingStore extends Model {
 	 * @return int
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/store');
 	 *
 	 * $store_total = $this->model_setting_store->getTotalStoresByCurrency($currency);
 	 */
@@ -207,6 +239,8 @@ class ModelSettingStore extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('setting/store');
+	 *
 	 * $store_total = $this->model_setting_store->getTotalStoresByCountryId($country_id);
 	 */
 	public function getTotalStoresByCountryId(int $country_id): int {
@@ -223,6 +257,8 @@ class ModelSettingStore extends Model {
 	 * @return int total number of store records that have zone ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/store');
 	 *
 	 * $store_total = $this->model_setting_store->getTotalStoresByZoneId($zone_id);
 	 */
@@ -241,6 +277,8 @@ class ModelSettingStore extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('setting/store');
+	 *
 	 * $store_total = $this->model_setting_store->getTotalStoresByCustomerGroupId($customer_group_id);
 	 */
 	public function getTotalStoresByCustomerGroupId(int $customer_group_id): int {
@@ -257,6 +295,8 @@ class ModelSettingStore extends Model {
 	 * @return int total number of store records that have information ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/store');
 	 *
 	 * $store_total = $this->model_setting_store->getTotalStoresByInformationId($information_id);
 	 */
@@ -275,6 +315,8 @@ class ModelSettingStore extends Model {
 	 * @return int total number of store records that have order status ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/store');
 	 *
 	 * $store_total = $this->model_setting_store->getTotalStoresByOrderStatusId($order_status_id);
 	 */

@@ -2,7 +2,7 @@
 /**
  * Class Store
  *
- * Can be called from $this->load->model('setting/store');
+ * Can be called using $this->load->model('setting/store');
  *
  * @package Catalog\Model\Setting
  */
@@ -31,6 +31,8 @@ class ModelSettingStore extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('setting/store');
+	 *
 	 * $stores = $this->model_setting_store->getStores();
 	 */
 	public function getStores(): array {
@@ -55,6 +57,8 @@ class ModelSettingStore extends Model {
 	 * @return array<string, mixed>
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/store');
 	 *
 	 * $store_info = $this->model_setting_store->getStoreByHostname($url);
 	 */

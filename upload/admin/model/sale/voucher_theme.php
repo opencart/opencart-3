@@ -2,7 +2,7 @@
 /**
  * Class Voucher Theme
  *
- * Can be called from $this->load->model('sale/voucher_theme');
+ * Can be called using $this->load->model('sale/voucher_theme');
  *
  * @package Admin\Model\Sale
  */

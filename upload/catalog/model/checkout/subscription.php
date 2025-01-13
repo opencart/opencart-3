@@ -2,7 +2,7 @@
 /**
  * Class Subscription
  *
- * Can be called from $this->load->model('checkout/subscription');
+ * Can be called using $this->load->model('checkout/subscription');
  *
  * @package Catalog\Model\Checkout
  */
@@ -16,7 +16,7 @@ class ModelCheckoutSubscription extends Model {
 	 *
 	 * @example
 	 *
-	 * $data = [
+	 * $subscription_data = [
 	 *   'order_id'             => $order_info['order_id'],
 	 *   'store_id'             => $order_info['store_id'],
 	 *   'customer_id'          => $order_info['customer_id'],
@@ -44,7 +44,7 @@ class ModelCheckoutSubscription extends Model {
 	 *
 	 * $this->load->model('checkout/subscription');
 	 *
-	 * $subscription_id = $this->model_checkout_subscription->addSubscription($data);
+	 * $subscription_id = $this->model_checkout_subscription->addSubscription($subscription_data);
 	 */
 	public function addSubscription(array $data): int {
 		if ($data['trial_status'] && $data['trial_duration']) {
@@ -116,6 +116,34 @@ class ModelCheckoutSubscription extends Model {
 	 *
 	 * @example
 	 *
+	 * $subscription_data = [
+	 *   'order_id'             => $order_info['order_id'],
+	 *   'store_id'             => $order_info['store_id'],
+	 *   'customer_id'          => $order_info['customer_id'],
+	 *   'payment_address_id'   => $order_info['payment_address_id'],
+	 *   'payment_method'       => $order_info['payment_method'],
+	 *   'shipping_address_id'  => $order_info['shipping_address_id'],
+	 *   'shipping_method'      => $order_info['shipping_method'],
+	 *   'subscription_plan_id' => $order_subscription_info['subscription_plan_id'],
+	 *   'trial_price'          => $order_subscription_info['trial_price'],
+	 *   'trial_frequency'      => $order_subscription_info['trial_frequency'],
+	 *   'trial_cycle'          => $order_subscription_info['trial_cycle'],
+	 *   'trial_duration'       => $order_subscription_info['trial_duration'],
+	 *   'trial_status'         => $order_subscription_info['trial_status'],
+	 *   'price'                => $order_subscription_info['price'],
+	 *   'frequency'            => $order_subscription_info['frequency'],
+	 *   'cycle'                => $order_subscription_info['cycle'],
+	 *   'duration'             => $order_subscription_info['duration'],
+	 *   'comment'              => $order_info['comment'],
+	 *   'affiliate_id'         => $order_info['affiliate_id'],
+	 *   'marketing_id'         => $order_info['marketing_id'],
+	 *   'tracking'             => $order_info['tracking'],
+	 *   'language_id'          => $order_info['language_id'],
+	 *   'currency_id'          => $order_info['currency_id']
+	 * ];
+	 *
+	 * $this->load->model('checkout/subscription');
+	 *
 	 * $this->model_checkout_subscription->editSubscription($subscription_id, $data);
 	 */
 	public function editSubscription(int $subscription_id, array $data): void {
@@ -185,6 +213,8 @@ class ModelCheckoutSubscription extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('checkout/subscription');
+	 *
 	 * $this->model_checkout_subscription->deleteSubscriptionByOrderId($order_id);
 	 */
 	public function deleteSubscriptionByOrderId(int $order_id): void {
@@ -200,6 +230,8 @@ class ModelCheckoutSubscription extends Model {
 	 * @return array<string, mixed> subscription record that has order ID, order product ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('checkout/subscription');
 	 *
 	 * $subscription_info = $this->model_checkout_subscription->getSubscriptionByOrderProductId($order_id, $order_product_id);
 	 */
@@ -231,6 +263,8 @@ class ModelCheckoutSubscription extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('checkout/subscription');
+	 *
 	 * $this->model_checkout_subscription->addHistory($subscription_id, $subscription_status_id, $comment, $notify);
 	 */
 	public function addHistory(int $subscription_id, int $subscription_status_id, string $comment = '', bool $notify = false): void {
@@ -249,6 +283,8 @@ class ModelCheckoutSubscription extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('checkout/subscription');
+	 *
 	 * $this->model_checkout_subscription->editSubscriptionStatus($subscription_id, $subscription_status_id);
 	 */
 	public function editSubscriptionStatus(int $subscription_id, bool $subscription_status_id): void {
@@ -264,6 +300,8 @@ class ModelCheckoutSubscription extends Model {
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('checkout/subscription');
 	 *
 	 * $this->model_checkout_subscription->editTrialRemaining($subscription_id, $trial_remaining);
 	 */
@@ -281,6 +319,8 @@ class ModelCheckoutSubscription extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('checkout/subscription');
+	 *
 	 * $this->model_checkout_subscription->editDateNext($subscription_id, $date_next);
 	 */
 	public function editDateNext(int $subscription_id, string $date_next): void {
@@ -295,6 +335,8 @@ class ModelCheckoutSubscription extends Model {
 	 * @return array<int, array<string, mixed>> subscription records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('checkout/subscription');
 	 *
 	 * $subscriptions = $this->model_checkout_subscription->getSubscriptions();
 	 */

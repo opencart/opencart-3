@@ -2,7 +2,7 @@
 /**
  * Class Activity
  *
- * Can be called from $this->load->model('account/activity');
+ * Can be called using $this->load->model('account/activity');
  *
  * @package Catalog\Model\Account
  */
@@ -17,6 +17,14 @@ class ModelAccountActivity extends Model {
 	 *
 	 * @example
 	 *
+	 * $activity_data = [
+	 *     'key'  => '',
+	 *     'data' => [],
+	 *     'ip'   => ''
+	 * ];
+	 *
+	 * $this->load->model('account/activity');
+	 *
 	 * $this->model_account_activity->addActivity($key, $data);
 	 */
 	public function addActivity(string $key, array $data): void {
@@ -26,6 +34,6 @@ class ModelAccountActivity extends Model {
 			$customer_id = 0;
 		}
 
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "customer_activity` SET `customer_id` = '" . (int)$customer_id . "', `key` = '" . $this->db->escape($key) . "', `data` = '" . $this->db->escape(json_encode($data)) . "', `ip` = '" . oc_get_ip() . "', `date_added` = NOW()");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "customer_activity` SET `customer_id` = '" . (int)$customer_id . "', `key` = '" . $this->db->escape($key) . "', `data` = '" . $this->db->escape(json_encode($data)) . "', `ip` = '" . $this->db->escape(oc_get_ip()) . "', `date_added` = NOW()");
 	}
 }

@@ -1,5 +1,10 @@
 <?php
 namespace Cart;
+/**
+ * Class Weight
+ *
+ * @package System\Library\User
+ */
 class Weight {
 	/**
 	 * @var object

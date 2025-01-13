@@ -2,7 +2,7 @@
 /**
  * Class Returns Reason
  *
- * Can be called from $this->load->model('localisation/return_reason');
+ * Can be called using $this->load->model('localisation/return_reason');
  *
  * @package Admin\Model\Localisation
  */
@@ -16,7 +16,13 @@ class ModelLocalisationReturnsReason extends Model {
 	 *
 	 * @example
 	 *
-	 * $return_reason_id = $this->model_localisation_return_reason->addReturnReason($data);
+	 * $return_reason_data['return_reason'][1] = [
+	 *     'name' => 'Return Reason Name'
+	 * ];
+	 *
+	 * $this->>load->model('localisation/return_reason');
+	 *
+	 * $return_reason_id = $this->model_localisation_return_reason->addReturnReason($return_reason_data);
 	 */
 	public function addReturnReason(array $data): ?int {
 		$return_reason_id = 0;
@@ -46,7 +52,13 @@ class ModelLocalisationReturnsReason extends Model {
 	 *
 	 * @example
 	 *
-	 * $this->model_localisation_return_reason->editReturnReason($return_reason_id, $data);
+	 * $return_reason_data['return_reason'][1] = [
+	 *     'name' => 'Return Reason Name'
+	 * ];
+	 *
+	 * $this->load->model('localisation/return_reason');
+	 *
+	 * $this->model_localisation_return_reason->editReturnReason($return_reason_id, $return_reason_data);
 	 */
 	public function editReturnReason(int $return_reason_id, array $data): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "return_reason` WHERE `return_reason_id` = '" . (int)$return_reason_id . "'");
@@ -67,6 +79,8 @@ class ModelLocalisationReturnsReason extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('localisation/return_reason');
+	 *
 	 * $this->model_localisation_return_reason->deleteReturnReason($return_reason_id);
 	 */
 	public function deleteReturnReason(int $return_reason_id): void {
@@ -83,6 +97,8 @@ class ModelLocalisationReturnsReason extends Model {
 	 * @return array<string, mixed> return reason record that has return reason ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('localisation/return_reason');
 	 *
 	 * $return_reason_info = $this->model_localisation_return_reason->getReturnReason($return_reason_id);
 	 */
@@ -101,7 +117,16 @@ class ModelLocalisationReturnsReason extends Model {
 	 *
 	 * @example
 	 *
-	 * $results = $this->model_localisation_return_reason->getReturnReasons();
+	 * $filter_data = [
+	 *     'sort'  => 'name',
+	 *     'order' => 'DESC',
+	 *     'start' => 0,
+	 *     'limit' => 10
+	 * ];
+	 *
+	 * $this->load->model('localisation/return_reason');
+	 *
+	 * $results = $this->model_localisation_return_reason->getReturnReasons($filter_data);
 	 */
 	public function getReturnReasons(array $data = []): array {
 		if ($data) {
@@ -154,6 +179,8 @@ class ModelLocalisationReturnsReason extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('localisation/return_reason');
+	 *
 	 * $return_reason = $this->model_localisation_return_reason->getDescriptions($return_reason_id);
 	 */
 	public function getDescriptions(int $return_reason_id): array {
@@ -174,6 +201,8 @@ class ModelLocalisationReturnsReason extends Model {
 	 * @return int total number of return reason records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('localisation/return_reason');
 	 *
 	 * $return_reason_total = $this->model_localisation_return_reason->getTotalReturnReasons();
 	 */

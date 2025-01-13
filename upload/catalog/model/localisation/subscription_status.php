@@ -2,7 +2,7 @@
 /**
  * Class Subscription Status
  *
- * Can be called from $this->load->model('localisation/subscription_status');
+ * Can be called using $this->load->model('localisation/subscription_status');
  *
  * @package Catalog\Model\Localisation
  */
@@ -15,6 +15,8 @@ class ModelLocalisationSubscriptionStatus extends Model {
 	 * @return array<string, mixed> subscription status that has subscription status ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('localisation/subscription_status');
 	 *
 	 * $subscription_status_info = $this->model_localisation_subscription_status->getSubscriptionStatus($subscription_status_id);
 	 */
@@ -30,6 +32,8 @@ class ModelLocalisationSubscriptionStatus extends Model {
 	 * @return array<int, array<string, mixed>> subscription status records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('localisation/subscription_status');
 	 *
 	 * $subscription_statuses = $this->model_localisation_subscription_status->getSubscriptionStatuses();
 	 */

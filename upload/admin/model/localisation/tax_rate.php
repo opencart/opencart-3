@@ -2,7 +2,7 @@
 /**
  * Class Tax Rate
  *
- * Can be called from $this->load->model('localisation/tax_rate');
+ * Can be called using $this->load->model('localisation/tax_rate');
  *
  * @package Admin\Model\Localisation
  */
@@ -16,7 +16,16 @@ class ModelLocalisationTaxRate extends Model {
 	 *
 	 * @example
 	 *
-	 * $tax_rate_id = $this->model_localisation_tax_rate->addTaxRate($data);
+	 * $tax_rate_data = [
+	 *     'name'        => 'Tax Rate Name',
+	 *     'rate'        => 'Tax Rate',
+	 *     'type'        => 'F',
+	 *     'geo_zone_id' => 1
+	 * ];
+	 *
+	 * $this->load->model('localisation/tax_rate');
+	 *
+	 * $tax_rate_id = $this->model_localisation_tax_rate->addTaxRate($tax_rate_data);
 	 */
 	public function addTaxRate(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "tax_rate` SET `name` = '" . $this->db->escape($data['name']) . "', `rate` = '" . (float)$data['rate'] . "', `type` = '" . $this->db->escape($data['type']) . "', `geo_zone_id` = '" . (int)$data['geo_zone_id'] . "', `date_added` = NOW(), `date_modified` = NOW()");
@@ -42,7 +51,16 @@ class ModelLocalisationTaxRate extends Model {
 	 *
 	 * @example
 	 *
-	 * $this->model_localisation_tax_rate->editTaxRate($tax_rate_id, $data);
+	 * $tax_rate_data = [
+	 *     'name'        => 'Tax Rate Name',
+	 *     'rate'        => 'Tax Rate',
+	 *     'type'        => 'F',
+	 *     'geo_zone_id' => 1
+	 * ];
+	 *
+	 * $this->load->model('localisation/tax_rate');
+	 *
+	 * $this->model_localisation_tax_rate->editTaxRate($tax_rate_id, $tax_rate_data);
 	 */
 	public function editTaxRate(int $tax_rate_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "tax_rate` SET `name` = '" . $this->db->escape($data['name']) . "', `rate` = '" . (float)$data['rate'] . "', `type` = '" . $this->db->escape($data['type']) . "', `geo_zone_id` = '" . (int)$data['geo_zone_id'] . "', `date_modified` = NOW() WHERE `tax_rate_id` = '" . (int)$tax_rate_id . "'");
@@ -65,6 +83,8 @@ class ModelLocalisationTaxRate extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('localisation/tax_rate');
+	 *
 	 * $this->model_localisation_tax_rate->deleteTaxRate($tax_rate_id);
 	 */
 	public function deleteTaxRate(int $tax_rate_id): void {
@@ -80,6 +100,8 @@ class ModelLocalisationTaxRate extends Model {
 	 * @return array<string, mixed> tax rate record that has tax rate ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('localisation/tax_rate');
 	 *
 	 * $tax_rate_info = $this->model_localisation_tax_rate->getTaxRate($tax_rate_id);
 	 */
@@ -98,7 +120,16 @@ class ModelLocalisationTaxRate extends Model {
 	 *
 	 * @example
 	 *
-	 * $results = $this->model_localisation_tax_rate->getTaxRates();
+	 * $filter_data = [
+	 *     'sort'  => 'tr.name',
+	 *     'order' => 'DESC',
+	 *     'start' => 0,
+	 *     'limit' => 10
+	 * ];
+	 *
+	 * $this->load->model('localisation/tax_rate');
+	 *
+	 * $results = $this->model_localisation_tax_rate->getTaxRates($filter_data);
 	 */
 	public function getTaxRates(array $data = []): array {
 		$sql = "SELECT `tr`.`tax_rate_id`, `tr`.`name` AS `name`, `tr`.`rate`, `tr`.`type`, `gz`.`name` AS `geo_zone`, `tr`.`date_added`, `tr`.`date_modified` FROM `" . DB_PREFIX . "tax_rate` `tr` LEFT JOIN `" . DB_PREFIX . "geo_zone` `gz` ON (`tr`.`geo_zone_id` = `gz`.`geo_zone_id`)";
@@ -171,6 +202,8 @@ class ModelLocalisationTaxRate extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('localisation/tax_rate');
+	 *
 	 * $tax_rate_total = $this->model_localisation_tax_rate->getTotalTaxRates();
 	 */
 	public function getTotalTaxRates(): int {
@@ -180,13 +213,15 @@ class ModelLocalisationTaxRate extends Model {
 	}
 
 	/**
-	 * Get Total Tax Rates By Geo Zone Id
+	 * Get Total Tax Rates By Geo Zone ID
 	 *
 	 * @param int $geo_zone_id primary key of the geo zone record
 	 *
 	 * @return int total number of tax rate records that have geo zone ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('localisation/tax_rate');
 	 *
 	 * $tax_rate_total = $this->model_localisation_tax_rate->getTotalTaxRatesByGeoZoneId($geo_zone_id);
 	 */

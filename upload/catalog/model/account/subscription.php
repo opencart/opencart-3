@@ -2,7 +2,7 @@
 /**
  * Class Subscription
  *
- * Can be called from $this->load->model('account/subscription');
+ * Can be called using $this->load->model('account/subscription');
  *
  * @package Catalog\Model\Account
  */
@@ -15,6 +15,8 @@ class ModelAccountSubscription extends Model {
 	 * @return array<string, mixed> subscription record that has subscription ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('account/subscription');
 	 *
 	 * $subscription_info = $this->model_account_subscription->getSubscription($subscription_id);
 	 */
@@ -72,6 +74,8 @@ class ModelAccountSubscription extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('account/subscription');
+	 *
 	 * $subscriptions = $this->model_account_subscription->getSubscriptions();
 	 */
 	public function getSubscriptions(int $start = 0, int $limit = 20): array {
@@ -105,6 +109,8 @@ class ModelAccountSubscription extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('account/subscription');
+	 *
 	 * $subscription_total = $this->model_account_subscription->getTotalSubscriptions();
 	 */
 	public function getTotalSubscriptions(): int {
@@ -126,6 +132,8 @@ class ModelAccountSubscription extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('account/subscription');
+	 *
 	 * $subscription_total = $this->model_account_subscription->getTotalSubscriptionByShippingAddressId($address_id);
 	 */
 	public function getTotalSubscriptionByShippingAddressId(int $address_id): int {
@@ -142,6 +150,8 @@ class ModelAccountSubscription extends Model {
 	 * @return int total number of subscription records that have address ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('account/subscription');
 	 *
 	 * $subscription_total = $this->model_account_subscription->getTotalSubscriptionByPaymentAddressId($address_id);
 	 */
@@ -161,6 +171,8 @@ class ModelAccountSubscription extends Model {
 	 * @return array<int, array<string, mixed>> history records that have subscription ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('account/subscription');
 	 *
 	 * $results = $this->model_account_subscription->getHistories($subscription_id);
 	 */
@@ -186,6 +198,8 @@ class ModelAccountSubscription extends Model {
 	 * @return int total number of history records that have subscription ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('account/subscription');
 	 *
 	 * $history_total = $this->model_account_subscription->getTotalHistories($subscription_id);
 	 */

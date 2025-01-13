@@ -2,7 +2,7 @@
 /**
  * Class Geo Zone
  *
- * Can be called from $this->load->model('localisation/geo_zone');
+ * Can be called using $this->load->model('localisation/geo_zone');
  *
  * @package Admin\Model\Localisation
  */
@@ -16,7 +16,14 @@ class ModelLocalisationGeoZone extends Model {
 	 *
 	 * @example
 	 *
-	 * $geo_zone_id = $this->model_localisation_geo_zone->addGeoZone($data);
+	 * $geo_zone_data = [
+	 *     'name'        => 'Geo Zone Name',
+	 *     'description' => 'Geo Zone Description'
+	 * ];
+	 *
+	 * $this->load->model('localisation/geo_zone');
+	 *
+	 * $geo_zone_id = $this->model_localisation_geo_zone->addGeoZone($geo_zone_data);
 	 */
 	public function addGeoZone(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "geo_zone` SET `name` = '" . $this->db->escape($data['name']) . "', `description` = '" . $this->db->escape($data['description']) . "', `date_added` = NOW()");
@@ -46,7 +53,14 @@ class ModelLocalisationGeoZone extends Model {
 	 *
 	 * @example
 	 *
-	 * $this->model_localisation_geo_zone->editGeoZone($geo_zone_id, $data);
+	 * $geo_zone_data = [
+	 *     'name'        => 'Geo Zone Name',
+	 *     'description' => 'Geo Zone Description'
+	 * ];
+	 *
+	 * $this->load->model('localisation/geo_zone');
+	 *
+	 * $this->model_localisation_geo_zone->editGeoZone($geo_zone_id, $geo_zone_data);
 	 */
 	public function editGeoZone(int $geo_zone_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "geo_zone` SET `name` = '" . $this->db->escape($data['name']) . "', `description` = '" . $this->db->escape($data['description']) . "', `date_modified` = NOW() WHERE `geo_zone_id` = '" . (int)$geo_zone_id . "'");
@@ -73,6 +87,8 @@ class ModelLocalisationGeoZone extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('localisation/geo_zone');
+	 *
 	 * $this->model_localisation_geo_zone->deleteGeoZone($geo_zone_id);
 	 */
 	public function deleteGeoZone(int $geo_zone_id): void {
@@ -91,6 +107,8 @@ class ModelLocalisationGeoZone extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('localisation/geo_zone');
+	 *
 	 * $geo_zone_info = $this->model_localisation_geo_zone->getGeoZone($geo_zone_id);
 	 */
 	public function getGeoZone(int $geo_zone_id): array {
@@ -108,7 +126,16 @@ class ModelLocalisationGeoZone extends Model {
 	 *
 	 * @example
 	 *
-	 * $results = $this->model_localisation_geo_zone->getGeoZones();
+	 * $filter_data = [
+	 *     'sort'  => 'name',
+	 *     'order' => 'DESC',
+	 *     'start' => 0,
+	 *     'limit' => 10
+	 * ];
+	 *
+	 * $this->load->model('localisation/geo_zone');
+	 *
+	 * $results = $this->model_localisation_geo_zone->getGeoZones($filter_data);
 	 */
 	public function getGeoZones(array $data = []): array {
 		if ($data) {
@@ -168,7 +195,16 @@ class ModelLocalisationGeoZone extends Model {
 	 *
 	 * @example
 	 *
-	 * $geo_zone_total = $this->model_localisation_geo_zone->getTotalGeoZones();
+	 * $filter_data = [
+	 *     'sort'  => 'name',
+	 *     'order' => 'DESC',
+	 *     'start' => 0,
+	 *     'limit' => 10
+	 * ];
+	 *
+	 * $this->load->model('localisation/geo_zone');
+	 *
+	 * $geo_zone_total = $this->model_localisation_geo_zone->getTotalGeoZones($filter_data);
 	 */
 	public function getTotalGeoZones(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "geo_zone`");
@@ -198,11 +234,13 @@ class ModelLocalisationGeoZone extends Model {
 	 *
 	 * @param int $geo_zone_id primary key of the geo zone record
 	 *
-	 * @return int total number of geo zone records that have geo zone ID
+	 * @return int total number of zone records
 	 *
 	 * @example
 	 *
-	 * $zone_to_geo_zones = $this->model_localisation_geo_zone->getTotalZoneToGeoZoneByGeoZoneId($geo_zone_id);
+	 * $this->load->model('localisation/geo_zone');
+	 *
+	 * $geo_zone_total = $this->model_localisation_geo_zone->getTotalZoneToGeoZoneByGeoZoneId($geo_zone_id);
 	 */
 	public function getTotalZoneToGeoZoneByGeoZoneId(int $geo_zone_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `geo_zone_id` = '" . (int)$geo_zone_id . "'");
@@ -215,9 +253,11 @@ class ModelLocalisationGeoZone extends Model {
 	 *
 	 * @param int $country_id primary key of the country record
 	 *
-	 * @return int total number of geo zone records that have country ID
+	 * @return int total number of zone records that have country ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('localisation/geo_zone');
 	 *
 	 * $geo_zone_total = $this->model_localisation_geo_zone->getTotalZoneToGeoZoneByCountryId($country_id);
 	 */
@@ -232,9 +272,11 @@ class ModelLocalisationGeoZone extends Model {
 	 *
 	 * @param int $zone_id primary key of the zone record
 	 *
-	 * @return int total number of geo zone records that have zone ID
+	 * @return int total number of zone records that have zone ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('localisation/geo_zone');
 	 *
 	 * $geo_zone_total = $this->model_localisation_geo_zone->getTotalZoneToGeoZoneByZoneId($zone_id);
 	 */

@@ -2,7 +2,7 @@
 /**
  * Class Country
  *
- * Can be called from $this->load->model('localisation/country');
+ * Can be called using $this->load->model('localisation/country');
  *
  * @package Catalog\Model\Localisation
  */
@@ -15,6 +15,8 @@ class ModelLocalisationCountry extends Model {
 	 * @return array<string, mixed> country record that has country ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('localisation/country');
 	 *
 	 * $country_info = $this->model_localisation_country->getCountry($country_id);
 	 */
@@ -33,6 +35,8 @@ class ModelLocalisationCountry extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('localisation/country');
+	 *
 	 * $country_info = $this->model_localisation_country->getCountryByIsoCode2($iso_code_2);
 	 */
 	public function getCountryByIsoCode2(string $iso_code_2): array {
@@ -50,6 +54,8 @@ class ModelLocalisationCountry extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('localisation/country');
+	 *
 	 * $country_info = $this->model_localisation_country->getCountryByIsoCode3($iso_code_3);
 	 */
 	public function getCountryByIsoCode3(string $iso_code_3): array {
@@ -64,6 +70,8 @@ class ModelLocalisationCountry extends Model {
 	 * @return array<int, array<string, mixed>> country records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('localisation/country');
 	 *
 	 * $countries = $this->model_localisation_country->getCountries();
 	 */

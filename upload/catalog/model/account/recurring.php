@@ -2,7 +2,7 @@
 /**
  * Class Recurring
  *
- * Can be called from $this->load->model('account/recurring');
+ * Can be called using $this->load->model('account/recurring');
  *
  * @package Catalog\Model\Account
  */

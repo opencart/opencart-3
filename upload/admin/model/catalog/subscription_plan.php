@@ -2,7 +2,7 @@
 /**
  * Class Subscription Plan
  *
- * Can be called from $this->load->model('catalog/subscription_plan');
+ * Can be called using $this->load->model('catalog/subscription_plan');
  *
  * @package Admin\Model\Catalog
  */
@@ -16,7 +16,20 @@ class ModelCatalogSubscriptionPlan extends Model {
 	 *
 	 * @example
 	 *
-	 * $subscription_plan_id = $this->model_catalog_subscription_plan->addSubscriptionPlan($data);
+	 * $subscription_data = [
+	 *     'trial_frequency' => 'month',
+	 *     'trial_duration'  => 1,
+	 *     'trial_cycle'     => 5,
+	 *     'trial_status'    => 1,
+	 *     'frequency'       => 1,
+	 *     'cycle'           => 5,
+	 *     'status'          => 0,
+	 *     'sort_order'      => 0
+	 * ];
+	 *
+	 * $this->load->model('catalog/subscription_plan');
+	 *
+	 * $subscription_plan_id = $this->model_catalog_subscription_plan->addSubscriptionPlan($subscription_data);
 	 */
 	public function addSubscriptionPlan(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "subscription_plan` SET `trial_price` = '" . (float)$data['trial_price'] . "', `trial_frequency` = '" . $this->db->escape($data['trial_frequency']) . "', `trial_duration` = '" . (int)$data['trial_duration'] . "', `trial_cycle` = '" . (int)$data['trial_cycle'] . "', `trial_status` = '" . (int)$data['trial_status'] . "', `price` = '" . (float)$data['price'] . "', `frequency` = '" . $this->db->escape($data['frequency']) . "', `duration` = '" . (int)$data['duration'] . "', `cycle` = '" . (int)$data['cycle'] . "', `status` = '" . (bool)($data['status'] ?? 0) . "', `sort_order` = '" . (int)$data['sort_order'] . "'");
@@ -40,7 +53,20 @@ class ModelCatalogSubscriptionPlan extends Model {
 	 *
 	 * @example
 	 *
-	 * $this->model_catalog_subscription_plan->editSubscriptionPlan($subscription_plan_id, $data);
+	 * $subscription_plan_data = [
+	 *     'trial_frequency' => 'month',
+	 *     'trial_duration'  => 1,
+	 *     'trial_cycle'     => 5,
+	 *     'trial_status'    => 1,
+	 *     'frequency'       => 1,
+	 *     'cycle'           => 5,
+	 *     'status'          => 0,
+	 *     'sort_order'      => 0
+	 * ];
+	 *
+	 * $this->load->model('catalog/subscription_plan');
+	 *
+	 * $this->model_catalog_subscription_plan->editSubscriptionPlan($subscription_plan_id, $subscription_plan_data);
 	 */
 	public function editSubscriptionPlan(int $subscription_plan_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "subscription_plan` SET `trial_price` = '" . (float)$data['trial_price'] . "', `trial_frequency` = '" . $this->db->escape($data['trial_frequency']) . "', `trial_duration` = '" . (int)$data['trial_duration'] . "', `trial_cycle` = '" . (int)$data['trial_cycle'] . "', `trial_status` = '" . (int)$data['trial_status'] . "', `price` = '" . (float)$data['price'] . "', `frequency` = '" . $this->db->escape($data['frequency']) . "', `duration` = '" . (int)$data['duration'] . "', `cycle` = '" . (int)$data['cycle'] . "', `status` = '" . (bool)($data['status'] ?? 0) . "', `sort_order` = '" . (int)$data['sort_order'] . "' WHERE `subscription_plan_id` = '" . (int)$subscription_plan_id . "'");
@@ -61,6 +87,8 @@ class ModelCatalogSubscriptionPlan extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('catalog/subscription_plan');
+	 *
 	 * $this->model_catalog_subscription_plan->copySubscriptionPlan($subscription_plan_id);
 	 */
 	public function copySubscriptionPlan(int $subscription_plan_id): void {
@@ -80,6 +108,8 @@ class ModelCatalogSubscriptionPlan extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('catalog/subscription_plan');
+	 *
 	 * $this->model_catalog_subscription_plan->deleteSubscriptionPlan($subscription_plan_id);
 	 */
 	public function deleteSubscriptionPlan(int $subscription_plan_id): void {
@@ -98,6 +128,8 @@ class ModelCatalogSubscriptionPlan extends Model {
 	 * @return array<string, mixed> subscription plan record that has subscription plan ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('catalog/subscription_plan');
 	 *
 	 * $subscription_info = $this->model_catalog_subscription_plan->getSubscriptionPlan($subscription_plan_id);
 	 */
@@ -142,7 +174,16 @@ class ModelCatalogSubscriptionPlan extends Model {
 	 *
 	 * @example
 	 *
-	 * $subscription_plans = $this->model_catalog_subscription_plan->getSubscriptionPlans();
+	 * $filter_data = [
+	 *     'sort'  => 'rd.name',
+	 *     'order' => 'DESC',
+	 *     'start' => 0,
+	 *     'limit' => 10
+	 * ];
+	 *
+	 * $this->load->model('catalog/subscription_plan');
+	 *
+	 * $subscription_plan = $this->model_catalog_subscription_plan->getSubscriptionPlans($filter_data);
 	 */
 	public function getSubscriptionPlans(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "subscription_plan` `sp` LEFT JOIN `" . DB_PREFIX . "subscription_plan_description` `spd` ON (`sp`.`subscription_plan_id` = `spd`.`subscription_plan_id`) WHERE `spd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
@@ -191,6 +232,8 @@ class ModelCatalogSubscriptionPlan extends Model {
 	 * @return int total number of subscription plan records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('catalog/subscription_plan');
 	 *
 	 * $subscription_plan_total = $this->model_catalog_subscription_plan->getTotalSubscriptionPlans();
 	 */

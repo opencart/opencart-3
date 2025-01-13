@@ -3,7 +3,7 @@ namespace Template;
 /**
  * Class Twig
  *
- * @package
+ * @package System\Library\Template
  */
 class Twig {
 	/**

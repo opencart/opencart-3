@@ -2,7 +2,7 @@
 /**
  * Class Module
  *
- * Can be called from $this->load->model('setting/module');
+ * Can be called using $this->load->model('setting/module');
  *
  * @package Admin\Model\Setting
  */
@@ -16,6 +16,14 @@ class ModelSettingModule extends Model {
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $module_data = [
+	 *     'name'    => 'Module Name',
+	 *     'code'    => 'Module Code',
+	 *     'setting' => []
+	 * ];
+	 *
+	 * $this->load->model('setting/module');
 	 *
 	 * $this->model_setting_module->addModule($code, $data);
 	 */
@@ -33,6 +41,14 @@ class ModelSettingModule extends Model {
 	 *
 	 * @example
 	 *
+	 * $module_data = [
+	 *     'name'    => 'Module Name',
+	 *     'code'    => 'Module Code',
+	 *     'setting' => []
+	 * ];
+	 *
+	 * $this->load->model('setting/module');
+	 *
 	 * $this->model_setting_module->editModule($module_id, $data);
 	 */
 	public function editModule(int $module_id, array $data): void {
@@ -47,6 +63,8 @@ class ModelSettingModule extends Model {
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/module');
 	 *
 	 * $this->model_setting_module->deleteModule($module_id);
 	 */
@@ -63,6 +81,8 @@ class ModelSettingModule extends Model {
 	 * @return array<mixed> module record that has the module ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/module');
 	 *
 	 * $module_info = $this->model_setting_module->getModule($module_id);
 	 */
@@ -83,6 +103,8 @@ class ModelSettingModule extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('setting/module');
+	 *
 	 * $results = $this->model_setting_module->getModules();
 	 */
 	public function getModules(): array {
@@ -100,6 +122,8 @@ class ModelSettingModule extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('setting/module');
+	 *
 	 * $results = $this->model_setting_module->getModulesByCode($code);
 	 */
 	public function getModulesByCode(string $code): array {
@@ -116,6 +140,8 @@ class ModelSettingModule extends Model {
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/module');
 	 *
 	 * $this->model_setting_module->deleteModulesByCode($code);
 	 */

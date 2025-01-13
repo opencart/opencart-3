@@ -2,7 +2,7 @@
 /**
  * Class Country
  *
- * Can be called from $this->load->model('localisation/country');
+ * Can be called using $this->load->model('localisation/country');
  *
  * @package Admin\Model\Localisation
  */
@@ -16,7 +16,18 @@ class ModelLocalisationCountry extends Model {
 	 *
 	 * @example
 	 *
-	 * $country_id = $this->model_localisation_country->addCountry($data);
+	 * $country_data = [
+	 *     'name'              => 'Country Name',
+	 *     'iso_code_2'        => 'Country ISO Code 2',
+	 *     'iso_code_3'        => 'Country ISO Code 3',
+	 *     'address_format_id' => 1,
+	 *     'postcode_required' => 0,
+	 *     'status'            => 0
+	 * ];
+	 *
+	 * $this->load->model('localisation/country');
+	 *
+	 * $country_id = $this->model_localisation_country->addCountry($country_data);
 	 */
 	public function addCountry(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "country` SET `name` = '" . $this->db->escape($data['name']) . "', `iso_code_2` = '" . $this->db->escape($data['iso_code_2']) . "', `iso_code_3` = '" . $this->db->escape($data['iso_code_3']) . "', `address_format_id` = '" . (int)$data['address_format_id'] . "', `postcode_required` = '" . (int)$data['postcode_required'] . "', `status` = '" . (bool)$data['status'] . "'");
@@ -36,7 +47,18 @@ class ModelLocalisationCountry extends Model {
 	 *
 	 * @example
 	 *
-	 * $this->model_localisation_country->editCountry($country_id, $data);
+	 * $country_data = [
+	 *     'name'              => 'Country Name',
+	 *     'iso_code_2'        => 'Country ISO Code 2',
+	 *     'iso_code_3'        => 'Country ISO Code 3',
+	 *     'address_format_id' => 1,
+	 *     'postcode_required' => 0,
+	 *     'status'            => 1
+	 * ];
+	 *
+	 * $this->load->model('localisation/country');
+	 *
+	 * $this->model_localisation_country->editCountry($country_id, $country_data);
 	 */
 	public function editCountry(int $country_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "country` SET `name` = '" . $this->db->escape($data['name']) . "', `iso_code_2` = '" . $this->db->escape($data['iso_code_2']) . "', `iso_code_3` = '" . $this->db->escape($data['iso_code_3']) . "', `address_format_id` = '" . (int)$data['address_format_id'] . "', `postcode_required` = '" . (int)$data['postcode_required'] . "', `status` = '" . (bool)$data['status'] . "' WHERE `country_id` = '" . (int)$country_id . "'");
@@ -52,6 +74,8 @@ class ModelLocalisationCountry extends Model {
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('localisation/country');
 	 *
 	 * $this->model_localisation_country->deleteCountry($country_id);
 	 */
@@ -70,6 +94,8 @@ class ModelLocalisationCountry extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('localisation/country');
+	 *
 	 * $country_info = $this->model_localisation_country->getCountry($country_id);
 	 */
 	public function getCountry(int $country_id): array {
@@ -86,6 +112,8 @@ class ModelLocalisationCountry extends Model {
 	 * @return array<string, mixed>
 	 *
 	 * @example
+	 *
+	 * $this->load->model('localisation/country');
 	 *
 	 * $country_info = $this->model_localisation_country->getCountryByIsoCode2($iso_code_2);
 	 */
@@ -104,6 +132,8 @@ class ModelLocalisationCountry extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('localisation/country');
+	 *
 	 * $country_info = $this->model_localisation_country->getCountryByIsoCode3($iso_code_3);
 	 */
 	public function getCountryByIsoCode3(string $iso_code_3): array {
@@ -121,7 +151,19 @@ class ModelLocalisationCountry extends Model {
 	 *
 	 * @example
 	 *
-	 * $countries = $this->model_localisation_country->getCountries();
+	 * $filter_data = [
+	 *     'filter_name'       => 'Country Name',
+	 *     'filter_iso_code_2' => 'Country ISO Code 2',
+	 *     'filter_iso_code_3' => 'Country ISO Code 3',
+	 *     'sort'              => 'name',
+	 *     'order'             => 'DESC',
+	 *     'start'             => 0,
+	 *     'limit'             => 10
+	 * ];
+	 *
+	 * $this->load->model('localisation/country');
+	 *
+	 * $countries = $this->model_localisation_country->getCountries($filter_data);
 	 */
 	public function getCountries(array $data = []): array {
 		if ($data) {
@@ -202,7 +244,19 @@ class ModelLocalisationCountry extends Model {
 	 *
 	 * @example
 	 *
-	 * $country_total = $this->model_localisation_country->getTotalCountries();
+	 * $filter_data = [
+	 *     'filter_name'       => 'Country Name',
+	 *     'filter_iso_code_2' => 'Country ISO Code 2',
+	 *     'filter_iso_code_3' => 'Country ISO Code 3',
+	 *     'sort'              => 'name',
+	 *     'order'             => 'DESC',
+	 *     'start'             => 0,
+	 *     'limit'             => 10
+	 * ];
+	 *
+	 * $this->load->model('localisation/country');
+	 *
+	 * $country_total = $this->model_localisation_country->getTotalCountries($filter_data);
 	 */
 	public function getTotalCountries(array $data = []): int {
 		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "country`";
@@ -238,6 +292,8 @@ class ModelLocalisationCountry extends Model {
 	 * @return int total number of country records that have address format ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('localisation/country');
 	 *
 	 * $country_total = $this->model_localisation_country->getTotalCountriesByAddressFormatId($address_format_id);
 	 */

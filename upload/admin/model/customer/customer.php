@@ -2,7 +2,7 @@
 /**
  * Class Customer
  *
- * Can be called from $this->load->model('customer/customer');
+ * Can be called using $this->load->model('customer/customer');
  *
  * @package Admin\Model\Customer
  */
@@ -16,7 +16,25 @@ class ModelCustomerCustomer extends Model {
 	 *
 	 * @example
 	 *
-	 * $customer_id = $this->model_customer_customer->addCustomer($data);
+	 * $customer_data = [
+	 *     'store_id'          => 1,
+	 *     'language_id'       => 1,
+	 *     'customer_group_id' => 1,
+	 *     'firstname'         => 'John',
+	 *     'lastname'          => 'Doe',
+	 *     'email'             => 'demo@opencart.com',
+	 *     'telephone'         => '1234567890',
+	 *     'custom_field'      => [],
+	 *     'newsletter'        => 0,
+	 *     'password'          => '',
+	 *     'status'            => 0,
+	 *     'safe'              => 0,
+	 *     'commenter'         => 0
+	 * ];
+	 *
+	 * $this->load->model('customer/customer');
+	 *
+	 * $customer_id = $this->model_customer_customer->addCustomer($customer_data);
 	 */
 	public function addCustomer(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "customer` SET `customer_group_id` = '" . (int)$data['customer_group_id'] . "', `firstname` = '" . $this->db->escape($data['firstname']) . "', `lastname` = '" . $this->db->escape($data['lastname']) . "', `email` = '" . $this->db->escape($data['email']) . "', `telephone` = '" . $this->db->escape($data['telephone']) . "', `custom_field` = '" . $this->db->escape(isset($data['custom_field']) ? json_encode($data['custom_field']) : '') . "', `newsletter` = '" . (int)$data['newsletter'] . "', `password` = '" . $this->db->escape(password_hash(html_entity_decode($data['password'], ENT_QUOTES, 'UTF-8'), PASSWORD_DEFAULT)) . "', `status` = '" . (int)$data['status'] . "', `safe` = '" . (int)$data['safe'] . "', `date_added` = NOW()");
@@ -48,7 +66,25 @@ class ModelCustomerCustomer extends Model {
 	 *
 	 * @example
 	 *
-	 * $this->model_customer_customer->editCustomer($customer_id, $data);
+	 * $customer_data = [
+	 *     'store_id'          => 1,
+	 *     'language_id'       => 1,
+	 *     'customer_group_id' => 1,
+	 *     'firstname'         => 'John',
+	 *     'lastname'          => 'Doe',
+	 *     'email'             => 'demo@opencart.com',
+	 *     'telephone'         => '1234567890',
+	 *     'custom_field'      => [],
+	 *     'newsletter'        => 0,
+	 *     'password'          => '',
+	 *     'status'            => 1,
+	 *     'safe'              => 0,
+	 *     'commenter'         => 0
+	 * ];
+	 *
+	 * $this->load->model('customer/customer');
+	 *
+	 * $this->model_customer_customer->editCustomer($customer_id, $customer_data);
 	 */
 	public function editCustomer(int $customer_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "customer` SET `customer_group_id` = '" . (int)$data['customer_group_id'] . "', `firstname` = '" . $this->db->escape($data['firstname']) . "', `lastname` = '" . $this->db->escape($data['lastname']) . "', `email` = '" . $this->db->escape($data['email']) . "', `telephone` = '" . $this->db->escape($data['telephone']) . "', `custom_field` = '" . $this->db->escape(isset($data['custom_field']) ? json_encode($data['custom_field']) : '') . "', `newsletter` = '" . (int)$data['newsletter'] . "', `status` = '" . (int)$data['status'] . "', `safe` = '" . (int)$data['safe'] . "' WHERE `customer_id` = '" . (int)$customer_id . "'");
@@ -82,6 +118,8 @@ class ModelCustomerCustomer extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('customer/customer');
+	 *
 	 * $this->model_customer_customer->editToken($customer_id, $token);
 	 */
 	public function editToken(int $customer_id, string $token): void {
@@ -96,6 +134,8 @@ class ModelCustomerCustomer extends Model {
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('customer/customer');
 	 *
 	 * $this->model_customer_customer->deleteCustomer($customer_id);
 	 */
@@ -121,6 +161,8 @@ class ModelCustomerCustomer extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('customer/customer');
+	 *
 	 * $customer_info = $this->model_customer_customer->getCustomer($customer_id);
 	 */
 	public function getCustomer(int $customer_id): array {
@@ -141,6 +183,8 @@ class ModelCustomerCustomer extends Model {
 	 * @return array<string, mixed>
 	 *
 	 * @example
+	 *
+	 * $this->load->model('customer/customer');
 	 *
 	 * $customer_info = $this->model_customer_customer->getCustomerByEmail($email);
 	 */
@@ -163,7 +207,23 @@ class ModelCustomerCustomer extends Model {
 	 *
 	 * @example
 	 *
-	 * $results = $this->model_customer_customer->getCustomers();
+	 * $filter_data = [
+	 *     'filter_name'              => 'John Doe',
+	 *     'filter_email'             => 'demo@opencart.com',
+	 *     'filter_customer_group_id' => 1,
+	 *     'filter_status'            => 1,
+	 *     'filter_ip'                => '',
+	 *     'filter_date_from'         => '2021-01-01',
+	 *     'filter_date_to'           => '2021-01-31',
+	 *     'sort'                     => 'name',
+	 *     'order'                    => 'DESC',
+	 *     'start'                    => 0,
+	 *     'limit'                    => 10
+	 * ];
+	 *
+	 * $this->load->model('customer/customer');
+	 *
+	 * $results = $this->model_customer_customer->getCustomers($filter_data);
 	 */
 	public function getCustomers(array $data = []): array {
 		$sql = "SELECT *, CONCAT(`c`.`firstname`, ' ', `c`.`lastname`) AS `name`, `cgd`.`name` AS `customer_group` FROM `" . DB_PREFIX . "customer` `c` LEFT JOIN `" . DB_PREFIX . "customer_group_description` `cgd` ON (`c`.`customer_group_id` = `cgd`.`customer_group_id`)";
@@ -245,6 +305,8 @@ class ModelCustomerCustomer extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('customer/customer');
+	 *
 	 * $address_info = $this->model_customer_customer->getAddress($address_id);
 	 */
 	public function getAddress(int $address_id): array {
@@ -310,6 +372,8 @@ class ModelCustomerCustomer extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('customer/customer');
+	 *
 	 * $results = $this->model_customer_customer->getAddresses($customer_id);
 	 */
 	public function getAddresses(int $customer_id): array {
@@ -337,6 +401,8 @@ class ModelCustomerCustomer extends Model {
 	 * @return int total number of address records that have customer ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('customer/customer');
 	 *
 	 * $address_total = $this->model_customer_customer->getTotalAddresses($customer_id);
 	 */
@@ -512,6 +578,8 @@ class ModelCustomerCustomer extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('customer/customer');
+	 *
 	 * $address_total = $this->model_customer_customer->getTotalAddressesByCountryId($country_id);
 	 */
 	public function getTotalAddressesByCountryId(int $country_id): int {
@@ -529,6 +597,8 @@ class ModelCustomerCustomer extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('customer/customer');
+	 *
 	 * $address_total = $this->model_customer_customer->getTotalAddressesByZoneId($zone_id);
 	 */
 	public function getTotalAddressesByZoneId(int $zone_id): int {
@@ -538,15 +608,17 @@ class ModelCustomerCustomer extends Model {
 	}
 
 	/**
-	 * Get Total Customers By Customer Group Id
+	 * Get Total Customers By Customer Group ID
 	 *
 	 * @param int $customer_group_id primary key of the customer group record
 	 *
-	 * @return int total number of customer group records that have customer group ID
+	 * @return int total number of customer records that have customer group ID
 	 *
 	 * @example
 	 *
-	 * $customer_group_total = $this->model_customer_customer->getTotalCustomersByCustomerGroupId($customer_group_id);
+	 * $this->load->model('customer/customer');
+	 *
+	 * $customer_total = $this->model_customer_customer->getTotalCustomersByCustomerGroupId($customer_group_id);
 	 */
 	public function getTotalCustomersByCustomerGroupId(int $customer_group_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer` WHERE `customer_group_id` = '" . (int)$customer_group_id . "'");
@@ -564,6 +636,8 @@ class ModelCustomerCustomer extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('customer/customer');
+	 *
 	 * $this->model_customer_customer->addHistory($customer_id, $comment);
 	 */
 	public function addHistory(int $customer_id, string $comment): void {
@@ -580,6 +654,8 @@ class ModelCustomerCustomer extends Model {
 	 * @return array<int, array<string, mixed>> history records that have customer ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('customer/customer');
 	 *
 	 * $results = $this->model_customer_customer->getHistories($customer_id, $start, $limit);
 	 */
@@ -606,6 +682,8 @@ class ModelCustomerCustomer extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('customer/customer');
+	 *
 	 * $history_total = $this->model_customer_customer->getTotalHistories($customer_id);
 	 */
 	public function getTotalHistories(int $customer_id): int {
@@ -626,6 +704,8 @@ class ModelCustomerCustomer extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('customer/customer');
+	 *
 	 * $this->model_customer_customer->addTransaction($customer_id, (string)$description, (float)$amount);
 	 */
 	public function addTransaction(int $customer_id, string $description = '', float $amount = 0, int $order_id = 0): void {
@@ -633,13 +713,15 @@ class ModelCustomerCustomer extends Model {
 	}
 
 	/**
-	 * Delete Transaction By Order Id
+	 * Delete Transactions By Order ID
 	 *
 	 * @param int $order_id primary key of the order record
 	 *
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('customer/customer');
 	 *
 	 * $this->model_customer_customer->deleteTransactionByOrderId($order_id);
 	 */
@@ -657,6 +739,8 @@ class ModelCustomerCustomer extends Model {
 	 * @return array<int, array<string, mixed>> transaction records that have customer ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('customer/customer');
 	 *
 	 * $results = $this->model_customer_customer->getTransactions($customer_id, $start, $limit);
 	 */
@@ -683,6 +767,8 @@ class ModelCustomerCustomer extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('customer/customer');
+	 *
 	 * $transaction_total = $this->model_customer_customer->getTotalTransactions($customer_id);
 	 */
 	public function getTotalTransactions(int $customer_id): int {
@@ -700,6 +786,8 @@ class ModelCustomerCustomer extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('customer/customer');
+	 *
 	 * $transaction_total = $this->model_customer_customer->getTransactionTotal($customer_id);
 	 */
 	public function getTransactionTotal(int $customer_id): float {
@@ -709,13 +797,15 @@ class ModelCustomerCustomer extends Model {
 	}
 
 	/**
-	 * Get Total Transactions By Order Id
+	 * Get Total Transactions By Order ID
 	 *
 	 * @param int $order_id primary key of the order record
 	 *
 	 * @return int total number of transaction records that have order ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('customer/customer');
 	 *
 	 * $transaction_total = $this->model_customer_customer->getTotalTransactionsByOrderId($order_id);
 	 */
@@ -736,6 +826,8 @@ class ModelCustomerCustomer extends Model {
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('customer/customer');
 	 *
 	 * $this->model_customer_customer->addReward($customer_id, (string)$description, (int)$points, (int)$order_id);
 	 */
@@ -769,6 +861,8 @@ class ModelCustomerCustomer extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('customer/customer');
+	 *
 	 * $results = $this->model_customer_customer->getRewards($customer_id, $start, $limit);
 	 */
 	public function getRewards(int $customer_id, int $start = 0, int $limit = 10): array {
@@ -785,6 +879,8 @@ class ModelCustomerCustomer extends Model {
 	 * @return int total number of reward records that have customer ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('customer/customer');
 	 *
 	 * $reward_total = $this->model_customer_customer->getTotalRewards($customer_id);
 	 */
@@ -803,6 +899,8 @@ class ModelCustomerCustomer extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('customer/customer');
+	 *
 	 * $reward_total = $this->model_customer_customer->getRewardTotal($customer_id);
 	 */
 	public function getRewardTotal(int $customer_id): int {
@@ -816,15 +914,17 @@ class ModelCustomerCustomer extends Model {
 	}
 
 	/**
-	 * Get Total Customer Rewards By Order Id
+	 * Get Total Rewards By Order ID
 	 *
 	 * @param int $order_id primary key of the order record
 	 *
-	 * @return int total number of customer reward records that have order ID
+	 * @return int total number of reward records that have order ID
 	 *
 	 * @example
 	 *
-	 * $reward_total = $this->model_customer_customer->getTotalCustomerRewardsByOrderId($order_id);
+	 * $this->load->model('customer/customer');
+	 *
+	 * $reward_total = $this->model_customer_customer->getTotalRewardsByOrderId($order_id);
 	 */
 	public function getTotalCustomerRewardsByOrderId(int $order_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer_reward` WHERE `order_id` = '" . (int)$order_id . "' AND `points` > '0'");
@@ -842,6 +942,8 @@ class ModelCustomerCustomer extends Model {
 	 * @return array<int, array<string, mixed>> ip records that have customer ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('customer/customer');
 	 *
 	 * $results = $this->model_customer_customer->getIps($customer_id, $start, $limit);
 	 */
@@ -868,6 +970,8 @@ class ModelCustomerCustomer extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('customer/customer');
+	 *
 	 * $ip_total = $this->model_customer_customer->getTotalIps($customer_id);
 	 */
 	public function getTotalIps(int $customer_id): int {
@@ -884,6 +988,8 @@ class ModelCustomerCustomer extends Model {
 	 * @return int
 	 *
 	 * @example
+	 *
+	 * $this->load->model('customer/customer');
 	 *
 	 * $customer_total = $this->model_customer_customer->getTotalCustomersByIp($ip);
 	 */
@@ -902,7 +1008,9 @@ class ModelCustomerCustomer extends Model {
 	 *
 	 * @example
 	 *
-	 * $login_total = $this->model_customer_customer->getTotalLoginAttempts($email);
+	 * $this->load->model('customer/customer');
+	 *
+	 * $login_info = $this->model_customer_customer->getTotalLoginAttempts($email);
 	 */
 	public function getTotalLoginAttempts(string $email): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_login` WHERE LCASE(`email`) = '" . $this->db->escape(oc_strtolower($email)) . "'");
@@ -918,6 +1026,8 @@ class ModelCustomerCustomer extends Model {
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('customer/customer');
 	 *
 	 * $this->model_customer_customer->deleteLoginAttempts($email);
 	 */

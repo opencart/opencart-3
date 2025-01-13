@@ -2,7 +2,7 @@
 /**
  * Class Custom Field
  *
- * Can be called from $this->load->model('customer/custom_field');
+ * Can be called using $this->load->model('customer/custom_field');
  *
  * @package Admin\Model\Customer
  */
@@ -16,7 +16,18 @@ class ModelCustomerCustomField extends Model {
 	 *
 	 * @example
 	 *
-	 * $custom_field_id = $this->model_customer_custom_field->addCustomField($data);
+	 * $custom_field_data = [
+	 *     'type'       => 'radio',
+	 *     'value'      => 'Custom Field Value',
+	 *     'validation' => '',
+	 *     'location'   => 'account',
+	 *     'status'     => 0,
+	 *     'sort_order' => 0
+	 * ];
+	 *
+	 * $this->load->model('customer/custom_field');
+	 *
+	 * $custom_field_id = $this->model_customer_custom_field->addCustomField($custom_field_data);
 	 */
 	public function addCustomField(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "custom_field` SET `type` = '" . $this->db->escape($data['type']) . "', `value` = '" . $this->db->escape($data['value']) . "', `validation` = '" . $this->db->escape($data['validation']) . "', `location` = '" . $this->db->escape($data['location']) . "', `status` = '" . (int)$data['status'] . "', `sort_order` = '" . (int)$data['sort_order'] . "'");
@@ -60,7 +71,18 @@ class ModelCustomerCustomField extends Model {
 	 *
 	 * @example
 	 *
-	 * $this->model_customer_custom_field->editCustomField($custom_field_id, $data);
+	 * $custom_field_data = [
+	 *     'type'       => 'radio',
+	 *     'value'      => 'Custom Field Value',
+	 *     'validation' => '',
+	 *     'location'   => 'account',
+	 *     'status'     => 1,
+	 *     'sort_order' => 0
+	 * ];
+	 *
+	 * $this->load->model('customer/custom_field');
+	 *
+	 * $this->model_customer_custom_field->editCustomField($custom_field_id, $custom_field_data);
 	 */
 	public function editCustomField(int $custom_field_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "custom_field` SET `type` = '" . $this->db->escape($data['type']) . "', `value` = '" . $this->db->escape($data['value']) . "', `validation` = '" . $this->db->escape($data['validation']) . "', `location` = '" . $this->db->escape($data['location']) . "', `status` = '" . (int)$data['status'] . "', `sort_order` = '" . (int)$data['sort_order'] . "' WHERE `custom_field_id` = '" . (int)$custom_field_id . "'");
@@ -110,6 +132,8 @@ class ModelCustomerCustomField extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('customer/custom_field');
+	 *
 	 * $this->model_customer_custom_field->deleteCustomField($custom_field_id);
 	 */
 	public function deleteCustomField(int $custom_field_id): void {
@@ -129,6 +153,8 @@ class ModelCustomerCustomField extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('customer/custom_field');
+	 *
 	 * $custom_field_info = $this->model_customer_custom_field->getCustomField($custom_field_id);
 	 */
 	public function getCustomField(int $custom_field_id): array {
@@ -146,7 +172,16 @@ class ModelCustomerCustomField extends Model {
 	 *
 	 * @example
 	 *
-	 * $custom_fields = $this->model_customer_custom_field->getCustomFields();
+	 * $filter_data = [
+	 *     'sort'  => 'cfd.name',
+	 *     'order' => 'DESC',
+	 *     'start' => 0,
+	 *     'limit' => 10
+	 * ];
+	 *
+	 * $this->load->model('customer/custom_field');
+	 *
+	 * $custom_fields = $this->model_customer_custom_field->getCustomFields($filter_data);
 	 */
 	public function getCustomFields(array $data = []): array {
 		if (empty($data['filter_customer_group_id'])) {
@@ -209,6 +244,8 @@ class ModelCustomerCustomField extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('customer/custom_field');
+	 *
 	 * $custom_field_description = $this->model_customer_custom_field->getDescriptions($custom_field_id);
 	 */
 	public function getDescriptions(int $custom_field_id): array {
@@ -232,6 +269,8 @@ class ModelCustomerCustomField extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('customer/custom_field');
+	 *
 	 * $custom_field_value = $this->model_customer_custom_field->getValue($custom_field_value_id);
 	 */
 	public function getValue(int $custom_field_value_id): array {
@@ -248,6 +287,8 @@ class ModelCustomerCustomField extends Model {
 	 * @return array<int, array<string, mixed>> value records that have custom field ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('customer/custom_field');
 	 *
 	 * $custom_field_value = $this->model_customer_custom_field->getValues($custom_field_id);
 	 */
@@ -275,6 +316,8 @@ class ModelCustomerCustomField extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('customer/custom_field');
+	 *
 	 * $custom_field_customer_groups = $this->model_customer_custom_field->getCustomerGroups($custom_field_id);
 	 */
 	public function getCustomerGroups(int $custom_field_id): array {
@@ -291,6 +334,8 @@ class ModelCustomerCustomField extends Model {
 	 * @return array<int, array<string, mixed>> value description records that have custom field ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('customer/custom_field');
 	 *
 	 * $custom_field_values = $this->model_customer_custom_field->getValueDescriptions($custom_field_id);
 	 */
@@ -325,7 +370,16 @@ class ModelCustomerCustomField extends Model {
 	 *
 	 * @example
 	 *
-	 * $custom_field_total = $this->model_customer_custom_field->getTotalCustomFields();
+	 * $filter_data = [
+	 *     'sort'  => 'cfd.name',
+	 *     'order' => 'DESC',
+	 *     'start' => 0,
+	 *     'limit' => 10
+	 * ];
+	 *
+	 * $this->load->model('customer/custom_field');
+	 *
+	 * $custom_field_total = $this->model_customer_custom_field->getTotalCustomFields($filter_data);
 	 */
 	public function getTotalCustomFields(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "custom_field`");

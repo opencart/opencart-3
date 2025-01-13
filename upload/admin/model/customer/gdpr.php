@@ -2,7 +2,7 @@
 /**
  * Class Gdpr
  *
- * Can be called from $this->load->model('customer/gdpr');
+ * Can be called using $this->load->model('customer/gdpr');
  *
  * @package Admin\Model\Customer
  */
@@ -15,6 +15,8 @@ class ModelCustomerGdpr extends Model {
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('customer/gdpr');
 	 *
 	 * $this->model_customer_gdpr->deleteGdpr($gdpr_id);
 	 */
@@ -31,7 +33,19 @@ class ModelCustomerGdpr extends Model {
 	 *
 	 * @example
 	 *
-	 * $results = $this->model_customer_gdpr->getGdprs();
+	 * $filter_data = [
+	 *     'filter_email'     => 'demo@opencart.com',
+	 *     'filter_action'    => 'export',
+	 *     'filter_status'    => 1,
+	 *     'filter_date_from' => '2021-01-01',
+	 *     'filter_date_to'   => '2021-01-31',
+	 *     'start'            => 0,
+	 *     'limit'            => 10
+	 * ];
+	 *
+	 * $this->load->model('customer/gdpr');
+	 *
+	 * $results = $this->model_customer_gdpr->getGdprs($filter_data);
 	 */
 	public function getGdprs(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "gdpr`";
@@ -86,6 +100,8 @@ class ModelCustomerGdpr extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('customer/gdpr');
+	 *
 	 * $gdpr_info = $this->model_customer_gdpr->getGdpr($gdpr_id);
 	 */
 	public function getGdpr(int $gdpr_id): array {
@@ -103,7 +119,19 @@ class ModelCustomerGdpr extends Model {
 	 *
 	 * @example
 	 *
-	 * $gdpr_total = $this->model_customer_gdpr->getTotalGdprs();
+	 * $filter_data = [
+	 *     'filter_email'     => 'demo@opencart.com',
+	 *     'filter_action'    => 'export',
+	 *     'filter_status'    => 1,
+	 *     'filter_date_from' => '2021-01-01',
+	 *     'filter_date_to'   => '2021-01-31',
+	 *     'start'            => 0,
+	 *     'limit'            => 10
+	 * ];
+	 *
+	 * $this->load->model('customer/gdpr');
+	 *
+	 * $gdpr_total = $this->model_customer_gdpr->getTotalGdprs($filter_data);
 	 */
 	public function getTotalGdprs(array $data = []): int {
 		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "gdpr`";
@@ -142,6 +170,8 @@ class ModelCustomerGdpr extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('customer/gdpr');
+	 *
 	 * $results = $this->model_customer_gdpr->getExpires();
 	 */
 	public function getExpires(): array {
@@ -159,6 +189,8 @@ class ModelCustomerGdpr extends Model {
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('customer/gdpr');
 	 *
 	 * $this->model_customer_gdpr->editStatus($gdpr_id, $status);
 	 */

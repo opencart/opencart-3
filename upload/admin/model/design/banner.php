@@ -2,7 +2,7 @@
 /**
  * Class Banner
  *
- * Can be called from $this->load->model('design/banner');
+ * Can be called using $this->load->model('design/banner');
  *
  * @package Admin\Model\Design
  */
@@ -16,7 +16,14 @@ class ModelDesignBanner extends Model {
 	 *
 	 * @example
 	 *
-	 * $banner_id = $this->model_design_banner->addBanner($data);
+	 * $banner_data = [
+	 *     'name'   => 'Banner Name',
+	 *     'status' => 0
+	 * ];
+	 *
+	 * $this->load->model('design/banner');
+	 *
+	 * $banner_id = $this->model_design_banner->addBanner($banner_data);
 	 */
 	public function addBanner(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "banner` SET `name` = '" . $this->db->escape($data['name']) . "', `status` = '" . (int)$data['status'] . "'");
@@ -44,7 +51,14 @@ class ModelDesignBanner extends Model {
 	 *
 	 * @example
 	 *
-	 * $this->model_design_banner->editBanner($banner_id, $data);
+	 * $banner_data = [
+	 *     'name'   => 'Banner Name',
+	 *     'status' => 1
+	 * ];
+	 *
+	 * $this->load->model('design/banner');
+	 *
+	 * $this->model_design_banner->editBanner($banner_id, $banner_data);
 	 */
 	public function editBanner(int $banner_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "banner` SET `name` = '" . $this->db->escape($data['name']) . "', `status` = '" . (int)$data['status'] . "' WHERE `banner_id` = '" . (int)$banner_id . "'");
@@ -69,6 +83,8 @@ class ModelDesignBanner extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('design/banner');
+	 *
 	 * $this->model_design_banner->deleteBanner($banner_id);
 	 */
 	public function deleteBanner(int $banner_id): void {
@@ -84,6 +100,8 @@ class ModelDesignBanner extends Model {
 	 * @return array<string, mixed> banner record that has banner ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('design/banner');
 	 *
 	 * $banner_info = $this->model_design_banner->getBanner($banner_id);
 	 */
@@ -102,7 +120,16 @@ class ModelDesignBanner extends Model {
 	 *
 	 * @example
 	 *
-	 * $results = $this->model_design_banner->getBanners();
+	 * $filter_data = [
+	 *     'sort'  => 'name',
+	 *     'order' => 'DESC',
+	 *     'start' => 0,
+	 *     'limit' => 10
+	 * ];
+	 *
+	 * $this->load->model('design/banner');
+	 *
+	 * $results = $this->model_design_banner->getBanners($filter_data);
 	 */
 	public function getBanners(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "banner`";
@@ -150,6 +177,8 @@ class ModelDesignBanner extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('design/banner');
+	 *
 	 * $banner_images = $this->model_design_banner->getImages($banner_id);
 	 */
 	public function getImages(int $banner_id): array {
@@ -175,6 +204,8 @@ class ModelDesignBanner extends Model {
 	 * @return int total number of banner records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('design/banner');
 	 *
 	 * $banner_total = $this->model_design_banner->getTotalBanners();
 	 */

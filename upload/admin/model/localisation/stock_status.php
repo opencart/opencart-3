@@ -2,7 +2,7 @@
 /**
  * Class Stock Status
  *
- * Can be called from $this->load->model('localisation/stock_status');
+ * Can be called using $this->load->model('localisation/stock_status');
  *
  * @package Admin\Model\Localisation
  */
@@ -16,7 +16,13 @@ class ModelLocalisationStockStatus extends Model {
 	 *
 	 * @example
 	 *
-	 * $stock_status_id = $this->model_localisation_stock_status->addStockStatus($data);
+	 * $stock_status_data['stock_status'][1] = [
+	 *     'name' => 'Stock Status Name'
+	 * ];
+	 *
+	 * $this->load->model('localisation/stock_status');
+	 *
+	 * $stock_status_id = $this->model_localisation_stock_status->addStockStatus($stock_status_data);
 	 */
 	public function addStockStatus(array $data): ?int {
 		$stock_status_id = 0;
@@ -46,7 +52,13 @@ class ModelLocalisationStockStatus extends Model {
 	 *
 	 * @example
 	 *
-	 * $this->model_localisation_stock_status->editStockStatus($stock_status_id, $data);
+	 * $stock_status_data['stock_status'][1] = [
+	 *     'name' => 'Stock Status Name'
+	 * ];
+	 *
+	 * $this->load->model('localisation/stock_status');
+	 *
+	 * $this->model_localisation_stock_status->editStockStatus($stock_status_id, $stock_status_data);
 	 */
 	public function editStockStatus(int $stock_status_id, array $data): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "stock_status` WHERE `stock_status_id` = '" . (int)$stock_status_id . "'");
@@ -67,6 +79,8 @@ class ModelLocalisationStockStatus extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('localisation/stock_status');
+	 *
 	 * $this->model_localisation_stock_status->deleteStockStatus($stock_status_id);
 	 */
 	public function deleteStockStatus(int $stock_status_id): void {
@@ -83,6 +97,8 @@ class ModelLocalisationStockStatus extends Model {
 	 * @return array<string, mixed> stock status record that has stock status ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('localisation/stock_status');
 	 *
 	 * $stock_status_info = $this->model_localisation_stock_status->getStockStatus($stock_status_id);
 	 */
@@ -101,7 +117,16 @@ class ModelLocalisationStockStatus extends Model {
 	 *
 	 * @example
 	 *
-	 * $stock_statuses = $this->model_localisation_stock_status->getStockStatuses();
+	 * $filter_data = [
+	 *     'sort'  => 'name',
+	 *     'order' => 'DESC',
+	 *     'start' => 0,
+	 *     'limit' => 10
+	 * ];
+	 *
+	 * $this->load->model('localisation/stock_status');
+	 *
+	 * $stock_statuses = $this->model_localisation_stock_status->getStockStatuses($filter_data);
 	 */
 	public function getStockStatuses(array $data = []): array {
 		if ($data) {
@@ -154,6 +179,8 @@ class ModelLocalisationStockStatus extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('localisation/stock_status');
+	 *
 	 * $stock_status = $this->model_localisation_stock_status->getDescriptions($stock_status_id);
 	 */
 	public function getDescriptions(int $stock_status_id): array {
@@ -174,6 +201,8 @@ class ModelLocalisationStockStatus extends Model {
 	 * @return int total number of stock status records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('localisation/stock_status');
 	 *
 	 * $stock_status_total = $this->model_localisation_stock_status->getTotalStockStatuses();
 	 */

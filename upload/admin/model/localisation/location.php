@@ -2,7 +2,7 @@
 /**
  * Class Location
  *
- * Can be called from $this->load->model('localisation/location');
+ * Can be called using $this->load->model('localisation/location');
  *
  * @package Admin\Model\Localisation
  */
@@ -16,7 +16,18 @@ class ModelLocalisationLocation extends Model {
 	 *
 	 * @example
 	 *
-	 * $location_id = $this->model_localisation_location->addLocation($data);
+	 * $location_data = [
+	 *     'name'      => 'Location Name',
+	 *     'address'   => '',
+	 *     'geocode'   => '',
+	 *     'telephone' => '1234567890',
+	 *     'image'     => 'location_image',
+	 *     'comment'   => ''
+	 * ];
+	 *
+	 * $this->load->model('localisation/location');
+	 *
+	 * $location_id = $this->model_localisation_location->addLocation($location_data);
 	 */
 	public function addLocation(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "location` SET `name` = '" . $this->db->escape($data['name']) . "', `address` = '" . $this->db->escape($data['address']) . "', `geocode` = '" . $this->db->escape($data['geocode']) . "', `telephone` = '" . $this->db->escape($data['telephone']) . "', `fax` = '" . $this->db->escape($data['fax']) . "', `image` = '" . $this->db->escape($data['image']) . "', `open` = '" . $this->db->escape($data['open']) . "', `comment` = '" . $this->db->escape($data['comment']) . "'");
@@ -34,7 +45,18 @@ class ModelLocalisationLocation extends Model {
 	 *
 	 * @example
 	 *
-	 * $this->model_localisation_location->editLocation($location_id, $data);
+	 * $location_data = [
+	 *     'name'      => 'Location Name',
+	 *     'address'   => '',
+	 *     'geocode'   => '',
+	 *     'telephone' => '1234567890',
+	 *     'image'     => 'location_image',
+	 *     'comment'   => ''
+	 * ];
+	 *
+	 * $this->load->model('localisation/location');
+	 *
+	 * $this->model_localisation_location->editLocation($location_id, $location_data);
 	 */
 	public function editLocation(int $location_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "location` SET `name` = '" . $this->db->escape($data['name']) . "', `address` = '" . $this->db->escape($data['address']) . "', `geocode` = '" . $this->db->escape($data['geocode']) . "', `telephone` = '" . $this->db->escape($data['telephone']) . "', `fax` = '" . $this->db->escape($data['fax']) . "', `image` = '" . $this->db->escape($data['image']) . "', `open` = '" . $this->db->escape($data['open']) . "', `comment` = '" . $this->db->escape($data['comment']) . "' WHERE `location_id` = '" . (int)$location_id . "'");
@@ -48,6 +70,8 @@ class ModelLocalisationLocation extends Model {
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('localisation/location');
 	 *
 	 * $this->model_localisation_location->deleteLocation($location_id);
 	 */
@@ -63,6 +87,8 @@ class ModelLocalisationLocation extends Model {
 	 * @return array<string, mixed> location record that has location ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('localisation/location');
 	 *
 	 * $location_info = $this->model_localisation_location->getLocation($location_id);
 	 */
@@ -81,7 +107,16 @@ class ModelLocalisationLocation extends Model {
 	 *
 	 * @example
 	 *
-	 * $results = $this->model_localisation_location->getLocations($data);
+	 * $filter_data = [
+	 *     'sort'  => 'name',
+	 *     'order' => 'DESC',
+	 *     'start' => 0,
+	 *     'limit' => 10
+	 * ];
+	 *
+	 * $this->load->model('localisation/location');
+	 *
+	 * $results = $this->model_localisation_location->getLocations($filter_data);
 	 */
 	public function getLocations(array $data = []): array {
 		$sql = "SELECT `location_id`, `name`, `address` FROM `" . DB_PREFIX . "location`";
@@ -126,6 +161,8 @@ class ModelLocalisationLocation extends Model {
 	 * @return int total number of location records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('localisation/location');
 	 *
 	 * $location_total = $this->model_localisation_location->getTotalLocations();
 	 */

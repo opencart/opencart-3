@@ -2,7 +2,7 @@
 /**
  * Class Language
  *
- * Can be called from $this->load->model('localisation/language');
+ * Can be called using $this->load->model('localisation/language');
  *
  * @package Catalog\Model\Localisation
  */
@@ -17,6 +17,8 @@ class ModelLocalisationLanguage extends Model {
 	 * @return array<string, mixed> language record that has language ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('localisation/language');
 	 *
 	 * $language_info = $this->model_localisation_language->getLanguage($language_id);
 	 */
@@ -34,6 +36,8 @@ class ModelLocalisationLanguage extends Model {
 	 * @return array<string, mixed>
 	 *
 	 * @example
+	 *
+	 * $this->load->model('localisation/language');
 	 *
 	 * $language_info = $this->model_localisation_language->getLanguageByCode($code);
 	 */
@@ -69,6 +73,8 @@ class ModelLocalisationLanguage extends Model {
 	 * @return array<int, array<string, mixed>> language records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('localisation/language');
 	 *
 	 * $languages = $this->model_localisation_language->getLanguages();
 	 */

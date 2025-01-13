@@ -2,7 +2,7 @@
 /**
  * Class Information
  *
- * Can be called from $this->load->model('catalog/information');
+ * Can be called using $this->load->model('catalog/information');
  *
  * @package Catalog\Model\Catalog
  */
@@ -15,6 +15,8 @@ class ModelCatalogInformation extends Model {
 	 * @return array<string, mixed> information record that has information ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('catalog/information');
 	 *
 	 * $information_info = $this->model_catalog_information->getInformation($information_id);
 	 */
@@ -31,6 +33,8 @@ class ModelCatalogInformation extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('catalog/information');
+	 *
 	 * $results = $this->model_catalog_information->getInformations();
 	 */
 	public function getInformations(): array {
@@ -40,7 +44,7 @@ class ModelCatalogInformation extends Model {
 	}
 
 	/**
-	 * Get LayoutId
+	 * Get Layout ID
 	 *
 	 * @param int $information_id primary key of the information record
 	 *
@@ -48,7 +52,9 @@ class ModelCatalogInformation extends Model {
 	 *
 	 * @example
 	 *
-	 * $information_info = $this->model_catalog_information->getLayoutId($information_id);
+	 * $this->load->model('catalog/information');
+	 *
+	 * $layout_id = $this->model_catalog_information->getLayoutId($information_id);
 	 */
 	public function getLayoutId(int $information_id): int {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "information_to_layout` WHERE `information_id` = '" . (int)$information_id . "' AND `store_id` = '" . (int)$this->config->get('config_store_id') . "'");

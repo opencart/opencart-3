@@ -2,7 +2,7 @@
 /**
  * Class Setting
  *
- * Can be called from $this->load->model('setting/setting');
+ * Can be called using $this->load->model('setting/setting');
  *
  * @package Admin\Model\Setting
  */
@@ -15,6 +15,8 @@ class ModelSettingSetting extends Model {
 	 * @return array<int, array<string, mixed>> setting records that have store ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/setting');
 	 *
 	 * $results = $this->model_setting_setting->getSettings();
 	 */
@@ -33,6 +35,8 @@ class ModelSettingSetting extends Model {
 	 * @return array<string, mixed>
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/setting');
 	 *
 	 * $setting_info = $this->model_setting_setting->getSetting($code, $store_id);
 	 */
@@ -63,6 +67,8 @@ class ModelSettingSetting extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('setting/setting');
+	 *
 	 * $this->model_setting_setting->editSetting($code, $data, $store_id);
 	 */
 	public function editSetting(string $code, array $data, int $store_id = 0): void {
@@ -89,6 +95,8 @@ class ModelSettingSetting extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('setting/setting');
+	 *
 	 * $this->model_setting_setting->deleteSetting($code, $store_id);
 	 */
 	public function deleteSetting(string $code, int $store_id = 0): void {
@@ -104,6 +112,8 @@ class ModelSettingSetting extends Model {
 	 * @return string
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/setting');
 	 *
 	 * $value = $this->model_setting_setting->getValue($key, $store_id);
 	 */
@@ -128,6 +138,8 @@ class ModelSettingSetting extends Model {
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/setting');
 	 *
 	 * $this->model_setting_setting->editValue($code, $key, $value, $store_id);
 	 */

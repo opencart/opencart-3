@@ -2,7 +2,7 @@
 /**
  * Class Reward
  *
- * Can be called from $this->load->model('account/reward');
+ * Can be called using $this->load->model('account/reward');
  *
  * @package Catalog\Model\Account
  */
@@ -16,7 +16,16 @@ class ModelAccountReward extends Model {
 	 *
 	 * @example
 	 *
-	 * $results = $this->model_account_reward->getRewards();
+	 * $filter_data = [
+	 *     'sort'  => 'date_added',
+	 *     'order' => 'DESC',
+	 *     'start' => 0,
+	 *     'limit' => 10
+	 * ];
+	 *
+	 * $this->load->model('account/reward');
+	 *
+	 * $results = $this->model_account_reward->getRewards($filter_data);
 	 */
 	public function getRewards(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "customer_reward` WHERE `customer_id` = '" . (int)$this->customer->getId() . "'";
@@ -62,6 +71,8 @@ class ModelAccountReward extends Model {
 	 * @return int total number of reward records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('account/reward');
 	 *
 	 * $reward_total = $this->model_account_reward->getTotalRewards();
 	 */

@@ -2,7 +2,7 @@
 /**
  * Class Subscription Status
  *
- * Can be called from $this->load->model('localisation/subscription_status');
+ * Can be called using $this->load->model('localisation/subscription_status');
  *
  * @package Admin\Model\Localisation
  */
@@ -16,7 +16,13 @@ class ModelLocalisationSubscriptionStatus extends Model {
 	 *
 	 * @example
 	 *
-	 * $subscription_status_id = $this->model_localisation_subscription_status->addSubscriptionStatus($data);
+	 * $subscription_status_data['subscription_status'][1] = [
+	 *     'name' => 'Subscription Status Name'
+	 * ];
+	 *
+	 * $this->load->model('localisation/subscription_status');
+	 *
+	 * $subscription_status_id = $this->model_localisation_subscription_status->addSubscriptionStatus($subscription_status_data);
 	 */
 	public function addSubscriptionStatus(array $data): ?int {
 		$subscription_status_id = 0;
@@ -48,7 +54,13 @@ class ModelLocalisationSubscriptionStatus extends Model {
 	 *
 	 * @example
 	 *
-	 * $this->model_localisation_subscription_status->editSubscriptionStatus($subscription_status_id, $data);
+	 * $subscription_status_data['subscription_status'][1] = [
+	 *     'name' => 'Subscription Status Name'
+	 * ];
+	 *
+	 * $this->load->model('localisation/subscription_status');
+	 *
+	 * $this->model_localisation_subscription_status->editSubscriptionStatus($subscription_status_id, $subscription_status_data);
 	 */
 	public function editSubscriptionStatus(int $subscription_status_id, array $data): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "subscription_status` WHERE `subscription_status_id` = '" . (int)$subscription_status_id . "'");
@@ -69,6 +81,8 @@ class ModelLocalisationSubscriptionStatus extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('localisation/subscription_status');
+	 *
 	 * $this->model_localisation_subscription_status->deleteSubscriptionStatus($subscription_status_id);
 	 */
 	public function deleteSubscriptionStatus(int $subscription_status_id): void {
@@ -85,6 +99,8 @@ class ModelLocalisationSubscriptionStatus extends Model {
 	 * @return array<string, mixed> subscription status record that has subscription status ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('localisation/subscription_status');
 	 *
 	 * $subscription_status_info = $this->model_localisation_subscription_status->getSubscriptionStatus($subscription_status_id);
 	 */
@@ -103,7 +119,16 @@ class ModelLocalisationSubscriptionStatus extends Model {
 	 *
 	 * @example
 	 *
-	 * $subscription_statuses = $this->model_localisation_subscription_status->getSubscriptionStatuses();
+	 * $filter_data = [
+	 *     'sort'  => 'name',
+	 *     'order' => 'DESC',
+	 *     'start' => 0,
+	 *     'limit' => 10
+	 * ];
+	 *
+	 * $this->load->model('localisation/subscription_status');
+	 *
+	 * $subscription_statuses = $this->model_localisation_subscription_status->getSubscriptionStatuses($filter_data);
 	 */
 	public function getSubscriptionStatuses(array $data = []): array {
 		if ($data) {
@@ -156,6 +181,8 @@ class ModelLocalisationSubscriptionStatus extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('localisation/subscription_status');
+	 *
 	 * $subscription_status = $this->model_localisation_subscription_status->getDescriptions($subscription_status_id);
 	 */
 	public function getDescriptions(int $subscription_status_id): array {
@@ -176,6 +203,8 @@ class ModelLocalisationSubscriptionStatus extends Model {
 	 * @return int total number of subscription status records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('localisation/subscription_status');
 	 *
 	 * $subscription_status_total = $this->model_localisation_subscription_status->getTotalSubscriptionStatuses();
 	 */

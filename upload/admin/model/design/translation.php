@@ -2,7 +2,7 @@
 /**
  * Class Translation
  *
- * Can be called from $this->load->model('design/translation');
+ * Can be called using $this->load->model('design/translation');
  *
  * @package Admin\Model\Design
  */
@@ -16,7 +16,15 @@ class ModelDesignTranslation extends Model {
 	 *
 	 * @example
 	 *
-	 * $this->model_design_translation->addTranslation($data);
+	 * $translation_data = [
+	 *     'route' => '',
+	 *     'key'   => '',
+	 *     'value' => ''
+	 * ];
+	 *
+	 * $this->load->model('design/translation');
+	 *
+	 * $this->model_design_translation->addTranslation($translation_data);
 	 */
 	public function addTranslation(array $data): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "translation` SET `store_id` = '" . (int)$data['store_id'] . "', `language_id` = '" . (int)$data['language_id'] . "', `route` = '" . $this->db->escape($data['route']) . "', `key` = '" . $this->db->escape($data['key']) . "', `value` = '" . $this->db->escape($data['value']) . "', `date_added` = NOW()");
@@ -32,7 +40,15 @@ class ModelDesignTranslation extends Model {
 	 *
 	 * @example
 	 *
-	 * $this->model_design_translation->editTranslation($translation_id, $data);
+	 * $translation_data = [
+	 *     'route' => '',
+	 *     'key'   => '',
+	 *     'value' => ''
+	 * ];
+	 *
+	 * $this->load->model('design/translation');
+	 *
+	 * $this->model_design_translation->editTranslation($translation_id, $translation_data);
 	 */
 	public function editTranslation(int $translation_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "translation` SET `store_id` = '" . (int)$data['store_id'] . "', `language_id` = '" . (int)$data['language_id'] . "', `route` = '" . $this->db->escape($data['route']) . "', `key` = '" . $this->db->escape($data['key']) . "', `value` = '" . $this->db->escape($data['value']) . "' WHERE `translation_id` = '" . (int)$translation_id . "'");
@@ -46,6 +62,8 @@ class ModelDesignTranslation extends Model {
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('design/translation');
 	 *
 	 * $this->model_design_translation->deleteTranslation($translation_id);
 	 */
@@ -61,6 +79,8 @@ class ModelDesignTranslation extends Model {
 	 * @return array<string, mixed> translation record that has translation ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('design/translation');
 	 *
 	 * $translation_info = $this->model_design_translation->getTranslation($translation_id);
 	 */
@@ -79,7 +99,16 @@ class ModelDesignTranslation extends Model {
 	 *
 	 * @example
 	 *
-	 * $results = $this->model_design_translation->getTranslations();
+	 * $filter_data = [
+	 *     'sort'  => 'store',
+	 *     'order' => 'DESC',
+	 *     'start' => 0,
+	 *     'limit' => 10
+	 * ];
+	 *
+	 * $this->load->model('design/translation');
+	 *
+	 * $results = $this->model_design_translation->getTranslations($filter_data);
 	 */
 	public function getTranslations(array $data = []): array {
 		$sql = "SELECT *, (SELECT `s`.`name` FROM `" . DB_PREFIX . "store` `s` WHERE `s`.`store_id` = `t`.`store_id`) AS `store`, (SELECT `l`.`name` FROM `" . DB_PREFIX . "language` `l` WHERE `l`.`language_id` = `t`.`language_id`) AS `language` FROM `" . DB_PREFIX . "translation` `t`";
@@ -127,6 +156,8 @@ class ModelDesignTranslation extends Model {
 	 * @return int total number of translation records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('design/translation');
 	 *
 	 * $translation_total = $this->model_design_translation->getTotalTranslations();
 	 */

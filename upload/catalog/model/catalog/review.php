@@ -2,7 +2,7 @@
 /**
  * Class Review
  *
- * Can be called from $this->load->model('catalog/review');
+ * Can be called using $this->load->model('catalog/review');
  *
  * @package Catalog\Model\Catalog
  */
@@ -18,6 +18,8 @@ class ModelCatalogReview extends Model {
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('catalog/product');
 	 *
 	 * $this->model_catalog_review->addReview($product_id, $data);
 	 */
@@ -86,6 +88,8 @@ class ModelCatalogReview extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('catalog/product');
+	 *
 	 * $reviews = $this->model_catalog_product->getReviewsByProductId($product_id, $start, $limit);
 	 */
 	public function getReviewsByProductId(int $product_id, int $start = 0, int $limit = 20): array {
@@ -110,6 +114,8 @@ class ModelCatalogReview extends Model {
 	 * @return int total number of review records that have product ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('catalog/product');
 	 *
 	 * $review_total = $this->model_catalog_review->getTotalReviewsByProductId($product_id);
 	 */

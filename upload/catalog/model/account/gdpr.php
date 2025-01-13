@@ -2,7 +2,7 @@
 /**
  * Class Gdpr
  *
- * Can be called from $this->load->model('account/gdpr');
+ * Can be called using $this->load->model('account/gdpr');
  *
  * @package Catalog\Model\Account
  */
@@ -17,6 +17,8 @@ class ModelAccountGdpr extends Model {
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('account/gdpr');
 	 *
 	 * $this->model_account_gdpr->addGdpr($code, $email, $action);
 	 */
@@ -34,6 +36,8 @@ class ModelAccountGdpr extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('account/gdpr');
+	 *
 	 * $this->model_account_gdpr->editStatus($gdpr_id, $status);
 	 */
 	public function editStatus(int $gdpr_id, int $status): void {
@@ -48,6 +52,8 @@ class ModelAccountGdpr extends Model {
 	 * @return array<string, mixed>
 	 *
 	 * @example
+	 *
+	 * $this->load->model('account/gdpr');
 	 *
 	 * $gdpr_info = $this->model_account_gdpr->getGdpr($gdpr_id);
 	 */
@@ -66,6 +72,8 @@ class ModelAccountGdpr extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('account/gdpr');
+	 *
 	 * $gdpr_info = $this->model_account_gdpr->getGdprByCode($code);
 	 */
 	public function getGdprByCode(string $code): array {
@@ -83,6 +91,8 @@ class ModelAccountGdpr extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('account/gdpr');
+	 *
 	 * $results = $this->model_account_gdpr->getGdprsByEmail($email);
 	 */
 	public function getGdprsByEmail(string $email): array {
@@ -97,6 +107,8 @@ class ModelAccountGdpr extends Model {
 	 * @return array<int, array<string, mixed>> expire records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('account/gdpr');
 	 *
 	 * $results = $this->model_account_gdpr->getExpires();
 	 */

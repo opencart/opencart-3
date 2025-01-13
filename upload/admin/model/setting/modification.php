@@ -2,7 +2,7 @@
 /**
  * Class Modification
  *
- * Can be called from $this->load->model('setting/modification');
+ * Can be called using $this->load->model('setting/modification');
  *
  * @package Admin\Model\Setting
  */
@@ -16,7 +16,21 @@ class ModelSettingModification extends Model {
 	 *
 	 * @example
 	 *
-	 * $this->model_setting_modification->addModification($data);
+	 * $modification_data = [
+	 *     'extension_install_id' => 1,
+	 *     'name'                 => 'Modification Name',
+	 *     'description'          => 'Modification Description',
+	 *     'code'                 => 'Modification Code',
+	 *     'author'               => 'Author Name',
+	 *     'version'              => '1.00',
+	 *     'link'                 => '',
+	 *     'xml'                  => '',
+	 *     'status'               => 0
+	 * ];
+	 *
+	 * $this->load->model('setting/modification');
+	 *
+	 * $this->model_setting_modification->addModification($modification_data);
 	 */
 	public function addModification(array $data): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "modification` SET `extension_install_id` = '" . (int)$data['extension_install_id'] . "', `name` = '" . $this->db->escape($data['name']) . "', `code` = '" . $this->db->escape($data['code']) . "', `author` = '" . $this->db->escape($data['author']) . "', `version` = '" . $this->db->escape($data['version']) . "', `link` = '" . $this->db->escape($data['link']) . "', `xml` = '" . $this->db->escape($data['xml']) . "', `status` = '" . (int)$data['status'] . "', `date_added` = NOW()");
@@ -30,6 +44,8 @@ class ModelSettingModification extends Model {
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/modification');
 	 *
 	 * $this->model_setting_modification->deleteModification($modification_id);
 	 */
@@ -45,6 +61,8 @@ class ModelSettingModification extends Model {
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/modification');
 	 *
 	 * $this->model_setting_modification->deleteModificationsByExtensionInstallId($extension_install_id);
 	 */
@@ -91,6 +109,8 @@ class ModelSettingModification extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('setting/modification');
+	 *
 	 * $modification_info = $this->model_setting_modification->getModification($modification_id);
 	 */
 	public function getModification(int $modification_id): array {
@@ -107,6 +127,8 @@ class ModelSettingModification extends Model {
 	 * @return array<int, array<string, mixed>> modification records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/modification');
 	 *
 	 * $results = $this->model_setting_modification->getModifications();
 	 */
@@ -157,6 +179,8 @@ class ModelSettingModification extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('setting/modification');
+	 *
 	 * $modification_total = $this->model_setting_modification->getTotalModifications();
 	 */
 	public function getTotalModifications(): int {
@@ -173,6 +197,8 @@ class ModelSettingModification extends Model {
 	 * @return array<string, mixed>
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/modification');
 	 *
 	 * $modification_info = $this->model_setting_modification->getModificationByCode($code);
 	 */

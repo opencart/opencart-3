@@ -2,7 +2,7 @@
 /**
  * Class Api
  *
- * Can be called from $this->load->model('setting/api');
+ * Can be called using $this->load->model('setting/api');
  *
  * @package Catalog\Model\Setting
  */
@@ -16,6 +16,8 @@ class ModelSettingApi extends Model {
 	 * @return array<string, mixed>
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/api');
 	 *
 	 * $api_info = $this->model_setting_api->login($username, $key);
 	 */
@@ -34,6 +36,8 @@ class ModelSettingApi extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('setting/api');
+	 *
 	 * $api_info = $this->model_setting_api->getApiByToken($token);
 	 */
 	public function getApiByToken(string $token): array {
@@ -51,6 +55,8 @@ class ModelSettingApi extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('setting/api');
+	 *
 	 * $this->model_setting_api->updateSession($api_session_id);
 	 */
 	public function updateSession(int $api_session_id): void {
@@ -59,11 +65,13 @@ class ModelSettingApi extends Model {
 	}
 
 	/**
-	 * Clean Sessions
+	 * Clean API Sessions
 	 *
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/api');
 	 *
 	 * $this->model_setting_api->cleanSessions();
 	 */

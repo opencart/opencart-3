@@ -2,7 +2,7 @@
 /**
  * Class Download
  *
- * Can be called from $this->load->model('account/download');
+ * Can be called using $this->load->model('account/download');
  *
  * @package Catalog\Model\Account
  */
@@ -15,6 +15,8 @@ class ModelAccountDownload extends Model {
 	 * @return array<string, mixed> download record that has download ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('account/download');
 	 *
 	 * $download_info = $this->model_account_download->getDownload($download_id);
 	 */
@@ -45,6 +47,8 @@ class ModelAccountDownload extends Model {
 	 * @return array<int, array<string, mixed>> download records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('account/download');
 	 *
 	 * $results = $this->model_account_download->getDownloads();
 	 */
@@ -80,6 +84,8 @@ class ModelAccountDownload extends Model {
 	 * @return int total number of download records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('account/download');
 	 *
 	 * $download_total = $this->model_account_download->getTotalDownloads();
 	 */

@@ -2,7 +2,7 @@
 /**
  * Class Customer Group
  *
- * Can be called from $this->load->model('account/customer_group');
+ * Can be called using $this->load->model('account/customer_group');
  *
  * @package Catalog\Model\Account
  */
@@ -15,6 +15,8 @@ class ModelAccountCustomerGroup extends Model {
 	 * @return array<string, mixed> customer group record that has customer group ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('account/customer_group');
 	 *
 	 * $customer_group_info = $this->model_account_customer_group->getCustomerGroup($customer_group_id);
 	 */
@@ -30,6 +32,8 @@ class ModelAccountCustomerGroup extends Model {
 	 * @return array<int, array<string, mixed>> customer group records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('account/customer_group');
 	 *
 	 * $results = $this->model_account_customer_group->getCustomerGroups();
 	 */

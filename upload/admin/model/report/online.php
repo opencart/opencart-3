@@ -2,7 +2,7 @@
 /**
  * Class Online
  *
- * Can be called from $this->load->model('report/online');
+ * Can be called using $this->load->model('report/online');
  *
  * @package Admin\Model\Report
  */
@@ -16,7 +16,16 @@ class ModelReportOnline extends Model {
 	 *
 	 * @example
 	 *
-	 * $results = $this->model_report_online->getOnline($data);
+	 * $filter_data = [
+	 *     'filter_customer' => 'John Doe',
+	 *     'filter_ip'       => '',
+	 *     'start'           => 0,
+	 *     'limit'           => 10
+	 * ];
+	 *
+	 * $this->load->model('report/online');
+	 *
+	 * $results = $this->model_report_online->getOnline($filter_data);
 	 */
 	public function getOnline(array $data = []): array {
 		$sql = "SELECT `co`.`ip`, `co`.`customer_id`, `co`.`url`, `co`.`referer`, `co`.`date_added` FROM `" . DB_PREFIX . "customer_online` `co` LEFT JOIN `" . DB_PREFIX . "customer` `c` ON (`co`.`customer_id` = `c`.`customer_id`)";
@@ -63,7 +72,16 @@ class ModelReportOnline extends Model {
 	 *
 	 * @example
 	 *
-	 * $online_total = $this->model_report_online->getTotalOnline();
+	 * $filter_data = [
+	 *     'filter_customer' => 'John Doe',
+	 *     'filter_ip'       => '',
+	 *     'start'           => 0,
+	 *     'limit'           => 10
+	 * ];
+	 *
+	 * $this->load->model('report/online');
+	 *
+	 * $online_total = $this->model_report_online->getTotalOnline($filter_data);
 	 */
 	public function getTotalOnline(array $data = []): int {
 		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer_online` `co` LEFT JOIN `" . DB_PREFIX . "customer` `c` ON (`co`.`customer_id` = `c`.`customer_id`)";

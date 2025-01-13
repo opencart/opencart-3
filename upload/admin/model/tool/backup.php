@@ -2,7 +2,7 @@
 /**
  * Class Backup
  *
- * Can be called from $this->load->model('tool/backup');
+ * Can be called using $this->load->model('tool/backup');
  *
  * @package Admin\Model\Tool
  */
@@ -13,6 +13,8 @@ class ModelToolBackup extends Model {
 	 * @return array<int, string>
 	 *
 	 * @example
+	 *
+	 * $this->load->model('tool/backup');
 	 *
 	 * $results = $this->model_tool_backup->getTables();
 	 */
@@ -43,6 +45,8 @@ class ModelToolBackup extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('tool/backup');
+	 *
 	 * $results = $this->model_tool_backup->getRecords($table, $start, $limit);
 	 */
 	public function getRecords(string $table, int $start = 0, int $limit = 100): array {
@@ -72,6 +76,8 @@ class ModelToolBackup extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('tool/backup');
+	 *
 	 * $record_total = $this->model_tool_backup->getTotalRecords($table);
 	 */
 	public function getTotalRecords(string $table): int {
@@ -92,6 +98,8 @@ class ModelToolBackup extends Model {
 	 * @return string
 	 *
 	 * @example
+	 *
+	 * $this->load->model('tool/backup');
 	 *
 	 * $this->response->setOutput($this->model_tool_backup->backup($tables));
 	 */

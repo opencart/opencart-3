@@ -2,7 +2,7 @@
 /**
  * Class Weight Class
  *
- * Can be called from $this->load->model('localisation/weight_class');
+ * Can be called using $this->load->model('localisation/weight_class');
  *
  * @package Admin\Model\Localisation
  */
@@ -16,7 +16,13 @@ class ModelLocalisationWeightClass extends Model {
 	 *
 	 * @example
 	 *
-	 * $weight_class_id = $this->model_localisation_weight_class->addWeightClass($data);
+	 * $weight_class_data = [
+	 *     'value' => 0.00000000
+	 * ];
+	 *
+	 * $this->load->model('localisation/weight_class');
+	 *
+	 * $weight_class_id = $this->model_localisation_weight_class->addWeightClass($weight_class_data);
 	 */
 	public function addWeightClass(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "weight_class` SET `value` = '" . (float)$data['value'] . "'");
@@ -42,7 +48,13 @@ class ModelLocalisationWeightClass extends Model {
 	 *
 	 * @example
 	 *
-	 * $this->model_localisation_weight_class->editWeightClass($weight_class_id, $data);
+	 * $weight_class_data = [
+	 *     'value' => 0.00000000
+	 * ];
+	 *
+	 * $this->load->model('localisation/weight_class');
+	 *
+	 * $this->model_localisation_weight_class->editWeightClass($weight_class_id, $weight_class_data);
 	 */
 	public function editWeightClass(int $weight_class_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "weight_class` SET `value` = '" . (float)$data['value'] . "' WHERE `weight_class_id` = '" . (int)$weight_class_id . "'");
@@ -65,6 +77,8 @@ class ModelLocalisationWeightClass extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('localisation/weight_class');
+	 *
 	 * $this->model_localisation_weight_class->deleteWeightClass($weight_class_id);
 	 */
 	public function deleteWeightClass(int $weight_class_id): void {
@@ -83,7 +97,16 @@ class ModelLocalisationWeightClass extends Model {
 	 *
 	 * @example
 	 *
-	 * $results = $this->model_localisation_weight_class->getWeightClasses();
+	 * $filter_data = [
+	 *     'sort'  => 'title',
+	 *     'order' => 'DESC',
+	 *     'start' => 0,
+	 *     'limit' => 10
+	 * ];
+	 *
+	 * $this->load->model('localisation/weight_class');
+	 *
+	 * $results = $this->model_localisation_weight_class->getWeightClasses($filter_data);
 	 */
 	public function getWeightClasses(array $data = []): array {
 		if ($data) {
@@ -146,6 +169,8 @@ class ModelLocalisationWeightClass extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('localisation/weight_class');
+	 *
 	 * $weight_class_info = $this->model_localisation_weight_class->getWeightClass($weight_class_id);
 	 */
 	public function getWeightClass(int $weight_class_id): array {
@@ -163,7 +188,9 @@ class ModelLocalisationWeightClass extends Model {
 	 *
 	 * @example
 	 *
-	 * $results = $this->model_localisation_weight_class->getDescriptionByUnit($unit);
+	 * $this->load->model('localisation/weight_class');
+	 *
+	 * $unit = $this->model_localisation_weight_class->getDescriptionByUnit($unit);
 	 */
 	public function getDescriptionByUnit(string $unit): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "weight_class_description` WHERE `unit` = '" . $this->db->escape($unit) . "' AND `language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -179,6 +206,8 @@ class ModelLocalisationWeightClass extends Model {
 	 * @return array<int, array<string, mixed>> description records that have weight class ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('localisation/weight_class');
 	 *
 	 * $weight_class_description = $this->model_localisation_weight_class->getDescriptions($weight_class_id);
 	 */
@@ -203,6 +232,8 @@ class ModelLocalisationWeightClass extends Model {
 	 * @return int total number of weight class records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('localisation/weight_class');
 	 *
 	 * $weight_class_total = $this->model_localisation_weight_class->getTotalWeightClasses();
 	 */

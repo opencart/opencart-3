@@ -2,7 +2,7 @@
 /**
  * Class Extension
  *
- * Can be called from $this->load->model('setting/extension');
+ * Can be called using $this->load->model('setting/extension');
  *
  * @package Admin\Model\Setting
  */
@@ -16,7 +16,9 @@ class ModelSettingExtension extends Model {
 	 *
 	 * @example
 	 *
-	 * $extensions = $this->model_setting_extension->getExtensionsByType($type);
+	 * $this->load->model('setting/extension');
+	 *
+	 * $results = $this->model_setting_extension->getExtensionsByType($type);
 	 */
 	public function getExtensionsByType(string $type): array {
 		$extension_data = [];
@@ -40,6 +42,8 @@ class ModelSettingExtension extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('setting/extension');
+	 *
 	 * $extension_info = $this->model_setting_extension->getExtensionByCode($type, $code);
 	 */
 	public function getExtensionByCode(string $type, string $code): array {
@@ -57,6 +61,8 @@ class ModelSettingExtension extends Model {
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/extension');
 	 *
 	 * $this->model_setting_extension->install($type, $code);
 	 */
@@ -77,6 +83,8 @@ class ModelSettingExtension extends Model {
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/extension');
 	 *
 	 * $this->model_setting_extension->uninstall($type, $code);
 	 */
@@ -128,6 +136,8 @@ class ModelSettingExtension extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('setting/extension');
+	 *
 	 * $results = $this->model_setting_extension->getInstalls();
 	 */
 	public function getInstalls(int $start = 0, int $limit = 10): array {
@@ -152,6 +162,8 @@ class ModelSettingExtension extends Model {
 	 * @return array<string, mixed> install record that has extension download ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/extension');
 	 *
 	 * $extension_install_info = $this->model_setting_extension->getInstallByExtensionDownloadId($extension_download_id);
 	 */
@@ -185,6 +197,8 @@ class ModelSettingExtension extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('setting/extension');
+	 *
 	 * $install_total = $this->model_setting_extension->getTotalInstalls();
 	 */
 	public function getTotalInstalls(): int {
@@ -203,6 +217,8 @@ class ModelSettingExtension extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('setting/extension');
+	 *
 	 * $this->model_setting_extension->addPath($extension_install_id, $path);
 	 */
 	public function addPath(int $extension_install_id, string $path): void {
@@ -218,6 +234,8 @@ class ModelSettingExtension extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('setting/extension');
+	 *
 	 * $this->model_setting_extension->deletePath($extension_path_id);
 	 */
 	public function deletePath(int $extension_path_id): void {
@@ -232,6 +250,8 @@ class ModelSettingExtension extends Model {
 	 * @return array<int, array<string, mixed>>
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/extension');
 	 *
 	 * $paths = $this->model_setting_extension->getPathsByExtensionInstallId($extension_install_id);
 	 */
@@ -250,6 +270,8 @@ class ModelSettingExtension extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('setting/extension');
+	 *
 	 * $paths = $this->model_setting_extension->getPaths($path);
 	 */
 	public function getPaths(string $path): array {
@@ -266,6 +288,8 @@ class ModelSettingExtension extends Model {
 	 * @return int
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/extension');
 	 *
 	 * $path_total = $this->model_setting_extension->getTotalPaths($path);
 	 */

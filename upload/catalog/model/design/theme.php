@@ -2,7 +2,7 @@
 /**
  * Class Theme
  *
- * Can be called from $this->load->model('design/theme');
+ * Can be called using $this->load->model('design/theme');
  *
  * @package Catalog\Model\Design
  */
@@ -16,6 +16,8 @@ class ModelDesignTheme extends Model {
 	 * @return array<string, mixed>
 	 *
 	 * @example
+	 *
+	 * $this->load->model('design/theme');
 	 *
 	 * $theme_info = $this->model_design_theme->getTheme($route, $theme);
 	 */

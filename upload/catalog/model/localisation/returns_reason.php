@@ -2,7 +2,7 @@
 /**
  * Class Returns Reason
  *
- * Can be called from $this->load->model('localisation/return_reason');
+ * Can be called using $this->load->model('localisation/return_reason');
  *
  * @package Catalog\Model\Localisation
  */
@@ -15,6 +15,8 @@ class ModelLocalisationReturnsReason extends Model {
 	 * @return array<int, array<string, mixed>> return reason records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('localisation/return_reason');
 	 *
 	 * $return_reasons = $this->model_localisation_return_reasons->getReturnReasons();
 	 */

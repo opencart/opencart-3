@@ -2,7 +2,7 @@
 /**
  * Class Returns
  *
- * Can be called from $this->load->model('account/returns');
+ * Can be called using $this->load->model('account/returns');
  *
  * @package Catalog\Model\Account
  */
@@ -16,7 +16,26 @@ class ModelAccountReturns extends Model {
 	 *
 	 * @example
 	 *
-	 * $return_id = $this->model_account_returns->addReturn($data);
+	 * $return_data = [
+	 *     'order_id'         => 1,
+	 *     'product_id'       => 1,
+	 *     'customer_id'      => 1,
+	 *     'firstname'        => 'John',
+	 *     'lastname'         => 'Doe',
+	 *     'email'            => 'demo@opencart.com',
+	 *     'telephone'        => '1234567890',
+	 *     'product'          => '',
+	 *     'model'            => '',
+	 *     'quantity'         => 1,
+	 *     'opened'           => 1,
+	 *     'return_reason_id' => 1,
+	 *     'comment'          => '',
+	 *     'date_ordered'     => '2021-01-01'
+	 * ];
+	 *
+	 * $this->load->model('account/returns');
+	 *
+	 * $return_id = $this->model_account_returns->addReturn($return_data);
 	 */
 	public function addReturn(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "return` SET `order_id` = '" . (int)$data['order_id'] . "', `product_id` = '" . (int)$data['product_id'] . "', `customer_id` = '" . (int)$this->customer->getId() . "', `firstname` = '" . $this->db->escape($data['firstname']) . "', `lastname` = '" . $this->db->escape($data['lastname']) . "', `email` = '" . $this->db->escape($data['email']) . "', `telephone` = '" . $this->db->escape($data['telephone']) . "', `product` = '" . $this->db->escape($data['product']) . "', `model` = '" . $this->db->escape($data['model']) . "', `quantity` = '" . (int)$data['quantity'] . "', `opened` = '" . (int)$data['opened'] . "', `return_reason_id` = '" . (int)$data['return_reason_id'] . "', `return_status_id` = '" . (int)$this->config->get('config_return_status_id') . "', `comment` = '" . $this->db->escape($data['comment']) . "', `date_ordered` = '" . $this->db->escape($data['date_ordered']) . "', `date_added` = NOW(), `date_modified` = NOW()");
@@ -32,6 +51,8 @@ class ModelAccountReturns extends Model {
 	 * @return array<string, mixed> return record that has return ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('account/returns');
 	 *
 	 * $return_info = $this->model_account_returns->getReturn($return_id);
 	 */
@@ -50,6 +71,8 @@ class ModelAccountReturns extends Model {
 	 * @return array<int, array<string, mixed>> return records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('account/returns');
 	 *
 	 * $results = $this->model_account_returns->getReturns();
 	 */
@@ -74,6 +97,8 @@ class ModelAccountReturns extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('account/returns');
+	 *
 	 * $return_total = $this->model_account_returns->getTotalReturns();
 	 */
 	public function getTotalReturns(): int {
@@ -83,13 +108,15 @@ class ModelAccountReturns extends Model {
 	}
 
 	/**
-	 * Get Histories
+	 * Get Return Histories
 	 *
 	 * @param int $return_id primary key of the return record
 	 *
 	 * @return array<int, array<string, mixed>> history records that have return ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('account/returns');
 	 *
 	 * $results = $this->model_account_returns->getHistories($return_id);
 	 */

@@ -1,5 +1,10 @@
 <?php
 namespace Cart;
+/**
+ * Class Currency
+ *
+ * @package System\Library\Currency
+ */
 class Currency {
 	/**
 	 * @var object
@@ -219,7 +224,7 @@ class Currency {
 	 *
 	 * @example
 	 *
-	 * $has = $this->currency->has($currency);
+	 * $currency = $this->currency->has($currency);
 	 */
 	public function has(string $currency): bool {
 		return isset($this->currencies[$currency]);

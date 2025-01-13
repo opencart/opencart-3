@@ -2,7 +2,7 @@
 /**
  * Class Currency
  *
- * Can be called from $this->load->model('localisation/currency');
+ * Can be called using $this->load->model('localisation/currency');
  *
  * @package Admin\Model\Localisation
  */
@@ -16,7 +16,19 @@ class ModelLocalisationCurrency extends Model {
 	 *
 	 * @example
 	 *
-	 * $currency_id = $this->model_localisation_currency->addCurrency($data);
+	 * $currency_data = [
+	 *     'title'         => 'Currency Title',
+	 *     'code'          => 'Currency Code',
+	 *     'symbol_left'   => '',
+	 *     'symbol_right'  => '',
+	 *     'decimal_place' => 2,
+	 *     'value'         => 0.00000000,
+	 *     'status'        => 0
+	 * ];
+	 *
+	 * $this->load->model('localisation/currency');
+	 *
+	 * $currency_id = $this->model_localisation_currency->addCurrency($currency_data);
 	 */
 	public function addCurrency(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "currency` SET `title` = '" . $this->db->escape($data['title']) . "', `code` = '" . $this->db->escape($data['code']) . "', `symbol_left` = '" . $this->db->escape($data['symbol_left']) . "', `symbol_right` = '" . $this->db->escape($data['symbol_right']) . "', `decimal_place` = '" . $this->db->escape($data['decimal_place']) . "', `value` = '" . $this->db->escape($data['value']) . "', `status` = '" . (int)$data['status'] . "', `date_modified` = NOW()");
@@ -38,7 +50,19 @@ class ModelLocalisationCurrency extends Model {
 	 *
 	 * @example
 	 *
-	 * $this->model_localisation_currency->editCurrency($currency_id, $data);
+	 * $currency_data = [
+	 *     'title'         => 'Currency Title',
+	 *     'code'          => 'Currency Code',
+	 *     'symbol_left'   => '',
+	 *     'symbol_right'  => '',
+	 *     'decimal_place' => 2,
+	 *     'value'         => 0.00000000,
+	 *     'status'        => 1
+	 * ];
+	 *
+	 * $this->load->model('localisation/currency');
+	 *
+	 * $this->model_localisation_currency->editCurrency($currency_id, $currency_data);
 	 */
 	public function editCurrency(int $currency_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "currency` SET `title` = '" . $this->db->escape($data['title']) . "', `code` = '" . $this->db->escape($data['code']) . "', `symbol_left` = '" . $this->db->escape($data['symbol_left']) . "', `symbol_right` = '" . $this->db->escape($data['symbol_right']) . "', `decimal_place` = '" . $this->db->escape($data['decimal_place']) . "', `value` = '" . $this->db->escape($data['value']) . "', `status` = '" . (int)$data['status'] . "', `date_modified` = NOW() WHERE `currency_id` = '" . (int)$currency_id . "'");
@@ -55,6 +79,8 @@ class ModelLocalisationCurrency extends Model {
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('localisation/currency');
 	 *
 	 * $this->model_localisation_currency->editValueByCode($code, $value);
 	 */
@@ -73,6 +99,8 @@ class ModelLocalisationCurrency extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('localisation/currency');
+	 *
 	 * $this->model_localisation_currency->deleteCurrency($currency_id);
 	 */
 	public function deleteCurrency(int $currency_id): void {
@@ -89,6 +117,8 @@ class ModelLocalisationCurrency extends Model {
 	 * @return array<string, mixed> currency record that has currency ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('localisation/currency');
 	 *
 	 * $currency_info = $this->model_localisation_currency->getCurrency($currency_id);
 	 */
@@ -107,6 +137,8 @@ class ModelLocalisationCurrency extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('localisation/currency');
+	 *
 	 * $currency_info = $this->model_localisation_currency->getCurrencyByCode($currency);
 	 */
 	public function getCurrencyByCode(string $currency): array {
@@ -124,7 +156,16 @@ class ModelLocalisationCurrency extends Model {
 	 *
 	 * @example
 	 *
-	 * $results = $this->model_localisation_currency->getCurrencies();
+	 * $filter_data = [
+	 *     'sort'  => 'title',
+	 *     'order' => 'DESC',
+	 *     'start' => 0,
+	 *     'limit' => 10
+	 * ];
+	 *
+	 * $this->load->model('localisation/currency');
+	 *
+	 * $results = $this->model_localisation_currency->getCurrencies($filter_data);
 	 */
 	public function getCurrencies(array $data = []): array {
 		if ($data) {

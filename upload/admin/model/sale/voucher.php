@@ -2,7 +2,7 @@
 /**
  * Class Voucher
  *
- * Can be called from $this->load->model('sale/voucher');
+ * Can be called using $this->load->model('sale/voucher');
  *
  * @package Admin\Model\Sale
  */

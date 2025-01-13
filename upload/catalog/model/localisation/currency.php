@@ -2,7 +2,7 @@
 /**
  * Class Currency
  *
- * Can be called from $this->load->model('localisation/currency');
+ * Can be called using $this->load->model('localisation/currency');
  *
  * @package Catalog\Model\Localisation
  */
@@ -15,6 +15,8 @@ class ModelLocalisationCurrency extends Model {
 	 * @return array<string, mixed>
 	 *
 	 * @example
+	 *
+	 * $this->load->model('localisation/currency');
 	 *
 	 * $currency_info = $this->model_localisation_currency->getCurrencyByCode($currency);
 	 */
@@ -30,6 +32,8 @@ class ModelLocalisationCurrency extends Model {
 	 * @return array<int, array<string, mixed>> currency records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('localisation/currency');
 	 *
 	 * $currencies = $this->model_localisation_currency->getCurrencies();
 	 */

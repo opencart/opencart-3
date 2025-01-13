@@ -2,7 +2,7 @@
 /**
  * Class Information
  *
- * Can be called from $this->load->model('catalog/information');
+ * Can be called using $this->load->model('catalog/information');
  *
  * @package Admin\Model\Catalog
  */
@@ -16,7 +16,14 @@ class ModelCatalogInformation extends Model {
 	 *
 	 * @example
 	 *
-	 * $information_id = $this->model_catalog_information->addInformation($data);
+	 * $information_data = [
+	 *     'sort_order' => 0,
+	 *     'status'     => 0
+	 * ];
+	 *
+	 * $this->load->model('catalog/information');
+	 *
+	 * $information_id = $this->model_catalog_information->addInformation($information_data);
 	 */
 	public function addInformation(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "information` SET `sort_order` = '" . (int)$data['sort_order'] . "', `bottom` = '" . (isset($data['bottom']) ? (int)$data['bottom'] : 0) . "', `status` = '" . (int)$data['status'] . "'");
@@ -65,7 +72,14 @@ class ModelCatalogInformation extends Model {
 	 *
 	 * @example
 	 *
-	 * $this->model_catalog_information->editInformation($information_id, $data);
+	 * $information_data = [
+	 *     'sort_order' => 0,
+	 *     'status'     => 1
+	 * ];
+	 *
+	 * $this->load->model('catalog/information');
+	 *
+	 * $this->model_catalog_information->editInformation($information_id, $information_data);
 	 */
 	public function editInformation(int $information_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "information` SET `sort_order` = '" . (int)$data['sort_order'] . "', `bottom` = '" . (isset($data['bottom']) ? (int)$data['bottom'] : 0) . "', `status` = '" . (int)$data['status'] . "' WHERE `information_id` = '" . (int)$information_id . "'");
@@ -116,6 +130,8 @@ class ModelCatalogInformation extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('catalog/information');
+	 *
 	 * $this->model_catalog_information->deleteInformation($information_id);
 	 */
 	public function deleteInformation(int $information_id): void {
@@ -137,6 +153,8 @@ class ModelCatalogInformation extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('catalog/information');
+	 *
 	 * $information_info = $this->model_catalog_information->getInformation($information_id);
 	 */
 	public function getInformation(int $information_id): array {
@@ -154,7 +172,16 @@ class ModelCatalogInformation extends Model {
 	 *
 	 * @example
 	 *
-	 * $results = $this->model_catalog_information->getInformations();
+	 * $filter_data = [
+	 *     'sort'  => 'id.title',
+	 *     'order' => 'DESC',
+	 *     'start' => 0,
+	 *     'limit' => 10
+	 * ];
+	 *
+	 * $this->load->model('catalog/information');
+	 *
+	 * $results = $this->model_catalog_information->getInformations($filter_data);
 	 */
 	public function getInformations(array $data = []): array {
 		if ($data) {
@@ -212,11 +239,13 @@ class ModelCatalogInformation extends Model {
 	 *
 	 * @param int $information_id primary key of the information record
 	 *
-	 * @return array<int, array<string, string>> information description records that have information ID
+	 * @return array<int, array<string, string>> description records that have information ID
 	 *
 	 * @example
 	 *
-	 * $results = $this->model_catalog_information->getDescriptions($information_id);
+	 * $this->load->model('catalog/information');
+	 *
+	 * $information_description = $this->model_catalog_information->getDescriptions($information_id);
 	 */
 	public function getDescriptions(int $information_id): array {
 		$information_description_data = [];
@@ -244,6 +273,8 @@ class ModelCatalogInformation extends Model {
 	 * @return array<int, int> store records that have information ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('catalog/information');
 	 *
 	 * $information_store = $this->model_catalog_information->getStores($information_id);
 	 */
@@ -287,11 +318,13 @@ class ModelCatalogInformation extends Model {
 	 *
 	 * @param int $information_id primary key of the information record
 	 *
-	 * @return array<int, array<string, string>> layout records that have information ID
+	 * @return array<int, int> layout records that have information ID
 	 *
 	 * @example
 	 *
-	 * $results = $this->model_catalog_information->getInformationLayouts($information_id);
+	 * $this->load->model('catalog/information');
+	 *
+	 * $information_layout = $this->model_catalog_information->getInformationLayouts($information_id);
 	 */
 	public function getInformationLayouts(int $information_id): array {
 		$information_layout_data = [];
@@ -312,6 +345,8 @@ class ModelCatalogInformation extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('catalog/information');
+	 *
 	 * $information_total = $this->model_catalog_information->getTotalInformations();
 	 */
 	public function getTotalInformations(): int {
@@ -321,13 +356,15 @@ class ModelCatalogInformation extends Model {
 	}
 
 	/**
-	 * Get Total Information(s) By LayoutId
+	 * Get Total Information(s) By Layout ID
 	 *
-	 * @param int $layout_id primary key of the information record
+	 * @param int $layout_id primary key of the layout record
 	 *
 	 * @return int total number of layout records that have layout ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('catalog/information');
 	 *
 	 * $information_total = $this->model_catalog_information->getTotalInformationsByLayoutId($layout_id);
 	 */

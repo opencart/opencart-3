@@ -2,7 +2,7 @@
 /**
  * Class Api
  *
- * Can be called from $this->load->model('account/api');
+ * Can be called using $this->load->model('account/api');
  *
  * @package Catalog\Model\Account
  */

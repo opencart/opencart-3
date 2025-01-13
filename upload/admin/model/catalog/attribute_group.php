@@ -2,7 +2,7 @@
 /**
  * Class Attribute Group
  *
- * Can be called from $this->load->model('catalog/attribute_group');
+ * Can be called using $this->load->model('catalog/attribute_group');
  *
  * @package Admin\Model\Catalog
  */
@@ -16,7 +16,13 @@ class ModelCatalogAttributeGroup extends Model {
 	 *
 	 * @example
 	 *
-	 * $attribute_group_id = $this->model_catalog_attribute_group->addAttributeGroup($data);
+	 * $attribute_group_data = [
+	 *     'sort_order' => 0,
+	 * ];
+	 *
+	 * $this->load->model('catalog/attribute_group');
+	 *
+	 * $attribute_group_id = $this->model_catalog_attribute_group->addAttributeGroup($attribute_group_data);
 	 */
 	public function addAttributeGroup(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "attribute_group` SET `sort_order` = '" . (int)$data['sort_order'] . "'");
@@ -40,7 +46,13 @@ class ModelCatalogAttributeGroup extends Model {
 	 *
 	 * @example
 	 *
-	 * $this->model_catalog_attribute_group->editAttributeGroup($attribute_group_id, $data);
+	 * $attribute_group_data = [
+	 *     'sort_order' => 0
+	 * ];
+	 *
+	 * $this->load->model('catalog/attribute_group');
+	 *
+	 * $this->model_catalog_attribute_group->editAttributeGroup($attribute_group_id, $attribute_group_data);
 	 */
 	public function editAttributeGroup(int $attribute_group_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "attribute_group` SET `sort_order` = '" . (int)$data['sort_order'] . "' WHERE `attribute_group_id` = '" . (int)$attribute_group_id . "'");
@@ -61,6 +73,8 @@ class ModelCatalogAttributeGroup extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('catalog/attribute_group');
+	 *
 	 * $this->model_catalog_attribute_group->deleteAttributeGroup($attribute_group_id);
 	 */
 	public function deleteAttributeGroup(int $attribute_group_id): void {
@@ -76,6 +90,8 @@ class ModelCatalogAttributeGroup extends Model {
 	 * @return array<string, mixed> attribute group record that has attribute group ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('catalog/attribute_group');
 	 *
 	 * $attribute_group_info = $this->model_catalog_attribute_group->getAttributeGroup($attribute_group_id);
 	 */
@@ -94,7 +110,16 @@ class ModelCatalogAttributeGroup extends Model {
 	 *
 	 * @example
 	 *
-	 * $attribute_groups = $this->model_catalog_attribute_group->getAttributeGroups();
+	 * $this->load->model('catalog/attribute_group');
+	 *
+	 * $filter_data = [
+	 *	  'sort'  => 'agd.name',
+	 *	  'order' => 'DESC',
+	 *	  'start' => 0,
+	 *	  'limit' => 10
+	 * ];
+	 *
+	 * $attribute_groups = $this->model_catalog_attribute_group->getAttributeGroups($filter_data);
 	 */
 	public function getAttributeGroups(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "attribute_group` `ag` LEFT JOIN `" . DB_PREFIX . "attribute_group_description` `agd` ON (`ag`.`attribute_group_id` = `agd`.`attribute_group_id`) WHERE `agd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
@@ -142,6 +167,8 @@ class ModelCatalogAttributeGroup extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('catalog/attribute_group');
+	 *
 	 * $attribute_group_description = $this->model_catalog_attribute_group->getDescriptions($attribute_group_id);
 	 */
 	public function getDescriptions(int $attribute_group_id): array {
@@ -162,6 +189,8 @@ class ModelCatalogAttributeGroup extends Model {
 	 * @return int total number of attribute group records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('catalog/attribute_group');
 	 *
 	 * $attribute_group_total = $this->model_catalog_attribute_group->getTotalAttributeGroups();
 	 */

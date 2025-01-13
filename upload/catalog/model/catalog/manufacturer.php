@@ -2,7 +2,7 @@
 /**
  * Class Manufacturer
  *
- * Can be called from $this->load->model('catalog/manufacturer');
+ * Can be called using $this->load->model('catalog/manufacturer');
  *
  * @package Catalog\Model\Catalog
  */
@@ -15,6 +15,8 @@ class ModelCatalogManufacturer extends Model {
 	 * @return array<string, mixed> manufacturer record that has manufacturer ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('catalog/manufacturer');
 	 *
 	 * $manufacturer_info = $this->model_catalog_manufacturer->getManufacturer($manufacturer_id);
 	 */
@@ -32,6 +34,8 @@ class ModelCatalogManufacturer extends Model {
 	 * @return array<int, array<string, mixed>> manufacturer records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('catalog/manufacturer');
 	 *
 	 * $manufacturers = $this->model_catalog_manufacturer->getManufacturers();
 	 */

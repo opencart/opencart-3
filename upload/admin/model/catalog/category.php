@@ -2,7 +2,7 @@
 /**
  * Class Category
  *
- * Can be called from $this->load->model('catalog/category');
+ * Can be called using $this->load->model('catalog/category');
  *
  * @package Admin\Model\Catalog
  */
@@ -16,7 +16,18 @@ class ModelCatalogCategory extends Model {
 	 *
 	 * @example
 	 *
-	 * $category_id = $this->model_catalog_category->addCategory($data);
+	 * $category_data = [
+	 *     'image'         => 'category_image',
+	 *     'parent_id'     => 0,
+	 *     'sort_order'    => 0,
+	 *     'status'        => 0,
+	 *     'date_added'    => '2021-01-01',
+	 *     'date_modified' => '2021-01-31'
+	 * ];
+	 *
+	 * $this->load->model('catalog/category');
+	 *
+	 * $category_id = $this->model_catalog_category->addCategory($category_data);
 	 */
 	public function addCategory(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "category` SET `parent_id` = '" . (int)$data['parent_id'] . "', `top` = '" . (isset($data['top']) ? (int)$data['top'] : 0) . "', `column` = '" . (int)$data['column'] . "', `sort_order` = '" . (int)$data['sort_order'] . "', `status` = '" . (int)$data['status'] . "', `date_modified` = NOW(), `date_added` = NOW()");
@@ -88,7 +99,17 @@ class ModelCatalogCategory extends Model {
 	 *
 	 * @example
 	 *
-	 * $this->model_catalog_category->editCategory($category_id, $this->request->post);
+	 * $category_data = [
+	 *     'image'         => 'category_image',
+	 *     'parent_id'     => 0,
+	 *     'sort_order'    => 0,
+	 *     'status'        => 1,
+	 *     'date_modified' => '2021-01-01'
+	 * ];
+	 *
+	 * $this->load->model('catalog/category');
+	 *
+	 * $this->model_catalog_category->editCategory($category_id, $category_data);
 	 */
 	public function editCategory(int $category_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "category` SET `parent_id` = '" . (int)$data['parent_id'] . "', `top` = '" . (isset($data['top']) ? (int)$data['top'] : 0) . "', `column` = '" . (int)$data['column'] . "', `sort_order` = '" . (int)$data['sort_order'] . "', `status` = '" . (int)$data['status'] . "', `date_modified` = NOW() WHERE `category_id` = '" . (int)$category_id . "'");
@@ -203,6 +224,8 @@ class ModelCatalogCategory extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('catalog/category');
+	 *
 	 * $this->model_catalog_category->deleteCategory($category_id);
 	 */
 	public function deleteCategory(int $category_id): void {
@@ -234,6 +257,8 @@ class ModelCatalogCategory extends Model {
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('catalog/category');
 	 *
 	 * $this->model_catalog_category->repairCategories();
 	 */
@@ -270,6 +295,8 @@ class ModelCatalogCategory extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('catalog/category');
+	 *
 	 * $category_info = $this->model_catalog_category->getCategory($category_id);
 	 */
 	public function getCategory(int $category_id): array {
@@ -286,6 +313,8 @@ class ModelCatalogCategory extends Model {
 	 * @return array<int, array<string, mixed>> category records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('catalog/category');
 	 *
 	 * $results = $this->model_catalog_category->getCategories();
 	 */
@@ -341,6 +370,8 @@ class ModelCatalogCategory extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('catalog/category');
+	 *
 	 * $category_description = $this->model_catalog_category->getDescriptions($category_id);
 	 */
 	public function getDescriptions(int $category_id): array {
@@ -370,6 +401,8 @@ class ModelCatalogCategory extends Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('catalog/category');
+	 *
 	 * $path = $this->model_catalog_category->getPath($category_id);
 	 */
 	public function getPath(int $category_id): array {
@@ -386,6 +419,8 @@ class ModelCatalogCategory extends Model {
 	 * @return array<int, int> filter records that have category ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('catalog/category');
 	 *
 	 * $filters = $this->model_catalog_category->getFilters($category_id);
 	 */
