@@ -18,6 +18,7 @@ Filters
     default
     escape
     filter
+    find
     first
     format
     format_currency

@@ -14,17 +14,18 @@ namespace Twig\Tests\Node;
 use Twig\Environment;
 use Twig\Loader\ArrayLoader;
 use Twig\Node\BodyNode;
-use Twig\Node\Expression\AssignNameExpression;
-use Twig\Node\Expression\ConditionalExpression;
+use Twig\Node\EmptyNode;
 use Twig\Node\Expression\ConstantExpression;
+use Twig\Node\Expression\Ternary\ConditionalTernary;
+use Twig\Node\Expression\Variable\AssignContextVariable;
+use Twig\Node\Expression\Variable\AssignTemplateVariable;
+use Twig\Node\Expression\Variable\TemplateVariable;
 use Twig\Node\ImportNode;
 use Twig\Node\ModuleNode;
-use Twig\Node\Node;
+use Twig\Node\Nodes;
 use Twig\Node\SetNode;
 use Twig\Node\TextNode;
 use Twig\Source;
-use Twig\Template;
-use Twig\TemplateWrapper;
 use Twig\Test\NodeTestCase;
 
 class ModuleTest extends NodeTestCase
@@ -33,11 +34,11 @@ class ModuleTest extends NodeTestCase
     {
         $body = new BodyNode([new TextNode('foo', 1)]);
         $parent = new ConstantExpression('layout.twig', 1);
-        $blocks = new Node();
-        $macros = new Node();
-        $traits = new Node();
+        $blocks = new EmptyNode();
+        $macros = new EmptyNode();
+        $traits = new EmptyNode();
         $source = new Source('{{ foo }}', 'foo.twig');
-        $node = new ModuleNode($body, $parent, $blocks, $macros, $traits, new Node([]), $source);
+        $node = new ModuleNode($body, $parent, $blocks, $macros, $traits, new EmptyNode(), $source);
 
         $this->assertEquals($body, $node->getNode('body'));
         $this->assertEquals($blocks, $node->getNode('blocks'));
@@ -46,7 +47,7 @@ class ModuleTest extends NodeTestCase
         $this->assertEquals($source->getName(), $node->getTemplateName());
     }
 
-    public function getTests()
+    public static function provideTests(): iterable
     {
         $twig = new Environment(new ArrayLoader(['foo.twig' => '{{ foo }}']));
 
@@ -54,12 +55,12 @@ class ModuleTest extends NodeTestCase
 
         $body = new BodyNode([new TextNode('foo', 1)]);
         $extends = null;
-        $blocks = new Node();
-        $macros = new Node();
-        $traits = new Node();
+        $blocks = new EmptyNode();
+        $macros = new EmptyNode();
+        $traits = new EmptyNode();
         $source = new Source('{{ foo }}', 'foo.twig');
 
-        $node = new ModuleNode($body, $extends, $blocks, $macros, $traits, new Node([]), $source);
+        $node = new ModuleNode($body, $extends, $blocks, $macros, $traits, new EmptyNode(), $source);
         $tests[] = [$node, <<<EOF
 <?php
 
@@ -98,12 +99,12 @@ class __TwigTemplate_%x extends Template
         ];
     }
 
-    protected function doDisplay(array \$context, array \$blocks = [])
+    protected function doDisplay(array \$context, array \$blocks = []): iterable
     {
         \$macros = \$this->macros;
         // line 1
         yield "foo";
-        return; yield '';
+        yield from [];
     }
 
     /**
@@ -130,12 +131,12 @@ class __TwigTemplate_%x extends Template
 EOF
             , $twig, true];
 
-        $import = new ImportNode(new ConstantExpression('foo.twig', 1), new AssignNameExpression('macro', 1), 2);
+        $import = new ImportNode(new ConstantExpression('foo.twig', 1), new AssignTemplateVariable(new TemplateVariable('macro', 2), true), 2);
 
         $body = new BodyNode([$import]);
         $extends = new ConstantExpression('layout.twig', 1);
 
-        $node = new ModuleNode($body, $extends, $blocks, $macros, $traits, new Node([]), $source);
+        $node = new ModuleNode($body, $extends, $blocks, $macros, $traits, new EmptyNode(), $source);
         $tests[] = [$node, <<<EOF
 <?php
 
@@ -178,7 +179,7 @@ class __TwigTemplate_%x extends Template
         return "layout.twig";
     }
 
-    protected function doDisplay(array \$context, array \$blocks = [])
+    protected function doDisplay(array \$context, array \$blocks = []): iterable
     {
         \$macros = \$this->macros;
         // line 2
@@ -220,9 +221,9 @@ class __TwigTemplate_%x extends Template
 EOF
             , $twig, true];
 
-        $set = new SetNode(false, new Node([new AssignNameExpression('foo', 4)]), new Node([new ConstantExpression('foo', 4)]), 4);
+        $set = new SetNode(false, new Nodes([new AssignContextVariable('foo', 4)]), new Nodes([new ConstantExpression('foo', 4)]), 4);
         $body = new BodyNode([$set]);
-        $extends = new ConditionalExpression(
+        $extends = new ConditionalTernary(
             new ConstantExpression(true, 2),
             new ConstantExpression('foo', 2),
             new ConstantExpression('foo', 2),
@@ -230,7 +231,7 @@ EOF
         );
 
         $twig = new Environment(new ArrayLoader(['foo.twig' => '{{ foo }}']), ['debug' => true]);
-        $node = new ModuleNode($body, $extends, $blocks, $macros, $traits, new Node([]), $source);
+        $node = new ModuleNode($body, $extends, $blocks, $macros, $traits, new EmptyNode(), $source);
         $tests[] = [$node, <<<EOF
 <?php
 
@@ -273,7 +274,7 @@ class __TwigTemplate_%x extends Template
         return \$this->loadTemplate(((true) ? ("foo") : ("foo")), "foo.twig", 2);
     }
 
-    protected function doDisplay(array \$context, array \$blocks = [])
+    protected function doDisplay(array \$context, array \$blocks = []): iterable
     {
         \$macros = \$this->macros;
         // line 4

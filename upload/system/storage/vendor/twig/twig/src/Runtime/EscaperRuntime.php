@@ -26,11 +26,9 @@ final class EscaperRuntime implements RuntimeExtensionInterface
     /** @internal */
     public $safeLookup = [];
 
-    private $charset;
-
-    public function __construct($charset = 'UTF-8')
-    {
-        $this->charset = $charset;
+    public function __construct(
+        private $charset = 'UTF-8',
+    ) {
     }
 
     /**
@@ -38,6 +36,8 @@ final class EscaperRuntime implements RuntimeExtensionInterface
      *
      * @param string                                            $strategy The strategy name that should be used as a strategy in the escape call
      * @param callable(string $string, string $charset): string $callable A valid PHP callable
+     *
+     * @return void
      */
     public function setEscaper($strategy, callable $callable)
     {
@@ -54,6 +54,11 @@ final class EscaperRuntime implements RuntimeExtensionInterface
         return $this->escapers;
     }
 
+    /**
+     * @param array<class-string<\Stringable>, string[]> $safeClasses
+     *
+     * @return void
+     */
     public function setSafeClasses(array $safeClasses = [])
     {
         $this->safeClasses = [];
@@ -63,6 +68,12 @@ final class EscaperRuntime implements RuntimeExtensionInterface
         }
     }
 
+    /**
+     * @param class-string<\Stringable> $class
+     * @param string[]                  $strategies
+     *
+     * @return void
+     */
     public function addSafeClass(string $class, array $strategies)
     {
         $class = ltrim($class, '\\');

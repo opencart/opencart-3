@@ -14,6 +14,7 @@ namespace Twig\Tests\Extension;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bridge\PhpUnit\ExpectDeprecationTrait;
 use Twig\Environment;
+use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 use Twig\Extension\SandboxExtension;
 use Twig\Extension\StringLoaderExtension;
@@ -41,7 +42,13 @@ class SandboxTest extends TestCase
             'obj' => new FooObject(),
             'arr' => ['obj' => new FooObject()],
             'child_obj' => new ChildClass(),
+            'some_array' => [5, 6, 7, new FooObject()],
+            'array_like' => new ArrayLikeObject(),
+            'magic' => new MagicObject(),
+            'recursion' => [4],
         ];
+        self::$params['recursion'][] = &self::$params['recursion'];
+        self::$params['recursion'][] = new FooObject();
 
         self::$templates = [
             '1_basic1' => '{{ obj.foo }}',
@@ -59,11 +66,13 @@ class SandboxTest extends TestCase
             '1_basic2_include_template_from_string_sandboxed' => '{{ include(template_from_string("{{ name|upper }}"), sandboxed=true) }}',
             '1_basic2_include_template_from_string' => '{{ include(template_from_string("{{ name|upper }}")) }}',
             '1_range_operator' => '{{ (1..2)[0] }}',
-            '1_syntax_error_wrapper' => '{% sandbox %}{% include "1_syntax_error" %}{% endsandbox %}',
+            '1_syntax_error_wrapper_legacy' => '{% sandbox %}{% include "1_syntax_error" %}{% endsandbox %}',
+            '1_syntax_error_wrapper' => '{{ include("1_syntax_error", sandboxed: true) }}',
             '1_syntax_error' => '{% syntax error }}',
             '1_childobj_parentmethod' => '{{ child_obj.ParentMethod() }}',
             '1_childobj_childmethod' => '{{ child_obj.ChildMethod() }}',
             '1_empty' => '',
+            '1_array_like' => '{{ array_like["foo"] }}',
         ];
     }
 
@@ -72,14 +81,15 @@ class SandboxTest extends TestCase
      */
     public function testSandboxForCoreTags(string $tag, string $template)
     {
-        $this->expectException(SecurityError::class);
-        $this->expectExceptionMessageMatches(sprintf('/Tag "%s" is not allowed in "index \(string template .+?\)" at line 1/', $tag));
-
         $twig = $this->getEnvironment(true, [], self::$templates, []);
+
+        $this->expectException(SecurityError::class);
+        $this->expectExceptionMessageMatches(\sprintf('/Tag "%s" is not allowed in "index \(string template .+?\)" at line 1/', $tag));
+
         $twig->createTemplate($template, 'index')->render([]);
     }
 
-    public function getSandboxedForCoreTagsTests()
+    public static function getSandboxedForCoreTagsTests()
     {
         yield ['apply', '{% apply upper %}foo{% endapply %}'];
         yield ['autoescape', '{% autoescape %}foo{% endautoescape %}'];
@@ -88,7 +98,7 @@ class SandboxTest extends TestCase
         yield ['do', '{% do 1 + 2 %}'];
         yield ['embed', '{% embed "base.twig" %}{% endembed %}'];
         // To be uncommented in 4.0
-        //yield ['extends', '{% extends "base.twig" %}'];
+        // yield ['extends', '{% extends "base.twig" %}'];
         yield ['flush', '{% flush %}'];
         yield ['for', '{% for i in 1..2 %}{% endfor %}'];
         yield ['from', '{% from "macros" import foo %}'];
@@ -96,10 +106,9 @@ class SandboxTest extends TestCase
         yield ['import', '{% import "macros" as macros %}'];
         yield ['include', '{% include "macros" %}'];
         yield ['macro', '{% macro foo() %}{% endmacro %}'];
-        yield ['sandbox', '{% sandbox %}{% endsandbox %}'];
         yield ['set', '{% set foo = 1 %}'];
         // To be uncommented in 4.0
-        //yield ['use', '{% use "1_empty" %}'];
+        // yield ['use', '{% use "1_empty" %}'];
         yield ['with', '{% with foo %}{% endwith %}'];
     }
 
@@ -110,13 +119,13 @@ class SandboxTest extends TestCase
      */
     public function testSandboxForExtendsAndUseTags(string $tag, string $template)
     {
-        $this->expectDeprecation(sprintf('Since twig/twig 3.12: The "%s" tag is always allowed in sandboxes, but won\'t be in 4.0, please enable it explicitly in your sandbox policy if needed.', $tag));
+        $this->expectDeprecation(\sprintf('Since twig/twig 3.12: The "%s" tag is always allowed in sandboxes, but won\'t be in 4.0, please enable it explicitly in your sandbox policy if needed.', $tag));
 
         $twig = $this->getEnvironment(true, [], self::$templates, []);
         $twig->createTemplate($template, 'index')->render([]);
     }
 
-    public function getSandboxedForExtendsAndUseTagsTests()
+    public static function getSandboxedForExtendsAndUseTagsTests()
     {
         yield ['extends', '{% extends "1_empty" %}'];
         yield ['use', '{% use "1_empty" %}'];
@@ -124,10 +133,11 @@ class SandboxTest extends TestCase
 
     public function testSandboxWithInheritance()
     {
+        $twig = $this->getEnvironment(true, [], self::$templates, ['extends', 'block']);
+
         $this->expectException(SecurityError::class);
         $this->expectExceptionMessage('Filter "json_encode" is not allowed in "1_child" at line 3.');
 
-        $twig = $this->getEnvironment(true, [], self::$templates, ['extends', 'block']);
         $twig->load('1_child')->render([]);
     }
 
@@ -137,15 +147,46 @@ class SandboxTest extends TestCase
         $this->assertEquals('FOO', $twig->load('1_basic')->render(self::$params), 'Sandbox does nothing if it is disabled globally');
     }
 
-    public function testSandboxUnallowedMethodAccessor()
+    public function testSandboxUnallowedPropertyAccessor()
     {
         $twig = $this->getEnvironment(true, [], self::$templates);
         try {
-            $twig->load('1_basic1')->render(self::$params);
+            $twig->load('1_basic1')->render(['obj' => new MagicObject()]);
             $this->fail('Sandbox throws a SecurityError exception if an unallowed method is called');
-        } catch (SecurityNotAllowedMethodError $e) {
-            $this->assertEquals('Twig\Tests\Extension\FooObject', $e->getClassName(), 'Exception should be raised on the "Twig\Tests\Extension\FooObject" class');
-            $this->assertEquals('foo', $e->getMethodName(), 'Exception should be raised on the "foo" method');
+        } catch (SecurityNotAllowedPropertyError $e) {
+            $this->assertEquals('Twig\Tests\Extension\MagicObject', $e->getClassName(), 'Exception should be raised on the "Twig\Tests\Extension\MagicObject" class');
+            $this->assertEquals('foo', $e->getPropertyName(), 'Exception should be raised on the "foo" property');
+        }
+    }
+
+    public function testSandboxUnallowedArrayIndexAccessor()
+    {
+        $twig = $this->getEnvironment(true, [], self::$templates);
+
+        // ArrayObject and other internal array-like classes are exempted from sandbox restrictions
+        $this->assertSame('bar', $twig->load('1_array_like')->render(['array_like' => new \ArrayObject(['foo' => 'bar'])]));
+
+        try {
+            $twig->load('1_array_like')->render(self::$params);
+            $this->fail('Sandbox throws a SecurityError exception if an unallowed method is called');
+        } catch (SecurityNotAllowedPropertyError $e) {
+            $this->assertEquals('Twig\Tests\Extension\ArrayLikeObject', $e->getClassName(), 'Exception should be raised on the "Twig\Tests\Extension\ArrayLikeObject" class');
+            $this->assertEquals('foo', $e->getPropertyName(), 'Exception should be raised on the "foo" property');
+        }
+    }
+
+    /**
+     * @group legacy
+     */
+    public function testIfSandBoxIsDisabledAfterSyntaxErrorLegacy()
+    {
+        $twig = $this->getEnvironment(false, [], self::$templates);
+        try {
+            $twig->load('1_syntax_error_wrapper_legacy')->render(self::$params);
+        } catch (SyntaxError $e) {
+            /** @var SandboxExtension $sandbox */
+            $sandbox = $twig->getExtension(SandboxExtension::class);
+            $this->assertFalse($sandbox->isSandboxed());
         }
     }
 
@@ -243,17 +284,17 @@ class SandboxTest extends TestCase
      */
     public function testSandboxUnallowedToString($template)
     {
-        $twig = $this->getEnvironment(true, [], ['index' => $template], [], ['upper'], ['Twig\Tests\Extension\FooObject' => 'getAnotherFooObject'], [], ['random']);
+        $twig = $this->getEnvironment(true, [], ['index' => $template], [], ['upper', 'join', 'replace'], ['Twig\Tests\Extension\FooObject' => 'getAnotherFooObject'], [], ['random']);
         try {
             $twig->load('index')->render(self::$params);
-            $this->fail('Sandbox throws a SecurityError exception if an unallowed method (__toString()) is called in the template');
+            $this->fail('Sandbox throws a SecurityError exception if an unallowed method "__toString()" method is called in the template');
         } catch (SecurityNotAllowedMethodError $e) {
             $this->assertEquals('Twig\Tests\Extension\FooObject', $e->getClassName(), 'Exception should be raised on the "Twig\Tests\Extension\FooObject" class');
             $this->assertEquals('__tostring', $e->getMethodName(), 'Exception should be raised on the "__toString" method');
         }
     }
 
-    public function getSandboxUnallowedToStringTests()
+    public static function getSandboxUnallowedToStringTests()
     {
         return [
             'simple' => ['{{ obj }}'],
@@ -269,6 +310,17 @@ class SandboxTest extends TestCase
             'object_chain_and_function' => ['{{ random(obj.anotherFooObject) }}'],
             'concat' => ['{{ obj ~ "" }}'],
             'concat_again' => ['{{ "" ~ obj }}'],
+            'object_in_arguments' => ['{{ "__toString"|replace({"__toString": obj}) }}'],
+            'object_in_array' => ['{{ [12, "foo", obj]|join(", ") }}'],
+            'object_in_array_var' => ['{{ some_array|join(", ") }}'],
+            'object_in_array_nested' => ['{{ [12, "foo", [12, "foo", obj]]|join(", ") }}'],
+            'object_in_array_var_nested' => ['{{ [12, "foo", some_array]|join(", ") }}'],
+            'object_in_array_dynamic_key' => ['{{ {(obj): "foo"}|join(", ") }}'],
+            'object_in_array_dynamic_key_nested' => ['{{ {"foo": { (obj): "foo" }}|join(", ") }}'],
+            'context' => ['{{ _context|join(", ") }}'],
+            'spread_array_operator' => ['{{ [1, 2, ...[5, 6, 7, obj]]|join(",") }}'],
+            'spread_array_operator_var' => ['{{ [1, 2, ...some_array]|join(",") }}'],
+            'recursion' => ['{{ recursion|join(", ") }}'],
         ];
     }
 
@@ -281,12 +333,13 @@ class SandboxTest extends TestCase
         $this->assertEquals($output, $twig->load('index')->render(self::$params));
     }
 
-    public function getSandboxAllowedToStringTests()
+    public static function getSandboxAllowedToStringTests()
     {
         return [
             'constant_test' => ['{{ obj is constant("PHP_INT_MAX") }}', ''],
             'set_object' => ['{% set a = obj.anotherFooObject %}{{ a.foo }}', 'foo'],
-            'is_defined' => ['{{ obj.anotherFooObject is defined }}', '1'],
+            'is_defined1' => ['{{ obj.anotherFooObject is defined }}', '1'],
+            'is_defined2' => ['{{ magic.foo is defined }}', ''],
             'is_null' => ['{{ obj is null }}', ''],
             'is_sameas' => ['{{ obj is same as(obj) }}', '1'],
             'is_sameas_no_brackets' => ['{{ obj is same as obj }}', '1'],
@@ -396,16 +449,16 @@ class SandboxTest extends TestCase
         $this->assertEquals('fooFOOfoo', $twig->load('2_basic')->render(self::$params), 'Sandbox does nothing if disabled globally and sandboxed not used for the include');
 
         self::$templates = [
-            '3_basic' => '{{ obj.foo }}{% sandbox %}{% include "3_included" %}{% endsandbox %}{{ obj.foo }}',
-            '3_included' => '{% if obj.foo %}{{ obj.foo|upper }}{% endif %}',
+            '3_basic' => '{{ include("3_included", sandboxed: true) }}',
+            '3_included' => '{% if true %}{{ "foo"|upper }}{% endif %}',
         ];
 
-        $twig = $this->getEnvironment(true, [], self::$templates);
+        $twig = $this->getEnvironment(true, [], self::$templates, functions: ['include']);
         try {
             $twig->load('3_basic')->render(self::$params);
             $this->fail('Sandbox throws a SecurityError exception when the included file is sandboxed');
         } catch (SecurityNotAllowedTagError $e) {
-            $this->assertEquals('sandbox', $e->getTagName());
+            $this->assertEquals('if', $e->getTagName());
         }
     }
 
@@ -441,13 +494,13 @@ EOF
 
     public function testSandboxWithNoClosureFilter()
     {
-        $this->expectException('\Twig\Error\RuntimeError');
-        $this->expectExceptionMessage('The callable passed to the "filter" filter must be a Closure in sandbox mode in "index" at line 1.');
-
         $twig = $this->getEnvironment(true, ['autoescape' => 'html'], ['index' => <<<EOF
 {{ ["foo", "bar", ""]|filter("trim")|join(", ") }}
 EOF
         ], [], ['escape', 'filter', 'join']);
+
+        $this->expectException(RuntimeError::class);
+        $this->expectExceptionMessage('The callable passed to the "filter" filter must be a Closure in sandbox mode in "index" at line 1.');
 
         $twig->load('index')->render([]);
     }
@@ -512,7 +565,7 @@ EOF
 
     public function testSandboxSourcePolicyEnableReturningFalse()
     {
-        $twig = $this->getEnvironment(false, [], self::$templates, [], [], [], [], [], new class() implements \Twig\Sandbox\SourcePolicyInterface {
+        $twig = $this->getEnvironment(false, [], self::$templates, [], [], [], [], [], new class implements \Twig\Sandbox\SourcePolicyInterface {
             public function enableSandbox(Source $source): bool
             {
                 return '1_basic' != $source->getName();
@@ -523,7 +576,7 @@ EOF
 
     public function testSandboxSourcePolicyEnableReturningTrue()
     {
-        $twig = $this->getEnvironment(false, [], self::$templates, [], [], [], [], [], new class() implements \Twig\Sandbox\SourcePolicyInterface {
+        $twig = $this->getEnvironment(false, [], self::$templates, [], [], [], [], [], new class implements \Twig\Sandbox\SourcePolicyInterface {
             public function enableSandbox(Source $source): bool
             {
                 return '1_basic' === $source->getName();
@@ -535,7 +588,7 @@ EOF
 
     public function testSandboxSourcePolicyFalseDoesntOverrideOtherEnables()
     {
-        $twig = $this->getEnvironment(true, [], self::$templates, [], [], [], [], [], new class() implements \Twig\Sandbox\SourcePolicyInterface {
+        $twig = $this->getEnvironment(true, [], self::$templates, [], [], [], [], [], new class implements \Twig\Sandbox\SourcePolicyInterface {
             public function enableSandbox(Source $source): bool
             {
                 return false;
@@ -594,5 +647,39 @@ class FooObject
     public function getAnotherFooObject()
     {
         return new self();
+    }
+}
+
+class ArrayLikeObject extends \ArrayObject
+{
+    public function offsetExists($offset): bool
+    {
+        throw new \BadMethodCallException('Should not be called.');
+    }
+
+    public function offsetGet($offset): mixed
+    {
+        throw new \BadMethodCallException('Should not be called.');
+    }
+
+    public function offsetSet($offset, $value): void
+    {
+    }
+
+    public function offsetUnset($offset): void
+    {
+    }
+}
+
+class MagicObject
+{
+    public function __get($name): mixed
+    {
+        throw new \BadMethodCallException('Should not be called.');
+    }
+
+    public function __isset($name): bool
+    {
+        throw new \BadMethodCallException('Should not be called.');
     }
 }

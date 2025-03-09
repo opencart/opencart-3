@@ -17,6 +17,7 @@ use Twig\Error\Error;
 use Twig\Extension\ExtensionInterface;
 use Twig\Loader\ArrayLoader;
 use Twig\RuntimeLoader\RuntimeLoaderInterface;
+use Twig\TokenParser\TokenParserInterface;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
 use Twig\TwigTest;
@@ -30,9 +31,19 @@ use Twig\TwigTest;
 abstract class IntegrationTestCase extends TestCase
 {
     /**
+     * @deprecated since Twig 3.13, use getFixturesDirectory() instead.
+     *
      * @return string
      */
-    abstract protected function getFixturesDir();
+    protected function getFixturesDir()
+    {
+        throw new \BadMethodCallException('Not implemented.');
+    }
+
+    protected static function getFixturesDirectory(): string
+    {
+        throw new \BadMethodCallException('Not implemented.');
+    }
 
     /**
      * @return RuntimeLoaderInterface[]
@@ -75,7 +86,33 @@ abstract class IntegrationTestCase extends TestCase
     }
 
     /**
+     * @return array<callable(string): (TwigFilter|false)>
+     */
+    protected function getUndefinedFilterCallbacks(): array
+    {
+        return [];
+    }
+
+    /**
+     * @return array<callable(string): (TwigFunction|false)>
+     */
+    protected function getUndefinedFunctionCallbacks(): array
+    {
+        return [];
+    }
+
+    /**
+     * @return array<callable(string): (TokenParserInterface|false)>
+     */
+    protected function getUndefinedTokenParserCallbacks(): array
+    {
+        return [];
+    }
+
+    /**
      * @dataProvider getTests
+     *
+     * @return void
      */
     public function testIntegration($file, $message, $condition, $templates, $exception, $outputs, $deprecation = '')
     {
@@ -86,15 +123,29 @@ abstract class IntegrationTestCase extends TestCase
      * @dataProvider getLegacyTests
      *
      * @group legacy
+     *
+     * @return void
      */
     public function testLegacyIntegration($file, $message, $condition, $templates, $exception, $outputs, $deprecation = '')
     {
         $this->doIntegrationTest($file, $message, $condition, $templates, $exception, $outputs, $deprecation);
     }
 
+    /**
+     * @return iterable
+     *
+     * @final since Twig 3.13
+     */
     public function getTests($name, $legacyTests = false)
     {
-        $fixturesDir = realpath($this->getFixturesDir());
+        try {
+            $fixturesDir = static::getFixturesDirectory();
+        } catch (\BadMethodCallException) {
+            trigger_deprecation('twig/twig', '3.13', 'Not overriding "%s::getFixturesDirectory()" in "%s" is deprecated. This method will be abstract in 4.0.', self::class, static::class);
+            $fixturesDir = $this->getFixturesDir();
+        }
+
+        $fixturesDir = realpath($fixturesDir);
         $tests = [];
 
         foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($fixturesDir), \RecursiveIteratorIterator::LEAVES_ONLY) as $file) {
@@ -126,10 +177,10 @@ abstract class IntegrationTestCase extends TestCase
                 throw new \InvalidArgumentException(\sprintf('Test "%s" is not valid.', str_replace($fixturesDir.'/', '', $file)));
             }
 
-            $tests[] = [str_replace($fixturesDir.'/', '', $file), $message, $condition, $templates, $exception, $outputs, $deprecation];
+            $tests[str_replace($fixturesDir.'/', '', $file)] = [str_replace($fixturesDir.'/', '', $file), $message, $condition, $templates, $exception, $outputs, $deprecation];
         }
 
-        if ($legacyTests && empty($tests)) {
+        if ($legacyTests && !$tests) {
             // add a dummy test to avoid a PHPUnit message
             return [['not', '-', '', [], '', []]];
         }
@@ -137,11 +188,19 @@ abstract class IntegrationTestCase extends TestCase
         return $tests;
     }
 
+    /**
+     * @final since Twig 3.13
+     *
+     * @return iterable
+     */
     public function getLegacyTests()
     {
         return $this->getTests('testLegacyIntegration', true);
     }
 
+    /**
+     * @return void
+     */
     protected function doIntegrationTest($file, $message, $condition, $templates, $exception, $outputs, $deprecation = '')
     {
         if (!$outputs) {
@@ -188,6 +247,18 @@ abstract class IntegrationTestCase extends TestCase
                 $twig->addFunction($function);
             }
 
+            foreach ($this->getUndefinedFilterCallbacks() as $callback) {
+                $twig->registerUndefinedFilterCallback($callback);
+            }
+
+            foreach ($this->getUndefinedFunctionCallbacks() as $callback) {
+                $twig->registerUndefinedFunctionCallback($callback);
+            }
+
+            foreach ($this->getUndefinedTokenParserCallbacks() as $callback) {
+                $twig->registerUndefinedTokenParserCallback($callback);
+            }
+
             $deprecations = [];
             try {
                 $prevHandler = set_error_handler(function ($type, $msg, $file, $line, $context = []) use (&$deprecations, &$prevHandler) {
@@ -222,7 +293,7 @@ abstract class IntegrationTestCase extends TestCase
                 $output = trim($template->render(eval($match[1].';')), "\n ");
             } catch (\Exception $e) {
                 if (false !== $exception) {
-                    $this->assertSame(trim($exception), trim(\sprintf('%s: %s', \get_class($e), $e->getMessage())));
+                    $this->assertStringMatchesFormat(trim($exception), trim(\sprintf('%s: %s', \get_class($e), $e->getMessage())));
 
                     return;
                 }
@@ -252,6 +323,9 @@ abstract class IntegrationTestCase extends TestCase
         }
     }
 
+    /**
+     * @return array<string, string>
+     */
     protected static function parseTemplates($test)
     {
         $templates = [];

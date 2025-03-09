@@ -11,10 +11,11 @@ namespace Twig\Tests\Node;
  * file that was distributed with this source code.
  */
 
-use Twig\Node\Expression\AssignNameExpression;
-use Twig\Node\Expression\NameExpression;
+use Twig\Node\Expression\Variable\AssignContextVariable;
+use Twig\Node\Expression\Variable\ContextVariable;
+use Twig\Node\ForElseNode;
 use Twig\Node\ForNode;
-use Twig\Node\Node;
+use Twig\Node\Nodes;
 use Twig\Node\PrintNode;
 use Twig\Test\NodeTestCase;
 
@@ -22,10 +23,10 @@ class ForTest extends NodeTestCase
 {
     public function testConstructor()
     {
-        $keyTarget = new AssignNameExpression('key', 1);
-        $valueTarget = new AssignNameExpression('item', 1);
-        $seq = new NameExpression('items', 1);
-        $body = new Node([new PrintNode(new NameExpression('foo', 1), 1)], [], 1);
+        $keyTarget = new AssignContextVariable('key', 1);
+        $valueTarget = new AssignContextVariable('item', 1);
+        $seq = new ContextVariable('items', 1);
+        $body = new Nodes([new PrintNode(new ContextVariable('foo', 1), 1)], 1);
         $else = null;
         $node = new ForNode($keyTarget, $valueTarget, $seq, null, $body, $else, 1);
         $node->setAttribute('with_loop', false);
@@ -36,41 +37,45 @@ class ForTest extends NodeTestCase
         $this->assertEquals($body, $node->getNode('body')->getNode('0'));
         $this->assertFalse($node->hasNode('else'));
 
-        $else = new PrintNode(new NameExpression('foo', 1), 1);
+        $else = new ForElseNode(new PrintNode(new ContextVariable('foo', 1), 1), 5);
         $node = new ForNode($keyTarget, $valueTarget, $seq, null, $body, $else, 1);
         $node->setAttribute('with_loop', false);
         $this->assertEquals($else, $node->getNode('else'));
     }
 
-    public function getTests()
+    public static function provideTests(): iterable
     {
         $tests = [];
 
-        $keyTarget = new AssignNameExpression('key', 1);
-        $valueTarget = new AssignNameExpression('item', 1);
-        $seq = new NameExpression('items', 1);
-        $body = new Node([new PrintNode(new NameExpression('foo', 1), 1)], [], 1);
+        $keyTarget = new AssignContextVariable('key', 1);
+        $valueTarget = new AssignContextVariable('item', 1);
+        $seq = new ContextVariable('items', 1);
+        $body = new Nodes([new PrintNode(new ContextVariable('foo', 1), 1)], 1);
         $else = null;
         $node = new ForNode($keyTarget, $valueTarget, $seq, null, $body, $else, 1);
         $node->setAttribute('with_loop', false);
 
+        $itemsGetter = self::createVariableGetter('items');
+        $fooGetter = self::createVariableGetter('foo');
+        $valuesGetter = self::createVariableGetter('values');
+
         $tests[] = [$node, <<<EOF
 // line 1
 \$context['_parent'] = \$context;
-\$context['_seq'] = CoreExtension::ensureTraversable({$this->getVariableGetter('items')});
+\$context['_seq'] = CoreExtension::ensureTraversable($itemsGetter);
 foreach (\$context['_seq'] as \$context["key"] => \$context["item"]) {
-    yield {$this->getVariableGetter('foo')};
+    yield $fooGetter;
 }
 \$_parent = \$context['_parent'];
-unset(\$context['_seq'], \$context['_iterated'], \$context['key'], \$context['item'], \$context['_parent']);
+unset(\$context['_seq'], \$context['key'], \$context['item'], \$context['_parent']);
 \$context = array_intersect_key(\$context, \$_parent) + \$_parent;
 EOF
         ];
 
-        $keyTarget = new AssignNameExpression('k', 1);
-        $valueTarget = new AssignNameExpression('v', 1);
-        $seq = new NameExpression('values', 1);
-        $body = new Node([new PrintNode(new NameExpression('foo', 1), 1)], [], 1);
+        $keyTarget = new AssignContextVariable('k', 1);
+        $valueTarget = new AssignContextVariable('v', 1);
+        $seq = new ContextVariable('values', 1);
+        $body = new Nodes([new PrintNode(new ContextVariable('foo', 1), 1)], 1);
         $else = null;
         $node = new ForNode($keyTarget, $valueTarget, $seq, null, $body, $else, 1);
         $node->setAttribute('with_loop', true);
@@ -78,7 +83,7 @@ EOF
         $tests[] = [$node, <<<EOF
 // line 1
 \$context['_parent'] = \$context;
-\$context['_seq'] = CoreExtension::ensureTraversable({$this->getVariableGetter('values')});
+\$context['_seq'] = CoreExtension::ensureTraversable($valuesGetter);
 \$context['loop'] = [
   'parent' => \$context['_parent'],
   'index0' => 0,
@@ -93,26 +98,26 @@ if (is_array(\$context['_seq']) || (is_object(\$context['_seq']) && \$context['_
     \$context['loop']['last'] = 1 === \$length;
 }
 foreach (\$context['_seq'] as \$context["k"] => \$context["v"]) {
-    yield {$this->getVariableGetter('foo')};
+    yield $fooGetter;
     ++\$context['loop']['index0'];
     ++\$context['loop']['index'];
     \$context['loop']['first'] = false;
-    if (isset(\$context['loop']['length'])) {
+    if (isset(\$context['loop']['revindex0'], \$context['loop']['revindex'])) {
         --\$context['loop']['revindex0'];
         --\$context['loop']['revindex'];
         \$context['loop']['last'] = 0 === \$context['loop']['revindex0'];
     }
 }
 \$_parent = \$context['_parent'];
-unset(\$context['_seq'], \$context['_iterated'], \$context['k'], \$context['v'], \$context['_parent'], \$context['loop']);
+unset(\$context['_seq'], \$context['k'], \$context['v'], \$context['_parent'], \$context['loop']);
 \$context = array_intersect_key(\$context, \$_parent) + \$_parent;
 EOF
         ];
 
-        $keyTarget = new AssignNameExpression('k', 1);
-        $valueTarget = new AssignNameExpression('v', 1);
-        $seq = new NameExpression('values', 1);
-        $body = new Node([new PrintNode(new NameExpression('foo', 1), 1)], [], 1);
+        $keyTarget = new AssignContextVariable('k', 1);
+        $valueTarget = new AssignContextVariable('v', 1);
+        $seq = new ContextVariable('values', 1);
+        $body = new Nodes([new PrintNode(new ContextVariable('foo', 1), 1)], 1);
         $else = null;
         $node = new ForNode($keyTarget, $valueTarget, $seq, null, $body, $else, 1);
         $node->setAttribute('with_loop', true);
@@ -120,7 +125,7 @@ EOF
         $tests[] = [$node, <<<EOF
 // line 1
 \$context['_parent'] = \$context;
-\$context['_seq'] = CoreExtension::ensureTraversable({$this->getVariableGetter('values')});
+\$context['_seq'] = CoreExtension::ensureTraversable($valuesGetter);
 \$context['loop'] = [
   'parent' => \$context['_parent'],
   'index0' => 0,
@@ -135,34 +140,34 @@ if (is_array(\$context['_seq']) || (is_object(\$context['_seq']) && \$context['_
     \$context['loop']['last'] = 1 === \$length;
 }
 foreach (\$context['_seq'] as \$context["k"] => \$context["v"]) {
-    yield {$this->getVariableGetter('foo')};
+    yield $fooGetter;
     ++\$context['loop']['index0'];
     ++\$context['loop']['index'];
     \$context['loop']['first'] = false;
-    if (isset(\$context['loop']['length'])) {
+    if (isset(\$context['loop']['revindex0'], \$context['loop']['revindex'])) {
         --\$context['loop']['revindex0'];
         --\$context['loop']['revindex'];
         \$context['loop']['last'] = 0 === \$context['loop']['revindex0'];
     }
 }
 \$_parent = \$context['_parent'];
-unset(\$context['_seq'], \$context['_iterated'], \$context['k'], \$context['v'], \$context['_parent'], \$context['loop']);
+unset(\$context['_seq'], \$context['k'], \$context['v'], \$context['_parent'], \$context['loop']);
 \$context = array_intersect_key(\$context, \$_parent) + \$_parent;
 EOF
         ];
 
-        $keyTarget = new AssignNameExpression('k', 1);
-        $valueTarget = new AssignNameExpression('v', 1);
-        $seq = new NameExpression('values', 1);
-        $body = new Node([new PrintNode(new NameExpression('foo', 1), 1)], [], 1);
-        $else = new PrintNode(new NameExpression('foo', 1), 1);
+        $keyTarget = new AssignContextVariable('k', 1);
+        $valueTarget = new AssignContextVariable('v', 1);
+        $seq = new ContextVariable('values', 1);
+        $body = new Nodes([new PrintNode(new ContextVariable('foo', 1), 1)], 1);
+        $else = new ForElseNode(new PrintNode(new ContextVariable('foo', 6), 6), 5);
         $node = new ForNode($keyTarget, $valueTarget, $seq, null, $body, $else, 1);
         $node->setAttribute('with_loop', true);
 
         $tests[] = [$node, <<<EOF
 // line 1
 \$context['_parent'] = \$context;
-\$context['_seq'] = CoreExtension::ensureTraversable({$this->getVariableGetter('values')});
+\$context['_seq'] = CoreExtension::ensureTraversable($valuesGetter);
 \$context['_iterated'] = false;
 \$context['loop'] = [
   'parent' => \$context['_parent'],
@@ -178,22 +183,24 @@ if (is_array(\$context['_seq']) || (is_object(\$context['_seq']) && \$context['_
     \$context['loop']['last'] = 1 === \$length;
 }
 foreach (\$context['_seq'] as \$context["k"] => \$context["v"]) {
-    yield {$this->getVariableGetter('foo')};
+    yield $fooGetter;
     \$context['_iterated'] = true;
     ++\$context['loop']['index0'];
     ++\$context['loop']['index'];
     \$context['loop']['first'] = false;
-    if (isset(\$context['loop']['length'])) {
+    if (isset(\$context['loop']['revindex0'], \$context['loop']['revindex'])) {
         --\$context['loop']['revindex0'];
         --\$context['loop']['revindex'];
         \$context['loop']['last'] = 0 === \$context['loop']['revindex0'];
     }
 }
+// line 5
 if (!\$context['_iterated']) {
-    yield {$this->getVariableGetter('foo')};
+    // line 6
+    yield $fooGetter;
 }
 \$_parent = \$context['_parent'];
-unset(\$context['_seq'], \$context['_iterated'], \$context['k'], \$context['v'], \$context['_parent'], \$context['loop']);
+unset(\$context['_seq'], \$context['k'], \$context['v'], \$context['_parent'], \$context['_iterated'], \$context['loop']);
 \$context = array_intersect_key(\$context, \$_parent) + \$_parent;
 EOF
         ];

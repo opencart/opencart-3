@@ -25,7 +25,7 @@ final class ReflectionCallable
     private $name;
 
     public function __construct(
-        private TwigCallableInterface $twigCallable,
+        TwigCallableInterface $twigCallable,
     ) {
         $callable = $twigCallable->getCallable();
         if (\is_string($callable) && false !== $pos = strpos($callable, '::')) {
@@ -80,6 +80,9 @@ final class ReflectionCallable
         return $this->reflector;
     }
 
+    /**
+     * @return callable
+     */
     public function getCallable()
     {
         return $this->callable;

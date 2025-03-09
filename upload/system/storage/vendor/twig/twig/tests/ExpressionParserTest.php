@@ -14,6 +14,7 @@ namespace Twig\Tests;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bridge\PhpUnit\ExpectDeprecationTrait;
 use Twig\Attribute\FirstClassTwigCallableReady;
+use Twig\Compiler;
 use Twig\Environment;
 use Twig\Error\SyntaxError;
 use Twig\Extension\AbstractExtension;
@@ -23,8 +24,9 @@ use Twig\Node\Expression\Binary\ConcatBinary;
 use Twig\Node\Expression\ConstantExpression;
 use Twig\Node\Expression\FilterExpression;
 use Twig\Node\Expression\FunctionExpression;
-use Twig\Node\Expression\NameExpression;
 use Twig\Node\Expression\TestExpression;
+use Twig\Node\Expression\Unary\AbstractUnary;
+use Twig\Node\Expression\Variable\ContextVariable;
 use Twig\Node\Node;
 use Twig\Parser;
 use Twig\Source;
@@ -41,14 +43,14 @@ class ExpressionParserTest extends TestCase
      */
     public function testCanOnlyAssignToNames($template)
     {
-        $this->expectException(SyntaxError::class);
-
         $env = new Environment(new ArrayLoader(), ['cache' => false, 'autoescape' => false]);
         $parser = new Parser($env);
+
+        $this->expectException(SyntaxError::class);
         $parser->parse($env->tokenize(new Source($template, 'index')));
     }
 
-    public function getFailingTestsForAssignment()
+    public static function getFailingTestsForAssignment()
     {
         return [
             ['{% set false = "foo" %}'],
@@ -84,14 +86,14 @@ class ExpressionParserTest extends TestCase
      */
     public function testSequenceSyntaxError($template)
     {
-        $this->expectException(SyntaxError::class);
-
         $env = new Environment(new ArrayLoader(), ['cache' => false, 'autoescape' => false]);
         $parser = new Parser($env);
+
+        $this->expectException(SyntaxError::class);
         $parser->parse($env->tokenize(new Source($template, 'index')));
     }
 
-    public function getFailingTestsForSequence()
+    public static function getFailingTestsForSequence()
     {
         return [
             ['{{ [1, "a": "b"] }}'],
@@ -100,7 +102,7 @@ class ExpressionParserTest extends TestCase
         ];
     }
 
-    public function getTestsForSequence()
+    public static function getTestsForSequence()
     {
         return [
             // simple sequence
@@ -175,9 +177,9 @@ class ExpressionParserTest extends TestCase
             ],
             ['{{ {a, b} }}', new ArrayExpression([
                 new ConstantExpression('a', 1),
-                new NameExpression('a', 1),
+                new ContextVariable('a', 1),
                 new ConstantExpression('b', 1),
-                new NameExpression('b', 1),
+                new ContextVariable('b', 1),
             ], 1)],
 
             // sequence with spread operator
@@ -190,7 +192,7 @@ class ExpressionParserTest extends TestCase
                     new ConstantExpression(2, 1),
 
                     new ConstantExpression(2, 1),
-                    $this->createNameExpression('foo', ['spread' => true]),
+                    self::createContextVariable('foo', ['spread' => true]),
                 ], 1)],
 
             // mapping with spread operator
@@ -203,19 +205,18 @@ class ExpressionParserTest extends TestCase
                     new ConstantExpression('c', 1),
 
                     new ConstantExpression(0, 1),
-                    $this->createNameExpression('otherLetters', ['spread' => true]),
+                    self::createContextVariable('otherLetters', ['spread' => true]),
                 ], 1)],
         ];
     }
 
     public function testStringExpressionDoesNotConcatenateTwoConsecutiveStrings()
     {
-        $this->expectException(SyntaxError::class);
-
         $env = new Environment(new ArrayLoader(), ['cache' => false, 'autoescape' => false, 'optimizations' => 0]);
         $stream = $env->tokenize(new Source('{{ "a" "b" }}', 'index'));
         $parser = new Parser($env);
 
+        $this->expectException(SyntaxError::class);
         $parser->parse($stream);
     }
 
@@ -232,13 +233,13 @@ class ExpressionParserTest extends TestCase
         $this->assertEquals($expected, $parser->parse($stream)->getNode('body')->getNode('0')->getNode('expr'));
     }
 
-    public function getTestsForString()
+    public static function getTestsForString()
     {
         return [
             [
                 '{{ "foo #{bar}" }}', new ConcatBinary(
                     new ConstantExpression('foo ', 1),
-                    new NameExpression('bar', 1),
+                    new ContextVariable('bar', 1),
                     1
                 ),
             ],
@@ -246,7 +247,7 @@ class ExpressionParserTest extends TestCase
                 '{{ "foo #{bar} baz" }}', new ConcatBinary(
                     new ConcatBinary(
                         new ConstantExpression('foo ', 1),
-                        new NameExpression('bar', 1),
+                        new ContextVariable('bar', 1),
                         1
                     ),
                     new ConstantExpression(' baz', 1),
@@ -261,7 +262,7 @@ class ExpressionParserTest extends TestCase
                         new ConcatBinary(
                             new ConcatBinary(
                                 new ConstantExpression('foo ', 1),
-                                new NameExpression('bar', 1),
+                                new ContextVariable('bar', 1),
                                 1
                             ),
                             new ConstantExpression(' baz', 1),
@@ -276,33 +277,13 @@ class ExpressionParserTest extends TestCase
         ];
     }
 
-    public function testAttributeCallDoesNotSupportNamedArguments()
-    {
-        $this->expectException(SyntaxError::class);
-
-        $env = new Environment(new ArrayLoader(), ['cache' => false, 'autoescape' => false]);
-        $parser = new Parser($env);
-
-        $parser->parse($env->tokenize(new Source('{{ foo.bar(name="Foo") }}', 'index')));
-    }
-
-    public function testMacroCallDoesNotSupportNamedArguments()
-    {
-        $this->expectException(SyntaxError::class);
-
-        $env = new Environment(new ArrayLoader(), ['cache' => false, 'autoescape' => false]);
-        $parser = new Parser($env);
-
-        $parser->parse($env->tokenize(new Source('{% from _self import foo %}{% macro foo() %}{% endmacro %}{{ foo(name="Foo") }}', 'index')));
-    }
-
     public function testMacroDefinitionDoesNotSupportNonNameVariableName()
     {
-        $this->expectException(SyntaxError::class);
-        $this->expectExceptionMessage('An argument must be a name. Unexpected token "string" of value "a" ("name" expected) in "index" at line 1.');
-
         $env = new Environment(new ArrayLoader(), ['cache' => false, 'autoescape' => false]);
         $parser = new Parser($env);
+
+        $this->expectException(SyntaxError::class);
+        $this->expectExceptionMessage('An argument must be a name. Unexpected token "string" of value "a" ("name" expected) in "index" at line 1.');
 
         $parser->parse($env->tokenize(new Source('{% macro foo("a") %}{% endmacro %}', 'index')));
     }
@@ -312,16 +293,16 @@ class ExpressionParserTest extends TestCase
      */
     public function testMacroDefinitionDoesNotSupportNonConstantDefaultValues($template)
     {
-        $this->expectException(SyntaxError::class);
-        $this->expectExceptionMessage('A default value for an argument must be a constant (a boolean, a string, a number, a sequence, or a mapping) in "index" at line 1');
-
         $env = new Environment(new ArrayLoader(), ['cache' => false, 'autoescape' => false]);
         $parser = new Parser($env);
+
+        $this->expectException(SyntaxError::class);
+        $this->expectExceptionMessage('A default value for an argument must be a constant (a boolean, a string, a number, a sequence, or a mapping) in "index" at line 1');
 
         $parser->parse($env->tokenize(new Source($template, 'index')));
     }
 
-    public function getMacroDefinitionDoesNotSupportNonConstantDefaultValues()
+    public static function getMacroDefinitionDoesNotSupportNonConstantDefaultValues()
     {
         return [
             ['{% macro foo(name = "a #{foo} a") %}{% endmacro %}'],
@@ -344,7 +325,7 @@ class ExpressionParserTest extends TestCase
         $this->addToAssertionCount(1);
     }
 
-    public function getMacroDefinitionSupportsConstantDefaultValues()
+    public static function getMacroDefinitionSupportsConstantDefaultValues()
     {
         return [
             ['{% macro foo(name = "aa") %}{% endmacro %}'],
@@ -359,66 +340,67 @@ class ExpressionParserTest extends TestCase
 
     public function testUnknownFunction()
     {
-        $this->expectException(SyntaxError::class);
-        $this->expectExceptionMessage('Unknown "cycl" function. Did you mean "cycle" in "index" at line 1?');
-
         $env = new Environment(new ArrayLoader(), ['cache' => false, 'autoescape' => false]);
         $parser = new Parser($env);
+
+        $this->expectException(SyntaxError::class);
+        $this->expectExceptionMessage('Unknown "cycl" function. Did you mean "cycle" in "index" at line 1?');
 
         $parser->parse($env->tokenize(new Source('{{ cycl() }}', 'index')));
     }
 
     public function testUnknownFunctionWithoutSuggestions()
     {
-        $this->expectException(SyntaxError::class);
-        $this->expectExceptionMessage('Unknown "foobar" function in "index" at line 1.');
-
         $env = new Environment(new ArrayLoader(), ['cache' => false, 'autoescape' => false]);
         $parser = new Parser($env);
+
+        $this->expectException(SyntaxError::class);
+        $this->expectExceptionMessage('Unknown "foobar" function in "index" at line 1.');
 
         $parser->parse($env->tokenize(new Source('{{ foobar() }}', 'index')));
     }
 
     public function testUnknownFilter()
     {
-        $this->expectException(SyntaxError::class);
-        $this->expectExceptionMessage('Unknown "lowe" filter. Did you mean "lower" in "index" at line 1?');
-
         $env = new Environment(new ArrayLoader(), ['cache' => false, 'autoescape' => false]);
         $parser = new Parser($env);
+
+        $this->expectException(SyntaxError::class);
+        $this->expectExceptionMessage('Unknown "lowe" filter. Did you mean "lower" in "index" at line 1?');
 
         $parser->parse($env->tokenize(new Source('{{ 1|lowe }}', 'index')));
     }
 
     public function testUnknownFilterWithoutSuggestions()
     {
-        $this->expectException(SyntaxError::class);
-        $this->expectExceptionMessage('Unknown "foobar" filter in "index" at line 1.');
-
         $env = new Environment(new ArrayLoader(), ['cache' => false, 'autoescape' => false]);
         $parser = new Parser($env);
+
+        $this->expectException(SyntaxError::class);
+        $this->expectExceptionMessage('Unknown "foobar" filter in "index" at line 1.');
 
         $parser->parse($env->tokenize(new Source('{{ 1|foobar }}', 'index')));
     }
 
     public function testUnknownTest()
     {
-        $this->expectException(SyntaxError::class);
-        $this->expectExceptionMessage('Unknown "nul" test. Did you mean "null" in "index" at line 1');
-
         $env = new Environment(new ArrayLoader(), ['cache' => false, 'autoescape' => false]);
         $parser = new Parser($env);
         $stream = $env->tokenize(new Source('{{ 1 is nul }}', 'index'));
+
+        $this->expectException(SyntaxError::class);
+        $this->expectExceptionMessage('Unknown "nul" test. Did you mean "null" in "index" at line 1');
+
         $parser->parse($stream);
     }
 
     public function testUnknownTestWithoutSuggestions()
     {
-        $this->expectException(SyntaxError::class);
-        $this->expectExceptionMessage('Unknown "foobar" test in "index" at line 1.');
-
         $env = new Environment(new ArrayLoader(), ['cache' => false, 'autoescape' => false]);
         $parser = new Parser($env);
+
+        $this->expectException(SyntaxError::class);
+        $this->expectExceptionMessage('Unknown "foobar" test in "index" at line 1.');
 
         $parser->parse($env->tokenize(new Source('{{ 1 is foobar }}', 'index')));
     }
@@ -426,7 +408,7 @@ class ExpressionParserTest extends TestCase
     public function testCompiledCodeForDynamicTest()
     {
         $env = new Environment(new ArrayLoader(['index' => '{{ "a" is foo_foo_bar_bar }}']), ['cache' => false, 'autoescape' => false]);
-        $env->addExtension(new class() extends AbstractExtension {
+        $env->addExtension(new class extends AbstractExtension {
             public function getTests()
             {
                 return [
@@ -441,7 +423,7 @@ class ExpressionParserTest extends TestCase
     public function testCompiledCodeForDynamicFunction()
     {
         $env = new Environment(new ArrayLoader(['index' => '{{ foo_foo_bar_bar("a") }}']), ['cache' => false, 'autoescape' => false]);
-        $env->addExtension(new class() extends AbstractExtension {
+        $env->addExtension(new class extends AbstractExtension {
             public function getFunctions()
             {
                 return [
@@ -456,7 +438,7 @@ class ExpressionParserTest extends TestCase
     public function testCompiledCodeForDynamicFilter()
     {
         $env = new Environment(new ArrayLoader(['index' => '{{ "a"|foo_foo_bar_bar }}']), ['cache' => false, 'autoescape' => false]);
-        $env->addExtension(new class() extends AbstractExtension {
+        $env->addExtension(new class extends AbstractExtension {
             public function getFilters()
             {
                 return [
@@ -475,7 +457,7 @@ class ExpressionParserTest extends TestCase
         $parser = new Parser($env);
 
         $parser->parse($env->tokenize(new Source('{{ foo() }}', 'index')));
-        $this->doesNotPerformAssertions();
+        $this->expectNotToPerformAssertions();
     }
 
     public function testNotReadyFilterWithNoConstructor()
@@ -485,7 +467,7 @@ class ExpressionParserTest extends TestCase
         $parser = new Parser($env);
 
         $parser->parse($env->tokenize(new Source('{{ 1|foo }}', 'index')));
-        $this->doesNotPerformAssertions();
+        $this->expectNotToPerformAssertions();
     }
 
     public function testNotReadyTestWithNoConstructor()
@@ -495,7 +477,7 @@ class ExpressionParserTest extends TestCase
         $parser = new Parser($env);
 
         $parser->parse($env->tokenize(new Source('{{ 1 is foo }}', 'index')));
-        $this->doesNotPerformAssertions();
+        $this->expectNotToPerformAssertions();
     }
 
     /**
@@ -550,7 +532,7 @@ class ExpressionParserTest extends TestCase
         $parser = new Parser($env);
 
         $parser->parse($env->tokenize(new Source('{{ foo() }}', 'index')));
-        $this->doesNotPerformAssertions();
+        $this->expectNotToPerformAssertions();
     }
 
     public function testReadyFilter()
@@ -560,7 +542,7 @@ class ExpressionParserTest extends TestCase
         $parser = new Parser($env);
 
         $parser->parse($env->tokenize(new Source('{{ 1|foo }}', 'index')));
-        $this->doesNotPerformAssertions();
+        $this->expectNotToPerformAssertions();
     }
 
     public function testReadyTest()
@@ -570,7 +552,7 @@ class ExpressionParserTest extends TestCase
         $parser = new Parser($env);
 
         $parser->parse($env->tokenize(new Source('{{ 1 is foo }}', 'index')));
-        $this->doesNotPerformAssertions();
+        $this->expectNotToPerformAssertions();
     }
 
     public function testTwoWordTestPrecedence()
@@ -581,12 +563,34 @@ class ExpressionParserTest extends TestCase
         $parser = new Parser($env);
 
         $parser->parse($env->tokenize(new Source('{{ 1 is empty element }}', 'index')));
-        $this->doesNotPerformAssertions();
+        $this->expectNotToPerformAssertions();
     }
 
-    private function createNameExpression(string $name, array $attributes)
+    public function testUnaryPrecedenceChange()
     {
-        $expression = new NameExpression($name, 1);
+        $env = new Environment(new ArrayLoader(), ['cache' => false, 'autoescape' => false]);
+        $env->addExtension(new class extends AbstractExtension {
+            public function getOperators()
+            {
+                $class = new class(new ConstantExpression('foo', 1), 1) extends AbstractUnary {
+                    public function operator(Compiler $compiler): Compiler
+                    {
+                        return $compiler->raw('!');
+                    }
+                };
+
+                return [['!' => ['precedence' => 50, 'class' => $class::class]], []];
+            }
+        });
+        $parser = new Parser($env);
+
+        $parser->parse($env->tokenize(new Source('{{ !false ? "OK" : "KO" }}', 'index')));
+        $this->expectNotToPerformAssertions();
+    }
+
+    private static function createContextVariable(string $name, array $attributes): ContextVariable
+    {
+        $expression = new ContextVariable($name, 1);
         foreach ($attributes as $key => $value) {
             $expression->setAttribute($key, $value);
         }

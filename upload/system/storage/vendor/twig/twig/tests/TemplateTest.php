@@ -27,10 +27,10 @@ class TemplateTest extends TestCase
 {
     public function testDisplayBlocksAcceptTemplateOnlyAsBlocks()
     {
-        $this->expectException(\LogicException::class);
-
         $twig = new Environment(new ArrayLoader());
         $template = new TemplateForTest($twig);
+
+        $this->expectException(\LogicException::class);
         $template->displayBlock('foo', [], ['foo' => [new \stdClass(), 'foo']]);
     }
 
@@ -61,7 +61,7 @@ class TemplateTest extends TestCase
         }
     }
 
-    public function getAttributeExceptions()
+    public static function getAttributeExceptions()
     {
         return [
             ['{{ string["a"] }}', 'Impossible to access a key ("a") on a string variable ("foo") in "%s" at line 1.'],
@@ -76,7 +76,7 @@ class TemplateTest extends TestCase
             ['{{ array.a() }}', 'Impossible to invoke a method ("a") on a sequence/mapping in "%s" at line 1.'],
             ['{{ empty_array.a }}', 'Key "a" does not exist as the sequence/mapping is empty in "%s" at line 1.'],
             ['{{ array.a }}', 'Key "a" for sequence/mapping with keys "foo" does not exist in "%s" at line 1.'],
-            ['{{ attribute(array, -10) }}', 'Key "-10" for sequence/mapping with keys "foo" does not exist in "%s" at line 1.'],
+            ['{{ array.(-10) }}', 'Key "-10" for sequence/mapping with keys "foo" does not exist in "%s" at line 1.'],
             ['{{ array_access.a }}', 'Neither the property "a" nor one of the methods "a()", "geta()"/"isa()"/"hasa()" or "__call()" exist and have public access in class "Twig\Tests\TemplateArrayAccessObject" in "%s" at line 1.'],
             ['{% from _self import foo %}{% macro foo(obj) %}{{ obj.missing_method() }}{% endmacro %}{{ foo(array_access) }}', 'Neither the property "missing_method" nor one of the methods "missing_method()", "getmissing_method()"/"ismissing_method()"/"hasmissing_method()" or "__call()" exist and have public access in class "Twig\Tests\TemplateArrayAccessObject" in "%s" at line 1.'],
             ['{{ magic_exception.test }}', 'An exception has been thrown during the rendering of a template ("Hey! Don\'t try to isset me!") in "%s" at line 1.'],
@@ -113,7 +113,7 @@ class TemplateTest extends TestCase
         }
     }
 
-    public function getGetAttributeWithSandbox()
+    public static function getGetAttributeWithSandbox()
     {
         return [
             [new TemplatePropertyObject(), 'defined', false],
@@ -132,7 +132,7 @@ class TemplateTest extends TestCase
         $this->assertSame('', $twig->render('index'));
     }
 
-    public function getRenderTemplateWithoutOutputData()
+    public static function getRenderTemplateWithoutOutputData()
     {
         return [
             [''],
@@ -143,31 +143,34 @@ class TemplateTest extends TestCase
 
     public function testRenderBlockWithUndefinedBlock()
     {
+        $twig = new Environment(new ArrayLoader());
+        $template = new TemplateForTest($twig, 'index.twig');
+
         $this->expectException(RuntimeError::class);
         $this->expectExceptionMessage('Block "unknown" on template "index.twig" does not exist in "index.twig".');
 
-        $twig = new Environment(new ArrayLoader());
-        $template = new TemplateForTest($twig, 'index.twig');
         $template->renderBlock('unknown', []);
     }
 
     public function testDisplayBlockWithUndefinedBlock()
     {
+        $twig = new Environment(new ArrayLoader());
+        $template = new TemplateForTest($twig, 'index.twig');
+
         $this->expectException(RuntimeError::class);
         $this->expectExceptionMessage('Block "unknown" on template "index.twig" does not exist in "index.twig".');
 
-        $twig = new Environment(new ArrayLoader());
-        $template = new TemplateForTest($twig, 'index.twig');
         $template->displayBlock('unknown', []);
     }
 
     public function testDisplayBlockWithUndefinedParentBlock()
     {
+        $twig = new Environment(new ArrayLoader());
+        $template = new TemplateForTest($twig, 'parent.twig');
+
         $this->expectException(RuntimeError::class);
         $this->expectExceptionMessage('Block "foo" should not call parent() in "index.twig" as the block does not exist in the parent template "parent.twig"');
 
-        $twig = new Environment(new ArrayLoader());
-        $template = new TemplateForTest($twig, 'parent.twig');
         $template->displayBlock('foo', [], ['foo' => [new TemplateForTest($twig, 'index.twig'), 'block_foo']], false);
     }
 
@@ -265,7 +268,7 @@ class TemplateTest extends TestCase
         $this->assertNull(CoreExtension::getAttribute($twig, $template->getSourceContext(), $object, 'foo'));
     }
 
-    public function getGetAttributeTests()
+    public static function getGetAttributeTests()
     {
         $array = [
             'defined' => 'defined',
@@ -391,9 +394,13 @@ class TemplateTest extends TestCase
             [true, ['foo' => 'bar'], $arrayAccess, 'vars', [], $anyType],
         ]);
 
+        // test for Closure::__invoke()
+        $tests[] = [true, 'closure called', fn (): string => 'closure called', '__invoke', [], $anyType];
+        $tests[] = [true, 'closure called', fn (): string => 'closure called', '__invoke', [], $methodType];
+
         // tests when input is not an array or object
         $tests = array_merge($tests, [
-            [false, null, 42, 'a', [], $anyType, 'Impossible to access an attribute ("a") on a integer variable ("42") in "index.twig".'],
+            [false, null, 42, 'a', [], $anyType, 'Impossible to access an attribute ("a") on a int variable ("42") in "index.twig".'],
             [false, null, 'string', 'a', [], $anyType, 'Impossible to access an attribute ("a") on a string variable ("string") in "index.twig".'],
             [false, null, [], 'a', [], $anyType, 'Key "a" does not exist as the sequence/mapping is empty in "index.twig".'],
         ]);
@@ -449,12 +456,12 @@ class TemplateForTest extends Template
         return $this->name;
     }
 
-    public function getDebugInfo() : array
+    public function getDebugInfo(): array
     {
         return [];
     }
 
-    public function getSourceContext() : Source
+    public function getSourceContext(): Source
     {
         return new Source('', $this->getTemplateName());
     }
@@ -464,7 +471,7 @@ class TemplateForTest extends Template
         return false;
     }
 
-    protected function doDisplay(array $context, array $blocks = [])
+    protected function doDisplay(array $context, array $blocks = []): iterable
     {
     }
 

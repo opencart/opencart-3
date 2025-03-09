@@ -8,8 +8,25 @@ feature that was deprecated in Twig 3.x is removed in Twig 4.0).
 Functions
 ---------
 
- * The ``twig_test_iterable`` function is deprecated; use the native PHP
-   ``is_iterable`` function instead.
+* The ``twig_test_iterable`` function is deprecated; use the native PHP
+  ``is_iterable`` function instead.
+
+* The ``attribute`` function is deprecated as of Twig 3.15. Use the ``.``
+  operator instead and wrap the name with parenthesis:
+
+  .. code-block:: twig
+
+    {# before #}
+    {{ attribute(object, method) }}
+    {{ attribute(object, method, arguments) }}
+    {{ attribute(array, item) }}
+
+    {# after #}
+    {{ object.(method) }}
+    {{ object.(method)(arguments) }}
+    {{ array[item] }}
+
+  Note that it won't be removed in 4.0 to allow a smoother upgrade path.
 
 Extensions
 ----------
@@ -38,9 +55,6 @@ Nodes
 * The "tag" constructor parameter of the ``Twig\Node\Node`` class is deprecated
   as of Twig 3.12 as the tag is now automatically set by the Parser when
   needed.
-
-* Passing a second argument to "ExpressionParser::parseFilterExpressionRaw()"
-  is deprecated as of Twig 3.12.
 
 * The following ``Twig\Node\Node`` methods will take a string or an integer
   (instead of just a string) in Twig 4.0 for their "name" argument:
@@ -153,6 +167,35 @@ Nodes
   deprecated as of Twig 3.12: ``arguments``,  ``callable``,  ``is_variadic``,
   and ``dynamic_name``.
 
+* The ``MethodCallExpression`` class is deprecated as of Twig 3.15, use
+  ``MacroReferenceExpression`` instead.
+
+* The ``Twig\Node\Expression\TempNameExpression`` class is deprecated as of
+  Twig 3.15; use ``Twig\Node\Expression\Variable\LocalVariable`` instead.
+
+* The ``Twig\Node\Expression\NameExpression`` class is deprecated as of Twig
+  3.15; use ``Twig\Node\Expression\Variable\ContextVariable`` instead.
+
+* The ``Twig\Node\Expression\AssignNameExpression`` class is deprecated as of
+  Twig 3.15; use ``Twig\Node\Expression\Variable\AssignContextVariable``
+  instead.
+
+* Node implementations that use ``echo`` or ``print`` should use ``yield``
+  instead; all Node implementations should use the
+  ``#[\Twig\Attribute\YieldReady]`` attribute on their class once they've been
+  made ready for ``yield``; the ``use_yield`` Environment option can be turned
+  on when all nodes use the ``#[\Twig\Attribute\YieldReady]`` attribute.
+
+ * The ``Twig\Node\InlinePrint`` class is deprecated as of Twig 3.16 with no
+   replacement.
+
+ * The ``Twig\Node\Expression\NullCoalesceExpression`` class is deprecated as
+   of Twig 3.17, use ``Twig\Node\Expression\Binary\NullCoalesceBinary``
+   instead.
+
+ * The ``Twig\Node\Expression\ConditionalExpression`` class is deprecated as of
+   Twig 3.17, use ``Twig\Node\Expression\Ternary\ConditionalTernary`` instead.
+
 Node Visitors
 -------------
 
@@ -167,6 +210,9 @@ Node Visitors
 Parser
 ------
 
+* Passing a second argument to ``ExpressionParser::parseFilterExpressionRaw()``
+  is deprecated as of Twig 3.12.
+
 * The following methods from ``Twig\Parser`` are deprecated as of Twig 3.12:
   ``getBlockStack()``, ``hasBlock()``, ``getBlock()``, ``hasMacro()``,
   ``hasTraits()``, ``getParent()``.
@@ -179,6 +225,19 @@ Parser
 
 * Passing ``null`` to ``Twig\Parser::setParent()`` is deprecated as of Twig
   3.12.
+
+* The ``Twig\ExpressionParser::parseOnlyArguments()`` and
+  ``Twig\ExpressionParser::parseArguments()`` methods are deprecated, use
+  ``Twig\ExpressionParser::parseNamedArguments()`` instead.
+
+Lexer
+-----
+
+* Not passing a ``Source`` instance to ``Twig\TokenStream`` constructor is
+  deprecated as of Twig 3.16.
+
+* The ``Token::getType()`` method is deprecated as of Twig 3.19, use
+  ``Token::test()`` instead.
 
 Templates
 ---------
@@ -200,3 +259,162 @@ Sandbox
 * Having the ``extends`` and ``use`` tags allowed by default in a sandbox is
   deprecated as of Twig 3.12. You will need to explicitly allow them if needed
   in 4.0.
+
+* Deprecate the ``sandbox`` tag, use the ``sandboxed`` option of the
+  ``include`` function instead:
+
+  Before::
+
+    {% sandbox %}
+      {% include 'user_defined.html.twig' %}
+    {% endsandbox %}
+
+  After::
+
+    {{ include('user_defined.html.twig', sandboxed: true) }}
+
+Testing Utilities
+-----------------
+
+* Implementing the data provider method ``Twig\Test\NodeTestCase::getTests()``
+  is deprecated as of Twig 3.13. Instead, implement the static data provider
+  ``provideTests()``.
+
+* In order to make their functionality available for static data providers, the
+  helper methods ``getVariableGetter()`` and ``getAttributeGetter()`` on
+  ``Twig\Test\NodeTestCase`` have been deprecated. Call the new methods
+  ``createVariableGetter()`` and ``createAttributeGetter()`` instead.
+
+* The method ``Twig\Test\NodeTestCase::getEnvironment()`` is considered final
+  as of Twig 3.13. If you want to override how the Twig environment is
+  constructed, override ``createEnvironment()`` instead.
+
+* The method ``getFixturesDir()`` on ``Twig\Test\IntegrationTestCase`` is
+  deprecated, implement the new static method ``getFixturesDirectory()``
+  instead, which will be abstract in 4.0.
+
+* The data providers ``getTests()`` and ``getLegacyTests()`` on
+  ``Twig\Test\IntegrationTestCase`` are considered final as of Twig 3.13.
+
+Environment
+-----------
+
+* The ``Twig\Environment::mergeGlobals()`` method is deprecated as of Twig 3.14
+  and will be removed in Twig 4.0:
+
+  Before::
+
+      $context = $twig->mergeGlobals($context);
+
+  After::
+
+      $context += $twig->getGlobals();
+
+Functions/Filters/Tests
+-----------------------
+
+* The ``deprecated``, ``deprecating_package``, ``alternative`` options on Twig
+  functions/filters/Tests are deprecated as of Twig 3.15, and will be removed
+  in Twig 4.0. Use the ``deprecation_info`` option instead:
+
+  Before::
+
+      $twig->addFunction(new TwigFunction('upper', 'upper', [
+          'deprecated' => '3.12', 'deprecating_package' => 'twig/twig',
+      ]));
+
+  After::
+
+      $twig->addFunction(new TwigFunction('upper', 'upper', [
+          'deprecation_info' => new DeprecatedCallableInfo('twig/twig', '3.12'),
+      ]));
+
+* For variadic arguments, use snake-case for the argument name to ease the
+  transition to 4.0.
+
+* Passing a ``string`` or an ``array`` to Twig callable arguments accepting
+  arrow functions is deprecated as of Twig 3.15; these arguments will have a
+  ``\Closure`` type hint in 4.0.
+
+* Returning ``null`` from ``TwigFilter::getSafe()`` and
+  ``TwigFunction::getSafe()`` is deprecated as of Twig 3.16; return ``[]``
+  instead.
+
+Node
+----
+
+* Instantiating ``Twig\Node\Node`` directly is deprecated as of Twig 3.15. Use
+  ``EmptyNode`` or ``Nodes`` instead depending on the use case. The
+  ``Twig\Node\Node`` class will be abstract in Twig 4.0.
+
+* Not passing ``AbstractExpression`` arguments to the following ``Node`` class
+  constructors is deprecated as of Twig 3.15:
+
+  * ``AbstractBinary``
+  * ``AbstractUnary``
+  * ``BlockReferenceExpression``
+  * ``TestExpression``
+  * ``DefinedTest``
+  * ``FilterExpression``
+  * ``RawFilter``
+  * ``DefaultFilter``
+  * ``InlinePrint``
+  * ``NullCoalesceExpression``
+
+Operators
+---------
+
+* The ``.`` operator allows accessing class constants as of Twig 3.15.
+  This can be a BC break if you don't use UPPERCASE constant names.
+
+* Using ``~`` in an expression with the ``+`` or ``-`` operators without using
+  parentheses to clarify precedence triggers a deprecation as of Twig 3.15 (in
+  Twig 4.0, ``+`` / ``-`` will have a higher precedence than ``~``).
+
+  For example, the following expression will trigger a deprecation in Twig 3.15::
+
+    {{ '42' ~ 1 + 41 }}
+
+  To avoid the deprecation, wrap the concatenation in parentheses to clarify
+  the precedence::
+
+    {{ ('42' ~ 1) + 41 }} {# this is equivalent to what Twig 3.x does without the parentheses #}
+
+    {# or #}
+
+    {{ '42' ~ (1 + 41) }} {# this is equivalent to what Twig 4.x will do without the parentheses #}
+
+* Using ``??`` without explicit parentheses to clarify precedence triggers a
+  deprecation as of Twig 3.15 (in Twig 4.0, ``??`` will have the lowest
+  precedence).
+
+  For example, the following expression will trigger a deprecation in Twig 3.15::
+
+    {{ 'notnull' ?? 'foo' ~ '_bar' }}
+
+  To avoid the deprecation, wrap the ``??`` expression in parentheses to clarify
+  the precedence::
+
+    {{ ('notnull' ?? 'foo') ~ '_bar' }} {# this is equivalent to what Twig 3.x does without the parentheses #}
+
+    {# or #}
+
+    {{ 'notnull' ?? ('foo' ~ '_bar') }} {# this is equivalent to what Twig 4.x will do without the parentheses #}
+
+* Using the ``not`` unary operator in an expression with ``*``, ``/``, ``//``,
+  or ``%`` operators without explicit parentheses to clarify precedence
+  triggers a deprecation as of Twig 3.15 (in Twig 4.0, ``not`` will have a
+  higher precedence than ``*``, ``/``, ``//``, and ``%``).
+
+  For example, the following expression will trigger a deprecation in Twig 3.15::
+
+    {{ not 1 * 2 }}
+
+  To avoid the deprecation, wrap the concatenation in parentheses to clarify
+  the precedence::
+
+    {{ (not 1 * 2) }} {# this is equivalent to what Twig 3.x does without the parentheses #}
+
+    {# or #}
+
+    {{ (not 1) * 2 }} {# this is equivalent to what Twig 4.x will do without the parentheses #}

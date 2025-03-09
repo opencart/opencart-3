@@ -20,8 +20,8 @@ function where you define ``base`` classes that should always be present and the
 
     {# templates/alert.html.twig #}
     {% set alert = html_cva(
-        base='alert ',
-        variants={
+        base: 'alert',
+        variants: {
             color: {
                 blue: 'bg-blue',
                 red: 'bg-red',
@@ -45,13 +45,13 @@ Then use the ``color`` and ``size`` variants to select the needed classes:
 
     {# index.html.twig #}
     {{ include('alert.html.twig', {'color': 'blue', 'size': 'md'}) }}
-    // class="alert bg-red text-lg"
+    // class="alert bg-blue text-md"
 
     {{ include('alert.html.twig', {'color': 'green', 'size': 'sm'}) }}
     // class="alert bg-green text-sm"
 
     {{ include('alert.html.twig', {'color': 'red', 'class': 'flex items-center justify-center'}) }}
-    // class="alert bg-red text-md flex items-center justify-center"
+    // class="alert bg-red flex items-center justify-center"
 
 CVA and Tailwind CSS
 --------------------
@@ -84,8 +84,8 @@ when multiple other variant conditions are met:
 .. code-block:: html+twig
 
     {% set alert = html_cva(
-        base='alert',
-        variants={
+        base: 'alert',
+        variants: {
             color: {
                 blue: 'bg-blue',
                 red: 'bg-red',
@@ -97,7 +97,7 @@ when multiple other variant conditions are met:
                 lg: 'text-lg',
             }
         },
-        compoundVariants=[{
+        compoundVariants: [{
             // if color = red AND size = (md or lg), add the `font-bold` class
             color: ['red'],
             size: ['md', 'lg'],
@@ -118,7 +118,7 @@ when multiple other variant conditions are met:
     // class="alert bg-green text-sm"
 
     {{ include('alert.html.twig', {color: 'red', size: 'md'}) }}
-    // class="alert bg-green text-lg font-bold"
+    // class="alert bg-green text-md font-bold"
 
 Default Variants
 ----------------
@@ -128,8 +128,8 @@ If no variants match, you can define a default set of classes to apply:
 .. code-block:: html+twig
 
     {% set alert = html_cva(
-        base='alert ',
-        variants={
+        base: 'alert',
+        variants: {
             color: {
                 blue: 'bg-blue',
                 red: 'bg-red',
@@ -146,7 +146,7 @@ If no variants match, you can define a default set of classes to apply:
                 lg: 'rounded-lg',
             }
         },
-        defaultVariants={
+        defaultVariant: {
             rounded: 'md',
         }
     ) %}
@@ -158,7 +158,7 @@ If no variants match, you can define a default set of classes to apply:
     {# index.html.twig #}
 
     {{ include('alert.html.twig', {color: 'red', size: 'lg'}) }}
-    // class="alert bg-red text-lg font-bold rounded-md"
+    // class="alert bg-red text-lg rounded-md"
 
 .. note::
 

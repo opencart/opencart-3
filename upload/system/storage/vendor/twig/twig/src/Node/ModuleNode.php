@@ -44,11 +44,11 @@ final class ModuleNode extends Node
             'blocks' => $blocks,
             'macros' => $macros,
             'traits' => $traits,
-            'display_start' => new Node(),
-            'display_end' => new Node(),
-            'constructor_start' => new Node(),
-            'constructor_end' => new Node(),
-            'class_end' => new Node(),
+            'display_start' => new Nodes(),
+            'display_end' => new Nodes(),
+            'constructor_start' => new Nodes(),
+            'constructor_end' => new Nodes(),
+            'class_end' => new Nodes(),
         ];
         if (null !== $parent) {
             $nodes['parent'] = $parent;
@@ -64,6 +64,9 @@ final class ModuleNode extends Node
         $this->setSourceContext($source);
     }
 
+    /**
+     * @return void
+     */
     public function setIndex($index)
     {
         $this->setAttribute('index', $index);
@@ -78,6 +81,9 @@ final class ModuleNode extends Node
         }
     }
 
+    /**
+     * @return void
+     */
     protected function compileTemplate(Compiler $compiler)
     {
         if (!$this->getAttribute('index')) {
@@ -107,6 +113,9 @@ final class ModuleNode extends Node
         $this->compileClassFooter($compiler);
     }
 
+    /**
+     * @return void
+     */
     protected function compileGetParent(Compiler $compiler)
     {
         if (!$this->hasNode('parent')) {
@@ -142,6 +151,9 @@ final class ModuleNode extends Node
         ;
     }
 
+    /**
+     * @return void
+     */
     protected function compileClassHeader(Compiler $compiler)
     {
         $compiler
@@ -180,6 +192,9 @@ final class ModuleNode extends Node
         ;
     }
 
+    /**
+     * @return void
+     */
     protected function compileConstructor(Compiler $compiler)
     {
         $compiler
@@ -244,7 +259,11 @@ final class ModuleNode extends Node
                         ->string($key)
                         ->raw(\sprintf(']; unset($_trait_%s_blocks[', $i))
                         ->string($key)
-                        ->raw("]);\n\n")
+                        ->raw(']); $this->traitAliases[')
+                        ->subcompile($value)
+                        ->raw('] = ')
+                        ->string($key)
+                        ->raw(";\n\n")
                     ;
                 }
             }
@@ -315,10 +334,13 @@ final class ModuleNode extends Node
         ;
     }
 
+    /**
+     * @return void
+     */
     protected function compileDisplay(Compiler $compiler)
     {
         $compiler
-            ->write("protected function doDisplay(array \$context, array \$blocks = [])\n", "{\n")
+            ->write("protected function doDisplay(array \$context, array \$blocks = []): iterable\n", "{\n")
             ->indent()
             ->write("\$macros = \$this->macros;\n")
             ->subcompile($this->getNode('display_start'))
@@ -353,7 +375,7 @@ final class ModuleNode extends Node
         $compiler->subcompile($this->getNode('display_end'));
 
         if (!$this->hasNode('parent')) {
-            $compiler->write("return; yield '';\n"); // ensure at least one yield call even for templates with no output
+            $compiler->write("yield from [];\n");
         }
 
         $compiler
@@ -362,6 +384,9 @@ final class ModuleNode extends Node
         ;
     }
 
+    /**
+     * @return void
+     */
     protected function compileClassFooter(Compiler $compiler)
     {
         $compiler
@@ -371,11 +396,17 @@ final class ModuleNode extends Node
         ;
     }
 
+    /**
+     * @return void
+     */
     protected function compileMacros(Compiler $compiler)
     {
         $compiler->subcompile($this->getNode('macros'));
     }
 
+    /**
+     * @return void
+     */
     protected function compileGetTemplateName(Compiler $compiler)
     {
         $compiler
@@ -392,6 +423,9 @@ final class ModuleNode extends Node
         ;
     }
 
+    /**
+     * @return void
+     */
     protected function compileIsTraitable(Compiler $compiler)
     {
         // A template can be used as a trait if:
@@ -410,19 +444,11 @@ final class ModuleNode extends Node
             }
 
             if (!\count($nodes)) {
-                $nodes = new Node([$nodes]);
+                $nodes = new Nodes([$nodes]);
             }
 
             foreach ($nodes as $node) {
                 if (!\count($node)) {
-                    continue;
-                }
-
-                if ($node instanceof TextNode && ctype_space($node->getAttribute('data'))) {
-                    continue;
-                }
-
-                if ($node instanceof BlockReferenceNode) {
                     continue;
                 }
 
@@ -447,6 +473,9 @@ final class ModuleNode extends Node
         ;
     }
 
+    /**
+     * @return void
+     */
     protected function compileDebugInfo(Compiler $compiler)
     {
         $compiler
@@ -461,6 +490,9 @@ final class ModuleNode extends Node
         ;
     }
 
+    /**
+     * @return void
+     */
     protected function compileGetSourceContext(Compiler $compiler)
     {
         $compiler
@@ -476,37 +508,5 @@ final class ModuleNode extends Node
             ->outdent()
             ->write("}\n")
         ;
-    }
-
-    protected function compileLoadTemplate(Compiler $compiler, $node, $var)
-    {
-        if ($node instanceof ConstantExpression) {
-            $compiler
-                ->write(\sprintf('%s = $this->loadTemplate(', $var))
-                ->subcompile($node)
-                ->raw(', ')
-                ->repr($node->getTemplateName())
-                ->raw(', ')
-                ->repr($node->getTemplateLine())
-                ->raw(");\n")
-            ;
-        } else {
-            throw new \LogicException('Trait templates can only be constant nodes.');
-        }
-    }
-
-    private function hasNodeOutputNodes(Node $node): bool
-    {
-        if ($node instanceof NodeOutputInterface) {
-            return true;
-        }
-
-        foreach ($node as $child) {
-            if ($this->hasNodeOutputNodes($child)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 }

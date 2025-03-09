@@ -11,6 +11,8 @@ namespace Twig\Tests;
  * file that was distributed with this source code.
  */
 
+use Twig\DeprecatedCallableInfo;
+use Twig\Error\SyntaxError;
 use Twig\Extension\AbstractExtension;
 use Twig\Extension\DebugExtension;
 use Twig\Extension\SandboxExtension;
@@ -48,7 +50,33 @@ class IntegrationTest extends IntegrationTestCase
         ];
     }
 
-    public function getFixturesDir()
+    protected function getUndefinedFunctionCallbacks(): array
+    {
+        return [
+            static function (string $name) {
+                if ('throwing_undefined_function' === $name) {
+                    throw new SyntaxError('This function is undefined in the tests.');
+                }
+
+                return false;
+            },
+        ];
+    }
+
+    protected function getUndefinedTokenParserCallbacks(): array
+    {
+        return [
+            static function (string $name) {
+                if ('throwing_undefined_filter' === $name) {
+                    throw new SyntaxError('This filter is undefined in the tests.');
+                }
+
+                return false;
+            },
+        ];
+    }
+
+    protected static function getFixturesDirectory(): string
     {
         return __DIR__.'/Fixtures/';
     }
@@ -66,6 +94,8 @@ class TwigTestFoo implements \Iterator
     public $position = 0;
     public $array = [1, 2];
 
+    public static $foo = 'Foo';
+
     public function bar($param1 = null, $param2 = null)
     {
         return 'bar'.($param1 ? '_'.$param1 : '').($param2 ? '-'.$param2 : '');
@@ -74,6 +104,16 @@ class TwigTestFoo implements \Iterator
     public function getFoo()
     {
         return 'foo';
+    }
+
+    public function getEmpty()
+    {
+        return '';
+    }
+
+    public function getNull()
+    {
+        return null;
     }
 
     public function getSelf()
@@ -185,7 +225,7 @@ class TwigTestExtension extends AbstractExtension
             new TwigFunction('*_path', [$this, 'dynamic_path']),
             new TwigFunction('*_foo_*_bar', [$this, 'dynamic_foo']),
             new TwigFunction('anon_foo', function ($name) { return '*'.$name.'*'; }),
-            new TwigFunction('deprecated_function', function () { return 'foo'; }, ['deprecated' => '1.1', 'deprecating_package' => 'foo/bar', 'alternative' => 'not_deprecated_function']),
+            new TwigFunction('deprecated_function', function () { return 'foo'; }, ['deprecation_info' => new DeprecatedCallableInfo('foo/bar', '1.1', 'not_deprecated_function')]),
         ];
     }
 

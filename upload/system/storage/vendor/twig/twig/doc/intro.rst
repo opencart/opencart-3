@@ -30,7 +30,7 @@ Slim, Yii, Laravel, and Codeigniter — just to name a few.
 Prerequisites
 -------------
 
-Twig 3.x needs at least **PHP 8.0.2** to run.
+Twig 3.x needs at least **PHP 8.1.0** to run.
 
 Installation
 ------------
@@ -69,6 +69,6 @@ filesystem loader::
         'cache' => '/path/to/compilation_cache',
     ]);
 
-    echo $twig->render('index.html', ['name' => 'Fabien']);
+    echo $twig->render('index.html.twig', ['name' => 'Fabien']);
 
 .. _`SymfonyCasts Twig Tutorial`: https://symfonycasts.com/screencast/twig

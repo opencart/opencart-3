@@ -12,8 +12,8 @@ namespace Twig\Tests\Node;
  */
 
 use Twig\Node\Expression\ArrayExpression;
-use Twig\Node\Expression\ConditionalExpression;
 use Twig\Node\Expression\ConstantExpression;
+use Twig\Node\Expression\Ternary\ConditionalTernary;
 use Twig\Node\IncludeNode;
 use Twig\Test\NodeTestCase;
 
@@ -34,7 +34,7 @@ class IncludeTest extends NodeTestCase
         $this->assertTrue($node->getAttribute('only'));
     }
 
-    public function getTests()
+    public static function provideTests(): iterable
     {
         $tests = [];
 
@@ -46,7 +46,7 @@ yield from $this->loadTemplate("foo.twig", null, 1)->unwrap()->yield($context);
 EOF
         ];
 
-        $expr = new ConditionalExpression(
+        $expr = new ConditionalTernary(
             new ConstantExpression(true, 1),
             new ConstantExpression('foo', 1),
             new ConstantExpression('foo', 1),
@@ -78,14 +78,14 @@ EOF
         $node = new IncludeNode($expr, $vars, true, true, 1);
         $tests[] = [$node, <<<EOF
 // line 1
-\$__internal_%s = null;
 try {
-    \$__internal_%s =     \$this->loadTemplate("foo.twig", null, 1);
+    \$_v%s = \$this->loadTemplate("foo.twig", null, 1);
 } catch (LoaderError \$e) {
     // ignore missing template
+    \$_v%s = null;
 }
-if (\$__internal_%s) {
-    yield from \$__internal_%s->unwrap()->yield(CoreExtension::toArray(["foo" => true]));
+if (\$_v%s) {
+    yield from \$_v%s->unwrap()->yield(CoreExtension::toArray(["foo" => true]));
 }
 EOF
             , null, true];

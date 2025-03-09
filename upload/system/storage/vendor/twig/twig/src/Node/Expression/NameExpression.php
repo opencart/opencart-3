@@ -13,6 +13,7 @@
 namespace Twig\Node\Expression;
 
 use Twig\Compiler;
+use Twig\Node\Expression\Variable\ContextVariable;
 
 class NameExpression extends AbstractExpression
 {
@@ -24,6 +25,10 @@ class NameExpression extends AbstractExpression
 
     public function __construct(string $name, int $lineno)
     {
+        if (self::class === static::class) {
+            trigger_deprecation('twig/twig', '3.15', 'The "%s" class is deprecated, use "%s" instead.', self::class, ContextVariable::class);
+        }
+
         parent::__construct([], ['name' => $name, 'is_defined_test' => false, 'ignore_strict_check' => false, 'always_defined' => false], $lineno);
     }
 
@@ -34,7 +39,7 @@ class NameExpression extends AbstractExpression
         $compiler->addDebugInfo($this);
 
         if ($this->getAttribute('is_defined_test')) {
-            if (isset($this->specialVars[$name])) {
+            if (isset($this->specialVars[$name]) || $this->getAttribute('always_defined')) {
                 $compiler->repr(true);
             } elseif (\PHP_VERSION_ID >= 70400) {
                 $compiler

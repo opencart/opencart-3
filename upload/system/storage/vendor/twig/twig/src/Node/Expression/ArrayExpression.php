@@ -12,6 +12,8 @@
 namespace Twig\Node\Expression;
 
 use Twig\Compiler;
+use Twig\Node\Expression\Unary\StringCastUnary;
+use Twig\Node\Expression\Variable\ContextVariable;
 
 class ArrayExpression extends AbstractExpression
 {
@@ -97,19 +99,25 @@ class ArrayExpression extends AbstractExpression
                 $compiler->raw('...')->subcompile($pair['value']);
                 ++$nextIndex;
             } else {
-                $key = $pair['key'] instanceof ConstantExpression ? $pair['key']->getAttribute('value') : null;
+                $key = null;
+                if ($pair['key'] instanceof ContextVariable) {
+                    $pair['key'] = new StringCastUnary($pair['key'], $pair['key']->getTemplateLine());
+                }
+                if ($pair['key'] instanceof TempNameExpression) {
+                    $key = $pair['key']->getAttribute('name');
+                    $pair['key'] = new ConstantExpression($key, $pair['key']->getTemplateLine());
+                }
+                if ($pair['key'] instanceof ConstantExpression) {
+                    $key = $pair['key']->getAttribute('value');
+                }
 
                 if ($nextIndex !== $key) {
-                    if (\is_int($key)) {
-                        $nextIndex = $key + 1;
-                    }
                     $compiler
                         ->subcompile($pair['key'])
                         ->raw(' => ')
                     ;
-                } else {
-                    ++$nextIndex;
                 }
+                ++$nextIndex;
 
                 $compiler->subcompile($pair['value']);
             }

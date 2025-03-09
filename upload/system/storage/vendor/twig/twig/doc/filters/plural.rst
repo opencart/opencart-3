@@ -11,11 +11,11 @@ plural version:
 .. code-block:: twig
 
     {# English (en) rules are used by default #}
-    {{ 'partition'|pluralize() }}
-    partitions
+    {{ 'animal'|plural() }}
+    animals
 
-    {{ 'partition'|pluralize('fr') }}
-    partitions
+    {{ 'animal'|plural('fr') }}
+    animaux
 
 .. note::
 
@@ -49,5 +49,5 @@ Arguments
 
     Internally, Twig uses the `pluralize`_ method from the Symfony String component.
 
-.. _`inflector`: <https://symfony.com/doc/current/components/string.html#inflector>
-.. _`pluralize`: <https://symfony.com/doc/current/components/string.html#inflector>
+.. _`inflector`: https://symfony.com/doc/current/components/string.html#inflector
+.. _`pluralize`: https://symfony.com/doc/current/components/string.html#inflector

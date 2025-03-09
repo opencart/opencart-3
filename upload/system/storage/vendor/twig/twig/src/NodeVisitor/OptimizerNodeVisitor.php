@@ -17,8 +17,8 @@ use Twig\Node\Expression\BlockReferenceExpression;
 use Twig\Node\Expression\ConstantExpression;
 use Twig\Node\Expression\FunctionExpression;
 use Twig\Node\Expression\GetAttrExpression;
-use Twig\Node\Expression\NameExpression;
 use Twig\Node\Expression\ParentExpression;
+use Twig\Node\Expression\Variable\ContextVariable;
 use Twig\Node\ForNode;
 use Twig\Node\IncludeNode;
 use Twig\Node\Node;
@@ -47,13 +47,13 @@ final class OptimizerNodeVisitor implements NodeVisitorInterface
 
     private $loops = [];
     private $loopsTargets = [];
-    private $optimizers;
 
     /**
      * @param int $optimizers The optimizer mode
      */
-    public function __construct(int $optimizers = -1)
-    {
+    public function __construct(
+        private int $optimizers = -1,
+    ) {
         if ($optimizers > (self::OPTIMIZE_FOR | self::OPTIMIZE_RAW_FILTER | self::OPTIMIZE_TEXT_NODES)) {
             throw new \InvalidArgumentException(\sprintf('Optimizer mode "%s" is not valid.', $optimizers));
         }
@@ -65,8 +65,6 @@ final class OptimizerNodeVisitor implements NodeVisitorInterface
         if (-1 !== $optimizers && self::OPTIMIZE_TEXT_NODES === (self::OPTIMIZE_TEXT_NODES & $optimizers)) {
             trigger_deprecation('twig/twig', '3.12', 'The "Twig\NodeVisitor\OptimizerNodeVisitor::OPTIMIZE_TEXT_NODES" option is deprecated and does nothing.');
         }
-
-        $this->optimizers = $optimizers;
     }
 
     public function enterNode(Node $node, Environment $env): Node
@@ -139,13 +137,13 @@ final class OptimizerNodeVisitor implements NodeVisitorInterface
         // when do we need to add the loop variable back?
 
         // the loop variable is referenced for the current loop
-        elseif ($node instanceof NameExpression && 'loop' === $node->getAttribute('name')) {
+        elseif ($node instanceof ContextVariable && 'loop' === $node->getAttribute('name')) {
             $node->setAttribute('always_defined', true);
             $this->addLoopToCurrent();
         }
 
         // optimize access to loop targets
-        elseif ($node instanceof NameExpression && \in_array($node->getAttribute('name'), $this->loopsTargets)) {
+        elseif ($node instanceof ContextVariable && \in_array($node->getAttribute('name'), $this->loopsTargets)) {
             $node->setAttribute('always_defined', true);
         }
 
@@ -175,7 +173,7 @@ final class OptimizerNodeVisitor implements NodeVisitorInterface
                 || 'parent' === $node->getNode('attribute')->getAttribute('value')
             )
             && (true === $this->loops[0]->getAttribute('with_loop')
-             || ($node->getNode('node') instanceof NameExpression
+             || ($node->getNode('node') instanceof ContextVariable
                  && 'loop' === $node->getNode('node')->getAttribute('name')
              )
             )

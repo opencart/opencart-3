@@ -49,11 +49,11 @@ tag:
 
 .. code-block:: twig
 
-    {% import "forms.twig" as forms %}
+    {% import "forms.html.twig" as forms %}
 
-The above ``import`` call imports the ``forms.twig`` file (which can contain
-only macros, or a template and some macros), and import the macros as items of
-the ``forms`` local variable.
+The above ``import`` call imports the ``forms.html.twig`` file (which can contain
+only macros, or a template and some macros), and import the macros as
+attributes of the ``forms`` local variable.
 
 The macros can then be called at will in the *current* template:
 
@@ -61,15 +61,18 @@ The macros can then be called at will in the *current* template:
 
     <p>{{ forms.input('username') }}</p>
     <p>{{ forms.input('password', null, 'password') }}</p>
+    {# You can also use named arguments #}
+    <p>{{ forms.input(name: 'password', type: 'password') }}</p>
 
 Alternatively you can import names from the template into the current namespace
 via the ``from`` tag:
 
 .. code-block:: html+twig
 
-    {% from 'forms.twig' import input as input_field, textarea %}
+    {% from 'forms.html.twig' import input as input_field, textarea %}
 
     <p>{{ input_field('password', '', 'password') }}</p>
+    <p>{{ input_field(name: 'password', type: 'password') }}</p>
     <p>{{ textarea('comment') }}</p>
 
 .. caution::
@@ -79,7 +82,7 @@ via the ``from`` tag:
 
     .. code-block:: twig
 
-        {% from 'forms.twig' import input as include %}
+        {% from 'forms.html.twig' import input as include %}
 
         {# include refers to the macro and not to the built-in "include" function #}
         {{ include() }}
@@ -123,9 +126,9 @@ You can check if a macro is defined via the ``defined`` test:
 
 .. code-block:: twig
 
-    {% import "macros.twig" as macros %}
+    {% import "macros.html.twig" as macros %}
 
-    {% from "macros.twig" import hello %}
+    {% from "macros.html.twig" import hello %}
 
     {% if macros.hello is defined -%}
         OK

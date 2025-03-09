@@ -16,7 +16,9 @@ use Twig\Environment;
 use Twig\Error\SyntaxError;
 use Twig\Lexer;
 use Twig\Loader\ArrayLoader;
+use Twig\Node\EmptyNode;
 use Twig\Node\Node;
+use Twig\Node\Nodes;
 use Twig\Node\SetNode;
 use Twig\Node\TextNode;
 use Twig\Parser;
@@ -29,31 +31,33 @@ class ParserTest extends TestCase
 {
     public function testUnknownTag()
     {
-        $this->expectException(SyntaxError::class);
-        $this->expectExceptionMessage('Unknown "foo" tag. Did you mean "for" at line 1?');
-
         $stream = new TokenStream([
             new Token(Token::BLOCK_START_TYPE, '', 1),
             new Token(Token::NAME_TYPE, 'foo', 1),
             new Token(Token::BLOCK_END_TYPE, '', 1),
             new Token(Token::EOF_TYPE, '', 1),
-        ]);
+        ], new Source('', ''));
         $parser = new Parser(new Environment(new ArrayLoader()));
+
+        $this->expectException(SyntaxError::class);
+        $this->expectExceptionMessage('Unknown "foo" tag. Did you mean "for" at line 1?');
+
         $parser->parse($stream);
     }
 
     public function testUnknownTagWithoutSuggestions()
     {
-        $this->expectException(SyntaxError::class);
-        $this->expectExceptionMessage('Unknown "foobar" tag at line 1.');
-
         $stream = new TokenStream([
             new Token(Token::BLOCK_START_TYPE, '', 1),
             new Token(Token::NAME_TYPE, 'foobar', 1),
             new Token(Token::BLOCK_END_TYPE, '', 1),
             new Token(Token::EOF_TYPE, '', 1),
-        ]);
+        ], new Source('', ''));
         $parser = new Parser(new Environment(new ArrayLoader()));
+
+        $this->expectException(SyntaxError::class);
+        $this->expectExceptionMessage('Unknown "foobar" tag at line 1.');
+
         $parser->parse($stream);
     }
 
@@ -69,19 +73,19 @@ class ParserTest extends TestCase
         $this->assertEquals($expected, $m->invoke($parser, $input));
     }
 
-    public function getFilterBodyNodesData()
+    public static function getFilterBodyNodesData()
     {
         return [
             [
-                new Node([new TextNode('   ', 1)]),
-                new Node([]),
+                new Nodes([new TextNode('   ', 1)]),
+                new Nodes([]),
             ],
             [
-                $input = new Node([new SetNode(false, new Node(), new Node(), 1)]),
+                $input = new Nodes([new SetNode(false, new EmptyNode(), new EmptyNode(), 1)]),
                 $input,
             ],
             [
-                $input = new Node([new SetNode(true, new Node(), new Node([new Node([new TextNode('foo', 1)])]), 1)]),
+                $input = new Nodes([new SetNode(true, new EmptyNode(), new Nodes([new Nodes([new TextNode('foo', 1)])]), 1)]),
                 $input,
             ],
         ];
@@ -92,21 +96,20 @@ class ParserTest extends TestCase
      */
     public function testFilterBodyNodesThrowsException($input)
     {
-        $this->expectException(SyntaxError::class);
-
         $parser = $this->getParser();
 
         $m = new \ReflectionMethod($parser, 'filterBodyNodes');
         $m->setAccessible(true);
 
+        $this->expectException(SyntaxError::class);
         $m->invoke($parser, $input);
     }
 
-    public function getFilterBodyNodesDataThrowsException()
+    public static function getFilterBodyNodesDataThrowsException()
     {
         return [
             [new TextNode('foo', 1)],
-            [new Node([new Node([new TextNode('foo', 1)])])],
+            [new Nodes([new Nodes([new TextNode('foo', 1)])])],
         ];
     }
 
@@ -122,7 +125,7 @@ class ParserTest extends TestCase
         $this->assertNull($m->invoke($parser, new TextNode(\chr(0xEF).\chr(0xBB).\chr(0xBF).$emptyNode, 1)));
     }
 
-    public function getFilterBodyNodesWithBOMData()
+    public static function getFilterBodyNodesWithBOMData()
     {
         return [
             [' '],
@@ -150,7 +153,7 @@ class ParserTest extends TestCase
             new Token(Token::NAME_TYPE, 'foo', 1),
             new Token(Token::VAR_END_TYPE, '', 1),
             new Token(Token::EOF_TYPE, '', 1),
-        ]));
+        ], new Source('', '')));
 
         $p = new \ReflectionProperty($parser, 'parent');
         $p->setAccessible(true);
@@ -191,22 +194,21 @@ EOF
             ->getNode('arguments')
         ;
 
-        $this->assertTrue($argumentNodes->getNode('po')->hasAttribute('is_implicit'));
-        $this->assertTrue($argumentNodes->getNode('po')->getAttribute('is_implicit'));
-        $this->assertNull($argumentNodes->getNode('po')->getAttribute('value'));
+        $this->assertTrue($argumentNodes->getNode(1)->hasAttribute('is_implicit'));
+        $this->assertNull($argumentNodes->getNode(1)->getAttribute('value'));
 
-        $this->assertFalse($argumentNodes->getNode('lo')->hasAttribute('is_implicit'));
-        $this->assertSame(true, $argumentNodes->getNode('lo')->getAttribute('value'));
+        $this->assertFalse($argumentNodes->getNode(3)->hasAttribute('is_implicit'));
+        $this->assertTrue($argumentNodes->getNode(3)->getAttribute('value'));
     }
 
     protected function getParser()
     {
         $parser = new Parser(new Environment(new ArrayLoader()));
-        $parser->setParent(new Node());
+        $parser->setParent(new EmptyNode());
 
         $p = new \ReflectionProperty($parser, 'stream');
         $p->setAccessible(true);
-        $p->setValue($parser, new TokenStream([]));
+        $p->setValue($parser, new TokenStream([], new Source('', '')));
 
         return $parser;
     }
@@ -223,11 +225,11 @@ class TestTokenParser extends AbstractTokenParser
             new Token(Token::STRING_TYPE, 'base', 1),
             new Token(Token::BLOCK_END_TYPE, '', 1),
             new Token(Token::EOF_TYPE, '', 1),
-        ]));
+        ], new Source('', '')));
 
         $this->parser->getStream()->expect(Token::BLOCK_END_TYPE);
 
-        return new Node([], [], 1);
+        return new EmptyNode(1);
     }
 
     public function getTag(): string

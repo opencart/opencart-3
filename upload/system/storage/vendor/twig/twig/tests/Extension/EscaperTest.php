@@ -32,7 +32,7 @@ class EscaperTest extends TestCase
         $this->assertSame($expected, $twig->getRuntime(EscaperRuntime::class)->escape($string, $strategy, 'ISO-8859-1'));
     }
 
-    public function provideCustomEscaperCases()
+    public static function provideCustomEscaperCases()
     {
         return [
             ['foo**ISO-8859-1**UTF-8', 'foo', 'foo'],
@@ -69,6 +69,11 @@ class EscaperTest extends TestCase
 
         $this->assertSame('foo**ISO-8859-1**UTF-8', $env1->getRuntime(EscaperRuntime::class)->escape('foo', 'foo', 'ISO-8859-1'));
         $this->assertSame('foo**ISO-8859-1**UTF-8**again', $env2->getRuntime(EscaperRuntime::class)->escape('foo', 'foo', 'ISO-8859-1'));
+    }
+
+    public function testLastModified()
+    {
+        $this->assertGreaterThan(1000000000, (new EscaperExtension())->getLastModified());
     }
 }
 

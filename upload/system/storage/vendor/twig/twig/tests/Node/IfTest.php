@@ -12,9 +12,9 @@ namespace Twig\Tests\Node;
  */
 
 use Twig\Node\Expression\ConstantExpression;
-use Twig\Node\Expression\NameExpression;
+use Twig\Node\Expression\Variable\ContextVariable;
 use Twig\Node\IfNode;
-use Twig\Node\Node;
+use Twig\Node\Nodes;
 use Twig\Node\PrintNode;
 use Twig\Test\NodeTestCase;
 
@@ -22,72 +22,75 @@ class IfTest extends NodeTestCase
 {
     public function testConstructor()
     {
-        $t = new Node([
+        $t = new Nodes([
             new ConstantExpression(true, 1),
-            new PrintNode(new NameExpression('foo', 1), 1),
-        ], [], 1);
+            new PrintNode(new ContextVariable('foo', 1), 1),
+        ], 1);
         $else = null;
         $node = new IfNode($t, $else, 1);
 
         $this->assertEquals($t, $node->getNode('tests'));
         $this->assertFalse($node->hasNode('else'));
 
-        $else = new PrintNode(new NameExpression('bar', 1), 1);
+        $else = new PrintNode(new ContextVariable('bar', 1), 1);
         $node = new IfNode($t, $else, 1);
         $this->assertEquals($else, $node->getNode('else'));
     }
 
-    public function getTests()
+    public static function provideTests(): iterable
     {
         $tests = [];
 
-        $t = new Node([
+        $t = new Nodes([
             new ConstantExpression(true, 1),
-            new PrintNode(new NameExpression('foo', 1), 1),
-        ], [], 1);
+            new PrintNode(new ContextVariable('foo', 1), 1),
+        ], 1);
         $else = null;
         $node = new IfNode($t, $else, 1);
+
+        $fooGetter = self::createVariableGetter('foo');
+        $barGetter = self::createVariableGetter('bar');
 
         $tests[] = [$node, <<<EOF
 // line 1
 if (true) {
-    yield {$this->getVariableGetter('foo')};
+    yield $fooGetter;
 }
 EOF
         ];
 
-        $t = new Node([
+        $t = new Nodes([
             new ConstantExpression(true, 1),
-            new PrintNode(new NameExpression('foo', 1), 1),
+            new PrintNode(new ContextVariable('foo', 1), 1),
             new ConstantExpression(false, 1),
-            new PrintNode(new NameExpression('bar', 1), 1),
-        ], [], 1);
+            new PrintNode(new ContextVariable('bar', 1), 1),
+        ], 1);
         $else = null;
         $node = new IfNode($t, $else, 1);
 
         $tests[] = [$node, <<<EOF
 // line 1
 if (true) {
-    yield {$this->getVariableGetter('foo')};
+    yield $fooGetter;
 } elseif (false) {
-    yield {$this->getVariableGetter('bar')};
+    yield $barGetter;
 }
 EOF
         ];
 
-        $t = new Node([
+        $t = new Nodes([
             new ConstantExpression(true, 1),
-            new PrintNode(new NameExpression('foo', 1), 1),
-        ], [], 1);
-        $else = new PrintNode(new NameExpression('bar', 1), 1);
+            new PrintNode(new ContextVariable('foo', 1), 1),
+        ], 1);
+        $else = new PrintNode(new ContextVariable('bar', 1), 1);
         $node = new IfNode($t, $else, 1);
 
         $tests[] = [$node, <<<EOF
 // line 1
 if (true) {
-    yield {$this->getVariableGetter('foo')};
+    yield $fooGetter;
 } else {
-    yield {$this->getVariableGetter('bar')};
+    yield $barGetter;
 }
 EOF
         ];

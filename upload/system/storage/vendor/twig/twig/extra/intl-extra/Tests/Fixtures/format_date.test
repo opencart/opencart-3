@@ -1,5 +1,7 @@
 --TEST--
 "format_date" filter
+--CONDITION--
+version_compare(Symfony\Component\Intl\Intl::getIcuVersion(), '72.1', '<')
 --TEMPLATE--
 {{ '2019-08-07 23:39:12'|format_datetime() }}
 {{ '2019-08-07 23:39:12'|format_datetime(locale='fr') }}

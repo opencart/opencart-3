@@ -1,0 +1,20 @@
+{
+    "editor.defaultFormatter": null,
+    "editor.detectIndentation": true,
+    "editor.autoIndent": "full",
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features"
+    },
+    "editor.insertSpaces": false,
+    "editor.tabSize": 2,
+    "html.format.contentUnformatted": "pre,code,textarea",
+    "html.format.endWithNewline": false,
+    "html.format.extraLiners": "head, body, /html",
+    "html.format.indentHandlebars": false,
+    "html.format.indentInnerHtml": false,
+    "html.format.maxPreserveNewLines": null,
+    "html.format.preserveNewLines": true,
+    "html.format.wrapLineLength": 0,
+    "html.format.wrapAttributes": "auto",
+    "twig-formatter.braces": true
+}

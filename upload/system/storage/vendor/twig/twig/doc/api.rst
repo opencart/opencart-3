@@ -40,15 +40,18 @@ templates from a database or other resources.
     the evaluated templates. For such a need, you can use any available PHP
     cache library.
 
+Loading Templates
+-----------------
+
+To load a template, call the ``load()`` method on a Twig environment which
+returns a ``\Twig\TemplateWrapper`` instance::
+
+    $template = $twig->load('index.html.twig');
+
 Rendering Templates
 -------------------
 
-To load a template from a Twig environment, call the ``load()`` method which
-returns a ``\Twig\TemplateWrapper`` instance::
-
-    $template = $twig->load('index.html');
-
-To render the template with some variables, call the ``render()`` method::
+To render a template with some variables, call the ``render()`` method::
 
     echo $template->render(['the' => 'variables', 'go' => 'here']);
 
@@ -56,14 +59,31 @@ To render the template with some variables, call the ``render()`` method::
 
     The ``display()`` method is a shortcut to output the rendered template.
 
-You can also load and render the template in one fell swoop::
+You can also load and render the template directly via the Environment::
 
-    echo $twig->render('index.html', ['the' => 'variables', 'go' => 'here']);
+    echo $twig->render('index.html.twig', ['the' => 'variables', 'go' => 'here']);
 
 If a template defines blocks, they can be rendered individually via the
 ``renderBlock()`` call::
 
     echo $template->renderBlock('block_name', ['the' => 'variables', 'go' => 'here']);
+
+Streaming Templates
+-------------------
+
+.. versionadded:: 3.18
+
+To stream a template, call the ``stream()`` method::
+
+    $template->stream(['the' => 'variables', 'go' => 'here']);
+
+To stream a specific template block, call the ``streamBlock()`` method::
+
+    $template->streamBlock('block_name', ['the' => 'variables', 'go' => 'here']);
+
+.. note::
+
+    The ``stream()`` and ``streamBlock()`` methods return an iterable.
 
 .. _environment_options:
 
@@ -177,7 +197,7 @@ methods act on the "main" namespace)::
 Namespaced templates can be accessed via the special
 ``@namespace_name/template_path`` notation::
 
-    $twig->render('@admin/index.html', []);
+    $twig->render('@admin/index.html.twig', []);
 
 ``\Twig\Loader\FilesystemLoader`` supports absolute and relative paths. Using relative
 paths is preferred as it makes the cache keys independent of the project root
@@ -198,11 +218,11 @@ the directory might be different from the one used on production servers)::
 array of strings bound to template names::
 
     $loader = new \Twig\Loader\ArrayLoader([
-        'index.html' => 'Hello {{ name }}!',
+        'index.html.twig' => 'Hello {{ name }}!',
     ]);
     $twig = new \Twig\Environment($loader);
 
-    echo $twig->render('index.html', ['name' => 'Fabien']);
+    echo $twig->render('index.html.twig', ['name' => 'Fabien']);
 
 This loader is very useful for unit testing. It can also be used for small
 projects where storing all templates in a single PHP file might make sense.
@@ -221,11 +241,11 @@ projects where storing all templates in a single PHP file might make sense.
 ``\Twig\Loader\ChainLoader`` delegates the loading of templates to other loaders::
 
     $loader1 = new \Twig\Loader\ArrayLoader([
-        'base.html' => '{% block content %}{% endblock %}',
+        'base.html.twig' => '{% block content %}{% endblock %}',
     ]);
     $loader2 = new \Twig\Loader\ArrayLoader([
-        'index.html' => '{% extends "base.html" %}{% block content %}Hello {{ name }}{% endblock %}',
-        'base.html'  => 'Will never be loaded',
+        'index.html.twig' => '{% extends "base.html.twig" %}{% block content %}Hello {{ name }}{% endblock %}',
+        'base.html.twig'  => 'Will never be loaded',
     ]);
 
     $loader = new \Twig\Loader\ChainLoader([$loader1, $loader2]);
@@ -233,8 +253,8 @@ projects where storing all templates in a single PHP file might make sense.
     $twig = new \Twig\Environment($loader);
 
 When looking for a template, Twig tries each loader in turn and returns as soon
-as the template is found. When rendering the ``index.html`` template from the
-above example, Twig will load it with ``$loader2`` but the ``base.html``
+as the template is found. When rendering the ``index.html.twig`` template from the
+above example, Twig will load it with ``$loader2`` but the ``base.html.twig``
 template will be loaded from ``$loader1``.
 
 .. note::
@@ -398,14 +418,14 @@ The escaping rules are implemented as follows:
 
   .. code-block:: html+twig
 
-        {{ foo ? "Twig<br/>" : "<br/>Twig" }} {# won't be escaped #}
+        {{ any_value ? "Twig<br/>" : "<br/>Twig" }} {# won't be escaped #}
 
         {% set text = "Twig<br/>" %}
         {{ true ? text : "<br/>Twig" }} {# will be escaped #}
         {{ false ? text : "<br/>Twig" }} {# won't be escaped #}
 
         {% set text = "Twig<br/>" %}
-        {{ foo ? text|raw : "<br/>Twig" }} {# won't be escaped #}
+        {{ any_value ? text|raw : "<br/>Twig" }} {# won't be escaped #}
 
 * Objects with a ``__toString`` method are converted to strings and
   escaped. You can mark some classes and/or interfaces as being safe for some
@@ -413,17 +433,17 @@ The escaping rules are implemented as follows:
 
   .. code-block:: twig
 
-        // mark object of class Foo as safe for the HTML strategy
-        $escaper->addSafeClass('Foo', ['html']);
+        // mark objects of class "HtmlGenerator" as safe for the HTML strategy
+        $escaper->addSafeClass('HtmlGenerator', ['html']);
 
-        // mark object of interface Foo as safe for the HTML strategy
-        $escaper->addSafeClass('FooInterface', ['html']);
+        // mark objects of interface "HtmlGeneratorInterface" as safe for the HTML strategy
+        $escaper->addSafeClass('HtmlGeneratorInterface', ['html']);
 
-        // mark object of class Foo as safe for the HTML and JS strategies
-        $escaper->addSafeClass('Foo', ['html', 'js']);
+        // mark objects of class "HtmlGenerator" as safe for the HTML and JS strategies
+        $escaper->addSafeClass('HtmlGenerator', ['html', 'js']);
 
-        // mark object of class Foo as safe for all strategies
-        $escaper->addSafeClass('Foo', ['all']);
+        // mark objects of class "HtmlGenerator" as safe for all strategies
+        $escaper->addSafeClass('HtmlGenerator', ['all']);
 
 * Escaping is applied before printing, after any other filter is applied:
 
@@ -456,60 +476,15 @@ The escaping rules are implemented as follows:
 
     Note that autoescaping has some limitations as escaping is applied on
     expressions after evaluation. For instance, when working with
-    concatenation, ``{{ foo|raw ~ bar }}`` won't give the expected result as
-    escaping is applied on the result of the concatenation, not on the
+    concatenation, ``{{ value|raw ~ other }}`` won't give the expected result
+    as escaping is applied on the result of the concatenation, not on the
     individual variables (so, the ``raw`` filter won't have any effect here).
 
 Sandbox Extension
 ~~~~~~~~~~~~~~~~~
 
-The ``sandbox`` extension can be used to evaluate untrusted code. Access to
-unsafe attributes and methods is prohibited. The sandbox security is managed
-by a policy instance. By default, Twig comes with one policy class:
-``\Twig\Sandbox\SecurityPolicy``. This class allows you to white-list some
-tags, filters, functions, properties, and methods::
-
-    $tags = ['if'];
-    $filters = ['upper'];
-    $methods = [
-        'Article' => ['getTitle', 'getBody'],
-    ];
-    $properties = [
-        'Article' => ['title', 'body'],
-    ];
-    $functions = ['range'];
-    $policy = new \Twig\Sandbox\SecurityPolicy($tags, $filters, $methods, $properties, $functions);
-
-With the previous configuration, the security policy will only allow usage of
-the ``if`` tag, and the ``upper`` filter. Moreover, the templates will only be
-able to call the ``getTitle()`` and ``getBody()`` methods on ``Article``
-objects, and the ``title`` and ``body`` public properties. Everything else
-won't be allowed and will generate a ``\Twig\Sandbox\SecurityError`` exception.
-
-.. caution::
-
-    The ``extends`` and ``use`` tags are always allowed in a sandboxed
-    template. That behavior will change in 4.0 where these tags will need to be
-    explicitly allowed like any other tag.
-
-The policy object is the first argument of the sandbox constructor::
-
-    $sandbox = new \Twig\Extension\SandboxExtension($policy);
-    $twig->addExtension($sandbox);
-
-By default, the sandbox mode is disabled and should be enabled when including
-untrusted template code by using the ``sandbox`` tag:
-
-.. code-block:: twig
-
-    {% sandbox %}
-        {% include 'user.html' %}
-    {% endsandbox %}
-
-You can sandbox all templates by passing ``true`` as the second argument of
-the extension constructor::
-
-    $sandbox = new \Twig\Extension\SandboxExtension($policy, true);
+The ``sandbox`` extension can be used to evaluate untrusted code. Read more
+about it in the :doc:`sandbox` chapter.
 
 Profiler Extension
 ~~~~~~~~~~~~~~~~~~

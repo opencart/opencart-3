@@ -104,8 +104,8 @@ What?      Implementation difficulty? How often? When?
 Globals
 -------
 
-A global variable is like any other template variable, except that it's
-available in all templates and macros::
+Global variables are available in all templates and macros. Use ``addGlobal()``
+to add a global variable to a Twig environment::
 
     $twig = new \Twig\Environment($loader);
     $twig->addGlobal('text', new Text());
@@ -271,34 +271,58 @@ A dynamic filter can define more than one dynamic parts::
 
 The filter receives all dynamic part values before the normal filter arguments,
 but after the environment and the context. For instance, a call to
-``'foo'|a_path_b()`` will result in the following arguments to be passed to the
-filter: ``('a', 'b', 'foo')``.
+``'Paris'|a_path_b()`` will result in the following arguments to be passed to the
+filter: ``('a', 'b', 'Paris')``.
 
 Deprecated Filters
 ~~~~~~~~~~~~~~~~~~
 
-You can mark a filter as being deprecated by setting the ``deprecated`` option
-to ``true``. You can also give an alternative filter that replaces the
-deprecated one when that makes sense::
+.. versionadded:: 3.15
+
+    The ``deprecation_info`` option was added in Twig 3.15.
+
+You can mark a filter as being deprecated by setting the ``deprecation_info``
+option::
 
     $filter = new \Twig\TwigFilter('obsolete', function () {
         // ...
-    }, ['deprecated' => true, 'alternative' => 'new_one']);
+    }, ['deprecation_info' => new DeprecatedCallableInfo('twig/twig', '3.11', 'new_one')]);
 
-.. versionadded:: 3.11
+The ``DeprecatedCallableInfo`` constructor takes the following parameters:
 
-    The ``deprecating_package`` option was added in Twig 3.11.
+* The Composer package name that defines the filter;
+* The version when the filter was deprecated.
 
-You can also set the ``deprecating_package`` option to specify the package that
-is deprecating the filter, and ``deprecated`` can be set to the package version
-when the filter was deprecated::
+Optionally, you can also provide the following parameters about an alternative:
 
-    $filter = new \Twig\TwigFilter('obsolete', function () {
-        // ...
-    }, ['deprecated' => '1.1', 'deprecating_package' => 'foo/bar']);
+* The package name that contains the alternative filter;
+* The alternative filter name that replaces the deprecated one;
+* The package version that added the alternative filter.
 
 When a filter is deprecated, Twig emits a deprecation notice when compiling a
 template using it. See :ref:`deprecation-notices` for more information.
+
+.. note::
+
+    Before Twig 3.15, you can mark a filter as being deprecated by setting the
+    ``deprecated`` option to ``true``. You can also give an alternative filter
+    that replaces the deprecated one when that makes sense::
+
+        $filter = new \Twig\TwigFilter('obsolete', function () {
+            // ...
+        }, ['deprecated' => true, 'alternative' => 'new_one']);
+
+    .. versionadded:: 3.11
+
+        The ``deprecating_package`` option was added in Twig 3.11.
+
+    You can also set the ``deprecating_package`` option to specify the package
+    that is deprecating the filter, and ``deprecated`` can be set to the
+    package version when the filter was deprecated::
+
+        $filter = new \Twig\TwigFilter('obsolete', function () {
+            // ...
+        }, ['deprecated' => '1.1', 'deprecating_package' => 'twig/some-package']);
 
 Functions
 ---------
@@ -680,6 +704,16 @@ method::
         // ...
     }
 
+.. caution::
+
+    Globals are fetched once from extensions and then cached for the lifetime
+    of the Twig environment. It means that globals should not be used to store
+    values that can change during the lifetime of the Twig environment. For
+    instance, if you're using an application server like RoadRunner or
+    FrankenPHP, you should not store values related to the current context (like
+    the HTTP request). If you do so, don't forget to reset the cache between
+    requests by calling ``Environment::resetGlobals()``.
+
 Functions
 ~~~~~~~~~
 
@@ -834,7 +868,7 @@ must be autoload-able)::
             // implement the logic to create an instance of $class
             // and inject its dependencies
             // most of the time, it means using your dependency injection container
-            if ('CustomRuntimeExtension' === $class) {
+            if ('CustomTwigRuntime' === $class) {
                 return new $class(new Rot13Provider());
             } else {
                 // ...
@@ -850,9 +884,9 @@ must be autoload-able)::
     (``\Twig\RuntimeLoader\ContainerRuntimeLoader``).
 
 It is now possible to move the runtime logic to a new
-``CustomRuntimeExtension`` class and use it directly in the extension::
+``CustomTwigRuntime`` class and use it directly in the extension::
 
-    class CustomRuntimeExtension
+    class CustomTwigRuntime
     {
         private $rot13Provider;
 
@@ -872,12 +906,20 @@ It is now possible to move the runtime logic to a new
         public function getFunctions()
         {
             return [
-                new \Twig\TwigFunction('rot13', ['CustomRuntimeExtension', 'rot13']),
+                new \Twig\TwigFunction('rot13', ['CustomTwigRuntime', 'rot13']),
                 // or
-                new \Twig\TwigFunction('rot13', 'CustomRuntimeExtension::rot13'),
+                new \Twig\TwigFunction('rot13', 'CustomTwigRuntime::rot13'),
             ];
         }
     }
+
+.. note::
+
+    The extension class should implement the ``Twig\Extension\LastModifiedExtensionInterface``
+    interface to invalidate the template cache when the runtime class is modified.
+    The ``AbstractExtension`` class implements this interface and tracks the
+    runtime class if its name is the same as the extension class but ends with
+    ``Runtime`` instead of ``Extension``.
 
 Testing an Extension
 --------------------
@@ -890,14 +932,14 @@ structure in your test directory::
 
     Fixtures/
         filters/
-            foo.test
-            bar.test
+            lower.test
+            upper.test
         functions/
-            foo.test
-            bar.test
+            date.test
+            format.test
         tags/
-            foo.test
-            bar.test
+            for.test
+            if.test
     IntegrationTest.php
 
 The ``IntegrationTest.php`` file should look like this::

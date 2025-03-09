@@ -72,7 +72,7 @@ class LexerTest extends TestCase
         $count = 0;
         while (!$stream->isEOF()) {
             $token = $stream->next();
-            if ($type === $token->getType()) {
+            if ($token->test($type)) {
                 if (null === $value || $value === $token->getValue()) {
                     ++$count;
                 }
@@ -193,44 +193,71 @@ class LexerTest extends TestCase
         $this->assertSame($expected, $token->getValue());
     }
 
-    public function getStringWithEscapedDelimiter()
+    public static function getStringWithEscapedDelimiter()
     {
-        yield '{{ \'\x6\' }} => \x6' => [
-            '{{ \'\x6\' }}',
+        yield [
+            <<<'EOF'
+            {{ '\x6' }}
+            EOF,
             "\x6",
         ];
-        yield '{{ \'\065\x64\' }} => \065\x64' => [
-            '{{ \'\065\x64\' }}',
+        yield [
+            <<<'EOF'
+            {{ '\065\x64' }}
+            EOF,
             "\065\x64",
         ];
-        yield '{{ \'App\\\\Test\' }} => App\Test' => [
-            '{{ \'App\\\\Test\' }}',
+        yield [
+            <<<'EOF'
+            {{ 'App\\Test' }}
+            EOF,
             'App\\Test',
         ];
-        yield '{{ "App\#{var}" }} => App#{var}' => [
-            '{{ "App\#{var}" }}',
+        yield [
+            <<<'EOF'
+            {{ "App\#{var}" }}
+            EOF,
             'App#{var}',
         ];
-        yield '{{ \'foo \\\' bar\' }} => foo \' bar' => [
-            '{{ \'foo \\\' bar\' }}',
-            'foo \' bar',
+        yield [
+            <<<'EOF'
+            {{ 'foo \' bar' }}
+            EOF,
+            <<<'EOF'
+            foo ' bar
+            EOF,
         ];
-        yield '{{ "foo \" bar" }} => foo " bar' => [
-            '{{ "foo \\" bar" }}',
+        yield [
+            <<<'EOF'
+            {{ "foo \" bar" }}
+            EOF,
             'foo " bar',
         ];
-        yield '{{ \'\f\n\r\t\v\' }} => \f\n\r\t\v' => [
-            '{{ \'\\f\\n\\r\\t\\v\' }}',
+        yield [
+            <<<'EOF'
+            {{ '\f\n\r\t\v' }}
+            EOF,
             "\f\n\r\t\v",
         ];
-        yield '{{ \'\\\\f\\\\n\\\\r\\\\t\\\\v\' }} => \\f\\n\\r\\t\\v' => [
-            '{{ \'\\\\f\\\\n\\\\r\\\\t\\\\v\' }}',
+        yield [
+            <<<'EOF'
+            {{ '\\f\\n\\r\\t\\v' }}
+            EOF,
             '\\f\\n\\r\\t\\v',
+        ];
+        yield [
+            <<<'EOF'
+            {{ 'Ymd\\THis' }}
+            EOF,
+            <<<'EOF'
+            Ymd\THis
+            EOF,
         ];
     }
 
     /**
      * @group legacy
+     *
      * @dataProvider getStringWithEscapedDelimiterProducingDeprecation
      */
     public function testStringWithEscapedDelimiterProducingDeprecation(string $template, string $expected, string $expectedDeprecation)
@@ -247,22 +274,30 @@ class LexerTest extends TestCase
         $this->addToAssertionCount(1);
     }
 
-    public function getStringWithEscapedDelimiterProducingDeprecation()
+    public static function getStringWithEscapedDelimiterProducingDeprecation()
     {
-        yield '{{ \'App\Test\' }} => AppTest' => [
-            '{{ \'App\\Test\' }}',
+        yield [
+            <<<'EOF'
+            {{ 'App\Test' }}
+            EOF,
             'AppTest',
-            'Since twig/twig 3.12: Character "T" at position 5 should not be escaped; the "\" character is ignored in Twig v3 but will not be in v4. Please remove the extra "\" character.',
+            'Since twig/twig 3.12: Character "T" should not be escaped; the "\" character is ignored in Twig 3 but will not be in Twig 4. Please remove the extra "\" character at position 5 in "index" at line 1.',
         ];
-        yield '{{ "foo \\\' bar" }} => foo \' bar' => [
-            '{{ "foo \\\' bar" }}',
-            'foo \' bar',
-            'Since twig/twig 3.12: Character "\'" at position 6 should not be escaped; the "\" character is ignored in Twig v3 but will not be in v4. Please remove the extra "\" character.',
+        yield [
+            <<<'EOF'
+            {{ "foo \' bar" }}
+            EOF,
+            <<<'EOF'
+            foo ' bar
+            EOF,
+            'Since twig/twig 3.12: Character "\'" should not be escaped; the "\" character is ignored in Twig 3 but will not be in Twig 4. Please remove the extra "\" character at position 6 in "index" at line 1.',
         ];
-        yield '{{ \'foo \" bar\' }} => foo " bar' => [
-            '{{ \'foo \\" bar\' }}',
+        yield [
+            <<<'EOF'
+            {{ 'foo \" bar' }}
+            EOF,
             'foo " bar',
-            'Since twig/twig 3.12: Character """ at position 6 should not be escaped; the "\" character is ignored in Twig v3 but will not be in v4. Please remove the extra "\" character.',
+            'Since twig/twig 3.12: Character """ should not be escaped; the "\" character is ignored in Twig 3 but will not be in Twig 4. Please remove the extra "\" character at position 6 in "index" at line 1.',
         ];
     }
 
@@ -319,12 +354,12 @@ class LexerTest extends TestCase
 
     public function testStringWithUnterminatedInterpolation()
     {
+        $template = '{{ "bar #{x" }}';
+        $lexer = new Lexer(new Environment(new ArrayLoader()));
+
         $this->expectException(SyntaxError::class);
         $this->expectExceptionMessage('Unclosed """');
 
-        $template = '{{ "bar #{x" }}';
-
-        $lexer = new Lexer(new Environment(new ArrayLoader()));
         $lexer->tokenize(new Source($template, 'index'));
     }
 
@@ -388,9 +423,6 @@ class LexerTest extends TestCase
 
     public function testUnterminatedVariable()
     {
-        $this->expectException(SyntaxError::class);
-        $this->expectExceptionMessage('Unclosed "variable" in "index" at line 3');
-
         $template = '
 
 {{
@@ -401,14 +433,14 @@ bar
 ';
 
         $lexer = new Lexer(new Environment(new ArrayLoader()));
+
+        $this->expectException(SyntaxError::class);
+        $this->expectExceptionMessage('Unclosed "variable" in "index" at line 3');
         $lexer->tokenize(new Source($template, 'index'));
     }
 
     public function testUnterminatedBlock()
     {
-        $this->expectException(SyntaxError::class);
-        $this->expectExceptionMessage('Unclosed "block" in "index" at line 3');
-
         $template = '
 
 {%
@@ -419,6 +451,10 @@ bar
 ';
 
         $lexer = new Lexer(new Environment(new ArrayLoader()));
+
+        $this->expectException(SyntaxError::class);
+        $this->expectExceptionMessage('Unclosed "block" in "index" at line 3');
+
         $lexer->tokenize(new Source($template, 'index'));
     }
 
@@ -465,7 +501,7 @@ bar
         }
     }
 
-    public function getTemplateForErrorsAtTheEndOfTheStream()
+    public static function getTemplateForErrorsAtTheEndOfTheStream()
     {
         yield ['{{ ='];
         yield ['{{ ..'];
@@ -493,9 +529,149 @@ bar
         $this->addToAssertionCount(1);
     }
 
-    public function getTemplateForStrings()
+    public static function getTemplateForStrings()
     {
         yield ['日本では、春になると桜の花が咲きます。多くの人々は、公園や川の近くに集まり、お花見を楽しみます。桜の花びらが風に舞い、まるで雪のように見える瞬間は、とても美しいです。'];
         yield ['في العالم العربي، يُعتبر الخط العربي أحد أجمل أشكال الفن. يُستخدم الخط في تزيين المساجد والكتب والمخطوطات القديمة. يتميز الخط العربي بجماله وتناسقه، ويُعتبر رمزًا للثقافة الإسلامية.'];
+    }
+
+    public function testInlineCommentWithHashInString()
+    {
+        $lexer = new Lexer(new Environment(new ArrayLoader()));
+        $stream = $lexer->tokenize(new Source('{{ "me # this is NOT an inline comment" }}', 'index'));
+        $stream->expect(Token::VAR_START_TYPE);
+        $stream->expect(Token::STRING_TYPE, 'me # this is NOT an inline comment');
+        $stream->expect(Token::VAR_END_TYPE);
+        $this->assertTrue($stream->isEOF());
+    }
+
+    /**
+     * @dataProvider getTemplateForInlineCommentsForVariable
+     */
+    public function testInlineCommentForVariable(string $template)
+    {
+        $lexer = new Lexer(new Environment(new ArrayLoader()));
+        $stream = $lexer->tokenize(new Source($template, 'index'));
+        $stream->expect(Token::VAR_START_TYPE);
+        $stream->expect(Token::STRING_TYPE, 'me');
+        $stream->expect(Token::VAR_END_TYPE);
+        $this->assertTrue($stream->isEOF());
+    }
+
+    public static function getTemplateForInlineCommentsForVariable()
+    {
+        yield ['{{
+            "me"
+            # this is an inline comment
+        }}'];
+        yield ['{{
+            # this is an inline comment
+            "me"
+        }}'];
+        yield ['{{
+            "me" # this is an inline comment
+        }}'];
+        yield ['{{
+            # this is an inline comment
+            "me" # this is an inline comment
+            # this is an inline comment
+        }}'];
+    }
+
+    /**
+     * @dataProvider getTemplateForInlineCommentsForBlock
+     */
+    public function testInlineCommentForBlock(string $template)
+    {
+        $lexer = new Lexer(new Environment(new ArrayLoader()));
+        $stream = $lexer->tokenize(new Source($template, 'index'));
+        $stream->expect(Token::BLOCK_START_TYPE);
+        $stream->expect(Token::NAME_TYPE, 'if');
+        $stream->expect(Token::NAME_TYPE, 'true');
+        $stream->expect(Token::BLOCK_END_TYPE);
+        $stream->expect(Token::TEXT_TYPE, 'me');
+        $stream->expect(Token::BLOCK_START_TYPE);
+        $stream->expect(Token::NAME_TYPE, 'endif');
+        $stream->expect(Token::BLOCK_END_TYPE);
+        $this->assertTrue($stream->isEOF());
+    }
+
+    public static function getTemplateForInlineCommentsForBlock()
+    {
+        yield ['{%
+            if true
+            # this is an inline comment
+        %}me{% endif %}'];
+        yield ['{%
+            # this is an inline comment
+            if true
+        %}me{% endif %}'];
+        yield ['{%
+            if true # this is an inline comment
+        %}me{% endif %}'];
+        yield ['{%
+            # this is an inline comment
+            if true # this is an inline comment
+            # this is an inline comment
+        %}me{% endif %}'];
+    }
+
+    /**
+     * @dataProvider getTemplateForInlineCommentsForComment
+     */
+    public function testInlineCommentForComment(string $template)
+    {
+        $lexer = new Lexer(new Environment(new ArrayLoader()));
+        $stream = $lexer->tokenize(new Source($template, 'index'));
+        $this->assertTrue($stream->isEOF());
+    }
+
+    public static function getTemplateForInlineCommentsForComment()
+    {
+        yield ['{#
+            Some regular comment # this is an inline comment
+        #}'];
+    }
+
+    /**
+     * @dataProvider getTemplateForUnclosedBracketInExpression
+     */
+    public function testUnclosedBracketInExpression(string $template, string $bracket)
+    {
+        $lexer = new Lexer(new Environment(new ArrayLoader()));
+
+        $this->expectException(SyntaxError::class);
+        $this->expectExceptionMessage(\sprintf('Unclosed "%s" in "index" at line 1.', $bracket));
+
+        $lexer->tokenize(new Source($template, 'index'));
+    }
+
+    public static function getTemplateForUnclosedBracketInExpression()
+    {
+        yield ['{{ (1 + 3 }}', '('];
+        yield ['{{ obj["a" }}', '['];
+        yield ['{{ ({ a: 1) }}', '{'];
+        yield ['{{ (([1]) + 3 }}', '('];
+    }
+
+    /**
+     * @dataProvider getTemplateForUnexpectedBracketInExpression
+     */
+    public function testUnexpectedBracketInExpression(string $template, string $bracket)
+    {
+        $lexer = new Lexer(new Environment(new ArrayLoader()));
+
+        $this->expectException(SyntaxError::class);
+        $this->expectExceptionMessage(\sprintf('Unexpected "%s" in "index" at line 1.', $bracket));
+
+        $lexer->tokenize(new Source($template, 'index'));
+    }
+
+    public static function getTemplateForUnexpectedBracketInExpression()
+    {
+        yield ['{{ 1 + 3) }}', ')'];
+        yield ['{{ obj] }}', ']'];
+        yield ['{{ { a: 1 }}', '}'];
+        yield ['{{ ([1] + 3)) }}', ')'];
     }
 }

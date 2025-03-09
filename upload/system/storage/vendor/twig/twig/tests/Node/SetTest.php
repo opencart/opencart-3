@@ -13,10 +13,10 @@ namespace Twig\Tests\Node;
 
 use Twig\Environment;
 use Twig\Loader\ArrayLoader;
-use Twig\Node\Expression\AssignNameExpression;
 use Twig\Node\Expression\ConstantExpression;
-use Twig\Node\Expression\NameExpression;
-use Twig\Node\Node;
+use Twig\Node\Expression\Variable\AssignContextVariable;
+use Twig\Node\Expression\Variable\ContextVariable;
+use Twig\Node\Nodes;
 use Twig\Node\PrintNode;
 use Twig\Node\SetNode;
 use Twig\Node\TextNode;
@@ -26,8 +26,8 @@ class SetTest extends NodeTestCase
 {
     public function testConstructor()
     {
-        $names = new Node([new AssignNameExpression('foo', 1)], [], 1);
-        $values = new Node([new ConstantExpression('foo', 1)], [], 1);
+        $names = new Nodes([new AssignContextVariable('foo', 1)], 1);
+        $values = new Nodes([new ConstantExpression('foo', 1)], 1);
         $node = new SetNode(false, $names, $values, 1);
 
         $this->assertEquals($names, $node->getNode('names'));
@@ -35,12 +35,12 @@ class SetTest extends NodeTestCase
         $this->assertFalse($node->getAttribute('capture'));
     }
 
-    public function getTests()
+    public static function provideTests(): iterable
     {
         $tests = [];
 
-        $names = new Node([new AssignNameExpression('foo', 1)], [], 1);
-        $values = new Node([new ConstantExpression('foo', 1)], [], 1);
+        $names = new Nodes([new AssignContextVariable('foo', 1)], 1);
+        $values = new Nodes([new ConstantExpression('foo', 1)], 1);
         $node = new SetNode(false, $names, $values, 1);
         $tests[] = [$node, <<<EOF
 // line 1
@@ -48,43 +48,59 @@ class SetTest extends NodeTestCase
 EOF
         ];
 
-        $names = new Node([new AssignNameExpression('foo', 1)], [], 1);
-        $values = new Node([new PrintNode(new ConstantExpression('foo', 1), 1)], [], 1);
+        $names = new Nodes([new AssignContextVariable('foo', 1)], 1);
+        $values = new Nodes([new PrintNode(new ConstantExpression('foo', 1), 1)], 1);
         $node = new SetNode(true, $names, $values, 1);
 
-        if ($this->getEnvironment()->useYield()) {
-            $tests[] = [$node, <<<EOF
+        $tests[] = [$node, <<<EOF
 // line 1
 \$context["foo"] = ('' === \$tmp = implode('', iterator_to_array((function () use (&\$context, \$macros, \$blocks) {
     yield "foo";
-    return; yield '';
+    yield from [];
 })(), false))) ? '' : new Markup(\$tmp, \$this->env->getCharset());
 EOF
-                , new Environment(new ArrayLoader()),
-            ];
-        } else {
-            $tests[] = [$node, <<<'EOF'
+            , new Environment(new ArrayLoader(), ['use_yield' => true]),
+        ];
+
+        $tests[] = [$node, <<<'EOF'
 // line 1
 $context["foo"] = ('' === $tmp = \Twig\Extension\CoreExtension::captureOutput((function () use (&$context, $macros, $blocks) {
     yield "foo";
-    return; yield '';
+    yield from [];
 })())) ? '' : new Markup($tmp, $this->env->getCharset());
 EOF
-                , new Environment(new ArrayLoader()),
-            ];
-        }
+            , new Environment(new ArrayLoader(), ['use_yield' => false]),
+        ];
 
-        $names = new Node([new AssignNameExpression('foo', 1)], [], 1);
+        $names = new Nodes([new AssignContextVariable('foo', 1)], 1);
         $values = new TextNode('foo', 1);
         $node = new SetNode(true, $names, $values, 1);
         $tests[] = [$node, <<<EOF
 // line 1
-\$context["foo"] = ('' === \$tmp = "foo") ? '' : new Markup(\$tmp, \$this->env->getCharset());
+\$context["foo"] = new Markup("foo", \$this->env->getCharset());
 EOF
         ];
 
-        $names = new Node([new AssignNameExpression('foo', 1), new AssignNameExpression('bar', 1)], [], 1);
-        $values = new Node([new ConstantExpression('foo', 1), new NameExpression('bar', 1)], [], 1);
+        $names = new Nodes([new AssignContextVariable('foo', 1)], 1);
+        $values = new TextNode('', 1);
+        $node = new SetNode(true, $names, $values, 1);
+        $tests[] = [$node, <<<EOF
+// line 1
+\$context["foo"] = "";
+EOF
+        ];
+
+        $names = new Nodes([new AssignContextVariable('foo', 1)], 1);
+        $values = new PrintNode(new ConstantExpression('foo', 1), 1);
+        $node = new SetNode(true, $names, $values, 1);
+        $tests[] = [$node, <<<EOF
+// line 1
+\$context["foo"] = new Markup("foo", \$this->env->getCharset());
+EOF
+        ];
+
+        $names = new Nodes([new AssignContextVariable('foo', 1), new AssignContextVariable('bar', 1)], 1);
+        $values = new Nodes([new ConstantExpression('foo', 1), new ContextVariable('bar', 1)], 1);
         $node = new SetNode(false, $names, $values, 1);
         $tests[] = [$node, <<<'EOF'
 // line 1
