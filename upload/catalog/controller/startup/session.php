@@ -53,7 +53,7 @@ class ControllerStartupSession extends Controller {
 
 			$this->response->addHeader('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
 
-			setcookie($this->config->get('session_name'), $this->session->getId(), (ini_get('session.cookie_lifetime') ? time() + ini_get('session.cookie_lifetime') : 0), ini_get('session.cookie_path'), ini_get('session.cookie_domain'));
+			setcookie($this->config->get('session_name'), $session->getId(), $option);
 		}
 	}
 }
