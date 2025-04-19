@@ -566,7 +566,7 @@ class ControllerSaleSubscription extends Controller {
 		// Product data
 		if (!empty($subscription_info)) {
 			$this->load->model('account/order');
-			$product_info = $this->model_account_order->getProduct($subscription_info['order_id'], $subscription_info['order_product_id']);
+			$product_info = $this->model_sale_order->getProduct($subscription_info['order_id'], $subscription_info['order_product_id']);
 		}
 
 		if (!empty($product_info['name'])) {
