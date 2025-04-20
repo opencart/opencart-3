@@ -48,7 +48,7 @@ jobs:
 
       - name: Run PHPStan
         run: |
-          composer require --dev phpstan/phpstan 2.1.11
+          composer require --dev phpstan/phpstan 2.1.12
           ./upload/system/storage/vendor/bin/phpstan analyze --no-progress
 
       - name: Check Code style
