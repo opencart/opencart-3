@@ -114,6 +114,13 @@ $(document).ready(function() {
 
 		$element.popover('show');
 
+    // append buttons if popover appear empty
+    let popoverContent = $(".popover.fade.right.in .popover-content");
+    
+    if ( popoverContent.html() == ' ') {
+      popoverContent.append('<button type="button" id="button-image" class="btn btn-primary"><i class="fa fa-pencil"></i></button> <button type="button" id="button-clear" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>')
+    }
+ 
 		$('#button-image').on('click', function() {
 			var $button = $(this);
 			var $icon   = $button.find('> i');
